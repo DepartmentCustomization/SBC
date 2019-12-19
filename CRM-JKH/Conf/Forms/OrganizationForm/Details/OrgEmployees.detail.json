@@ -1,0 +1,19 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "OrgEmployees",
+  "Name": "Співробітники",
+  "SelectRowsQueryCode": "SelectOrgEmployees",
+  "SectionCode": "Employees",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "InsertEmployees"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

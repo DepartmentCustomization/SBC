@@ -1,0 +1,57 @@
+{
+  "Code": "EmployeeInformation",
+  "Name": "Інформація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "organization_id",
+      "Name": "organization_id",
+      "FieldType": "number",
+      "Position": 20,
+      "IsHidden": true
+    },
+    {
+      "Code": "orgName",
+      "Name": "Назва організації",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "PIB",
+      "Name": "ПІБ",
+      "FieldType": "text",
+      "Position": 4
+    },
+    {
+      "Code": "position",
+      "Name": "Посада",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
+      "Code": "User",
+      "Name": "User",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 2,
+      "QueryCode": "User_List",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Maxlength": 10,
+      "Code": "phone_1",
+      "Name": "Телефон 1",
+      "FieldType": "text",
+      "Position": 4
+    },
+    {
+      "Maxlength": 10,
+      "Code": "phone_2",
+      "Name": "Телефон 2",
+      "FieldType": "text",
+      "Position": 5
+    }
+  ]
+}

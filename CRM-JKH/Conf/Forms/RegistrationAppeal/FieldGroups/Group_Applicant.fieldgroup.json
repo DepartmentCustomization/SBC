@@ -1,0 +1,106 @@
+{
+  "Code": "Group_Applicant",
+  "Name": "Заявник",
+  "Position": 3,
+  "Fields": [
+    {
+      "Code": "applicant_PIB",
+      "Name": "ПІБ заявника",
+      "FieldType": "text",
+      "Position": 1,
+      "Width": "100%"
+    },
+    {
+      "Code": "applicant_Phone1",
+      "Name": "Телефон №1",
+      "FieldType": "text",
+      "Position": 2
+    },
+    {
+      "Code": "applicant_Phone2",
+      "Name": "Телефон №2",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
+      "Code": "applicant_Email",
+      "Name": "Ел.пошта",
+      "FieldType": "text",
+      "Position": 4,
+      "Width": "55%"
+    },
+    {
+      "Code": "applicant_Street",
+      "Name": "Вулиця",
+      "FieldType": "select",
+      "Position": 5,
+      "QueryCode": "ListStreets",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "applicant_House",
+      "Name": "Номер будинку",
+      "FieldType": "select",
+      "Position": 6,
+      "Width": "25%",
+      "QueryCode": "ListHouses",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "applicant_Flat",
+      "Name": "Номер квартири",
+      "FieldType": "text",
+      "Position": 7,
+      "Width": "25%"
+    },
+    {
+      "Code": "applicant_Btn_Clear",
+      "Name": "Очистити",
+      "FieldType": "button",
+      "Position": 9,
+      "Width": "30%",
+      "Icon": "clear"
+    },
+    {
+      "Code": "applicant_Btn_Save",
+      "Name": "Зберегти",
+      "FieldType": "button",
+      "Position": 10,
+      "Width": "30%",
+      "Icon": "save"
+    },
+    {
+      "Code": "applicant_Btn_AddClaim",
+      "Name": "Створити заявку",
+      "FieldType": "button",
+      "Position": 11,
+      "Width": "40%",
+      "Icon": "add_circle_outline"
+    },
+    {
+      "Code": "applicant_id",
+      "Name": "ИД Заявника (приховане поле)",
+      "FieldType": "text",
+      "Position": 12,
+      "IsHidden": true
+    },
+    {
+      "Code": "applicant_StreetName",
+      "Name": "applicant_StreetName",
+      "FieldType": "text",
+      "Position": 13,
+      "IsHidden": true
+    },
+    {
+      "Code": "applicant_HouseName",
+      "Name": "applicant_HouseName",
+      "FieldType": "text",
+      "Position": 14,
+      "IsHidden": true
+    }
+  ]
+}

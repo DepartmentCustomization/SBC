@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "EmpHousesForm",
+  "Name": "Будинки співробітника",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\BasedInformation.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "employee_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:EmpHousesForm.form.js"
+  }
+}

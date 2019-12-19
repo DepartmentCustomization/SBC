@@ -1,0 +1,51 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectEmpClaimType",
+    "Name": "SelectEmpClaimType",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": 0,
+        "ViewState": "Hidden",
+        "IsPrintable": false
+      },
+      {
+        "Code": "claim_type_id",
+        "Name": "claim_type_id",
+        "Position": 2,
+        "IsPrintable": false
+
+      },
+      {
+        "Code": "claim_type",
+        "Name": "claim_type",
+        "Position": 3,
+        "IsPrintable": false,
+        "ReferenceKeyCode": "claim_type_id"
+        
+      },
+      {
+        "Code": "employee_id",
+        "Name": "employee_id",
+        "Position": 4,
+        "IsPrintable": false
+      },
+      {
+        "Code": "employee",
+        "Name": "employee",
+        "Position": 5,
+        "IsPrintable": false
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      }
+    ]
+  }

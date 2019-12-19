@@ -1,0 +1,10 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_RegCard_Applicant",
+  "Name": "Можливі заявники",
+  "SelectRowsQueryCode": "DetailAplicantSelectRows",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": []
+}

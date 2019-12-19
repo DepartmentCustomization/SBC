@@ -1,0 +1,13 @@
+{
+  "ModelType": "Query",
+  "Code": "GetStreetNameById",
+  "Name": "GetStreetNameById",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Parameters": [
+    {
+      "Code": "@StreetId",
+      "Name": "StreetId"
+    }
+  ]
+}

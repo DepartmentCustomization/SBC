@@ -1,0 +1,13 @@
+{
+  "ModelType": "Query",
+  "Code": "GetHouseNameById",
+  "Name": "GetHouseNameById",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Parameters": [
+    {
+      "Code": "@HouseId",
+      "Name": "HouseId"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "Add": {
+    "InsertQueryCode": "RegAppeal_SelectRow"
+  },
+  "ModelType": "Section",
+  "Code": "RegistrationAppeal",
+  "Name": "Реєстрація Звернення",
+  "FormCode": "RegistrationAppeal",
+  "SelectRowsQueryCode": "RegAppeal_SelectRows",
+  "SelectRowQueryCode": "RegAppeal_SelectRow"
+}

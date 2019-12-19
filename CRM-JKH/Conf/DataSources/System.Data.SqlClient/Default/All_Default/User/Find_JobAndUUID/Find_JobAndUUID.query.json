@@ -1,0 +1,32 @@
+{
+    "ModelType": "Query",
+    "Code": "Find_JobAndUUID",
+    "Name": "Find_JobAndUUID",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+        {
+            "Code": "position",
+            "Name": "position",
+            "Position": 1,
+            "IsPrintable": false
+        },
+        {
+            "Code": "UserId",
+            "Name": "UserId",
+            "Position": 2
+        },
+        {
+            "Code": "PIB",
+            "Name": "PIB",
+            "Position": 3
+        }
+    ],
+    "Parameters": [
+        {
+            "Code": "@UserId",
+            "Name": "UserId",
+            "ParameterType": "text"
+        }
+    ]
+}

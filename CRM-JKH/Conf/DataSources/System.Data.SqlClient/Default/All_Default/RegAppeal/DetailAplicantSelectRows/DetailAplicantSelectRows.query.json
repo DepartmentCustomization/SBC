@@ -1,0 +1,105 @@
+{
+  "ModelType": "Query",
+  "Code": "DetailAplicantSelectRows",
+  "Name": "DetailAplicantSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "PIB",
+      "Name": "ПІБ",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Adress",
+      "Name": "Адреса",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Phones",
+      "Name": "Телефон",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Phone1",
+      "Name": "Phone1",
+      "Position": 4,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Phone2",
+      "Name": "Phone2",
+      "Position": 5,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "EMail",
+      "Name": "EMail",
+      "Position": 6,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "houses_id",
+      "Name": "houses_id",
+      "Position": 7,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "houses_name",
+      "Name": "houses_name",
+      "Position": 8,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "streets_id",
+      "Name": "streets_id",
+      "Position": 9,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "streets_name",
+      "Name": "streets_name",
+      "Position": 10,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Flat",
+      "Name": "Flat",
+      "Position": 11,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "streets_name2",
+      "Name": "streets_name2",
+      "Position": 12,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "houses_name2",
+      "Name": "houses_name2",
+      "Position": 13,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    }    
+  ]
+}

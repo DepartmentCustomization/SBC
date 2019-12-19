@@ -1,0 +1,28 @@
+{
+    "ModelType": "Query",
+    "Code": "UpdateEmpHouses",
+    "Name": "UpdateEmpHouses",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+        {
+            "Code": "@Id",
+            "Name": "Id",
+            "ParameterType": "Integer",
+            "IsPrimaryKey": true
+        },
+        {
+            "Code": "@employee_id",
+            "Name": "employee_id"
+        },
+        {
+            "Code": "@house_id",
+            "Name": "house_id"
+        },
+        {
+            "Code": "@user_id",
+            "Name": "user_id",
+            "ParameterType": "CurrentUserId"
+        }
+    ]
+}

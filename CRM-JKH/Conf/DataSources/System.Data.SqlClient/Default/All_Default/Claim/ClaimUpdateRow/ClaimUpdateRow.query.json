@@ -1,0 +1,28 @@
+{
+  "ModelType": "Query",
+  "Code": "ClaimUpdateRow",
+  "Name": "ClaimUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Parameters": [
+    {
+      "Code": "@claim_executor_Id",
+      "Name": "claim_executor_Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@claim_executor_comment",
+      "Name": "claim_executor_comment"
+    },
+    {
+      "Code": "@claim_state_id",
+      "Name": "claim_state_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "EmpClaimTypeForm",
+  "Name": "Типи заявок співробітника",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\BasedInformation.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "employee_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:EmpClaimTypeForm.form.js"
+  }
+}

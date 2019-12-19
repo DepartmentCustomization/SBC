@@ -1,0 +1,14 @@
+{
+  "Add": {
+    "InsertQueryCode": "InsertEmployees"
+  },
+  "ModelType": "Section",
+  "Code": "Employees",
+  "Name": "Співробітники",
+  "FormCode": "EmployeesForm",
+  "SelectRowsQueryCode": "SelectEmployeesRows",
+  "SelectRowQueryCode": "SelectEmployeesRow",
+  "UpdateQueryCode": "UpdateEmployees",
+  "DeleteQueryCode": "DeleteEmployees",
+  "IsVisible": false
+}

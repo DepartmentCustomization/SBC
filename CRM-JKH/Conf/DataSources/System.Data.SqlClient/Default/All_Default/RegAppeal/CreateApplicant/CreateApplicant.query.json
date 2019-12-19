@@ -1,0 +1,7 @@
+{
+  "ModelType": "Query",
+  "Code": "CreateApplicant",
+  "Name": "CreateApplicant",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false
+}

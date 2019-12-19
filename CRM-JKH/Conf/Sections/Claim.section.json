@@ -1,0 +1,10 @@
+{
+  "Add": {},
+  "ModelType": "Section",
+  "Code": "Claim",
+  "Name": "Заявки",
+  "FormCode": "Claims",
+  "SelectRowsQueryCode": "ClaimSelectRow",
+  "SelectRowQueryCode": "ClaimSelectRow",
+  "UpdateQueryCode": "ClaimUpdateRow"
+}

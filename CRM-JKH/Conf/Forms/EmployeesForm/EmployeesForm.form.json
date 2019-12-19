@@ -1,0 +1,27 @@
+{
+  "ModelType": "Form",
+  "Code": "EmployeesForm",
+  "Name": "Картка співробітника",
+  "Details": [
+    "string:Details\\EmpClaimTypes.detail.json",
+    "string:Details\\EmpHouses.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\EmployeeInformation.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "organization_id",
+        "ParentFormFieldCodeForKeyValue": "organization_id",
+        "ParentFormFieldCodeForDisplayValue": "organization_id"
+      },
+      {
+        "Code": "orgName",
+        "ParentFormFieldCodeForKeyValue": "orgName",
+        "ParentFormFieldCodeForDisplayValue": "orgName"
+      }
+    ],
+    "Script": "string:EmployeesForm.form.js"
+  }
+}

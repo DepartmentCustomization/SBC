@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "InsertEmpClaimTypes"
+  },
+  "ModelType": "Section",
+  "Code": "EmpClaimTypes",
+  "Name": "Співробітники",
+  "FormCode": "EmpClaimTypeForm",
+  "SelectRowsQueryCode": "SelectEmpCTRows",
+  "SelectRowQueryCode": "SelectEmpClaimType",
+  "IsVisible": false
+}

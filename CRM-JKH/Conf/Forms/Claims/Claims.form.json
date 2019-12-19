@@ -1,0 +1,17 @@
+{
+  "ModelType": "Form",
+  "Code": "Claims",
+  "Name": "Картка заявки",
+  "Details": [
+    "string:Details\\Detail_ClaimHistory.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Appeal.fieldgroup.json",
+      "string:FieldGroups\\Group_Applicant.fieldgroup.json",
+      "string:FieldGroups\\Group_Claim.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:Claims.form.js"
+  }
+}

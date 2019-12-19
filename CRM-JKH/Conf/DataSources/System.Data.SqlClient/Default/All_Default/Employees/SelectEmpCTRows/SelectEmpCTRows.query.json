@@ -1,0 +1,56 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectEmpCTRows",
+    "Name": "SelectEmpCTRows",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": 0,
+        "ViewState": "Hidden",
+        "IsPrintable": false
+      },
+      {
+        "Code": "claim_type_id",
+        "Name": "claim_type_id",
+        "Position": 2,
+        "IsPrintable": false
+      },
+      {
+        "Code": "claim_type_name",
+        "Name": "claim_type_name",
+        "Position": 3,
+        "IsPrintable": false,
+        "ReferenceKeyCode": "claim_type_id"
+      },
+      {
+        "Code": "employee_id",
+        "Name": "employee_id",
+        "Position": 4,
+        "IsPrintable": false
+      },
+      {
+        "Code": "employee_name",
+        "Name": "employee_name",
+        "Position": 5,
+        "IsPrintable": false,
+        "ReferenceKeyCode": "employee_id"
+      }
+    ],
+    "Parameters": [
+        {
+            "Code": "@pageLimitRows",
+            "Name": "pageLimitRows",
+            "ParameterType": "Integer",
+            "IsPageLimitRows": true
+          },
+          {
+            "Code": "@pageOffsetRows",
+            "Name": "pageOffsetRows",
+            "ParameterType": "Integer",
+            "IsPageOffsetRows": true
+          }
+    ]
+  }

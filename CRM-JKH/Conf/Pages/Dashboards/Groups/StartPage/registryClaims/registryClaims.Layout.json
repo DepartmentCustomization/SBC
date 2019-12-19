@@ -1,0 +1,87 @@
+{
+  "css": "",
+  "rootContainer": {
+    "width": "auto",
+    "margin": "0 5px",
+    "flexWrap": "wrap",
+    "flexDirection": "column",
+    "order": 1,
+    "flexGrow": 1,
+    "alignSelf": "auto",
+    "border": "none",
+    "children": [
+      {
+        "width": "calc(100% - 10px)",
+        "margin": "0 5px 20px",
+        "flexWrap": "wrap",
+        "flexDirection": "row",
+        "order": 1,
+        "flexGrow": 1,
+        "alignSelf": "auto",
+        "border": "none",
+        "children": [
+          {
+            "code": "CustomWidget-0",
+            "type": "CustomWidgetComponent",
+            "name": "custom title"
+          }
+        ],
+        "id": "Container-0",
+        "height": "calc(7% - 10px)",
+        "minHeight": "calc(7% - 10px)",
+        "minWidth": "calc(100% - 10px)",
+        "backgroundColor": "white"
+      },
+      {
+        "width": "calc(100% - 10px)",
+        "margin": "0 5px",
+        "flexWrap": "wrap",
+        "flexDirection": "row",
+        "order": "3",
+        "flexGrow": 1,
+        "alignSelf": "auto",
+        "border": "none",
+        "children": [
+          {
+            "code": "NativeDataGridWidget-0",
+            "type": "NativeDataGridWidgetComponent",
+            "name": "Table"
+          }
+        ],
+        "id": "Container-1",
+        "height": "calc(93% - 70px)",
+        "minHeight": "calc(93% - 70px)",
+        "minWidth": "calc(100% - 10px)",
+        "backgroundColor": "white"
+      },
+      {
+        "width": "auto",
+        "margin": "0 5px 2px",
+        "flexWrap": "wrap",
+        "flexDirection": "row",
+        "order": "2",
+        "flexGrow": 1,
+        "alignSelf": "auto",
+        "border": "none",
+        "children": [
+          {
+            "code": "CustomWidget-1",
+            "type": "CustomWidgetComponent",
+            "name": "btnblock"
+          }
+        ],
+        "id": "Container-2",
+        "height": "50px",
+        "minHeight": "50px",
+        "minWidth": "100px",
+        "backgroundColor": "white",
+        "containerId": "btn_block_hiden"
+      }
+    ],
+    "id": "Container-0",
+    "height": "100%",
+    "minHeight": "100%",
+    "minWidth": "100%",
+    "backgroundColor": "white"
+  }
+}

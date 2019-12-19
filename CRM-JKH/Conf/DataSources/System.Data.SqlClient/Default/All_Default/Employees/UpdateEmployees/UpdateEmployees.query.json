@@ -1,0 +1,44 @@
+{
+    "ModelType": "Query",
+    "Code": "UpdateEmployees",
+    "Name": "UpdateEmployees",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+        {
+            "Code": "@Id",
+            "Name": "Id",
+            "ParameterType": "Integer",
+            "IsPrimaryKey": true
+        },
+        {
+            "Code": "@organization_id",
+            "Name": "organization_id"
+        },
+        {
+            "Code": "@PIB",
+            "Name": "PIB"
+        },
+        {
+            "Code": "@position",
+            "Name": "position"
+        },
+        {
+            "Code": "@phone_1",
+            "Name": "phone_1"
+        },
+        {
+            "Code": "@phone_2",
+            "Name": "phone_2"
+        },
+        {
+            "Code": "@User",
+            "Name": "UserId"
+        },
+        {
+            "Code": "@user_id",
+            "Name": "user_id",
+            "ParameterType": "CurrentUserId"
+        }
+    ]
+}

@@ -1,0 +1,83 @@
+{
+  "Code": "Group_Claim",
+  "Name": "Заявка",
+  "Position": 4,
+  "Fields": [
+    {
+      "Code": "claim_type_id",
+      "Name": "Тип заявки",
+      "FieldType": "select",
+      "Position": 1,
+      "Width": "100%",
+      "QueryCode": "ListClaim_types",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claim_StreetId",
+      "Name": "Вулиця",
+      "FieldType": "select",
+      "Position": 2,
+      "QueryCode": "ListStreets",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claim_HouseId",
+      "Name": "Номер будинку",
+      "FieldType": "select",
+      "Position": 3,
+      "Width": "25%",
+      "QueryCode": "ListHouses",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claim_Flat",
+      "Name": "Номер квартири",
+      "FieldType": "text",
+      "Position": 4,
+      "Width": "25%"
+    },
+    {
+      "Code": "claim_comment",
+      "Name": "Текст заявки",
+      "FieldType": "textarea",
+      "Position": 5,
+      "Width": "100%",
+      "Rows": 4
+    },
+    {
+      "Code": "claim_executor_name",
+      "Name": "Виконавець",
+      "FieldType": "text",
+      "Position": 6,
+      "Width": "100%"
+    },
+    {
+      "Code": "claim_executor_id",
+      "Name": "Виконавець_id",
+      "FieldType": "text",
+      "Position": 6,
+      "IsHidden": true,
+      "Width": "100%"
+    },
+    {
+      "Code": "claim_Btn_SaveClaim",
+      "Name": "Зареєструвати Заявку",
+      "FieldType": "button",
+      "Position": 7,
+      "Icon": "queue"
+    },
+    {
+      "Code": "claim_Btn_SaveConsult",
+      "Name": "Зареєструвати Консультацію",
+      "FieldType": "button",
+      "Position": 8,
+      "Icon": "record_voice_over"
+    }
+  ]
+}

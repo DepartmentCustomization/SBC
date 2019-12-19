@@ -1,0 +1,30 @@
+[
+  {
+    "Code": "@pageLimitRows",
+    "Name": "pageLimitRows",
+    "ParameterType": "Integer",
+    "IsPageLimitRows": true
+  },
+  {
+    "Code": "@pageOffsetRows",
+    "Name": "pageOffsetRows",
+    "ParameterType": "Integer",
+    "IsPageOffsetRows": true
+  },
+  {
+    "Code": "@Email",
+    "Name": "Email"
+  },
+  {
+    "Code": "@Phone",
+    "Name": "Phone"
+  },
+  {
+    "Code": "@HouseId",
+    "Name": "HouseId"
+  },
+  {
+    "Code": "@Flat",
+    "Name": "Flat"
+  }
+]

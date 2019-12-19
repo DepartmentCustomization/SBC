@@ -1,0 +1,37 @@
+{
+    "ModelType": "Query",
+    "Code": "Houses_List",
+    "Name": "Houses_List",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+        {
+            "Code": "Id",
+            "Name": "Id",
+            "Position": 1,
+            "ViewState": "Hidden",
+            "IsPrintable": false
+          },
+          {
+            "Code": "Name",
+            "Name": "Адреса",
+            "Position": 2,
+            "SqlName": "isnull(s.name_shortToponym,N'') + N' ' + isnull(s.name_fullName,N'') + N', ' + isnull(h.name_ofFirstLevel_fullName,N'')",
+            "FilterParameterCode": "@adress"
+          }
+    ],
+    "Parameters": [
+      {
+        "Code": "@pageLimitRows",
+        "Name": "pageLimitRows",
+        "ParameterType": "Integer",
+        "IsPageLimitRows": true
+      },
+      {
+        "Code": "@pageOffsetRows",
+        "Name": "pageOffsetRows",
+        "ParameterType": "Integer",
+        "IsPageOffsetRows": true
+      }
+    ]
+  }

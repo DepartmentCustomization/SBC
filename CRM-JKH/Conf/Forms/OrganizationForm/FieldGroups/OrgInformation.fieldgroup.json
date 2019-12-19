@@ -1,0 +1,66 @@
+{
+  "Code": "OrgInformation",
+  "Name": "Інформація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Maxlength": 150,
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "100%"
+    },
+    {
+      "Code": "claim_direction_id",
+      "Name": "Напрямок",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 2,
+      "QueryCode": "ClaimDirection_List",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "appeal_source_id",
+      "Name": "Джерело надходження",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 3,
+      "QueryCode": "AppealSource_List",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Maxlength": 10,
+      "Code": "phone_1",
+      "Name": "Телефон 1",
+      "FieldType": "text",
+      "Position": 4
+    },
+    {
+      "Maxlength": 10,
+      "Code": "phone_2",
+      "Name": "Телефон 2",
+      "FieldType": "text",
+      "Position": 5
+    },
+    {
+      "Code": "organization_id",
+      "Name": "organization_id",
+      "FieldType": "number",
+      "Position": 20,
+      "IsHidden": true
+    },
+    {
+      "Code": "orgName",
+      "Name": "orgName",
+      "FieldType": "text",
+      "Position": 21,
+      "IsHidden": true
+    }
+  ]
+}

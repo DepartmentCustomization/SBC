@@ -1,0 +1,43 @@
+{
+  "Code": "Group_Appeal",
+  "Name": "Звернення",
+  "Position": 2,
+  "Fields": [
+    {
+      "Code": "appeal_id",
+      "Name": "Номер звернення",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "appeal_source_id",
+      "Name": "Джерело надходження",
+      "FieldType": "text",
+      "Position": 2
+    },
+    {
+      "Code": "appeal_type_id",
+      "Name": "Тип звернення",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
+      "Code": "appeal_parameter",
+      "Name": "Параметр звернення",
+      "FieldType": "text",
+      "Position": 5
+    },
+    {
+      "Code": "appeal_created_at",
+      "Name": "Дата створення",
+      "FieldType": "date-time",
+      "Position": 6
+    },
+    {
+      "Code": "appeal_created_by",
+      "Name": "Хто створив",
+      "FieldType": "text",
+      "Position": 7
+    }
+  ]
+}

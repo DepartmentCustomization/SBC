@@ -1,0 +1,38 @@
+{
+    "ModelType": "Query",
+    "Code": "InsertEmployees",
+    "Name": "InsertEmployees",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@organization_id",
+        "Name": "organization_id"
+      },
+      {
+        "Code": "@PIB",
+        "Name": "PIB"
+      },
+      {
+        "Code": "@position",
+        "Name": "position"
+      },
+      {
+        "Code": "@phone_1",
+        "Name": "phone_1"
+      },
+      {
+        "Code": "@phone_2",
+        "Name": "phone_2"
+      },
+      {
+          "Code": "@User",
+          "Name": "UserId"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

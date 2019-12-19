@@ -1,0 +1,23 @@
+{
+  
+  "ModelType": "Detail",
+  "Code": "EmpClaimTypes",
+  "Name": "Типи заявок",
+  "SelectRowsQueryCode": "SelectEmpClaimTypes",
+  "SelectRowQueryCode": "SelectEmpClaimType",
+  "UpdateQueryCode": "UpdateEmpClaimTypes",
+  "DeleteQueryCode": "DeleteEmpClaimType",
+  "SectionCode": "Employees",
+  "Position": 1,
+  "IsExpand": true,
+  "FormCode": "EmpClaimTypeForm",
+  "Add": {
+    "InsertQueryCode": "InsertEmpClaimTypes"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

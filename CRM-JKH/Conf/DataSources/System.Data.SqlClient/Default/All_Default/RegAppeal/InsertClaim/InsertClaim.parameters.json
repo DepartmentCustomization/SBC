@@ -1,0 +1,49 @@
+[
+  {
+    "Code": "@state_id",
+    "Name": "state_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@appeal_Id",
+    "Name": "appeal_Id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@executor_id",
+    "Name": "executor_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Flat",
+    "Name": "Flat"
+  },
+  {
+    "Code": "@claim_category_id",
+    "Name": "claim_category_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@House_id",
+    "Name": "House_id"
+  },
+  {
+    "Code": "@UserId",
+    "Name": "UserId",
+    "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@comment",
+    "Name": "comment"
+  },
+  {
+    "Code": "@claim_type_id",
+    "Name": "claim_type_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@applicant_id",
+    "Name": "applicant_id",
+    "ParameterType": "Integer"
+  }
+]

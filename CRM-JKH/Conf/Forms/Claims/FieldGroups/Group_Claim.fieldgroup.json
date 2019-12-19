@@ -1,0 +1,65 @@
+{
+  "Code": "Group_Claim",
+  "Name": "Заявка",
+  "Position": 4,
+  "Fields": [
+    {
+      "Code": "claim_type",
+      "Name": "Тип заявки",
+      "FieldType": "text",
+      "Position": 1,
+      "Width": "100%"
+    },
+    {
+      "Code": "claim_adress",
+      "Name": "Адреса",
+      "FieldType": "text",
+      "Position": 2,
+      "Width": "100%"
+    },
+    {
+      "Code": "claim_comment",
+      "Name": "Текст заявки",
+      "FieldType": "textarea",
+      "Position": 3,
+      "Width": "100%",
+      "Rows": 4
+    },
+    {
+      "Code": "claim_executor_Id",
+      "Name": "Виконавець",
+      "FieldType": "select",
+      "Position": 4,
+      "Width": "50%",
+      "QueryCode": "ListExecutors",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claim_executor_comment",
+      "Name": "Коментар виконавця",
+      "FieldType": "textarea",
+      "Position": 5,
+      "Width": "100%",
+      "Rows": 4
+    },
+    {
+      "Code": "claim_state_id",
+      "Name": "Стан",
+      "FieldType": "select",
+      "Position": 6,
+      "Width": "50%",
+      "QueryCode": "ListClaim_states",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claim_control_date",
+      "Name": "Контрольна дата",
+      "FieldType": "date-time",
+      "Position": 7
+    }
+  ]
+}

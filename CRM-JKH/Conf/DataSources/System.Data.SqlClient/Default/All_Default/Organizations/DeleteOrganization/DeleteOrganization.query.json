@@ -1,0 +1,15 @@
+{
+  "ModelType": "Query",
+  "Code": "DeleteOrganization",
+  "Name": "DeleteOrganization",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "ModelType": "Query",
+  "Code": "SelectOrganizationRow",
+  "Name": "SelectOrganizationRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "claim_direction_id",
+      "Name": "claim_direction_id",
+      "Position": 2,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "claim_direction_name",
+      "Name": "Напрямок робiт",
+      "Position": 3,
+      "IsPrintable": false,
+      "ReferenceKeyCode": "claim_direction_id"
+    },
+    {
+      "Code": "appeal_source_id",
+      "Name": "appeal_source_id",
+      "Position": 4,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "appeal_source_name",
+      "Name": "Джерело надходження",
+      "Position": 5,
+      "IsPrintable": false,
+      "ReferenceKeyCode": "appeal_source_id"
+    },
+    {
+      "Code": "phone_1",
+      "Name": "Телефон 1",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "phone_2",
+      "Name": "Телефон 2",
+      "Position": 7,
+      "IsPrintable": false
+    },
+    {
+      "Code": "organization_id",
+      "Name": "organization_id",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "orgName",
+      "Name": "orgName",
+      "Position": 7,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

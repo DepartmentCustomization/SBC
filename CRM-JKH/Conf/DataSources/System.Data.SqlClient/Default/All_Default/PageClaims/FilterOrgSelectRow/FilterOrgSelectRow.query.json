@@ -1,0 +1,48 @@
+{
+  "ModelType": "Query",
+  "Code": "FilterOrgSelectRow",
+  "Name": "FilterOrgSelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+      {
+          "Code": "Id",
+          "Name": "Id",
+          "Position": 1,
+          "ViewState": "Hidden",
+          "IsPrintable": false
+        },
+        {
+          "Code": "Name",
+          "Name": "Назва",
+          "Position": 2,
+          "SqlName": "Name",
+          "FilterParameterCode": "@name"
+        }
+  ],
+  "Parameters": [
+    {
+      "Code": "@GlobalFilterOrganization",
+      "Name": "GlobalFilterOrganization",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlobalFilterOrganization"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+        "Code": "@UserId",
+        "Name": "UserId",
+        "ParameterType": "CurrentUserId"
+    }
+  ]
+}

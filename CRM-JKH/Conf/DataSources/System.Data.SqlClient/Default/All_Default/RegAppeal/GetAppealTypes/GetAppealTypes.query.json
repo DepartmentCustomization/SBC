@@ -1,0 +1,7 @@
+{
+  "ModelType": "Query",
+  "Code": "GetAppealTypes",
+  "Name": "GetAppealTypes",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false
+}

@@ -1,0 +1,22 @@
+{
+    "ModelType": "Query",
+    "Code": "InsertEmpClaimTypes",
+    "Name": "InsertEmpClaimTypes",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+        {
+            "Code": "@employee_id",
+            "Name": "employee_id"
+        },
+        {
+            "Code": "@claim_type_id",
+            "Name": "claim_type_id"
+        },
+        {
+            "Code": "@user_id",
+            "Name": "user_id",
+            "ParameterType": "CurrentUserId"
+        }
+    ]
+}

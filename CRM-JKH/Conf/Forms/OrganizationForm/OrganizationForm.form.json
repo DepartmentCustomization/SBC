@@ -1,0 +1,14 @@
+{
+  "ModelType": "Form",
+  "Code": "OrganizationForm",
+  "Name": "Картка організації",
+  "Details": [
+    "string:Details\\OrgEmployees.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\OrgInformation.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

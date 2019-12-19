@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "InsertOrganization"
+  },
+  "ModelType": "Section",
+  "Code": "Organizations",
+  "Name": "Організації",
+  "FormCode": "OrganizationForm",
+  "SelectRowsQueryCode": "SelectOrganizationRows",
+  "SelectRowQueryCode": "SelectOrganizationRow",
+  "UpdateQueryCode": "UpdateOrganization",
+  "DeleteQueryCode": "DeleteOrganization"
+}

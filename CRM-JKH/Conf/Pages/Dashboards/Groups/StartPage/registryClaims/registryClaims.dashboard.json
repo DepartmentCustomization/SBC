@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "StartPage",
+  "Position": 2,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "registryClaims",
+  "Name": "Реєстр заявок"
+}

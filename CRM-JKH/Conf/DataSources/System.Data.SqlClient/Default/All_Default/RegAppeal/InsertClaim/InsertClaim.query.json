@@ -1,0 +1,7 @@
+{
+  "ModelType": "Query",
+  "Code": "InsertClaim",
+  "Name": "InsertClaim",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false
+}

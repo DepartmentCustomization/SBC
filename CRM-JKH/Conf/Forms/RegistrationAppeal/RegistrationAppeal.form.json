@@ -1,0 +1,18 @@
+{
+  "ModelType": "Form",
+  "Code": "RegistrationAppeal",
+  "Name": "Реєстрація Звернення",
+  "Details": [
+    "string:Details\\Detail_RegCard_Applicant.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Search.fieldgroup.json",
+      "string:FieldGroups\\Group_Appeal.fieldgroup.json",
+      "string:FieldGroups\\Group_Applicant.fieldgroup.json",
+      "string:FieldGroups\\Group_Claim.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:RegistrationAppeal.form.js"
+  }
+}

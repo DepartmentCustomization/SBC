@@ -1,0 +1,40 @@
+{
+  "ModelType": "Query",
+  "Code": "ClaimsSelect_Table_Report",
+  "Name": "ClaimsSelect_Table_Report",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Parameters": [
+    {
+      "Code": "@TypeId",
+      "Name": "TypeId",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@OrgId",
+      "Name": "OrgId",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@DateStart",
+      "Name": "DateStart",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@DateEnd",
+      "Name": "DateEnd",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@GlobalFilterOrganization",
+      "Name": "GlobalFilterOrganization",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlobalFilterOrganization"
+    },
+    {
+        "Code": "@UserId",
+        "Name": "UserId",
+        "ParameterType": "CurrentUserId"
+    }
+  ]
+}

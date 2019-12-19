@@ -1,0 +1,130 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_id",
+    "Name": "appeal_id",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_source_id",
+    "Name": "appeal_source_id",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_type_id",
+    "Name": "appeal_type_id",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_parameter",
+    "Name": "appeal_parameter",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_created_at",
+    "Name": "appeal_created_at",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_created_by",
+    "Name": "appeal_created_by",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "applicant_PIB",
+    "Name": "applicant_PIB",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "applicant_Phone1",
+    "Name": "applicant_Phone1",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "applicant_Phone2",
+    "Name": "applicant_Phone2",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "applicant_Email",
+    "Name": "applicant_Email",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "applicant_Adress",
+    "Name": "applicant_Adress",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_type",
+    "Name": "claim_type",
+    "Position": 12,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_Adress",
+    "Name": "claim_Adress",
+    "Position": 13,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_executor_Id",
+    "Name": "claim_executor_Id",
+    "Position": 14,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_executor_name",
+    "Name": "claim_executor_name",
+    "Position": 15,
+    "IsPrintable": false,
+    "ReferenceKeyCode": "claim_executor_Id"
+  },
+  {
+    "Code": "claim_state_id",
+    "Name": "claim_state_id",
+    "Position": 16,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_state_name",
+    "Name": "claim_state_name",
+    "Position": 17,
+    "IsPrintable": false,
+    "ReferenceKeyCode": "claim_state_id"
+  },
+  {
+    "Code": "claim_comment",
+    "Name": "claim_comment",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_executor_comment",
+    "Name": "claim_executor_comment",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_control_date",
+    "Name": "claim_control_date",
+    "Position": 20,
+    "IsPrintable": false
+  }
+]

@@ -1,0 +1,22 @@
+{
+    "ModelType": "Query",
+    "Code": "InsertEmpHouses",
+    "Name": "InsertEmpHouses",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+        {
+            "Code": "@employee_id",
+            "Name": "employee_id"
+        },
+        {
+            "Code": "@house_id",
+            "Name": "house_id"
+        },
+        {
+            "Code": "@user_id",
+            "Name": "user_id",
+            "ParameterType": "CurrentUserId"
+        }
+    ]
+}

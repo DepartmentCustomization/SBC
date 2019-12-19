@@ -1,0 +1,61 @@
+{
+  "ModelType": "Query",
+  "Code": "ClaimsHistorySelectRows",
+  "Name": "ClaimsHistorySelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false,
+      "viewState": "Hidden"
+    },
+    {
+      "Code": "Load_date",
+      "Name": "Дата",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "[claims_history].[Load_date]",
+      "FilterParameterCode": "@Load_date"
+    },
+    {
+      "Code": "Log_User_FIO",
+      "Name": "Користувач",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "isnull(LastName, N'')+N' '+isnull([FirstName], N'')+N' '+isnull([Patronymic], N'')",
+      "FilterParameterCode": "@Log_User_FIO"
+    },
+    {
+      "Code": "Log_Activity",
+      "Name": "Операція",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "case when [claims_history].[Log_Activity] = N'INSERT' then N'Створення'
+			            when [claims_history].[Log_Activity] = N'UPDATE' then N'Редагування'
+			            else [claims_history].[Log_Activity] end",
+      "FilterParameterCode": "@Log_User_FIO"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@claim_id",
+      "Name": "claim_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

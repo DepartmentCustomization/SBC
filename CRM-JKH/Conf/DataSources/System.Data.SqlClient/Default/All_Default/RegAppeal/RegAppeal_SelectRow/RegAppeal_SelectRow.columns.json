@@ -1,0 +1,86 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_source_id2",
+    "Name": "appeal_source_id2",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_source_id",
+    "Name": "appeal_source_id",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_type_id2",
+    "Name": "appeal_type_id2",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_type_id",
+    "Name": "appeal_type_id",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_parameter",
+    "Name": "appeal_parameter",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "applicant_id",
+    "Name": "applicant_id",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "applicant_name",
+    "Name": "applicant_name",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_created_at",
+    "Name": "appeal_created_at",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "created_by",
+    "Name": "created_by",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Search_Phone",
+    "Name": "Search_Phone",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Search_Email",
+    "Name": "Search_Email",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_id",
+    "Name": "appeal_id",
+    "Position": 12,
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_created_by",
+    "Name": "appeal_created_by",
+    "Position": 13,
+    "IsPrintable": false
+  }
+]

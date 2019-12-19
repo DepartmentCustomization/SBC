@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "Claims_State_Select",
+  "Name": "Claims_State_Select",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Parameters": [
+    {
+      "Code": "@GlobalFilterOrganization",
+      "Name": "GlobalFilterOrganization",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlobalFilterOrganization"
+    },
+    {
+        "Code": "@UserId",
+        "Name": "UserId",
+        "ParameterType": "CurrentUserId"
+    }
+  ]
+}

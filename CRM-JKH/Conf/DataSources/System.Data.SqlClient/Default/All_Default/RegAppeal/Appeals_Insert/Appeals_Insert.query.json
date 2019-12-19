@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "Appeals_Insert",
+  "Name": "Appeals_Insert",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Parameters": [
+    {
+      "Code": "@appeal_type_id",
+      "Name": "appeal_type_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
+    },
+    {
+      "Code": "@parameter",
+      "Name": "parameter"
+    }
+  ]
+}

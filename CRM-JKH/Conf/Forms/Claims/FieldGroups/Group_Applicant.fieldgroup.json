@@ -1,0 +1,40 @@
+{
+  "Code": "Group_Applicant",
+  "Name": "Заявник",
+  "Position": 3,
+  "Fields": [
+    {
+      "Code": "applicant_PIB",
+      "Name": "ПІБ заявника",
+      "FieldType": "text",
+      "Position": 1,
+      "Width": "100%"
+    },
+    {
+      "Code": "applicant_Phone1",
+      "Name": "Телефон №1",
+      "FieldType": "text",
+      "Position": 2
+    },
+    {
+      "Code": "applicant_Phone2",
+      "Name": "Телефон №2",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
+      "Code": "applicant_Email",
+      "Name": "Ел.пошта",
+      "FieldType": "text",
+      "Position": 4,
+      "Width": "55%"
+    },
+    {
+      "Code": "applicant_Adress",
+      "Name": "Адреса",
+      "FieldType": "text",
+      "Position": 7,
+      "Width": "100%"
+    }
+  ]
+}

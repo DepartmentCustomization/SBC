@@ -1,0 +1,34 @@
+{
+    "ModelType": "Query",
+    "Code": "InsertOrganization",
+    "Name": "InsertOrganization",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@Name",
+        "Name": "Name"
+      },
+      {
+        "Code": "@claim_direction_id",
+        "Name": "claim_direction_id"
+      },
+      {
+        "Code": "@appeal_source_id",
+        "Name": "appeal_source_id"
+      },
+      {
+        "Code": "@phone_1",
+        "Name": "phone_1"
+      },
+      {
+        "Code": "@phone_2",
+        "Name": "phone_2"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

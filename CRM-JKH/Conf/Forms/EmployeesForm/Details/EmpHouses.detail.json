@@ -1,0 +1,22 @@
+{
+  "ModelType": "Detail",
+  "Code": "EmpHouses",
+  "Name": "Будинки",
+  "SelectRowsQueryCode": "SelectEmpHouses",
+  "SelectRowQueryCode": "SelectEmpHouse",
+  "UpdateQueryCode": "UpdateEmpHouses",
+  "DeleteQueryCode": "DeleteEmpHouse",
+  "SectionCode": "Employees",
+  "Position": 1,
+  "IsExpand": true,
+  "FormCode": "EmpHousesForm",
+  "Add": {
+    "InsertQueryCode": "InsertEmpHouses"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

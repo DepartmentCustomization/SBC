@@ -1,0 +1,14 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_ClaimHistory",
+  "Name": "Історія зміни заявки",
+  "SelectRowsQueryCode": "ClaimsHistorySelectRows",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [{
+        "FormFieldName": "Id",
+        "ParameterCode": "@claim_id"
+        }
+]
+}

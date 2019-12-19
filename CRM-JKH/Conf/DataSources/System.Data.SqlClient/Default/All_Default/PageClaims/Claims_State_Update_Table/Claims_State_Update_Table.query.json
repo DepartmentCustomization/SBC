@@ -1,0 +1,15 @@
+{
+  "ModelType": "Query",
+  "Code": "Claims_State_Update_Table",
+  "Name": "Claims_State_Update_Table",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Parameters": [
+    {
+      "Code": "@GlobalFilterOrganization",
+      "Name": "GlobalFilterOrganization",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlobalFilterOrganization"
+    }
+  ]
+}

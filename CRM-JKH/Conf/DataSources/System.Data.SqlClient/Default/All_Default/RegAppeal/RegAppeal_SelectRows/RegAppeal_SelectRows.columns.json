@@ -1,0 +1,78 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrimaryKey": true,
+    "ViewState": "Hidden",
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_source_id",
+    "Name": "appeal_source_id",
+    "Position": 1,
+    "ViewState": "Hidden",
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_source_name",
+    "Name": "Джерело надходження",
+    "Position": 2,
+    "IsPrintable": false,
+    "SqlName": "[appeal_sources].[Name]",
+    "FilterParameterCode": "@appeal_source_name"
+  },
+  {
+    "Code": "appeal_type_id",
+    "Name": "appeal_type_id",
+    "Position": 3,
+    "ViewState": "Hidden",
+    "IsPrintable": false
+  },
+  {
+    "Code": "appeal_type_name",
+    "Name": "Тип звернення",
+    "Position": 4,
+    "IsPrintable": false,
+    "SqlName": "[appeal_types].[Name]",
+    "FilterParameterCode": "@appeal_type_name"
+  },
+  {
+    "Code": "parameter",
+    "Name": "Параметр звернення",
+    "Position": 5,
+    "IsPrintable": false,
+    "SqlName": "[appeals].[parameter]",
+    "FilterParameterCode": "@parameter"
+  },
+  {
+    "Code": "applicant_id",
+    "Name": "applicant_id",
+    "Position": 6,
+    "ViewState": "Hidden",
+    "IsPrintable": false
+  },
+  {
+    "Code": "applicant_name",
+    "Name": "ПІБ заявника",
+    "Position": 7,
+    "IsPrintable": false,
+    "SqlName": "[applicants].[PIB]",
+    "FilterParameterCode": "@applicant_name"
+  },
+  {
+    "Code": "created_at",
+    "Name": "Дата створення",
+    "Position": 8,
+    "IsPrintable": false,
+    "SqlName": "[appeals].[created_at]",
+    "FilterParameterCode": "@created_at"
+  },
+  {
+    "Code": "created_by",
+    "Name": "created_by",
+    "Position": 9,
+    "ViewState": "Hidden",
+    "IsPrintable": false
+  }
+]

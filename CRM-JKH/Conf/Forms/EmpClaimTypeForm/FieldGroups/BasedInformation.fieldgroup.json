@@ -1,0 +1,27 @@
+{
+  "Code": "BasedInformation",
+  "Name": "Інформація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "employee_id",
+      "Name": "Співробітник",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "claim_type_id",
+      "Name": "Назва",
+      "FieldType": "select",
+      "Width": "80%",
+      "IsRequired": true,
+      "Position": 2,
+      "QueryCode": "ClaimTypes_List",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    }
+  ]
+}

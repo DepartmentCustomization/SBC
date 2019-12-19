@@ -1,0 +1,55 @@
+{
+  "Code": "Group_Search",
+  "Name": "Пошук",
+  "Position": 1,
+  "Fields": [
+    {
+      "Maxlength": 10,
+      "Code": "Search_Phone",
+      "Name": "Телефон\t",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "Search_Email",
+      "Name": "Емейл\t",
+      "FieldType": "text",
+      "Position": 2
+    },
+    {
+      "Code": "Search_Street",
+      "Name": "Вулиця\t\t",
+      "FieldType": "select",
+      "Position": 3,
+      "QueryCode": "ListStreets",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Search_House",
+      "Name": "Будинок",
+      "FieldType": "select",
+      "Position": 4,
+      "Width": "25%",
+      "QueryCode": "ListHouses",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Search_Flat",
+      "Name": "Квартира",
+      "FieldType": "text",
+      "Position": 5,
+      "Width": "25%"
+    },
+    {
+      "Code": "Search_Btn",
+      "Name": "Шукати",
+      "FieldType": "button",
+      "Position": 6,
+      "Icon": "search"
+    }
+  ]
+}

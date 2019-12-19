@@ -1,0 +1,74 @@
+{
+  "ModelType": "Query",
+  "Code": "SelectOrganizationRows",
+  "Name": "SelectOrganizationRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "claim_direction_id",
+      "Name": "claim_direction_id",
+      "Position": 2,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "claim_direction_name",
+      "Name": "Напрямок",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "appeal_source_id",
+      "Name": "appeal_source_id",
+      "Position": 4,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "appeal_source_name",
+      "Name": "Джерело надходження",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "phone_1",
+      "Name": "Телефон 1",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "phone_2",
+      "Name": "Телефон 2",
+      "Position": 7,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}
