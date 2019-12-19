@@ -1,0 +1,26 @@
+{
+  "ModelType": "Query",
+  "Code": "getPartInfoByArticul",
+  "Name": "getPartInfoByArticul",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "part_name",
+      "Name": "Название",
+      "Position": 1
+    },
+    {
+      "Code": "manufacturer",
+      "Name": "Производитель",
+      "Position": 2
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@partId",
+      "Name": "partId",
+      "ParameterType": "Integer"
+    }
+  ]
+}

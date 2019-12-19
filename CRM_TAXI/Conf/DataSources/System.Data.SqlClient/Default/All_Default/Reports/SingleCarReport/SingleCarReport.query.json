@@ -1,0 +1,73 @@
+{
+    "ModelType": "Query",
+    "Code": "SingleCarReport",
+    "Name": "SingleCarReport",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": -1,
+        "IsPrintable": false
+      },
+      {
+        "Code": "number",
+        "Name": "number",
+        "Position": 0,
+        "IsPrintable": false
+      },
+      {
+        "Code": "name",
+        "Name": "name",
+        "Position": 1,
+        "IsPrintable": false
+      },
+      {
+        "Code": "mark",
+        "Name": "mark",
+        "Position": 2,
+        "IsPrintable": false
+      },
+      {
+        "Code": "create_year",
+        "Name": "create_year",
+        "Position": 3,
+        "IsPrintable": false
+      },
+      {
+        "Code": "start_period_run",
+        "Name": "start_period_run",
+        "Position": 4,
+        "IsPrintable": false
+      },
+      {
+        "Code": "end_period_run",
+        "Name": "end_period_run",
+        "Position": 5,
+        "IsPrintable": false
+      },
+      {
+        "Code": "pediod_run",
+        "Name": "pediod_run",
+        "Position": 6,
+        "IsPrintable": false
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@dateFrom",
+        "Name": "dateFrom",
+        "ParameterType": "DateTime"
+      },
+      {
+        "Code": "@dateTo",
+        "Name": "dateTo",
+        "ParameterType": "DateTime"
+      },
+      {
+        "Code": "@carId",
+        "Name": "carId"
+      }
+    ]
+  }

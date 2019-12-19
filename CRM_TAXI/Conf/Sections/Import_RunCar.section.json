@@ -1,0 +1,18 @@
+{
+  "ModelType":"Section",
+  "Code":"Import_RunCar",
+  "Name":"Загрузка пробега",
+  "SelectRowsQueryCode":"Import_RunCar_SelectRows",
+  "IsVisible": false,
+  "Add":
+  {
+    "AddType":"General",
+    "InsertQueryCode":"Import_RunCar",
+    "ImportCsv":
+    {
+      "ImportCsvType":"ByRow",
+      "TableName":"[dbo].[Import_RunCar]",
+      "BatchSize":50
+    }
+  }
+}

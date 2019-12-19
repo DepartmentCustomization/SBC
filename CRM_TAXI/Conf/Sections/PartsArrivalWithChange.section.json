@@ -1,0 +1,9 @@
+{
+    "ModelType": "Section",
+    "Code": "PartsArrivalWithChange",
+    "Name": "Списание запчастей",
+    "FormCode": "PartsArrivalWithChangeForm",
+    "SelectRowsQueryCode": "List_Arrivals",
+    "SelectRowQueryCode": "SelectPartsArrivalWithChange",
+    "UpdateQueryCode": "MakePartChange"
+}

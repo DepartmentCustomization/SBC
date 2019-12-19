@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "Report",
+  "Position": 6,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "ChangeOnDateReport",
+  "Name": "Расход запчастей на конкретную дату"
+}

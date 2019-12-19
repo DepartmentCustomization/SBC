@@ -1,0 +1,86 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectAllPartsChange",
+    "Name": "SelectAllPartsChange",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": 1,
+        "ViewState": "Hidden",
+        "IsPrintable": false
+      },
+      {
+        "Code": "invoice_consumption",
+        "Name": "Номер расходной накладной",
+        "Position": 2,
+        "IsPrintable": false,
+        "SqlName": "invoice_consumption",
+        "FilterParameterCode": "@invoice_consumption"
+      },
+      {
+        "Code": "change_date",
+        "Name": "Дата расхода",
+        "Position": 3,
+        "IsPrintable": false,
+        "SqlName": "change_date",
+        "FilterParameterCode": "@change_date"
+      },
+      {
+        "Code": "part_name",
+        "Name": "Наименование",
+        "Position": 4,
+        "IsPrintable": false,
+        "SqlName": "part_name",
+        "FilterParameterCode": "@part_name"
+      },
+      {
+        "Code": "articul",
+        "Name": "Артикул",
+        "Position": 5,
+        "IsPrintable": false,
+        "SqlName": "articul",
+        "FilterParameterCode": "@articul"
+      },
+      {
+        "Code": "manufacturer",
+        "Name": "Производитель",
+        "Position": 6,
+        "IsPrintable": false,
+        "SqlName": "manufacturer",
+        "FilterParameterCode": "@manufacturer"
+      },
+      {
+        "Code": "cars_name",
+        "Name": "Позывной",
+        "Position": 7,
+        "IsPrintable": false,
+        "SqlName": "cars_name",
+        "FilterParameterCode": "@cars_name"
+      },
+      {
+        "Code": "part_price",
+        "Name": "Цена",
+        "Position": 8,
+        "IsPrintable": false,
+        "SqlName": "part_price",
+        "FilterParameterCode": "@part_price"
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@pageOffsetRows",
+        "Name": "pageOffsetRows",
+        "ParameterType": "Integer",
+        "IsPageOffsetRows": true
+      },
+      {
+        "Code": "@pageLimitRows",
+        "Name": "pageLimitRows",
+        "ParameterType": "Integer",
+        "IsPageLimitRows": true
+      }
+    ]
+  }

@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "Report",
+  "Position": 2,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "ChangeReport",
+  "Name": "Расход за отчетный период по запчастям"
+}

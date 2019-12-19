@@ -1,0 +1,34 @@
+{
+    "ModelType": "Query",
+    "Code": "InsertCategories",
+    "Name": "InsertCategories",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@category_name",
+        "Name": "category_name"
+      },
+      {
+        "Code": "@category_description",
+        "Name": "category_description"
+      },
+      {
+        "Code": "@operational_period_km",
+        "Name": "operational_period_km"
+      },
+      {
+        "Code": "@operational_period_day",
+        "Name": "operational_period_day"
+      },
+      {
+        "Code": "@min_count_stock",
+        "Name": "min_count_stock"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

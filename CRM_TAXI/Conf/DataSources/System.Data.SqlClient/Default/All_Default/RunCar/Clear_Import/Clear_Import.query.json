@@ -1,0 +1,8 @@
+{
+    "ModelType": "Query",
+    "Code": "Clear_Import",
+    "Name": "Clear_Import",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": []
+  }

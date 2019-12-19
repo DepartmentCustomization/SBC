@@ -1,0 +1,6 @@
+{
+    "ModelType": "QueryGroup",
+    "Code": "PartsArrival",
+    "Name": "Приход",
+    "ConnectionCode": "Default"
+  }

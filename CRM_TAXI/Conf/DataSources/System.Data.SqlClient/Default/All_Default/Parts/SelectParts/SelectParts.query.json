@@ -1,0 +1,68 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectParts",
+    "Name": "SelectParts",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Colunms": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": 1,
+        "ViewState": "Hidden",
+        "IsPrintable": false
+      },
+      {
+        "Code": "category_id",
+        "Name": "category_id",
+        "Position": 2,
+        "IsPrintable": false,
+        "ViewState": "Hidden"
+      },
+      {
+        "Code": "part_name",
+        "Name": "Название",
+        "Position": 3,
+        "IsPrintable": false
+      },
+      {
+        "Code": "articul",
+        "Name": "Артикул",
+        "Position": 4,
+        "IsPrintable": false
+      },
+      {
+        "Code": "category",
+        "Name": "Катерогия",
+        "Position": 5,
+        "IsPrintable": false,
+        "ReferenceKeyCode": "category_id"
+      },
+      {
+        "Code": "manufacturer",
+        "Name": "Производитель",
+        "Position": 6,
+        "IsPrintable": false
+      },
+      {
+        "Code": "part_quantity",
+        "Name": "Количество",
+        "Position": 7,
+        "IsPrintable": false
+      },
+      {
+        "Code": "part_price",
+        "Name": "Цена",
+        "Position": 8,
+        "IsPrintable": false
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      }
+    ]
+  }

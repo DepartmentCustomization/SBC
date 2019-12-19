@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "Report",
+  "Position": 7,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "PartsExplorationReport",
+  "Name": "Эксплуатационный пробег по категории"
+}

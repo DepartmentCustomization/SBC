@@ -1,0 +1,101 @@
+{
+  "Code": "PartsArrivalInformation",
+  "Name": "Информация",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "invoice_number",
+      "Name": "Номер накладной",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "50%"
+    },
+    {
+      "Code": "create_date",
+      "Name": "Дата поступления",
+      "FieldType": "date-time",
+      "IsRequired": true,
+      "Position": 2,
+      "Width": "50%"
+    },
+    {
+      "Code": "articul",
+      "Name": "Артикул",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 3,
+      "Width": "50%",
+      "QueryCode": "List_AllArticuls",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "articul"
+    },
+    {
+      "Code": "part_name",
+      "Name": "Название",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 4,
+      "Width": "50%"
+    },
+    {
+      "Code": "provider",
+      "Name": "Поставщик",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 5,
+      "Width": "50%",
+      "QueryCode": "List_Providers",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "provider_name"
+    },
+    {
+      "Code": "manufacturer",
+      "Name": "Производитель",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 6,
+      "Width": "50%"
+    },
+    {
+      "Code": "part_price",
+      "Name": "Цена",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 7,
+      "Width": "33%"
+    },
+    {
+      "Code": "part_quantity",
+      "Name": "Количество",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 8,
+      "Width": "33%"
+    },
+    {
+      "Code": "sum_price",
+      "Name": "Общая стоимость",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 9,
+      "Width": "34%"
+    },
+    {
+      "Code": "save_part_arrival",
+      "Name": "Сохранить",
+      "FieldType": "button",
+      "Position": 11,
+      "Width": "30%",
+      "Icon": "save"
+    },
+    {
+      "Code": "clear_part_arrival",
+      "Name": "Очистить",
+      "FieldType": "button",
+      "Position": 12,
+      "Width": "30%",
+      "Icon": "clear"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+    "ModelType": "Query",
+    "Code": "ArrivalReport",
+    "Name": "ArrivalReport",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": -1,
+        "IsPrintable": false
+      },
+      {
+        "Code": "part_name",
+        "Name": "part_name",
+        "Position": 0,
+        "IsPrintable": false,
+        "SqlName": "part.part_name",
+        "FilterParameterCode": "@part_name"
+      },
+      {
+        "Code": "articul",
+        "Name": "articul",
+        "Position": 1,
+        "IsPrintable": false,
+        "SqlName": "part.articul",
+        "FilterParameterCode": "@articul"
+      },
+      {
+        "Code": "manufacturer",
+        "Name": "manufacturer",
+        "Position": 2,
+        "IsPrintable": false
+      },
+      {
+        "Code": "provider",
+        "Name": "provider",
+        "Position": 3,
+        "IsPrintable": false
+      },
+      {
+        "Code": "part_price",
+        "Name": "part_price",
+        "Position": 4,
+        "IsPrintable": false
+      },
+      {
+        "Code": "part_quantity",
+        "Name": "part_quantity",
+        "Position": 5,
+        "IsPrintable": false
+      },
+      {
+        "Code": "sum_price",
+        "Name": "sum_price",
+        "Position": 6,
+        "IsPrintable": false
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@dateFrom",
+        "Name": "dateFrom",
+        "ParameterType": "DateTime"
+      },
+      {
+        "Code": "@dateTo",
+        "Name": "dateTo",
+        "ParameterType": "DateTime"
+      }
+    ]
+  }

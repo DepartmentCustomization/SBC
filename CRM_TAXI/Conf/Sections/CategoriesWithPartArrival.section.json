@@ -1,0 +1,9 @@
+{
+    "ModelType": "Section",
+    "Code": "CategoriesWithPartArrival",
+    "Name": "Категории с приходом",
+    "FormCode": "CategoriesWithPartArrivalForm",
+    "SelectRowsQueryCode": "SelectAllCategories",
+    "SelectRowQueryCode": "SelectCategories",
+    "UpdateQueryCode": "UpdateCategories"
+  }

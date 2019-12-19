@@ -1,0 +1,17 @@
+{
+  "ModelType": "Form",
+  "Code": "CarsForm",
+  "Name": "Карточка автомобиля",
+  "Details": [
+    "string:Details\\CarRun.detail.json",
+    "string:Details\\CarParts.detail.json",
+    "string:Details\\CarPartsRemoved.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\CarsInformation.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:CarsForm.form.js"
+  }
+}

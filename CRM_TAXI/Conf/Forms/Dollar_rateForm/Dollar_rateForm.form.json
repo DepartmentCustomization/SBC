@@ -1,0 +1,14 @@
+{
+  "ModelType": "Form",
+  "Code": "Dollar_rateForm",
+  "Name": "Карточка курс доллара",
+  "Details": [
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Dollar_rateInformation.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:Dollar_rateForm.form.js"
+  }
+}

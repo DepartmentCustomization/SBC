@@ -1,0 +1,36 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectProviders",
+    "Name": "SelectProviders",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Colunms": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": 1,
+        "ViewState": "Hidden",
+        "IsPrintable": false
+      },
+      {
+        "Code": "provider",
+        "Name": "Поставщик",
+        "Position": 2,
+        "IsPrintable": false
+      },
+      {
+        "Code": "provider_conditions",
+        "Name": "Условия сотрудничества",
+        "Position": 3,
+        "IsPrintable": false
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      }
+    ]
+  }

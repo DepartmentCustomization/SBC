@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "Report",
+  "Position": 4,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "CarsReport",
+  "Name": "Пробег и расход по всем автомобилям"
+}

@@ -1,0 +1,15 @@
+{
+    "ModelType": "Detail",
+    "Code": "CarParts",
+    "Name": "Список установленных запчастей",
+    "SelectRowsQueryCode": "SelectCarParts",
+    "SectionCode": "",
+    "Position": 2,
+    "IsExpand": true,
+    "QueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Id"
+      }
+    ]
+  }

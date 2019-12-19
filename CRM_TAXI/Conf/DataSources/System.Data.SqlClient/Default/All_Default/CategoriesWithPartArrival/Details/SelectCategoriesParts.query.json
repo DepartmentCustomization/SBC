@@ -1,0 +1,60 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectCategoriesParts",
+    "Name": "SelectCategoriesParts",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+        {
+            "Code": "Id",
+            "Name": "Id",
+            "Position": 1,
+            "ViewState": "Hidden",
+            "IsPrintable": false
+          },
+          {
+            "Code": "articul",
+            "Name": "Артикул",
+            "Position": 3,
+            "IsPrintable": false,
+            "SqlName": "articul",
+            "FilterParameterCode": "@Articul"
+          },
+          {
+            "Code": "part_name",
+            "Name": "Название",
+            "Position": 2,
+            "IsPrintable": false,
+            "SqlName": "part_name",
+            "FilterParameterCode": "@PartName",
+            "ReferenceKeyCode": "Id",
+            "ReferenceSectionCode": "Parts"
+          },          
+          {
+            "Code": "part_quantity",
+            "Name": "Кол-во",
+            "Position": 4,
+            "IsPrintable": false
+          }
+    ],
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      },
+      {
+        "Code": "@pageLimitRows",
+        "Name": "pageLimitRows",
+        "ParameterType": "Integer",
+        "IsPageLimitRows": true
+      },
+      {
+        "Code": "@pageOffsetRows",
+        "Name": "pageOffsetRows",
+        "ParameterType": "Integer",
+        "IsPageOffsetRows": true
+      }
+    ]
+  }

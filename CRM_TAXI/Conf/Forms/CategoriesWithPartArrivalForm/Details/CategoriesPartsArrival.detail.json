@@ -1,0 +1,15 @@
+{
+    "ModelType": "Detail",
+    "Code": "CategoriesPartsArrival",
+    "Name": "Приход",
+    "SelectRowsQueryCode": "SelectCategoriesPartsArrival",
+    "SectionCode": "",
+    "Position": 2,
+    "IsExpand": true,
+    "QueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Id"
+      }
+    ]
+  }

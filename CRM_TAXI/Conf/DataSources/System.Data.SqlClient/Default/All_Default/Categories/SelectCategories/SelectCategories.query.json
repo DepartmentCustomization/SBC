@@ -1,0 +1,37 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectCategories",
+    "Name": "SelectCategories",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Colunms": [
+        {
+          "Code": "@category_name",
+          "Name": "category_name"
+        },
+        {
+          "Code": "@category_description",
+          "Name": "category_description"
+        },
+        {
+          "Code": "@operational_period_km",
+          "Name": "operational_period_km"
+        },
+        {
+          "Code": "@operational_period_day",
+          "Name": "operational_period_day"
+        },
+        {
+          "Code": "@min_count_stock",
+          "Name": "min_count_stock"
+        }
+    ],
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      }
+    ]
+  }

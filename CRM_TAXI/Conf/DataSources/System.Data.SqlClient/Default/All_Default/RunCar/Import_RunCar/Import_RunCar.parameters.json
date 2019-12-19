@@ -1,0 +1,10 @@
+[
+	{
+		"Code": "@car",
+		"Name": "car"
+	},
+	{
+		"Code": "@run_km",
+		"Name": "run_km"
+	}
+]

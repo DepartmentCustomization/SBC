@@ -1,0 +1,22 @@
+{
+    "ModelType": "Query",
+    "Code": "InsertDollar_rate",
+    "Name": "InsertDollar_rate",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@dollar_date",
+        "Name": "dollar_date"
+      },
+      {
+        "Code": "@dollar_rate",
+        "Name": "dollar_rate"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

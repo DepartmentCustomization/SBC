@@ -1,0 +1,37 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectCars",
+    "Name": "SelectCars",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Colunms": [
+        {
+          "Code": "@cars_name",
+          "Name": "cars_name"
+        },
+        {
+          "Code": "@cars_number",
+          "Name": "cars_number"
+        },
+        {
+          "Code": "@cars_mark",
+          "Name": "cars_mark"
+        },
+        {
+          "Code": "@cars_year",
+          "Name": "cars_year"
+        },
+        {
+          "Code": "@run_km",
+          "Name": "cars_run"
+        }
+    ],
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      }
+    ]
+  }

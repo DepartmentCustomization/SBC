@@ -1,0 +1,63 @@
+{
+    "ModelType": "Query",
+    "Code": "PartsExplorationReport",
+    "Name": "PartsExplorationReport",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": -1,
+        "IsPrintable": false
+      },
+      {
+        "Code": "articul",
+        "Name": "articul",
+        "Position": 0,
+        "IsPrintable": false
+      },
+      {
+        "Code": "manufacturer",
+        "Name": "manufacturer",
+        "Position": 1,
+        "IsPrintable": false
+      },
+      {
+        "Code": "provider",
+        "Name": "provider",
+        "Position": 2,
+        "IsPrintable": false
+      },
+      {
+        "Code": "cars_number",
+        "Name": "cars_number",
+        "Position": 3,
+        "IsPrintable": false
+      },
+      {
+        "Code": "fact_period_km",
+        "Name": "fact_period_km",
+        "Position": 4,
+        "IsPrintable": false
+      },
+      {
+        "Code": "operational_period_km",
+        "Name": "operational_period_km",
+        "Position": 5,
+        "IsPrintable": false
+      },
+      {
+        "Code": "different_run_km",
+        "Name": "different_run_km",
+        "Position": 6,
+        "IsPrintable": false
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@category",
+        "Name": "category"
+      }
+    ]
+  }

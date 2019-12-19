@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "Import_RunCar",
+  "Name": "Import_RunCar",
+  "ConnectionCode": "Default",
+  "Sql": "string:Import_RunCar.sql",
+  "Parameters": "json:Import_RunCar.parameters.json"
+}

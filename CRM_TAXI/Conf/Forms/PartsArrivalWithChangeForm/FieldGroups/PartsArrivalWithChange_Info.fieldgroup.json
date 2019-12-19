@@ -1,0 +1,65 @@
+{
+  "Code": "PartsArrivalWithChange_Info",
+  "Name": "Информация",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "car",
+      "Name": "Автомобиль",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "70%",
+      "QueryCode": "List_Cars",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "cars_name"
+    },
+    {
+      "Code": "part",
+      "Name": "Запчасть",
+      "FieldType": "lookup",
+      "IsRequired": false,
+      "Position": 2,
+      "Width": "70%",
+      "QueryCode": "CarDetails_inUsage",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "articul"
+    },
+    {
+      "Code": "invoice_consumption",
+      "Name": "Номер накладной",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 3,
+      "Width": "70%"
+    },
+    {
+      "Code": "save_part_change",
+      "Name": "Сохранить",
+      "FieldType": "button",
+      "IsRequired": true,
+      "Position": 4,
+      "Icon": "save",
+      "Width": "35%"
+    },
+    {
+      "Code": "category_id",
+      "Name": "category_id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 33,
+      "Width": "10%",
+      "IsHidden": true
+      
+    },
+    {
+      "Code": "part_id",
+      "Name": "part_id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 34,
+      "Width": "10%",
+      "IsHidden": true
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "Code": "PartsChangeInformation",
+  "Name": "Информация",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "invoice_consumption",
+      "Name": "Номер расходной накладной",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "50%"
+    },
+    {
+      "Code": "change_date",
+      "Name": "Дата списания",
+      "FieldType": "text",
+      "IsRequired": false,
+      "Position": 2,
+      "Width": "50%"
+    },
+    {
+      "Code": "part_name",
+      "Name": "Наименование",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 4,
+      "Width": "50%"
+    },
+    {
+      "Code": "old_articul",
+      "Name": "Снимаемая запчасть",
+      "FieldType": "lookup",
+      "Position": 3,
+      "Width": "50%",
+      "QueryCode": "CarDetails_inUsage",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "articul",
+      "IsRequired": false
+    },
+    {
+      "Code": "new_articul",
+      "Name": "Устанавливаемая запчасть",
+      "FieldType": "lookup",
+      "Position": 4,
+      "Width": "50%",
+      "QueryCode": "List_PartsArticul",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "articul",
+      "IsRequired": true
+    },
+    {
+      "Code": "manufacturer",
+      "Name": "Производитель",
+      "FieldType": "text",
+      "IsRequired": false,
+      "Position": 5,
+      "Width": "50%"
+    },
+    {
+      "Code": "cars_id",
+      "Name": "Автомобиль",
+      "FieldType": "lookup",
+      "Position": 6,
+      "Width": "50%",
+      "QueryCode": "List_Cars",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "cars_name",
+      "IsRequired": true
+    },
+    {
+      "Code": "part_price",
+      "Name": "Цена",
+      "FieldType": "number",
+      "IsRequired": false,
+      "Position": 7,
+      "Width": "40%"
+    },
+    {
+      "Code": "update_part_change",
+      "Name": "Сохранить",
+      "FieldType": "button",
+      "Position": 11,
+      "Width": "35%",
+      "Icon": "save"
+    }
+  ]
+}

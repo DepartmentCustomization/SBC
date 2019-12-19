@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "CategoriesWithPartArrivalForm",
+  "Name": "Категория (приход)",
+  "Details": [
+    "string:Details\\CategoriesParts.detail.json",
+    "string:Details\\CategoriesPartsArrival.detail.json",
+    "string:Details\\CategoriesPartsChange.detail.json",
+    "string:Details\\CategoriesPartsRemoved.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\CategoriesInformation2.fieldgroup.json",
+      "string:FieldGroups\\CategoryPartArrival.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:CategoriesWithPartArrivalForm.form.js"
+  }
+}

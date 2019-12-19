@@ -1,0 +1,36 @@
+{
+    "ModelType": "Query",
+    "Code": "UpdateParts",
+    "Name": "UpdateParts",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      },
+      {
+        "Code": "@category_id",
+        "Name": "category"
+      },
+      {
+        "Code": "@part_name",
+        "Name": "part_name"
+      },
+      {
+        "Code": "@articul",
+        "Name": "articul"
+      },
+      {
+        "Code": "@manufacturer",
+        "Name": "manufacturer"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

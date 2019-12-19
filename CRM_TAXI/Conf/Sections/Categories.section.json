@@ -1,0 +1,12 @@
+{
+  "Add": {
+  "InsertQueryCode": "InsertCategories"
+  },
+  "ModelType": "Section",
+  "Code": "Categories",
+  "Name": "Справочник категорий",
+  "FormCode": "CategoriesForm",
+  "SelectRowsQueryCode": "SelectAllCategories",
+  "SelectRowQueryCode": "SelectCategories",
+  "UpdateQueryCode": "UpdateCategories"
+}

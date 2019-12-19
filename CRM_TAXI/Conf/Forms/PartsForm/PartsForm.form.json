@@ -1,0 +1,14 @@
+{
+  "ModelType": "Form",
+  "Code": "PartsForm",
+  "Name": "Карточка запчасти",
+  "Details": [
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\PartsInformation.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:PartsForm.form.js"
+  }
+}

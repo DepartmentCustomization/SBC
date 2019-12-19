@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "Report",
+  "Position": 1,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "ArrivalReport",
+  "Name": "Приход за отчетный период"
+}

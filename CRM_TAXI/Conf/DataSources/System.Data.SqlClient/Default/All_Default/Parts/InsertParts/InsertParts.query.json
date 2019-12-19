@@ -1,0 +1,30 @@
+{
+    "ModelType": "Query",
+    "Code": "InsertParts",
+    "Name": "InsertParts",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@category_id",
+        "Name": "category"
+      },
+      {
+        "Code": "@part_name",
+        "Name": "part_name"
+      },
+      {
+        "Code": "@articul",
+        "Name": "articul"
+      },
+      {
+        "Code": "@manufacturer",
+        "Name": "manufacturer"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

@@ -1,0 +1,31 @@
+{
+    "ModelType": "Query",
+    "Code": "MakePartChange",
+    "Name": "MakePartChange",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [],
+    "Parameters": [
+      {
+        "Code": "@part_id",
+        "Name": "part_id"
+      },
+      {
+        "Code": "@cars_id",
+        "Name": "cars_id"
+      },
+      {
+        "Code": "@invoice_consumption",
+        "Name": "invoice_consumption"
+      },
+      {
+        "Code": "@prev_part_id",
+        "Name": "prev_part_id"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

@@ -1,0 +1,22 @@
+{
+    "ModelType": "Query",
+    "Code": "InsertProviders",
+    "Name": "InsertProviders",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@provider",
+        "Name": "provider"
+      },
+      {
+        "Code": "@provider_conditions",
+        "Name": "provider_conditions"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

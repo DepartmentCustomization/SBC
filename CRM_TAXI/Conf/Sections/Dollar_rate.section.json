@@ -1,0 +1,12 @@
+{
+    "Add": {
+   "InsertQueryCode": "InsertDollar_rate"
+    },
+    "ModelType": "Section",
+    "Code": "Dollar_rate",
+    "Name": "Справочник курс доллара",
+    "FormCode": "Dollar_rateForm",
+    "SelectRowsQueryCode": "SelectAllDollar_rate",
+    "SelectRowQueryCode": "SelectDollar_rate",
+    "UpdateQueryCode": "UpdateDollar_rate"
+  }

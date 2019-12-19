@@ -1,0 +1,7 @@
+{
+  "DashboardGroupCode": "Report",
+  "Position": 5,
+  "ModelType": "Dashboard",
+  "Code": "CarChangeReport",
+  "Name": "Пробег и расход по конкретной машине"
+}

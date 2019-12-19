@@ -1,0 +1,29 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectPartsArrivalWithChange",
+    "Name": "SelectPartsArrivalWithChange",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+        {
+            "Code": "category_id",
+            "Name": "category_id",
+            "Position": 1,
+            "IsPrintable": false
+          },
+          {
+            "Code": "part_id",
+            "Name": "part_id",
+            "Position": 2,
+            "IsPrintable": false
+          }
+    ],
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      }
+    ]
+  }

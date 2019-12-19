@@ -1,0 +1,46 @@
+{
+    "ModelType": "Query",
+    "Code": "PartsFailedReport",
+    "Name": "PartsFailedReport",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": -1,
+        "IsPrintable": false
+      },
+      {
+        "Code": "part_name",
+        "Name": "part_name",
+        "Position": 0,
+        "IsPrintable": false
+      },
+      {
+        "Code": "manufacturer",
+        "Name": "manufacturer",
+        "Position": 1,
+        "IsPrintable": false
+      },
+      {
+        "Code": "provider",
+        "Name": "provider",
+        "Position": 2,
+        "IsPrintable": false
+      },
+      {
+        "Code": "fact_run",
+        "Name": "fact_run",
+        "Position": 3,
+        "IsPrintable": false
+      },
+      {
+        "Code": "cars_name",
+        "Name": "cars_name",
+        "Position": 4,
+        "IsPrintable": false
+      }
+    ],
+    "Parameters": []
+  }

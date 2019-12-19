@@ -1,0 +1,20 @@
+{
+    "ModelType": "Query",
+    "Code": "CheckUserRole",
+    "Name": "CheckUserRole",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@userId",
+        "Name": "userId",
+        "ParameterType": "CurrentUserId"
+      }
+    ],
+    "Columns": [
+        {
+            "Code": "roleName",
+            "Name": "roleName"
+          } 
+    ]
+  }

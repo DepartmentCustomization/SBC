@@ -1,0 +1,86 @@
+{
+  "ModelType": "Query",
+  "Code": "ChangeOnDateReport",
+  "Name": "ChangeOnDateReport",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": -1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "part_name",
+      "Name": "part_name",
+      "Position": 0,
+      "IsPrintable": false,
+      "SqlName": "part_name",
+      "FilterParameterCode": "@part_name"
+    },
+    {
+      "Code": "articul",
+      "Name": "articul",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "articul",
+      "FilterParameterCode": "@articul"
+    },
+    {
+      "Code": "manufacturer",
+      "Name": "manufacturer",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "provider",
+      "Name": "provider",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "run_km_period",
+      "Name": "run_km_period",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "run_day_period",
+      "Name": "run_day_period",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cars_number",
+      "Name": "cars_number",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "part_price",
+      "Name": "part_price",
+      "Position": 7,
+      "IsPrintable": false
+    },
+    {
+      "Code": "qty",
+      "Name": "qty",
+      "Position": 8,
+      "IsPrintable": false
+    },
+    {
+      "Code": "sum_price",
+      "Name": "sum_price",
+      "Position": 9,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@dateTo",
+      "Name": "dateTo",
+      "ParameterType": "DateTime"
+    }
+  ]
+}

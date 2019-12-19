@@ -1,0 +1,28 @@
+{
+    "ModelType": "Query",
+    "Code": "UpdateProviders",
+    "Name": "UpdateProviders",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      },
+      {
+        "Code": "@provider",
+        "Name": "provider"
+      },
+      {
+        "Code": "@provider_conditions",
+        "Name": "provider_conditions"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

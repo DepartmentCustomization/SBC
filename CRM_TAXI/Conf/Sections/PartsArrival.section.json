@@ -1,0 +1,9 @@
+{
+    "ModelType": "Section",
+    "Code": "PartsArrival",
+    "Name": "Приход запчастей",
+    "FormCode": "PartsArrivalForm",
+    "SelectRowsQueryCode": "SelectAllPartsArrival",
+    "SelectRowQueryCode": "SelectPartsArrival",
+    "UpdateQueryCode": "UpdatePartsArrival"
+}

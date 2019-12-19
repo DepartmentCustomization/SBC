@@ -1,0 +1,14 @@
+{
+  "ModelType": "Form",
+  "Code": "PartsArrivalForm",
+  "Name": "Карточка прихода",
+  "Details": [
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\PartsArrivalInformation.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:PartsArrivalForm.form.js"
+  }
+}

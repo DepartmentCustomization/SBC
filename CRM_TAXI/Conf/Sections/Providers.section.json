@@ -1,0 +1,12 @@
+{
+    "Add": {
+   "InsertQueryCode": "InsertProviders"
+    },
+    "ModelType": "Section",
+    "Code": "Providers",
+    "Name": "Справочник поставщиков",
+    "FormCode": "ProvidersForm",
+    "SelectRowsQueryCode": "SelectAllProviders",
+    "SelectRowQueryCode": "SelectProviders",
+    "UpdateQueryCode": "UpdateProviders"
+  }

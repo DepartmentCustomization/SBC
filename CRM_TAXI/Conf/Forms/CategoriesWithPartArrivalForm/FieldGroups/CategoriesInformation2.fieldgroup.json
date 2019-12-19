@@ -1,0 +1,49 @@
+{
+  "Code": "CategoriesInformation2",
+  "Name": "Данные",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "category_name",
+      "Name": "Название",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 2,
+      "Width": "99%",
+      "Icon": "bookmark"
+    },
+    {
+      "Code": "operational_period_km",
+      "Name": "Период эксплуатации (км)",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 3,
+      "Width": "33%"
+    },
+    {
+      "Code": "operational_period_day",
+      "Name": "Период эксплуатации (дни)",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 4,
+      "Width": "33%"
+    },
+    {
+      "Code": "available",
+      "Name": "Остаток на складе",
+      "FieldType": "number",
+      "Position": 5,
+      "IsRequired": true,
+      "Width": "33%"
+    },
+    {
+      "Code": "category_description",
+      "Name": "Описание",
+      "FieldType": "textarea",
+      "Rows": 3,
+      "IsRequired": false,
+      "Position": 6,
+      "Width": "99%"
+    }
+  ]
+}

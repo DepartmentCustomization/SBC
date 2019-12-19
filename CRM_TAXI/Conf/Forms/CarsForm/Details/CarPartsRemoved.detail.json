@@ -1,0 +1,15 @@
+{
+    "ModelType": "Detail",
+    "Code": "CarPartsRemoved",
+    "Name": "Список ранее используемых запчастей",
+    "SelectRowsQueryCode": "SelectRemovedCarParts",
+    "SectionCode": "",
+    "Position": 3,
+    "IsExpand": true,
+    "QueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Id"
+      }
+    ]
+  }

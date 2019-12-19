@@ -1,0 +1,45 @@
+{
+    "ModelType": "Query",
+    "Code": "List_PartsArticul",
+    "Name": "List_PartsArticul",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+        {
+            "Code": "Id",
+            "Name": "Id",
+            "Position": 1,
+            "ViewState": "Hidden",
+            "IsPrintable": false
+          },
+          {
+            "Code": "articul",
+            "Name": "Артикул",
+            "Position": 2
+          },
+          {
+            "Code": "part_name",
+            "Name": "Название",
+            "Position": 2
+          }
+    ],
+    "Parameters": [
+      {
+        "Code": "@categoryId",
+        "Name": "categoryId",
+        "ParameterType": "Integer"
+      },
+      {
+        "Code": "@pageLimitRows",
+        "Name": "pageLimitRows",
+        "ParameterType": "Integer",
+        "IsPageLimitRows": true
+      },
+      {
+        "Code": "@pageOffsetRows",
+        "Name": "pageOffsetRows",
+        "ParameterType": "Integer",
+        "IsPageOffsetRows": true
+      }
+    ]
+  }

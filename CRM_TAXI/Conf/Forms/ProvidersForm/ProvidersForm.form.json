@@ -1,0 +1,14 @@
+{
+  "ModelType": "Form",
+  "Code": "ProvidersForm",
+  "Name": "Карточка поставщика",
+  "Details": [
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\ProvidersInformation.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:ProvidersForm.form.js"
+  }
+}

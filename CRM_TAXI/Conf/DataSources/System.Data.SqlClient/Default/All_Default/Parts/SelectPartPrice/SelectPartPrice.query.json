@@ -1,0 +1,22 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectPartPrice",
+    "Name": "SelectPartPrice",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+        {
+            "Code": "part_price",
+            "Name": "part_price",
+            "Position": 1,
+            "IsPrintable": false
+          }
+    ],
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer"
+      }
+    ]
+  }

@@ -1,0 +1,8 @@
+{
+  "Icon": "chrome_reader_mode",
+  "Position": 1,
+  "IconColor": "green",
+  "ModelType": "DashboardGroup",
+  "Code": "Report",
+  "Name": "Отчёты"
+}

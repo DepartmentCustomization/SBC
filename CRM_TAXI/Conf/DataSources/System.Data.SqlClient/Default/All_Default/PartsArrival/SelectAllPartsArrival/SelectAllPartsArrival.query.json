@@ -1,0 +1,102 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectAllPartsArrival",
+    "Name": "SelectAllPartsArrival",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": 1,
+        "ViewState": "Hidden",
+        "IsPrintable": false
+      },
+      {
+        "Code": "invoice_number",
+        "Name": "Номер накладной",
+        "Position": 2,
+        "IsPrintable": false,
+        "SqlName": "invoice_number",
+        "FilterParameterCode": "@invoice_number"
+      },
+      {
+        "Code": "create_date",
+        "Name": "Дата поступления",
+        "Position": 3,
+        "IsPrintable": false,
+        "SqlName": "pa.create_date",
+        "FilterParameterCode": "@create_date"
+      },
+      {
+        "Code": "part_name",
+        "Name": "Название",
+        "Position": 3,
+        "IsPrintable": false,
+        "SqlName": "p.part_name",
+        "FilterParameterCode": "@part_name"
+      },
+      {
+        "Code": "articul",
+        "Name": "Артикул",
+        "Position": 4,
+        "IsPrintable": false,
+        "SqlName": "p.articul",
+        "FilterParameterCode": "@articul"
+      },
+      {
+        "Code": "manufacturer",
+        "Name": "Производитель",
+        "Position": 5,
+        "IsPrintable": false,
+        "SqlName": "p.manufacturer",
+        "FilterParameterCode": "@manufacturer"
+      },
+      {
+        "Code": "provider",
+        "Name": "Поставщик",
+        "Position": 6,
+        "IsPrintable": false,
+        "SqlName": "pr.[provider]",
+        "FilterParameterCode": "@provider"
+      },
+      {
+        "Code": "part_price",
+        "Name": "Цена",
+        "Position": 7,
+        "IsPrintable": false,
+        "SqlName": "pa.part_price",
+        "FilterParameterCode": "@part_price"
+      },
+      {
+        "Code": "part_quantity",
+        "Name": "Количество",
+        "Position": 8,
+        "IsPrintable": false,
+        "SqlName": "pa.part_quantity",
+        "FilterParameterCode": "@part_quantity"
+      },
+      {
+        "Code": "sum_price",
+        "Name": "Стоимость",
+        "Position": 8,
+        "IsPrintable": false,
+        "SqlName": "pa.part_price * pa.part_quantity",
+        "FilterParameterCode": "@sum_price"
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@pageOffsetRows",
+        "Name": "pageOffsetRows",
+        "ParameterType": "Integer",
+        "IsPageOffsetRows": true
+      },
+      {
+        "Code": "@pageLimitRows",
+        "Name": "pageLimitRows",
+        "ParameterType": "Integer",
+        "IsPageLimitRows": true
+      }
+    ]
+  }

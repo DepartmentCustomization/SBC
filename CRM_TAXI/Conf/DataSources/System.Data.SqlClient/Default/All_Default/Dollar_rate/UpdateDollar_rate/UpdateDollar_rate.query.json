@@ -1,0 +1,28 @@
+{
+    "ModelType": "Query",
+    "Code": "UpdateDollar_rate",
+    "Name": "UpdateDollar_rate",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      },
+      {
+        "Code": "@dollar_date",
+        "Name": "dollar_date"
+      },
+      {
+        "Code": "@dollar_rate",
+        "Name": "dollar_rate"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

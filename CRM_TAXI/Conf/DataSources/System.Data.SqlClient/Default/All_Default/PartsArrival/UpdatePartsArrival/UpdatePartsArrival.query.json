@@ -1,0 +1,40 @@
+{
+    "ModelType": "Query",
+    "Code": "UpdatePartsArrival",
+    "Name": "UpdatePartsArrival",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      },
+      {
+        "Code": "@articul",
+        "Name": "articul"
+      },
+      {
+        "Code": "@provider",
+        "Name": "provider"
+      },
+      {
+        "Code": "@invoice_number",
+        "Name": "invoice_number"
+      },
+      {
+        "Code": "@part_quantity",
+        "Name": "part_quantity"
+      },
+      {
+        "Code": "@part_price",
+        "Name": "part_price"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

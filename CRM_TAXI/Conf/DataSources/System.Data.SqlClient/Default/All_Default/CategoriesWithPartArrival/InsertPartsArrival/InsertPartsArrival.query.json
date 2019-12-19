@@ -1,0 +1,34 @@
+{
+    "ModelType": "Query",
+    "Code": "InsertPartsArrival",
+    "Name": "InsertPartsArrival",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@articul",
+        "Name": "part_id"
+      },
+      {
+        "Code": "@provider",
+        "Name": "provider"
+      },
+      {
+        "Code": "@invoice_number",
+        "Name": "invoice_number"
+      },
+      {
+        "Code": "@part_quantity",
+        "Name": "part_quantity"
+      },
+      {
+        "Code": "@part_price",
+        "Name": "part_price"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

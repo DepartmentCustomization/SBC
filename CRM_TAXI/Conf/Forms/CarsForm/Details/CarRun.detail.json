@@ -1,0 +1,15 @@
+{
+    "ModelType": "Detail",
+    "Code": "CarRun",
+    "Name": "Пробег",
+    "SelectRowsQueryCode": "SelectMonthCarRun",
+    "SectionCode": "",
+    "Position": 1,
+    "IsExpand": true,
+    "QueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Id"
+      }
+    ]
+  }

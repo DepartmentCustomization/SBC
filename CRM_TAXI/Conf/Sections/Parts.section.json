@@ -1,0 +1,12 @@
+{
+    "Add": {
+    "InsertQueryCode": "InsertParts"
+    },
+    "ModelType": "Section",
+    "Code": "Parts",
+    "Name": "Справочник запчастей",
+    "FormCode": "PartsForm",
+    "SelectRowsQueryCode": "SelectAllParts",
+    "SelectRowQueryCode": "SelectParts",
+     "UpdateQueryCode": "UpdateParts"
+  }

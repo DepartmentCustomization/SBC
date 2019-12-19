@@ -1,0 +1,15 @@
+{
+    "ModelType": "Detail",
+    "Code": "CategoriesPartsRemoved",
+    "Name": "Снятые с эксплуатации",
+    "SelectRowsQueryCode": "SelectCategoriesPartsRemoved",
+    "SectionCode": "",
+    "Position": 4,
+    "IsExpand": true,
+    "QueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Id"
+      }
+    ]
+  }

@@ -1,0 +1,14 @@
+{
+  "ModelType": "Form",
+  "Code": "PartsChangeForm",
+  "Name": "Карточка расхода",
+  "Details": [
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\PartsChangeInformation.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:PartsChangeForm.form.js"
+  }
+}

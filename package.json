@@ -1,0 +1,27 @@
+{
+  "name": "sbc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "hook-config": "git config core.hooksPath .\\.githooks",
+    "eslint-crm-taxi": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM_TAXI\\",
+    "eslint-crm-1551": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-1551\\",
+    "eslint-crm-jkh": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-JKH\\"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DepartmentCustomization/SBC.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DepartmentCustomization/SBC/issues"
+  },
+  "homepage": "https://github.com/DepartmentCustomization/SBC#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "tsqllint": "^1.11.0"
+  }
+}

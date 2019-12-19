@@ -1,0 +1,6 @@
+{
+    "ModelType": "QueryGroup",
+    "Code": "PartsChange",
+    "Name": "Расход",
+    "ConnectionCode": "Default"
+  }

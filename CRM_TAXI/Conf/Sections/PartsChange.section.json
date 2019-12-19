@@ -1,0 +1,9 @@
+{
+    "ModelType": "Section",
+    "Code": "PartsChange",
+    "Name": "Расход запчастей",
+    "FormCode": "PartsChangeForm",
+    "SelectRowsQueryCode": "SelectAllPartsChange",
+    "SelectRowQueryCode": "SelectPartsChange",
+    "UpdateQueryCode": "Remake_PartChange"
+}

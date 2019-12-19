@@ -1,0 +1,30 @@
+{
+    "ModelType": "Query",
+    "Code": "InsertCars",
+    "Name": "InsertCars",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+      {
+        "Code": "@cars_name",
+        "Name": "cars_name"
+      },
+      {
+        "Code": "@cars_number",
+        "Name": "cars_number"
+      },
+      {
+        "Code": "@cars_mark",
+        "Name": "cars_mark"
+      },
+      {
+        "Code": "@cars_year",
+        "Name": "cars_year"
+      },
+      {
+        "Code": "@user_id",
+        "Name": "user_id",
+        "ParameterType": "CurrentUserId"
+      }
+    ]
+  }

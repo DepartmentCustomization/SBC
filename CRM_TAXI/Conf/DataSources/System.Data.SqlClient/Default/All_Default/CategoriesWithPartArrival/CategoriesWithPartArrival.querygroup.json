@@ -1,0 +1,6 @@
+{
+    "ModelType": "QueryGroup",
+    "Code": "CategoriesWithPartArrival",
+    "Name": "Категории (приход)",
+    "ConnectionCode": "Default"
+  }

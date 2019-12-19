@@ -1,0 +1,39 @@
+{
+  "Code": "Dollar_rateInformation",
+  "Name": "Информация",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "dollar_date",
+      "Name": "Дата",
+      "FieldType": "date",
+      "IsRequired": true,
+      "Position": 2,
+      "Width": "50%"
+    },
+    {
+      "Code": "dollar_rate",
+      "Name": "Курс",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 3,
+      "Width": "50%"
+    },
+    {
+      "Code": "save_dollar_rate",
+      "Name": "Сохранить",
+      "FieldType": "button",
+      "Position": 11,
+      "Width": "30%",
+      "Icon": "save"
+    },
+    {
+      "Code": "clear_dollar_rate",
+      "Name": "Очистить",
+      "FieldType": "button",
+      "Position": 12,
+      "Width": "30%",
+      "Icon": "clear"
+    }
+  ]
+}

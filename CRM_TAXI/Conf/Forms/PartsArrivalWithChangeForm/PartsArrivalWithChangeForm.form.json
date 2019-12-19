@@ -1,0 +1,14 @@
+{
+  "ModelType": "Form",
+  "Code": "PartsArrivalWithChangeForm",
+  "Name": "Карточка списания",
+  "Details": [
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\PartsArrivalWithChange_Info.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:PartsArrivalWithChangeForm.form.js"
+  }
+}

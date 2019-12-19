@@ -1,0 +1,74 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectCategoriesPartsArrival",
+    "Name": "SelectCategoriesPartsArrival",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+        {
+            "Code": "Id",
+            "Name": "Id",
+            "Position": 1,
+            "ViewState": "Hidden",
+            "IsPrintable": false
+          },
+          {
+            "Code": "invoice_number",
+            "Name": "Номер прихода",
+            "Position": 2,
+            "IsPrintable": false,
+            "SqlName": "invoice_number",
+            "FilterParameterCode": "@invoice_number",
+            "ReferenceKeyCode": "Id",
+            "ReferenceSectionCode": "PartsArrival"
+          },
+          {
+            "Code": "part_name",
+            "Name": "Название",
+            "Position": 3,
+            "IsPrintable": false,
+            "SqlName": "part_name",
+            "FilterParameterCode": "@PartName"
+          },          
+          {
+            "Code": "arrival_date",
+            "Name": "Дата прихода",
+            "Position": 4,
+            "IsPrintable": false
+          },
+          {
+            "Code": "part_quantity",
+            "Name": "Кол-во",
+            "Position": 5,
+            "IsPrintable": false
+          },
+          {
+            "Code": "sum_price",
+            "Name": "Стоимость",
+            "Position": 6,
+            "IsPrintable": false,
+            "SqlName": "part_price",
+            "FilterParameterCode": "@PartPrice"
+          }
+    ],
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      },
+      {
+        "Code": "@pageLimitRows",
+        "Name": "pageLimitRows",
+        "ParameterType": "Integer",
+        "IsPageLimitRows": true
+      },
+      {
+        "Code": "@pageOffsetRows",
+        "Name": "pageOffsetRows",
+        "ParameterType": "Integer",
+        "IsPageOffsetRows": true
+      }
+    ]
+  }

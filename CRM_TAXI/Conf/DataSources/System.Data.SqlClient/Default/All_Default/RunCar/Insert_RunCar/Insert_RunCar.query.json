@@ -1,0 +1,15 @@
+{
+    "ModelType": "Query",
+    "Code": "Insert_RunCar",
+    "Name": "Insert_RunCar",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [],
+    "Parameters": [
+        {
+            "Code": "@user_id",
+            "Name": "user_id",
+            "ParameterType": "CurrentUserId"
+        }
+    ]
+}

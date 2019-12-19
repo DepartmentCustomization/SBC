@@ -1,0 +1,56 @@
+{
+    "ModelType": "Query",
+    "Code": "CarDetails_inUsage",
+    "Name": "CarDetails_inUsage",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+        {
+            "Code": "Id",
+            "Name": "Id",
+            "ViewState": "Hidden",
+            "Position": 0,
+            "IsPrintable": false
+        },
+        {
+            "Code": "articul",
+            "Name": "Артикул",
+            "Position": 1,
+            "IsPrintable": false
+        },
+        {
+            "Code": "part_name",
+            "Name": "Название",
+            "Position": 2
+        }
+    ],
+    "Parameters": [
+        {
+            "Code": "@car",
+            "Name": "car",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@category",
+            "Name": "category",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@changeId",
+            "Name": "changeId",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@pageLimitRows",
+            "Name": "pageLimitRows",
+            "ParameterType": "Integer",
+            "IsPageLimitRows": true
+        },
+        {
+            "Code": "@pageOffsetRows",
+            "Name": "pageOffsetRows",
+            "ParameterType": "Integer",
+            "IsPageOffsetRows": true
+        }
+    ]
+}

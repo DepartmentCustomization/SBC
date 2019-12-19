@@ -1,0 +1,14 @@
+{
+  "ModelType": "Form",
+  "Code": "CategoriesForm",
+  "Name": "Карточка категории",
+  "Details": [
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\CategoriesInformation.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:CategoriesForm.form.js"
+  }
+}

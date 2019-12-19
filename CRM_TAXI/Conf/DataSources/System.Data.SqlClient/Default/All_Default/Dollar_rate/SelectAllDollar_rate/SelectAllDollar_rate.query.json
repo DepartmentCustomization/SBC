@@ -1,0 +1,42 @@
+{
+    "ModelType": "Query",
+    "Code": "SelectAllDollar_rate",
+    "Name": "SelectAllDollar_rate",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": 1,
+        "ViewState": "Hidden",
+        "IsPrintable": false
+      },
+      {
+        "Code": "dollar_date",
+        "Name": "Дата",
+        "Position": 2,
+        "IsPrintable": false
+      },
+      {
+        "Code": "dollar_rate",
+        "Name": "Курс",
+        "Position": 3,
+        "IsPrintable": false
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@pageOffsetRows",
+        "Name": "pageOffsetRows",
+        "ParameterType": "Integer",
+        "IsPageOffsetRows": true
+      },
+      {
+        "Code": "@pageLimitRows",
+        "Name": "pageLimitRows",
+        "ParameterType": "Integer",
+        "IsPageLimitRows": true
+      }
+    ]
+  }

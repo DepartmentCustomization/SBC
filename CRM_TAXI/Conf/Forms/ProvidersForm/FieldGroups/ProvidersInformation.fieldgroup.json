@@ -1,0 +1,40 @@
+{
+  "Code": "ProvidersInformation",
+  "Name": "Информация",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "provider",
+      "Name": "Поставщик",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 2,
+      "Width": "100%"
+    },
+    {
+      "Code": "provider_conditions",
+      "Name": "Условия сотрудничества",
+      "FieldType": "textarea",
+      "Rows": 3,
+      "IsRequired": false,
+      "Position": 3,
+      "Width": "100%"
+    },
+    {
+      "Code": "save_provider",
+      "Name": "Сохранить",
+      "FieldType": "button",
+      "Position": 11,
+      "Width": "30%",
+      "Icon": "save"
+    },
+    {
+      "Code": "clear_provider",
+      "Name": "Очистить",
+      "FieldType": "button",
+      "Position": 12,
+      "Width": "30%",
+      "Icon": "clear"
+    }
+  ]
+}

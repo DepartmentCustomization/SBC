@@ -1,0 +1,76 @@
+{
+  "ModelType": "Query",
+  "Code": "SelectCarParts",
+  "Name": "SelectCarParts",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+      {
+          "Code": "Id",
+          "Name": "Id",
+          "Position": 1,
+          "ViewState": "Hidden",
+          "IsPrintable": false
+        },
+        {
+          "Code": "partName",
+          "Name": "Название",
+          "Position": 3,
+          "IsPrintable": false,
+          "SqlName": "p.[part_name]",
+          "FilterParameterCode": "@PartName",
+          "ReferenceKeyCode": "Id",
+          "ReferenceSectionCode": "Parts"
+        },
+        {
+          "Code": "articul",
+          "Name": "Артикул",
+          "Position": 4,
+          "IsPrintable": false,
+          "SqlName": "p.articul",
+          "FilterParameterCode": "@Articul"
+        },
+        {
+          "Code": "install_date",
+          "Name": "Дата установки",
+          "Position": 5,
+          "IsPrintable": false,
+          "SqlName": "pc.install_date",
+          "FilterParameterCode": "@InstallDate"
+        },
+        {
+          "Code": "partQty",
+          "Name": "Кол-во",
+          "Position": 4,
+          "IsPrintable": false
+        },
+        {
+          "Code": "part_price",
+          "Name": "Стоимость",
+          "Position": 5,
+          "IsPrintable": false,
+          "SqlName": "p.part_price",
+          "FilterParameterCode": "@PartPrice"
+        }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

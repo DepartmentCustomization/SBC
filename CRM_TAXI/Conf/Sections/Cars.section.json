@@ -1,0 +1,12 @@
+{
+    "Add": {
+    "InsertQueryCode": "InsertCars"
+    },
+    "ModelType": "Section",
+    "Code": "Cars",
+    "Name": "Справочник автомобилей",
+    "FormCode": "CarsForm",
+    "SelectRowsQueryCode": "SelectAllCars",
+    "SelectRowQueryCode": "SelectCars",
+     "UpdateQueryCode": "UpdateCars"
+  }

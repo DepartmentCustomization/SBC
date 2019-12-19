@@ -1,0 +1,53 @@
+{
+	"ModelType":"Query",
+	"Code":"Import_RunCar_SelectRows",
+	"Name":"Import_RunCar_SelectRows",
+	"ConnectionCode":"Default",
+	"Sql":"string:Import_RunCar_SelectRows.sql",
+	"Columns": [
+		{
+			"Code": "Id",
+			"Name": "Id",
+			"Position": 0,
+			"IsPrintable": false
+		  },
+		{
+		  "Code": "cars_name",
+		  "Name": "Позывной",
+		  "Position": 1,
+		  "IsPrintable": false
+		},
+		{
+		  "Code": "run_km",
+		  "Name": "Пробег",
+		  "Position": 2,
+		  "IsPrintable": false
+		},
+		{
+		  "Code": "import_month_qty",
+		  "Name": "Загрузок по авто в этом месяце",
+		  "Position": 3,
+		  "IsPrintable": false
+		},
+		{
+		  "Code": "run_km_more",
+		  "Name": "Сопоставление пробега",
+		  "Position": 4,
+		  "IsPrintable": false
+		}
+	  ],
+	"Parameters": [
+		{
+		  "Code": "@pageLimitRows",
+		  "Name": "pageLimitRows",
+		  "ParameterType": "Integer",
+		  "IsPageLimitRows": true
+		},
+		{
+		  "Code": "@pageOffsetRows",
+		  "Name": "pageOffsetRows",
+		  "ParameterType": "Integer",
+		  "IsPageOffsetRows": true
+		}
+	]
+}
