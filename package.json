@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "hook-config": "git config core.hooksPath .\\.githooks",
-    "eslint-crm-taxi": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM_TAXI\\",
-    "eslint-crm-1551": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-1551\\",
-    "eslint-crm-jkh": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-JKH\\"
+    "eslint-crm-taxi": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM_TAXI\\ --format .\\node_modules\\eslint-teamcity\\index.js",
+    "eslint-crm-1551": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-1551\\ --format .\\node_modules\\eslint-teamcity\\index.js",
+    "eslint-crm-jkh": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-JKH\\ --format .\\node_modules\\eslint-teamcity\\index.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
   "homepage": "https://github.com/DepartmentCustomization/SBC#readme",
   "dependencies": {},
   "devDependencies": {
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
+    "eslint-teamcity": "^2.2.0",
     "tsqllint": "^1.11.0"
   }
 }
