@@ -9,6 +9,12 @@
     "eslint-crm-1551": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-1551\\ --format .\\node_modules\\eslint-teamcity\\index.js",
     "eslint-crm-jkh": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-JKH\\ --format .\\node_modules\\eslint-teamcity\\index.js"
   },
+  "eslint-teamcity": {
+    "reporter": "inspections",
+    "report-name": "My ESLint Violations",
+    "error-statistics-name": "My ESLint Error Count",
+    "warning-statistics-name": "My ESLint Warning Count"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DepartmentCustomization/SBC.git"
