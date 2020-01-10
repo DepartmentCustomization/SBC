@@ -34,12 +34,15 @@
         data.rows.forEach( el => {
             let reportTitle = el.values[2];
             let linkToReport = el.values[1];
+            
             let reportListItem = this.createElement('div', { className: 'reportListItem', link: linkToReport, innerText: reportTitle });
             reportListWrap.appendChild(reportListItem);
+            
             reportListItem.addEventListener( 'click', event => {
                let target = event.currentTarget;
                window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/"+target.link);
             });
+            
         });
     },
 	createElement: function(tag, props, ...children) {

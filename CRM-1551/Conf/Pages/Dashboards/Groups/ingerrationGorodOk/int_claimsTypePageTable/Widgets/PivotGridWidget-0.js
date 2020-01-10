@@ -77,6 +77,7 @@
         showBorders: true,
         showColumnLines: true,
         showRowLines: true,
+
         remoteOperations: null,
         allowColumnReordering: null,
         rowAlternationEnabled: null,
@@ -99,12 +100,15 @@
         this.loadData(this.afterLoadDataHandler);
         // for example
         // this.subscribeToDataGridActions();
+        
         // this.sub = this.messageService.subscribe('clickOnStreets', this.changeOnTable, this);
-        let that = this;    
+            
+        var that = this;    
         this.dataGridInstance.onRowUpdating.subscribe( function(e) {
             console.log(e.key);
             console.log(e.oldData);
             console.log(e.newData);
+            
             let is_done = e.newData.is_done;
             let key = e.key;
             let id_1551 = e.oldData.id_1551;
@@ -112,6 +116,7 @@
             let comment = e.newData.comment;
             let cat_id = e.oldData.cat_id;
             console.log ('Is_done: ' + is_done + '  key: '+ key + '  id_1551: ' + id_1551 + '  comment: ' + comment);
+            
             let saveChange = {
                 queryCode: 'int_btnSaveChange_claims_typeGorodok',
                 limit: -1,
@@ -131,12 +136,15 @@
                     }
                 ]
             };
+            
             this.queryExecutor(saveChange);
         // this.loadData(this.afterLoadDataHandler);
+            
         }.bind(this));
     },
     afterLoadDataHandler: function(data) {
         this.render();
+        
         // this.createCustomStyle();
     },
     createElement: function(tag, props, ...children) {
@@ -149,13 +157,16 @@
         } return element;
     },       
     createCustomStyle:function(){
+        
         let element = document.querySelector('.dx-datagrid-save-button');
         element.style.marginRight = '9px';
         element.style.backgroundColor = '#5cb85c';
+        
         // let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Зберегти'});
         element.firstElementChild.firstElementChild.style.color = '#fff';
         element.firstElementChild.lastElementChild.style.color = '#fff';
         element.parentElement.parentElement.classList.remove('dx-toolbar-text-auto-hide');
+
     },
     subscribeToDataGridActions: function() {
         // subscribe to data list actions here

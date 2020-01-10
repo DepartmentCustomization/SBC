@@ -72,24 +72,29 @@
         } return element;
     },
     afterViewInit: function(data) {
+        
+        
         const searchContainer = document.getElementById('searchContainer');
         const searchContainer__input = this.createElement( 'input', {className: 'searchBlock', id: 'searchContainer__input', placeholder: 'Пошук за номером'});
         const searchContainer__btn = this.createElement( 'button', {className: 'searchBlock', id: 'searchContainer__btn', innerText: 'Знайти'});
         const searchHeader = this.createElement( 'div', {className: 'searchHeader', id: 'searchHeader'}, searchContainer__input,  searchContainer__btn);
         searchContainer.appendChild(searchHeader);
+        
         searchContainer__input.addEventListener('input', event =>  {
             if(searchContainer__input.value.length == 0 ){
                 this.resultSearch('clearInput', 0);
             }
         });
+        
         searchContainer__btn.addEventListener('click', event => {
-            let valueForSearch = document.getElementById('searchContainer__input').value;
-            let self = this;
+            var valueForSearch = document.getElementById('searchContainer__input').value;
+            var self = this;
             this.resultSearch('resultSearch', valueForSearch);
         });
     },
     resultSearch: function(message, valueForSearch){
         this.messageService.publish({name: message, value: valueForSearch});
+
     }
 };
 }());

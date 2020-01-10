@@ -42,6 +42,7 @@
             this.messageService.publish( {name: 'setData', rep1_data: data} );
             this.render();
         },
+
         destroy: function () {
             this.sub.unsubscribe();
         }

@@ -14,6 +14,7 @@
             }
         }
         this.messageService.publish(message);
+        
     },
     initValue: function() {
         const weekAgo = 1000*60*60*24*7;
@@ -25,6 +26,7 @@
         }
         this.setDefaultValue(defaultValue);
     },
+    
     init: function() {
         // const weekAgo = 1000*60*60*24*7;
         // const currentDate = new Date();

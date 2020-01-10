@@ -161,6 +161,7 @@
     init: function() {
     },
     initValue: function(){
+        
     },
     load: function(data) {
     },
@@ -180,5 +181,6 @@
       // btn.addEventListener( "click", number )
     }
 }
+
 ;
 }());

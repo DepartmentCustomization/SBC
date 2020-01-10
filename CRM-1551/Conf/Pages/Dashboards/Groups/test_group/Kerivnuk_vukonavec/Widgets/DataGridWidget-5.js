@@ -159,12 +159,16 @@
     sub: [],
     sub1: [],
     sub2: [],
+    
     containerCell: [],
     init: function() {
         // 1. подписываешься ена сообщение и вызываешь коллбекфанк init2
         this.sub = this.messageService.subscribe('GlobalFilterChanged', this.init2, this);
         this.sub1 = this.messageService.subscribe('clickOnTable3', this.queryForTable2, this);
         this.sub2 = this.messageService.subscribe('reloadAssignmentsTable', this.reloadAfterSend, this);
+       
+       
+       
         if(window.location.search == ''){
             let executeQuery = {
                 queryCode: 'organization_name',
@@ -173,15 +177,16 @@
             };
             this.queryExecutor(executeQuery, this.userOrganization, this);
             // 2.1. если нет то дергаешь запрос (получаешь знач в коллбекфанк "ОрганизацияТекущегоЮзера") и заприсываешь её в глоьб переменную + создвешь параметр урл
+            
         }else{
             // 2.2 если есть значе заприсываешь её в глоб переменную ГлобПекременнаяОрганизации 
-            let getUrlParams = window
+            var getUrlParams = window
                             .location
                                 .search
                                     .replace('?', '')
                                         .split('&')
                                             .reduce(function(p, e) {
-                                                      let a = e.split('=');
+                                                      var a = e.split('=');
                                                       p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                                                       return p;
                                                     }, {}
@@ -190,11 +195,14 @@
             this.organizationId = [];
             this.organizationId = (tabInd);
             // this.sendOrgId('sendOrgId', this.organizationId);
+
             console.log(this.organizationId);
             this.config.query.queryCode = 'table2';
             this.config.query.parameterValues = [ { key: '@organization_id',  value: this.organizationId} ];
             this.loadData(this.afterLoadDataHandler);
+            
             this.sendMessOrganizationId('organizationId', this.organizationId);
+            
             let executeQuery = {
                 queryCode: 'organization_name',
                 parameterValues: [{ key: '@organizationId',  value: this.organizationId}],
@@ -211,6 +219,7 @@
         this.organizationId = (data.rows[0].values[indexOfTypeId]);
         this.distribute = (data.rows[0].values[indexOfTypeDistribute]);
         console.log(this.distribute)
+        
         this.messageService.publish({name: 'messageWithOrganizationId', value: this.organizationId, distribute:  this.distribute});
         // this.sendOrgId('sendOrgId', this.organizationId);
         document.getElementById('organizationName').value = (data.rows[0].values[indexOfTypeId]);
@@ -251,8 +260,10 @@
     queryForTable2: function(message){
         this.config.query.parameterValues = [{ key: '@organization_id',  value: message.value} ];
         this.loadData(this.afterLoadDataHandler);
+        
         document.getElementById('table2__mainTable').style.display = 'block';
         document.getElementById('table3__organization').style.display = 'none';
+        
         let executeQuery = {
             queryCode: 'organization_name',
             parameterValues: [ { key: '@organizationId',  value: message.value} ],

@@ -67,6 +67,7 @@
         this.sub1 = this.messageService.subscribe( 'findFilterColumns', this.reloadTable, this );
         this.loadData(this.afterLoadDataHandler);
         this.config.onToolbarPreparing = this.createButtons.bind(this);
+        
         this.dataGridInstance.onCellClick.subscribe( function(e) {
             if(e.column.dataField == "question_registration_number" && e.row != undefined){
                 this.goToSection('Assignments/edit/'+e.key+'');
@@ -88,7 +89,7 @@
     myCreateExcel: function(data){
         this.showPagePreloader('Зачекайте, формується документ');
         this.indexArr = [];
-        let columns = this.config.columns;columns.forEach( el => {
+        var columns = this.config.columns;columns.forEach( el => {
             let elDataField = el.dataField;
             let elCaption = el.caption;
             for ( i = 0; i < data.columns.length; i ++){
@@ -130,14 +131,17 @@
         worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
         worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
+        
         worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'left' };
         worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'left' };
-        let indexArr = this.indexArr;
-        let rows = [];
-        let captions = [];
-        let columnsHeader = [];
+        
+     
+        var indexArr = this.indexArr;
+        var rows = [];
+        var captions = [];
+        var columnsHeader = [];
         let columnNumber = {
             key: 'number',
             width: 5
@@ -195,13 +199,15 @@
         });
         worksheet.getRow(5).values = captions;
         worksheet.columns = columnsHeader;
+        
         this.addetedIndexes = [];
         for( let  j = 0; j < data.rows.length; j ++ ){  
             var row = data.rows[j];
-            let rowArr = [];
-            let rowItem = { number: j + 1 };
+            var rowArr = [];
+            var rowItem = { number: j + 1 };
+            
             for( i = 0; i < indexArr.length; i ++){
-                let el = indexArr[i];
+                var el = indexArr[i];
                 if( el.name === 'question_registration_number'  ){
                     rowItem.registration_number = row.values[el.index] + ' ' + row.values[33];
                 }else if(el.name === 'zayavnyk_full_name' ){
@@ -297,15 +303,15 @@
                         case 'execution_term':
                             rowItem.execution_term = row.values[el.index]
                             break
-                    }
+                    };
                     this.addetedIndexes.push(prop);
                 }
-            }
+            };
             rows.push( rowItem );
-        }
+        };
         rows.forEach( el => {
             let number = el.number + '.'
-            let row = {
+            var row = {
                 number: number,
                 name: el.name,
                 registration_number: el.registration_number,
@@ -314,7 +320,7 @@
                 object: el.object
             }
             let indexes = this.addetedIndexes;
-            let size = Object.keys(el).length
+            var size = Object.keys(el).length
             for( i = 0; i <size - 6 ; i ++ ){
                 let prop = indexes[i];
                 switch(prop) {
@@ -399,10 +405,11 @@
                     case 'execution_term':
                         row.execution_term =  el.execution_term
                         break
-                }
+                };
             }
             worksheet.addRow(row);
         });
+        
         for(let  i = 0; i < rows.length + 1; i++ ){
             let number = i + 5 ;
             var row = worksheet.getRow(number);
@@ -425,7 +432,8 @@
                 bold: false ,
                 italic: false
             };
-        }
+        };
+        
         worksheet.getRow(2).border = {
             bottom: {style:'thin'}
         };
@@ -434,9 +442,10 @@
         this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
     },
     setFiltersValue:function(message) {
+
         this.filtersValues = [];
         this.filtersValuesMacros = [];
-        let elem = message.package.value.values;
+        var elem = message.package.value.values;
         elem.forEach( elem => { 
             if( elem.value == true){
                 // this.createObj( elem.name, 0, elem.value); 
@@ -473,18 +482,20 @@
         });
         function checkDateFrom(val){
             return val ? val.dateFrom : null;
-        }
+        };
         function checkDateTo(val){
             return val ? val.dateTo : null;
-        }
+        };
     },
     findAllCheckedFilter: function(){
         let filters = this.filtersValuesMacros;
         if( filters.length > 0 ){
+            
             this.textFilterMacros = [];
             filters.forEach( function(el){
               this.createFilterMacros( el.code, el.operation, el.value);
             }.bind(this));
+            
             let arr = this.textFilterMacros;
             let str = arr.join(' ');
             let macrosValue = str.slice(0, -4);
@@ -494,11 +505,13 @@
                 name: 'filters',
                 value: this.filtersValuesMacros
             });
+            
             this.config.query.parameterValues = [ {  key: '@param1', value: macrosValue } ];
             this.loadData(this.afterLoadDataHandler);
         }else{
             this.config.query.parameterValues = [{ key: '@param1', value: '1=1'}];
             this.loadData(this.afterLoadDataHandler);
+            
             this.messageService.publish( { 
                 name: 'filters',
                 value: this.filtersValuesMacros
@@ -513,10 +526,12 @@
         }else if(  operation == '='){
             var textMacros = ""+code+" "+operation+" N'"+value+"' and";
         }else if( operation == '>=' || operation == '<=' ){
+            
             let currentDate = value;
             let year = currentDate.getFullYear();
             let month = currentDate.getMonth();
             let date = currentDate.getDate();
+            
             let monthStr = month.toString();
             if(monthStr.length == 1 ){
                 month = '0'+monthStr;
@@ -543,6 +558,7 @@
     },
     reloadTable: function(message){
         this.config.columns = [];
+        
         this.config.columns = [
             {
                 dataField: 'question_registration_number',
@@ -608,7 +624,8 @@
         this.filtersValues.push(obj);
     },
     createButtons: function(e) {
-        let toolbarItems = e.toolbarOptions.items;
+            
+        var toolbarItems = e.toolbarOptions.items;
         toolbarItems.push({
             widget: "dxButton", 
             options: { 
@@ -621,6 +638,7 @@
             },
             location: "after"
         });
+
         toolbarItems.push({
             widget: "dxButton", 
             options: { 

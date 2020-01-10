@@ -14,13 +14,14 @@
     },
     init: function() {
         this.dataGridInstance.height = window.innerHeight - 100;   
+
         const getUrlParams = window
                             .location
                                 .search
                                     .replace('?', '')
                                         .split('&')
                                             .reduce(function(p, e) {
-                                                let a = e.split('=');
+                                                var a = e.split('=');
                                                 p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                                                 return p;
                                             }, {}
@@ -29,12 +30,14 @@
         const date = getUrlParams.date;
         const ratingId = Number(getUrlParams.ratingid);
         const rdaId = Number(getUrlParams.rdaid);
+
         this.config.query.parameterValues = [
             {key: '@CalcDate' , value: '2019-10-16' },
             {key: '@RDAId', value: rdaId },  
             {key: '@RatingId', value: ratingId },
             {key: '@ColumnCode', value: columnCode } 
         ];
+
         let exportQuery = {
             queryCode: this.config.query.code,
             limit: -1,

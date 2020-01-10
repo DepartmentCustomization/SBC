@@ -6,6 +6,7 @@
         },
         init: function() {
             document.getElementById('summary__table').style.display = 'none';
+            
             this.sub = this.messageService.subscribe( 'ApplyGlobalFilters', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe( 'renderTable', this.renderTable, this);
             this.sub2 = this.messageService.subscribe( 'GlobalFilterChanged', this.setBtnState, this);
@@ -19,10 +20,12 @@
                 }
             };
             this.messageService.publish(msg);  
+            
             const query = this.getQueryOptions();
             this.getChunkedValues(query, this.setData, this);
         },
         setData: function(values) {
+
             indexRegistration_date = values[0].findIndex(el => el.code.toLowerCase() === 'registration_date');
             indexVykon_date = values[0].findIndex(el => el.code.toLowerCase() === 'vykon_date');
             indexClose_date = values[0].findIndex(el => el.code.toLowerCase() === 'close_date');
@@ -45,8 +48,12 @@
             indexQuestionStateOnCheck = values[0].findIndex(el => el.code.toLowerCase() === 'stateoncheck');
             indexQuestionStateOnRefinement = values[0].findIndex(el => el.code.toLowerCase() === 'stateonrefinement');
             indexQuestionStateClose = values[0].findIndex(el => el.code.toLowerCase() === 'stateclose');
+            indexQuestionObject = values[0].findIndex(el => el.code.toLowerCase() === 'objectname');
+            indexQuestionResolution = values[0].findIndex(el => el.code.toLowerCase() === 'resolution');
+            indexQuestionResult = values[0].findIndex(el => el.code.toLowerCase() === 'result');
+
             const columns = values.shift();
-            const reportData = values.map((row, index) => ({ 
+            const reportData = values.map((row, index) => ({
                 "Батькiвська 1 рiвень": values[index][indexOrgatization_Level_1],
                 "Батькiвська 2 рiвень": values[index][indexOrgatization_Level_2],
                 "Батькiвська 3 рiвень": values[index][indexOrgatization_Level_3],
@@ -69,6 +76,10 @@
                 "Стан питання. На перевірці": values[index][indexQuestionStateOnCheck],
                 "Стан питання. На доопрацюванні": values[index][indexQuestionStateOnRefinement],
                 "Стан питання. Закрито": values[index][indexQuestionStateClose],
+                "Об'єкт питання": values[index][indexQuestionObject],
+                "Резолюція": values[index][indexQuestionResolution],
+                "Результат": values[index][indexQuestionResult]
+
             }));
             const report = {
                 dataSource: {
@@ -113,22 +124,28 @@
             let organization = message.package.value.find(f => f.name === 'organization').value;
             let groupOrganization = message.package.value.find(f => f.name === 'group_organization').value;
             let receiptSource = message.package.value.find(f => f.name === 'receipt_source').value;
+
             if( dateReceipt !== null  ){
                 if( dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== ''){
                     this.dateReceipt__from = dateReceipt.dateFrom;
                     this.dateReceipt__to = dateReceipt.dateTo;
+                    
                     if( dateExecution !== null){
                         this.dateExecution__from = dateExecution.dateFrom === '' ? null :  dateExecution.dateFrom;
                         this.dateExecution__to = dateExecution.dateTo === '' ? null :  dateExecution.dateTo;
+                        
                         if(  this.dateExecution__from === null && this.dateExecution__to === null ){
                             this.dateExecutionData = [];
                             this.operationVykonDate = 0;
+                            
                         }else if(  this.dateExecution__from !== null && this.dateExecution__to === null ){
                             this.dateExecutionData = [this.dateExecution__from];
                             this.operationVykonDate = 1;
+                            
                         }else if(  this.dateExecution__from === null && this.dateExecution__to !== null ){
                             this.dateExecutionData = [this.dateExecution__to];
                             this.operationVykonDate = 2;
+                            
                         }else if(  this.dateExecution__from !== null && this.dateExecution__to !== null ){
                             this.dateExecutionData = [ this.dateExecution__from, this.dateExecution__to];
                             this.operationVykonDate = 3;
@@ -137,23 +154,29 @@
                     if( dateClosing !== null){
                         this.dateClosing__from = dateClosing.dateFrom === '' ? null :  dateClosing.dateFrom;
                         this.dateClosing__to = dateClosing.dateTo === '' ? null :  dateClosing.dateTo;
+                        
                         if(  this.dateClosing__from === null && this.dateClosing__to === null ){
                             this.dateClosingData = [];
                             this.operationCloseDate = 0;
+                            
                         }else if(  this.dateClosing__from !== null && this.dateClosing__to === null ){
                             this.dateClosingData = [this.dateClosing__from];
                             this.operationCloseDate = 1;
+                            
                         }else if(  this.dateClosing__from === null && this.dateClosing__to !== null ){
                             this.dateClosingData = [this.dateClosing__to];
                             this.operationCloseDate = 2;
+                            
                         }else if(  this.dateClosing__from !== null && this.dateClosing__to !== null ){
                             this.dateClosingData = [ this.dateClosing__from, this.dateClosing__to];
                             this.operationCloseDate = 3;
                         }
                     }
+                    
                     this.organization = organization === null ? null : organization === '' ? null : organization.value;
                     this.groupOrganization = groupOrganization === null ? null : groupOrganization === '' ? null : groupOrganization.value;
                     this.receiptSource = receiptSource === null ? null : receiptSource === '' ? null : receiptSource.value;
+                    
                     let filterArray = [this.dateReceipt__from, this.dateReceipt__to, this.dateExecution__from, this.dateExecution__to, this.dateClosing__from, this.dateClosing__to, this.organization, this.receiptSource ];
                 }
                 document.getElementById('summary__table').style.display = 'block';
@@ -165,6 +188,7 @@
             return {
                 code: 'ak_ConstructrQuestionTable',
                 parameterValues: [
+                    
                     { key: '@RegistrationDateFrom', value: this.dateReceipt__from}, 
                     { key: '@RegistrationDateTo', value: this.dateReceipt__to},
                     { key: '@OrganizationExecId', value:  this.organization },    

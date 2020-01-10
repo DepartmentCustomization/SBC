@@ -3,6 +3,7 @@
         placeholder: 'Дата та час',
         showTime: true,
         type: 'DateTime',
+        stepMinute: 1,
         onItemSelect: function(date) {
             this.datePeriod(date);
         },
@@ -21,8 +22,10 @@
             let year = currentDate.getFullYear();
             let monthFrom = currentDate.getMonth();
             let dayTo = currentDate.getDate();
+            
             let hh = currentDate.getHours();
             let mm = currentDate.getMinutes();
+            
             let defaultValue = {
                 // убрать  - 1 
                     dateFrom: new Date(year, monthFrom -2 , dayTo, '00', '00'),

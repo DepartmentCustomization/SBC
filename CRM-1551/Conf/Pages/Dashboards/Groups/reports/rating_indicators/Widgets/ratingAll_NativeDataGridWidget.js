@@ -205,6 +205,7 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null
         },
+        
         init: function() {
             let msg = {
                 name: "SetFilterPanelState",
@@ -217,8 +218,8 @@
             this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.renderTable, this );
             this.dataGridInstance.onCellClick.subscribe(e => {
                 e.event.stopImmediatePropagation();
-                if(e.column){
-                    if(e.row !== undefined
+                if(e.column) {
+                    if (e.row !== undefined
 						&& e.column.dataField !== 'RDAName'
                         && e.column.dataField !== 'IntegratedMetric_PerformanceLevel'
                         && e.column.dataField !== 'PercentPleasureOfExecution'
@@ -228,7 +229,7 @@
                         && e.column.dataField !== 'PercentOnVeracity'
                         && e.column.dataField !== 'PercentOfExecution'
                         && e.column.dataField !== 'PercentClosedOnTime'
-                    ){
+                    ) {
                         const rdaid = e.data.RDAId;
                         const ratingid = e.data.RatingId;
                         const columncode = e.column.dataField;
@@ -236,12 +237,11 @@
                         const string = 'rdaid='+rdaid+'&ratingid='+ratingid+'&columncode='+columncode+'&date='+date;
                         window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/district_rating_indicator?"+string);
                     }
-                    if(e.row !== undefined && e.column.dataField === 'IntegratedMetric_PerformanceLevel') {
+                    if (e.row !== undefined && e.column.dataField === 'IntegratedMetric_PerformanceLevel') {
                         this.showPagePreloader('');
                         this.messageService.publish({ name: 'showInfo'});
                     }
-                    if(e.column.dataField == 'RDAName'
-                    ){
+                    if (e.column.dataField == 'RDAName') {
                         let rdaid = e.data.RDAId;
                         let ratingid = e.data.RatingId;
                         let date = this.date;
@@ -250,6 +250,7 @@
                     }
                 }
             });
+
             this.config.columns.forEach( col => {
                 function setColStyles(col){
                     col.width = col.dataField === "RDAName" ? '200' : '120';
@@ -263,19 +264,22 @@
                     setColStyles(col);
                 }
             });
+        
             this.config.onContentReady = this.onMyContentReady.bind(this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
+
         setFiltersParams: function (message) {
             this.date = message.date;
-            this.executor =   message.executor;
-            this.rating =   message.rating;
+            this.executor = message.executor;
+            this.rating = message.rating;
             this.config.query.parameterValues = [ 
                 {key: '@DateCalc' , value: this.date },
                 {key: '@RDAId', value: this.executor },
                 {key: '@RatingId', value: this.rating }
             ];
         },
+
         renderTable: function (message) {
             let msg = {
                 name: "SetFilterPanelState",
@@ -286,8 +290,10 @@
             this.messageService.publish(msg);
             this.loadData(this.afterLoadDataHandler);
         }, 
+
         createTableButton: function (e) {
             let toolbarItems = e.toolbarOptions.items;
+
             toolbarItems.push({
                 widget: "dxButton", 
                 location: "after",
@@ -308,6 +314,7 @@
                 },
             });
         },
+
         myCreateExcel: function (data) {
             this.showPagePreloader('Зачекайте, формується документ');
             let visibleColumns = this.visibleColumns;
@@ -333,16 +340,19 @@
             worksheet.mergeCells(1,visibleColumns.length,1,1); // top,left,bottom,right
             worksheet.mergeCells(2,visibleColumns.length,2,1); // top,left,bottom,right
             worksheet.mergeCells(3,visibleColumns.length,3,1); // top,left,bottom,right
+
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 16, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 16, underline: false, bold: true , italic: false};
             worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
+
             let captions = [];
             let columnsHeader = [];      
             for (let i = 0; i < visibleColumns.length; i++) {
                 let column = visibleColumns[i];
                 let caption = column.caption;
                 captions.push(caption);
+
                 let header = column.caption;
                 let key = column.dataField;
                 let width = 15;
@@ -350,6 +360,7 @@
                 let columnProp = { header, key, width, index };
                 columnsHeader.push(columnProp);    
             }
+        
             worksheet.columns = columnsHeader;
             worksheet.getRow(5).values = captions;
             worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -358,11 +369,13 @@
             worksheet.getRow(4).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(4).height = 70;
             worksheet.getRow(5).height = 70;
+
             this.subColumnCaption = [];
             this.allColumns = [];
             this.subIndex = 0;
             let resultColumns = [];
             let lengthArray = [];
+
             for (let i = 0; i < this.config.columns.length; i++) {
                 let column = this.config.columns[i];
                 let colCaption = column.caption;
@@ -380,7 +393,8 @@
                                 this.subColumnCaption.push(obj);
                                 this.subIndex++;
                             }
-                        } else{
+                        }
+                        else{
                             let obj = {
                                 colCaption,
                                 length,
@@ -411,6 +425,7 @@
                 let index = this.allColumns.findIndex( el => el.dataField === df ); 
                 resultColumns.push(this.allColumns[index]);
             }
+            
             for (let i = 0; i < resultColumns.length; i++) {
                 const resCol = resultColumns[i];
                 const colIndexTo = i+1;
@@ -432,6 +447,7 @@
                 }
                 worksheet.mergeCells(indexCaptionFrom, colIndexTo, 5, colIndexTo );
             }
+            
             this.subColumnCaption.forEach( col => {
                 let indexFrom = col.colIndexTo - col.length + 1;
                 let indexTo = col.colIndexTo;
@@ -441,11 +457,13 @@
                     caption.value = col.colCaption;
                 }
             });
+
             for (let i = 0; i < this.columnsWithoutSub.length; i++) {
                 let element = this.columnsWithoutSub[i];
                 let caption = worksheet.getCell(4, element.colIndexTo);
                 caption.value = element.caption;
             }
+
             for (let i = 0; i < data.rows.length; i++) {
                 let rowData = data.rows[i];
                 let rowValues = [];
@@ -456,14 +474,18 @@
                 }
                 worksheet.addRow(rowValues);
             }
+
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
+
         afterLoadDataHandler: function(data) {
             this.render();
         },
+
         onMyContentReady: function () {
             this.visibleColumns = this.dataGridInstance.instance.getVisibleColumns();
         },
+
         destroy: function () {
             // this.sub.unsubscribe();
             // this.sub1.unsubscribe();

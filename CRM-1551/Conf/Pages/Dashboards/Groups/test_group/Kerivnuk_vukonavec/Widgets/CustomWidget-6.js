@@ -37,12 +37,16 @@
         const btnToParOrg = document.createElement('button');
         btnToParOrg.innerText = 'Перейти до органiзацiй';
         btnToParOrg.classList.add('btnToParOrg');  
+        
+        
         const btnToReturn = document.createElement('button');
         btnToReturn.innerText = 'Повернутися';
         btnToReturn.style.display = 'none';
         btnToReturn.classList.add('btnToReturn');
+        
         toChildOrganization.appendChild(btnToParOrg);
         toChildOrganization.appendChild(btnToReturn);
+        
         btnToParOrg.addEventListener('click', event =>{
             const organizationName = document.getElementById('organizationName').innerText;
             const organizationId = document.getElementById('organizationName').value;
@@ -55,7 +59,9 @@
             document.getElementById('table2__mainTable').style.display = 'block';
             btnToReturn.style.display = 'none';
             btnToParOrg.style.display = 'block';
+            
         });
     },
+
 };
 }());

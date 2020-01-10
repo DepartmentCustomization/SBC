@@ -9,6 +9,7 @@
                 
                 `
     ,
+    
     sub1: {},
     sub2: {},
     sub3: {},
@@ -28,6 +29,7 @@
         this.sub4 = this.messageService.subscribe('Data_StreetsByDistrict', this.Data_StreetsByDistrict, this);
         this.sub5 = this.messageService.subscribe('Data_AllAoByStreet', this.Data_AllAoByStreet, this);
         this.sub6 = this.messageService.subscribe('Data_PremisesByAO', this.Data_PremisesByAO, this);
+        
         // let executeQuery = {
         //     queryCode: '',
         //     limit: -1,

@@ -88,6 +88,7 @@
     init: function() {
         document.getElementById('table10_nemaMozhl').style.display = 'none';
         this.sub = this.messageService.subscribe('clickOnTable2', this.changeOnTable, this);
+        
         this.dataGridInstance.onCellClick.subscribe(e => {
             if(e.column.dataField == "registration_number" && e.row != undefined){
                 this.goToSection('Assignments/edit/'+e.row.data.Id+'');

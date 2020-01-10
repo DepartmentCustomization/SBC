@@ -9,6 +9,7 @@
       const executorFilter = message.package.value.values.find(f => f.name === 'executor').value;
       const claim_typeFilter = message.package.value.values.find(f => f.name === 'claim_type').value;
       const name = 'FiltersParams';
+
       const dateStart = this.changeDateTimeValues(dateFilterStart);
       const dateEnd = this.changeDateTimeValues(dateFilterEnd);
       // if( date !== '' ){
@@ -18,6 +19,7 @@
       // }
     },
     changeDateTimeValues: function(value){
+      
         if( value === '') {
           return value;
         }

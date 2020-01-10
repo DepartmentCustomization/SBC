@@ -3,6 +3,7 @@
         placeholder: '',
         showTime: true,
         type: 'DateTime',
+        stepMinute: 1,
         onItemSelect: function(date) {
             this.yourFunctionName(date);
         },
@@ -11,8 +12,10 @@
             let year = currentDate.getFullYear();
             let monthFrom = currentDate.getMonth();
             let dayTo = currentDate.getDate();
+
             let HH = currentDate.getHours();
             let MM = currentDate.getMinutes();
+
             let defaultValue = {
                 dateFrom: new Date('2019', '05' , '01'),
                 dateTo: new Date( year, monthFrom , dayTo, HH, MM)

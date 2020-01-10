@@ -2,7 +2,9 @@
   return {
     init: function() {
         const filters = [];
+                            
         const sorting = [{ key: 'ObjectName', value: 0}];
+                            
         const parameters = [
                                 { key: '@ApplicantId', value: 9}
                             ];

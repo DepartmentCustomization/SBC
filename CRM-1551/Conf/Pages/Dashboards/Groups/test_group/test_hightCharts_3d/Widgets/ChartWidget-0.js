@@ -1,6 +1,7 @@
 (function () {
   return {
     chartConfig:{
+        
         chart: {
             type: 'pie',
             options3d: {

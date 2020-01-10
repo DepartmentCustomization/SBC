@@ -200,23 +200,28 @@
     filter_district: 0,
     filter_dataStart: '03.10.2018',
     filter_dataEnd: '10.10.2018',
+    
     init: function() {
         const weekAgo = 1000*60*60*24*7;
         const currentDate = new Date();
         let  startDate = new Date(Date.now() - weekAgo);
+        
         this.filter_dataStart = startDate;
         this.filter_dataEnd = currentDate;
+        
+        
         this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setDataFilterValue, this);
         this.loadData();
     },
     setDataFilterValue:function(message) {
         // this.districts = message.package.value.values.find(f => f.name === 'FilterDistrict').value;
+        
         function checkDateFrom(val){
             return val ? val.dateFrom : null;
-        }
+        };
         function checkDateTo(val){
             return val ? val.dateTo : null;
-        }
+        };
         this.start_date = checkDateFrom(message.package.value.values[0].value);
         this.finish_date = checkDateTo(message.package.value.values[0].value);
     },

@@ -61,6 +61,7 @@
         showBorders: true,
         showColumnLines: true,
         showRowLines: true,
+
         remoteOperations: null,
         allowColumnReordering: null,
         rowAlternationEnabled: null,
@@ -79,6 +80,7 @@
             mode: "multiple"
         }
     },
+    
     init: function() {
         this.loadData(this.afterLoadDataHandler);
         // for example

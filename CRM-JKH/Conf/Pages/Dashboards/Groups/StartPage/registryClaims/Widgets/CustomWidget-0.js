@@ -75,15 +75,19 @@
         // console.log(data)
         let total = 0;
         let tempArr = [];
+        
         let numbers  =  [...document.getElementsByClassName('numbers')];
         let status  =  [...document.getElementsByClassName('status')];
         function find(array, value) {
+            
                   if (array.indexOf) { // если метод существует
                     return array.indexOf(value);
                   }
-                  for (let i = 0; i < array.length; i++) {
+                
+                  for (var i = 0; i < array.length; i++) {
                     if (array[i] === value) return i;
                   }
+                
                   return -1;
                 }
             for(let j=0; j<data.rows.length; j++){
@@ -95,8 +99,11 @@
                 if(search != -1){
                   numbers[i].innerText = data.rows[search].values[0]
                 }
+                 
             }
              numbers[0].innerText = total;
+          
+    
     }
 };
 }());

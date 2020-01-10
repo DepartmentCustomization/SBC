@@ -38,6 +38,7 @@
                     displayExpr: "Name"
                 }
             }
+
         ],
         masterDetail: {
             enabled: true,
@@ -101,11 +102,13 @@
     sub: [],
     sub1: [],
     sub2: [],
+
     containerForChackedBox: [],
     init: function() {
         document.getElementById('table41__arrived').style.display = 'none';
         this.sub = this.messageService.subscribe('clickOnTable2', this.changeOnTable, this);
         this.sub = this.messageService.subscribe('messageWithOrganizationId', this.orgIdDistribute, this);
+        
         this.config.onToolbarPreparing = this.createTableButton.bind(this);
         this.config.masterDetail.template = this.createMasterDetail.bind(this);
         this.dataGridInstance.onCellClick.subscribe(e => {
@@ -119,7 +122,8 @@
         this.distribute = message.distribute;
     },
     createTableButton: function(e) {
-        let toolbarItems = e.toolbarOptions.items;
+        var toolbarItems = e.toolbarOptions.items;
+
         toolbarItems.push({
             widget: "dxButton", 
             options: { 
@@ -132,6 +136,7 @@
             },
             location: "after"
         });
+        
         toolbarItems.push({
             widget: "dxButton", 
             options: { 
@@ -155,7 +160,8 @@
         } return element;
     },    
     createMasterDetail: function(container, options) {
-        let currentEmployeeData = options.data;
+        var currentEmployeeData = options.data;
+        
         if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined){
             currentEmployeeData.short_answer = '';
         }
@@ -168,14 +174,19 @@
         let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.zayavnyk_adress+""});
         let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
         let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
+        
         let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.zayavnyk_zmist+""});
         let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
         let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
+        
         // let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ""+currentEmployeeData.short_answer+""});
         // let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: "Коментар виконавця"});
         // let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
+        
+        
         let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent );
         container.appendChild(elementsWrapper);
+        
         let elementsAll = document.querySelectorAll('.element');
         elementsAll.forEach( el => {
             el.style.display = 'flex';
@@ -191,6 +202,7 @@
             document.getElementById('table41__arrived').style.display = 'none';
         }else if ( this.distribute == 1 ){
             document.getElementById('table41__arrived').style.display = 'block';
+
             this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
                                                  { key: '@organizationName', value: message.orgName},
                                                  { key: '@navigation', value: message.row}];
@@ -203,6 +215,7 @@
             this.queryExecutor(executeQuery, this.lookupFoo, this);
         }
     },
+               
     lookupFoo: function(data) {
         this.elements = [];
         for( i = 0; i < data.rows.length; i++){
@@ -227,6 +240,7 @@
         };
         this.queryExecutor(executeQuery);
         this.loadData(this.afterLoadDataHandler); 
+        
         this.messageService.publish({name: 'reloadAssignmentsTable' });
     },
     findAllSelectRowsRozpodil: function(message){
@@ -239,6 +253,7 @@
         };
         this.queryExecutor(executeQuery);
         this.loadData(this.afterLoadDataHandler); 
+        
         this.messageService.publish({name: 'reloadAssignmentsTable' });
     },
     reloadAfterSend: function(message){

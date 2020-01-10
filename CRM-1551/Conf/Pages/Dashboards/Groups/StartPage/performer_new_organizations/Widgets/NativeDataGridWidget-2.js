@@ -104,6 +104,7 @@
         document.getElementById('table5__NeVKompetentcii').style.display = 'none';
         this.sub = this.messageService.subscribe('clickOnTable2', this.changeOnTable, this);
         this.sub1 = this.messageService.subscribe('messageWithOrganizationId', this.takeOrganizationId, this);
+        
         this.config.masterDetail.template = this.createMasterDetail.bind(this);
         this.dataGridInstance.onCellClick.subscribe(e => {
             if(e.column) {
@@ -135,7 +136,7 @@
         }
     },
     findAllRowsNeVKompetentсii: function(message){
-        let rows = this.dataGridInstance.instance.getSelectedRowsData();
+        var rows = this.dataGridInstance.instance.getSelectedRowsData();
         if( rows.length > 0 ){
             rows.map( el => {
                 let executeQuery = {
@@ -151,7 +152,8 @@
         }
     },    
     createTableButton: function(e) {
-        let toolbarItems = e.toolbarOptions.items;
+        var toolbarItems = e.toolbarOptions.items;
+
         toolbarItems.push({
             widget: "dxButton", 
             options: { 
@@ -201,7 +203,8 @@
         }.bind(this));
     },     
     createMasterDetail: function(container, options) {
-        let currentEmployeeData = options.data;
+        var currentEmployeeData = options.data;
+        
         if(currentEmployeeData.comment == null || currentEmployeeData.comment == undefined){
             currentEmployeeData.comment = '';
         }
@@ -217,17 +220,22 @@
         let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.zayavnyk_adress+""});
         let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
         let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
+        
         let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.zayavnyk_zmist+""});
         let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
         let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
+        
         let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ""+currentEmployeeData.comment+""});
         let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: "Коментар виконавця"});
         let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
+        
         let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ""+currentEmployeeData.balans_name+""});
         let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: "Балансоутримувач"});
         let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
+        
         let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance);
         container.appendChild(elementsWrapper);
+        
         let elementsAll = document.querySelectorAll('.element');
         elementsAll = Array.from(elementsAll);
         elementsAll.forEach( el => {

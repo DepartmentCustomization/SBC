@@ -1,22 +1,34 @@
--- declare @Id int = 15;
+-- declare @Id int = 163;
 
-Select
+SELECT
     pc.Id,
     invoice_consumption,
-    convert(varchar(10), pc.create_date, 104) as change_date,
+    CONVERT(varchar(10), pc.create_date, 104) AS change_date,
     p.part_name,
-    p.articul as new_articul,
-	z.articul as old_articul,
+    p.articul AS new_part_name,
+    p.Id AS new_part_id,
+    z.articul AS old_part_name,
+    z.part_id AS old_part_id,
     p.manufacturer,
-    c.Id as cars_id,
+    c.Id AS cars_id,
     c.cars_name,
-    p.part_price
-
-from PartChange pc
-    join Parts p on pc.part_id = p.Id
-    join Cars c on c.Id = pc.cars_id
-	left join (select pc.Id, part_id, articul, remove_operation_id 
-	           from PartChange pc
-			   join Parts p on p.Id = pc.part_id
-			   where remove_operation_id = @Id) z on z.remove_operation_id = pc.Id
-where pc.Id = @Id
+    p.part_price,
+    p.Id AS part_id
+FROM
+    PartChange pc
+    JOIN Parts p ON pc.part_id = p.Id
+    JOIN Cars c ON c.Id = pc.cars_id
+    LEFT JOIN (
+        SELECT
+            pc.Id,
+            part_id,
+            articul,
+            remove_operation_id
+        FROM
+            PartChange pc
+            JOIN Parts p ON p.Id = pc.part_id
+        WHERE
+            remove_operation_id = @Id
+    ) z ON z.remove_operation_id = pc.Id
+WHERE
+    pc.Id = @Id

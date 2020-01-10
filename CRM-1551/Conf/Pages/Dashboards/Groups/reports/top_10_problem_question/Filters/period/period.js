@@ -20,6 +20,7 @@
             let year = currentDate.getFullYear();
             let monthFrom = currentDate.getMonth();
             let dayTo = currentDate.getDate();
+            
             let hh = currentDate.getHours();
             let mm = currentDate.getMinutes();
             let defaultValue = {

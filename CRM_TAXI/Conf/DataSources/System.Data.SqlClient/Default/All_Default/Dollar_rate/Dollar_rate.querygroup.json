@@ -1,6 +1,6 @@
 {
     "ModelType": "QueryGroup",
     "Code": "Dollar_rate",
-    "Name": "Поставщики",
+    "Name": "Курс доллара",
     "ConnectionCode": "Default"
   }

@@ -66,6 +66,7 @@
         showBorders: true,
         showColumnLines: true,
         showRowLines: true,
+
         remoteOperations: null,
         allowColumnReordering: null,
         rowAlternationEnabled: null,
@@ -88,6 +89,7 @@
         this.loadData(this.afterLoadDataHandler);
         // for example
         // this.subscribeToDataGridActions();
+        
         // this.sub = this.messageService.subscribe('clickOnTable2', this.changeOnTable, this);
         let executeQuery = {
                 queryCode: 'int_list_streets_1551',
@@ -97,6 +99,7 @@
             this.queryExecutor(executeQuery, this.lookupFoo, this);
     },
      lookupFoo: function(data) {
+         
         this.elements = [];
         for( i = 0; i < data.rows.length; i++){
             let el = data.rows[i];
@@ -106,8 +109,8 @@
             } 
             this.elements.push(obj);
         }
+        
         this.config.columns[5].lookup.dataSource.store = this.elements;
-        console.log( this.elements);
         this.loadData(this.afterLoadDataHandler);
     },
     afterLoadDataHandler: function(data) {

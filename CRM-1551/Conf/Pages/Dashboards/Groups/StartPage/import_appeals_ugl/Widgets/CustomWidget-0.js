@@ -11,15 +11,20 @@
     afterViewInit: function() {
         const CONTAINER = document.getElementById('container');
         let fileInput  =  this.createElement('input', { type: 'file', className: 'inputfile', id: 'fileInput', accept: ".csv"});
+
         let fileLabel__triangle  = this.createElement('div', {className: 'triangle fileLabel__triangle' });
         let fileLabelText = this.createElement('div', { id: 'fileChooserText', className: 'btn', innerText: '1. Обрати файл'});
         let fileLabel = this.createElement('label', { id: 'fileLabel', htmlFor: 'fileInput' }, fileLabelText, fileLabel__triangle);
+
         let btnImportFile__triangle  = this.createElement('div', {className: 'triangle btnImportFile__triangle' });
         let btnImportFile = this.createElement('div', {disabled: true,  className: 'btn', id: 'btnImportFile',  innerText: '2. Завантажити файл' }, btnImportFile__triangle);
+        
         let showTable__triangle  = this.createElement('div', {className: 'triangle showTable__triangle' });
         let btnShowTable = this.createElement('div', { className: 'btn', id: 'btnShowTable',  innerText: '3. Вiдобразити таблицю' },showTable__triangle);
+
         let btnsWrapper = this.createElement('div', { id: 'btnsWrapper' }, fileInput, fileLabel, btnImportFile);
         CONTAINER.appendChild(btnsWrapper);
+
         fileInput.addEventListener('input', event => {
             let target = event.currentTarget;
             if (target.value !== '') { 
@@ -29,6 +34,7 @@
         // btnShowTable.addEventListener( 'click', event => {
         //     
         // });
+        
         btnImportFile.addEventListener( 'click', event => {
             let fileInput = document.getElementById('fileInput');
             if(fileInput.files.length > 0){
@@ -40,6 +46,7 @@
                 data.append("file", file);
                 data.append("configuration", "{\n   \"HasHeaderRecord\":true,\n   \"EncodingName\":\"windows-1251\",\n   \"Delimiter\":\";\",\n   \"Quote\":\"\\\"\",\n   \"MaxAllowedErrors\":0\n}");
                 let xhr = new XMLHttpRequest();
+                
                 xhr.addEventListener("readystatechange", event => {
                     if (xhr.readyState === 4) {
                         let json = xhr.responseText;
@@ -69,6 +76,7 @@
                 xhr.send(data);
             }
         });
+
         let labelValue = fileLabel.innerHTML;
         fileInput.addEventListener( 'change', event => {
             let fileName = '';
@@ -83,6 +91,7 @@
         });
     },
     sendMessageToTable: function(){
+        
     },
     showModalWindow: function (responseModal, responseNotification, CONTAINER) {
         const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
@@ -91,6 +100,7 @@
         const modalTitle =  this.createElement('div', { id:'modalTitle', innerText: 'Результат завантаження:'});
         const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, contentWrapper ,modalBtnWrapper); 
         const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
+
         modalBtnTrue.addEventListener( 'click', event => {
             let target = event.currentTarget;
             target.disabled = true;

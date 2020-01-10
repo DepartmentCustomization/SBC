@@ -31,10 +31,12 @@
             },
             keyExpr: 'Id'
         },
+
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams , this );
             this.loadData(this.afterLoadDataHandler);
         },
+
         getFiltersParams: function(message){
             const period = message.package.value.values.find(f => f.name === 'period').value;
             if( period !== null ){
@@ -49,10 +51,12 @@
                 }
             }
         }, 
+
         afterLoadDataHandler: function(data) {
             this.messageService.publish( {name: 'setData', rep2_data: data} );
             this.render();
         },
+
         destroy: function () {
             this.sub.unsubscribe();
         }

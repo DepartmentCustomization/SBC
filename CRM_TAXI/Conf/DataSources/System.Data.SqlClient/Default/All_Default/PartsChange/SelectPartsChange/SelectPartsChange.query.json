@@ -5,75 +5,97 @@
     "ConnectionCode": "Default",
     "IsUsedForRightsFilter": false,
     "Columns": [
-      {
-        "Code": "Id",
-        "Name": "Id",
-        "Position": 1,
-        "ViewState": "Hidden",
-        "IsPrintable": false
-    },
-    {
-        "Code": "invoice_consumption",
-        "Name": "Номер расходной накладной",
-        "Position": 2,
-        "IsPrintable": false
-    },
-    {
-        "Code": "change_date",
-        "Name": "Дата списания",
-        "Position": 3,
-        "IsPrintable": false
-    },
-    {
-        "Code": "part_name",
-        "Name": "Название",
-        "Position": 3,
-        "IsPrintable": false
-    },
-    {
-        "Code": "new_articul",
-        "Name": "Устанавливаемая запчасть",
-        "Position": 4,
-        "IsPrintable": false
-    },
-    {
-        "Code": "old_articul",
-        "Name": "Снимаемая запчасть",
-        "Position": 5,
-        "IsPrintable": false
-    },
-    {
-        "Code": "manufacturer",
-        "Name": "Производитель",
-        "Position": 6,
-        "IsPrintable": false
-    },
-    {
-        "Code": "part_price",
-        "Name": "Цена",
-        "Position": 7,
-        "IsPrintable": false
-    },
-    {
-        "Code": "cars_id",
-        "Name": "cars_id",
-        "Position": 8,
-        "IsPrintable": false
-    },
-    {
-        "Code": "cars_name",
-        "Name": "cars_name",
-        "Position": 8,
-        "IsPrintable": false,
-        "ReferenceKeyCode": "cars_id"
-    }
+        {
+            "Code": "Id",
+            "Name": "Id",
+            "Position": 1,
+            "ViewState": "Hidden",
+            "IsPrintable": false
+        },
+        {
+            "Code": "invoice_consumption",
+            "Name": "Номер расходной накладной",
+            "Position": 2,
+            "IsPrintable": false
+        },
+        {
+            "Code": "change_date",
+            "Name": "Дата списания",
+            "Position": 3,
+            "IsPrintable": false
+        },
+        {
+            "Code": "part_name",
+            "Name": "Название",
+            "Position": 3,
+            "IsPrintable": false
+        },
+        {
+            "Code": "old_part_id",
+            "Name": "old_part_id",
+            "Position": 2,
+            "ViewState": "Hidden",
+            "IsPrintable": false
+        },
+        {
+            "Code": "old_part_name",
+            "Name": "old_part_name",
+            "Position": 3,
+            "IsPrintable": false,
+            "ReferenceKeyCode": "old_part_id"
+        },
+        {
+            "Code": "new_part_id",
+            "Name": "new_part_id",
+            "Position": 2,
+            "ViewState": "Hidden",
+            "IsPrintable": false
+        },
+        {
+            "Code": "new_part_name",
+            "Name": "new_part_name",
+            "Position": 3,
+            "IsPrintable": false,
+            "ReferenceKeyCode": "new_part_id"
+        },
+        {
+            "Code": "manufacturer",
+            "Name": "Производитель",
+            "Position": 6,
+            "IsPrintable": false
+        },
+        {
+            "Code": "part_price",
+            "Name": "Цена",
+            "Position": 7,
+            "IsPrintable": false
+        },
+        {
+            "Code": "cars_id",
+            "Name": "cars_id",
+            "Position": 8,
+            "IsPrintable": false
+        },
+        {
+            "Code": "part_id",
+            "Name": "part_id",
+            "Position": 8,
+            "IsPrintable": false
+        },
+        {
+            "Code": "cars_name",
+            "Name": "cars_name",
+            "Position": 8,
+            "IsPrintable": false,
+            "ReferenceKeyCode": "cars_id"
+        }
     ],
     "Parameters": [
-      {
-        "Code": "@Id",
-        "Name": "Id",
-        "ParameterType": "Integer",
-        "IsPrimaryKey": true
-      }
+        {
+            "Code": "@Id",
+            "Name": "Id",
+            "ParameterType": "Integer",
+            "IsPrimaryKey": true
+        }
     ]
-  }
+}

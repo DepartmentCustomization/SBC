@@ -112,6 +112,7 @@
         this.changedRows = [];
         this.config.onToolbarPreparing = this.createTableButton.bind(this);
         this.config.masterDetail.template = this.createMasterDetail.bind(this);
+        
         this.dataGridInstance.onCellClick.subscribe(e => {
             if(e.column) {
                 if(e.column.dataField == "registration_number" && e.row != undefined){
@@ -136,12 +137,14 @@
     myCreateExcel: function(data){
         this.showPagePreloader('Зачекайте, формується документ');
         this.indexArr = [];
+
         let column_registration_number = { name: 'registration_number', index: 0 };
         let column_zayavnyk = { name: 'zayavnyk', index: 1 };
         let column_QuestionType = { name: 'QuestionType', index: 2 };
         let column_vykonavets = { name: 'vykonavets', index: 3 };
         let column_adress = { name: 'adress', index: 4 };
         this.indexArr = [ column_registration_number, column_zayavnyk, column_QuestionType, column_vykonavets, column_adress];
+        
         const workbook = this.createExcel();
         const worksheet = workbook.addWorksheet('Заявки', {
             pageSetup:{
@@ -170,18 +173,22 @@
         worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
         worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
+        
         worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'left' };
         worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(4).alignment = { vertical: 'middle', horizontal: 'left' };
-        let indexArr = this.indexArr;
-        let rows = [];
-        let captions = [];
-        let columnsHeader = [];
+        
+     
+        var indexArr = this.indexArr;
+        var rows = [];
+        var captions = [];
+        var columnsHeader = [];
         let columnNumber = { key: 'number', width: 5 }
         columnsHeader.push(columnNumber);
         let rowNumber = '№ з/п';
         captions.push(rowNumber);
+
         indexArr.forEach( el => {
             if( el.name === 'registration_number'){
                 var obj =  {
@@ -224,6 +231,7 @@
         worksheet.getRow(5).values = captions;
         worksheet.columns = columnsHeader;
         this.addetedIndexes = [];
+        
         let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
         let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number' );
         let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
@@ -239,29 +247,31 @@
         let indexTransferOrgId = data.columns.findIndex(el => el.code.toLowerCase() === 'transfer_to_organization_id' );
         let indexTransferOrgName = data.columns.findIndex(el => el.code.toLowerCase() === 'transfer_to_organization_name' );        
         let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );               
+        
         for( let  j = 0; j < data.rows.length; j ++ ){  
             var row = data.rows[j];
-            let rowArr = [];
-            let rowItem = { number: j + 1 };
+            var rowArr = [];
+            var rowItem = { number: j + 1 };
             for( i = 0; i < indexArr.length; i ++){
                 let el = indexArr[i];
+                
                 if( el.name === 'registration_number'  ){
                     rowItem.registration_number = row.values[indexRegistrationNumber] + ', ' + this.changeDateTimeValues(row.values[indexRegistrDate]);
                 }else if(el.name === 'zayavnyk' ){
                     rowItem.zayavnyk = row.values[indexZayavnikName] + ', ' + row.values[indexAdressZ];
                 }else if(el.name === 'QuestionType' ){
-                    rowItem.QuestionType = 'Зміст: ' + row.values[indexQuestionContent];
+                    rowItem.QuestionType = 'Зміст: ' + row.values[indexQuestionContent];;
                 }else if( el.name === 'vykonavets'  ){
                     rowItem.vykonavets = row.values[indexVykonavets] + '. Дата контролю:  ' +  this.changeDateTimeValues(row.values[indexControlDate]);
                 }else if( el.name === 'adress'  ){
                     rowItem.adress = row.values[indexAdress];
                 }
-            }
+            };
             rows.push( rowItem );
-        }
+        };
         rows.forEach( el => {
             let number = el.number + '.'
-            let row = {
+            var row = {
                 number: number,
                 registration_number: el.registration_number,
                 zayavnyk: el.zayavnyk,
@@ -293,7 +303,8 @@
                 bold: false ,
                 italic: false
             };
-        }
+        };
+        
         worksheet.getRow(2).border = {
             bottom: {style:'thin'}
         };
@@ -302,6 +313,7 @@
         this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
     },
     changeDateTimeValues: function(value){
+        
         let date = new Date(value);
         let dd = date.getDate();
         let MM = date.getMonth();
@@ -309,18 +321,10 @@
         let HH = date.getUTCHours()
         let mm = date.getMinutes();
         MM += 1 ;
-        if( (dd.toString()).length === 1){
-  dd = '0' + dd; 
-}
-        if( (MM.toString()).length === 1){
- MM = '0' + MM ; 
-}
-        if( (HH.toString()).length === 1){
-  HH = '0' + HH; 
-}
-        if( (mm.toString()).length === 1){
- mm = '0' + mm; 
-}
+        if( (dd.toString()).length === 1){  dd = '0' + dd; }
+        if( (MM.toString()).length === 1){ MM = '0' + MM ; }
+        if( (HH.toString()).length === 1){  HH = '0' + HH; }
+        if( (mm.toString()).length === 1){ mm = '0' + mm; }
         let trueDate = dd+'.'+MM+'.' + yyyy;
         return trueDate;
     },    
@@ -328,11 +332,13 @@
         deleteButton.option("disabled", !data.selectedRowsData.length);
     },     
     orgIdDistribute: function(message){
+        
         this.organizationId = message.value;
         this.distribute = message.distribute;
     },
     createTableButton: function(e) {
-        let toolbarItems = e.toolbarOptions.items;
+        var toolbarItems = e.toolbarOptions.items;
+        
         toolbarItems.push({
             widget: "dxButton", 
             options: { 
@@ -346,6 +352,9 @@
             },
             location: "after"
         });         
+        
+        
+        
         toolbarItems.push({
             widget: "dxButton", 
             options: { 
@@ -362,6 +371,7 @@
             },
             location: "after"
         });
+        
         toolbarItems.push({
             widget: "dxButton", 
             options: { 
@@ -389,7 +399,8 @@
         } return element;
     },    
     createMasterDetail: function(container, options) {
-        let currentEmployeeData = options.data;
+        var currentEmployeeData = options.data;
+        
         if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined){
             currentEmployeeData.short_answer = '';
         }
@@ -405,14 +416,18 @@
         let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.zayavnyk_adress+""});
         let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
         let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
+        
         let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.zayavnyk_zmist+""});
         let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
         let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
+        
         let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ""+currentEmployeeData.balans_name+""});
         let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: "Балансоутримувач"});
         let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);         
+        
         let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance );
         container.appendChild(elementsWrapper);
+        
         let elementsAll = document.querySelectorAll('.element');
         elementsAll = Array.from(elementsAll);
         elementsAll.forEach( el => {
@@ -435,6 +450,7 @@
             this.orgId = message.orgId;
             this.orgName = message.orgName;
             document.getElementById('table41__arrived').style.display = 'block';
+
             this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
                                                  { key: '@organizationName', value: message.orgName},
                                                  { key: '@navigation', value: message.navigation}];
@@ -446,6 +462,7 @@
             this.queryExecutor(executeQuery, this.lookupFoo, this);
         }
     },
+               
     lookupFoo: function(data) {
         this.elements = [];
         for( i = 0; i < data.rows.length; i++){
@@ -463,6 +480,7 @@
         let rows = this.dataGridInstance.selectedRowKeys;
         if( rows.length > 0 ){
             let arrivedSendValueRows = rows.join(', ');
+            
             let executeQuery = {
                 queryCode: 'Button_Nadiishlo_VzyatyVRobotu',
                 parameterValues: [ {key: '@Ids', value: arrivedSendValueRows} ],
@@ -474,7 +492,7 @@
         }
     },
     findAllSelectRowsRozpodil: function(message){
-        let rows = this.dataGridInstance.instance.getSelectedRowsData();
+        var rows = this.dataGridInstance.instance.getSelectedRowsData();
         if( rows.length > 0 ){
             rows.forEach( function(el){
                 let executeQuery = {

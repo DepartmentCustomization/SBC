@@ -1,6 +1,7 @@
 /* eslint-disable line-comment-position */
 (function () {
     return {
+        forUser: [],
         init: function () {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             document.getElementById('save_part_change').disabled = true;
@@ -42,11 +43,25 @@
                     if (data != undefined) {
                         this.form.markAsSaved();
                         this.openPopUpInfoDialog(data.rows[0].values[0]);
+                        if (data.rows[0].values[1] != null) {
+                            let notifyText = data.rows[0].values[1];
+                            this.sendBadChangeNotify(notifyText);
+                        }
                     } else {
                         this.openPopUpInfoDialog('Ошибка изменения данных');
                     }
                 });
             }.bind(this));
+        },
+        sendBadChangeNotify: function (title) {
+            this.createOrganisationsNotification({
+                text: title,
+                url: "notifications/unread",
+                notificationTypeCode: "WEB",
+                notificationPriorityCode: "Middle",
+                organisationIds: [4],
+                hasAudio: true
+            });
         },
         getAutoForQuery: function () {
             if (this.form.getControlValue('car')) {

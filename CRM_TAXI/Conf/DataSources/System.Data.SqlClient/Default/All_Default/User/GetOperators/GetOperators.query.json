@@ -1,0 +1,16 @@
+{
+  "ModelType": "Query",
+  "Code": "GetOperators",
+  "Name": "GetOperators",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "UserId",
+      "Name": "UserId",
+      "Position": 0,
+      "IsPrintable": false
+    }
+  ],
+    "Parameters": []
+}

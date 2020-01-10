@@ -74,6 +74,7 @@
         groupingAutoExpandAll: null,
     },
     init: function() {
+        
         this.dataGridInstance.height = window.innerHeight - 200 ;
         const self = this;
         this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
@@ -134,12 +135,13 @@
     },    
     extractFilterValues: function(val){
             if(val !== ''){
-    	        let valuesList = [];
+    	        var valuesList = [];
 	            valuesList.push(val.value);
     	        return  valuesList.length > 0 ? valuesList : [];
             } else {
                 return [];
-            }
+            };
+    	        
     },
     afterLoadDataHandler: function(data) {
         this.render();

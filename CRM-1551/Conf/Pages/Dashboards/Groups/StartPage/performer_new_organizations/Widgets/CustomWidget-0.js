@@ -9,15 +9,18 @@
                 `
     ,
     init: function() {
+
         this.messageService.publish( { name: 'showPagePreloader'  } );
         const header1 = document.getElementById('header1');
         header1.parentElement.style.flexFlow = "column nowrap";
         header1.firstElementChild.style.overflow = 'visible';
         header1.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
+        
         this.column = [];
         this.navigator = [];
         this.targetId = [];
         this.sub = this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this);
+        
         if(window.location.search == ''){
             let executeQuery = {
                 queryCode: 'organization_name',
@@ -26,14 +29,15 @@
             };
             this.queryExecutor(executeQuery, this.userOrganization, this);
             this.showPreloader = false; 
+            
         }else{
-            let getUrlParams = window
+            var getUrlParams = window
                             .location
                                 .search
                                     .replace('?', '')
                                         .split('&')
                                             .reduce(function(p, e) {
-                                                      let a = e.split('=');
+                                                      var a = e.split('=');
                                                       p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                                                       return p;
                                                     }, {}
@@ -49,6 +53,7 @@
             this.queryExecutor(executeQuery, this.userOrganization, this);
             this.showPreloader = false; 
         }
+        
         let executeQueryOrganizations = {
             queryCode: 'table3',
             limit: -1,
@@ -56,6 +61,7 @@
         };
         this.queryExecutor(executeQueryOrganizations, this.createSubordinateOrganizationsTable.bind(this, false, null), this);
         this.showPreloader = false; 
+        
         let executeOrganizationSelect = {
             queryCode: 'OrganizationSelect',
             limit: -1,
@@ -70,8 +76,10 @@
         let indexOfTypeDistribute = data.columns.findIndex(el => el.code.toLowerCase() === 'distribute' );
         this.organizationId = [];
         if(data.rows[0]){
+            
             this.organizationId = (data.rows[0].values[indexOfTypeId]);
             this.distribute = (data.rows[0].values[indexOfTypeDistribute]);
+        
             this.messageService.publish({name: 'messageWithOrganizationId', value: this.organizationId, distribute:  this.distribute});
             document.getElementById('organizationName').value = (data.rows[0].values[indexOfTypeId]);
             document.getElementById('organizationName').innerText = (data.rows[0].values[indexOfTypeName]);
@@ -92,32 +100,40 @@
     }, 
     afterViewInit: function(){
         const container = document.getElementById('container')
+        
         const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
         const filtersWrapper = this.createElement('div', { id: 'filtersWrapper', className: 'filtersWrapper'});
         const tableContainer = this.createElement('div', { id: 'tableContainer', className: 'tableContainer'});
         const tableWrapper = this.createElement('div', { id: 'tableWrapper', className: 'tableWrapper'}, tableContainer);
+
         container.appendChild(tabsWrapper);
         container.appendChild(filtersWrapper);
         this.createTabs();
         this.createFilters();
     },
     createTabs: function(){
+        
         let tabInformation__title  = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
         let tabAction__title  = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
         let tabProcessingOrders__title  = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
         let tabOrganizations__title  = this.createElement('div', { className: 'tabOrganizations tab_title', innerText: 'ОРГАНІЗАЦІЇ'});
         let tabFinder__title  = this.createElement('div', { className: ' tab_title', innerText: 'Розширений пошук'});
+        
         const tabInformation = this.createElement('div', { id: 'tabInformation', url: '', className: 'tabInformation tab '}, tabInformation__title);
         const tabAction = this.createElement('div', { id: 'tabAction', url: 'performer_new_actions', className: 'tabAction tab tabTo'}, tabAction__title);
         const tabProcessingOrders = this.createElement('div', { id: 'tabProcessingOrders', url: 'performer_new_processing_assigments', className: 'tabProcessingOrders tab tabTo'}, tabProcessingOrders__title);
         const tabOrganizations = this.createElement('div', { id: 'tabOrganizations', url: 'performer_new_organizations', className: 'tabOrganizations tab tabHover'}, tabOrganizations__title);
         const tabFinder = this.createElement('div', { id: 'tabFinder', url: 'poshuk_table', className: 'tabFinder tab tabTo'}, tabFinder__title);
         const tabsContainer = this.createElement('div', { id: 'tabsContainer', className: 'tabsContainer'}, tabInformation, tabAction, tabProcessingOrders, tabOrganizations, tabFinder);
+        
         const orgLinkСhangerBox__icon = this.createElement('div', { id: 'orgLinkСhangerBox__icon', className:'material-icons', innerText:'more_vert' });
         const orgLinkСhangerBox = this.createElement('div', { id: 'orgLinkСhangerBox'}, orgLinkСhangerBox__icon );
+        
         const linkСhangerContainer = this.createElement('div', { id: 'organizationsContainer'}, orgLinkСhangerBox);
+        
         tabsWrapper.appendChild(tabsContainer);
         tabsWrapper.appendChild(linkСhangerContainer);
+        
         orgLinkСhangerBox__icon.addEventListener('click', event => {
             if(this.organizationSelect.length > 0 ){
                 event.stopImmediatePropagation();
@@ -127,8 +143,10 @@
                     let orgLinksWrapper = this.createElement('div', { id: 'orgLinksWrapper'}, orgLinksWrapper__triangle);
                     orgLinkСhangerBox.appendChild(orgLinksWrapper);
                     this.organizationSelect.forEach( el => {
+                        
                         let organizationLink = this.createElement('div', { className: 'organizationLink',  orgId: ''+el.id+'',  innerText: el.name });
                         orgLinksWrapper.appendChild(organizationLink);
+                        
                         organizationLink.addEventListener( 'click', event => {
                             event.stopImmediatePropagation();
                             let target  =  event.currentTarget;
@@ -141,6 +159,8 @@
                 }
             }
         });
+ 
+ 
         let tabs = document.querySelectorAll('.tabTo');
         tabs = Array.from(tabs);
         tabs.forEach( function (el){
@@ -160,6 +180,7 @@
         const organizationChildCat = this.createElement('div', {id: 'organizationChildCat', className: 'orgName', innerText: ' '});
         const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: "searchContainer__input"});
         const searchContainer = this.createElement('div', {id: 'searchContainer', className: "searchContainer"}, searchContainer__input);
+        
         searchContainer__input.addEventListener('input', event =>  {
             if(searchContainer__input.value.length == 0 ){
                 this.resultSearch('clearInput', 0);
@@ -167,7 +188,7 @@
             }
         });
         searchContainer__input.addEventListener('keypress', function (e) {
-            let key = e.which || e.keyCode;
+            var key = e.which || e.keyCode;
             if (key === 13) {
                 orgContainer.style.display = 'none';
                 this.resultSearch('resultSearch', searchContainer__input.value);
@@ -179,6 +200,7 @@
                 });
             }
         }.bind(this));
+        
         filtersWrapper.appendChild(organizationName);
         filtersWrapper.appendChild(organizationChildCat);
         filtersWrapper.appendChild(searchContainer);
@@ -186,7 +208,7 @@
     setOrganizationSelect: function(data){
         this.organizationSelect = [];
         if( data.rows.length > 0 ){
-            let organizationSelect  = [];
+            var organizationSelect  = [];
             indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
             indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
             data.rows.forEach( row => {
@@ -227,6 +249,7 @@
         container.appendChild(orgContainer);
         if(data.rows.length > 0 ){
             data.rows.forEach( function(row){
+            
             let orgElementsReferral__arrived         = this.createElement('div', { className: 'referalColumn'});
             let orgElementsReferral__notCompetence   = this.createElement('div', { className: 'referalColumn'});
             let orgElementsReferral__overdue         = this.createElement('div', { className: 'referalColumn'});
@@ -235,7 +258,9 @@
             let orgElementsReferral__toAttention     = this.createElement('div', { className: 'referalColumn'});
             let orgElementsReferral__onRefinement    = this.createElement('div', { className: 'referalColumn'});
             let orgElementsReferral__planOrProgram   = this.createElement('div', { className: 'referalColumn'});
-            let organizationId = row.values[0];
+            
+            var organizationId = row.values[0];
+            
             let orgElementsReferral = this.createElement('div', {  className: 'orgElementsReferral displayNone'}, orgElementsReferral__arrived, orgElementsReferral__notCompetence, orgElementsReferral__overdue, orgElementsReferral__warning, orgElementsReferral__inWork, orgElementsReferral__toAttention, orgElementsReferral__onRefinement, orgElementsReferral__planOrProgram);
             let orgElementsСounter = this.createElement('div', {  className: 'orgElementsСounter displayFlex'});
             let orgElements = this.createElement('div', {  className: 'orgElements displayFlex'}, orgElementsСounter, orgElementsReferral);
@@ -244,9 +269,11 @@
             let orgTitle = this.createElement('div', {  className: 'orgTitle displayFlex'}, orgTitle__icon, orgTitle__name);
             let organization = this.createElement('div', {  className: 'organization displayFlex', id: ''+organizationId+''}, orgTitle, orgElements);
             orgContainer.appendChild(organization);
+              
             for( let i = 2;  i <row.values.length; i ++){
                 let el = row.values[i];
-                let column =  this.chooseColumnName(i);
+                
+                var column =  this.chooseColumnName(i);
                 if( el != 0 ){
                     let orgElementsСounterItem__value = this.createElement('div', {  className: ' counter_value', innerText: ''+el+''});
                     var orgElementsСounterItem = this.createElement('div', {orgId: organizationId,  column: column, orgName: ''+row.values[1]+'',  className: 'counter counterHeader'}, orgElementsСounterItem__value);
@@ -266,6 +293,7 @@
         }else {
             this.messageService.publish( { name: 'emptyPage'  } );
         }
+        
         let allIcons = document.querySelectorAll('.orgTitle__icon');
         allIcons = Array.from(allIcons);
         allIcons.forEach( el =>{
@@ -305,6 +333,8 @@
                 el.appendChild(emptyBox);
             }
         }.bind(this));  
+        
+        
         if( reloadTable == true ){
             let target = document.getElementById(targetId);
             let thisName = document.getElementById('organizationName').innerText;
@@ -320,6 +350,7 @@
         const headerItem__toAttention_triangle = this.createElement('div', {  className: 'toAttention_triangle ' });
         const headerItem__onRefinement_triangle = this.createElement('div', {  className: 'onRefinement_triangle ' });
         const headerItem__planOrProgram_triangle = this.createElement('div', { className: 'planOrProgram_triangle' });
+        
         const headerItem__arrived         = this.createElement('div', { id: 'headerItem__arrived', className: 'headerItem displayFlex', innerText: 'Надійшло'}, headerItem__arrived_triangle);
         const headerItem__notCompetence   = this.createElement('div', { id: 'headerItem__notCompetence', className: 'headerItem displayFlex', innerText: 'Не в компетенції'}, headerItem__notCompetence_triangle);
         const headerItem__overdue         = this.createElement('div', { id: 'headerItem__overdue', className: 'headerItem displayFlex', innerText: 'Прострочені'}, headerItem__overdue_triangle);
@@ -328,6 +359,7 @@
         const headerItem__toAttention     = this.createElement('div', { id: 'headerItem__toAttention', className: 'headerItem displayFlex', innerText: 'До відома'}, headerItem__toAttention_triangle);
         const headerItem__onRefinement    = this.createElement('div', { id: 'headerItem__onRefinement', className: 'headerItem displayFlex', innerText: 'На доопрацюванні'}, headerItem__onRefinement_triangle);
         const headerItem__planOrProgram   = this.createElement('div', { id: 'headerItem__planOrProgram', className: 'headerItem displayFlex', innerText: 'План/Програма'}, headerItem__planOrProgram_triangle);
+        
         headerItem__arrived.style.backgroundColor = "rgb(74, 193, 197)";
         headerItem__notCompetence.style.backgroundColor = "rgb(173, 118, 205)";
         headerItem__overdue.style.backgroundColor = "rgb(240, 114, 93)";
@@ -336,11 +368,15 @@
         headerItem__toAttention.style.backgroundColor = "rgb(248, 195, 47)";
         headerItem__onRefinement.style.backgroundColor = "rgb(94, 202, 162)";
         headerItem__planOrProgram.style.backgroundColor = "rgb(73, 155, 199)";
+
         const headerItems = this.createElement('div', { id: 'headerItems', className: 'displayFlex'}, headerItem__arrived, headerItem__notCompetence, headerItem__overdue, headerItem__warning, headerItem__inWork, headerItem__toAttention, headerItem__onRefinement, headerItem__planOrProgram);
         const headerTitle = this.createElement('div', { id: 'headerTitle', innerText: 'Підлеглі організації'});        
         const orgHeader = this.createElement('div', { id: 'orgHeader', className: 'orgContainer displayFlex'}, headerTitle, headerItems);
+        
         container.appendChild(orgHeader);
-        let headers = document.querySelectorAll('.headerItem');
+        
+        
+        var headers = document.querySelectorAll('.headerItem');
         headers = Array.from(headers);
         headers.forEach( function(el){
             el.addEventListener( 'click', function(event){
@@ -354,9 +390,9 @@
     createOrganizationsSubElements: function(orgElementsReferral, organizationId, data){
         data.rows.forEach( function(row){
             for( let i = 2;  i <row.values.length; i ++){
-                let el = row.values[i];
-                let sub = row.values[1];
-                let column =  this.chooseColumnName(i);
+                var el = row.values[i];
+                var sub = row.values[1];
+                var column =  this.chooseColumnName(i);
                 if( el != 0 ){
                     let orgElementsReferal__itemValue_number = this.createElement('div', {  className: 'refItem__value', innerText: ' ('+el+')'});
                     let orgElementsReferal__itemValue_title = this.createElement('div', {  className: 'refItem__value', innerText: ''+sub+' '});
@@ -366,6 +402,7 @@
                 }
             }
         }.bind(this));
+        
         let counters = document.querySelectorAll('.counterBorder');
         counters = Array.from(counters);
         counters.forEach( function(el){
@@ -443,11 +480,12 @@
     },
     showTable: function(target, columnName, navigator, thisName, position){
         // var headers = ;
-        let headers = Array.from( document.querySelectorAll('.headerItem') );
+        var headers = Array.from( document.querySelectorAll('.headerItem') );
         if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input'){
             headers.forEach( el => {
                 el.firstElementChild.classList.remove('triangle');
             });
+            
             headerItem__arrived.style.backgroundColor = "rgb(74, 193, 197)";
             headerItem__notCompetence.style.backgroundColor = "rgb(173, 118, 205)";
             headerItem__overdue.style.backgroundColor = "rgb(240, 114, 93)";
@@ -456,6 +494,7 @@
             headerItem__toAttention.style.backgroundColor = "rgb(248, 195, 47)";
             headerItem__onRefinement.style.backgroundColor = "rgb(94, 202, 162)";
             headerItem__planOrProgram.style.backgroundColor = "rgb(73, 155, 199)";
+            
             headerItem__arrived.firstElementChild.classList.add('arrived_triangle');
             headerItem__notCompetence.firstElementChild.classList.add('notCompetence_triangle');
             headerItem__overdue.firstElementChild.classList.add('overdue_triangle');
@@ -464,6 +503,7 @@
             headerItem__toAttention.firstElementChild.classList.add('toAttention_triangle');
             headerItem__onRefinement.firstElementChild.classList.add('onRefinement_triangle');
             headerItem__planOrProgram.firstElementChild.classList.add('planOrProgram_triangle');
+            
             document.getElementById('organizationName').innerText = this.organizationName;
             document.getElementById('organizationChildCat').innerText = ' ';
             headers.forEach( function(el) {
@@ -509,5 +549,6 @@
     destroy: function(){
         this.sub.unsubscribe();
     }
+ 
 };
 }());

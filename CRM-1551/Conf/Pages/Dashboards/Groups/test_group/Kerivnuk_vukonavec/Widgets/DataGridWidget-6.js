@@ -95,6 +95,7 @@
     init: function() {
         document.getElementById('table3__organization').style.display = 'none';
         this.sub = this.messageService.subscribe('reloadMainTable', this.changeOnTable, this);
+        
         this.dataGridInstance.onCellClick.subscribe(e => {
             if( e.column.caption  == '' && e.row != undefined){
                 this.goToChildOrg('clickOnTable3', e.row.data.OrganizationId );    
@@ -104,6 +105,7 @@
     changeOnTable: function(message){
         document.getElementById('table2__mainTable').style.display = 'none';
         document.getElementById('table3__organization').style.display = 'block';
+        
         this.config.query.queryCode = 'table3';
         this.config.query.parameterValues = [ { key: '@organization_id',  value: message.orgId} ];
         this.loadData(this.afterLoadDataHandler);
@@ -117,5 +119,6 @@
     destroy: function() {
         this.sub.unsubscribe();
     }
+
 };
 }());

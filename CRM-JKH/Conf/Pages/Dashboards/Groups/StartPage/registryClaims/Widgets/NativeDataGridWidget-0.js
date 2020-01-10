@@ -97,6 +97,7 @@
                 ],
             limit: -1
         }
+        
         this.config.query.parameterValues =  [
             {
                 key:'@StatusId',
@@ -109,9 +110,11 @@
         location.reload();
     },
     load: function(data) {
+        
         //custom filter for changing status
         let that = this;
         let tableParams;
+       
         document.getElementById('btn_sendAllClaimToWork').addEventListener('click', function () {
             let executeQuery = {
                 queryCode: 'Claims_State_Update_Table',
@@ -119,6 +122,8 @@
                 parameterValues: []
             };
             this.queryExecutor(executeQuery, this.callback_updateRows, this);
+
+
         }.bind(that))
         let items = [...document.getElementsByClassName('item')];
         items.forEach(function (item, i, arr) {
@@ -135,7 +140,7 @@
                     document.getElementById('btn_block_hiden').style.display = '';
                 } else {
                     document.getElementById('btn_block_hiden').style.display = 'none';
-                }
+                };
                 //change parameterValues value
                 if (i === 0) {
                     tableParams = null;
@@ -146,10 +151,12 @@
                 that.loadData(this.afterLoadDataHandler);
             }.bind(that))
         })
-        for(let i=1; i<data.columns.length; i++){
+        
+        for(var i=1; i<data.columns.length; i++){
             this.config.columns[i] = {
                 dataField : data.columns[i].code,
                 caption: data.columns[i].name,
+                
             }
         }
         this.config.columns[1].width = 100;

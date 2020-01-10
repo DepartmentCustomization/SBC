@@ -1,11 +1,14 @@
 (function () {
     return {
+
         placeholder: 'Період',
         type: "Date",
         onItemSelect: function (date) {
         },
+
         init: function () {
         },
+
         initValue: function () {
             let currentDate = new Date();
             let year = currentDate.getFullYear();

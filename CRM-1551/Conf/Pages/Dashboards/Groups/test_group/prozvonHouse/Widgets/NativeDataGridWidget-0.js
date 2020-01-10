@@ -95,11 +95,14 @@
         this.showPreloader = false;
         this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.findAllCheckedFilter, this );
         this.sub2 = this.messageService.subscribe( 'reloadMainTable', this.reloadMainTable, this );
+        
         this.sortingArr = [];
         this.config.onToolbarPreparing = this.createDGButtons.bind(this);
         this.config.masterDetail.template = this.createMasterDetails.bind(this);
         this.config.onOptionChanged = this.onOptionChanged.bind(this);
+        
         this.config.onCellPrepared = this.onCellPrepared.bind(this);
+        
         this.dataGridInstance.onCellClick.subscribe( function(e) {
             if(e.column){
                 if(e.column.dataField == "registration_number" && e.row != undefined){
@@ -113,6 +116,7 @@
                 }
             }
         }.bind(this));        
+        
         if(window.location.search != ''){
             let getUrlParams =  window
                                     .location
@@ -145,17 +149,17 @@
     afterRenderTable: function(){
         let stateResult = document.querySelectorAll('.stateResult');
         for (let i = 0; i < stateResult.length; i++) {
+            
             let el = stateResult[i];
             let number = el.parentElement.children[2].innerText;
             let dataIndex = this.numbers.findIndex( num => num === number  );
             let spanCircle = this.createElement( 'span', { classList: 'material-icons', innerText: 'lens'});
             el.style.textAlign = 'center';
             spanCircle.style.width = '100%';
-            if( el.childNodes.length < 2 ){
-  el.appendChild(spanCircle); 
-}
+            if( el.childNodes.length < 2 ){  el.appendChild(spanCircle); }
             let cond1 = this.data[dataIndex][17];
             let cond2 = this.data[dataIndex][18];
+
             if(cond1 === 'На перевірці'  ){
                 if( cond2 === 'Не в компетенції'  || cond2 === 'Роз`яснено' ){
                     spanCircle.classList.add('onCheck');
@@ -219,6 +223,7 @@
                     columnCode = 'dataSource'
                     break;
             }
+            
             if(columnCode != undefined ){
                 if(columnCode != 'dataSource'){
                     let infoColumn = { fullName: columnCode, value: args.value };
@@ -237,40 +242,41 @@
                 }
             }
         }
+        
+        
     },      
     createMasterDetails: function(container, options){
         let currentEmployeeData = options.data;
         let lastNdzTime ;
-        if(currentEmployeeData.comment == null){
- currentEmployeeData.comment = ''; 
-}
-        if(currentEmployeeData.zmist == null){
- currentEmployeeData.zmist = ''; 
-}
-        if(currentEmployeeData.cc_nedozvon == null){
- currentEmployeeData.cc_nedozvon = ''; 
-}
+        if(currentEmployeeData.comment == null){ currentEmployeeData.comment = ''; }
+        if(currentEmployeeData.zmist == null){ currentEmployeeData.zmist = ''; }
+        
+        if(currentEmployeeData.cc_nedozvon == null){ currentEmployeeData.cc_nedozvon = ''; }
         if(currentEmployeeData.edit_date === null){
             lastNdzTime = ''
         }else{
             lastNdzTime = this.changeDateTimeValues(currentEmployeeData.edit_date);
         }
-        if(currentEmployeeData.control_comment == null){
- currentEmployeeData.control_comment = ''; 
-}
+        if(currentEmployeeData.control_comment == null){ currentEmployeeData.control_comment = ''; }
+        
         let ndz = currentEmployeeData.cc_nedozvon;
         let ndzComment = currentEmployeeData.control_comment;
+        
         let elementHistory__content = this.createElement('div', { className: 'elementHistory__content content', innerText: ndz +  ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment  });
         let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: "Історія"});
         let elementHistory = this.createElement('div', { className: 'elementHistory element'}, elementHistory__caption, elementHistory__content);
+        
         let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.zmist+""});
         let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
         let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
+        
         let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ""+currentEmployeeData.comment+""});
         let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: "Коментар виконавця"});
         let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
+        
         let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
         container.appendChild(elementsWrapper);
+        
         let elementsAll = document.querySelectorAll('.element');
         elementsAll.forEach( el => {
             el.style.display = 'flex';
@@ -288,6 +294,7 @@
         let yyyy = date.getFullYear().toString();
         let HH = date.getHours().toString();
         let MM = date.getMinutes().toString();
+
         dd = dd.length === 1 ? '0' + dd : dd;
         mm = mm.length === 1 ? '0' + mm : mm;
         HH = HH.length === 1 ? '0' + HH : HH;
@@ -311,6 +318,7 @@
     },
     createDGButtons: function(e) {
             let toolbarItems = e.toolbarOptions.items;
+
             toolbarItems.push({
                 widget: "dxButton", 
                 options: { 

@@ -28,7 +28,7 @@
       "Width": "50%"
     },
     {
-      "Code": "old_articul",
+      "Code": "old_part_id",
       "Name": "Снимаемая запчасть",
       "FieldType": "lookup",
       "Position": 3,
@@ -39,7 +39,7 @@
       "IsRequired": false
     },
     {
-      "Code": "new_articul",
+      "Code": "new_part_id",
       "Name": "Устанавливаемая запчасть",
       "FieldType": "lookup",
       "Position": 4,
@@ -83,6 +83,15 @@
       "Position": 11,
       "Width": "35%",
       "Icon": "save"
+    },
+    {
+      "Code": "part_id",
+      "Name": "part_id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 22,
+      "Width": "10%",
+      "IsHidden": true
     }
   ]
 }

@@ -1,9 +1,6 @@
-SELECT
-    Id,
-    category_name
-FROM
-    Categories
-WHERE 
-    #filter_columns#
-    #sort_columns#
-    OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY
+Select
+Id, category_name
+from Categories
+where #filter_columns#
+      #sort_columns#
+offset @pageOffsetRows rows fetch next @pageLimitRows rows only

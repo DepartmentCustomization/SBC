@@ -4,6 +4,7 @@
         hint: '',
         formatTitle: function() {},
         customConfig:
+                    
                     `
                     <style>
                     #notificationContainer{
@@ -30,7 +31,7 @@
             this.sub2 = this.messageService.subscribe( 'findFilterColumns', this.reloadTable, this );
         },
         setFiltersValue: function(message) {
-            let elem = message.package.value.values;
+            var elem = message.package.value.values;
             this.filtersLength = elem.length;
             this.filtersWithOutValues = 0;
             elem.forEach( elem => {
@@ -57,6 +58,7 @@
             const captionWarning =  this.createElement( 'div',{ className: 'captionWarning', innerText: 'Оберiть фiльтри!' });
             container.appendChild(captionWarning);
         },
+
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();

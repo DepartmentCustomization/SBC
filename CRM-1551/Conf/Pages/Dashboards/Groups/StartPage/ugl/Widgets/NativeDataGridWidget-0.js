@@ -143,7 +143,7 @@
         }
     },
     findAllRowsNeVKompetentсii: function(message){
-        let rows = this.dataGridInstance.instance.getSelectedRowsData();
+        var rows = this.dataGridInstance.instance.getSelectedRowsData();
         if( rows.length > 0 ){
             rows.forEach( function(el) {
             let executeQuery = {
@@ -169,7 +169,8 @@
         } return element;
     },
     createMasterDetail: function(container, options) {
-        let currentEmployeeData = options.data;
+        var currentEmployeeData = options.data;
+        
         if(currentEmployeeData.short_answer == null){
             currentEmployeeData.short_answer = '';
         }
@@ -182,14 +183,18 @@
         let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.adressZ+""});
         let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
         let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
+        
         let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.question_content+""});
         let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
         let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
+        
         let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ""+currentEmployeeData.short_answer+""});
         let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: "Коментар виконавця"});
         let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
+        
         let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
         container.appendChild(elementsWrapper);
+        
         let elementsAll = document.querySelectorAll('.element');
         elementsAll = Array.from(elementsAll);
         elementsAll.forEach( el => {
@@ -228,7 +233,8 @@
         }.bind(this));
     },    
     createTableButton: function(e) {
-        let toolbarItems = e.toolbarOptions.items;
+        var toolbarItems = e.toolbarOptions.items;
+
         toolbarItems.push({
             widget: "dxButton", 
             options: { 
@@ -254,6 +260,7 @@
         this.queryExecutor(exportQuery, this.myCreateExcel, this);
     },
     myCreateExcel: function(data){
+ 
         let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
         let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number' );
         let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
@@ -267,14 +274,18 @@
         let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'adressz' );
         let indexTransferOrgId = data.columns.findIndex(el => el.code.toLowerCase() === 'transfer_to_organization_id' );
         let indexTransferOrgName = data.columns.findIndex(el => el.code.toLowerCase() === 'transfer_to_organization_name' );
+        
         this.showPagePreloader('Зачекайте, формується документ');
         this.indexArr = [];
+
         let column_registration_number = { name: 'registration_number', index: 0 };
         let column_zayavnyk = { name: 'zayavnikName', index: 1 };
         let column_QuestionType = { name: 'QuestionType', index: 2 };
         let column_vykonavets = { name: 'vykonavets', index: 3 };
         let column_adress = { name: 'adress', index: 4 };
         this.indexArr = [ column_registration_number, column_zayavnyk, column_QuestionType, column_vykonavets, column_adress];
+        
+        
         const workbook = this.createExcel();
         const worksheet = workbook.addWorksheet('Заявки', {
             pageSetup:{
@@ -303,18 +314,21 @@
         worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
         worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
+        
         worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'left' };
         worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'left' };
-        let indexArr = this.indexArr;
-        let rows = [];
-        let captions = [];
-        let columnsHeader = [];
+        
+        var indexArr = this.indexArr;
+        var rows = [];
+        var captions = [];
+        var columnsHeader = [];
         let columnNumber = { key: 'number', width: 5 }
         columnsHeader.push(columnNumber);
         let rowNumber = '№ з/п';
         captions.push(rowNumber);
+        
         indexArr.forEach( el => {
             if( el.name === 'registration_number'){
                 var obj =  {
@@ -359,10 +373,10 @@
         this.addetedIndexes = [];
         for( let  j = 0; j < data.rows.length; j ++ ){  
             var row = data.rows[j];
-            let rowArr = [];
-            let rowItem = { number: j + 1 };
+            var rowArr = [];
+            var rowItem = { number: j + 1 };
             for( i = 0; i < indexArr.length; i ++){
-                let el = indexArr[i];
+                var el = indexArr[i];
                 if( el.name === 'registration_number'  ){
                     rowItem.registration_number = row.values[indexRegistrationNumber];
                 }else if(el.name === 'zayavnikName' ){
@@ -374,12 +388,13 @@
                 }else if( el.name === 'adress'  ){
                     rowItem.adress = row.values[indexAdress];
                 }
-            }
+            };
+            
             rows.push( rowItem );
-        }
+        };
         rows.forEach( el => {
             let number = el.number + '.'
-            let row = {
+            var row = {
                 number: number,
                 registration_number: el.registration_number,
                 zayavnikName: el.zayavnikName,
@@ -412,7 +427,8 @@
                 bold: false ,
                 italic: false
             };
-        }
+        };
+        
         worksheet.getRow(2).border = {
             bottom: {style:'thin'}
         };

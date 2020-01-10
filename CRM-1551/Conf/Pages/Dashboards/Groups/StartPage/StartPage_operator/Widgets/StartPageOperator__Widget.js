@@ -22,6 +22,7 @@
         data.rows.forEach( el => {
             let listItem = this.createElement('div', { className: 'listItem', innerText: el.values[1], type: el.values[0]  });
             listItems.appendChild( listItem );
+
             listItem.addEventListener( 'click', event => {
                 let target = event.currentTarget;
                 let phoneNumber = document.getElementById('listPhoneNumberInput').value;
@@ -42,6 +43,7 @@
     load: function(data) {
       const CONTAINER = document.getElementById('container');
       let title = this.createElement('div', { className: 'header-label', innerText: 'КБУ "Контактний центр міста Києва 1551"'});
+
       let groupRegByPhone__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'contact_phone' });
       let groupRegByPhone__description = this.createElement('div', { className: "description", innerText: 'Реєстрація Звернення за дзвінком'});
       groupRegByPhone__icon.style.color = '#f44336';
@@ -51,6 +53,7 @@
       groupRegByPhone.addEventListener('click',  event => { 
           this.showModalWindow();
       });
+
       let groupViewAppeals__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'view_list' });
       let groupViewAppeals__description = this.createElement('div', { className: "description", innerText: 'Перегляд Звернень з сайту'});
       groupViewAppeals__icon.style.color = '#ff7961';
@@ -60,6 +63,7 @@
       groupViewAppeals.addEventListener('click',  event => { 
           window.open(location.origin + localStorage.getItem('VirtualPath')+'/sections/Appeals');
       });
+      
       let groupRegAppeals__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'desktop_windows' });
       let groupRegAppeals__description = this.createElement('div', { className: "description", innerText: 'Реєстрація Звернень з сайту'});
       groupRegAppeals__icon.style.color = '#2196F3';
@@ -69,6 +73,7 @@
       groupRegAppeals.addEventListener('click',  event => { 
           window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/referrals_from_the_site');
       });
+
       let groupSearchTable__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'find_in_page' });
       let groupSearchTable__description = this.createElement('div', { className: "description", innerText: 'Розширений пошук'});
       groupSearchTable__icon.style.color = '#2196F3';
@@ -78,6 +83,7 @@
       groupSearchTable.addEventListener('click',  event => { 
           window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/poshuk_table');
       });
+      
       let groupCall__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'perm_phone_msg' });
       let groupCall__description = this.createElement('div', { className: "description", innerText: 'Прозвон'});
       groupCall__icon.style.color = '#2196F3';
@@ -87,6 +93,7 @@
       groupCall.addEventListener('click',  event => { 
           window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/prozvon');
       });
+
       let groupLetter__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'mail' });
       let groupLetter__description = this.createElement('div', { className: "description", innerText: 'Реєстрація Звернення згідно листа'});
       groupLetter__icon.style.color = '#6ec6ff';
@@ -96,6 +103,7 @@
       groupLetter.addEventListener('click',  event => { 
           this.showTypesList(data);
       });
+      
       let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupRegByPhone, groupViewAppeals, groupRegAppeals, groupSearchTable, groupCall, groupLetter );
       CONTAINER.appendChild(title);
       CONTAINER.appendChild(groupsWrapper);
@@ -111,6 +119,7 @@
     },
     showModalWindow: function(message) {
       let CONTAINER = document.getElementById('container');
+      
       const modalBtnClose =  this.createElement('button', { id:'modalBtnClose', className: 'btn', innerText: 'Закрити'});
       const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Підтвердити'});
       const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper' }, modalBtnTrue, modalBtnClose);
@@ -118,6 +127,7 @@
       const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalNumber, modalBtnWrapper); 
       const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
       CONTAINER.appendChild(modalWindowWrapper);
+      
       modalBtnTrue.addEventListener( 'click', event => {
           let target = event.currentTarget;
           let number = modalNumber.value

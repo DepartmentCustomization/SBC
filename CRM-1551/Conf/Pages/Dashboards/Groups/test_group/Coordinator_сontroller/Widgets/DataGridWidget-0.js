@@ -97,14 +97,17 @@
         this.sub = this.messageService.subscribe('clickOnСoordinator_table', this.changeOnTable, this);
         // this.sub1 = this.messageService.subscribe('findAllRows_Rozyasneno_Prozvon', this.findAllRows_Rozyasneno_Prozvon, this);
         // this.sub2 = this.messageService.subscribe('findAllRows_Rozyasneno_Rozyasneno', this.findAllRows_Rozyasneno_Rozyasneno, this);
+        
         this.config.onToolbarPreparing = this.createTableButton.bind(this);
         this.config.masterDetail.template = this.createMasterDetail.bind(this);
+        
         this.dataGridInstance.onCellClick.subscribe(e => {
             if(e.column.dataField == "registration_number" && e.row != undefined){
                 this.goToSection('Assignments/edit/'+e.row.data.Id+'');
             }
         });
     },
+    
     createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
         Object.keys(props).forEach( key => element[key] = props[key] );
@@ -115,7 +118,8 @@
         } return element;
     },
     createTableButton: function(e) {
-            let toolbarItems = e.toolbarOptions.items;
+            var toolbarItems = e.toolbarOptions.items;
+
             toolbarItems.push({
                 widget: "dxButton", 
                 options: { 
@@ -128,6 +132,7 @@
                 },
                 location: "after"
             });
+            
             toolbarItems.push({
                 widget: "dxButton", 
                 options: { 
@@ -143,21 +148,27 @@
             });
     },
     createMasterDetail: function(container, options) {
-        let currentEmployeeData = options.data;
+        var currentEmployeeData = options.data;
+        
         if(currentEmployeeData.short_answer == null){
             currentEmployeeData.short_answer = '';
         }
         let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.adress+""});
         let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
         let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
+        
         let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.question_content+""});
         let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
         let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
+        
         let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ""+currentEmployeeData.short_answer+""});
         let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: "Коментар виконавця"});
         let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
+        
+        
         let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
         container.appendChild(elementsWrapper);
+        
         let elementsAll = document.querySelectorAll('.element');
         elementsAll.forEach( el => {
             el.style.display = 'flex';
@@ -173,6 +184,7 @@
             document.getElementById('table6_rozyasneno').style.display = 'none';
         }else{
             document.getElementById('table6_rozyasneno').style.display = 'block';
+            
             // this.config.query.code = 'CoordinatorController_Doopr_Roz_Prostr_NemMozh';
             this.config.query.parameterValues = [ { key: '@navigation', value: message.value}, { key: '@column', value: message.column} ];
             this.loadData(this.afterLoadDataHandler);
@@ -187,7 +199,9 @@
             limit: -1
         };
         this.queryExecutor(executeQuery);
+        
         this.loadData(this.afterLoadDataHandler); 
+        
         this.messageService.publish({name: 'reloadAssignmentsTable' });
     },
     findAllRows_Rozyasneno_Rozyasneno: function(){
@@ -199,7 +213,9 @@
             limit: -1
         };
         this.queryExecutor(executeQuery);
+        
         this.loadData(this.afterLoadDataHandler); 
+        
         this.messageService.publish({name: 'reloadAssignmentsTable' });
     },
 	afterLoadDataHandler: function(data) {

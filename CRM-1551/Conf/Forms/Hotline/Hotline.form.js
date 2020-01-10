@@ -6,6 +6,7 @@
                         this.form.disableControl('phone_number');
                         //this.form.setControlValue('Id', this.id);
                         //this.form.setControlValue('Appeal_Id', this.id);
+                              
         },
         afterSave: function(data){
             // const id = this.form.getControlValue('Id');

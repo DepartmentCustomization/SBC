@@ -2,6 +2,7 @@
   return {
     init: function() {
         this.sub = this.messageService.subscribe( 'ApplyGlobalFilters', this.hideFilterPanel, this);
+        
         let msg = {
             name: "SetFilterPanelState",
             package: {

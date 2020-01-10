@@ -15,17 +15,23 @@
           {
             "Code": "cars_name",
             "Name": "Позывной",
-            "Position": 2
+            "Position": 2,
+            "SqlName": "cars_name",
+            "FilterParameterCode": "@cars_name"
           },
           {
             "Code": "cars_mark",
             "Name": "Марка",
-            "Position": 3
+            "Position": 3,
+            "SqlName": "cars_mark",
+            "FilterParameterCode": "@cars_mark"
           },
           {
             "Code": "cars_number",
             "Name": "Гос. номер",
-            "Position": 4
+            "Position": 4,
+            "SqlName": "cars_number",
+            "FilterParameterCode": "@cars_number"
           }
     ],
     "Parameters": [

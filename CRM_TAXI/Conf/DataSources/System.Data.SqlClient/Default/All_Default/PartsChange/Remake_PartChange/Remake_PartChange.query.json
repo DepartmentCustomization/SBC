@@ -1,36 +1,56 @@
 {
-    "ModelType": "Query",
-    "Code": "Remake_PartChange",
-    "Name": "Remake_PartChange",
-    "ConnectionCode": "Default",
-    "IsUsedForRightsFilter": false,
-    "Parameters": [
-      {
-        "Code": "@Id",
-        "Name": "Id",
-        "ParameterType": "Integer",
-        "IsPrimaryKey": true
-      },
-      {
-        "Code": "@prev_part_id",
-        "Name": "prev_part_id"
-      },
-      {
-        "Code": "@part_id",
-        "Name": "part_id"
-      },
-      {
-        "Code": "@cars_id",
-        "Name": "cars_id"
-      },
-      {
-        "Code": "@changeId",
-        "Name": "changeId"
-      },
-      {
-        "Code": "@user_id",
-        "Name": "user_id",
-        "ParameterType": "CurrentUserId"
-      }
-    ]
-  }
+  "ModelType": "Query",
+  "Code": "Remake_PartChange",
+  "Name": "Remake_PartChange",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "result",
+      "Name": "result",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "resultNotify",
+      "Name": "resultNotify",
+      "Position": 3,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@prev_part_id",
+      "Name": "prev_part_id"
+    },
+    {
+      "Code": "@part_id",
+      "Name": "part_id"
+    },
+    {
+      "Code": "@cars_id",
+      "Name": "cars_id"
+    },
+    {
+      "Code": "@changeId",
+      "Name": "changeId"
+    },
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
+    }
+  ]
+}

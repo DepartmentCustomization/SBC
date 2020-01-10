@@ -40,6 +40,7 @@
         document.getElementById('btn_block_hiden').style.display = 'none';
     },
     init: function() {
+     
     },
     load: function(data) {
     }
