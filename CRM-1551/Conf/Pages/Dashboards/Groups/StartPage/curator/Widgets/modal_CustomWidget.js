@@ -11,11 +11,9 @@
                     <div id='container'></div>
                     `
         ,
-
         init: function() {
             this.sub = this.messageService.subscribe('showModalWindow', this.showModalWindow, this);
         },
-
         showModalWindow: function (message) {
             if (message.length > 50) {
                 let CONTAINER = document.getElementById('container');
@@ -27,12 +25,10 @@
                 const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitleCounter, modalTitleChecked, modalBtnWrapper); 
                 const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
                 CONTAINER.appendChild(modalWindowWrapper);
-                
                 modalBtnTrue.addEventListener( 'click', event => {
                     this.executeQuery(message);
                     CONTAINER.removeChild(CONTAINER.lastElementChild);
                 });
-                
                 modalBtnFalse.addEventListener( 'click', event => {
                     let target = event.currentTarget;
                     CONTAINER.removeChild(CONTAINER.lastElementChild);
@@ -41,7 +37,6 @@
                 this.executeQuery(message);
             }
         },
-
         executeQuery: function (message) {
             const query = {
                 queryCode: message.query,
@@ -53,7 +48,6 @@
             this.messageService.publish({  name: 'renderAfterCloseModal' });
             this.sendMessageToReloadMainTable(message);
         },
-
         sendMessageToReloadMainTable: function (message) {
             const name = 'reloadMainTable';
             const navigation = message.self.navigation;
@@ -61,7 +55,6 @@
             const targetId = message.self.targetId;
             this.messageService.publish({ name, navigation, column, targetId });
         },
-
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -71,7 +64,6 @@
                 });
             } return element;
         },
-
         destroy: function () {
             this.sub.unsubscribe();
         }

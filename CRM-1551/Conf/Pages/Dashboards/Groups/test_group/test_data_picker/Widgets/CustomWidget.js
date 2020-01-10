@@ -8,7 +8,6 @@
                     <div id='modalContainer'></div>
                 `
         ,
-        
         init: function() {
             const msg = {
                 name: "SetFilterPanelState",
@@ -19,7 +18,6 @@
             this.messageService.publish(msg);
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParam, this);
         },
-
         getFiltersParam: function (message) {
             let d1 = message.package.value.values.find(f => f.name === 'd1').value;
             let d2 = message.package.value.values.find(f => f.name === 'd2').value;

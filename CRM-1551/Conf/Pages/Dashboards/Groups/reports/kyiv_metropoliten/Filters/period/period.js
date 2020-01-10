@@ -16,16 +16,13 @@
         this.messageService.publish(message);
     },
     init: function(){
-      
     },
-    
     initValue: function() {
         let currentDate = new Date();
         let year = currentDate.getFullYear();
         let monthFrom = currentDate.getMonth();
         let dayTo = currentDate.getDate();
         let defaultValue = {
-
             dateFrom: new Date(year, monthFrom , '01'),
             dateTo: new Date( year, monthFrom , dayTo)
         }

@@ -77,7 +77,6 @@
                                 return{
                                     paginate: true,
                                     store: this.elements,
-                                    
                                     filter: options.data ? ['district_id', '=', options.data.district_id] : null
                                 }
                             },
@@ -95,7 +94,6 @@
                 caption: 'Коментар'
             }
         ], 
-        
         searchPanel: {
             visible: true,
             highlightCaseSensitive: false
@@ -138,7 +136,6 @@
         showBorders: true,
         showColumnLines: true,
         showRowLines: true,
-        
         remoteOperations: null,
         allowColumnReordering: null,
         rowAlternationEnabled: null,
@@ -156,12 +153,12 @@
         //     e.component.element().find(".dx-datagrid-header-panel").hide();         
         // }
         toolbarPreparing: function(data) {
-            var indexSaveButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function (item) {
+            let indexSaveButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function (item) {
                 return item.name == "saveButton";
             }));
             if (indexSaveButton != -1)
                 data.toolbarOptions.items.splice(indexSaveButton, 1);
-            var indexRevertButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function (item) {
+            let indexRevertButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function (item) {
                 return item.name == "revertButton";
             }));
             if (indexRevertButton != -1)
@@ -180,29 +177,24 @@
         this.loadData(this.afterLoadDataHandler);
         // for example
         // this.subscribeToDataGridActions();
-        
         // this.sub = this.messageService.subscribe('clickOnStreets', this.changeOnTable, this);
-        
         let executeQuery_dis = {
                 queryCode: 'int_list_district_1551',
                 parameterValues: [],
                 limit: -1
             };
         this.queryExecutor(executeQuery_dis, this.lookupFoo_dis, this);
-            
         let executeQuery = {
                 queryCode: 'int_list_houses_1551',
                 parameterValues: [],
                 limit: -1
             };
         this.queryExecutor(executeQuery, this.lookupFoo, this);
-        
-        var that = this;    
+        let that = this;    
         this.dataGridInstance.onRowUpdating.subscribe( function(e) {
             console.log(e.key);
             console.log(e.oldData);
             console.log(e.newData);
-            
             let is_done = e.newData.is_done;
             let key = e.key;
             let id_1551 = e.oldData.id_1551;
@@ -210,7 +202,6 @@
             let comment = e.newData.comment;
             let cat_id = e.oldData.cat_id;
             console.log ('Is_done: ' + is_done + '  key: '+ key + '  id_1551: ' + id_1551 + '  comment: ' + comment);
-            
             let saveChange = {
                 queryCode: 'int_btnSaveChange_housesGorodok',
                 limit: -1,
@@ -236,10 +227,8 @@
                     }
                 ]
             };
-            
             this.queryExecutor(saveChange);
         // this.loadData(this.afterLoadDataHandler);
-            
         }.bind(this));
     },
     lookupFoo_dis: function(data) {
@@ -251,15 +240,13 @@
                 "name": el.values[1],
             } 
             this.elements_dis.push(obj);
-        };
+        }
         this.config.columns[2].columns[0].lookup.dataSource.store = this.elements_dis;
         // this.config.columns[2].lookup.dataSource.store = this.elements_dis;
         console.log( this.elements_dis);
         this.loadData(this.afterLoadDataHandler);
     },
-    
     lookupFoo: function(data) {
-                  
         this.elements = [];
         for( i = 0; i < data.rows.length; i++){
             let el = data.rows[i];
@@ -269,21 +256,17 @@
                 "district_id": el.values[2]
             } 
             this.elements.push(obj);
-        };
+        }
         this.config.columns[2].columns[1].lookup.dataSource.store = this.elements;
         // this.config.columns[3].lookup.items = this.elements;
         // this.config.columns[3].lookup.dataSource.store = this.elements;
-        
         // this.config.columns[3].lookup.dataSource = this.myFunc.bind(this);
         this.config.columns[2].columns[1].lookup.dataSource = this.myFunc.bind(this);
-        
         console.log( this.elements);
         this.loadData(this.afterLoadDataHandler);
     },
-     
     afterLoadDataHandler: function(data) {
         this.render();
-       
     },
     subscribeToDataGridActions: function() {
         // subscribe to data list actions here

@@ -1,6 +1,5 @@
 (function () {
     return {
-
         config: {
             query: {
                 code: 'db_Report_7_1',
@@ -37,14 +36,12 @@
                                     caption: 'previousYear',
                                     dataField: 'qtyMail_prev',
                                     alignment: 'center',
-                                    
                                 }, {
                                     caption: 'currentYear',
                                     dataField: 'qtyMail_curr',
                                     alignment: 'center',
                                 }
                             ]
-                            
                         }, {
                             caption: 'на особистому прийомі (п. 1.2)*',
                             alignment: 'center',
@@ -53,13 +50,11 @@
                                     caption: 'previousYear',
                                     dataField: 'qtyPersonal_prev',
                                     alignment: 'center',
-                                    
                                 }, {
                                     caption: 'currentYear',
                                     dataField: 'qtyPersonal_curr',
                                     alignment: 'center',
                                 }
-                                
                             ]
                         },
                 ]
@@ -82,7 +77,6 @@
                                 }
                             ]
                         }, {
-                            
                             caption: 'відмолено у задоволенні (не виконано) п. 9.2',
                             alignment: 'center',
                             columns: [
@@ -130,12 +124,10 @@
             ],
             keyExpr: 'qtyExpl_prev'
         },
-
         init: function() {
             this.sub =  this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-
         setFilterParams: function (message) {
             this.previousYear = message.previousYear;
             this.currentYear = message.currentYear;
@@ -145,7 +137,6 @@
             ];
             this.loadData(this.afterLoadDataHandler);
         }, 
-
         afterLoadDataHandler: function(data) {
             const name = 'setData';
             const columns = this.config.columns;
@@ -153,12 +144,10 @@
             this.messageService.publish( {name, data, columns, position} );
             this.render(this.afterRenderTable());
         },   
-        
         afterRenderTable: function (params) {
             this.messageService.publish({ name: 'setStyles'});
             this.setYears();
         },
-
         setYears: function() {
             this.config.columns.forEach( col => {
                 col.columns.forEach( col => {
@@ -167,7 +156,6 @@
                 });
             });
         },
-
         destroy: function() {
             this.sub.unsubscribe();
         },

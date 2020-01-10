@@ -75,7 +75,6 @@
         showBorders: true,
         showColumnLines: true,
         showRowLines: true,
-
         remoteOperations: null,
         allowColumnReordering: null,
         rowAlternationEnabled: null,
@@ -98,22 +97,18 @@
         this.loadData(this.afterLoadDataHandler);
         // for example
         // this.subscribeToDataGridActions();
-        
         // this.sub = this.messageService.subscribe('clickOnStreets', this.changeOnTable, this);
-        
         let executeQuery = {
                 queryCode: 'int_list_organization_1551',
                 parameterValues: [],
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.lookupFoo, this);
-            
-        var that = this;    
+        let that = this;    
         this.dataGridInstance.onRowUpdating.subscribe( function(e) {
             console.log(e.key);
             console.log(e.oldData);
             console.log(e.newData);
-            
             let is_done = e.newData.is_done;
             let key = e.key;
             let id_1551 = e.oldData.id_1551;
@@ -121,7 +116,6 @@
             let comment = e.newData.comment;
             let cat_id = e.oldData.cat_id;
             console.log ('Is_done: ' + is_done + '  key: '+ key + '  id_1551: ' + id_1551 + '  comment: ' + comment);
-            
             let saveChange = {
                 queryCode: 'int_btnSaveChange_organizationGorodok',
                 limit: -1,
@@ -147,14 +141,11 @@
                     }
                 ]
             };
-            
             this.queryExecutor(saveChange);
         // this.loadData(this.afterLoadDataHandler);
-            
         }.bind(this));
     },
      lookupFoo: function(data) {
-         
         this.elements = [];
         for( i = 0; i < data.rows.length; i++){
             let el = data.rows[i];
@@ -163,7 +154,7 @@
                 "short_name": el.values[1],
             } 
             this.elements.push(obj);
-        };
+        }
         this.config.columns[2].lookup.dataSource.store = this.elements;
         console.log( this.elements);
         this.loadData(this.afterLoadDataHandler);

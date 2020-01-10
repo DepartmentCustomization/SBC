@@ -38,7 +38,6 @@
         let arrMessage = [];
         item.forEach( el =>  arrMessage.push(el.value));
         arrMessage = arrMessage.join(', ');
-
         this.messageService.publish( { name: 'messageForBuilding', value: arrMessage });
     }
 };

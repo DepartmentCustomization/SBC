@@ -59,10 +59,8 @@
             showRowLines: true,
             keyExpr: 'Id',
         },
-
         createButtons: function(e) {
             let toolbarItems = e.toolbarOptions.items;
-
             toolbarItems.push({
                 widget: "dxButton", 
                 options: { 
@@ -76,7 +74,6 @@
                 },
                 location: "after"
             });
-            
             toolbarItems.push({
                 widget: "dxButton", 
                 options: { 
@@ -91,7 +88,6 @@
                 location: "after"
             });
         },
-
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -101,20 +97,15 @@
                 });
             } return element;
         },  
-
         filtersValuesMacros: [],
-
         textFilterMacros: '',
-
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 230;
             document.getElementById('poshuk_table_main').style.display = 'none';
-            
             this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.setFiltersValue, this );
             this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.findAllCheckedFilter, this );
             this.sub2 = this.messageService.subscribe( 'findFilterColumns', this.reloadTable, this );
             this.config.onToolbarPreparing = this.createButtons.bind(this);
-            
             this.dataGridInstance.onCellClick.subscribe( function(e) {
                 if(e.column){
                     if(e.column.dataField == "question_registration_number" && e.row != undefined){
@@ -124,9 +115,7 @@
             }.bind(this));
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-
         setFiltersValue:function(message) {
-            
             this.registrationDateFrom = null;
             this.registrationDateTo = null;
             this.transferDateFrom = null;
@@ -140,7 +129,6 @@
             this.controlDateFrom = null;
             this.controlDateTo = null;
             this.applicantPhoneNumber = null;
-            
             this.filtersValuesMacros = [];
             let filters = message.package.value.values;
             this.filtersLength = filters.length;
@@ -160,7 +148,6 @@
                                         let values = el.viewValue.split('-');
                                         let ageValue = '(zayavnyk_age>='+values[0]+' and zayavnyk_age<='+values[1]+')';
                                         this.ageArr.push(ageValue);
-                                        
                                         ageSendViewValue = ageSendViewValue + ', '+ el.viewValue;
                                     });
                                     ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
@@ -213,7 +200,6 @@
                                     case 'execution_term':
                                         this.executionTermFrom = checkDateFrom(elem.value);
                                         break;
-                                            
                                     case 'control_date':
                                         this.controlDateFrom = checkDateFrom(elem.value);
                                         break;
@@ -250,7 +236,6 @@
                         }else{
                             this.createObjMacros( elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue );
                         }
-
                     }
                 }else if(elem.active === false) {
                     this.filtersWithOutValues += 1;
@@ -258,13 +243,12 @@
             });
             function checkDateFrom(val){
                 return val ? val.dateFrom : null;
-            };
+            }
             function checkDateTo(val){
                 return val ? val.dateTo : null;
-            };
+            }
             this.filtersWithOutValues === this.filtersLength ?  this.isSelected = false   : this.isSelected = true; 
         },
-
         createObjMacros: function(name, operation, value, placeholder, viewValue) {
             let obj = {
                 code: name,
@@ -275,12 +259,10 @@
             }
             this.filtersValuesMacros.push(obj);
         },
-
         findAllCheckedFilter: function() {
             this.isSelected === true ? document.getElementById('poshuk_table_main').style.display = 'block' : document.getElementById('poshuk_table_main').style.display = 'none' ;
             let filters = this.filtersValuesMacros;
             if( filters.length > 0 || this.applicantPhoneNumber !== null ){
-                
                 this.textFilterMacros = [];
                 filters.forEach( el => {
                     this.createFilterMacros( el.code, el.operation, el.value);
@@ -289,7 +271,6 @@
                 let str = arr.join(' ');
                 let macrosValue = str.slice(0, -4);
                 this.macrosValue = macrosValue === '' ?  '1=1' : macrosValue;
-                
                 this.sendMsgForSetFilterPanelState(false);
                 this.config.query.parameterValues = [
                     {  key: '@param1', value: this.macrosValue }, 
@@ -312,15 +293,13 @@
                     name: 'filters',
                     value: this.filtersValuesMacros
                 });    
-            }
-            else{
+            } else{
                 this.messageService.publish( { 
                     name: 'filters',
                     value: this.filtersValuesMacros
                 });        
             }
         },
-
         createFilterMacros: function(code, operation, value) {
             if(code !==  'zayavnyk_phone_number' ){
                 if( operation !== '>=' && operation !== '<=' ){
@@ -342,7 +321,6 @@
                 }
             }   
         },
-
         setFilterColumns: function(code, operation, value) {
             const filter = {
                     key: code,
@@ -354,10 +332,8 @@
                 };
             this.config.query.filterColumns.push(filter);
         },
-
         reloadTable: function(message) {
             this.config.columns = [];
-            
             this.config.columns = [
                 {
                     dataField: 'question_registration_number',
@@ -407,7 +383,6 @@
                             width: 130,
                             dateType: 'datetime',
                             format: 'dd.MM.yyy HH.mm'                         
-                            
                         }
                         break;
                     case 'appeals_files_check':
@@ -426,7 +401,6 @@
                             dataField: el.displayValue,
                             caption: el.caption,
                             width: el.width,
-                            
                         }
                         break;
                 }
@@ -434,12 +408,10 @@
             }.bind(this));
             this.loadData(this.afterLoadDataHandler);
         },
-
         afterLoadDataHandler: function(data) {
             this.render();
             this.messageService.publish({ name: 'dataLength', value: data.length});
         },
-
         afterRenderTable: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
@@ -448,7 +420,6 @@
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
         },
-
         sendMsgForSetFilterPanelState: function(state) {
             const msg = {
                 name: "SetFilterPanelState",
@@ -458,10 +429,8 @@
             };
             this.messageService.publish(msg);
         },
-
         exportToExcel: function() {
             let value =  this.macrosValue ? this.macrosValue :  '1=1';
-            
             let exportQuery = {
                 queryCode: 'ak_QueryCodeSearch',
                 limit: -1,
@@ -486,7 +455,6 @@
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },
-
         myCreateExcel: function(data) {
             if( data.rows.length > 0 ){    
                 this.showPagePreloader('Зачекайте, формується документ');
@@ -509,7 +477,6 @@
                 const worksheet = workbook.addWorksheet('Заявки', {
                     pageSetup:{orientation: 'landscape', fitToPage: false, fitToWidth: true}
                 });
-                
                 /*TITLE*/
                 let cellInfoCaption = worksheet.getCell('A1');
                 cellInfoCaption.value = 'Інформація';
@@ -522,18 +489,14 @@
                 worksheet.mergeCells('A1:F1'); 
                 worksheet.mergeCells('A2:F2'); 
                 worksheet.mergeCells('A3:F3');
-                
                 worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
                 worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
                 worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
                 worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
-                
                 worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
                 worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'left' };
                 worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
                 worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'left' };
-                
-            
                 let indexArr = this.indexArr;
                 let rows = [];
                 let captions = [];
@@ -568,14 +531,12 @@
                         };
                         columnsHeader.push(obj1);
                         captions.push('Тип питання');
-
                         let obj2 =  { 
                             key: 'assigm_question_content',
                             width: 62
                         };
                         columnsHeader.push(obj2);
                         captions.push('Суть питання');
-                        
                     }else if( el.name === 'assigm_executor_organization'  ){
                         let obj =  {
                             key: 'organization',
@@ -603,8 +564,6 @@
                 worksheet.getRow(5).values = captions;
                 worksheet.columns = columnsHeader;
                 this.addedIndexes = [];
-                
-                
                 let indexRegistrationDate = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_date' );
                 let indexZayavnykFlat = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_flat' );
                 let indexZayavnykBuildingNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_building_number' );
@@ -614,10 +573,8 @@
                     let row = data.rows[j];
                     let rowArr = [];
                     let rowItem = { number: j + 1 };
-
                     for( i = 0; i < indexArr.length; i ++){
                         let el = indexArr[i];
-
                         const controlDate = this.changeDateTimeValues(row.values[indexExecutionTerm]);
                         const regDate = this.changeDateTimeValues(row.values[indexRegistrationDate]);
                         if( el.name === 'question_registration_number'  ){
@@ -728,12 +685,12 @@
                                 case 'ConsDocumentContent':
                                     rowItem.ConsDocumentContent = row.values[el.index];
                                     break    
-                            };
+                            }
                             this.addedIndexes.push(prop);
                         }
-                    };
+                    }
                     rows.push( rowItem );
-                };
+                }
                 rows.forEach( el => {
                     let row = {
                         number: el.number + '.',
@@ -843,11 +800,10 @@
                             case 'ConsDocumentContent':
                                 row.ConsDocumentContent = el.ConsDocumentContent;
                                 break
-                        };
+                        }
                     }
                     worksheet.addRow(row);
                 });
-                
                 worksheet.pageSetup.margins = {
                     left: 0.4, right: 0.3,
                     top: 0.4, bottom: 0.4,
@@ -875,7 +831,7 @@
                         bold: false ,
                         italic: false
                     };
-                };
+                }
                 worksheet.getRow(2).border = {
                     bottom: {style:'thin'}
                 };
@@ -884,7 +840,6 @@
                 this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
             }    
         },
-
         changeDateTimeValues: function(value) {
             if( value === null){
                 return ' '
@@ -896,14 +851,12 @@
             let yyyy = date.getFullYear().toString();
             let HH = date.getHours().toString();
             let MM = date.getMinutes().toString();
-
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
             HH = HH.length === 1 ? '0' + HH : HH;
             MM = MM.length === 1 ? '0' + MM : MM;
             return  dd + '.' + mm + '.' + yyyy + ' ' + HH + ':' + MM;
         },
-        
         destroy: function() {
             this.sub.unsubscribe();  
             this.sub1.unsubscribe();  

@@ -31,10 +31,8 @@
             this.reports.forEach( report => {
                 const reportTitle = report.title;
                 const url = report.url;
-                
                 const reportListItem = this.createElement('div', { className: 'reportListItem', url: url, innerText: reportTitle });
                 reportListWrap.appendChild(reportListItem);
-                
                 reportListItem.addEventListener( 'click', event => {
                     const target = event.currentTarget;
                     window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/"+target.url);
@@ -52,4 +50,3 @@
         },  
     };
 }());
-  

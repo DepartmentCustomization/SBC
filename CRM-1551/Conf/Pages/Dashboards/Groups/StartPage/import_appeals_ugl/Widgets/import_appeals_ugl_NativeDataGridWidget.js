@@ -42,11 +42,9 @@
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 200;
-
             this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.applyChanges, this);
             this.sub2 = this.messageService.subscribe( 'showTable', this.showTable, this);
-
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if( e.column ){
                     if(e.column.dataField == "EnterNumber" && e.row != undefined){
@@ -54,22 +52,18 @@
                     }
                 }
             });
-
         },
         getFiltersParams: function(message) {
             this.config.query.filterColumns = [];
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let processed = message.package.value.values.find(f => f.name === 'processed').value;
             let users = message.package.value.values.find(f => f.name === 'users').value;
-
             if( period !== null ){
                 if( period.dateFrom !== '' &&  period.dateTo !== ''){
-                    
                     this.dateFrom =  period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.users = extractOrgValues(users);
                     this.processed = processed === null ? null : processed === '' ? null : processed.value;
-
                     this.config.query.parameterValues = [ 
                         {key: '@dateFrom' , value: this.dateFrom },  
                         {key: '@dateTo', value: this.dateTo },  
@@ -89,7 +83,6 @@
                     this.loadData(this.afterLoadDataHandler);
                 }
             }
-
             function extractOrgValues(val) {
                 if(val !== null){
                     let valuesList = [];

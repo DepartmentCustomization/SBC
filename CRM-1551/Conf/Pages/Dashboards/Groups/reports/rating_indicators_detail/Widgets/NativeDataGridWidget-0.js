@@ -200,11 +200,8 @@
             showColumnChooser: true,
             showColumnFixing: true,
             groupingAutoExpandAll: null,
-
         },
         init: function() {
-            
-        
             const getDataFromLink = window
                 .location
                 .search
@@ -212,20 +209,15 @@
                 .split('&')
                 .reduce(
                     function(p, e) {
-                        var a = e.split('=');
+                        let a = e.split('=');
                         p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                         return p;
                     }, {}
                 );
-    
             this.period = getDataFromLink["DateCalc"];
             this.executor = getDataFromLink["RDAId"] === null ? 0 :  getDataFromLink["RDAId"] === '' ? 0 : getDataFromLink["RDAId"];
             this.rating = getDataFromLink["RatingId"] === null ? 0 :  getDataFromLink["RatingId"] === '' ? 0 : getDataFromLink["RatingId"];
-    
-                
             this.renderTable();
-        
-
             this.config.columns.forEach( col => {
                 function setColStyles(col){
                     col.width = '120';
@@ -239,8 +231,6 @@
                     setColStyles(col);
                 }
             });
-            
-
             this.dataGridInstance.height = window.innerHeight - 90;
             this.config.onContentReady = this.onMyContentReady.bind(this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
@@ -253,10 +243,8 @@
             ];
             this.loadData(this.afterLoadDataHandler);
         },
-        
         createTableButton: function (e) {
             let toolbarItems = e.toolbarOptions.items;
-
             toolbarItems.push({
                 widget: "dxButton", 
                 location: "after",
@@ -306,19 +294,16 @@
             worksheet.mergeCells(1,visibleColumns.length,1,1); // top,left,bottom,right
             worksheet.mergeCells(2,visibleColumns.length,2,1); // top,left,bottom,right
             worksheet.mergeCells(3,visibleColumns.length,3,1); // top,left,bottom,right
-
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 16, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 16, underline: false, bold: true , italic: false};
             worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
-
             let captions = [];
             let columnsHeader = [];      
             for (let i = 0; i < visibleColumns.length; i++) {
                 let column = visibleColumns[i];
                 let caption = column.caption;
                 captions.push(caption);
-
                 let header = column.caption;
                 let key = column.dataField;
                 let width = 15;
@@ -326,7 +311,6 @@
                 let columnProp = { header, key, width, index };
                 columnsHeader.push(columnProp);    
             }
-        
             worksheet.columns = columnsHeader;
             worksheet.getRow(5).values = captions;
             worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -335,14 +319,11 @@
             worksheet.getRow(4).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(4).height = 70;
             worksheet.getRow(5).height = 70;
-
-
             this.subColumnCaption = [];
             this.allColumns = [];
             this.subIndex = 0;
             let resultColumns = [];
             let lengthArray = [];
-
             for (let i = 0; i < this.config.columns.length; i++) {
                 let column = this.config.columns[i];
                 let colCaption = column.caption;
@@ -360,8 +341,7 @@
                                 this.subColumnCaption.push(obj);
                                 this.subIndex++;
                             }
-                        }
-                        else{
+                        } else{
                             let obj = {
                                 colCaption,
                                 length,
@@ -392,7 +372,6 @@
                 let index = this.allColumns.findIndex( el => el.dataField === df ); 
                 resultColumns.push(this.allColumns[index]);
             }
-            
             for (let i = 0; i < resultColumns.length; i++) {
                 const resCol = resultColumns[i];
                 const colIndexTo = i+1;
@@ -414,7 +393,6 @@
                 }
                 worksheet.mergeCells(indexCaptionFrom, colIndexTo, 5, colIndexTo );
             }
-            
             this.subColumnCaption.forEach( col => {
                 let indexFrom = col.colIndexTo - col.length + 1;
                 let indexTo = col.colIndexTo;
@@ -424,13 +402,11 @@
                     caption.value = col.colCaption;
                 }
             });
-
             for (let i = 0; i < this.columnsWithoutSub.length; i++) {
                 let element = this.columnsWithoutSub[i];
                 let caption = worksheet.getCell(4, element.colIndexTo);
                 caption.value = element.caption;
             }
-
             for (let i = 0; i < data.rows.length; i++) {
                 let rowData = data.rows[i];
                 let rowValues = [];
@@ -452,16 +428,13 @@
             }
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-        
         changeDateTimeValues: function(value){
-            
             let date = new Date(value);
             let dd = date.getDate().toString();
             let mm = (date.getMonth() + 1).toString();
             let yyyy = date.getFullYear().toString();
             let HH = date.getHours().toString();
             let MM = date.getMinutes().toString();
-
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
             HH = HH.length === 1 ? '0' + HH : HH;

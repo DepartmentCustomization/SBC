@@ -55,7 +55,6 @@
             if( period !== null ){
                 this.dateFrom =  period.dateFrom;
                 this.dateTo = period.dateTo;
-                
                 this.config.query.parameterValues = [ 
                     {key: '@dateFrom' , value: this.dateFrom },  
                     {key: '@dateTo', value: this.dateTo },  

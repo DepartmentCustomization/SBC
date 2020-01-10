@@ -16,7 +16,6 @@
         this.form.disableControl('claim_adress');
         this.form.disableControl('claim_comment');
         this.form.disableControl('claim_control_date');
-
         let dependParams = [{ parameterCode: '@ClaimId', parameterValue: this.id }];
         this.form.setControlParameterValues('claim_executor_Id', dependParams);
     }

@@ -162,7 +162,6 @@
                         }
                     }
                 ]
-                
             },
             keyExpr: 'Id',
             scrolling: {
@@ -189,18 +188,14 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
         },
-
         summary: [],
-
         init: function() {
             this.summary = [];
             this.dataGridInstance.height = window.innerHeight - 200;
             this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
-
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-
         afterRenderTable: function (data) {
             this.summary = [];
             const collections = document.querySelectorAll('.dx-row');
@@ -214,10 +209,8 @@
                 });
             });
         },
-
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
-            
             toolbarItems.push({
                 widget: "dxButton", 
                 location: "after",
@@ -239,9 +232,7 @@
                 },
             });
         },
-
         createExcelWorkbook: function (data) {
-            
               workbook = this.createExcel();
             let worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
@@ -254,7 +245,6 @@
                     }
                 }
             });
-            
             const columns = this.config.columns;
             const columnsProperties = [];
             const rows = [];
@@ -264,14 +254,11 @@
             this.setTableValues(data, columns, worksheet, rows);
             this.setTableRowsStyles(worksheet, rows);
             this.setSummaryValues(worksheet);
-            
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-
         setColumnsProperties: function (columns, columnsProperties, worksheet) {
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
-                
                 let header ;
                 let index = 0;
                 let width = column.dataField === 'orgName' ? 20 : 9;
@@ -291,18 +278,15 @@
             }    
             worksheet.columns = columnsProperties;
         },
-
         setWorksheetTitle: function (worksheet) {
             worksheet.mergeCells( 1, 1, 1, this.lastPosition );
             let title = worksheet.getCell(1, 1);
             title.value = 'Моніторинг та реагування на звернення громадян';
         },
-
         setTableHeader: function (columns, worksheet) {
             let position = 0;
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
-                
                 if(column.columns) {
                     let headerPositionTo = position + column.columns.length;
                     let headerPositionFrom = position + 1;
@@ -325,7 +309,6 @@
             }
             this.lastPosition = position;
         },
-
         setTableValues: function (data, columns, worksheet, rows) {
             for (let i = 0; i < data.rows.length; i++) {
                 let rowData = data.rows[i];
@@ -339,9 +322,7 @@
                 this.summaryStartRow = i + 7;
             }
         },
-
         setTableRowsStyles: function (worksheet, rows) {
-
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 14, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };    
             worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -351,7 +332,6 @@
             worksheet.getRow(1).height = 50;
             worksheet.getRow(3).height = 70;
             worksheet.getRow(4).height = 70;
-
             rows.forEach( row => {
                 worksheet.getRow(row).height = 100;
                 worksheet.getRow(row).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, italic: false};
@@ -359,7 +339,6 @@
                 worksheet.getCell('A' + row).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
             });
         },
-
         setSummaryValues: function (worksheet) {
             const values = [ " " ];
             this.summary.forEach( value => values.push(value));
@@ -367,20 +346,17 @@
             const number = this.summaryStartRow - 1;
             this.setSummaryStyle(worksheet, number);
         },
-
         setSummaryStyle: function (worksheet, number) {
             worksheet.getRow(number).height = 50;
             worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, italic: false};
             worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }; 
         },
-
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let questionType = message.package.value.values.find(f => f.name === 'questionType').value;
             let organization = message.package.value.values.find(f => f.name === 'organization').value;
             if( period !== null ){
                 if( period.dateFrom !== '' && period.dateTo !== ''){
-                        
                     this.dateFrom =  period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;
@@ -395,7 +371,6 @@
                 }
             }
         },
-
         extractOrgValues: function(val) {
             if(val !== ''){
                 const valuesList = [];
@@ -403,16 +378,13 @@
                 return  valuesList.length > 0 ? valuesList : [];
             } else {
                 return [];
-            };
+            }
         },    
-        
         afterLoadDataHandler: function(data) {
             this.render();
         },
-
         destroy: function() {
             this.sub.unsubscribe();
         }, 
-        
     };
 }());

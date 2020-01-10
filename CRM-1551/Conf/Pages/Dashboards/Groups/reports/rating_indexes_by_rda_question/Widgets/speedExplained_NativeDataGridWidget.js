@@ -40,18 +40,16 @@
                         .replace('?', '')
                             .split('&')
                                 .reduce(function(p, e) {
-                                    var a = e.split('=');
+                                    let a = e.split('=');
                                     p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                                     return p;
                                 }, {}
                             );
-
             const executor = getUrlParams.executor;
             const date = getUrlParams.period;
             const ratingId = getUrlParams.rating;
             const rdaId = getUrlParams.dataField;
             const question = getUrlParams.code;
-
             this.config.query.parameterValues = [
                 {key: '@Date' , value: date },
                 {key: '@RDAId', value: rdaId },  
@@ -66,7 +64,6 @@
         },
         showTable: function(message){
             let tabName = message.tabName;
-            
             if(tabName !== 'tabSpeedExplained'){
                 this.active = false;
                 document.getElementById('containerSpeedExplained').style.display = 'none';
@@ -79,7 +76,6 @@
         },
         renderTable: function () {
             if (this.active) {
-
                 let msg = {
                     name: "SetFilterPanelState",
                     package: {
@@ -103,4 +99,3 @@
         }
     };
   }());
-  

@@ -43,7 +43,6 @@
         masterDetail: {
             enabled: true,
         },
-        
         export: {
             enabled: false,
             fileName: 'No_Competence'
@@ -104,22 +103,18 @@
         document.getElementById('table5__NeVKompetentcii').style.display = 'none';
         this.sub = this.messageService.subscribe('clickOnTable2', this.changeOnTable, this);
         this.sub2 = this.messageService.subscribe('messageWithOrganizationId', this.takeOrganizationId, this);
-        
         this.config.masterDetail.template = this.createMasterDetail.bind(this);
         this.dataGridInstance.onCellClick.subscribe(e => {
             if(e.column.dataField == "registration_number" && e.row != undefined){
                 this.goToSection('Assignments/edit/'+e.row.data.Id+'');
             }
         });
-        
         // this.dataGridInstance.onRowUpdating.subscribe( e => {
-            
         // },
         this.dataGridInstance.onRowUpdating.subscribe( e => {
-            var oldId = e.oldData;
-            var newId = e.newData.Id2;
-            var eKey = e.key;            
-            
+            let oldId = e.oldData;
+            let newId = e.newData.Id2;
+            let eKey = e.key;            
             let executeQuery = {
                 queryCode: 'Button_Nadiishlo_NeVKompetentcii',
                 parameterValues: [  {key: '@executor_organization_id', value: newId},
@@ -140,8 +135,7 @@
         } return element;
     },    
     createMasterDetail: function(container, options) {
-        var currentEmployeeData = options.data;
-        
+        let currentEmployeeData = options.data;
         if(currentEmployeeData.comment == null || currentEmployeeData.comment == undefined){
             currentEmployeeData.comment = '';
         }
@@ -154,19 +148,14 @@
         let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.zayavnyk_adress+""});
         let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
         let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
-        
         let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.zayavnyk_zmist+""});
         let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
         let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-        
         let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ""+currentEmployeeData.comment+""});
         let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: "Коментар виконавця"});
         let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
-        
-        
         let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
         container.appendChild(elementsWrapper);
-        
         let elementsAll = document.querySelectorAll('.element');
         elementsAll.forEach( el => {
             el.style.display = 'flex';
@@ -190,7 +179,6 @@
                                                  { key: '@organizationName', value: message.orgName},
                                                  { key: '@navigation', value: message.row}];
             this.loadData(this.afterLoadDataHandler);
-            
             let executeQuery = {
                 queryCode: 'Lookup_NeVKompetencii_PidOrganization',
                 parameterValues: [  {key: '@organization_id', value: this.OrganizationId} ],
@@ -202,7 +190,6 @@
     findAllSelectRowsNeVKompetentsii: function(message){
         let rows = this.dataGridInstance.selectedRowKeys;
         let arrivedSendValueRows = rows.join(', ');
-        
         let executeQuery = {
             queryCode: 'Button_Nadiishlo_NeVKompetentcii',
             parameterValues: [ {key: '@Ids', value: arrivedSendValueRows} ],
@@ -210,7 +197,6 @@
         };
         this.queryExecutor(executeQuery);
         this.loadData(this.afterLoadDataHandler);
-        
         this.messageService.publish({name: 'reloadAssignmentsTable' });
     },
     lookupFoo: function(data) {
@@ -233,7 +219,6 @@
         // if(elements[0]){
         //     elements[0].style.display = 'none';
         // }
-        
     },
     destroy: function() {
         this.sub.unsubscribe();

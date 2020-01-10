@@ -12,12 +12,10 @@
         },
         afterViewInit: function(data) {
             const CONTAINER = document.getElementById('container');
-            
             let input  =  this.createElement('input', { type: 'file', id: 'fileInput', accept: ".csv"  });
             let btn  =  this.createElement('button', { id:'importBtn', innerText: 'Import csv files' } );
             let form = this.createElement('form', { method:'post', enctype: 'multipart/form-data'}, input);
             let wrapper = this.createElement('div', { id: 'wrapper' },form, btn );
-
             CONTAINER.appendChild(wrapper);
             btn.addEventListener( 'click', event => {
                 this.showPagePreloader("Зачекайте, файл завантажується");
@@ -29,7 +27,6 @@
                 data.append("file", file);
                 data.append("configuration", "{\n   \"HasHeaderRecord\":true,\n   \"EncodingName\":\"windows-1251\",\n   \"Delimiter\":\";\",\n   \"Quote\":\"\\\"\",\n   \"MaxAllowedErrors\":0\n}");
                 let xhr = new XMLHttpRequest();
-                
                 xhr.addEventListener("readystatechange", event => {
                     if (xhr.readyState === 4) {
                         let json = xhr.responseText;
@@ -66,7 +63,6 @@
             const modalTitle =  this.createElement('div', { id:'modalTitle', innerText: 'Результат завантаження:'});
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, contentWrapper ,modalBtnWrapper); 
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
-
             modalBtnTrue.addEventListener( 'click', event => {
                 CONTAINER.removeChild(container.lastElementChild);
             });
@@ -98,7 +94,6 @@
             } return element;
         },
         destroy: function () {
-            
         } 
     };
 }());

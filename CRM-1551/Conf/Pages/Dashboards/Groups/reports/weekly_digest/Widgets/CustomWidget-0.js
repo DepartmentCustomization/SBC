@@ -31,7 +31,6 @@
         let btnExcel = this.createElement('button', { id: 'btnExcel', innerText: 'Вигрузити в Excel', disabled: true } );
         let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnExcel );
         CONTAINER.appendChild(btnWrap);
-        
         btnExcel.addEventListener('click', event => {
             event.stopImmediatePropagation();
             this.createTableExcel();
@@ -65,7 +64,6 @@
             document.getElementById('btnExcel').disabled = false;
             this.counter = 0;
         }
-        
     },
     createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
@@ -92,7 +90,6 @@
         };
         let mainHeaders = [];
         for(let i = 0; i <  this.dataArray.length; i++){
-            
             let data =  this.dataArray[i];
             this.indexArr = [];
             let name = { name: 'orgName', index: 0 };
@@ -101,13 +98,10 @@
             let name2 = { name: 'orgName', index: 3 };
             let counter2 = { name: 'questionQty', index: 4 };
             this.indexArr = [ name, counter, empty1, name2, counter2 ];
-        
             let indexArr = this.indexArr;
             let rows = [];
             let captions = [];
             let columnsHeader = [];
-            
-            
             indexArr.forEach( el => {
                 if( el.name === 'orgName'){
                     let obj =  {
@@ -239,7 +233,6 @@
                 }
             }
             worksheet.columns = columnsHeader;
-
             for(let  i = 0; i < tds.length; i++ ){
                 let td = tds[i];
                 worksheet.getCell(td).border = {
@@ -260,7 +253,7 @@
                     bold: false ,
                     italic: false
                 };
-            };
+            }
             for(let  i = 0; i < tdsCounter.length; i++ ){
                 let td = tdsCounter[i];
                 worksheet.getCell(td).border = {
@@ -281,7 +274,7 @@
                     bold: false ,
                     italic: false
                 };
-            };
+            }
             mainHeaders.forEach( number => {
                 worksheet.getRow(number).height = 70;
                 worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -302,16 +295,23 @@
             let HH = date.getUTCHours()
             let mm = date.getMinutes();
             MM += 1 ;
-            if( (dd.toString()).length === 1){  dd = '0' + dd; }
-            if( (MM.toString()).length === 1){ MM = '0' + MM ; }
-            if( (HH.toString()).length === 1){  HH = '0' + HH; }
-            if( (mm.toString()).length === 1){ mm = '0' + mm; }
+            if( (dd.toString()).length === 1){
+  dd = '0' + dd; 
+}
+            if( (MM.toString()).length === 1){
+ MM = '0' + MM ; 
+}
+            if( (HH.toString()).length === 1){
+  HH = '0' + HH; 
+}
+            if( (mm.toString()).length === 1){
+ mm = '0' + mm; 
+}
             trueDate = dd+'.'+MM+'.' + yyyy;
         }else{
             trueDate = ' ';
         }
         return trueDate;
     }, 
-    
 };
 }());

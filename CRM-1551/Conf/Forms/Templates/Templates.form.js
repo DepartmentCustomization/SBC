@@ -3,9 +3,6 @@
         init: function() {
             this.form.onControlValueChanged('organization_id', this.onStreetsChanged);
         },
-        
-        
-
         onStreetsChanged: function(dis_id) {
             if (typeof dis_id === 'string') {
                 return
@@ -20,6 +17,5 @@
                 this.form.enableControl('position_id'); // building_id StrictId арт
             }
         }
-        
     };
 }());

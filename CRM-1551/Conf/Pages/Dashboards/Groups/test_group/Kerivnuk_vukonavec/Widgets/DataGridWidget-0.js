@@ -87,7 +87,6 @@
     containerCell: [],
     init: function() {
         this.sub = this.messageService.subscribe('organizationId', this.orgId, this);
-        
         this.loadData(this.afterLoadDataHandler);
         this.dataGridInstance.onCellClick.subscribe(e => {
             if(this.containerCell[0]){
@@ -96,7 +95,7 @@
             this.containerCell = [];
             this.containerCell.push(e.cellElement);
             this.containerCell[0].style.backgroundColor = '#aba8aa';
-            var orgId = this.organizationId[0];
+            let orgId = this.organizationId[0];
             if(e.row != undefined && e.column.dataField != 'navigation'){
                 this.sendMesOnBtnClick('clickOnTable2', e.column.caption, e.row.data.type, orgId);
             }

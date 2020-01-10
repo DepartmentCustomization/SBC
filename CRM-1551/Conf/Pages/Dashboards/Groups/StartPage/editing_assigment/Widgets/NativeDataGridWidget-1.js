@@ -89,11 +89,9 @@
         showHeaderFilter: false,
         showColumnChooser: false,
         showColumnFixing: true,
-    
     },
     init: function() {
         this.dataGridInstance.height = window.innerHeight - 200;
-        
         this.config.onToolbarPreparing = this.createTableButton.bind(this);
         this.sub = this.messageService.subscribe( 'sendSearchValue', this.getMessageValue, this);
         this.sub = this.messageService.subscribe( 'deleteAssigments', this.deleteAssigments, this);
@@ -108,7 +106,6 @@
     },
     createTableButton: function(e) {
         let toolbarItems = e.toolbarOptions.items;
-        
         toolbarItems.push({
             widget: "dxButton", 
             options: { 
@@ -126,7 +123,6 @@
                         limit: -1
                     };
                     this.queryExecutor(executeQuery, this.createTableExcel, this );
-                    
                 }.bind(this)
             },
             location: "after"
@@ -227,7 +223,6 @@
     createTableExcel: function(data){
         this.showPagePreloader('Зачекайте, формується документ');
         this.indexArr = [];
-
         let columns = this.config.columns;
         columns.forEach( el => {
             let elDataField = el.dataField;
@@ -261,7 +256,6 @@
         cellInfoCaption.value = 'Редагування доручення';
         worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 15, underline: false, bold: true , italic: false};
         worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
-
         let indexArr = this.indexArr;
         let rows = [];
         let captions = [];
@@ -270,7 +264,6 @@
         columnsHeader.push(columnNumber);
         let rowNumber = '№ з/п';
         captions.push(rowNumber);
-
         indexArr.forEach( el => {
             if( el.name === 'Registration_number'){
                 let obj =  {
@@ -333,7 +326,6 @@
         });
         worksheet.getRow(2).values = captions;
         worksheet.columns = columnsHeader;
-        
         let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
         let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number' );
         let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
@@ -350,7 +342,6 @@
         let indexTransferOrgName = data.columns.findIndex(el => el.code.toLowerCase() === 'transfer_to_organization_name' );        
         let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );               
         let indexAssignmentState = data.columns.findIndex(el => el.code.toLowerCase() === 'assignmentstate' );               
-        
         for( let  j = 0; j < data.rows.length; j ++ ){  
             let row = data.rows[j];
             let rowArr = [];
@@ -362,7 +353,7 @@
                 }else if(el.name === 'Ass_registration_date' ){
                     rowItem.Ass_registration_date = this.changeDateTimeValues(row.values[indexRegistrDate]);
                 }else if(el.name === 'AssignmentState' ){
-                    rowItem.AssignmentState = row.values[indexAssignmentState];;
+                    rowItem.AssignmentState = row.values[indexAssignmentState];
                 }else if( el.name === 'QuestionType'  ){
                     rowItem.QuestionType = row.values[indexQuestionType];
                 }else if( el.name === 'Zayavnyk'  ){
@@ -374,9 +365,9 @@
                 }else if( el.name === 'Control_date'  ){
                     rowItem.Control_date = this.changeDateTimeValues(row.values[indexControlDate]);
                 }
-            };
+            }
             rows.push( rowItem );
-        };
+        }
         rows.forEach( el => {
             let number = el.number + '.'
             let row = {
@@ -414,8 +405,7 @@
                 bold: false ,
                 italic: false
             };
-        };
-        
+        }
         worksheet.getRow(1).border = {
             bottom: {style:'thin'}
         };
@@ -433,10 +423,18 @@
             let HH = date.getUTCHours()
             let mm = date.getMinutes();
             MM += 1 ;
-            if( (dd.toString()).length === 1){  dd = '0' + dd; }
-            if( (MM.toString()).length === 1){ MM = '0' + MM ; }
-            if( (HH.toString()).length === 1){  HH = '0' + HH; }
-            if( (mm.toString()).length === 1){ mm = '0' + mm; }
+            if( (dd.toString()).length === 1){
+  dd = '0' + dd; 
+}
+            if( (MM.toString()).length === 1){
+ MM = '0' + MM ; 
+}
+            if( (HH.toString()).length === 1){
+  HH = '0' + HH; 
+}
+            if( (mm.toString()).length === 1){
+ mm = '0' + mm; 
+}
             trueDate = dd+'.'+MM+'.' + yyyy;
         }else{
             trueDate = ' ';

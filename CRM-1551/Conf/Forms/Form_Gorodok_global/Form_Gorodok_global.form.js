@@ -2,14 +2,11 @@
     return {
         init: function() {
             document.getElementById('active_button').disabled = true;
-
             let finish_date = this.form.getControlValue('real_end_date');
             if (finish_date != null) {
                 document.getElementById('active_button').disabled = false;
-            };
-
+            }
             document.getElementById('active_button').addEventListener("click", function(event) {
-
                 event.stopImmediatePropagation();
                 const Question_Close_callback = (response) => {
                     if (!response) {
@@ -32,13 +29,11 @@
                             ]
                         };
                         console.table(objName.parameterValues);
-
                         this.queryExecutor.getValues(objName).subscribe(data => {
                             console.log('Event is not activ');
                         });
                     }
                 };
-
                 const fieldsForm = {
                     title: ' ',
                     // singleButton: 1,
@@ -46,11 +41,8 @@
                     acceptBtnText: 'yes',
                     cancelBtnText: 'no'
                 };
-
                 this.openModalForm(fieldsForm, Question_Close_callback.bind(this));
-
             }.bind(this));
         }
-
     }
 }())

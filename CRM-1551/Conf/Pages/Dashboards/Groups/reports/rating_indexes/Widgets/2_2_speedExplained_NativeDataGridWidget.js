@@ -37,19 +37,16 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
         },
-
         init: function() {
             this.results = [];
             this.dataGridInstance.height = window.innerHeight - 200;
             this.active = false;
             document.getElementById('containerSpeedExplained').style.display = 'none';
-            
             this.sub = this.messageService.subscribe('showTable', this.showTable, this);
             this.sub1 = this.messageService.subscribe('FilterParameters', this.executeQuery, this);
             this.sub2 = this.messageService.subscribe( 'ApplyGlobalFilters', this.renderTable, this );
             this.sub3 = this.messageService.subscribe( 'setConfig2', this.setConfig, this);
         },
-
         showTable: function(message) {
             const tabName = message.tabName;
             if(tabName !== 'tabSpeedExplained'){
@@ -61,11 +58,9 @@
                 this.renderTable();
             }
         },
-
         setConfig: function (message) {
             this.config = message.config;
         },
-
         executeQuery: function (message) {
             this.config.query.parameterValues = [];
             this.period = message.period;
@@ -78,7 +73,6 @@
             const tab = 2;
             this.messageService.publish({ name, parameters, codeResult, config, tab });
         },
-
         renderTable: function () {
             if (this.period) {
                 if (this.active) {
@@ -93,11 +87,9 @@
                 }
             }
         },
-
         afterLoadDataHandler: function(data) {
             this.render();
         },
-        
         destroy: function () {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();

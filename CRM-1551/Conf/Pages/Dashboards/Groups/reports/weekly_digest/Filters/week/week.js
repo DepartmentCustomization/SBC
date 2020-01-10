@@ -23,19 +23,16 @@
             let day =  currentDate.getDay();
             let dayFromFact;
             let monthFromFact;
-            
             if( dayTo - day >= 0 ){
                 dayFromFact = dayTo - --day;
                 monthFromFact = monthFrom;
             }else{
-                
                 let cDate = new Date( year, monthFrom, 0 );
                 thisMonth = cDate.getMonth();
                 thisDay = cDate.getDate();
                 dayFromFact = ++thisDay + (  dayTo - day );
                 monthFromFact = thisMonth;
             }
-            
             let defaultValue = {
                     dateFrom: new Date( year, monthFromFact, dayFromFact ),
                     dateTo: new Date( year, monthFrom , dayTo )

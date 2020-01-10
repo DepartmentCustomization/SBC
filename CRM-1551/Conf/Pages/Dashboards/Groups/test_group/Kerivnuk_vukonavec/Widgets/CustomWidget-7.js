@@ -79,18 +79,16 @@
         const searchContainer__btn = this.createElement( 'button', {className: 'searchBlock', id: 'searchContainer__btn', innerText: 'Знайти'});
         const searchHeader = this.createElement( 'div', {className: 'searchHeader', id: 'searchHeader'}, searchContainer__input,  searchContainer__btn);
         searchContainer.appendChild(searchHeader); 
-        
         searchContainer__input.addEventListener('input', event =>  {
             if(searchContainer__input.value.length == 0 ){
                 this.resultSearch('clearInput', 0);
             }
         });
-        
         searchContainer__btn.addEventListener('click', event => {
             console.log(event.currentTarget);
-            var valueForSearch = document.getElementById('searchContainer__input').value;
-            var orgId = document.getElementById('organizationName').value;
-            var self = this;
+            let valueForSearch = document.getElementById('searchContainer__input').value;
+            let orgId = document.getElementById('organizationName').value;
+            let self = this;
             this.resultSearch('resultSearch', valueForSearch, orgId, self);
         });
     },

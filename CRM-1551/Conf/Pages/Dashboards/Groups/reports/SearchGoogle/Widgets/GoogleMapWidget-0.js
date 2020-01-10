@@ -17,48 +17,42 @@
         fullscreenControl: false
     },
     init: function() {
-        var getDataFromLink = window
+        let getDataFromLink = window
         .location
             .search
                 .replace('?', '')
                     .split('&')
                         .reduce(
                             function(p, e) {
-                                var a = e.split('=');
+                                let a = e.split('=');
                                 p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                                 return p;
                             }, {}
                         );
-
                      this.googleMapConfig.latitude = getDataFromLink["lat"];
                      this.googleMapConfig.longitude = getDataFromLink["lon"];
- 
      },
     afterViewInit: function() {
-        var getDataFromLink = window
+        let getDataFromLink = window
         .location
             .search
                 .replace('?', '')
                     .split('&')
                         .reduce(
                             function(p, e) {
-                                var a = e.split('=');
+                                let a = e.split('=');
                                 p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                                 return p;
                             }, {}
                         );
-
         new google.maps.Marker({
             position: new google.maps.LatLng(getDataFromLink["lat"], getDataFromLink["lon"]),
             map: this.map,
             title: '',
             label: ''
         });
-
-
     },
     load: function() {
-
     },
 };
 }());

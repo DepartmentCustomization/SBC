@@ -22,10 +22,8 @@
             let year = currentDate.getFullYear();
             let monthFrom = currentDate.getMonth();
             let dayTo = currentDate.getDate();
-            
             let hh = currentDate.getHours();
             let mm = currentDate.getMinutes();
-            
             let defaultValue = {
                 dateFrom: new Date(year, '01' , '01', '08', '00'),
                 dateTo: new Date( year, monthFrom , dayTo, hh, mm)

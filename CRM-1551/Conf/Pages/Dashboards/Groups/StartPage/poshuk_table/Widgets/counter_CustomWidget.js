@@ -4,7 +4,6 @@
         hint: '',
         formatTitle: function() {},
         customConfig:
-
             `
                 <style>
                 </style>
@@ -17,9 +16,8 @@
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
             this.sub2 = this.messageService.subscribe( 'GlobalFilterChanged', this.setFiltersValue, this );
         },
-
         setFiltersValue: function(message) {
-            var elem = message.package.value.values;
+            let elem = message.package.value.values;
             this.filtersLength = elem.length;
             this.filtersWithOutValues = 0;
             elem.forEach( elem => {
@@ -29,7 +27,6 @@
             });
             this.isSelected = this.filtersWithOutValues === this.filtersLength ? false : true;
         },
-
         findAllCheckedFilter: function() {
             document.getElementById('counter').style.display = this.isSelected === true ? 'block' : 'none';
         },
@@ -52,7 +49,6 @@
             const counterWrap = this.createElement('div', { id: 'counterWrap' });
             container.appendChild(counterWrap);
         },
-
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();

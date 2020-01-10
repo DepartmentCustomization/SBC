@@ -98,16 +98,13 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
         getFiltersParams: function(message) {
-            
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let citizenName = message.package.value.values.find(f => f.name === 'citizen_name').value;
             if( period !== null ){
                 if( period.dateFrom !== '' && period.dateTo !== ''){
-                    
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.citizenName = extractOrgValues(citizenName);
-            
                     this.config.query.parameterValues = [ 
                         {key: '@dateFrom' , value: this.dateFrom },  
                         {key: '@dateTo', value: this.dateTo }  
@@ -122,25 +119,22 @@
                                 values: this.citizenName
                             }
                         };
-                            
                         this.config.query.filterColumns.push(filter);
-                    };
+                    }
                     this.loadData(this.afterLoadDataHandler);
-                    
                     function extractOrgValues(val) {
                         if(val != null){
-                            var valuesList = [];
+                            let valuesList = [];
                             if (val.length > 0) {
-                                for (var i = 0; i < val.length; i++) {
+                                for (let i = 0; i < val.length; i++) {
                                     valuesList.push(val[i].value);
                                 }
                             }    
                                 return  valuesList.length > 0 ? valuesList : [];
                         } else {
                             return [];
-                        };
+                        }
                     }
-            
                 }    
             }
         },

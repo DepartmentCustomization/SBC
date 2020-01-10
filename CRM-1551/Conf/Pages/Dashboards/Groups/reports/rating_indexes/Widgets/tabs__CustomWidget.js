@@ -49,7 +49,6 @@
             ];
             this.sub = this.messageService.subscribe('getConfig', this.executeQuery, this);
         },
-
         afterViewInit: function(){
             const CONTAINER = document.getElementById('container');
             const tabSpeedDone = this.createElement('div', { id: 'tabSpeedDone', className: 'tab tabHover', innerText: 'Швидкість виконання'});
@@ -57,7 +56,6 @@
             const tabFactDone = this.createElement('div', { id: 'tabFactDone', className: 'tab', innerText: 'Фактичне виконання'});
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper'}, tabSpeedDone, tabSpeedExplained, tabFactDone);
             CONTAINER.appendChild(tabsWrapper);
-
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach( tab => {
                 tab.addEventListener( 'click', e => {
@@ -68,7 +66,6 @@
                 });
             });
         },
-
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -78,7 +75,6 @@
                 });
             } return element;
         },  
-
         executeQuery: function (message) {
             this.results = [];
             const tab = message.tab;
@@ -95,7 +91,6 @@
             this.queryExecutor(executeQuery, this.setColumns.bind(this, config, codeResult, tab), this);
             this.showPreloader = false;
         },
-
         setColumns: function (config, codeResult, tab, data) {
             if(data.rows.length) {
                 for (let i = 0; i < data.columns.length; i++) {
@@ -128,7 +123,6 @@
                 this.hidePagePreloader('Зачекайте, завантажуються фiльтри');
             }
         },
-
         setCaption: function (caption) {
             if(caption === 'QuestionTypeName') {
                 return '';
@@ -140,7 +134,6 @@
                 return this.districts[index].name;
             }
         },
-
         setColumnsSummary: function (config, tab, data) {
             if(data.rows.length) {
                  for (let i = 0; i < data.columns.length; i++) {
@@ -148,7 +141,6 @@
                     const dataField = "Place_" + element.code;
                     const value = data.rows[0].values[i];
                     const dataType = element.dataType;
-
                     let objAvg = {
                         column: dataField,
                         summaryType: "avg",
@@ -161,7 +153,6 @@
                         name: dataField,
                         summaryType: "custom"
                     }
-                    
                     this.results.push(value);
                     config.summary.totalItems.push(objAvg);
                     config.summary.totalItems.push(obj);
@@ -174,7 +165,6 @@
                 this.hidePagePreloader('Зачекайте, завантажуються фiльтри');
             }
         },
-
         calculateCustomSummary: function (options) {
             switch (options.name) {
                 case 'Place_2000':

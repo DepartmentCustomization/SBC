@@ -27,11 +27,10 @@
         this.dataGridInstance.height = window.innerHeight - 200 + '';
         this.sub = this.messageService.subscribe('showTable', this.showTable, this);
         this.config.onToolbarPreparing = this.createTableButton.bind(this);
-        
         this.loadData(this.afterLoadDataHandler);
     },
     createTableButton: function(e) {
-        var toolbarItems = e.toolbarOptions.items;
+        let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push({
             widget: "dxButton", 
             location: "after",

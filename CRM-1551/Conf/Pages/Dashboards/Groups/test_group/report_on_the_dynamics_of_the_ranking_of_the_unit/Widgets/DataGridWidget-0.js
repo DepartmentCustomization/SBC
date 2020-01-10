@@ -160,7 +160,6 @@
     },
     chengeFilters:function(message) {
         this.filter_month = message.package.value.values[0].value.viewValue;
-        
         this.config.query.queryCode = 'db_third';
         this.config.query.parameterValues = [{
                                                 key: '@dat' ,

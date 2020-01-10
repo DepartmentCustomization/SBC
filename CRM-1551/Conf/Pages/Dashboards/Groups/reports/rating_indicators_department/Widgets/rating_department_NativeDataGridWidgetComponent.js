@@ -70,13 +70,11 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
         },
-    
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 100;
             this.sub = this.messageService.subscribe('setFiltersParams', this.setQueryParams, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
-            
             this.config.columns.forEach( col => {
                 if (col.columns) {
                     col.columns.forEach( col => setColStyles(col));
@@ -88,14 +86,11 @@
                 }
             });
         },
-
         afterRenderTable: function (params) {
             this.messageService.publish({ name: 'setStyles'});
         },
-        
         createTableButton: function(e) {
             const toolbarItems = e.toolbarOptions.items;
-            
             toolbarItems.push({
                 widget: "dxButton", 
                 location: "after",
@@ -117,9 +112,7 @@
                 },
             });
         },
-    
         createExcelWorkbook: function (data) {
-            
             const workbook = this.createExcel();
             let worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
@@ -132,7 +125,6 @@
                     }
                 }
             });
-            
             const columns = this.config.columns;
             const columnsProperties = [];
             const rows = [];
@@ -141,10 +133,8 @@
             this.setWorksheetTitle(worksheet);
             this.setTableValues(data, worksheet, rows);
             this.setTableRowsStyles(worksheet, rows);
-            
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-    
         setColumnsProperties: function (columns, columnsProperties, worksheet) {
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
@@ -167,18 +157,15 @@
             }    
             worksheet.columns = columnsProperties;
         },
-    
         setWorksheetTitle: function (worksheet) {
             worksheet.mergeCells( 1, 1, 1, this.lastPosition );
             let title = worksheet.getCell(1, 1);
             title.value = 'Показники рейтингу Департаментів';
         },
-    
         setTableHeader: function (columns, worksheet) {
             let position = 0;
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
-                
                 if (column.columns) {
                     let headerPositionTo = position + column.columns.length;
                     let headerPositionFrom = position + 1;
@@ -204,7 +191,6 @@
             }
             this.lastPosition = position;
         },
-    
         setTableValues: function (data, worksheet, rowNumbers) {
             for (let i = 0; i < data.rows.length; i++) {
                 const rowData = data.rows[i];
@@ -219,9 +205,7 @@
                 }
             }
         },
-    
         setTableRowsStyles: function (worksheet, rowNumbers) {
-    
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 14, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };    
             worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -231,7 +215,6 @@
             worksheet.getRow(1).height = 30;
             worksheet.getRow(3).height = 40;
             worksheet.getRow(4).height = 40;
-        
             rowNumbers.forEach( number => {
                 worksheet.getRow(number).height = 50;
                 worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, italic: false};
@@ -239,22 +222,18 @@
                 worksheet.getCell('A' + number).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
             });
         },
-    
         setCellStyle: function (cell) {
             cell.border = {   top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
             cell.font = { name: 'Times New Roman', family: 4, size: 10,  underline: false, bold: false , italic: false };
         },
-    
         setQueryParams: function (message) {
             this.config.query.parameterValues = [ { key: '@Date', value: message.date}],
             this.loadData(this.afterLoadDataHandler);
         },
-    
         afterLoadDataHandler: function(data) {
             this.render();
         },
-        
         destroy: function() {
             this.sub.unsubscribe();
         }

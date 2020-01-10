@@ -31,7 +31,6 @@
         let btnReturn = this.createElement('button', { id: 'btnReturn', innerText: 'Повернуться до фільтрації'} );
         let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnReturn );
         CONTAINER.appendChild(btnWrap);
-        
         btnReturn.addEventListener('click', event => {
             document.getElementById('summary__table').style.display = 'none';
             document.getElementById('content').style.display = 'block';

@@ -17,7 +17,6 @@
                         script2.type = 'text/javascript';
                         script2.src = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js';
                         head.appendChild(script2);
-                                    
                         script2.onload = function () {
                         let style  = document.createElement('style');
                         let styleDefault  = document.createElement('style');
@@ -25,11 +24,9 @@
                             styleSelect.rel = 'stylesheet';
                             styleSelect.href =  'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css';
                             styleSelect.type = 'text/css';
-                            
                         let tag_head = document.getElementsByTagName('head');
                             tag_head[0].appendChild(styleSelect);
                             style.onload = function () {
-                                        
                                     let messageSelect = {
                                         name: 'LoadLib',
                                         package: {
@@ -37,7 +34,6 @@
                                         }
                                     }
                                     self.messageService.publish(messageSelect);    
-                                
                             }.bind(self);
                     }.bind(self); 
                 console.clear();
@@ -46,18 +42,14 @@
             this.showPreloader = false;
             this.sub  = this.messageService.subscribe( 'showPagePreloader', this.showMyPreloader, this);
             this.sub1 = this.messageService.subscribe( 'hidePagePreloader', this.hideMyPreloader, this);
-
             this.sub2 = this.messageService.subscribe( 'afterRenderTable', this.createCustomStyle, this);
         },
-
         showMyPreloader: function(){
             this.showPagePreloader();
         },
-
         hideMyPreloader: function(){
             this.hidePagePreloader();
         },
-
         createCustomStyle: function(message){
             const elements = Array.from(document.querySelectorAll('.dx-datagrid-export-button'));
             elements.forEach( function(element){
@@ -65,7 +57,6 @@
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
         },
-
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -75,7 +66,6 @@
                 });
             } return element;
         },
-
         destroy: function(){
             this.sub.unsubscribe;
             this.sub1.unsubscribe;

@@ -19,20 +19,16 @@
                 { title: 'Статистичний звіт за рік чи півріччя', url: 'statistical_report_for_the_year_or_half_year', icon: 'view_week'}
             ];
         },
-
         afterViewInit: function() {
             const container = document.getElementById('container');
             const filtersContainerDepart =  this.createElement('div', { id: 'filtersContainerDepart', className: "filtersContainer"});
             const filtersContainerDistrict =  this.createElement('div', { id: 'filtersContainerDistrict', className: "filtersContainer"});
-
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
             const tableContainer = this.createElement('div', { id: 'tableContainer', className: 'tableContainer'});
-
             container.appendChild(tabsWrapper);
             this.createTabs();
             this.createReports();
         },
-
         createReports: function() {
             let reportListWrap = this.createElement('div', { id: 'reportListWrap'});
             container.appendChild(reportListWrap);
@@ -44,27 +40,21 @@
                 const reportListItem__text = this.createElement('div', { className: 'reportListItem__text',  innerText: reportTitle });
                 const reportListItem = this.createElement('div', { className: 'reportListItem', url: url, }, reportListItem__icon, reportListItem__text);
                 reportListWrap.appendChild(reportListItem);
-                
                 reportListItem.addEventListener( 'click', event => {
                     const target = event.currentTarget;
                     window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/"+target.url);
                 });
             });
         },
-
         createTabs: function() {
-
             let tabPhone__title  = this.createElement('div', { className: 'tabPhone tabTitle', innerText: 'ВХІДНИЙ ДЗВІНОК'});
             let tabReportList__title  = this.createElement('div', { className: 'tabProzvon tabTitle', innerText: 'Звіти'});
             let tabFinder__title  = this.createElement('div', { className: ' tabTitle', innerText: 'Розширений пошук'});
-
             const tabReportList = this.createElement('div', { id: 'tabReportList', location: 'dashboard', url: 'StartPage_operator', className: 'tabPhone tab  tabHover'}, tabReportList__title);
             const tabPhone = this.createElement('div', { id: 'tabPhone', location: 'dashboard', url: 'StartPage_operator', className: 'tabPhone tab tabTo'},tabPhone__title);
             const tabFinder = this.createElement('div', { id: 'tabFinder', location: 'dashboard', url: 'poshuk_table', className: 'tabFinder tab tabTo'}, tabFinder__title);
-
             const tabsContainer = this.createElement('div', { id: 'tabsContainer', className: 'tabsContainer'}, tabReportList, tabPhone, tabFinder);
             tabsWrapper.appendChild(tabsContainer);
-
             let tabs = document.querySelectorAll('.tabTo');
             tabs = Array.from(tabs);
             tabs.forEach( function (el){
@@ -80,7 +70,6 @@
                 });   
             }.bind(this));
         },
-
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );

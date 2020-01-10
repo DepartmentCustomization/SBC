@@ -54,18 +54,15 @@
             let btnExcel = this.createElement('button', { id: 'btnExcel', innerText: 'Вигрузити в Excel', disabled: true } );
             let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnExcel );
             CONTAINER.appendChild(btnWrap);
-            
             btnExcel.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 this.createTableExcel();
             });
-            
         },
         getFiltersParams: function(message){
             let period = message.package.value.values.find(f => f.name === 'period').value;
             if( period !== null ){
                 if( period.dateFrom !== '' && period.dateTo !== ''){
-                
                     this.dateFrom =  period.dateFrom;
                     this.dateTo = period.dateTo;
                 }
@@ -111,14 +108,12 @@
             cellInfo.value = 'Статистична інформація за період';
             let cellPeriod = worksheet.getCell('A3');
             cellPeriod.value = 'з ' + this.changeDateTimeValues(this.dateFrom) + 'до ' + this.changeDateTimeValues(this.dateTo);
-            
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
             worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'center' };
-
             let tds = [];
             let tdsCounter = [];
             let mainHeaders = [];
@@ -129,7 +124,6 @@
                 let captions = ['', 'Кiлькiсть'];
                 let columnsHeader = [name, counter];
                 worksheet.columns = columnsHeader;
-                
                 if(i === 0){
                     worksheet.getRow(5).values = captions;
                     let firstColumnCaption = worksheet.getCell('A5');
@@ -144,8 +138,7 @@
                         tds.push('A'+i);
                         tdsCounter.push('B'+i);
                     }
-                }
-                else if(i === 1){
+                } else if(i === 1){
                     this.rowTable1Length = (this.dataArray[0].length + 7);
                     worksheet.getRow(this.rowTable1Length).values = captions;
                     let firstColumnCaption = worksheet.getCell('A'+this.rowTable1Length);
@@ -155,7 +148,6 @@
                     let result = summary.reduce(function(sum, current) {
                         return sum + current;
                     }, 0);
-
                     mainHeaders.push(this.rowTable1Length);
                     for(let i =  this.rowTable1Length  + 1 ; i < (data.length + this.rowTable1Length + 1 ); i++ ){
                         let value = data[i-( this.rowTable1Length + 1)];
@@ -177,7 +169,6 @@
                     mainHeaders.push(this.sumLength);
                 }
             }
-
             for(let  i = 0; i < tds.length; i++ ){
                 let td = tds[i];
                 worksheet.getCell(td).border = {
@@ -198,7 +189,7 @@
                     bold: false ,
                     italic: false
                 };
-            };
+            }
             for(let  i = 0; i < tdsCounter.length; i++ ){
                 let td = tdsCounter[i];
                 worksheet.getCell(td).border = {
@@ -219,7 +210,7 @@
                     bold: false ,
                     italic: false
                 };
-            };
+            }
             worksheet.getCell('A5').border = {  top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             worksheet.getCell('A'+(this.sumLength)).border = {  top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             worksheet.getCell('B5').border = {  top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
@@ -232,13 +223,16 @@
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         }, 
         changeDateTimeValues: function(value){
-            
             let date = new Date(value);
             let dd = date.getDate();
             let mm = date.getMonth() + 1;
             let yyyy = date.getFullYear();
-            if( (dd.toString()).length === 1){  dd = '0' + dd; }
-            if( (mm.toString()).length === 1){ mm = '0' + mm; }
+            if( (dd.toString()).length === 1){
+  dd = '0' + dd; 
+}
+            if( (mm.toString()).length === 1){
+ mm = '0' + mm; 
+}
             let trueDate = dd + '.' + mm + '.' + yyyy;
             return trueDate;
         },     
@@ -255,6 +249,5 @@
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
         },
-        
     };
 }());

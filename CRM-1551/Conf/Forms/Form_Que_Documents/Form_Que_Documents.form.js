@@ -9,7 +9,7 @@
         // this.form.setControlValue('QuestionDocumentsId', data.rows[0].values[0])
         if (this.stateForm == 'create') {
             location.reload();
-        };
+        }
     }
 };
 }());

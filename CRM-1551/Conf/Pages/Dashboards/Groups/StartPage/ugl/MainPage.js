@@ -2,7 +2,6 @@
   return {
     init: function() {
         this.showPagePreloader('Зачекайте, сторінка завантажується');
-
         this.sub  = this.messageService.subscribe( 'showPagePreloader', this.showMyPreloader, this)
         this.sub1 = this.messageService.subscribe( 'hidePagePreloader', this.hideMyPreloader, this)
     },

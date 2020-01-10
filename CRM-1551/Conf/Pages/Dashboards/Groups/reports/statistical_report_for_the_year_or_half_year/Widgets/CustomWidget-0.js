@@ -33,19 +33,14 @@
                     <div id='container'></div>
                     `
         ,
-
         data: [],
-
         counter: 0,
-
         excelColumnsStart: 0,
-
         init: function() {
             this.sub = this.messageService.subscribe('showWarning', this.showWarning, this);
             this.sub1 = this.messageService.subscribe('setData', this.setData, this );
             this.sub2 = this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
         },
-
         setFilterParams: function (message) {
             this.dateFrom = message.dateFrom;
             this.dateTo = message.dateTo;
@@ -54,24 +49,20 @@
             this.dateFromViewValues = message.dateFromViewValues;
             this.dateToViewValues = message.dateToViewValues;
         },
-
         afterViewInit: function() {
             const reportTitle = document.getElementById('reportTitle');
             const organizationNameInput = document.createElement('span');
             reportTitle.appendChild(organizationNameInput);
             organizationNameInput.id = 'organizationName';
-            
             let CONTAINER = document.getElementById('container');
             let btnExcel = this.createElement('button', { id: 'btnExcel', innerText: 'Вигрузити в Excel', disabled: true } );
             let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnExcel );
             CONTAINER.appendChild(btnWrap);
-            
             btnExcel.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 this.createExcelWorkbook();
             });         
         },
-
         showWarning: function(message) {
             let CONTAINER = document.getElementById('container');
             const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
@@ -80,38 +71,31 @@
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, modalBtnWrapper); 
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
             CONTAINER.appendChild(modalWindowWrapper);
-            
             modalBtnTrue.addEventListener( 'click', event => {
                 let target = event.currentTarget;
                 CONTAINER.removeChild(container.lastElementChild);
             });
         },
-
         setData: function(message) {
-
             let table = {
                 data: message.data,
                 columns: message.columns   
             }
             this.data[message.position] = table;
             this.counter += 1;
-
             if( this.counter === 5 ){
                 document.getElementById('btnExcel').disabled = false;
                 this.counter = 0;
             }
         },
-
         createExcelWorkbook: function () {
             const workbook = this.createExcel();
             const worksheet1 = this.createWorksheet(workbook, 'Таблицi 1');
             const worksheet2 = this.createWorksheet(workbook, 'Таблицi 2');
-
             this.years = [ this.previousYear, this.currentYear];
             this.yearsTemp = [ this.previousYear, this.currentYear];
             this.startStep = 3;
             this.step = 10;
-
             this.numberRowsArray = [];
             const columnsHeader1 = [];
             for (let i = 0; i < 16; i++) {
@@ -119,18 +103,15 @@
                 columnsHeader1.push(width);
             }
             worksheet1.columns = columnsHeader1;
-            
             const columnsHeader2 = [{ width: 5 }, { width: 24 }];
             for (let i = 0; i < 14; i++) {
                 let width = { width: 7 };
                 columnsHeader2.push(width);
             }
             worksheet2.columns = columnsHeader2;
-
             for (let i = 0; i < this.data.length; i++) {
                 const data = this.data[i];
                 const columns = data.columns;
-
                 if(i === 0 || i === 1 ) {
                     if( i === 0) {
                         this.setTableType1Header(columns, worksheet1, data);
@@ -149,7 +130,6 @@
             this.setExcelTitle(worksheet2);
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-
         createWorksheet: function (workbook, name) {
             return  workbook.addWorksheet(name, {
                 pageSetup:{
@@ -163,7 +143,6 @@
                 }
             });
         },
-
         setExcelTitle: function (worksheet) {
             const title = worksheet.getCell('A1');
             title.value = 'Статистичний звіт за період з ' + this.dateFromViewValues + ' по ' + this.dateToViewValues;
@@ -171,7 +150,6 @@
             title.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false  };
             worksheet.mergeCells('A1:N1'); 
         },
-
         setTableType1Header: function (columns, worksheet, data) {
             let position = this.excelColumnsStart - 1;
             for (let i = 0; i < columns.length; i++) {
@@ -191,10 +169,8 @@
             this.setHeaderRowValues(data, worksheet, headerHeight);
             this.startStep += 5;
         },
-
         setTableType2Header: function (columns, worksheet, data) {
             let position = this.excelColumnsStart;
-
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
                 const headerBot = headerTop = this.startStep;
@@ -220,7 +196,6 @@
             this.setHeaderRowValues(data, worksheet, headerHeight);
             this.startStep = 3;
         },
-
         setCellYearsValue: function (subHeader, position, worksheet) {
             for (let i = 0; i < subHeader.columns.length; i++) {
                 const year = subHeader.columns[i];
@@ -233,7 +208,6 @@
                 this.setRowStyle(yearTop, worksheet, 50);
             }
         },
-
         setTableType3Header: function (columns, worksheet, data) {
             let position = this.excelColumnsStart + 1;
             columns.forEach( column => {
@@ -261,7 +235,6 @@
             this.setHeaderRowValues(data, worksheet, headerHeight);
             this.startStep += this.step + 3;
         },
-
         setSubHeaders: function (column, worksheet, position, startStep) {
             for (let i = 0; i < column.columns.length; i++) {
                 position += 2;
@@ -278,7 +251,6 @@
             }
             return position;
         },
-
         setStandardCells: function (start, caption, worksheet) {
             const top = this.startStep;
             const bot = this.startStep + 2;
@@ -289,13 +261,11 @@
             cell.value = caption;
             this.setCellStyle(cell);
         },
-
         setCellStyle: function (cell) {
             cell.border = {   top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
             cell.font = { name: 'Times New Roman', family: 4, size: 10,  underline: false, bold: false , italic: false };
         },
-
         setHeaderRowValues: function (message, worksheet, headerHeight) {
             for (let i = 0; i < message.data.length; i++) {
                 const values = message.data[i];
@@ -307,16 +277,13 @@
                 this.setRowStyle(number, worksheet, height);
             }
         },
-
         setRowStyle: function (number, worksheet, cellHeight) {
             height = cellHeight ? cellHeight : 60;
             worksheet.getRow(number).height = height;
             worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: false , italic: false};
             worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
         },
-
         setCellValuesStyles: function (worksheet) {
-
             this.numberRowsArray.forEach( row => {
                 for (let j = 0; j < row.values.length; j++) {
                     const top = row.number;
@@ -326,7 +293,6 @@
                 }
             });
         },
-        
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -336,7 +302,6 @@
                 });
             } return element;
         },
-
         destroy: function(){
             this.sub.unsubscribe();
             this.sub1.unsubscribe();

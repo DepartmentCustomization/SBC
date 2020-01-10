@@ -20,7 +20,6 @@
         let year = currentDate.getFullYear();
         let monthFrom = currentDate.getMonth();
         let dayTo = currentDate.getDate();
-        
         let defaultValue = {
             // убрать  - 1 
                 dateFrom: new Date(year, 0, '01'),

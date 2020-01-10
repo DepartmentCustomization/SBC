@@ -28,7 +28,6 @@
             },
             keyExpr: 'Id',
         },
-
         init: function() {
             this.selectedRows = [];
             this.dataGridInstance.height = window.innerHeight - 200 + '';
@@ -39,10 +38,8 @@
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.loadData(this.afterLoadDataHandler);
         },
-
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
-            
             toolbarItems.push({
                 widget: "dxButton", 
                 location: "after",
@@ -56,7 +53,6 @@
                 },
             });
         },
-
         sendMessToRenderTable: function(){
             let sendData = [];
             this.dataGridInstance.dataSource.forEach( row => {
@@ -65,14 +61,12 @@
             sendData = this.GroupQuestionId === null ? sendData : [] ;
             this.messageService.publish( { name: 'renderTable', questionGroupId: this.GroupQuestionId, questionTypesArr: sendData});
         },
-
         clearData: function(){
             this.selectedRows = [];
             this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: 0}],
             this.config.query.filterColumns = [ ],
             this.loadData(this.afterLoadDataHandler);
         },
-
         setReceivedData: function(message){
             if(message.value.length > 0){
                 if( message.position === 'clissificator' ){
@@ -102,14 +96,11 @@
                 }
             }
         }, 
-
         afterLoadDataHandler: function(data) {
             this.render();
         },
-
         afterRenderTable: function(){
             document.querySelectorAll('.dx-toolbar-after')[2].firstElementChild.style.display = 'none';
-            
             if( this.GroupQuestionId !== undefined ){
                 let sendData = [];
                 this.dataGridInstance.dataSource.forEach( row => {
@@ -119,7 +110,6 @@
                 this.messageService.publish( { name: 'renderTable', questionGroupId: this.GroupQuestionId, questionTypesArr: sendData});
             }
         },
-        
         destroy: function(){
             this.sub.unsubscribe();
             this.sub1.unsubscribe();

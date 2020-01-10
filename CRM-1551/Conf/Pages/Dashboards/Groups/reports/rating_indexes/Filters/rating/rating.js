@@ -16,15 +16,12 @@
                 }
             ]
         },
-
         onItemSelect: function(item) {
             this.setValues(item);
         },
-        
         initValue: function() {
             // this.setDefaultValue('first'); 
         },
-
         setValues: function(item) {
             let message = {
                 name: '',

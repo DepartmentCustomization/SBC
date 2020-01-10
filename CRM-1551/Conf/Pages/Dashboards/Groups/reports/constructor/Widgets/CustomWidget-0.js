@@ -33,16 +33,12 @@
     ,
     afterViewInit: function(data){
         const TABS_CONTAINER = document.getElementById('tabsContainer');
-
         let groupItems__title  = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'Група питань'});
         let defaultItems__title  = this.createElement('div', { className: 'tabAction tab_title', innerText: 'Типи питань'});
         let tabDefaultItems = this.createElement('div', { id: 'tabDefaultItems', className: ' tab',  messageValue: 'default'}, defaultItems__title);
         let tabGroupItems = this.createElement('div', { id: 'tabGroupItems', className: 'tabHover tab', messageValue: 'group'}, groupItems__title);
-    
-        
         TABS_CONTAINER.appendChild(tabGroupItems);
         TABS_CONTAINER.appendChild(tabDefaultItems);
- 
         let tabs = document.querySelectorAll('.tab');
         tabs = Array.from(tabs);
         tabs.forEach( tab => {
@@ -54,7 +50,6 @@
                 target.classList.add('tabHover');
                 this.messageService.publish( { name: 'showTable', value: target.messageValue });
                 this.messageService.publish( { name: 'sendDataCleanup'});
-                
             });    
         });        
     },

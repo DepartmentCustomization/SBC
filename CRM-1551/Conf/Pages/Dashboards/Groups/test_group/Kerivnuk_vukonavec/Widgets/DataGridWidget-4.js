@@ -102,7 +102,6 @@
                                                   { key: '@organization_id', value: message.orgId}
                                                   ];
             this.loadData(this.afterLoadDataHandler); 
-            
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column.dataField == "registration_number" && e.row != undefined){
                     this.goToSection('Assignments/edit/'+e.row.data.Id+'');

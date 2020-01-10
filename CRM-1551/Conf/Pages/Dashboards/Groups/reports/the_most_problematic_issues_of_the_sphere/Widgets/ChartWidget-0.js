@@ -64,7 +64,6 @@
                 `
     , 
     init: function() {
-        
         this.colors = {
             0: 'rgb(124, 181, 236)',
             1: 'rgb(241, 92, 128)',
@@ -77,14 +76,13 @@
             8: 'rgb(244, 91, 91)',
             9: 'rgb(145, 232, 225)',
         }
-        
         let getUrlParams = window
                             .location
                                 .search
                                     .replace('?', '')
                                         .split('&')
                                             .reduce(function(p, e) {
-                                                      var a = e.split('=');
+                                                      let a = e.split('=');
                                                       p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                                                       return p;
                                                     }, {}
@@ -97,7 +95,6 @@
         dateTo = getUrlParams.dateTo;
         this.dateFrom = new Date(dateFrom);
         this.dateTo = new Date(dateTo);
-        
         let loadPie = {
             queryCode: 'db_Report_8_2',
             limit: -1,
@@ -108,7 +105,6 @@
             ]
         };
         this.queryExecutor(loadPie, this.load, this);
-        
     },
 	createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
@@ -124,12 +120,10 @@
         this.createChartInfo(data);
         const self = this;
         function func(self) {
-            
             this.seriesData = [];
             let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
             let indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'qname' );
             let indexValue = data.columns.findIndex(el => el.code.toLowerCase() === 'qty' );
-        
             for(let i = 0; i < data.rows.length; i++){
                 let element = {
                     id: data.rows[i].values[indexId],
@@ -168,11 +162,9 @@
                 series: [{
                     name: 'Кіл-ть заявок',
                     colorByPoint: true,
-                    
                     data: this.seriesData
                 }]
             });
-            
         }
         setTimeout(func(self), 50);
     },
@@ -181,15 +173,11 @@
         while(CHART__INFO.hasChildNodes()){
             CHART__INFO.removeChild(CHART__INFO.lastElementChild);
         }
-        
         let infoWrapper = this.createElement('div', { id: 'infoWrapper' } );
         CHART__INFO.appendChild(infoWrapper);
-        
-        
         let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'Id' );
         let indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'qname' );
         let indexValue = data.columns.findIndex(el => el.code.toLowerCase() === 'qty' );
-        
         for(let i = 0; i < data.rows.length; i++){
             let sphere__dot = this.createElement('div', {className: 'sphere__dot material-icons', innerText: 'fiber_manual_record'} );
             sphere__dot.style.color = this.colors[i];
@@ -197,7 +185,7 @@
             let sphere = this.createElement('div', {className: 'sphere'}, sphere__dot, sphere__text );
             infoWrapper.appendChild(sphere);
         }
-        var result = data.rows.reduce(function(sum, current) {
+        let result = data.rows.reduce(function(sum, current) {
             return sum + current.values[0];
         }, 0);
         let sumText = this.createElement('div', { className: 'sumText', innerText: 'Всього по ТОП 10 питань: '  + result } );

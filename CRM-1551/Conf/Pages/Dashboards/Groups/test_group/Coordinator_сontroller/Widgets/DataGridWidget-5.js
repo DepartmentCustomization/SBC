@@ -79,7 +79,6 @@
             enabled: false,
             fileName: 'File_name'
         },
-        
         searchPanel: {
             visible: false,
             highlightCaseSensitive: false
@@ -132,12 +131,10 @@
     containerCell: [],
     Obj: { key: 'color', value: 'red'},
     init: function() {
-        
         this.sub = this.messageService.subscribe('reloadAssignmentsTable', this.reloadMainTable, this);
         this.config.query.queryCode = 'CoordinatorController_table';
         this.config.query.parameterValues = [ ];
         this.loadData(this.afterLoadDataHandler);
-        
         this.dataGridInstance.onCellClick.subscribe(e => {
             if(this.containerCell[0]){
                 this.containerCell[0].style.removeProperty("background-color");

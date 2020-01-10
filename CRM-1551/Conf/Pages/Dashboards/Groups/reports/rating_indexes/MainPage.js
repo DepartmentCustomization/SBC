@@ -3,7 +3,6 @@
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
-
         getFiltersParams: function(message){
             const period = message.package.value.values.find(f => f.name === 'period').value;
             const executor = message.package.value.values.find(f => f.name === 'executor').value;
@@ -24,7 +23,6 @@
                 }
             }
         },
-
         convertDateTimeToDate: function(value){
             let date = new Date(value);
             let dd = date.getDate().toString();
@@ -34,7 +32,6 @@
             mm = mm.length === 1 ? '0' + mm : mm;
             return yyyy + '-' + mm + '-' + dd;
         }, 
-
         destroy: function () {
             this.sub.unsubscribe();
         },

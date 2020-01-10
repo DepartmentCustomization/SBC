@@ -1,6 +1,5 @@
 (function () {
     return {
-  
       chartConfig: {
         chart: {
           type: 'pie',
@@ -29,11 +28,9 @@
           enabled: false
         }
       },
-  
       MESSAGES: {
         CHART_INFO: 'CHART_INFO'
       },
-  
       colors: [
         'rgb(124, 181, 236)',
         'rgb(241, 92, 128)',
@@ -46,21 +43,14 @@
         'rgb(244, 91, 91)',
         'rgb(145, 232, 225)'
       ],
-  
       dateFrom: new Date(),
-  
       dateTo: new Date(),
-  
       groupQuestionId: undefined,
-  
       groupQuestionName: undefined,
-  
       qty: undefined,
-  
       init: function () {
         this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
       },
-  
       executeQuery: function () {
         const query = {
           "queryCode": "db_Report_8_1",
@@ -78,14 +68,12 @@
         };
         this.queryExecutor(query, this.load, this);
       },
-  
       load: function (data) {
         this.fillIndexes(data);
         this.publishMessage(data);
         this.setChartSeries(data);
         this.render();
       },
-  
       publishMessage: function (data) {
         const message = {
           name: this.MESSAGES.CHART_INFO,
@@ -99,7 +87,6 @@
         };
         this.messageService.publish(message);
       },
-  
       getFiltersParams: function (message) {
         let period = message.package.value.values.find((el) => {
           return el.name.toLowerCase() === 'period';
@@ -113,13 +100,11 @@
           }
         }
       },
-  
       fillIndexes: function (data) {
         this.groupQuestionId = this.getIndex(data, 'groupquestionid');
         this.groupQuestionName = this.getIndex(data, 'groupquestionname');
         this.qty = this.getIndex(data, 'qty');
       },
-  
       setChartSeries: function (data) {
         const chartData = {
           name: 'Кіл-ть заявок',
@@ -129,13 +114,11 @@
         this.chartConfig.series = [];
         this.chartConfig.series.push(chartData);
       },
-  
       getIndex: function (data, name) {
         return data.columns.findIndex((el) => {
           return el.code.toLowerCase() === name;
         })
       },
-  
       getSeriesData: function (data) {
         let result = [];
         for (let i = 0; i < data.rows.length; i++) {
@@ -149,10 +132,8 @@
         }
         return result;
       },
-
       destroy: function () {
         this.sub.unsubscribe();
       }
     };
 }());
-  

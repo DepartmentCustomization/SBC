@@ -15,7 +15,6 @@
                 caption: '',
                 width: '0',
                 fixed: true,
-
             }, {
                 dataField: 'navigation',
                 caption: 'Джерело надходження',
@@ -107,7 +106,6 @@
             this.config.query.queryCode = 'Coordinator_Poshuk';
             this.config.query.parameterValues = [{ key: '@appealNum',  value: message.value}];
             this.loadData(this.afterLoadDataHandler);
-            
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column.dataField == "registration_number" && e.row != undefined){
                     this.goToSection('Assignments/edit/'+e.row.data.Id+'');

@@ -71,7 +71,6 @@
     },
     createTableButton: function(e) {
         let toolbarItems = e.toolbarOptions.items;
-        
         toolbarItems.push({
             widget: "dxButton", 
             location: "after",
@@ -95,7 +94,6 @@
                 }.bind(this)
             },
         });
-        
         toolbarItems.push({
             widget: "dxButton", 
             location: "after",
@@ -111,7 +109,6 @@
         });
     },
     myCreateExcel: function(data){
-
         if( data.rows.length > 0 ){    
             this.showPagePreloader('Зачекайте, формується документ');
             this.indexArr = [];
@@ -134,7 +131,6 @@
             const worksheet = workbook.addWorksheet('«Топ питань', {
                 pageSetup:{orientation: 'portrait', fitToPage: false, fitToWidth: true}
             });
-            
             /*TITLE*/
             let cellInfoCaption = worksheet.getCell('A1');
             cellInfoCaption.value = 'Розподіл зверненнь громадян по питанням, ';
@@ -145,18 +141,12 @@
             worksheet.mergeCells('A1:C1'); //вставить другой конец колонок
             worksheet.mergeCells('A2:C2'); //вставить другой конец колонок
             worksheet.mergeCells('A3:C3'); //вставить другой конец колонок
-            
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
-            
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
-            
             worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'center' };
-            
-            
-         
             let indexArr = this.indexArr;
             let rows = [];
             let captions = [];
@@ -189,10 +179,8 @@
             worksheet.getRow(5).values = captions;
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
-            
             let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
             let indexQuestionQty = data.columns.findIndex(el => el.code.toLowerCase() === 'questionqty' );
-            
             for( let  j = 0; j < data.rows.length; j ++ ){  
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
@@ -203,9 +191,9 @@
                     }else if(el.name === 'questionQty' ){
                         rowItem.questionQty = row.values[indexQuestionQty];
                     }
-                };
+                }
                 rows.push( rowItem );
-            };
+            }
             rows.forEach( el => {
                 let number = el.number + '.'
                 let row = {
@@ -215,7 +203,6 @@
                 }
                 worksheet.addRow(row);
             });
-            
             worksheet.pageSetup.margins = {
                 left: 0.4, right: 0.3,
                 top: 0.4, bottom: 0.4,
@@ -243,7 +230,7 @@
                     bold: false ,
                     italic: false
                 };
-            };
+            }
             worksheet.getRow(4).border = {
                 bottom: {style:'thin'}
             };            
@@ -251,7 +238,6 @@
             worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         }    
-    
     },
     changeDateTimeValues: function(value){
         let trueDate ;
@@ -263,10 +249,18 @@
             let HH = date.getUTCHours()
             let mm = date.getMinutes();
             MM += 1 ;
-            if( (dd.toString()).length === 1){  dd = '0' + dd; }
-            if( (MM.toString()).length === 1){ MM = '0' + MM ; }
-            if( (HH.toString()).length === 1){  HH = '0' + HH; }
-            if( (mm.toString()).length === 1){ mm = '0' + mm; }
+            if( (dd.toString()).length === 1){
+  dd = '0' + dd; 
+}
+            if( (MM.toString()).length === 1){
+ MM = '0' + MM ; 
+}
+            if( (HH.toString()).length === 1){
+  HH = '0' + HH; 
+}
+            if( (mm.toString()).length === 1){
+ mm = '0' + mm; 
+}
             trueDate = dd+'.'+MM+'.' + yyyy;
         }else{
             trueDate = ' ';
@@ -274,20 +268,16 @@
         return trueDate;
     },    
     getFiltersParams: function(message){
-        
         let period = message.package.value.values.find(f => f.name === 'period').value;
         let questionType = message.package.value.values.find(f => f.name === 'questionTypes').value;
         let questionGroup = message.package.value.values.find(f => f.name === 'questionGroup').value;
-        
 	    if( period !== null ){
     		if( period.dateFrom !== '' && period.dateTo !== ''){
                 this.dateFrom =  period.dateFrom;
                 this.dateTo = period.dateTo;
                 this.questionType = questionType === null ? 0 :  questionType === '' ? 0 : questionType.value ;
                 this.questionGroup = questionGroup === null ? 0 :  questionGroup === '' ? 0 : questionGroup.value ;
-                
                 if(this.questionType !== 0){
-                    
                     this.config.query.parameterValues = [ 
                         {key: '@dateFrom' , value: this.dateFrom },  
                         {key: '@dateTo', value: this.dateTo },  
@@ -306,7 +296,7 @@
             return  valuesList.length > 0 ? valuesList : [];
         } else {
             return [];
-        };
+        }
 	},       
     afterLoadDataHandler: function(data) {
         this.render();

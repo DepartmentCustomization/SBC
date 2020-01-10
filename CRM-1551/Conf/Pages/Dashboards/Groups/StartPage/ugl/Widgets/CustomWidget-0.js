@@ -41,7 +41,6 @@
         const filtersInfo = this.createElement('div', { id: 'filtersInfo', className: 'filtersInfo'});
         const tableContainer = this.createElement('div', { id: 'tableContainer', className: 'tableContainer'});
         const tableWrapper = this.createElement('div', { id: 'tableWrapper', className: 'tableWrapper'}, tableContainer);
-        
         container.appendChild(tabsWrapper);
         filtersWrapper.appendChild(filtersInfo);
         container.appendChild(filtersWrapper);
@@ -60,7 +59,7 @@
             }
         });
         searchContainer__input.addEventListener('keypress', function (e) {
-            var key = e.which || e.keyCode;
+            let key = e.which || e.keyCode;
             if (key === 13) {
                 this.resultSearch('resultSearch', searchContainer__input.value);
                 this.hideAllItems(0);
@@ -91,7 +90,6 @@
         this.createFilterDepartElements(data);
     },
     createFilterDepartElements: function(data){
-        
         for ( i = 0; i < data.rows.length; i++){
             districtIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
             questionIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'organization_id' );
@@ -107,7 +105,7 @@
         this.changeFilterItemDepart();
     },
     changeFilterItemDistrict: function(){
-        var filters = document.querySelectorAll('.filter_district');
+        let filters = document.querySelectorAll('.filter_district');
         filters = Array.from(filters);
         filters.forEach( item => {
             item.addEventListener( 'mouseover', event => {
@@ -127,9 +125,7 @@
                 target.childNodes[2].innerText = '';
             });
         });
-        
-        
-        var filter_closer_district = document.querySelectorAll('.filter_closer_district');
+        let filter_closer_district = document.querySelectorAll('.filter_closer_district');
         filter_closer_district = Array.from(filter_closer_district);
         filter_closer_district.forEach( function(el){
             el.addEventListener( 'click', function(event){
@@ -149,7 +145,7 @@
         }.bind(this));
     },
     changeFilterItemDepart: function(){
-        var filters = document.querySelectorAll('.filter_depart');
+        let filters = document.querySelectorAll('.filter_depart');
         filters = Array.from(filters);
         filters.forEach( item => {
             item.addEventListener( 'mouseover', event => {
@@ -169,8 +165,7 @@
                 target.childNodes[2].innerText = '';
             });
         });
-        
-        var filter_closer_depart = document.querySelectorAll('.filter_closer_depart');
+        let filter_closer_depart = document.querySelectorAll('.filter_closer_depart');
         filter_closer_depart = Array.from(filter_closer_depart);
         filter_closer_depart.forEach( function(el){
             el.addEventListener( 'click', function(event){
@@ -188,7 +183,6 @@
                 this.showPreloader = false;
             }.bind(this));
         }.bind(this));
-        
     },
     reloadFilterAfterDelete:  function(element, location){
         element.parentElement.removeChild(document.getElementById(element.id));
@@ -211,7 +205,6 @@
     setNewData: function(location, data){
         if( location === 'district'){
             this.districtData = data;   
-           
         }else if( location === 'departament' ){
             this.departData = data;   
         }
@@ -229,7 +222,6 @@
         } return element;
     },
     reloadMainTable: function(message){
-        
         while ( tableContainer.hasChildNodes() ) {
             tableContainer.removeChild( tableContainer.childNodes[0] );
         }        
@@ -250,21 +242,16 @@
         this.showPreloader = false;
     },
     createTabs: function(){
-        
         let tabPhone__title  = this.createElement('div', { className: 'tabPhone tabTitle', innerText: 'ВХІДНИЙ ДЗВІНОК'});
         let tabAppeal__title  = this.createElement('div', { className: 'tabAppeal tabTitle', innerText: 'РЕЄСТРАЦІЯ ЗВЕРНЕНЬ'});
         let tabAssigment__title  = this.createElement('div', { className: 'tabAssigment tabTitle', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
         let tabFinder__title  = this.createElement('div', { className: ' tabTitle', innerText: 'Розширений пошук'});
-        
         const tabPhone = this.createElement('div', { id: 'tabPhone', location: 'dashboard', url: 'StartPage_operator', className: 'tabPhone tab tabTo'}, tabPhone__title);
         const tabAppeal = this.createElement('div', { id: 'tabAppeal', location: 'dashboard', url: 'import_appeals_ugl', className: 'tabAppeal tab tabTo'}, tabAppeal__title);
         const tabAssigment = this.createElement('div', { id: 'tabAssigment', location: 'dashboard', url: 'curator', className: 'tabAssigment tab tabHover'}, tabAssigment__title);
         const tabFinder = this.createElement('div', { id: 'tabFinder', location: 'dashboard', url: 'poshuk_table', className: 'tabFinder tab tabTo'}, tabFinder__title);
-        
-        
         const tabsContainer = this.createElement('div', { id: 'tabsContainer', className: 'tabsContainer'},tabAppeal ,tabAssigment, tabFinder);
         tabsWrapper.appendChild(tabsContainer);
-        
         let tabs = document.querySelectorAll('.tabTo');
         tabs = Array.from(tabs);
         tabs.forEach( function (el){
@@ -284,7 +271,7 @@
         if( location === 'district'){
             if (this.isLoadDistrict && this.isLoadCategorie) {
                 this.messageService.publish(  { name: 'hidePagePreloader'});
-            };
+            }
         }else if( location === 'departament'){
             this.messageService.publish(  { name: 'hidePagePreloader'});
         }
@@ -310,10 +297,9 @@
             tableContainer.appendChild(column);
         }
         for(let i = 0; i < data.rows.length - 1; i ++  ){
-            var elRow = data.rows[i];
+            let elRow = data.rows[i];
             navigationIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'navigation' );
             for(let  j = 2; j < elRow.values.length; j ++  ){
-                
                 let el = elRow.values[j];
                 if( el != 0 ){
                     let columnCategorie__value =  this.createElement('div', { className: 'columnCategorie__value', innerText: '('+el+')'});
@@ -327,7 +313,7 @@
             }
         }
         for(let i = data.rows.length - 1; i < data.rows.length; i++){
-            var summaryHeader = data.rows[i];
+            let summaryHeader = data.rows[i];
             for(let  j = 2; j < summaryHeader.values.length; j ++  ){
                 let el = summaryHeader.values[j];
                 let columnChild = document.getElementById('column_'+j+'').firstElementChild;
@@ -337,9 +323,9 @@
                 columnChild.appendChild(columnHeaderTriangle);
             }
         }
-        var categories = document.querySelectorAll('.columnCategorie');
+        let categories = document.querySelectorAll('.columnCategorie');
         categories = Array.from(categories);
-        var headers = document.querySelectorAll('.columnHeader');
+        let headers = document.querySelectorAll('.columnHeader');
         headers = Array.from(headers);
         if( reloadTable == true ){
             categories.forEach( el => {
@@ -359,7 +345,6 @@
                 this.showTable(target,  column, navigator);
             }.bind(this));
         }.bind(this));
-        
         categories.forEach( function(el){
             el.addEventListener( 'click', function(event){
                 let target = event.currentTarget;
@@ -372,8 +357,6 @@
                 this.showTable(target, column, navigator);
             }.bind(this));
         }.bind(this));
-        
-        
         this.messageService.publish( { name: 'hidePagePreloader'});    
     },
     columnName: function(target){
@@ -394,7 +377,7 @@
         return column
     },
     showTable: function(target, columnName, navigator){
-        var headers = document.querySelectorAll('.columnHeader');
+        let headers = document.querySelectorAll('.columnHeader');
         headers = Array.from(headers);
         if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input'){
             document.getElementById('columnHeader_2').style.backgroundColor = 'rgb(248, 195, 47)';
@@ -403,7 +386,6 @@
             document.getElementById('columnHeader_5').style.backgroundColor = 'rgb(86 162 78)';
             document.getElementById('columnHeader_6').style.backgroundColor = 'rgb(240, 114, 93)';
             document.getElementById('columnHeader_7').style.backgroundColor = 'rgb(238, 123, 54)';
-            
             document.getElementById('columnHeader_3').firstElementChild.classList.add('triangle3');
             document.getElementById('columnHeader_4').firstElementChild.classList.add('triangle4');
             document.getElementById('columnHeader_5').firstElementChild.classList.add('triangle5');
@@ -434,7 +416,7 @@
         }
     },
     hideAllItems: function(value){
-        var categories = document.querySelectorAll('.columnCategorie');
+        let categories = document.querySelectorAll('.columnCategorie');
         categories = Array.from(categories);
         if( value == 0){
             categories.forEach( el => {

@@ -26,7 +26,6 @@
         }
     },
     load: function(data) {
-       
         this.yearCalendar = [];
         for(let i = 0; i < data.rows.length;  i ++ ){
             indexDateCode = data.columns.findIndex(el => el.code.toLowerCase() === 'date' );
@@ -42,7 +41,6 @@
                 return date.getDate();
             }
             day =  day === 0 ? 7 : day;
-            
             let arr = [];
             let len = i + monthLength
             for( t = i; t < len; t++  ){
@@ -71,7 +69,6 @@
         let yearContainer = this.createElement('div', {  id: 'yearContainer' });
         container.appendChild(createNewYearContainer);
         container.appendChild(yearContainer);
-
         createNewYearBtn.addEventListener( 'click', event => {
             let executeQuery = {
                 queryCode: 'ak_workDaysCalendarAddNewYear',
@@ -81,7 +78,6 @@
             this.queryExecutor(executeQuery);
             this.showPreloader = false; 
         });
-        
         this.yearCalendar.forEach( month => {
             let dayBox;
             let monday = this.createElement('div', {  className: 'calenDay', innerText: 'ПН'});
@@ -157,7 +153,6 @@
             let monthWrapper = this.createElement('div', {  className: 'monthWrapper' }, monthTitle, monthBox);
             yearContainer.appendChild(monthWrapper);
         });
-        
         let days = document.querySelectorAll('.day');
         days = Array.from(days);
         days.forEach(  day => {

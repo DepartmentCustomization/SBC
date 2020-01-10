@@ -2,7 +2,6 @@
     return {
         title: ' ',
         config: {
-
             query: {
                 code: 'db_Report_5_2',
                 parameterValues: [],
@@ -33,21 +32,16 @@
             keyExpr: 'orgIdId',
             showColumnHeaders: false,
         },
-        
         init: function() {
             this.sub = this.messageService.subscribe( 'ApplyGlobalFilters', this.getFiltersParams, this);
         },
-
         setTitle: function(dayFrom, dayTo){
             return 'Звернення, що закритi з порушенням термiну виконання  за тиждень з ' + dayFrom +' по ' + dayTo; 
         },
-
         getFiltersParams: function(message){
-
             this.config.query.filterColumns = [];
             this.counter = 0;
             this.organization = [];
-            
             message.package.value.forEach( filter => {
                 if( filter.active === true) {
                     if( filter.name === 'position'  ){
@@ -108,7 +102,6 @@
                 }
             }
         },
-
         changeDateTimeValues: function(value) {
             if (value === null) {
                 return ' '
@@ -117,17 +110,14 @@
             let dd = date.getDate().toString();
             let mm = (date.getMonth() + 1).toString();
             let yyyy = date.getFullYear().toString();
-
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
             return  dd + '.' + mm + '.' + yyyy;
         }, 
-
         afterLoadDataHandler: function(data) {
             this.messageService.publish( {name: 'setData', rep5_data: data, rep5_title: this.title} );
             this.render();
         },
-        
         destroy: function(){
             this.sub.unsubscribe();
         },    

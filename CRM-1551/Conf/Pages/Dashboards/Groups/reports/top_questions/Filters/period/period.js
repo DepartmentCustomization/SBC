@@ -16,9 +16,7 @@
             this.messageService.publish(message);
         },
         init: function(){
-        
         },
-        
         initValue: function() {
             let currentDate = new Date();
             let year = currentDate.getFullYear();

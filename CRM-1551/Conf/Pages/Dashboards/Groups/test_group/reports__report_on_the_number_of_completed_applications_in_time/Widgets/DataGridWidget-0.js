@@ -160,7 +160,6 @@
             columnRenderingMode: null,
             showScrollbar: null
         },
-        
         keyExpr: 'OrganizationId',
         showBorders: true,
         showColumnLines: true,
@@ -199,28 +198,23 @@
         const weekAgo = 1000*60*60*24*7;
         const currentDate = new Date();
         let  startDate = new Date(Date.now() - weekAgo);
-        
         this.filter_dataStart = startDate;
         this.filter_dataEnd = currentDate;
-        
         this.sub = this.messageService.subscribe('GlobalFilterChanged', this.chengeFilters, this);
-        
         this.config.query.queryCode = 'db_second';
         this.config.query.parameterValues = [{key: '@date_start', value: this.filter_dataStart},{key: '@date_end', value: this.filter_dataEnd},{key: '@place_id', value: this.place}];
         this.loadData();
     },
     chengeFilters:function(message) {
         this.place = message.package.value.values[1].value.value;
-        
         function checkDateFrom(val){
             return val ? val.dateFrom : null;
-        };
+        }
         function checkDateTo(val){
             return val ? val.dateTo : null;
-        };
+        }
         this.start_date = checkDateFrom(message.package.value.values[0].value);
         this.finish_date = checkDateTo(message.package.value.values[0].value);
-        
         this.config.query.queryCode = 'db_first';
         this.config.query.parameterValues = [{
                                                 key:'@date_start',

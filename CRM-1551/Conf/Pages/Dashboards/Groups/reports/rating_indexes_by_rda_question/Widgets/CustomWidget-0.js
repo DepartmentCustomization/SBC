@@ -39,7 +39,6 @@
       const tabSpeedExplained = this.createElement('div', { id: 'tabSpeedExplained', className: 'tab', innerText: 'Швидкість роз\'яснення'});
       const tabsWrapper = this.createElement('div', { id: 'tabsWrapper'}, tabSpeedDone, tabSpeedExplained);
       CONTAINER.appendChild(tabsWrapper);
-
       const tabs = document.querySelectorAll('.tab');
       tabs.forEach( tab => {
         tab.addEventListener( 'click', e => {

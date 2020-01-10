@@ -68,15 +68,12 @@
         },
     },
     init: function() {
-        
         this.treeListInstance.height = window.innerHeight - 200 + '';
         document.getElementById('question_classificatory').style.display = 'none';
         this.sub = this.messageService.subscribe('showTable', this.showTable, this);
-        
         let self = this;
         this.treeListInstance.onToolbarPreparing.subscribe( e => {
             e.toolbarOptions.items.push({
-                
                 widget: "dxButton", 
                 location: "after",
                 options: {

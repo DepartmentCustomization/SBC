@@ -18,9 +18,7 @@
             this.messageService.publish(message);
         },
         init: function(){
-        
         },
-        
         initValue: function() {
             let currentDate = new Date();
             let year = currentDate.getFullYear();
@@ -32,7 +30,6 @@
                 }
             this.setDefaultValue(defaultValue); 
         },
-        
         destroy(){
         // console.log('Destroy date filter');
         }

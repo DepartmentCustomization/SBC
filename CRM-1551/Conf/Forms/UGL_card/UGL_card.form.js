@@ -3,18 +3,14 @@
         // Для типов вопроса - определить какой из полей объект/организация требуется
         is_obj: undefined,
         is_org: undefined,
-
         onLoadModalPhone: function () {
             this.modal_phone_NEW = null;
             const queryForGetValue22 = {
                 queryCode: 'GetApplicantPhonesForApplicantId',
                 parameterValues: [{ key: '@applicant_id', value: this.form.getControlValue('Applicant_Id') }]
             };
-
             this.queryExecutor.getValues(queryForGetValue22).subscribe(function (data) {
-
                 this.kolvoPhonesForApplicant = data.rows.length - 1;
-
                 if (data.rows.length > 0) {
                     const fieldsForm = {
                         title: 'Телефони заявника',
@@ -23,22 +19,18 @@
                         singleButton: false,
                         fieldGroups: []
                     };
-
                     for (let j = 0; j < data.rows.length; j++) {
                         if (data.rows[j].values[5] == 1) {
-
-                            var p = {
+                            let p = {
                                 code: 'GroupPhone' + j,
                                 name: 'Створення телефону',
                                 expand: true,
                                 position: data.rows[j].values[0],
                                 fields: []
                             };
-
                             fieldsForm.fieldGroups.push(p);
-
-                            var c = fieldsForm.fieldGroups.length - 1;
-                            var t = {
+                            let c = fieldsForm.fieldGroups.length - 1;
+                            let t = {
                                 code: data.rows[j].values[1],
                                 fullScreen: true,
                                 hidden: false,
@@ -54,8 +46,7 @@
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t);
-
-                            var t0_0 = {
+                            let t0_0 = {
                                 code: data.rows[j].values[1] + '_phoneType',
                                 fullScreen: true,
                                 hidden: false,
@@ -71,8 +62,7 @@
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_0);
-
-                            var t0_2 = {
+                            let t0_2 = {
                                 code: data.rows[j].values[1] + '_phoneIsMain',
                                 fullScreen: true,
                                 hidden: false,
@@ -83,11 +73,8 @@
                                 type: "checkbox",
                                 width: '50%'
                             };
-
                             fieldsForm.fieldGroups[c].fields.push(t0_2);
-
-
-                            var t0_1 = {
+                            let t0_1 = {
                                 code: data.rows[j].values[1] + '_phoneDelete',
                                 fullScreen: true,
                                 hidden: false,
@@ -98,22 +85,18 @@
                                 type: "button",
                                 width: '50%'
                             };
-
                             fieldsForm.fieldGroups[c].fields.push(t0_1);
-
                         } else {
-                            var p1 = {
+                            let p1 = {
                                 code: 'GroupPhone' + j,
                                 name: data.rows[j].values[2],
                                 expand: true,
                                 position: data.rows[j].values[0],
                                 fields: []
                             };
-
                             fieldsForm.fieldGroups.push(p1);
-
-                            var c1 = fieldsForm.fieldGroups.length - 1;
-                            var t1_0 = {
+                            let c1 = fieldsForm.fieldGroups.length - 1;
+                            let t1_0 = {
                                 code: data.rows[j].values[1] + '_phoneNumber',
                                 fullScreen: true,
                                 hidden: false,
@@ -126,8 +109,7 @@
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_0);
-
-                            var t1_1 = {
+                            let t1_1 = {
                                 code: data.rows[j].values[1] + '_phoneType',
                                 fullScreen: true,
                                 hidden: false,
@@ -143,8 +125,7 @@
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_1);
-
-                            var t1_2 = {
+                            let t1_2 = {
                                 code: data.rows[j].values[1] + '_phoneIsMain',
                                 fullScreen: true,
                                 hidden: false,
@@ -155,11 +136,9 @@
                                 type: "checkbox",
                                 width: '50%'
                             };
-
                             fieldsForm.fieldGroups[c1].fields.push(t1_2);
-
                             if (data.rows[j].values[4]) {
-                                var t1_3_0 = {
+                                let t1_3_0 = {
                                     code: 'phoneDelete_Disabled',
                                     fullScreen: true,
                                     hidden: false,
@@ -170,10 +149,9 @@
                                     type: "button",
                                     width: '50%'
                                 };
-
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_0);
                             } else {
-                                var t1_3_1 = {
+                                let t1_3_1 = {
                                     code: data.rows[j].values[1] + '_phoneDelete',
                                     fullScreen: true,
                                     hidden: false,
@@ -184,11 +162,9 @@
                                     type: "button",
                                     width: '50%'
                                 };
-
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_1);
                             }
-
-                            var t1_4 = {
+                            let t1_4 = {
                                 code: data.rows[j].values[1] + '_phoneId',
                                 fullScreen: true,
                                 hidden: true,
@@ -199,35 +175,30 @@
                                 type: "text",
                                 width: '100%'
                             };
-
                             fieldsForm.fieldGroups[c1].fields.push(t1_4);
-                        };
-                    };
+                        }
+                    }
                     this.openModalForm(fieldsForm, this.onModal_Phone.bind(this), this.afterModal_Phone_FormOpen.bind(this));
-                };
-
+                }
             }.bind(this));
         },
         onChangeCardPhone: function (value) {
             for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
                 this.formModalConfig.setControlValue('modal_phone' + (u + 1) + '_phoneIsMain', false);
-            };
+            }
         },
         onRecalcCardPhone: function () {
             const queryForGetValue_RecalcPhone = {
                 queryCode: 'ApplicantPhonesRecalcCardPhone',
                 parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id') }]
             };
-
             this.queryExecutor.getValues(queryForGetValue_RecalcPhone).subscribe(function (data) {
                 this.form.setControlValue('CardPhone', data.rows[0].values[0]);
             }.bind(this));
-
             const queryForGetValue_GetIsMainPhone = {
                 queryCode: 'GetApplicantPhonesIsMain',
                 parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id') }]
             };
-
             this.queryExecutor.getValues(queryForGetValue_GetIsMainPhone).subscribe(function (data) {
                 this.form.setControlValue('Applicant_Phone_Hide', data.rows[0].values[0]);
             }.bind(this));
@@ -237,27 +208,21 @@
                 queryCode: 'ApplicantPhonesDelete',
                 parameterValues: [{ key: '@PhoneId', value: this.formModalConfig.getControlValue('modal_phone' + phone + '_phoneId') }]
             };
-
             this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function () {
-                var event = new Event("click");
+                let event = new Event("click");
                 document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
-
                 this.onLoadModalPhone();
                 this.onRecalcCardPhone();
-
                 // Загрузка заявителей по телефону в деталь
                 const parameters = [
                     { key: '@applicant_phone', value: this.form.getControlValue('CardPhone') }
                 ];
                 this.details.loadData('Detail_UGL_Aplicant', parameters);
             }.bind(this));
-
         },
         afterModal_Phone_FormOpen: function (form) {
-
             form.formConfig = this;
             this.formModalConfig = form;
-
             if (this.kolvoPhonesForApplicant > 0) {
                 for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
                     document.getElementById('modal_phone' + (u + 1) + '_phoneIsMain').addEventListener("click", function () {
@@ -267,41 +232,33 @@
                         document.getElementById('modal_phone' + (u + 1) + '_phoneDelete').addEventListener("click", function () {
                             this.formConfig.onDeleteCardPhone(u + 1);
                         }.bind(form));
-                    };
-
-                    var input = document.getElementById("modal_phone" + (u + 1) + "_phoneNumber");
+                    }
+                    let input = document.getElementById("modal_phone" + (u + 1) + "_phoneNumber");
                     input.addEventListener("input", this.mask, false);
                     input.addEventListener("focus", this.mask, false);
                     input.addEventListener("blur", this.mask, false);
                     input.addEventListener("change", this.mask, false);
-                };
+                }
                 document.getElementById('phoneDelete_Disabled').disabled = true;
-
                 for (let u2 = 0; u2 < this.kolvoPhonesForApplicant; u2++) {
                     document.getElementById("modal_phone" + (u2 + 1) + "_phoneNumber").focus();
-                };
-            };
-
+                }
+            }
             form.onControlValueChanged('modal_phone_NEW', this.onModalPhonesChanged);
             document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
-
             if (this.form.getControlValue('Applicant_Id')) {
                 document.getElementById('modal_phone_NEW_phoneDelete').addEventListener("click", function () {
                     const queryForGetValue_AddNewPhone = {
                         queryCode: 'ApplicantPhonesAdd',
                         parameterValues: [{ key: '@Applicant_id', value: this.formConfig.form.getControlValue('Applicant_Id') }, { key: '@TypePhone', value: this.getControlValue('modal_phone_NEW_phoneType') }, { key: '@Phone', value: this.getControlValue('modal_phone_NEW') }, { key: '@IsMain', value: this.getControlValue('modal_phone_NEW_phoneIsMain') }]
                     };
-
                     this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function (data) {
                         if (data.rows[0].values[0] == "OK") {
                             this.setControlValue('modal_phone_NEW', null);
-
-                            var event = new Event("click");
+                            let event = new Event("click");
                             document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
-
                             this.formConfig.onLoadModalPhone();
                             this.formConfig.onRecalcCardPhone();
-
                             // Загрузка заявителей по телефону в деталь
                             const parameters = [
                                 { key: '@applicant_phone', value: this.form.getControlValue('CardPhone') }
@@ -310,24 +267,22 @@
                         } else {
                             this.setControlValue('modal_phone_NEW', null);
                             this.formConfig.openPopUpInfoDialog('Помилка. Такий номер вже існує!');
-                        };
+                        }
                     }.bind(this));
                 }.bind(form));
-
-                var input3 = document.getElementById("modal_phone_NEW");
+                let input3 = document.getElementById("modal_phone_NEW");
                 input3.addEventListener("input", this.mask, false);
                 input3.addEventListener("focus", this.mask, false);
                 input3.addEventListener("blur", this.mask, false);
                 input3.addEventListener("change", this.mask, false);
                 document.getElementById('modal_phone_NEW').focus();
                 document.getElementById('modal_phone_NEW_phoneDelete').focus();
-
                 document.getElementById('modal_phone_NEWIcon').addEventListener("click", function () {
                     this.setControlValue('modal_phone_NEW', this.formConfig.form.getControlValue('Phone'));
                     document.getElementById('modal_phone_NEW').focus();
                     document.getElementById('modal_phone_NEW_phoneDelete').focus();
                 }.bind(form));
-            };
+            }
         },
         onModalPhonesChanged: function (phone) {
             if (!phone) {
@@ -337,15 +292,13 @@
                     document.getElementById('modal_phone_NEW_phoneDelete').disabled = false;
                 } else {
                     document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
-                };
-            };
+                }
+            }
         },
         onModal_Phone: function (value) {
-
             if (value) {
                 if (this.kolvoPhonesForApplicant > 0) {
                     for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
-
                         const queryForGetValue_UpdatePhone = {
                             queryCode: 'ApplicantPhonesUpdate',
                             parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id') },
@@ -355,42 +308,37 @@
                             { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneId').value }]
                         };
                         this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function (data) {
-
                         }.bind(this));
-
-                    };
+                    }
                     // Загрузка заявителей по телефону в деталь
                     const parameters = [
                         { key: '@applicant_phone', value: this.form.getControlValue('CardPhone') }
                     ];
                     this.details.loadData('Detail_UGL_Aplicant', parameters);
                     this.onRecalcCardPhone();
-                };
-            };
+                }
+            }
         },
         init: function () {
-
             if (this.state == "create") {
-                var getDataFromLink = window
+                let getDataFromLink = window
                     .location
                     .search
                     .replace('?', '')
                     .split('&')
                     .reduce(
                         function (p, e) {
-                            var a = e.split('=');
+                            let a = e.split('=');
                             p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                             return p;
                         }, {}
                     );
-
                 let uglId;
                 if (getDataFromLink["uglId"] == undefined) {
                     uglId = 'невідомо';
                 } else {
                     uglId = getDataFromLink["uglId"]
-                };
-
+                }
                 const queryForGetUGLAppeal = {
                     queryCode: 'CreateAppeal_FromUGL',
                     parameterValues: [
@@ -400,25 +348,20 @@
                         }
                     ]
                 };
-
                 this.queryExecutor.getValue(queryForGetUGLAppeal).subscribe(data => {
                     this.navigateTo('sections/CreateAppeal_UGL/edit/' + data)
                 });
-            }
-            else { // state != create
+            } else { // state != create
                 this.form.setControlValue('AppealId', this.id);
                 this.form.setControlValue('ReceiptSources', { key: 3, value: 'УГЛ' });
-
                 document.getElementById('CardPhone').addEventListener("click", function () {
                     this.onLoadModalPhone();
                 }.bind(this));
-
                 document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
                 document.getElementById('Question_Btn_Add').disabled = true;
                 document.getElementById('Question_Aplicant_Btn_Add').disabled = true;
                 document.getElementById('Applicant_Btn_Add').disabled = true;
                 // Отслеживание изменения значений полей для активности кнопки сохранить заявителя
-
                 this.form.onControlValueChanged('Applicant_PIB', this.applicantIsPIBChanged);
                 this.form.onControlValueChanged('Applicant_Building', this.applicantIsBuildingChanged);
                 this.form.onControlValueChanged('Applicant_Entrance', this.applicantIsEntranceChanged);
@@ -430,7 +373,6 @@
                 this.form.onControlValueChanged('Applicant_BirthDate', this.applicantIsBirthDateChanged);
                 this.form.onControlValueChanged('Applicant_Email', this.applicantIsMailChanged);
                 this.form.onControlValueChanged('Applicant_Comment', this.applicantIsNoteChanged);
-
                 // Изменения запрещены 
                 this.form.disableControl('CardPhone');
                 this.form.disableControl('ReceiptSources');
@@ -441,20 +383,16 @@
                 this.form.disableControl('Applicant_District');
                 this.form.disableControl('Applicant_Age');
                 this.form.disableControl('ExecutorInRoleForObject');
-
                 this.form.disableControl('Question_OrganizationId');
                 this.form.disableControl('Question_ControlDate');
-
                 // Убрать видимость до выяснения обстоятельств
                 this.form.setControlVisibility('Question_Building', false);
                 this.form.setControlVisibility('entrance', false);
                 this.form.setControlVisibility('flat', false);
                 this.form.setControlVisibility('Question_Organization', false);
                 this.details.setVisibility('Detail_UGL_QuestionNumberAppeal', false);
-
                 this.form.onControlValueChanged('Applicant_Id', this.checkApplicantHere);
                 this.form.setGroupVisibility('UGL_Group_CreateQuestion', false);
-
                 this.form.onControlValueChanged('Applicant_Building', this.getDistrictAndExecutor);
                 this.form.onControlValueChanged('Applicant_Building', this.checkApplicantSaveAvailable);
                 this.form.onControlValueChanged('Applicant_PIB', this.checkApplicantSaveAvailable);
@@ -463,7 +401,6 @@
                 this.form.onControlValueChanged('Question_AnswerType', this.onChangedQuestion_AnswerType.bind(this));
                 this.form.onControlValueChanged('Question_Building', this.checkQuestionRegistrationAvailable);
                 this.form.onControlValueChanged('Question_Organization', this.checkQuestionRegistrationAvailable);
-
                 // Заполнение полей "Загальна інформація"          
                 const AppealUGL = {
                     queryCode: 'AppealUGL_Info',
@@ -474,7 +411,6 @@
                         }
                     ]
                 };
-
                 this.queryExecutor.getValues(AppealUGL).subscribe(data => {
                     this.form.setControlValue('Appeal_enter_number', data.rows[0].values[0]);
                     this.form.setControlValue('Phone', data.rows[0].values[1]);
@@ -485,7 +421,6 @@
                     this.form.setControlValue('ApplicantUGL', data.rows[0].values[6]);
                     this.form.setControlValue('AppealNumber', data.rows[0].values[8]);
                     this.form.setControlValue('applicantAddress', data.rows[0].values[9]);
-
                     // Загрузка заявителей по телефону в деталь
                     const parameters = [
                         { key: '@applicant_phone', value: this.form.getControlValue('CardPhone') }
@@ -494,14 +429,12 @@
                 });
                 // Получение данных выбранного из детали заявителя по телефону             
                 this.details.onCellClick('Detail_UGL_Aplicant', this.getApplicantInfo.bind(this));
-
                 //Кнопка "Зберегти" в группе "Заявник"
                 document.getElementById('Applicant_Btn_Add').addEventListener("click", function () {
                     let entrance = this.form.getControlValue('Applicant_Entrance');
                     if (entrance != null && entrance < 1) {
                         this.openPopUpInfoDialog('Номер під`їзду не може бути менше 1');
-                    }
-                    else {
+                    } else {
                         const queryForGetValue2 = {
                             queryCode: 'Applicant_UGL_InsertRow',
                             parameterValues: [
@@ -579,9 +512,7 @@
                                 }
                             ]
                         };
-
                         this.queryExecutor.getValues(queryForGetValue2).subscribe(data => {
-
                             this.form.setControlValue('Applicant_Id', data.rows[0].values[0]);
                             const queryForGetValue3 = {
                                 queryCode: 'Appeals_SelectRow',
@@ -594,26 +525,21 @@
                             };
                             document.getElementById('Applicant_Btn_Add').disabled = true;
                             this.queryExecutor.getValues(queryForGetValue3).subscribe(data => {
-
                                 // Загрузка заявителей по телефону в деталь
                                 const parameters = [
                                     { key: '@applicant_phone', value: this.form.getControlValue('CardPhone') }
                                 ];
                                 this.details.loadData('Detail_UGL_Aplicant', parameters);
-
                                 const parameters2 = [
                                     { key: '@appealId', value: data.rows[0].values[0] }
                                 ];
                                 this.details.loadData('Detail_UGL_QuestionRegistration', parameters2);
                             });
-
                         });
                     }
                 }.bind(this));
-
                 //Кнопка "Очистити" в группе "Заявник"
                 document.getElementById('Applicant_Btn_Clear').addEventListener("click", function () {
-
                     this.form.setControlValue('Applicant_Id', null);
                     this.form.setControlValue('Applicant_PIB', null);
                     this.form.setControlValue('Applicant_District', null);
@@ -630,7 +556,6 @@
                     this.form.setControlValue('Applicant_Age', null);
                     this.form.setControlValue('Applicant_Email', null);
                     this.form.setControlValue('Applicant_Comment', null);
-
                 }.bind(this));
                 // Отработка кнопки "Додати питання"
                 document.getElementById('Question_Aplicant_Btn_Add').addEventListener("click", function () {
@@ -639,7 +564,6 @@
                     this.form.setGroupVisibility('UGL_Group_CreateQuestion', true);
                     this.form.setGroupExpanding('UGL_Group_Aplicant', false);
                     this.form.setGroupExpanding('UGL_Group_Appeal', false);
-
                     const objNameQuestion_AnswerType = {
                         queryCode: 'dir_AnswerTypes_SelectRow',
                         parameterValues: [
@@ -753,12 +677,10 @@
                         this.form.setControlValue('AppealNumber', data.rows[0].values[3]);
                         this.form.setControlValue('Phone', data.rows[0].values[5]);
                         this.form.setControlValue('DateStart', new Date());
-
                         const parameters = [
                             { key: '@phone_number', value: data.rows[0].values[5] }
                         ];
                         this.details.loadData('Detail_UGL_Aplicant', parameters);
-
                         const parameters2 = [
                             { key: '@appealId', value: this.id }
                         ];
@@ -776,7 +698,6 @@
             this.form.onControlValueChanged('Search_Appeals_Input', this.onChanged_Search_Appeals_Input.bind(this));
             document.getElementById('Search_Appeals_Search').disabled = true;
             document.getElementById('Search_Appeals_Search').addEventListener("click", function (event) {
-
                 const parameters = [
                     { key: '@AppealRegistrationNumber', value: this.form.getControlValue('Search_Appeals_Input') }
                 ];
@@ -792,22 +713,20 @@
                 this.input_pib_check = 0;
             } else {
                 this.input_pib_check = 1;
-            };
+            }
             this.input_pib = value;
             this.applicantSaveButtonManager(this.input_pib_check);
         },
         input_building: null,
         input_building_check: 0,
         applicantIsBuildingChanged: function (value) {
-
             if (this.input_building == value) {
                 this.input_building_check = 0;
             } else {
                 this.input_building_check = 1;
-            };
+            }
             this.input_building = value;
             this.applicantSaveButtonManager(this.input_building_check);
-
         },
         input_entrance: null,
         input_entrance_check: 0,
@@ -816,7 +735,7 @@
                 this.input_entrance_check = 0;
             } else {
                 this.input_entrance_check = 1;
-            };
+            }
             this.input_entrance = value;
             this.applicantSaveButtonManager(this.input_entrance_check);
         },
@@ -827,7 +746,7 @@
                 this.input_flat_check = 0;
             } else {
                 this.input_flat_check = 1;
-            };
+            }
             this.input_flat = value;
             this.applicantSaveButtonManager(this.input_flat_check);
         },
@@ -838,7 +757,7 @@
                 this.input_privilege_check = 0;
             } else {
                 this.input_privilege_check = 1;
-            };
+            }
             this.input_privilege = value;
             this.applicantSaveButtonManager(this.input_privilege_check);
         },
@@ -849,7 +768,7 @@
                 this.input_socialState_check = 0;
             } else {
                 this.input_socialState_check = 1;
-            };
+            }
             this.input_socialState = value;
             this.applicantSaveButtonManager(this.input_socialState_check);
         },
@@ -860,7 +779,7 @@
                 this.input_applicantType_check = 0;
             } else {
                 this.input_applicantType_check = 1;
-            };
+            }
             this.input_applicantType = value;
             this.applicantSaveButtonManager(this.input_applicantType_check);
         },
@@ -871,7 +790,7 @@
                 this.input_applicantSex_check = 0;
             } else {
                 this.input_applicantSex_check = 1;
-            };
+            }
             this.input_applicantSex = value;
             this.applicantSaveButtonManager(this.input_applicantSex_check);
         },
@@ -882,7 +801,7 @@
                 this.input_birthDate_check = 0;
             } else {
                 this.input_birthDate_check = 1;
-            };
+            }
             this.input_birthDate = value;
             this.applicantSaveButtonManager(this.input_birthDate_check);
         },
@@ -893,7 +812,7 @@
                 this.input_mail_check = 0;
             } else {
                 this.input_mail_check = 1;
-            };
+            }
             this.input_mail = value;
             this.applicantSaveButtonManager(this.input_mail_check);
         },
@@ -904,7 +823,7 @@
                 this.input_note_check = 0;
             } else {
                 this.input_note_check = 1;
-            };
+            }
             this.input_note = value;
             this.applicantSaveButtonManager(this.input_note_check);
         },
@@ -912,24 +831,19 @@
             if (this.form.getControlValue('Applicant_Id') != null) {
                 if (input_check === 1) {
                     document.getElementById('Applicant_Btn_Add').disabled = false;
-                }
-                else if (input_check === 0) {
+                } else if (input_check === 0) {
                     document.getElementById('Applicant_Btn_Add').disabled = true;
                 }
             }
         },
         questionObjectOrg: function () {
-
             let q_type_id = this.form.getControlValue('Question_TypeId');
-
             if (q_type_id == undefined) {
                 this.form.setControlVisibility('Question_Building', false);
                 this.form.setControlVisibility('entrance', false);
                 this.form.setControlVisibility('flat', false);
                 this.form.setControlVisibility('Question_Organization', false);
-            }
-            else {
-
+            } else {
                 const objAndOrg = {
                     queryCode: 'QuestionTypes_HideColumns',
                     parameterValues: [
@@ -942,43 +856,34 @@
                 this.queryExecutor.getValues(objAndOrg).subscribe(data => {
                     this.is_org = data.rows[0].values[0];
                     this.is_obj = data.rows[0].values[1];
-
                     console.log('Obj:' + this.is_obj);
                     console.log('Org:' + this.is_org);
-
                     if (this.is_obj === true) {
                         this.form.setControlVisibility('Question_Building', true);
                         this.form.setControlVisibility('entrance', true);
                         this.form.setControlVisibility('flat', true);
-
-                    }
-                    else if (this.is_obj !== true) {
+                    } else if (this.is_obj !== true) {
                         this.form.setControlVisibility('Question_Building', false);
                         this.form.setControlVisibility('entrance', false);
                         this.form.setControlVisibility('flat', false);
                     }
-
                     if (this.is_org === true) {
                         this.form.setControlVisibility('Question_Organization', true);
-                    }
-                    else if (this.is_org !== true) {
+                    } else if (this.is_org !== true) {
                         this.form.setControlVisibility('Question_Organization', false);
                     }
                     this.checkQuestionRegistrationAvailable();
                 });
-
             }
         },
-
         checkApplicantHere: function () {
             if (this.form.getControlValue('Applicant_Id') !== undefined) {
                 document.getElementById('Question_Aplicant_Btn_Add').disabled = false;
                 this.form.enableControl('CardPhone');
-            }
-            else {
+            } else {
                 document.getElementById('Question_Aplicant_Btn_Add').disabled = true;
                 this.form.disableControl('CardPhone');
-            };
+            }
         },
         // Условие доступности сохранения заявителя
         checkApplicantSaveAvailable: function () {
@@ -986,17 +891,13 @@
                 (this.form.getControlValue('Applicant_PIB') == null || this.form.getControlValue('Applicant_Building') == null)
             ) {
                 document.getElementById('Applicant_Btn_Add').disabled = true;
-            }
-            else {
+            } else {
                 document.getElementById('Applicant_Btn_Add').disabled = false;
             }
-
         },
-
         //Получение данных заявителя
         getApplicantInfo: function (column, row, value, event, indexOfColumnId) {
             let applicantId = row.values[4];
-
             const Applicant = {
                 queryCode: 'Applicant_Info',
                 parameterValues: [
@@ -1006,7 +907,6 @@
                     }
                 ]
             }
-
             // Наполнение полей заявителя данными выбраного с детали
             this.queryExecutor.getValues(Applicant).subscribe(data => {
                 if (data) {
@@ -1015,15 +915,13 @@
                         BirthDate = null;
                     } else {
                         BirthDate = new Date(data.rows[0].values[14]);
-                    };
-
+                    }
                     let sex = null;
                     if (data.rows[0].values[13] == null) {
                         sex = null;
                     } else {
                         sex = (data.rows[0].values[13]).toString();
-                    };
-
+                    }
                     this.form.setControlValue('Applicant_Building',
                         { key: data.rows[0].values[1], value: data.rows[0].values[2] });
                     this.form.setControlValue('Applicant_Entrance', data.rows[0].values[4])
@@ -1048,7 +946,6 @@
             });
             document.getElementById('Applicant_Btn_Add').disabled = true;
         },
-
         // Подстановка ответственной организации и контрольной даты по типу вопроса 
         onChanged_Question_TypeId: function () {
             let questionType = this.form.getControlValue('Question_TypeId');
@@ -1066,9 +963,7 @@
                 this.getOrgExecut();
                 this.onQuestionControlDate(questionType);
                 this.questionObjectOrg();
-                ;
             }
-
         },
         getOrgExecut: function () {
             const objAndOrg = {
@@ -1088,7 +983,6 @@
                     }
                 ]
             };
-
             this.queryExecutor.getValues(objAndOrg).subscribe(data => {
                 this.form.setControlValue('Question_OrganizationId',
                     { key: data.rows[0].values[0], value: data.rows[0].values[1] });
@@ -1118,15 +1012,13 @@
             this.form.setControlValue('Question_AnswerPhoneOrPost', null);
             if (value == 2) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('CardPhone'));
-            };
-
+            }
             if (value == 4 || value == 5) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('applicantAddress'));
-            };
-
+            }
             if (value == 3) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('Applicant_Email'));
-            };
+            }
             this.checkQuestionRegistrationAvailable();
         },
         // Условия допустимости регистрации Questions`a
@@ -1135,10 +1027,8 @@
             let questionOrg = this.form.getControlValue('Question_Organization');
             let questionContent = this.form.getControlValue('Question_Content');
             let howToAnswer = this.form.getControlValue('Question_AnswerType');
-
             // Если тип вопроса задан - продолжаем
             if (this.form.getControlValue('Question_TypeId') !== null) {
-
                 // // Случай когда объект вопроса и организация обязательны
                 if (this.is_obj === true && this.is_org === true) {
                     // Prepare check
@@ -1154,12 +1044,10 @@
                         document.getElementById('Question_Btn_Add').disabled = true;
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);
-                    }
-                    else {
+                    } else {
                         document.getElementById('Question_Btn_Add').disabled = false;
                     }
                 }
-
                 // Случай когда объект вопроса обязательно а орг нет
                 if (this.is_obj === true && this.is_org === false) {
                     // Prepare check
@@ -1172,12 +1060,10 @@
                         document.getElementById('Question_Btn_Add').disabled = true;
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);
-                    }
-                    else {
+                    } else {
                         document.getElementById('Question_Btn_Add').disabled = false;
                     }
                 }
-
                 // Случай когда орг вопроса обязательно а объект нет
                 if (this.is_obj === false && this.is_org === true) {
                     console.log('Question must have org');
@@ -1191,14 +1077,11 @@
                         document.getElementById('Question_Btn_Add').disabled = true;
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);
-                    }
-                    else {
+                    } else {
                         document.getElementById('Question_Btn_Add').disabled = false;
                     }
                 }
-
             }
-
         },
         // Если надо по Id дома найти его полный адрес
         getBuildingInfo: function (building) {
@@ -1218,14 +1101,18 @@
             this.form.setControlValue('entrance', this.form.getControlValue('Applicant_Entrance'));
         },
         convertDateNull: function (value) {
-            if (!value) { return this.extractStartDate(); } else { return value; };
+            if (!value) {
+ return this.extractStartDate(); 
+} else {
+ return value; 
+}
         },
         onChanged_Search_Appeals_Input: function (value) {
             if (value == "") {
                 document.getElementById('Search_Appeals_Search').disabled = true;
             } else {
                 document.getElementById('Search_Appeals_Search').disabled = false;
-            };
+            }
         },
         getDistrictAndExecutor: function () {
             let building = this.form.getControlValue('Applicant_Building');
@@ -1238,14 +1125,12 @@
                     }]
                 };
                 this.queryExecutor.getValues(query).subscribe(function (data) {
-
                     if (data.rows[0] != undefined) {
                         this.form.setControlValue('Applicant_District', data.rows[0].values[1]);
                         this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[2]);
                     }
                 }.bind(this));
-            }
-            else {
+            } else {
                 this.form.setControlValue('Applicant_District', null);
                 this.form.setControlValue('ExecutorInRoleForObject', null);
             }

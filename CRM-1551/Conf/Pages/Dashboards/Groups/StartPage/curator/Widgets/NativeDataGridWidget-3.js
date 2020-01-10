@@ -101,20 +101,16 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
         },
-
         sub: [],
-        
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 305;
             this.showPreloader = false;
             document.getElementById('table8_prosctoch').style.display = 'none';
             this.sub = this.messageService.subscribe('clickOnСoordinator_table', this.changeOnTable, this);
             this.sub1 = this.messageService.subscribe('renderAfterCloseModal', this.renderAfterCloseModal, this);
-        
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.masterDetail.template = this.craeteMasterDetail.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
-
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     if(e.column.dataField == "registration_number" && e.row != undefined){
@@ -123,11 +119,9 @@
                 }
             });
         },
-
         afterRenderTable: function () {
             this.messageService.publish({  name: 'afterRenderTable', code: this.config.query.code });
         },
-
         changeOnTable: function(message){
             if( message.column != 'Прострочені' ){
                 document.getElementById('table8_prosctoch').style.display = 'none';
@@ -140,18 +134,14 @@
                 this.loadData(this.afterLoadDataHandler);
             }
         },
-
         renderAfterCloseModal: function () {
             this.loadData(this.afterLoadDataHandler);
         },
-
         afterLoadDataHandler: function(data) {
             this.render();
         },
-
         craeteMasterDetail: function(container, options) {
-            var currentEmployeeData = options.data;
-            
+            let currentEmployeeData = options.data;
             if(currentEmployeeData.short_answer == null){
                 currentEmployeeData.short_answer = '';
             }
@@ -164,19 +154,14 @@
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.adressZ+""});
             let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
             let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
-            
             let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.question_content+""});
             let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            
             let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ""+currentEmployeeData.short_answer+""});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: "Коментар виконавця"});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
-            
-            
             let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
             container.appendChild(elementsWrapper);
-            
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
             elementsAll.forEach( el => {
@@ -189,10 +174,8 @@
                 el.style.minWidth = '200px';
             })
         }, 
-
         createTableButton: function(e) {
-            var toolbarItems = e.toolbarOptions.items;
-
+            let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
                 widget: "dxButton", 
                 options: { 
@@ -207,7 +190,6 @@
                 },
                 location: "after"
             });
-            
             toolbarItems.push({
                 widget: "dxButton", 
                 options: { 
@@ -223,7 +205,6 @@
                 location: "after"
             });
         },
-
         sendMessageToReload: function(query) {
             const tableRows = this.dataGridInstance.selectedRowKeys;
             const sendRows = tableRows.join(', ');
@@ -234,7 +215,6 @@
                 this.messageService.publish( {name, length, self, sendRows, query });
             }
         },
-
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -244,7 +224,6 @@
                 });
             } return element;
         },
-
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
