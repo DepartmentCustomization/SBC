@@ -1,25 +1,23 @@
 (function () {
   return {
-    Detail_History: function(column, row, value, event, indexOfColumnId) {
+    Detail_History: function(column, row) {
         const parameters = [
                             { key: '@history_id', value: row.values[0]}
                            ];
         this.details.loadData('BuildingHistory_details', parameters);
         this.details.setVisibility('BuildingHistory_details', true);
     },
-    init: function(event) {
+    init: function() {
         this.details.setVisibility('BuildingHistory_details', false);
         this.details.onCellClick('BuildingHistory', this.Detail_History.bind(this)); 
         this.form.disableControl('street_id');
         this.form.disableControl('number');
         document.getElementById('change_but').disabled = true;
         this.ChangeBtn_Check();
-            // Вешаю событие удаления данного строения из бд на кнопку 
-                document.getElementById('delete_but').addEventListener("click", function(event) {
+                document.getElementById('delete_but').addEventListener("click", function() {
                     this.openPopUpConfirmDialog('Ви впевнені що потрібно видалити будинок?', this.DeleteObject);
             }.bind(this));
-            // Вешаю на кнопку change_but событие с запросом на обновление адреса связанных Applicants и объекта Questions на выбранное в lookup строение
-                document.getElementById('change_but').addEventListener("click", function(event) {
+               document.getElementById('change_but').addEventListener("click", function() {
                 const queryForUpdateBuilding = {
                       queryCode: 'ChangeBuilding',
                       parameterValues: [
@@ -53,7 +51,6 @@
             }.bind(this));
         this.form.onControlValueChanged('change_building', this.onBuildingChanged);
     },
-    // При выборе Building для замены разблокирую кнопку действия
     onBuildingChanged: function(BuildingId) {
             if(BuildingId){
              document.getElementById('change_but').disabled = false;
@@ -62,7 +59,6 @@
             }
     },
     ChangeBtn_Check: function () {
-      // Проверка наличия Applicants и Questions по данному Buildings 
                 const checkResult = {
                         queryCode: 'CheckApplicantsAndQuestions',
                         parameterValues:[
@@ -71,7 +67,6 @@
                         value: this.form.getControlValue('Id')
                                     } ]
                     };
-            // Устанавливаю состояние кнопки delete_but в зависимости от результата проверки
                 this.queryExecutor.getValues(checkResult).subscribe(data => {
                     if (data) {
                         if (data.rows.length > 0) {
@@ -97,7 +92,6 @@
                         this.queryExecutor.getValues(queryForDeleteBuilding).subscribe(data => {
                         if (data) {
                         if (data.rows.length > 0) {
-                            console.log('Deleted: ', data);
                             this.back();
                               }
                           }
