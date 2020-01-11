@@ -147,13 +147,11 @@
                     let CurrentUserPhone = e.row.data.phone_number;
                     let PhoneForCall = this.userPhoneNumber;
                     let xhr = new XMLHttpRequest();
-                    xhr.open('GET', `http://10.192.200.14:5566/CallService/Call/number=` + CurrentUserPhone  + `&operator=` + PhoneForCall );
+                    xhr.open('GET', `https://cc.1551.gov.ua:5566/CallService/Call/number=` + CurrentUserPhone  + `&operator=` + PhoneForCall );
                     xhr.send();
                 }
             }
         }.bind(this));
-        let userId = JSON.parse(localStorage.getItem('userId')); 
-        let houseId = JSON.parse(localStorage.getItem('houseId'));
         this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
                                               { key: '@sort', value: this.sort  }];
         this.loadData(this.afterLoadDataHandler);
@@ -198,11 +196,11 @@
             }
             if(columnCode != undefined ){
                 if(columnCode != 'dataSource'){
-                    let infoColumn = { name: columnCode, value: args.value };
+                    const infoColumn = { name: columnCode, value: args.value };
                     if( this.sortingArr.length === 0  ){
                         this.sortingArr.push(infoColumn);
                     }else{
-                        index = this.sortingArr.findIndex(x => x.name === columnCode);
+                        const index = this.sortingArr.findIndex(x => x.name === columnCode);
                         if( index === -1 ){
                             this.sortingArr.push(infoColumn);
                         }else{
@@ -216,7 +214,7 @@
         }
     },    
     showUser: function(data){
-        indexPhoneNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'phonenumber' );
+        const indexPhoneNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'phonenumber' );
         this.userPhoneNumber = data.rows[0].values[indexPhoneNumber]
     },
     openModalCloserForm: function(){
@@ -305,7 +303,7 @@
         let trueDate = dd+'.'+MM+'.' + yyyy +' '+ HH +':'+ mm;
         return trueDate;
     },       
-    afterLoadDataHandler: function(data) {
+    afterLoadDataHandler: function() {
         this.render();
     },
     setFiltersValue:function(message) {
@@ -450,10 +448,10 @@
             month = month + "";
             hours = hours + "";
             minutes = minutes + "";
-            month.length == 1 ? month = '0'+month : month = month ;
-            date.length == 1 ? date = '0'+date : date = date ;            
-            hours.length == 1 ? hours = '0'+hours : hours = hours ;            
-            minutes.length == 1 ? minutes = '0'+minutes : minutes = minutes ;            
+            month = month.length == 1 ? '0' + month : month ;
+            date =  date.length == 1 ?'0'+date : date ;            
+            hours = hours.length == 1 ?'0'+hours : hours ;            
+            minutes = minutes.length == 1 ?'0'+minutes : minutes ;            
             let value = ""+year+"-"+month+"-"+date+" "+hours+":"+minutes+"";
             textMacros = ""+code+" "+operation+" N'"+value+"' and";
         }
