@@ -93,13 +93,13 @@
                     let target = event.currentTarget;
                     target.disabled = true;
                     target.style.backgroundColor = '#cfcbcb';
-                    this.sendResult();
+                    this.sendResult(modalContainer);
                 });
-                this.showAssigmResult(resultSelect, this.resultsValues, this);
+                this.showAssigmResult(resultSelect, button_save, this.resultsValues, this);
                 this.showPreloader = false;
             }
         },
-        showAssigmResult: function(select, data) {
+        showAssigmResult: function(select, button_save, data) {
             data.forEach(el => {
                 let option = this.createElement('option', { innerText: el.innerText, value: el.value, className: "option" });
                 select.appendChild(option);
@@ -109,10 +109,10 @@
                 e.stopImmediatePropagation();
                 let resultId = Number(e.params.data.id);
                 this.resultId = resultId;
-                this.showHiddenElements(resultId);
+                this.showHiddenElements(resultId, button_save);
             }.bind(this));
         },
-        showHiddenElements: function(resultId) {
+        showHiddenElements: function(resultId, button_save) {
             let resolutionInnerText;
             let resolutionId;
             button_save.disabled = false;
@@ -169,7 +169,7 @@
         showSortingArr: function(message) {
             this.sortingArr = message.arr;
         },
-        sendResult: function() {
+        sendResult: function(modalContainer) {
             let sortArr = this.sortingArr;
             let sendString;
             if (sortArr) {
@@ -246,14 +246,14 @@
                                     { key: '@grade', value: this.checkBoxChacked },
                                 ]
                             };
-                            this.queryExecutor(executeQuery, this.changeRowsCounter, this);
+                            this.queryExecutor(executeQuery, this.changeRowsCounter.bind(this, modalContainer), this);
                             this.showPreloader = false;
                         }
                         break
                 }
             });
         },
-        changeRowsCounter: function(result) {
+        changeRowsCounter: function(modalContainer, result) {
             let obj = {
                 number: result.rows[0].values[0],
                 result: result.rows[0].values[1],
