@@ -7,7 +7,10 @@
     "hook-config": "git config core.hooksPath .\\.githooks",
     "eslint-crm-taxi": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM_TAXI\\ --format .\\node_modules\\eslint-teamcity\\index.js",
     "eslint-crm-1551": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-1551\\ --format .\\node_modules\\eslint-teamcity\\index.js",
-    "eslint-crm-jkh": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-JKH\\ --format .\\node_modules\\eslint-teamcity\\index.js"
+    "eslint-crm-jkh": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-JKH\\ --format .\\node_modules\\eslint-teamcity\\index.js",
+    "tsqllint-crm-taxi": ".\\node_modules\\.bin\\tsqllint -c .tsqllintrc .\\CRM_TAXI\\Conf\\DataSources\\ > tsqllint-report\\tsqllint-crm-taxi-report.txt",
+    "tsqllint-crm-1551": ".\\node_modules\\.bin\\tsqllint -c .tsqllintrc .\\CRM-1551\\Conf\\DataSources\\ > tsqllint-report\\tsqllint-crm-1551-report.txt",
+    "tsqllint-crm-jkh": ".\\node_modules\\.bin\\tsqllint -c .tsqllintrc .\\CRM-JKH\\Conf\\DataSources\\ > tsqllint-report\\tsqllint-crm-jkh-report.txt"
   },
   "eslint-teamcity": {
     "reporter": "inspections",
