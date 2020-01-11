@@ -293,7 +293,7 @@
                 this.messageService.publish({ name: 'reloadMainTable', sortingString: this.sendString });
             });
         },
-        createOptions: function(selectId, event) {
+        createOptions: function() {
             $(document).ready(function() {
                 $('.js-example-basic-single').select2();
                 $(".js-example-placeholder-district").select2({
