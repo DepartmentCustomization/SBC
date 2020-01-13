@@ -8,6 +8,7 @@
         init: function() {
             this.reports = [
                 { title: 'Показники рейтингів', url: 'rating_indicators', icon: 'trending_up'},
+                { title: 'Показники рейтингів департаментів', url: 'rating_indicators_department', icon: 'trending_up'},
                 { title: 'Конструктор', url: 'constructor', icon: 'extension'},
                 { title: 'Звіт для метрополітену', url: 'kyiv_metropoliten', icon: 'subway'},
                 { title: 'Топ питань', url: 'top_questions', icon: 'format_list_numbered'},
@@ -20,18 +21,15 @@
             ];
         },
         afterViewInit: function() {
-            const container = document.getElementById('container');
-            const filtersContainerDepart =  this.createElement('div', { id: 'filtersContainerDepart', className: "filtersContainer"});
-            const filtersContainerDistrict =  this.createElement('div', { id: 'filtersContainerDistrict', className: "filtersContainer"});
+            const CONTAINER = document.getElementById('container');
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
-            const tableContainer = this.createElement('div', { id: 'tableContainer', className: 'tableContainer'});
-            container.appendChild(tabsWrapper);
-            this.createTabs();
-            this.createReports();
+            CONTAINER.appendChild(tabsWrapper);
+            this.createTabs(tabsWrapper);
+            this.createReports(CONTAINER);
         },
-        createReports: function() {
+        createReports: function(CONTAINER) {
             let reportListWrap = this.createElement('div', { id: 'reportListWrap'});
-            container.appendChild(reportListWrap);
+            CONTAINER.appendChild(reportListWrap);
             this.reports.forEach( report => {
                 const reportTitle = report.title;
                 const url = report.url;
@@ -46,7 +44,7 @@
                 });
             });
         },
-        createTabs: function() {
+        createTabs: function(tabsWrapper) {
             let tabPhone__title  = this.createElement('div', { className: 'tabPhone tabTitle', innerText: 'ВХІДНИЙ ДЗВІНОК'});
             let tabReportList__title  = this.createElement('div', { className: 'tabProzvon tabTitle', innerText: 'Звіти'});
             let tabFinder__title  = this.createElement('div', { className: ' tabTitle', innerText: 'Розширений пошук'});
