@@ -85,7 +85,6 @@
             }
         });
         searchContainer__btn.addEventListener('click', event => {
-            console.log(event.currentTarget);
             let valueForSearch = document.getElementById('searchContainer__input').value;
             let orgId = document.getElementById('organizationName').value;
             let self = this;

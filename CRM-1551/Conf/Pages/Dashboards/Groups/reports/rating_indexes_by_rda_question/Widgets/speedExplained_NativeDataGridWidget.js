@@ -69,9 +69,7 @@
                 document.getElementById('containerSpeedExplained').style.display = 'none';
             }else {
                 this.active = true;
-                console.log(tabName)
                 document.getElementById('containerSpeedExplained').style.display = 'block';
-                // this.renderTable();
             }
         },
         renderTable: function () {

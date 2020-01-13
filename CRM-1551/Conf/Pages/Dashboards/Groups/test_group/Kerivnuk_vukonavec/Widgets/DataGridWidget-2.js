@@ -210,7 +210,6 @@
             this.elements.push(obj);
         }
         this.config.columns[5].lookup.dataSource.store = this.elements;
-        console.log( this.elements);
         this.loadData(this.afterLoadDataHandler);
     },
     afterLoadDataHandler: function(){

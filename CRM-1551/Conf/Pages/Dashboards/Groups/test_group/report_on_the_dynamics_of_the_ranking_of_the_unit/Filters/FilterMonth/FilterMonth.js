@@ -1,6 +1,5 @@
 (function () {
-  return 
-{
+  return {
     placeholder: 'Miсяць',
     keyValue: 'Id',
     displayValue: 'Name',
@@ -23,15 +22,11 @@
                 //                 value: item.value
                 //               };
                 // this.messageService.publish(message);
-        // console.log('send - ',item.value);
     },
-    
     initValue:function() {
-        // this.setDefaultValue();  
         this.setDefaultValue("first");
     },
     init:function() {
-    
     },
     destroy() {
     }

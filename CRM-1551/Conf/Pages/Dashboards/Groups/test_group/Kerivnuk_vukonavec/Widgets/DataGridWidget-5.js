@@ -190,7 +190,6 @@
             this.organizationId = [];
             this.organizationId = (tabInd);
             // this.sendOrgId('sendOrgId', this.organizationId);
-            console.log(this.organizationId);
             this.config.query.queryCode = 'table2';
             this.config.query.parameterValues = [ { key: '@organization_id',  value: this.organizationId} ];
             this.loadData(this.afterLoadDataHandler);
@@ -210,7 +209,6 @@
         this.organizationId = [];
         this.organizationId = (data.rows[0].values[indexOfTypeId]);
         this.distribute = (data.rows[0].values[indexOfTypeDistribute]);
-        console.log(this.distribute)
         this.messageService.publish({name: 'messageWithOrganizationId', value: this.organizationId, distribute:  this.distribute});
         // this.sendOrgId('sendOrgId', this.organizationId);
         document.getElementById('organizationName').value = (data.rows[0].values[indexOfTypeId]);

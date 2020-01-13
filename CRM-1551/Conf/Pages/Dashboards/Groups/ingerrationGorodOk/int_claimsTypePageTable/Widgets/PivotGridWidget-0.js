@@ -102,16 +102,12 @@
         // this.sub = this.messageService.subscribe('clickOnStreets', this.changeOnTable, this);
         let that = this;    
         this.dataGridInstance.onRowUpdating.subscribe( function(e) {
-            console.log(e.key);
-            console.log(e.oldData);
-            console.log(e.newData);
             let is_done = e.newData.is_done;
             let key = e.key;
             let id_1551 = e.oldData.id_1551;
             let id_1551_new = e.newData.id_1551;
             let comment = e.newData.comment;
             let cat_id = e.oldData.cat_id;
-            console.log ('Is_done: ' + is_done + '  key: '+ key + '  id_1551: ' + id_1551 + '  comment: ' + comment);
             let saveChange = {
                 queryCode: 'int_btnSaveChange_claims_typeGorodok',
                 limit: -1,

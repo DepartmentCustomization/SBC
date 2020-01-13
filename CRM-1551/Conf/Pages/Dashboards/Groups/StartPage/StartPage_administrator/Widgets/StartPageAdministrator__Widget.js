@@ -171,9 +171,6 @@
       //     let r = document.getElementById('phone_value2').value;
       //         let r1 = JSON.stringify(r);
       //         let r2 = encodeURI(r1);
-      //         // console.log(r);
-      //         // console.log(r1);
-      //         // console.log(r2);
       //     // window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/CreateAppeal/add?phone="+r"+"&type=1");
       //     window.open(location.origin + localStorage.getItem('VirtualPath') + "/data/dataSource")
       // };

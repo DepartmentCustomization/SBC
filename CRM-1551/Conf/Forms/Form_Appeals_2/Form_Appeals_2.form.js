@@ -106,10 +106,7 @@
                 ]
         };
         const addApplicantCallBack = (param) => {
-            if (param === false){
-                console.log('It`s a cancel');
-            }else{
-                console.log('It`s a good');
+            if (param !== false) {
                 const body = {
                     queryCode: 'cx_modal_Applicants_Insert',
                     parameterValues: param

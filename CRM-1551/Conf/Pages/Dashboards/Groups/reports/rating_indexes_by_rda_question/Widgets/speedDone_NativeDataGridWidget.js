@@ -68,9 +68,7 @@
                 document.getElementById('containerSpeedDone').style.display = 'none';
             }else {
                 this.active = true;
-                console.log(tabName)
                 document.getElementById('containerSpeedDone').style.display = 'block';
-                // this.renderTable();
             }
         }, 
         renderTable: function () {

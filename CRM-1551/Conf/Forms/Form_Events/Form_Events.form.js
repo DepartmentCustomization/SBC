@@ -11,7 +11,6 @@
             if (this.form.getControlValue('real_end_date') != null) {
                 this.navigateTo('/sections/Events/view/' + this.id);
             }
-            console.log(this.form.getControlValue('object_id'));
             this.details.setVisibility('EventHistory_Details', false);
             this.details.onCellClick('EventHistory', this.Detail_History.bind(this));
             if (this.state == 'create') {
@@ -82,9 +81,7 @@
                                 }
                             ]
                         };
-                        console.table(objName.parameterValues);
                         this.queryExecutor.getValues(objName).subscribe(data => {
-                            console.log('Event is not activ');
                         });
                         // перезагрузка страницы при закрытии заходу location.reload();
                         this.navigateTo('/sections/Events/view/' + this.id);
@@ -109,16 +106,8 @@
                     const body = {
                             //queryCode: 'ak4_HallsInsertRow',
                             parameterValues: param
-                            //console.log('It`s a cancel'); 
                         }
-                        /*else{
-                                        //console.log('It`s a good');
-                                        const body = {
-                                            queryCode: 'ak4_HallsInsertRow',
-                                            parameterValues: param
-                                        } */
                     this.queryExecutor.getValues(body).subscribe(data => {
-                        console.log(data);
                         //this.form.setControlValue('HallId', {key: data.rows[0].values[0], value: data.rows[0].values[1]});
                         //this.form.setControlValue('Number',  data.rows[0].values[2]);
                     });

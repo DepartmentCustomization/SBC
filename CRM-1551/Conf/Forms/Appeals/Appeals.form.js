@@ -299,7 +299,6 @@ return value;
             // this.formModalConfig.getControlValue('modal_phone'+phone+'_phoneId');
         },
         afterModal_Phone_FormOpen: function(form) {
-            // console.log('Open ', form);
             form.formConfig = this;
             this.formModalConfig = form;
             if (this.kolvoPhonesForApplicant > 0) {
@@ -383,10 +382,6 @@ return value;
                             // document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                             //  this.onLoadModalPhone();
                         }.bind(this));
-                        //  console.log(value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneNumber').value);
-                        //  console.log(value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneId').value);
-                        //  console.log(value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneIsMain').value);
-                        //  console.log(value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneType').value);
                     }
                     const parameters_03 = [
                                         { key: '@phone_number', value: this.form.getControlValue('Phone') }
@@ -429,7 +424,6 @@ return value;
             });
         },
         afterModalFormClose: function(data) {
-            // console.log('Close ', data);
         },
         TypeFormId: 0,
         init: function() {
@@ -592,7 +586,6 @@ this.StateServerId = 2;
 this.StateServerId = 3;
                                                                         this.form.setGroupVisibility('Group_WIKI', false);
 }
-                    //  console.log('LoadServerCode =', data.rows[0].values[3], '; StateServerId = ', this.StateServerId);   
                     if (this.StateServerId == 1) {
                             this.form.setControlVisibility('Question_OrganizationId', true);
                     } else {
@@ -2608,11 +2601,9 @@ this.CheckParamForApplicant_Comment = 1
         },
         scrollTopMainForm: function() {
             this.interval4 = setInterval(function() {
-                    // console.log('START scrollTop: '+document.querySelector('#Appeals > section.groups.hasDetails').scrollTop+' '+'offsetWidth: '+document.querySelector('#Appeals > section.groups.hasDetails').offsetWidth);
                     // if (document.querySelector('#Appeals > section.groups.hasDetails').scrollTop != document.querySelector('#Appeals > section.groups.hasDetails').offsetWidth) {
                 document.querySelector('#Appeals > section.groups.hasDetails').scrollTop = document.querySelector('#Appeals > section.groups.hasDetails').offsetWidth;
                 document.querySelector('#Appeals > section.groups.hasDetails').scrollTop = 1000;
-                            //  console.log('END scrollTop: '+document.querySelector('#Appeals > section.groups.hasDetails').scrollTop+' '+'offsetWidth: '+document.querySelector('#Appeals > section.groups.hasDetails').offsetWidth);
                 clearInterval(this.interval4);
                     // };
             }.bind(this), 100);

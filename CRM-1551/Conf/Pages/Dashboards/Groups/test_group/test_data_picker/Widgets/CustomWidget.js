@@ -26,14 +26,6 @@
             let appeals_district = message.package.value.values.find(f => f.name === 'appeals_district').value;
             let appeals_enter_number = message.package.value.values.find(f => f.name === 'appeals_enter_number').value;
             let overdue = message.package.value.values.find(f => f.name === 'overdue').value;
-            // ЭТИ КОНСОЛИ НЕ УДАЛЯТЬ
-            console.log(d1);
-            console.log(d2);
-            console.log(d3);
-            console.log(d4);
-            console.log(appeals_district);
-            console.log(appeals_enter_number);
-            console.log(overdue);
         }
     };
 }());

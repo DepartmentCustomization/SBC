@@ -17,7 +17,6 @@
             this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
                 if (data.rows.length > 0) {
                    for (let i = 0; i < data.rows.length; i++) {
-                       console.log( data.rows[i].values);
                        if(data.rows[i].values[1] == 'disable') {
                               this.form.disableControl(data.rows[i].values[0]);
                        }
@@ -122,7 +121,6 @@
                     ]
                 };
                 this.queryExecutor.getValues(queryForInsert).subscribe(data => {
-                    console.log(data);
                 })
         }.bind(this));
         document.getElementById('add_Complain').addEventListener("click", function(e){
@@ -194,15 +192,12 @@
                 ]
             };
             const addComplain = (param) => {
-                if(param == false){
-                    console.log('Скаргу відмінено');
-                }else{
+                if(param != false){
                     const body = {
                     queryCode: 'cx_Complains_Insert',
                     parameterValues: param
                     }
                     this.queryExecutor.getValues(body).subscribe(data => {
-                        console.log(data);
                     });
                 }
             };
@@ -218,7 +213,6 @@
         parameterValues: [{key: '@id_con', value: this.form.getControlValue('appl_id')}]
         }
         this.queryExecutor.getValues(allp_info).subscribe(data => {
-            console.log(data);
             this.form.setControlValue('answer_phone',data.rows[0].values[2] );
             this.form.setControlValue('answer_post', data.rows[0].values[3]);
             this.form.setControlValue('answer_mail', data.rows[0].values[1]);

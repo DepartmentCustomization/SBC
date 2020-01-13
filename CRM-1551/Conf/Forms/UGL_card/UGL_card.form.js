@@ -856,8 +856,6 @@
                 this.queryExecutor.getValues(objAndOrg).subscribe(data => {
                     this.is_org = data.rows[0].values[0];
                     this.is_obj = data.rows[0].values[1];
-                    console.log('Obj:' + this.is_obj);
-                    console.log('Org:' + this.is_org);
                     if (this.is_obj === true) {
                         this.form.setControlVisibility('Question_Building', true);
                         this.form.setControlVisibility('entrance', true);
@@ -949,7 +947,6 @@
         // Подстановка ответственной организации и контрольной даты по типу вопроса 
         onChanged_Question_TypeId: function () {
             let questionType = this.form.getControlValue('Question_TypeId');
-            console.log(questionType);
             if (questionType === "" || questionType === undefined || questionType === null) {
                 this.form.setControlValue('Question_Organization', { key: null, value: null });
                 this.form.setControlValue('flat', null);
@@ -1056,7 +1053,6 @@
                         ((questionContent === undefined) || (questionContent === null))
                         ||
                         ((howToAnswer === undefined) || (howToAnswer === null))) {
-                        console.log('Question obj undefined');
                         document.getElementById('Question_Btn_Add').disabled = true;
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);
@@ -1066,14 +1062,12 @@
                 }
                 // Случай когда орг вопроса обязательно а объект нет
                 if (this.is_obj === false && this.is_org === true) {
-                    console.log('Question must have org');
                     // Prepare check
                     if ((questionOrg === undefined) || (questionOrg === null)
                         ||
                         ((questionContent === undefined) || (questionContent === null))
                         ||
                         ((howToAnswer === undefined) || (howToAnswer === null))) {
-                        console.log('Question org undefined');
                         document.getElementById('Question_Btn_Add').disabled = true;
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);

@@ -40,7 +40,6 @@
             this.setDefaultValue(defaultValue); 
         },
         destroy(){
-        // console.log('Destroy date filter');
         }
     };
 }());

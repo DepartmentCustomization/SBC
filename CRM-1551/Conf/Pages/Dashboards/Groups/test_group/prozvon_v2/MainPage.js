@@ -35,8 +35,7 @@
                                 }
                                 self.messageService.publish(messageSelect);    
                         }.bind(self);
-                  }.bind(self); 
-              console.clear();
+                  }.bind(self);
             }.bind(self);  
         }
         this.showPreloader = false;

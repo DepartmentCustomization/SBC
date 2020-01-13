@@ -106,16 +106,12 @@
             this.queryExecutor(executeQuery, this.lookupFoo, this);
         let that = this;    
         this.dataGridInstance.onRowUpdating.subscribe( function(e) {
-            console.log(e.key);
-            console.log(e.oldData);
-            console.log(e.newData);
             let is_done = e.newData.is_done;
             let key = e.key;
             let id_1551 = e.oldData.id_1551;
             let id_1551_new = e.newData.id_1551;
             let comment = e.newData.comment;
             let cat_id = e.oldData.cat_id;
-            console.log ('Is_done: ' + is_done + '  key: '+ key + '  id_1551: ' + id_1551 + '  comment: ' + comment);
             let saveChange = {
                 queryCode: 'int_btnSaveChange_organizationGorodok',
                 limit: -1,
@@ -156,7 +152,6 @@
             this.elements.push(obj);
         }
         this.config.columns[2].lookup.dataSource.store = this.elements;
-        console.log( this.elements);
         this.loadData(this.afterLoadDataHandler);
     },
     afterLoadDataHandler: function(data) {

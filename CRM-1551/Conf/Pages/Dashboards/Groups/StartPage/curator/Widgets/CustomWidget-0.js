@@ -124,7 +124,6 @@
                     });
                     techInfo__sendBtn.addEventListener( 'click', e => {
                         if(techInfo__messageText.textLength){
-                            console.log('sendMessage');
                             techBox.removeChild(techBox.lastElementChild);
                         }
                     });

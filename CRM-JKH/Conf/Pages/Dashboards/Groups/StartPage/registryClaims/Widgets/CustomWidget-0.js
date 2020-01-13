@@ -72,7 +72,6 @@
         this.queryExecutor(executeQuery, this.load);
     },
     load: function(data) {
-        // console.log(data)
         let total = 0;
         let tempArr = [];
         let numbers  =  [...document.getElementsByClassName('numbers')];

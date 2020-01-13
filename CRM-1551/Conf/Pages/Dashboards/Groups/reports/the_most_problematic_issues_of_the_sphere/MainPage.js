@@ -18,9 +18,7 @@
                     head.appendChild(script2);
                     script2.onload = function () {
                         this.messageService.publish({  name: 'LoadLib' });
-                        // console.clear();
-                  }.bind(this); 
-                // console.clear();
+                  }.bind(this);
             }.bind(this);  
         }
         this.showPreloader = false;
