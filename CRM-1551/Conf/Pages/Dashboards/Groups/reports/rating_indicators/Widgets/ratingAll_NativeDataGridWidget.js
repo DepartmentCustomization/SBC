@@ -275,7 +275,7 @@
                 {key: '@RatingId', value: this.rating }
             ];
         },
-        renderTable: function (message) {
+        renderTable: function () {
             let msg = {
                 name: "SetFilterPanelState",
                 package: {
@@ -329,9 +329,9 @@
             cellInfoDate.value = 'за: ' + this.date;
             let emptyCellInfoCaption = worksheet.getCell('A3');
             emptyCellInfoCaption.value = ' ';
-            worksheet.mergeCells(1,visibleColumns.length,1,1); // top,left,bottom,right
-            worksheet.mergeCells(2,visibleColumns.length,2,1); // top,left,bottom,right
-            worksheet.mergeCells(3,visibleColumns.length,3,1); // top,left,bottom,right
+            worksheet.mergeCells(1,visibleColumns.length,1,1);
+            worksheet.mergeCells(2,visibleColumns.length,2,1);
+            worksheet.mergeCells(3,visibleColumns.length,3,1);
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 16, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 16, underline: false, bold: true , italic: false};
@@ -361,7 +361,6 @@
             this.allColumns = [];
             this.subIndex = 0;
             let resultColumns = [];
-            let lengthArray = [];
             for (let i = 0; i < this.config.columns.length; i++) {
                 let column = this.config.columns[i];
                 let colCaption = column.caption;
@@ -457,15 +456,15 @@
             }
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         onMyContentReady: function () {
             this.visibleColumns = this.dataGridInstance.instance.getVisibleColumns();
         },
         destroy: function () {
-            // this.sub.unsubscribe();
-            // this.sub1.unsubscribe();
+            this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         },
     };
 }());
