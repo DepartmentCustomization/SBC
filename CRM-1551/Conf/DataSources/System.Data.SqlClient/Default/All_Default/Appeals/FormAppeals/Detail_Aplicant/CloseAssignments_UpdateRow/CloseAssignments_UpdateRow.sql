@@ -4,36 +4,34 @@ declare @AssignmentResultsId int = 5, @question_id int = 6689187, @UserId nvarch
 */
 
 -----------------------------
-	declare @assignment_id int = (select  top 1  last_assignment_for_execution_id from Questions where Id = @question_id)
-	declare @assignmentConsideration_id int = (select top 1 current_assignment_consideration_id from Assignments where Id = @assignment_id)
-	declare @assignmentRevision_id int = (select  top 1  Id from AssignmentRevisions where assignment_consideration_іd = @assignmentConsideration_id)
-	declare @first_executor_organization_id nvarchar(100) = (select  top 1  executor_organization_id from Assignments where Id = @assignment_id)
+	DECLARE @assignment_id INT = (SELECT TOP 1  [last_assignment_for_execution_id] FROM [dbo].[Questions] WHERE Id = @question_id);
+	DECLARE @assignmentConsideration_id INT = (SELECT TOP 1 current_assignment_consideration_id FROM dbo.Assignments WHERE Id = @assignment_id);
+	DECLARE @assignmentRevision_id INT = (SELECT TOP 1  Id FROM dbo.AssignmentRevisions WHERE assignment_consideration_іd = @assignmentConsideration_id);
+	DECLARE @first_executor_organization_id NVARCHAR(100) = (SELECT TOP 1  executor_organization_id FROM dbo.Assignments WHERE Id = @assignment_id);
 
-declare @NEW_AssignmentStateId int,	 @NEW_AssignmentResultsId int,	 @NEW_AssignmentResolutionId int
+DECLARE @NEW_AssignmentStateId INT,
+		@NEW_AssignmentResultsId INT,
+		@NEW_AssignmentResolutionId INT;
 
 
-if @AssignmentResultsId = 5	/*На доопрацювання*/
-begin
-	
-	select top 1 @NEW_AssignmentStateId = [TransitionAssignmentStates].new_assignment_state_id,
-	@NEW_AssignmentResultsId = [TransitionAssignmentStates].new_assignment_result_id,
-	@NEW_AssignmentResolutionId = [TransitionAssignmentStates].new_assignment_resolution_id
-	from [dbo].[Questions]
-	inner join [dbo].[Assignments] on [Assignments].Id = [Questions].last_assignment_for_execution_id
-	inner join [dbo].[AssignmentConsiderations] on [AssignmentConsiderations].Id =  [Assignments].[current_assignment_consideration_id]
-	inner join [dbo].[AssignmentRevisions] on [AssignmentRevisions].assignment_consideration_іd =  [AssignmentConsiderations].[Id]
-	left join [dbo].[TransitionAssignmentStates]  on 
-		isnull([TransitionAssignmentStates].old_assignment_result_id,0) = isnull(Assignments.AssignmentResultsId,0) 
-		and  isnull([TransitionAssignmentStates].old_assignment_resolution_id,0) = isnull(Assignments.AssignmentResolutionsId,0) 
-		and isnull([TransitionAssignmentStates].old_assignment_state_id,0) = isnull(Assignments.assignment_state_id,0)
-	    and isnull([TransitionAssignmentStates].new_assignment_result_id,0) = case when isnull([AssignmentRevisions].rework_counter,0)<=2 then 5 /*На доопрацювання*/ when isnull([AssignmentRevisions].rework_counter,0)>2 then 12 /*Фактично*/ end
-	where [Questions].[Id] = @question_id
-	and [Questions].[question_state_id] = 3	/*На перевірці*/
-	and [Assignments].[AssignmentResultsId] in (SELECT [Id] FROM [dbo].[AssignmentResults]  where code in ( N'WasExplained', N'Done', N'ItIsNotPossibleToPerformThisPeriod')) /*Роз"яснено, Виконано, Не можливо виконати в данний період.*/
-	
+IF @AssignmentResultsId = 5	/*На доопрацювання*/
+BEGIN
+	SELECT TOP 1 @NEW_AssignmentStateId = tas.new_assignment_state_id,
+	@NEW_AssignmentResultsId = tas.new_assignment_result_id,
+	@NEW_AssignmentResolutionId = tas.new_assignment_resolution_id
+	FROM [dbo].[Questions] q
+	INNER JOIN [dbo].[Assignments] a ON a.Id = q.last_assignment_for_execution_id
+	INNER JOIN [dbo].[AssignmentConsiderations] ac ON ac.Id =  a.[current_assignment_consideration_id]
+	INNER JOIN [dbo].[AssignmentRevisions] ar ON ar.assignment_consideration_іd =  ac.[Id]
+	LEFT JOIN [dbo].[TransitionAssignmentStates] tas ON ISNULL(tas.old_assignment_result_id,0) = ISNULL(a.AssignmentResultsId,0) 
+		AND  ISNULL(tas.old_assignment_resolution_id,0) = ISNULL(a.AssignmentResolutionsId,0) 
+		AND ISNULL(tas.old_assignment_state_id,0) = ISNULL(a.assignment_state_id,0)
+	    AND ISNULL(tas.new_assignment_result_id,0) = CASE WHEN ISNULL(ar.rework_counter,0)<=2 THEN 5 /*На доопрацювання*/ WHEN ISNULL([AssignmentRevisions].rework_counter,0)>2 THEN 12 /*Фактично*/ END
+	WHERE q.[Id] = @question_id AND q.[question_state_id] = 3	/*На перевірці*/ 
+	AND a.[AssignmentResultsId] IN (SELECT [Id] FROM [dbo].[AssignmentResults] ass WHERE code IN ( N'WasExplained', N'Done', N'ItIsNotPossibleToPerformThisPeriod')); /*Роз"яснено, Виконано, Не можливо виконати в данний період.*/
 	
 	--select @NEW_AssignmentStateId, @NEW_AssignmentResultsId, @NEW_AssignmentResolutionId
-	update [dbo].[Assignments] set 
+	UPDATE [dbo].[Assignments] SET 
 	    		 [AssignmentResultsId] = @NEW_AssignmentResultsId
 	    		,[AssignmentResolutionsId] = @NEW_AssignmentResolutionId
 	    		,[assignment_state_id] = @NEW_AssignmentStateId
@@ -41,21 +39,21 @@ begin
 	    		,[edit_date] = GETUTCDATE()
 	    		,[user_edit_id] = @UserId
 				,LogUpdated_Query = N'CloseAssignments_UpdateRow42'
-	    	where Id = @assignment_id
+	WHERE Id = @assignment_id;
 	
-	update dbo.AssignmentRevisions set
-	    			 [assignment_resolution_id] = @NEW_AssignmentResolutionId
-					 ,[rework_counter] = isnull([rework_counter],0)+1
-	    			,[control_result_id] = null
-					,[control_date] = GETUTCDATE()
-	    			,[grade] = @Question_Prew_Rating
-	    			,[grade_comment] = @Question_Prew_Comment
-	    			,[edit_date] = GETUTCDATE()
-	    			,[user_edit_id] = @UserId
-	    		where id = @assignmentRevision_id
+	UPDATE dbo.AssignmentRevisions SET
+			 [assignment_resolution_id] = @NEW_AssignmentResolutionId
+			,[rework_counter] = isnull([rework_counter],0)+1
+			,[control_result_id] = NULL
+			,[control_date] = GETUTCDATE()
+			,[grade] = @Question_Prew_Rating
+			,[grade_comment] = @Question_Prew_Comment
+			,[edit_date] = GETUTCDATE()
+			,[user_edit_id] = @UserId
+	WHERE id = @assignmentRevision_id;
 
-	 declare @output_con table (Id int);
-	 insert into [dbo].[AssignmentConsiderations] ([assignment_id]
+	 DECLARE @output_con TABLE (Id INT);
+	 INSERT INTO [dbo].[AssignmentConsiderations] ([assignment_id]
 												  ,[consideration_date]
 												  ,[assignment_result_id]
 												  ,[assignment_resolution_id]
@@ -69,48 +67,49 @@ begin
 												  ,[counter]
 												  ,[create_date]
 												  ,[transfer_date])
-	output inserted.Id into @output_con([Id])
-	select @assignment_id as [assignment_id],
-		   GETUTCDATE() as [consideration_date],
-		   @NEW_AssignmentResultsId as [assignment_result_id],
-		   @NEW_AssignmentResolutionId as [assignment_resolution_id],
-		   @first_executor_organization_id as [first_executor_organization_id],
-		   NULL as [transfer_to_organization_id],
-		   NULL as [turn_organization_id],
-		   NULL as [short_answer],
-		   @UserId as [user_id],
-		   GETUTCDATE() as [edit_date],
-		   @UserId as [user_edit_id],
-		   NULL as [counter],
-		   GETUTCDATE() as [create_date],
-		   NULL as [transfer_date]
+	OUTPUT inserted.Id INTO @output_con([Id])
+	SELECT @assignment_id [assignment_id],
+		   GETUTCDATE() [consideration_date],
+		   @NEW_AssignmentResultsId [assignment_result_id],
+		   @NEW_AssignmentResolutionId [assignment_resolution_id],
+		   @first_executor_organization_id [first_executor_organization_id],
+		   NULL [transfer_to_organization_id],
+		   NULL [turn_organization_id],
+		   NULL [short_answer],
+		   @UserId [user_id],
+		   GETUTCDATE() [edit_date],
+		   @UserId [user_edit_id],
+		   NULL [counter],
+		   GETUTCDATE() [create_date],
+		   NULL [transfer_date];
 		
-		declare @new_con int
-		set @new_con = (select top (1) Id from @output_con)
-    	update [Assignments] 
-		set current_assignment_consideration_id = @new_con
-		,[edit_date]=GETUTCDATE()
-		where Id = @assignment_id
+		DECLARE @new_con INT = (SELECT TOP (1) Id FROM @output_con);
 
-end
-if @AssignmentResultsId = 14	/*Відмінено*/
-begin
+		UPDATE [dbo].[Assignments] 
+		SET current_assignment_consideration_id = @new_con
+			,[edit_date]=GETUTCDATE()
+		WHERE Id = @assignment_id;
+END
+
+IF @AssignmentResultsId = 14	/*Відмінено*/
+BEGIN
 	
 
-	select top 1 @NEW_AssignmentStateId = [TransitionAssignmentStates].new_assignment_state_id,
-	@NEW_AssignmentResultsId = [TransitionAssignmentStates].new_assignment_result_id,
-	@NEW_AssignmentResolutionId = [TransitionAssignmentStates].new_assignment_resolution_id
-	from [dbo].[Questions]
-	left  join [dbo].[Assignments] on [Assignments].Id = [Questions].last_assignment_for_execution_id
-	left join [dbo].[AssignmentConsiderations] on [AssignmentConsiderations].Id =  [Assignments].[current_assignment_consideration_id]
-	left join [dbo].[AssignmentRevisions] on [AssignmentRevisions].assignment_consideration_іd =  [AssignmentConsiderations].[Id]
-	left join [dbo].[TransitionAssignmentStates]  on 
-		isnull([TransitionAssignmentStates].new_assignment_result_id ,0) = 14
-		and isnull([TransitionAssignmentStates].old_assignment_state_id,0) = isnull(Assignments.assignment_state_id,0)
-	where [Questions].[Id] = @question_id
+	SELECT TOP 1 @NEW_AssignmentStateId = [tas].new_assignment_state_id,
+	@NEW_AssignmentResultsId = [tas].new_assignment_result_id,
+	@NEW_AssignmentResolutionId = [tas].new_assignment_resolution_id
+	FROM [dbo].[Questions] q
+	LEFT JOIN [dbo].[Assignments] a ON [a].Id = [q].last_assignment_for_execution_id
+	LEFT JOIN [dbo].[AssignmentConsiderations] ac ON [ac].Id =  [a].[current_assignment_consideration_id]
+	LEFT JOIN [dbo].[AssignmentRevisions] ar ON [ar].assignment_consideration_іd =  [ac].[Id]
+	LEFT JOIN [dbo].[TransitionAssignmentStates] tas ON 
+		ISNULL([tas].new_assignment_result_id ,0) = 14
+		AND ISNULL([tas].old_assignment_state_id,0) = ISNULL(Assignments.assignment_state_id,0)
+	WHERE [Questions].[Id] = @question_id;
+
 	
 	--select @NEW_AssignmentStateId, @NEW_AssignmentResultsId, @NEW_AssignmentResolutionId
-	update [dbo].[Assignments] set 
+	UPDATE [dbo].[Assignments] SET 
 	    		 [AssignmentResultsId] = @NEW_AssignmentResultsId
 	    		,[AssignmentResolutionsId] = @NEW_AssignmentResolutionId
 	    		,[assignment_state_id] = @NEW_AssignmentStateId
@@ -118,51 +117,46 @@ begin
 	    		,[edit_date] = GETUTCDATE()
 	    		,[user_edit_id] = @UserId
 				,LogUpdated_Query = N'CloseAssignments_UpdateRow122'
-	    	where Id = @assignment_id
+	WHERE Id = @assignment_id;
 	
-	update dbo.AssignmentRevisions set
+	UPDATE dbo.AssignmentRevisions SET
 	    			 [assignment_resolution_id] = @NEW_AssignmentResolutionId
 					 ,[rework_counter] = isnull([rework_counter],0)+1
-	    			,[control_result_id] = null
+	    			,[control_result_id] = NULL
 					,[control_date] = GETUTCDATE()
 	    			,[grade] = @Question_Prew_Rating
 	    			,[grade_comment] = @Question_Prew_Comment
 	    			,[edit_date] = GETUTCDATE()
 	    			,[user_edit_id] = @UserId
-	    		where id = @assignmentRevision_id
+	WHERE id = @assignmentRevision_id;
+END
+ELSE
+BEGIN
+	DECLARE @AssignmentResultsCode NVARCHAR(100) = (SELECT TOP 1 code FROM [dbo].[AssignmentResults] WHERE id = @AssignmentResultsId);
+	DECLARE @AssignmentResolutionsCode NVARCHAR(100);
+	DECLARE @AssignmentResolutionsId INT;
+	
+	DECLARE @AssignmentTypesToAttentionId INT = (SELECT TOP 1 [Id]  FROM [dbo].[AssignmentTypes] WHERE code = N'ToAttention' /*До відома*/);
+	DECLARE @AssignmentResultsToAttentionId INT = (SELECT TOP 1 id FROM [dbo].[AssignmentResults] WHERE code =  N'AcceptedToAttention' /*Прийнято до відома*/);
+	DECLARE @AssignmentResolutionsToAttentionId INT = (SELECT TOP 1 [Id]  FROM [dbo].[AssignmentTypes] WHERE code = N'GotToKnow' /*Ознайомився*/);
 
-end
-else
-begin
+	IF @AssignmentResultsCode = N'Done' /*Виконано*/
+	BEGIN
+		SET @AssignmentResolutionsId = (SELECT TOP 1 id FROM [dbo].[AssignmentResolutions] WHERE code =  N'ApprovedByTheApplicant' /*Підтверджено заявником*/);
+		SET @AssignmentResolutionsCode = (SELECT TOP 1 @ code FROM [dbo].[AssignmentResolutions] WHERE code =  N'ApprovedByTheApplicant' /*Підтверджено заявником*/);
+	END
 
-	declare @AssignmentResultsCode nvarchar(100) = (select top 1 code from [dbo].[AssignmentResults] where id = @AssignmentResultsId)
-	declare @AssignmentResolutionsCode nvarchar(100)
-	declare @AssignmentResolutionsId int 
-	
-	declare @AssignmentTypesToAttentionId int 
-	declare @AssignmentResultsToAttentionId int 
-	declare @AssignmentResolutionsToAttentionId int 
-	
-	set @AssignmentTypesToAttentionId = (SELECT top 1 [Id]  FROM [dbo].[AssignmentTypes] where code = N'ToAttention' /*До відома*/)
-	set @AssignmentResultsToAttentionId = (select top 1 id from [dbo].[AssignmentResults] where code =  N'AcceptedToAttention' /*Прийнято до відома*/)
-	set @AssignmentResolutionsToAttentionId = (SELECT top 1 [Id]  FROM [dbo].[AssignmentTypes] where code = N'GotToKnow' /*Ознайомився*/)
-	
-	if @AssignmentResultsCode = N'Done' /*Виконано*/
-	begin
-		set @AssignmentResolutionsId = (select top 1 id from [dbo].[AssignmentResolutions] where code =  N'ApprovedByTheApplicant' /*Підтверджено заявником*/)
-		set @AssignmentResolutionsCode = (select top 1 code from [dbo].[AssignmentResolutions] where code =  N'ApprovedByTheApplicant' /*Підтверджено заявником*/)
-	end
-	if @AssignmentResultsCode = N'Independently' /*Самостійно*/
-	begin
-	 	set @AssignmentResolutionsId = (select top 1 id from [dbo].[AssignmentResolutions] where code =  N'TheApplicantHasSolvedTheProblemOnHisOwn' /*Заявник усунув проблему власними силами*/)
-		set @AssignmentResolutionsCode = (select top 1 code from [dbo].[AssignmentResolutions] where code =  N'TheApplicantHasSolvedTheProblemOnHisOwn' /*Заявник усунув проблему власними силами*/)
-	end 
+	IF @AssignmentResultsCode = N'Independently' /*Самостійно*/
+	BEGIN
+	 	SET @AssignmentResolutionsId = (SELECT TOP 1 id FROM [dbo].[AssignmentResolutions] WHERE code =  N'TheApplicantHasSolvedTheProblemOnHisOwn' /*Заявник усунув проблему власними силами*/);
+		SET @AssignmentResolutionsCode = (SELECT TOP 1 code FROM [dbo].[AssignmentResolutions] WHERE code =  N'TheApplicantHasSolvedTheProblemOnHisOwn' /*Заявник усунув проблему власними силами*/);
+	END 
 	
 	
 	declare @output table (Id int)
 	
-	if (select question_state_id from Questions where Id = @question_id) = 
-	    (select top 1 Id from [dbo].[QuestionStates] where code =  N'Closed' /*Закрито*/)
+	if (select question_state_id FROM Questions WHERE Id = @question_id) = 
+	    (SELECT TOP 1 Id FROM [dbo].[QuestionStates] WHERE code =  N'Closed' /*Закрито*/)
 	    begin
 	        return
 	    end
@@ -170,32 +164,32 @@ begin
 	    begin
 	
 	    	update [dbo].[Questions] set 
-	    		[question_state_id] = (select top 1 Id from [dbo].[QuestionStates] where code =  N'Closed' /*Закрито*/),
+	    		[question_state_id] = (SELECT TOP 1 Id FROM [dbo].[QuestionStates] WHERE code =  N'Closed' /*Закрито*/),
 	    		[edit_date]= GETUTCDATE(),
 	    		[user_edit_id] = @UserId
-	    	where [Id] = @question_id
+	    	WHERE [Id] = @question_id
 	    
 	    	update [dbo].[Assignments] set 
 	    		 [AssignmentResultsId] = case when [assignment_type_id] = @AssignmentTypesToAttentionId then @AssignmentResultsToAttentionId else @AssignmentResultsId end
 	    		,[AssignmentResolutionsId] = case when [assignment_type_id] = @AssignmentTypesToAttentionId then @AssignmentResultsToAttentionId else @AssignmentResolutionsId end 
-	    		,[assignment_state_id] = (select top 1 Id from [dbo].[AssignmentStates] where code =  N'Closed' /*Закрито*/)
+	    		,[assignment_state_id] = (SELECT TOP 1 Id FROM [dbo].[AssignmentStates] WHERE code =  N'Closed' /*Закрито*/)
 	    		,[close_date] = GETUTCDATE()
 	    		,[edit_date] = GETUTCDATE()
 	    		,[user_edit_id] = @UserId
 				,LogUpdated_Query = N'CloseAssignments_UpdateRow141'
-	    	where Id = @assignment_id
+	    	WHERE Id = @assignment_id
 	    
 	    	update [dbo].[AssignmentConsiderations] set  
 	    		[assignment_result_id] = case when [assignment_type_id] = @AssignmentTypesToAttentionId then @AssignmentResultsToAttentionId else @AssignmentResultsId end
 	    		,[assignment_resolution_id] = case when [assignment_type_id] = @AssignmentTypesToAttentionId then @AssignmentResultsToAttentionId else @AssignmentResolutionsId end
 	    		,[edit_date] = getutcdate()
 	    		,[user_edit_id] = @UserId
-	    	from [dbo].[AssignmentConsiderations]
+	    	FROM [dbo].[AssignmentConsiderations]
 	    	left join [dbo].[Assignments] on [AssignmentConsiderations].Id = [Assignments].current_assignment_consideration_id
-	    	where [AssignmentConsiderations].Id = @assignmentConsideration_id									 
+	    	WHERE [AssignmentConsiderations].Id = @assignmentConsideration_id									 
 	    	
 	    	-- если нет ревижина то insert, если есть то update
-	    	if (select count(*) from [AssignmentRevisions] where assignment_consideration_іd = @assignmentConsideration_id) = 0
+	    	if (select count(*) FROM [AssignmentRevisions] WHERE assignment_consideration_іd = @assignmentConsideration_id) = 0
 	    	begin --(insert revision)
 	    		insert into [dbo].[AssignmentRevisions] 
 	    			([assignment_consideration_іd]
@@ -225,9 +219,9 @@ begin
 	    			   0 as [rework_counter],
 	    			   getutcdate() as [edit_date],
 	    			   @UserId as [user_edit_id]
-	    		from [dbo].[AssignmentConsiderations]
+	    		FROM [dbo].[AssignmentConsiderations]
 	    		left join [dbo].[Assignments] on [AssignmentConsiderations].assignment_id = [Assignments].Id
-	    		where [AssignmentConsiderations].Id = @assignmentConsideration_id
+	    		WHERE [AssignmentConsiderations].Id = @assignmentConsideration_id
 	    	end --(insert revision)
 	    	else
 	    	begin --(update revision)
@@ -239,7 +233,7 @@ begin
 	    			,[grade_comment] = @Question_Prew_Comment
 	    			,[edit_date] = GETUTCDATE()
 	    			,[user_edit_id] = @UserId
-	    		where id = @assignmentRevision_id
+	    		WHERE id = @assignmentRevision_id
 	    		
 	    	end --(update revision)
 	    end
