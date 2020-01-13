@@ -1,10 +1,8 @@
-/* eslint-disable line-comment-position */
 (function () {
     return {
         init: function () {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             if (this.state == "create") {
-                //Кнопка "Сохранить" при открытии на create
                 this.checkUserRole();
                 document.getElementById('save_provider').addEventListener("click", function () {
                     const queryForSaveProvider = {
@@ -35,7 +33,6 @@
                     });
                 }.bind(this));
             } else if (this.state == "update") {
-                //Кнопка "Сохранить" при открытии на update
                 this.checkUserRole();
                 if (document.getElementById('provider').disabled == true) {
                     document.getElementById("save_provider").style.display = "none";
@@ -75,18 +72,14 @@
             }
             this.checkSaveAvailable();
             this.checkClearAvailable();
-            // При изменении полей проверить, можно ли сохранять/очищать
             this.form.onControlValueChanged('provider', this.checkSaveAvailable);
             this.form.onControlValueChanged('provider_conditions', this.checkSaveAvailable);
             this.form.onControlValueChanged('provider', this.checkClearAvailable);
             this.form.onControlValueChanged('provider_conditions', this.checkClearAvailable);
-            //Кнопка "Очистить"
             document.getElementById('clear_provider').addEventListener("click", function () {
                 this.clearFields();
             }.bind(this));
-            //END INIT    
         },
-        // Проверка роли пользователя
         checkUserRole: function () {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
@@ -103,12 +96,10 @@
                 }
             });
         },
-        // Очистить поля формы
         clearFields: function () {
             this.form.setControlValue('provider', null)
             this.form.setControlValue('provider_conditions', null)
         },
-        // Проверка на допустимость сохранения
         checkSaveAvailable: function () {
             if (this.form.getControlValue('provider') != null &&
                 this.form.getControlValue('provider') != "") {
@@ -117,7 +108,6 @@
                 document.getElementById('save_provider').disabled = true;
             }
         },
-        // Проверка есть ли что очищать
         checkClearAvailable: function () {
             if (this.form.getControlValue('provider') != null ||
                 this.form.getControlValue('provider_conditions') != null

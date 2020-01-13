@@ -1,10 +1,8 @@
-/* eslint-disable line-comment-position */
 (function () {
     return {
         init: function () {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             if (this.state == "update") {
-                //Кнопка "Сохранить" при открытии на update
                 this.checkUserRole();
                 if (document.getElementById('part_name').disabled == true) {
                     document.getElementById("save_part_arrival").style.display = "none";
@@ -60,29 +58,23 @@
             }
             this.form.onControlValueChanged('articul', this.getPartName);
             this.form.onControlValueChanged('articul', this.checkArticulPresents);
-            //При изменении проверить, есть ли что очищать
             this.form.onControlValueChanged('articul', this.checkClearAvailable);
             this.form.onControlValueChanged('provider', this.checkClearAvailable);
             this.form.onControlValueChanged('part_quantity', this.checkClearAvailable);
             this.form.onControlValueChanged('part_price', this.checkClearAvailable);
-            //При изменении проверить, можно ли выполнять приход
             this.form.onControlValueChanged('articul', this.checkSaveArrivalAvailable);
             this.form.onControlValueChanged('provider', this.checkSaveArrivalAvailable);
             this.form.onControlValueChanged('part_quantity', this.checkSaveArrivalAvailable);
             this.form.onControlValueChanged('part_price', this.checkSaveArrivalAvailable);
-            //Поправить общую стоимость при изменении цены или кол-ва
             this.form.onControlValueChanged('part_quantity', this.clearArrivalSum);
             this.form.onControlValueChanged('part_price', this.clearArrivalSum);
-            // Дизейбл некоторых из прихода
             this.form.disableControl('create_date');
             this.form.disableControl('invoice_number');
             this.form.disableControl('sum_price');
             this.form.disableControl('part_name');
             this.form.disableControl('manufacturer');
-            // При изменении цены и количества можно проверить-посчитать ли общую стоимость
             this.form.onControlValueChanged('part_price', this.calculateArrivalSum);
             this.form.onControlValueChanged('part_quantity', this.calculateArrivalSum);
-            //Кнопка "Очистить"
             document.getElementById('clear_part_arrival').addEventListener("click", function () {
                 this.clearArrivalValues();
             }.bind(this));
@@ -107,7 +99,6 @@
                 });
             }
         },
-        // Проверка роли пользователя
         checkUserRole: function () {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
@@ -124,14 +115,12 @@
                 }
             });
         },
-        // При удалении значения из артикула очищать подставленные поля название и производитель
         checkArticulPresents: function () {
             if (this.form.getControlValue('articul') == null || this.form.getControlValue('articul') == "") {
                 this.form.setControlValue('part_name', null);
                 this.form.setControlValue('manufacturer', null);
             }
         },
-        // Подсчет общей стоимости прихода
         calculateArrivalSum: function () {
             if (
                 this.form.getControlValue('part_quantity') != null
@@ -145,7 +134,6 @@
                 this.form.setControlValue('sum_price', sumPrice);
             }
         },
-        //Проверка, есть ли что очищать
         checkClearAvailable: function () {
             if (
                 (this.form.getControlValue('articul') != null && this.form.getControlValue('articul') != "")
@@ -161,7 +149,6 @@
                 document.getElementById('clear_part_arrival').disabled = true;
             }
         },
-        //Проверить, достаточно ли заполнены поля для сохранения прихода
         checkSaveArrivalAvailable: function () {
             if (
                 (this.form.getControlValue('articul') != null && this.form.getControlValue('articul') != "")
@@ -179,14 +166,12 @@
                 document.getElementById('save_part_arrival').disabled = true;
             }
         },
-        //Очистить данные полей прихода
         clearArrivalValues: function () {
             this.form.setControlValue('articul', { key: null, value: null });
             this.form.setControlValue('provider', { key: null, value: null });
             this.form.setControlValue('part_quantity', null);
             this.form.setControlValue('part_price', null);
         },
-        //Очистить общую стоимость
         clearArrivalSum: function () {
             this.form.setControlValue('sum_price', null);
         }

@@ -1,11 +1,9 @@
-/* eslint-disable line-comment-position */
 (function () {
     return {
         init: function () {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             if (this.state == "create") {
                 this.form.setControlVisibility('cars_run', false);
-                //При открытии на create
                 this.checkUserRole();
                 document.getElementById('save_car').addEventListener("click", function () {
                     const queryForSaveCar = {
@@ -43,7 +41,6 @@
                     });
                 }.bind(this));
             } else if (this.state == "update") {
-                //Кнопка "Сохранить" при открытии на update
                 this.form.disableControl('cars_run');
                 this.checkUserRole();
                 if (document.getElementById('cars_name').disabled == true) {
@@ -92,7 +89,6 @@
             }
             this.checkSaveAvailable();
             this.checkClearAvailable();
-            // При изменении полей проверить, можно ли сохранять/очищать
             this.form.onControlValueChanged('cars_name', this.checkSaveAvailable);
             this.form.onControlValueChanged('cars_number', this.checkSaveAvailable);
             this.form.onControlValueChanged('cars_mark', this.checkSaveAvailable);
@@ -101,13 +97,10 @@
             this.form.onControlValueChanged('cars_number', this.checkClearAvailable);
             this.form.onControlValueChanged('cars_mark', this.checkClearAvailable);
             this.form.onControlValueChanged('cars_year', this.checkClearAvailable);
-            //Кнопка "Отменить"
             document.getElementById('clear_car').addEventListener("click", function () {
                 this.clearFields();
             }.bind(this));
-            //END INIT    
         },
-        // Проверка роли пользователя
         checkUserRole: function () {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
@@ -124,14 +117,12 @@
                 }
             });
         },
-        // Очистить поля формы
         clearFields: function () {
             this.form.setControlValue('cars_name', null)
             this.form.setControlValue('cars_number', null)
             this.form.setControlValue('cars_mark', null)
             this.form.setControlValue('cars_year', null)
         },
-        // Проверка на допустимость сохранения
         checkSaveAvailable: function () {
             if (this.form.getControlValue('cars_name') != null &&
                 this.form.getControlValue('cars_number') != null &&
@@ -147,7 +138,6 @@
                 document.getElementById('save_car').disabled = true;
             }
         },
-        // Проверка есть ли что очищать
         checkClearAvailable: function () {
             if (this.form.getControlValue('cars_name') != null ||
                 this.form.getControlValue('cars_number') != null ||
