@@ -21,7 +21,7 @@
                     caption: 'у тому числі питання:',
                     columns: [
                         {
-                            caption: 'Кількість питань,порушених у зверненнях громадян',
+                            caption: 'Кількість питань, порушених у зверненнях громадян',
                             alignment: 'center',
                             height: 150,
                             columns: [
@@ -199,11 +199,11 @@
         afterLoadDataHandler: function(data) {
             const name = 'setData';
             const columns = this.config.columns;
-            const position = 3;
+            const position = 2;
             this.messageService.publish( {name, data, columns, position} );
             this.render(this.afterRenderTable());
         },   
-        afterRenderTable: function (params) {
+        afterRenderTable: function () {
             this.messageService.publish({ name: 'setStyles'});
             this.messageService.publish({
                 name: 'setYears',

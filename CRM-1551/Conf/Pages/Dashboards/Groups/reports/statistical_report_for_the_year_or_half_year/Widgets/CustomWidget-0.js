@@ -63,8 +63,8 @@
                 this.createExcelWorkbook();
             });         
         },
-        showWarning: function(message) {
-            let CONTAINER = document.getElementById('container');
+        showWarning: function() {
+            const CONTAINER = document.getElementById('container');
             const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
             const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
             const modalTitle =  this.createElement('div', { id:'modalTitle', innerText: 'Оберiть правильну дату!'});
@@ -72,8 +72,8 @@
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
             CONTAINER.appendChild(modalWindowWrapper);
             modalBtnTrue.addEventListener( 'click', event => {
-                let target = event.currentTarget;
-                CONTAINER.removeChild(container.lastElementChild);
+                event.stopImmediatePropagation();
+                CONTAINER.removeChild(CONTAINER.lastElementChild);
             });
         },
         setData: function(message) {
@@ -173,12 +173,14 @@
             let position = this.excelColumnsStart;
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
-                const headerBot = headerTop = this.startStep;
+                const headerBot = this.startStep;
+                const headerTop = this.startStep;
                 const headerRight = position + column.columns.length;
                 const headerLeft = position + 1;
                 for (let j = 0; j < column.columns.length; j++) {
                     const element = column.columns[j];
-                    const cellBot = cellTop = this.startStep + 1;
+                    const cellBot = this.startStep + 1;
+                    const cellTop = this.startStep + 1;
                     position += 1;
                     worksheet.mergeCells( cellTop, position, cellBot, position);
                     const cell = worksheet.getCell( cellTop, position);
@@ -199,7 +201,8 @@
         setCellYearsValue: function (subHeader, position, worksheet) {
             for (let i = 0; i < subHeader.columns.length; i++) {
                 const year = subHeader.columns[i];
-                const yearTop = yearBot = this.startStep + 2;
+                const yearTop = this.startStep + 2;
+                const yearBot = this.startStep + 2;
                 const yearPosition = position + i;
                 worksheet.mergeCells( yearTop, yearPosition, yearBot, yearPosition);
                 const cell = worksheet.getCell( yearTop, yearPosition);
@@ -224,7 +227,7 @@
                     position = this.setSubHeaders(column, worksheet, position, this.startStep);
                 } else {
                     const numberStart = 1;
-                    const numberCaption = '№ з\п';
+                    const numberCaption = '№ з\\п';
                     const emptyStart = 2;
                     const emptyCaption = '';
                     this.setStandardCells(numberStart, numberCaption, worksheet);
@@ -239,7 +242,8 @@
             for (let i = 0; i < column.columns.length; i++) {
                 position += 2;
                 const subHeader = column.columns[i];
-                const cellBot = cellTop = startStep + 1;
+                const cellBot = startStep + 1;
+                const cellTop = startStep + 1;
                 const cellLeft = position;
                 const cellRight = cellLeft + 1;
                 worksheet.mergeCells( cellTop, cellLeft, cellBot, cellRight);
@@ -278,7 +282,7 @@
             }
         },
         setRowStyle: function (number, worksheet, cellHeight) {
-            height = cellHeight ? cellHeight : 60;
+            const height = cellHeight ? cellHeight : 60;
             worksheet.getRow(number).height = height;
             worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: false , italic: false};
             worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
