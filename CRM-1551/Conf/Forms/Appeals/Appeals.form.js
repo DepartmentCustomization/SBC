@@ -185,9 +185,6 @@
             for (let u = 0; u < this.kolvoPhonesForApplicant; u++ ){
                 this.formModalConfig.setControlValue('modal_phone'+(u+1)+'_phoneIsMain', false);
             }
-            // var t = event.currentTarget.id;   
-            // var t2 = t.substr(0, (t.length-6));
-            // this.formModalConfig.setControlValue(t2, true);
         }, 
         extractStartDate:function() {
             function addDays(theDate, days) {
@@ -378,9 +375,6 @@ return value;
                                                 { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneId').value}]
                         };
                         this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function (data){
-                            // var event = new Event("click");
-                            // document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
-                            //  this.onLoadModalPhone();
                         }.bind(this));
                     }
                     const parameters_03 = [
@@ -1746,17 +1740,13 @@ this.CheckParamForApplicant_CategoryType = 1
                 { key: '@appeal_id',  value: this.form.getControlValue('AppealId')},
                 { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')}
             ];
-            this.details.loadData('Detail_Consultation', parameters1/*, filters, sorting*/);
+            this.details.loadData('Detail_Consultation', parameters1);
             this.details.setVisibility('Detail_ConsultationAplicant', false);
             this.details.setVisibility('Detail_QuestionApplicant', false);
             this.details.setVisibility('Detail_QuestionObjectAplicant', false);
             this.details.setVisibility('Detail_QuestionPhone', false);
             this.details.setVisibility('Detail_QuestionBuildingAplicant', false);
             this.details.setVisibility('Detail_GorodokClaim', false);
-            if (value) {
-                if (value.length >= 3) {
-                }
-            }
         },
         onChanged_Applicant_Entrance_Input: function(value) {
             if (value) {

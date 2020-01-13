@@ -442,7 +442,6 @@
         return column
     },
     showTable: function(target, columnName, navigator, thisName, position){
-        // var headers = ;
         let headers = Array.from( document.querySelectorAll('.headerItem') );
         if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input'){
             headers.forEach( el => {

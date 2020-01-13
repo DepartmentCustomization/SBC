@@ -11,17 +11,7 @@
         pageNumber: 8,
         sortColumns: []
     },
-    onItemSelect: function(item) {
-        this.yourFunctionName(item);
-    },
     onClearFilter: function() {
-    },
-    yourFunctionName(item) {
-                // var message = {
-                //                 name: 'chance_filter_organization',
-                //                 value: item.value
-                //               };
-                // this.messageService.publish(message);
     },
     initValue:function() {
         this.setDefaultValue("first");

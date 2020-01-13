@@ -185,9 +185,6 @@
           for (let u = 0; u < this.kolvoPhonesForApplicant; u++ ){
               this.formModalConfig.setControlValue('modal_phone'+(u+1)+'_phoneIsMain', false);
           }
-          // var t = event.currentTarget.id;   
-          // var t2 = t.substr(0, (t.length-6));
-          // this.formModalConfig.setControlValue(t2, true);
       }, 
        extractStartDate:function() {
           function addDays(theDate, days) {
@@ -378,9 +375,6 @@ return value;
                                               { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneId').value}]
                       };
                       this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function (data){
-                          // var event = new Event("click");
-                          // document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
-                          //  this.onLoadModalPhone();
                       }.bind(this));
                   }
                   const parameters_03 = [
