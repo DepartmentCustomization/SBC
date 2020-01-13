@@ -1,5 +1,5 @@
---  declare @dateFrom datetime = '2019-07-01 00:00:00';
---  declare @dateTo datetime = '2019-12-31 00:00:00';
+--   declare @dateFrom datetime = '2019-07-01 00:00:00';
+--   declare @dateTo datetime = '2019-12-31 00:00:00';
 
 --declare @filterTo datetime = dateadd(second,59,(dateadd(minute,59,(dateadd(hour,23,cast(cast(dateadd(day,0,@dateTo) as date) as datetime))))));
 
@@ -22,7 +22,8 @@ declare @tab_Sin2 table (source nvarchar(200) COLLATE DATABASE_DEFAULT, prev_val
 
 IF OBJECT_ID('tempdb..#sources') IS NOT NULL DROP TABLE #sources
 CREATE TABLE #sources (
-    source_name VARCHAR(MAX) COLLATE Ukrainian_CI_AS
+    source_name VARCHAR(MAX) COLLATE Ukrainian_CI_AS,
+	[weight] tinyint
 );
 begin
 insert into #sources (source_name)
@@ -30,6 +31,27 @@ select name from ReceiptSources
 where Id not in (5,6,7)
 Union 
 select  'КБУ'
+
+     UPDATE  #sources
+	 SET [weight] = 9
+	 WHERE [source_name] = 'КБУ'
+
+	 UPDATE  #sources
+	 SET [weight] = 8
+	 WHERE [source_name] = 'Дзвінок в 1551'
+
+	 UPDATE  #sources
+	 SET [weight] = 7
+	 WHERE [source_name] = 'Сайт/моб. додаток'
+
+	 UPDATE  #sources
+	 SET [weight] = 6
+	 WHERE [source_name] = 'УГЛ'
+
+	 UPDATE  #sources
+	 SET [weight] = 5
+	 WHERE [source_name] = 'Телеефір'
+
 --select * from #sources
 end
 
@@ -402,7 +424,7 @@ UPDATE @tab_Sin SET source = 'Сайт/моб. додаток' WHERE source = 'E
 DELETE from #sources WHERE source_name = 'E-mail'
 
 begin
-declare @result table (source nvarchar(200),
+declare @result table (source nvarchar(200), source_weight tinyint,
                        prevCommunal nvarchar(10), curCommunal nvarchar(10), prevResidential nvarchar(10),
 					   curResidential nvarchar(10), prevEcology nvarchar(10), curEcology nvarchar(10),
 					   prevLaw nvarchar(10), curLaw nvarchar(10), prevFamily nvarchar(10),
@@ -526,7 +548,9 @@ end
 
  -------------> Получить конечный результат <--------------
 	              insert into @result 
-				  select source_name, 
+				  select 
+				  source_name, 
+				  s.[weight],      
 				  t_com.prev_val prevCommunal, t_com.cur_val curCommunal,
 				  t_res.prev_val prevResidential, t_res.cur_val curResidential,
 				  t_eco.prev_val prevEcology, t_eco.cur_val curEcology,
@@ -545,7 +569,7 @@ end
 
      select 
      ROW_NUMBER() OVER (
-     ORDER BY [source]
+     ORDER BY source_weight desc
    ) as row#,
      case when [source] = 'КБУ' then 'Питання, що надійшли до КБУ «Контактний центр міста Києва»'
 	 when [source] = 'Дзвінок в 1551' then 'з них, через гарячу лінію 1551'
@@ -561,4 +585,4 @@ end
 	 IIF(prevFamily = '0', '-', prevFamily) prevFamily, IIF(curFamily = '0', '-', curFamily) curFamily,
 	 IIF(prevSince = '0', '-', prevSince) prevHealth, IIF(curSince = '0', '-', curSince) curSince
 	 from @result	 
-	 order by source desc
+	 order by source_weight desc
