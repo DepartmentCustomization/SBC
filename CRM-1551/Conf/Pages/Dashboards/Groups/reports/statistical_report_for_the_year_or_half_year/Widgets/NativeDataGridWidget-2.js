@@ -171,11 +171,11 @@
         afterLoadDataHandler: function(data) {
             const name = 'setData';
             const columns = this.config.columns;
-            const position = 2;
+            const position = 3;
             this.messageService.publish( {name, data, columns, position} );
             this.render(this.afterRenderTable());
         },   
-        afterRenderTable: function (params) {
+        afterRenderTable: function () {
             this.messageService.publish({ name: 'setStyles'});
             this.messageService.publish({
                 name: 'setYears',
