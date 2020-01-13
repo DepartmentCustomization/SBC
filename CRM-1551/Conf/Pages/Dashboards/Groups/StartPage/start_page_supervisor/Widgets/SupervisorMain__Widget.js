@@ -142,10 +142,11 @@
             groupDoubled__icon.style.color = '#6ec6ff';
             let groupDoubled__borderBottom = this.createElement('div', { className: "border-bottom" });
             let groupDoubled__borderRight = this.createElement('div', { className: "border-right"});
-            let groupDoubled = this.createElement('div', { className: "group", tabindex: '0' }, groupDoubled__icon, groupDoubled__description, groupDoubled__borderBottom, groupDoubled__borderRight );
+            let groupDoubled = this.createElement('div', { className: "group", tabindex: '0', url: 'dashboard/page/сombining_duplicate_applicants' }, groupDoubled__icon, groupDoubled__description, groupDoubled__borderBottom, groupDoubled__borderRight );
             groupDoubled.addEventListener('click',  event => {
-                event.stopImmediatePropagation(); 
-                this.showTypesList(data);
+                const target = event.currentTarget;
+                event.stopImmediatePropagation();
+                this.openNewTab(target.url);
             });
             let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupRegByPhone, groupViewAppeals, groupSearchAppeals, groupSearchTable, groupRegAppeals, groupCall, groupLetter, groupDoubled );
             CONTAINER.appendChild(title);
