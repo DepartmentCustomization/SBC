@@ -1,8 +1,5 @@
 (function () {
   return {
-    // title: '',
-    // hint: '',
-    // formatTitle: function() {},
     customConfig:
                 `
                     <style>
@@ -157,24 +154,13 @@
                 
                 `
     ,
-    // onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/sections/CreateAppeal/add'"
     init: function() {
     },
     initValue: function(){
     },
-    load: function(data) {
+    load: function() {
     },
     afterViewInit:function(){
-      // let btn = document.getElementById('btn1');
-      // let number = () => {
-      //       // let r = [{ code: "Phone", value: document.getElementById('phone_value2').value}];
-      //     let r = document.getElementById('phone_value2').value;
-      //         let r1 = JSON.stringify(r);
-      //         let r2 = encodeURI(r1);
-      //     // window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/CreateAppeal/add?phone="+r"+"&type=1");
-      //     window.open(location.origin + localStorage.getItem('VirtualPath') + "/data/dataSource")
-      // };
-      // btn.addEventListener( "click", number )
     }
 }
 ;
