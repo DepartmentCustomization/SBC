@@ -305,7 +305,6 @@
     afterLoadDataHandler: function(data) {
         this.numbers = [];
         this.data = data;
-        console.log(data);
         data.forEach( data => this.numbers.push(data[1]));
         this.render();
     },

@@ -1,13 +1,12 @@
-Select 
-Id,
-cars_name,
-cars_number,
-cars_mark,
-cars_year
-
-from Cars 
-where
- #filter_columns#
- #sort_columns#
- 
-offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+    Id,
+    cars_name,
+    cars_number,
+    cars_mark,
+    cars_year
+FROM
+    Cars
+WHERE
+    #filter_columns#
+    #sort_columns#
+    OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY

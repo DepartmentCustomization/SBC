@@ -11,11 +11,9 @@
       const name = 'FiltersParams';
       const dateStart = this.changeDateTimeValues(dateFilterStart);
       const dateEnd = this.changeDateTimeValues(dateFilterEnd);
-      // if( date !== '' ){
-         const executor = executorFilter === null ? 0 :  executorFilter === '' ? 0 : executorFilter.value;
-         const claimType = claim_typeFilter === null ? 0 :  claim_typeFilter === '' ? 0 : claim_typeFilter.value;
-         this.messageService.publish({ name, dateStart, dateEnd, executor, claimType  });
-      // }
+      const executor = executorFilter === null ? 0 :  executorFilter === '' ? 0 : executorFilter.value;
+      const claimType = claim_typeFilter === null ? 0 :  claim_typeFilter === '' ? 0 : claim_typeFilter.value;
+      this.messageService.publish({ name, dateStart, dateEnd, executor, claimType  });
     },
     changeDateTimeValues: function(value){
         if( value === '') {

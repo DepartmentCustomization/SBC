@@ -214,7 +214,6 @@
             this.elements.push(obj);
         }
         this.config.columns[4].lookup.dataSource.store = this.elements;
-        console.log( this.elements);
         this.loadData(this.afterLoadDataHandler);
     },
     findAllSelectRowsToArrived: function(message){

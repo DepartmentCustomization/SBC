@@ -13,7 +13,6 @@
         this.form.disableControl('edit_date');
         this.form.disableControl('user_edit_id');
         let num = this.form.getControlValue('phone_number');
-        console.log(num);
         // if(num !== null){
         //     this.form.setControlValue('receipt_source_id', {key:1 , value:'Дзвінок в 1551'});
         // }
@@ -42,7 +41,6 @@
         this.form.onControlValueChanged('applicant_id', this.testDetail);
     },
     testDetail: function(ap_id){
-      console.log(ap_id)  
     },
     onAppealsChanged: function(app_Id) {
         let appl = [{ parameterCode: '@phone_number', parameterValue: app_Id }];

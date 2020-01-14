@@ -523,7 +523,6 @@
             }
         },
         validateDate: function (valid_date) {
-            console.log(valid_date);
             const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 31556925994)
             let val_data = getAge(valid_date);
             if (val_data < 16 && val_data >= 0) {

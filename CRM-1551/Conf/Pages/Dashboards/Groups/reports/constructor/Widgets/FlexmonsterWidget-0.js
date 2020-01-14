@@ -23,32 +23,31 @@
             this.getChunkedValues(query, this.setData, this);
         },
         setData: function(values) {
-            indexRegistration_date = values[0].findIndex(el => el.code.toLowerCase() === 'registration_date');
-            indexVykon_date = values[0].findIndex(el => el.code.toLowerCase() === 'vykon_date');
-            indexClose_date = values[0].findIndex(el => el.code.toLowerCase() === 'close_date');
-            indexQuestionState = values[0].findIndex(el => el.code.toLowerCase() === 'questionstate');
-            indexCount = values[0].findIndex(el => el.code === 'Count_' );
-            indexСount_prostr = values[0].findIndex(el => el.code.toLowerCase() === 'сount_prostr');
-            indexOrgExecutName = values[0].findIndex(el => el.code.toLowerCase() === 'orgexecutname');
-            indexOrgatization_Level_1 = values[0].findIndex(el => el.code.toLowerCase() === 'orgatization_level_1');
-            indexOrgatization_Level_2 = values[0].findIndex(el => el.code.toLowerCase() === 'orgatization_level_2');
-            indexOrgatization_Level_3 = values[0].findIndex(el => el.code.toLowerCase() === 'orgatization_level_3');
-            indexOrgatization_Level_4 = values[0].findIndex(el => el.code.toLowerCase() === 'orgatization_level_4');
-            indexOrgExecutLabelName = values[0].findIndex(el => el.code.toLowerCase() === 'orgexecutlabelname');
-            indexOrgExecutLabelName2 = values[0].findIndex(el => el.code.toLowerCase() === 'orgexecutlabelname2');
-            indexGroupOrganisations = values[0].findIndex(el => el.code.toLowerCase() === 'grouporganisations');
-            indexGroupQuestionTypes = values[0].findIndex(el => el.code.toLowerCase() === 'groupquestiontypes');
-            indexReceiptSources = values[0].findIndex(el => el.code.toLowerCase() === 'receiptsources');
-            indexQuestionTypeName = values[0].findIndex(el => el.code.toLowerCase() === 'questiontypename');
-            indexQuestionStateRegistered = values[0].findIndex(el => el.code.toLowerCase() === 'stateregistered');
-            indexQuestionStateInWork = values[0].findIndex(el => el.code.toLowerCase() === 'stateinwork');
-            indexQuestionStateOnCheck = values[0].findIndex(el => el.code.toLowerCase() === 'stateoncheck');
-            indexQuestionStateOnRefinement = values[0].findIndex(el => el.code.toLowerCase() === 'stateonrefinement');
-            indexQuestionStateClose = values[0].findIndex(el => el.code.toLowerCase() === 'stateclose');
-            indexQuestionObject = values[0].findIndex(el => el.code.toLowerCase() === 'objectname');
-            indexQuestionResolution = values[0].findIndex(el => el.code.toLowerCase() === 'resolution');
-            indexQuestionResult = values[0].findIndex(el => el.code.toLowerCase() === 'result');
-            const columns = values.shift();
+            let indexRegistration_date = values[0].findIndex(el => el.code.toLowerCase() === 'registration_date');
+            let indexVykon_date = values[0].findIndex(el => el.code.toLowerCase() === 'vykon_date');
+            let indexClose_date = values[0].findIndex(el => el.code.toLowerCase() === 'close_date');
+            let indexQuestionState = values[0].findIndex(el => el.code.toLowerCase() === 'questionstate');
+            let indexCount = values[0].findIndex(el => el.code === 'Count_' );
+            let indexСount_prostr = values[0].findIndex(el => el.code.toLowerCase() === 'сount_prostr');
+            let indexOrgExecutName = values[0].findIndex(el => el.code.toLowerCase() === 'orgexecutname');
+            let indexOrgatization_Level_1 = values[0].findIndex(el => el.code.toLowerCase() === 'orgatization_level_1');
+            let indexOrgatization_Level_2 = values[0].findIndex(el => el.code.toLowerCase() === 'orgatization_level_2');
+            let indexOrgatization_Level_3 = values[0].findIndex(el => el.code.toLowerCase() === 'orgatization_level_3');
+            let indexOrgatization_Level_4 = values[0].findIndex(el => el.code.toLowerCase() === 'orgatization_level_4');
+            let indexOrgExecutLabelName = values[0].findIndex(el => el.code.toLowerCase() === 'orgexecutlabelname');
+            let indexOrgExecutLabelName2 = values[0].findIndex(el => el.code.toLowerCase() === 'orgexecutlabelname2');
+            let indexGroupOrganisations = values[0].findIndex(el => el.code.toLowerCase() === 'grouporganisations');
+            let indexGroupQuestionTypes = values[0].findIndex(el => el.code.toLowerCase() === 'groupquestiontypes');
+            let indexReceiptSources = values[0].findIndex(el => el.code.toLowerCase() === 'receiptsources');
+            let indexQuestionTypeName = values[0].findIndex(el => el.code.toLowerCase() === 'questiontypename');
+            let indexQuestionStateRegistered = values[0].findIndex(el => el.code.toLowerCase() === 'stateregistered');
+            let indexQuestionStateInWork = values[0].findIndex(el => el.code.toLowerCase() === 'stateinwork');
+            let indexQuestionStateOnCheck = values[0].findIndex(el => el.code.toLowerCase() === 'stateoncheck');
+            let indexQuestionStateOnRefinement = values[0].findIndex(el => el.code.toLowerCase() === 'stateonrefinement');
+            let indexQuestionStateClose = values[0].findIndex(el => el.code.toLowerCase() === 'stateclose');
+            let indexQuestionObject = values[0].findIndex(el => el.code.toLowerCase() === 'objectname');
+            let indexQuestionResolution = values[0].findIndex(el => el.code.toLowerCase() === 'resolution');
+            let indexQuestionResult = values[0].findIndex(el => el.code.toLowerCase() === 'result');
             const reportData = values.map((row, index) => ({
                 "Батькiвська 1 рiвень": values[index][indexOrgatization_Level_1],
                 "Батькiвська 2 рiвень": values[index][indexOrgatization_Level_2],
@@ -88,7 +87,6 @@
             let dateReceipt  = message.package.value.values.find(f => f.name === 'date_receipt').value;    
             let organization = message.package.value.values.find(f => f.name === 'organization').value;
             let groupOrganization = message.package.value.values.find(f => f.name === 'group_organization').value;
-            let receiptSource = message.package.value.values.find(f => f.name === 'receipt_source').value;
             if(btn){
                 if(dateReceipt){
                     if( dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== '' ){
@@ -106,7 +104,6 @@
         renderTable: function(message){
             this.QuestionGroupId = message.questionGroupId;
             this.questionTypesData = message.questionTypesArr;
-            // this.loadData();
         },
         getFiltersParams: function(message){
             this.dateClosingData = [];
@@ -160,7 +157,6 @@
                     this.organization = organization === null ? null : organization === '' ? null : organization.value;
                     this.groupOrganization = groupOrganization === null ? null : groupOrganization === '' ? null : groupOrganization.value;
                     this.receiptSource = receiptSource === null ? null : receiptSource === '' ? null : receiptSource.value;
-                    let filterArray = [this.dateReceipt__from, this.dateReceipt__to, this.dateExecution__from, this.dateExecution__to, this.dateClosing__from, this.dateClosing__to, this.organization, this.receiptSource ];
                 }
                 document.getElementById('summary__table').style.display = 'block';
                 document.getElementById('content').style.display = 'none';

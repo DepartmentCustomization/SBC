@@ -1,8 +1,6 @@
 (function () {
   return {
     init: function() {
-        let mainHightChart = 'mainHightChart'; 
-        let hightChart3D = 'hightChart3D'; 
         if (!document.getElementById('hightChart3D')) {
             let head  = document.getElementsByTagName('head')[0];
             let script  = document.createElement('script');
@@ -18,9 +16,7 @@
                     head.appendChild(script2);
                     script2.onload = function () {
                         this.messageService.publish({  name: 'LoadLib' });
-                        // console.clear();
-                  }.bind(this); 
-                // console.clear();
+                  }.bind(this);
             }.bind(this);  
         }
         this.showPreloader = false;

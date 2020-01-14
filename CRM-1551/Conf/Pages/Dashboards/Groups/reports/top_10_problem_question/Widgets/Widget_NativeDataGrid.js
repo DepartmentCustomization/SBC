@@ -205,7 +205,7 @@
                 columns.forEach( el => {
                     let elDataField = el.dataField;
                     let elCaption = el.caption;
-                    for ( i = 0; i < data.columns.length; i ++){
+                    for (let i = 0; i < data.columns.length; i ++){
                         if( elDataField === data.columns[i].code ){
                             let obj = {
                                 name: elDataField,
@@ -225,8 +225,8 @@
                 cellInfoCaption.value = 'ТОП-10 найпроблемніших питань в розрізі районів';
                 let cellPeriod = worksheet.getCell('A2');
                 cellPeriod.value = 'Період вводу з (включно) : дата з ' +this.changeDateTimeValues(this.dateFrom)+ ' дата по ' +this.changeDateTimeValues(this.dateTo);
-                worksheet.mergeCells('A1:M1'); //вставить другой конец колонок
-                worksheet.mergeCells('A2:M2'); //вставить другой конец колонок
+                worksheet.mergeCells('A1:M1');
+                worksheet.mergeCells('A2:M2');
                 worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
                 worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
                 worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -266,7 +266,7 @@
                         };
                         columnsHeader.push(obj);
                         captions.push('Дарницький');
-                    }else if(el.name === 'Desnyansky' ){
+                    } else if (el.name === 'Desnyansky' ){
                         let obj =  {
                             key: el.name,
                             width: 8
@@ -349,7 +349,7 @@
                 for( let  j = 0; j < data.rows.length; j ++ ){  
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
-                    for( i = 0; i < indexArr.length; i ++){
+                    for(let i = 0; i < indexArr.length; i ++){
                         let el = indexArr[i];
                         if( el.name === 'questionType'  ){
                             rowItem.questionType = row.values[indexQuestionType];
@@ -449,26 +449,36 @@
                 return dd + '.' + mm + '.' + yyyy ;
             }
             return ' ';
-        },   
-        afterRenderTable: function(e){
-            if(this.data.length > 0 ){
+        },
+        compareNumeric: function(a, b) {
+            if (a > b) return 1;
+            if (a < b) return -1;
+        },
+        getAllIndexes: function(arr, val) {
+            let indexes = [];
+            for(let i = 0; i < arr.length; i++){
+                let cellValue = arr[i].textContent;
+                if (+cellValue === val ) {
+                    indexes.push(i); 
+                }
+            }
+            return indexes;
+        },
+        afterRenderTable: function() {
+            if(this.data.length > 0 ) {
                 const data = this.data;
                 this.sortArray = [];
                 let rows = document.querySelectorAll('.dx-row');
                 let rowsAll = Array.from(rows);
                 rowsAll.shift();
                 rowsAll.pop();
-                function compareNumeric(a, b) {
-                    if (a > b) return 1;
-                    if (a < b) return -1;
-                }
                 data.forEach( row => {
                     let arrRow = [];
                     for( let i = 2; i < row.length; i++){
                         let value = row[i];
                         arrRow.push(value)
                     }
-                    arrRow.sort(compareNumeric);
+                    arrRow.sort(this.compareNumeric);
                     this.sortArray.push(arrRow);
                 });
                 for (let k = 0; k < this.sortArray.length; k++) {
@@ -480,17 +490,7 @@
                             if(rowsAll[k].children){
                                 let array = Array.prototype.slice.call(rowsAll[k].children);
                                 array.pop();
-                                let indexes = getAllIndexes(array, value);
-                                function getAllIndexes(arr, val) {
-                                    let indexes = [];
-                                    for(let i = 0; i < arr.length; i++){
-                                        let cellValue = arr[i].textContent;
-                                        if ( +cellValue === val ){
-  indexes.push(i); 
-}
-                                    }
-                                    return indexes;
-                                }
+                                let indexes = this.getAllIndexes(array, value);
                                 for( let i = 0; i < indexes.length; i++ ){
                                     let index = indexes[i];
                                     let cell = array[index];

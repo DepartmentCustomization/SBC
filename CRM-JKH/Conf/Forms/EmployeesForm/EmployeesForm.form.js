@@ -6,7 +6,6 @@
         },
         findUserJobAndUUID: function (value) {
             if (value) {
-                // console.log(this.form.getControlValue('User'))
                     const getInfo = {
                         queryCode: 'Find_JobAndUUID',
                         parameterValues: [

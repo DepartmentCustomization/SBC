@@ -20,7 +20,6 @@
                 { parameterCode: '@ass_id', parameterValue: this.id }
             ];
             this.form.setControlParameterValues('performer_id', param_ass_id);
-            console.log(this.user);
             this.date_in_form = this.form.getControlValue('date_in_form')
             this.previous_result = this.form.getControlValue('result_id')
             this.details.setVisibility('detal_history', false);
@@ -38,7 +37,6 @@
             this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
                 if (data.rows.length > 0) {
                     for (let i = 0; i < data.rows.length; i++) {
-                        console.log(data.rows[i].values);
                         if (data.rows[i].values[1] == 'disable') {
                             this.form.disableControl(data.rows[i].values[0]);
                         }
@@ -75,7 +73,6 @@
             this.form.disableControl('enter_number');
             this.details.onCellClick('Detail_Assig_otherQues', this.goToAssigView.bind(this));
             let rework_count = this.form.getControlValue('rework_counter');
-            console.log('Счетчик равен: ' + rework_count);
             if (rework_count > 0) {
                 this.form.setControlVisibility('rework_counter', true);
             } else {
@@ -165,8 +162,6 @@
             }
             let main = this.form.getControlValue('is_aktiv_true');
             let check = this.form.getControlValue('main_executor');
-            console.log('Головне доручення є (1- так): ' + main);
-            console.log('Головне: ' + check);
             if (main == 0) {
                 this.form.enableControl('main_executor');
             } else if (main > 0 && check == true) {
@@ -186,10 +181,8 @@
                     this.form.setControlValue('is_exe', data);
                     if (data == 1) {
                         this.form.enableControl('performer_id');
-                        console.log('Enable performer_id');
                     } else {
                         this.form.disableControl('performer_id');
-                        console.log('Disable performer_id');
                     }
                     this.executeQuery2();
                 });
@@ -206,7 +199,6 @@
             this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
                 if (data.rows.length > 0) {
                     for (let i = 0; i < data.rows.length; i++) {
-                        console.log(data.rows[i].values);
                         if (data.rows[i].values[1] == 'disable') {
                             this.form.disableControl(data.rows[i].values[0]);
                         }
@@ -228,7 +220,6 @@
             this.navigateTo('/sections/Assignments_for_view/edit/' + row.values[0] + '/Questions/' + row.values[7]);
         },
         filterResolution: function(result_id) {
-            console.log('Result ' + result_id);
             this.form.setControlVisibility('transfer_to_organization_id', false);
             this.form.setControlRequirement('transfer_to_organization_id', false);
             this.form.setControlVisibility('rework_counter', false);

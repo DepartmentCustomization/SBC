@@ -145,7 +145,6 @@
         columnsHeader.push(columnNumber);
         let rowNumber = '№ з/п';
         captions.push(rowNumber);
-        console.log(indexArr);
         indexArr.forEach( el => {
                 if( el.name === 'question_registration_number'  ){
                     var obj =  {
@@ -488,7 +487,6 @@
             let arr = this.textFilterMacros;
             let str = arr.join(' ');
             let macrosValue = str.slice(0, -4);
-            console.log(macrosValue);
             this.macrosValue = macrosValue;
             this.messageService.publish( { 
                 name: 'filters',

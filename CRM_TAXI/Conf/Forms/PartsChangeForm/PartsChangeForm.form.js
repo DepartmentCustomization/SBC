@@ -1,4 +1,3 @@
-/* eslint-disable line-comment-position */
 (function () {
     return {
         openCar: undefined,
@@ -68,14 +67,12 @@
                 }.bind(this));
             }
             this.checkSaveAvailable();
-            // При изменении полей проверить, можно ли сохранять
             this.form.onControlValueChanged('cars_id', this.checkSaveAvailable);
             this.form.onControlValueChanged('cars_id', this.checkCarAvailable);
             this.form.onControlValueChanged('new_part_id', this.checkSaveAvailable);
             this.form.onControlValueChanged('new_part_id', this.checkArticulPresents);
             this.form.onControlValueChanged('new_part_id', this.getPartName);
         },
-        //Отправить нотификацию при замене если период эксплуатации не пройден 
         sendBadChangeNotify: function (title) {
             this.createOrganisationsNotification({
                 text: title,
@@ -86,7 +83,6 @@
                 hasAudio: true
             });
         },
-        // Проверка роли пользователя
         checkUserRole: function () {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
@@ -119,7 +115,6 @@
                 this.form.setControlParameterValues('old_part_id', null);
             }
         },
-        // Проверка на допустимость сохранения
         checkSaveAvailable: function () {
             if (this.form.getControlValue('cars_id') != null &&
                 this.form.getControlValue('new_part_id') != null &&

@@ -91,8 +91,8 @@
         this.sphereName = getUrlParams.name;
         this.dateFromViewValues = this.changeDateTimeValues(getUrlParams.dateFrom);
         this.dateToViewValues = this.changeDateTimeValues(getUrlParams.dateTo);  
-        dateFrom = getUrlParams.dateFrom;
-        dateTo = getUrlParams.dateTo;
+        let dateFrom = getUrlParams.dateFrom;
+        let dateTo = getUrlParams.dateTo;
         this.dateFrom = new Date(dateFrom);
         this.dateTo = new Date(dateTo);
         let loadPie = {
@@ -175,7 +175,6 @@
         }
         let infoWrapper = this.createElement('div', { id: 'infoWrapper' } );
         CHART__INFO.appendChild(infoWrapper);
-        let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'Id' );
         let indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'qname' );
         let indexValue = data.columns.findIndex(el => el.code.toLowerCase() === 'qty' );
         for(let i = 0; i < data.rows.length; i++){
@@ -200,6 +199,6 @@
         dd = dd.length === 1 ? '0' + dd : dd;
         mm = mm.length === 1 ? '0' + mm : mm;
         return dd + '.' + mm + '.' + yyyy ;
-    },   
+    }
 };
 }());

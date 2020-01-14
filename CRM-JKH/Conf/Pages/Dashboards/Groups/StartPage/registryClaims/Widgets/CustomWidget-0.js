@@ -72,13 +72,12 @@
         this.queryExecutor(executeQuery, this.load);
     },
     load: function(data) {
-        // console.log(data)
         let total = 0;
         let tempArr = [];
         let numbers  =  [...document.getElementsByClassName('numbers')];
         let status  =  [...document.getElementsByClassName('status')];
         function find(array, value) {
-                  if (array.indexOf) { // если метод существует
+                  if (array.indexOf) {
                     return array.indexOf(value);
                   }
                   for (let i = 0; i < array.length; i++) {

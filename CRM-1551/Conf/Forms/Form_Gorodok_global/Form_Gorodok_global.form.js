@@ -9,9 +9,7 @@
             document.getElementById('active_button').addEventListener("click", function(event) {
                 event.stopImmediatePropagation();
                 const Question_Close_callback = (response) => {
-                    if (!response) {
-                        console.log('No');
-                    } else {
+                    if (response) {
                         const objName = {
                             queryCode: 'CloseQuestion_GlobGor',
                             parameterValues: [{
@@ -28,9 +26,7 @@
                                 }
                             ]
                         };
-                        console.table(objName.parameterValues);
                         this.queryExecutor.getValues(objName).subscribe(data => {
-                            console.log('Event is not activ');
                         });
                     }
                 };

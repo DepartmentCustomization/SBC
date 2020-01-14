@@ -151,7 +151,7 @@
                 el.style.minWidth = '200px';
             })
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         createElement: function(tag, props, ...children) {

@@ -52,10 +52,10 @@
             document.getElementById('applicant_Btn_AddClaim').disabled = true;
             document.getElementById('claim_Btn_SaveClaim').disabled = true;
             document.getElementById('claim_Btn_SaveConsult').disabled = true;
-            document.getElementById('Search_Btn').addEventListener("click", function(event) {
+            document.getElementById('Search_Btn').addEventListener("click", function() {
                 this.onLoadApplicant();
             }.bind(this));  
-            document.getElementById('applicant_Btn_AddClaim').addEventListener("click", function(event) {
+            document.getElementById('applicant_Btn_AddClaim').addEventListener("click", function() {
               this.GetEmployeeByClaimType();
               this.form.setGroupVisibility('Group_Claim', true);
               this.IsChangeApplicantForClaim = true;
@@ -63,17 +63,17 @@
               this.form.setControlValue('claim_HouseId', { key: this.form.getControlValue('applicant_House'), value: this.form.getControlValue('applicant_HouseName') });
               this.form.setControlValue('claim_Flat', this.form.getControlValue('applicant_Flat'));
             }.bind(this)); 
-          document.getElementById('applicant_Btn_Save').addEventListener("click", function(event) {
+          document.getElementById('applicant_Btn_Save').addEventListener("click", function() {
               this.onCreateApplicant();
           }.bind(this)); 
-          document.getElementById('claim_Btn_SaveClaim').addEventListener("click", function(event) {
+          document.getElementById('claim_Btn_SaveClaim').addEventListener("click", function() {
               this.onCreateClaim(2, 1);
           }.bind(this)); 
-          document.getElementById('claim_Btn_SaveConsult').addEventListener("click", function(event) {
+          document.getElementById('claim_Btn_SaveConsult').addEventListener("click", function() {
             this.onCreateClaim(4, 4);
           }.bind(this)); 
             this.details.onCellClick('Detail_RegCard_Applicant', this.Detail_Aplicant.bind(this));
-            document.getElementById('applicant_Btn_Clear').addEventListener("click", function(event) {
+            document.getElementById('applicant_Btn_Clear').addEventListener("click", function() {
                 this.form.setControlValue('applicant_id', null);
                 this.form.setControlValue('applicant_PIB', null);
                 this.form.setControlValue('applicant_Phone1', null);
@@ -86,10 +86,10 @@
             }.bind(this));   
         }
     },
-    onChanged_Applicant_Id: function(value) {
+    onChanged_Applicant_Id: function() {
       this.onChanged_Question_Aplicant_Btn_Add_Input();
     },
-    onChanged_Applicant_PIB: function(value) {
+    onChanged_Applicant_PIB: function() {
       this.onChanged_Question_Aplicant_Btn_Add_Input();
     },
     onChanged_Applicant_House: function(value) {
@@ -113,7 +113,7 @@
                   document.getElementById('applicant_Btn_Save').disabled = false; 
               }
     },
-    Detail_Aplicant: function(column, row, value, event, indexOfColumnId) {
+    Detail_Aplicant: function(column, row) {
       this.IsChangeApplicantForDetail = true;
       this.form.setControlValue('applicant_id', row.values[0]);
       this.form.setControlValue('applicant_PIB', row.values[1]);
@@ -201,10 +201,10 @@
       this.form.setControlParameterValues('claim_HouseId', dependParams);
       this.IsChangeApplicantForClaim = false;
     },
-    onChanged_claim_type_id: function(value) {
+    onChanged_claim_type_id: function() {
       this.onChanged_Claim();
     },
-    onChanged_claim_HouseId: function(value) {
+    onChanged_claim_HouseId: function() {
       this.onChanged_Claim();
     },
     GetEmployeeByClaimType: function() {
@@ -321,7 +321,7 @@
                     }
                 ]
             };
-            this.queryExecutor.getValue(queryFoCreateClaim).subscribe(data => {
+            this.queryExecutor.getValue(queryFoCreateClaim).subscribe(() => {
                   this.form.setControlValue('claim_type_id', {});
                   this.form.setControlValue('claim_StreetId', {});
                   this.form.setControlValue('claim_HouseId', {});

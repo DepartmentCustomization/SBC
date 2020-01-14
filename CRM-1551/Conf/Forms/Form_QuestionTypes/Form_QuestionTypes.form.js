@@ -88,7 +88,6 @@
                         }]
             };
             const changeRules = (date) =>{
-                console.log(date);
             }
            that.openModalForm(FormRules, changeRules);
         });

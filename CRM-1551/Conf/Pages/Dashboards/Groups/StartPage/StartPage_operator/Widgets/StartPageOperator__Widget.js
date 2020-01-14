@@ -121,7 +121,6 @@
       modalBtnTrue.addEventListener( 'click', event => {
           let target = event.currentTarget;
           let number = modalNumber.value
-          console.log(number);
           window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/CreateAppeal/add?phone="+number+"&type=1&sipcallid=0");
           CONTAINER.removeChild(container.lastElementChild);
       });

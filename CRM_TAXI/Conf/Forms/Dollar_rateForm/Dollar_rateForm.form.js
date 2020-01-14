@@ -1,10 +1,8 @@
-/* eslint-disable line-comment-position */
 (function () {
     return {
         init: function () {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             if (this.state == "create") {
-                //Кнопка "Сохранить" при открытии на create
                 this.checkUserRole();
                 document.getElementById('save_dollar_rate').addEventListener("click", function () {
                     const queryForSaveDollar_rate = {
@@ -35,7 +33,6 @@
                     });
                 }.bind(this));
             } else if (this.state == "update") {
-                //Кнопка "Сохранить" при открытии на update
                 this.checkUserRole();
                 if (document.getElementById('dollar_rate').disabled == true) {
                     document.getElementById("save_dollar_rate").style.display = "none";
@@ -75,17 +72,14 @@
             }
             this.checkSaveAvailable();
             this.checkClearAvailable();
-            // При изменении полей проверить, можно ли сохранять/очищать
             this.form.onControlValueChanged('dollar_date', this.checkSaveAvailable);
             this.form.onControlValueChanged('dollar_rate', this.checkSaveAvailable);
             this.form.onControlValueChanged('dollar_date', this.checkClearAvailable);
             this.form.onControlValueChanged('dollar_rate', this.checkClearAvailable);
-            //Кнопка "Отменить"
             document.getElementById('clear_dollar_rate').addEventListener("click", function () {
                 this.clearFields();
             }.bind(this));
-        },  //END INIT
-        // Проверка роли пользователя
+        },
         checkUserRole: function () {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
@@ -102,12 +96,10 @@
                 }
             });
         },
-        // Очистить поля формы
         clearFields: function () {
             this.form.setControlValue('dollar_date', null)
             this.form.setControlValue('dollar_rate', null)
         },
-        // Проверка на допустимость сохранения
         checkSaveAvailable: function () {
             if (this.form.getControlValue('dollar_date') != null &&
                 this.form.getControlValue('dollar_rate') != null &&
@@ -119,7 +111,6 @@
                 document.getElementById('save_dollar_rate').disabled = true;
             }
         },
-        // Проверка есть ли что очищать
         checkClearAvailable: function () {
             if (this.form.getControlValue('dollar_date') != null ||
                 this.form.getControlValue('dollar_rate') != null

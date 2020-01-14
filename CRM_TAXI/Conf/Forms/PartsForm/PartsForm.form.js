@@ -1,10 +1,8 @@
-/* eslint-disable line-comment-position */
 (function () {
     return {
         init: function () {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             if (this.state == "create") {
-                //Кнопка "Сохранить" при открытии на create
                 this.checkUserRole();
                 document.getElementById('save_part').addEventListener("click", function () {
                     const queryForSavePart = {
@@ -43,7 +41,6 @@
                     });
                 }.bind(this));
             } else if (this.state == "update") {
-                //Кнопка "Сохранить" при открытии на update
                 this.checkUserRole();
                 if (document.getElementById('part_name').disabled == true) {
                     document.getElementById("save_part").style.display = "none";
@@ -91,7 +88,6 @@
             }
             this.checkSaveAvailable();
             this.checkClearAvailable();
-            // При изменении полей проверить, можно ли сохранять/очищать
             this.form.onControlValueChanged('part_name', this.checkSaveAvailable);
             this.form.onControlValueChanged('articul', this.checkSaveAvailable);
             this.form.onControlValueChanged('manufacturer', this.checkSaveAvailable);
@@ -100,13 +96,10 @@
             this.form.onControlValueChanged('articul', this.checkClearAvailable);
             this.form.onControlValueChanged('manufacturer', this.checkClearAvailable);
             this.form.onControlValueChanged('category', this.checkClearAvailable);
-            //Кнопка "Отменить"
             document.getElementById('clear_part').addEventListener("click", function () {
                 this.clearFields();
             }.bind(this));
-            //END INIT    
         },
-        // Проверка роли пользователя
         checkUserRole: function () {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
@@ -123,14 +116,12 @@
                 }
             });
         },
-        // Очистить поля формы
         clearFields: function () {
             this.form.setControlValue('part_name', null)
             this.form.setControlValue('articul', null)
             this.form.setControlValue('manufacturer', null)
             this.form.setControlValue('category', null)
         },
-        // Проверка на допустимость сохранения
         checkSaveAvailable: function () {
             if (this.form.getControlValue('part_name') != null &&
                 this.form.getControlValue('articul') != null &&
@@ -146,7 +137,6 @@
                 document.getElementById('save_part').disabled = true;
             }
         },
-        // Проверка есть ли что очищать
         checkClearAvailable: function () {
             if (this.form.getControlValue('part_name') != null ||
                 this.form.getControlValue('articul') != null ||

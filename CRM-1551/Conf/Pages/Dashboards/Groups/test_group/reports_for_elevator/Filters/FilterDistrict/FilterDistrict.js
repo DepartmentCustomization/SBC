@@ -23,21 +23,9 @@
             }
         ]
     },
-    onItemSelect: function(item) {
-        this.yourFunctionName(item);
-    },
     onClearFilter: function() {
     },
-    yourFunctionName(item) {
-                // var message = {
-                //                 name: 'chance_filter_organization',
-                //                 value: item.value
-                //               };
-                // this.messageService.publish(message);
-        console.log('send - ',item.value);
-    },
     initValue:function() {
-        // this.setDefaultValue();  
         this.setDefaultValue("first");
     },
     init:function() {

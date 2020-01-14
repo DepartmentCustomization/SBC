@@ -90,19 +90,20 @@
         const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
         const filtersWrapper = this.createElement('div', { id: 'filtersWrapper', className: 'filtersWrapper'});
         const tableContainer = this.createElement('div', { id: 'tableContainer', className: 'tableContainer'});
+        this.tableContainer = tableContainer;
         const tableWrapper = this.createElement('div', { id: 'tableWrapper', className: 'tableWrapper'}, tableContainer);
         container.appendChild(tabsWrapper);
         container.appendChild(filtersWrapper);
         container.appendChild(tableWrapper);
-        this.createTabs();
-        this.createFilters();
+        this.createTabs(tabsWrapper);
+        this.createFilters(filtersWrapper);
     },
     setOrganizationSelect: function(data){
         this.organizationSelect = [];
         if( data.rows.length > 0 ){
-            let organizationSelect  = [];
-            indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-            indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
+            const organizationSelect  = [];
+            const indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
+            const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
             data.rows.forEach( row => {
                 let obj = {
                     id: row.values[indexId],
@@ -113,18 +114,22 @@
             this.organizationSelect = organizationSelect;
         }
     },     
-    createTabs: function(){
+    createTabs: function(tabsWrapper){
         let tabInformation__title  = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
         let tabAction__title  = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
         let tabProcessingOrders__title  = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
         let tabOrganizations__title  = this.createElement('div', { className: 'tabOrganizations tab_title', innerText: 'ОРГАНІЗАЦІЇ'});
         let tabFinder__title  = this.createElement('div', { className: ' tab_title', innerText: 'Розширений пошук'});
+        let tabExecutivePosition__title  = this.createElement('div', { className: ' tab_title', innerText: 'Вибір посади-виконавця'});
+        let tabTemplates__title  = this.createElement('div', { className: ' tab_title', innerText: 'Шаблони'});
         const tabFinder = this.createElement('div', { id: 'tabFinder', url: 'poshuk_table', className: 'tabFinder tab tabTo'}, tabFinder__title);
+        const tabTemplates = this.createElement('div', { id: 'tabTemplates', url: 'Templates', className: 'tabTemplates tab tabTo'}, tabTemplates__title);
+        const tabExecutivePosition = this.createElement('div', { id: 'tabExecutivePosition', url: 'PersonExecutorChoose', className: 'tabExecutivePosition tab tabTo'}, tabExecutivePosition__title);
         const tabInformation = this.createElement('div', { id: 'tabInformation', url: '', className: 'tabInformation tab '}, tabInformation__title);
         const tabAction = this.createElement('div', { id: 'tabAction', url: 'performer_new_actions', className: 'tabAction tab tabTo'}, tabAction__title);
         const tabProcessingOrders = this.createElement('div', { id: 'tabProcessingOrders', url: 'performer_new_processing_assigments', className: 'tabHover tabProcessingOrders tab'}, tabProcessingOrders__title);
         const tabOrganizations = this.createElement('div', { id: 'tabOrganizations', url: 'performer_new_organizations', className: 'tabOrganizations tab tabTo'}, tabOrganizations__title);
-        const tabsContainer = this.createElement('div', { id: 'tabsContainer', className: 'tabsContainer'}, tabInformation, tabAction, tabProcessingOrders, tabOrganizations, tabFinder);
+        const tabsContainer = this.createElement('div', { id: 'tabsContainer', className: 'tabsContainer'}, tabInformation, tabAction, tabProcessingOrders, tabOrganizations, tabFinder, tabExecutivePosition, tabTemplates);
         const orgLinkСhangerBox__icon = this.createElement('div', { id: 'orgLinkСhangerBox__icon', className:'material-icons', innerText:'more_vert' });
         const orgLinkСhangerBox = this.createElement('div', { id: 'orgLinkСhangerBox'}, orgLinkСhangerBox__icon );
         const linkСhangerContainer = this.createElement('div', { id: 'organizationsContainer'}, orgLinkСhangerBox);
@@ -133,7 +138,6 @@
         orgLinkСhangerBox__icon.addEventListener('click', event => {
             if(this.organizationSelect.length > 0 ){
                 event.stopImmediatePropagation();
-                let target = event.currentTarget;
                 if(orgLinkСhangerBox.children.length === 1 ){
                     let orgLinksWrapper__triangle =  this.createElement('div', { className: 'orgLinksWrapper__triangle' });
                     let orgLinksWrapper = this.createElement('div', { id: 'orgLinksWrapper'}, orgLinksWrapper__triangle);
@@ -153,24 +157,27 @@
                 }
             }
         });
-        let tabs = document.querySelectorAll('.tabTo');
-        tabs = Array.from(tabs);
-        tabs.forEach( function (el){
+        const tabs = Array.from(document.querySelectorAll('.tabTo'));
+        tabs.forEach( el => {
             el.addEventListener( 'click', event => {
                 let target =  event.currentTarget;
                 document.getElementById('container').style.display = 'none';
                 if( target.id === 'tabFinder' ){
                     this.goToDashboard(target.url);
+                } else if ( target.id === 'tabExecutivePosition' || target.id === 'tabTemplates') {
+                    this.goToSection(target.url);
                 }else{
                     this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
                 }
             });    
-        }.bind(this));
+        });
     },
-    createFilters: function(){
+    createFilters: function(filtersWrapper){
         const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: "searchContainer__input"});
+        this.searchContainer__input = searchContainer__input;
         const searchContainer = this.createElement('div', {id: 'searchContainer', className: "searchContainer"}, searchContainer__input);
         searchContainer__input.addEventListener('input', event =>  {
+            event.stopImmediatePropagation();
             if(searchContainer__input.value.length == 0 ){
                 this.resultSearch('clearInput', 0);
                 this.showTable(searchContainer__input);
@@ -184,18 +191,13 @@
                 this.hideAllItems(0);
             }
         }.bind(this));
-        const filterLeft__icon = this.createElement('div', { className: "filterLeft__icon filterIcon material-icons", innerText: 'filter_list'});
-        const filterLeft__title = this.createElement('div', { className: "filterLeft__title filterTitle",  innerText: 'Голосіївський - Житлове господарство'});
-        const filterRight__icon = this.createElement('div', { className: "filterLeft filterIcon material-icons", innerText: 'filter_list'});
-        const filterRight__title = this.createElement('div', { className: "filterLeft filterTitle", innerText: 'Святошинський - Ліфти'});
-        const filterLeft = this.createElement('div', { id: 'filterLeft', className: "filterLeft filter"}, filterLeft__icon, filterLeft__title);
-        const filterRight  =  this.createElement('div', { id: 'filterRight', className: "filterRight filter"}, filterRight__icon, filterRight__title);
-        filtersContainer =  this.createElement('div', { id: 'filtersContainer', className: "filtersContainer"}, filterLeft, filterRight);
         const organizationName =  this.createElement('div', { id: 'organizationName', className: "organizationName" });
+        this.organizationName = organizationName;
         filtersWrapper.appendChild(organizationName);
         filtersWrapper.appendChild(searchContainer);
     },
     reloadMainTable: function(message){
+        const tableContainer = this.tableContainer;
         this.column = message.column;
         this.navigator = message.navigator;
         let targetId = message.targetId;
@@ -211,6 +213,7 @@
         this.showPreloader = false; 
     },
     createTable: function(reloadTable, targetId, data) {
+        const tableContainer = this.tableContainer;
         for(let i = 2; i < data.columns.length; i ++ ){
             let item = data.columns[i];
             let columnTriangle =  this.createElement('div', { });
@@ -261,10 +264,10 @@
         let categories = document.querySelectorAll('.columnCategorie');
         categories = Array.from(categories);
         headers = Array.from(headers);
-        headers.forEach( function(el){
-            el.addEventListener( 'click', function(event){
+        headers.forEach( el => {
+            el.addEventListener( 'click', event => {
                 let target = event.currentTarget;
-                searchContainer__input.value = '';
+                this.searchContainer__input.value = '';
                 this.resultSearch('clearInput', 0);
                 categories.forEach( el => {
                    el.style.display = 'none'; 
@@ -272,10 +275,10 @@
                 let navigator = 'Усі';
                 let column = this.columnName(target);
                 this.showTable(target, column, navigator);
-            }.bind(this));
-        }.bind(this));
-        categories.forEach( function(el){
-            el.addEventListener( 'click', function(event){
+            });
+        });
+        categories.forEach( el => {
+            el.addEventListener( 'click', event => {
                 let target = event.currentTarget;
                 categories.forEach( el => {
                    el.style.display = 'none'; 
@@ -284,8 +287,8 @@
                 target = target.parentElement.parentElement.firstElementChild;
                 let column = this.columnName(target);
                 this.showTable(target, column, navigator);
-            }.bind(this));
-        }.bind(this));
+            });
+        });
         if( reloadTable == true ){
             categories.forEach( el => {
                el.style.display = 'none'; 
@@ -379,7 +382,7 @@
             column: column,  
             navigation: navigator, 
             orgId: this.organizationId, 
-            orgName: organizationName.innerText,
+            orgName: this.organizationName.innerText,
             targetId:  targetId
         });
     },

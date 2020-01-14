@@ -174,7 +174,6 @@
           container.removeChild( container.lastElementChild );
         }
         this.filtersBox = [];
-        console.log(container, this.filtersBox, message.value);
         message.value.forEach( function(el){
             if(el.code == 'zayavnyk_building_street'){
                 this.streetId = el.value;
@@ -381,7 +380,6 @@
             value: value
         }
         this.filtersBox.push(obj);
-        // console.log(this.filtersBox);
     },
     createFilterBox: function(){
         this.filtersBox.forEach( function( el){
@@ -520,7 +518,6 @@
                     this.filterColumns.push(obj);
                 }
             }.bind(this));
-            // console.log(this.filterColumns);
             let columns = this.filterColumns;
             this.messageService.publish( { 
                 name: 'findFilterColumns', value: columns

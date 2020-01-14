@@ -11,12 +11,9 @@
     previous_result: '',
     init:function(){
         this.form.disableControl('full_name');
-      //  this.form.disableControl('district_id');
-        // this.form.disableControl('is_active');
         this.details.setVisibility('ObjectHistory_details', false);
         this.details.onCellClick('ObjectHistory', this.Detail_History.bind(this));
         let type = this.form.getControlValue('obj_type_id');
-        console.log(type);
         if(type != null){
             let type = this.form.getControlDisplayValue('obj_type_id');
             let bul = this.form.getControlDisplayValue('builbing_id');

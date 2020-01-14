@@ -1,4 +1,3 @@
-/* eslint-disable line-comment-position */
 (function () {
     return {
         forUser: [],
@@ -8,11 +7,9 @@
             this.form.onControlValueChanged('car', this.getAutoForQuery);
             this.form.onControlValueChanged('car', this.checkPartChooseAvailable);
             this.form.disableControl('part');
-            // При изменении проверять, достаточно ли заполнены поля
             this.form.onControlValueChanged('car', this.checkSaveChangeAvailable);
             this.form.onControlValueChanged('part', this.checkSaveChangeAvailable);
             this.form.onControlValueChanged('invoice_consumption', this.checkSaveChangeAvailable);
-            //Кнопка "Сохранить" - выполнение установки (замены) запчасти на авто
             document.getElementById('save_part_change').addEventListener("click", function () {
                 const queryForMakePartChange = {
                     queryCode: 'MakePartChange',

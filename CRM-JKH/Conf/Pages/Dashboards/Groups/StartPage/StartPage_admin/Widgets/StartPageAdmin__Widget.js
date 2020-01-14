@@ -14,7 +14,7 @@
         this.queryExecutor(executeQuery, this.load, this);
         this.showPreloader = false;
     },
-    load: function(data) {
+    load: function() {
       const CONTAINER = document.getElementById('container');
       let title = this.createElement('div', { className: 'header-label', innerText: ' '});
       let groupViewAppeals__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'group' });
@@ -23,7 +23,7 @@
       let groupViewAppeals__borderBottom = this.createElement('div', { className: "border-bottom" });
       let groupViewAppeals__borderRight = this.createElement('div', { className: "border-right"});
       let groupViewAppeals = this.createElement('div', { className: "group", tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight );
-      groupViewAppeals.addEventListener('click',  event => { 
+      groupViewAppeals.addEventListener('click', () => { 
           window.open(location.origin + localStorage.getItem('VirtualPath')+'/admin/users');
       });
       let groupViewAppeals2__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'location_city' });
@@ -32,10 +32,10 @@
       let groupViewAppeals2__borderBottom = this.createElement('div', { className: "border-bottom" });
       let groupViewAppeals2__borderRight = this.createElement('div', { className: "border-right"});
       let groupViewAppeals2 = this.createElement('div', { className: "group", tabindex: '0' }, groupViewAppeals2__icon, groupViewAppeals2__description, groupViewAppeals2__borderBottom, groupViewAppeals2__borderRight );
-      groupViewAppeals2.addEventListener('click',  event => { 
+      groupViewAppeals2.addEventListener('click', () => { 
           window.open(location.origin + localStorage.getItem('VirtualPath')+'/sections/Organizations');
       });
-      let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupViewAppeals, groupViewAppeals2/*, groupRegAppeals, groupSearchTable, groupCall, groupLetter*/ );
+      let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupViewAppeals, groupViewAppeals2);
       CONTAINER.appendChild(title);
       CONTAINER.appendChild(groupsWrapper);
     },

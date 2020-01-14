@@ -54,7 +54,7 @@
         let period = message.package.value.values.find(f => f.name === 'period').value;
         if( period !== null ){
             this.dateFrom =  period.dateFrom;
-    	    this.dateTo = period.dateTo;
+            this.dateTo = period.dateTo;
             this.config.query.parameterValues = [ 
                 {key: '@dateFrom' , value: this.dateFrom },  
                 {key: '@dateTo', value: this.dateTo },  
@@ -62,7 +62,7 @@
             this.loadData(this.afterLoadDataHandler);
         }
     }, 
-    afterLoadDataHandler: function(data) {
+    afterLoadDataHandler: function() {
         this.render();
     },
     destroy: function(){

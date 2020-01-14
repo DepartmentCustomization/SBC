@@ -1,38 +1,52 @@
--- declare @Id int = 2;
+DECLARE @current_month TINYINT = (
+    SELECT
+        MONTH(CURRENT_TIMESTAMP)
+);
 
-declare @current_month tinyint = (select month(current_timestamp));
-declare @current_year int = (select year(current_timestamp));
+DECLARE @current_year INT = (
+    SELECT
+        year(CURRENT_TIMESTAMP)
+);
 
-declare @onMonthStart int;
-declare @onMonthEnd int;
-declare @monthKm int;
+DECLARE @onMonthStart INT;
 
-set @onMonthStart = 
-(
-select top 1
-    run_km
-from RunCar
-where car_id = @Id
-    and year(create_date) = @current_year
-    and month(create_date) = @current_month
-    and day(create_date) between 1 and 5 );
+DECLARE @onMonthEnd INT;
 
-set @onMonthEnd = 
-(
-select top 1
-    run_km
-from RunCar
-where car_id = @Id
-    and year(create_date) = @current_year
-    and month(create_date) = @current_month
-    and day(create_date) between 25 and 31);
+DECLARE @monthKm INT;
 
-set @monthKm = @onMonthEnd - @onMonthStart
+SET
+    @onMonthStart = (
+        SELECT
+            TOP 1 run_km
+        FROM
+            [dbo].RunCar
+        WHERE
+            car_id = @Id
+            AND YEAR(create_date) = @current_year
+            AND MONTH(create_date) = @current_month
+            AND DAY(create_date) BETWEEN 1
+            AND 5
+    );
 
-Select
-    @onMonthStart as 'Начало месяца', @onMonthEnd as 'Конец месяца', @monthKm as 'За месяц'
-where
- #filter_columns#
- #sort_columns#
- 
--- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SET
+    @onMonthEnd = (
+        SELECT
+            TOP 1 run_km
+        FROM
+            [dbo].RunCar
+        WHERE
+            car_id = @Id
+            AND year(create_date) = @current_year
+            AND MONTH(create_date) = @current_month
+            AND DAY(create_date) BETWEEN 25
+            AND 31
+    );
+SET
+    @monthKm = @onMonthEnd - @onMonthStart;
+SELECT
+    @onMonthStart AS 'Начало месяца',
+    @onMonthEnd AS 'Конец месяца',
+    @monthKm AS 'За месяц'
+WHERE
+    #filter_columns#
+    #sort_columns#

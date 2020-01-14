@@ -200,7 +200,7 @@
             this.messageService.publish( {name, data, columns, position} );
             this.render(this.afterRenderTable());
         },   
-        afterRenderTable: function (params) {
+        afterRenderTable: function () {
             this.messageService.publish({ name: 'setStyles'});
             this.messageService.publish({
                 name: 'setYears',
