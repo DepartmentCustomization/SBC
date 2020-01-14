@@ -49,9 +49,6 @@
             pageSize: 20
         },          
         keyExpr: 'Id',
-        // scrolling: {
-        //     mode: 'virtual'
-        // },   
         filterRow: {
             visible: true,
             applyFilter: "auto"
@@ -134,18 +131,18 @@
     },    
     extractFilterValues: function(val){
             if(val !== ''){
-    	        let valuesList = [];
-	            valuesList.push(val.value);
-    	        return  valuesList.length > 0 ? valuesList : [];
+                let valuesList = [];
+                valuesList.push(val.value);
+                return  valuesList.length > 0 ? valuesList : [];
             } else {
                 return [];
             }
     },
-    afterLoadDataHandler: function(data) {
+    afterLoadDataHandler: function() {
         this.render();
     },
     destroy: function(){
-    	this.sub.unsubscribe();
+        this.sub.unsubscribe();
     },
 };
 }());
