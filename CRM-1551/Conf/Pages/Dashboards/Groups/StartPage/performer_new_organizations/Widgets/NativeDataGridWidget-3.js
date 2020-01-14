@@ -148,7 +148,6 @@
                 top: 0.4, bottom: 0.4,
                 header: 0.0, footer: 0.0
             };
-            /*TITLE*/
             let cellInfoCaption = worksheet.getCell('A1');
             cellInfoCaption.value = 'Інформація';
             let cellInfo = worksheet.getCell('A2');
@@ -157,9 +156,9 @@
             cellPeriod.value = 'Період вводу з (включно) : дата з … дата по … .';
             let cellNumber = worksheet.getCell('A4');
             cellNumber.value = 'Реєстраційний № РДА …';
-            worksheet.mergeCells('A1:F1'); //вставить другой конец колонок
-            worksheet.mergeCells('A2:F2'); //вставить другой конец колонок
-            worksheet.mergeCells('A3:F3'); //вставить другой конец колонок
+            worksheet.mergeCells('A1:F1');
+            worksheet.mergeCells('A2:F2');
+            worksheet.mergeCells('A3:F3');
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
