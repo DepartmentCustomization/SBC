@@ -714,7 +714,7 @@ BEGIN
 					ELSE
 					BEGIN
 						-- update [Assignments] set main_executor = 0,[LogUpdated_Query] = N'cx_App_Que_Assignments_Update_Row572' where Id = @Id
-						SET
+						SELECT
 							@is_main_exec = main_executor
 						FROM Assignments
 						WHERE Id = @Id;
