@@ -104,7 +104,7 @@
                 if( period.dateFrom !== '' && period.dateTo !== ''){
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.citizenName = extractOrgValues(citizenName);
+                    this.citizenName = this.extractOrgValues(citizenName);
                     this.config.query.parameterValues = [ 
                         {key: '@dateFrom' , value: this.dateFrom },  
                         {key: '@dateTo', value: this.dateTo }  
@@ -122,23 +122,23 @@
                         this.config.query.filterColumns.push(filter);
                     }
                     this.loadData(this.afterLoadDataHandler);
-                    function extractOrgValues(val) {
-                        if(val != null){
-                            let valuesList = [];
-                            if (val.length > 0) {
-                                for (let i = 0; i < val.length; i++) {
-                                    valuesList.push(val[i].value);
-                                }
-                            }    
-                                return  valuesList.length > 0 ? valuesList : [];
-                        } else {
-                            return [];
-                        }
-                    }
                 }    
             }
         },
-        afterLoadDataHandler: function(data) {
+        extractOrgValues: function(val) {
+            if(val != null){
+                let valuesList = [];
+                if (val.length > 0) {
+                    for (let i = 0; i < val.length; i++) {
+                        valuesList.push(val[i].value);
+                    }
+                }    
+                    return  valuesList.length > 0 ? valuesList : [];
+            } else {
+                return [];
+            }
+        },
+        afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {

@@ -235,7 +235,7 @@
             this.config.onContentReady = this.onMyContentReady.bind(this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
-        renderTable: function (message) {
+        renderTable: function () {
             this.config.query.parameterValues = [ 
                 {key: '@DateCalc' , value: this.period },
                 {key: '@RDAId', value: this.executor },  
@@ -289,11 +289,10 @@
             let cellInfoDate = worksheet.getCell('A2');
             cellInfoDate.value = 'за: ' + this.changeDateTimeValues(this.period);
             let emptyCellInfoCaption = worksheet.getCell('A3');
-            // cellInfoDate.value = 'з: ' + this.changeDateTimeValues(this.period)+' , по: ' + this.changeDateTimeValues(this.dateTo);
             emptyCellInfoCaption.value = ' ';
-            worksheet.mergeCells(1,visibleColumns.length,1,1); // top,left,bottom,right
-            worksheet.mergeCells(2,visibleColumns.length,2,1); // top,left,bottom,right
-            worksheet.mergeCells(3,visibleColumns.length,3,1); // top,left,bottom,right
+            worksheet.mergeCells(1,visibleColumns.length,1,1);
+            worksheet.mergeCells(2,visibleColumns.length,2,1);
+            worksheet.mergeCells(3,visibleColumns.length,3,1);
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 16, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 16, underline: false, bold: true , italic: false};
@@ -323,7 +322,6 @@
             this.allColumns = [];
             this.subIndex = 0;
             let resultColumns = [];
-            let lengthArray = [];
             for (let i = 0; i < this.config.columns.length; i++) {
                 let column = this.config.columns[i];
                 let colCaption = column.caption;
@@ -441,7 +439,7 @@
             MM = MM.length === 1 ? '0' + MM : MM;
             return  dd + '.' + mm + '.' + yyyy + ' ' + HH + ':' + MM;
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         onMyContentReady: function () {

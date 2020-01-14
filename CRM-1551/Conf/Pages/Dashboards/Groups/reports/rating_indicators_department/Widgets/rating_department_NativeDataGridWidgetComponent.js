@@ -86,7 +86,7 @@
                 }
             });
         },
-        afterRenderTable: function (params) {
+        afterRenderTable: function () {
             this.messageService.publish({ name: 'setStyles'});
         },
         createTableButton: function(e) {
@@ -194,7 +194,6 @@
         setTableValues: function (data, worksheet, rowNumbers) {
             for (let i = 0; i < data.rows.length; i++) {
                 const rowData = data.rows[i];
-                const rowValues = [];
                 const rowStart = i + 5;
                 rowNumbers.push(rowStart);
                 for (let j = 1; j < rowData.values.length; j++) {
@@ -231,7 +230,7 @@
             this.config.query.parameterValues = [ { key: '@Date', value: message.date}],
             this.loadData(this.afterLoadDataHandler);
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {

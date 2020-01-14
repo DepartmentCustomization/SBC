@@ -25,7 +25,6 @@
             let hh = currentDate.getHours();
             let mm = currentDate.getMinutes();
             let defaultValue = {
-                // убрать  - 1 
                     dateFrom: new Date(year, monthFrom -2 , dayTo, '00', '00'),
                     dateTo: new Date( year, monthFrom , dayTo, hh, mm)
                 }

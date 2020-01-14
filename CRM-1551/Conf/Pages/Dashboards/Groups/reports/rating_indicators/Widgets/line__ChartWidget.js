@@ -70,7 +70,7 @@
             this.date = message.date;
             this.rating = message.rating;
         },
-        showInfo: function (message) {
+        showInfo: function () {
             this.executeQuery();
         },
         setChartSeries: function (data) {
@@ -100,8 +100,8 @@
             return result;
         },
         destroy: function () {
-            this.sub.unsubscribe();      
-            this.sub1.unsubscribe();      
+            this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         }
     };
 }());

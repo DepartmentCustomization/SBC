@@ -35,7 +35,7 @@
             this.sub = this.messageService.subscribe( 'FiltersParams', this.setFiltersParams, this );  
             this.sub1 = this.messageService.subscribe( 'showInfo', this.showInfo, this );  
         },
-        showInfo: function (message) {
+        showInfo: function () {
             document.getElementById('infoContainer').style.display = 'block';
             let createTableQuery = {
                 queryCode: this.config.query.code,
@@ -79,7 +79,7 @@
             this.hidePagePreloader();
             this.loadData(this.afterLoadDataHandler);
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function () {

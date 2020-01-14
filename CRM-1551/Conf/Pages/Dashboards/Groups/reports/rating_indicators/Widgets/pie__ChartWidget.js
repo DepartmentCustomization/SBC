@@ -46,7 +46,7 @@
             this.date = message.date;
             this.rating =   message.rating;
         },
-        showInfo: function (message) {
+        showInfo: function () {
             this.executeQuery();
         },
         executeQuery: function () {

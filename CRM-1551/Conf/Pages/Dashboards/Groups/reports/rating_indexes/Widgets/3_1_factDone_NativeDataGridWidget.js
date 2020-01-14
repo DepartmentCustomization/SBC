@@ -87,7 +87,7 @@
                 }
             }
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function () {

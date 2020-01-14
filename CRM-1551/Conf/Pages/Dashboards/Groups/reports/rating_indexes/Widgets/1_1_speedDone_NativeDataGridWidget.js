@@ -48,15 +48,7 @@
                 }
             };
             this.messageService.publish(msg);
-            this.dataGridInstance.onCellClick.subscribe(e => {
-                if(e.column) {
-                    const colSliced =  e.column.dataField.slice(0, 7);
-                    if(colSliced == "Percent" && e.row != undefined) {
-                        // const url = 'rdaid='+rdaid+'&ratingid='+ratingid+'&columncode='+columncode+'&date='+this.period;
-                        // const url = "";
-                        // window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/rating_indexes_by_rda_question/"+url);
-                    }
-                }
+            this.dataGridInstance.onCellClick.subscribe(() => {
             });
             this.sub = this.messageService.subscribe('showTable', this.showTable, this);
             this.sub1 = this.messageService.subscribe('FilterParameters', this.executeQuery, this);
@@ -103,7 +95,7 @@
                 }
             }
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function () {

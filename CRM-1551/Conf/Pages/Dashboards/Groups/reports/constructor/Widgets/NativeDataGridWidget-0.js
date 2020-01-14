@@ -96,7 +96,7 @@
                 }
             }
         }, 
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         afterRenderTable: function(){

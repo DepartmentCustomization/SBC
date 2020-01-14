@@ -99,7 +99,6 @@
             let counter2 = { name: 'questionQty', index: 4 };
             this.indexArr = [ name, counter, empty1, name2, counter2 ];
             let indexArr = this.indexArr;
-            let rows = [];
             let captions = [];
             let columnsHeader = [];
             indexArr.forEach( el => {

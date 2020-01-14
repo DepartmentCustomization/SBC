@@ -28,8 +28,8 @@
                 monthFromFact = monthFrom;
             }else{
                 let cDate = new Date( year, monthFrom, 0 );
-                thisMonth = cDate.getMonth();
-                thisDay = cDate.getDate();
+                let thisMonth = cDate.getMonth();
+                let thisDay = cDate.getDate();
                 dayFromFact = ++thisDay + (  dayTo - day );
                 monthFromFact = thisMonth;
             }

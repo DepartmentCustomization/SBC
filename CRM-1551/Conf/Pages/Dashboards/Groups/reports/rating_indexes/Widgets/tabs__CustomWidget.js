@@ -140,7 +140,6 @@
                     const element = data.columns[i];
                     const dataField = "Place_" + element.code;
                     const value = data.rows[0].values[i];
-                    const dataType = element.dataType;
                     let objAvg = {
                         column: dataField,
                         summaryType: "avg",
