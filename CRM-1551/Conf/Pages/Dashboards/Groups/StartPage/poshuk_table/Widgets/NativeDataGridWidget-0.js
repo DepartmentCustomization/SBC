@@ -430,7 +430,6 @@
             this.messageService.publish(msg);
         },
         exportToExcel: function() {
-            let value =  this.macrosValue ? this.macrosValue :  '1=1';
             let exportQuery = {
                 queryCode: 'ak_QueryCodeSearch',
                 limit: -1,
@@ -462,7 +461,7 @@
                 let columns = this.config.columns;columns.forEach( el => {
                     let elDataField = el.dataField;
                     let elCaption = el.caption;
-                    for ( i = 0; i < data.columns.length; i ++){
+                    for (let i = 0; i < data.columns.length; i ++){
                         if( elDataField === data.columns[i].code ){
                             let obj = {
                                 name: elDataField,
@@ -477,7 +476,6 @@
                 const worksheet = workbook.addWorksheet('Заявки', {
                     pageSetup:{orientation: 'landscape', fitToPage: false, fitToWidth: true}
                 });
-                /*TITLE*/
                 let cellInfoCaption = worksheet.getCell('A1');
                 cellInfoCaption.value = 'Інформація';
                 let cellInfo = worksheet.getCell('A2');
@@ -501,6 +499,7 @@
                 let rows = [];
                 let captions = [];
                 let columnsHeader = [];
+                let otherColumns = [];
                 let columnNumber = {
                     key: 'number',
                     width: 5
@@ -551,7 +550,12 @@
                         };
                         columnsHeader.push(obj);
                         captions.push('Місце проблеми (Об\'єкт)');
-                    }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat'  ){
+                    }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat'){
+                        let obj =  { 
+                            key: el.name,
+                            width: 13
+                        };
+                        otherColumns.push(obj);
                     }else{
                         let obj =  { 
                             key: el.name,
@@ -571,9 +575,8 @@
                 let indexExecutionTerm = data.columns.findIndex(el => el.code.toLowerCase() === 'execution_term' );
                 for( let  j = 0; j < data.rows.length; j ++ ) {
                     let row = data.rows[j];
-                    let rowArr = [];
                     let rowItem = { number: j + 1 };
-                    for( i = 0; i < indexArr.length; i ++){
+                    for(let i = 0; i < indexArr.length; i ++) {
                         let el = indexArr[i];
                         const controlDate = this.changeDateTimeValues(row.values[indexExecutionTerm]);
                         const regDate = this.changeDateTimeValues(row.values[indexRegistrationDate]);
@@ -589,6 +592,11 @@
                         }else if( el.name === 'question_object'  ){
                             rowItem.object = row.values[el.index];
                         }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat'  ){
+                            let obj =  { 
+                                key: el.name,
+                                width: 13
+                            };
+                            otherColumns.push(obj);
                         }else{
                             let prop = indexArr[i].name;
                             switch(prop) {
@@ -704,7 +712,7 @@
                     let indexes = this.addedIndexes;
                     let size = Object.keys(el).length;
                     let rowSize = Object.keys(row).length;
-                    for( i = 0; i < size - rowSize ; i ++ ){
+                    for(let i = 0; i < size - rowSize ; i ++ ){
                         let prop = indexes[i];
                         switch(prop) {
                             case 'appeals_receipt_source':
