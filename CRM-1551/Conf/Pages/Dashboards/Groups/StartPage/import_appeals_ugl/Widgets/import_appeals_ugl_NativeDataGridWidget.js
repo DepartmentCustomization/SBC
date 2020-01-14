@@ -106,7 +106,7 @@
             mm = mm.length === 1 ? '0' + mm : mm;
             return dd + '.' + mm + '.' + yyyy;
         },    
-        applyChanges: function(message) {
+        applyChanges: function() {
             const msg = {
                 name: "SetFilterPanelState",
                 package: {
@@ -116,10 +116,10 @@
             this.messageService.publish(msg);
             this.loadData(this.afterLoadDataHandler);
         },
-        showTable: function(message) {
+        showTable: function() {
             this.loadData(this.afterLoadDataHandler);
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function () {
