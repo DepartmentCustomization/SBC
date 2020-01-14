@@ -57,19 +57,16 @@
             let BtnCreateContent1 = document.getElementById('input_btn_1');
             BtnCreateContent1.addEventListener("click", function() {
                 this.activeElement(BtnCreateContent1);
-                // this.changeState(this.StateCode1);
                 this.changeState(1);
             }.bind(this), true);
             let BtnCreateContent2 = document.getElementById('input_btn_2');
             BtnCreateContent2.addEventListener("click", function() {
                 this.activeElement(BtnCreateContent2);
-                // this.changeState(this.StateCode2);
                 this.changeState(2);
             }.bind(this), true);
             let BtnCreateContent3 = document.getElementById('input_btn_3');
             BtnCreateContent3.addEventListener("click", function() {
                 this.activeElement(BtnCreateContent3); 
-                // this.changeState(this.StateCode3);   
                 this.changeState(3); 
             }.bind(this), true);
             BtnCreateContent1.checked = false;
@@ -107,10 +104,9 @@
      element.disabled = true;     
     },
     extractDate: function(val) { 
-                let today = new Date(this.getLocalizedValue(val, "Datetime"));
-                inMonth = new Date(this.getLocalizedValue(val, "Datetime"));
+                let inMonth = new Date(this.getLocalizedValue(val, "Datetime"));
                 let dd = inMonth.getDate();
-                let mm = inMonth.getMonth()+1; //January is 0!
+                let mm = inMonth.getMonth() + 1;
                 let yyyy = inMonth.getFullYear();
                 let hh = inMonth.getHours();
                 let mi = inMonth.getMinutes();

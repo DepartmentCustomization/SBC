@@ -214,7 +214,7 @@
             }else{
                 self.loadData(self.afterLoadDataHandler); 
             }
-            function requestResponse(data){
+            function requestResponse(){
                 return makeRequest(index+1);
             }
         }
@@ -227,7 +227,7 @@
         columns.forEach( el => {
             let elDataField = el.dataField;
             let elCaption = el.caption;
-            for ( i = 0; i < data.columns.length; i ++){
+            for (let i = 0; i < data.columns.length; i ++){
                 if( elDataField === data.columns[i].code ){
                     let obj = {
                         name: elDataField,
@@ -252,7 +252,7 @@
         };
         /*TITLE*/
         let cellInfoCaption = worksheet.getCell('A1');
-        worksheet.mergeCells('A1:I1'); //вставить другой конец колонок
+        worksheet.mergeCells('A1:I1');
         cellInfoCaption.value = 'Редагування доручення';
         worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 15, underline: false, bold: true , italic: false};
         worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
@@ -326,27 +326,18 @@
         });
         worksheet.getRow(2).values = captions;
         worksheet.columns = columnsHeader;
-        let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
         let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number' );
         let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
         let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk' );
         let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress' );
         let indexVykonavets = data.columns.findIndex(el => el.code.toLowerCase() === 'vykonavets' );
-        let indexQuestionId = data.columns.findIndex(el => el.code.toLowerCase() === 'questionid' );
-        let indexZayavnikId = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnikid' );
-        let indexShortAnswer = data.columns.findIndex(el => el.code.toLowerCase() === 'short_answer' );
-        let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'Zayavnyk_zmist' );
-        let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress' );
         let indexRegistrDate = data.columns.findIndex(el => el.code.toLowerCase() === 'ass_registration_date' );
-        let indexTransferOrgId = data.columns.findIndex(el => el.code.toLowerCase() === 'transfer_to_organization_id' );
-        let indexTransferOrgName = data.columns.findIndex(el => el.code.toLowerCase() === 'transfer_to_organization_name' );        
         let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );               
         let indexAssignmentState = data.columns.findIndex(el => el.code.toLowerCase() === 'assignmentstate' );               
         for( let  j = 0; j < data.rows.length; j ++ ){  
             let row = data.rows[j];
-            let rowArr = [];
             let rowItem = { number: j + 1 };
-            for( i = 0; i < indexArr.length; i ++){
+            for(let i = 0; i < indexArr.length; i ++){
                 let el = indexArr[i];
                 if( el.name === 'Registration_number'  ){
                     rowItem.Registration_number = row.values[indexRegistrationNumber];
@@ -441,7 +432,7 @@
         }
         return trueDate;
     },      
-    afterLoadDataHandler: function(data) {
+    afterLoadDataHandler: function() {
         this.render();
     },
     destroy:  function(){
