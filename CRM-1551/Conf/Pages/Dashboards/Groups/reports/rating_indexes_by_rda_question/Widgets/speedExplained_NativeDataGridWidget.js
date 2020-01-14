@@ -89,7 +89,7 @@
                 this.loadData(this.afterLoadDataHandler);  
             }
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function () {

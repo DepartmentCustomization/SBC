@@ -29,7 +29,7 @@
         },
         setStyles: function() {
             let tds = document.querySelectorAll('td');
-            tdsArr = Array.from(tds);
+            let tdsArr = Array.from(tds);
             tdsArr.forEach( td => {
                 td.style.whiteSpace = "pre-wrap";
             });

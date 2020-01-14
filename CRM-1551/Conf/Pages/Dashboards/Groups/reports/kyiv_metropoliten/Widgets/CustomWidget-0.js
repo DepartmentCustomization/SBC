@@ -43,7 +43,7 @@
             this.sub1 = this.messageService.subscribe('setData', this.setData, this );
             this.counter = 0;
         },
-        afterViewInit: function(data) {
+        afterViewInit: function() {
             const CONTAINER = document.getElementById('container');
             let reportTitle = this.createElement( 'div', { id: 'reportTitle', innerText: 'Звіт для метрополітену' });
             let subTitle = this.createElement( 'div', { id: 'subTitle' });
@@ -66,6 +66,7 @@
                     this.dateFrom =  period.dateFrom;
                     this.dateTo = period.dateTo;
                 }
+                let subTitle = document.getElementById("subTitle");
                 if(subTitle !== null){
                     subTitle.innerText = 'Статистична інформація за період з '+this.changeDateTimeValues(this.dateFrom)+'до '+this.changeDateTimeValues(this.dateTo)+' Виконавець: КП «Київський метрополітен»';
                 }
@@ -131,8 +132,8 @@
                     mainHeaders.push(5);
                     for(let i = 6; i < (data.length + 6); i++ ){
                         let value = data[i-6];
-                        columnText = worksheet.getCell('A'+i);
-                        columnCounter = worksheet.getCell('B'+i);
+                        let columnText = worksheet.getCell('A'+i);
+                        let columnCounter = worksheet.getCell('B'+i);
                         columnText.value = value[1];
                         columnCounter.value = value[2];
                         tds.push('A'+i);
@@ -151,8 +152,8 @@
                     mainHeaders.push(this.rowTable1Length);
                     for(let i =  this.rowTable1Length  + 1 ; i < (data.length + this.rowTable1Length + 1 ); i++ ){
                         let value = data[i-( this.rowTable1Length + 1)];
-                        columnText = worksheet.getCell('A'+i);
-                        columnCounter = worksheet.getCell('B'+i);
+                        let columnText = worksheet.getCell('A'+i);
+                        let columnCounter = worksheet.getCell('B'+i);
                         columnText.value = value[1];
                         columnCounter.value = value[2];
                         tds.push('A'+i);
@@ -227,12 +228,12 @@
             let dd = date.getDate();
             let mm = date.getMonth() + 1;
             let yyyy = date.getFullYear();
-            if( (dd.toString()).length === 1){
-  dd = '0' + dd; 
-}
-            if( (mm.toString()).length === 1){
- mm = '0' + mm; 
-}
+            if( (dd.toString()).length === 1) {
+                dd = '0' + dd; 
+            }
+            if( (mm.toString()).length === 1) {
+                mm = '0' + mm; 
+            }
             let trueDate = dd + '.' + mm + '.' + yyyy;
             return trueDate;
         },     

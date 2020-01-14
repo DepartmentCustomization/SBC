@@ -14,7 +14,7 @@
         this.queryExecutor(executeQuery, this.load, this);
         this.showPreloader = false;
     },
-    load: function(data) {
+    load: function() {
       const CONTAINER = document.getElementById('container');
       let title = this.createElement('div', { className: 'header-label', innerText: ' '});
       let groupViewAppeals__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'view_list' });
@@ -23,7 +23,7 @@
       let groupViewAppeals__borderBottom = this.createElement('div', { className: "border-bottom" });
       let groupViewAppeals__borderRight = this.createElement('div', { className: "border-right"});
       let groupViewAppeals = this.createElement('div', { className: "group", tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight );
-      groupViewAppeals.addEventListener('click',  event => { 
+      groupViewAppeals.addEventListener('click', () => { 
           window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/registryClaims');
       });
       let groupRegByPhone__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'contact_phone' });
@@ -32,10 +32,10 @@
       let groupRegByPhone__borderBottom = this.createElement('div', { className: "border-bottom" });
       let groupRegByPhone__borderRight = this.createElement('div', { className: "border-right"});
       let groupRegByPhone = this.createElement('div', { className: "group", tabindex: '0' }, groupRegByPhone__icon, groupRegByPhone__description, groupRegByPhone__borderBottom, groupRegByPhone__borderRight );
-      groupRegByPhone.addEventListener('click',  event => { 
+      groupRegByPhone.addEventListener('click', () => { 
           this.showModalWindow();
       });
-      let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupRegByPhone, groupViewAppeals/*, groupRegAppeals, groupSearchTable, groupCall, groupLetter*/ );
+      let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupRegByPhone, groupViewAppeals);
       CONTAINER.appendChild(title);
       CONTAINER.appendChild(groupsWrapper);
     },
@@ -49,7 +49,7 @@
       } return element;
     },
     typeAppeal: 1,
-    showModalWindow: function(message) {
+    showModalWindow: function() {
         this.typeAppeal = 1;
       let CONTAINER = document.getElementById('container');
       const modalBtnClose =  this.createElement('button', { id:'modalBtnClose', className: 'btn', innerText: 'Закрити'});
@@ -65,35 +65,38 @@
       const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalNumber, modalRadioWrapper, modalBtnWrapper); 
       const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
       CONTAINER.appendChild(modalWindowWrapper);
-      radioBtn1.addEventListener( 'click', event => {
+      const radioBtn1 = document.getElementById("radioBtn1");
+      radioBtn1.addEventListener( 'click', () => {
         this.typeAppeal = 1;
         modalNumber.value = "";
         modalNumber.disabled = false;
         modalNumber.placeholder = "Введіть номер телефону в форматі 0xxxxxxxxx";
       });
-      radioBtn2.addEventListener( 'click', event => {
+      const radioBtn2 = document.getElementById("radioBtn2");
+      radioBtn2.addEventListener( 'click', () => {
         this.typeAppeal = 2;
         modalNumber.value = "";
         modalNumber.disabled = false;
         modalNumber.placeholder = "Введіть E-Mail";
        });
-       radioBtn3.addEventListener( 'click', event => {
+       const radioBtn3 = document.getElementById("radioBtn3");
+       radioBtn3.addEventListener( 'click', () => {
         this.typeAppeal = 3;
         modalNumber.value = "";
         modalNumber.disabled = true;
         modalNumber.placeholder = ""
        });
-      modalBtnTrue.addEventListener( 'click', event => {
-          let target = event.currentTarget;
+      modalBtnTrue.addEventListener( 'click', () => {
           let number = modalNumber.value
           let r1 = JSON.stringify(number);
           let r2 = encodeURIComponent(r1);
           window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/RegistrationAppeal/add?parameter="+r2+"&type="+this.typeAppeal+"");
+          const container = document.getElementById("container");
           CONTAINER.removeChild(container.lastElementChild);
       });
-      modalBtnClose.addEventListener( 'click', event => {
-          let target = event.currentTarget;
-          CONTAINER.removeChild(container.lastElementChild);
+      modalBtnClose.addEventListener( 'click', () => {
+        const container = document.getElementById("container");
+        CONTAINER.removeChild(container.lastElementChild);
       });
     }, 
 };

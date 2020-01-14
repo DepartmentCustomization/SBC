@@ -55,7 +55,7 @@
             document.getElementById('question_groups').style.display = 'none';
         }
     },
-    afterLoadDataHandler: function(data) {
+    afterLoadDataHandler: function() {
         this.render();
     },
     destroy: function(){

@@ -25,25 +25,25 @@
             this.showPreloader = false; 
         }
     },
+    getLastDayOfMonth: function(year, month) {
+        let date = new Date(year, month, 0);
+        return date.getDate();
+    },
     load: function(data) {
         this.yearCalendar = [];
         for(let i = 0; i < data.rows.length;  i ++ ){
-            indexDateCode = data.columns.findIndex(el => el.code.toLowerCase() === 'date' );
-            indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
+            let indexDateCode = data.columns.findIndex(el => el.code.toLowerCase() === 'date');
+            let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id');
             let date = new Date( data.rows[i].values[indexDateCode]);
             let year = date.getFullYear();
             let month = date.getMonth();
             let day = date.getDay();
             month += 1;
-            let monthLength = getLastDayOfMonth(year, month);
-            function getLastDayOfMonth(year, month) {
-                let date = new Date(year, month, 0);
-                return date.getDate();
-            }
+            let monthLength = this.getLastDayOfMonth(year, month);
             day =  day === 0 ? 7 : day;
             let arr = [];
             let len = i + monthLength
-            for( t = i; t < len; t++  ){
+            for(let t = i; t < len; t++  ){
                 let day = data.rows[t];
                 arr.push(day.values[indexId]);
             }
@@ -60,7 +60,7 @@
         this.createCalendarWrapper(data);
     },
     createCalendarWrapper: function(data){
-        container = document.getElementById('container');
+        let container = document.getElementById('container');
         while (container.hasChildNodes()) {
             container.removeChild(container.childNodes[0]);
         }
@@ -69,7 +69,7 @@
         let yearContainer = this.createElement('div', {  id: 'yearContainer' });
         container.appendChild(createNewYearContainer);
         container.appendChild(yearContainer);
-        createNewYearBtn.addEventListener( 'click', event => {
+        createNewYearBtn.addEventListener( 'click', () => {
             let executeQuery = {
                 queryCode: 'ak_workDaysCalendarAddNewYear',
                 limit: -1,
@@ -179,8 +179,8 @@
     },
     setThisYearCalendar: function(data){
         data.rows.forEach( day => {
-            dateCode = data.columns.findIndex(el => el.code.toLowerCase() === 'date' );
-            isWorkCode = data.columns.findIndex(el => el.code.toLowerCase() === 'is_work' );
+            let dateCode = data.columns.findIndex(el => el.code.toLowerCase() === 'date' );
+            let isWorkCode = data.columns.findIndex(el => el.code.toLowerCase() === 'is_work' );
             let fullDay = new Date( day.values[dateCode] );
             let year = fullDay.getFullYear();
             let month = fullDay.getMonth();

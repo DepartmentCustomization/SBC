@@ -29,17 +29,6 @@
                     }
             ]  
             },
-            // {
-            //     dataField: 'id_1551',
-            //     caption: 'Назва вулиці у системі 1551',
-            //     lookup: {
-            //         dataSource: {
-            //             store: this.elements
-            //         },
-            //         displayExpr: "streets",
-            //         valueExpr: "Id"
-            //     }
-            // },
             {
                 dataField: 'is_done',
                 caption: 'Стан',
@@ -89,23 +78,14 @@
         showHeaderFilter: false,
         showColumnChooser: true,
         showColumnFixing: true,
-        groupingAutoExpandAll: null,
-        // selection: {
-        //     mode: "multiple"
-        // }
+        groupingAutoExpandAll: null
     },
     elements: [],
     init: function() {
         this.loadData(this.afterLoadDataHandler);
-        // for example
-        // this.subscribeToDataGridActions();
-        // this.sub = this.messageService.subscribe('clickOnStreets', this.changeOnTable, this);
-        let that = this;    
         this.dataGridInstance.onRowUpdating.subscribe( function(e) {
             let is_done = e.newData.is_done;
             let key = e.key;
-            let id_1551 = e.oldData.id_1551;
-            let id_1551_new = e.newData.id_1551;
             let comment = e.newData.comment;
             let cat_id = e.oldData.cat_id;
             let saveChange = {
@@ -128,12 +108,10 @@
                 ]
             };
             this.queryExecutor(saveChange);
-        // this.loadData(this.afterLoadDataHandler);
         }.bind(this));
     },
-    afterLoadDataHandler: function(data) {
+    afterLoadDataHandler: function() {
         this.render();
-        // this.createCustomStyle();
     },
     createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
@@ -148,20 +126,15 @@
         let element = document.querySelector('.dx-datagrid-save-button');
         element.style.marginRight = '9px';
         element.style.backgroundColor = '#5cb85c';
-        // let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Зберегти'});
         element.firstElementChild.firstElementChild.style.color = '#fff';
         element.firstElementChild.lastElementChild.style.color = '#fff';
         element.parentElement.parentElement.classList.remove('dx-toolbar-text-auto-hide');
     },
     subscribeToDataGridActions: function() {
-        // subscribe to data list actions here
-        // this.config.onEditorPreparing = this.onDataGridEditorPreparing.bind(this)
     },
-    onDataGridEditorPreparing: function(e) {
-        // your logic here
+    onDataGridEditorPreparing: function() {
     },
     destroy: function() {
-    // this.sub.unsubscribe();
-} 
+    } 
 };
 }());

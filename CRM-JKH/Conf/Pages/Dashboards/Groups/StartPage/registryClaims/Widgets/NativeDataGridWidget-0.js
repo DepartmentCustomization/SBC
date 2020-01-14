@@ -10,30 +10,6 @@
             chunkSize: 1000
         },
         columns: [
-            // {
-            //     dataField: 'Номер',
-            //     caption: 'Номер',
-            // }, {
-            //     dataField: 'Тип доручення',
-            //     caption: 'Тип доручення',
-            // }, {
-            //     dataField: 'Доручення',
-            //     caption: 'Доручення',
-            //     width: 450
-            // }, {
-            //     dataField: 'Статус',
-            //     caption: 'Статус',
-            //     width: 150
-            // }, {
-            //     dataField: 'Виконати до',
-            //     caption: 'Виконати до',
-            // }, {
-            //     dataField: 'Виконавець',
-            //     caption: 'Виконавець',
-            // }, {
-            //     dataField: 'Дата виконання',
-            //     caption: 'Дата виконання',
-            // }
         ],
         export: {
             enabled: false,
@@ -105,11 +81,10 @@
         ]
         this.queryExecutor(executeQuery, this.load, this);
     },
-    callback_updateRows: function(data) {
+    callback_updateRows: function() {
         location.reload();
     },
     load: function(data) {
-        //custom filter for changing status
         let that = this;
         let tableParams;
         document.getElementById('btn_sendAllClaimToWork').addEventListener('click', function () {
@@ -123,8 +98,7 @@
         let items = [...document.getElementsByClassName('item')];
         items.forEach(function (item, i, arr) {
             item.addEventListener('click', function () {
-                //add user-friendly styles when click
-                arr.forEach(function(item, i, arr) {
+                arr.forEach(function(item) {
                    item.style.opacity = 0.5;
                    item.style.transform = 'scale(1)';
                 })
@@ -136,7 +110,6 @@
                 } else {
                     document.getElementById('btn_block_hiden').style.display = 'none';
                 }
-                //change parameterValues value
                 if (i === 0) {
                     tableParams = null;
                 } else {

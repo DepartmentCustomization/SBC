@@ -31,7 +31,7 @@
                 <div id='tabsContainer' ></div>
                 `
     ,
-    afterViewInit: function(data){
+    afterViewInit: function(){
         const TABS_CONTAINER = document.getElementById('tabsContainer');
         let groupItems__title  = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'Група питань'});
         let defaultItems__title  = this.createElement('div', { className: 'tabAction tab_title', innerText: 'Типи питань'});

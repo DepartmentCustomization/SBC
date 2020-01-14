@@ -45,8 +45,8 @@
                                 return p;
                             }, {}
                         );
-        new google.maps.Marker({
-            position: new google.maps.LatLng(getDataFromLink["lat"], getDataFromLink["lon"]),
+        new window.google.maps.Marker({
+            position: new window.google.maps.LatLng(getDataFromLink["lat"], getDataFromLink["lon"]),
             map: this.map,
             title: '',
             label: ''

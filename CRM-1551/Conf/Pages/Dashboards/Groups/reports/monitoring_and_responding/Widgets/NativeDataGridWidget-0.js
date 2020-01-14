@@ -196,7 +196,7 @@
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-        afterRenderTable: function (data) {
+        afterRenderTable: function () {
             this.summary = [];
             const collections = document.querySelectorAll('.dx-row');
             collections.forEach( collection => {
@@ -233,7 +233,7 @@
             });
         },
         createExcelWorkbook: function (data) {
-              workbook = this.createExcel();
+            let workbook = this.createExcel();
             let worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
                     orientation: 'landscape',
@@ -380,7 +380,7 @@
                 return [];
             }
         },    
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {

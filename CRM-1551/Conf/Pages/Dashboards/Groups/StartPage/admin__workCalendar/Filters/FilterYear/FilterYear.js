@@ -22,9 +22,6 @@
         },
         onClearFilter: function() {
         },
-        // init: function(){
-        //     this.setDefaultValue('first');
-        // },
         yourFunctionName: function(item) {
             let message = {
                 name: '',

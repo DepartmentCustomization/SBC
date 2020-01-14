@@ -110,7 +110,6 @@
         },
         editing: {
             mode: 'batch',
-            // mode: 'row',
             allowUpdating: true,
             useIcons: true,
             text: [
@@ -148,9 +147,6 @@
         showColumnChooser: true,
         showColumnFixing: true,
         groupingAutoExpandAll: null,
-        // onContentReady: function (e) {
-        //     e.component.element().find(".dx-datagrid-header-panel").hide();         
-        // }
         toolbarPreparing: function(data) {
             let indexSaveButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function (item) {
                 return item.name == "saveButton";
@@ -174,9 +170,6 @@
     elements: [],
     init: function() {
         this.loadData(this.afterLoadDataHandler);
-        // for example
-        // this.subscribeToDataGridActions();
-        // this.sub = this.messageService.subscribe('clickOnStreets', this.changeOnTable, this);
         let executeQuery_dis = {
                 queryCode: 'int_list_district_1551',
                 parameterValues: [],
@@ -189,7 +182,6 @@
                 limit: -1
             };
         this.queryExecutor(executeQuery, this.lookupFoo, this);
-        let that = this;    
         this.dataGridInstance.onRowUpdating.subscribe( function(e) {
             let is_done = e.newData.is_done;
             let key = e.key;
@@ -223,12 +215,11 @@
                 ]
             };
             this.queryExecutor(saveChange);
-        // this.loadData(this.afterLoadDataHandler);
         }.bind(this));
     },
     lookupFoo_dis: function(data) {
         this.elements_dis = [];
-        for( i = 0; i < data.rows.length; i++){
+        for(let i = 0; i < data.rows.length; i++){
             let el = data.rows[i];
             let obj = {
                 "Id": el.values[0],
@@ -241,7 +232,7 @@
     },
     lookupFoo: function(data) {
         this.elements = [];
-        for( i = 0; i < data.rows.length; i++){
+        for(let i = 0; i < data.rows.length; i++){
             let el = data.rows[i];
             let obj = {
                 "Id": el.values[0],
@@ -251,24 +242,17 @@
             this.elements.push(obj);
         }
         this.config.columns[2].columns[1].lookup.dataSource.store = this.elements;
-        // this.config.columns[3].lookup.items = this.elements;
-        // this.config.columns[3].lookup.dataSource.store = this.elements;
-        // this.config.columns[3].lookup.dataSource = this.myFunc.bind(this);
         this.config.columns[2].columns[1].lookup.dataSource = this.myFunc.bind(this);
         this.loadData(this.afterLoadDataHandler);
     },
-    afterLoadDataHandler: function(data) {
+    afterLoadDataHandler: function() {
         this.render();
     },
     subscribeToDataGridActions: function() {
-        // subscribe to data list actions here
-        // this.config.onEditorPreparing = this.onDataGridEditorPreparing.bind(this)
     },
-    onDataGridEditorPreparing: function(e) {
-        // your logic here
+    onDataGridEditorPreparing: function() {
     },
     destroy: function() {
-    // this.sub.unsubscribe();
-} 
+    }
 };
 }());

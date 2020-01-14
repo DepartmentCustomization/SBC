@@ -1,8 +1,6 @@
 (function () {
   return {
     init: function() {
-        let mainHightChart = 'mainHightChart'; 
-        let hightChart3D = 'hightChart3D'; 
         if (!document.getElementById('hightChart3D')) {
             let head  = document.getElementsByTagName('head')[0];
             let script  = document.createElement('script');

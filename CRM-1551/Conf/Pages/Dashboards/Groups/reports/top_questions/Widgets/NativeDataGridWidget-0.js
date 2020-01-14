@@ -116,7 +116,7 @@
             columns.forEach( el => {
                 let elDataField = el.dataField;
                 let elCaption = el.caption;
-                for ( i = 0; i < data.columns.length; i ++){
+                for (let i = 0; i < data.columns.length; i ++){
                     if( elDataField === data.columns[i].code ){
                         let obj = {
                             name: elDataField,
@@ -131,16 +131,15 @@
             const worksheet = workbook.addWorksheet('«Топ питань', {
                 pageSetup:{orientation: 'portrait', fitToPage: false, fitToWidth: true}
             });
-            /*TITLE*/
             let cellInfoCaption = worksheet.getCell('A1');
             cellInfoCaption.value = 'Розподіл зверненнь громадян по питанням, ';
             let cellInfo = worksheet.getCell('A2');
             cellInfo.value = ' що надійшли через КБУ "Контактний центр міста Києва.';
             let cellPeriod = worksheet.getCell('A3');
             cellPeriod.value = 'Період вводу з (включно) : дата з ' +this.changeDateTimeValues(this.dateFrom)+ ' дата по ' +this.changeDateTimeValues(this.dateTo);
-            worksheet.mergeCells('A1:C1'); //вставить другой конец колонок
-            worksheet.mergeCells('A2:C2'); //вставить другой конец колонок
-            worksheet.mergeCells('A3:C3'); //вставить другой конец колонок
+            worksheet.mergeCells('A1:C1');
+            worksheet.mergeCells('A2:C2');
+            worksheet.mergeCells('A3:C3');
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -184,7 +183,7 @@
             for( let  j = 0; j < data.rows.length; j ++ ){  
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
-                for( i = 0; i < indexArr.length; i ++){
+                for(let i = 0; i < indexArr.length; i ++){
                     let el = indexArr[i];
                     if( el.name === 'questionType'  ){
                         rowItem.questionType = row.values[indexQuestionType];
@@ -249,20 +248,20 @@
             let HH = date.getUTCHours()
             let mm = date.getMinutes();
             MM += 1 ;
-            if( (dd.toString()).length === 1){
-  dd = '0' + dd; 
-}
-            if( (MM.toString()).length === 1){
- MM = '0' + MM ; 
-}
-            if( (HH.toString()).length === 1){
-  HH = '0' + HH; 
-}
+            if( (dd.toString()).length === 1) {
+                dd = '0' + dd;
+            }
+            if( (MM.toString()).length === 1) {
+                MM = '0' + MM ;
+            }
+            if( (HH.toString()).length === 1) {
+                HH = '0' + HH; 
+            }
             if( (mm.toString()).length === 1){
- mm = '0' + mm; 
-}
+                mm = '0' + mm;
+            }
             trueDate = dd+'.'+MM+'.' + yyyy;
-        }else{
+        } else {
             trueDate = ' ';
         }
         return trueDate;
@@ -271,8 +270,8 @@
         let period = message.package.value.values.find(f => f.name === 'period').value;
         let questionType = message.package.value.values.find(f => f.name === 'questionTypes').value;
         let questionGroup = message.package.value.values.find(f => f.name === 'questionGroup').value;
-	    if( period !== null ){
-    		if( period.dateFrom !== '' && period.dateTo !== ''){
+        if( period !== null ) {
+            if( period.dateFrom !== '' && period.dateTo !== '') {
                 this.dateFrom =  period.dateFrom;
                 this.dateTo = period.dateTo;
                 this.questionType = questionType === null ? 0 :  questionType === '' ? 0 : questionType.value ;
@@ -286,8 +285,8 @@
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }
-	        }
-	    }
+            }
+        }
     },    
     extractOrgValues: function(val) {
         if(val !== ''){
@@ -298,12 +297,12 @@
             return [];
         }
 	},       
-    afterLoadDataHandler: function(data) {
+    afterLoadDataHandler: function() {
         this.render();
     },
     destroy: function(){
         this.sub.unsubscribe();
         this.sub1.unsubscribe();
-    },    
+    }
 };
 }());

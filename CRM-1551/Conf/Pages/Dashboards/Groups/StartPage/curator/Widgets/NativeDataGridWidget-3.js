@@ -39,10 +39,6 @@
                     format: "dd.MM.yyyy HH:mm"                
                 }
             ],
-            export: {
-                enabled: false,
-                fileName: 'Доопрацьовані/Прострочені/Немає можливості виконати в даний період__'
-            },
             searchPanel: {
                 visible: false,
                 highlightCaseSensitive: true
@@ -71,10 +67,6 @@
                 rowRenderingMode: null,
                 columnRenderingMode: null,
                 showScrollbar: null
-            },
-            searchPanel: {
-                visible: false,
-                highlightCaseSensitive: true
             },
             selection: {
                 mode: "multiple"
@@ -137,7 +129,7 @@
         renderAfterCloseModal: function () {
             this.loadData(this.afterLoadDataHandler);
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         craeteMasterDetail: function(container, options) {
@@ -196,7 +188,7 @@
                     icon: "tel",
                     type: "default",
                     text: "Прозвон",
-                    onClick: function(e) { 
+                    onClick: function() { 
                         event.stopImmediatePropagation();
                         const query = 'Coordinator_Button_Prozvon';
                         this.sendMessageToReload(query);

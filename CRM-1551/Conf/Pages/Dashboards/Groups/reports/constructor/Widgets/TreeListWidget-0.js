@@ -64,7 +64,7 @@
             allowedPageSizes: [],
             showInfo: false
         },
-        onSelectionChanged: function(e) {
+        onSelectionChanged: function() {
         },
     },
     init: function() {

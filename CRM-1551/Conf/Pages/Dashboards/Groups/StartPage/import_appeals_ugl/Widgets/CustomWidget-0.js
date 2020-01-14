@@ -8,8 +8,9 @@
                 <div id='container' ></div>
                 `
     ,
+    container: {},
     afterViewInit: function() {
-        const CONTAINER = document.getElementById('container');
+        this.container = document.getElementById('container');
         let fileInput  =  this.createElement('input', { type: 'file', className: 'inputfile', id: 'fileInput', accept: ".csv"});
         let fileLabel__triangle  = this.createElement('div', {className: 'triangle fileLabel__triangle' });
         let fileLabelText = this.createElement('div', { id: 'fileChooserText', className: 'btn', innerText: '1. Обрати файл'});
@@ -17,30 +18,26 @@
         let btnImportFile__triangle  = this.createElement('div', {className: 'triangle btnImportFile__triangle' });
         let btnImportFile = this.createElement('div', {disabled: true,  className: 'btn', id: 'btnImportFile',  innerText: '2. Завантажити файл' }, btnImportFile__triangle);
         let showTable__triangle  = this.createElement('div', {className: 'triangle showTable__triangle' });
-        let btnShowTable = this.createElement('div', { className: 'btn', id: 'btnShowTable',  innerText: '3. Вiдобразити таблицю' },showTable__triangle);
+        this.createElement('div', { className: 'btn', id: 'btnShowTable',  innerText: '3. Вiдобразити таблицю' },showTable__triangle);
         let btnsWrapper = this.createElement('div', { id: 'btnsWrapper' }, fileInput, fileLabel, btnImportFile);
-        CONTAINER.appendChild(btnsWrapper);
+        this.container.appendChild(btnsWrapper);
         fileInput.addEventListener('input', event => {
             let target = event.currentTarget;
             if (target.value !== '') { 
                 btnImportFile.disabled = false;
              }
-        });   
-        // btnShowTable.addEventListener( 'click', event => {
-        //     
-        // });
-        btnImportFile.addEventListener( 'click', event => {
+        });
+        btnImportFile.addEventListener('click', () => {
             let fileInput = document.getElementById('fileInput');
-            if(fileInput.files.length > 0){
+            if (fileInput.files.length > 0) {
                 this.showPagePreloader("Зачекайте, файл завантажується");
                 let files = fileInput.files;
-                let target = event.currentTarget;
-                let file  = files[0];
+                let file = files[0];
                 let data = new FormData();
                 data.append("file", file);
                 data.append("configuration", "{\n   \"HasHeaderRecord\":true,\n   \"EncodingName\":\"windows-1251\",\n   \"Delimiter\":\";\",\n   \"Quote\":\"\\\"\",\n   \"MaxAllowedErrors\":0\n}");
                 let xhr = new XMLHttpRequest();
-                xhr.addEventListener("readystatechange", event => {
+                xhr.addEventListener("readystatechange", () => {
                     if (xhr.readyState === 4) {
                         let json = xhr.responseText;
                         let response = JSON.parse(json);
@@ -59,7 +56,7 @@
                             }
                         }
                         let responseModal =  this.createElement('div', { id: 'responseModal'});
-                        this.showModalWindow(responseModal, responseNotification, CONTAINER);                        
+                        this.showModalWindow(responseModal, responseNotification);                        
                     }
                 });
                 let url = window.location.origin + '/api/section/Appeals_UGL/import/csv';
@@ -84,7 +81,7 @@
     },
     sendMessageToTable: function(){
     },
-    showModalWindow: function (responseModal, responseNotification, CONTAINER) {
+    showModalWindow: function (responseModal, responseNotification) {
         const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
         const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
         const contentWrapper =  this.createElement('div', { id:'contentWrapper'}, responseModal);
@@ -106,10 +103,11 @@
             }
             function sendMessageToTable(){
                 this.messageService.publish( { name: 'showTable'});
-                CONTAINER.removeChild(container.lastElementChild);
+                let lastElementChild = this.container.lastElementChild;
+                this.container.removeChild(lastElementChild);
             }
         });
-        for (key in responseNotification) {
+        for (let key in responseNotification) {
             if( key === 'title'){ 
                 let responseTitle =  this.createElement('div', { id: 'responseTitle', className: 'responseTest', innerText: responseNotification[key] });
                 responseModal.appendChild(responseTitle); 
@@ -125,7 +123,7 @@
             }
         }
         this.hidePagePreloader();
-        CONTAINER.appendChild(modalWindowWrapper);
+        this.container.appendChild(modalWindowWrapper);
     },
     createElement: function(tag, props, ...children){
         const element = document.createElement(tag);

@@ -2,7 +2,7 @@
   return {
     title: 'Список звiтiв',
     hint: '',
-    formatTitle: function(div) {
+    formatTitle: function() {
         return {
             'background-color': '#36c6d3',
             'color': 'white',
