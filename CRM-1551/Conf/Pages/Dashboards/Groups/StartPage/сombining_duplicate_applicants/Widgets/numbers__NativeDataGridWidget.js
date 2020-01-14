@@ -32,10 +32,10 @@
             }
         });
     },
-    afterLoadDataHandler: function(data) {
+    afterLoadDataHandler: function() {
         this.render();
     },
-    destroy: function(data) {
+    destroy: function() {
         this.sub.unsubscribe();
     },
 };

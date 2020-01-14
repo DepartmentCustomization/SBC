@@ -133,7 +133,7 @@
         this.data = data;
         this.render();
     },
-    destroy: function(data) {
+    destroy: function() {
         this.sub.unsubscribe();
     },
 };
