@@ -21,7 +21,7 @@
         "set-nocount": "off",
         "set-quoted-identifier": "off",
         "set-transaction-isolation-level": "off",
-        "set-variable": "error",
+        "set-variable": "off",
         "upper-lower": "error",
         "unicode-string" : "error"
     },
