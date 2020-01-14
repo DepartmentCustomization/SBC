@@ -159,8 +159,8 @@
                     icon: "check",
                     type: "default",
                     text: "Роз'яснено",
-                    onClick: function(e) {
-                        e.event.stopImmediatePropagation();
+                    onClick: function(event) {
+                        event.stopImmediatePropagation();
                         const query = 'Coordinator_Button_Rozyasneno';
                         this.sendMessageToReload(query);
                     }.bind(this)
@@ -173,7 +173,7 @@
                     icon: "tel",
                     type: "default",
                     text: "Прозвон",
-                    onClick: function(e) { 
+                    onClick: function(event) { 
                         event.stopImmediatePropagation();
                         const query = 'Coordinator_Button_Prozvon';
                         this.sendMessageToReload(query);
@@ -193,22 +193,20 @@
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },
+        getColumnHeader: function(key, width) {
+            return {
+                key: key,
+                width: width
+            }
+        },
         myCreateExcel: function(data){
-            let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
             let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number' );
             let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnykname' );
             let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
-            let indexZayavnikId = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnykid' );
             let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
             let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress' );
-            let indexQuestionId = data.columns.findIndex(el => el.code.toLowerCase() === 'questionid' );
             let indexOrganizationsName = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationsname' );
-            let indexVykonavets = data.columns.findIndex(el => el.code.toLowerCase() === 'vykonavets' );
-            let indexShortAnswer = data.columns.findIndex(el => el.code.toLowerCase() === 'short_answer' );
             let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'question_content' );
-            let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'adressz' );
-            let indexTransferOrgId = data.columns.findIndex(el => el.code.toLowerCase() === 'transfer_to_organization_id' );
-            let indexTransferOrgName = data.columns.findIndex(el => el.code.toLowerCase() === 'transfer_to_organization_name' );       
             this.showPagePreloader('Зачекайте, формується документ');
             this.indexArr = [];
             let column_registration_number = { name: 'registration_number', index: 0 };
@@ -229,7 +227,6 @@
                 top: 0.4, bottom: 0.4,
                 header: 0.0, footer: 0.0
             };
-            /*TITLE*/
             let cellInfoCaption = worksheet.getCell('A1');
             cellInfoCaption.value = 'Інформація';
             let cellInfo = worksheet.getCell('A2');
@@ -238,9 +235,9 @@
             cellPeriod.value = 'Період вводу з (включно) : дата з … дата по … (Розширений пошук).';
             let cellNumber = worksheet.getCell('A4');
             cellNumber.value = 'Реєстраційний № РДА …';
-            worksheet.mergeCells('A1:F1'); //вставить другой конец колонок
-            worksheet.mergeCells('A2:F2'); //вставить другой конец колонок
-            worksheet.mergeCells('A3:F3'); //вставить другой конец колонок
+            worksheet.mergeCells('A1:F1');
+            worksheet.mergeCells('A2:F2');
+            worksheet.mergeCells('A3:F3');
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -257,40 +254,25 @@
             let rowNumber = '№ з/п';
             captions.push(rowNumber);
             indexArr.forEach( el => {
-                if( el.name === 'registration_number'){
-                    var obj =  {
-                        key: 'registration_number',
-                        width: 10,
-                        height: 20,
-                    };
+                if (el.name === 'registration_number') {
+                    let obj = this.getColumnHeader('registration_number', 10);
+                    obj.height = 20;
                     columnsHeader.push(obj);
                     captions.push('Номер питання');
-                }else if(el.name === 'zayavnykName'){
-                    var obj =  {
-                        key: 'zayavnykName',
-                        width: 25
-                    };
+                } else if (el.name === 'zayavnykName') {
+                    let obj = this.getColumnHeader('zayavnykName', 25);
                     columnsHeader.push(obj);
                     captions.push('Заявник');
-                }else if(el.name === 'QuestionType'){
-                    var obj =  { 
-                        key: 'QuestionType',
-                        width: 52
-                    };
+                } else if (el.name === 'QuestionType') {
+                    let obj = this.getColumnHeader('QuestionType', 52);
                     columnsHeader.push(obj);
                     captions.push('Суть питання');
-                }else if( el.name === 'vykonavets'){
-                    var obj =  { 
-                        key: 'vykonavets',
-                        width: 16
-                    };
+                } else if (el.name === 'vykonavets') {
+                    let obj = this.getColumnHeader('vykonavets', 16);
                     columnsHeader.push(obj);
                     captions.push('Виконавець');
-                }else if( el.name === 'adress'){
-                    var obj =  { 
-                        key: 'adress',
-                        width: 16
-                    };
+                } else if (el.name === 'adress') {
+                    let obj = this.getColumnHeader('adress', 16);
                     columnsHeader.push(obj);
                     captions.push('Місце проблеми (Об\'єкт)');
                 }
@@ -299,21 +281,20 @@
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
             for( let  j = 0; j < data.rows.length; j ++ ){  
-                var row = data.rows[j];
-                let rowArr = [];
+                let row = data.rows[j];
                 let rowItem = { number: j + 1 };
-                for( i = 0; i < indexArr.length; i ++){
+                for(let i = 0; i < indexArr.length; i ++){
                     let el = indexArr[i];
                     if( el.name === 'registration_number'  ){
                         rowItem.registration_number = row.values[indexRegistrationNumber] + ', ' + row.values[indexControlDate];
-                    }else if(el.name === 'zayavnykName' ){
-                        row.values[indexAdress] === null ?  value = '' : value = row.values[indexAdress] ;
+                    } else if(el.name === 'zayavnykName' ) {
+                        let value = row.values[indexAdress] === null ?  '' : row.values[indexAdress] ;
                         rowItem.zayavnykName = row.values[indexZayavnikName] + ', ' + value;
-                    }else if(el.name === 'QuestionType' ){
+                    } else if(el.name === 'QuestionType' ) {
                         rowItem.QuestionType = 'Тип питання: ' + row.values[indexQuestionType] + '. Зміст: ' + row.values[indexQuestionContent];
-                    }else if( el.name === 'vykonavets'  ){
+                    } else if( el.name === 'vykonavets'  ) {
                         rowItem.vykonavets = row.values[indexOrganizationsName];
-                    }else if( el.name === 'adress'  ){
+                    } else if( el.name === 'adress'  ) {
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
@@ -331,10 +312,9 @@
                 }
                 worksheet.addRow(row);
             });
-            // rows styles
             for(let  i = 0; i < rows.length + 1; i++ ){
                 let number = i + 5 ;
-                var row = worksheet.getRow(number);
+                let row = worksheet.getRow(number);
                 row.height = 100;
                 worksheet.getRow(number).border = {
                     top: {style:'thin'},
@@ -405,7 +385,7 @@
                 });
             } return element;
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {

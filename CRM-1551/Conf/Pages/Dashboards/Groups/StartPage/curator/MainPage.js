@@ -2,8 +2,6 @@
     return {
         init: function() {
             let select2LibraryJS = 'select2LibraryJS'; 
-            let jQueryLibraryJS = 'jQueryLibraryJS'; 
-            let select2LibraryCSS = 'select2LibraryCSS'; 
             if (!document.getElementById(select2LibraryJS)) {
                 let head  = document.getElementsByTagName('head')[0];
                 let script  = document.createElement('script');
@@ -19,7 +17,6 @@
                         head.appendChild(script2);
                         script2.onload = function () {
                         let style  = document.createElement('style');
-                        let styleDefault  = document.createElement('style');
                         let styleSelect = document.createElement('link');
                             styleSelect.rel = 'stylesheet';
                             styleSelect.href =  'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css';
@@ -49,7 +46,7 @@
         hideMyPreloader: function(){
             this.hidePagePreloader();
         },
-        createCustomStyle: function(message){
+        createCustomStyle: function(){
             const elements = Array.from(document.querySelectorAll('.dx-datagrid-export-button'));
             elements.forEach( function(element){
                 const spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});

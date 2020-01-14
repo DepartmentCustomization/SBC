@@ -101,17 +101,17 @@
             const techBox__icon = this.createElement('div', { id: 'techBox__icon', className:'material-icons', innerText:'help' });
             const techBox = this.createElement('div', { id: 'techWrapper' }, techBox__icon);
             const techInfoCont = this.createElement('div', { id: 'techInfoCont', className: 'techInfoCont'}, techBox);
+            let tabsWrapper = document.getElementById("tabsWrapper");
             tabsWrapper.appendChild(tabsContainer);
             tabsWrapper.appendChild(techInfoCont);
             techBox__icon.addEventListener('click', event => {
                 event.stopImmediatePropagation();
-                let target = event.currentTarget;
                 if(techBox.children.length === 1 ){
                     let techInfoWrapper__triangle =  this.createElement('div', { className: 'techInfoWrapper__triangle' });
-                    techInfo__messageTitle = this.createElement('div', { id: 'techInfo__messageTitle', innerText: 'Текст повідомлення' });
-                    techInfo__messageText = this.createElement('textarea', { id: 'techInfo__messageText', placeholder: 'Введiть текст...'});
-                    techInfo__sendBtn = this.createElement('button', { id: 'techInfo__sendBtn', className: 'disabledBtn',  innerText: 'Відправити ', disabled: 'true' });
-                    techInfo__infoText = this.createElement('div', { id: 'techInfo__infoText',  innerText: 'Звертайтеся за допомогою цієї форми з будь-якими питаннями у будь який час або  телефонуйте за номером телефону 044-366-80-47' });
+                    let techInfo__messageTitle = this.createElement('div', { id: 'techInfo__messageTitle', innerText: 'Текст повідомлення' });
+                    let techInfo__messageText = this.createElement('textarea', { id: 'techInfo__messageText', placeholder: 'Введiть текст...'});
+                    let techInfo__sendBtn = this.createElement('button', { id: 'techInfo__sendBtn', className: 'disabledBtn',  innerText: 'Відправити ', disabled: 'true' });
+                    let techInfo__infoText = this.createElement('div', { id: 'techInfo__infoText',  innerText: 'Звертайтеся за допомогою цієї форми з будь-якими питаннями у будь який час або  телефонуйте за номером телефону 044-366-80-47' });
                     let techInfoWrapper = this.createElement('div', { id: 'techInfoWrapper'}, techInfoWrapper__triangle, techInfo__messageTitle,techInfo__messageText, techInfo__sendBtn, techInfo__infoText );
                     techInfo__messageText.addEventListener('input', function() {
                         if(techInfo__messageText.textLength){
@@ -122,7 +122,7 @@
                             techInfo__sendBtn.classList.add('disabledBtn');
                         }
                     });
-                    techInfo__sendBtn.addEventListener( 'click', e => {
+                    techInfo__sendBtn.addEventListener( 'click', () => {
                         if(techInfo__messageText.textLength){
                             techBox.removeChild(techBox.lastElementChild);
                         }
@@ -156,24 +156,21 @@
             const filterEditDepart__title =  this.createElement('div', {  className: "filterEditDistrict__title", innerText: 'Департамент'});
             const filterEditDepart__icon =  this.createElement('div', {  className: "material-icons filterEditDistrict__icon", innerText: 'add_circle_outline'});
             const filterEditDepartAddWrap =  this.createElement('div', {  className: "filterEditDepartAddWrap filterWrap" }, filterEditDepart__icon, filterEditDepart__title);
-            filterDistrictAddWrap.addEventListener('click', function (event){
-                let target = event.currentTarget;
-                if( modalWindowContainer.classList.contains('modalWindowShowClass')){
-                }else{
+            filterDistrictAddWrap.addEventListener('click', function (){
+                if(!modalWindowContainer.classList.contains('modalWindowShowClass')) {
                     let location = 'district';
                     this.createModalForm(modalWindowContainer, location, this.districtData);
                 }
             }.bind(this, modalWindowContainer));
-            filterEditDepartAddWrap.addEventListener('click', function (event){
-                let target = event.currentTarget;
-                if( modalWindowContainer.classList.contains('modalWindowShowClass')){
-                }else{
+            filterEditDepartAddWrap.addEventListener('click', function (){
+                if(!modalWindowContainer.classList.contains('modalWindowShowClass')) {
                     let location = 'departament';
                     this.createModalForm(modalWindowContainer, location, this.departData);
                 }
             }.bind(this, modalWindowContainer));
             filtersCaptionBox.appendChild(filterDistrictAddWrap);
             filtersCaptionBox.appendChild(filterEditDepartAddWrap);
+            let filtersWrapper = document.getElementById("filtersWrapper");
             filtersWrapper.appendChild(filtersCaptionBox);
             filtersWrapper.appendChild(modalWindowContainer);
         },
@@ -181,7 +178,7 @@
             const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: "searchContainer__input"});
             const searchContainer = this.createElement('div', {id: 'searchContainer', className: "searchContainer"}, searchContainer__input);
             filtersWrapper.appendChild(searchContainer);
-            searchContainer__input.addEventListener('input', event =>  {
+            searchContainer__input.addEventListener('input', () =>  {
                 if(searchContainer__input.value.length == 0 ){
                     this.resultSearch('clearInput', 0);
                     this.showTable(searchContainer__input);
@@ -197,12 +194,12 @@
         },
         setDistrictData: function(status, location, data){
             let dataDistrict = [];
-            indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-            indexFilterName = data.columns.findIndex(el => el.code.toLowerCase() === 'filter_name' );
-            indexDistrictId = data.columns.findIndex(el => el.code.toLowerCase() === 'district_id' );
-            indexQuestionDirectionId = data.columns.findIndex(el => el.code.toLowerCase() === 'questiondirection_id' );
-            indexDistrictName = data.columns.findIndex(el => el.code.toLowerCase() === 'district_name' );
-            indexQuestionDirectionName = data.columns.findIndex(el => el.code.toLowerCase() === 'questiondirection_name' );
+            let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
+            let indexFilterName = data.columns.findIndex(el => el.code.toLowerCase() === 'filter_name' );
+            let indexDistrictId = data.columns.findIndex(el => el.code.toLowerCase() === 'district_id' );
+            let indexQuestionDirectionId = data.columns.findIndex(el => el.code.toLowerCase() === 'questiondirection_id' );
+            let indexDistrictName = data.columns.findIndex(el => el.code.toLowerCase() === 'district_name' );
+            let indexQuestionDirectionName = data.columns.findIndex(el => el.code.toLowerCase() === 'questiondirection_name' );
             data.rows.forEach( row => {
                 let obj = {
                     id: row.values[indexId],
@@ -215,27 +212,28 @@
                 dataDistrict.push(obj);
             });
             this.districtData = dataDistrict;
-            if( status === 'new'){
+            if (status === 'new') {
                 this.createFilterDistrictElements(this.districtData);
-            }else if( status === 'reload'){
+            } else if(status === 'reload') {
                 this.createFilterDistrictElements(this.districtData);
                 let modalWindowContainer = document.getElementById('modalWindowContainer');
                 this.createModalForm(modalWindowContainer, location, this.districtData );
-            } else if( status === 'delete'){
+            } else if(status === 'delete') {
                 this.reloadMainTable();
             }
         },
         createFilterDistrictElements: function(data){
             let container = document.getElementById('filtersContainerDistrict');
-            while ( container.hasChildNodes() ) {
+            while (container.hasChildNodes()) {
                 container.removeChild( container.lastElementChild );
             }          
-            for ( i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++){
                 let row = data[i];
                 let filter_closer = this.createElement('div', { className: 'filter_closer filter_closer_district filter_closer_hide'});
                 let filter__icon = this.createElement('div', { className: " filterIcon material-icons", innerText: 'filter_list'});
                 let filter__title = this.createElement('div', {  className: "filterTitle", innerText: ''+row.filterName+''});
                 let filterWrapper  =  this.createElement('div', { id: ''+row.id+'', district_id: ''+row.districtId+'', question_id: ''+row.questDirectId+'', className: "filter_district filter"}, filter__icon, filter__title, filter_closer);
+                let filtersContainerDistrict = document.getElementById('filtersContainerDistrict');
                 filtersContainerDistrict.appendChild(filterWrapper);
             }
             this.changeFilterItemDistrict();
@@ -283,9 +281,9 @@
         },
         setDepartmentData: function(status, location, data){
             let dataDepartament = [];
-            indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-            indexOrganizationId = data.columns.findIndex(el => el.code.toLowerCase() === 'organization_id' );
-            indexDepartamentName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
+            let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
+            let indexOrganizationId = data.columns.findIndex(el => el.code.toLowerCase() === 'organization_id' );
+            let indexDepartamentName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
             data.rows.forEach( row => {
                 let obj = {
                     id: row.values[indexId],
@@ -310,12 +308,13 @@
             while ( container.hasChildNodes() ) {
                 container.removeChild( container.lastElementChild );
             }             
-            for ( i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++){
                 let row = data[i];
                 let filter_closer = this.createElement('div', { className: 'filter_closer filter_closer_depart filter_closer_hide'});
                 let filter__icon = this.createElement('div', { className: " filterIcon material-icons", innerText: 'filter_list'});
                 let filter__title = this.createElement('div', {  className: "filterTitle", innerText: ''+row.departamentName+''});
                 let filterWrapper  =  this.createElement('div', { id: ''+row.id+'',  question_id: ''+row.organizationId+'', className: "filter_depart filter"}, filter__icon, filter__title, filter_closer);
+                let filtersContainerDepart = document.getElementById("filtersContainerDepart");
                 filtersContainerDepart.appendChild(filterWrapper);
             }
             this.changeFilterItemDepart();
@@ -363,8 +362,8 @@
         },
         setDistrictCategories: function(data){
             let dataDistrictNameCategories = [];
-            indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-            indexDistrictName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
+            let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
+            let indexDistrictName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
             data.rows.forEach( row => {
                 let obj = {
                     id: row.values[indexId],
@@ -376,8 +375,8 @@
         },
         setQuestionTypesCategories: function(data){
             let dataQuestionTypeCategories = [];
-            indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-            indexQuestionTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
+            let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
+            let indexQuestionTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
             data.rows.forEach( row => {
                 let obj = {
                     id: row.values[indexId],
@@ -389,8 +388,8 @@
         },
         setDepartmentCategories: function(data){
             let dataDepartamentCategories = [];
-            indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-            indexQuestionTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
+            let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
+            let indexQuestionTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
             data.rows.forEach( row => {
                 let obj = {
                     id: row.values[indexId],
@@ -431,45 +430,46 @@
         },
         reloadMainTable: function(message){
             this.messageService.publish( { name: 'showPagePreloader'});
+            let tableContainer = document.getElementById('tableContainer');
             while ( tableContainer.hasChildNodes() ) {
                 tableContainer.removeChild( tableContainer.childNodes[0] );
             }        
-            if(message){
+            let reloadTable = false;
+            if(message) {
                 this.column = message.column;
                 this.navigation = message.navigation;
                 this.targetId = message.targetId;
-                var reloadTable = true;
-            }else{
-                var reloadTable = false;
+                reloadTable = true;
             }
             let executeQueryTable = {
                 queryCode: 'CoordinatorController_table',
                 limit: -1,
                 parameterValues: []
             };
-            this.queryExecutor(executeQueryTable, this.createTable.bind(this,  reloadTable ), this);
+            this.queryExecutor(executeQueryTable, this.createTable.bind(this, reloadTable), this);
             this.showPreloader = false;
         },
         createModalForm: function(modalWindowContainer, location, data){
-            if( modalWindowContainer.parentElement == null){
+            if(modalWindowContainer.parentElement == null) {
+                let filtersWrapper = document.getElementById('filtersWrapper');
                 filtersWrapper.appendChild(modalWindowContainer);
             }
             while ( modalWindowContainer.hasChildNodes() ) {
                     modalWindowContainer.removeChild( modalWindowContainer.childNodes[0] );
             }
             modalWindowContainer.classList.add('modalWindowShowClass');
-            if( location === 'district'){
+            let modalFiltersHeader = {};
+            if (location === 'district') {
                 const modalFiltersHeader__categorie =  this.createElement('div', {className: 'filHeadCategorie headerSelectFilter', id: 'modalFiltersHeader__categorie', innerText: 'НАПРЯМОК РОБIТ'});
                 const modalFiltersHeader__district =  this.createElement('div', {className: 'filHeadDistrict headerSelectFilter', id: 'modalFiltersHeader__district', innerText: 'РАЙОН'});
-                var modalFiltersHeader =  this.createElement('div', { id: 'modalFiltersHeader'}, modalFiltersHeader__district, modalFiltersHeader__categorie);
+                modalFiltersHeader = this.createElement('div', { id: 'modalFiltersHeader'}, modalFiltersHeader__district, modalFiltersHeader__categorie);
             }else if( location === 'departament' ){
                 const modalFiltersHeader__depart =  this.createElement('div', {className: 'filHeadDepart headerSelectFilter', id: 'modalFiltersHeader__departament', innerText: 'ДЕПАРТАМЕНТ'});
-                var modalFiltersHeader =  this.createElement('div', { id: 'modalFiltersHeader'}, modalFiltersHeader__depart);
+                modalFiltersHeader =  this.createElement('div', { id: 'modalFiltersHeader'}, modalFiltersHeader__depart);
             }
             const modalFiltersContainer =  this.createElement('div', { id: 'modalFiltersContainer'});
             const modalFilters =  this.createElement('div', { id: 'modalFilters'}, modalFiltersHeader, modalFiltersContainer);
             const modalHeader__button_close  =  this.createElement('button', { id: 'modalHeader__button_close', className: 'modalBtn', innerText: 'Закрити'});
-            const modalHeader__button_save  =  this.createElement('button', { id: 'modalHeader__button_save', className: 'modalBtn', innerText: 'Зберегти'});
             const modalHeader__buttonWrapper =  this.createElement('div', { id: 'modalHeader__buttonWrapper'}, modalHeader__button_close);
             const modalHeader__caption =  this.createElement('div', { id: 'modalHeader__caption', innerText: 'Налаштування фiльтрiв'});
             const modalHeader  =  this.createElement('div', { id: 'modalHeader'}, modalHeader__caption, modalHeader__buttonWrapper);
@@ -477,8 +477,7 @@
             modalWindow.style.display = 'block';
             modalWindowContainer.appendChild(modalWindow);
             this.createModalFiltersContainerItems(data, modalFiltersContainer, location);
-            modalHeader__button_close.addEventListener( 'click', function(event){
-                let target = event.currentTarget;
+            modalHeader__button_close.addEventListener( 'click', function(){
                 modalWindowContainer.classList.remove('modalWindowShowClass');
                 modalWindowContainer.remove(modalWindowContainer.childNodes[0]);
                 this.reloadMainTable();
@@ -650,18 +649,18 @@
                 this.showPreloader = false;
             }
         },
-        reloadFilters: function(location, data){
+        reloadFilters: function(location){
             let status = 'reload';
-            if( location === 'district' ){
-                var executeQueryFilters = {
+            if( location === 'district' ) {
+                let executeQueryFilters = {
                     queryCode: 'cc_FilterName',
                     limit: -1,
                     parameterValues: []
                 };
                 this.queryExecutor(executeQueryFilters, this.setDistrictData.bind(this, status, location), this);
                 this.showPreloader = false; 
-            }else if( location === 'departament' ){
-                var executeQueryFilters = {
+            } else if ( location === 'departament' ) {
+                let executeQueryFilters = {
                     queryCode: 'cc_FilterNameDepartment',
                     limit: -1,
                     parameterValues: []
@@ -695,11 +694,12 @@
                     columnHeader.style.backgroundColor = 'rgba(238, 163, 54, 1)';
                 }
                 let column =  this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: 'column'}, columnHeader);
+                let tableContainer = document.getElementById('tableContainer');
                 tableContainer.appendChild(column);
             }
             for(let i = 0; i < data.rows.length - 1; i ++  ){
                 let elRow = data.rows[i];
-                navigationIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'navigation' );
+                let navigationIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'navigation' );
                 for(let  j = 2; j < elRow.values.length; j ++  ){
                     let el = elRow.values[j];
                     if( el != 0 ){
@@ -831,7 +831,7 @@
         resultSearch: function(message, value){
             this.messageService.publish({name: message, value: value});
         },
-        createOptions: function(selectId, event) {
+        createOptions: function() {
             $(document).ready(function() {
                 $('.js-example-basic-single').select2();
                 $(".js-example-placeholder-district").select2({
