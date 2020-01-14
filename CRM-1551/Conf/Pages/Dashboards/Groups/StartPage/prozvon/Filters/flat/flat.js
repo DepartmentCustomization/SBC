@@ -1,6 +1,5 @@
 (function () {
   return {
-    // zayavnyk_
     placeholder: 'Квартира',
     onChangeValue: function(value) {
         this.yourFunctionName(value);
