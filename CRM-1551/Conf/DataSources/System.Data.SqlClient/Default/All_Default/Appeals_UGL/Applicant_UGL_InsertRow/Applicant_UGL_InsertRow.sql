@@ -1,19 +1,16 @@
-DECLARE @output TABLE (Id int);
+DECLARE @output TABLE (Id INT);
 
-DECLARE @app_id int;
+DECLARE @app_id INT=0;
 
-DECLARE @interval float = 0.2;
+DECLARE @interval NUMERIC(8,2) = 0.2;
 
-DECLARE @valid_date_birth datetime;
+DECLARE @numbers TABLE (num NVARCHAR(15));
 
-DECLARE @numbers TABLE (num nvarchar(15));
-
-SET
-    @valid_date_birth = IIF(
+DECLARE @valid_date_birth DATETIME = IIF(
         @Application_BirthDate IS NOT NULL,
         @Application_BirthDate + @interval,
         NULL
-    )
+    );
 
 INSERT INTO
     @numbers
@@ -25,7 +22,7 @@ FROM
 UPDATE
     @numbers
 SET
-    num = REPLACE(num, ' ', '')
+    num = REPLACE(num, ' ', '');
 UPDATE
     @numbers
 SET
@@ -39,7 +36,9 @@ SET
         WHEN len(num) < 10
         AND (LEFT(num, 1) != '0') THEN N'0' + num
         ELSE num
-    END IF len(isnull(rtrim(@Applicant_Id), N'')) > 0 BEGIN
+    END; 
+    IF len(isnull(rtrim(@Applicant_Id), N'')) > 0 
+    BEGIN
 UPDATE
     [dbo].[Applicants]
 SET
@@ -58,11 +57,11 @@ SET
     [edit_date] = getutcdate(),
     [user_edit_id] = @CreatedUser
 WHERE
-    Id = @Applicant_Id
+    Id = @Applicant_Id;
 DELETE FROM
     [dbo].[LiveAddress]
 WHERE
-    applicant_id = @Applicant_Id
+    applicant_id = @Applicant_Id;
 INSERT INTO
     [dbo].[LiveAddress] (
         applicant_id,
@@ -82,13 +81,15 @@ VALUES
         @Applicant_Flat,
         1,
         1
-    )
+    );
 UPDATE
     [dbo].[Appeals]
 SET
-    [applicant_id] = @Applicant_Id
+    [applicant_id] = @Applicant_Id,
+    [user_edit_id] = @CreatedUser,
+    [edit_date]=GETDATE()
 WHERE
-    [Id] = @AppealId
+    [Id] = @AppealId;
     /*
      if (select count(1) from [dbo].[ApplicantPhones] where applicant_id = @Applicant_Id and phone_number = @Applicant_Phone and IsMain = 1) = 0
      begin
@@ -104,7 +105,7 @@ WHERE
      end
      */
 SELECT
-    @Applicant_Id AS ApplicantId
+    @Applicant_Id AS ApplicantId;
 END
 ELSE BEGIN
 INSERT INTO
@@ -141,18 +142,18 @@ VALUES
         @Applicant_Privilege,
         @Applicant_Email,
         @Applicant_Type
-    )
-SET
-    @app_id = (
+    );
+SET @app_id = (
         SELECT
-            top 1 Id
+            TOP 1 Id
         FROM
             @output
-    ) --------------- INSERT APPLICANT PHONES -------------------
-    DECLARE @step tinyint = 0;
-    DECLARE @phone_qty tinyint = (
+    ); 
+    --------------- INSERT APPLICANT PHONES ------------------- КУУУКУ
+    DECLARE @step TINYINT = 0;
+    DECLARE @phone_qty TINYINT = (
     SELECT COUNT(1)
-    FROM @numbers) 
+    FROM @numbers); 
 
     WHILE (@step < @phone_qty) 
     BEGIN
@@ -172,7 +173,7 @@ VALUES(
    (SELECT num
     FROM @numbers 
     ORDER BY num OFFSET @step ROWS FETCH NEXT @step+1 ROWS ONLY)
-)
+);
 SET @step += 1;
 END 
 -----------------------------------------------------------
@@ -196,16 +197,16 @@ VALUES
         @Applicant_Flat,
         1,
         1
-    )
+    );
 UPDATE
     [dbo].[Appeals]
 SET
     [applicant_id] = @app_id,
     [edit_date] = getutcdate()
 WHERE
-    [Id] = @AppealId
+    [Id] = @AppealId;
 SELECT
-    @app_id AS ApplicantId
+    @app_id AS ApplicantId;
 END 
 UPDATE
     [CRM_1551_Analitics].[dbo].[Applicants]
@@ -224,7 +225,7 @@ SET
                             [CRM_1551_Analitics].[dbo].[ApplicantPhones]
                             LEFT JOIN [CRM_1551_Analitics].[dbo].[PhoneTypes] ON [ApplicantPhones].phone_type_id = [PhoneTypes].Id
                         WHERE
-                            [ApplicantPhones].applicant_id = [LiveAddress].applicant_id FOR xml path('')
+                            [ApplicantPhones].applicant_id = [LiveAddress].applicant_id FOR XML Path('')
                     ),
                     1,
                     2,
@@ -232,14 +233,18 @@ SET
                 ),
                 N''
             ) phone
-        FROM
-            [CRM_1551_Analitics].[dbo].[LiveAddress]
-            LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] ON [LiveAddress].building_id = [Buildings].Id
-            LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] ON [Buildings].street_id = [Streets].Id
-            LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] ON [Streets].street_type_id = [StreetTypes].Id
-            LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] ON [Buildings].district_id = [Districts].Id
+        FROM 
+        [CRM_1551_Analitics].[dbo].[LiveAddress] LiveAddress
+            LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] Buildings
+                ON [LiveAddress].building_id = [Buildings].Id
+            LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] Streets
+                ON [Buildings].street_id = [Streets].Id
+            LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] StreetTypes
+                ON [Streets].street_type_id = [StreetTypes].Id
+            LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] Districts
+            ON [Buildings].district_id = [Districts].Id
         WHERE
             applicant_id = @app_id
     )
 WHERE
-    Id = @app_id 
+    Id = @app_id; 
