@@ -84,6 +84,7 @@
                 const modalWindow = this.createElement('div', { id: 'modalWindow' }, assigmResultWrapper, assigmResolutionWrapper, assigmRating, assigmComment, buttonWrapper);
                 const modalWrapper = this.createElement('div', { id: 'modalWrapper' }, modalWindow);
                 modalContainer.appendChild(modalWrapper);
+                this.modalContainer = modalContainer;
                 button_close.addEventListener('click', event => {
                     event.stopImmediatePropagation();
                     modalContainer.removeChild(modalContainer.firstElementChild);
@@ -95,11 +96,11 @@
                     target.style.backgroundColor = '#cfcbcb';
                     this.sendResult();
                 });
-                this.showAssigmResult(resultSelect, this.resultsValues, this);
+                this.showAssigmResult(resultSelect, this.resultsValues, button_save, this);
                 this.showPreloader = false;
             }
         },
-        showAssigmResult: function(select, data) {
+        showAssigmResult: function(select, button_save, data) {
             data.forEach(el => {
                 let option = this.createElement('option', { innerText: el.innerText, value: el.value, className: "option" });
                 select.appendChild(option);
@@ -109,10 +110,10 @@
                 e.stopImmediatePropagation();
                 let resultId = Number(e.params.data.id);
                 this.resultId = resultId;
-                this.showHiddenElements(resultId);
+                this.showHiddenElements(resultId, button_save);
             }.bind(this));
         },
-        showHiddenElements: function(resultId) {
+        showHiddenElements: function(resultId, button_save) {
             let resolutionInnerText;
             let resolutionId;
             button_save.disabled = false;
@@ -261,9 +262,9 @@
             this.closingResult.push(obj);
             this.rowsCounter++;
             if (this.rowsCounter === this.selectedRowsLength) {
-                modalContainer.removeChild(modalContainer.firstElementChild);
+                this.modalContainer.removeChild(this.modalContainer.firstElementChild);
                 if (this.resultId === 12 || this.resultId === 5) {
-                    this.showResultWrapper(this.closingResult, modalContainer);
+                    this.showResultWrapper(this.closingResult, this.modalContainer);
                 } else {
                     this.closingResult = [];
                     this.messageService.publish({ name: 'reloadMainTable', sortingString: this.sendString });
@@ -293,7 +294,7 @@
                 this.messageService.publish({ name: 'reloadMainTable', sortingString: this.sendString });
             });
         },
-        createOptions: function(selectId, event) {
+        createOptions: function() {
             $(document).ready(function() {
                 $('.js-example-basic-single').select2();
                 $(".js-example-placeholder-district").select2({
