@@ -39,10 +39,6 @@
                 format: "dd.MM.yyyy HH:mm"                
             }
         ],
-        export: {
-            enabled: false,
-            fileName: 'Доопрацьовані/Прострочені/Немає можливості виконати в даний період__'
-        },
         searchPanel: {
             visible: false,
             highlightCaseSensitive: true
@@ -71,10 +67,6 @@
             rowRenderingMode: null,
             columnRenderingMode: null,
             showScrollbar: null
-        },
-        searchPanel: {
-            visible: false,
-            highlightCaseSensitive: true
         },
         selection: {
             mode: "multiple"
@@ -130,7 +122,7 @@
             this.loadData(this.afterLoadDataHandler);
         }
     },
-	afterLoadDataHandler: function(data) {
+	afterLoadDataHandler: function() {
 		this.render();
         this.createCustomStyle();
 	},

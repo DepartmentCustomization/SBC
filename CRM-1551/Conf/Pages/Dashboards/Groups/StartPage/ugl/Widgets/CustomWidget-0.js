@@ -23,7 +23,7 @@
         this.column = [];
         this.navigator = [];
         const header = document.getElementById('header1');
-        header1.parentElement.style.flexFlow = "column nowrap";
+        header.parentElement.style.flexFlow = "column nowrap";
         header.firstElementChild.style.overflow = 'visible';
         header.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
         let executeQueryTable = {
@@ -52,7 +52,7 @@
         const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: "searchContainer__input"});
         const searchContainer = this.createElement('div', {id: 'searchContainer', className: "searchContainer"}, searchContainer__input);
         filtersWrapper.appendChild(searchContainer);
-        searchContainer__input.addEventListener('input', event =>  {
+        searchContainer__input.addEventListener('input', () =>  {
             if(searchContainer__input.value.length == 0 ){
                 this.resultSearch('clearInput', 0);
                 this.showTable(searchContainer__input);
@@ -70,38 +70,14 @@
         this.districtData = data;
         this.createFilterDistrictElements(data);
     },
-    createFilterDistrictElements: function(data){
-        for ( i = 0; i < data.rows.length; i++){
-            districtIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'district_id' );
-            questionIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'questiondirection_id' );
-            filterNameIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'filter_name' );
-            rowIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-            let row = data.rows[i];
-            let filter_closer = this.createElement('div', { className: 'filter_closer filter_closer_district filter_closer_hide'});
-            let filter__icon = this.createElement('div', { className: " filterIcon material-icons", innerText: 'filter_list'});
-            let filter__title = this.createElement('div', {  className: "filterTitle", innerText: ''+row.values[filterNameIndex]+''});
-            let filterWrapper  =  this.createElement('div', { id: ''+row.values[rowIndex]+'', district_id: ''+row.values[districtIndex]+'', question_id: ''+row.values[questionIndex]+'', className: "filter_district filter"}, filter__icon, filter__title, filter_closer);
-            filtersContainerDistrict.appendChild(filterWrapper);
-        }
+    createFilterDistrictElements: function(){
         this.changeFilterItemDistrict();
     },
     setDepartmentData: function(data){
         this.departData = data;
         this.createFilterDepartElements(data);
     },
-    createFilterDepartElements: function(data){
-        for ( i = 0; i < data.rows.length; i++){
-            districtIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-            questionIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'organization_id' );
-            filterNameIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
-            rowIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-            let row = data.rows[i];
-            let filter_closer = this.createElement('div', { className: 'filter_closer filter_closer_depart filter_closer_hide'});
-            let filter__icon = this.createElement('div', { className: " filterIcon material-icons", innerText: 'filter_list'});
-            let filter__title = this.createElement('div', {  className: "filterTitle", innerText: ''+row.values[filterNameIndex]+''});
-            let filterWrapper  =  this.createElement('div', { id: ''+row.values[rowIndex]+'', district_id: ''+row.values[districtIndex]+'', question_id: ''+row.values[questionIndex]+'', className: "filter_depart filter"}, filter__icon, filter__title, filter_closer);
-            filtersContainerDepart.appendChild(filterWrapper);
-        }
+    createFilterDepartElements: function(){
         this.changeFilterItemDepart();
     },
     changeFilterItemDistrict: function(){
@@ -186,14 +162,15 @@
     },
     reloadFilterAfterDelete:  function(element, location){
         element.parentElement.removeChild(document.getElementById(element.id));
-        if( location === 'district'){
-            var executeQueryFilters = {
+        let executeQueryFilters = {};
+        if (location === 'district') {
+            executeQueryFilters = {
                 queryCode: 'cc_FilterName',
                 limit: -1,
                 parameterValues: []
             };
-        }else if( location === 'departament' ){
-            var executeQueryFilters = {
+        } else if(location === 'departament') {
+            executeQueryFilters = {
                 queryCode: 'cc_FilterNameDepartment',
                 limit: -1,
                 parameterValues: []
@@ -203,9 +180,9 @@
         this.showPreloader = false;
     },
     setNewData: function(location, data){
-        if( location === 'district'){
-            this.districtData = data;   
-        }else if( location === 'departament' ){
+        if (location === 'district') {
+            this.districtData = data;
+        } else if ( location === 'departament' ) {
             this.departData = data;   
         }
         this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none');
@@ -222,16 +199,16 @@
         } return element;
     },
     reloadMainTable: function(message){
-        while ( tableContainer.hasChildNodes() ) {
-            tableContainer.removeChild( tableContainer.childNodes[0] );
-        }        
-        if(message){
+        let tableContainer = document.getElementById('tableContainer');
+        while (tableContainer.hasChildNodes()) {
+            tableContainer.removeChild(tableContainer.childNodes[0]);
+        }
+        let reloadTable = false;
+        if (message){
             this.column = message.column;
             this.navigation = message.navigation;
             this.targetId = message.targetId;
-            var reloadTable = true;
-        }else{
-            var reloadTable = false;
+            reloadTable = true;
         }
         let executeQueryTable = {
             queryCode: 'CoordinatorController_table',
@@ -242,15 +219,16 @@
         this.showPreloader = false;
     },
     createTabs: function(){
-        let tabPhone__title  = this.createElement('div', { className: 'tabPhone tabTitle', innerText: 'ВХІДНИЙ ДЗВІНОК'});
-        let tabAppeal__title  = this.createElement('div', { className: 'tabAppeal tabTitle', innerText: 'РЕЄСТРАЦІЯ ЗВЕРНЕНЬ'});
-        let tabAssigment__title  = this.createElement('div', { className: 'tabAssigment tabTitle', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
-        let tabFinder__title  = this.createElement('div', { className: ' tabTitle', innerText: 'Розширений пошук'});
-        const tabPhone = this.createElement('div', { id: 'tabPhone', location: 'dashboard', url: 'StartPage_operator', className: 'tabPhone tab tabTo'}, tabPhone__title);
+        let tabPhone__title = this.createElement('div', { className: 'tabPhone tabTitle', innerText: 'ВХІДНИЙ ДЗВІНОК'});
+        let tabAppeal__title = this.createElement('div', { className: 'tabAppeal tabTitle', innerText: 'РЕЄСТРАЦІЯ ЗВЕРНЕНЬ'});
+        let tabAssigment__title = this.createElement('div', { className: 'tabAssigment tabTitle', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
+        let tabFinder__title = this.createElement('div', { className: ' tabTitle', innerText: 'Розширений пошук'});
+        this.createElement('div', { id: 'tabPhone', location: 'dashboard', url: 'StartPage_operator', className: 'tabPhone tab tabTo'}, tabPhone__title);
         const tabAppeal = this.createElement('div', { id: 'tabAppeal', location: 'dashboard', url: 'import_appeals_ugl', className: 'tabAppeal tab tabTo'}, tabAppeal__title);
         const tabAssigment = this.createElement('div', { id: 'tabAssigment', location: 'dashboard', url: 'curator', className: 'tabAssigment tab tabHover'}, tabAssigment__title);
         const tabFinder = this.createElement('div', { id: 'tabFinder', location: 'dashboard', url: 'poshuk_table', className: 'tabFinder tab tabTo'}, tabFinder__title);
         const tabsContainer = this.createElement('div', { id: 'tabsContainer', className: 'tabsContainer'},tabAppeal ,tabAssigment, tabFinder);
+        let tabsWrapper = document.getElementById('tabsWrapper');
         tabsWrapper.appendChild(tabsContainer);
         let tabs = document.querySelectorAll('.tabTo');
         tabs = Array.from(tabs);
@@ -294,11 +272,12 @@
                 columnHeader.style.backgroundColor = 'rgb(238, 123, 54)';
             }
             let column =  this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: 'column'}, columnHeader);
+            let tableContainer = document.getElementById('tableContainer');
             tableContainer.appendChild(column);
         }
         for(let i = 0; i < data.rows.length - 1; i ++  ){
             let elRow = data.rows[i];
-            navigationIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'navigation' );
+            let navigationIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'navigation' );
             for(let  j = 2; j < elRow.values.length; j ++  ){
                 let el = elRow.values[j];
                 if( el != 0 ){
@@ -434,7 +413,7 @@
     resultSearch: function(message, value){
         this.messageService.publish({name: message, value: value});
     },
-    createOptions: function(selectId, event) {
+    createOptions: function() {
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
             $(".js-example-placeholder-district").select2({

@@ -110,7 +110,7 @@
         }else{
             document.getElementById('table9_neMozhluvo').style.display = 'block';
             this.config.query.parameterValues = [ { key: '@navigation', value: message.value}, { key: '@column', value: message.column} ];
-        	this.loadData(this.afterLoadDataHandler);
+            this.loadData(this.afterLoadDataHandler);
         }
     },
     createMasterDetails: function(container, options) {
@@ -147,7 +147,7 @@
             el.style.minWidth = '200px';
         })
     },    
-	afterLoadDataHandler: function(data) {
+	afterLoadDataHandler: function() {
 		this.render();
         this.createCustomStyle();
 	},

@@ -167,11 +167,11 @@
         document.getElementById('allTables').style.display = 'none';
         document.getElementById('searchTable').style.display = 'none';
     },    
-    hideSearchTable: function(message){
+    hideSearchTable: function(){
         document.getElementById('allTables').style.display = 'block';
         document.getElementById('searchTable').style.display = 'none';
     },
-	afterLoadDataHandler: function(data) {
+	afterLoadDataHandler: function() {
 		this.render();
         this.createCustomStyle();
 	},	    

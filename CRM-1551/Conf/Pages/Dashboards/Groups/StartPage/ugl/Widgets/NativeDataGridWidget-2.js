@@ -158,7 +158,7 @@
             });
         } return element;
     },
-	afterLoadDataHandler: function(data) {
+	afterLoadDataHandler: function() {
 		this.render();
         this.createCustomStyle();
 	},	
