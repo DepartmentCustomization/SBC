@@ -24,7 +24,7 @@
             this.filterColumns = [];
             this.defaultCheckedItem = [];
         },
-        clickOnGear: function(message) {
+        clickOnGear: function() {
             if( document.getElementById('modalWindowWrapper').style.display == 'none' ){
                 document.getElementById('modalWindowWrapper').style.display = 'block'
             }
@@ -59,39 +59,30 @@
             while( container.hasChildNodes() ) { 
             container.removeChild( container.lastElementChild );
             }
-            filtersBox = [];
+            const filtersBox = [];
             message.value.forEach( el => {
                 let value = el.operation;
+                let obj = {};
                 switch(value){
                     case true:
                     case '=':
-                        var obj = {
-                            title: el.placeholder,
-                            value: 'Наявнiсть'
-                        }
+                        obj.title = el.placeholder,
+                        obj.value = 'Наявнiсть'
                         break;
                     case 'like':
-                        var obj = {
-                            title: el.placeholder,
-                            value: el.value
-                        } 
+                        obj.title = el.placeholder,
+                        obj.value = el.value
                         break;
                     case '===':
                     case '==':
                     case 'in':
                     case '+""+':
-                        var obj = {
-                            title: el.placeholder,
-                            value: el.viewValue
-                        } 
+                        obj.title = el.placeholder,
+                        obj.value = el.value
                         break
                     default:
-                        resultTitle = this.operation(el.operation, el.placeholder);
-                        resultValue = this.changeDateValue(el.value);   
-                        var obj = {
-                            title: resultTitle,
-                            value: resultValue
-                        } 
+                        obj.title = this.operation(el.operation, el.placeholder);
+                        obj.value = this.changeDateValue(el.value);
                         break;
                 }
                 filtersBox.push(obj);
@@ -135,7 +126,6 @@
             }
         },
         createFilterElements: function(modalWindow){
-            /* группа 1*/
             const group1__title =  this.createElement('div', { className: 'group1__title groupTitle material-icons', innerText: 'view_stream Звернення'});
             const group2__title =  this.createElement('div', { className: 'group1__title groupTitle material-icons', innerText: 'view_stream Заявник'});
             const group3__title =  this.createElement('div', { className: 'group1__title groupTitle material-icons', innerText: 'view_stream Питання'});
@@ -157,7 +147,6 @@
             const group1__element4_title =  this.createElement('div', { className: 'group__element_title', innerText: 'Ознака'});
             const group1__element4 =  this.createElement('div', { className: 'group__element'}, group1__element4_checkBox, group1__element4_title);
             const group1__container =  this.createElement('div', {  className: 'groupContainer'}, group1__title, group1__element1, group1__element5, group1__element2, group1__element3, group1__element4 );
-            /* группа 2*/
             const group2__element2_checkBox =  this.createElement('input', {type: 'checkbox', className: 'group__element_checkBox',  columnWidth: 120,  value: 'zayavnyk_phone_number', id: 'zayavnyk_phone_number' });
             const group2__element2_title =  this.createElement('div', { className: 'group__element_title', innerText: 'Номер телефону'});
             const group2__element2 =  this.createElement('div', { className: 'group__element'}, group2__element2_checkBox, group2__element2_title);
@@ -183,7 +172,6 @@
             const group2__element10_title =  this.createElement('div', { className: 'group__element_title', innerText: 'E-mail'});
             const group2__element10 =  this.createElement('div', { className: 'group__element'}, group2__element10_checkBox, group2__element10_title);
             const group2__container =  this.createElement('div', {  className: 'groupContainer'}, group1__title, group2__element2, group2__element4, group2__element6, group2__element7, group2__element8, group2__element12, group2__element9, group2__element10);
-            /* Группа 3*/
             const group3__element2_checkBox =  this.createElement('input', {type: 'checkbox', className: 'group__element_checkBox', columnWidth: 150,   value: 'question_ObjectTypes', id: 'question_ObjectTypes' });
             const group3__element2_title =  this.createElement('div', { className: 'group__element_title', innerText: "Тип об'єкту"});
             const group3__element2 =  this.createElement('div', { className: 'group__element'}, group3__element2_checkBox, group3__element2_title);
@@ -228,7 +216,6 @@
             const group4__element11_title =  this.createElement('div', { className: 'group__element_title', innerText: 'Коментар виконавця'});
             const group4__element11 =  this.createElement('div', { className: 'group__element'}, group4__element11_checkBox, group4__element11_title);        
             const group4__container =  this.createElement('div', {  className: 'groupContainer'}, group4__title, group4__element2,  group4__element3, group4__element4, group4__element5, group4__element6, group4__element7 , group4__element8 , group4__element9, group4__element11, group4__element10  );
-            /* Группа 5*/
             const group5__element2_checkBox =  this.createElement('input', {type: 'checkbox', className: 'group__element_checkBox', columnWidth: 100,  value: 'transfer_date',  id: 'transfer_date'});
             const group5__element2_title =  this.createElement('div', { className: 'group__element_title', innerText: 'Передано'});
             const group5__element2 =  this.createElement('div', { className: 'group__element'}, group5__element2_checkBox, group5__element2_title);
@@ -255,9 +242,11 @@
             const modalBtnExit =  this.createElement('button', { id:'modalBtnExit', className: 'btn', innerText: 'Вийти'});
             const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnSave, modalBtnExit);
             modalBtnExit.addEventListener('click', event =>{
+                event.stopImmediatePropagation();
                 document.getElementById('modalWindowWrapper').style.display = 'none';
             });
             modalBtnSave.addEventListener('click', event =>{
+                event.stopImmediatePropagation();
                 this.defaultCheckedItem = [];
                 this.filterColumns = [];
                 let checkedElements = document.querySelectorAll('.group__element');

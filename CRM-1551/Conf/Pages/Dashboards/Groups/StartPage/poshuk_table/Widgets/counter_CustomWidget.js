@@ -44,7 +44,7 @@
             }
             return element;
         },
-        afterViewInit: function name(params) {
+        afterViewInit: function name() {
             const container = document.getElementById('counterContainer');
             const counterWrap = this.createElement('div', { id: 'counterWrap' });
             container.appendChild(counterWrap);
