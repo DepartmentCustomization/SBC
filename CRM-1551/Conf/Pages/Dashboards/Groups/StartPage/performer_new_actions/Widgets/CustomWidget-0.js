@@ -55,7 +55,6 @@
         this.showPreloader = false; 
     },
     userOrganization: function(data){
-        let indexOfTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationname' );
         let indexOfTypeId = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationid' );
         let indexOfTypeDistribute = data.columns.findIndex(el => el.code.toLowerCase() === 'distribute' );
         this.organizationId = [];
@@ -81,7 +80,7 @@
         const btnWrapper = this.createElement('div', { id: 'btnWrapper'});
         const table = this.createElement('div', { id: 'table'});
         const tableContainer = this.createElement('div', { id: 'tableContainer', className: 'tableContainer'}, table, btnWrapper);
-        const tableWrapper = this.createElement('div', { id: 'tableWrapper', className: 'tableWrapper'}, tableContainer);
+        this.createElement('div', { id: 'tableWrapper', className: 'tableWrapper'}, tableContainer);
         container.appendChild(tabsWrapper);
         container.appendChild(tableContainer);
         this.createTabs();
@@ -96,6 +95,7 @@
         const tabProcessingOrders = this.createElement('div', { id: 'tabProcessingOrders', url: 'performer_new_processing_assigments', className: 'tabProcessingOrders tab tabTo'}, tabProcessingOrders__title);
         const tabOrganizations = this.createElement('div', { id: 'tabOrganizations', url: 'performer_new_organizations', className: 'tabOrganizations tab  tabTo'}, tabOrganizations__title);
         const tabsContainer = this.createElement('div', { id: 'tabsContainer', className: 'tabsContainer'}, tabInformation, tabAction, tabProcessingOrders, tabOrganizations);
+        const tabsWrapper = document.getElementById('tabsWrapper');
         tabsWrapper.appendChild(tabsContainer);
         let tabs = document.querySelectorAll('.tabTo');
         tabs = Array.from(tabs);
@@ -151,22 +151,25 @@
             let eventTitle__name = this.createElement('div', {  className: 'eventTitle__name', innerText: ''+row.values[1]+''});
             let eventTitle = this.createElement('div', {  className: 'eventTitle displayFlex'}, eventTitle__name);
             let event = this.createElement('div', {  className: 'event displayFlex', id: ''+row.values[0]+''}, eventTitle, eventElementsСounter);
+            let eventWrapper = document.getElementById('eventWrapper');
             eventWrapper.appendChild(event);
             let name = row.values[1];
             for ( let i = 2;  i <row.values.length; i ++){
                 let el = row.values[i];
+                let link = undefined;
                 if( i == 2 ){
-                    var link = 'Прострочені';
+                    link = 'Прострочені';
                 }else if ( i == 3){
-                    var link = 'Не активні';
+                    link = 'Не активні';
                 }else if( i == 4 ){
-                    var link = 'В роботі';
+                    link = 'В роботі';
                 }
+                let eventElementsСounterItem = undefined;
                 if( el != '0 (0)'){
                     let eventElementsСounterItem__value = this.createElement('div', {  className: ' counter_value', innerText: ''+el+''});
-                    var eventElementsСounterItem = this.createElement('div', { value: link,  name: name,  className: 'counter'},eventElementsСounterItem__value);
+                    eventElementsСounterItem = this.createElement('div', { value: link,  name: name,  className: 'counter'},eventElementsСounterItem__value);
                 }else{
-                    var eventElementsСounterItem = this.createElement('div', {  className: 'counter'});
+                    eventElementsСounterItem = this.createElement('div', {  className: 'counter'});
                 }
                 eventElementsСounter.appendChild(eventElementsСounterItem);
             }
@@ -222,15 +225,17 @@
         const headerItems = this.createElement('div', { id: 'headerItems', className: 'headerItems displayFlex'}, headerItem__overdue, headerItem__notActive, headerItem__inWork);
         const headerTitle = this.createElement('div', { id: 'headerTitle'});        
         const eventsHeader = this.createElement('div', { id: 'eventsHeader', className: 'orgContainer displayFlex'}, headerTitle, headerItems);
-        const eventWrapper = this.createElement('div', {  id: 'eventWrapper', value: 0 , className: 'eventWrapper displayFlex'});
+        const eventWrapper = this.createElement('div', { id: 'eventWrapper', value: 0 , className: 'eventWrapper displayFlex'});
+        let table = document.getElementById('table');
         table.appendChild(eventsHeader);
         table.appendChild(eventWrapper);
         const createNewEventBtn = this.createElement('div', { id: 'createNewEventBtn', innerText: 'Додати Захід'});
         const btnContainer = this.createElement('div', { id: 'btnContainer', className: 'btnContainer'}, createNewEventBtn);
+        let btnWrapper = document.getElementById('btnWrapper');
         btnWrapper.appendChild(btnContainer);
-        createNewEventBtn.addEventListener( 'click', event => {
+        createNewEventBtn.addEventListener( 'click', () => {
             window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/Events/add");
         });
-    },
+    }
 };
 }());
