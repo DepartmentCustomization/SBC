@@ -1,6 +1,6 @@
 (function () {
   return {
-    Detail_History: function(column, row, value, event, indexOfColumnId) {
+    Detail_History: function(column, row) {
         const parameters = [
                             { key: '@history_id', value: row.values[0]}
                            ];
