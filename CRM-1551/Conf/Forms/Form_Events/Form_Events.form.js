@@ -1,10 +1,10 @@
 (function() {
     return {
-        Detail_History: function(column, row, value, event, indexOfColumnId) {
+        Detail_History: function(column, row) {
             const parameters = [
                 { key: '@history_id', value: row.values[0] }
             ];
-            this.details.loadData('EventHistory_Details', parameters /*, filters, sorting*/ );
+            this.details.loadData('EventHistory_Details', parameters);
             this.details.setVisibility('EventHistory_Details', true);
         },
         init: function() {
@@ -27,15 +27,6 @@
                 document.getElementById('active_button').disabled = true;
             }
             this.form.onControlValueChanged('real_end_date', this.changeOndateFact.bind(this));
-            /*  yourInput.addEventListener('input', event =>  {
-                if(yourInput.value.length == 0 ){
-                    btn.disabled = true;
-                }else if( yourInput.value.length > 0) {
-                  btn.disabled = false;
-                }
-            });*/
-            //document.getElementById('active_button').disabled = true;
-            // создание выплывающего окна при клика на иконку
             const formNewContact = {
                 title: 'Аудіофайл',
                 acceptBtnText: "save",
@@ -50,15 +41,12 @@
                             placeholder: 'Виберіть файл',
                             hidden: false,
                             required: false,
-                            //position: 4,
                             fullScreen: true,
-                            //value: '',
                             type: 'file'
                         }
                     ]
                 }]
             }
-            //добавление кнопки на закрытие начало
             document.getElementById('active_button').addEventListener("click", function(event) {
                 event.stopImmediatePropagation();
                 const Question_Close_callback = (response) => {
@@ -81,35 +69,26 @@
                                 }
                             ]
                         };
-                        this.queryExecutor.getValues(objName).subscribe(data => {
+                        this.queryExecutor.getValues(objName).subscribe(() => {
                         });
-                        // перезагрузка страницы при закрытии заходу location.reload();
                         this.navigateTo('/sections/Events/view/' + this.id);
                     }
                 };
                 const fieldsForm = {
                     title: ' ',
-                    // singleButton: 1,
                     text: 'Підтвердити закриття заходу?',
                     acceptBtnText: 'yes',
                     cancelBtnText: 'no',
                 };
                 this.openModalForm(fieldsForm, Question_Close_callback.bind(this));
             }.bind(this));
-            //добавление кнопки на закрытие конец
-            // арт чтото новое
             this.form.onControlValueChanged('ObjectTypesId', this.onStreetsChanged);
-            // this.form.onControlValueChanged('object_id', this.onStreetsChanged); //арт новое
-            // конец чего нового
             const addContactCallBack = (param) => {
-                if (param === true) { /* (param === false){ */
+                if (param === true) {
                     const body = {
-                            //queryCode: 'ak4_HallsInsertRow',
                             parameterValues: param
                         }
-                    this.queryExecutor.getValues(body).subscribe(data => {
-                        //this.form.setControlValue('HallId', {key: data.rows[0].values[0], value: data.rows[0].values[1]});
-                        //this.form.setControlValue('Number',  data.rows[0].values[2]);
+                    this.queryExecutor.getValues(body).subscribe(() => {
                     });
                 }
             }
@@ -119,8 +98,6 @@
                 this.openModalForm(formNewContact, addContactCallBack);
             });
             icon.style.fontSize = "20px";
-            //icon.style.color = "red";
-            // END modal for new contact 
             if (this.state != 'create') {
                 this.form.disableControl('event_id');
                 this.form.disableControl('event_class_id');
@@ -130,7 +107,6 @@
                 this.form.disableControl('executor_id');
                 this.form.disableControl('comment');
                 this.form.disableControl('start_date');
-                // this.form.disableControl('coment_executor');
                 this.form.disableControl('active');
                 if (this.form.getControlValue('real_end_date') != null) {
                     this.form.disableControl('plan_end_date');
@@ -139,9 +115,8 @@
                 }
             }
             this.form.onControlValueChanged('event_class_id', this.onEventQueType);
-            // this.form.onControlValueChanged('real_end_date', this.onTimeCheck );
             this.questions();
-        }, // END INIT
+        },
         questions: function() {
             const param2 = [{ key: '@Id', value: this.id }];
             this.details.loadData('Detail_Event_Questions', param2);
@@ -178,8 +153,8 @@
                 this.form.disableControl('object_id');
             } else {
                 let dependParams = [{ parameterCode: '@ObjectTypesId', parameterValue: dis_id }];
-                this.form.setControlParameterValues('object_id', dependParams); //арт building_id StrictId
-                this.form.enableControl('object_id'); // building_id StrictId арт
+                this.form.setControlParameterValues('object_id', dependParams);
+                this.form.enableControl('object_id');
             }
         },
         afterSave: function(data) {
