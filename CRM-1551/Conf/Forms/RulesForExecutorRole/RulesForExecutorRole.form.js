@@ -1,6 +1,6 @@
 (function () {
   return {
-    init:function(vasya) {
+    init:function() {
         this.form.disableControl("Rules_Id");
     }
 };
