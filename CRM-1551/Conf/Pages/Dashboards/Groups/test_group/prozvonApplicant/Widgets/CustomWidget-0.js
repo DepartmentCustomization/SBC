@@ -39,6 +39,7 @@
         },
         openModalForm: function(message) {
             let modalContainer = document.getElementById('modalContainer');
+            this.modalContainer = modalContainer;
             if (modalContainer.childNodes.length === 0) {
                 this.resolutionId = '';
                 this.resultId = '';
@@ -168,15 +169,14 @@
         },
         sendResult: function() {
             let sortArr = this.sortingArr;
+            let sendString = '1=1';
             if (sortArr) {
                 let sortingString = '';
                 sortArr.forEach(el => {
                     let string = el.fullName + ' ' + el.value + ', ';
                     sortingString = sortingString + string;
                 });
-                var sendString = sortingString.slice(0, -2);
-            } else {
-                var sendString = '1=1';
+                sendString = sortingString.slice(0, -2);
             }
             this.sendString = sendString;
             let selectedRows = this.selectedRows;
@@ -252,11 +252,11 @@
         changeRowsCounter: function() {
             this.rowsCounter++;
             if (this.rowsCounter === this.selectedRowsLength) {
-                modalContainer.removeChild(modalContainer.firstElementChild);
+                this.modalContainer.removeChild(this.modalContainer.firstElementChild);
                 this.messageService.publish({ name: 'reloadMainTable', sortingString: this.sendString });
             }
         },
-        createOptions: function(selectId, event) {
+        createOptions: function() {
             $(document).ready(function() {
                 $('.js-example-basic-single').select2();
                 $(".js-example-placeholder-district").select2({
