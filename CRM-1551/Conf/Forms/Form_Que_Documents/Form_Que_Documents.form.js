@@ -1,12 +1,11 @@
 (function () {
   return {
-    stateForm: '',    
+    stateForm: '',
     init: function(){
         this.form.disableControl('add_date');
         this.stateForm = this.state;
     },
-    afterSave: function(data) {
-        // this.form.setControlValue('QuestionDocumentsId', data.rows[0].values[0])
+    afterSave: function() {
         if (this.stateForm == 'create') {
             location.reload();
         }
