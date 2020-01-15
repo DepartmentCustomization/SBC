@@ -7,8 +7,7 @@
       this.form.onControlValueChanged('template_id', this.onComment);
         this.form.disableControl('add_date');
         let is_view = this.form.getControlValue('is_view');
-        if (is_view == 1){
-            // document.querySelector('.icon-delete').style.display = 'none';
+        if (is_view == 1) {
             document.getElementsByClassName('float_r')[0].style.display = 'none';
             document.querySelectorAll('div.card-title > div > button')[1].style.display = 'none'
         }
@@ -20,19 +19,13 @@
             document.querySelectorAll('div.card-title > div > button')[1].style.display = 'none'
         }
         this.stateForm = this.state;
-      //   if (this.stateForm != 'create') {
-       //      this.form.setControlValue('FormId',this.id);
-       // };
     },
-    afterSave: function(data) {
+    afterSave: function() {
         if (this.stateForm == 'create') {
             location.reload();
         }
-      // this.form.setControlValue('FormId',data.rows[0].values[0]);
     },
     onComment: function(onComment) {
-      //this.form.setControlValue('content',data);
-      // Get Value
       const queryForGetValue = {
         queryCode: 'ak_SelectComment_for_Templates',
         parameterValues: [
