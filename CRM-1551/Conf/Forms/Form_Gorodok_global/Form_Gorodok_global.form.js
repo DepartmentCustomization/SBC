@@ -26,13 +26,12 @@
                                 }
                             ]
                         };
-                        this.queryExecutor.getValues(objName).subscribe(data => {
+                        this.queryExecutor.getValues(objName).subscribe(() => {
                         });
                     }
                 };
                 const fieldsForm = {
                     title: ' ',
-                    // singleButton: 1,
                     text: 'Закритти повя\'язані питання?',
                     acceptBtnText: 'yes',
                     cancelBtnText: 'no'
