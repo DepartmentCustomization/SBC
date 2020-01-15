@@ -6,7 +6,6 @@
         customConfig:
                     `
                     <style>
-
                     </style>
                     <div id='container'></div>
                     `
