@@ -2,20 +2,15 @@
   return {
     init: function(){
         this.form.disableControl('Id');
-        //this.form.disableControl('rule_id');
         this.form.disableControl('edit_date');
         this.form.disableControl('user_edit_id');
         this.form.disableControl('qwerty');
-       // document.getElementById("qwerty").style.cssText = "none";
         document.getElementById("qwerty").style.backgroundColor="white";
-        //style="background-color: red; width: 900px; height: 100px">; backgroundColor = 'red'
-        //
         let btn_changeRule = document.getElementById('btn_changeRule');
         let that = this;
         btn_changeRule.addEventListener('click', function(){
             const FormRules = {
                 title: 'Правило вибору',
-                // title: 'FormR',
                 acceptBtnText: 'ok',
                 cancelBtnText: 'cancel',
                 fieldGroups:[
@@ -87,7 +82,7 @@
                             ]
                         }]
             };
-            const changeRules = (date) =>{
+            const changeRules = () =>{
             }
            that.openModalForm(FormRules, changeRules);
         });
