@@ -1,6 +1,6 @@
 (function () {
     return {
-        Detail_History: function (column, row, value, event, indexOfColumnId) {
+        Detail_History: function (column, row) {
             const parameters = [
                 { key: '@history_id', value: row.values[0] }
             ];
@@ -188,7 +188,7 @@
                 }
             }.bind(this));
         },
-        onChangeCardPhone: function (value) {
+        onChangeCardPhone: function () {
             for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
                 this.formModalConfig.setControlValue('modal_phone' + (u + 1) + '_phoneIsMain', false);
             }
@@ -219,7 +219,6 @@
                 document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                 this.onLoadModalPhone();
                 this.onRecalcCardPhone();
-                // Загрузка заявителей по телефону в деталь
                 const parameters = [
                     { key: '@applicant_phone', value: this.form.getControlValue('phone_number') }
                 ];
@@ -265,7 +264,6 @@
                             document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                             this.formConfig.onLoadModalPhone();
                             this.formConfig.onRecalcCardPhone();
-                            // Загрузка заявителей по телефону в деталь
                             const parameters = [
                                 { key: '@applicant_phone', value: this.form.getControlValue('phone_number') }
                             ];
@@ -313,10 +311,9 @@
                             { key: '@IsMain', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneIsMain').value },
                             { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneId').value }]
                         };
-                        this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function (data) {
+                        this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function () {
                         }.bind(this));
                     }
-                    // Загрузка заявителей по телефону в деталь
                     const parameters = [
                         { key: '@applicant_phone', value: this.form.getControlValue('phone_number') }
                     ];
@@ -329,10 +326,8 @@
             this.details.setVisibility('ApplicantHistory_details', false);
             this.details.onCellClick('ApplicantHistory', this.Detail_History.bind(this));
             this.form.disableControl("district_id");
-            //     this.form.disableControl("building_id");
             this.form.disableControl("age");
-            // Открыть модальное окно управления при клике на поле телефона
-            document.getElementById('phone_number').addEventListener("click", function (event) {
+            document.getElementById('phone_number').addEventListener("click", function () {
                 this.onLoadModalPhone();
             }.bind(this));
             function setCursorPosition(pos, elem) {
@@ -347,7 +342,6 @@
                     range.select()
                 }
             }
-            //арт начало
             function mask1(event2) {
                 let matrix = "__-__",
                     i = 0,
@@ -363,10 +357,8 @@
                     setCursorPosition(this.value.length, this)
                 }
             }
-            let inputYear = document.getElementById("birth_year");
             this.form.onControlValueChanged("birth_year", this.inputGetYear);
             this.form.onControlValueChanged("day_month", this.inputGetYear);
-            let age = document.getElementById('age');
             let input = document.getElementById("day_month");
             input.placeholder = 'дд-мм';
             input.addEventListener("input", mask1, false);
@@ -374,8 +366,7 @@
             input.addEventListener("blur", mask1, false);
             this.form.onControlValueChanged('birth_date', this.validateDate);
             this.form.onControlValueChanged('building_id', this.onChanged_Applicant_Building);
-        }, // END INIT
-        // При выборе дома подтягиваю район 
+        },
         onChanged_Applicant_Building: function () {
             let build = this.form.getControlValue('building_id');
             if (typeof (build) === 'number') {
@@ -402,17 +393,18 @@
             let input = document.getElementById("day_month");
             let dataStr = data.toString();
             if (dataStr.length == 4 && input.value.length == 5) {
-                var val = input.value;
-                var y = Number(data);
-                var d = Number(val.slice(0, 2));
-                var m = Number(val.slice(3, 5));
-                var birth = new Date(y, m - 1, d); //дата рождения
-                var year = birth.getFullYear();
-                var today = new Date();
-                var thisday = today.setFullYear(year);
-                var birthDay = birth.setFullYear(year);
-                var today2 = new Date();
-                var ageValue = today2.getFullYear() - birth.getFullYear();
+                let val = input.value;
+                let y = Number(data);
+                let d = Number(val.slice(0, 2));
+                let m = Number(val.slice(3, 5));
+                let birth = new Date(y, m - 1, d);
+                let year = birth.getFullYear();
+                let today = new Date();
+                let thisday = today.setFullYear(year);
+                let birthDay = birth.setFullYear(year);
+                let today2 = new Date();
+                let ageValue = today2.getFullYear() - birth.getFullYear();
+                let age = document.getElementById('age');
                 if (birthDay < thisday) {
                     age.value = ageValue;
                 } else {
@@ -425,7 +417,7 @@
                         text: 'Заявнику не може бути менше 16 років',
                         singleButton: true
                     }
-                    const callbackValidDate = (res) => {
+                    const callbackValidDate = () => {
                         this.form.setControlValue('birth_date', null);
                         this.form.setControlValue('age', null);
                     }
@@ -436,24 +428,25 @@
                         text: ' Ви обрали майбутню дату',
                         singleButton: true
                     }
-                    const callbackValidDate = (res) => {
+                    const callbackValidDate = () => {
                         this.form.setControlValue('birth_date', null);
                         this.form.setControlValue('age', null);
                     }
                     this.openModalForm(formValidDate, callbackValidDate);
                 }
             } else if (data.length == 5 && inputYear.value) {
-                var val = data;
-                var y = Number(inputYear.value);
-                var d = Number(val.slice(0, 2));
-                var m = Number(val.slice(3, 5));
-                var birth = new Date(y, m - 1, d); //дата рождения
-                var year = birth.getFullYear();
-                var today = new Date();
-                var thisday = today.setFullYear(year);
-                var birthDay = birth.setFullYear(year);
-                var today2 = new Date();
-                var ageValue = today2.getFullYear() - birth.getFullYear();
+                let val = data;
+                let y = Number(inputYear.value);
+                let d = Number(val.slice(0, 2));
+                let m = Number(val.slice(3, 5));
+                let birth = new Date(y, m - 1, d);
+                let year = birth.getFullYear();
+                let today = new Date();
+                let thisday = today.setFullYear(year);
+                let birthDay = birth.setFullYear(year);
+                let today2 = new Date();
+                let ageValue = today2.getFullYear() - birth.getFullYear();
+                let age = document.getElementById('age');
                 if (birthDay < thisday) {
                     age.value = ageValue;
                 } else {
@@ -466,7 +459,7 @@
                         text: 'Заявнику не може бути менше 16 років',
                         singleButton: true
                     }
-                    const callbackValidDate = (res) => {
+                    const callbackValidDate = () => {
                         this.form.setControlValue('birth_date', null);
                         this.form.setControlValue('age', null);
                     }
@@ -477,20 +470,21 @@
                         text: ' Ви обрали майбутню дату',
                         singleButton: true
                     }
-                    const callbackValidDate = (res) => {
+                    const callbackValidDate = () => {
                         this.form.setControlValue('birth_date', null);
                         this.form.setControlValue('age', null);
                     }
                     this.openModalForm(formValidDate, callbackValidDate);
                 }
             } else if (dataStr.length == 4 && input.value.length == 0) {
-                var birth = new Date(data, 0, 1);
-                var year = birth.getFullYear();
-                var today = new Date();
-                var thisday = today.setFullYear(year);
-                var birthDay = birth.setFullYear(year);
-                var today2 = new Date();
-                var ageValue = today2.getFullYear() - birth.getFullYear();
+                let birth = new Date(data, 0, 1);
+                let year = birth.getFullYear();
+                let today = new Date();
+                let thisday = today.setFullYear(year);
+                let birthDay = birth.setFullYear(year);
+                let today2 = new Date();
+                let ageValue = today2.getFullYear() - birth.getFullYear();
+                let age = document.getElementById('age');
                 if (birthDay < thisday) {
                     age.value = ageValue;
                 } else {
@@ -503,7 +497,7 @@
                         text: 'Заявнику не може бути менше 16 років',
                         singleButton: true
                     }
-                    const callbackValidDate = (res) => {
+                    const callbackValidDate = () => {
                         this.form.setControlValue('birth_date', null);
                         this.form.setControlValue('age', null);
                     }
@@ -514,7 +508,7 @@
                         text: ' Ви обрали майбутню дату',
                         singleButton: true
                     }
-                    const callbackValidDate = (res) => {
+                    const callbackValidDate = () => {
                         this.form.setControlValue('birth_date', null);
                         this.form.setControlValue('age', null);
                     }
@@ -531,7 +525,7 @@
                     text: 'Заявнику не може бути менше 16 років',
                     singleButton: true
                 }
-                const callbackValidDate = (res) => {
+                const callbackValidDate = () => {
                     this.form.setControlValue('birth_date', null);
                     this.form.setControlValue('age', null);
                 }
@@ -542,7 +536,7 @@
                     text: ' Ви обрали майбутню дату',
                     singleButton: true
                 }
-                const callbackValidDate = (res) => {
+                const callbackValidDate = () => {
                     this.form.setControlValue('birth_date', null);
                     this.form.setControlValue('age', null);
                 }
