@@ -36,7 +36,7 @@
                     fixed: true,
                     sortOrder: 'desc',
                     dataType: "datetime",
-                    format: "dd.MM.yyyy HH:mm"                
+                    format: "dd.MM.yyyy HH:mm"
                 }
             ],
             searchPanel: {
@@ -188,8 +188,8 @@
                     icon: "tel",
                     type: "default",
                     text: "Прозвон",
-                    onClick: function() { 
-                        event.stopImmediatePropagation();
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
                         const query = 'Coordinator_Button_Prozvon';
                         this.sendMessageToReload(query);
                     }.bind(this)
@@ -198,9 +198,8 @@
             });
         },
         sendMessageToReload: function(query) {
-            const tableRows = this.dataGridInstance.selectedRowKeys;
-            const sendRows = tableRows.join(', ');
-            const length = sendRows.length;
+            const sendRows = this.dataGridInstance.selectedRowKeys.join(', ');
+            const length = this.dataGridInstance.selectedRowKeys.length;
             const name = 'showModalWindow';
             const self = this;
             if (length) {
