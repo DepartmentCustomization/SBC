@@ -10,7 +10,7 @@
         ,
         init: function() {
         },
-        afterViewInit: function(data) {
+        afterViewInit: function() {
             const CONTAINER = document.getElementById('container');
             let input  =  this.createElement('input', { type: 'file', id: 'fileInput', accept: ".csv"  });
             let btn  =  this.createElement('button', { id:'importBtn', innerText: 'Import csv files' } );
@@ -18,8 +18,8 @@
             let wrapper = this.createElement('div', { id: 'wrapper' },form, btn );
             CONTAINER.appendChild(wrapper);
             btn.addEventListener( 'click', event => {
+                event.stopImmediatePropagation();
                 this.showPagePreloader("Зачекайте, файл завантажується");
-                let target = event.currentTarget;
                 let fileInput = document.getElementById('fileInput');
                 let files = fileInput.files;
                 let file  = files[0];
@@ -28,6 +28,7 @@
                 data.append("configuration", "{\n   \"HasHeaderRecord\":true,\n   \"EncodingName\":\"windows-1251\",\n   \"Delimiter\":\";\",\n   \"Quote\":\"\\\"\",\n   \"MaxAllowedErrors\":0\n}");
                 let xhr = new XMLHttpRequest();
                 xhr.addEventListener("readystatechange", event => {
+                    event.stopImmediatePropagation();
                     if (xhr.readyState === 4) {
                         let json = xhr.responseText;
                         let response = JSON.parse(json);
@@ -64,9 +65,10 @@
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, contentWrapper ,modalBtnWrapper); 
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
             modalBtnTrue.addEventListener( 'click', event => {
-                CONTAINER.removeChild(container.lastElementChild);
+                event.stopImmediatePropagation();
+                CONTAINER.removeChild(CONTAINER.lastElementChild);
             });
-            for (key in responseNotification) {
+            for (let key in responseNotification) {
                 if( key === 'title'){ 
                     let responseTitle =  this.createElement('div', { id: 'responseTitle', className: 'responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseTitle); 
