@@ -40,20 +40,16 @@
     init: function(){
         if (this.form.getControlValue('AppealFromSite_geolocation_lat')) {
             this.form.enableControl('btn_searchAdressByCoordinate');
-            // this.form.setControlVisibility('btn_searchAdressByCoordinate', true);
             document.getElementById('btn_searchAdressByCoordinate').disabled = false;
         } else {
             this.form.disableControl('btn_searchAdressByCoordinate');
-            // this.form.setControlVisibility('btn_searchAdressByCoordinate', false);
             document.getElementById('btn_searchAdressByCoordinate').disabled = true;
         }
-        //скрываем кнопку "Сохранить" в верхнем правом углу
         document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
         this.form.onControlValueChanged('Question_TypeId', this.onChanged_Question_TypeId_Input.bind(this));
         this.form.onControlValueChanged('Question_Building', this.onChanged_Question_Building_Input.bind(this));
         this.form.onControlValueChanged('Question_Organization', this.onChanged_Question_Organization_Input.bind(this));
         this.form.onControlValueChanged('Applicant_Id', this.onChangedApplicant_Id.bind(this));
-        // this.form.disableControl('Question_OrganizationId');
         this.form.disableControl('Question_ControlDate');
         this.details.setVisibility('Site_Applicant', false);
         this.form.setGroupVisibility('bad_Appeal', false);
@@ -86,11 +82,11 @@
             this.form.disableControl('1551_ApplicantFromSite_Phone');
             this.form.setControlValue('1551_ApplicantFromSite_PIB',this.form.getControlValue('ApplicantFromSite_PIB'));
             this.form.setControlValue('1551_ApplicantFromSite_Phone',this.form.getControlValue('ApplicantFromSite_Phone'));
-        document.getElementById('additional').addEventListener("click", function(event) {
+        document.getElementById('additional').addEventListener("click", function() {
             this.form.setGroupVisibility('bad_Appeal', true);
             this.IsFormReturnModerated();
         }.bind(this));
-        document.getElementById('btn_CreateApplicant1551').addEventListener("click", function(event) {
+        document.getElementById('btn_CreateApplicant1551').addEventListener("click", function() {
             this.CreateApplicant1551();
             this.details.setVisibility('Site_Applicant', false);
             this.form.setControlValue('Applicant_INFO', 'Буде створено новий заявник в системі "'+this.form.getControlValue('ApplicantFromSite_PIB')+'"');
@@ -107,19 +103,17 @@
                              this.queryExecutor.getValues(queryFor_Applicant1551_Build).subscribe(data => {
                                 this.form.setControlValue('Question_Building', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
                              });
-                // this.form.setControlValue('Question_Building', { key: this.form.getControlValue('1551_ApplicantFromSite_Address_Building'), value: this.form.getControlDisplayValue('1551_ApplicantFromSite_Address_Building') })
             }
         }.bind(this));   
-        document.getElementById('btn_person1551_question').addEventListener("click", function(event) {
+        document.getElementById('btn_person1551_question').addEventListener("click", function() {
             this.CreateApplicant1551();
             this.details.setVisibility('Site_Applicant', false);
         }.bind(this)); 
-        document.getElementById('btn_searchPerson').addEventListener("click", function(event) {
+        document.getElementById('btn_searchPerson').addEventListener("click", function() {
             this.form.setGroupVisibility('Group2', true);
             this.form.setControlVisibility('btn_CreateApplicant1551', false);
-            // this.form.setGroupExpanding('Group_App_site', false);
         }.bind(this)); 
-        document.getElementById('btn_searchAdressByCoordinate').addEventListener("click", function(event) {
+        document.getElementById('btn_searchAdressByCoordinate').addEventListener("click", function() {
              window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/SearchGoogle?lat="+this.form.getControlValue('AppealFromSite_geolocation_lat')+"&lon="+this.form.getControlValue('AppealFromSite_geolocation_lon')+"");
         }.bind(this)); 
         document.getElementById('Question_BuildingIcon').style.fontSize = '30px';
@@ -127,19 +121,18 @@
             event.stopImmediatePropagation();
             this.form.setControlValue('Question_Building',{ key: this.form.getControlValue('AppealFromSite_Object'), value: this.form.getControlDisplayValue('AppealFromSite_Object')});
         }.bind(this)); 
-        document.getElementById('btn_SearchApplicant1551').addEventListener("click", function(event) {
+        document.getElementById('btn_SearchApplicant1551').addEventListener("click", function() {
             this.form.setControlVisibility('btn_CreateApplicant1551', true);
             this.SerchApplicant1551();
         }.bind(this));  
-        document.getElementById('return_appeal').addEventListener("click", function(event) {
+        document.getElementById('return_appeal').addEventListener("click", function() {
             this.ReturnAppealToApplicant();
         }.bind(this));  
         this.form.onGroupCloseClick('Group2',this.GroupClose_Group2.bind(this));
         this.form.onGroupCloseClick('Group_PreviewApplicant',this.GroupClose_Group_PreviewApplicant.bind(this));
         this.form.onGroupCloseClick('Appeal_Question',this.GroupClose_Appeal_Question.bind(this));
         this.details.onCellClick('Site_Applicant', this.OnCellClikc_Detail_Site_Applicant.bind(this));
-        //Кнопка "Зберегти" в группе "Реєстрація питання"
-         document.getElementById('Question_Btn_Add').addEventListener("click", function(event) {
+         document.getElementById('Question_Btn_Add').addEventListener("click", function() {
              const queryForGetValue3 = {
                     queryCode: 'ForSite_Question_Btn_Add_InsertRow',
                     parameterValues: [
@@ -221,32 +214,10 @@
                             const parameters2 = [
                                                 { key: '@AppealId', value: data.rows[0].values[3] }
                                             ];
-                            this.details.loadData('Detail_QuestionReestration_Site', parameters2/*, filters, sorting*/);
+                            this.details.loadData('Detail_QuestionReestration_Site', parameters2);
                             this.form.setControlValue('AppealFromSite_SiteAppealsResult', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
                             this.form.setControlValue('Applicant_Id', data.rows[0].values[2]);
                             this.IsFormOnlyRead();
-                        //      const queryForGetValue4 = {
-                        //     queryCode: 'Appeals_SelectRow',
-                        //     parameterValues: [
-                        //         {
-                        //             key: '@Id',
-                        //             value: this.id
-                        //         }
-                        //     ]
-                        // };
-                        // this.queryExecutor.getValues(queryForGetValue4).subscribe(data => {
-                        //     // this.form.setControlValue('AppealId', data.rows[0].values[0]);
-                        //     // this.form.setControlValue('ReceiptSources', { key: data.rows[0].values[4], value: data.rows[0].values[19] });
-                        //     // this.form.setControlValue('AppealNumber', data.rows[0].values[3]);
-                        //     // this.form.setControlValue('Phone', data.rows[0].values[5]);
-                        //     // // this.form.setControlValue('DateStart', new Date(data.rows[0].values[10]));
-                        //     // this.form.setControlValue('DateStart', new Date());
-                        //     // //Detail_QuestionReestration
-                        //     // const parameters2 = [
-                        //     //                     { key: '@AppealId', value: data.rows[0].values[0] }
-                        //     //                 ];
-                        //     // this.details.loadData('Detail_QuestionReestration', parameters2/*, filters, sorting*/);
-                        // });
                 });
          }.bind(this));   
          if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') == 3) {
@@ -280,72 +251,68 @@
           this.onChanged_Question_Btn_Add_Input();
           this.getOrgExecut();
             const objAndOrg = {
-                            queryCode: 'QuestionTypes_HideColumns',
+                queryCode: 'QuestionTypes_HideColumns',
+                parameterValues: [
+                    {
+                        key: '@question_type_id',
+                        value: this.form.getControlValue('Question_TypeId')
+                    }
+                ]
+            };
+            this.queryExecutor.getValues(objAndOrg).subscribe(data => {
+                if (data.rows.length > 0) {
+                    if (data.rows[0].values[0]) {
+                        this.form.setControlVisibility('Question_Organization', true);
+                    } else {
+                        this.form.setControlVisibility('Question_Organization', false);
+                    }
+                    if (data.rows[0].values[1]) {
+                        this.form.setControlVisibility('Question_Building', true);
+                        const objAndFlat = {
+                            queryCode: 'QuestionFlat_HideColumns',
                             parameterValues: [
                             {
-                                key: '@question_type_id',
-                                value: this.form.getControlValue('Question_TypeId')
+                                key: '@Question_BuildingId',
+                                value: this.form.getControlValue('Question_Building')
                             }
                         ]
                         };
-                        this.queryExecutor.getValues(objAndOrg).subscribe(data => {
+                        this.queryExecutor.getValues(objAndFlat).subscribe(data => {
                             if (data.rows.length > 0) {
-                                //"Organization_is"
-                                if (data.rows[0].values[0]) {
-                                    this.form.setControlVisibility('Question_Organization', true);
-                                } else {
-                                    this.form.setControlVisibility('Question_Organization', false);
-                                }
-                                 //"Object_is"
-                                if (data.rows[0].values[1]) {
-                                    this.form.setControlVisibility('Question_Building', true);
-                                    // this.form.setControlVisibility('entrance', true);
-                                    // this.form.setControlVisibility('flat', true);
-                                            const objAndFlat = {
-                                                queryCode: 'QuestionFlat_HideColumns',
-                                                parameterValues: [
-                                                {
-                                                    key: '@Question_BuildingId',
-                                                    value: this.form.getControlValue('Question_Building')
-                                                }
-                                            ]
-                                            };
-                                            this.queryExecutor.getValues(objAndFlat).subscribe(data => {
-                                                if (data.rows.length > 0) {
-                                                         if (this.form.getControlValue('Question_TypeId') == null) {
-                                                                this.form.setControlVisibility('entrance', false);
-                                                                this.form.setControlVisibility('flat', false);
-                                                         }else {
-                                                             if (data.rows.length > 0) {
-                                                                         if (data.rows[0].values == 1 || data.rows[0].values == 112) {/*Житлові будинки*/
-                                                                             this.form.setControlVisibility('entrance', true);
-                                                                             this.form.setControlVisibility('flat', true);
-                                                                         } else {
-                                                                             this.form.setControlVisibility('entrance', false);
-                                                                             this.form.setControlVisibility('flat', false);
-                                                                         }
-                                                                      } else {
-                                                                          this.form.setControlVisibility('entrance', false);
-                                                                          this.form.setControlVisibility('flat', false);
-                                                                     }
-                                                         }
-                                                 } else {
-                                                     this.form.setControlVisibility('entrance', false);
-                                                     this.form.setControlVisibility('flat', false);
-                                                }
-                                            });
-                                } else {
-                                    this.form.setControlVisibility('Question_Building', false);
+                                if (this.form.getControlValue('Question_TypeId') == null) {
                                     this.form.setControlVisibility('entrance', false);
                                     this.form.setControlVisibility('flat', false);
+                                } else {
+                                    if (data.rows.length > 0) {
+                                        if (data.rows[0].values == 1 || data.rows[0].values == 112) {
+                                            this.form.setControlVisibility('entrance', true);
+                                            this.form.setControlVisibility('flat', true);
+                                        } else {
+                                            this.form.setControlVisibility('entrance', false);
+                                            this.form.setControlVisibility('flat', false);
+                                        }
+                                    } else {
+                                        this.form.setControlVisibility('entrance', false);
+                                        this.form.setControlVisibility('flat', false);
+                                    }
                                 }
                             } else {
-                                this.form.setControlVisibility('Question_Building', false);
-                                this.form.setControlVisibility('Question_Organization', false);
                                 this.form.setControlVisibility('entrance', false);
                                 this.form.setControlVisibility('flat', false);
                             }
                         });
+                    } else {
+                        this.form.setControlVisibility('Question_Building', false);
+                        this.form.setControlVisibility('entrance', false);
+                        this.form.setControlVisibility('flat', false);
+                    }
+                } else {
+                    this.form.setControlVisibility('Question_Building', false);
+                    this.form.setControlVisibility('Question_Organization', false);
+                    this.form.setControlVisibility('entrance', false);
+                    this.form.setControlVisibility('flat', false);
+                }
+            });
     },
      onChanged_Question_Building_Input: function(value) {
         if (value) {   
@@ -368,10 +335,9 @@
                                       }
                                   ]
                                   };
-                                  // 
                                   this.queryExecutor.getValues(objAndFlat).subscribe(data => {
                                       if (data.rows.length > 0) {
-                                          if (data.rows[0].values == 1 || data.rows[0].values == 112) {/*Житлові будинки*/
+                                          if (data.rows[0].values == 1 || data.rows[0].values == 112) {
                                               this.form.setControlVisibility('entrance', true);
                                               this.form.setControlVisibility('flat', true);
                                           } else {
@@ -390,7 +356,7 @@
             this.form.setControlVisibility('flat', false);
       }
     },
-    onChangedApplicant_Id: function(value) {
+    onChangedApplicant_Id: function() {
         this.onChanged_Question_Btn_Add_Input();
     },
     onChanged_Question_Organization_Input: function(value) {
@@ -437,7 +403,7 @@
          this.form.setGroupVisibility('Group2', false);
          this.form.setGroupVisibility('Appeal_Question', true);
     },
-    OnCellClikc_Detail_Site_Applicant: function(column, row, value, event, indexOfColumnId) {
+    OnCellClikc_Detail_Site_Applicant: function(column, row) {
         this.form.setGroupVisibility('Group_PreviewApplicant', true);
         this.queryFor_Applicant1551(row.values[0]); 
         this.form.setGroupVisibility('Group2', false);        
@@ -494,7 +460,7 @@
                         }
                              ]
                 };
-                this.queryExecutor.getValues(queryForReturnAppealToApplicant).subscribe(data => {
+                this.queryExecutor.getValues(queryForReturnAppealToApplicant).subscribe(() => {
                        this.form.setGroupVisibility('bad_Appeal', false);
                        this.form.setControlValue('AppealFromSite_SiteAppealsResult', {key: 2, value: 'Повернуто заявнику'});     
                 });
