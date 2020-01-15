@@ -140,7 +140,7 @@
     {
       "Code": "editable",
       "Name": "editable",
-      "FieldType": "checkbox",
+      "FieldType": "number",
       "Position": 200,
       "IsHidden": true
     }
