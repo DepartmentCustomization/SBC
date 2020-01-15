@@ -5,7 +5,7 @@
         function setCursorPosition(pos, elem) {
               elem.focus();
               if (elem.setSelectionRange) {
-              	elem.setSelectionRange(pos, pos);
+                  elem.setSelectionRange(pos, pos);
               } else if (elem.createTextRange) {
                   let range = elem.createTextRange();
                   range.collapse(true);
