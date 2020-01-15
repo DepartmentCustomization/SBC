@@ -1,4 +1,13 @@
 
+IF 
+(
+SELECT TOP 1 oirr.editable
+FROM [dbo].[Assignments] a INNER JOIN 
+[dbo].[OrganizationInResponsibilityRights] oirr ON a.[executor_organization_id]=oirr.organization_id
+INNER JOIN [dbo].[Positions] p ON oirr.position_id=p.Id
+WHERE a.Id=@Id AND P.programuser_id=@user_id)='true'
+
+BEGIN
 
 DECLARE @output TABLE (
 	[Id] INT
@@ -1227,4 +1236,6 @@ BEGIN
 
 		END --(F11)
 	END
+END
+
 END
