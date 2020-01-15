@@ -1,21 +1,18 @@
 (function() {
     return {
-        Detail_History: function(column, row, value, event, indexOfColumnId) {
+        Detail_History: function(column, row) {
             const parameters = [
                 { key: '@history_id', value: row.values[0] }
             ];
-            this.details.loadData('detal_history', parameters /*, filters, sorting*/ );
+            this.details.loadData('detal_history', parameters);
             this.details.setVisibility('detal_history', true);
         },
         date_in_form: '',
         previous_result: '',
         init: function() {
-            //debugger
-            //режим чтения для тех пользователей, которым не доступно редактирование
             if (this.form.getControlValue('editable') === false) {
                 this.navigateTo('/sections/Assignments/view/' + this.id);
             }
-            // в поле виконавець выводить только подрядные огранизации, родитель - Assignments.organization_id на кого пришло доручення
             let param_ass_id = [
                 { parameterCode: '@ass_id', parameterValue: this.id }
             ];
@@ -26,7 +23,7 @@
             this.details.onCellClick('Detail_Assig_HistoryAssig', this.Detail_History.bind(this));
             let btn_goToQuestion = document.getElementById('registration_numberIcon');
             btn_goToQuestion.style.fontSize = '25px';
-            btn_goToQuestion.addEventListener('click', e => {
+            btn_goToQuestion.addEventListener('click', () => {
                 let ques_id = this.form.getControlValue('question_id');
                 this.navigateTo('/sections/Questions/edit/' + ques_id)
             });
@@ -68,8 +65,6 @@
             this.form.disableControl('responsible');
             this.form.disableControl('phones');
             this.form.disableControl('answer');
-            // this.form.disableControl('executor_person_id');
-            //enter_number
             this.form.disableControl('enter_number');
             this.details.onCellClick('Detail_Assig_otherQues', this.goToAssigView.bind(this));
             let rework_count = this.form.getControlValue('rework_counter');
@@ -83,17 +78,6 @@
             let ass_state_id = this.form.getControlValue('ass_state_id');
             let result_id = this.form.getControlValue('result_id');
             let resolution_id = this.form.getControlValue('resolution_id');
-            //ПОКА ВРЕМЕННО УБРАЛ ПРАВИЛО БЛОКИРОВКИ ДЛЯ ЛЮДЕЙ У КОТОРЫХ НЕТ ЗАПРЕТОВ
-            // 		const compareExecutor123 = {
-            //                 queryCode: 'RightsFilter_AssignmentStates',
-            //                 parameterValues: [{key: '@AssignmentId', value: this.id}, {key: '@res_id', value: 0 }, {key: '@pageOffsetRows', value: 0 }, {key: '@pageLimitRows', value: 9 }]
-            //             };
-            //             this.queryExecutor.getValues(compareExecutor123).subscribe(data => {
-            //               if (data.rows.length == 0) {
-            //                    this.form.disableControl('result_id');
-            //                    this.form.disableControl('resolution_id');
-            //               };
-            //             });
             const noChoose1 = [{ parameterCode: '@AssignmentId', parameterValue: this.id }, { parameterCode: '@res_id', parameterValue: 0 }];
             this.form.setControlParameterValues('result_id', noChoose1);
             const execute = {
@@ -110,7 +94,6 @@
                 if (control < 0) {
                     const noChoose = [{ parameterCode: '@AssignmentId', parameterValue: this.id }, { parameterCode: '@res_id', parameterValue: 3 }];
                     this.form.setControlParameterValues('result_id', noChoose);
-                    // break;
                 }
                 if (result_id == 4 || result_id == 7 || result_id == 8) {
                     if (rework_count < 2) {
@@ -129,11 +112,7 @@
                     queryCode: 'RightsFilter_AssignmentResolution',
                     parameterValues: [{ key: '@pageOffsetRows', value: 0 }, { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id }, { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
                 };
-                this.queryExecutor.getValues(onCountRows3).subscribe(data => {
-                    if (data.rows.length == 1) {
-                        // Al - отключил в рамках задачи CRM1551-167
-                        //  this.form.setControlValue('resolution_id', {key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                    }
+                this.queryExecutor.getValues(onCountRows3).subscribe(() => {
                 });
                 let params = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') }, { parameterCode: '@AssignmentId', parameterValue: this.id }];
                 this.form.setControlParameterValues('resolution_id', params);
@@ -177,7 +156,6 @@
                     parameterValues: [{ key: '@Id', value: this.id }]
                 };
                 this.queryExecutor.getValue(compareExecutor).subscribe(data => {
-                    // 1 равны , 0 - не равны
                     this.form.setControlValue('is_exe', data);
                     if (data == 1) {
                         this.form.enableControl('performer_id');
@@ -190,7 +168,6 @@
             this.form.onControlValueChanged('result_id', this.filterResolution.bind(this));
             this.form.onControlValueChanged('performer_id', this.chooseExecutorPerson.bind(this));
         },
-        /*END INIT */
         executeQuery2: function() {
             const onChangeStatus = {
                 queryCode: 'RightsFilter_HideAndDisableColumns',
@@ -216,7 +193,7 @@
             let param = [{ parameterCode: '@org_id', parameterValue: executor_id }];
             this.form.setControlParameterValues('executor_person_id', param);
         },
-        goToAssigView: function(column, row, value, event, indexOfColumnId) {
+        goToAssigView: function(column, row) {
             this.navigateTo('/sections/Assignments_for_view/edit/' + row.values[0] + '/Questions/' + row.values[7]);
         },
         filterResolution: function(result_id) {
@@ -251,13 +228,11 @@
                         queryCode: 'RightsFilter_AssignmentResolution',
                         parameterValues: [{ key: '@pageOffsetRows', value: 0 }, { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id }, { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
                     };
-                    this.queryExecutor.getValues(onCountRows2_3).subscribe(data => {
+                    this.queryExecutor.getValues(onCountRows2_3).subscribe(() => {
                         if (this.form.getControlValue('is_exe') != 0) {
-                            // this.form.setControlValue('resolution_id', {key: data.rows[0].values[0], value: data.rows[0].values[1] });
                             this.form.setControlValue('resolution_id', { key: 1, value: 'Повернуто в 1551' });
                             this.form.disableControl('resolution_id');
                         } else {
-                            // this.form.setControlValue('resolution_id', {key: data.rows[1].values[0], value: data.rows[1].values[1] });
                             this.form.setControlValue('resolution_id', { key: 14, value: 'Повернуто в батьківську організацію' });
                             this.form.disableControl('resolution_id');
                         }
@@ -272,7 +247,6 @@
                     this.form.disableControl('rework_counter');
                 }
                 if (result_id == 1) {
-                    // if(resolution_id == 3)
                     this.form.setControlVisibility('transfer_to_organization_id', true);
                     this.form.setControlRequirement('transfer_to_organization_id', true);
                 }
