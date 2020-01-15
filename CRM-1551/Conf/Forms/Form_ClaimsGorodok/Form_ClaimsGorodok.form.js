@@ -13,8 +13,6 @@
         this.form.disableControl('fact_end_date');
         this.form.disableControl('audio_start_date');
         this.form.disableControl('audio_end_date');
-        // this.form.disableControl('qw');
-        // this.form.disableControl('qw');
     }
 };
 }());
