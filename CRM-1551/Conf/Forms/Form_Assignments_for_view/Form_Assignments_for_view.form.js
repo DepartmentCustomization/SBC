@@ -1,8 +1,6 @@
 (function () {
   return {
     init:function(){
-        // this.navigateTo('/sections/Assignments_for_view/view/' + this.id)
-        // document.getElementsByClassName('float_r')[0].style.display = 'none';
         let btns = document.querySelectorAll('.add-btn');
         btns.forEach( el=> {
             el.style.display = 'none'
@@ -26,7 +24,7 @@
         }
        this.details.onCellClick('Detail_Assignments_for_view_FILE', this.goToFileView.bind(this));
     },
-    goToFileView:function(column, row, value, event, indexOfColumnId){
+    goToFileView:function(column, row){
         this.navigateTo('/sections/Ass_Documents_ReadOnly/view/'+ row.values[0]);
     }
 };
