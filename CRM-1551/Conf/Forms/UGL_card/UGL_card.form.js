@@ -1,6 +1,5 @@
 (function () {
     return {
-        // Для типов вопроса - определить какой из полей объект/организация требуется
         is_obj: undefined,
         is_org: undefined,
         onLoadModalPhone: function () {
@@ -182,7 +181,7 @@
                 }
             }.bind(this));
         },
-        onChangeCardPhone: function (value) {
+        onChangeCardPhone: function () {
             for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
                 this.formModalConfig.setControlValue('modal_phone' + (u + 1) + '_phoneIsMain', false);
             }
@@ -213,7 +212,6 @@
                 document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                 this.onLoadModalPhone();
                 this.onRecalcCardPhone();
-                // Загрузка заявителей по телефону в деталь
                 const parameters = [
                     { key: '@applicant_phone', value: this.form.getControlValue('CardPhone') }
                 ];
@@ -259,7 +257,6 @@
                             document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                             this.formConfig.onLoadModalPhone();
                             this.formConfig.onRecalcCardPhone();
-                            // Загрузка заявителей по телефону в деталь
                             const parameters = [
                                 { key: '@applicant_phone', value: this.form.getControlValue('CardPhone') }
                             ];
@@ -307,10 +304,9 @@
                             { key: '@IsMain', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneIsMain').value },
                             { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneId').value }]
                         };
-                        this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function (data) {
+                        this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function () {
                         }.bind(this));
                     }
-                    // Загрузка заявителей по телефону в деталь
                     const parameters = [
                         { key: '@applicant_phone', value: this.form.getControlValue('CardPhone') }
                     ];
@@ -351,7 +347,7 @@
                 this.queryExecutor.getValue(queryForGetUGLAppeal).subscribe(data => {
                     this.navigateTo('sections/CreateAppeal_UGL/edit/' + data)
                 });
-            } else { // state != create
+            } else {
                 this.form.setControlValue('AppealId', this.id);
                 this.form.setControlValue('ReceiptSources', { key: 3, value: 'УГЛ' });
                 document.getElementById('CardPhone').addEventListener("click", function () {
@@ -361,7 +357,6 @@
                 document.getElementById('Question_Btn_Add').disabled = true;
                 document.getElementById('Question_Aplicant_Btn_Add').disabled = true;
                 document.getElementById('Applicant_Btn_Add').disabled = true;
-                // Отслеживание изменения значений полей для активности кнопки сохранить заявителя
                 this.form.onControlValueChanged('Applicant_PIB', this.applicantIsPIBChanged);
                 this.form.onControlValueChanged('Applicant_Building', this.applicantIsBuildingChanged);
                 this.form.onControlValueChanged('Applicant_Entrance', this.applicantIsEntranceChanged);
@@ -373,7 +368,6 @@
                 this.form.onControlValueChanged('Applicant_BirthDate', this.applicantIsBirthDateChanged);
                 this.form.onControlValueChanged('Applicant_Email', this.applicantIsMailChanged);
                 this.form.onControlValueChanged('Applicant_Comment', this.applicantIsNoteChanged);
-                // Изменения запрещены 
                 this.form.disableControl('CardPhone');
                 this.form.disableControl('ReceiptSources');
                 this.form.disableControl('Phone');
@@ -385,7 +379,6 @@
                 this.form.disableControl('ExecutorInRoleForObject');
                 this.form.disableControl('Question_OrganizationId');
                 this.form.disableControl('Question_ControlDate');
-                // Убрать видимость до выяснения обстоятельств
                 this.form.setControlVisibility('Question_Building', false);
                 this.form.setControlVisibility('entrance', false);
                 this.form.setControlVisibility('flat', false);
@@ -401,7 +394,6 @@
                 this.form.onControlValueChanged('Question_AnswerType', this.onChangedQuestion_AnswerType.bind(this));
                 this.form.onControlValueChanged('Question_Building', this.checkQuestionRegistrationAvailable);
                 this.form.onControlValueChanged('Question_Organization', this.checkQuestionRegistrationAvailable);
-                // Заполнение полей "Загальна інформація"          
                 const AppealUGL = {
                     queryCode: 'AppealUGL_Info',
                     parameterValues: [
@@ -421,15 +413,12 @@
                     this.form.setControlValue('ApplicantUGL', data.rows[0].values[6]);
                     this.form.setControlValue('AppealNumber', data.rows[0].values[8]);
                     this.form.setControlValue('applicantAddress', data.rows[0].values[9]);
-                    // Загрузка заявителей по телефону в деталь
                     const parameters = [
                         { key: '@applicant_phone', value: this.form.getControlValue('CardPhone') }
                     ];
                     this.details.loadData('Detail_UGL_Aplicant', parameters);
                 });
-                // Получение данных выбранного из детали заявителя по телефону             
                 this.details.onCellClick('Detail_UGL_Aplicant', this.getApplicantInfo.bind(this));
-                //Кнопка "Зберегти" в группе "Заявник"
                 document.getElementById('Applicant_Btn_Add').addEventListener("click", function () {
                     let entrance = this.form.getControlValue('Applicant_Entrance');
                     if (entrance != null && entrance < 1) {
@@ -525,7 +514,6 @@
                             };
                             document.getElementById('Applicant_Btn_Add').disabled = true;
                             this.queryExecutor.getValues(queryForGetValue3).subscribe(data => {
-                                // Загрузка заявителей по телефону в деталь
                                 const parameters = [
                                     { key: '@applicant_phone', value: this.form.getControlValue('CardPhone') }
                                 ];
@@ -538,7 +526,6 @@
                         });
                     }
                 }.bind(this));
-                //Кнопка "Очистити" в группе "Заявник"
                 document.getElementById('Applicant_Btn_Clear').addEventListener("click", function () {
                     this.form.setControlValue('Applicant_Id', null);
                     this.form.setControlValue('Applicant_PIB', null);
@@ -557,7 +544,6 @@
                     this.form.setControlValue('Applicant_Email', null);
                     this.form.setControlValue('Applicant_Comment', null);
                 }.bind(this));
-                // Отработка кнопки "Додати питання"
                 document.getElementById('Question_Aplicant_Btn_Add').addEventListener("click", function () {
                     let build = this.form.getControlValue('Applicant_Building');
                     this.getBuildingInfo(build);
@@ -578,7 +564,6 @@
                     });
                 }.bind(this));
             }
-            //Кнопка "Зберегти" в группе "Реєстрація питання"
             document.getElementById('Question_Btn_Add').addEventListener("click", function () {
                 const queryForGetValue3 = {
                     queryCode: 'Question_UGL_InsertRow',
@@ -661,7 +646,7 @@
                         }
                     ]
                 };
-                this.queryExecutor.getValues(queryForGetValue3).subscribe(data => {
+                this.queryExecutor.getValues(queryForGetValue3).subscribe(() => {
                     const queryForGetValue4 = {
                         queryCode: 'Appeals_SelectRow',
                         parameterValues: [
@@ -694,18 +679,16 @@
                 this.form.setControlValue('Question_ControlDate', "");
                 this.form.setControlValue('Question_EventId', null);
             }.bind(this));
-            //Кнопка "Пошук" (за № Звернення) в группе "Загальна інформація"
             this.form.onControlValueChanged('Search_Appeals_Input', this.onChanged_Search_Appeals_Input.bind(this));
             document.getElementById('Search_Appeals_Search').disabled = true;
-            document.getElementById('Search_Appeals_Search').addEventListener("click", function (event) {
+            document.getElementById('Search_Appeals_Search').addEventListener("click", function () {
                 const parameters = [
                     { key: '@AppealRegistrationNumber', value: this.form.getControlValue('Search_Appeals_Input') }
                 ];
-                this.details.loadData('Detail_UGL_QuestionNumberAppeal', parameters/*, filters, sorting*/);
+                this.details.loadData('Detail_UGL_QuestionNumberAppeal', parameters);
                 this.details.setVisibility('Detail_UGL_QuestionNumberAppeal', true);
             }.bind(this));
         },
-        // END INIT
         input_pib: null,
         input_pib_check: 0,
         applicantIsPIBChanged: function (value) {
@@ -883,7 +866,6 @@
                 this.form.disableControl('CardPhone');
             }
         },
-        // Условие доступности сохранения заявителя
         checkApplicantSaveAvailable: function () {
             if (
                 (this.form.getControlValue('Applicant_PIB') == null || this.form.getControlValue('Applicant_Building') == null)
@@ -893,8 +875,7 @@
                 document.getElementById('Applicant_Btn_Add').disabled = false;
             }
         },
-        //Получение данных заявителя
-        getApplicantInfo: function (column, row, value, event, indexOfColumnId) {
+        getApplicantInfo: function (column, row) {
             let applicantId = row.values[4];
             const Applicant = {
                 queryCode: 'Applicant_Info',
@@ -905,7 +886,6 @@
                     }
                 ]
             }
-            // Наполнение полей заявителя данными выбраного с детали
             this.queryExecutor.getValues(Applicant).subscribe(data => {
                 if (data) {
                     let BirthDate = null;
@@ -944,7 +924,6 @@
             });
             document.getElementById('Applicant_Btn_Add').disabled = true;
         },
-        // Подстановка ответственной организации и контрольной даты по типу вопроса 
         onChanged_Question_TypeId: function () {
             let questionType = this.form.getControlValue('Question_TypeId');
             if (questionType === "" || questionType === undefined || questionType === null) {
@@ -985,7 +964,6 @@
                     { key: data.rows[0].values[0], value: data.rows[0].values[1] });
             });
         },
-        // Проставить дату контроля
         onQuestionControlDate: function (ques_type_id) {
             if (ques_type_id == null) {
                 this.form.setControlValue('Question_ControlDate', null)
@@ -1004,7 +982,6 @@
                 });
             }
         },
-        // При изменении типа ответа
         onChangedQuestion_AnswerType: function (value) {
             this.form.setControlValue('Question_AnswerPhoneOrPost', null);
             if (value == 2) {
@@ -1018,17 +995,13 @@
             }
             this.checkQuestionRegistrationAvailable();
         },
-        // Условия допустимости регистрации Questions`a
         checkQuestionRegistrationAvailable: function () {
             let questionBuilding = this.form.getControlValue('Question_Building');
             let questionOrg = this.form.getControlValue('Question_Organization');
             let questionContent = this.form.getControlValue('Question_Content');
             let howToAnswer = this.form.getControlValue('Question_AnswerType');
-            // Если тип вопроса задан - продолжаем
             if (this.form.getControlValue('Question_TypeId') !== null) {
-                // // Случай когда объект вопроса и организация обязательны
                 if (this.is_obj === true && this.is_org === true) {
-                    // Prepare check
                     if (
                         ((questionBuilding === undefined) || (questionBuilding === null))
                         ||
@@ -1045,9 +1018,7 @@
                         document.getElementById('Question_Btn_Add').disabled = false;
                     }
                 }
-                // Случай когда объект вопроса обязательно а орг нет
                 if (this.is_obj === true && this.is_org === false) {
-                    // Prepare check
                     if ((questionBuilding === undefined) || (questionBuilding === null)
                         ||
                         ((questionContent === undefined) || (questionContent === null))
@@ -1060,9 +1031,7 @@
                         document.getElementById('Question_Btn_Add').disabled = false;
                     }
                 }
-                // Случай когда орг вопроса обязательно а объект нет
                 if (this.is_obj === false && this.is_org === true) {
-                    // Prepare check
                     if ((questionOrg === undefined) || (questionOrg === null)
                         ||
                         ((questionContent === undefined) || (questionContent === null))
@@ -1077,7 +1046,6 @@
                 }
             }
         },
-        // Если надо по Id дома найти его полный адрес
         getBuildingInfo: function (building) {
             const findBuilding = {
                 queryCode: 'SelectBuildName',
@@ -1086,7 +1054,6 @@
                     value: building
                 }]
             };
-            // И подставить объект вопроса = дом заявителя
             this.queryExecutor.getValues(findBuilding).subscribe(data => {
                 this.form.setControlValue('Question_Building',
                     { key: data.rows[0].values[0], value: data.rows[0].values[1] });
@@ -1096,10 +1063,10 @@
         },
         convertDateNull: function (value) {
             if (!value) {
- return this.extractStartDate(); 
-} else {
- return value; 
-}
+                return this.extractStartDate(); 
+            } else {
+                return value; 
+            }
         },
         onChanged_Search_Appeals_Input: function (value) {
             if (value == "") {
