@@ -18,10 +18,7 @@
         let phone = document.getElementById('phone_number');
         phone.style.color = 'black';
         phone.style.fontWeight = 'bold';
-        // this.form.onControlValueChanged('phone_number', this.onAppealsChanged);
-        // this.onAppealsChanged(num);
         this.form.onControlValueChanged('applicant_id', this.ondataApplicant);
-                                            //Modal new Applicant//
         const formNewApplicant = {
             title: 'Новий заявник',
             acceptBtnText: "save",
@@ -145,9 +142,5 @@
             this.form.setControlVisibility('answer_mail', false);
         }
     }
-    //   onAppealsChanged: function(app_Id) {
-    //     let appl = [{ parameterCode: '@phone_number', parameterValue: app_Id }];
-    //     this.form.setControlParameterValues('applicant_id', appl);
-    // }
 };
 }());
