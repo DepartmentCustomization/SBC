@@ -136,14 +136,14 @@
             this.config.masterDetail.template = this.createMasterDetails.bind(this);
             this.config.onOptionChanged = this.onOptionChanged.bind(this);
             this.dataGridInstance.onCellClick.subscribe( function(e) {
-                if( e.column ){
-                    if(e.column.dataField == 'full_name' && e.row != undefined){
+                if( e.column ) {
+                    if(e.column.dataField == 'full_name' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonApplicant_v2?id='+e.data.ApplicantsId+'');
-                    }else if(e.column.dataField == 'house' && e.row != undefined){
+                    }else if(e.column.dataField == 'house' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonHouse_v2?id='+e.data.BuildingId+'');
-                    }else if(e.column.dataField == 'registration_number' && e.row != undefined){
+                    }else if(e.column.dataField == 'registration_number' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.data.Id+'');
-                    }else if(e.column.dataField == 'phone_number' && e.row != undefined){
+                    }else if(e.column.dataField == 'phone_number' && e.row != undefined) {
                         let CurrentUserPhone = e.row.data.phone_number;
                         let PhoneForCall = this.userPhoneNumber;
                         let xhr = new XMLHttpRequest();
@@ -158,8 +158,8 @@
         },
         onOptionChanged: function(args) {
             let columnCode;
-            if( args.fullName != undefined){
-                switch(args.fullName){
+            if( args.fullName != undefined) {
+                switch(args.fullName) {
                 case('columns[0].sortOrder'):
                     columnCode = 'registration_number'
                     break;
@@ -194,14 +194,14 @@
                     columnCode = 'dataSource'
                     break;
                 }
-                if(columnCode != undefined ){
-                    if(columnCode != 'dataSource'){
+                if(columnCode != undefined ) {
+                    if(columnCode != 'dataSource') {
                         const infoColumn = { name: columnCode, value: args.value };
-                        if( this.sortingArr.length === 0 ){
+                        if( this.sortingArr.length === 0 ) {
                             this.sortingArr.push(infoColumn);
                         }else{
                             const index = this.sortingArr.findIndex(x => x.name === columnCode);
-                            if( index === -1 ){
+                            if( index === -1 ) {
                                 this.sortingArr.push(infoColumn);
                             }else{
                                 this.sortingArr.splice(index, 1);
@@ -213,11 +213,11 @@
                 }
             }
         },
-        showUser: function(data){
+        showUser: function(data) {
             const indexPhoneNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'phonenumber' );
             this.userPhoneNumber = data.rows[0].values[indexPhoneNumber]
         },
-        openModalCloserForm: function(){
+        openModalCloserForm: function() {
             let rowsMessage = [];
             let selectedRows = [];
             selectedRows = this.dataGridInstance.instance.getSelectedRowsData();
@@ -228,31 +228,31 @@
                 }
                 rowsMessage.push(obj);
             });
-            if(selectedRows.length > 0){
+            if(selectedRows.length > 0) {
                 this.messageService.publish( { name: 'openModalForm', value: rowsMessage } );
             }
         },
-        createMasterDetails: function(container, options){
+        createMasterDetails: function(container, options) {
             let currentEmployeeData = options.data;
             let lastNdzTime;
-            if(currentEmployeeData.comment == null){
+            if(currentEmployeeData.comment == null) {
                 currentEmployeeData.comment = '';
             }
-            if(currentEmployeeData.history == null){
+            if(currentEmployeeData.history == null) {
                 currentEmployeeData.history = '';
             }
-            if(currentEmployeeData.zmist == null){
+            if(currentEmployeeData.zmist == null) {
                 currentEmployeeData.zmist = '';
             }
-            if(currentEmployeeData.cc_nedozvon == null){
+            if(currentEmployeeData.cc_nedozvon == null) {
                 currentEmployeeData.cc_nedozvon = '';
             }
-            if(currentEmployeeData.edit_date === null){
+            if(currentEmployeeData.edit_date === null) {
                 lastNdzTime = ''
             }else{
                 lastNdzTime = this.changeDateTimeValues(currentEmployeeData.edit_date);
             }
-            if(currentEmployeeData.control_comment == null){
+            if(currentEmployeeData.control_comment == null) {
                 currentEmployeeData.control_comment = '';
             }
             let ndz = currentEmployeeData.cc_nedozvon;
@@ -280,7 +280,7 @@
                 el.style.minWidth = '200px';
             });
         },
-        changeDateTimeValues: function(value){
+        changeDateTimeValues: function(value) {
             let date = new Date(value);
             let dd = date.getDate();
             let MM = date.getMonth();
@@ -288,16 +288,16 @@
             let HH = date.getHours()
             let mm = date.getMinutes();
             MM += 1;
-            if( (dd.toString()).length === 1){
+            if( (dd.toString()).length === 1) {
                 dd = '0' + dd;
             }
-            if( (MM.toString()).length === 1){
+            if( (MM.toString()).length === 1) {
                 MM = '0' + MM;
             }
-            if( (HH.toString()).length === 1){
+            if( (HH.toString()).length === 1) {
                 HH = '0' + HH;
             }
-            if( (mm.toString()).length === 1){
+            if( (mm.toString()).length === 1) {
                 mm = '0' + mm;
             }
             return dd+'.'+MM+'.' + yyyy +' '+ HH +':'+ mm;
@@ -310,14 +310,14 @@
             this.filtersValuesMacros = [];
             let filters = message.package.value.values;
             filters.forEach( elem => {
-                if(elem.active === true){
+                if(elem.active === true) {
                     let data = elem.value;
-                    if(typeof(data) === 'boolean'){
+                    if(typeof(data) === 'boolean') {
                         this.createObjMacros( elem.name, '=', 'true', elem.placeholder);
-                    }else if( typeof(data) === 'object'){
-                        if(data[0]){
-                            if(typeof(data[0].value) === 'number' ){
-                                if( elem.name === 'zayavnyk_age' ){
+                    }else if( typeof(data) === 'object') {
+                        if(data[0]) {
+                            if(typeof(data[0].value) === 'number' ) {
+                                if( elem.name === 'zayavnyk_age' ) {
                                     this.ageArr = [];
                                     let ageSendViewValue = '';
                                     data.forEach( el => {
@@ -333,7 +333,7 @@
                                 }else{
                                     let sumValue = '';
                                     let sumViewValue = '';
-                                    if(data.length > 0){
+                                    if(data.length > 0) {
                                         data.forEach( row => {
                                             sumValue = sumValue + ', '+ row.value;
                                             sumViewValue = sumViewValue + ', '+ row.viewValue;
@@ -343,10 +343,10 @@
                                     let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
                                     this.createObjMacros( elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
                                 }
-                            }else if(typeof(data[0].value) === 'string' ){
+                            }else if(typeof(data[0].value) === 'string' ) {
                                 let stringSumValue = '';
                                 let stringSumViewValue = '';
-                                if(data.length > 0){
+                                if(data.length > 0) {
                                     data.forEach( row => {
                                         stringSumValue = stringSumValue + ', \''+ row.value + '\'';
                                         stringSumViewValue = stringSumViewValue + ', '+ row.viewValue;
@@ -356,12 +356,12 @@
                                 let stringSendViewValue = stringSumViewValue.slice(2, [stringSumViewValue.length]);
                                 this.createObjMacros( elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
                             }
-                        }else if( data.value && data.viewValue ){
+                        }else if( data.value && data.viewValue ) {
                             this.createObjMacros( elem.name, 'in', data.value, elem.placeholder, data.viewValue );
                         }else{
-                            if(data.dateFrom != '' ){
+                            if(data.dateFrom != '' ) {
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
-                                switch(elem.name){
+                                switch(elem.name) {
                                 case 'registration_date':
                                     this.registrationDate__from = checkDateFrom(elem.value);
                                     this.registrationDateFrom = checkDateFrom(elem.value);
@@ -380,9 +380,9 @@
                                     break;
                                 }
                             }
-                            if(data.dateTo != '' ){
+                            if(data.dateTo != '' ) {
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
-                                switch(elem.name){
+                                switch(elem.name) {
                                 case 'registration_date':
                                     this.registrationDateTo = checkDateTo(elem.value);
                                     break;
@@ -401,19 +401,19 @@
                                 }
                             }
                         }
-                    }else if( typeof(data) === 'string'){
+                    }else if( typeof(data) === 'string') {
                         this.createObjMacros( elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue );
                     }
                 }
             });
-            function checkDateFrom(val){
+            function checkDateFrom(val) {
                 return val ? val.dateFrom : null;
             }
-            function checkDateTo(val){
+            function checkDateTo(val) {
                 return val ? val.dateTo : null;
             }
         },
-        createObjMacros: function(name, operation, value, placeholder, viewValue){
+        createObjMacros: function(name, operation, value, placeholder, viewValue) {
             let obj = {
                 code: name,
                 operation: operation,
@@ -423,21 +423,21 @@
             }
             this.filtersValuesMacros.push(obj);
         },
-        createFilterMacros: function(code, operation, currentDate){
+        createFilterMacros: function(code, operation, currentDate) {
             let textMacros = '';
-            if( operation == 'like' ){
+            if( operation == 'like' ) {
                 textMacros = ''+code+' '+operation+' \'%'+currentDate+'%\' and';
-            }else if( operation == '==='){
+            }else if( operation == '===') {
                 textMacros = ''+currentDate+' and';
-            }else if( operation == '=='){
+            }else if( operation == '==') {
                 textMacros = ''+code+' '+'='+' '+currentDate+' and';
-            }else if( operation == '+""+'){
+            }else if( operation == '+""+') {
                 textMacros = ''+code+' in  (N\''+currentDate+'\' and';
-            }else if( operation == 'in'){
+            }else if( operation == 'in') {
                 textMacros = ''+code+' in ('+currentDate+') and';
-            }else if( operation == '='){
+            }else if( operation == '=') {
                 textMacros = ''+code+' '+operation+' N\''+currentDate+'\' and';
-            }else if( operation == '>=' || operation == '<=' ){
+            }else if( operation == '>=' || operation == '<=' ) {
                 let year = currentDate.getFullYear();
                 let month = currentDate.getMonth() + 1;
                 let date = currentDate.getDate();
@@ -456,11 +456,11 @@
             }
             this.textFilterMacros.push(textMacros);
         },
-        findAllCheckedFilter: function(){
+        findAllCheckedFilter: function() {
             let filters = this.filtersValuesMacros;
-            if( filters.length > 0 ){
+            if( filters.length > 0 ) {
                 this.textFilterMacros = [];
-                filters.forEach( function(el){
+                filters.forEach( function(el) {
                     this.createFilterMacros( el.code, el.operation, el.value);
                 }.bind(this));
                 let arr = this.textFilterMacros;
@@ -506,7 +506,7 @@
             };
             this.config.query.filterColumns.push(filter);
         },
-        reloadTable: function(message){
+        reloadTable: function(message) {
             message.value.forEach( el => {
                 let column = {
                     dataField: el.displayValue,
@@ -517,7 +517,7 @@
             });
             this.loadData(this.afterLoadDataHandler);
         },
-        reloadMainTable: function(message){
+        reloadMainTable: function(message) {
             this.dataGridInstance.instance.deselectAll();
             this.sort = message.sortingString;
             this.config.query.parameterValues = [
@@ -529,7 +529,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });

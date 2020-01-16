@@ -101,7 +101,7 @@
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined){
+                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.key+'');
                     }
                 }
@@ -113,8 +113,8 @@
         renderAfterCloseModal: function () {
             this.loadData(this.afterLoadDataHandler);
         },
-        changeOnTable: function(message){
-            if(message.column != 'Роз`яcнено'){
+        changeOnTable: function(message) {
+            if(message.column != 'Роз`яcнено') {
                 document.getElementById('table6_rozyasneno').style.display = 'none';
             }else{
                 this.navigation = message.value;
@@ -181,7 +181,7 @@
                 location: 'after'
             });
         },
-        exportToExcel: function(){
+        exportToExcel: function() {
             let exportQuery = {
                 queryCode: 'CoordinatorController_Doopr_Roz_Prostr_NemMozh',
                 limit: -1,
@@ -198,7 +198,7 @@
                 width: width
             }
         },
-        myCreateExcel: function(data){
+        myCreateExcel: function(data) {
             let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number' );
             let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnykname' );
             let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
@@ -279,12 +279,12 @@
             worksheet.getRow(5).values = captions;
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
-            for( let j = 0; j < data.rows.length; j ++ ){
+            for( let j = 0; j < data.rows.length; j ++ ) {
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
-                for(let i = 0; i < indexArr.length; i ++){
+                for(let i = 0; i < indexArr.length; i ++) {
                     let el = indexArr[i];
-                    if( el.name === 'registration_number' ){
+                    if( el.name === 'registration_number' ) {
                         rowItem.registration_number = row.values[indexRegistrationNumber] + ', ' + row.values[indexControlDate];
                     } else if(el.name === 'zayavnykName' ) {
                         let value = row.values[indexAdress] === null ? '' : row.values[indexAdress];
@@ -311,7 +311,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let i = 0; i < rows.length + 1; i++ ){
+            for(let i = 0; i < rows.length + 1; i++ ) {
                 let number = i + 5;
                 let row = worksheet.getRow(number);
                 row.height = 100;
@@ -343,13 +343,13 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null){
+            if(currentEmployeeData.short_answer == null) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.adressZ == null){
+            if(currentEmployeeData.adressZ == null) {
                 currentEmployeeData.adressZ = '';
             }
-            if(currentEmployeeData.question_content == null){
+            if(currentEmployeeData.question_content == null) {
                 currentEmployeeData.question_content = '';
             }
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ''+currentEmployeeData.adressZ+''});
@@ -378,7 +378,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });

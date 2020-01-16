@@ -1,13 +1,13 @@
 (function () {
     return {
         IsCreateApplicant: 0,
-        IsFormReturnModerated: function(){
+        IsFormReturnModerated: function() {
             this.form.setControlVisibility('btn_searchPerson', false);
             this.form.setControlVisibility('additional', false);
             this.form.setGroupVisibility('Group_App_site', true);
             this.form.setGroupVisibility('Appeal', true);
         },
-        queryFor_Applicant1551: function(ApplicantId){
+        queryFor_Applicant1551: function(ApplicantId) {
             const queryFor_Applicant1551_IsFormOnlyRead = {
                 queryCode: 'Get_Applicant1551_ForSite',
                 parameterValues: [
@@ -25,7 +25,7 @@
             });
             this.form.setControlValue('Applicant_Id', ApplicantId);
         },
-        IsFormOnlyRead: function(){
+        IsFormOnlyRead: function() {
             this.form.setGroupVisibility('Group_App_site', false);
             this.form.setGroupVisibility('Group2', false);
             this.details.setVisibility('Site_Applicant', false);
@@ -37,7 +37,7 @@
             this.form.setGroupVisibility('Appeal', true);
             this.queryFor_Applicant1551(this.form.getControlValue('Applicant_Id'));
         },
-        init: function(){
+        init: function() {
             if (this.form.getControlValue('AppealFromSite_geolocation_lat')) {
                 this.form.enableControl('btn_searchAdressByCoordinate');
                 document.getElementById('btn_searchAdressByCoordinate').disabled = false;
@@ -227,8 +227,8 @@
                 this.IsFormReturnModerated();
             }
         },
-        onQuestionControlDate:function(ques_type_id){
-            if (ques_type_id == null){
+        onQuestionControlDate:function(ques_type_id) {
+            if (ques_type_id == null) {
                 this.form.setControlValue('Question_ControlDate',null )
             }else{
                 const execute = {
@@ -398,7 +398,7 @@
                 document.getElementById('Question_Btn_Add').disabled = false;
             }
         },
-        CreateApplicant1551: function (){
+        CreateApplicant1551: function () {
             this.form.setGroupVisibility('Group_App_site', false);
             this.form.setGroupVisibility('Group2', false);
             this.form.setGroupVisibility('Appeal_Question', true);
@@ -409,7 +409,7 @@
             this.form.setGroupVisibility('Group2', false);
             this.IsCreateApplicant = 0;
         },
-        SerchApplicant1551:function(){
+        SerchApplicant1551:function() {
             const parameters = [
                 { key: '@AppealFromSite_Id', value: this.id },
                 { key: '@BuildingId', value: this.form.getControlValue('1551_ApplicantFromSite_Address_Building') },
@@ -423,13 +423,13 @@
             this.details.loadData('Site_Applicant', parameters, filters, sorting);
             this.details.setVisibility('Site_Applicant', true);
         },
-        GroupClose_Appeal_Question:function(){
+        GroupClose_Appeal_Question:function() {
             this.form.setGroupVisibility('Group2', false);
             this.details.setVisibility('Site_Applicant', false);
             this.form.setGroupVisibility('Group_App_site', true);
             this.form.setGroupExpanding('Group_App_site', true);
         },
-        GroupClose_Group_PreviewApplicant:function(){
+        GroupClose_Group_PreviewApplicant:function() {
             if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') == 1) {
                 this.form.setGroupVisibility('Group2', false);
                 this.form.setControlValue('Applicant_Id', null);
@@ -442,11 +442,11 @@
                 event.stopImmediatePropagation();
             }
         },
-        GroupClose_Group2:function(){
+        GroupClose_Group2:function() {
             this.form.setGroupExpanding('Group_App_site', true);
             this.details.setVisibility('Site_Applicant', false);
         },
-        ReturnAppealToApplicant:function(){
+        ReturnAppealToApplicant:function() {
             const queryForReturnAppealToApplicant = {
                 queryCode: 'ReturnAppealFromSiteToApplicant',
                 parameterValues: [

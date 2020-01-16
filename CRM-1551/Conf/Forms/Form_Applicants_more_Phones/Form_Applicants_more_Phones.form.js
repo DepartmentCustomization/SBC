@@ -1,7 +1,7 @@
 (function () {
     return {
         subscriptions: [],
-        init: function(){
+        init: function() {
             function setCursorPosition(pos, elem) {
                 elem.focus();
                 if (elem.setSelectionRange) {

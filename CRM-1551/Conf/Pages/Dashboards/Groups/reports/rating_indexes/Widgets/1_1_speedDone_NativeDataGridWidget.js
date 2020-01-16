@@ -57,7 +57,7 @@
         },
         showTable: function(message) {
             let tabName = message.tabName;
-            if(tabName !== 'tabSpeedDone'){
+            if(tabName !== 'tabSpeedDone') {
                 this.active = false;
                 document.getElementById('containerSpeedDone').style.display = 'none';
             } else {

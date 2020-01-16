@@ -23,7 +23,7 @@
             let day = currentDate.getDay();
             let dayFromFact;
             let monthFromFact;
-            if( dayTo - day >= 0 ){
+            if( dayTo - day >= 0 ) {
                 dayFromFact = dayTo - --day;
                 monthFromFact = monthFrom;
             }else{
@@ -39,7 +39,7 @@
             }
             this.setDefaultValue(defaultValue);
         },
-        destroy(){
+        destroy() {
         }
     };
 }());

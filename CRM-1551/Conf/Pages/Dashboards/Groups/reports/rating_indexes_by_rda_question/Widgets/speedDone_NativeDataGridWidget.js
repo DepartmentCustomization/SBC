@@ -61,9 +61,9 @@
             this.active = true;
             this.sub = this.messageService.subscribe('showTable', this.showTable, this);
         },
-        showTable: function(message){
+        showTable: function(message) {
             let tabName = message.tabName;
-            if(tabName !== 'tabSpeedDone'){
+            if(tabName !== 'tabSpeedDone') {
                 this.active = false;
                 document.getElementById('containerSpeedDone').style.display = 'none';
             }else {

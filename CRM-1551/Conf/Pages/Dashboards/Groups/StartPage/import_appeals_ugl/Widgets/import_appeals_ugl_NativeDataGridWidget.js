@@ -46,8 +46,8 @@
             this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.applyChanges, this);
             this.sub2 = this.messageService.subscribe( 'showTable', this.showTable, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
-                if( e.column ){
-                    if(e.column.dataField == 'EnterNumber' && e.row != undefined){
+                if( e.column ) {
+                    if(e.column.dataField == 'EnterNumber' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal_UGL/add?uglId='+e.data.Id);
                     }
                 }
@@ -58,8 +58,8 @@
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let processed = message.package.value.values.find(f => f.name === 'processed').value;
             let users = message.package.value.values.find(f => f.name === 'users').value;
-            if( period !== null ){
-                if( period.dateFrom !== '' && period.dateTo !== ''){
+            if( period !== null ) {
+                if( period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.users = extractOrgValues(users);
@@ -84,7 +84,7 @@
                 }
             }
             function extractOrgValues(val) {
-                if(val !== null){
+                if(val !== null) {
                     let valuesList = [];
                     if (val.length > 0) {
                         for (let i = 0; i < val.length; i++) {

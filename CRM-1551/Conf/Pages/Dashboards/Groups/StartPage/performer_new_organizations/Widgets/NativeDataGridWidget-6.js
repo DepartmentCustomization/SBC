@@ -96,14 +96,14 @@
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined){
+                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.key+'');
                     }
                 }
             });
         },
-        changeOnTable: function(message){
-            if( message.column != 'План/Програма'){
+        changeOnTable: function(message) {
+            if( message.column != 'План/Програма') {
                 document.getElementById('table10_Plan_Programs').style.display = 'none';
             }else{
                 document.getElementById('table10_Plan_Programs').style.display = 'block';
@@ -118,16 +118,16 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined){
+            if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.zayavnyk_zmist == null || currentEmployeeData.zayavnyk_zmist == undefined){
+            if(currentEmployeeData.zayavnyk_zmist == null || currentEmployeeData.zayavnyk_zmist == undefined) {
                 currentEmployeeData.zayavnyk_zmist = '';
             }
-            if(currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined){
+            if(currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined) {
                 currentEmployeeData.zayavnyk_adress = '';
             }
-            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined){
+            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined) {
                 currentEmployeeData.balans_name = '';
             }
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ''+currentEmployeeData.zayavnyk_adress+''});
@@ -157,7 +157,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
@@ -167,10 +167,10 @@
             this.render();
             this.createCustomStyle();
         },
-        createCustomStyle: function(){
+        createCustomStyle: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element){
+            elements.forEach( function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));

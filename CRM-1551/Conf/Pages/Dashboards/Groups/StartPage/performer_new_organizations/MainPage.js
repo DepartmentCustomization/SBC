@@ -6,16 +6,16 @@
             this.sub1 = this.messageService.subscribe( 'hidePagePreloader', this.hideMyPreloader, this);
             this.sub2 = this.messageService.subscribe( 'emptyPage', this.emptyPage, this);
         },
-        emptyPage: function(){
+        emptyPage: function() {
             this.showPagePreloader('Доручень немає');
         },
-        showMyPreloader: function(){
+        showMyPreloader: function() {
             this.showPagePreloader('Зачекайте, сторінка завантажується');
         },
-        hideMyPreloader: function(){
+        hideMyPreloader: function() {
             this.hidePagePreloader('Зачекайте, сторінка завантажується');
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
             this.sub2.unsubscribe();

@@ -42,7 +42,7 @@
                             let json = xhr.responseText;
                             let response = JSON.parse(json);
                             let responseNotification = {};
-                            if(response.errors.length === 0 ){
+                            if(response.errors.length === 0 ) {
                                 responseNotification = {
                                     title: 'Завантаження пройшло успiшно!',
                                     success: 'Завантажено строк: ' + response.success
@@ -69,7 +69,7 @@
             let labelValue = fileLabel.innerHTML;
             fileInput.addEventListener( 'change', event => {
                 let fileName = '';
-                if( this.files && this.files.length > 1 ){
+                if( this.files && this.files.length > 1 ) {
                     fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
                 }else{
                     fileName = event.target.value.split( '\\' ).pop();
@@ -79,7 +79,7 @@
                 fileLabel.appendChild(fileLabel__triangle);
             });
         },
-        sendMessageToTable: function(){
+        sendMessageToTable: function() {
         },
         showModalWindow: function (responseModal, responseNotification) {
             const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
@@ -92,7 +92,7 @@
                 let target = event.currentTarget;
                 target.disabled = true;
                 target.style.backgroundColor = '#d7d2d1';
-                if( responseNotification.success ){
+                if( responseNotification.success ) {
                     let executeQuery = {
                         queryCode: 'DepartmentUGL_ExcelButton3',
                         limit: -1,
@@ -101,23 +101,23 @@
                     this.queryExecutor(executeQuery, sendMessageToTable, this);
                     this.showPreloader = false;
                 }
-                function sendMessageToTable(){
+                function sendMessageToTable() {
                     this.messageService.publish( { name: 'showTable'});
                     let lastElementChild = this.container.lastElementChild;
                     this.container.removeChild(lastElementChild);
                 }
             });
             for (let key in responseNotification) {
-                if( key === 'title'){
+                if( key === 'title') {
                     let responseTitle = this.createElement('div', { id: 'responseTitle', className: 'responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseTitle);
-                }else if(key === 'errorInfo'){
+                }else if(key === 'errorInfo') {
                     let responseErrorInfo = this.createElement('div', { id: 'responseErrorInfo', className: 'responseTest', innerText:responseNotification[key] });
                     responseModal.appendChild(responseErrorInfo);
-                }else if(key === 'errorRow'){
+                }else if(key === 'errorRow') {
                     let responseErrorRow = this.createElement('div', { id: 'responseErrorRow', className: 'responseError responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseErrorRow);
-                }else if(key === 'errorColumn'){
+                }else if(key === 'errorColumn') {
                     let responseErrorColumn = this.createElement('div', { id: 'responseErrorColumn', className: 'responseError responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseErrorColumn);
                 }
@@ -125,10 +125,10 @@
             this.hidePagePreloader();
             this.container.appendChild(modalWindowWrapper);
         },
-        createElement: function(tag, props, ...children){
+        createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });

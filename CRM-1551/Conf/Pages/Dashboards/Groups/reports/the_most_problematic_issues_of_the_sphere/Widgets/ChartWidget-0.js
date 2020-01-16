@@ -109,13 +109,13 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        load: function(data){
+        load: function(data) {
             document.getElementById('widgetTitle').innerText = 'ТОП-10 найпроблемніших питань сфери «'+this.sphereName+'» за перiод: ' +this.dateFromViewValues+ ' по: '+this.dateToViewValues;
             this.createChartInfo(data);
             const self = this;
@@ -124,7 +124,7 @@
                 let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
                 let indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'qname' );
                 let indexValue = data.columns.findIndex(el => el.code.toLowerCase() === 'qty' );
-                for(let i = 0; i < data.rows.length; i++){
+                for(let i = 0; i < data.rows.length; i++) {
                     let element = {
                         id: data.rows[i].values[indexId],
                         name:  data.rows[i].values[indexName],
@@ -168,16 +168,16 @@
             }
             setTimeout(func(self), 50);
         },
-        createChartInfo: function(data){
+        createChartInfo: function(data) {
             const CHART__INFO = document.getElementById('chartInfo');
-            while(CHART__INFO.hasChildNodes()){
+            while(CHART__INFO.hasChildNodes()) {
                 CHART__INFO.removeChild(CHART__INFO.lastElementChild);
             }
             let infoWrapper = this.createElement('div', { id: 'infoWrapper' } );
             CHART__INFO.appendChild(infoWrapper);
             let indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'qname' );
             let indexValue = data.columns.findIndex(el => el.code.toLowerCase() === 'qty' );
-            for(let i = 0; i < data.rows.length; i++){
+            for(let i = 0; i < data.rows.length; i++) {
                 let sphere__dot = this.createElement('div', {className: 'sphere__dot material-icons', innerText: 'fiber_manual_record'} );
                 sphere__dot.style.color = this.colors[i];
                 let sphere__text = this.createElement('div', {className: 'sphere__text', innerText: data.rows[i].values[indexName] + ': ' + data.rows[i].values[indexValue] } );
@@ -191,7 +191,7 @@
             let sumWrapper = this.createElement('div', { id: 'sumWrapper' }, sumText );
             CHART__INFO.appendChild(sumWrapper);
         },
-        changeDateTimeValues: function(value){
+        changeDateTimeValues: function(value) {
             let date = new Date(value);
             let dd = date.getDate().toString();
             let mm = (date.getMonth() + 1).toString();

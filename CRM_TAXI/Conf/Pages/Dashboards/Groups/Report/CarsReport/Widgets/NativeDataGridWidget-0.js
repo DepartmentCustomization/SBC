@@ -71,7 +71,7 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe( 'sendCarId', this.getCarId, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
-                if(e.column.dataField === 'name' && e.row !== undefined){
+                if(e.column.dataField === 'name' && e.row !== undefined) {
                     this.goToDashboard('CarChangeReport',
                         {queryParams:
                         {car_id: e.data.Id,
@@ -85,7 +85,7 @@
         showTopQuestionsTable: function () {
             document.getElementById('cars_report').style.display = 'block';
         },
-        getOrganizationId: function(message){
+        getOrganizationId: function(message) {
             this.car_id = message.car_id;
         },
         changeDateTimeValues: function (value) {

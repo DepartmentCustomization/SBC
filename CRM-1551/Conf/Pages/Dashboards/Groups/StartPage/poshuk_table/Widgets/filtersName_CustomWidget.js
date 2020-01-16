@@ -25,7 +25,7 @@
             this.defaultCheckedItem = [];
         },
         clickOnGear: function() {
-            if( document.getElementById('modalWindowWrapper').style.display == 'none' ){
+            if( document.getElementById('modalWindowWrapper').style.display == 'none' ) {
                 document.getElementById('modalWindowWrapper').style.display = 'block'
             }
         },
@@ -48,7 +48,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
@@ -63,7 +63,7 @@
             message.value.forEach( el => {
                 let value = el.operation;
                 let obj = {};
-                switch(value){
+                switch(value) {
                 case true:
                 case '=':
                     obj.title = el.placeholder,
@@ -100,24 +100,24 @@
             }
             return title
         },
-        changeDateValue: function(value){
+        changeDateValue: function(value) {
             let day = value.getDate();
             let month = value.getMonth() + 1;
             let year = value.getFullYear();
             day = day.toString();
             month = month.toString();
             year = year.toString();
-            if( day.length == 1){
+            if( day.length == 1) {
                 day = '0'+ day;
             }
-            if( month.length == 1){
+            if( month.length == 1) {
                 month = '0'+ month;
             }
             let fullDate = day +'-'+ month + '-'+ year;
             return fullDate;
         },
-        createFilterBox: function(filtersBox){
-            for( let i = 0; i < filtersBox.length; i++ ){
+        createFilterBox: function(filtersBox) {
+            for( let i = 0; i < filtersBox.length; i++ ) {
                 let el = filtersBox[i];
                 let filterBox__value = this.createElement('div', { className: 'filterBox__value tooltip', title: el.value, innerText: el.value });
                 let filterBox__title = this.createElement('div', { className: 'filterBox__title', innerText: el.title+' : '});
@@ -125,7 +125,7 @@
                 document.getElementById('filtersContainer').appendChild(filterBox);
             }
         },
-        createFilterElements: function(modalWindow){
+        createFilterElements: function(modalWindow) {
             const group1__title = this.createElement('div', { className: 'group1__title groupTitle material-icons', innerText: 'view_stream Звернення'});
             const group2__title = this.createElement('div', { className: 'group1__title groupTitle material-icons', innerText: 'view_stream Заявник'});
             const group3__title = this.createElement('div', { className: 'group1__title groupTitle material-icons', innerText: 'view_stream Питання'});
@@ -251,8 +251,8 @@
                 this.filterColumns = [];
                 let checkedElements = document.querySelectorAll('.group__element');
                 checkedElements = Array.from(checkedElements);
-                checkedElements.forEach( function(el){
-                    if( el.firstElementChild.checked == true ){
+                checkedElements.forEach( function(el) {
+                    if( el.firstElementChild.checked == true ) {
                         let width = Number(el.firstElementChild.columnWidth);
                         let displayValue = el.firstElementChild.value;
                         let caption = el.lastElementChild.innerText;
@@ -268,7 +268,7 @@
             });
             modalWindow.appendChild(modalBtnWrapper);
             modalWindow.appendChild(groupsContainer);
-            if(this.defaultCheckedItem.length > 0 ){
+            if(this.defaultCheckedItem.length > 0 ) {
                 let arr = this.defaultCheckedItem;
                 arr.forEach( e => {
                     document.getElementById(e.displayValue).checked = true;
@@ -276,7 +276,7 @@
             }
             this.checkItems();
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
         },

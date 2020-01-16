@@ -20,10 +20,10 @@
                 }
             ]
         },
-        init: function(){
+        init: function() {
             this.sub = this.messageService.subscribe( 'messageForOrganization', this.organizationId, this);
         },
-        organizationId: function(message){
+        organizationId: function(message) {
             this.pos = message.value;
             this.baseQueryOptions.parameterValues[0].value = this.pos;
         },
@@ -47,7 +47,7 @@
             let stringSendValue = value.slice(2, [value.length]);
             this.messageService.publish( { name: 'messageForTable', value: stringSendValue });
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

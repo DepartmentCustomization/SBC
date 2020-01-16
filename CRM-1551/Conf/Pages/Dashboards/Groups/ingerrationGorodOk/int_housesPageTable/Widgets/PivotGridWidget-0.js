@@ -73,7 +73,7 @@
                             alignment: 'left',
                             caption: 'Вулиці у системі 1551',
                             lookup: {
-                                dataSource: function(options){
+                                dataSource: function(options) {
                                     return{
                                         paginate: true,
                                         store: this.elements,
@@ -219,7 +219,7 @@
         },
         lookupFoo_dis: function(data) {
             this.elements_dis = [];
-            for(let i = 0; i < data.rows.length; i++){
+            for(let i = 0; i < data.rows.length; i++) {
                 let el = data.rows[i];
                 let obj = {
                     'Id': el.values[0],
@@ -232,7 +232,7 @@
         },
         lookupFoo: function(data) {
             this.elements = [];
-            for(let i = 0; i < data.rows.length; i++){
+            for(let i = 0; i < data.rows.length; i++) {
                 let el = data.rows[i];
                 let obj = {
                     'Id': el.values[0],

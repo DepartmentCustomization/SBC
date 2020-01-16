@@ -64,21 +64,21 @@
                     dataField: 'inTimePercent',
                     caption: '% вчасно закритих',
                     alignment: 'center',
-                    format: function(value){
+                    format: function(value) {
                         return value + '%';
                     },
                 }, {
                     dataField: 'donePercent',
                     caption: '% виконання без План/Програма',
                     alignment: 'center',
-                    format: function(value){
+                    format: function(value) {
                         return value + '%';
                     },
                 }, {
                     dataField: 'withPlanPercent',
                     caption: '% виконання з План/Програма',
                     alignment: 'center',
-                    format: function(value){
+                    format: function(value) {
                         return value + '%';
                     },
                 }
@@ -355,8 +355,8 @@
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let questionType = message.package.value.values.find(f => f.name === 'questionType').value;
             let organization = message.package.value.values.find(f => f.name === 'organization').value;
-            if( period !== null ){
-                if( period.dateFrom !== '' && period.dateTo !== ''){
+            if( period !== null ) {
+                if( period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;
@@ -372,7 +372,7 @@
             }
         },
         extractOrgValues: function(val) {
-            if(val !== ''){
+            if(val !== '') {
                 const valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];

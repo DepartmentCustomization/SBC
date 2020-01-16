@@ -59,7 +59,7 @@
         init: function() {
             let that = this;
             this.dataGridInstance.onCellClick.subscribe(e => {
-                if(e.column.dataField == 'ClaimId' && e.row != undefined){
+                if(e.column.dataField == 'ClaimId' && e.row != undefined) {
                     that.navigateTo('sections/Claim/edit/'+e.key)
                 }
             });
@@ -119,7 +119,7 @@
                     that.loadData(this.afterLoadDataHandler);
                 }.bind(that))
             })
-            for(let i=1; i<data.columns.length; i++){
+            for(let i=1; i<data.columns.length; i++) {
                 this.config.columns[i] = {
                     dataField : data.columns[i].code,
                     caption: data.columns[i].name,
@@ -135,13 +135,13 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        afterLoadDataHandler(){
+        afterLoadDataHandler() {
             this.render();
         }
     };

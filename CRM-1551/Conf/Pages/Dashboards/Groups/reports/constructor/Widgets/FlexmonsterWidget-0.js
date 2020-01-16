@@ -82,15 +82,15 @@
             };
             this.flexmonster.setReport(report);
         },
-        setBtnState: function(message){
+        setBtnState: function(message) {
             let btn = document.getElementById('apply-filters-button');
             let dateReceipt = message.package.value.values.find(f => f.name === 'date_receipt').value;
             let organization = message.package.value.values.find(f => f.name === 'organization').value;
             let groupOrganization = message.package.value.values.find(f => f.name === 'group_organization').value;
-            if(btn){
-                if(dateReceipt){
-                    if( dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== '' ){
-                        if( organization && groupOrganization ){
+            if(btn) {
+                if(dateReceipt) {
+                    if( dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== '' ) {
+                        if( organization && groupOrganization ) {
                             document.getElementById('apply-filters-button').disabled = true;
                         }else{
                             document.getElementById('apply-filters-button').disabled = false;
@@ -101,11 +101,11 @@
                 }
             }
         },
-        renderTable: function(message){
+        renderTable: function(message) {
             this.QuestionGroupId = message.questionGroupId;
             this.questionTypesData = message.questionTypesArr;
         },
-        getFiltersParams: function(message){
+        getFiltersParams: function(message) {
             this.dateClosingData = [];
             this.operationCloseDate = 0
             this.dateExecutionData = [];
@@ -116,40 +116,40 @@
             let organization = message.package.value.find(f => f.name === 'organization').value;
             let groupOrganization = message.package.value.find(f => f.name === 'group_organization').value;
             let receiptSource = message.package.value.find(f => f.name === 'receipt_source').value;
-            if( dateReceipt !== null ){
-                if( dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== ''){
+            if( dateReceipt !== null ) {
+                if( dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== '') {
                     this.dateReceipt__from = dateReceipt.dateFrom;
                     this.dateReceipt__to = dateReceipt.dateTo;
-                    if( dateExecution !== null){
+                    if( dateExecution !== null) {
                         this.dateExecution__from = dateExecution.dateFrom === '' ? null : dateExecution.dateFrom;
                         this.dateExecution__to = dateExecution.dateTo === '' ? null : dateExecution.dateTo;
-                        if( this.dateExecution__from === null && this.dateExecution__to === null ){
+                        if( this.dateExecution__from === null && this.dateExecution__to === null ) {
                             this.dateExecutionData = [];
                             this.operationVykonDate = 0;
-                        }else if( this.dateExecution__from !== null && this.dateExecution__to === null ){
+                        }else if( this.dateExecution__from !== null && this.dateExecution__to === null ) {
                             this.dateExecutionData = [this.dateExecution__from];
                             this.operationVykonDate = 1;
-                        }else if( this.dateExecution__from === null && this.dateExecution__to !== null ){
+                        }else if( this.dateExecution__from === null && this.dateExecution__to !== null ) {
                             this.dateExecutionData = [this.dateExecution__to];
                             this.operationVykonDate = 2;
-                        }else if( this.dateExecution__from !== null && this.dateExecution__to !== null ){
+                        }else if( this.dateExecution__from !== null && this.dateExecution__to !== null ) {
                             this.dateExecutionData = [ this.dateExecution__from, this.dateExecution__to];
                             this.operationVykonDate = 3;
                         }
                     }
-                    if( dateClosing !== null){
+                    if( dateClosing !== null) {
                         this.dateClosing__from = dateClosing.dateFrom === '' ? null : dateClosing.dateFrom;
                         this.dateClosing__to = dateClosing.dateTo === '' ? null : dateClosing.dateTo;
-                        if( this.dateClosing__from === null && this.dateClosing__to === null ){
+                        if( this.dateClosing__from === null && this.dateClosing__to === null ) {
                             this.dateClosingData = [];
                             this.operationCloseDate = 0;
-                        }else if( this.dateClosing__from !== null && this.dateClosing__to === null ){
+                        }else if( this.dateClosing__from !== null && this.dateClosing__to === null ) {
                             this.dateClosingData = [this.dateClosing__from];
                             this.operationCloseDate = 1;
-                        }else if( this.dateClosing__from === null && this.dateClosing__to !== null ){
+                        }else if( this.dateClosing__from === null && this.dateClosing__to !== null ) {
                             this.dateClosingData = [this.dateClosing__to];
                             this.operationCloseDate = 2;
-                        }else if( this.dateClosing__from !== null && this.dateClosing__to !== null ){
+                        }else if( this.dateClosing__from !== null && this.dateClosing__to !== null ) {
                             this.dateClosingData = [ this.dateClosing__from, this.dateClosing__to];
                             this.operationCloseDate = 3;
                         }

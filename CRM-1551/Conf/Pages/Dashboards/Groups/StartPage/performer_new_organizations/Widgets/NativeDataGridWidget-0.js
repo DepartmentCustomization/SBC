@@ -101,13 +101,13 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined){
+            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined) {
                 currentEmployeeData.balans_name = '';
             }
-            if(currentEmployeeData.question_content == null || currentEmployeeData.question_content == undefined){
+            if(currentEmployeeData.question_content == null || currentEmployeeData.question_content == undefined) {
                 currentEmployeeData.question_content = '';
             }
-            if(currentEmployeeData.adressZ == null || currentEmployeeData.adressZ == undefined){
+            if(currentEmployeeData.adressZ == null || currentEmployeeData.adressZ == undefined) {
                 currentEmployeeData.adressZ = '';
             }
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ''+currentEmployeeData.adressZ+''});
@@ -136,14 +136,14 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        changeOnTable: function(message){
-            if(message.value != ''){
+        changeOnTable: function(message) {
+            if(message.value != '') {
                 document.getElementById('searchTable').style.display = 'block';
                 this.config.query.parameterValues = [
                     { key: '@appealNum', value: message.value},
@@ -151,17 +151,17 @@
                 ];
                 this.loadData(this.afterLoadDataHandler);
                 this.dataGridInstance.onCellClick.subscribe(e => {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined){
+                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.key+'');
                         this.goToSection('Assignments/edit/'+e.row.data.Id+'');
                     }
                 });
             }
         },
-        hideAllTable: function(){
+        hideAllTable: function() {
             document.getElementById('searchTable').style.display = 'none';
         },
-        hideSearchTable: function(){
+        hideSearchTable: function() {
             document.getElementById('searchTable').style.display = 'none';
             document.getElementById('searchContainer__input').value = '';
         },

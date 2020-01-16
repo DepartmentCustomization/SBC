@@ -88,11 +88,11 @@
             });
             this.loadData();
         },
-        showClassifierQuestionsTable: function(){
+        showClassifierQuestionsTable: function() {
             document.getElementById('rep_2_1_top_questions').style.display = 'none';
             document.getElementById('rep_2_2_classifier_questions').style.display = 'block';
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

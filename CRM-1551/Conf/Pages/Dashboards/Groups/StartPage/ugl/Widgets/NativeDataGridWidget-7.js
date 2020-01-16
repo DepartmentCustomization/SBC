@@ -97,14 +97,14 @@
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField === 'registration_number' && e.row !== undefined){
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.key+'');
                     }
                 }
             });
         },
-        changeOnTable: function(message){
-            if(message.column != 'Виконано'){
+        changeOnTable: function(message) {
+            if(message.column != 'Виконано') {
                 document.getElementById('table10_vukonano').style.display = 'none';
             }else{
                 this.navigation = message.value;
@@ -120,13 +120,13 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null){
+            if(currentEmployeeData.short_answer == null) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.adressZ == null){
+            if(currentEmployeeData.adressZ == null) {
                 currentEmployeeData.adressZ = '';
             }
-            if(currentEmployeeData.question_content == null){
+            if(currentEmployeeData.question_content == null) {
                 currentEmployeeData.question_content = '';
             }
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ''+currentEmployeeData.adressZ+''});
@@ -155,7 +155,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
@@ -165,10 +165,10 @@
             this.render();
             this.createCustomStyle();
         },
-        createCustomStyle: function(){
+        createCustomStyle: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element){
+            elements.forEach( function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));

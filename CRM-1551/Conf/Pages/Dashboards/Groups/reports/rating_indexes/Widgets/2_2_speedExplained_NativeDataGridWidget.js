@@ -49,7 +49,7 @@
         },
         showTable: function(message) {
             const tabName = message.tabName;
-            if(tabName !== 'tabSpeedExplained'){
+            if(tabName !== 'tabSpeedExplained') {
                 this.active = false;
                 document.getElementById('containerSpeedExplained').style.display = 'none';
             } else {

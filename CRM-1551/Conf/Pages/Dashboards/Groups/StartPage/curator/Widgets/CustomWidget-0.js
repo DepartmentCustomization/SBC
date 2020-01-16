@@ -67,7 +67,7 @@
             this.queryExecutor(executeQueryDepartament, this.setDepartmentCategories, this);
             this.showPreloader = false;
         },
-        afterViewInit: function(){
+        afterViewInit: function() {
             const container = document.getElementById('container');
             const filtersContainerDepart = this.createElement('div', { id: 'filtersContainerDepart', className: 'filtersContainer'});
             const filtersContainerDistrict = this.createElement('div', { id: 'filtersContainerDistrict', className: 'filtersContainer'});
@@ -86,7 +86,7 @@
             this.createFilterAddBox();
             this.createSearchInput(filtersWrapper);
         },
-        createTabs: function(){
+        createTabs: function() {
             let tabPhone__title = this.createElement('div', { className: 'tabPhone tabTitle', innerText: 'ВХІДНИЙ ДЗВІНОК'});
             let tabProzvon__title = this.createElement('div', { className: 'tabProzvon tabTitle', innerText: 'Прозвон'});
             let tabAppeal__title = this.createElement('div', { className: 'tabAppeal tabTitle', innerText: 'РЕЄСТРАЦІЯ ЗВЕРНЕНЬ'});
@@ -106,7 +106,7 @@
             tabsWrapper.appendChild(techInfoCont);
             techBox__icon.addEventListener('click', event => {
                 event.stopImmediatePropagation();
-                if(techBox.children.length === 1 ){
+                if(techBox.children.length === 1 ) {
                     let techInfoWrapper__triangle = this.createElement('div', { className: 'techInfoWrapper__triangle' });
                     let techInfo__messageTitle = this.createElement('div', { id: 'techInfo__messageTitle', innerText: 'Текст повідомлення' });
                     let techInfo__messageText = this.createElement('textarea', { id: 'techInfo__messageText', placeholder: 'Введiть текст...'});
@@ -114,7 +114,7 @@
                     let techInfo__infoText = this.createElement('div', { id: 'techInfo__infoText', innerText: 'Звертайтеся за допомогою цієї форми з будь-якими питаннями у будь який час або  телефонуйте за номером телефону 044-366-80-47' });
                     let techInfoWrapper = this.createElement('div', { id: 'techInfoWrapper'}, techInfoWrapper__triangle, techInfo__messageTitle,techInfo__messageText, techInfo__sendBtn, techInfo__infoText );
                     techInfo__messageText.addEventListener('input', function() {
-                        if(techInfo__messageText.textLength){
+                        if(techInfo__messageText.textLength) {
                             techInfo__sendBtn.disabled = false;
                             techInfo__sendBtn.classList.remove('disabledBtn');
                         } else {
@@ -123,31 +123,31 @@
                         }
                     });
                     techInfo__sendBtn.addEventListener( 'click', () => {
-                        if(techInfo__messageText.textLength){
+                        if(techInfo__messageText.textLength) {
                             techBox.removeChild(techBox.lastElementChild);
                         }
                     });
                     techBox.appendChild(techInfoWrapper);
-                }else if(techBox.children.length === 2){
+                }else if(techBox.children.length === 2) {
                     techBox.removeChild(techBox.lastElementChild);
                 }
             });
             let tabs = document.querySelectorAll('.tabTo');
             tabs = Array.from(tabs);
-            tabs.forEach( function (el){
+            tabs.forEach( function (el) {
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
-                    if( target.location == 'section'){
+                    if( target.location == 'section') {
                         document.getElementById('container').style.display = 'none';
                         this.goToSection(target.url);
-                    }else if( target.location == 'dashboard'){
+                    }else if( target.location == 'dashboard') {
                         document.getElementById('container').style.display = 'none';
                         this.goToDashboard(target.url);
                     }
                 });
             }.bind(this));
         },
-        createFilterAddBox: function(){
+        createFilterAddBox: function() {
             let filtersCaptionBox = this.createElement('div', { id: 'filtersCaptionBox' });
             const modalWindowContainer = this.createElement('div', { id: 'modalWindowContainer' });
             const filterEditDistrict__title = this.createElement('div', { className: 'filterEditDistrict__title', innerText: 'Район'});
@@ -156,13 +156,13 @@
             const filterEditDepart__title = this.createElement('div', { className: 'filterEditDistrict__title', innerText: 'Департамент'});
             const filterEditDepart__icon = this.createElement('div', { className: 'material-icons filterEditDistrict__icon', innerText: 'add_circle_outline'});
             const filterEditDepartAddWrap = this.createElement('div', { className: 'filterEditDepartAddWrap filterWrap' }, filterEditDepart__icon, filterEditDepart__title);
-            filterDistrictAddWrap.addEventListener('click', function (){
+            filterDistrictAddWrap.addEventListener('click', function () {
                 if(!modalWindowContainer.classList.contains('modalWindowShowClass')) {
                     let location = 'district';
                     this.createModalForm(modalWindowContainer, location, this.districtData);
                 }
             }.bind(this, modalWindowContainer));
-            filterEditDepartAddWrap.addEventListener('click', function (){
+            filterEditDepartAddWrap.addEventListener('click', function () {
                 if(!modalWindowContainer.classList.contains('modalWindowShowClass')) {
                     let location = 'departament';
                     this.createModalForm(modalWindowContainer, location, this.departData);
@@ -174,12 +174,12 @@
             filtersWrapper.appendChild(filtersCaptionBox);
             filtersWrapper.appendChild(modalWindowContainer);
         },
-        createSearchInput: function(filtersWrapper){
+        createSearchInput: function(filtersWrapper) {
             const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
             const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
             filtersWrapper.appendChild(searchContainer);
             searchContainer__input.addEventListener('input', () => {
-                if(searchContainer__input.value.length == 0 ){
+                if(searchContainer__input.value.length == 0 ) {
                     this.resultSearch('clearInput', 0);
                     this.showTable(searchContainer__input);
                 }
@@ -192,7 +192,7 @@
                 }
             }.bind(this));
         },
-        setDistrictData: function(status, location, data){
+        setDistrictData: function(status, location, data) {
             let dataDistrict = [];
             let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
             let indexFilterName = data.columns.findIndex(el => el.code.toLowerCase() === 'filter_name' );
@@ -222,12 +222,12 @@
                 this.reloadMainTable();
             }
         },
-        createFilterDistrictElements: function(data){
+        createFilterDistrictElements: function(data) {
             let container = document.getElementById('filtersContainerDistrict');
             while (container.hasChildNodes()) {
                 container.removeChild( container.lastElementChild );
             }
-            for (let i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++) {
                 let row = data[i];
                 let filter_closer = this.createElement('div', { className: 'filter_closer filter_closer_district filter_closer_hide'});
                 let filter__icon = this.createElement('div', { className: ' filterIcon material-icons', innerText: 'filter_list'});
@@ -238,7 +238,7 @@
             }
             this.changeFilterItemDistrict();
         },
-        changeFilterItemDistrict: function(){
+        changeFilterItemDistrict: function() {
             let filters = document.querySelectorAll('.filter_district');
             filters = Array.from(filters);
             filters.forEach( item => {
@@ -261,8 +261,8 @@
             });
             let filter_closer_district = document.querySelectorAll('.filter_closer_district');
             filter_closer_district = Array.from(filter_closer_district);
-            filter_closer_district.forEach( function(el){
-                el.addEventListener( 'click', function(event){
+            filter_closer_district.forEach( function(el) {
+                el.addEventListener( 'click', function(event) {
                     this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none');
                     let target = event.currentTarget;
                     let executeQueryDeleteFilter = {
@@ -279,7 +279,7 @@
                 }.bind(this));
             }.bind(this));
         },
-        setDepartmentData: function(status, location, data){
+        setDepartmentData: function(status, location, data) {
             let dataDepartament = [];
             let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
             let indexOrganizationId = data.columns.findIndex(el => el.code.toLowerCase() === 'organization_id' );
@@ -293,22 +293,22 @@
                 dataDepartament.push(obj);
             });
             this.departData = dataDepartament;
-            if( status === 'new'){
+            if( status === 'new') {
                 this.createFilterDepartElements(this.departData);
-            }else if( status === 'reload'){
+            }else if( status === 'reload') {
                 this.createFilterDepartElements(this.departData);
                 let modalWindowContainer = document.getElementById('modalWindowContainer');
                 this.createModalForm(modalWindowContainer, location, this.departData );
-            }else if( status === 'delete'){
+            }else if( status === 'delete') {
                 this.reloadMainTable();
             }
         },
-        createFilterDepartElements: function(data){
+        createFilterDepartElements: function(data) {
             let container = document.getElementById('filtersContainerDepart');
             while ( container.hasChildNodes() ) {
                 container.removeChild( container.lastElementChild );
             }
-            for (let i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++) {
                 let row = data[i];
                 let filter_closer = this.createElement('div', { className: 'filter_closer filter_closer_depart filter_closer_hide'});
                 let filter__icon = this.createElement('div', { className: ' filterIcon material-icons', innerText: 'filter_list'});
@@ -319,7 +319,7 @@
             }
             this.changeFilterItemDepart();
         },
-        changeFilterItemDepart: function(){
+        changeFilterItemDepart: function() {
             let filters = document.querySelectorAll('.filter_depart');
             filters = Array.from(filters);
             filters.forEach( item => {
@@ -342,8 +342,8 @@
             });
             let filter_closer_depart = document.querySelectorAll('.filter_closer_depart');
             filter_closer_depart = Array.from(filter_closer_depart);
-            filter_closer_depart.forEach( function(el){
-                el.addEventListener( 'click', function(event){
+            filter_closer_depart.forEach( function(el) {
+                el.addEventListener( 'click', function(event) {
                     this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none');
                     let target = event.currentTarget;
                     let executeQueryDeleteFilter = {
@@ -360,7 +360,7 @@
                 }.bind(this));
             }.bind(this));
         },
-        setDistrictCategories: function(data){
+        setDistrictCategories: function(data) {
             let dataDistrictNameCategories = [];
             let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
             let indexDistrictName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
@@ -373,7 +373,7 @@
             });
             this.districtNameCategories = dataDistrictNameCategories;
         },
-        setQuestionTypesCategories: function(data){
+        setQuestionTypesCategories: function(data) {
             let dataQuestionTypeCategories = [];
             let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
             let indexQuestionTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
@@ -386,7 +386,7 @@
             });
             this.questionTypeCategories = dataQuestionTypeCategories;
         },
-        setDepartmentCategories: function(data){
+        setDepartmentCategories: function(data) {
             let dataDepartamentCategories = [];
             let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
             let indexQuestionTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
@@ -399,10 +399,10 @@
             });
             this.departamentCategories = dataDepartamentCategories;
         },
-        reloadFilterAfterDelete:  function(element, location){
+        reloadFilterAfterDelete:  function(element, location) {
             let status = 'delete';
             element.parentElement.removeChild(document.getElementById(element.id));
-            if( location === 'district'){
+            if( location === 'district') {
                 let executeQueryFilters = {
                     queryCode: 'cc_FilterName',
                     limit: -1,
@@ -410,7 +410,7 @@
                 };
                 this.queryExecutor(executeQueryFilters, this.setDistrictData.bind(this, status, location), this);
                 this.showPreloader = false;
-            }else if( location === 'departament' ){
+            }else if( location === 'departament' ) {
                 let executeQueryFilters = {
                     queryCode: 'cc_FilterNameDepartment',
                     limit: -1,
@@ -422,13 +422,13 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        reloadMainTable: function(message){
+        reloadMainTable: function(message) {
             this.messageService.publish( { name: 'showPagePreloader'});
             let tableContainer = document.getElementById('tableContainer');
             while ( tableContainer.hasChildNodes() ) {
@@ -449,7 +449,7 @@
             this.queryExecutor(executeQueryTable, this.createTable.bind(this, reloadTable), this);
             this.showPreloader = false;
         },
-        createModalForm: function(modalWindowContainer, location, data){
+        createModalForm: function(modalWindowContainer, location, data) {
             if(modalWindowContainer.parentElement == null) {
                 let filtersWrapper = document.getElementById('filtersWrapper');
                 filtersWrapper.appendChild(modalWindowContainer);
@@ -463,7 +463,7 @@
                 const modalFiltersHeader__categorie = this.createElement('div', {className: 'filHeadCategorie headerSelectFilter', id: 'modalFiltersHeader__categorie', innerText: 'НАПРЯМОК РОБIТ'});
                 const modalFiltersHeader__district = this.createElement('div', {className: 'filHeadDistrict headerSelectFilter', id: 'modalFiltersHeader__district', innerText: 'РАЙОН'});
                 modalFiltersHeader = this.createElement('div', { id: 'modalFiltersHeader'}, modalFiltersHeader__district, modalFiltersHeader__categorie);
-            }else if( location === 'departament' ){
+            }else if( location === 'departament' ) {
                 const modalFiltersHeader__depart = this.createElement('div', {className: 'filHeadDepart headerSelectFilter', id: 'modalFiltersHeader__departament', innerText: 'ДЕПАРТАМЕНТ'});
                 modalFiltersHeader = this.createElement('div', { id: 'modalFiltersHeader'}, modalFiltersHeader__depart);
             }
@@ -477,14 +477,14 @@
             modalWindow.style.display = 'block';
             modalWindowContainer.appendChild(modalWindow);
             this.createModalFiltersContainerItems(data, modalFiltersContainer, location);
-            modalHeader__button_close.addEventListener( 'click', function(){
+            modalHeader__button_close.addEventListener( 'click', function() {
                 modalWindowContainer.classList.remove('modalWindowShowClass');
                 modalWindowContainer.remove(modalWindowContainer.childNodes[0]);
                 this.reloadMainTable();
             }.bind(this));
         },
-        createModalFiltersContainerItems: function(data, modalFiltersContainer, location){
-            if( location === 'district'){
+        createModalFiltersContainerItems: function(data, modalFiltersContainer, location) {
+            if( location === 'district') {
                 data.forEach( el => {
                     let districtId = el.districtId;
                     let categorieId = el.questDirectId;
@@ -512,8 +512,8 @@
                 modalFiltersContainer.appendChild(modalFiltersContainerItemNew);
                 this.createNewFilterDistrict(districtNewItemSelect, location, this.districtNameCategories);
                 this.createNewFilterCategories(categorieNewItemSelect, location, this.questionTypeCategories);
-            }else if( location === 'departament' ){
-                data.forEach( function (el){
+            }else if( location === 'departament' ) {
+                data.forEach( function (el) {
                     let departamentId = el.organizationId;
                     let departamentItemSelect = this.createElement('select', { className: 'departamentItemSelect selectItem  js-example-basic-single'});
                     let departamentItem = this.createElement('div', { className: 'departamentItem'}, departamentItemSelect);
@@ -532,37 +532,37 @@
                 this.createNewFilterDepartament( departamentNewItemSelect, location, this.departamentCategories)
             }
         },
-        createFilterDistrict: function(districtId, districtItemSelect, data){
+        createFilterDistrict: function(districtId, districtItemSelect, data) {
             data.forEach( el => {
                 let districtItemSelect__option = this.createElement('option', {innerText: el.filterName, value: el.id, className: 'districtItemSelect__option'});
-                if( districtId === el.id ){
+                if( districtId === el.id ) {
                     districtItemSelect__option.selected = true;
                 }
                 districtItemSelect.appendChild(districtItemSelect__option);
             });
         },
-        createFilterCategories: function(categorieId, categorieItemSelect, data){
+        createFilterCategories: function(categorieId, categorieItemSelect, data) {
             data.forEach( el => {
                 let categorieItemSelect__option = this.createElement('option', {innerText: el.questionTypeName, value: el.id, className: 'districtItemSelect__option'});
-                if( categorieId === el.id ){
+                if( categorieId === el.id ) {
                     categorieItemSelect__option.selected = true;
                 }
                 categorieItemSelect.appendChild(categorieItemSelect__option);
             });
         },
-        createFilterDepartment: function(departamentId, departamentItemSelect, data){
+        createFilterDepartment: function(departamentId, departamentItemSelect, data) {
             data.forEach( el => {
                 let departamentItemSelect__option = this.createElement('option', {innerText: el.departamentName, value: el.id, className: 'districtItemSelect__option'});
-                if( departamentId === el.id ){
+                if( departamentId === el.id ) {
                     departamentItemSelect__option.selected = true;
                 }
                 departamentItemSelect.appendChild(departamentItemSelect__option);
             });
         },
-        createNewFilterDepartament: function( departamentNewItemSelect, location, data){
+        createNewFilterDepartament: function( departamentNewItemSelect, location, data) {
             let districtItemSelect__optionEmpty = this.createElement('option', { className: 'districtItemSelect__option'});
             departamentNewItemSelect.appendChild(districtItemSelect__optionEmpty)
-            data.forEach( function (el){
+            data.forEach( function (el) {
                 let districtItemSelect__option = this.createElement('option', {innerText: el.departamentName, value: el.id, className: 'districtItemSelect__option'});
                 departamentNewItemSelect.appendChild(districtItemSelect__option);
             }.bind(this));
@@ -577,10 +577,10 @@
                 this.addNewItem(location, positionFilter, districtId );
             }.bind(this));
         },
-        createNewFilterDistrict: function( districtNewItemSelect, location, data){
+        createNewFilterDistrict: function( districtNewItemSelect, location, data) {
             let districtItemSelect__optionEmpty = this.createElement('option', { className: 'districtItemSelect__option'});
             districtNewItemSelect.appendChild(districtItemSelect__optionEmpty)
-            data.forEach( function (el){
+            data.forEach( function (el) {
                 let districtItemSelect__option = this.createElement('option', {innerText: el.filterName, value: el.id, className: 'districtItemSelect__option'});
                 districtNewItemSelect.appendChild(districtItemSelect__option);
             }.bind(this));
@@ -595,10 +595,10 @@
                 this.addNewItem(location, positionFilter, districtId );
             }.bind(this));
         },
-        createNewFilterCategories: function( categorieNewItemSelect, location, data){
+        createNewFilterCategories: function( categorieNewItemSelect, location, data) {
             let categorieItemSelect__optionEmpty = this.createElement('option', { className: 'districtItemSelect__option'});
             categorieNewItemSelect.appendChild(categorieItemSelect__optionEmpty)
-            data.forEach( function (el){
+            data.forEach( function (el) {
                 let categorieItemSelect__option = this.createElement('option', {innerText: el.questionTypeName, value: el.id, className: 'districtItemSelect__option'});
                 categorieNewItemSelect.appendChild(categorieItemSelect__option);
             }.bind(this));
@@ -613,14 +613,14 @@
                 this.addNewItem(location, positionFilter, categorieId);
             }.bind(this));
         },
-        addNewItem: function(location, positionFilter, id){
-            if( location === 'district' ){
-                if( positionFilter === 'district'){
+        addNewItem: function(location, positionFilter, id) {
+            if( location === 'district' ) {
+                if( positionFilter === 'district') {
                     this.districtId = id;
-                }else if(positionFilter === 'categorie'){
+                }else if(positionFilter === 'categorie') {
                     this.categorieId = id;
                 }
-                if(this.isCategorieFull && this.isDistrictFull){
+                if(this.isCategorieFull && this.isDistrictFull) {
                     this.isCategorieFull = false;
                     this.isDistrictFull = false;
                     let executeQueryInsertItem = {
@@ -634,7 +634,7 @@
                     this.queryExecutor(executeQueryInsertItem, this.reloadFilters.bind(this, location), this);
                     this.showPreloader = false;
                 }
-            }else if( location === 'departament' ){
+            }else if( location === 'departament' ) {
                 this.departamentId = id;
                 this.isCategorieFull = false;
                 this.isDistrictFull = false;
@@ -649,7 +649,7 @@
                 this.showPreloader = false;
             }
         },
-        reloadFilters: function(location){
+        reloadFilters: function(location) {
             let status = 'reload';
             if( location === 'district' ) {
                 let executeQueryFilters = {
@@ -669,53 +669,53 @@
                 this.showPreloader = false;
             }
         },
-        closePreload: function(location){
-            if( location === 'district'){
+        closePreload: function(location) {
+            if( location === 'district') {
                 if (this.isLoadDistrict && this.isLoadCategorie) {
                     this.messageService.publish( { name: 'hidePagePreloader'});
                 }
-            }else if( location === 'departament'){
+            }else if( location === 'departament') {
                 this.messageService.publish( { name: 'hidePagePreloader'});
             }
         },
         createTable: function(reloadTable ,data) {
-            for(let i = 2; i < data.columns.length; i ++ ){
+            for(let i = 2; i < data.columns.length; i ++ ) {
                 let item = data.columns[i];
                 let columnHeader = this.createElement('div', { id: 'columnHeader_'+i+'', code: ''+item.code+'', className: 'columnHeader', innerText: ''+item.name+''});
-                if( i == 2){
+                if( i == 2) {
                     columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
-                }else if( i == 3){
+                }else if( i == 3) {
                     columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';
-                }else if( i == 4 ){
+                }else if( i == 4 ) {
                     columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';
-                }else if( i == 5){
+                }else if( i == 5) {
                     columnHeader.style.backgroundColor = 'rgb(240, 114, 93)';
-                }else if( i == 6){
+                }else if( i == 6) {
                     columnHeader.style.backgroundColor = 'rgba(238, 163, 54, 1)';
                 }
                 let column = this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: 'column'}, columnHeader);
                 let tableContainer = document.getElementById('tableContainer');
                 tableContainer.appendChild(column);
             }
-            for(let i = 0; i < data.rows.length - 1; i ++ ){
+            for(let i = 0; i < data.rows.length - 1; i ++ ) {
                 let elRow = data.rows[i];
                 let navigationIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'navigation' );
-                for(let j = 2; j < elRow.values.length; j ++ ){
+                for(let j = 2; j < elRow.values.length; j ++ ) {
                     let el = elRow.values[j];
-                    if( el != 0 ){
+                    if( el != 0 ) {
                         let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '('+el+')'});
                         let columnCategorie__title = this.createElement('div', { className: 'columnCategorie__title', code: ''+elRow.values[navigationIndex]+'', innerText: ''+elRow.values[navigationIndex]+''});
                         let columnCategorie = this.createElement('div', { className: 'columnCategorie', code: ''+elRow.values[navigationIndex]+''}, columnCategorie__title, columnCategorie__value);
-                        if( j == 2){
+                        if( j == 2) {
                             columnCategorie.classList.add('columnCategorie__yellow');
                         }
                         document.getElementById('column_'+j+'').appendChild(columnCategorie);
                     }
                 }
             }
-            for(let i = data.rows.length - 1; i < data.rows.length; i++){
+            for(let i = data.rows.length - 1; i < data.rows.length; i++) {
                 let summaryHeader = data.rows[i];
-                for(let j = 2; j < summaryHeader.values.length; j ++ ){
+                for(let j = 2; j < summaryHeader.values.length; j ++ ) {
                     let el = summaryHeader.values[j];
                     let columnChild = document.getElementById('column_'+j+'').firstElementChild;
                     let sub = columnChild.innerText;
@@ -728,15 +728,15 @@
             categories = Array.from(categories);
             let headers = document.querySelectorAll('.columnHeader');
             headers = Array.from(headers);
-            if( reloadTable == true ){
+            if( reloadTable == true ) {
                 categories.forEach( el => {
                     el.style.display = 'none';
                 });
                 let target = document.getElementById(this.targetId);
                 this.showTable(target, this.column, this.navigation);
             }
-            headers.forEach( function(el){
-                el.addEventListener( 'click', function(event){
+            headers.forEach( function(el) {
+                el.addEventListener( 'click', function(event) {
                     let target = event.currentTarget;
                     categories.forEach( el => {
                         el.style.display = 'none';
@@ -746,8 +746,8 @@
                     this.showTable(target, column, navigator);
                 }.bind(this));
             }.bind(this));
-            categories.forEach( function(el){
-                el.addEventListener( 'click', function(event){
+            categories.forEach( function(el) {
+                el.addEventListener( 'click', function(event) {
                     let target = event.currentTarget;
                     categories.forEach( el => {
                         el.style.display = 'none';
@@ -760,25 +760,25 @@
             }.bind(this));
             this.messageService.publish( { name: 'hidePagePreloader'});
         },
-        columnName: function(target){
+        columnName: function(target) {
             let column = '';
-            if( target.code == 'rozyasneno'){
+            if( target.code == 'rozyasneno') {
                 column = 'Роз`яcнено'
-            }else if( target.code == 'neVKompetentsii'){
+            }else if( target.code == 'neVKompetentsii') {
                 column = 'Не в компетенції'
-            }else if( target.code == 'doopratsiovani' ){
+            }else if( target.code == 'doopratsiovani' ) {
                 column = 'Доопрацьовані'
-            }else if( target.code == 'prostrocheni'){
+            }else if( target.code == 'prostrocheni') {
                 column = 'Прострочені'
-            }else if( target.code == 'neVykonNeMozhl'){
+            }else if( target.code == 'neVykonNeMozhl') {
                 column = 'План / Програма'
             }
             return column
         },
-        showTable: function(target, columnName, navigator){
+        showTable: function(target, columnName, navigator) {
             let headers = document.querySelectorAll('.columnHeader');
             headers = Array.from(headers);
-            if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input'){
+            if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input') {
                 document.getElementById('columnHeader_2').style.backgroundColor = 'rgb(248, 195, 47)';
                 document.getElementById('columnHeader_3').style.backgroundColor = 'rgb(74, 193, 197)';
                 document.getElementById('columnHeader_4').style.backgroundColor = 'rgb(132, 199, 96)';
@@ -788,7 +788,7 @@
                 document.getElementById('columnHeader_4').firstElementChild.classList.add('triangle4');
                 document.getElementById('columnHeader_5').firstElementChild.classList.add('triangle5');
                 document.getElementById('columnHeader_6').firstElementChild.classList.add('triangle6');
-                for( let i = 0; i < headers.length; i ++ ){
+                for( let i = 0; i < headers.length; i ++ ) {
                     let header = headers[i];
                     header.firstElementChild.classList.remove('triangle');
                     header.firstElementChild.classList.add('triangle'+(i+2)+'');
@@ -799,9 +799,9 @@
                 this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none');
             }else{
                 target.classList.add('hover');
-                for( let i = 0; i < headers.length; i ++ ){
+                for( let i = 0; i < headers.length; i ++ ) {
                     let header = headers[i];
-                    if( target.id != header.id ){
+                    if( target.id != header.id ) {
                         header.firstElementChild.classList.remove('triangle'+(i+2)+'');
                         header.firstElementChild.classList.add('triangle');
                         header.style.backgroundColor = '#d3d3d3';
@@ -812,23 +812,23 @@
                 this.sendMesOnBtnClick('clickOnСoordinator_table', columnName, navigator, target.id);
             }
         },
-        hideAllItems: function(value){
+        hideAllItems: function(value) {
             let categories = document.querySelectorAll('.columnCategorie');
             categories = Array.from(categories);
-            if( value == 0){
+            if( value == 0) {
                 categories.forEach( el => {
                     el.style.display = 'none';
                 });
-            }else if( value == 1){
+            }else if( value == 1) {
                 categories.forEach( el => {
                     el.style.display = 'flex';
                 });
             }
         },
-        sendMesOnBtnClick: function(message, column, navigator, targetId){
+        sendMesOnBtnClick: function(message, column, navigator, targetId) {
             this.messageService.publish({name: message, column: column, value: navigator, targetId: targetId });
         },
-        resultSearch: function(message, value){
+        resultSearch: function(message, value) {
             this.messageService.publish({name: message, value: value});
         },
         createOptions: function() {

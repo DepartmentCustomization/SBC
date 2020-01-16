@@ -7,8 +7,8 @@
         },
         getFilterParams: function (message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
-            if( period !== null ){
-                if( period.dateFrom !== '' && period.dateTo !== ''){
+            if( period !== null ) {
+                if( period.dateFrom !== '' && period.dateTo !== '') {
                     const dateFrom = period.dateFrom;
                     const dateTo = period.dateTo;
                     const dateFromViewValues = this.changeDateTimeValues(dateFrom);
@@ -33,7 +33,7 @@
             tdsArr.forEach( td => {
                 td.style.whiteSpace = 'pre-wrap';
             });
-            function setTdPreWrap(){
+            function setTdPreWrap() {
                 let noWrapTdCollection = document.querySelectorAll('.dx-datagrid-text-content');
                 let noWrapTdArr = Array.from(noWrapTdCollection);
                 noWrapTdArr.forEach( td => {
@@ -49,7 +49,7 @@
                 col.columns[1].caption = this.currentYear;
             });
         },
-        changeDateTimeValues: function(value){
+        changeDateTimeValues: function(value) {
             let date = new Date(value);
             let dd = date.getDate().toString();
             let mm = (date.getMonth() + 1).toString();

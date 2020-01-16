@@ -1,11 +1,11 @@
 (function () {
     return {
-        init: function(){
+        init: function() {
             this.form.disableControl('registration_number');
             this.form.disableControl('receipt_source_id');
             this.form.disableControl('phone_number');
             let num = this.form.getControlValue('phone_number');
-            if(num !== null){
+            if(num !== null) {
                 this.form.setControlValue('receipt_source_id', {key:1 , value:'Дзвінок в 1551'});
             }
             let appl = [{ parameterCode: '@phone_number', parameterValue: num }];
@@ -116,27 +116,27 @@
                 this.openModalForm(formNewApplicant, addApplicantCallBack);
             });
         },
-        ondataApplicant: function(app_info){
+        ondataApplicant: function(app_info) {
             const parameters = [{key : '@app_info', value : app_info}]
             this.details.loadData('Detail_other_phone', parameters);
         },
-        visibilityTypeResponse: function(id){
-            if (id == 1 || id == 5){
+        visibilityTypeResponse: function(id) {
+            if (id == 1 || id == 5) {
                 this.form.setControlVisibility('answer_post',false);
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_mail', false);
             }
-            if (id == 2){
+            if (id == 2) {
                 this.form.setControlVisibility('answer_phone',true);
                 this.form.setControlVisibility('answer_post', false);
                 this.form.setControlVisibility('answer_mail', false);
             }
-            if (id == 3){
+            if (id == 3) {
                 this.form.setControlVisibility('answer_mail',true);
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_post', false);
             }
-            if (id == 4){
+            if (id == 4) {
                 this.form.setControlVisibility('answer_post',true);
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_mail', false);

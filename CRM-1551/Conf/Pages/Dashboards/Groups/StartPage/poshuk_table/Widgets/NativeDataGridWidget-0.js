@@ -91,7 +91,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
@@ -107,8 +107,8 @@
             this.sub2 = this.messageService.subscribe( 'findFilterColumns', this.reloadTable, this );
             this.config.onToolbarPreparing = this.createButtons.bind(this);
             this.dataGridInstance.onCellClick.subscribe( function(e) {
-                if(e.column){
-                    if(e.column.dataField == 'question_registration_number' && e.row != undefined){
+                if(e.column) {
+                    if(e.column.dataField == 'question_registration_number' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.data.Id+'');
                     }
                 }
@@ -136,12 +136,12 @@
             filters.forEach( elem => {
                 if(elem.active === true) {
                     let data = elem.value;
-                    if(typeof(data) === 'boolean'){
+                    if(typeof(data) === 'boolean') {
                         this.createObjMacros( elem.name, '=', 'true', elem.placeholder);
-                    }else if( typeof(data) === 'object'){
-                        if(data[0]){
-                            if(typeof(data[0].value) === 'number' ){
-                                if( elem.name === 'zayavnyk_age' ){
+                    }else if( typeof(data) === 'object') {
+                        if(data[0]) {
+                            if(typeof(data[0].value) === 'number' ) {
+                                if( elem.name === 'zayavnyk_age' ) {
                                     this.ageArr = [];
                                     let ageSendViewValue = '';
                                     data.forEach( el => {
@@ -157,7 +157,7 @@
                                 }else{
                                     let sumValue = '';
                                     let sumViewValue = '';
-                                    if(data.length > 0){
+                                    if(data.length > 0) {
                                         data.forEach( row => {
                                             sumValue = sumValue + ', '+ row.value;
                                             sumViewValue = sumViewValue + ', '+ row.viewValue;
@@ -167,10 +167,10 @@
                                     let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
                                     this.createObjMacros( elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
                                 }
-                            }else if(typeof(data[0].value) === 'string' ){
+                            }else if(typeof(data[0].value) === 'string' ) {
                                 let stringSumValue = '';
                                 let stringSumViewValue = '';
-                                if(data.length > 0){
+                                if(data.length > 0) {
                                     data.forEach( row => {
                                         stringSumValue = stringSumValue + ', \''+ row.value + '\'';
                                         stringSumViewValue = stringSumViewValue + ', '+ row.viewValue;
@@ -181,9 +181,9 @@
                                 this.createObjMacros( elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
                             }
                         }else{
-                            if(data.dateFrom != '' ){
+                            if(data.dateFrom != '' ) {
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
-                                switch(elem.name){
+                                switch(elem.name) {
                                 case 'registration_date':
                                     this.registrationDate__from = checkDateFrom(elem.value);
                                     this.registrationDateFrom = checkDateFrom(elem.value);
@@ -205,9 +205,9 @@
                                     break;
                                 }
                             }
-                            if(data.dateTo != '' ){
+                            if(data.dateTo != '' ) {
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
-                                switch(elem.name){
+                                switch(elem.name) {
                                 case 'registration_date':
                                     this.registrationDateTo = checkDateTo(elem.value);
                                     break;
@@ -229,8 +229,8 @@
                                 }
                             }
                         }
-                    }else if( typeof(data) === 'string'){
-                        if(elem.name === 'zayavnyk_phone_number'){
+                    }else if( typeof(data) === 'string') {
+                        if(elem.name === 'zayavnyk_phone_number') {
                             this.applicantPhoneNumber = elem.value;
                             this.createObjMacros( elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue );
                         }else{
@@ -241,10 +241,10 @@
                     this.filtersWithOutValues += 1;
                 }
             });
-            function checkDateFrom(val){
+            function checkDateFrom(val) {
                 return val ? val.dateFrom : null;
             }
-            function checkDateTo(val){
+            function checkDateTo(val) {
                 return val ? val.dateTo : null;
             }
             this.filtersWithOutValues === this.filtersLength ? this.isSelected = false : this.isSelected = true;
@@ -262,7 +262,7 @@
         findAllCheckedFilter: function() {
             this.isSelected === true ? document.getElementById('poshuk_table_main').style.display = 'block' : document.getElementById('poshuk_table_main').style.display = 'none';
             let filters = this.filtersValuesMacros;
-            if( filters.length > 0 || this.applicantPhoneNumber !== null ){
+            if( filters.length > 0 || this.applicantPhoneNumber !== null ) {
                 this.textFilterMacros = [];
                 filters.forEach( el => {
                     this.createFilterMacros( el.code, el.operation, el.value);
@@ -301,20 +301,20 @@
             }
         },
         createFilterMacros: function(code, operation, value) {
-            if(code !== 'zayavnyk_phone_number' ){
-                if( operation !== '>=' && operation !== '<=' ){
+            if(code !== 'zayavnyk_phone_number' ) {
+                if( operation !== '>=' && operation !== '<=' ) {
                     let textMacros = '';
-                    if( operation == 'like' ){
+                    if( operation == 'like' ) {
                         textMacros = ''+code+' '+operation+' \'%'+value+'%\' and';
-                    }else if( operation == '==='){
+                    }else if( operation == '===') {
                         textMacros = ''+value+' and';
-                    }else if( operation == '=='){
+                    }else if( operation == '==') {
                         textMacros = ''+code+' '+'='+' '+value+' and';
-                    }else if( operation == '+""+'){
+                    }else if( operation == '+""+') {
                         textMacros = ''+code+' in  (N\''+value+'\' and';
-                    }else if( operation == 'in'){
+                    }else if( operation == 'in') {
                         textMacros = ''+code+' in ('+value+') and';
-                    }else if( operation == '='){
+                    }else if( operation == '=') {
                         textMacros = ''+code+' '+operation+' N\''+value+'\' and';
                     }
                     this.textFilterMacros.push(textMacros);
@@ -371,9 +371,9 @@
                     format: 'dd.MM.yyy HH.mm'
                 }
             ]
-            message.value.forEach(function(el){
+            message.value.forEach(function(el) {
                 let column;
-                switch(el.displayValue){
+                switch(el.displayValue) {
                 case 'transfer_date':
                 case 'state_changed_date':
                 case 'state_changed_date_done':
@@ -415,7 +415,7 @@
         afterRenderTable: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element){
+            elements.forEach( function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
@@ -455,14 +455,14 @@
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },
         myCreateExcel: function(data) {
-            if( data.rows.length > 0 ){
+            if( data.rows.length > 0 ) {
                 this.showPagePreloader('Зачекайте, формується документ');
                 this.indexArr = [];
                 let columns = this.config.columns; columns.forEach( el => {
                     let elDataField = el.dataField;
                     let elCaption = el.caption;
-                    for (let i = 0; i < data.columns.length; i ++){
-                        if( elDataField === data.columns[i].code ){
+                    for (let i = 0; i < data.columns.length; i ++) {
+                        if( elDataField === data.columns[i].code ) {
                             let obj = {
                                 name: elDataField,
                                 index: i,
@@ -508,7 +508,7 @@
                 let rowNumber = '№ з/п';
                 captions.push(rowNumber);
                 indexArr.forEach( el => {
-                    if( el.name === 'question_registration_number' ){
+                    if( el.name === 'question_registration_number' ) {
                         let obj = {
                             key: 'registration_number',
                             width: 10,
@@ -516,14 +516,14 @@
                         };
                         columnsHeader.push(obj);
                         captions.push('Номер, дата, час');
-                    }else if(el.name === 'zayavnyk_full_name' ){
+                    }else if(el.name === 'zayavnyk_full_name' ) {
                         let obj = {
                             key: 'name',
                             width: 15
                         };
                         columnsHeader.push(obj);
                         captions.push('Заявник');
-                    }else if(el.name === 'question_question_type'){
+                    }else if(el.name === 'question_question_type') {
                         let obj1 = {
                             key: 'question_type',
                             width: 10
@@ -536,21 +536,21 @@
                         };
                         columnsHeader.push(obj2);
                         captions.push('Суть питання');
-                    }else if( el.name === 'assigm_executor_organization' ){
+                    }else if( el.name === 'assigm_executor_organization' ) {
                         let obj = {
                             key: 'organization',
                             width: 11
                         };
                         columnsHeader.push(obj);
                         captions.push('Виконавець');
-                    }else if( el.name === 'question_object' ){
+                    }else if( el.name === 'question_object' ) {
                         let obj = {
                             key: 'object',
                             width: 16
                         };
                         columnsHeader.push(obj);
                         captions.push('Місце проблеми (Об\'єкт)');
-                    }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat'){
+                    }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat') {
                         let obj = {
                             key: el.name,
                             width: 13
@@ -580,18 +580,18 @@
                         let el = indexArr[i];
                         const controlDate = this.changeDateTimeValues(row.values[indexExecutionTerm]);
                         const regDate = this.changeDateTimeValues(row.values[indexRegistrationDate]);
-                        if( el.name === 'question_registration_number' ){
+                        if( el.name === 'question_registration_number' ) {
                             rowItem.registration_number = row.values[el.index] + ' ' + regDate;
-                        }else if(el.name === 'zayavnyk_full_name' ){
+                        }else if(el.name === 'zayavnyk_full_name' ) {
                             rowItem.name = row.values[el.index] + ' ' + row.values[indexZayavnykBuildingNumber] + ', кв. ' + row.values[indexZayavnykFlat];
-                        }else if(el.name === 'question_question_type' ){
+                        }else if(el.name === 'question_question_type' ) {
                             rowItem.question_type = 'Тип питання: ' + row.values[el.index];
                             rowItem.assigm_question_content = 'Зміст: ' + row.values[indexAssigmQuestionContent];
-                        }else if( el.name === 'assigm_executor_organization' ){
+                        }else if( el.name === 'assigm_executor_organization' ) {
                             rowItem.organization = row.values[el.index] + '. Дату контролю: ' + controlDate;
-                        }else if( el.name === 'question_object' ){
+                        }else if( el.name === 'question_object' ) {
                             rowItem.object = row.values[el.index];
-                        }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat' ){
+                        }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat' ) {
                             let obj = {
                                 key: el.name,
                                 width: 13
@@ -712,7 +712,7 @@
                     let indexes = this.addedIndexes;
                     let size = Object.keys(el).length;
                     let rowSize = Object.keys(row).length;
-                    for(let i = 0; i < size - rowSize; i ++ ){
+                    for(let i = 0; i < size - rowSize; i ++ ) {
                         let prop = indexes[i];
                         switch(prop) {
                         case 'appeals_receipt_source':
@@ -817,7 +817,7 @@
                     top: 0.4, bottom: 0.4,
                     header: 0.0, footer: 0.0
                 };
-                for(let i = 0; i < rows.length + 1; i++ ){
+                for(let i = 0; i < rows.length + 1; i++ ) {
                     let number = i + 5;
                     let row = worksheet.getRow(number);
                     row.height = 100;
@@ -849,7 +849,7 @@
             }
         },
         changeDateTimeValues: function(value) {
-            if( value === null){
+            if( value === null) {
                 return ' '
             }
             const dateUTC = new Date(value);

@@ -40,15 +40,15 @@
             this.sub1 = this.messageService.subscribe( 'hidePagePreloader', this.hideMyPreloader, this);
             this.sub2 = this.messageService.subscribe( 'afterRenderTable', this.createCustomStyle, this);
         },
-        showMyPreloader: function(){
+        showMyPreloader: function() {
             this.showPagePreloader();
         },
-        hideMyPreloader: function(){
+        hideMyPreloader: function() {
             this.hidePagePreloader();
         },
-        createCustomStyle: function(){
+        createCustomStyle: function() {
             const elements = Array.from(document.querySelectorAll('.dx-datagrid-export-button'));
-            elements.forEach( function(element){
+            elements.forEach( function(element) {
                 const spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
@@ -56,13 +56,13 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe;
             this.sub1.unsubscribe;
         }

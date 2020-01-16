@@ -35,20 +35,20 @@
         init: function() {
             this.sub = this.messageService.subscribe( 'ApplyGlobalFilters', this.getFiltersParams, this);
         },
-        setTitle: function(dayFrom, dayTo){
+        setTitle: function(dayFrom, dayTo) {
             return 'Надходження звернень за тиждень з ' + dayFrom + ', по ' + dayTo;
         },
-        getFiltersParams: function(message){
+        getFiltersParams: function(message) {
             this.config.query.filterColumns = [];
             this.counter = 0;
             this.organization = [];
             message.package.value.forEach( filter => {
                 if( filter.active === true) {
-                    if( filter.name === 'position' ){
+                    if( filter.name === 'position' ) {
                         this.position = filter.value.value;
                         this.counter += 1;
-                    }else if(filter.name === 'week' ){
-                        if( filter.value.dateFrom !== '' && filter.value.dateTo !== '' ){
+                    }else if(filter.name === 'week' ) {
+                        if( filter.value.dateFrom !== '' && filter.value.dateTo !== '' ) {
                             this.dateFrom = filter.value.dateFrom;
                             this.dateTo = filter.value.dateTo;
                             let dayFrom = this.changeDateTimeValues(this.dateFrom);
@@ -56,13 +56,13 @@
                             this.title = this.setTitle(dayFrom, dayTo);
                             this.counter += 2;
                         }
-                    }else if( filter.name === 'organization'){
+                    }else if( filter.name === 'organization') {
                         this.organization = extractOrgValues(message.package.value.find(f => f.name === 'organization').value);
                     }
                 }
             });
-            if( this.counter === 3 ){
-                if( this.position !== 0 && this.organization.length > 0){
+            if( this.counter === 3 ) {
+                if( this.position !== 0 && this.organization.length > 0) {
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },
                         {key: '@dateTo', value: this.dateTo },
@@ -78,7 +78,7 @@
                     };
                     this.config.query.filterColumns.push(filter);
                     this.loadData(this.afterLoadDataHandler);
-                }else if(this.position !== 0 && this.organization.length === 0){
+                }else if(this.position !== 0 && this.organization.length === 0) {
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },
                         {key: '@dateTo', value: this.dateTo },
@@ -89,7 +89,7 @@
                 }
             }
             function extractOrgValues(val) {
-                if(val != null){
+                if(val != null) {
                     let valuesList = [];
                     if (val.length > 0) {
                         for (let i = 0; i < val.length; i++) {
@@ -118,7 +118,7 @@
             this.messageService.publish( {name: 'setData', rep4_data: data, rep4_title: this.title} );
             this.render();
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
         },
     };

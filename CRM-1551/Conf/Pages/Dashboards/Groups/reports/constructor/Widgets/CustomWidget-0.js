@@ -31,7 +31,7 @@
                 <div id='tabsContainer' ></div>
                 `
         ,
-        afterViewInit: function(){
+        afterViewInit: function() {
             const TABS_CONTAINER = document.getElementById('tabsContainer');
             let groupItems__title = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'Група питань'});
             let defaultItems__title = this.createElement('div', { className: 'tabAction tab_title', innerText: 'Типи питань'});
@@ -53,13 +53,13 @@
                 });
             });
         },
-        sendMessage: function(target){
+        sendMessage: function(target) {
             this.messageService.publish( { name: 'showTable', value: target.messageValue });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });

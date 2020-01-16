@@ -13,7 +13,7 @@
             const header1 = document.getElementById('header1');
             header1.firstElementChild.style.overflow = 'visible';
             header1.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
-            if(window.location.search == ''){
+            if(window.location.search == '') {
                 let executeQuery = {
                     queryCode: 'organization_name',
                     parameterValues: [],
@@ -54,27 +54,27 @@
             this.queryExecutor(executeQueryOrganizations, this.createSubordinateOrganizationsTable, this);
             this.showPreloader = false;
         },
-        userOrganization: function(data){
+        userOrganization: function(data) {
             let indexOfTypeId = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationid' );
             let indexOfTypeDistribute = data.columns.findIndex(el => el.code.toLowerCase() === 'distribute' );
             this.organizationId = [];
             this.organizationId = (data.rows[0].values[indexOfTypeId]);
             this.distribute = (data.rows[0].values[indexOfTypeDistribute]);
             this.messageService.publish({name: 'messageWithOrganizationId', value: this.organizationId, distribute:  this.distribute});
-            if( window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+''){
+            if( window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+'') {
                 window.location.search = 'id='+data.rows[0].values[indexOfTypeId]+'';
             }
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        afterViewInit: function(){
+        afterViewInit: function() {
             const container = document.getElementById('container')
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
             const btnWrapper = this.createElement('div', { id: 'btnWrapper'});
@@ -85,7 +85,7 @@
             container.appendChild(tableContainer);
             this.createTabs();
         },
-        createTabs: function(){
+        createTabs: function() {
             let tabInformation__title = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
             let tabAction__title = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
             let tabProcessingOrders__title = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
@@ -99,7 +99,7 @@
             tabsWrapper.appendChild(tabsContainer);
             let tabs = document.querySelectorAll('.tabTo');
             tabs = Array.from(tabs);
-            tabs.forEach( function (el){
+            tabs.forEach( function (el) {
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
                     document.getElementById('container').style.display = 'none';
@@ -107,11 +107,11 @@
                 })
             }.bind(this));
         },
-        sendMesOnBtnClick: function(message, typeEvent, source, orgId){
+        sendMesOnBtnClick: function(message, typeEvent, source, orgId) {
             this.messageService.publish({name: message, typeEvent: typeEvent, source: source, orgId: orgId });
         },
-        showTable: function(target, headers, typeEvent, source){
-            if( target.classList.contains('check') || target.classList.contains('hover')){
+        showTable: function(target, headers, typeEvent, source) {
+            if( target.classList.contains('check') || target.classList.contains('hover')) {
                 headers.forEach( el => {
                     el.firstElementChild.classList.remove('triangle');
                 });
@@ -132,7 +132,7 @@
                 document.getElementById('eventWrapper').classList.add('displayNone');
                 document.getElementById('eventWrapper').classList.remove('displayFlex');
                 headers.forEach( function(target, header) {
-                    if( target.id != header.id ){
+                    if( target.id != header.id ) {
                         header.style.backgroundColor = '#d3d3d3';
                         header.classList.add('check');
                         header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
@@ -143,9 +143,9 @@
                 this.sendMesOnBtnClick('showEventTable', typeEvent, source, this.organizationId);
             }
         },
-        createSubordinateOrganizationsTable: function(data){
+        createSubordinateOrganizationsTable: function(data) {
             this.createHeaderOrganizations();
-            for ( let i = 0; i < data.rows.length; i ++){
+            for ( let i = 0; i < data.rows.length; i ++) {
                 let row = data.rows[i];
                 let eventElementsСounter = this.createElement('div', { className: 'eventElementsСounter displayFlex'});
                 let eventTitle__name = this.createElement('div', { className: 'eventTitle__name', innerText: ''+row.values[1]+''});
@@ -154,18 +154,18 @@
                 let eventWrapper = document.getElementById('eventWrapper');
                 eventWrapper.appendChild(event);
                 let name = row.values[1];
-                for ( let i = 2; i <row.values.length; i ++){
+                for ( let i = 2; i <row.values.length; i ++) {
                     let el = row.values[i];
                     let link = undefined;
-                    if( i == 2 ){
+                    if( i == 2 ) {
                         link = 'Прострочені';
-                    }else if ( i == 3){
+                    }else if ( i == 3) {
                         link = 'Не активні';
-                    }else if( i == 4 ){
+                    }else if( i == 4 ) {
                         link = 'В роботі';
                     }
                     let eventElementsСounterItem = undefined;
-                    if( el != '0 (0)'){
+                    if( el != '0 (0)') {
                         let eventElementsСounterItem__value = this.createElement('div', { className: ' counter_value', innerText: ''+el+''});
                         eventElementsСounterItem = this.createElement('div', { value: link, name: name, className: 'counter'},eventElementsСounterItem__value);
                     }else{
@@ -177,7 +177,7 @@
             let counterHeaderElements = document.querySelectorAll('.counter');
             counterHeaderElements = Array.from(counterHeaderElements);
             counterHeaderElements.forEach( el => {
-                if(el.childNodes.length == 0 ){
+                if(el.childNodes.length == 0 ) {
                     el.style.backgroundColor = 'transparent';
                 }else{
                     el.classList.add('counterBorder');
@@ -185,8 +185,8 @@
             });
             let headers = document.querySelectorAll('.headerItem ');
             headers = Array.from(headers);
-            headers.forEach( function(el){
-                el.addEventListener( 'click', function(event){
+            headers.forEach( function(el) {
+                el.addEventListener( 'click', function(event) {
                     let target = event.currentTarget;
                     let source = 'Усі';
                     let typeEvent = target.innerText;
@@ -195,16 +195,16 @@
             }.bind(this));
             let counters = document.querySelectorAll('.counter');
             counters = Array.from(counters);
-            counters.forEach( function(el){
-                el.addEventListener( 'click', function(event){
+            counters.forEach( function(el) {
+                el.addEventListener( 'click', function(event) {
                     let target = event.currentTarget;
                     let source = target.name;
                     let typeEvent = target.value;
-                    if( typeEvent === 'Прострочені'){
+                    if( typeEvent === 'Прострочені') {
                         target = document.getElementById('headerItem__overdue');
-                    }else if( typeEvent === 'Не активні' ){
+                    }else if( typeEvent === 'Не активні' ) {
                         target = document.getElementById('headerItem__notActive');
-                    }else if(typeEvent === 'В роботі' ){
+                    }else if(typeEvent === 'В роботі' ) {
                         target = document.getElementById('headerItem__inWork');
                     }
                     this.showTable(target, headers, typeEvent, source);
@@ -212,7 +212,7 @@
             }.bind(this));
             this.messageService.publish( { name: 'hidePagePreloader' } );
         },
-        createHeaderOrganizations: function(){
+        createHeaderOrganizations: function() {
             const headerItem__overdue_triangle = this.createElement('div', { className: 'overdue_triangle' });
             const headerItem__notActive_triangle = this.createElement('div', { className: 'notActive_triangle' });
             const headerItem__inWork_triangle = this.createElement('div', { className: 'inWork_triangle' });

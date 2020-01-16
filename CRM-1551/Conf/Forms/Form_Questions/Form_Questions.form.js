@@ -7,7 +7,7 @@
             this.details.loadData('Question_History', parameters);
             this.details.setVisibility('Question_History', true);
         },
-        init:function(){
+        init:function() {
             this.details.setVisibility('Question_History', false);
             this.details.onCellClick('Detail_Que_Hisroty', this.Detail_History.bind(this));
             const onChangeStatus = {
@@ -40,7 +40,7 @@
             this.form.disableControl('question_type_id');
             this.form.disableControl('perfom_id');
             let flag_is_state = this.form.getControlValue('flag_is_state');
-            if (flag_is_state == 1){
+            if (flag_is_state == 1) {
                 this.form.enableControl('object_id');
                 this.form.enableControl('question_type_id');
                 this.form.enableControl('perfom_id');
@@ -80,7 +80,7 @@
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_mail', false);
             }
-            document.getElementById('add_Assignment').addEventListener('click', function(){
+            document.getElementById('add_Assignment').addEventListener('click', function() {
                 const queryForInsert = {
                     queryCode: 'cx_test_Procedur_Insert',
                     parameterValues: [
@@ -113,7 +113,7 @@
                 this.queryExecutor.getValues(queryForInsert).subscribe(() => {
                 })
             }.bind(this));
-            document.getElementById('add_Complain').addEventListener('click', function(){
+            document.getElementById('add_Complain').addEventListener('click', function() {
                 const formAddComplain = {
                     title: 'Створити скаргу',
                     acceptBtnText: 'save',
@@ -172,7 +172,7 @@
                     ]
                 };
                 const addComplain = (param) => {
-                    if(param != false){
+                    if(param != false) {
                         const body = {
                             queryCode: 'cx_Complains_Insert',
                             parameterValues: param
@@ -186,7 +186,7 @@
             this.form.onControlValueChanged('question_type_id', this.onChanged_Question_TypeId);
             this.form.onControlValueChanged('answer_type_id', this.onChangedQuestion_AnswerType);
         },
-        onChangedQuestion_AnswerType:function(value){
+        onChangedQuestion_AnswerType:function(value) {
             const allp_info = {
                 queryCode: 'Answer_Applicant_info',
                 parameterValues: [{key: '@id_con', value: this.form.getControlValue('appl_id')}]
@@ -196,7 +196,7 @@
                 this.form.setControlValue('answer_post', data.rows[0].values[3]);
                 this.form.setControlValue('answer_mail', data.rows[0].values[1]);
             });
-            if(value == 1 || value == null){
+            if(value == 1 || value == null) {
                 this.form.setControlValue('answer_phone', null);
                 this.form.setControlValue('answer_mail', null);
                 this.form.setControlValue('answer_post', null);
@@ -221,7 +221,7 @@
             }
         },
         onChanged_Question_TypeId: function(value) {
-            if (typeof value === 'string'){
+            if (typeof value === 'string') {
                 return
             }
             const objAndOrg = {

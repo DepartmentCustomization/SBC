@@ -1,6 +1,6 @@
 (function () {
     return {
-        init: function(){
+        init: function() {
             this.form.disableControl('Id');
             this.form.disableControl('edit_date');
             this.form.disableControl('user_edit_id');
@@ -8,7 +8,7 @@
             document.getElementById('qwerty').style.backgroundColor='white';
             let btn_changeRule = document.getElementById('btn_changeRule');
             let that = this;
-            btn_changeRule.addEventListener('click', function(){
+            btn_changeRule.addEventListener('click', function() {
                 const FormRules = {
                     title: 'Правило вибору',
                     acceptBtnText: 'ok',

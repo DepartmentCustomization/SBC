@@ -1,9 +1,9 @@
 (function () {
     return {
-        init: function(){
+        init: function() {
             this.form.disableControl('phone_number');
         },
-        afterSave: function(){
+        afterSave: function() {
             const appeal_id = this.form.getControlValue('appeals');
             this.navigateTo('/sections/Appeals/edit/' + appeal_id);
         }

@@ -1,7 +1,7 @@
 (function () {
     return {
         stateForm: '',
-        init:function(){
+        init:function() {
             let categoryIdParam = [{ parameterCode: '@assignment_id', parameterValue: this.form.getControlValue('assignment_id') }];
             this.form.setControlParameterValues('template_id', categoryIdParam);
             this.form.onControlValueChanged('template_id', this.onComment);
@@ -12,7 +12,7 @@
                 document.querySelectorAll('div.card-title > div > button')[1].style.display = 'none'
             }
             let ass_status = this.form.getControlValue('ass_status');
-            if(ass_status == 5){
+            if(ass_status == 5) {
                 this.form.disableControl('name');
                 this.form.disableControl('doc_type_id');
                 this.form.disableControl('content');

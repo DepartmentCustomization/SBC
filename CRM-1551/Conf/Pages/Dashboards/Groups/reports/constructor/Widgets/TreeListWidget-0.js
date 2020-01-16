@@ -88,18 +88,18 @@
             });
             this.loadData();
         },
-        sendSelectItem: function(){
+        sendSelectItem: function() {
             let selectedRow = this.treeListInstance.instance.getSelectedRowsData();
             this.messageService.publish( { name: 'sendSelectedRow', value: selectedRow, position: 'clissificator' });
         },
-        showTable: function(message){
-            if( message.value === 'group' ){
+        showTable: function(message) {
+            if( message.value === 'group' ) {
                 document.getElementById('question_classificatory').style.display = 'none';
-            }else if( message.value === 'default'){
+            }else if( message.value === 'default') {
                 document.getElementById('question_classificatory').style.display = 'block';
             }
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
         },
     };

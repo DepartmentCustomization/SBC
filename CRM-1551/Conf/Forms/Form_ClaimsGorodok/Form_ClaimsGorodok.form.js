@@ -1,6 +1,6 @@
 (function () {
     return {
-        init:function(){
+        init:function() {
             this.form.disableControl('global');
             this.form.disableControl('claim_number');
             this.form.disableControl('claim_state');

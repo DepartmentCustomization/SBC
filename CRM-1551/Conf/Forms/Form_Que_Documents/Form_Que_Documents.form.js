@@ -1,7 +1,7 @@
 (function () {
     return {
         stateForm: '',
-        init: function(){
+        init: function() {
             this.form.disableControl('add_date');
             this.stateForm = this.state;
         },

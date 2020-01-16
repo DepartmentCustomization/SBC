@@ -101,10 +101,10 @@
             this.config.onOptionChanged = this.onOptionChanged.bind(this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.dataGridInstance.onCellClick.subscribe( function(e) {
-                if(e.column){
-                    if(e.column.dataField == 'registration_number' && e.row != undefined){
+                if(e.column) {
+                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.data.Id+'');
-                    }else if(e.column.dataField == 'phone_number' && e.row != undefined){
+                    }else if(e.column.dataField == 'phone_number' && e.row != undefined) {
                         let CurrentUserPhone = e.row.data.phone_number;
                         let PhoneForCall = this.userPhoneNumber;
                         let xhr = new XMLHttpRequest();
@@ -113,7 +113,7 @@
                     }
                 }
             }.bind(this));
-            if(window.location.search != ''){
+            if(window.location.search != '') {
                 let getUrlParams = window
                     .location
                     .search
@@ -135,14 +135,14 @@
             }
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-        onCellPrepared: function(options){
-            if( options.rowType === 'data'){
-                if( options.column.dataField == 'states'){
+        onCellPrepared: function(options) {
+            if( options.rowType === 'data') {
+                if( options.column.dataField == 'states') {
                     options.cellElement.classList.add('stateResult');
                 }
             }
         },
-        afterRenderTable: function(){
+        afterRenderTable: function() {
             let stateResult = document.querySelectorAll('.stateResult');
             for (let i = 0; i < stateResult.length; i++) {
                 let el = stateResult[i];
@@ -151,37 +151,37 @@
                 let spanCircle = this.createElement( 'span', { classList: 'material-icons', innerText: 'lens'});
                 el.style.textAlign = 'center';
                 spanCircle.style.width = '100%';
-                if( el.childNodes.length < 2 ){
+                if( el.childNodes.length < 2 ) {
                     el.appendChild(spanCircle);
                 }
                 let cond1 = this.data[dataIndex][17];
                 let cond2 = this.data[dataIndex][18];
-                if(cond1 === 'На перевірці' ){
-                    if( cond2 === 'Не в компетенції' || cond2 === 'Роз`яснено' ){
+                if(cond1 === 'На перевірці' ) {
+                    if( cond2 === 'Не в компетенції' || cond2 === 'Роз`яснено' ) {
                         spanCircle.classList.add('onCheck');
                     }else{
                         spanCircle.classList.add('yellow');
                     }
-                }else if(cond1 === 'Зареєстровано'){
+                }else if(cond1 === 'Зареєстровано') {
                     spanCircle.classList.add('registrated');
-                }else if(cond1 === 'В роботі'){
+                }else if(cond1 === 'В роботі') {
                     spanCircle.classList.add('inWork');
-                }else if(cond1 === 'Закрито'){
+                }else if(cond1 === 'Закрито') {
                     spanCircle.classList.add('closed');
-                }else if(cond1 === 'Не виконано'){
+                }else if(cond1 === 'Не виконано') {
                     spanCircle.classList.add('notDone');
                 }
             }
         },
-        showUser: function(data){
+        showUser: function(data) {
             const indexPhoneNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'phonenumber' );
             this.userPhoneNumber = data.rows[0].values[indexPhoneNumber]
         },
         onOptionChanged: function(args) {
             let sortingArr = this.sortingArr;
-            if( args.fullName != undefined ){
+            if( args.fullName != undefined ) {
                 let columnCode;
-                switch(args.fullName){
+                switch(args.fullName) {
                 case('columns[0].sortOrder'):
                     columnCode = 'registration_number'
                     break;
@@ -219,14 +219,14 @@
                     columnCode = 'dataSource'
                     break;
                 }
-                if(columnCode != undefined ){
-                    if(columnCode != 'dataSource'){
+                if(columnCode != undefined ) {
+                    if(columnCode != 'dataSource') {
                         let infoColumn = { fullName: columnCode, value: args.value };
-                        if( sortingArr.length === 0 ){
+                        if( sortingArr.length === 0 ) {
                             sortingArr.push(infoColumn);
                         }else{
                             const index = sortingArr.findIndex(x => x.fullName === columnCode);
-                            if( index === -1 ){
+                            if( index === -1 ) {
                                 sortingArr.push(infoColumn);
                             }else{
                                 sortingArr.splice(index, 1);
@@ -238,24 +238,24 @@
                 }
             }
         },
-        createMasterDetails: function(container, options){
+        createMasterDetails: function(container, options) {
             let currentEmployeeData = options.data;
             let lastNdzTime;
-            if(currentEmployeeData.comment == null){
+            if(currentEmployeeData.comment == null) {
                 currentEmployeeData.comment = '';
             }
-            if(currentEmployeeData.zmist == null){
+            if(currentEmployeeData.zmist == null) {
                 currentEmployeeData.zmist = '';
             }
-            if(currentEmployeeData.cc_nedozvon == null){
+            if(currentEmployeeData.cc_nedozvon == null) {
                 currentEmployeeData.cc_nedozvon = '';
             }
-            if(currentEmployeeData.edit_date === null){
+            if(currentEmployeeData.edit_date === null) {
                 lastNdzTime = ''
             }else{
                 lastNdzTime = this.changeDateTimeValues(currentEmployeeData.edit_date);
             }
-            if(currentEmployeeData.control_comment == null){
+            if(currentEmployeeData.control_comment == null) {
                 currentEmployeeData.control_comment = '';
             }
             let ndz = currentEmployeeData.cc_nedozvon;
@@ -281,7 +281,7 @@
                 el.style.minWidth = '200px';
             });
         },
-        changeDateTimeValues: function(value){
+        changeDateTimeValues: function(value) {
             let date = new Date(value);
             let dd = date.getDate();
             let MM = date.getMonth();
@@ -289,21 +289,21 @@
             let HH = date.getHours();
             let mm = date.getMinutes();
             MM += 1;
-            if( (dd.toString()).length === 1){
+            if( (dd.toString()).length === 1) {
                 dd = '0' + dd;
             }
-            if( (MM.toString()).length === 1){
+            if( (MM.toString()).length === 1) {
                 MM = '0' + MM;
             }
-            if( (HH.toString()).length === 1){
+            if( (HH.toString()).length === 1) {
                 HH = '0' + HH;
             }
-            if( (mm.toString()).length === 1){
+            if( (mm.toString()).length === 1) {
                 mm = '0' + mm;
             }
             return dd+'.'+MM+'.' + yyyy +' '+ HH +':'+ mm;
         },
-        reloadMainTable: function(message){
+        reloadMainTable: function(message) {
             this.config.query.parameterValues = [
                 { key: '@filter', value: this.filter },
                 { key: '@buildId', value: this.buildId },
@@ -336,13 +336,13 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        openModalCloserForm: function(){
+        openModalCloserForm: function() {
             let rowsMessage = [];
             let selectedRows = this.dataGridInstance.instance.getSelectedRowsData();
             selectedRows.forEach( row => {
@@ -352,11 +352,11 @@
                 }
                 rowsMessage.push(obj);
             });
-            if(selectedRows.length > 0){
+            if(selectedRows.length > 0) {
                 this.messageService.publish( { name: 'openModalForm', value: rowsMessage } );
             }
         },
-        destroy: function(){
+        destroy: function() {
             this.sub1.unsubscribe();
             this.sub2.unsubscribe();
         },

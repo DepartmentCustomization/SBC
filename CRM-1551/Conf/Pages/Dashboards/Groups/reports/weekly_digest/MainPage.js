@@ -10,7 +10,7 @@
             };
             this.messageService.publish(msg);
         },
-        hideFilterPanel: function(){
+        hideFilterPanel: function() {
             let msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -19,7 +19,7 @@
             };
             this.messageService.publish(msg);
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
         },
     };

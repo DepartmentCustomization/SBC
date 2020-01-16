@@ -15,7 +15,7 @@
             }
             this.messageService.publish(message);
         },
-        init: function(){
+        init: function() {
         },
         initValue: function() {
             let currentDate = new Date();
@@ -28,7 +28,7 @@
             }
             this.setDefaultValue(defaultValue);
         },
-        destroy(){
+        destroy() {
         }
     };
 }());

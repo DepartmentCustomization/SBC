@@ -83,7 +83,7 @@
             }
             this.data[message.position] = table;
             this.counter += 1;
-            if( this.counter === 5 ){
+            if( this.counter === 5 ) {
                 document.getElementById('btnExcel').disabled = false;
                 this.counter = 0;
             }
@@ -300,13 +300,13 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
             this.sub2.unsubscribe();

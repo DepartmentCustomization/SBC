@@ -20,7 +20,7 @@
                 }
             ]
         },
-        init: function(){
+        init: function() {
         },
         onItemSelect: function(item) {
             this.yourFunctionName(item);

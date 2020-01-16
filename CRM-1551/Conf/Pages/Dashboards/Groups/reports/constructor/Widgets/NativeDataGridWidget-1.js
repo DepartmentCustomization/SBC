@@ -44,21 +44,21 @@
                 },
             });
         },
-        sendSelectItem: function(){
+        sendSelectItem: function() {
             let selectedRow = this.dataGridInstance.instance.getSelectedRowsData();
             this.messageService.publish( { name: 'sendSelectedRow', value: selectedRow, position: 'groups' });
         },
-        showTable: function(message){
-            if( message.value === 'group' ){
+        showTable: function(message) {
+            if( message.value === 'group' ) {
                 document.getElementById('question_groups').style.display = 'block';
-            }else if( message.value === 'default'){
+            }else if( message.value === 'default') {
                 document.getElementById('question_groups').style.display = 'none';
             }
         },
         afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
         },
     };

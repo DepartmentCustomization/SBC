@@ -14,7 +14,7 @@
             header.firstElementChild.style.overflow = 'visible';
             header.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
             this.sub = this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this);
-            if(window.location.search == ''){
+            if(window.location.search == '') {
                 let executeQuery = {
                     queryCode: 'organization_name',
                     parameterValues: [],
@@ -60,18 +60,18 @@
             this.queryExecutor(executeOrganizationSelect, this.setOrganizationSelect, this);
             this.showPreloader = false;
         },
-        userOrganization: function(data){
+        userOrganization: function(data) {
             let indexOfTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationname' );
             let indexOfTypeId = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationid' );
             let indexOfTypeDistribute = data.columns.findIndex(el => el.code.toLowerCase() === 'distribute' );
             this.organizationId = [];
-            if(data.rows[0]){
+            if(data.rows[0]) {
                 this.organizationId = (data.rows[0].values[indexOfTypeId]);
                 this.distribute = (data.rows[0].values[indexOfTypeDistribute]);
                 this.messageService.publish({name: 'messageWithOrganizationId', value: this.organizationId, distribute:  this.distribute});
                 document.getElementById('organizationName').value = (data.rows[0].values[indexOfTypeId]);
                 document.getElementById('organizationName').innerText = (data.rows[0].values[indexOfTypeName]);
-                if( window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+''){
+                if( window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+'') {
                     window.location.search = 'id='+data.rows[0].values[indexOfTypeId]+'';
                 }
             }
@@ -79,13 +79,13 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        afterViewInit: function(){
+        afterViewInit: function() {
             const container = document.getElementById('container')
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
             const filtersWrapper = this.createElement('div', { id: 'filtersWrapper', className: 'filtersWrapper'});
@@ -98,9 +98,9 @@
             this.createTabs(tabsWrapper);
             this.createFilters(filtersWrapper);
         },
-        setOrganizationSelect: function(data){
+        setOrganizationSelect: function(data) {
             this.organizationSelect = [];
-            if( data.rows.length > 0 ){
+            if( data.rows.length > 0 ) {
                 const organizationSelect = [];
                 const indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
                 const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
@@ -114,7 +114,7 @@
                 this.organizationSelect = organizationSelect;
             }
         },
-        createTabs: function(tabsWrapper){
+        createTabs: function(tabsWrapper) {
             let tabInformation__title = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
             let tabAction__title = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
             let tabProcessingOrders__title = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
@@ -136,9 +136,9 @@
             tabsWrapper.appendChild(tabsContainer);
             tabsWrapper.appendChild(linkСhangerContainer);
             orgLinkСhangerBox__icon.addEventListener('click', event => {
-                if(this.organizationSelect.length > 0 ){
+                if(this.organizationSelect.length > 0 ) {
                     event.stopImmediatePropagation();
-                    if(orgLinkСhangerBox.children.length === 1 ){
+                    if(orgLinkСhangerBox.children.length === 1 ) {
                         let orgLinksWrapper__triangle = this.createElement('div', { className: 'orgLinksWrapper__triangle' });
                         let orgLinksWrapper = this.createElement('div', { id: 'orgLinksWrapper'}, orgLinksWrapper__triangle);
                         orgLinkСhangerBox.appendChild(orgLinksWrapper);
@@ -151,7 +151,7 @@
                                 window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_processing_assigments?id='+target.orgId+'');
                             });
                         });
-                    }else if(orgLinkСhangerBox.children.length === 2){
+                    }else if(orgLinkСhangerBox.children.length === 2) {
                         let container = document.getElementById('orgLinksWrapper');
                         orgLinkСhangerBox.removeChild(container);
                     }
@@ -162,7 +162,7 @@
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
                     document.getElementById('container').style.display = 'none';
-                    if( target.id === 'tabFinder' ){
+                    if( target.id === 'tabFinder' ) {
                         this.goToDashboard(target.url);
                     } else if ( target.id === 'tabExecutivePosition' || target.id === 'tabTemplates') {
                         this.goToSection(target.url);
@@ -172,13 +172,13 @@
                 });
             });
         },
-        createFilters: function(filtersWrapper){
+        createFilters: function(filtersWrapper) {
             const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
             this.searchContainer__input = searchContainer__input;
             const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
             searchContainer__input.addEventListener('input', event => {
                 event.stopImmediatePropagation();
-                if(searchContainer__input.value.length == 0 ){
+                if(searchContainer__input.value.length == 0 ) {
                     this.resultSearch('clearInput', 0);
                     this.showTable(searchContainer__input);
                 }
@@ -196,7 +196,7 @@
             filtersWrapper.appendChild(organizationName);
             filtersWrapper.appendChild(searchContainer);
         },
-        reloadMainTable: function(message){
+        reloadMainTable: function(message) {
             const tableContainer = this.tableContainer;
             this.column = message.column;
             this.navigator = message.navigator;
@@ -214,33 +214,33 @@
         },
         createTable: function(reloadTable, targetId, data) {
             const tableContainer = this.tableContainer;
-            for(let i = 2; i < data.columns.length; i ++ ){
+            for(let i = 2; i < data.columns.length; i ++ ) {
                 let item = data.columns[i];
                 let columnTriangle = this.createElement('div', { });
                 let columnHeader = this.createElement('div', { id: 'columnHeader_'+i+'', code: ''+item.code+'', className: 'columnHeader', innerText: ''+item.name+''}, columnTriangle);
                 let columnsWrapper = this.createElement('div', { id: 'columnsWrapper_'+i+'', className: 'columnsWrapper'});
-                if( i == 2){
+                if( i == 2) {
                     columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 3){
+                }else if( i == 3) {
                     columnHeader.style.backgroundColor = 'rgb(173, 118, 205)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 4 ){
+                }else if( i == 4 ) {
                     columnHeader.style.backgroundColor = 'rgb(240, 114, 93)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 5){
+                }else if( i == 5) {
                     columnHeader.style.backgroundColor = 'rgb(238, 163, 54)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 6){
+                }else if( i == 6) {
                     columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 7){
+                }else if( i == 7) {
                     columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 8){
+                }else if( i == 8) {
                     columnHeader.style.backgroundColor = 'rgb(94, 202, 162)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 9){
+                }else if( i == 9) {
                     columnHeader.style.backgroundColor = 'rgb(73, 155, 199)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }
@@ -248,11 +248,11 @@
                 column.classList.add('column_'+i+'');
                 tableContainer.appendChild(column);
             }
-            for(let i = 0; i < data.rows.length; i ++ ){
+            for(let i = 0; i < data.rows.length; i ++ ) {
                 let elRow = data.rows[i];
-                for(let j = 2; j < elRow.values.length; j ++ ){
+                for(let j = 2; j < elRow.values.length; j ++ ) {
                     let el = elRow.values[j];
-                    if( el != 0 ){
+                    if( el != 0 ) {
                         let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '('+el+')'});
                         let columnCategorie__title = this.createElement('div', { className: 'columnCategorie__title', code: ''+elRow.values[1]+'', innerText: ''+elRow.values[1]+''});
                         let columnCategorie = this.createElement('div', { className: 'columnCategorie', code: ''+elRow.values[1]+''}, columnCategorie__title, columnCategorie__value);
@@ -289,7 +289,7 @@
                     this.showTable(target, column, navigator);
                 });
             });
-            if( reloadTable == true ){
+            if( reloadTable == true ) {
                 categories.forEach( el => {
                     el.style.display = 'none';
                 });
@@ -298,31 +298,31 @@
             }
             this.messageService.publish( { name: 'hidePagePreloader' } );
         },
-        columnName: function(target){
+        columnName: function(target) {
             let column = '';
-            if( target.code == 'nadiyshlo'){
+            if( target.code == 'nadiyshlo') {
                 column = 'Надійшло'
-            }else if( target.code == 'neVKompetentsii'){
+            }else if( target.code == 'neVKompetentsii') {
                 column = 'Не в компетенції'
-            }else if( target.code == 'prostrocheni'){
+            }else if( target.code == 'prostrocheni') {
                 column = 'Прострочені'
-            }else if( target.code == 'uvaga'){
+            }else if( target.code == 'uvaga') {
                 column = 'Увага'
-            }else if( target.code == 'vroboti'){
+            }else if( target.code == 'vroboti') {
                 column = 'В роботі'
-            }else if( target.code == 'dovidoma'){
+            }else if( target.code == 'dovidoma') {
                 column = 'До відома'
-            }else if( target.code == 'naDoopratsiyvanni' ){
+            }else if( target.code == 'naDoopratsiyvanni' ) {
                 column = 'На доопрацюванні'
-            }else if( target.code == 'neVykonNeMozhl'){
+            }else if( target.code == 'neVykonNeMozhl') {
                 column = 'План/Програма'
             }
             return column
         },
-        showTable: function(target, columnName, navigator){
+        showTable: function(target, columnName, navigator) {
             let headers = document.querySelectorAll('.columnHeader');
             headers = Array.from(headers);
-            if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input'){
+            if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input') {
                 headers.forEach( el => {
                     el.firstElementChild.classList.remove('triangle');
                 });
@@ -352,7 +352,7 @@
                 headers.forEach( function(target, header) {
                     let headers = document.querySelectorAll('.columnHeader');
                     headers = Array.from(headers);
-                    if( target.id != header.id ){
+                    if( target.id != header.id ) {
                         header.style.backgroundColor = '#d3d3d3';
                         header.classList.add('check');
                         header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
@@ -363,20 +363,20 @@
                 this.sendMesOnBtnClick('clickOnTable2', columnName, navigator, target.id);
             }
         },
-        hideAllItems: function(value){
+        hideAllItems: function(value) {
             let categories = document.querySelectorAll('.columnCategorie');
             categories = Array.from(categories);
-            if( value == 0){
+            if( value == 0) {
                 categories.forEach( el => {
                     el.style.display = 'none';
                 });
-            }else if( value == 1){
+            }else if( value == 1) {
                 categories.forEach( el => {
                     el.style.display = 'flex';
                 });
             }
         },
-        sendMesOnBtnClick: function(message, column, navigator, targetId ){
+        sendMesOnBtnClick: function(message, column, navigator, targetId ) {
             this.messageService.publish( {
                 name: message,
                 column: column,
@@ -386,7 +386,7 @@
                 targetId:  targetId
             });
         },
-        resultSearch: function(message, value, id){
+        resultSearch: function(message, value, id) {
             this.messageService.publish({name: message, value: value, orgId: id });
         },
         destroy: function() {

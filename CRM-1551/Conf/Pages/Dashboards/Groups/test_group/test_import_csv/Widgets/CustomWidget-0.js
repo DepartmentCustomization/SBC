@@ -33,7 +33,7 @@
                         let json = xhr.responseText;
                         let response = JSON.parse(json);
                         let responseNotification = {};
-                        if(response.errors.length === 0 ){
+                        if(response.errors.length === 0 ) {
                             responseNotification = {
                                 title: 'Завантаження пройшло успiшно!',
                                 success: 'Завантажено строк: ' + response.success
@@ -69,16 +69,16 @@
                 CONTAINER.removeChild(CONTAINER.lastElementChild);
             });
             for (let key in responseNotification) {
-                if( key === 'title'){
+                if( key === 'title') {
                     let responseTitle = this.createElement('div', { id: 'responseTitle', className: 'responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseTitle);
-                }else if(key === 'errorInfo'){
+                }else if(key === 'errorInfo') {
                     let responseErrorInfo = this.createElement('div', { id: 'responseErrorInfo', className: 'responseTest', innerText:responseNotification[key] });
                     responseModal.appendChild(responseErrorInfo);
-                }else if(key === 'errorRow'){
+                }else if(key === 'errorRow') {
                     let responseErrorRow = this.createElement('div', { id: 'responseErrorRow', className: 'responseError responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseErrorRow);
-                }else if(key === 'errorColumn'){
+                }else if(key === 'errorColumn') {
                     let responseErrorColumn = this.createElement('div', { id: 'responseErrorColumn', className: 'responseError responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseErrorColumn);
                 }
@@ -89,7 +89,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });

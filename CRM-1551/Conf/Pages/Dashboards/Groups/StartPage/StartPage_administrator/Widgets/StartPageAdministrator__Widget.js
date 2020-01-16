@@ -156,11 +156,11 @@
         ,
         init: function() {
         },
-        initValue: function(){
+        initValue: function() {
         },
         load: function() {
         },
-        afterViewInit:function(){
+        afterViewInit:function() {
         }
     }
     ;

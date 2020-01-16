@@ -25,6 +25,8 @@ module.exports = {
         "no-trailing-spaces": "error",
         "semi-spacing": ["error", { "before": false, "after": true }],
         "block-spacing": "error",
-        "no-multi-spaces": "error"
+        "no-multi-spaces": "error",
+        "no-mixed-spaces-and-tabs": "error",
+        "space-before-blocks": "error"
     }
 };

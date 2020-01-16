@@ -100,8 +100,8 @@
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let citizenName = message.package.value.values.find(f => f.name === 'citizen_name').value;
-            if( period !== null ){
-                if( period.dateFrom !== '' && period.dateTo !== ''){
+            if( period !== null ) {
+                if( period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.citizenName = this.extractOrgValues(citizenName);
@@ -126,7 +126,7 @@
             }
         },
         extractOrgValues: function(val) {
-            if(val != null){
+            if(val != null) {
                 let valuesList = [];
                 if (val.length > 0) {
                     for (let i = 0; i < val.length; i++) {

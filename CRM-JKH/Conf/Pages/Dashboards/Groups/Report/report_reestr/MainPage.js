@@ -3,7 +3,7 @@
         init: function() {
             this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
         },
-        getFiltersParams: function(message){
+        getFiltersParams: function(message) {
             const dateFilterStart = message.package.value.values.find(f => f.name === 'period').value.dateFrom;
             const dateFilterEnd = message.package.value.values.find(f => f.name === 'period').value.dateTo;
             const executorFilter = message.package.value.values.find(f => f.name === 'executor').value;
@@ -15,7 +15,7 @@
             const claimType = claim_typeFilter === null ? 0 : claim_typeFilter === '' ? 0 : claim_typeFilter.value;
             this.messageService.publish({ name, dateStart, dateEnd, executor, claimType });
         },
-        changeDateTimeValues: function(value){
+        changeDateTimeValues: function(value) {
             if( value === '') {
                 return value;
             }

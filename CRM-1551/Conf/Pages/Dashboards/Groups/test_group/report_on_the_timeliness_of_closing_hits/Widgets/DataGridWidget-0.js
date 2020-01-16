@@ -127,10 +127,10 @@
             this.loadData();
         },
         chengeFilters:function(message) {
-            function checkDateFrom(val){
+            function checkDateFrom(val) {
                 return val ? val.dateFrom : null;
             }
-            function checkDateTo(val){
+            function checkDateTo(val) {
                 return val ? val.dateTo : null;
             }
             this.start_date = checkDateFrom(message.package.value.values[0].value);

@@ -62,9 +62,9 @@
             document.getElementById('containerSpeedExplained').style.display = 'none';
             this.sub = this.messageService.subscribe('showTable', this.showTable, this);
         },
-        showTable: function(message){
+        showTable: function(message) {
             let tabName = message.tabName;
-            if(tabName !== 'tabSpeedExplained'){
+            if(tabName !== 'tabSpeedExplained') {
                 this.active = false;
                 document.getElementById('containerSpeedExplained').style.display = 'none';
             }else {

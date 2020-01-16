@@ -18,7 +18,7 @@
             this.navigator = [];
             this.targetId = [];
             this.sub = this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this);
-            if(window.location.search == ''){
+            if(window.location.search == '') {
                 let executeQuery = {
                     queryCode: 'organization_name',
                     parameterValues: [],
@@ -64,19 +64,19 @@
             this.queryExecutor(executeOrganizationSelect, this.setOrganizationSelect, this);
             this.showPreloader = false;
         },
-        userOrganization: function(data){
+        userOrganization: function(data) {
             let indexOfTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationname' );
             let indexOfTypeId = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationid' );
             let indexOfTypeDistribute = data.columns.findIndex(el => el.code.toLowerCase() === 'distribute' );
             this.organizationId = [];
-            if(data.rows[0]){
+            if(data.rows[0]) {
                 this.organizationId = (data.rows[0].values[indexOfTypeId]);
                 this.distribute = (data.rows[0].values[indexOfTypeDistribute]);
                 this.messageService.publish({name: 'messageWithOrganizationId', value: this.organizationId, distribute:  this.distribute});
                 document.getElementById('organizationName').value = (data.rows[0].values[indexOfTypeId]);
                 document.getElementById('organizationName').innerText = (data.rows[0].values[indexOfTypeName]);
                 this.organizationName = data.rows[0].values[indexOfTypeName];
-                if( window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+''){
+                if( window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+'') {
                     window.location.search = 'id='+data.rows[0].values[indexOfTypeId]+'';
                 }
             }
@@ -84,13 +84,13 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        afterViewInit: function(){
+        afterViewInit: function() {
             const container = document.getElementById('container')
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
             const filtersWrapper = this.createElement('div', { id: 'filtersWrapper', className: 'filtersWrapper'});
@@ -101,7 +101,7 @@
             this.createTabs();
             this.createFilters();
         },
-        createTabs: function(){
+        createTabs: function() {
             let tabInformation__title = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
             let tabAction__title = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
             let tabProcessingOrders__title = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
@@ -120,9 +120,9 @@
             tabsWrapper.appendChild(tabsContainer);
             tabsWrapper.appendChild(linkСhangerContainer);
             orgLinkСhangerBox__icon.addEventListener('click', event => {
-                if(this.organizationSelect.length > 0 ){
+                if(this.organizationSelect.length > 0 ) {
                     event.stopImmediatePropagation();
-                    if(orgLinkСhangerBox.children.length === 1 ){
+                    if(orgLinkСhangerBox.children.length === 1 ) {
                         let orgLinksWrapper__triangle = this.createElement('div', { className: 'orgLinksWrapper__triangle' });
                         let orgLinksWrapper = this.createElement('div', { id: 'orgLinksWrapper'}, orgLinksWrapper__triangle);
                         orgLinkСhangerBox.appendChild(orgLinksWrapper);
@@ -135,7 +135,7 @@
                                 window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_organizations?id='+target.orgId+'');
                             });
                         });
-                    }else if(orgLinkСhangerBox.children.length === 2){
+                    }else if(orgLinkСhangerBox.children.length === 2) {
                         let container = document.getElementById('orgLinksWrapper');
                         orgLinkСhangerBox.removeChild(container);
                     }
@@ -143,11 +143,11 @@
             });
             let tabs = document.querySelectorAll('.tabTo');
             tabs = Array.from(tabs);
-            tabs.forEach( function (el){
+            tabs.forEach( function (el) {
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
                     document.getElementById('container').style.display = 'none';
-                    if( target.id === 'tabFinder' ){
+                    if( target.id === 'tabFinder' ) {
                         this.goToDashboard(target.url);
                     }else{
                         this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
@@ -155,13 +155,13 @@
                 })
             }.bind(this));
         },
-        createFilters: function(){
+        createFilters: function() {
             const organizationName = this.createElement('div', {id: 'organizationName', className: 'orgName'});
             const organizationChildCat = this.createElement('div', {id: 'organizationChildCat', className: 'orgName', innerText: ' '});
             const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
             const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
             searchContainer__input.addEventListener('input', () => {
-                if(searchContainer__input.value.length == 0 ){
+                if(searchContainer__input.value.length == 0 ) {
                     this.resultSearch('clearInput', 0);
                     this.showTable(searchContainer__input);
                 }
@@ -185,9 +185,9 @@
             filtersWrapper.appendChild(organizationChildCat);
             filtersWrapper.appendChild(searchContainer);
         },
-        setOrganizationSelect: function(data){
+        setOrganizationSelect: function(data) {
             this.organizationSelect = [];
-            if( data.rows.length > 0 ){
+            if( data.rows.length > 0 ) {
                 let organizationSelect = [];
                 let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
                 let indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
@@ -201,7 +201,7 @@
                 this.organizationSelect = organizationSelect;
             }
         },
-        reloadMainTable: function(message){
+        reloadMainTable: function(message) {
             document.getElementById('container').removeChild(document.getElementById('orgHeader'));
             document.getElementById('container').removeChild(document.getElementById('orgContainer'));
             this.column = message.column;
@@ -215,7 +215,7 @@
             this.queryExecutor(executeQueryOrganizations, this.createSubordinateOrganizationsTable.bind(this, true, targetId ), this);
             this.showPreloader = false;
         },
-        createSubordinateOrganizationsTable: function(reloadTable, targetId, data){
+        createSubordinateOrganizationsTable: function(reloadTable, targetId, data) {
             this.createHeaderOrganizations();
             this.createElement('div', {position: 'header', className: 'headerItem displayFlex'});
             this.createElement('div', {position: 'header', className: 'headerItem displayFlex'});
@@ -228,8 +228,8 @@
             const orgContainer = this.createElement('div', { id: 'orgContainer', className: 'orgContainer'});
             let container = document.getElementById('container');
             container.appendChild(orgContainer);
-            if(data.rows.length > 0 ){
-                data.rows.forEach( function(row){
+            if(data.rows.length > 0 ) {
+                data.rows.forEach( function(row) {
                     let orgElementsReferral__arrived = this.createElement('div', { className: 'referalColumn'});
                     let orgElementsReferral__notCompetence = this.createElement('div', { className: 'referalColumn'});
                     let orgElementsReferral__overdue = this.createElement('div', { className: 'referalColumn'});
@@ -247,11 +247,11 @@
                     let orgTitle = this.createElement('div', { className: 'orgTitle displayFlex'}, orgTitle__icon, orgTitle__name);
                     let organization = this.createElement('div', { className: 'organization displayFlex', id: ''+organizationId+''}, orgTitle, orgElements);
                     orgContainer.appendChild(organization);
-                    for( let i = 2; i <row.values.length; i ++){
+                    for( let i = 2; i <row.values.length; i ++) {
                         let el = row.values[i];
                         let column = this.chooseColumnName(i);
                         let orgElementsСounterItem = {};
-                        if( el != 0 ){
+                        if( el != 0 ) {
                             let orgElementsСounterItem__value = this.createElement('div', { className: ' counter_value', innerText: ''+el+''});
                             orgElementsСounterItem = this.createElement('div', {orgId: organizationId, column: column, orgName: ''+row.values[1]+'', className: 'counter counterHeader'}, orgElementsСounterItem__value);
                         } else {
@@ -275,14 +275,14 @@
             allIcons.forEach( el =>{
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
-                    if( target.value == 0){
+                    if( target.value == 0) {
                         target.parentElement.nextElementSibling.firstElementChild.classList.remove('displayFlex');
                         target.parentElement.nextElementSibling.firstElementChild.classList.add('displayNone');
                         target.parentElement.nextElementSibling.lastElementChild.classList.remove('displayNone');
                         target.parentElement.nextElementSibling.lastElementChild.classList.add('displayFlex');
                         target.value = 1;
                         target.innerText = 'remove_circle_outline';
-                    }else if( target.value == 1){
+                    }else if( target.value == 1) {
                         target.value = 0;
                         target.innerText = 'add_circle_outline';
                         target.parentElement.nextElementSibling.lastElementChild.classList.remove('displayFlex');
@@ -295,7 +295,7 @@
             let counterHeaderElements = document.querySelectorAll('.counter');
             counterHeaderElements = Array.from(counterHeaderElements);
             counterHeaderElements.forEach( el => {
-                if(el.childNodes.length == 0 ){
+                if(el.childNodes.length == 0 ) {
                     el.style.backgroundColor = 'transparent';
                 }else{
                     el.classList.add('counterBorder');
@@ -304,18 +304,18 @@
             let referalColumnElements = document.querySelectorAll('.referalColumn');
             referalColumnElements = Array.from(referalColumnElements);
             referalColumnElements.forEach( function(el) {
-                if( el.childNodes.length == 0){
+                if( el.childNodes.length == 0) {
                     let emptyBox = this.createElement('div', { className: 'emptyBox'});
                     el.appendChild(emptyBox);
                 }
             }.bind(this));
-            if( reloadTable == true ){
+            if( reloadTable == true ) {
                 let target = document.getElementById(targetId);
                 let thisName = document.getElementById('organizationName').innerText;
                 this.showTable(target, this.column, this.navigator, thisName ,'item' );
             }
         },
-        createHeaderOrganizations: function(){
+        createHeaderOrganizations: function() {
             const headerItem__arrived_triangle = this.createElement('div', { className: 'arrived_triangle' });
             const headerItem__notCompetence_triangle = this.createElement('div', { className: 'notCompetence_triangle' });
             const headerItem__overdue_triangle = this.createElement('div', { className: 'overdue_triangle' });
@@ -347,8 +347,8 @@
             container.appendChild(orgHeader);
             let headers = document.querySelectorAll('.headerItem');
             headers = Array.from(headers);
-            headers.forEach( function(el){
-                el.addEventListener( 'click', function(event){
+            headers.forEach( function(el) {
+                el.addEventListener( 'click', function(event) {
                     let target = event.currentTarget;
                     let navigator = 'Усі';
                     let column = target.innerText;
@@ -356,13 +356,13 @@
                 }.bind(this));
             }.bind(this));
         },
-        createOrganizationsSubElements: function(orgElementsReferral, organizationId, data){
-            data.rows.forEach( function(row){
-                for( let i = 2; i <row.values.length; i ++){
+        createOrganizationsSubElements: function(orgElementsReferral, organizationId, data) {
+            data.rows.forEach( function(row) {
+                for( let i = 2; i <row.values.length; i ++) {
                     let el = row.values[i];
                     let sub = row.values[1];
                     let column = this.chooseColumnName(i);
-                    if( el != 0 ){
+                    if( el != 0 ) {
                         let orgElementsReferal__itemValue_number = this.createElement('div', { className: 'refItem__value', innerText: ' ('+el+')'});
                         let orgElementsReferal__itemValue_title = this.createElement('div', { className: 'refItem__value', innerText: ''+sub+' '});
                         let orgElementsReferal__itemValue = this.createElement('div', { className: 'refItem__value'}, orgElementsReferal__itemValue_title, orgElementsReferal__itemValue_number);
@@ -373,8 +373,8 @@
             }.bind(this));
             let counters = document.querySelectorAll('.counterBorder');
             counters = Array.from(counters);
-            counters.forEach( function(el){
-                el.addEventListener( 'click', function(event){
+            counters.forEach( function(el) {
+                el.addEventListener( 'click', function(event) {
                     event.stopImmediatePropagation();
                     let target = event.currentTarget;
                     let navigator = target.firstElementChild.firstElementChild.innerText;
@@ -416,7 +416,7 @@
             }.bind(this));
             this.messageService.publish( { name: 'hidePagePreloader' } );
         },
-        chooseColumnName: function(i){
+        chooseColumnName: function(i) {
             let column = '';
             switch(i) {
             case 2:
@@ -446,9 +446,9 @@
             }
             return column
         },
-        showTable: function(target, columnName, navigator, thisName, position){
+        showTable: function(target, columnName, navigator, thisName, position) {
             let headers = Array.from( document.querySelectorAll('.headerItem') );
-            if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input'){
+            if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input') {
                 headers.forEach( el => {
                     el.firstElementChild.classList.remove('triangle');
                 });
@@ -480,21 +480,21 @@
                 let searchContainer__input = document.getElementById('searchContainer__input');
                 searchContainer__input.value = '';
             }else{
-                if( thisName == undefined ){
+                if( thisName == undefined ) {
                     document.getElementById('organizationName').innerText = this.organizationName;
                     document.getElementById('organizationChildCat').innerText = ' ';
                 }else{
                     document.getElementById('organizationChildCat').innerText = navigator;
                     document.getElementById('organizationName').innerText = thisName;
                 }
-                if (position == 'item'){
+                if (position == 'item') {
                     target.classList.add('hover');
                     let orgContainer = document.getElementById('orgContainer');
                     orgContainer.style.display = 'none';
                     headers.forEach( function(target, header) {
                         let headers = document.querySelectorAll('.headerItem');
                         headers = Array.from(headers);
-                        if( target.id != header.id ){
+                        if( target.id != header.id ) {
                             header.style.backgroundColor = '#d3d3d3';
                             header.classList.add('check');
                             header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
@@ -506,13 +506,13 @@
                 }
             }
         },
-        sendMesOnBtnClick: function(message, column, navigator, thisName, organizationId, targetId){
+        sendMesOnBtnClick: function(message, column, navigator, thisName, organizationId, targetId) {
             this.messageService.publish({name: message, column: column, navigation: navigator, orgId: organizationId, orgName: thisName, targetId: targetId });
         },
-        resultSearch: function(message, value){
+        resultSearch: function(message, value) {
             this.messageService.publish({name: message, value: value, orgId: this.organizationId});
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

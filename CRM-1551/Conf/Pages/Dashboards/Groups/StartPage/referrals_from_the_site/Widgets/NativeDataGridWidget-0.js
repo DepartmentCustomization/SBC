@@ -76,20 +76,20 @@
             this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
             this.dataGridInstance.onCellClick.subscribe(e => {
                 e.event.stopImmediatePropagation();
-                if(e.column){
-                    if(e.column.dataField == 'linkTo' && e.row != undefined){
+                if(e.column) {
+                    if(e.column.dataField == 'linkTo' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Appeals_from_Site/edit/'+e.key+'');
                     }
                 }
             });
             this.dataGridInstance.onCellPrepared.subscribe( e => {
-                if(e.column.caption === 'Перехiд' && e.data !== undefined){
+                if(e.column.caption === 'Перехiд' && e.data !== undefined) {
                     let icon = self.createElement('span', { className: 'iconToLink dx-icon-arrowright dx-icon-custom-style'} );
                     e.cellElement.appendChild(icon);
                 }
             });
         },
-        getFiltersParams: function(message){
+        getFiltersParams: function(message) {
             let result = message.package.value.values.find(f => f.name === 'appeals_result').value;
             this.result = result === null ? [] : result === '' ? 0 : this.extractFilterValues(result);
             this.config.query.parameterValues = [
@@ -123,14 +123,14 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        extractFilterValues: function(val){
-            if(val !== ''){
+        extractFilterValues: function(val) {
+            if(val !== '') {
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
@@ -141,7 +141,7 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
         },
     };

@@ -8,9 +8,9 @@
                 queryCode: 'GetApplicantPhonesForApplicantId',
                 parameterValues: [{ key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')}]
             };
-            this.queryExecutor.getValues(queryForGetValue22).subscribe(function (data){
+            this.queryExecutor.getValues(queryForGetValue22).subscribe(function (data) {
                 this.kolvoPhonesForApplicant = data.rows.length-1;
-                if (data.rows.length > 0){
+                if (data.rows.length > 0) {
                     const fieldsForm = {
                         title: 'Телефони заявника',
                         acceptBtnText: 'save',
@@ -18,7 +18,7 @@
                         singleButton: false,
                         fieldGroups: []
                     };
-                    for (let j = 0; j < data.rows.length; j++ ){
+                    for (let j = 0; j < data.rows.length; j++ ) {
                         if(data.rows[j].values[5] == 1) {
                             let p = {
                                 code: 'GroupPhone'+j,
@@ -182,7 +182,7 @@
             }.bind(this));
         },
         onChangeCardPhone: function() {
-            for (let u = 0; u < this.kolvoPhonesForApplicant; u++ ){
+            for (let u = 0; u < this.kolvoPhonesForApplicant; u++ ) {
                 this.formModalConfig.setControlValue('modal_phone'+(u+1)+'_phoneIsMain', false);
             }
         },
@@ -266,14 +266,14 @@
                 queryCode: 'ApplicantPhonesRecalcCardPhone',
                 parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id')}]
             };
-            this.queryExecutor.getValues(queryForGetValue_RecalcPhone).subscribe(function (data){
+            this.queryExecutor.getValues(queryForGetValue_RecalcPhone).subscribe(function (data) {
                 this.form.setControlValue('CardPhone' ,data.rows[0].values[0]);
             }.bind(this));
             const queryForGetValue_GetIsMainPhone = {
                 queryCode: 'GetApplicantPhonesIsMain',
                 parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id')}]
             };
-            this.queryExecutor.getValues(queryForGetValue_GetIsMainPhone).subscribe(function (data){
+            this.queryExecutor.getValues(queryForGetValue_GetIsMainPhone).subscribe(function (data) {
                 this.form.setControlValue('Applicant_Phone_Hide' ,data.rows[0].values[0]);
             }.bind(this));
         },
@@ -282,7 +282,7 @@
                 queryCode: 'ApplicantPhonesDelete',
                 parameterValues: [{ key: '@PhoneId', value: this.formModalConfig.getControlValue('modal_phone'+phone+'_phoneId')}]
             };
-            this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function (){
+            this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function () {
                 let event = new Event('click');
                 document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                 this.onLoadModalPhone();
@@ -297,7 +297,7 @@
             form.formConfig = this;
             this.formModalConfig = form;
             if (this.kolvoPhonesForApplicant > 0) {
-                for (let u = 0; u < this.kolvoPhonesForApplicant; u++ ){
+                for (let u = 0; u < this.kolvoPhonesForApplicant; u++ ) {
                     document.getElementById('modal_phone'+(u+1)+'_phoneIsMain').addEventListener('click', function() {
                         this.formConfig.onChangeCardPhone(true);
                     }.bind(form));
@@ -313,7 +313,7 @@
                     input.addEventListener('change', this.mask, false);
                 }
                 document.getElementById('phoneDelete_Disabled').disabled = true;
-                for (let u2 = 0; u2 < this.kolvoPhonesForApplicant; u2++ ){
+                for (let u2 = 0; u2 < this.kolvoPhonesForApplicant; u2++ ) {
                     document.getElementById('modal_phone'+(u2+1)+'_phoneNumber').focus();
                 }
             }
@@ -325,7 +325,7 @@
                         queryCode: 'ApplicantPhonesAdd',
                         parameterValues: [{ key: '@Applicant_id', value: this.formConfig.form.getControlValue('Applicant_Id')}, { key: '@TypePhone', value: this.getControlValue('modal_phone_NEW_phoneType')}, { key: '@Phone', value: this.getControlValue('modal_phone_NEW')}, { key: '@IsMain', value: this.getControlValue('modal_phone_NEW_phoneIsMain')}]
                     };
-                    this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function (data){
+                    this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function (data) {
                         if (data.rows[0].values[0] == 'OK') {
                             this.setControlValue('modal_phone_NEW', null);
                             let event = new Event('click');
@@ -359,7 +359,7 @@
         onModal_Phone: function(value) {
             if (value) {
                 if (this.kolvoPhonesForApplicant > 0) {
-                    for (let u = 0; u < this.kolvoPhonesForApplicant; u++ ){
+                    for (let u = 0; u < this.kolvoPhonesForApplicant; u++ ) {
                         const queryForGetValue_UpdatePhone = {
                             queryCode: 'ApplicantPhonesUpdate',
                             parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id')},
@@ -368,7 +368,7 @@
                                 { key: '@IsMain', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneIsMain').value},
                                 { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneId').value}]
                         };
-                        this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function (){
+                        this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function () {
                         }.bind(this));
                     }
                     const parameters_03 = [
@@ -1207,7 +1207,7 @@
                     };
                     this.openModalForm(fieldsForm, Question_Close_callback.bind(this));
                 }.bind(this));
-                for (let i=0; i<document.querySelectorAll('div.card-title > div > button').length; i++){
+                for (let i=0; i<document.querySelectorAll('div.card-title > div > button').length; i++) {
                     document.querySelectorAll('div.card-title > div > button')[i].style.display = 'none';
                 }
                 this.details.setVisibility('Detail_QuestionApplicant', false);
@@ -1273,7 +1273,7 @@
                 this.form.setGroupVisibility('Group_Work_with_a_question', false);
             }.bind(this));
         },
-        onPhoneWorkOrganization:function(id_org){
+        onPhoneWorkOrganization:function(id_org) {
             if (id_org) {
                 if (typeof id_org === 'string') {
                     return
@@ -1290,8 +1290,8 @@
                 }
             }
         },
-        onQuestionControlDate:function(ques_type_id){
-            if (ques_type_id == null){
+        onQuestionControlDate:function(ques_type_id) {
+            if (ques_type_id == null) {
                 this.form.setControlValue('Question_ControlDate',null )
             }else{
                 const execute = {
@@ -1308,10 +1308,10 @@
                 });
             }
         },
-        validateDate:function(valid_date){
+        validateDate:function(valid_date) {
             const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 31556925994);
             let val_data = getAge(valid_date);
-            if (val_data < 16 && val_data >= 0){
+            if (val_data < 16 && val_data >= 0) {
                 const formValidDate = {
                     title: 'Дата народження введена некоректно',
                     text: 'Заявнику не може бути менше 16 років',
@@ -1322,7 +1322,7 @@
                     this.form.setControlValue('Applicant_Age', null);
                 }
                 this.openModalForm(formValidDate, callbackValidDate);
-            }else if(val_data < 0){
+            }else if(val_data < 0) {
                 const formValidDate = {
                     title: 'Дата народження введена некоректно',
                     text: ' Ви обрали майбутню дату',
@@ -1336,7 +1336,7 @@
             }
             this.form.setControlValue('Applicant_Age', getAge(valid_date));
         },
-        onDistricChanged:function(){
+        onDistricChanged:function() {
         },
         onCellClick_Detail_GorodokClaim: function(column, row) {
             this.details.setVisibility('Detail_ConsultationAplicant', false);
@@ -2445,7 +2445,7 @@
                 this.form.setControlValue('Question_Prew_AssignmentResolution', data.rows[0].values[19]);
                 this.form.setControlValue('Question_Prew_ApplicantPIB', data.rows[0].values[20]);
                 this.form.setControlValue('Question_Prew_ApplicantAdress', data.rows[0].values[21]);
-                if(data.rows[0].values[15] == 5){
+                if(data.rows[0].values[15] == 5) {
                     document.getElementById('Question_Prew_Btn_Close').disabled = true;
                 }else{
                     document.getElementById('Question_Prew_Btn_Close').disabled = false;

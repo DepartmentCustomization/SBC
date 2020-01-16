@@ -20,10 +20,10 @@
                 }
             ]
         },
-        init: function(){
+        init: function() {
             this.sub = this.messageService.subscribe( 'messageForBuilding', this.streetValue, this);
         },
-        streetValue: function(message){
+        streetValue: function(message) {
             this.streetId = message.value;
             this.baseQueryOptions.parameterValues[0].value = this.streetId;
         },

@@ -107,18 +107,18 @@
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined){
+                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.key+'');
                     }
                 }
             });
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
-        changeOnTable: function(message){
+        changeOnTable: function(message) {
             this.column = message.column;
             this.navigator = message.navigation;
             this.targetId = message.targetId;
-            if(message.column != 'Не в компетенції'){
+            if(message.column != 'Не в компетенції') {
                 document.getElementById('table5__NeVKompetentcii').style.display = 'none';
             }else{
                 document.getElementById('table5__NeVKompetentcii').style.display = 'block';
@@ -134,9 +134,9 @@
                 this.queryExecutor(executeQuery, this.lookupFoo, this);
             }
         },
-        findAllRowsNeVKompetentсii: function(){
+        findAllRowsNeVKompetentсii: function() {
             let rows = this.dataGridInstance.instance.getSelectedRowsData();
-            if( rows.length > 0 ){
+            if( rows.length > 0 ) {
                 rows.map( el => {
                     let executeQuery = {
                         queryCode: 'Button_NeVKompetentcii',
@@ -169,7 +169,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
@@ -177,7 +177,7 @@
         },
         lookupFoo: function(data) {
             this.elements = [];
-            for(let i = 0; i < data.rows.length; i++){
+            for(let i = 0; i < data.rows.length; i++) {
                 let el = data.rows[i];
                 let obj = {
                     'ID': el.values[0],
@@ -188,30 +188,30 @@
             this.config.columns[5].lookup.dataSource.store = this.elements;
             this.loadData(this.afterLoadDataHandler);
         },
-        afterLoadDataHandler: function(){
+        afterLoadDataHandler: function() {
             this.render();
             this.createCustomStyle();
         },
-        createCustomStyle: function(){
+        createCustomStyle: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element){
+            elements.forEach( function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.comment == null || currentEmployeeData.comment == undefined){
+            if(currentEmployeeData.comment == null || currentEmployeeData.comment == undefined) {
                 currentEmployeeData.comment = '';
             }
-            if(currentEmployeeData.zayavnyk_zmist == null || currentEmployeeData.zayavnyk_zmist == undefined){
+            if(currentEmployeeData.zayavnyk_zmist == null || currentEmployeeData.zayavnyk_zmist == undefined) {
                 currentEmployeeData.zayavnyk_zmist = '';
             }
-            if(currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined){
+            if(currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined) {
                 currentEmployeeData.zayavnyk_adress = '';
             }
-            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined){
+            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined) {
                 currentEmployeeData.balans_name = '';
             }
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ''+currentEmployeeData.zayavnyk_adress+''});
@@ -237,7 +237,7 @@
                 el.style.minWidth = '200px';
             });
         },
-        takeOrganizationId: function(message){
+        takeOrganizationId: function(message) {
             this.OrganizationId = message.value;
         },
         destroy: function() {

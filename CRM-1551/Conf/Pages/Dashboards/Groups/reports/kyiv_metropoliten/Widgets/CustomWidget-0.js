@@ -59,34 +59,34 @@
                 this.createTableExcel();
             });
         },
-        getFiltersParams: function(message){
+        getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
-            if( period !== null ){
-                if( period.dateFrom !== '' && period.dateTo !== ''){
+            if( period !== null ) {
+                if( period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                 }
                 let subTitle = document.getElementById('subTitle');
-                if(subTitle !== null){
+                if(subTitle !== null) {
                     subTitle.innerText = 'Статистична інформація за період з '+this.changeDateTimeValues(this.dateFrom)+'до '+this.changeDateTimeValues(this.dateTo)+' Виконавець: КП «Київський метрополітен»';
                 }
             }
         },
-        setData: function(message){
-            if( message.rep1_data){
+        setData: function(message) {
+            if( message.rep1_data) {
                 this.rep1_data = message.rep1_data;
                 this.counter += 1;
-            }else if( message.rep2_data){
+            }else if( message.rep2_data) {
                 this.rep2_data = message.rep2_data;
                 this.counter += 1;
             }
-            if( this.counter === 2 ){
+            if( this.counter === 2 ) {
                 this.dataArray = [ this.rep1_data, this.rep2_data];
                 document.getElementById('btnExcel').disabled = false;
                 this.counter = 0;
             }
         },
-        createTableExcel: function(){
+        createTableExcel: function() {
             this.showPagePreloader('Зачекайте, формується документ');
             const workbook = this.createExcel();
             const worksheet = workbook.addWorksheet('Заявки', {
@@ -118,19 +118,19 @@
             let tds = [];
             let tdsCounter = [];
             let mainHeaders = [];
-            for(let i = 0; i < this.dataArray.length; i++){
+            for(let i = 0; i < this.dataArray.length; i++) {
                 let data = this.dataArray[i];
                 let name = { key: 'orgName', width: 44 };
                 let counter = { key: 'questionQty', width: 15 };
                 let captions = ['', 'Кiлькiсть'];
                 let columnsHeader = [name, counter];
                 worksheet.columns = columnsHeader;
-                if(i === 0){
+                if(i === 0) {
                     worksheet.getRow(5).values = captions;
                     let firstColumnCaption = worksheet.getCell('A5');
                     firstColumnCaption.value = 'Показники';
                     mainHeaders.push(5);
-                    for(let i = 6; i < (data.length + 6); i++ ){
+                    for(let i = 6; i < (data.length + 6); i++ ) {
                         let value = data[i-6];
                         let columnText = worksheet.getCell('A'+i);
                         let columnCounter = worksheet.getCell('B'+i);
@@ -139,7 +139,7 @@
                         tds.push('A'+i);
                         tdsCounter.push('B'+i);
                     }
-                } else if(i === 1){
+                } else if(i === 1) {
                     this.rowTable1Length = (this.dataArray[0].length + 7);
                     worksheet.getRow(this.rowTable1Length).values = captions;
                     let firstColumnCaption = worksheet.getCell('A'+this.rowTable1Length);
@@ -150,7 +150,7 @@
                         return sum + current;
                     }, 0);
                     mainHeaders.push(this.rowTable1Length);
-                    for(let i = this.rowTable1Length + 1; i < (data.length + this.rowTable1Length + 1 ); i++ ){
+                    for(let i = this.rowTable1Length + 1; i < (data.length + this.rowTable1Length + 1 ); i++ ) {
                         let value = data[i-( this.rowTable1Length + 1)];
                         let columnText = worksheet.getCell('A'+i);
                         let columnCounter = worksheet.getCell('B'+i);
@@ -170,7 +170,7 @@
                     mainHeaders.push(this.sumLength);
                 }
             }
-            for(let i = 0; i < tds.length; i++ ){
+            for(let i = 0; i < tds.length; i++ ) {
                 let td = tds[i];
                 worksheet.getCell(td).border = {
                     top: {style:'thin'},
@@ -191,7 +191,7 @@
                     italic: false
                 };
             }
-            for(let i = 0; i < tdsCounter.length; i++ ){
+            for(let i = 0; i < tdsCounter.length; i++ ) {
                 let td = tdsCounter[i];
                 worksheet.getCell(td).border = {
                     top: {style:'thin'},
@@ -223,7 +223,7 @@
             });
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-        changeDateTimeValues: function(value){
+        changeDateTimeValues: function(value) {
             let date = new Date(value);
             let dd = date.getDate();
             let mm = date.getMonth() + 1;
@@ -240,13 +240,13 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
         },

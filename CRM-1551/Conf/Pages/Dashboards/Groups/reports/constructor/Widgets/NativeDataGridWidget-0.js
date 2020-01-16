@@ -53,7 +53,7 @@
                 },
             });
         },
-        sendMessToRenderTable: function(){
+        sendMessToRenderTable: function() {
             let sendData = [];
             this.dataGridInstance.dataSource.forEach( row => {
                 sendData.push(row.Id);
@@ -61,20 +61,20 @@
             sendData = this.GroupQuestionId === null ? sendData : [];
             this.messageService.publish( { name: 'renderTable', questionGroupId: this.GroupQuestionId, questionTypesArr: sendData});
         },
-        clearData: function(){
+        clearData: function() {
             this.selectedRows = [];
             this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: 0}],
             this.config.query.filterColumns = [ ],
             this.loadData(this.afterLoadDataHandler);
         },
-        setReceivedData: function(message){
-            if(message.value.length > 0){
-                if( message.position === 'clissificator' ){
+        setReceivedData: function(message) {
+            if(message.value.length > 0) {
+                if( message.position === 'clissificator' ) {
                     this.GroupQuestionId = null;
                     this.config.query.filterColumns = [];
                     let data = this.selectedRows;
                     let index = data.indexOf(message.value[0].Id);
-                    if( index === -1){
+                    if( index === -1) {
                         data.push(message.value[0].Id);
                     }
                     let filter = {
@@ -88,7 +88,7 @@
                     this.config.query.filterColumns.push(filter);
                     this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: null } ],
                     this.loadData(this.afterLoadDataHandler);
-                }else if( message.position === 'groups' ){
+                }else if( message.position === 'groups' ) {
                     this.GroupQuestionId = message.value[0].Id;
                     this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: this.GroupQuestionId}],
                     this.config.query.filterColumns = [];
@@ -99,9 +99,9 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        afterRenderTable: function(){
+        afterRenderTable: function() {
             document.querySelectorAll('.dx-toolbar-after')[2].firstElementChild.style.display = 'none';
-            if( this.GroupQuestionId !== undefined ){
+            if( this.GroupQuestionId !== undefined ) {
                 let sendData = [];
                 this.dataGridInstance.dataSource.forEach( row => {
                     sendData.push(row.Id);
@@ -110,7 +110,7 @@
                 this.messageService.publish( { name: 'renderTable', questionGroupId: this.GroupQuestionId, questionTypesArr: sendData});
             }
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
         },

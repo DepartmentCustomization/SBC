@@ -52,7 +52,7 @@
             this.form.onControlValueChanged('change_building', this.onBuildingChanged);
         },
         onBuildingChanged: function(BuildingId) {
-            if(BuildingId){
+            if(BuildingId) {
                 document.getElementById('change_but').disabled = false;
             } else {
                 document.getElementById('change_but').disabled = true;

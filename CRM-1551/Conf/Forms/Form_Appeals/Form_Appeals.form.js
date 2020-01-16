@@ -20,13 +20,13 @@
             icon.style.bottom = '0.3em';
             this.form.onControlValueChanged('applicant_id', this.testDetail);
         },
-        testDetail: function(){
+        testDetail: function() {
         },
         onAppealsChanged: function(app_Id) {
             let appl = [{ parameterCode: '@phone_number', parameterValue: app_Id }];
             this.form.setControlParameterValues('applicant_id', appl);
         },
-        afterSave: function(data){
+        afterSave: function(data) {
             this.navigateTo('/sections/Appeals/edit/' + data.rows[0].values[0]);
         }
     };

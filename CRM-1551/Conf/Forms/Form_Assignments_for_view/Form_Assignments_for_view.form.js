@@ -1,6 +1,6 @@
 (function () {
     return {
-        init:function(){
+        init:function() {
             let btns = document.querySelectorAll('.add-btn');
             btns.forEach( el=> {
                 el.style.display = 'none'
@@ -19,12 +19,12 @@
             this.form.disableControl('responsible_name');
             this.form.disableControl('short_answer');
             let rework_counter = this.form.setControlValue('rework_counter')
-            if(rework_counter == 0 || rework_counter == null ){
+            if(rework_counter == 0 || rework_counter == null ) {
                 this.form.setControlVisibility('rework_counter', false);
             }
             this.details.onCellClick('Detail_Assignments_for_view_FILE', this.goToFileView.bind(this));
         },
-        goToFileView:function(column, row){
+        goToFileView:function(column, row) {
             this.navigateTo('/sections/Ass_Documents_ReadOnly/view/'+ row.values[0]);
         }
     };

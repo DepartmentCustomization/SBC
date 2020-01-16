@@ -65,7 +65,7 @@
             this.sub1 = this.messageService.subscribe('showTopQuestions', this.showTopQuestionsTable, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
-        showTopQuestionsTable: function(){
+        showTopQuestionsTable: function() {
             document.getElementById('rep_2_1_top_questions').style.display = 'block';
             document.getElementById('rep_2_2_classifier_questions').style.display = 'none';
         },
@@ -108,16 +108,16 @@
                 },
             });
         },
-        myCreateExcel: function(data){
-            if( data.rows.length > 0 ){
+        myCreateExcel: function(data) {
+            if( data.rows.length > 0 ) {
                 this.showPagePreloader('Зачекайте, формується документ');
                 this.indexArr = [];
                 let columns = this.config.columns;
                 columns.forEach( el => {
                     let elDataField = el.dataField;
                     let elCaption = el.caption;
-                    for (let i = 0; i < data.columns.length; i ++){
-                        if( elDataField === data.columns[i].code ){
+                    for (let i = 0; i < data.columns.length; i ++) {
+                        if( elDataField === data.columns[i].code ) {
                             let obj = {
                                 name: elDataField,
                                 index: i,
@@ -158,7 +158,7 @@
                 let rowNumber = '№ з/п';
                 captions.push(rowNumber);
                 indexArr.forEach( el => {
-                    if( el.name === 'questionType' ){
+                    if( el.name === 'questionType' ) {
                         let obj = {
                             key: 'questionType',
                             width: 70,
@@ -166,7 +166,7 @@
                         };
                         columnsHeader.push(obj);
                         captions.push('Тип питання');
-                    }else if(el.name === 'questionQty' ){
+                    }else if(el.name === 'questionQty' ) {
                         let obj = {
                             key: 'questionQty',
                             width: 15
@@ -180,14 +180,14 @@
                 this.addetedIndexes = [];
                 let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
                 let indexQuestionQty = data.columns.findIndex(el => el.code.toLowerCase() === 'questionqty' );
-                for( let j = 0; j < data.rows.length; j ++ ){
+                for( let j = 0; j < data.rows.length; j ++ ) {
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
-                    for(let i = 0; i < indexArr.length; i ++){
+                    for(let i = 0; i < indexArr.length; i ++) {
                         let el = indexArr[i];
-                        if( el.name === 'questionType' ){
+                        if( el.name === 'questionType' ) {
                             rowItem.questionType = row.values[indexQuestionType];
-                        }else if(el.name === 'questionQty' ){
+                        }else if(el.name === 'questionQty' ) {
                             rowItem.questionQty = row.values[indexQuestionQty];
                         }
                     }
@@ -207,7 +207,7 @@
                     top: 0.4, bottom: 0.4,
                     header: 0.0, footer: 0.0
                 };
-                for(let i = 0; i < rows.length + 1; i++ ){
+                for(let i = 0; i < rows.length + 1; i++ ) {
                     let number = i + 5;
                     let row = worksheet.getRow(number);
                     row.height = 100;
@@ -238,9 +238,9 @@
                 this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
             }
         },
-        changeDateTimeValues: function(value){
+        changeDateTimeValues: function(value) {
             let trueDate;
-            if( value !== null){
+            if( value !== null) {
                 let date = new Date(value);
                 let dd = date.getDate();
                 let MM = date.getMonth();
@@ -257,7 +257,7 @@
                 if( (HH.toString()).length === 1) {
                     HH = '0' + HH;
                 }
-                if( (mm.toString()).length === 1){
+                if( (mm.toString()).length === 1) {
                     mm = '0' + mm;
                 }
                 trueDate = dd+'.'+MM+'.' + yyyy;
@@ -266,7 +266,7 @@
             }
             return trueDate;
         },
-        getFiltersParams: function(message){
+        getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let questionType = message.package.value.values.find(f => f.name === 'questionTypes').value;
             let questionGroup = message.package.value.values.find(f => f.name === 'questionGroup').value;
@@ -276,7 +276,7 @@
                     this.dateTo = period.dateTo;
                     this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;
                     this.questionGroup = questionGroup === null ? 0 : questionGroup === '' ? 0 : questionGroup.value;
-                    if(this.questionType !== 0){
+                    if(this.questionType !== 0) {
                         this.config.query.parameterValues = [
                             {key: '@dateFrom' , value: this.dateFrom },
                             {key: '@dateTo', value: this.dateTo },
@@ -289,7 +289,7 @@
             }
         },
         extractOrgValues: function(val) {
-            if(val !== ''){
+            if(val !== '') {
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
@@ -300,7 +300,7 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function(){
+        destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
         }

@@ -219,12 +219,12 @@
             this.rating = getDataFromLink['RatingId'] === null ? 0 : getDataFromLink['RatingId'] === '' ? 0 : getDataFromLink['RatingId'];
             this.renderTable();
             this.config.columns.forEach( col => {
-                function setColStyles(col){
+                function setColStyles(col) {
                     col.width = '120';
                     col.alignment = 'center';
                     col.verticalAlignment = 'Bottom';
                 }
-                if(col.columns){
+                if(col.columns) {
                     setColStyles(col);
                     col.columns.forEach( col => setColStyles(col));
                 }else{
@@ -329,8 +329,8 @@
                     column.columns.forEach( col => {
                         let length = 0;
                         let colIndexTo = 0;
-                        if(this.subColumnCaption.length > 0){
-                            if(this.subColumnCaption[this.subColumnCaption.length - 1].colCaption !== colCaption){
+                        if(this.subColumnCaption.length > 0) {
+                            if(this.subColumnCaption[this.subColumnCaption.length - 1].colCaption !== colCaption) {
                                 let obj = {
                                     colCaption,
                                     length,
@@ -374,10 +374,10 @@
                 const resCol = resultColumns[i];
                 const colIndexTo = i+1;
                 let indexCaptionFrom;
-                if( resCol.isSub === true ){
+                if( resCol.isSub === true ) {
                     if(this.subColumnCaption.length > 0) {
                         let group = this.subColumnCaption[resCol.index];
-                        if(group.colCaption === resCol.caption){
+                        if(group.colCaption === resCol.caption) {
                             group.length ++;
                             group.colIndexTo = colIndexTo;
                         }
@@ -394,7 +394,7 @@
             this.subColumnCaption.forEach( col => {
                 let indexFrom = col.colIndexTo - col.length + 1;
                 let indexTo = col.colIndexTo;
-                if( col.length > 0 ){
+                if( col.length > 0 ) {
                     worksheet.mergeCells( 4, indexFrom, 4, indexTo );
                     let caption = worksheet.getCell(4, indexFrom);
                     caption.value = col.colCaption;
@@ -426,7 +426,7 @@
             }
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-        changeDateTimeValues: function(value){
+        changeDateTimeValues: function(value) {
             let date = new Date(value);
             let dd = date.getDate().toString();
             let mm = (date.getMonth() + 1).toString();

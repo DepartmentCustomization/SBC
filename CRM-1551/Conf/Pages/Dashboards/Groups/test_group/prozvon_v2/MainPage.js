@@ -39,10 +39,10 @@
             this.sub = this.messageService.subscribe( 'showPagePreloader', this.showMyPreloader, this)
             this.sub1 = this.messageService.subscribe( 'hidePagePreloader', this.hideMyPreloader, this)
         },
-        showMyPreloader: function(){
+        showMyPreloader: function() {
             this.showPagePreloader();
         },
-        hideMyPreloader: function(){
+        hideMyPreloader: function() {
             this.hidePagePreloader();
         },
     };

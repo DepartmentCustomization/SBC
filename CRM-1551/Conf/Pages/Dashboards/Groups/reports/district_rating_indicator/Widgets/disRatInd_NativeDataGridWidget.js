@@ -50,7 +50,7 @@
         setColumns: function (data) {
             for (let i = 0; i < data.columns.length; i++) {
                 const element = data.columns[i];
-                if( this.config.key === ''){
+                if( this.config.key === '') {
                     this.config.key = element.dataType;
                 }
                 let dataField = element.code;

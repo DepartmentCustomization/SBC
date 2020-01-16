@@ -10,7 +10,7 @@
                 `
         ,
         container: {},
-        afterViewInit: function(){
+        afterViewInit: function() {
             this.container = document.getElementById('container');
             this.sub = this.messageService.subscribe( 'validationCheck', this.openModalForm, this);
             const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
@@ -26,7 +26,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
@@ -51,7 +51,7 @@
                 this.container.removeChild(lastElementChild);
             });
         },
-        destroy:  function(){
+        destroy:  function() {
             this.sub.unsubscribe();
         }
     };

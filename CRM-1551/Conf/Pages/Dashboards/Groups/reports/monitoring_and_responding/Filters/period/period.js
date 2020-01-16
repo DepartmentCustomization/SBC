@@ -30,7 +30,7 @@
             }
             this.setDefaultValue(defaultValue);
         },
-        destroy(){
+        destroy() {
         }
     };
 }());

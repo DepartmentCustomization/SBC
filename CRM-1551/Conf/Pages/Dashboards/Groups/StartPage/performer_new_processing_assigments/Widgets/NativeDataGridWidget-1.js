@@ -97,14 +97,14 @@
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined){
+                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.key+'');
                     }
                 }
             });
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-        exportToExcel: function(){
+        exportToExcel: function() {
             let exportQuery = {
                 queryCode: 'Nadiyshlo',
                 limit: -1,
@@ -116,7 +116,7 @@
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },
-        myCreateExcel: function(data){
+        myCreateExcel: function(data) {
             this.showPagePreloader('Зачекайте, формується документ');
             this.indexArr = [];
             let column_registration_number = { name: 'registration_number', index: 0 };
@@ -166,24 +166,24 @@
             captions.push(rowNumber);
             indexArr.forEach( el => {
                 let obj = {}
-                if( el.name === 'registration_number'){
+                if( el.name === 'registration_number') {
                     obj.key = 'registration_number',
                     obj.width = 10,
                     obj.height = 20,
                     captions.push('Номер, дата, час');
-                }else if(el.name === 'QuestionType'){
+                }else if(el.name === 'QuestionType') {
                     obj.key = 'QuestionType',
                     obj.width = 44
                     captions.push('Суть питання');
-                }else if(el.name === 'zayavnyk'){
+                }else if(el.name === 'zayavnyk') {
                     obj.key = 'zayavnyk',
                     obj.width = 30
                     captions.push('Заявник');
-                }else if( el.name === 'vykonavets'){
+                }else if( el.name === 'vykonavets') {
                     obj.key = 'vykonavets',
                     obj.width = 16
                     captions.push('Виконавець');
-                }else if( el.name === 'adress'){
+                }else if( el.name === 'adress') {
                     obj.key = 'adress',
                     obj.width = 21
                     captions.push('Місце проблеми (Об\'єкт)');
@@ -201,20 +201,20 @@
             let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress' );
             let indexRegistrDate = data.columns.findIndex(el => el.code.toLowerCase() === 'ass_registration_date' );
             let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
-            for( let j = 0; j < data.rows.length; j ++ ){
+            for( let j = 0; j < data.rows.length; j ++ ) {
                 const row = data.rows[j];
                 let rowItem = { number: j + 1 };
-                for(let i = 0; i < indexArr.length; i ++){
+                for(let i = 0; i < indexArr.length; i ++) {
                     let el = indexArr[i];
-                    if( el.name === 'registration_number' ){
+                    if( el.name === 'registration_number' ) {
                         rowItem.registration_number = row.values[indexRegistrationNumber] + ', ' + this.changeDateTimeValues(row.values[indexRegistrDate]);
-                    }else if(el.name === 'zayavnyk' ){
+                    }else if(el.name === 'zayavnyk' ) {
                         rowItem.zayavnyk = row.values[indexZayavnikName] + ', ' + row.values[indexAdressZ];
-                    }else if(el.name === 'QuestionType' ){
+                    }else if(el.name === 'QuestionType' ) {
                         rowItem.QuestionType = 'Зміст: ' + row.values[indexQuestionContent];
-                    }else if( el.name === 'vykonavets' ){
+                    }else if( el.name === 'vykonavets' ) {
                         rowItem.vykonavets = row.values[indexVykonavets] + '. Дата контролю:  ' + this.changeDateTimeValues(row.values[indexControlDate]);
-                    }else if( el.name === 'adress' ){
+                    }else if( el.name === 'adress' ) {
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
@@ -232,7 +232,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let i = 0; i < rows.length + 1; i++ ){
+            for(let i = 0; i < rows.length + 1; i++ ) {
                 let number = i + 5;
                 const row = worksheet.getRow(number);
                 row.height = 100;
@@ -262,7 +262,7 @@
             worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-        changeDateTimeValues: function(value){
+        changeDateTimeValues: function(value) {
             let date = new Date(value);
             let dd = date.getDate();
             let MM = date.getMonth();
@@ -270,21 +270,21 @@
             let HH = date.getUTCHours()
             let mm = date.getMinutes();
             MM += 1;
-            if( (dd.toString()).length === 1){
+            if( (dd.toString()).length === 1) {
                 dd = '0' + dd;
             }
-            if( (MM.toString()).length === 1){
+            if( (MM.toString()).length === 1) {
                 MM = '0' + MM;
             }
-            if( (HH.toString()).length === 1){
+            if( (HH.toString()).length === 1) {
                 HH = '0' + HH;
             }
-            if( (mm.toString()).length === 1){
+            if( (mm.toString()).length === 1) {
                 mm = '0' + mm;
             }
             return dd+'.'+MM+'.' + yyyy;
         },
-        orgIdDistribute: function(message){
+        orgIdDistribute: function(message) {
             this.organizationId = message.value;
             this.distribute = message.distribute;
         },
@@ -320,7 +320,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
@@ -328,16 +328,16 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined){
+            if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.zayavnyk_zmist == null || currentEmployeeData.zayavnyk_zmist == undefined){
+            if(currentEmployeeData.zayavnyk_zmist == null || currentEmployeeData.zayavnyk_zmist == undefined) {
                 currentEmployeeData.zayavnyk_zmist = '';
             }
-            if(currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined){
+            if(currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined) {
                 currentEmployeeData.zayavnyk_adress = '';
             }
-            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined){
+            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined) {
                 currentEmployeeData.balans_name = '';
             }
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ''+currentEmployeeData.zayavnyk_adress+''});
@@ -363,10 +363,10 @@
                 el.style.minWidth = '200px';
             });
         },
-        changeOnTable: function(message){
-            if(message.column != 'Надійшло'){
+        changeOnTable: function(message) {
+            if(message.column != 'Надійшло') {
                 document.getElementById('table4__arrived').style.display = 'none';
-            }else if ( this.distribute == null ){
+            }else if ( this.distribute == null ) {
                 this.column = message.column;
                 this.navigator = message.navigation;
                 this.targetId = message.targetId;
@@ -379,11 +379,11 @@
                 this.loadData(this.afterLoadDataHandler);
             }
         },
-        searchRelust: function(){
+        searchRelust: function() {
         },
-        findAllSelectRowsToArrived: function(){
+        findAllSelectRowsToArrived: function() {
             let rows = this.dataGridInstance.selectedRowKeys;
-            if( rows.length > 0 ){
+            if( rows.length > 0 ) {
                 let arrivedSendValueRows = rows.join(', ');
                 let executeQuery = {
                     queryCode: 'Button_Nadiishlo_VzyatyVRobotu',
@@ -395,16 +395,16 @@
                 this.messageService.publish( { name: 'reloadMainTable', column: this.column, navigator: this.navigator, targetId: this.targetId });
             }
         },
-        reloadAfterSend: function(){
+        reloadAfterSend: function() {
             this.loadData(this.afterLoadDataHandler);
         },
         afterLoadDataHandler: function() {
             this.render();
         },
-        afterRenderTable: function(){
+        afterRenderTable: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element){
+            elements.forEach( function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));

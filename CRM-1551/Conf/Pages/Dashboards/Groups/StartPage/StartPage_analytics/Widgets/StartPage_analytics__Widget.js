@@ -55,13 +55,13 @@
             tabsWrapper.appendChild(tabsContainer);
             let tabs = document.querySelectorAll('.tabTo');
             tabs = Array.from(tabs);
-            tabs.forEach( function (el){
+            tabs.forEach( function (el) {
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
-                    if( target.location == 'section'){
+                    if( target.location == 'section') {
                         document.getElementById('container').style.display = 'none';
                         this.goToSection(target.url);
-                    }else if( target.location == 'dashboard'){
+                    }else if( target.location == 'dashboard') {
                         document.getElementById('container').style.display = 'none';
                         this.goToDashboard(target.url);
                     }
@@ -71,7 +71,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });

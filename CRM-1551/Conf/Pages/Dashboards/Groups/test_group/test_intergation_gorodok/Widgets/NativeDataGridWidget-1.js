@@ -95,7 +95,7 @@
         },
         lookupFoo: function(data) {
             this.elements = [];
-            for(let i = 0; i < data.rows.length; i++){
+            for(let i = 0; i < data.rows.length; i++) {
                 let el = data.rows[i];
                 let obj = {
                     'Id': el.values[0],

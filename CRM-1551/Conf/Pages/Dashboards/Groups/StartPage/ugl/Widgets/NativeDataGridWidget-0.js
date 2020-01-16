@@ -116,14 +116,14 @@
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField === 'registration_number' && e.row !== undefined){
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.key+'');
                     }
                 }
             });
         },
-        changeOnTable: function(message){
-            if(message.column != 'Не в компетенції'){
+        changeOnTable: function(message) {
+            if(message.column != 'Не в компетенції') {
                 document.getElementById('table5__NeVKompetentsii').style.display = 'none';
             }else{
                 this.navigation = message.value;
@@ -142,9 +142,9 @@
                 this.queryExecutor(executeQuery, this.lookupFoo, this);
             }
         },
-        findAllRowsNeVKompetentсii: function(){
+        findAllRowsNeVKompetentсii: function() {
             let rows = this.dataGridInstance.instance.getSelectedRowsData();
-            if( rows.length > 0 ){
+            if( rows.length > 0 ) {
                 rows.forEach( function(el) {
                     let executeQuery = {
                         queryCode: 'Button_NeVKompetentcii',
@@ -162,7 +162,7 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
-            if(children.length > 0){
+            if(children.length > 0) {
                 children.forEach( child =>{
                     element.appendChild(child);
                 });
@@ -170,13 +170,13 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null){
+            if(currentEmployeeData.short_answer == null) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.adressZ == null){
+            if(currentEmployeeData.adressZ == null) {
                 currentEmployeeData.adressZ = '';
             }
-            if(currentEmployeeData.question_content == null){
+            if(currentEmployeeData.question_content == null) {
                 currentEmployeeData.question_content = '';
             }
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ''+currentEmployeeData.adressZ+''});
@@ -204,7 +204,7 @@
         },
         lookupFoo: function(data) {
             this.elements = [];
-            for(let i = 0; i < data.rows.length; i++){
+            for(let i = 0; i < data.rows.length; i++) {
                 let el = data.rows[i];
                 let obj = {
                     'ID': el.values[0],
@@ -215,14 +215,14 @@
             this.config.columns[5].lookup.dataSource.store = this.elements;
             this.loadData(this.afterLoadDataHandler);
         },
-        afterLoadDataHandler: function(){
+        afterLoadDataHandler: function() {
             this.render();
             this.createCustomStyle();
         },
-        createCustomStyle: function(){
+        createCustomStyle: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element){
+            elements.forEach( function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
@@ -243,7 +243,7 @@
                 location: 'after'
             });
         },
-        exportToExcel: function(){
+        exportToExcel: function() {
             let exportQuery = {
                 queryCode: 'CoordinatorController_NeVKompetentsii',
                 limit: -1,
@@ -253,7 +253,7 @@
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },
-        myCreateExcel: function(data){
+        myCreateExcel: function(data) {
             let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number' );
             let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
             let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnikname' );
@@ -310,7 +310,7 @@
             let rowNumber = '№ з/п';
             captions.push(rowNumber);
             indexArr.forEach( el => {
-                if( el.name === 'registration_number'){
+                if( el.name === 'registration_number') {
                     let obj = {
                         key: 'registration_number',
                         width: 10,
@@ -318,28 +318,28 @@
                     };
                     columnsHeader.push(obj);
                     captions.push('Номер питання');
-                }else if(el.name === 'zayavnikName'){
+                }else if(el.name === 'zayavnikName') {
                     let obj = {
                         key: 'zayavnikName',
                         width: 25
                     };
                     columnsHeader.push(obj);
                     captions.push('Заявник');
-                }else if(el.name === 'QuestionType'){
+                }else if(el.name === 'QuestionType') {
                     let obj = {
                         key: 'QuestionType',
                         width: 52
                     };
                     columnsHeader.push(obj);
                     captions.push('Суть питання');
-                }else if( el.name === 'vykonavets'){
+                }else if( el.name === 'vykonavets') {
                     let obj = {
                         key: 'vykonavets',
                         width: 16
                     };
                     columnsHeader.push(obj);
                     captions.push('Виконавець');
-                }else if( el.name === 'adress'){
+                }else if( el.name === 'adress') {
                     let obj = {
                         key: 'adress',
                         width: 16
@@ -351,20 +351,20 @@
             worksheet.getRow(5).values = captions;
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
-            for( let j = 0; j < data.rows.length; j ++ ){
+            for( let j = 0; j < data.rows.length; j ++ ) {
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
-                for(let i = 0; i < indexArr.length; i ++){
+                for(let i = 0; i < indexArr.length; i ++) {
                     let el = indexArr[i];
-                    if( el.name === 'registration_number' ){
+                    if( el.name === 'registration_number' ) {
                         rowItem.registration_number = row.values[indexRegistrationNumber];
-                    }else if(el.name === 'zayavnikName' ){
+                    }else if(el.name === 'zayavnikName' ) {
                         rowItem.zayavnikName = row.values[indexZayavnikName] + ' ' + row.values[indexAdressZ];
-                    }else if(el.name === 'QuestionType' ){
+                    }else if(el.name === 'QuestionType' ) {
                         rowItem.QuestionType = 'Тип питання: ' + row.values[indexQuestionType] + '. Зміст: ' + row.values[indexQuestionContent];
-                    }else if( el.name === 'vykonavets' ){
+                    }else if( el.name === 'vykonavets' ) {
                         rowItem.vykonavets = row.values[indexVykonavets]
-                    }else if( el.name === 'adress' ){
+                    }else if( el.name === 'adress' ) {
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
@@ -382,7 +382,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let i = 0; i < rows.length + 1; i++ ){
+            for(let i = 0; i < rows.length + 1; i++ ) {
                 let number = i + 5;
                 let row = worksheet.getRow(number);
                 row.height = 100;
