@@ -94,7 +94,7 @@
                     sortOrder: 'asc',
                     allowSorting: true,
                     subColumns: []
-                },
+                }
             ],
             export: {
                 enabled: false,

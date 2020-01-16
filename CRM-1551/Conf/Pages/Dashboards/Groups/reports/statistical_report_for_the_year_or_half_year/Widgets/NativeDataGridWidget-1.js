@@ -178,7 +178,7 @@
                             }
                         }
                     ]
-                },
+                }
             ],
             keyExpr: 'qtyRepeated_prev'
         },
@@ -209,6 +209,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

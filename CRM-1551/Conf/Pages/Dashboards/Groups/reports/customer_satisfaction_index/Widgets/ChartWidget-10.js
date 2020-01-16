@@ -2,7 +2,7 @@
     return {
         chartConfig:{
             title: {
-                text: 'Загальне враження вiд роботи з винонавцем',
+                text: 'Загальне враження вiд роботи з винонавцем'
             },
             xAxis: {
                 categories: []

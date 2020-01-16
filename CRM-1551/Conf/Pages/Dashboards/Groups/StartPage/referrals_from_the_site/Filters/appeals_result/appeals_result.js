@@ -32,6 +32,6 @@
         },
         initValue: function() {
             this.setDefaultValue('first');
-        },
+        }
     };
 }());

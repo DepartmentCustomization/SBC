@@ -21,11 +21,11 @@
                         {
                             dataField: 'become',
                             caption: 'Було',
-                            alignment: 'left',
+                            alignment: 'left'
                         },{
                             dataField: 'it_was',
                             caption: 'Стало',
-                            alignment: 'left',
+                            alignment: 'left'
                         }
                     ]
                 },{
@@ -139,7 +139,7 @@
                 let el = data.rows[i];
                 let obj = {
                     'Id': el.values[0],
-                    'short_name': el.values[1],
+                    'short_name': el.values[1]
                 }
                 this.elements.push(obj);
             }

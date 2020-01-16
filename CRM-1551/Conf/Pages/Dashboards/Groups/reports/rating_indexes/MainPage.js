@@ -34,6 +34,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

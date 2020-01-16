@@ -13,22 +13,22 @@
                 {
                     dataField: 'RDAId',
                     dataType: 'string',
-                    caption: 'Номер питання',
+                    caption: 'Номер питання'
                 }, {
                     dataField: 'PercentClosedOnTime',
-                    caption: 'Ид асигмента',
+                    caption: 'Ид асигмента'
                 }, {
                     dataField: 'PercentClosedOnTime',
-                    caption: 'дата надходження',
+                    caption: 'дата надходження'
                 }, {
                     dataField: 'PercentClosedOnTime',
-                    caption: 'Тип питання',
+                    caption: 'Тип питання'
                 }, {
                     dataField: 'PercentClosedOnTime',
-                    caption: 'кількість днів виконання',
+                    caption: 'кількість днів виконання'
                 }, {
                     dataField: 'PercentClosedOnTime',
-                    caption: 'дата виконання',
+                    caption: 'дата виконання'
                 }
             ],
             keyExpr: 'Id'

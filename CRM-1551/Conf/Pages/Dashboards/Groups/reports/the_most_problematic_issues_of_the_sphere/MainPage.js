@@ -20,7 +20,7 @@
                 }.bind(this);
             }
             this.showPreloader = false;
-        },
+        }
     }
     ;
 }());

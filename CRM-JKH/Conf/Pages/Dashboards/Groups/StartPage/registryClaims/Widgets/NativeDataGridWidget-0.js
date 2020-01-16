@@ -54,7 +54,7 @@
             showColumnFixing: true,
             sortingMode: 'multiple',
             wordWrapEnabled:true,
-            showFilterRow: true,
+            showFilterRow: true
         },
         init: function() {
             let that = this;
@@ -69,7 +69,7 @@
                     {
                         key:'@StatusId',
                         value: null
-                    },
+                    }
                 ],
                 limit: -1
             }
@@ -122,7 +122,7 @@
             for(let i = 1; i < data.columns.length; i++) {
                 this.config.columns[i] = {
                     dataField : data.columns[i].code,
-                    caption: data.columns[i].name,
+                    caption: data.columns[i].name
                 }
             }
             this.config.columns[1].width = 100;

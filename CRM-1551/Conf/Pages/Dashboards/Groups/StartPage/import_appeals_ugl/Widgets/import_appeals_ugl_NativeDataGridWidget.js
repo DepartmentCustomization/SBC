@@ -12,28 +12,28 @@
             columns: [
                 {
                     dataField: 'EnterNumber',
-                    caption: 'Вхiдний номер УГЛ',
+                    caption: 'Вхiдний номер УГЛ'
                 },{
                     dataField: 'RegistrationDate',
-                    caption: 'Дата реєстрації',
+                    caption: 'Дата реєстрації'
                 },{
                     dataField: 'Applicant',
-                    caption: 'Заявник',
+                    caption: 'Заявник'
                 },{
                     dataField: 'Address',
-                    caption: 'Адреса',
+                    caption: 'Адреса'
                 },{
                     dataField: 'Content',
-                    caption: 'Змiст',
+                    caption: 'Змiст'
                 },{
                     dataField: 'QuestionNumber',
-                    caption: 'Номер питання',
+                    caption: 'Номер питання'
                 }
             ],
             pager: {
                 showPageSizeSelector: true,
                 allowedPageSizes: [50, 100, 500],
-                showInfo: true,
+                showInfo: true
             },
             paging: {
                 pageSize: 50
@@ -92,9 +92,8 @@
                         }
                     }
                     return valuesList.length > 0 ? valuesList : [];
-                }else{
-                    return [];
                 }
+                return [];
             }
         },
         changeDateTimeValues: function(value) {

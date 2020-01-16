@@ -12,26 +12,26 @@
             columns: [
                 {
                     dataField: 'Phone_number',
-                    caption: 'Номер телефону',
+                    caption: 'Номер телефону'
                 }, {
                     dataField: 'Full_name',
-                    caption: 'ПІБ',
+                    caption: 'ПІБ'
                 }, {
                     dataField: 'Address',
-                    caption: 'Адреса',
+                    caption: 'Адреса'
                 }, {
                     dataField: 'Privilege',
-                    caption: 'Пільга',
+                    caption: 'Пільга'
                 }, {
                     dataField: 'SocialState',
-                    caption: 'Соц. стан',
+                    caption: 'Соц. стан'
                 }, {
                     dataField: 'Years',
-                    caption: 'Вік',
+                    caption: 'Вік'
                 }, {
                     dataField: 'Check',
                     caption: 'Головний',
-                    dataType: 'boolean',
+                    dataType: 'boolean'
                 }
             ],
             editing: {
@@ -76,7 +76,7 @@
                                 }
                             }
                         }.bind(this)
-                    },
+                    }
                 }, {
                     widget: 'dxButton',
                     location: 'after',
@@ -91,7 +91,7 @@
                                 this.executeQueryMissing();
                             }
                         }.bind(this)
-                    },
+                    }
                 }
             );
         },
@@ -135,6 +135,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

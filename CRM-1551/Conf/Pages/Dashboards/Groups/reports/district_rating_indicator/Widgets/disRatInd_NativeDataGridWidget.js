@@ -62,6 +62,6 @@
         },
         afterLoadDataHandler: function() {
             this.render();
-        },
+        }
     };
 }());

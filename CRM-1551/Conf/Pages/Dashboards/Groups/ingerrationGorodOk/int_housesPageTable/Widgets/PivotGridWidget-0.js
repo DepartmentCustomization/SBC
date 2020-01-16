@@ -116,7 +116,7 @@
                     {
                         editRow: 'Editdfdsf',
                         saveAllChanges: 'Save changes 123',
-                        saveRowChanges: 'Save',
+                        saveRowChanges: 'Save'
                     }
                 ]
             },
@@ -151,14 +151,16 @@
                 let indexSaveButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function(item) {
                     return item.name == 'saveButton';
                 }));
-                if (indexSaveButton != -1)
+                if (indexSaveButton != -1) {
                     data.toolbarOptions.items.splice(indexSaveButton, 1);
+                }
                 let indexRevertButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function(item) {
                     return item.name == 'revertButton';
                 }));
-                if (indexRevertButton != -1)
+                if (indexRevertButton != -1) {
                     data.toolbarOptions.items.splice(indexRevertButton, 1);
-            },
+                }
+            }
         },
         myFunc: function(options) {
             return{
@@ -223,7 +225,7 @@
                 let el = data.rows[i];
                 let obj = {
                     'Id': el.values[0],
-                    'name': el.values[1],
+                    'name': el.values[1]
                 }
                 this.elements_dis.push(obj);
             }

@@ -20,14 +20,14 @@
                     width: 80
                 },{
                     dataField: 'new_name',
-                    caption: 'Назва нова',
+                    caption: 'Назва нова'
                 },{
                     dataField: 'old_id',
                     caption: 'Id старий',
                     width: 80
                 },{
                     dataField: 'old_name',
-                    caption: 'Назва стара',
+                    caption: 'Назва стара'
                 }
             ],
             searchPanel: {
@@ -45,7 +45,7 @@
                 fileName: 'File_name'
             },
             editing: {
-                enabled: false,
+                enabled: false
             },
             filterRow: {
                 visible: true,
@@ -78,6 +78,6 @@
         },
         afterLoadDataHandler: function() {
             this.render();
-        },
+        }
     };
 }());

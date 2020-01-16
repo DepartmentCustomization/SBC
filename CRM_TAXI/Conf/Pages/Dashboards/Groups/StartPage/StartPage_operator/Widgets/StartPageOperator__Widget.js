@@ -72,6 +72,6 @@
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);
-        },
+        }
     };
 }());

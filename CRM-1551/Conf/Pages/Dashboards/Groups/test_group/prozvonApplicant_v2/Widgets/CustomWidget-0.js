@@ -218,7 +218,7 @@
                                 { key: '@assignment_resolution_id', value: this.resolutionId },
                                 { key: '@control_result_id', value: this.resultId },
                                 { key: '@control_comment', value: this.comment },
-                                { key: '@grade', value: this.checkBoxChacked },
+                                { key: '@grade', value: this.checkBoxChacked }
                             ]
                         };
                         this.queryExecutor(executeQuery, this.changeRowsCounter, this);
@@ -239,7 +239,7 @@
                                 { key: '@assignment_resolution_id', value: null },
                                 { key: '@control_result_id', value: this.resultId },
                                 { key: '@control_comment', value: this.comment },
-                                { key: '@grade', value: this.checkBoxChacked },
+                                { key: '@grade', value: this.checkBoxChacked }
                             ]
                         };
                         this.queryExecutor(executeQuery, this.changeRowsCounter, this);
@@ -283,6 +283,6 @@
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
-        },
+        }
     };
 }());

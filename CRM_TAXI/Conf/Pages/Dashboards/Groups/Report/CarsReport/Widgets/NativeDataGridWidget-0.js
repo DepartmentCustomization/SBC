@@ -12,14 +12,14 @@
             columns: [
                 {
                     dataField: 'number',
-                    caption: 'Госномер автомобиля',
+                    caption: 'Госномер автомобиля'
                 }, {
                     dataField: 'name',
                     caption: 'Позывной',
                     alignment: 'center'
                 }, {
                     dataField: 'mark',
-                    caption: 'Марка автомобиля',
+                    caption: 'Марка автомобиля'
                 }, {
                     dataField: 'create_year',
                     caption: 'Год выпуска',
@@ -65,7 +65,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
@@ -124,7 +124,7 @@
                     this.dateTo = period.dateTo;
                     this.config.query.parameterValues = [
                         { key: '@dateFrom', value: this.dateFrom },
-                        { key: '@dateTo', value: this.dateTo },
+                        { key: '@dateTo', value: this.dateTo }
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }
@@ -135,15 +135,14 @@
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
         afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

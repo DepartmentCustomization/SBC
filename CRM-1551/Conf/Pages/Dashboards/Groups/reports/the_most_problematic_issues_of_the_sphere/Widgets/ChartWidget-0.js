@@ -74,7 +74,7 @@
                 6: 'rgb(247, 163, 92)',
                 7: 'rgb(18, 121, 13)',
                 8: 'rgb(244, 91, 91)',
-                9: 'rgb(145, 232, 225)',
+                9: 'rgb(145, 232, 225)'
             }
             let getUrlParams = window
                 .location
@@ -101,7 +101,7 @@
                 parameterValues: [
                     { key: '@dateFrom', value: this.dateFrom},
                     { key: '@dateTo', value: this.dateTo},
-                    { key: '@typeId', value: this.sphereId},
+                    { key: '@typeId', value: this.sphereId}
                 ]
             };
             this.queryExecutor(loadPie, this.load, this);

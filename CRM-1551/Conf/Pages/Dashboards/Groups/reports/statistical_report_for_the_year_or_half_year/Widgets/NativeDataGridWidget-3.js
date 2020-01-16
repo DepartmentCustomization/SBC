@@ -181,7 +181,7 @@
                             ]
                         }
                     ]
-                },
+                }
             ],
             keyExpr: 'source'
         },
@@ -212,6 +212,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

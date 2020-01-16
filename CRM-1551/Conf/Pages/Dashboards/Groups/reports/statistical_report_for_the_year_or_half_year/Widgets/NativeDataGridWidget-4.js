@@ -13,7 +13,7 @@
                 {
                     dataField: 'source',
                     caption: ' ',
-                    width: 200,
+                    width: 200
                 },
                 {
                     caption: 'у тому числі питання:',
@@ -175,7 +175,7 @@
                             ]
                         }
                     ]
-                },
+                }
             ],
             keyExpr: 'source'
         },
@@ -206,6 +206,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

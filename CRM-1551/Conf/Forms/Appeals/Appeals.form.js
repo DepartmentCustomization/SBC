@@ -219,9 +219,8 @@
         convertDateNull:function(value) {
             if (!value) {
                 return this.extractStartDate();
-            } else {
-                return value;
             }
+            return value;
         },
         mask: function(event) {
             function setCursorPosition(pos, elem) {
@@ -240,12 +239,16 @@
                 i = 0,
                 def = matrix.replace(/\D/g, ''),
                 val = this.value.replace(/\D/g, '');
-            if (def.length >= val.length) val = def;
+            if (def.length >= val.length) {
+                val = def;
+            }
             this.value = matrix.replace(/./g, function(a) {
                 return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a
             });
             if (event.type == 'blur') {
-                if (this.value.length == 2) this.value = ''
+                if (this.value.length == 2) {
+                    this.value = ''
+                }
             } else {
                 setCursorPosition(this.value.length, this)
             }
@@ -1277,16 +1280,15 @@
             if (id_org) {
                 if (typeof id_org === 'string') {
                     return
-                } else {
-                    if (id_org) {
-                        const org = {
-                            queryCode: 'onPhoneOrganization',
-                            parameterValues: [{key: '@org_id', value: id_org}]
-                        };
-                        this.queryExecutor.getValue(org).subscribe(data =>{
-                            this.form.setControlValue('Work_with_a_question_phone_org', data);
-                        });
-                    }
+                }
+                if (id_org) {
+                    const org = {
+                        queryCode: 'onPhoneOrganization',
+                        parameterValues: [{key: '@org_id', value: id_org}]
+                    };
+                    this.queryExecutor.getValue(org).subscribe(data =>{
+                        this.form.setControlValue('Work_with_a_question_phone_org', data);
+                    });
                 }
             }
         },
@@ -1553,38 +1555,37 @@
             if (value) {
                 if (typeof value === 'string') {
                     return
+                }
+                this.Question_Building_Input = value;
+                this.onChanged_Question_Btn_Add_Input();
+                this.getOrgExecut();
+                if (this.form.getControlValue('Question_TypeId') == null) {
+                    this.form.setControlVisibility('entrance', false);
+                    this.form.setControlVisibility('flat', false);
                 } else {
-                    this.Question_Building_Input = value;
-                    this.onChanged_Question_Btn_Add_Input();
-                    this.getOrgExecut();
-                    if (this.form.getControlValue('Question_TypeId') == null) {
-                        this.form.setControlVisibility('entrance', false);
-                        this.form.setControlVisibility('flat', false);
-                    } else {
-                        const objAndFlat = {
-                            queryCode: 'QuestionFlat_HideColumns',
-                            parameterValues: [
-                                {
-                                    key: '@Question_BuildingId',
-                                    value: this.form.getControlValue('Question_Building')
-                                }
-                            ]
-                        };
-                        this.queryExecutor.getValues(objAndFlat).subscribe(data => {
-                            if (data.rows.length > 0) {
-                                if (data.rows[0].values == 1 || data.rows[0].values == 112) {
-                                    this.form.setControlVisibility('entrance', true);
-                                    this.form.setControlVisibility('flat', true);
-                                } else {
-                                    this.form.setControlVisibility('entrance', false);
-                                    this.form.setControlVisibility('flat', false);
-                                }
+                    const objAndFlat = {
+                        queryCode: 'QuestionFlat_HideColumns',
+                        parameterValues: [
+                            {
+                                key: '@Question_BuildingId',
+                                value: this.form.getControlValue('Question_Building')
+                            }
+                        ]
+                    };
+                    this.queryExecutor.getValues(objAndFlat).subscribe(data => {
+                        if (data.rows.length > 0) {
+                            if (data.rows[0].values == 1 || data.rows[0].values == 112) {
+                                this.form.setControlVisibility('entrance', true);
+                                this.form.setControlVisibility('flat', true);
                             } else {
                                 this.form.setControlVisibility('entrance', false);
                                 this.form.setControlVisibility('flat', false);
                             }
-                        });
-                    }
+                        } else {
+                            this.form.setControlVisibility('entrance', false);
+                            this.form.setControlVisibility('flat', false);
+                        }
+                    });
                 }
             } else {
                 this.Question_Building_Input = null;
@@ -1734,76 +1735,75 @@
             if (value) {
                 if (typeof value === 'string') {
                     return
-                } else {
-                    if (value) {
-                        const objName = {
-                            queryCode: 'list_filter_fullName_Object',
-                            parameterValues: [
-                                {
-                                    key: '@buil_id',
-                                    value: value
-                                }
-                            ]
-                        };
-                        this.queryExecutor.getValues(objName).subscribe(data => {
-                            this.form.setControlValue('Question_Building', { key: data.rows[0].values[0], value: data.rows[0].values[1]});
-                            this.form.setControlValue('entrance',this.form.getControlValue('Applicant_Entrance'));
-                            this.form.setControlValue('flat', this.form.getControlValue('Applicant_Flat'));
-                        });
-                        const executName = {
-                            queryCode: 'GetExecutorInRoleForObject_SelectRow',
-                            parameterValues: [
-                                {
-                                    key: '@building_id',
-                                    value: value
-                                }
-                            ]
-                        };
-                        this.queryExecutor.getValues(executName).subscribe(data => {
-                            if (data.rows.length > 0) {
-                                this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[0]);
-                            } else {
-                                this.form.setControlValue('ExecutorInRoleForObject', '');
+                }
+                if (value) {
+                    const objName = {
+                        queryCode: 'list_filter_fullName_Object',
+                        parameterValues: [
+                            {
+                                key: '@buil_id',
+                                value: value
                             }
-                        });
-                        const DistrName = {
-                            queryCode: 'GetDistrictForBuilding',
-                            parameterValues: [
-                                {
-                                    key: '@building_id',
-                                    value: value
-                                }
-                            ]
-                        };
-                        this.queryExecutor.getValues(DistrName).subscribe(data => {
-                            if (data.rows.length > 0) {
-                                this.form.setControlValue('Applicant_District', data.rows[0].values[0]);
-                            } else {
-                                this.form.setControlValue('Applicant_District', '');
+                        ]
+                    };
+                    this.queryExecutor.getValues(objName).subscribe(data => {
+                        this.form.setControlValue('Question_Building', { key: data.rows[0].values[0], value: data.rows[0].values[1]});
+                        this.form.setControlValue('entrance',this.form.getControlValue('Applicant_Entrance'));
+                        this.form.setControlValue('flat', this.form.getControlValue('Applicant_Flat'));
+                    });
+                    const executName = {
+                        queryCode: 'GetExecutorInRoleForObject_SelectRow',
+                        parameterValues: [
+                            {
+                                key: '@building_id',
+                                value: value
                             }
-                        });
-                    } else {
-                        this.form.setControlValue('ExecutorInRoleForObject', '');
-                        this.form.setControlValue('Applicant_District', '');
-                    }
-                    this.form.setControlValue('Adress', this.form.getControlDisplayValue('Applicant_Building'));
-                    this.Applicant_Building_Input = value;
-                    if(this.InitialState_Applicant_Building == this.onChanged_Input(this.form.getControlValue('Applicant_Building'))) {
-                        this.CheckParamForApplicant_Building = 0
-                    } else {
-                        this.CheckParamForApplicant_Building = 1
-                    }
-                    this.onChanged_Question_Aplicant_Btn_Add_Input();
-                    if (value == null || value == undefined) {
-                        this.details.setVisibility('Detail_Event', false);
-                    } else {
-                        const parameters1 = [
-                            { key: '@object_id', value: value}
-                        ];
-                        this.details.loadData('Detail_Event', parameters1);
-                        if (this.StateServerId == 1 || this.StateServerId == 2) {
-                            this.details.setVisibility('Detail_Event', true);
+                        ]
+                    };
+                    this.queryExecutor.getValues(executName).subscribe(data => {
+                        if (data.rows.length > 0) {
+                            this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[0]);
+                        } else {
+                            this.form.setControlValue('ExecutorInRoleForObject', '');
                         }
+                    });
+                    const DistrName = {
+                        queryCode: 'GetDistrictForBuilding',
+                        parameterValues: [
+                            {
+                                key: '@building_id',
+                                value: value
+                            }
+                        ]
+                    };
+                    this.queryExecutor.getValues(DistrName).subscribe(data => {
+                        if (data.rows.length > 0) {
+                            this.form.setControlValue('Applicant_District', data.rows[0].values[0]);
+                        } else {
+                            this.form.setControlValue('Applicant_District', '');
+                        }
+                    });
+                } else {
+                    this.form.setControlValue('ExecutorInRoleForObject', '');
+                    this.form.setControlValue('Applicant_District', '');
+                }
+                this.form.setControlValue('Adress', this.form.getControlDisplayValue('Applicant_Building'));
+                this.Applicant_Building_Input = value;
+                if(this.InitialState_Applicant_Building == this.onChanged_Input(this.form.getControlValue('Applicant_Building'))) {
+                    this.CheckParamForApplicant_Building = 0
+                } else {
+                    this.CheckParamForApplicant_Building = 1
+                }
+                this.onChanged_Question_Aplicant_Btn_Add_Input();
+                if (value == null || value == undefined) {
+                    this.details.setVisibility('Detail_Event', false);
+                } else {
+                    const parameters1 = [
+                        { key: '@object_id', value: value}
+                    ];
+                    this.details.loadData('Detail_Event', parameters1);
+                    if (this.StateServerId == 1 || this.StateServerId == 2) {
+                        this.details.setVisibility('Detail_Event', true);
                     }
                 }
             } else {
@@ -2326,9 +2326,8 @@
         onChanged_Input: function(value) {
             if(value == '') {
                 return null
-            } else {
-                return value
             }
+            return value
         },
         onChanged_Applicant_Id: function() {
             this.onChanged_Question_Btn_Add_Input();

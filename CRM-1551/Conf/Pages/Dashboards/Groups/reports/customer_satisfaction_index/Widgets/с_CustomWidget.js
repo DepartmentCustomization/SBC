@@ -33,6 +33,6 @@
             if (data.rows.length) {
                 CONTAINER.innerText = data.rows[0].values[0];
             }
-        },
+        }
     };
 }());

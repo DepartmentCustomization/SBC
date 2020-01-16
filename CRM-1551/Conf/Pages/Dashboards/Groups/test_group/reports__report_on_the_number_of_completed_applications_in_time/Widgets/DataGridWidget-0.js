@@ -71,10 +71,10 @@
                     allowSorting: true,
                     subColumns: [{
                         caption: 'Вчасно',
-                        dataField: 'VykonVchasno',
+                        dataField: 'VykonVchasno'
                     }, {
                         caption: 'Не вчасно',
-                        dataField: 'VykonNeVchasno',
+                        dataField: 'VykonNeVchasno'
                     }]
                 }, {
                     dataField: 'RozyasnenoVchasno',
@@ -89,10 +89,10 @@
                     allowSorting: true,
                     subColumns: [{
                         caption: 'Вчасно',
-                        dataField: 'RozyasnenoVchasno',
+                        dataField: 'RozyasnenoVchasno'
                     }, {
                         caption: 'Не вчасно',
-                        dataField: 'RozyasnenoNeVchasno',
+                        dataField: 'RozyasnenoNeVchasno'
                     }]
                 }, {
                     dataField: 'VidsVykon',
@@ -130,7 +130,7 @@
                     sortOrder: 'asc',
                     allowSorting: true,
                     subColumns: []
-                },
+                }
             ],
             export: {
                 enabled: false,
@@ -148,7 +148,7 @@
             },
             editing: {
                 enabled: false,
-                allowAdding: false,
+                allowAdding: false
             },
             scrolling: {
                 mode: 'standart',
@@ -173,7 +173,7 @@
             showColumnChooser: false,
             showColumnFixing: true,
             groupingAutoExpandAll: null,
-            masterDetail: null,
+            masterDetail: null
         },
         sub: {},
         place: '',

@@ -12,11 +12,11 @@
             columns: [
                 {
                     dataField: 'qType',
-                    caption: 'Питання',
+                    caption: 'Питання'
                 }, {
                     dataField: 'qty',
-                    caption: 'Кількість ',
-                },
+                    caption: 'Кількість '
+                }
             ],
             summary: {
                 totalItems: [
@@ -43,7 +43,7 @@
                     this.dateTo = period.dateTo;
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },
-                        {key: '@dateTo', value: this.dateTo },
+                        {key: '@dateTo', value: this.dateTo }
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }

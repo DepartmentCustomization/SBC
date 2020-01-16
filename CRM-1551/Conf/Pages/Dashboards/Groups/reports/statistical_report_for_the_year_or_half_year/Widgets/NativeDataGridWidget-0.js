@@ -21,11 +21,11 @@
                                 {
                                     caption: 'previousYear',
                                     dataField: 'qtyPrev',
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 }, {
                                     caption: 'currentYear',
                                     dataField: 'qtyCurrent',
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 }
                             ]
                         }, {
@@ -35,11 +35,11 @@
                                 {
                                     caption: 'previousYear',
                                     dataField: 'qtyMail_prev',
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 }, {
                                     caption: 'currentYear',
                                     dataField: 'qtyMail_curr',
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 }
                             ]
                         }, {
@@ -49,14 +49,14 @@
                                 {
                                     caption: 'previousYear',
                                     dataField: 'qtyPersonal_prev',
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 }, {
                                     caption: 'currentYear',
                                     dataField: 'qtyPersonal_curr',
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 }
                             ]
-                        },
+                        }
                     ]
                 }, {
                     caption: 'Результати розгляду звернень:',
@@ -69,11 +69,11 @@
                                 {
                                     caption: 'previousYear',
                                     dataField: 'qtyPos_prev',
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 }, {
                                     dataField: 'qtyPos_curr',
                                     alignment: 'center',
-                                    caption: 'currentYear',
+                                    caption: 'currentYear'
                                 }
                             ]
                         }, {
@@ -83,11 +83,11 @@
                                 {
                                     caption: 'previousYear',
                                     dataField: 'qtyNeg_prev',
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 }, {
                                     dataField: 'qtyNeg_curr',
                                     alignment: 'center',
-                                    caption: 'currentYear',
+                                    caption: 'currentYear'
                                 }
                             ]
                         }, {
@@ -97,11 +97,11 @@
                                 {
                                     caption: 'previousYear',
                                     dataField: 'qtyExpl_prev',
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 }, {
                                     dataField: 'qtyExpl_curr',
                                     alignment: 'center',
-                                    caption: 'currentYear',
+                                    caption: 'currentYear'
                                 }
                             ]
                         }, {
@@ -111,11 +111,11 @@
                                 {
                                     caption: 'previousYear',
                                     dataField: 'qtyElse_prev',
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 }, {
                                     dataField: 'qtyElse_curr',
                                     alignment: 'center',
-                                    caption: 'currentYear',
+                                    caption: 'currentYear'
                                 }
                             ]
                         }
@@ -158,6 +158,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

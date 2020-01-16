@@ -13,11 +13,11 @@
                 {
                     dataField: 'orgName',
                     caption: 'Назва установи',
-                    width: 400,
+                    width: 400
                 }, {
                     dataField: 'AllCount',
                     caption: 'Кількість звернень',
-                    alignment: 'center',
+                    alignment: 'center'
                 }, {
                     caption: 'Закриття виконавцем',
                     columns: [
@@ -59,28 +59,28 @@
                 }, {
                     dataField: 'inWorkQty',
                     caption: 'В роботі',
-                    alignment: 'center',
+                    alignment: 'center'
                 }, {
                     dataField: 'inTimePercent',
                     caption: '% вчасно закритих',
                     alignment: 'center',
                     format: function(value) {
                         return value + '%';
-                    },
+                    }
                 }, {
                     dataField: 'donePercent',
                     caption: '% виконання без План/Програма',
                     alignment: 'center',
                     format: function(value) {
                         return value + '%';
-                    },
+                    }
                 }, {
                     dataField: 'withPlanPercent',
                     caption: '% виконання з План/Програма',
                     alignment: 'center',
                     format: function(value) {
                         return value + '%';
-                    },
+                    }
                 }
             ],
             summary: {
@@ -186,7 +186,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         summary: [],
         init: function() {
@@ -229,7 +229,7 @@
                         this.queryExecutor(exportQuery, this.createExcelWorkbook, this);
                         this.showPreloader = false;
                     }.bind(this)
-                },
+                }
             });
         },
         createExcelWorkbook: function(data) {
@@ -376,15 +376,14 @@
                 const valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
         afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

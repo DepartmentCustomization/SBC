@@ -12,17 +12,17 @@
             columns: [
                 {
                     dataField: 'Id',
-                    caption: 'Id',
+                    caption: 'Id'
                 },
                 {
                     dataField: 'n',
-                    caption: 'N',
+                    caption: 'N'
                 }
             ],
             pager: {
                 showPageSizeSelector: true,
                 allowedPageSizes: [500],
-                showInfo: false,
+                showInfo: false
             },
             paging: {
                 pageSize: 100
@@ -35,6 +35,6 @@
         },
         afterLoadDataHandler: function() {
             this.render();
-        },
+        }
     };
 }());

@@ -12,11 +12,11 @@
             columns: [
                 {
                     dataField: 'source',
-                    caption: 'Показники',
+                    caption: 'Показники'
                 }, {
                     dataField: 'val',
-                    caption: 'Кількість ',
-                },
+                    caption: 'Кількість '
+                }
             ],
             keyExpr: 'Id'
         },
@@ -32,7 +32,7 @@
                     this.dateTo = period.dateTo;
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },
-                        {key: '@dateTo', value: this.dateTo },
+                        {key: '@dateTo', value: this.dateTo }
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }

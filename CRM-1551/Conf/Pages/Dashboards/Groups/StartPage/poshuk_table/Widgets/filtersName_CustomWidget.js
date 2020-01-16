@@ -279,6 +279,6 @@
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
-        },
+        }
     };
 }());

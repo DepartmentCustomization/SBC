@@ -39,13 +39,13 @@
                     caption: 'БУДИНОК ТА КВАРТИРА'
                 }, {
                     dataField: 'entrance',
-                    caption: 'П',
+                    caption: 'П'
                 }, {
                     dataField: 'place_problem',
                     caption: 'МІСЦЕ ПРОБЛЕМИ'
                 }, {
                     dataField: 'vykon',
-                    caption: 'Виконавець',
+                    caption: 'Виконавець'
                 }
             ],
             allowColumnResizing: true,
@@ -57,7 +57,7 @@
             pager: {
                 showPageSizeSelector: true,
                 allowedPageSizes: [10, 50, 100],
-                showInfo: true,
+                showInfo: true
             },
             paging: {
                 pageSize: 100
@@ -73,7 +73,7 @@
                 mode: 'multiple'
             },
             masterDetail: {
-                enabled: true,
+                enabled: true
             },
             columnFixing: {
                 enabled: true
@@ -81,7 +81,7 @@
             showBorders: false,
             showColumnLines: false,
             showRowLines: true,
-            wordWrapEnabled: true,
+            wordWrapEnabled: true
         },
         createDGButtons: function(e) {
             let toolbarItems = e.toolbarOptions.items;
@@ -138,11 +138,11 @@
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
                     if(e.column.dataField == 'full_name' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonApplicant_v2?id=' + e.data.ApplicantsId + '');
+                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonApplicant_v2?id=' + e.data.ApplicantsId));
                     }else if(e.column.dataField == 'house' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonHouse_v2?id=' + e.data.BuildingId + '');
+                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonHouse_v2?id=' + e.data.BuildingId));
                     }else if(e.column.dataField == 'registration_number' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id + '');
+                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id));
                     }else if(e.column.dataField == 'phone_number' && e.row != undefined) {
                         let CurrentUserPhone = e.row.data.phone_number;
                         let PhoneForCall = this.userPhoneNumber;
@@ -260,10 +260,10 @@
             let elementHistory__content = this.createElement('div', { className: 'elementHistory__content content', innerText: ndz + ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment });
             let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія'});
             let elementHistory = this.createElement('div', { className: 'elementHistory element'}, elementHistory__caption, elementHistory__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: '' + currentEmployeeData.zmist + ''});
+            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.zmist))});
             let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: '' + currentEmployeeData.comment + ''});
+            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: String(String(currentEmployeeData.comment))});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
             let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
@@ -426,33 +426,33 @@
         createFilterMacros: function(code, operation, currentDate) {
             let textMacros = '';
             if(operation == 'like') {
-                textMacros = '' + code + ' ' + operation + ' \'%' + currentDate + '%\' and';
+                textMacros = String(code) + ' ' + operation + ' \'%' + currentDate + '%\' and';
             }else if(operation == '===') {
-                textMacros = '' + currentDate + ' and';
+                textMacros = String(currentDate) + ' and';
             }else if(operation == '==') {
-                textMacros = '' + code + ' ' + '=' + ' ' + currentDate + ' and';
+                textMacros = String(code) + ' ' + '=' + ' ' + currentDate + ' and';
             }else if(operation == '+""+') {
-                textMacros = '' + code + ' in  (N\'' + currentDate + '\' and';
+                textMacros = String(code) + ' in  (N\'' + currentDate + '\' and';
             }else if(operation == 'in') {
-                textMacros = '' + code + ' in (' + currentDate + ') and';
+                textMacros = String(code) + ' in (' + currentDate + ') and';
             }else if(operation == '=') {
-                textMacros = '' + code + ' ' + operation + ' N\'' + currentDate + '\' and';
+                textMacros = String(code) + ' ' + operation + ' N\'' + currentDate + '\' and';
             }else if(operation == '>=' || operation == '<=') {
                 let year = currentDate.getFullYear();
                 let month = currentDate.getMonth() + 1;
                 let date = currentDate.getDate();
                 let hours = currentDate.getHours();
                 let minutes = currentDate.getMinutes();
-                date = date + '';
-                month = month + '';
-                hours = hours + '';
-                minutes = minutes + '';
+                date = String(date);
+                month = String(month);
+                hours = String(hours);
+                minutes = String(minutes);
                 month = month.length == 1 ? '0' + month : month;
                 date = date.length == 1 ? '0' + date : date;
                 hours = hours.length == 1 ? '0' + hours : hours;
                 minutes = minutes.length == 1 ? '0' + minutes : minutes;
-                let value = '' + year + '-' + month + '-' + date + ' ' + hours + ':' + minutes + '';
-                textMacros = '' + code + ' ' + operation + ' N\'' + value + '\' and';
+                let value = String(String(year) + '-' + month + '-' + date + ' ' + hours + ':' + minutes);
+                textMacros = String(code) + ' ' + operation + ' N\'' + value + '\' and';
             }
             this.textFilterMacros.push(textMacros);
         },
@@ -539,6 +539,6 @@
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
             this.sub2.unsubscribe();
-        },
+        }
     };
 }());

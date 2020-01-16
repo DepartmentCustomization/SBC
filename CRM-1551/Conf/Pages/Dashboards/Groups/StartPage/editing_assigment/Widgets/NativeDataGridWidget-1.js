@@ -21,19 +21,19 @@
                     format: 'dd.MM.yyyy HH:mm'
                 }, {
                     dataField: 'AssignmentState',
-                    caption: 'Стан',
+                    caption: 'Стан'
                 }, {
                     dataField: 'QuestionType',
-                    caption: 'Тип питання',
+                    caption: 'Тип питання'
                 }, {
                     dataField: 'Zayavnyk',
-                    caption: 'Заявник',
+                    caption: 'Заявник'
                 }, {
                     dataField: 'Adress',
-                    caption: 'Місце проблеми',
+                    caption: 'Місце проблеми'
                 }, {
                     dataField: 'Vykonavets',
-                    caption: 'Виконавець',
+                    caption: 'Виконавець'
                 }, {
                     dataField: 'Control_date',
                     caption: 'Дата контролю',
@@ -52,7 +52,7 @@
             pager: {
                 showPageSizeSelector:  true,
                 allowedPageSizes: [10, 15, 30],
-                showInfo: true,
+                showInfo: true
             },
             paging: {
                 pageSize: 10
@@ -68,7 +68,7 @@
                 highlightCaseSensitive: true
             },
             selection:{
-                mode: 'multiple',
+                mode: 'multiple'
             },
             sorting: {
                 mode: 'multiple'
@@ -88,7 +88,7 @@
             showFilterRow: true,
             showHeaderFilter: false,
             showColumnChooser: false,
-            showColumnFixing: true,
+            showColumnFixing: true
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 200;
@@ -118,7 +118,7 @@
                             queryCode: 'ak_EditAssigmetsSearchResult',
                             parameterValues: [ { key: '@appealNum', value: this.searchValue },
                                 { key: '@pageOffsetRows', value: 0 },
-                                { key: '@pageLimitRows', value: 50 },
+                                { key: '@pageLimitRows', value: 50 }
                             ],
                             limit: -1
                         };
@@ -134,7 +134,7 @@
                     type: 'default',
                     text: 'Видалити',
                     elementAttr: {
-                        id: 'button_ozpodil',
+                        id: 'button_ozpodil'
                     },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
@@ -151,7 +151,7 @@
                     type: 'default',
                     text: 'Роз\'яснено',
                     elementAttr: {
-                        id: 'button_ozpodil',
+                        id: 'button_ozpodil'
                     },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
@@ -168,7 +168,7 @@
                     type: 'default',
                     text: 'Не в компетенції',
                     elementAttr: {
-                        id: 'button_arrived',
+                        id: 'button_arrived'
                     },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
@@ -242,7 +242,7 @@
             const worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
                     orientation: 'landscape',
-                    fitToPage: false,
+                    fitToPage: false
                 }
             });
             worksheet.pageSetup.margins = {
@@ -269,7 +269,7 @@
                     let obj = {
                         key: el.name,
                         width: 12,
-                        height: 20,
+                        height: 20
                     };
                     columnsHeader.push(obj);
                     captions.push('Номеп питання');
@@ -437,6 +437,6 @@
         },
         destroy:  function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

@@ -20,67 +20,67 @@
                     columns: [
                         {
                             dataField: 'PreviousPeriod_Total',
-                            caption: 'Всього',
+                            caption: 'Всього'
                         }, {
                             dataField: 'PreviousPeriod_Registered',
-                            caption: 'Зареєстровано',
+                            caption: 'Зареєстровано'
                         }, {
                             dataField: 'PreviousPeriod_InTheWorks',
-                            caption: 'В роботі',
+                            caption: 'В роботі'
                         }, {
                             dataField: 'PreviousPeriod_InTest',
-                            caption: 'На перевірці',
+                            caption: 'На перевірці'
                         }, {
                             dataField: 'PreviousPeriod_ForRevision',
-                            caption: 'На доопрацюванні',
+                            caption: 'На доопрацюванні'
                         }, {
                             dataField: 'PreviousPeriod_Closed',
-                            caption: 'Закрито',
+                            caption: 'Закрито'
                         }
                     ]
                 }, {
                     dataField: 'CurrentMonth_Total',
-                    caption: 'Загальна кількість звернень за поточний місяць',
+                    caption: 'Загальна кількість звернень за поточний місяць'
                 }, {
                     caption: 'За поточний місяць',
                     alignItems: 'middle',
                     columns: [
                         {
                             dataField: 'CurrentMonth_Registered',
-                            caption: 'Зареєстровано',
+                            caption: 'Зареєстровано'
                         }, {
                             dataField: 'CurrentMonth_InTheWorks',
-                            caption: 'В роботі',
+                            caption: 'В роботі'
                         }, {
                             dataField: 'CurrentMonth_InTest',
-                            caption: 'На перевірці',
+                            caption: 'На перевірці'
                         }, {
                             dataField: 'CurrentMonth_ForRevision',
-                            caption: 'На доопрацюванні',
+                            caption: 'На доопрацюванні'
                         }, {
                             dataField: 'CurrentMonth_Closed',
-                            caption: 'Закрито',
+                            caption: 'Закрито'
                         }
                     ]
                 }, {
                     dataField: 'OfThem_Registered',
-                    caption: 'з них, Зареєстровано',
+                    caption: 'з них, Зареєстровано'
                 }, {
                     dataField: 'OfThem_AtWork',
-                    caption: 'з них, В роботі',
+                    caption: 'з них, В роботі'
                 }, {
                     caption: 'На перевірці',
                     alignItems: 'middle',
                     columns: [
                         {
                             dataField: 'OnTest_Done',
-                            caption: 'Виконано',
+                            caption: 'Виконано'
                         }, {
                             dataField: 'OnTest_Explained',
-                            caption: 'Роз\'яснено',
+                            caption: 'Роз\'яснено'
                         }, {
                             dataField: 'OnTest_CannotBeExecutedAtThisTime',
-                            caption: 'Не можливо виконанти в даний період',
+                            caption: 'Не можливо виконанти в даний період'
                         }
                     ]
                 }, {
@@ -89,34 +89,34 @@
                     columns: [
                         {
                             dataField: 'ResultOfExecution_Done',
-                            caption: 'Виконано',
+                            caption: 'Виконано'
                         }, {
                             dataField: 'ResultOfExecution_Explained',
-                            caption: 'Роз\'яснено',
+                            caption: 'Роз\'яснено'
                         }, {
                             dataField: 'ResultOfExecution_Others',
-                            caption: 'Інші',
+                            caption: 'Інші'
                         }
                     ]
                 }, {
                     dataField: 'ForRevision_All',
-                    caption: 'На доопрацювання (Всього)',
+                    caption: 'На доопрацювання (Всього)'
                 }, {
                     dataField: 'ForRevision_Total',
-                    caption: 'На доопрацювання (прозвон)',
+                    caption: 'На доопрацювання (прозвон)'
                 }, {
                     caption: 'На доопрацювання (прозвон)',
                     alignItems: 'middle',
                     columns: [
                         {
                             dataField: 'ForRevision_1Time',
-                            caption: '1 раз',
+                            caption: '1 раз'
                         }, {
                             dataField: 'ForRevision_2Times',
-                            caption: '2 рази',
+                            caption: '2 рази'
                         }, {
                             dataField: 'ForRevision_3AndMore',
-                            caption: '3 і більше',
+                            caption: '3 і більше'
                         }
                     ]
                 }, {
@@ -125,10 +125,10 @@
                     columns: [
                         {
                             dataField: 'ViewedByArtist_Total',
-                            caption: 'Всі',
+                            caption: 'Всі'
                         }, {
                             dataField: 'ViewedByArtist_WrongTime',
-                            caption: 'Не вчасно',
+                            caption: 'Не вчасно'
                         }
                     ]
                 }, {
@@ -199,7 +199,7 @@
             showHeaderFilter: false,
             showColumnChooser: true,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             const getDataFromLink = window
@@ -265,7 +265,7 @@
                         };
                         this.queryExecutor(exportQuery, this.myCreateExcel, this);
                     }.bind(this)
-                },
+                }
             });
         },
         myCreateExcel: function(data) {
@@ -276,7 +276,7 @@
             let worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
                     orientation: 'landscape',
-                    fitToPage: false,
+                    fitToPage: false
                 }
             });
             worksheet.pageSetup.margins = {
@@ -416,7 +416,7 @@
                         rowValues[j] = value;
                     }else{
                         let int = isInt(value);
-                        rowValues[j] = int === false ? +value.toFixed(2) : value;
+                        rowValues[j] = int === false ? Number(value.toFixed(2)) : value;
                     }
                 }
                 worksheet.addRow(rowValues);

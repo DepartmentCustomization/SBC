@@ -16,7 +16,7 @@
                     width: 60
                 }, {
                     dataField: 'questionType',
-                    caption: 'Тип питання',
+                    caption: 'Тип питання'
                 }, {
                     dataField: 'questionQty',
                     caption: 'Кількість',
@@ -57,7 +57,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 150;
@@ -87,12 +87,12 @@
                                 {key: '@dateFrom' , value: this.dateFrom },
                                 {key: '@dateTo', value: this.dateTo },
                                 {key: '@questionType', value: this.questionType },
-                                {key: '@questionGroup', value: this.questionGroup },
+                                {key: '@questionGroup', value: this.questionGroup }
                             ]
                         };
                         this.queryExecutor(exportQuery, this.myCreateExcel, this);
                     }.bind(this)
-                },
+                }
             });
             toolbarItems.push({
                 widget: 'dxButton',
@@ -103,9 +103,9 @@
                     text: 'До класифікатору питань',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
-                        this.messageService.publish({ name: 'showClassifierQuestions',});
+                        this.messageService.publish({ name: 'showClassifierQuestions'});
                     }.bind(this)
-                },
+                }
             });
         },
         myCreateExcel: function(data) {
@@ -198,7 +198,7 @@
                     let row = {
                         number: number,
                         questionType: el.questionType,
-                        questionQty: el.questionQty,
+                        questionQty: el.questionQty
                     }
                     worksheet.addRow(row);
                 });
@@ -281,7 +281,7 @@
                             {key: '@dateFrom' , value: this.dateFrom },
                             {key: '@dateTo', value: this.dateTo },
                             {key: '@questionType', value: this.questionType },
-                            {key: '@questionGroup', value: this.questionGroup },
+                            {key: '@questionGroup', value: this.questionGroup }
                         ];
                         this.loadData(this.afterLoadDataHandler);
                     }
@@ -293,9 +293,8 @@
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
         afterLoadDataHandler: function() {
             this.render();

@@ -44,6 +44,6 @@
         },
         hideMyPreloader: function() {
             this.hidePagePreloader();
-        },
+        }
     };
 }());

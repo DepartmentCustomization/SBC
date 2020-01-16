@@ -66,7 +66,7 @@
                 'parameterValues': [
                     { 'key': '@date_from', 'value': this.dateFrom },
                     { 'key': '@date_to', 'value': this.dateTo }
-                ],
+                ]
             };
         },
         load: function(data) {

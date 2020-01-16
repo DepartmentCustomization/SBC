@@ -78,7 +78,7 @@
                     title: ' ',
                     text: 'Підтвердити закриття заходу?',
                     acceptBtnText: 'yes',
-                    cancelBtnText: 'no',
+                    cancelBtnText: 'no'
                 };
                 this.openModalForm(fieldsForm, Question_Close_callback.bind(this));
             }.bind(this));
@@ -125,10 +125,9 @@
         onEventQueType: function(type_id) {
             if (typeof type_id === 'string') {
                 return
-            } else {
-                const param = [{ key: '@Id', value: type_id }];
-                this.details.loadData('Detail_EventQuestionsTypes_create', param);
             }
+            const param = [{ key: '@Id', value: type_id }];
+            this.details.loadData('Detail_EventQuestionsTypes_create', param);
         },
         changeOndateFact: function(value) {
             const start_date = this.form.getControlValue('start_date');

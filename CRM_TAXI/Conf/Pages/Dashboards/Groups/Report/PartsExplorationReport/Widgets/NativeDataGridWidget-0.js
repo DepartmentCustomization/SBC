@@ -12,13 +12,13 @@
             columns: [
                 {
                     dataField: 'articul',
-                    caption: 'Артикул',
+                    caption: 'Артикул'
                 }, {
                     dataField: 'manufacturer',
-                    caption: 'Производитель',
+                    caption: 'Производитель'
                 }, {
                     dataField: 'provider',
-                    caption: 'Поставщик',
+                    caption: 'Поставщик'
                 }, {
                     dataField: 'cars_number',
                     caption: 'Госномер',
@@ -61,7 +61,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 150;
@@ -74,7 +74,7 @@
             let category = message.package.value.values.find(f => f.name === 'category').value;
             if (category !== null && category !== '') {
                 this.config.query.parameterValues = [
-                    { key: '@category', value: category.value },
+                    { key: '@category', value: category.value }
                 ];
                 this.loadData(this.afterLoadDataHandler);
             }
@@ -84,15 +84,14 @@
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
         afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

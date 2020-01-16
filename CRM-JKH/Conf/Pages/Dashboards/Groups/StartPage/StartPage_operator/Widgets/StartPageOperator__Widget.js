@@ -90,7 +90,7 @@
                 let number = modalNumber.value
                 let r1 = JSON.stringify(number);
                 let r2 = encodeURIComponent(r1);
-                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/RegistrationAppeal/add?parameter=' + r2 + '&type=' + this.typeAppeal + '');
+                window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/RegistrationAppeal/add?parameter=' + r2 + '&type=' + this.typeAppeal));
                 const container = document.getElementById('container');
                 CONTAINER.removeChild(container.lastElementChild);
             });
@@ -98,6 +98,6 @@
                 const container = document.getElementById('container');
                 CONTAINER.removeChild(container.lastElementChild);
             });
-        },
+        }
     };
 }());

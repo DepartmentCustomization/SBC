@@ -13,11 +13,11 @@
                 {
                     dataField: 'questionType',
                     caption: 'Тип питання',
-                    width: 450,
+                    width: 450
                 }, {
                     dataField: 'Golosiivsky',
                     caption: 'Голосіївський',
-                    alignment: 'center',
+                    alignment: 'center'
                 }, {
                     dataField: 'Darnitsky',
                     caption: 'Дарницький',
@@ -130,7 +130,7 @@
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },
+                    }
                 ]
             },
             sorting: {
@@ -152,7 +152,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
@@ -189,12 +189,12 @@
                                 {key: '@dateFrom' , value: this.dateFrom },
                                 {key: '@dateTo', value: this.dateTo },
                                 {key: '@questionGroup', value: this.questionGroup },
-                                {key: '@questionType', value: this.questionType },
+                                {key: '@questionType', value: this.questionType }
                             ]
                         };
                         this.queryExecutor(exportQuery, this.myCreateExcel, this);
                     }.bind(this)
-                },
+                }
             });
         },
         myCreateExcel: function(data) {
@@ -248,7 +248,7 @@
                     if(el.name === 'questionType') {
                         let obj = {
                             key: el.name,
-                            width: 28,
+                            width: 28
                         };
                         columnsHeader.push(obj);
                         captions.push('Тип питання');
@@ -394,7 +394,7 @@
                         Svyatoshinsky: el.Svyatoshinsky,
                         Solomiansky: el.Solomiansky,
                         Shevchenkovsky: el.Shevchenkovsky,
-                        allQuestionsQty: el.allQuestionsQty,
+                        allQuestionsQty: el.allQuestionsQty
                     }
                     worksheet.addRow(row);
                 });
@@ -451,14 +451,18 @@
             return ' ';
         },
         compareNumeric: function(a, b) {
-            if (a > b) return 1;
-            if (a < b) return -1;
+            if (a > b) {
+                return 1;
+            }
+            if (a < b) {
+                return -1;
+            }
         },
         getAllIndexes: function(arr, val) {
             let indexes = [];
             for(let i = 0; i < arr.length; i++) {
                 let cellValue = arr[i].textContent;
-                if (+cellValue === val) {
+                if (Number(cellValue) === val) {
                     indexes.push(i);
                 }
             }
@@ -517,7 +521,7 @@
                             {key: '@dateFrom' , value: this.dateFrom },
                             {key: '@dateTo', value: this.dateTo },
                             {key: '@questionGroup', value: this.questionGroup },
-                            {key: '@questionType', value: this.questionType },
+                            {key: '@questionType', value: this.questionType }
                         ];
                         this.loadData(this.afterLoadDataHandler);
                     }

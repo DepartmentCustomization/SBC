@@ -58,7 +58,7 @@
             pager: {
                 showPageSizeSelector: true,
                 allowedPageSizes: [10, 50, 100],
-                showInfo: true,
+                showInfo: true
             },
             paging: {
                 pageSize: 100
@@ -74,12 +74,12 @@
                 mode: 'multiple'
             },
             masterDetail: {
-                enabled: true,
+                enabled: true
             },
             showBorders: false,
             showColumnLines: false,
             showRowLines: true,
-            wordWrapEnabled: true,
+            wordWrapEnabled: true
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 130;
@@ -101,7 +101,7 @@
                 if(e.column) {
                     if(e.column.dataField == 'registration_number' && e.row != undefined) {
                         e.event.stopImmediatePropagation();
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id + '');
+                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id));
                     }else if(e.column.dataField == 'phone_number' && e.row != undefined) {
                         e.event.stopImmediatePropagation();
                         let CurrentUserPhone = e.row.data.phone_number;
@@ -219,10 +219,10 @@
             let elementHistory__content = this.createElement('div', { className: 'elementHistory__content content', innerText: ndz + ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment });
             let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія'});
             let elementHistory = this.createElement('div', { className: 'elementHistory element'}, elementHistory__caption, elementHistory__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: '' + currentEmployeeData.zmist + ''});
+            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.zmist))});
             let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: '' + currentEmployeeData.comment + ''});
+            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: String(String(currentEmployeeData.comment))});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
             let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
@@ -344,6 +344,6 @@
         destroy: function() {
             this.sub1.unsubscribe();
             this.sub2.unsubscribe();
-        },
+        }
     };
 }());

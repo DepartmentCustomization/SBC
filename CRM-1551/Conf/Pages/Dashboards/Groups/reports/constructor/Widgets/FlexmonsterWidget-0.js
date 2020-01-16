@@ -172,7 +172,7 @@
                     { key: '@OrganizationExecId', value:  this.organization },
                     { key: '@OrganizationExecGroupId', value:  this.groupOrganization},
                     { key: '@ReceiptSourcesId', value: this.receiptSource},
-                    { key: '@QuestionGroupId', value: this.QuestionGroupId},
+                    { key: '@QuestionGroupId', value: this.QuestionGroupId}
                 ],
                 filterColumns: [
                     {
@@ -204,6 +204,6 @@
                 skipNotVisibleColumns: true,
                 chunkSize: 1000
             };
-        },
+        }
     };
 }());

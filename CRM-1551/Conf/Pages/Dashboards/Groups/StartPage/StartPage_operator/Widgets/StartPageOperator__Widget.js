@@ -129,6 +129,6 @@
                 const lastElementChild = this.container.lastElementChild;
                 this.container.removeChild(lastElementChild);
             });
-        },
+        }
     };
 }());

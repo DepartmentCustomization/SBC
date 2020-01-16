@@ -61,8 +61,8 @@
             this.organizationId = (data.rows[0].values[indexOfTypeId]);
             this.distribute = (data.rows[0].values[indexOfTypeDistribute]);
             this.messageService.publish({name: 'messageWithOrganizationId', value: this.organizationId, distribute:  this.distribute});
-            if(window.location.search != '?id=' + data.rows[0].values[indexOfTypeId] + '') {
-                window.location.search = 'id=' + data.rows[0].values[indexOfTypeId] + '';
+            if(window.location.search != String('?id=' + data.rows[0].values[indexOfTypeId])) {
+                window.location.search = String('id=' + data.rows[0].values[indexOfTypeId]);
             }
         },
         createElement: function(tag, props, ...children) {
@@ -148,9 +148,9 @@
             for (let i = 0; i < data.rows.length; i++) {
                 let row = data.rows[i];
                 let eventElementsСounter = this.createElement('div', { className: 'eventElementsСounter displayFlex'});
-                let eventTitle__name = this.createElement('div', { className: 'eventTitle__name', innerText: '' + row.values[1] + ''});
+                let eventTitle__name = this.createElement('div', { className: 'eventTitle__name', innerText: String(String(row.values[1]))});
                 let eventTitle = this.createElement('div', { className: 'eventTitle displayFlex'}, eventTitle__name);
-                let event = this.createElement('div', { className: 'event displayFlex', id: '' + row.values[0] + ''}, eventTitle, eventElementsСounter);
+                let event = this.createElement('div', { className: 'event displayFlex', id: String(String(row.values[0]))}, eventTitle, eventElementsСounter);
                 let eventWrapper = document.getElementById('eventWrapper');
                 eventWrapper.appendChild(event);
                 let name = row.values[1];
@@ -166,7 +166,7 @@
                     }
                     let eventElementsСounterItem = undefined;
                     if(el != '0 (0)') {
-                        let eventElementsСounterItem__value = this.createElement('div', { className: ' counter_value', innerText: '' + el + ''});
+                        let eventElementsСounterItem__value = this.createElement('div', { className: ' counter_value', innerText: String(String(el))});
                         eventElementsСounterItem = this.createElement('div', { value: link, name: name, className: 'counter'},eventElementsСounterItem__value);
                     }else{
                         eventElementsСounterItem = this.createElement('div', { className: 'counter'});

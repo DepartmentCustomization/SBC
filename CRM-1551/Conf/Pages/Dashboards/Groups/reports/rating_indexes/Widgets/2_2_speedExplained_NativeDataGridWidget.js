@@ -11,7 +11,7 @@
             },
             columns: [],
             summary: {
-                totalItems: [],
+                totalItems: []
             },
             scrolling: {
                 mode: 'virtual'
@@ -35,7 +35,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.results = [];

@@ -21,11 +21,11 @@
                         {
                             dataField: 'become',
                             caption: 'Було',
-                            alignment: 'left',
+                            alignment: 'left'
                         },{
                             dataField: 'it_was',
                             caption: 'Стало',
-                            alignment: 'left',
+                            alignment: 'left'
                         }
                     ]
                 },

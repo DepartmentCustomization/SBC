@@ -20,37 +20,37 @@
                     columns: [
                         {
                             dataField: 'Count_rmz',
-                            caption: 'Минулий період',
+                            caption: 'Минулий період'
                         }, {
                             dataField: 'Count_rpz',
-                            caption: 'Поточний місяць',
-                        },
+                            caption: 'Поточний місяць'
+                        }
                     ]
                 }, {
                     dataField: 'Count_rzz',
-                    caption: 'з них, Зареєстровано',
+                    caption: 'з них, Зареєстровано'
                 }, {
                     dataField: 'Count_rzr',
-                    caption: 'з них, В роботі',
+                    caption: 'з них, В роботі'
                 }, {
                     caption: 'Закриття виконавцем',
                     alignItems: 'middle',
                     columns: [
                         {
                             dataField: 'Count_rzvv',
-                            caption: 'Вчасно',
+                            caption: 'Вчасно'
                         }, {
                             dataField: 'Count_rzvnv',
-                            caption: 'Не вчасно',
+                            caption: 'Не вчасно'
                         }, {
                             dataField: 'Count_rzvp',
-                            caption: 'Прострочено',
-                        },
+                            caption: 'Прострочено'
+                        }
                     ]
                 }, {
                     dataField: 'Vids_vz',
-                    caption: '% вчасно закритих',
-                },
+                    caption: '% вчасно закритих'
+                }
             ],
             keyExpr: 'Id',
             showBorders: false,
@@ -68,7 +68,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 100;
@@ -109,7 +109,7 @@
                         this.queryExecutor(exportQuery, this.createExcelWorkbook, this);
                         this.showPreloader = false;
                     }.bind(this)
-                },
+                }
             });
         },
         createExcelWorkbook: function(data) {

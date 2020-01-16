@@ -29,6 +29,6 @@
                 dateTo: new Date(year, monthFrom , dayTo, hh, mm)
             }
             this.setDefaultValue(defaultValue);
-        },
+        }
     };
 }());

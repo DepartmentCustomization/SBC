@@ -24,7 +24,7 @@
             columns: [
                 {
                     dataField: 'Name',
-                    caption: 'Назва питання',
+                    caption: 'Назва питання'
                 }
             ],
             scrolling: {
@@ -65,10 +65,10 @@
                 showInfo: false
             },
             onSelectionChanged: function() {
-            },
+            }
         },
         init: function() {
-            this.treeListInstance.height = window.innerHeight - 200 + '';
+            this.treeListInstance.height = String(window.innerHeight - 200);
             document.getElementById('question_classificatory').style.display = 'none';
             this.sub = this.messageService.subscribe('showTable', this.showTable, this);
             let self = this;
@@ -83,7 +83,7 @@
                             event.stopImmediatePropagation();
                             self.sendSelectItem();
                         }
-                    },
+                    }
                 })
             });
             this.loadData();
@@ -101,6 +101,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

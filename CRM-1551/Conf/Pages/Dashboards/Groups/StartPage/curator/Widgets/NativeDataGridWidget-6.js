@@ -14,32 +14,32 @@
                     dataField: 'id',
                     caption: '',
                     width: '0',
-                    fixed: true,
+                    fixed: true
                 }, {
                     dataField: 'navigation',
                     caption: 'Джерело надходження',
-                    fixed: true,
+                    fixed: true
                 }, {
                     dataField: 'registration_number',
                     caption: 'Номер питання',
                     fixed: true,
-                    sortOrder: 'asc',
+                    sortOrder: 'asc'
                 }, {
                     dataField: 'QuestionType',
                     caption: 'Тип питання',
-                    fixed: true,
+                    fixed: true
                 }, {
                     dataField: 'zayavnyk',
                     caption: 'Заявник',
-                    fixed: true,
+                    fixed: true
                 }, {
                     dataField: 'adress',
                     caption: 'Місце проблеми',
-                    fixed: true,
+                    fixed: true
                 }, {
                     dataField: 'vykonavets',
                     caption: 'Виконавець',
-                    fixed: true,
+                    fixed: true
                 }
             ],
             filterRow: {
@@ -64,7 +64,7 @@
                 pageSize: 10
             },
             editing: {
-                enabled: false,
+                enabled: false
             },
             scrolling: {
                 mode: 'standart',
@@ -73,7 +73,7 @@
                 showScrollbar: null
             },
             masterDetail: {
-                enabled: true,
+                enabled: true
             },
             keyExpr: 'Id',
             focusedRowEnabled: true,
@@ -130,13 +130,13 @@
             if(currentEmployeeData.question_content == null) {
                 currentEmployeeData.question_content = '';
             }
-            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: '' + currentEmployeeData.adressZ + ''});
+            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: String(String(currentEmployeeData.adressZ))});
             let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: 'Адреса заявника'});
             let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: '' + currentEmployeeData.question_content + ''});
+            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.question_content))});
             let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: '' + currentEmployeeData.short_answer + ''});
+            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: String(String(currentEmployeeData.short_answer))});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
             let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
@@ -161,7 +161,7 @@
                 this.loadData(this.afterLoadDataHandler);
                 this.dataGridInstance.onCellClick.subscribe(e => {
                     if(e.column.dataField == 'registration_number' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.key + '');
+                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.key));
                     }
                 });
             }

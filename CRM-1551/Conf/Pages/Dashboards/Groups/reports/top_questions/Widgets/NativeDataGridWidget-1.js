@@ -24,8 +24,8 @@
             columns: [
                 {
                     dataField: 'Name',
-                    caption: 'Назва питання',
-                },
+                    caption: 'Назва питання'
+                }
             ],
             sorting: {
                 mode: 'none'
@@ -65,7 +65,7 @@
                 showInfo: false
             },
             onSelectionChanged: function() {
-            },
+            }
         },
         init: function() {
             this.treeListInstance.height = window.innerHeight - 150;
@@ -83,7 +83,7 @@
                         onClick: function() {
                             self.messageService.publish({ name: 'showTopQuestions' });
                         }
-                    },
+                    }
                 })
             });
             this.loadData();

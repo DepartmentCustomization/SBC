@@ -13,19 +13,19 @@
             columns: [
                 {
                     dataField: 'district',
-                    caption: 'Район',
+                    caption: 'Район'
                 }, {
                     dataField: 'gvpQty',
-                    caption: 'Відсутність ГВП',
+                    caption: 'Відсутність ГВП'
                 }, {
                     dataField: 'hvpQty',
-                    caption: 'Відсутність ХВП',
+                    caption: 'Відсутність ХВП'
                 }, {
                     dataField: 'heatingQty',
-                    caption: 'Відсутність опалення',
+                    caption: 'Відсутність опалення'
                 }, {
                     dataField: 'electricityQty',
-                    caption: 'Відсутність електроенергії',
+                    caption: 'Відсутність електроенергії'
                 }
             ],
             keyExpr: 'Id',
@@ -44,7 +44,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight / 2 - 150;
@@ -57,7 +57,7 @@
                 this.dateTo = period.dateTo;
                 this.config.query.parameterValues = [
                     {key: '@dateFrom' , value: this.dateFrom },
-                    {key: '@dateTo', value: this.dateTo },
+                    {key: '@dateTo', value: this.dateTo }
                 ];
                 this.loadData(this.afterLoadDataHandler);
             }
@@ -67,6 +67,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

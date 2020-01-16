@@ -2,7 +2,7 @@
     return {
         chartConfig:{
             title: {
-                text: 'Швидкiсть реагування виконавця',
+                text: 'Швидкiсть реагування виконавця'
             },
             xAxis: {
                 categories: []

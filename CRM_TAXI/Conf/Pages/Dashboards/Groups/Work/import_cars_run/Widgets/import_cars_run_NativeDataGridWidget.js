@@ -12,25 +12,25 @@
             columns: [
                 {
                     dataField: 'cars_name',
-                    caption: 'Позывной',
+                    caption: 'Позывной'
                 },
                 {
                     dataField: 'run_km',
-                    caption: 'Пробег',
+                    caption: 'Пробег'
                 },
                 {
                     dataField: 'import_month_qty',
-                    caption: 'Было заливок в этом месяце',
+                    caption: 'Было заливок в этом месяце'
                 },
                 {
                     dataField: 'run_km_more',
-                    caption: 'Сопоставление пробега',
+                    caption: 'Сопоставление пробега'
                 }
             ],
             pager: {
                 showPageSizeSelector: true,
                 allowedPageSizes: [50, 100, 500],
-                showInfo: true,
+                showInfo: true
             },
             paging: {
                 pageSize: 50

@@ -82,7 +82,7 @@
                 let element = {
                     id: data.rows[i].values[this.valueId],
                     name: data.rows[i].values[this.countQuestions],
-                    y: data.rows[i].values[this.grade],
+                    y: data.rows[i].values[this.grade]
                 }
                 result.push(element);
             }

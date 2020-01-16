@@ -12,16 +12,16 @@
             columns: [
                 {
                     dataField: 'part_name',
-                    caption: 'Наименование запчасти',
+                    caption: 'Наименование запчасти'
                 }, {
                     dataField: 'articul',
-                    caption: 'Артикул',
+                    caption: 'Артикул'
                 }, {
                     dataField: 'manufacturer',
-                    caption: 'Производитель',
+                    caption: 'Производитель'
                 }, {
                     dataField: 'provider',
-                    caption: 'Поставщик',
+                    caption: 'Поставщик'
                 }, {
                     dataField: 'part_price',
                     caption: 'Цена',
@@ -59,7 +59,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 150;
@@ -104,7 +104,7 @@
                     this.dateTo = period.dateTo;
                     this.config.query.parameterValues = [
                         { key: '@dateFrom', value: this.dateFrom },
-                        { key: '@dateTo', value: this.dateTo },
+                        { key: '@dateTo', value: this.dateTo }
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }
@@ -115,15 +115,14 @@
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
         afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

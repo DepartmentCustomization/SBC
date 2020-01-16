@@ -14,6 +14,6 @@
                     this.dateTo = value.dateTo;
                 }
             }
-        },
+        }
     };
 }());

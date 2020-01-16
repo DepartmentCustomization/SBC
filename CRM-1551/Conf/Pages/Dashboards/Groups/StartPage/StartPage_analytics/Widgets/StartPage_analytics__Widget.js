@@ -36,7 +36,7 @@
                 const icon = report.icon;
                 const reportListItem__icon = this.createElement('div', { classList: 'reportListItem__icon material-icons', innerText: icon });
                 const reportListItem__text = this.createElement('div', { className: 'reportListItem__text', innerText: reportTitle });
-                const reportListItem = this.createElement('div', { className: 'reportListItem', url: url, }, reportListItem__icon, reportListItem__text);
+                const reportListItem = this.createElement('div', { className: 'reportListItem', url: url }, reportListItem__icon, reportListItem__text);
                 reportListWrap.appendChild(reportListItem);
                 reportListItem.addEventListener('click', event => {
                     const target = event.currentTarget;
@@ -77,6 +77,6 @@
                 });
             }
             return element;
-        },
+        }
     };
 }());

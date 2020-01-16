@@ -13,22 +13,22 @@
                 {
                     dataField: 'receiptDate',
                     caption: 'Дата надходження',
-                    width: 200,
+                    width: 200
                 }, {
                     dataField: 'workDirection',
                     caption: 'Напрямок робіт',
-                    width: 200,
+                    width: 200
                 }, {
                     dataField: 'appealObject',
                     caption: 'Місце проблеми',
-                    width: 180,
+                    width: 180
                 }, {
                     dataField: 'content',
-                    caption: 'Зміст',
+                    caption: 'Зміст'
                 }, {
                     dataField: 'result',
                     caption: 'Результат',
-                    width: 200,
+                    width: 200
                 }, {
                     dataField: 'moderComment',
                     caption: 'Коментар',
@@ -38,12 +38,12 @@
                     caption: 'Перехiд',
                     width: 150,
                     alignment: 'center'
-                },
+                }
             ],
             pager: {
                 showPageSizeSelector:  true,
                 allowedPageSizes: [20, 50, 100],
-                showInfo: true,
+                showInfo: true
             },
             paging: {
                 pageSize: 20
@@ -68,7 +68,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 200;
@@ -78,7 +78,7 @@
                 e.event.stopImmediatePropagation();
                 if(e.column) {
                     if(e.column.dataField == 'linkTo' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Appeals_from_Site/edit/' + e.key + '');
+                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Appeals_from_Site/edit/' + e.key));
                     }
                 }
             });
@@ -93,7 +93,7 @@
             let result = message.package.value.values.find(f => f.name === 'appeals_result').value;
             this.result = result === null ? [] : result === '' ? 0 : this.extractFilterValues(result);
             this.config.query.parameterValues = [
-                {key: '@result' , value: this.result },
+                {key: '@result' , value: this.result }
             ];
             this.config.query.filterColumns = [];
             if (this.result.length > 0) {
@@ -134,15 +134,14 @@
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
         afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

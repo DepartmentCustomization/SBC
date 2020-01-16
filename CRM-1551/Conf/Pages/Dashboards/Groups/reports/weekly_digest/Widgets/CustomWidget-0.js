@@ -80,7 +80,7 @@
             const worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
                     orientation: 'landscape',
-                    fitToPage: false,
+                    fitToPage: false
                 }
             });
             worksheet.pageSetup.margins = {
@@ -105,7 +105,7 @@
                     if(el.name === 'orgName') {
                         let obj = {
                             key: el.name,
-                            width: 44,
+                            width: 44
                         };
                         columnsHeader.push(obj);
                         captions.push('Назва');
@@ -311,6 +311,6 @@
                 trueDate = ' ';
             }
             return trueDate;
-        },
+        }
     };
 }());

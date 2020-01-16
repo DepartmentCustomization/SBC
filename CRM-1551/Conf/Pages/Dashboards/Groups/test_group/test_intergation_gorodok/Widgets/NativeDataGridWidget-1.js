@@ -99,7 +99,7 @@
                 let el = data.rows[i];
                 let obj = {
                     'Id': el.values[0],
-                    'streets': el.values[1],
+                    'streets': el.values[1]
                 }
                 this.elements.push(obj);
             }

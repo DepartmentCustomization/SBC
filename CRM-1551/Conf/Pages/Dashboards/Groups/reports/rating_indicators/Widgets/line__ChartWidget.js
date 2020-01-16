@@ -26,7 +26,7 @@
             },
             xAxis: {
                 categories: []
-            },
+            }
         },
         colors: [
             'rgb(124, 181, 236)',

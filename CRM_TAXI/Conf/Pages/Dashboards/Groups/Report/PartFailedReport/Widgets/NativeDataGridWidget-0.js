@@ -12,13 +12,13 @@
             columns: [
                 {
                     dataField: 'part_name',
-                    caption: 'Наименование запчасти',
+                    caption: 'Наименование запчасти'
                 }, {
                     dataField: 'manufacturer',
-                    caption: 'Производитель',
+                    caption: 'Производитель'
                 }, {
                     dataField: 'provider',
-                    caption: 'Поставщик',
+                    caption: 'Поставщик'
                 }, {
                     dataField: 'fact_run',
                     caption: 'Фактический пробег запчасти (км)',
@@ -52,7 +52,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 150;
@@ -69,15 +69,14 @@
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
         afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

@@ -13,24 +13,24 @@
                 {
                     dataField: 'registration_number',
                     caption: 'Номер питання',
-                    fixed: true,
+                    fixed: true
                 }, {
                     dataField: 'QuestionType',
                     caption: 'Тип питання',
-                    fixed: true,
+                    fixed: true
                 }, {
                     dataField: 'zayavnikName',
                     caption: 'Заявник',
-                    fixed: true,
+                    fixed: true
                 }, {
                     dataField: 'adress',
                     caption: 'Місце проблеми',
-                    fixed: true,
+                    fixed: true
                 }, {
                     dataField: 'vykonavets',
                     caption: 'Виконавець',
                     fixed: true,
-                    sortOrder: 'asc',
+                    sortOrder: 'asc'
                 }, {
                     dataField: 'control_date',
                     caption: 'Дата контролю',
@@ -42,7 +42,7 @@
                     lookup: {
                         dataSource: {
                             paginate: true,
-                            store: this.elements,
+                            store: this.elements
                         },
                         valueExpr: 'ID',
                         displayExpr: 'Name'
@@ -59,7 +59,7 @@
                 showScrollbar: null
             },
             masterDetail: {
-                enabled: true,
+                enabled: true
             },
             filterRow: {
                 visible: true,
@@ -72,7 +72,7 @@
             pager: {
                 showPageSizeSelector:  true,
                 allowedPageSizes: [10, 50, 100, 500],
-                showInfo: true,
+                showInfo: true
             },
             paging: {
                 pageSize: 500
@@ -109,7 +109,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 305;
@@ -122,7 +122,7 @@
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     if(e.column.dataField == 'registration_number' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.key + '');
+                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.key));
                     }
                 }
             });
@@ -184,13 +184,13 @@
             if(currentEmployeeData.question_content == null) {
                 currentEmployeeData.question_content = '';
             }
-            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: '' + currentEmployeeData.adressZ + ''});
+            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: String(String(currentEmployeeData.adressZ))});
             let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: 'Адреса заявника'});
             let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: '' + currentEmployeeData.question_content + ''});
+            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.question_content))});
             let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: '' + currentEmployeeData.short_answer + ''});
+            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: String(String(currentEmployeeData.short_answer))});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
             let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
@@ -213,7 +213,7 @@
                 let el = data.rows[i];
                 let obj = {
                     'ID': el.values[0],
-                    'Name': el.values[1],
+                    'Name': el.values[1]
                 }
                 this.elements.push(obj);
             }
@@ -282,7 +282,7 @@
             const worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
                     orientation: 'landscape',
-                    fitToPage: false,
+                    fitToPage: false
                 }
             });
             worksheet.pageSetup.margins = {
@@ -322,7 +322,7 @@
                     let obj = {
                         key: 'registration_number',
                         width: 10,
-                        height: 20,
+                        height: 20
                     };
                     columnsHeader.push(obj);
                     captions.push('Номер питання');
@@ -386,7 +386,7 @@
                     zayavnikName: el.zayavnikName,
                     QuestionType: el.QuestionType,
                     vykonavets: el.vykonavets,
-                    adress: el.adress,
+                    adress: el.adress
                 }
                 worksheet.addRow(row);
             });

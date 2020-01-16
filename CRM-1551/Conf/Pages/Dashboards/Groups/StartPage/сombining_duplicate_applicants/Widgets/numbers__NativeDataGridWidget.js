@@ -12,10 +12,10 @@
             columns: [
                 {
                     dataField: 'Phone_number',
-                    caption: 'Номер телефону',
+                    caption: 'Номер телефону'
                 }, {
                     dataField: 'Count_applicants',
-                    caption: 'Кількість заявникiв',
+                    caption: 'Кількість заявникiв'
                 }
             ],
             keyExpr: 'Id',
@@ -37,6 +37,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

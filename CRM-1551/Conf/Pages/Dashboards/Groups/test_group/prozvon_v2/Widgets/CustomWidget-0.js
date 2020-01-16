@@ -222,7 +222,7 @@
                                 { key: '@assignment_resolution_id', value: this.resolutionId },
                                 { key: '@control_result_id', value: this.resultId },
                                 { key: '@control_comment', value: this.comment },
-                                { key: '@grade', value: this.checkBoxChacked },
+                                { key: '@grade', value: this.checkBoxChacked }
                             ]
                         };
                         this.queryExecutor(executeQuery, this.changeRowsCounter, this);
@@ -243,7 +243,7 @@
                                 { key: '@assignment_resolution_id', value: null },
                                 { key: '@control_result_id', value: this.resultId },
                                 { key: '@control_comment', value: this.comment },
-                                { key: '@grade', value: this.checkBoxChacked },
+                                { key: '@grade', value: this.checkBoxChacked }
                             ]
                         };
                         this.queryExecutor(executeQuery, this.changeRowsCounter.bind(this, modalContainer), this);
@@ -256,7 +256,7 @@
         changeRowsCounter: function(modalContainer, result) {
             let obj = {
                 number: result.rows[0].values[0],
-                result: result.rows[0].values[1],
+                result: result.rows[0].values[1]
             }
             this.closingResult.push(obj);
             this.rowsCounter++;
@@ -320,6 +320,6 @@
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
-        },
+        }
     };
 }());

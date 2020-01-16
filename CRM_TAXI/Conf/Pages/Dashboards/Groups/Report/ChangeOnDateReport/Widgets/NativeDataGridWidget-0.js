@@ -12,7 +12,7 @@
             columns: [
                 {
                     dataField: 'part_name',
-                    caption: 'Наименование запчасти',
+                    caption: 'Наименование запчасти'
                 }, {
                     dataField: 'articul',
                     caption: 'Артикул',
@@ -28,7 +28,7 @@
                 }, {
                     dataField: 'run_km_period',
                     caption: 'Эксплуатационный период (км)',
-                    alignment: 'center',
+                    alignment: 'center'
                 }, {
                     dataField: 'run_day_period',
                     caption: 'Эксплуатационный период (дни)',
@@ -75,7 +75,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
@@ -92,7 +92,7 @@
             if (calendar !== null) {
                 if (calendar !== '') {
                     this.config.query.parameterValues = [
-                        { key: '@dateTo', value: calendar },
+                        { key: '@dateTo', value: calendar }
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }
@@ -103,15 +103,14 @@
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
         afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

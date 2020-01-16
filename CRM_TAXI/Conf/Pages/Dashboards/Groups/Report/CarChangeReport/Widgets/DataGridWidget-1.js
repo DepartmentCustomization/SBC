@@ -12,7 +12,7 @@
             columns: [
                 {
                     dataField: 'part_name',
-                    caption: 'Наименование запчасти',
+                    caption: 'Наименование запчасти'
                 }, {
                     dataField: 'articul',
                     caption: 'Артикул',
@@ -70,7 +70,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight / 2 - 150;
@@ -86,7 +86,7 @@
                     return p;
                 }, {}
                 );
-            this.car = +getUrlParams.car_id;
+            this.car = Number(getUrlParams.car_id);
             this.dateTo = new Date(getUrlParams.dateTo);
             this.dateFrom = new Date(getUrlParams.dateFrom);
         },
@@ -96,14 +96,14 @@
                 this.config.query.parameterValues = [
                     { key: '@dateFrom', value: this.dateFrom },
                     { key: '@dateTo', value: this.dateTo },
-                    { key: '@carId', value: filterCar.value },
+                    { key: '@carId', value: filterCar.value }
                 ];
                 this.loadData(this.afterLoadDataHandler);
             } else {
                 this.config.query.parameterValues = [
                     { key: '@dateFrom', value: this.dateFrom },
                     { key: '@dateTo', value: this.dateTo },
-                    { key: '@carId', value: this.car },
+                    { key: '@carId', value: this.car }
                 ];
                 this.loadData(this.afterLoadDataHandler);
             }
@@ -113,6 +113,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

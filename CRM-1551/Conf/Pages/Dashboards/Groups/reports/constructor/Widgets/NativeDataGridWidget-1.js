@@ -12,11 +12,11 @@
             columns: [
                 {
                     dataField: 'Name',
-                    caption: 'Групи питань',
+                    caption: 'Групи питань'
                 }
             ],
             selection: {
-                mode: 'single',
+                mode: 'single'
             },
             filterRow: {
                 visible: true
@@ -24,7 +24,7 @@
             keyExpr: 'Id'
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 200 + '';
+            this.dataGridInstance.height = String(window.innerHeight - 200);
             this.sub = this.messageService.subscribe('showTable', this.showTable, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.loadData(this.afterLoadDataHandler);
@@ -41,7 +41,7 @@
                         e.event.stopImmediatePropagation();
                         this.sendSelectItem();
                     }.bind(this)
-                },
+                }
             });
         },
         sendSelectItem: function() {
@@ -60,6 +60,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

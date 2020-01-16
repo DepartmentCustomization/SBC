@@ -15,7 +15,7 @@
                     caption: 'Номер питання'
                 }, {
                     dataField: 'question_question_type',
-                    caption: 'Тип питання',
+                    caption: 'Тип питання'
                 }, {
                     dataField: 'zayavnyk_full_name',
                     caption: 'ПІБ Заявника'
@@ -46,7 +46,7 @@
             hoverStateEnabled: true,
             pager: {
                 showPageSizeSelector: true,
-                allowedPageSizes: [50, 100, 500],
+                allowedPageSizes: [50, 100, 500]
             },
             paging: {
                 pageSize: 50
@@ -57,7 +57,7 @@
             showBorders: false,
             showColumnLines: false,
             showRowLines: true,
-            keyExpr: 'Id',
+            keyExpr: 'Id'
         },
         createButtons: function(e) {
             let toolbarItems = e.toolbarOptions.items;
@@ -109,7 +109,7 @@
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
                     if(e.column.dataField == 'question_registration_number' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id + '');
+                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id));
                     }
                 }
             }.bind(this));
@@ -286,7 +286,7 @@
                     { key: '@execution_term_to', value: this.executionTermTo },
                     { key: '@control_date_from', value: this.controlDateFrom },
                     { key: '@control_date_to', value: this.controlDateTo },
-                    { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
+                    { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber }
                 ];
                 this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish({
@@ -305,17 +305,17 @@
                 if(operation !== '>=' && operation !== '<=') {
                     let textMacros = '';
                     if(operation == 'like') {
-                        textMacros = '' + code + ' ' + operation + ' \'%' + value + '%\' and';
+                        textMacros = String(code) + ' ' + operation + ' \'%' + value + '%\' and';
                     }else if(operation == '===') {
-                        textMacros = '' + value + ' and';
+                        textMacros = String(value) + ' and';
                     }else if(operation == '==') {
-                        textMacros = '' + code + ' ' + '=' + ' ' + value + ' and';
+                        textMacros = String(code) + ' ' + '=' + ' ' + value + ' and';
                     }else if(operation == '+""+') {
-                        textMacros = '' + code + ' in  (N\'' + value + '\' and';
+                        textMacros = String(code) + ' in  (N\'' + value + '\' and';
                     }else if(operation == 'in') {
-                        textMacros = '' + code + ' in (' + value + ') and';
+                        textMacros = String(code) + ' in (' + value + ') and';
                     }else if(operation == '=') {
-                        textMacros = '' + code + ' ' + operation + ' N\'' + value + '\' and';
+                        textMacros = String(code) + ' ' + operation + ' N\'' + value + '\' and';
                     }
                     this.textFilterMacros.push(textMacros);
                 }
@@ -341,7 +341,7 @@
                     width: 120
                 }, {
                     dataField: 'question_question_type',
-                    caption: 'Тип питання',
+                    caption: 'Тип питання'
                 }, {
                     dataField: 'zayavnyk_full_name',
                     caption: 'ПІБ Заявника',
@@ -362,7 +362,7 @@
                     dataField: 'assigm_executor_organization',
                     caption: 'Виконавець',
                     width: 100 ,
-                    dateType: undefined,
+                    dateType: undefined
                 }, {
                     dataField: 'registration_date',
                     caption: 'Поступило',
@@ -400,7 +400,7 @@
                     column = {
                         dataField: el.displayValue,
                         caption: el.caption,
-                        width: el.width,
+                        width: el.width
                     }
                     break;
                 }
@@ -869,6 +869,6 @@
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
             this.sub2.unsubscribe();
-        },
+        }
     };
 }());

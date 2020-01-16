@@ -1064,9 +1064,8 @@
         convertDateNull: function(value) {
             if (!value) {
                 return this.extractStartDate();
-            } else {
-                return value;
             }
+            return value;
         },
         onChanged_Search_Appeals_Input: function(value) {
             if (value == '') {
@@ -1077,7 +1076,7 @@
         },
         getDistrictAndExecutor: function() {
             let building = this.form.getControlValue('Applicant_Building');
-            if (building != null && typeof (building) == 'number') {
+            if (building != null && typeof (building) === 'number') {
                 const query = {
                     queryCode: 'DistrictAndExecutor_byBuilding',
                     parameterValues: [{

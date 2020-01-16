@@ -296,9 +296,8 @@
                 return 'Доопрацювання не доступне  (не більше двох)';
             } else if (!this.form.getControlValue('result_id')) {
                 return 'Результат розгляду не може бути порожнім';
-            } else {
-                return true;
             }
+            return true;
         }
     };
 }());

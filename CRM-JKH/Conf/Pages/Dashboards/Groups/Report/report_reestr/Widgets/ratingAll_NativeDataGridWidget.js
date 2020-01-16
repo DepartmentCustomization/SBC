@@ -12,47 +12,47 @@
             columns: [
                 {
                     dataField: 'ClaimId',
-                    caption: 'Номер заявки',
+                    caption: 'Номер заявки'
                 },
                 {
                     dataField: 'created_at',
-                    caption: 'Дата заявки',
+                    caption: 'Дата заявки'
                 },
                 {
                     dataField: 'claim_direction',
-                    caption: 'Напрямок заявки',
+                    caption: 'Напрямок заявки'
                 },
                 {
                     dataField: 'claim_type',
-                    caption: 'Тип заявки',
+                    caption: 'Тип заявки'
                 },
                 {
                     dataField: 'Adress',
-                    caption: 'Місце заявки',
+                    caption: 'Місце заявки'
                 },
                 {
                     dataField: 'claim_state',
-                    caption: 'Стан заявки',
+                    caption: 'Стан заявки'
                 },
                 {
                     dataField: 'control_date',
-                    caption: 'Контрольна дата',
+                    caption: 'Контрольна дата'
                 },
                 {
                     dataField: 'executed_at',
-                    caption: 'Дата виконання',
+                    caption: 'Дата виконання'
                 },
                 {
                     dataField: 'executor',
-                    caption: 'Відповідальний працівник',
+                    caption: 'Відповідальний працівник'
                 },
                 {
                     dataField: 'org_executor',
-                    caption: 'Підрозділ (відповідального працівника)',
+                    caption: 'Підрозділ (відповідального працівника)'
                 },
                 {
                     dataField: 'applicantPIB',
-                    caption: 'ПІБ заявника',
+                    caption: 'ПІБ заявника'
                 }
             ],
             columnChooser: {
@@ -132,7 +132,7 @@
                         this.queryExecutor(exportQuery, this.myCreateExcel, this);
                         this.showPreloader = false;
                     }.bind(this)
-                },
+                }
             });
         },
         myCreateExcel: function(data) {
@@ -143,7 +143,7 @@
             let worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
                     orientation: 'landscape',
-                    fitToPage: false,
+                    fitToPage: false
                 }
             });
             worksheet.pageSetup.margins = {
@@ -280,6 +280,6 @@
             this.visibleColumns = this.dataGridInstance.instance.getVisibleColumns();
         },
         destroy: function() {
-        },
+        }
     };
 }());

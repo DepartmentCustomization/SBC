@@ -13,7 +13,7 @@
                 dataField: 'EventId',
                 caption: 'Номер заходу',
                 fixed: true,
-                width: 130,
+                width: 130
             }, {
                 dataField: 'base',
                 caption: 'База',
@@ -24,28 +24,28 @@
                 dataField: 'EventType',
                 caption: 'Тип заходу',
                 fixed: true,
-                width: 250,
+                width: 250
             }, {
                 dataField: 'EventName',
                 caption: 'Назва',
-                fixed: true,
+                fixed: true
             }, {
                 dataField: 'start_date',
                 caption: 'Дата початку',
                 dataType: 'datetime',
                 format: 'dd.MM.yyyy HH:mm',
                 fixed: true,
-                sortOrder: 'desc',
+                sortOrder: 'desc'
             }, {
                 dataField: 'plan_end_date',
                 caption: 'Планова дата закінчення',
                 dataType: 'datetime',
                 format: 'dd.MM.yyyy HH:mm',
-                fixed: true,
+                fixed: true
             }, {
                 dataField: 'CountQuestions',
                 caption: 'К-ть питань пов`язаних з заходом',
-                fixed: true,
+                fixed: true
             }],
             filterRow: {
                 visible: true,
@@ -66,7 +66,7 @@
                 pageSize: 10
             },
             editing: {
-                enabled: false,
+                enabled: false
             },
             scrolling: {
                 mode: 'standart',
@@ -94,7 +94,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         sub: [],
         sub1: [],
@@ -107,9 +107,9 @@
                 if(e.column) {
                     if (e.column.dataField == 'EventId' && e.row != undefined) {
                         if (e.data.gorodok_id === 0) {
-                            window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Events/edit/' + e.key + '');
+                            window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Events/edit/' + e.key));
                         } else if (e.data.gorodok_id === 1) {
-                            window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Gorodok_global/view/' + e.key + '');
+                            window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Gorodok_global/view/' + e.key));
                         }
                     }
                 }
@@ -136,13 +136,13 @@
             if (currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined) {
                 currentEmployeeData.zayavnyk_adress = '';
             }
-            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: '' + currentEmployeeData.zayavnyk_adress + '' });
+            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: String(String(currentEmployeeData.zayavnyk_adress)) });
             let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: 'Адреса заявника' });
             let elementAdress = this.createElement('div', { className: 'elementAdress element' }, elementAdress__caption, elementAdress__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: '' + currentEmployeeData.zayavnyk_zmist + '' });
+            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.zayavnyk_zmist)) });
             let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст' });
             let elementСontent = this.createElement('div', { className: 'elementСontent element' }, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: '' + currentEmployeeData.short_answer + '' });
+            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: String(String(currentEmployeeData.short_answer)) });
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця' });
             let elementComment = this.createElement('div', { className: 'elementСontent element' }, elementComment__caption, elementComment__content);
             let elementsWrapper = this.createElement('div', { className: 'elementsWrapper' }, elementAdress, elementСontent, elementComment);

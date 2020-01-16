@@ -46,6 +46,6 @@
         },
         init: function() {
             this.render();
-        },
+        }
     };
 }());

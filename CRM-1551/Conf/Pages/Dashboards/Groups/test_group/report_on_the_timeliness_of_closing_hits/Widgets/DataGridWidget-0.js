@@ -47,10 +47,10 @@
                     allowSorting: true,
                     subColumns: [{
                         caption: 'Вчасно',
-                        dataField: 'ZakrVchasno',
+                        dataField: 'ZakrVchasno'
                     }, {
                         caption: 'Не вчасно',
-                        dataField: 'ZakrNeVchasno',
+                        dataField: 'ZakrNeVchasno'
                     }]
                 }, {
                     dataField: 'VidsVchasnoZakr',
@@ -64,7 +64,7 @@
                     sortOrder: 'asc',
                     allowSorting: true,
                     subColumns: []
-                },
+                }
             ],
             export: {
                 enabled: false,

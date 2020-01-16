@@ -92,7 +92,7 @@
             const worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
                     orientation: 'landscape',
-                    fitToPage: false,
+                    fitToPage: false
                 }
             });
             worksheet.pageSetup.margins = {
@@ -249,6 +249,6 @@
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
-        },
+        }
     };
 }());

@@ -12,7 +12,7 @@
             columns: [
                 {
                     dataField: 'oper',
-                    caption: 'ПІП користувача',
+                    caption: 'ПІП користувача'
                 }, {
                     dataField: 'questionQ',
                     caption: 'Звернень',
@@ -33,7 +33,7 @@
                     dataField: 'notCallQ',
                     caption: 'Недозвон',
                     alignment: 'center'
-                },
+                }
             ],
             summary: {
                 totalItems: [{
@@ -91,7 +91,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 200;
@@ -134,15 +134,14 @@
                     }
                 }
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
         afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

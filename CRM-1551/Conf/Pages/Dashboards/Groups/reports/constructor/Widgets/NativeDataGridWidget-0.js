@@ -12,7 +12,7 @@
             columns: [
                 {
                     dataField: 'Name',
-                    caption: 'Тип питання',
+                    caption: 'Тип питання'
                 }
             ],
             filterRow: {
@@ -26,11 +26,11 @@
                 allowDeleting: true,
                 useIcons: true
             },
-            keyExpr: 'Id',
+            keyExpr: 'Id'
         },
         init: function() {
             this.selectedRows = [];
-            this.dataGridInstance.height = window.innerHeight - 200 + '';
+            this.dataGridInstance.height = String(window.innerHeight - 200);
             this.sub = this.messageService.subscribe('sendSelectedRow', this.setReceivedData, this);
             this.sub1 = this.messageService.subscribe('sendDataCleanup', this.clearData, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
@@ -50,7 +50,7 @@
                         e.event.stopImmediatePropagation();
                         this.clearData();
                     }.bind(this)
-                },
+                }
             });
         },
         sendMessToRenderTable: function() {
@@ -113,6 +113,6 @@
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
-        },
+        }
     };
 }());

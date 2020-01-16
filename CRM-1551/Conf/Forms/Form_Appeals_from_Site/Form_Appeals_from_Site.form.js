@@ -114,7 +114,7 @@
                 this.form.setControlVisibility('btn_CreateApplicant1551', false);
             }.bind(this));
             document.getElementById('btn_searchAdressByCoordinate').addEventListener('click', function() {
-                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/SearchGoogle?lat=' + this.form.getControlValue('AppealFromSite_geolocation_lat') + '&lon=' + this.form.getControlValue('AppealFromSite_geolocation_lon') + '');
+                window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/SearchGoogle?lat=' + this.form.getControlValue('AppealFromSite_geolocation_lat') + '&lon=' + this.form.getControlValue('AppealFromSite_geolocation_lon')));
             }.bind(this));
             document.getElementById('Question_BuildingIcon').style.fontSize = '30px';
             document.getElementById('Question_BuildingIcon').addEventListener('click', function(event) {
@@ -318,38 +318,37 @@
             if (value) {
                 if (typeof value === 'string') {
                     return
+                }
+                this.Question_Building_Input = value;
+                this.onChanged_Question_Btn_Add_Input();
+                this.getOrgExecut();
+                if (this.form.getControlValue('Question_TypeId') == null) {
+                    this.form.setControlVisibility('entrance', false);
+                    this.form.setControlVisibility('flat', false);
                 } else {
-                    this.Question_Building_Input = value;
-                    this.onChanged_Question_Btn_Add_Input();
-                    this.getOrgExecut();
-                    if (this.form.getControlValue('Question_TypeId') == null) {
-                        this.form.setControlVisibility('entrance', false);
-                        this.form.setControlVisibility('flat', false);
-                    } else {
-                        const objAndFlat = {
-                            queryCode: 'QuestionFlat_HideColumns',
-                            parameterValues: [
-                                {
-                                    key: '@Question_BuildingId',
-                                    value: this.form.getControlValue('Question_Building')
-                                }
-                            ]
-                        };
-                        this.queryExecutor.getValues(objAndFlat).subscribe(data => {
-                            if (data.rows.length > 0) {
-                                if (data.rows[0].values == 1 || data.rows[0].values == 112) {
-                                    this.form.setControlVisibility('entrance', true);
-                                    this.form.setControlVisibility('flat', true);
-                                } else {
-                                    this.form.setControlVisibility('entrance', false);
-                                    this.form.setControlVisibility('flat', false);
-                                }
+                    const objAndFlat = {
+                        queryCode: 'QuestionFlat_HideColumns',
+                        parameterValues: [
+                            {
+                                key: '@Question_BuildingId',
+                                value: this.form.getControlValue('Question_Building')
+                            }
+                        ]
+                    };
+                    this.queryExecutor.getValues(objAndFlat).subscribe(data => {
+                        if (data.rows.length > 0) {
+                            if (data.rows[0].values == 1 || data.rows[0].values == 112) {
+                                this.form.setControlVisibility('entrance', true);
+                                this.form.setControlVisibility('flat', true);
                             } else {
                                 this.form.setControlVisibility('entrance', false);
                                 this.form.setControlVisibility('flat', false);
                             }
-                        });
-                    }
+                        } else {
+                            this.form.setControlVisibility('entrance', false);
+                            this.form.setControlVisibility('flat', false);
+                        }
+                    });
                 }
             } else {
                 this.form.setControlVisibility('entrance', false);

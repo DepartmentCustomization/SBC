@@ -13,7 +13,7 @@
             columns: [
                 {
                     dataField: 'orgName',
-                    caption: 'Назва',
+                    caption: 'Назва'
                 }, {
                     dataField: 'questionQty',
                     caption: 'Кiлькiсть',
@@ -30,7 +30,7 @@
                 }]
             },
             keyExpr: 'orgIdId',
-            showColumnHeaders: false,
+            showColumnHeaders: false
         },
         init: function() {
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.getFiltersParams, this);
@@ -66,7 +66,7 @@
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },
                         {key: '@dateTo', value: this.dateTo },
-                        {key: '@pos', value: this.position },
+                        {key: '@pos', value: this.position }
                     ];
                     let filter = {
                         key: 'orgId',
@@ -82,7 +82,7 @@
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },
                         {key: '@dateTo', value: this.dateTo },
-                        {key: '@pos', value: this.position },
+                        {key: '@pos', value: this.position }
                     ];
                     this.config.query.filterColumns = [];
                     this.loadData(this.afterLoadDataHandler);
@@ -97,9 +97,8 @@
                         }
                     }
                     return valuesList.length > 0 ? valuesList : [];
-                } else {
-                    return [];
                 }
+                return [];
             }
         },
         changeDateTimeValues: function(value) {
@@ -120,6 +119,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

@@ -52,7 +52,7 @@
                     month,
                     monthLength,
                     day,
-                    arr,
+                    arr
                 }
                 this.yearCalendar.push(obj);
                 i = i + monthLength - 1;
@@ -87,7 +87,7 @@
                 let friday = this.createElement('div', { className: 'calenDay', innerText: 'ПТ'});
                 let saterday = this.createElement('div', { className: 'calenDay', innerText: 'СБ'});
                 let sunday = this.createElement('div', { className: 'calenDay', innerText: 'ВС'});
-                let monthBox = this.createElement('div', { id: 'monthBox_' + month.year + '_' + month.month + '', className: 'month'}, monday, tuesday, wednesday, thursday, friday, saterday, sunday);
+                let monthBox = this.createElement('div', { id: String('monthBox_' + month.year + '_' + month.month), className: 'month'}, monday, tuesday, wednesday, thursday, friday, saterday, sunday);
                 for(let i = 0; i < month.day - 1; i++) {
                     dayBox = this.createElement('div', { id: 'day_' + month.year + '_' + month.month + '_00', className: 'calenDay emptyDay'});
                     monthBox.appendChild(dayBox);
@@ -186,7 +186,7 @@
                 let month = fullDay.getMonth();
                 let date = fullDay.getDate();
                 month = month + 1;
-                let cellDay = document.getElementById('day_' + year + '_' + month + '_' + date + '');
+                let cellDay = document.getElementById(String('day_' + year + '_' + month + '_' + date));
                 if(day.values[isWorkCode] === false) {
                     cellDay.isWork = false;
                     cellDay.style.backgroundColor = '#f4b084';
@@ -207,6 +207,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

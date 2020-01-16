@@ -128,11 +128,10 @@
                 return '';
             } else if(caption === 'EtalonDays') {
                 return 'Середнє (еталон)';
-            } else {
-                const id = +caption.slice(-1);
-                const index = this.districts.findIndex(el => el.id === id);
-                return this.districts[index].name;
             }
+            const id = Number(caption.slice(-1));
+            const index = this.districts.findIndex(el => el.id === id);
+            return this.districts[index].name;
         },
         setColumnsSummary: function(config, tab, data) {
             if(data.rows.length) {
@@ -145,7 +144,7 @@
                         summaryType: 'avg',
                         customizeText: function(data) {
                             return data.value.toFixed(2);
-                        },
+                        }
                     }
                     let obj = {
                         column: dataField,
@@ -199,6 +198,6 @@
             default:
                 break;
             }
-        },
+        }
     };
 }());
