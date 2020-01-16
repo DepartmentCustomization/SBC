@@ -70,61 +70,61 @@
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'Darnitsky',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'Desnyansky',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'Dnirovsky',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'Obolonsky',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'Pechersky',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'Podilsky',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'Svyatoshinsky',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'Solomiansky',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'Shevchenkovsky',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'allQuestionsQty',
                         summaryType: 'sum',
                         customizeText: function(data) {
@@ -245,85 +245,85 @@
                 }
                 columnsHeader.push(columnNumber);
                 indexArr.forEach( el => {
-                    if( el.name === 'questionType'  ){
-                        let obj =  {
+                    if( el.name === 'questionType' ){
+                        let obj = {
                             key: el.name,
                             width: 28,
                         };
                         columnsHeader.push(obj);
                         captions.push('Тип питання');
                     }else if(el.name === 'Golosiivsky' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Голосіївський');
                     }else if(el.name === 'Darnitsky' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Дарницький');
                     } else if (el.name === 'Desnyansky' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Деснянський');
                     }else if(el.name === 'Dnirovsky' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Дніпровський');
                     }else if(el.name === 'Obolonsky' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Оболонський');
                     }else if(el.name === 'Pechersky' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Печерський');
                     }else if(el.name === 'Podilsky' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Подільський');
                     }else if(el.name === 'Svyatoshinsky' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Святошинський');
                     }else if(el.name === 'Solomiansky' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Солом`янський');
                     }else if(el.name === 'Shevchenkovsky' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Шевченківський');
                     }else if(el.name === 'allQuestionsQty' ){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
@@ -346,12 +346,12 @@
                 let indexSolomiansky = data.columns.findIndex(el => el.code.toLowerCase() === 'solomiansky' );
                 let indexShevchenkovsky = data.columns.findIndex(el => el.code.toLowerCase() === 'shevchenkovsky' );
                 let indexAllQuestionsQty = data.columns.findIndex(el => el.code.toLowerCase() === 'allquestionsqty' );
-                for( let  j = 0; j < data.rows.length; j ++ ){
+                for( let j = 0; j < data.rows.length; j ++ ){
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
                     for(let i = 0; i < indexArr.length; i ++){
                         let el = indexArr[i];
-                        if( el.name === 'questionType'  ){
+                        if( el.name === 'questionType' ){
                             rowItem.questionType = row.values[indexQuestionType];
                         }else if(el.name === 'Golosiivsky' ){
                             rowItem.Golosiivsky = row.values[indexGolosiivsky];
@@ -403,7 +403,7 @@
                     top: 0.4, bottom: 0.4,
                     header: 0.0, footer: 0.0
                 };
-                for(let  i = 0; i < rows.length + 1; i++ ){
+                for(let i = 0; i < rows.length + 1; i++ ){
                     let number = i + 4;
                     let row = worksheet.getRow(number);
                     row.height = number === 4 ? 100 : 50;
@@ -483,7 +483,7 @@
                 });
                 for (let k = 0; k < this.sortArray.length; k++) {
                     let row = this.sortArray[k];
-                    for( let j = 0; j <  row.length; j++  ){
+                    for( let j = 0; j < row.length; j++ ){
                         let value = row[j];
                         let color = this.arrayColor[j];
                         if(rowsAll[k]){
@@ -508,10 +508,10 @@
             let questionType = message.package.value.values.find(f => f.name === 'questionType').value;
             if( period !== null ){
                 if( period.dateFrom !== '' && period.dateTo !== ''){
-                    this.dateFrom =  period.dateFrom;
+                    this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.questionGroup = questionGroup === null ? 0 :  questionGroup === '' ? 0 : questionGroup.value;
-                    this.questionType = questionType === null ? 0 :  questionType === '' ? 0 : questionType.value;
+                    this.questionGroup = questionGroup === null ? 0 : questionGroup === '' ? 0 : questionGroup.value;
+                    this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;
                     if(this.questionType !== 0){
                         this.config.query.parameterValues = [
                             {key: '@dateFrom' , value: this.dateFrom },

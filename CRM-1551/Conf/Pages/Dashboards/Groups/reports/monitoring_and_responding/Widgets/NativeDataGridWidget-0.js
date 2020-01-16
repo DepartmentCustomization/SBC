@@ -14,11 +14,11 @@
                     dataField: 'orgName',
                     caption: 'Назва установи',
                     width: 400,
-                },  {
+                }, {
                     dataField: 'AllCount',
                     caption: 'Кількість звернень',
                     alignment: 'center',
-                },  {
+                }, {
                     caption: 'Закриття виконавцем',
                     columns: [
                         {
@@ -35,7 +35,7 @@
                             alignment: 'center'
                         }
                     ]
-                },  {
+                }, {
                     caption: 'Виконання звернень',
                     columns: [
                         {
@@ -56,25 +56,25 @@
                             alignment: 'center'
                         }
                     ]
-                },  {
+                }, {
                     dataField: 'inWorkQty',
                     caption: 'В роботі',
                     alignment: 'center',
-                },  {
+                }, {
                     dataField: 'inTimePercent',
                     caption: '% вчасно закритих',
                     alignment: 'center',
                     format: function(value){
                         return value + '%';
                     },
-                },  {
+                }, {
                     dataField: 'donePercent',
                     caption: '% виконання без План/Програма',
                     alignment: 'center',
                     format: function(value){
                         return value + '%';
                     },
-                },  {
+                }, {
                     dataField: 'withPlanPercent',
                     caption: '% виконання з План/Програма',
                     alignment: 'center',
@@ -91,69 +91,69 @@
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'inTimeQty',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'outTimeQty',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'waitTimeQty',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'doneClosedQty',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'notDoneClosedQty',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'PlanProg',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'doneOnCheckQty',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'inWorkQty',
                         summaryType: 'sum',
                         customizeText: function(data) {
                             return 'Разом: ' + data.value;
                         }
-                    },  {
+                    }, {
                         column: 'inTimePercent',
                         summaryType: 'avg',
                         format: 'percent',
                         customizeText: function(data) {
                             return 'Середнє: ' + data.value.toFixed(2);
                         }
-                    },  {
+                    }, {
                         column: 'donePercent',
                         summaryType: 'avg',
                         format: 'percent',
                         customizeText: function(data) {
                             return 'Середнє: ' + data.value.toFixed(2);
                         }
-                    },  {
+                    }, {
                         column: 'withPlanPercent',
                         summaryType: 'avg',
                         format: 'percent',
@@ -357,7 +357,7 @@
             let organization = message.package.value.values.find(f => f.name === 'organization').value;
             if( period !== null ){
                 if( period.dateFrom !== '' && period.dateTo !== ''){
-                    this.dateFrom =  period.dateFrom;
+                    this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;
                     this.organization = organization === null ? 0 : organization === '' ? 0 : organization.value;
@@ -375,7 +375,7 @@
             if(val !== ''){
                 const valuesList = [];
                 valuesList.push(val.value);
-                return  valuesList.length > 0 ? valuesList : [];
+                return valuesList.length > 0 ? valuesList : [];
             } else {
                 return [];
             }

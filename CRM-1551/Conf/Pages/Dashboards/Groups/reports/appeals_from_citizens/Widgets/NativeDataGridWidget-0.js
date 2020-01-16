@@ -133,7 +133,7 @@
                         valuesList.push(val[i].value);
                     }
                 }
-                return  valuesList.length > 0 ? valuesList : [];
+                return valuesList.length > 0 ? valuesList : [];
             } else {
                 return [];
             }

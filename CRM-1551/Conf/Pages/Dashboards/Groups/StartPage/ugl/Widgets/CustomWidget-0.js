@@ -31,7 +31,7 @@
                 limit: -1,
                 parameterValues: []
             };
-            this.queryExecutor(executeQueryTable, this.createTable.bind(this,  false ), this);
+            this.queryExecutor(executeQueryTable, this.createTable.bind(this, false ), this);
             this.showPreloader = false;
         },
         afterViewInit: function(){
@@ -52,7 +52,7 @@
             const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
             const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
             filtersWrapper.appendChild(searchContainer);
-            searchContainer__input.addEventListener('input', () =>  {
+            searchContainer__input.addEventListener('input', () => {
                 if(searchContainer__input.value.length == 0 ){
                     this.resultSearch('clearInput', 0);
                     this.showTable(searchContainer__input);
@@ -215,7 +215,7 @@
                 limit: -1,
                 parameterValues: []
             };
-            this.queryExecutor(executeQueryTable, this.createTable.bind(this,  reloadTable ), this);
+            this.queryExecutor(executeQueryTable, this.createTable.bind(this, reloadTable ), this);
             this.showPreloader = false;
         },
         createTabs: function(){
@@ -234,7 +234,7 @@
             tabs = Array.from(tabs);
             tabs.forEach( function (el){
                 el.addEventListener( 'click', event => {
-                    let target =  event.currentTarget;
+                    let target = event.currentTarget;
                     if( target.location == 'section'){
                         document.getElementById('container').style.display = 'none';
                         this.goToSection(target.url);
@@ -248,16 +248,16 @@
         closePreload: function(location){
             if( location === 'district'){
                 if (this.isLoadDistrict && this.isLoadCategorie) {
-                    this.messageService.publish(  { name: 'hidePagePreloader'});
+                    this.messageService.publish( { name: 'hidePagePreloader'});
                 }
             }else if( location === 'departament'){
-                this.messageService.publish(  { name: 'hidePagePreloader'});
+                this.messageService.publish( { name: 'hidePagePreloader'});
             }
         },
         createTable: function(reloadTable ,data) {
             for(let i = 2; i < data.columns.length; i ++ ){
                 let item = data.columns[i];
-                let columnHeader =  this.createElement('div', { id: 'columnHeader_'+i+'', code: ''+item.code+'',  className: 'columnHeader', innerText: ''+item.name+''});
+                let columnHeader = this.createElement('div', { id: 'columnHeader_'+i+'', code: ''+item.code+'', className: 'columnHeader', innerText: ''+item.name+''});
                 if( i == 2){
                     columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
                 }else if( i == 3){
@@ -271,19 +271,19 @@
                 }else if( i == 7){
                     columnHeader.style.backgroundColor = 'rgb(238, 123, 54)';
                 }
-                let column =  this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: 'column'}, columnHeader);
+                let column = this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: 'column'}, columnHeader);
                 let tableContainer = document.getElementById('tableContainer');
                 tableContainer.appendChild(column);
             }
-            for(let i = 0; i < data.rows.length - 1; i ++  ){
+            for(let i = 0; i < data.rows.length - 1; i ++ ){
                 let elRow = data.rows[i];
                 let navigationIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'navigation' );
-                for(let  j = 2; j < elRow.values.length; j ++  ){
+                for(let j = 2; j < elRow.values.length; j ++ ){
                     let el = elRow.values[j];
                     if( el != 0 ){
-                        let columnCategorie__value =  this.createElement('div', { className: 'columnCategorie__value', innerText: '('+el+')'});
-                        let columnCategorie__title =  this.createElement('div', { className: 'columnCategorie__title', code: ''+elRow.values[navigationIndex]+'', innerText: ''+elRow.values[navigationIndex]+''});
-                        let columnCategorie =  this.createElement('div', { className: 'columnCategorie', code: ''+elRow.values[navigationIndex]+''}, columnCategorie__title, columnCategorie__value);
+                        let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '('+el+')'});
+                        let columnCategorie__title = this.createElement('div', { className: 'columnCategorie__title', code: ''+elRow.values[navigationIndex]+'', innerText: ''+elRow.values[navigationIndex]+''});
+                        let columnCategorie = this.createElement('div', { className: 'columnCategorie', code: ''+elRow.values[navigationIndex]+''}, columnCategorie__title, columnCategorie__value);
                         if( j == 2){
                             columnCategorie.classList.add('columnCategorie__yellow');
                         }
@@ -293,12 +293,12 @@
             }
             for(let i = data.rows.length - 1; i < data.rows.length; i++){
                 let summaryHeader = data.rows[i];
-                for(let  j = 2; j < summaryHeader.values.length; j ++  ){
+                for(let j = 2; j < summaryHeader.values.length; j ++ ){
                     let el = summaryHeader.values[j];
                     let columnChild = document.getElementById('column_'+j+'').firstElementChild;
                     let sub = columnChild.innerText;
                     columnChild.innerText = sub + ' ('+el+') ';
-                    let columnHeaderTriangle  = this.createElement('div', {className: 'triangle'+j+' ' });
+                    let columnHeaderTriangle = this.createElement('div', {className: 'triangle'+j+' ' });
                     columnChild.appendChild(columnHeaderTriangle);
                 }
             }
@@ -311,7 +311,7 @@
                     el.style.display = 'none';
                 });
                 let target = document.getElementById(this.targetId);
-                this.showTable(target,  this.column, this.navigation);
+                this.showTable(target, this.column, this.navigation);
             }
             headers.forEach( function(el){
                 el.addEventListener( 'click', function(event){
@@ -321,7 +321,7 @@
                     });
                     let navigator = 'Усі';
                     let column = this.columnName(target);
-                    this.showTable(target,  column, navigator);
+                    this.showTable(target, column, navigator);
                 }.bind(this));
             }.bind(this));
             categories.forEach( function(el){
@@ -408,7 +408,7 @@
             }
         },
         sendMesOnBtnClick: function(message, column, navigator, targetId){
-            this.messageService.publish({name: message, column: column,  value: navigator, targetId: targetId });
+            this.messageService.publish({name: message, column: column, value: navigator, targetId: targetId });
         },
         resultSearch: function(message, value){
             this.messageService.publish({name: message, value: value});

@@ -74,8 +74,8 @@
         load: function(data) {
             let total = 0;
             let tempArr = [];
-            let numbers  =  [...document.getElementsByClassName('numbers')];
-            let status  =  [...document.getElementsByClassName('status')];
+            let numbers = [...document.getElementsByClassName('numbers')];
+            let status = [...document.getElementsByClassName('status')];
             function find(array, value) {
                 if (array.indexOf) {
                     return array.indexOf(value);

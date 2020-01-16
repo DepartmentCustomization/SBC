@@ -108,7 +108,7 @@
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         afterRenderTable: function () {
-            this.messageService.publish({  name: 'afterRenderTable', code: this.config.query.code });
+            this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
@@ -139,7 +139,7 @@
             let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ''+currentEmployeeData.short_answer+''});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
-            let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
+            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
@@ -157,7 +157,7 @@
             document.getElementById('allTables').style.display = 'none';
             if(message.value != ''){
                 document.getElementById('searchTable').style.display = 'block';
-                this.config.query.parameterValues = [{ key: '@appealNum',  value: message.value}];
+                this.config.query.parameterValues = [{ key: '@appealNum', value: message.value}];
                 this.loadData(this.afterLoadDataHandler);
                 this.dataGridInstance.onCellClick.subscribe(e => {
                     if(e.column.dataField == 'registration_number' && e.row != undefined){

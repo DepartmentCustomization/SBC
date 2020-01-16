@@ -1,5 +1,5 @@
 (function () {
-    return  {
+    return {
         config: {
             query: {
                 code: 'Prozvon_table_v2',
@@ -96,7 +96,7 @@
                         this.sortingArr = [];
                         this.config.query.parameterValues = [
                             { key: '@filter', value: this.macrosValue },
-                            { key: '@sort', value:  '1=1'  }
+                            { key: '@sort', value:  '1=1' }
                         ];
                         this.loadData(this.afterLoadDataHandler);
                     }.bind(this)
@@ -147,13 +147,13 @@
                         let CurrentUserPhone = e.row.data.phone_number;
                         let PhoneForCall = this.userPhoneNumber;
                         let xhr = new XMLHttpRequest();
-                        xhr.open('GET', 'https://cc.1551.gov.ua:5566/CallService/Call/number=' + CurrentUserPhone  + '&operator=' + PhoneForCall );
+                        xhr.open('GET', 'https://cc.1551.gov.ua:5566/CallService/Call/number=' + CurrentUserPhone + '&operator=' + PhoneForCall );
                         xhr.send();
                     }
                 }
             }.bind(this));
             this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
-                { key: '@sort', value: this.sort  }];
+                { key: '@sort', value: this.sort }];
             this.loadData(this.afterLoadDataHandler);
         },
         onOptionChanged: function(args) {
@@ -197,7 +197,7 @@
                 if(columnCode != undefined ){
                     if(columnCode != 'dataSource'){
                         const infoColumn = { name: columnCode, value: args.value };
-                        if( this.sortingArr.length === 0  ){
+                        if( this.sortingArr.length === 0 ){
                             this.sortingArr.push(infoColumn);
                         }else{
                             const index = this.sortingArr.findIndex(x => x.name === columnCode);
@@ -257,7 +257,7 @@
             }
             let ndz = currentEmployeeData.cc_nedozvon;
             let ndzComment = currentEmployeeData.control_comment;
-            let elementHistory__content = this.createElement('div', { className: 'elementHistory__content content', innerText: ndz +  ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment  });
+            let elementHistory__content = this.createElement('div', { className: 'elementHistory__content content', innerText: ndz + ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment });
             let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія'});
             let elementHistory = this.createElement('div', { className: 'elementHistory element'}, elementHistory__caption, elementHistory__content);
             let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ''+currentEmployeeData.zmist+''});
@@ -266,7 +266,7 @@
             let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ''+currentEmployeeData.comment+''});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
-            let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
+            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
@@ -317,7 +317,7 @@
                     }else if( typeof(data) === 'object'){
                         if(data[0]){
                             if(typeof(data[0].value) === 'number' ){
-                                if(  elem.name === 'zayavnyk_age' ){
+                                if( elem.name === 'zayavnyk_age' ){
                                     this.ageArr = [];
                                     let ageSendViewValue = '';
                                     data.forEach( el => {
@@ -327,7 +327,7 @@
                                         ageSendViewValue = ageSendViewValue + ', '+ el.viewValue;
                                     });
                                     ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
-                                    let ageSendValue =  this.ageArr.join(' or ');
+                                    let ageSendValue = this.ageArr.join(' or ');
                                     ageSendValue = '('+ageSendValue+')';
                                     this.createObjMacros( elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
                                 }else{
@@ -335,8 +335,8 @@
                                     let sumViewValue = '';
                                     if(data.length > 0){
                                         data.forEach( row => {
-                                            sumValue =  sumValue + ', '+ row.value;
-                                            sumViewValue =  sumViewValue + ', '+ row.viewValue;
+                                            sumValue = sumValue + ', '+ row.value;
+                                            sumViewValue = sumViewValue + ', '+ row.viewValue;
                                         });
                                     }
                                     let numberSendValue = sumValue.slice(2, [sumValue.length]);
@@ -348,8 +348,8 @@
                                 let stringSumViewValue = '';
                                 if(data.length > 0){
                                     data.forEach( row => {
-                                        stringSumValue =  stringSumValue + ', \''+ row.value + '\'';
-                                        stringSumViewValue =  stringSumViewValue + ', '+ row.viewValue;
+                                        stringSumValue = stringSumValue + ', \''+ row.value + '\'';
+                                        stringSumViewValue = stringSumViewValue + ', '+ row.viewValue;
                                     });
                                 }
                                 let stringSendValue = stringSumValue.slice(2, [stringSumValue.length]);
@@ -427,15 +427,15 @@
             let textMacros = '';
             if( operation == 'like' ){
                 textMacros = ''+code+' '+operation+' \'%'+currentDate+'%\' and';
-            }else if(  operation == '==='){
+            }else if( operation == '==='){
                 textMacros = ''+currentDate+' and';
-            }else if(  operation == '=='){
+            }else if( operation == '=='){
                 textMacros = ''+code+' '+'='+' '+currentDate+' and';
-            }else if(  operation == '+""+'){
+            }else if( operation == '+""+'){
                 textMacros = ''+code+' in  (N\''+currentDate+'\' and';
-            }else if(  operation == 'in'){
+            }else if( operation == 'in'){
                 textMacros = ''+code+' in ('+currentDate+') and';
-            }else if(  operation == '='){
+            }else if( operation == '='){
                 textMacros = ''+code+' '+operation+' N\''+currentDate+'\' and';
             }else if( operation == '>=' || operation == '<=' ){
                 let year = currentDate.getFullYear();
@@ -448,7 +448,7 @@
                 hours = hours + '';
                 minutes = minutes + '';
                 month = month.length == 1 ? '0' + month : month;
-                date =  date.length == 1 ?'0'+date : date;
+                date = date.length == 1 ?'0'+date : date;
                 hours = hours.length == 1 ?'0'+hours : hours;
                 minutes = minutes.length == 1 ?'0'+minutes : minutes;
                 let value = ''+year+'-'+month+'-'+date+' '+hours+':'+minutes+'';
@@ -472,8 +472,8 @@
                     value: this.filtersValuesMacros
                 });
                 this.sendMsgForSetFilterPanelState(false);
-                this.config.query.parameterValues = [ {  key: '@filter', value: this.macrosValue },
-                    { key: '@sort', value: this.sort  }];
+                this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
+                    { key: '@sort', value: this.sort }];
                 this.loadData(this.afterLoadDataHandler);
             }else{
                 this.macrosValue = '1=1';
@@ -522,7 +522,7 @@
             this.sort = message.sortingString;
             this.config.query.parameterValues = [
                 { key: '@filter', value: this.macrosValue },
-                { key: '@sort', value:  this.sort  }
+                { key: '@sort', value:  this.sort }
             ];
             this.loadData(this.afterLoadDataHandler);
         },

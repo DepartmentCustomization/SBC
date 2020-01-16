@@ -65,9 +65,9 @@
         },
         showWarning: function() {
             const CONTAINER = document.getElementById('container');
-            const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
-            const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
-            const modalTitle =  this.createElement('div', { id:'modalTitle', innerText: 'Оберiть правильну дату!'});
+            const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
+            const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
+            const modalTitle = this.createElement('div', { id:'modalTitle', innerText: 'Оберiть правильну дату!'});
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);
@@ -131,7 +131,7 @@
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
         createWorksheet: function (workbook, name) {
-            return  workbook.addWorksheet(name, {
+            return workbook.addWorksheet(name, {
                 pageSetup:{
                     orientation: 'landscape',
                     fitToPage: false,
@@ -147,7 +147,7 @@
             const title = worksheet.getCell('A1');
             title.value = 'Статистичний звіт за період з ' + this.dateFromViewValues + ' по ' + this.dateToViewValues;
             title.font = { name: 'Times New Roman', family: 4, size: 12, underline: false, bold: true , italic: false};
-            title.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false  };
+            title.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false };
             worksheet.mergeCells('A1:N1');
         },
         setTableType1Header: function (columns, worksheet, data) {
@@ -266,9 +266,9 @@
             this.setCellStyle(cell);
         },
         setCellStyle: function (cell) {
-            cell.border = {   top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
-            cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
-            cell.font = { name: 'Times New Roman', family: 4, size: 10,  underline: false, bold: false , italic: false };
+            cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+            cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+            cell.font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: false , italic: false };
         },
         setHeaderRowValues: function (message, worksheet, headerHeight) {
             for (let i = 0; i < message.data.length; i++) {
@@ -285,7 +285,7 @@
             const height = cellHeight ? cellHeight : 60;
             worksheet.getRow(number).height = height;
             worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: false , italic: false};
-            worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
+            worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
         },
         setCellValuesStyles: function (worksheet) {
             this.numberRowsArray.forEach( row => {

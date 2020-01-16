@@ -41,7 +41,7 @@
             this.isSelected = this.filtersWithOutValues === this.filtersLength ? false : true;
         },
         findAllCheckedFilter: function() {
-            document.getElementById('notification').style.display =  this.isSelected === true ? 'none' : 'block';
+            document.getElementById('notification').style.display = this.isSelected === true ? 'none' : 'block';
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
@@ -54,7 +54,7 @@
         },
         afterViewInit: function() {
             const container = document.getElementById('notificationContainer');
-            const captionWarning =  this.createElement( 'div',{ className: 'captionWarning', innerText: 'Оберiть фiльтри!' });
+            const captionWarning = this.createElement( 'div',{ className: 'captionWarning', innerText: 'Оберiть фiльтри!' });
             container.appendChild(captionWarning);
         },
         destroy: function() {

@@ -391,7 +391,7 @@
         Question_TypeId_Input: undefined,
         onChanged_Question_Btn_Add_Input: function() {
             if( this.Question_TypeId_Input == null || this.Question_TypeId_Input == undefined
-          || ((this.Question_Building_Input == undefined || this.Question_Building_Input == null) && (this.Question_Organization_Input  == undefined || this.Question_Organization_Input  == null)) == true
+          || ((this.Question_Building_Input == undefined || this.Question_Building_Input == null) && (this.Question_Organization_Input == undefined || this.Question_Organization_Input == null)) == true
             ) {
                 document.getElementById('Question_Btn_Add').disabled = true;
             } else {

@@ -44,13 +44,13 @@
             this.organization = [];
             message.package.value.forEach( filter => {
                 if( filter.active === true) {
-                    if( filter.name === 'position'  ){
+                    if( filter.name === 'position' ){
                         this.position = filter.value.value;
                         this.counter += 1;
                     }else if(filter.name === 'week' ){
                         if( filter.value.dateFrom !== '' && filter.value.dateTo !== '' ){
-                            this.dateFrom =  filter.value.dateFrom;
-                            this.dateTo =  filter.value.dateTo;
+                            this.dateFrom = filter.value.dateFrom;
+                            this.dateTo = filter.value.dateTo;
                             let dayFrom = this.changeDateTimeValues(this.dateFrom);
                             let dayTo = this.changeDateTimeValues(this.dateTo);
                             this.title = this.setTitle(dayFrom, dayTo);
@@ -96,7 +96,7 @@
                             valuesList.push(val[i].value);
                         }
                     }
-                    return  valuesList.length > 0 ? valuesList : [];
+                    return valuesList.length > 0 ? valuesList : [];
                 } else {
                     return [];
                 }
@@ -112,7 +112,7 @@
             let yyyy = date.getFullYear().toString();
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
-            return  dd + '.' + mm + '.' + yyyy;
+            return dd + '.' + mm + '.' + yyyy;
         },
         afterLoadDataHandler: function(data) {
             this.messageService.publish( {name: 'setData', rep4_data: data, rep4_title: this.title} );

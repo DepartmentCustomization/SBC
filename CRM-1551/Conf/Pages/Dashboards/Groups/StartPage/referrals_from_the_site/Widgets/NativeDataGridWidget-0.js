@@ -91,7 +91,7 @@
         },
         getFiltersParams: function(message){
             let result = message.package.value.values.find(f => f.name === 'appeals_result').value;
-            this.result = result === null ?  [] : result === '' ? 0 : this.extractFilterValues(result);
+            this.result = result === null ? [] : result === '' ? 0 : this.extractFilterValues(result);
             this.config.query.parameterValues = [
                 {key: '@result' , value: this.result },
             ];
@@ -133,7 +133,7 @@
             if(val !== ''){
                 let valuesList = [];
                 valuesList.push(val.value);
-                return  valuesList.length > 0 ? valuesList : [];
+                return valuesList.length > 0 ? valuesList : [];
             } else {
                 return [];
             }

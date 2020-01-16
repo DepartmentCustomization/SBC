@@ -125,7 +125,7 @@
             keyExpr: 'qtyExpl_prev'
         },
         init: function() {
-            this.sub =  this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
+            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         setFilterParams: function (message) {

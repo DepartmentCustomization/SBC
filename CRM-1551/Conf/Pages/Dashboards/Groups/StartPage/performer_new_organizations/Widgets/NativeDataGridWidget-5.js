@@ -122,7 +122,7 @@
                 queryCode: 'NaDooprNemaMozhlVyk',
                 limit: -1,
                 parameterValues: [
-                    { key: '@organization_id',  value: this.orgId},
+                    { key: '@organization_id', value: this.orgId},
                     { key: '@column', value: this.column},
                     { key: '@navigation', value: this.navigation}
                 ]
@@ -212,21 +212,21 @@
             let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
             let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_zmist' );
             let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress' );
-            for( let  j = 0; j < data.rows.length; j ++ ){
+            for( let j = 0; j < data.rows.length; j ++ ){
                 const row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
                     let el = indexArr[i];
                     let cdValue = this.changeDateTimeValues(row.values[indexControlDate]);
-                    if( el.name === 'registration_number'  ){
+                    if( el.name === 'registration_number' ){
                         rowItem.registration_number = row.values[indexRegistrationNumber];
                     }else if(el.name === 'zayavnyk' ){
                         rowItem.zayavnyk = row.values[indexZayavnikName] + ', ' + row.values[indexAdressZ];
                     }else if(el.name === 'zayavnyk_zmist' ){
                         rowItem.zayavnyk_zmist = 'Зміст: ' + row.values[indexQuestionContent];
-                    }else if( el.name === 'controlDate'  ){
+                    }else if( el.name === 'controlDate' ){
                         rowItem.controlDate = cdValue;
-                    }else if( el.name === 'adress'  ){
+                    }else if( el.name === 'adress' ){
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
@@ -244,7 +244,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let  i = 0; i < rows.length + 1; i++ ){
+            for(let i = 0; i < rows.length + 1; i++ ){
                 let number = i + 5;
                 const row = worksheet.getRow(number);
                 row.height = 100;
@@ -335,7 +335,7 @@
             let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ''+currentEmployeeData.balans_name+''});
             let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: 'Балансоутримувач'});
             let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
-            let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment, elementBalance);
+            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
@@ -357,7 +357,7 @@
                 document.getElementById('table9_dooproc').style.display = 'none';
             }else{
                 document.getElementById('table9_dooproc').style.display = 'block';
-                this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
+                this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
                     { key: '@column', value: message.column},
                     { key: '@navigation', value: message.navigation}];
                 this.loadData(this.afterLoadDataHandler);

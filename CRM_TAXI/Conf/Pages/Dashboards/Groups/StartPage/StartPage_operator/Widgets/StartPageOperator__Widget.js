@@ -16,16 +16,16 @@
         },
         load: function() {
             const CONTAINER = document.getElementById('container');
-            let groupViewAppeals__icon = this.createElement('div', { className: 'icon letterIcon material-icons',  innerText: 'build' });
+            let groupViewAppeals__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'build' });
             let groupViewAppeals__description = this.createElement('div', { className: 'description', innerText: 'Списание запчастей'});
             groupViewAppeals__icon.style.color = '#ff7961';
             let groupViewAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupViewAppeals__borderRight = this.createElement('div', { className: 'border-right'});
             let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight );
-            groupViewAppeals.addEventListener('click',  () => {
+            groupViewAppeals.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/sections/PartsArrivalWithChange');
             });
-            let groupRegAppeals__icon = this.createElement('div', { className: 'icon letterIcon material-icons',  innerText: 'reorder' });
+            let groupRegAppeals__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'reorder' });
             let groupRegAppeals__description = this.createElement('div', { className: 'description', innerText: 'Категории товаров'});
             groupRegAppeals__icon.style.color = '#2196F3';
             let groupRegAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
@@ -34,7 +34,7 @@
             groupRegAppeals.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/sections/CategoriesWithPartArrival');
             });
-            let groupSearchTable__icon = this.createElement('div', { className: 'icon letterIcon material-icons',  innerText: 'cached' });
+            let groupSearchTable__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'cached' });
             let groupSearchTable__description = this.createElement('div', { className: 'description', innerText: 'Расход запчастей'});
             groupSearchTable__icon.style.color = '#2196F3';
             let groupSearchTable__borderBottom = this.createElement('div', { className: 'border-bottom' });
@@ -43,7 +43,7 @@
             groupSearchTable.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/sections/PartsChange');
             });
-            let groupCall__icon = this.createElement('div', { className: 'icon letterIcon material-icons',  innerText: 'system_update_alt' });
+            let groupCall__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'system_update_alt' });
             let groupCall__description = this.createElement('div', { className: 'description', innerText: 'Приход запчастей'});
             groupCall__icon.style.color = '#ff7961';
             let groupCall__borderBottom = this.createElement('div', { className: 'border-bottom' });
@@ -66,9 +66,9 @@
         },
         showModalWindow: function() {
             let CONTAINER = document.getElementById('container');
-            const modalBtnClose =  this.createElement('button', { id:'modalBtnClose', className: 'btn', innerText: 'Закрити'});
-            const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Підтвердити'});
-            const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper' }, modalBtnTrue, modalBtnClose);
+            const modalBtnClose = this.createElement('button', { id:'modalBtnClose', className: 'btn', innerText: 'Закрити'});
+            const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Підтвердити'});
+            const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper' }, modalBtnTrue, modalBtnClose);
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);

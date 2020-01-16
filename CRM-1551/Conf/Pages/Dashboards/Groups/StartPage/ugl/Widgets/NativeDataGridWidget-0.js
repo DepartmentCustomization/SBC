@@ -14,11 +14,11 @@
                     dataField: 'registration_number',
                     caption: 'Номер питання',
                     fixed: true,
-                },  {
+                }, {
                     dataField: 'QuestionType',
                     caption: 'Тип питання',
                     fixed: true,
-                },  {
+                }, {
                     dataField: 'zayavnikName',
                     caption: 'Заявник',
                     fixed: true,
@@ -156,7 +156,7 @@
                 }.bind(this));
                 rows = [];
                 this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish( { name: 'reloadMainTable', navigation: this.navigation, column: this.column, targetId: this.targetId }  );
+                this.messageService.publish( { name: 'reloadMainTable', navigation: this.navigation, column: this.column, targetId: this.targetId } );
             }
         },
         createElement: function(tag, props, ...children) {
@@ -188,7 +188,7 @@
             let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ''+currentEmployeeData.short_answer+''});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
-            let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
+            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
@@ -311,7 +311,7 @@
             captions.push(rowNumber);
             indexArr.forEach( el => {
                 if( el.name === 'registration_number'){
-                    let obj =  {
+                    let obj = {
                         key: 'registration_number',
                         width: 10,
                         height: 20,
@@ -319,28 +319,28 @@
                     columnsHeader.push(obj);
                     captions.push('Номер питання');
                 }else if(el.name === 'zayavnikName'){
-                    let obj =  {
+                    let obj = {
                         key: 'zayavnikName',
                         width: 25
                     };
                     columnsHeader.push(obj);
                     captions.push('Заявник');
                 }else if(el.name === 'QuestionType'){
-                    let obj =  {
+                    let obj = {
                         key: 'QuestionType',
                         width: 52
                     };
                     columnsHeader.push(obj);
                     captions.push('Суть питання');
                 }else if( el.name === 'vykonavets'){
-                    let obj =  {
+                    let obj = {
                         key: 'vykonavets',
                         width: 16
                     };
                     columnsHeader.push(obj);
                     captions.push('Виконавець');
                 }else if( el.name === 'adress'){
-                    let obj =  {
+                    let obj = {
                         key: 'adress',
                         width: 16
                     };
@@ -351,20 +351,20 @@
             worksheet.getRow(5).values = captions;
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
-            for( let  j = 0; j < data.rows.length; j ++ ){
+            for( let j = 0; j < data.rows.length; j ++ ){
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
                     let el = indexArr[i];
-                    if( el.name === 'registration_number'  ){
+                    if( el.name === 'registration_number' ){
                         rowItem.registration_number = row.values[indexRegistrationNumber];
                     }else if(el.name === 'zayavnikName' ){
-                        rowItem.zayavnikName = row.values[indexZayavnikName] +  ' ' + row.values[indexAdressZ];
+                        rowItem.zayavnikName = row.values[indexZayavnikName] + ' ' + row.values[indexAdressZ];
                     }else if(el.name === 'QuestionType' ){
                         rowItem.QuestionType = 'Тип питання: ' + row.values[indexQuestionType] + '. Зміст: ' + row.values[indexQuestionContent];
-                    }else if( el.name === 'vykonavets'  ){
+                    }else if( el.name === 'vykonavets' ){
                         rowItem.vykonavets = row.values[indexVykonavets]
-                    }else if( el.name === 'adress'  ){
+                    }else if( el.name === 'adress' ){
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
@@ -382,7 +382,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let  i = 0; i < rows.length + 1; i++ ){
+            for(let i = 0; i < rows.length + 1; i++ ){
                 let number = i + 5;
                 let row = worksheet.getRow(number);
                 row.height = 100;

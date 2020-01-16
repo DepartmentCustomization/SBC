@@ -108,7 +108,7 @@
             });
         },
         afterRenderTable: function () {
-            this.messageService.publish({  name: 'afterRenderTable', code: this.config.query.code });
+            this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
         },
         renderAfterCloseModal: function () {
             this.loadData(this.afterLoadDataHandler);
@@ -279,21 +279,21 @@
             worksheet.getRow(5).values = captions;
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
-            for( let  j = 0; j < data.rows.length; j ++ ){
+            for( let j = 0; j < data.rows.length; j ++ ){
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
                     let el = indexArr[i];
-                    if( el.name === 'registration_number'  ){
+                    if( el.name === 'registration_number' ){
                         rowItem.registration_number = row.values[indexRegistrationNumber] + ', ' + row.values[indexControlDate];
                     } else if(el.name === 'zayavnykName' ) {
-                        let value = row.values[indexAdress] === null ?  '' : row.values[indexAdress];
+                        let value = row.values[indexAdress] === null ? '' : row.values[indexAdress];
                         rowItem.zayavnykName = row.values[indexZayavnikName] + ', ' + value;
                     } else if(el.name === 'QuestionType' ) {
                         rowItem.QuestionType = 'Тип питання: ' + row.values[indexQuestionType] + '. Зміст: ' + row.values[indexQuestionContent];
-                    } else if( el.name === 'vykonavets'  ) {
+                    } else if( el.name === 'vykonavets' ) {
                         rowItem.vykonavets = row.values[indexOrganizationsName];
-                    } else if( el.name === 'adress'  ) {
+                    } else if( el.name === 'adress' ) {
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
@@ -311,7 +311,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let  i = 0; i < rows.length + 1; i++ ){
+            for(let i = 0; i < rows.length + 1; i++ ){
                 let number = i + 5;
                 let row = worksheet.getRow(number);
                 row.height = 100;
@@ -361,7 +361,7 @@
             let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ''+currentEmployeeData.short_answer+''});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
-            let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
+            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);

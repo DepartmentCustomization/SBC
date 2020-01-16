@@ -63,7 +63,7 @@
             let period = message.package.value.values.find(f => f.name === 'period').value;
             if( period !== null ){
                 if( period.dateFrom !== '' && period.dateTo !== ''){
-                    this.dateFrom =  period.dateFrom;
+                    this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                 }
                 let subTitle = document.getElementById('subTitle');
@@ -74,10 +74,10 @@
         },
         setData: function(message){
             if( message.rep1_data){
-                this.rep1_data =  message.rep1_data;
+                this.rep1_data = message.rep1_data;
                 this.counter += 1;
             }else if( message.rep2_data){
-                this.rep2_data =  message.rep2_data;
+                this.rep2_data = message.rep2_data;
                 this.counter += 1;
             }
             if( this.counter === 2 ){
@@ -118,8 +118,8 @@
             let tds = [];
             let tdsCounter = [];
             let mainHeaders = [];
-            for(let i = 0; i <  this.dataArray.length; i++){
-                let data =  this.dataArray[i];
+            for(let i = 0; i < this.dataArray.length; i++){
+                let data = this.dataArray[i];
                 let name = { key: 'orgName', width: 44 };
                 let counter = { key: 'questionQty', width: 15 };
                 let captions = ['', 'Кiлькiсть'];
@@ -145,12 +145,12 @@
                     let firstColumnCaption = worksheet.getCell('A'+this.rowTable1Length);
                     firstColumnCaption.value = 'Питання';
                     let summary = [];
-                    data.forEach( el =>  summary.push(el[2]));
+                    data.forEach( el => summary.push(el[2]));
                     let result = summary.reduce(function(sum, current) {
                         return sum + current;
                     }, 0);
                     mainHeaders.push(this.rowTable1Length);
-                    for(let i =  this.rowTable1Length  + 1; i < (data.length + this.rowTable1Length + 1 ); i++ ){
+                    for(let i = this.rowTable1Length + 1; i < (data.length + this.rowTable1Length + 1 ); i++ ){
                         let value = data[i-( this.rowTable1Length + 1)];
                         let columnText = worksheet.getCell('A'+i);
                         let columnCounter = worksheet.getCell('B'+i);
@@ -170,7 +170,7 @@
                     mainHeaders.push(this.sumLength);
                 }
             }
-            for(let  i = 0; i < tds.length; i++ ){
+            for(let i = 0; i < tds.length; i++ ){
                 let td = tds[i];
                 worksheet.getCell(td).border = {
                     top: {style:'thin'},
@@ -191,7 +191,7 @@
                     italic: false
                 };
             }
-            for(let  i = 0; i < tdsCounter.length; i++ ){
+            for(let i = 0; i < tdsCounter.length; i++ ){
                 let td = tdsCounter[i];
                 worksheet.getCell(td).border = {
                     top: {style:'thin'},
@@ -212,14 +212,14 @@
                     italic: false
                 };
             }
-            worksheet.getCell('A5').border = {  top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
-            worksheet.getCell('A'+(this.sumLength)).border = {  top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
-            worksheet.getCell('B5').border = {  top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
-            worksheet.getCell('B'+(this.sumLength)).border = {  top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+            worksheet.getCell('A5').border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+            worksheet.getCell('A'+(this.sumLength)).border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+            worksheet.getCell('B5').border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+            worksheet.getCell('B'+(this.sumLength)).border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             mainHeaders.forEach( number => {
                 worksheet.getRow(number).height = 50;
                 worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
+                worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             });
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },

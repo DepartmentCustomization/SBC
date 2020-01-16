@@ -180,14 +180,14 @@
             for(let i = 0; i < data.rows.length; i++){
                 let sphere__dot = this.createElement('div', {className: 'sphere__dot material-icons', innerText: 'fiber_manual_record'} );
                 sphere__dot.style.color = this.colors[i];
-                let sphere__text = this.createElement('div', {className: 'sphere__text', innerText: data.rows[i].values[indexName] + ': ' + data.rows[i].values[indexValue]   } );
+                let sphere__text = this.createElement('div', {className: 'sphere__text', innerText: data.rows[i].values[indexName] + ': ' + data.rows[i].values[indexValue] } );
                 let sphere = this.createElement('div', {className: 'sphere'}, sphere__dot, sphere__text );
                 infoWrapper.appendChild(sphere);
             }
             let result = data.rows.reduce(function(sum, current) {
                 return sum + current.values[0];
             }, 0);
-            let sumText = this.createElement('div', { className: 'sumText', innerText: 'Всього по ТОП 10 питань: '  + result } );
+            let sumText = this.createElement('div', { className: 'sumText', innerText: 'Всього по ТОП 10 питань: ' + result } );
             let sumWrapper = this.createElement('div', { id: 'sumWrapper' }, sumText );
             CHART__INFO.appendChild(sumWrapper);
         },

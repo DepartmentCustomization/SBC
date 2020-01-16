@@ -12,8 +12,8 @@
         },
         afterViewInit: function() {
             const CONTAINER = document.getElementById('container');
-            let input  =  this.createElement('input', { type: 'file', id: 'fileInput', accept: '.csv'  });
-            let btn  =  this.createElement('button', { id:'importBtn', innerText: 'Import csv files' } );
+            let input = this.createElement('input', { type: 'file', id: 'fileInput', accept: '.csv' });
+            let btn = this.createElement('button', { id:'importBtn', innerText: 'Import csv files' } );
             let form = this.createElement('form', { method:'post', enctype: 'multipart/form-data'}, input);
             let wrapper = this.createElement('div', { id: 'wrapper' },form, btn );
             CONTAINER.appendChild(wrapper);
@@ -22,7 +22,7 @@
                 this.showPagePreloader('Зачекайте, файл завантажується');
                 let fileInput = document.getElementById('fileInput');
                 let files = fileInput.files;
-                let file  = files[0];
+                let file = files[0];
                 let data = new FormData();
                 data.append('file', file);
                 data.append('configuration', '{\n   "HasHeaderRecord":true,\n   "EncodingName":"windows-1251",\n   "Delimiter":";",\n   "Quote":"\\"",\n   "MaxAllowedErrors":0\n}');
@@ -46,7 +46,7 @@
                                 errorInfo: 'Помилка: ' + response.errors[0].text
                             }
                         }
-                        let responseModal =  this.createElement('div', { id: 'responseModal'});
+                        let responseModal = this.createElement('div', { id: 'responseModal'});
                         this.showModalWindow(responseModal, responseNotification, CONTAINER);
                     }
                 });
@@ -58,10 +58,10 @@
             });
         },
         showModalWindow: function (responseModal, responseNotification, CONTAINER) {
-            const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
-            const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
-            const contentWrapper =  this.createElement('div', { id:'contentWrapper'}, responseModal);
-            const modalTitle =  this.createElement('div', { id:'modalTitle', innerText: 'Результат завантаження:'});
+            const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
+            const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
+            const contentWrapper = this.createElement('div', { id:'contentWrapper'}, responseModal);
+            const modalTitle = this.createElement('div', { id:'modalTitle', innerText: 'Результат завантаження:'});
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, contentWrapper ,modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             modalBtnTrue.addEventListener( 'click', event => {
@@ -70,16 +70,16 @@
             });
             for (let key in responseNotification) {
                 if( key === 'title'){
-                    let responseTitle =  this.createElement('div', { id: 'responseTitle', className: 'responseTest', innerText: responseNotification[key] });
+                    let responseTitle = this.createElement('div', { id: 'responseTitle', className: 'responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseTitle);
                 }else if(key === 'errorInfo'){
-                    let responseErrorInfo =  this.createElement('div', { id: 'responseErrorInfo', className: 'responseTest', innerText:responseNotification[key] });
+                    let responseErrorInfo = this.createElement('div', { id: 'responseErrorInfo', className: 'responseTest', innerText:responseNotification[key] });
                     responseModal.appendChild(responseErrorInfo);
                 }else if(key === 'errorRow'){
-                    let responseErrorRow =  this.createElement('div', { id: 'responseErrorRow', className: 'responseError responseTest', innerText: responseNotification[key] });
+                    let responseErrorRow = this.createElement('div', { id: 'responseErrorRow', className: 'responseError responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseErrorRow);
                 }else if(key === 'errorColumn'){
-                    let responseErrorColumn =  this.createElement('div', { id: 'responseErrorColumn', className: 'responseError responseTest', innerText: responseNotification[key] });
+                    let responseErrorColumn = this.createElement('div', { id: 'responseErrorColumn', className: 'responseError responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseErrorColumn);
                 }
             }

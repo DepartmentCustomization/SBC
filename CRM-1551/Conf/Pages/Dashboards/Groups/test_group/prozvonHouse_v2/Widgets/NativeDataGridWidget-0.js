@@ -114,7 +114,7 @@
                 }
             }.bind(this));
             if(window.location.search != ''){
-                let getUrlParams =  window
+                let getUrlParams = window
                     .location
                     .search
                     .replace('?', '')
@@ -128,16 +128,16 @@
                 let buildId = Number(getUrlParams.id);
                 this.buildId = [];
                 this.buildId = (buildId);
-                this.config.query.parameterValues = [ {  key: '@buildId', value: this.buildId },
-                    {  key: '@filter', value: this.filter },
-                    {  key: '@sort', value: this.sort } ];
+                this.config.query.parameterValues = [ { key: '@buildId', value: this.buildId },
+                    { key: '@filter', value: this.filter },
+                    { key: '@sort', value: this.sort } ];
                 this.loadData(this.afterLoadDataHandler);
             }
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         onCellPrepared: function(options){
             if( options.rowType === 'data'){
-                if( options.column.dataField  == 'states'){
+                if( options.column.dataField == 'states'){
                     options.cellElement.classList.add('stateResult');
                 }
             }
@@ -147,7 +147,7 @@
             for (let i = 0; i < stateResult.length; i++) {
                 let el = stateResult[i];
                 let number = el.parentElement.children[2].innerText;
-                let dataIndex = this.numbers.findIndex( num => num === number  );
+                let dataIndex = this.numbers.findIndex( num => num === number );
                 let spanCircle = this.createElement( 'span', { classList: 'material-icons', innerText: 'lens'});
                 el.style.textAlign = 'center';
                 spanCircle.style.width = '100%';
@@ -156,8 +156,8 @@
                 }
                 let cond1 = this.data[dataIndex][17];
                 let cond2 = this.data[dataIndex][18];
-                if(cond1 === 'На перевірці'  ){
-                    if( cond2 === 'Не в компетенції'  || cond2 === 'Роз`яснено' ){
+                if(cond1 === 'На перевірці' ){
+                    if( cond2 === 'Не в компетенції' || cond2 === 'Роз`яснено' ){
                         spanCircle.classList.add('onCheck');
                     }else{
                         spanCircle.classList.add('yellow');
@@ -222,7 +222,7 @@
                 if(columnCode != undefined ){
                     if(columnCode != 'dataSource'){
                         let infoColumn = { fullName: columnCode, value: args.value };
-                        if( sortingArr.length === 0  ){
+                        if( sortingArr.length === 0 ){
                             sortingArr.push(infoColumn);
                         }else{
                             const index = sortingArr.findIndex(x => x.fullName === columnCode);
@@ -260,7 +260,7 @@
             }
             let ndz = currentEmployeeData.cc_nedozvon;
             let ndzComment = currentEmployeeData.control_comment;
-            let elementHistory__content = this.createElement('div', { className: 'elementHistory__content content', innerText: ndz +  ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment  });
+            let elementHistory__content = this.createElement('div', { className: 'elementHistory__content content', innerText: ndz + ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment });
             let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія'});
             let elementHistory = this.createElement('div', { className: 'elementHistory element'}, elementHistory__caption, elementHistory__content);
             let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ''+currentEmployeeData.zmist+''});
@@ -269,7 +269,7 @@
             let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ''+currentEmployeeData.comment+''});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
-            let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
+            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll.forEach( el => {

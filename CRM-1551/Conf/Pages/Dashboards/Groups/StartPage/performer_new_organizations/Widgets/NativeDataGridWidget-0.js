@@ -119,7 +119,7 @@
             let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ''+currentEmployeeData.balans_name+''});
             let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: 'Балансоутримувач'});
             let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
-            let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance );
+            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance );
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
@@ -146,7 +146,7 @@
             if(message.value != ''){
                 document.getElementById('searchTable').style.display = 'block';
                 this.config.query.parameterValues = [
-                    { key: '@appealNum',  value: message.value},
+                    { key: '@appealNum', value: message.value},
                     { key: '@organization_id', value: message.orgId}
                 ];
                 this.loadData(this.afterLoadDataHandler);

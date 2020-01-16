@@ -20,7 +20,7 @@
             let year = currentDate.getFullYear();
             let monthFrom = currentDate.getMonth();
             let dayTo = currentDate.getDate();
-            let day =  currentDate.getDay();
+            let day = currentDate.getDay();
             let dayFromFact;
             let monthFromFact;
             if( dayTo - day >= 0 ){
@@ -30,7 +30,7 @@
                 let cDate = new Date( year, monthFrom, 0 );
                 let thisMonth = cDate.getMonth();
                 let thisDay = cDate.getDate();
-                dayFromFact = ++thisDay + (  dayTo - day );
+                dayFromFact = ++thisDay + ( dayTo - day );
                 monthFromFact = thisMonth;
             }
             let defaultValue = {

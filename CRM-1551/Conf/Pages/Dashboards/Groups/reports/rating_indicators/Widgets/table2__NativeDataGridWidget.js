@@ -47,7 +47,7 @@
         },
         setFiltersParams: function (message) {
             this.date = message.date;
-            this.rating =   message.rating;
+            this.rating = message.rating;
             this.config.query.parameterValues = [
                 {key: '@CalcDate' , value: this.date },
                 {key: '@RatingId', value: this.rating }

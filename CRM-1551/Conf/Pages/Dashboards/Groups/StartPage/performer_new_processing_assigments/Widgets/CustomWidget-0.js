@@ -9,7 +9,7 @@
                     `
         ,
         init: function() {
-            this.messageService.publish( { name: 'showPagePreloader'  } );
+            this.messageService.publish( { name: 'showPagePreloader' } );
             const header = document.getElementById('header1');
             header.firstElementChild.style.overflow = 'visible';
             header.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
@@ -40,13 +40,13 @@
                 let executeQueryValues = {
                     queryCode: 'table2',
                     limit: -1,
-                    parameterValues: [ { key: '@organization_id',  value: this.organizationId} ]
+                    parameterValues: [ { key: '@organization_id', value: this.organizationId} ]
                 };
                 this.queryExecutor(executeQueryValues, this.createTable.bind(this, false, null), this);
                 this.showPreloader = false;
                 let executeQuery = {
                     queryCode: 'organization_name',
-                    parameterValues: [{ key: '@organizationId',  value: this.organizationId}],
+                    parameterValues: [{ key: '@organizationId', value: this.organizationId}],
                     limit: -1
                 };
                 this.queryExecutor(executeQuery, this.userOrganization, this);
@@ -101,7 +101,7 @@
         setOrganizationSelect: function(data){
             this.organizationSelect = [];
             if( data.rows.length > 0 ){
-                const organizationSelect  = [];
+                const organizationSelect = [];
                 const indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
                 const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
                 data.rows.forEach( row => {
@@ -115,13 +115,13 @@
             }
         },
         createTabs: function(tabsWrapper){
-            let tabInformation__title  = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
-            let tabAction__title  = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
-            let tabProcessingOrders__title  = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
-            let tabOrganizations__title  = this.createElement('div', { className: 'tabOrganizations tab_title', innerText: 'ОРГАНІЗАЦІЇ'});
-            let tabFinder__title  = this.createElement('div', { className: ' tab_title', innerText: 'Розширений пошук'});
-            let tabExecutivePosition__title  = this.createElement('div', { className: ' tab_title', innerText: 'Вибір посади-виконавця'});
-            let tabTemplates__title  = this.createElement('div', { className: ' tab_title', innerText: 'Шаблони'});
+            let tabInformation__title = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
+            let tabAction__title = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
+            let tabProcessingOrders__title = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
+            let tabOrganizations__title = this.createElement('div', { className: 'tabOrganizations tab_title', innerText: 'ОРГАНІЗАЦІЇ'});
+            let tabFinder__title = this.createElement('div', { className: ' tab_title', innerText: 'Розширений пошук'});
+            let tabExecutivePosition__title = this.createElement('div', { className: ' tab_title', innerText: 'Вибір посади-виконавця'});
+            let tabTemplates__title = this.createElement('div', { className: ' tab_title', innerText: 'Шаблони'});
             const tabFinder = this.createElement('div', { id: 'tabFinder', url: 'poshuk_table', className: 'tabFinder tab tabTo'}, tabFinder__title);
             const tabTemplates = this.createElement('div', { id: 'tabTemplates', url: 'Templates', className: 'tabTemplates tab tabTo'}, tabTemplates__title);
             const tabExecutivePosition = this.createElement('div', { id: 'tabExecutivePosition', url: 'PersonExecutorChoose', className: 'tabExecutivePosition tab tabTo'}, tabExecutivePosition__title);
@@ -139,15 +139,15 @@
                 if(this.organizationSelect.length > 0 ){
                     event.stopImmediatePropagation();
                     if(orgLinkСhangerBox.children.length === 1 ){
-                        let orgLinksWrapper__triangle =  this.createElement('div', { className: 'orgLinksWrapper__triangle' });
+                        let orgLinksWrapper__triangle = this.createElement('div', { className: 'orgLinksWrapper__triangle' });
                         let orgLinksWrapper = this.createElement('div', { id: 'orgLinksWrapper'}, orgLinksWrapper__triangle);
                         orgLinkСhangerBox.appendChild(orgLinksWrapper);
                         this.organizationSelect.forEach( el => {
-                            let organizationLink = this.createElement('div', { className: 'organizationLink',  orgId: ''+el.id+'',  innerText: el.name });
+                            let organizationLink = this.createElement('div', { className: 'organizationLink', orgId: ''+el.id+'', innerText: el.name });
                             orgLinksWrapper.appendChild(organizationLink);
                             organizationLink.addEventListener( 'click', event => {
                                 event.stopImmediatePropagation();
-                                let target  =  event.currentTarget;
+                                let target = event.currentTarget;
                                 window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_processing_assigments?id='+target.orgId+'');
                             });
                         });
@@ -160,7 +160,7 @@
             const tabs = Array.from(document.querySelectorAll('.tabTo'));
             tabs.forEach( el => {
                 el.addEventListener( 'click', event => {
-                    let target =  event.currentTarget;
+                    let target = event.currentTarget;
                     document.getElementById('container').style.display = 'none';
                     if( target.id === 'tabFinder' ){
                         this.goToDashboard(target.url);
@@ -176,7 +176,7 @@
             const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
             this.searchContainer__input = searchContainer__input;
             const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
-            searchContainer__input.addEventListener('input', event =>  {
+            searchContainer__input.addEventListener('input', event => {
                 event.stopImmediatePropagation();
                 if(searchContainer__input.value.length == 0 ){
                     this.resultSearch('clearInput', 0);
@@ -191,7 +191,7 @@
                     this.hideAllItems(0);
                 }
             }.bind(this));
-            const organizationName =  this.createElement('div', { id: 'organizationName', className: 'organizationName' });
+            const organizationName = this.createElement('div', { id: 'organizationName', className: 'organizationName' });
             this.organizationName = organizationName;
             filtersWrapper.appendChild(organizationName);
             filtersWrapper.appendChild(searchContainer);
@@ -207,7 +207,7 @@
             let executeQueryValues = {
                 queryCode: 'table2',
                 limit: -1,
-                parameterValues: [ { key: '@organization_id',  value: this.organizationId} ]
+                parameterValues: [ { key: '@organization_id', value: this.organizationId} ]
             };
             this.queryExecutor(executeQueryValues, this.createTable.bind(this, true, targetId), this);
             this.showPreloader = false;
@@ -216,9 +216,9 @@
             const tableContainer = this.tableContainer;
             for(let i = 2; i < data.columns.length; i ++ ){
                 let item = data.columns[i];
-                let columnTriangle =  this.createElement('div', { });
-                let columnHeader =  this.createElement('div', { id: 'columnHeader_'+i+'', code: ''+item.code+'',  className: 'columnHeader', innerText: ''+item.name+''}, columnTriangle);
-                let columnsWrapper =  this.createElement('div', { id: 'columnsWrapper_'+i+'',  className: 'columnsWrapper'});
+                let columnTriangle = this.createElement('div', { });
+                let columnHeader = this.createElement('div', { id: 'columnHeader_'+i+'', code: ''+item.code+'', className: 'columnHeader', innerText: ''+item.name+''}, columnTriangle);
+                let columnsWrapper = this.createElement('div', { id: 'columnsWrapper_'+i+'', className: 'columnsWrapper'});
                 if( i == 2){
                     columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';
                     columnTriangle.classList.add('triangle'+i+'');
@@ -244,18 +244,18 @@
                     columnHeader.style.backgroundColor = 'rgb(73, 155, 199)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }
-                let column =  this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: 'column'}, columnHeader, columnsWrapper);
+                let column = this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: 'column'}, columnHeader, columnsWrapper);
                 column.classList.add('column_'+i+'');
                 tableContainer.appendChild(column);
             }
-            for(let i = 0; i < data.rows.length; i ++  ){
+            for(let i = 0; i < data.rows.length; i ++ ){
                 let elRow = data.rows[i];
-                for(let  j = 2; j < elRow.values.length; j ++  ){
+                for(let j = 2; j < elRow.values.length; j ++ ){
                     let el = elRow.values[j];
                     if( el != 0 ){
-                        let columnCategorie__value =  this.createElement('div', { className: 'columnCategorie__value', innerText: '('+el+')'});
-                        let columnCategorie__title =  this.createElement('div', { className: 'columnCategorie__title', code: ''+elRow.values[1]+'', innerText: ''+elRow.values[1]+''});
-                        let columnCategorie =  this.createElement('div', { className: 'columnCategorie', code: ''+elRow.values[1]+''}, columnCategorie__title, columnCategorie__value);
+                        let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '('+el+')'});
+                        let columnCategorie__title = this.createElement('div', { className: 'columnCategorie__title', code: ''+elRow.values[1]+'', innerText: ''+elRow.values[1]+''});
+                        let columnCategorie = this.createElement('div', { className: 'columnCategorie', code: ''+elRow.values[1]+''}, columnCategorie__title, columnCategorie__value);
                         document.getElementById('columnsWrapper_'+j+'').appendChild(columnCategorie);
                     }
                 }
@@ -294,9 +294,9 @@
                     el.style.display = 'none';
                 });
                 let target = document.getElementById(targetId);
-                this.showTable(target,  this.column, this.navigator );
+                this.showTable(target, this.column, this.navigator );
             }
-            this.messageService.publish( { name: 'hidePagePreloader'  } );
+            this.messageService.publish( { name: 'hidePagePreloader' } );
         },
         columnName: function(target){
             let column = '';

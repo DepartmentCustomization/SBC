@@ -59,8 +59,8 @@
             let processed = message.package.value.values.find(f => f.name === 'processed').value;
             let users = message.package.value.values.find(f => f.name === 'users').value;
             if( period !== null ){
-                if( period.dateFrom !== '' &&  period.dateTo !== ''){
-                    this.dateFrom =  period.dateFrom;
+                if( period.dateFrom !== '' && period.dateTo !== ''){
+                    this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.users = extractOrgValues(users);
                     this.processed = processed === null ? null : processed === '' ? null : processed.value;
@@ -91,7 +91,7 @@
                             valuesList.push(val[i].value);
                         }
                     }
-                    return  valuesList.length > 0 ? valuesList : [];
+                    return valuesList.length > 0 ? valuesList : [];
                 }else{
                     return [];
                 }

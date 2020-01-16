@@ -39,24 +39,24 @@
         setData: function(message){
             document.querySelectorAll('#title').forEach( title => title.style.textAlign = 'center');
             if( message.rep1_data){
-                this.rep1_data =  message.rep1_data;
-                this.rep1_title =  message.rep1_title;
+                this.rep1_data = message.rep1_data;
+                this.rep1_title = message.rep1_title;
                 this.counter += 1;
             }else if( message.rep2_data){
-                this.rep2_data =  message.rep2_data;
-                this.rep2_title =  message.rep2_title;
+                this.rep2_data = message.rep2_data;
+                this.rep2_title = message.rep2_title;
                 this.counter += 1;
             }else if( message.rep3_data){
-                this.rep3_data =  message.rep3_data;
-                this.rep3_title =  message.rep3_title;
+                this.rep3_data = message.rep3_data;
+                this.rep3_title = message.rep3_title;
                 this.counter += 1;
             }else if( message.rep4_data){
-                this.rep4_data =  message.rep4_data;
-                this.rep4_title =  message.rep4_title;
+                this.rep4_data = message.rep4_data;
+                this.rep4_title = message.rep4_title;
                 this.counter += 1;
             }else if( message.rep5_data){
-                this.rep5_data =  message.rep5_data;
-                this.rep5_title =  message.rep5_title;
+                this.rep5_data = message.rep5_data;
+                this.rep5_title = message.rep5_title;
                 this.counter += 1;
             }
             if( this.counter === 5 ){
@@ -89,8 +89,8 @@
                 header: 0.0, footer: 0.0
             };
             let mainHeaders = [];
-            for(let i = 0; i <  this.dataArray.length; i++){
-                let data =  this.dataArray[i];
+            for(let i = 0; i < this.dataArray.length; i++){
+                let data = this.dataArray[i];
                 this.indexArr = [];
                 let name = { name: 'orgName', index: 0 };
                 let counter = { name: 'questionQty', index: 1 };
@@ -103,21 +103,21 @@
                 let columnsHeader = [];
                 indexArr.forEach( el => {
                     if( el.name === 'orgName'){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 44,
                         };
                         columnsHeader.push(obj);
                         captions.push('Назва');
                     }else if(el.name === 'questionQty'){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Кiлькiсть');
                     }else if(el.name === 'empty'){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 8
                         };
@@ -179,7 +179,7 @@
                     worksheet.getCell('B'+(this.rowTable1+1)).value = captionCounter;
                     tds.push('A'+(this.rowTable1+1));
                     tds.push('B'+(this.rowTable1+1));
-                    for(let i =  this.rowTable1 + 2; i < (data.length + this.rowTable1 + 2); i++ ){
+                    for(let i = this.rowTable1 + 2; i < (data.length + this.rowTable1 + 2); i++ ){
                         let value = data[i-(2 + this.rowTable1)];
                         columnText = worksheet.getCell('A'+i);
                         columnCounter = worksheet.getCell('B'+i);
@@ -200,7 +200,7 @@
                     worksheet.getCell('E'+(counter+1)).value = captionCounter;
                     tds.push('D'+(counter+1));
                     tds.push('E'+(counter+1));
-                    for(let i =  counter + 2; i < (data.length + counter + 2); i++ ){
+                    for(let i = counter + 2; i < (data.length + counter + 2); i++ ){
                         let value = data[i-(2 + counter)];
                         columnText = worksheet.getCell('D'+i);
                         columnCounter = worksheet.getCell('E'+i);
@@ -210,8 +210,8 @@
                         tdsCounter.push('E'+i);
                     }
                 }else if(i === 4){
-                    let counter =  this.rowTable2 + this.rowTable1 - 1;
-                    this.lastTableCounter =  counter;
+                    let counter = this.rowTable2 + this.rowTable1 - 1;
+                    this.lastTableCounter = counter;
                     mainHeaders.push(counter);
                     let cellInfoCaption3 = worksheet.getCell('A'+counter);
                     cellInfoCaption3.value = this.rep4_title;
@@ -221,7 +221,7 @@
                     worksheet.getCell('B'+(counter+1)).value = captionCounter;
                     tds.push('A'+(counter+1));
                     tds.push('B'+(counter+1));
-                    for(let i =  counter + 2; i < (data.length + counter + 2); i++ ){
+                    for(let i = counter + 2; i < (data.length + counter + 2); i++ ){
                         let value = data[i-(2 + counter)];
                         columnText = worksheet.getCell('A'+i);
                         columnCounter = worksheet.getCell('B'+i);
@@ -232,7 +232,7 @@
                     }
                 }
                 worksheet.columns = columnsHeader;
-                for(let  i = 0; i < tds.length; i++ ){
+                for(let i = 0; i < tds.length; i++ ){
                     let td = tds[i];
                     worksheet.getCell(td).border = {
                         top: {style:'thin'},
@@ -253,7 +253,7 @@
                         italic: false
                     };
                 }
-                for(let  i = 0; i < tdsCounter.length; i++ ){
+                for(let i = 0; i < tdsCounter.length; i++ ){
                     let td = tdsCounter[i];
                     worksheet.getCell(td).border = {
                         top: {style:'thin'},
@@ -277,9 +277,9 @@
                 mainHeaders.forEach( number => {
                     worksheet.getRow(number).height = 70;
                     worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                    worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
+                    worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
                     worksheet.getRow(number+1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                    worksheet.getRow(number+1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
+                    worksheet.getRow(number+1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
                 });
             }
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);

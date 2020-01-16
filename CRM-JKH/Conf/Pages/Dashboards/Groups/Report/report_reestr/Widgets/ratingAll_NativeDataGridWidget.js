@@ -94,8 +94,8 @@
         setFiltersParams: function (message) {
             this.dateStart = message.dateStart;
             this.dateEnd = message.dateEnd;
-            this.executor =   message.executor;
-            this.claimType =   message.claimType;
+            this.executor = message.executor;
+            this.claimType = message.claimType;
             this.config.query.parameterValues = [
                 {key: '@DateStart' , value: this.dateStart },
                 {key: '@DateEnd' , value: this.dateEnd },

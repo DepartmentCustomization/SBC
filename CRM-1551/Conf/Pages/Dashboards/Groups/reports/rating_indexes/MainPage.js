@@ -9,8 +9,8 @@
             const rating = message.package.value.values.find(f => f.name === 'rating').value;
             if( period !== '' && period !== null){
                 const periodValue = this.convertDateTimeToDate(period);
-                const executorValue = executor === null ? 0 :  executor === '' ? 0 : executor.value;
-                const ratingValue = rating === null ? 0 :  rating === '' ? 0 : rating.value;
+                const executorValue = executor === null ? 0 : executor === '' ? 0 : executor.value;
+                const ratingValue = rating === null ? 0 : rating === '' ? 0 : rating.value;
                 const name = 'FilterParameters';
                 const parameters = [
                     {key: '@DateCalc' , value:  periodValue },

@@ -39,7 +39,7 @@
             if (data.rows.length) {
                 value = data.rows[0].values[0];
             }
-            this.chartConfig.subtitle.text =  value;
+            this.chartConfig.subtitle.text = value;
         },
         getFiltersParams: function (message) {
             let period = message.package.value.values.find((el) => {
@@ -119,7 +119,7 @@
             let yy = date.getFullYear().toString().slice(-2);
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
-            return  dd + '-' + mm + '-' + yy;
+            return dd + '-' + mm + '-' + yy;
         },
         destroy: function () {
             this.sub.unsubscribe();

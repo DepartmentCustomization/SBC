@@ -34,7 +34,7 @@
                     if (data) {
                         if (data.rows.length > 0) {
                             this.ChangeBtn_Check();
-                            const option = {  title: 'Заміна будинку',
+                            const option = { title: 'Заміна будинку',
                                 text: 'Сутності з даного будинку переміщено на обраний',
                                 acceptBtnText: 'Ok',
                                 singleButton: true

@@ -112,7 +112,7 @@
                 }
             }
             let icon = document.getElementById('applicant_idIcon');
-            icon.addEventListener('click', () =>  {
+            icon.addEventListener('click', () => {
                 this.openModalForm(formNewApplicant, addApplicantCallBack);
             });
         },

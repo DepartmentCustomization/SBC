@@ -9,7 +9,7 @@
                 `
         ,
         init: function() {
-            this.messageService.publish( { name: 'showPagePreloader'  } );
+            this.messageService.publish( { name: 'showPagePreloader' } );
             const header1 = document.getElementById('header1');
             header1.firstElementChild.style.overflow = 'visible';
             header1.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
@@ -38,7 +38,7 @@
                 this.organizationId = (tabInd);
                 let executeQuery = {
                     queryCode: 'organization_name',
-                    parameterValues: [{ key: '@organizationId',  value: this.organizationId}],
+                    parameterValues: [{ key: '@organizationId', value: this.organizationId}],
                     limit: -1
                 };
                 this.queryExecutor(executeQuery, this.userOrganization, this);
@@ -86,10 +86,10 @@
             this.createTabs();
         },
         createTabs: function(){
-            let tabInformation__title  = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
-            let tabAction__title  = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
-            let tabProcessingOrders__title  = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
-            let tabOrganizations__title  = this.createElement('div', { className: 'tabOrganizations tab_title', innerText: 'ОРГАНІЗАЦІЇ'});
+            let tabInformation__title = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
+            let tabAction__title = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
+            let tabProcessingOrders__title = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
+            let tabOrganizations__title = this.createElement('div', { className: 'tabOrganizations tab_title', innerText: 'ОРГАНІЗАЦІЇ'});
             const tabInformation = this.createElement('div', { id: 'tabInformation', url: '', className: 'tabInformation tab'}, tabInformation__title);
             const tabAction = this.createElement('div', { id: 'tabAction', url: 'performer_new_actions', className: 'tabHover tabAction tab'}, tabAction__title);
             const tabProcessingOrders = this.createElement('div', { id: 'tabProcessingOrders', url: 'performer_new_processing_assigments', className: 'tabProcessingOrders tab tabTo'}, tabProcessingOrders__title);
@@ -101,14 +101,14 @@
             tabs = Array.from(tabs);
             tabs.forEach( function (el){
                 el.addEventListener( 'click', event => {
-                    let target =  event.currentTarget;
+                    let target = event.currentTarget;
                     document.getElementById('container').style.display = 'none';
                     this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
                 })
             }.bind(this));
         },
         sendMesOnBtnClick: function(message, typeEvent, source, orgId){
-            this.messageService.publish({name: message, typeEvent: typeEvent,  source: source, orgId: orgId });
+            this.messageService.publish({name: message, typeEvent: typeEvent, source: source, orgId: orgId });
         },
         showTable: function(target, headers, typeEvent, source){
             if( target.classList.contains('check') || target.classList.contains('hover')){
@@ -147,14 +147,14 @@
             this.createHeaderOrganizations();
             for ( let i = 0; i < data.rows.length; i ++){
                 let row = data.rows[i];
-                let eventElementsСounter = this.createElement('div', {  className: 'eventElementsСounter displayFlex'});
-                let eventTitle__name = this.createElement('div', {  className: 'eventTitle__name', innerText: ''+row.values[1]+''});
-                let eventTitle = this.createElement('div', {  className: 'eventTitle displayFlex'}, eventTitle__name);
-                let event = this.createElement('div', {  className: 'event displayFlex', id: ''+row.values[0]+''}, eventTitle, eventElementsСounter);
+                let eventElementsСounter = this.createElement('div', { className: 'eventElementsСounter displayFlex'});
+                let eventTitle__name = this.createElement('div', { className: 'eventTitle__name', innerText: ''+row.values[1]+''});
+                let eventTitle = this.createElement('div', { className: 'eventTitle displayFlex'}, eventTitle__name);
+                let event = this.createElement('div', { className: 'event displayFlex', id: ''+row.values[0]+''}, eventTitle, eventElementsСounter);
                 let eventWrapper = document.getElementById('eventWrapper');
                 eventWrapper.appendChild(event);
                 let name = row.values[1];
-                for ( let i = 2;  i <row.values.length; i ++){
+                for ( let i = 2; i <row.values.length; i ++){
                     let el = row.values[i];
                     let link = undefined;
                     if( i == 2 ){
@@ -166,10 +166,10 @@
                     }
                     let eventElementsСounterItem = undefined;
                     if( el != '0 (0)'){
-                        let eventElementsСounterItem__value = this.createElement('div', {  className: ' counter_value', innerText: ''+el+''});
-                        eventElementsСounterItem = this.createElement('div', { value: link,  name: name,  className: 'counter'},eventElementsСounterItem__value);
+                        let eventElementsСounterItem__value = this.createElement('div', { className: ' counter_value', innerText: ''+el+''});
+                        eventElementsСounterItem = this.createElement('div', { value: link, name: name, className: 'counter'},eventElementsСounterItem__value);
                     }else{
-                        eventElementsСounterItem = this.createElement('div', {  className: 'counter'});
+                        eventElementsСounterItem = this.createElement('div', { className: 'counter'});
                     }
                     eventElementsСounter.appendChild(eventElementsСounterItem);
                 }
@@ -201,24 +201,24 @@
                     let source = target.name;
                     let typeEvent = target.value;
                     if( typeEvent === 'Прострочені'){
-                        target  = document.getElementById('headerItem__overdue');
+                        target = document.getElementById('headerItem__overdue');
                     }else if( typeEvent === 'Не активні' ){
-                        target  = document.getElementById('headerItem__notActive');
-                    }else if(typeEvent === 'В роботі'  ){
-                        target  = document.getElementById('headerItem__inWork');
+                        target = document.getElementById('headerItem__notActive');
+                    }else if(typeEvent === 'В роботі' ){
+                        target = document.getElementById('headerItem__inWork');
                     }
                     this.showTable(target, headers, typeEvent, source);
                 }.bind(this));
             }.bind(this));
-            this.messageService.publish( { name: 'hidePagePreloader'  } );
+            this.messageService.publish( { name: 'hidePagePreloader' } );
         },
         createHeaderOrganizations: function(){
-            const headerItem__overdue_triangle    = this.createElement('div', { className: 'overdue_triangle' });
-            const headerItem__notActive_triangle    = this.createElement('div', { className: 'notActive_triangle' });
-            const headerItem__inWork_triangle    = this.createElement('div', { className: 'inWork_triangle' });
-            const headerItem__overdue    = this.createElement('div', { id: 'headerItem__overdue', value: 'Прострочені', className: 'headerItem overdue displayFlex', innerText: 'Прострочені'}, headerItem__overdue_triangle);
-            const headerItem__notActive  = this.createElement('div', { id: 'headerItem__notActive', value: 'Не активні', className: 'headerItem notActive displayFlex', innerText: 'Не активні'}, headerItem__notActive_triangle);
-            const headerItem__inWork     = this.createElement('div', { id: 'headerItem__inWork', value: 'В роботі', className: 'headerItem inWork displayFlex', innerText: 'В роботі'}, headerItem__inWork_triangle);
+            const headerItem__overdue_triangle = this.createElement('div', { className: 'overdue_triangle' });
+            const headerItem__notActive_triangle = this.createElement('div', { className: 'notActive_triangle' });
+            const headerItem__inWork_triangle = this.createElement('div', { className: 'inWork_triangle' });
+            const headerItem__overdue = this.createElement('div', { id: 'headerItem__overdue', value: 'Прострочені', className: 'headerItem overdue displayFlex', innerText: 'Прострочені'}, headerItem__overdue_triangle);
+            const headerItem__notActive = this.createElement('div', { id: 'headerItem__notActive', value: 'Не активні', className: 'headerItem notActive displayFlex', innerText: 'Не активні'}, headerItem__notActive_triangle);
+            const headerItem__inWork = this.createElement('div', { id: 'headerItem__inWork', value: 'В роботі', className: 'headerItem inWork displayFlex', innerText: 'В роботі'}, headerItem__inWork_triangle);
             headerItem__overdue.style.backgroundColor = 'rgb(74, 193, 197)';
             headerItem__notActive.style.backgroundColor = 'rgb( 132, 199, 96 )';
             headerItem__inWork.style.backgroundColor = 'rgb(173, 118, 205)';

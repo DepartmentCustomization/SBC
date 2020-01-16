@@ -159,7 +159,7 @@
         },
         changeOnTable: function(message) {
             let typeEvent = message.typeEvent.trim();
-            let source =  message.source;
+            let source = message.source;
             if (typeEvent != 'Прострочені' && typeEvent != 'Не активні' && typeEvent != 'В роботі') {
                 document.getElementById('table_events').style.display = 'none';
             } else {

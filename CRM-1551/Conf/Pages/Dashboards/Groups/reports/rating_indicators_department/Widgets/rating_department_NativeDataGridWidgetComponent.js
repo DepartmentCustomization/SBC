@@ -81,7 +81,7 @@
                 }
                 setColStyles(col);
                 function setColStyles(col) {
-                    col.alignment =  col.dataField === 'Organization_name' ? 'left' : 'center';
+                    col.alignment = col.dataField === 'Organization_name' ? 'left' : 'center';
                     col.verticalAlignment = 'Bottom';
                 }
             });
@@ -222,9 +222,9 @@
             });
         },
         setCellStyle: function (cell) {
-            cell.border = {   top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
-            cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
-            cell.font = { name: 'Times New Roman', family: 4, size: 10,  underline: false, bold: false , italic: false };
+            cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+            cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+            cell.font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: false , italic: false };
         },
         setQueryParams: function (message) {
             this.config.query.parameterValues = [ { key: '@Date', value: message.date}],

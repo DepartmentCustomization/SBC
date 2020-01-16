@@ -53,7 +53,7 @@
         getFiltersParams: function(message){
             let period = message.package.value.values.find(f => f.name === 'period').value;
             if( period !== null ){
-                this.dateFrom =  period.dateFrom;
+                this.dateFrom = period.dateFrom;
                 this.dateTo = period.dateTo;
                 this.config.query.parameterValues = [
                     {key: '@dateFrom' , value: this.dateFrom },

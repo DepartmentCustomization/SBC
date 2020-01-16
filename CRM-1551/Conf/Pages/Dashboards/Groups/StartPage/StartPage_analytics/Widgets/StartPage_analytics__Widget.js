@@ -35,7 +35,7 @@
                 const url = report.url;
                 const icon = report.icon;
                 const reportListItem__icon = this.createElement('div', { classList: 'reportListItem__icon material-icons', innerText: icon });
-                const reportListItem__text = this.createElement('div', { className: 'reportListItem__text',  innerText: reportTitle });
+                const reportListItem__text = this.createElement('div', { className: 'reportListItem__text', innerText: reportTitle });
                 const reportListItem = this.createElement('div', { className: 'reportListItem', url: url, }, reportListItem__icon, reportListItem__text);
                 reportListWrap.appendChild(reportListItem);
                 reportListItem.addEventListener( 'click', event => {
@@ -45,9 +45,9 @@
             });
         },
         createTabs: function(tabsWrapper) {
-            let tabPhone__title  = this.createElement('div', { className: 'tabPhone tabTitle', innerText: 'ВХІДНИЙ ДЗВІНОК'});
-            let tabReportList__title  = this.createElement('div', { className: 'tabProzvon tabTitle', innerText: 'Звіти'});
-            let tabFinder__title  = this.createElement('div', { className: ' tabTitle', innerText: 'Розширений пошук'});
+            let tabPhone__title = this.createElement('div', { className: 'tabPhone tabTitle', innerText: 'ВХІДНИЙ ДЗВІНОК'});
+            let tabReportList__title = this.createElement('div', { className: 'tabProzvon tabTitle', innerText: 'Звіти'});
+            let tabFinder__title = this.createElement('div', { className: ' tabTitle', innerText: 'Розширений пошук'});
             const tabReportList = this.createElement('div', { id: 'tabReportList', location: 'dashboard', url: 'StartPage_operator', className: 'tabPhone tab  tabHover'}, tabReportList__title);
             const tabPhone = this.createElement('div', { id: 'tabPhone', location: 'dashboard', url: 'StartPage_operator', className: 'tabPhone tab tabTo'},tabPhone__title);
             const tabFinder = this.createElement('div', { id: 'tabFinder', location: 'dashboard', url: 'poshuk_table', className: 'tabFinder tab tabTo'}, tabFinder__title);
@@ -57,7 +57,7 @@
             tabs = Array.from(tabs);
             tabs.forEach( function (el){
                 el.addEventListener( 'click', event => {
-                    let target =  event.currentTarget;
+                    let target = event.currentTarget;
                     if( target.location == 'section'){
                         document.getElementById('container').style.display = 'none';
                         this.goToSection(target.url);

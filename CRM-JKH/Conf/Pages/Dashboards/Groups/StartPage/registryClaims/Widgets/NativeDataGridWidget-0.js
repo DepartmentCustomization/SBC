@@ -73,7 +73,7 @@
                 ],
                 limit: -1
             }
-            this.config.query.parameterValues =  [
+            this.config.query.parameterValues = [
                 {
                     key:'@StatusId',
                     value: null

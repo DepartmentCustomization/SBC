@@ -19,7 +19,7 @@
                     caption: 'ГородОк',
                     alignment: 'center',
                     columns: [
-                        {   caption: 'Було',
+                        { caption: 'Було',
                             alignment: 'center',
                             columns:[
                                 {
@@ -33,7 +33,7 @@
                                     alignment: 'center'
                                 }]
                         },
-                        {   caption: 'Стало',
+                        { caption: 'Стало',
                             alignment: 'center',
                             columns:[
                                 {

@@ -158,8 +158,8 @@
                 let rowNumber = '№ з/п';
                 captions.push(rowNumber);
                 indexArr.forEach( el => {
-                    if( el.name === 'questionType'  ){
-                        let obj =  {
+                    if( el.name === 'questionType' ){
+                        let obj = {
                             key: 'questionType',
                             width: 70,
                             height: 20
@@ -167,7 +167,7 @@
                         columnsHeader.push(obj);
                         captions.push('Тип питання');
                     }else if(el.name === 'questionQty' ){
-                        let obj =  {
+                        let obj = {
                             key: 'questionQty',
                             width: 15
                         };
@@ -180,12 +180,12 @@
                 this.addetedIndexes = [];
                 let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
                 let indexQuestionQty = data.columns.findIndex(el => el.code.toLowerCase() === 'questionqty' );
-                for( let  j = 0; j < data.rows.length; j ++ ){
+                for( let j = 0; j < data.rows.length; j ++ ){
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
                     for(let i = 0; i < indexArr.length; i ++){
                         let el = indexArr[i];
-                        if( el.name === 'questionType'  ){
+                        if( el.name === 'questionType' ){
                             rowItem.questionType = row.values[indexQuestionType];
                         }else if(el.name === 'questionQty' ){
                             rowItem.questionQty = row.values[indexQuestionQty];
@@ -207,7 +207,7 @@
                     top: 0.4, bottom: 0.4,
                     header: 0.0, footer: 0.0
                 };
-                for(let  i = 0; i < rows.length + 1; i++ ){
+                for(let i = 0; i < rows.length + 1; i++ ){
                     let number = i + 5;
                     let row = worksheet.getRow(number);
                     row.height = 100;
@@ -234,7 +234,7 @@
                     bottom: {style:'thin'}
                 };
                 worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
+                worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
                 this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
             }
         },
@@ -272,10 +272,10 @@
             let questionGroup = message.package.value.values.find(f => f.name === 'questionGroup').value;
             if( period !== null ) {
                 if( period.dateFrom !== '' && period.dateTo !== '') {
-                    this.dateFrom =  period.dateFrom;
+                    this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.questionType = questionType === null ? 0 :  questionType === '' ? 0 : questionType.value;
-                    this.questionGroup = questionGroup === null ? 0 :  questionGroup === '' ? 0 : questionGroup.value;
+                    this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;
+                    this.questionGroup = questionGroup === null ? 0 : questionGroup === '' ? 0 : questionGroup.value;
                     if(this.questionType !== 0){
                         this.config.query.parameterValues = [
                             {key: '@dateFrom' , value: this.dateFrom },
@@ -292,7 +292,7 @@
             if(val !== ''){
                 let valuesList = [];
                 valuesList.push(val.value);
-                return  valuesList.length > 0 ? valuesList : [];
+                return valuesList.length > 0 ? valuesList : [];
             } else {
                 return [];
             }

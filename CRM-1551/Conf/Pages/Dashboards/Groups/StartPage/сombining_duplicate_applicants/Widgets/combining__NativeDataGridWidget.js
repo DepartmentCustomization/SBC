@@ -107,9 +107,9 @@
                 queryCode: 'ak_db_doubles_ButtonCombine',
                 limit: -1,
                 parameterValues: [
-                    { key: '@true_applicant_id',  value: this.mainRowId},
-                    { key: '@Id_table',  value: this.tableId},
-                    { key: '@Ids',  value: rowsId}
+                    { key: '@true_applicant_id', value: this.mainRowId},
+                    { key: '@Id_table', value: this.tableId},
+                    { key: '@Ids', value: rowsId}
                 ]
             };
             this.queryExecutor(query, this.response, this);
@@ -120,7 +120,7 @@
                 queryCode: 'ak_db_doubles_ButtonSkip',
                 limit: -1,
                 parameterValues: [
-                    { key: '@Id_table',  value: this.tableId}
+                    { key: '@Id_table', value: this.tableId}
                 ]
             };
             this.queryExecutor(query, this.response, this);

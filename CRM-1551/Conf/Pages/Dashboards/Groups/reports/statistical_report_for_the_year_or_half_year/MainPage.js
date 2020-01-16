@@ -9,7 +9,7 @@
             const period = message.package.value.values.find(f => f.name === 'period').value;
             if( period !== null ){
                 if( period.dateFrom !== '' && period.dateTo !== ''){
-                    const dateFrom =  period.dateFrom;
+                    const dateFrom = period.dateFrom;
                     const dateTo = period.dateTo;
                     const dateFromViewValues = this.changeDateTimeValues(dateFrom);
                     const dateToViewValues = this.changeDateTimeValues(dateTo);
@@ -20,7 +20,7 @@
                         previousYear -= 1;
                         this.previousYear = previousYear;
                         this.currentYear = currentYear;
-                        this.messageService.publish({  name, dateFrom, dateTo, previousYear, currentYear, dateFromViewValues, dateToViewValues })
+                        this.messageService.publish({ name, dateFrom, dateTo, previousYear, currentYear, dateFromViewValues, dateToViewValues })
                     } else {
                         this.messageService.publish( { name: 'showWarning' });
                     }

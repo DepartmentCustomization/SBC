@@ -125,7 +125,7 @@
             let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ''+currentEmployeeData.balans_name+''});
             let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: 'Балансоутримувач'});
             let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
-            let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment, elementBalance);
+            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
@@ -145,7 +145,7 @@
             }else{
                 document.getElementById('table10_Plan_Programs').style.display = 'block';
                 this.config.query.queryCode = 'NaDooprNemaMozhlVyk';
-                this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
+                this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
                     { key: '@column', value: message.column},
                     { key: '@navigation', value: message.navigation}];
                 this.loadData(this.afterLoadDataHandler);

@@ -22,7 +22,7 @@
                 }, {
                     dataField: 'AssignmentState',
                     caption: 'Стан',
-                },  {
+                }, {
                     dataField: 'QuestionType',
                     caption: 'Тип питання',
                 }, {
@@ -34,7 +34,7 @@
                 }, {
                     dataField: 'Vykonavets',
                     caption: 'Виконавець',
-                },  {
+                }, {
                     dataField: 'Control_date',
                     caption: 'Дата контролю',
                     dataType: 'datetime',
@@ -266,7 +266,7 @@
             captions.push(rowNumber);
             indexArr.forEach( el => {
                 if( el.name === 'Registration_number'){
-                    let obj =  {
+                    let obj = {
                         key: el.name,
                         width: 12,
                         height: 20,
@@ -274,49 +274,49 @@
                     columnsHeader.push(obj);
                     captions.push('Номеп питання');
                 }else if(el.name === 'Ass_registration_date'){
-                    let obj =  {
+                    let obj = {
                         key: el.name,
                         width: 12
                     };
                     columnsHeader.push(obj);
                     captions.push('Дата надходження');
                 }else if(el.name === 'AssignmentState'){
-                    let obj =  {
+                    let obj = {
                         key: el.name,
                         width: 14
                     };
                     columnsHeader.push(obj);
                     captions.push('Стан');
                 }else if( el.name === 'QuestionType'){
-                    let obj =  {
+                    let obj = {
                         key: el.name,
                         width: 16
                     };
                     columnsHeader.push(obj);
                     captions.push('Тип питання');
                 }else if( el.name === 'Zayavnyk'){
-                    let obj =  {
+                    let obj = {
                         key: el.name,
                         width: 20
                     };
                     columnsHeader.push(obj);
                     captions.push('Заявник');
                 }else if( el.name === 'Adress'){
-                    let obj =  {
+                    let obj = {
                         key: el.name,
                         width: 20
                     };
                     columnsHeader.push(obj);
                     captions.push('Місце проблеми');
                 }else if( el.name === 'Vykonavets'){
-                    let obj =  {
+                    let obj = {
                         key: el.name,
                         width: 20
                     };
                     columnsHeader.push(obj);
                     captions.push('Виконавець');
                 }else if( el.name === 'Control_date'){
-                    let obj =  {
+                    let obj = {
                         key: el.name,
                         width: 10
                     };
@@ -334,26 +334,26 @@
             let indexRegistrDate = data.columns.findIndex(el => el.code.toLowerCase() === 'ass_registration_date' );
             let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
             let indexAssignmentState = data.columns.findIndex(el => el.code.toLowerCase() === 'assignmentstate' );
-            for( let  j = 0; j < data.rows.length; j ++ ){
+            for( let j = 0; j < data.rows.length; j ++ ){
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
                     let el = indexArr[i];
-                    if( el.name === 'Registration_number'  ){
+                    if( el.name === 'Registration_number' ){
                         rowItem.Registration_number = row.values[indexRegistrationNumber];
                     }else if(el.name === 'Ass_registration_date' ){
                         rowItem.Ass_registration_date = this.changeDateTimeValues(row.values[indexRegistrDate]);
                     }else if(el.name === 'AssignmentState' ){
                         rowItem.AssignmentState = row.values[indexAssignmentState];
-                    }else if( el.name === 'QuestionType'  ){
+                    }else if( el.name === 'QuestionType' ){
                         rowItem.QuestionType = row.values[indexQuestionType];
-                    }else if( el.name === 'Zayavnyk'  ){
+                    }else if( el.name === 'Zayavnyk' ){
                         rowItem.Zayavnyk = row.values[indexZayavnikName];
-                    }else if( el.name === 'Adress'  ){
+                    }else if( el.name === 'Adress' ){
                         rowItem.Adress = row.values[indexAdress];
-                    }else if( el.name === 'Vykonavets'  ){
+                    }else if( el.name === 'Vykonavets' ){
                         rowItem.Vykonavets = row.values[indexVykonavets];
-                    }else if( el.name === 'Control_date'  ){
+                    }else if( el.name === 'Control_date' ){
                         rowItem.Control_date = this.changeDateTimeValues(row.values[indexControlDate]);
                     }
                 }
@@ -374,7 +374,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let  i = 0; i < rows.length + 1; i++ ){
+            for(let i = 0; i < rows.length + 1; i++ ){
                 let number = i + 2;
                 let row = worksheet.getRow(number);
                 row.height = 100;

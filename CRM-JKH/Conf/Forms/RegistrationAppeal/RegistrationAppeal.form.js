@@ -97,8 +97,8 @@
             this.onChanged_Question_Aplicant_Btn_Add_Input();
         },
         onChanged_Question_Aplicant_Btn_Add_Input: function() {
-            if(this.form.getControlValue('applicant_PIB') == '' || this.form.getControlValue('applicant_PIB') == null || this.form.getControlValue('applicant_House')  == '' ||   this.form.getControlValue('applicant_House') == null
-                 ||  this.form.getControlValue('applicant_House') == undefined
+            if(this.form.getControlValue('applicant_PIB') == '' || this.form.getControlValue('applicant_PIB') == null || this.form.getControlValue('applicant_House') == '' || this.form.getControlValue('applicant_House') == null
+                 || this.form.getControlValue('applicant_House') == undefined
             ) {
                 if (this.form.getControlValue('applicant_id') != null || this.form.getControlValue('applicant_id') != '') {
                     document.getElementById('applicant_Btn_AddClaim').disabled = true;
@@ -182,20 +182,20 @@
         onStreetChanged_Applicant: function(streetId) {
             this.onStreetRecalc_Applicant(streetId);
             if (!this.IsChangeApplicantForDetail) {
-                this.form.setControlValue('applicant_House',  {});
+                this.form.setControlValue('applicant_House', {});
             }
             let dependParams = [{ parameterCode: '@Street_id', parameterValue: streetId }];
             this.form.setControlParameterValues('applicant_House', dependParams);
             this.IsChangeApplicantForDetail = false;
         },
         onStreetChanged_Search: function(streetId) {
-            this.form.setControlValue('Search_House',  {});
+            this.form.setControlValue('Search_House', {});
             let dependParams = [{ parameterCode: '@Street_id', parameterValue: streetId }];
             this.form.setControlParameterValues('Search_House', dependParams);
         },
         onStreetChanged_Claim: function(streetId) {
             if (!this.IsChangeApplicantForClaim) {
-                this.form.setControlValue('claim_HouseId',  {});
+                this.form.setControlValue('claim_HouseId', {});
             }
             let dependParams = [{ parameterCode: '@Street_id', parameterValue: streetId }];
             this.form.setControlParameterValues('claim_HouseId', dependParams);
@@ -230,8 +230,8 @@
         },
         onChanged_Claim: function() {
             this.GetEmployeeByClaimType();
-            if(this.form.getControlValue('claim_HouseId') == '' || this.form.getControlValue('claim_HouseId') == null ||  this.form.getControlValue('applicant_House') == undefined
-        || this.form.getControlValue('claim_type_id')  == '' ||   this.form.getControlValue('claim_type_id') == null ||  this.form.getControlValue('claim_type_id') == undefined
+            if(this.form.getControlValue('claim_HouseId') == '' || this.form.getControlValue('claim_HouseId') == null || this.form.getControlValue('applicant_House') == undefined
+        || this.form.getControlValue('claim_type_id') == '' || this.form.getControlValue('claim_type_id') == null || this.form.getControlValue('claim_type_id') == undefined
             ) {
                 document.getElementById('claim_Btn_SaveClaim').disabled = true;
                 document.getElementById('claim_Btn_SaveConsult').disabled = true;

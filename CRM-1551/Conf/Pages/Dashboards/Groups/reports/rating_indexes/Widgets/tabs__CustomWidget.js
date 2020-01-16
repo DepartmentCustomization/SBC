@@ -100,7 +100,7 @@
                         const width = i === 1 ? 400 : 120;
                         const dataField = element.code;
                         const caption = this.setCaption(element.name);
-                        const columnSliced =  element.name.slice(0, 7);
+                        const columnSliced = element.name.slice(0, 7);
                         if(columnSliced === 'Percent') {
                             format = function (value) {
                                 return value.toFixed(2);

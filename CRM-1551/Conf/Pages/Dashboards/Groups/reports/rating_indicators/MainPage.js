@@ -10,9 +10,9 @@
             const name = 'FiltersParams';
             const date = this.changeDateTimeValues(dateFilter);
             if( date !== '' ){
-                const executor = executorFilter === null ? 0 :  executorFilter === '' ? 0 : executorFilter.value;
-                const rating = ratingFilter === null ? 0 :  ratingFilter === '' ? 0 : ratingFilter.value;
-                this.messageService.publish({ name, date, executor, rating  });
+                const executor = executorFilter === null ? 0 : executorFilter === '' ? 0 : executorFilter.value;
+                const rating = ratingFilter === null ? 0 : ratingFilter === '' ? 0 : ratingFilter.value;
+                this.messageService.publish({ name, date, executor, rating });
             }
         },
         changeDateTimeValues: function(value) {

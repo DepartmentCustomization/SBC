@@ -27,12 +27,12 @@
             init: function() {
             },
             afterViewInit: function() {
-                const CONTAINER  = document.getElementById('container');
+                const CONTAINER = document.getElementById('container');
                 const ulr = this.createElement('div', { className: 'url', innerText: 'тут', url: 'http://crm.1551.gov.ua:8075'});
                 const text = this.createElement('div', { className: 'text', innerText: 'Для Вас відбулося оновлення CРМ-1551, для переходу в нову версію натисніть '});
                 CONTAINER.appendChild(text);
                 CONTAINER.appendChild(ulr);
-                ulr.addEventListener('click', e =>  {
+                ulr.addEventListener('click', e => {
                     const target = e.currentTarget;
                     location.href = target.url;
                 });

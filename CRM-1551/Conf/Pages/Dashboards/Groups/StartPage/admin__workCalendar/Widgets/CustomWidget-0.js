@@ -13,12 +13,12 @@
         },
         getFiltersParams: function(message){
             this.year = message.package.value.values.find(f => f.name === 'FilterYear').value;
-            if( this.year !== '' &&   this.year !== null){
+            if( this.year !== '' && this.year !== null){
                 let executeQuery = {
                     queryCode: 'workDaysCalendar',
                     limit: -1,
                     parameterValues: [
-                        { key: '@year', value: this.year.viewValue  }
+                        { key: '@year', value: this.year.viewValue }
                     ]
                 };
                 this.queryExecutor(executeQuery, this.load, this);
@@ -31,7 +31,7 @@
         },
         load: function(data) {
             this.yearCalendar = [];
-            for(let i = 0; i < data.rows.length;  i ++ ){
+            for(let i = 0; i < data.rows.length; i ++ ){
                 let indexDateCode = data.columns.findIndex(el => el.code.toLowerCase() === 'date');
                 let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id');
                 let date = new Date( data.rows[i].values[indexDateCode]);
@@ -40,10 +40,10 @@
                 let day = date.getDay();
                 month += 1;
                 let monthLength = this.getLastDayOfMonth(year, month);
-                day =  day === 0 ? 7 : day;
+                day = day === 0 ? 7 : day;
                 let arr = [];
                 let len = i + monthLength
-                for(let t = i; t < len; t++  ){
+                for(let t = i; t < len; t++ ){
                     let day = data.rows[t];
                     arr.push(day.values[indexId]);
                 }
@@ -64,9 +64,9 @@
             while (container.hasChildNodes()) {
                 container.removeChild(container.childNodes[0]);
             }
-            let createNewYearBtn = this.createElement('button', {  id: 'createNewYearBtn', innerText: 'Додати наступний рік' });
-            let createNewYearContainer = this.createElement('div', {  id: 'createNewYearContainer' }, createNewYearBtn);
-            let yearContainer = this.createElement('div', {  id: 'yearContainer' });
+            let createNewYearBtn = this.createElement('button', { id: 'createNewYearBtn', innerText: 'Додати наступний рік' });
+            let createNewYearContainer = this.createElement('div', { id: 'createNewYearContainer' }, createNewYearBtn);
+            let yearContainer = this.createElement('div', { id: 'yearContainer' });
             container.appendChild(createNewYearContainer);
             container.appendChild(yearContainer);
             createNewYearBtn.addEventListener( 'click', () => {
@@ -80,30 +80,30 @@
             });
             this.yearCalendar.forEach( month => {
                 let dayBox;
-                let monday = this.createElement('div', {  className: 'calenDay', innerText: 'ПН'});
-                let tuesday = this.createElement('div', {  className: 'calenDay', innerText: 'ВТ'});
-                let wednesday = this.createElement('div', {  className: 'calenDay', innerText: 'СР'});
-                let thursday = this.createElement('div', {  className: 'calenDay', innerText: 'ЧТ'});
-                let friday = this.createElement('div', {  className: 'calenDay', innerText: 'ПТ'});
-                let saterday = this.createElement('div', {  className: 'calenDay', innerText: 'СБ'});
-                let sunday = this.createElement('div', {  className: 'calenDay', innerText: 'ВС'});
+                let monday = this.createElement('div', { className: 'calenDay', innerText: 'ПН'});
+                let tuesday = this.createElement('div', { className: 'calenDay', innerText: 'ВТ'});
+                let wednesday = this.createElement('div', { className: 'calenDay', innerText: 'СР'});
+                let thursday = this.createElement('div', { className: 'calenDay', innerText: 'ЧТ'});
+                let friday = this.createElement('div', { className: 'calenDay', innerText: 'ПТ'});
+                let saterday = this.createElement('div', { className: 'calenDay', innerText: 'СБ'});
+                let sunday = this.createElement('div', { className: 'calenDay', innerText: 'ВС'});
                 let monthBox = this.createElement('div', { id: 'monthBox_'+month.year+'_'+month.month+'', className: 'month'}, monday, tuesday, wednesday, thursday, friday, saterday, sunday);
                 for(let i = 0; i < month.day -1; i ++){
                     dayBox = this.createElement('div', { id: 'day_'+month.year+'_'+month.month+'_00', className: 'calenDay emptyDay'});
                     monthBox.appendChild(dayBox);
                 }
                 for(let i = 0; i < month.monthLength; i ++){
-                    dayBox = this.createElement('div', { dayId: month.arr[i], id: 'day_'+month.year+'_'+month.month+'_'+(i+1), innerText: i+1,  className: 'calenDay day', isWork: true });
+                    dayBox = this.createElement('div', { dayId: month.arr[i], id: 'day_'+month.year+'_'+month.month+'_'+(i+1), innerText: i+1, className: 'calenDay day', isWork: true });
                     monthBox.appendChild(dayBox);
                 }
                 let ml = monthBox.childNodes.length;
-                if(  ml < 42  &&  ml > 36){
+                if( ml < 42 && ml > 36){
                     let c = 42 - ml;
                     for(let i = 0; i < c; i ++){
                         let dayBox = this.createElement('div', { id: 'day_'+month.year+'_'+month.month+'_00', className: 'calenDay emptyDay'});
                         monthBox.appendChild(dayBox);
                     }
-                }else if( ml < 49  &&  ml > 42 ){
+                }else if( ml < 49 && ml > 42 ){
                     let c = 49 - ml;
                     for(let i = 0; i < c; i ++){
                         let dayBox = this.createElement('div', { id: 'day_'+month.year+'_'+month.month+'_00', className: 'calenDay emptyDay'});
@@ -149,14 +149,14 @@
                     title = 'Грудень'
                     break
                 }
-                let monthTitle = this.createElement('div', {  className: 'monthTitle', innerText: title});
-                let monthWrapper = this.createElement('div', {  className: 'monthWrapper' }, monthTitle, monthBox);
+                let monthTitle = this.createElement('div', { className: 'monthTitle', innerText: title});
+                let monthWrapper = this.createElement('div', { className: 'monthWrapper' }, monthTitle, monthBox);
                 yearContainer.appendChild(monthWrapper);
             });
             let days = document.querySelectorAll('.day');
             days = Array.from(days);
-            days.forEach(  day => {
-                day.addEventListener( 'dblclick',  event => {
+            days.forEach( day => {
+                day.addEventListener( 'dblclick', event => {
                     event.stopImmediatePropagation();
                     let target = event.currentTarget;
                     let executeQuery = {
@@ -166,7 +166,7 @@
                     };
                     this.queryExecutor(executeQuery);
                     this.showPreloader = false;
-                    if( target.isWork === true  ){
+                    if( target.isWork === true ){
                         target.isWork = false;
                         target.style.backgroundColor = '#f4b084';
                     }else{

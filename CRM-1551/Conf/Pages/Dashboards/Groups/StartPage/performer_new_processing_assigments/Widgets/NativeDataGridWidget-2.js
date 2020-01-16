@@ -14,21 +14,21 @@
                     dataField: 'registration_number',
                     caption: 'Номер питання',
                     width: 150
-                },  {
+                }, {
                     dataField: 'QuestionType',
                     caption: 'Тип питання',
                     sortOrder: 'asc',
                     allowSorting: true,
-                },  {
+                }, {
                     dataField: 'zayavnyk',
                     caption: 'Заявник',
-                },  {
+                }, {
                     dataField: 'adress_place',
                     caption: 'Місце проблеми',
-                },  {
+                }, {
                     dataField: 'pidlegliy',
                     caption: 'Виконавець',
-                },  {
+                }, {
                     dataField: 'transfer_to_organization_id',
                     caption: 'Можливий виконавець',
                     lookup: {
@@ -123,12 +123,12 @@
             }else{
                 document.getElementById('table5__NeVKompetentcii').style.display = 'block';
                 this.config.query.queryCode = 'NeVKompetentsii';
-                this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
+                this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
                     { key: '@organizationName', value: message.orgName},
                     { key: '@navigation', value: message.navigation}];
                 let executeQuery = {
                     queryCode: 'Lookup_NeVKompetencii_PidOrganization',
-                    parameterValues: [  {key: '@organization_id', value: this.OrganizationId} ],
+                    parameterValues: [ {key: '@organization_id', value: this.OrganizationId} ],
                     limit: -1
                 };
                 this.queryExecutor(executeQuery, this.lookupFoo, this);
@@ -141,13 +141,13 @@
                     let executeQuery = {
                         queryCode: 'Button_NeVKompetentcii',
                         parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
-                            {key: '@Id', value: el.Id}  ],
+                            {key: '@Id', value: el.Id} ],
                         limit: -1
                     };
                     this.queryExecutor(executeQuery);
                 });
                 this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish( { name: 'reloadMainTable', column: this.column,   navigator: this.navigator, targetId: this.targetId });
+                this.messageService.publish( { name: 'reloadMainTable', column: this.column, navigator: this.navigator, targetId: this.targetId });
             }
         },
         createTableButton: function(e) {
@@ -223,7 +223,7 @@
             let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ''+currentEmployeeData.balans_name+''});
             let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: 'Балансоутримувач'});
             let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
-            let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance);
+            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);

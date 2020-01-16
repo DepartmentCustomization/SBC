@@ -23,6 +23,8 @@ module.exports = {
         "no-debugger": "error",
         "brace-style": ["error", "1tbs"],
         "no-trailing-spaces": "error",
-        "semi-spacing": ["error", {"before": false, "after": true}]
+        "semi-spacing": ["error", { "before": false, "after": true }],
+        "block-spacing": "error",
+        "no-multi-spaces": "error"
     }
 };

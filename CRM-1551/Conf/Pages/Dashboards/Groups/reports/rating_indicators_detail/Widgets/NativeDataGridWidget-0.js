@@ -215,8 +215,8 @@
                     }, {}
                 );
             this.period = getDataFromLink['DateCalc'];
-            this.executor = getDataFromLink['RDAId'] === null ? 0 :  getDataFromLink['RDAId'] === '' ? 0 : getDataFromLink['RDAId'];
-            this.rating = getDataFromLink['RatingId'] === null ? 0 :  getDataFromLink['RatingId'] === '' ? 0 : getDataFromLink['RatingId'];
+            this.executor = getDataFromLink['RDAId'] === null ? 0 : getDataFromLink['RDAId'] === '' ? 0 : getDataFromLink['RDAId'];
+            this.rating = getDataFromLink['RatingId'] === null ? 0 : getDataFromLink['RatingId'] === '' ? 0 : getDataFromLink['RatingId'];
             this.renderTable();
             this.config.columns.forEach( col => {
                 function setColStyles(col){
@@ -416,7 +416,7 @@
                         rowValues[j] = value;
                     }else{
                         let int = isInt(value);
-                        rowValues[j] =  int === false ?  +value.toFixed(2) : value;
+                        rowValues[j] = int === false ? +value.toFixed(2) : value;
                     }
                 }
                 worksheet.addRow(rowValues);
@@ -437,7 +437,7 @@
             mm = mm.length === 1 ? '0' + mm : mm;
             HH = HH.length === 1 ? '0' + HH : HH;
             MM = MM.length === 1 ? '0' + MM : MM;
-            return  dd + '.' + mm + '.' + yyyy + ' ' + HH + ':' + MM;
+            return dd + '.' + mm + '.' + yyyy + ' ' + HH + ':' + MM;
         },
         afterLoadDataHandler: function() {
             this.render();

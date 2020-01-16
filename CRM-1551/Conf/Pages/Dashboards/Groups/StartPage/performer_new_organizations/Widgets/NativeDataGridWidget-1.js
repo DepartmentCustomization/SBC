@@ -113,7 +113,7 @@
                 document.getElementById('table4__arrived').style.display = 'none';
             }else {
                 document.getElementById('table4__arrived').style.display = 'block';
-                this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
+                this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
                     { key: '@organizationName', value: message.orgName},
                     { key: '@navigation', value: message.navigation}];
                 this.loadData(this.afterLoadDataHandler);
@@ -130,7 +130,7 @@
                 };
                 this.queryExecutor(executeQuery);
                 this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish( { name: 'reloadMainTable', column: this.column,   navigator: this.navigator, targetId: this.targetId });
+                this.messageService.publish( { name: 'reloadMainTable', column: this.column, navigator: this.navigator, targetId: this.targetId });
             }
         },
         createTableButton: function(e) {
@@ -167,7 +167,7 @@
                 queryCode: 'Nadiyshlo',
                 limit: -1,
                 parameterValues: [
-                    { key: '@organization_id',  value: this.orgId},
+                    { key: '@organization_id', value: this.orgId},
                     { key: '@organizationName', value: this.orgName},
                     { key: '@navigation', value: this.navigator}
                 ]
@@ -285,20 +285,20 @@
             let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress' );
             let indexRegistrDate = data.columns.findIndex(el => el.code.toLowerCase() === 'ass_registration_date' );
             let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
-            for( let  j = 0; j < data.rows.length; j ++ ){
+            for( let j = 0; j < data.rows.length; j ++ ){
                 const row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
                     let el = indexArr[i];
-                    if( el.name === 'registration_number'  ){
+                    if( el.name === 'registration_number' ){
                         rowItem.registration_number = row.values[indexRegistrationNumber] + ', ' + this.changeDateTimeValues(row.values[indexRegistrDate]);
                     }else if(el.name === 'zayavnyk' ){
                         rowItem.zayavnyk = row.values[indexZayavnikName] + ', ' + row.values[indexAdressZ];
                     }else if(el.name === 'QuestionType' ){
                         rowItem.QuestionType = 'Зміст: ' + row.values[indexQuestionContent];
-                    }else if( el.name === 'vykonavets'  ){
-                        rowItem.vykonavets = row.values[indexVykonavets] + '. Дата контролю:  ' +  this.changeDateTimeValues(row.values[indexControlDate]);
-                    }else if( el.name === 'adress'  ){
+                    }else if( el.name === 'vykonavets' ){
+                        rowItem.vykonavets = row.values[indexVykonavets] + '. Дата контролю:  ' + this.changeDateTimeValues(row.values[indexControlDate]);
+                    }else if( el.name === 'adress' ){
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
@@ -316,7 +316,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let  i = 0; i < rows.length + 1; i++ ){
+            for(let i = 0; i < rows.length + 1; i++ ){
                 let number = i + 5;
                 const row = worksheet.getRow(number);
                 row.height = 100;
@@ -404,7 +404,7 @@
             let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ''+currentEmployeeData.balans_name+''});
             let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: 'Балансоутримувач'});
             let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
-            let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance );
+            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance );
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll.forEach( el => {

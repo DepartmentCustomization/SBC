@@ -28,7 +28,7 @@
                                     dataField: 'prevCommunal',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }, {
@@ -36,7 +36,7 @@
                                     dataField: 'curCommunal',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }
@@ -50,7 +50,7 @@
                                     dataField: 'prevResidential',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }, {
@@ -58,7 +58,7 @@
                                     dataField: 'curResidential',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }
@@ -72,7 +72,7 @@
                                     dataField: 'prevEcology',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }, {
@@ -80,7 +80,7 @@
                                     dataField: 'curEcology',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }
@@ -94,7 +94,7 @@
                                     dataField: 'prevLaw',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }, {
@@ -102,7 +102,7 @@
                                     dataField: 'curLaw',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }
@@ -116,7 +116,7 @@
                                     dataField: 'prevFamily',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }, {
@@ -124,7 +124,7 @@
                                     dataField: 'curFamily',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }
@@ -138,7 +138,7 @@
                                     dataField: 'prevHealth',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }, {
@@ -146,7 +146,7 @@
                                     dataField: 'curSince',
                                     alignment: 'center',
                                     customizeText: function(cellInfo) {
-                                        let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                        let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                         return value;
                                     }
                                 }
@@ -158,7 +158,7 @@
             keyExpr: 'source'
         },
         init: function() {
-            this.sub =  this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
+            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         setFilterParams: function (message) {

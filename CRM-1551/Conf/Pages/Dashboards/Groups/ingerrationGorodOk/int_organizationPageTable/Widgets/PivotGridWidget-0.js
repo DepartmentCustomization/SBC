@@ -47,7 +47,7 @@
                     dataField: 'comment',
                     caption: 'Коментар'
                 }
-            ],  searchPanel: {
+            ], searchPanel: {
                 visible: true,
                 highlightCaseSensitive: false
             },

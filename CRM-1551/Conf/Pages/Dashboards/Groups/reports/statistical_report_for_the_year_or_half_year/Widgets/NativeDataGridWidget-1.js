@@ -18,15 +18,15 @@
                             dataFields: 'qtyRepeated_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
-                        },  {
+                        }, {
                             caption: 'currentYear',
                             dataFields: 'qtyRepeated_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -39,7 +39,7 @@
                             dataFields: 'qtyСollective_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -47,7 +47,7 @@
                             dataFields: 'qtyСollective_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -60,7 +60,7 @@
                             dataFields: 'qtyWarsParticipants_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -68,7 +68,7 @@
                             dataFields: 'qtyWarsParticipants_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -81,7 +81,7 @@
                             dataFields: 'qtyInvalids_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -89,7 +89,7 @@
                             dataFields: 'qtyInvalids_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -102,7 +102,7 @@
                             dataFields: 'qtyWorkVeterans_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -110,7 +110,7 @@
                             dataFields: 'qtyWorkVeterans_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -123,7 +123,7 @@
                             dataFields: 'qtyWarKids_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -131,7 +131,7 @@
                             dataFields: 'qtyWarKids_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -144,7 +144,7 @@
                             dataFields: 'qtyFamily_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -152,7 +152,7 @@
                             dataFields: 'qtyFamily_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -165,7 +165,7 @@
                             dataFields: 'qtyChernobyl_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -173,7 +173,7 @@
                             dataFields: 'qtyChernobyl_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -183,7 +183,7 @@
             keyExpr: 'qtyRepeated_prev'
         },
         init: function() {
-            this.sub =  this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
+            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         setFilterParams: function (message) {

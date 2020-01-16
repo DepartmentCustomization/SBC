@@ -119,7 +119,7 @@
             this.registrationDateFrom = null;
             this.registrationDateTo = null;
             this.transferDateFrom = null;
-            this.transferDateTo  = null;
+            this.transferDateTo = null;
             this.stateChangedDateFrom = null;
             this.stateChangedDateTo = null;
             this.stateChangedDateDoneFrom = null;
@@ -141,7 +141,7 @@
                     }else if( typeof(data) === 'object'){
                         if(data[0]){
                             if(typeof(data[0].value) === 'number' ){
-                                if(  elem.name === 'zayavnyk_age' ){
+                                if( elem.name === 'zayavnyk_age' ){
                                     this.ageArr = [];
                                     let ageSendViewValue = '';
                                     data.forEach( el => {
@@ -151,7 +151,7 @@
                                         ageSendViewValue = ageSendViewValue + ', '+ el.viewValue;
                                     });
                                     ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
-                                    let ageSendValue =  this.ageArr.join(' or ');
+                                    let ageSendValue = this.ageArr.join(' or ');
                                     ageSendValue = '('+ageSendValue+')';
                                     this.createObjMacros( elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
                                 }else{
@@ -159,8 +159,8 @@
                                     let sumViewValue = '';
                                     if(data.length > 0){
                                         data.forEach( row => {
-                                            sumValue =  sumValue + ', '+ row.value;
-                                            sumViewValue =  sumViewValue + ', '+ row.viewValue;
+                                            sumValue = sumValue + ', '+ row.value;
+                                            sumViewValue = sumViewValue + ', '+ row.viewValue;
                                         });
                                     }
                                     let numberSendValue = sumValue.slice(2, [sumValue.length]);
@@ -172,8 +172,8 @@
                                 let stringSumViewValue = '';
                                 if(data.length > 0){
                                     data.forEach( row => {
-                                        stringSumValue =  stringSumValue + ', \''+ row.value + '\'';
-                                        stringSumViewValue =  stringSumViewValue + ', '+ row.viewValue;
+                                        stringSumValue = stringSumValue + ', \''+ row.value + '\'';
+                                        stringSumViewValue = stringSumViewValue + ', '+ row.viewValue;
                                     });
                                 }
                                 let stringSendValue = stringSumValue.slice(2, [stringSumValue.length]);
@@ -247,7 +247,7 @@
             function checkDateTo(val){
                 return val ? val.dateTo : null;
             }
-            this.filtersWithOutValues === this.filtersLength ?  this.isSelected = false   : this.isSelected = true;
+            this.filtersWithOutValues === this.filtersLength ? this.isSelected = false : this.isSelected = true;
         },
         createObjMacros: function(name, operation, value, placeholder, viewValue) {
             let obj = {
@@ -270,23 +270,23 @@
                 let arr = this.textFilterMacros;
                 let str = arr.join(' ');
                 let macrosValue = str.slice(0, -4);
-                this.macrosValue = macrosValue === '' ?  '1=1' : macrosValue;
+                this.macrosValue = macrosValue === '' ? '1=1' : macrosValue;
                 this.sendMsgForSetFilterPanelState(false);
                 this.config.query.parameterValues = [
-                    {  key: '@param1', value: this.macrosValue },
-                    {  key: '@registration_date_from', value: this.registrationDateFrom },
-                    {  key: '@registration_date_to', value: this.registrationDateTo },
-                    {  key: '@transfer_date_from', value: this.transferDateFrom },
-                    {  key: '@transfer_date_to', value: this.transferDateTo },
-                    {  key: '@state_changed_date_from', value: this.stateChangedDateFrom },
-                    {  key: '@state_changed_date_to', value: this.stateChangedDateTo },
-                    {  key: '@state_changed_date_done_from', value: this.stateChangedDateDoneFrom },
-                    {  key: '@state_changed_date_done_to', value: this.stateChangedDateDoneTo },
-                    {  key: '@execution_term_from', value: this.executionTermFrom },
-                    {  key: '@execution_term_to', value: this.executionTermTo },
-                    {  key: '@control_date_from', value: this.controlDateFrom },
-                    {  key: '@control_date_to', value: this.controlDateTo },
-                    {  key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
+                    { key: '@param1', value: this.macrosValue },
+                    { key: '@registration_date_from', value: this.registrationDateFrom },
+                    { key: '@registration_date_to', value: this.registrationDateTo },
+                    { key: '@transfer_date_from', value: this.transferDateFrom },
+                    { key: '@transfer_date_to', value: this.transferDateTo },
+                    { key: '@state_changed_date_from', value: this.stateChangedDateFrom },
+                    { key: '@state_changed_date_to', value: this.stateChangedDateTo },
+                    { key: '@state_changed_date_done_from', value: this.stateChangedDateDoneFrom },
+                    { key: '@state_changed_date_done_to', value: this.stateChangedDateDoneTo },
+                    { key: '@execution_term_from', value: this.executionTermFrom },
+                    { key: '@execution_term_to', value: this.executionTermTo },
+                    { key: '@control_date_from', value: this.controlDateFrom },
+                    { key: '@control_date_to', value: this.controlDateTo },
+                    { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
                 ];
                 this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish( {
@@ -301,20 +301,20 @@
             }
         },
         createFilterMacros: function(code, operation, value) {
-            if(code !==  'zayavnyk_phone_number' ){
+            if(code !== 'zayavnyk_phone_number' ){
                 if( operation !== '>=' && operation !== '<=' ){
                     let textMacros = '';
                     if( operation == 'like' ){
                         textMacros = ''+code+' '+operation+' \'%'+value+'%\' and';
-                    }else if(  operation == '==='){
+                    }else if( operation == '==='){
                         textMacros = ''+value+' and';
-                    }else if(  operation == '=='){
+                    }else if( operation == '=='){
                         textMacros = ''+code+' '+'='+' '+value+' and';
-                    }else if(  operation == '+""+'){
+                    }else if( operation == '+""+'){
                         textMacros = ''+code+' in  (N\''+value+'\' and';
-                    }else if(  operation == 'in'){
+                    }else if( operation == 'in'){
                         textMacros = ''+code+' in ('+value+') and';
-                    }else if(  operation == '='){
+                    }else if( operation == '='){
                         textMacros = ''+code+' '+operation+' N\''+value+'\' and';
                     }
                     this.textFilterMacros.push(textMacros);
@@ -434,20 +434,20 @@
                 queryCode: 'ak_QueryCodeSearch',
                 limit: -1,
                 parameterValues: [
-                    {  key: '@param1', value: this.macrosValue },
-                    {  key: '@registration_date_from', value: this.registrationDateFrom },
-                    {  key: '@registration_date_to', value: this.registrationDateTo },
-                    {  key: '@transfer_date_from', value: this.transferDateFrom },
-                    {  key: '@transfer_date_to', value: this.transferDateTo },
-                    {  key: '@state_changed_date_from', value: this.stateChangedDateFrom },
-                    {  key: '@state_changed_date_to', value: this.stateChangedDateTo },
-                    {  key: '@state_changed_date_done_from', value: this.stateChangedDateDoneFrom },
-                    {  key: '@state_changed_date_done_to', value: this.stateChangedDateDoneTo },
-                    {  key: '@execution_term_from', value: this.executionTermFrom },
-                    {  key: '@execution_term_to', value: this.executionTermTo },
-                    {  key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
-                    {  key: '@control_date_from', value: this.controlDateFrom },
-                    {  key: '@control_date_to', value: this.controlDateTo },
+                    { key: '@param1', value: this.macrosValue },
+                    { key: '@registration_date_from', value: this.registrationDateFrom },
+                    { key: '@registration_date_to', value: this.registrationDateTo },
+                    { key: '@transfer_date_from', value: this.transferDateFrom },
+                    { key: '@transfer_date_to', value: this.transferDateTo },
+                    { key: '@state_changed_date_from', value: this.stateChangedDateFrom },
+                    { key: '@state_changed_date_to', value: this.stateChangedDateTo },
+                    { key: '@state_changed_date_done_from', value: this.stateChangedDateDoneFrom },
+                    { key: '@state_changed_date_done_to', value: this.stateChangedDateDoneTo },
+                    { key: '@execution_term_from', value: this.executionTermFrom },
+                    { key: '@execution_term_to', value: this.executionTermTo },
+                    { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
+                    { key: '@control_date_from', value: this.controlDateFrom },
+                    { key: '@control_date_to', value: this.controlDateTo },
                     { key: '@pageOffsetRows', value: 0},
                     { key: '@pageLimitRows', value: 10}
                 ]
@@ -508,8 +508,8 @@
                 let rowNumber = '№ з/п';
                 captions.push(rowNumber);
                 indexArr.forEach( el => {
-                    if( el.name === 'question_registration_number'  ){
-                        let obj =  {
+                    if( el.name === 'question_registration_number' ){
+                        let obj = {
                             key: 'registration_number',
                             width: 10,
                             height: 20
@@ -517,47 +517,47 @@
                         columnsHeader.push(obj);
                         captions.push('Номер, дата, час');
                     }else if(el.name === 'zayavnyk_full_name' ){
-                        let obj =  {
+                        let obj = {
                             key: 'name',
                             width: 15
                         };
                         columnsHeader.push(obj);
                         captions.push('Заявник');
                     }else if(el.name === 'question_question_type'){
-                        let obj1 =  {
+                        let obj1 = {
                             key: 'question_type',
                             width: 10
                         };
                         columnsHeader.push(obj1);
                         captions.push('Тип питання');
-                        let obj2 =  {
+                        let obj2 = {
                             key: 'assigm_question_content',
                             width: 62
                         };
                         columnsHeader.push(obj2);
                         captions.push('Суть питання');
-                    }else if( el.name === 'assigm_executor_organization'  ){
-                        let obj =  {
+                    }else if( el.name === 'assigm_executor_organization' ){
+                        let obj = {
                             key: 'organization',
                             width: 11
                         };
                         columnsHeader.push(obj);
                         captions.push('Виконавець');
-                    }else if( el.name === 'question_object'  ){
-                        let obj =  {
+                    }else if( el.name === 'question_object' ){
+                        let obj = {
                             key: 'object',
                             width: 16
                         };
                         columnsHeader.push(obj);
                         captions.push('Місце проблеми (Об\'єкт)');
                     }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat'){
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 13
                         };
                         otherColumns.push(obj);
                     }else{
-                        let obj =  {
+                        let obj = {
                             key: el.name,
                             width: 13
                         };
@@ -573,26 +573,26 @@
                 let indexZayavnykBuildingNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_building_number' );
                 let indexAssigmQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'assigm_question_content' );
                 let indexExecutionTerm = data.columns.findIndex(el => el.code.toLowerCase() === 'execution_term' );
-                for( let  j = 0; j < data.rows.length; j ++ ) {
+                for( let j = 0; j < data.rows.length; j ++ ) {
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
                     for(let i = 0; i < indexArr.length; i ++) {
                         let el = indexArr[i];
                         const controlDate = this.changeDateTimeValues(row.values[indexExecutionTerm]);
                         const regDate = this.changeDateTimeValues(row.values[indexRegistrationDate]);
-                        if( el.name === 'question_registration_number'  ){
+                        if( el.name === 'question_registration_number' ){
                             rowItem.registration_number = row.values[el.index] + ' ' + regDate;
                         }else if(el.name === 'zayavnyk_full_name' ){
-                            rowItem.name = row.values[el.index] + ' ' + row.values[indexZayavnykBuildingNumber] + ', кв. ' +  row.values[indexZayavnykFlat];
+                            rowItem.name = row.values[el.index] + ' ' + row.values[indexZayavnykBuildingNumber] + ', кв. ' + row.values[indexZayavnykFlat];
                         }else if(el.name === 'question_question_type' ){
                             rowItem.question_type = 'Тип питання: ' + row.values[el.index];
                             rowItem.assigm_question_content = 'Зміст: ' + row.values[indexAssigmQuestionContent];
-                        }else if( el.name === 'assigm_executor_organization'  ){
+                        }else if( el.name === 'assigm_executor_organization' ){
                             rowItem.organization = row.values[el.index] + '. Дату контролю: ' + controlDate;
-                        }else if( el.name === 'question_object'  ){
+                        }else if( el.name === 'question_object' ){
                             rowItem.object = row.values[el.index];
-                        }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat'  ){
-                            let obj =  {
+                        }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat' ){
+                            let obj = {
                                 key: el.name,
                                 width: 13
                             };
@@ -719,22 +719,22 @@
                             row.appeals_receipt_source = el.appeals_receipt_source
                             break
                         case 'appeals_user':
-                            row.appeals_user =  el.appeals_user
+                            row.appeals_user = el.appeals_user
                             break
                         case 'appeals_district':
-                            row.appeals_district =  el.appeals_district
+                            row.appeals_district = el.appeals_district
                             break
                         case 'appeals_files_check':
-                            row.appeals_files_check =  el.appeals_files_check
+                            row.appeals_files_check = el.appeals_files_check
                             break
                         case 'zayavnyk_phone_number':
-                            row.zayavnyk_phone_number =  el.zayavnyk_phone_number
+                            row.zayavnyk_phone_number = el.zayavnyk_phone_number
                             break
                         case 'zayavnyk_entrance':
-                            row.zayavnyk_entrance =  el.zayavnyk_entrance
+                            row.zayavnyk_entrance = el.zayavnyk_entrance
                             break
                         case 'zayavnyk_applicant_privilage':
-                            row.zayavnyk_applicant_privilage =  el.zayavnyk_applicant_privilage
+                            row.zayavnyk_applicant_privilage = el.zayavnyk_applicant_privilage
                             break
                         case 'zayavnyk_social_state':
                             row.zayavnyk_social_state = el.zayavnyk_social_state
@@ -743,7 +743,7 @@
                             row.zayavnyk_sex = el.zayavnyk_sex
                             break
                         case 'zayavnyk_applicant_type':
-                            row.zayavnyk_applicant_type =  el.zayavnyk_applicant_type
+                            row.zayavnyk_applicant_type = el.zayavnyk_applicant_type
                             break
                         case 'zayavnyk_age':
                             row.zayavnyk_age = el.zayavnyk_age
@@ -794,7 +794,7 @@
                             row.state_changed_date_done = el.state_changed_date_done
                             break
                         case 'execution_term':
-                            row.execution_term =  el.execution_term
+                            row.execution_term = el.execution_term
                             break
                         case 'appeals_enter_number':
                             row.appeals_enter_number = el.appeals_enter_number;
@@ -817,7 +817,7 @@
                     top: 0.4, bottom: 0.4,
                     header: 0.0, footer: 0.0
                 };
-                for(let  i = 0; i < rows.length + 1; i++ ){
+                for(let i = 0; i < rows.length + 1; i++ ){
                     let number = i + 5;
                     let row = worksheet.getRow(number);
                     row.height = 100;
@@ -844,7 +844,7 @@
                     bottom: {style:'thin'}
                 };
                 worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
+                worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
                 this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
             }
         },
@@ -863,7 +863,7 @@
             mm = mm.length === 1 ? '0' + mm : mm;
             HH = HH.length === 1 ? '0' + HH : HH;
             MM = MM.length === 1 ? '0' + MM : MM;
-            return  dd + '.' + mm + '.' + yyyy + ' ' + HH + ':' + MM;
+            return dd + '.' + mm + '.' + yyyy + ' ' + HH + ':' + MM;
         },
         destroy: function() {
             this.sub.unsubscribe();

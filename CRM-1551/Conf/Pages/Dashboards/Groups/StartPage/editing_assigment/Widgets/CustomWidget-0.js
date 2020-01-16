@@ -34,15 +34,15 @@
         },
         openModalForm: function(message) {
             let status = message.status;
-            const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Так'});
-            const modalBtnExit =  this.createElement('button', { id:'modalBtnExit', className: 'btn', innerText: 'Вийти'});
-            const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue, modalBtnExit);
-            const modalTitle =  this.createElement('div', { id:'modalTitle', innerText: 'Ви дійсно впевнені, що бажаєте видалити Звернення?'});
+            const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Так'});
+            const modalBtnExit = this.createElement('button', { id:'modalBtnExit', className: 'btn', innerText: 'Вийти'});
+            const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue, modalBtnExit);
+            const modalTitle = this.createElement('div', { id:'modalTitle', innerText: 'Ви дійсно впевнені, що бажаєте видалити Звернення?'});
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             this.container.appendChild(modalWindowWrapper);
             modalBtnTrue.addEventListener( 'click', () => {
-                this.messageService.publish( { name: 'deleteAssigments', status: status  });
+                this.messageService.publish( { name: 'deleteAssigments', status: status });
                 let lastElementChild = this.container.lastElementChild;
                 this.container.removeChild(lastElementChild);
             });

@@ -17,7 +17,7 @@
         load: function() {
             const CONTAINER = document.getElementById('container');
             let title = this.createElement('div', { className: 'header-label', innerText: ' '});
-            let groupViewAppeals__icon = this.createElement('div', { className: 'icon letterIcon material-icons',  innerText: 'group' });
+            let groupViewAppeals__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'group' });
             let groupViewAppeals__description = this.createElement('div', { className: 'description', innerText: 'Управління користувачами'});
             groupViewAppeals__icon.style.color = '#ff7961';
             let groupViewAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
@@ -26,7 +26,7 @@
             groupViewAppeals.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/admin/users');
             });
-            let groupViewAppeals2__icon = this.createElement('div', { className: 'icon letterIcon material-icons',  innerText: 'location_city' });
+            let groupViewAppeals2__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'location_city' });
             let groupViewAppeals2__description = this.createElement('div', { className: 'description', innerText: 'Організації'});
             groupViewAppeals2__icon.style.color = '#ff7961';
             let groupViewAppeals2__borderBottom = this.createElement('div', { className: 'border-bottom' });

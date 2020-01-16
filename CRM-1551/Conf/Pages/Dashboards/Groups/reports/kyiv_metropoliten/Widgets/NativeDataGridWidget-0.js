@@ -28,7 +28,7 @@
             const period = message.package.value.values.find(f => f.name === 'period').value;
             if( period !== null ){
                 if( period.dateFrom !== '' && period.dateTo !== ''){
-                    this.dateFrom =  period.dateFrom;
+                    this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },

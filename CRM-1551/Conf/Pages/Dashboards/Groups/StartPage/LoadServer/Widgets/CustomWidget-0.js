@@ -132,7 +132,7 @@
             let BtnCreateContent1 = document.getElementById('input_btn_1');
             let BtnCreateContent2 = document.getElementById('input_btn_2');
             let BtnCreateContent3 = document.getElementById('input_btn_3');
-            document.getElementById('LastChangeDate').innerText  = this.extractDate(data.rows[0].values[4]);
+            document.getElementById('LastChangeDate').innerText = this.extractDate(data.rows[0].values[4]);
             if (data.rows[0].values[3] == 'Simple load') {
                 this.activeElement(BtnCreateContent1);
             } else if (data.rows[0].values[3] == 'Standart load') {

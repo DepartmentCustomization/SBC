@@ -17,7 +17,7 @@
         load: function() {
             const CONTAINER = document.getElementById('container');
             let title = this.createElement('div', { className: 'header-label', innerText: ' '});
-            let groupViewAppeals__icon = this.createElement('div', { className: 'icon letterIcon material-icons',  innerText: 'view_list' });
+            let groupViewAppeals__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'view_list' });
             let groupViewAppeals__description = this.createElement('div', { className: 'description', innerText: 'Перегляд Звернень'});
             groupViewAppeals__icon.style.color = '#ff7961';
             let groupViewAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
@@ -26,7 +26,7 @@
             groupViewAppeals.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/registryClaims');
             });
-            let groupRegByPhone__icon = this.createElement('div', { className: 'icon letterIcon material-icons',  innerText: 'contact_phone' });
+            let groupRegByPhone__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'contact_phone' });
             let groupRegByPhone__description = this.createElement('div', { className: 'description', innerText: 'Реєстрація Звернення'});
             groupRegByPhone__icon.style.color = '#f44336';
             let groupRegByPhone__borderBottom = this.createElement('div', { className: 'border-bottom' });
@@ -52,15 +52,15 @@
         showModalWindow: function() {
             this.typeAppeal = 1;
             let CONTAINER = document.getElementById('container');
-            const modalBtnClose =  this.createElement('button', { id:'modalBtnClose', className: 'btn', innerText: 'Закрити'});
-            const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Підтвердити'});
-            const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper' }, modalBtnTrue, modalBtnClose);
-            const modalNumber =  this.createElement('input', { id:'modalNumber', type:'text', placeholder:'Введіть номер телефону в форматі 0xxxxxxxxx',  value: ''});
+            const modalBtnClose = this.createElement('button', { id:'modalBtnClose', className: 'btn', innerText: 'Закрити'});
+            const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Підтвердити'});
+            const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper' }, modalBtnTrue, modalBtnClose);
+            const modalNumber = this.createElement('input', { id:'modalNumber', type:'text', placeholder:'Введіть номер телефону в форматі 0xxxxxxxxx', value: ''});
             const radioBtn = document.createElement('div');
             radioBtn.innerHTML = `<input style="cursor: pointer; width: 20px; height: 20px;" id="radioBtn1" checked="true" type="radio" name="type" value="1"> Телефон<br>
                             <input style="cursor: pointer; width: 20px; height: 20px;" id="radioBtn2" type="radio" name="type" value="2"> E-Mail<br>
                             <input style="cursor: pointer; width: 20px; height: 20px;" id="radioBtn3" type="radio" name="type" value="3"> Особистий прийом<br>`;
-            const modalRadioWrapper =  this.createElement('div', { id:'modalRadioWrapper' },  radioBtn);
+            const modalRadioWrapper = this.createElement('div', { id:'modalRadioWrapper' }, radioBtn);
             radioBtn.style.fontSize = '2em';
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalNumber, modalRadioWrapper, modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
