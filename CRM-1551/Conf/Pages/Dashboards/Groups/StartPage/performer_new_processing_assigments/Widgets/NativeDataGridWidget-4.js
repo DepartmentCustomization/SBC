@@ -10,7 +10,7 @@
                 chunkSize: 1000
             },
             columns: [
-            {
+                {
                     dataField: 'registration_number',
                     caption: 'Номер питання',
                     width: 150
@@ -140,20 +140,20 @@
             })
         },
         createTableButton: function(e) {
-                let toolbarItems = e.toolbarOptions.items;
-                toolbarItems.push({
-                    widget: 'dxButton',
-                    options: {
-                        icon: 'check',
-                        type: 'default',
-                        text: 'Ознайомився',
-                        onClick: function(e) {
-                            e.event.stopImmediatePropagation();
-                            this.findAllSelectRowsDoVidoma();
-                        }.bind(this)
-                    },
-                    location: 'after'
-                });
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                options: {
+                    icon: 'check',
+                    type: 'default',
+                    text: 'Ознайомився',
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
+                        this.findAllSelectRowsDoVidoma();
+                    }.bind(this)
+                },
+                location: 'after'
+            });
         },
         changeOnTable: function(message){
             this.column = message.column;
@@ -164,8 +164,8 @@
             }else{
                 document.getElementById('table7__doVidoma').style.display = 'block';
                 this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
-                                                    { key: '@organizationName', value: message.orgName},
-                                                    { key: '@navigation', value: message.navigation}];
+                    { key: '@organizationName', value: message.orgName},
+                    { key: '@navigation', value: message.navigation}];
                 this.loadData(this.afterLoadDataHandler);
             }
         },

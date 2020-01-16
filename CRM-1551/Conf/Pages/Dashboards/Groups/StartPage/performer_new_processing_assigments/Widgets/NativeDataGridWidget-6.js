@@ -146,8 +146,8 @@
                 document.getElementById('table10_Plan_Programs').style.display = 'block';
                 this.config.query.queryCode = 'NaDooprNemaMozhlVyk';
                 this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
-                                                    { key: '@column', value: message.column},
-                                                    { key: '@navigation', value: message.navigation}];
+                    { key: '@column', value: message.column},
+                    { key: '@navigation', value: message.navigation}];
                 this.loadData(this.afterLoadDataHandler);
             }
         },

@@ -6,7 +6,7 @@
             this.form.disableControl('phone_number');
         },
         afterSave: function(data){
-             this.navigateTo('/sections/Hotline/edit/' + data.rows[0].values[0]);
-         }
+            this.navigateTo('/sections/Hotline/edit/' + data.rows[0].values[0]);
+        }
     }
-    }());
+}());

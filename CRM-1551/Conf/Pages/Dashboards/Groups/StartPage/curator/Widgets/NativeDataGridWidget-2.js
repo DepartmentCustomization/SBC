@@ -10,7 +10,7 @@
                 chunkSize: 1000
             },
             columns: [
-            {
+                {
                     dataField: 'registration_number',
                     caption: 'Номер питання',
                     fixed: true,
@@ -186,9 +186,9 @@
                 queryCode: 'CoordinatorController_Doopr_Roz_Prostr_NemMozh',
                 limit: -1,
                 parameterValues: [
-                        { key: '@navigation', value: this.navigation },
-                        { key: '@column', value: this.column }
-                    ]
+                    { key: '@navigation', value: this.navigation },
+                    { key: '@column', value: this.column }
+                ]
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },

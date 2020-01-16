@@ -15,16 +15,16 @@
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 100;
             const getUrlParams = window
-                                .location
-                                    .search
-                                        .replace('?', '')
-                                            .split('&')
-                                                .reduce(function(p, e) {
-                                                    let a = e.split('=');
-                                                    p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
-                                                    return p;
-                                                }, {}
-                                                );
+                .location
+                .search
+                .replace('?', '')
+                .split('&')
+                .reduce(function(p, e) {
+                    let a = e.split('=');
+                    p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                    return p;
+                }, {}
+                );
             const columnCode = getUrlParams.columncode;
             const date = getUrlParams.date;
             const ratingId = Number(getUrlParams.ratingid);

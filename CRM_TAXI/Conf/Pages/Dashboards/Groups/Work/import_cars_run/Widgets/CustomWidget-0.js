@@ -42,7 +42,7 @@
                     this.showPreloader = false;
                 }
             });
-          btnImportFile.addEventListener('click', () => {
+            btnImportFile.addEventListener('click', () => {
                 let fileInput = document.getElementById('fileInput');
                 if (fileInput.files.length > 0) {
                     this.showPagePreloader('Ожидайте, файл загружается');

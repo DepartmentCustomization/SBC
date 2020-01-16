@@ -24,16 +24,16 @@
                 this.showPreloader = false;
             }else{
                 let getUrlParams = window
-                                .location
-                                    .search
-                                        .replace('?', '')
-                                            .split('&')
-                                                .reduce(function(p, e) {
-                                                        let a = e.split('=');
-                                                        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
-                                                        return p;
-                                                        }, {}
-                                                            );
+                    .location
+                    .search
+                    .replace('?', '')
+                    .split('&')
+                    .reduce(function(p, e) {
+                        let a = e.split('=');
+                        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                        return p;
+                    }, {}
+                    );
                 let tabInd = Number(getUrlParams.id);
                 this.organizationId = [];
                 this.organizationId = (tabInd);
@@ -270,7 +270,7 @@
                     this.searchContainer__input.value = '';
                     this.resultSearch('clearInput', 0);
                     categories.forEach( el => {
-                    el.style.display = 'none';
+                        el.style.display = 'none';
                     });
                     let navigator = 'Усі';
                     let column = this.columnName(target);
@@ -281,7 +281,7 @@
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
                     categories.forEach( el => {
-                    el.style.display = 'none';
+                        el.style.display = 'none';
                     });
                     let navigator = target.firstElementChild.innerText;
                     target = target.parentElement.parentElement.firstElementChild;
@@ -291,7 +291,7 @@
             });
             if( reloadTable == true ){
                 categories.forEach( el => {
-                el.style.display = 'none';
+                    el.style.display = 'none';
                 });
                 let target = document.getElementById(targetId);
                 this.showTable(target,  this.column, this.navigator );
@@ -368,11 +368,11 @@
             categories = Array.from(categories);
             if( value == 0){
                 categories.forEach( el => {
-                el.style.display = 'none';
+                    el.style.display = 'none';
                 });
             }else if( value == 1){
                 categories.forEach( el => {
-                el.style.display = 'flex';
+                    el.style.display = 'flex';
                 });
             }
         },

@@ -148,7 +148,7 @@
                 this.config.query.parameterValues = [
                     { key: '@appealNum',  value: message.value},
                     { key: '@organization_id', value: message.orgId}
-                    ];
+                ];
                 this.loadData(this.afterLoadDataHandler);
                 this.dataGridInstance.onCellClick.subscribe(e => {
                     if(e.column.dataField == 'registration_number' && e.row != undefined){

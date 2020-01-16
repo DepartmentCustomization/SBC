@@ -42,7 +42,7 @@
         checkItems: function() {
             let elements = this.filterColumns;
             elements.forEach( e => {
-            document.getElementById(e.displayValue).checked = true;
+                document.getElementById(e.displayValue).checked = true;
             });
         },
         createElement: function(tag, props, ...children) {
@@ -57,33 +57,33 @@
         showApplyFiltersValue: function(message) {
             let container = document.getElementById('filtersContainer');
             while( container.hasChildNodes() ) {
-            container.removeChild( container.lastElementChild );
+                container.removeChild( container.lastElementChild );
             }
             const filtersBox = [];
             message.value.forEach( el => {
                 let value = el.operation;
                 let obj = {};
                 switch(value){
-                    case true:
-                    case '=':
-                        obj.title = el.placeholder,
-                        obj.value = 'Наявнiсть'
-                        break;
-                    case 'like':
-                        obj.title = el.placeholder,
-                        obj.value = el.value
-                        break;
-                    case '===':
-                    case '==':
-                    case 'in':
-                    case '+""+':
-                        obj.title = el.placeholder,
-                        obj.value = el.value
-                        break
-                    default:
-                        obj.title = this.operation(el.operation, el.placeholder);
-                        obj.value = this.changeDateValue(el.value);
-                        break;
+                case true:
+                case '=':
+                    obj.title = el.placeholder,
+                    obj.value = 'Наявнiсть'
+                    break;
+                case 'like':
+                    obj.title = el.placeholder,
+                    obj.value = el.value
+                    break;
+                case '===':
+                case '==':
+                case 'in':
+                case '+""+':
+                    obj.title = el.placeholder,
+                    obj.value = el.value
+                    break
+                default:
+                    obj.title = this.operation(el.operation, el.placeholder);
+                    obj.value = this.changeDateValue(el.value);
+                    break;
                 }
                 filtersBox.push(obj);
             });
@@ -91,12 +91,12 @@
         },
         operation: function(operation, title) {
             switch( operation ) {
-                case '>=':
-                    title = title + ' з'
-                    break
-                case '<=':
-                    title = title + ' по'
-                    break
+            case '>=':
+                title = title + ' з'
+                break
+            case '<=':
+                title = title + ' по'
+                break
             }
             return title
         },
@@ -271,7 +271,7 @@
             if(this.defaultCheckedItem.length > 0 ){
                 let arr = this.defaultCheckedItem;
                 arr.forEach( e => {
-                document.getElementById(e.displayValue).checked = true;
+                    document.getElementById(e.displayValue).checked = true;
                 });
             }
             this.checkItems();

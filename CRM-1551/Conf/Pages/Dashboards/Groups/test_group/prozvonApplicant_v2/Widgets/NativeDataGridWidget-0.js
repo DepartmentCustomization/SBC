@@ -114,22 +114,22 @@
             }.bind(this));
             if(window.location.search != ''){
                 let getUrlParams =  window
-                                        .location
-                                            .search
-                                                .replace('?', '')
-                                                    .split('&')
-                                                        .reduce(function(p, e) {
-                                                            let a = e.split('=');
-                                                            p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
-                                                            return p;
-                                                            }, {}
-                                                        );
+                    .location
+                    .search
+                    .replace('?', '')
+                    .split('&')
+                    .reduce(function(p, e) {
+                        let a = e.split('=');
+                        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                        return p;
+                    }, {}
+                    );
                 let applicantId = Number(getUrlParams.id);
                 this.applicantId = [];
                 this.applicantId = (applicantId);
                 this.config.query.parameterValues = [ {  key: '@ApplicantsId', value: this.applicantId },
-                                                    {  key: '@filter', value: '1=1' },
-                                                    {  key: '@sort', value: '1=1' } ];
+                    {  key: '@filter', value: '1=1' },
+                    {  key: '@sort', value: '1=1' } ];
                 this.loadData(this.afterLoadDataHandler);
             }
             this.config.onContentReady = this.afterRenderTable.bind(this);
@@ -139,39 +139,39 @@
             if( args.fullName != undefined){
                 let columnCode ;
                 switch(args.fullName){
-                    case('columns[0].sortOrder'):
-                        columnCode = 'registration_number'
-                        break;
-                    case('columns[1].sortOrder'):
-                        columnCode = 'QuestionType'
-                        break;
-                    case('columns[2].sortOrder'):
-                        columnCode = 'full_name'
-                        break;
-                    case('columns[3].sortOrder'):
-                        columnCode = 'phone_number'
-                        break;
-                    case('columns[4].sortOrder'):
-                        columnCode = 'cc_nedozvon'
-                        break;
-                    case('columns[5].sortOrder'):
-                        columnCode = 'District'
-                        break;
-                    case('columns[6].sortOrder'):
-                        columnCode = 'house'
-                        break;
-                    case('columns[7].sortOrder'):
-                        columnCode = 'entrance'
-                        break;
-                    case('columns[8].sortOrder'):
-                        columnCode = 'place_problem'
-                        break;
-                    case('columns[9].sortOrder'):
-                        columnCode = 'vykon'
-                        break;
-                    case('dataSource'):
-                        columnCode = 'dataSource'
-                        break;
+                case('columns[0].sortOrder'):
+                    columnCode = 'registration_number'
+                    break;
+                case('columns[1].sortOrder'):
+                    columnCode = 'QuestionType'
+                    break;
+                case('columns[2].sortOrder'):
+                    columnCode = 'full_name'
+                    break;
+                case('columns[3].sortOrder'):
+                    columnCode = 'phone_number'
+                    break;
+                case('columns[4].sortOrder'):
+                    columnCode = 'cc_nedozvon'
+                    break;
+                case('columns[5].sortOrder'):
+                    columnCode = 'District'
+                    break;
+                case('columns[6].sortOrder'):
+                    columnCode = 'house'
+                    break;
+                case('columns[7].sortOrder'):
+                    columnCode = 'entrance'
+                    break;
+                case('columns[8].sortOrder'):
+                    columnCode = 'place_problem'
+                    break;
+                case('columns[9].sortOrder'):
+                    columnCode = 'vykon'
+                    break;
+                case('dataSource'):
+                    columnCode = 'dataSource'
+                    break;
                 }
                 if(columnCode != undefined ){
                     if(columnCode != 'dataSource'){

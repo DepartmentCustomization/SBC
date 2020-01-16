@@ -351,10 +351,10 @@
                 this.navigation =  message.navigation;
                 document.getElementById('table6__ProstrocheniUvagaVRoboti').style.display = 'block';
                 this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
-                                                    { key: '@organizationName', value: message.orgName},
-                                                    { key: '@column', value: message.column},
-                                                    { key: '@navigation', value: message.navigation}];
-            this.loadData(this.afterLoadDataHandler);
+                    { key: '@organizationName', value: message.orgName},
+                    { key: '@column', value: message.column},
+                    { key: '@navigation', value: message.navigation}];
+                this.loadData(this.afterLoadDataHandler);
             }
         },
         afterLoadDataHandler: function() {

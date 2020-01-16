@@ -126,10 +126,10 @@
                 queryCode: 'Nadiyshlo',
                 limit: -1,
                 parameterValues: [
-                        { key: '@organization_id',  value: this.orgId},
-                        { key: '@organizationName', value: this.orgName},
-                        { key: '@navigation', value: this.navigator}
-                    ]
+                    { key: '@organization_id',  value: this.orgId},
+                    { key: '@organizationName', value: this.orgName},
+                    { key: '@navigation', value: this.navigator}
+                ]
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },
@@ -411,8 +411,8 @@
                 this.orgName = message.orgName;
                 document.getElementById('table41__arrived').style.display = 'block';
                 this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
-                                                    { key: '@organizationName', value: message.orgName},
-                                                    { key: '@navigation', value: message.navigation}];
+                    { key: '@organizationName', value: message.orgName},
+                    { key: '@navigation', value: message.navigation}];
                 let executeQuery = {
                     queryCode: 'Lookup_NeVKompetencii_PidOrganization',
                     parameterValues: [  {key: '@organization_id', value: this.organizationId} ],
@@ -455,7 +455,7 @@
                     let executeQuery = {
                         queryCode: 'Button_Nadiishlo_Rozpodility',
                         parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
-                                        {key: '@Id', value: el.Id}  ],
+                            {key: '@Id', value: el.Id}  ],
                         limit: -1
                     };
                     this.queryExecutor(executeQuery);

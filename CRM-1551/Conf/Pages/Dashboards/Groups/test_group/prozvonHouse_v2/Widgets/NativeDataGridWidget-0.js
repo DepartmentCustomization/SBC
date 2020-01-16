@@ -115,22 +115,22 @@
             }.bind(this));
             if(window.location.search != ''){
                 let getUrlParams =  window
-                                        .location
-                                            .search
-                                                .replace('?', '')
-                                                    .split('&')
-                                                        .reduce(function(p, e) {
-                                                            let a = e.split('=');
-                                                            p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
-                                                            return p;
-                                                            }, {}
-                                                        );
+                    .location
+                    .search
+                    .replace('?', '')
+                    .split('&')
+                    .reduce(function(p, e) {
+                        let a = e.split('=');
+                        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                        return p;
+                    }, {}
+                    );
                 let buildId = Number(getUrlParams.id);
                 this.buildId = [];
                 this.buildId = (buildId);
                 this.config.query.parameterValues = [ {  key: '@buildId', value: this.buildId },
-                                                    {  key: '@filter', value: this.filter },
-                                                    {  key: '@sort', value: this.sort } ];
+                    {  key: '@filter', value: this.filter },
+                    {  key: '@sort', value: this.sort } ];
                 this.loadData(this.afterLoadDataHandler);
             }
             this.config.onContentReady = this.afterRenderTable.bind(this);
@@ -152,8 +152,8 @@
                 el.style.textAlign = 'center';
                 spanCircle.style.width = '100%';
                 if( el.childNodes.length < 2 ){
-    el.appendChild(spanCircle);
-    }
+                    el.appendChild(spanCircle);
+                }
                 let cond1 = this.data[dataIndex][17];
                 let cond2 = this.data[dataIndex][18];
                 if(cond1 === 'На перевірці'  ){
@@ -182,42 +182,42 @@
             if( args.fullName != undefined ){
                 let columnCode ;
                 switch(args.fullName){
-                    case('columns[0].sortOrder'):
-                        columnCode = 'registration_number'
+                case('columns[0].sortOrder'):
+                    columnCode = 'registration_number'
                     break;
-                    case('columns[1].sortOrder'):
-                        columnCode = 'QuestionType'
-                        break;
-                    case('columns[2].sortOrder'):
-                        columnCode = 'states'
-                        break;
-                    case('columns[3].sortOrder'):
-                        columnCode = 'full_name'
-                        break;
-                    case('columns[4].sortOrder'):
-                        columnCode = 'phone_number'
-                        break;
-                    case('columns[5].sortOrder'):
-                        columnCode = 'cc_nedozvon'
-                        break;
-                    case('columns[6].sortOrder'):
-                        columnCode = 'District'
-                        break;
-                    case('columns[7].sortOrder'):
-                        columnCode = 'house'
-                        break;
-                    case('columns[8].sortOrder'):
-                        columnCode = 'entrance'
-                        break;
-                    case('columns[9].sortOrder'):
-                        columnCode = 'place_problem'
-                        break;
-                    case('columns[10].sortOrder'):
-                        columnCode = 'vykon'
-                        break;
-                    case('dataSource'):
-                        columnCode = 'dataSource'
-                        break;
+                case('columns[1].sortOrder'):
+                    columnCode = 'QuestionType'
+                    break;
+                case('columns[2].sortOrder'):
+                    columnCode = 'states'
+                    break;
+                case('columns[3].sortOrder'):
+                    columnCode = 'full_name'
+                    break;
+                case('columns[4].sortOrder'):
+                    columnCode = 'phone_number'
+                    break;
+                case('columns[5].sortOrder'):
+                    columnCode = 'cc_nedozvon'
+                    break;
+                case('columns[6].sortOrder'):
+                    columnCode = 'District'
+                    break;
+                case('columns[7].sortOrder'):
+                    columnCode = 'house'
+                    break;
+                case('columns[8].sortOrder'):
+                    columnCode = 'entrance'
+                    break;
+                case('columns[9].sortOrder'):
+                    columnCode = 'place_problem'
+                    break;
+                case('columns[10].sortOrder'):
+                    columnCode = 'vykon'
+                    break;
+                case('dataSource'):
+                    columnCode = 'dataSource'
+                    break;
                 }
                 if(columnCode != undefined ){
                     if(columnCode != 'dataSource'){
@@ -318,20 +318,20 @@
             this.render();
         },
         createDGButtons: function(e) {
-                let toolbarItems = e.toolbarOptions.items;
-                toolbarItems.push({
-                    widget: 'dxButton',
-                    options: {
-                        icon: 'close',
-                        type: 'default',
-                        text: 'Закрити',
-                        onClick: function(e) {
-                            e.event.stopImmediatePropagation();
-                            this.openModalCloserForm();
-                        }.bind(this)
-                    },
-                    location: 'after'
-                });
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                options: {
+                    icon: 'close',
+                    type: 'default',
+                    text: 'Закрити',
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
+                        this.openModalCloserForm();
+                    }.bind(this)
+                },
+                location: 'after'
+            });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);

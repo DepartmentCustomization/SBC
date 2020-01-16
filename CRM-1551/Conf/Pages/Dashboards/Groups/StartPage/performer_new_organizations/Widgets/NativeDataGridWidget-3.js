@@ -119,10 +119,10 @@
                 queryCode: 'ProstrocheniUvagaVRoboti',
                 limit: -1,
                 parameterValues: [
-                        { key: '@organization_id',  value: this.orgId},
-                        { key: '@organizationName', value: this.orgName},
-                        { key: '@column', value: this.column},
-                        { key: '@navigation', value: this.navigation}
+                    { key: '@organization_id',  value: this.orgId},
+                    { key: '@organizationName', value: this.orgName},
+                    { key: '@column', value: this.column},
+                    { key: '@navigation', value: this.navigation}
                 ]
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
@@ -352,10 +352,10 @@
                 this.navigation =  message.navigation;
                 document.getElementById('table6__ProstrocheniUvagaVRoboti').style.display = 'block';
                 this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
-                                                    { key: '@organizationName', value: message.orgName},
-                                                    { key: '@column', value: message.column},
-                                                    { key: '@navigation', value: message.navigation}];
-            this.loadData(this.afterLoadDataHandler);
+                    { key: '@organizationName', value: message.orgName},
+                    { key: '@column', value: message.column},
+                    { key: '@navigation', value: message.navigation}];
+                this.loadData(this.afterLoadDataHandler);
             }
         },
         afterLoadDataHandler: function() {

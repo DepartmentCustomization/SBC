@@ -10,7 +10,7 @@
                 chunkSize: 1000
             },
             columns: [
-            {
+                {
                     dataField: 'registration_number',
                     caption: 'Номер питання',
                     fixed: true,

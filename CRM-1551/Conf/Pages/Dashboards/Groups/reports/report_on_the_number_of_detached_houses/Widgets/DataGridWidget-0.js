@@ -11,7 +11,7 @@
                 chunkSize: 1000
             },
             columns: [
-            {
+                {
                     dataField: 'district',
                     caption: 'Район',
                 }, {

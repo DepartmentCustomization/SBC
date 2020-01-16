@@ -137,13 +137,13 @@
             this.finish_date = checkDateTo(message.package.value.values[0].value);
             this.config.query.queryCode = 'db_first';
             this.config.query.parameterValues = [{
-                                                    key:'@date_start',
-                                                    value: this.start_date
-                                                },
-                                                {
-                                                    key: '@date_end' ,
-                                                    value: this.finish_date
-                                                }];
+                key:'@date_start',
+                value: this.start_date
+            },
+            {
+                key: '@date_end' ,
+                value: this.finish_date
+            }];
             this.loadData();
         },
         destroy: function() {

@@ -114,8 +114,8 @@
             }else {
                 document.getElementById('table4__arrived').style.display = 'block';
                 this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
-                                                    { key: '@organizationName', value: message.orgName},
-                                                    { key: '@navigation', value: message.navigation}];
+                    { key: '@organizationName', value: message.orgName},
+                    { key: '@navigation', value: message.navigation}];
                 this.loadData(this.afterLoadDataHandler);
             }
         },

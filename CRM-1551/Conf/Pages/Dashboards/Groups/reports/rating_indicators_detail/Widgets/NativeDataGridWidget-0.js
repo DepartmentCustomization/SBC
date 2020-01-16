@@ -422,7 +422,7 @@
                 worksheet.addRow(rowValues);
             }
             function isInt(n) {
-            return n % 1 === 0;
+                return n % 1 === 0;
             }
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },

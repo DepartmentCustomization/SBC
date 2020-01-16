@@ -1,5 +1,5 @@
 (function () {
-  return {
+    return {
         config: {
             query: {
                 code: 'ClaimsSelect_Table_Report',
@@ -159,8 +159,8 @@
                 let column = visibleColumns[i];
                 let caption = column.caption;
                 captions.push(caption);
-                 let header = '';
-                 let key = '';
+                let header = '';
+                let key = '';
                 let width = 20;
                 let index = 10;
                 let columnProp = { header, key, width, index };

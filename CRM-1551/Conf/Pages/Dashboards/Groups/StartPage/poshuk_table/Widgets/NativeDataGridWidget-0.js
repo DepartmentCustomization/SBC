@@ -184,48 +184,48 @@
                             if(data.dateFrom != '' ){
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name){
-                                    case 'registration_date':
-                                        this.registrationDate__from = checkDateFrom(elem.value);
-                                        this.registrationDateFrom = checkDateFrom(elem.value);
-                                        break;
-                                    case 'transfer_date':
-                                        this.transferDateFrom = checkDateFrom(elem.value);
-                                        break;
-                                    case 'state_changed_date':
-                                        this.stateChangedDateFrom = checkDateFrom(elem.value);
-                                        break;
-                                    case 'state_changed_date_done':
-                                        this.stateChangedDateDoneFrom = checkDateFrom(elem.value);
-                                        break;
-                                    case 'execution_term':
-                                        this.executionTermFrom = checkDateFrom(elem.value);
-                                        break;
-                                    case 'control_date':
-                                        this.controlDateFrom = checkDateFrom(elem.value);
-                                        break;
+                                case 'registration_date':
+                                    this.registrationDate__from = checkDateFrom(elem.value);
+                                    this.registrationDateFrom = checkDateFrom(elem.value);
+                                    break;
+                                case 'transfer_date':
+                                    this.transferDateFrom = checkDateFrom(elem.value);
+                                    break;
+                                case 'state_changed_date':
+                                    this.stateChangedDateFrom = checkDateFrom(elem.value);
+                                    break;
+                                case 'state_changed_date_done':
+                                    this.stateChangedDateDoneFrom = checkDateFrom(elem.value);
+                                    break;
+                                case 'execution_term':
+                                    this.executionTermFrom = checkDateFrom(elem.value);
+                                    break;
+                                case 'control_date':
+                                    this.controlDateFrom = checkDateFrom(elem.value);
+                                    break;
                                 }
                             }
                             if(data.dateTo != '' ){
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name){
-                                    case 'registration_date':
-                                        this.registrationDateTo = checkDateTo(elem.value);
-                                        break;
-                                    case 'transfer_date':
-                                        this.transferDateTo = checkDateTo(elem.value);
-                                        break;
-                                    case 'state_changed_date':
-                                        this.stateChangedDateTo = checkDateTo(elem.value);
-                                        break;
-                                    case 'state_changed_date_done':
-                                        this.stateChangedDateDoneTo = checkDateTo(elem.value);
-                                        break;
-                                    case 'execution_term':
-                                        this.executionTermTo = checkDateTo(elem.value);
-                                        break;
-                                    case 'control_date':
-                                        this.controlDateTo = checkDateTo(elem.value);
-                                        break;
+                                case 'registration_date':
+                                    this.registrationDateTo = checkDateTo(elem.value);
+                                    break;
+                                case 'transfer_date':
+                                    this.transferDateTo = checkDateTo(elem.value);
+                                    break;
+                                case 'state_changed_date':
+                                    this.stateChangedDateTo = checkDateTo(elem.value);
+                                    break;
+                                case 'state_changed_date_done':
+                                    this.stateChangedDateDoneTo = checkDateTo(elem.value);
+                                    break;
+                                case 'execution_term':
+                                    this.executionTermTo = checkDateTo(elem.value);
+                                    break;
+                                case 'control_date':
+                                    this.controlDateTo = checkDateTo(elem.value);
+                                    break;
                                 }
                             }
                         }
@@ -323,13 +323,13 @@
         },
         setFilterColumns: function(code, operation, value) {
             const filter = {
-                    key: code,
-                    value: {
-                        operation: operation,
-                        not: false,
-                        values: value
-                    }
-                };
+                key: code,
+                value: {
+                    operation: operation,
+                    not: false,
+                    values: value
+                }
+            };
             this.config.query.filterColumns.push(filter);
         },
         reloadTable: function(message) {
@@ -374,35 +374,35 @@
             message.value.forEach(function(el){
                 let column;
                 switch(el.displayValue){
-                    case 'transfer_date':
-                    case 'state_changed_date':
-                    case 'state_changed_date_done':
-                        column = {
-                            dataField: el.displayValue,
-                            caption: el.caption,
-                            width: 130,
-                            dateType: 'datetime',
-                            format: 'dd.MM.yyy HH.mm'
+                case 'transfer_date':
+                case 'state_changed_date':
+                case 'state_changed_date_done':
+                    column = {
+                        dataField: el.displayValue,
+                        caption: el.caption,
+                        width: 130,
+                        dateType: 'datetime',
+                        format: 'dd.MM.yyy HH.mm'
+                    }
+                    break;
+                case 'appeals_files_check':
+                    column = {
+                        dataField: el.displayValue,
+                        caption: el.caption,
+                        width: el.width,
+                        customizeText: function(cellInfo) {
+                            let value = cellInfo.value === undefined ? ' ' : cellInfo.value === 'true' ? 'Наявний' : 'Відсутній' ;
+                            return value;
                         }
-                        break;
-                    case 'appeals_files_check':
-                        column = {
-                            dataField: el.displayValue,
-                            caption: el.caption,
-                            width: el.width,
-                            customizeText: function(cellInfo) {
-                                let value = cellInfo.value === undefined ? ' ' : cellInfo.value === 'true' ? 'Наявний' : 'Відсутній' ;
-                                return value;
-                            }
-                        }
-                        break;
-                    default:
-                        column = {
-                            dataField: el.displayValue,
-                            caption: el.caption,
-                            width: el.width,
-                        }
-                        break;
+                    }
+                    break;
+                default:
+                    column = {
+                        dataField: el.displayValue,
+                        caption: el.caption,
+                        width: el.width,
+                    }
+                    break;
                 }
                 this.config.columns.push(column);
             }.bind(this));
@@ -450,7 +450,7 @@
                     {  key: '@control_date_to', value: this.controlDateTo },
                     { key: '@pageOffsetRows', value: 0},
                     { key: '@pageLimitRows', value: 10}
-                    ]
+                ]
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },
@@ -600,99 +600,99 @@
                         }else{
                             let prop = indexArr[i].name;
                             switch(prop) {
-                                case 'appeals_receipt_source':
-                                    rowItem.appeals_receipt_source = row.values[el.index]
-                                    break
-                                case 'appeals_user':
-                                    rowItem.appeals_user = row.values[el.index]
-                                    break
-                                case 'appeals_district':
-                                    rowItem.appeals_district = row.values[el.index]
-                                    break
-                                case 'appeals_files_check':
-                                    rowItem.appeals_files_check = row.values[el.index]
-                                    break
-                                case 'zayavnyk_phone_number':
-                                    rowItem.zayavnyk_phone_number = row.values[el.index]
-                                    break
-                                case 'zayavnyk_entrance':
-                                    rowItem.zayavnyk_entrance = row.values[el.index]
-                                    break
-                                case 'zayavnyk_applicant_privilage':
-                                    rowItem.zayavnyk_applicant_privilage = row.values[el.index]
-                                    break
-                                case 'zayavnyk_social_state':
-                                    rowItem.zayavnyk_social_state = row.values[el.index]
-                                    break
-                                case 'zayavnyk_sex':
-                                    rowItem.zayavnyk_sex = row.values[el.index]
-                                    break
-                                case 'zayavnyk_applicant_type':
-                                    rowItem.zayavnyk_applicant_type = row.values[el.index]
-                                    break
-                                case 'zayavnyk_age':
-                                    rowItem.zayavnyk_age = row.values[el.index]
-                                    break
-                                case 'zayavnyk_email':
-                                    rowItem.zayavnyk_email = row.values[el.index]
-                                    break
-                                case 'question_ObjectTypes':
-                                    rowItem.question_ObjectTypes = row.values[el.index]
-                                    break
-                                case 'question_organization':
-                                    rowItem.question_organization = row.values[el.index]
-                                    break
-                                case 'question_question_state':
-                                    rowItem.question_question_state = row.values[el.index]
-                                    break
-                                case 'question_list_state':
-                                    rowItem.question_list_state = row.values[el.index]
-                                    break
-                                case 'assigm_main_executor':
-                                    rowItem.assigm_main_executor = row.values[el.index]
-                                    break
-                                case 'assigm_accountable':
-                                    rowItem.assigm_accountable = row.values[el.index]
-                                    break
-                                case 'assigm_assignment_state':
-                                    rowItem.assigm_assignment_state = row.values[el.index]
-                                    break
-                                case 'assigm_assignment_result':
-                                    rowItem.assigm_assignment_result = row.values[el.index]
-                                    break
-                                case 'assigm_assignment_resolution':
-                                    rowItem.assigm_assignment_resolution = row.values[el.index]
-                                    break
-                                case 'assigm_user_reviewed':
-                                    rowItem.assigm_user_reviewed = row.values[el.index]
-                                    break
-                                case 'assigm_user_checked':
-                                    rowItem.assigm_user_checked = row.values[el.index]
-                                    break
-                                case 'transfer_date':
-                                    rowItem.transfer_date = this.changeDateTimeValues(row.values[el.index]);
-                                    break
-                                case 'state_changed_date':
-                                    rowItem.state_changed_date = this.changeDateTimeValues(row.values[el.index]);
-                                    break
-                                case 'state_changed_date_done':
-                                    rowItem.state_changed_date_done = this.changeDateTimeValues(row.values[el.index]);
-                                    break
-                                case 'execution_term':
-                                    rowItem.execution_term = this.changeDateTimeValues(row.values[el.index]);
-                                    break
-                                case 'appeals_enter_number':
-                                    rowItem.appeals_enter_number = row.values[el.index];
-                                    break
-                                case 'control_comment':
-                                    rowItem.control_comment = row.values[el.index];
-                                    break
-                                case 'control_date':
-                                    rowItem.control_date = this.changeDateTimeValues(row.values[el.index]);
-                                    break
-                                case 'ConsDocumentContent':
-                                    rowItem.ConsDocumentContent = row.values[el.index];
-                                    break
+                            case 'appeals_receipt_source':
+                                rowItem.appeals_receipt_source = row.values[el.index]
+                                break
+                            case 'appeals_user':
+                                rowItem.appeals_user = row.values[el.index]
+                                break
+                            case 'appeals_district':
+                                rowItem.appeals_district = row.values[el.index]
+                                break
+                            case 'appeals_files_check':
+                                rowItem.appeals_files_check = row.values[el.index]
+                                break
+                            case 'zayavnyk_phone_number':
+                                rowItem.zayavnyk_phone_number = row.values[el.index]
+                                break
+                            case 'zayavnyk_entrance':
+                                rowItem.zayavnyk_entrance = row.values[el.index]
+                                break
+                            case 'zayavnyk_applicant_privilage':
+                                rowItem.zayavnyk_applicant_privilage = row.values[el.index]
+                                break
+                            case 'zayavnyk_social_state':
+                                rowItem.zayavnyk_social_state = row.values[el.index]
+                                break
+                            case 'zayavnyk_sex':
+                                rowItem.zayavnyk_sex = row.values[el.index]
+                                break
+                            case 'zayavnyk_applicant_type':
+                                rowItem.zayavnyk_applicant_type = row.values[el.index]
+                                break
+                            case 'zayavnyk_age':
+                                rowItem.zayavnyk_age = row.values[el.index]
+                                break
+                            case 'zayavnyk_email':
+                                rowItem.zayavnyk_email = row.values[el.index]
+                                break
+                            case 'question_ObjectTypes':
+                                rowItem.question_ObjectTypes = row.values[el.index]
+                                break
+                            case 'question_organization':
+                                rowItem.question_organization = row.values[el.index]
+                                break
+                            case 'question_question_state':
+                                rowItem.question_question_state = row.values[el.index]
+                                break
+                            case 'question_list_state':
+                                rowItem.question_list_state = row.values[el.index]
+                                break
+                            case 'assigm_main_executor':
+                                rowItem.assigm_main_executor = row.values[el.index]
+                                break
+                            case 'assigm_accountable':
+                                rowItem.assigm_accountable = row.values[el.index]
+                                break
+                            case 'assigm_assignment_state':
+                                rowItem.assigm_assignment_state = row.values[el.index]
+                                break
+                            case 'assigm_assignment_result':
+                                rowItem.assigm_assignment_result = row.values[el.index]
+                                break
+                            case 'assigm_assignment_resolution':
+                                rowItem.assigm_assignment_resolution = row.values[el.index]
+                                break
+                            case 'assigm_user_reviewed':
+                                rowItem.assigm_user_reviewed = row.values[el.index]
+                                break
+                            case 'assigm_user_checked':
+                                rowItem.assigm_user_checked = row.values[el.index]
+                                break
+                            case 'transfer_date':
+                                rowItem.transfer_date = this.changeDateTimeValues(row.values[el.index]);
+                                break
+                            case 'state_changed_date':
+                                rowItem.state_changed_date = this.changeDateTimeValues(row.values[el.index]);
+                                break
+                            case 'state_changed_date_done':
+                                rowItem.state_changed_date_done = this.changeDateTimeValues(row.values[el.index]);
+                                break
+                            case 'execution_term':
+                                rowItem.execution_term = this.changeDateTimeValues(row.values[el.index]);
+                                break
+                            case 'appeals_enter_number':
+                                rowItem.appeals_enter_number = row.values[el.index];
+                                break
+                            case 'control_comment':
+                                rowItem.control_comment = row.values[el.index];
+                                break
+                            case 'control_date':
+                                rowItem.control_date = this.changeDateTimeValues(row.values[el.index]);
+                                break
+                            case 'ConsDocumentContent':
+                                rowItem.ConsDocumentContent = row.values[el.index];
+                                break
                             }
                             this.addedIndexes.push(prop);
                         }
@@ -715,99 +715,99 @@
                     for(let i = 0; i < size - rowSize ; i ++ ){
                         let prop = indexes[i];
                         switch(prop) {
-                            case 'appeals_receipt_source':
-                                row.appeals_receipt_source = el.appeals_receipt_source
-                                break
-                            case 'appeals_user':
-                                row.appeals_user =  el.appeals_user
-                                break
-                            case 'appeals_district':
-                                row.appeals_district =  el.appeals_district
-                                break
-                            case 'appeals_files_check':
-                                row.appeals_files_check =  el.appeals_files_check
-                                break
-                            case 'zayavnyk_phone_number':
-                                row.zayavnyk_phone_number =  el.zayavnyk_phone_number
-                                break
-                            case 'zayavnyk_entrance':
-                                row.zayavnyk_entrance =  el.zayavnyk_entrance
-                                break
-                            case 'zayavnyk_applicant_privilage':
-                                row.zayavnyk_applicant_privilage =  el.zayavnyk_applicant_privilage
-                                break
-                            case 'zayavnyk_social_state':
-                                row.zayavnyk_social_state = el.zayavnyk_social_state
-                                break
-                            case 'zayavnyk_sex':
-                                row.zayavnyk_sex = el.zayavnyk_sex
-                                break
-                            case 'zayavnyk_applicant_type':
-                                row.zayavnyk_applicant_type =  el.zayavnyk_applicant_type
-                                break
-                            case 'zayavnyk_age':
-                                row.zayavnyk_age = el.zayavnyk_age
-                                break
-                            case 'zayavnyk_email':
-                                row.zayavnyk_email = el.zayavnyk_email
-                                break
-                            case 'question_ObjectTypes':
-                                row.question_ObjectTypes = el.question_ObjectTypes
-                                break
-                            case 'question_organization':
-                                row.question_organization = el.question_organization
-                                break
-                            case 'question_question_state':
-                                row.question_question_state = el.question_question_state
-                                break
-                            case 'question_list_state':
-                                row.question_list_state = el.question_list_state
-                                break
-                            case 'assigm_main_executor':
-                                row.assigm_main_executor = el.assigm_main_executor
-                                break
-                            case 'assigm_accountable':
-                                row.assigm_accountable = el.assigm_accountable
-                                break
-                            case 'assigm_assignment_state':
-                                row.assigm_assignment_state = el.assigm_assignment_state
-                                break
-                            case 'assigm_assignment_result':
-                                row.assigm_assignment_result = el.assigm_assignment_result
-                                break
-                            case 'assigm_assignment_resolution':
-                                row.assigm_assignment_resolution = el.assigm_assignment_resolution
-                                break
-                            case 'assigm_user_reviewed':
-                                row.assigm_user_reviewed = el.assigm_user_reviewed
-                                break
-                            case 'assigm_user_checked':
-                                row.assigm_user_checked = el.assigm_user_checked
-                                break
-                            case 'transfer_date':
-                                row.transfer_date = el.transfer_date
-                                break
-                            case 'state_changed_date':
-                                row.state_changed_date = el.state_changed_date
-                                break
-                            case 'state_changed_date_done':
-                                row.state_changed_date_done = el.state_changed_date_done
-                                break
-                            case 'execution_term':
-                                row.execution_term =  el.execution_term
-                                break
-                            case 'appeals_enter_number':
-                                row.appeals_enter_number = el.appeals_enter_number;
-                                break
-                            case 'control_comment':
-                                row.control_comment = el.control_comment;
-                                break
-                            case 'control_date':
-                                row.control_date = el.control_date;
-                                break
-                            case 'ConsDocumentContent':
-                                row.ConsDocumentContent = el.ConsDocumentContent;
-                                break
+                        case 'appeals_receipt_source':
+                            row.appeals_receipt_source = el.appeals_receipt_source
+                            break
+                        case 'appeals_user':
+                            row.appeals_user =  el.appeals_user
+                            break
+                        case 'appeals_district':
+                            row.appeals_district =  el.appeals_district
+                            break
+                        case 'appeals_files_check':
+                            row.appeals_files_check =  el.appeals_files_check
+                            break
+                        case 'zayavnyk_phone_number':
+                            row.zayavnyk_phone_number =  el.zayavnyk_phone_number
+                            break
+                        case 'zayavnyk_entrance':
+                            row.zayavnyk_entrance =  el.zayavnyk_entrance
+                            break
+                        case 'zayavnyk_applicant_privilage':
+                            row.zayavnyk_applicant_privilage =  el.zayavnyk_applicant_privilage
+                            break
+                        case 'zayavnyk_social_state':
+                            row.zayavnyk_social_state = el.zayavnyk_social_state
+                            break
+                        case 'zayavnyk_sex':
+                            row.zayavnyk_sex = el.zayavnyk_sex
+                            break
+                        case 'zayavnyk_applicant_type':
+                            row.zayavnyk_applicant_type =  el.zayavnyk_applicant_type
+                            break
+                        case 'zayavnyk_age':
+                            row.zayavnyk_age = el.zayavnyk_age
+                            break
+                        case 'zayavnyk_email':
+                            row.zayavnyk_email = el.zayavnyk_email
+                            break
+                        case 'question_ObjectTypes':
+                            row.question_ObjectTypes = el.question_ObjectTypes
+                            break
+                        case 'question_organization':
+                            row.question_organization = el.question_organization
+                            break
+                        case 'question_question_state':
+                            row.question_question_state = el.question_question_state
+                            break
+                        case 'question_list_state':
+                            row.question_list_state = el.question_list_state
+                            break
+                        case 'assigm_main_executor':
+                            row.assigm_main_executor = el.assigm_main_executor
+                            break
+                        case 'assigm_accountable':
+                            row.assigm_accountable = el.assigm_accountable
+                            break
+                        case 'assigm_assignment_state':
+                            row.assigm_assignment_state = el.assigm_assignment_state
+                            break
+                        case 'assigm_assignment_result':
+                            row.assigm_assignment_result = el.assigm_assignment_result
+                            break
+                        case 'assigm_assignment_resolution':
+                            row.assigm_assignment_resolution = el.assigm_assignment_resolution
+                            break
+                        case 'assigm_user_reviewed':
+                            row.assigm_user_reviewed = el.assigm_user_reviewed
+                            break
+                        case 'assigm_user_checked':
+                            row.assigm_user_checked = el.assigm_user_checked
+                            break
+                        case 'transfer_date':
+                            row.transfer_date = el.transfer_date
+                            break
+                        case 'state_changed_date':
+                            row.state_changed_date = el.state_changed_date
+                            break
+                        case 'state_changed_date_done':
+                            row.state_changed_date_done = el.state_changed_date_done
+                            break
+                        case 'execution_term':
+                            row.execution_term =  el.execution_term
+                            break
+                        case 'appeals_enter_number':
+                            row.appeals_enter_number = el.appeals_enter_number;
+                            break
+                        case 'control_comment':
+                            row.control_comment = el.control_comment;
+                            break
+                        case 'control_date':
+                            row.control_date = el.control_date;
+                            break
+                        case 'ConsDocumentContent':
+                            row.ConsDocumentContent = el.ConsDocumentContent;
+                            break
                         }
                     }
                     worksheet.addRow(row);

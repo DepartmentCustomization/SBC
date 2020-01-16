@@ -87,11 +87,11 @@
         init: function() {
             this.loadData(this.afterLoadDataHandler);
             let executeQuery = {
-                    queryCode: 'int_list_streets_1551',
-                    parameterValues: [],
-                    limit: -1
-                };
-                this.queryExecutor(executeQuery, this.lookupFoo, this);
+                queryCode: 'int_list_streets_1551',
+                parameterValues: [],
+                limit: -1
+            };
+            this.queryExecutor(executeQuery, this.lookupFoo, this);
         },
         lookupFoo: function(data) {
             this.elements = [];

@@ -118,53 +118,53 @@
             let resolutionId;
             button_save.disabled = false;
             switch (resultId) {
-                case 4:
-                    resolutionId = 9;
-                    resolutionInnerText = 'Підтверджено заявником';
-                    break;
-                case 5:
-                case 10:
-                case 12:
-                    resolutionId = 8;
-                    resolutionInnerText = 'Виконання не підтверджено заявником ';
-                    break;
-                case 7:
-                    resolutionId = 6;
-                    resolutionInnerText = 'Перевірено куратором';
-                    break;
-                case 11:
-                    resolutionId = 10;
-                    resolutionInnerText = 'Заявник усунув проблему власними силами';
-                    break;
+            case 4:
+                resolutionId = 9;
+                resolutionInnerText = 'Підтверджено заявником';
+                break;
+            case 5:
+            case 10:
+            case 12:
+                resolutionId = 8;
+                resolutionInnerText = 'Виконання не підтверджено заявником ';
+                break;
+            case 7:
+                resolutionId = 6;
+                resolutionInnerText = 'Перевірено куратором';
+                break;
+            case 11:
+                resolutionId = 10;
+                resolutionInnerText = 'Заявник усунув проблему власними силами';
+                break;
             }
             this.resolutionId = resolutionId;
             document.getElementById('resolution__value').innerText = resolutionInnerText;
             document.getElementById('resolution__value').resolutionId = resolutionId;
             switch (resultId) {
-                case 4:
-                    document.getElementById('assigmComment').classList.remove('displayNone');
-                    document.getElementById('assigmResolution').classList.remove('displayNone');
-                    document.getElementById('assigmRating').classList.remove('displayNone');
-                    break;
-                case 5:
-                case 7:
-                case 10:
-                case 11:
-                case 12:
-                    document.getElementById('assigmComment').classList.remove('displayNone');
-                    document.getElementById('assigmResolution').classList.remove('displayNone');
-                    document.getElementById('assigmRating').classList.add('displayNone');
-                    break;
-                case 13:
-                    document.getElementById('assigmComment').classList.remove('displayNone');
-                    document.getElementById('assigmResolution').classList.add('displayNone');
-                    document.getElementById('assigmRating').classList.add('displayNone');
-                    break;
-                default:
-                    document.getElementById('assigmComment').classList.add('displayNone');
-                    document.getElementById('assigmResolution').classList.add('displayNone');
-                    document.getElementById('assigmRating').classList.add('displayNone');
-                    break;
+            case 4:
+                document.getElementById('assigmComment').classList.remove('displayNone');
+                document.getElementById('assigmResolution').classList.remove('displayNone');
+                document.getElementById('assigmRating').classList.remove('displayNone');
+                break;
+            case 5:
+            case 7:
+            case 10:
+            case 11:
+            case 12:
+                document.getElementById('assigmComment').classList.remove('displayNone');
+                document.getElementById('assigmResolution').classList.remove('displayNone');
+                document.getElementById('assigmRating').classList.add('displayNone');
+                break;
+            case 13:
+                document.getElementById('assigmComment').classList.remove('displayNone');
+                document.getElementById('assigmResolution').classList.add('displayNone');
+                document.getElementById('assigmRating').classList.add('displayNone');
+                break;
+            default:
+                document.getElementById('assigmComment').classList.add('displayNone');
+                document.getElementById('assigmResolution').classList.add('displayNone');
+                document.getElementById('assigmRating').classList.add('displayNone');
+                break;
             }
         },
         showSortingArr: function(message) {
@@ -207,50 +207,50 @@
                 });
                 this.comment = document.getElementById('assigmComment').value;
                 switch (this.resultId) {
-                    case 4:
-                    case 5:
-                    case 7:
-                    case 10:
-                    case 11:
-                    case 12:
-                        if (this.resolutionId != '' && this.resolutionId != undefined) {
-                            let executeQuery = {
-                                queryCode: 'Prozvon_Close',
-                                limit: -1,
-                                parameterValues: [
-                                    { key: '@Id', value: row.id },
-                                    { key: '@organization_id', value: row.organization_id },
-                                    { key: '@assignment_resolution_id', value: this.resolutionId },
-                                    { key: '@control_result_id', value: this.resultId },
-                                    { key: '@control_comment', value: this.comment },
-                                    { key: '@grade', value: this.checkBoxChacked },
-                                ]
-                            };
-                            this.queryExecutor(executeQuery, this.changeRowsCounter, this);
-                            this.showPreloader = false;
-                        }
-                        break
-                    case '':
-                        break
-                    case 13:
-                    default:
-                        if (this.resultId != '' && this.resultId != undefined) {
-                            let executeQuery = {
-                                queryCode: 'Prozvon_Close',
-                                limit: -1,
-                                parameterValues: [
-                                    { key: '@Id', value: row.id },
-                                    { key: '@organization_id', value: null },
-                                    { key: '@assignment_resolution_id', value: null },
-                                    { key: '@control_result_id', value: this.resultId },
-                                    { key: '@control_comment', value: this.comment },
-                                    { key: '@grade', value: this.checkBoxChacked },
-                                ]
-                            };
-                            this.queryExecutor(executeQuery, this.changeRowsCounter, this);
-                            this.showPreloader = false;
-                        }
-                        break
+                case 4:
+                case 5:
+                case 7:
+                case 10:
+                case 11:
+                case 12:
+                    if (this.resolutionId != '' && this.resolutionId != undefined) {
+                        let executeQuery = {
+                            queryCode: 'Prozvon_Close',
+                            limit: -1,
+                            parameterValues: [
+                                { key: '@Id', value: row.id },
+                                { key: '@organization_id', value: row.organization_id },
+                                { key: '@assignment_resolution_id', value: this.resolutionId },
+                                { key: '@control_result_id', value: this.resultId },
+                                { key: '@control_comment', value: this.comment },
+                                { key: '@grade', value: this.checkBoxChacked },
+                            ]
+                        };
+                        this.queryExecutor(executeQuery, this.changeRowsCounter, this);
+                        this.showPreloader = false;
+                    }
+                    break
+                case '':
+                    break
+                case 13:
+                default:
+                    if (this.resultId != '' && this.resultId != undefined) {
+                        let executeQuery = {
+                            queryCode: 'Prozvon_Close',
+                            limit: -1,
+                            parameterValues: [
+                                { key: '@Id', value: row.id },
+                                { key: '@organization_id', value: null },
+                                { key: '@assignment_resolution_id', value: null },
+                                { key: '@control_result_id', value: this.resultId },
+                                { key: '@control_comment', value: this.comment },
+                                { key: '@grade', value: this.checkBoxChacked },
+                            ]
+                        };
+                        this.queryExecutor(executeQuery, this.changeRowsCounter, this);
+                        this.showPreloader = false;
+                    }
+                    break
                 }
             });
         },

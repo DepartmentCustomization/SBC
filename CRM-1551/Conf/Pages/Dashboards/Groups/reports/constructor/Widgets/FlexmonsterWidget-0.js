@@ -97,7 +97,7 @@
                         }
                     }
                 }else{
-                document.getElementById('apply-filters-button').disabled = true;
+                    document.getElementById('apply-filters-button').disabled = true;
                 }
             }
         },
@@ -178,26 +178,26 @@
                     {
                         key: 'QuestionTypeId',
                         value: {
-                                    operation: 0,
-                                    not: false,
-                                    values: this.questionTypesData
-                                }
+                            operation: 0,
+                            not: false,
+                            values: this.questionTypesData
+                        }
                     },
                     {
                         key: 'Vykon_date',
                         value: {
-                                    operation: this.operationVykonDate,
-                                    not: false,
-                                    values: this.dateExecutionData
-                                }
+                            operation: this.operationVykonDate,
+                            not: false,
+                            values: this.dateExecutionData
+                        }
                     },
                     {
                         key: 'Close_date',
                         value: {
-                                    operation: this.operationCloseDate,
-                                    not: false,
-                                    values: this.dateClosingData
-                                }
+                            operation: this.operationCloseDate,
+                            not: false,
+                            values: this.dateClosingData
+                        }
                     }
                 ],
                 sortColumns: [],

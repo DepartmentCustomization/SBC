@@ -1,5 +1,5 @@
 (function () {
-  return {
+    return {
         RecordId: 0,
         StateServerId: 0,
         onLoadModalPhone: function() {
@@ -237,9 +237,9 @@
                 }
             }
             let matrix = '(___)___-__-__',
-            i = 0,
-            def = matrix.replace(/\D/g, ''),
-            val = this.value.replace(/\D/g, '');
+                i = 0,
+                def = matrix.replace(/\D/g, ''),
+                val = this.value.replace(/\D/g, '');
             if (def.length >= val.length) val = def;
             this.value = matrix.replace(/./g, function(a) {
                 return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a
@@ -333,8 +333,8 @@
                             this.formConfig.onLoadModalPhone();
                             this.formConfig.onRecalcCardPhone();
                             const parameters_02 = [
-                                                { key: '@phone_number', value: this.formConfig.form.getControlValue('Phone') }
-                                            ];
+                                { key: '@phone_number', value: this.formConfig.form.getControlValue('Phone') }
+                            ];
                             this.formConfig.details.loadData('Detail_Aplicant', parameters_02);
                         } else {
                             this.setControlValue('modal_phone_NEW', null);
@@ -343,12 +343,12 @@
                     }.bind(this));
                 }.bind(form));
                 let input3 = document.getElementById('modal_phone_NEW');
-                    input3.addEventListener('input', this.mask, false);
-                    input3.addEventListener('focus', this.mask, false);
-                    input3.addEventListener('blur', this.mask, false);
-                    input3.addEventListener('change', this.mask, false);
-                    document.getElementById('modal_phone_NEW').focus();
-                    document.getElementById('modal_phone_NEW_phoneDelete').focus();
+                input3.addEventListener('input', this.mask, false);
+                input3.addEventListener('focus', this.mask, false);
+                input3.addEventListener('blur', this.mask, false);
+                input3.addEventListener('change', this.mask, false);
+                document.getElementById('modal_phone_NEW').focus();
+                document.getElementById('modal_phone_NEW_phoneDelete').focus();
                 document.getElementById('modal_phone_NEWIcon').addEventListener('click', function() {
                     this.setControlValue('modal_phone_NEW',this.formConfig.form.getControlValue('Phone'));
                     document.getElementById('modal_phone_NEW').focus();
@@ -363,10 +363,10 @@
                         const queryForGetValue_UpdatePhone = {
                             queryCode: 'ApplicantPhonesUpdate',
                             parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                                                { key: '@TypePhone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneType').value},
-                                                { key: '@Phone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneNumber').value},
-                                                { key: '@IsMain', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneIsMain').value},
-                                                { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneId').value}]
+                                { key: '@TypePhone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneType').value},
+                                { key: '@Phone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneNumber').value},
+                                { key: '@IsMain', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneIsMain').value},
+                                { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneId').value}]
                         };
                         this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function (){
                         }.bind(this));
@@ -390,25 +390,25 @@
                 ]
             };
             this.queryExecutor.getValue(queryForGetValueDublicate).subscribe(data => {
-                    if (data) {
-                        if (typeof data === 'string') {
-                                    const fieldsForm_Error = {
-                                        title: ' ',
-                                        text: data,
-                                        singleButton: true,
-                                        acceptBtnText: 'ok'
-                                    };
-                                    this.openModalForm(fieldsForm_Error, this.afterModalFormClose.bind(this), this.afterModalFormClose.bind(this));
-                        } else {
-                                    const fieldsForm_Ok = {
-                                        title: ' ',
-                                        text: 'Поточний номер додано до списку дублікатів',
-                                        singleButton: true,
-                                        acceptBtnText: 'ok'
-                                    };
-                                    this.openModalForm(fieldsForm_Ok, this.afterModalFormClose.bind(this), this.afterModalFormClose.bind(this));
-                        }
+                if (data) {
+                    if (typeof data === 'string') {
+                        const fieldsForm_Error = {
+                            title: ' ',
+                            text: data,
+                            singleButton: true,
+                            acceptBtnText: 'ok'
+                        };
+                        this.openModalForm(fieldsForm_Error, this.afterModalFormClose.bind(this), this.afterModalFormClose.bind(this));
+                    } else {
+                        const fieldsForm_Ok = {
+                            title: ' ',
+                            text: 'Поточний номер додано до списку дублікатів',
+                            singleButton: true,
+                            acceptBtnText: 'ok'
+                        };
+                        this.openModalForm(fieldsForm_Ok, this.afterModalFormClose.bind(this), this.afterModalFormClose.bind(this));
                     }
+                }
             });
         },
         afterModalFormClose: function() {
@@ -425,16 +425,16 @@
             if (this.state == 'create') {
                 let getDataFromLink = window
                     .location
-                        .search
-                            .replace('?', '')
-                                .split('&')
-                                    .reduce(
-                                        function(p, e) {
-                                            let a = e.split('=');
-                                            p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
-                                            return p;
-                                        }, {}
-                                    );
+                    .search
+                    .replace('?', '')
+                    .split('&')
+                    .reduce(
+                        function(p, e) {
+                            let a = e.split('=');
+                            p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                            return p;
+                        }, {}
+                    );
                 this.TypeFormId = Number(getDataFromLink['type']);
                 if (Number(getDataFromLink['type']) >= 1 && Number(getDataFromLink['type']) <= 8) {
                     let val_phone = '';
@@ -443,8 +443,8 @@
                     } else {
                         val_phone = getDataFromLink['phone']
                     }
-                let val_sipcallid = '';
-                val_sipcallid = getDataFromLink['sipcallid']
+                    let val_sipcallid = '';
+                    val_sipcallid = getDataFromLink['sipcallid']
                     const queryForGetValue = {
                         queryCode: 'Appeals_Insert',
                         parameterValues: [
@@ -527,9 +527,9 @@
                 this.form.onControlValueChanged('Applicant_Id', this.onChangedApplicant_Id.bind(this));
                 let getDataFromLink = window
                     .location
-                        .pathname
-                            .split('/')
-                                this.RecordId = Number(getDataFromLink[4]);
+                    .pathname
+                    .split('/')
+                this.RecordId = Number(getDataFromLink[4]);
                 const queryForGetValueStateServer = {
                     queryCode: 'LoadServer_SelectRow',
                     parameterValues: []
@@ -544,9 +544,9 @@
                         this.form.setGroupVisibility('Group_WIKI', false);
                     }
                     if (this.StateServerId == 1) {
-                            this.form.setControlVisibility('Question_OrganizationId', true);
+                        this.form.setControlVisibility('Question_OrganizationId', true);
                     } else {
-                            this.form.setControlVisibility('Question_OrganizationId', false);
+                        this.form.setControlVisibility('Question_OrganizationId', false);
                     }
                 });
                 const queryForGetValue = {
@@ -602,7 +602,7 @@
                                 key: '@Applicant_Building',
                                 value: this.form.getControlValue('Applicant_Building')
                             }
-                                ]
+                        ]
                     };
                     this.queryExecutor.getValues(queryForGetValue3).subscribe(() => {
                         window.open('http://wiki.1551.gov.ua/', '_blank');
@@ -634,7 +634,7 @@
                                 key: '@applicant_id',
                                 value: this.form.getControlValue('Applicant_Id')
                             }
-                                    ]
+                        ]
                     };
                     this.queryExecutor.getValues(queryForGetValue3).subscribe(() => {
                         const parameters1 = [
@@ -810,7 +810,7 @@
                                 key: '@Question_ControlDate',
                                 value: new Date(this.convertDateNull(this.form.getControlValue('Question_ControlDate')))
                             }
-                                ]
+                        ]
                     };
                     this.queryExecutor.getValues(queryForGetValue3).subscribe(() => {
                         const queryForGetValue4 = {
@@ -829,12 +829,12 @@
                             this.form.setControlValue('Phone', data.rows[0].values[5]);
                             this.form.setControlValue('DateStart', new Date());
                             const parameters = [
-                                                { key: '@phone_number', value: data.rows[0].values[5] }
-                                            ];
+                                { key: '@phone_number', value: data.rows[0].values[5] }
+                            ];
                             this.details.loadData('Detail_Aplicant', parameters);
                             const parameters2 = [
-                                                { key: '@AppealId', value: data.rows[0].values[0] }
-                                            ];
+                                { key: '@AppealId', value: data.rows[0].values[0] }
+                            ];
                             this.details.loadData('Detail_QuestionReestration', parameters2);
                         });
                     });
@@ -948,8 +948,8 @@
                             this.form.setControlValue('Phone', data.rows[0].values[5]);
                             this.form.setControlValue('DateStart', new Date());
                             const parameters = [
-                                                { key: '@phone_number', value: this.form.getControlValue('Phone') }
-                                            ];
+                                { key: '@phone_number', value: this.form.getControlValue('Phone') }
+                            ];
                             this.details.loadData('Detail_Aplicant', parameters);
                             const parameters2 = [
                                 { key: '@AppealId', value: data.rows[0].values[0] }
@@ -1034,11 +1034,11 @@
                 const objNameApplicantPrivilege = {
                     queryCode: 'ak_SelectApplicantPrivilegeRow',
                     parameterValues: [
-                    {
-                        key: '@Id',
-                        value: 60
-                    }
-                ]
+                        {
+                            key: '@Id',
+                            value: 60
+                        }
+                    ]
                 };
                 this.queryExecutor.getValues(objNameApplicantPrivilege).subscribe(data => {
                     this.form.setControlValue('Applicant_Privilege',  { key: data.rows[0].values[0], value: data.rows[0].values[1]} );
@@ -1046,11 +1046,11 @@
                 const objNameApplicantGetApplicantTypes = {
                     queryCode: 'GetApplicantTypes',
                     parameterValues: [
-                    {
-                        key: '@Id',
-                        value: 1
-                    }
-                ]
+                        {
+                            key: '@Id',
+                            value: 1
+                        }
+                    ]
                 };
                 this.queryExecutor.getValues(objNameApplicantGetApplicantTypes).subscribe(data => {
                     this.form.setControlValue('Applicant_Type',  { key: data.rows[0].values[0], value: data.rows[0].values[1]} );
@@ -1058,11 +1058,11 @@
                 const objNameSocialState = {
                     queryCode: 'dir_SocialState_SelectRow',
                     parameterValues: [
-                    {
-                        key: '@Id',
-                        value: 2
-                    }
-                ]
+                        {
+                            key: '@Id',
+                            value: 2
+                        }
+                    ]
                 };
                 this.queryExecutor.getValues(objNameSocialState).subscribe(data => {
                     this.form.setControlValue('Applicant_SocialStates',  { key: data.rows[0].values[0], value: data.rows[0].values[1]} );
@@ -1109,23 +1109,23 @@
                             const objName = {
                                 queryCode: 'CloseAssignments_UpdateRow',
                                 parameterValues: [
-                                {
-                                    key: '@question_id',
-                                    value: response[3].value
-                                },
-                                {
-                                    key: '@AssignmentResultsId',
-                                    value: response[0].value
-                                },
-                                {
-                                    key: '@Question_Prew_Rating',
-                                    value: response[1].value
-                                },
-                                {
-                                    key: '@Question_Prew_Comment',
-                                    value: response[2].value
-                                }
-                            ]
+                                    {
+                                        key: '@question_id',
+                                        value: response[3].value
+                                    },
+                                    {
+                                        key: '@AssignmentResultsId',
+                                        value: response[0].value
+                                    },
+                                    {
+                                        key: '@Question_Prew_Rating',
+                                        value: response[1].value
+                                    },
+                                    {
+                                        key: '@Question_Prew_Comment',
+                                        value: response[2].value
+                                    }
+                                ]
                             };
                             this.queryExecutor.getValues(objName).subscribe(() => {
                                 const parameters1 = [
@@ -1177,10 +1177,10 @@
                                         required: true,
                                         type: 'radio',
                                         radioItems: [{ value: 1, viewValue: 1 },
-                                                        { value: 2, viewValue: 2 },
-                                                        { value: 3, viewValue: 3 },
-                                                        { value: 4, viewValue: 4 },
-                                                        { value: 5, viewValue: 5 }]
+                                            { value: 2, viewValue: 2 },
+                                            { value: 3, viewValue: 3 },
+                                            { value: 4, viewValue: 4 },
+                                            { value: 5, viewValue: 5 }]
                                     },
                                     {
                                         code: 'Question_Prew_Comment',
@@ -1585,11 +1585,11 @@
                             }
                         });
                     }
+                }
+            } else {
+                this.Question_Building_Input = null;
+                this.onChanged_Question_Btn_Add_Input();
             }
-        } else {
-            this.Question_Building_Input = null;
-            this.onChanged_Question_Btn_Add_Input();
-        }
         },
         onChanged_Question_Organization_Input: function(value) {
             this.Question_Organization_Input = value;
@@ -1753,11 +1753,11 @@
                         const executName = {
                             queryCode: 'GetExecutorInRoleForObject_SelectRow',
                             parameterValues: [
-                            {
-                                key: '@building_id',
-                                value: value
-                            }
-                        ]
+                                {
+                                    key: '@building_id',
+                                    value: value
+                                }
+                            ]
                         };
                         this.queryExecutor.getValues(executName).subscribe(data => {
                             if (data.rows.length > 0) {
@@ -1769,11 +1769,11 @@
                         const DistrName = {
                             queryCode: 'GetDistrictForBuilding',
                             parameterValues: [
-                            {
-                                key: '@building_id',
-                                value: value
-                            }
-                        ]
+                                {
+                                    key: '@building_id',
+                                    value: value
+                                }
+                            ]
                         };
                         this.queryExecutor.getValues(DistrName).subscribe(data => {
                             if (data.rows.length > 0) {
@@ -1786,26 +1786,26 @@
                         this.form.setControlValue('ExecutorInRoleForObject',  '');
                         this.form.setControlValue('Applicant_District',  '');
                     }
-                this.form.setControlValue('Adress', this.form.getControlDisplayValue('Applicant_Building'));
-                this.Applicant_Building_Input = value;
-                if(this.InitialState_Applicant_Building == this.onChanged_Input(this.form.getControlValue('Applicant_Building'))) {
-                    this.CheckParamForApplicant_Building = 0
-                } else {
-                    this.CheckParamForApplicant_Building = 1
-                }
-                this.onChanged_Question_Aplicant_Btn_Add_Input();
-                if (value == null || value == undefined) {
-                    this.details.setVisibility('Detail_Event', false);
-                } else {
-                    const parameters1 = [
-                        { key: '@object_id', value: value}
-                    ];
-                    this.details.loadData('Detail_Event', parameters1);
-                    if (this.StateServerId == 1 || this.StateServerId == 2) {
-                        this.details.setVisibility('Detail_Event', true);
+                    this.form.setControlValue('Adress', this.form.getControlDisplayValue('Applicant_Building'));
+                    this.Applicant_Building_Input = value;
+                    if(this.InitialState_Applicant_Building == this.onChanged_Input(this.form.getControlValue('Applicant_Building'))) {
+                        this.CheckParamForApplicant_Building = 0
+                    } else {
+                        this.CheckParamForApplicant_Building = 1
+                    }
+                    this.onChanged_Question_Aplicant_Btn_Add_Input();
+                    if (value == null || value == undefined) {
+                        this.details.setVisibility('Detail_Event', false);
+                    } else {
+                        const parameters1 = [
+                            { key: '@object_id', value: value}
+                        ];
+                        this.details.loadData('Detail_Event', parameters1);
+                        if (this.StateServerId == 1 || this.StateServerId == 2) {
+                            this.details.setVisibility('Detail_Event', true);
+                        }
                     }
                 }
-            }
             } else {
                 this.form.setControlValue('ExecutorInRoleForObject',  '');
                 this.form.setControlValue('Applicant_District',  '');
@@ -1824,7 +1824,7 @@
                 }
             }
             if(this.Applicant_PIB_Input == '' || this.Applicant_Building_Input == '' || this.Applicant_Building_Input == undefined || this.Applicant_Building_Input == null || this.Applicant_Flat_Input == undefined || this.Applicant_Flat_Input == null || this.Applicant_Flat_Input == '') {
-                    document.getElementById('Applicant_Btn_Add').disabled = true;
+                document.getElementById('Applicant_Btn_Add').disabled = true;
             } else {
                 if( this.CheckParamForApplicant_PIB == 0 &&
                     this.CheckParamForApplicant_Phone == 0 &&
@@ -2257,7 +2257,7 @@
                     { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')}
                 ];
                 this.details.loadData('Detail_Consultation', parameters1);
-            this.details.setVisibility('Detail_Consultation', true);
+                this.details.setVisibility('Detail_Consultation', true);
             }
             this.details.setVisibility('Detail_ConsultationAplicant', false);
             this.details.setVisibility('Detail_QuestionApplicant', false);
@@ -2406,9 +2406,9 @@
         },
         Group_Preview_Question_Close: function() {
             if(this.Applicant_PIB_Input == '' || this.Applicant_Phone_Input  == '' ||  this.Applicant_Building_Input == null ||  this.Applicant_Building_Input == undefined) {
-            this.form.setGroupVisibility('Group_CreateQuestion', false);
+                this.form.setGroupVisibility('Group_CreateQuestion', false);
             } else {
-            this.form.setGroupVisibility('Group_CreateQuestion', false);
+                this.form.setGroupVisibility('Group_CreateQuestion', false);
             }
         },
         Detail_Question_Prev: function(column, row) {

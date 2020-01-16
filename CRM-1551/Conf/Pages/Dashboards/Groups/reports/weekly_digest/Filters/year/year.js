@@ -21,9 +21,9 @@
             let monthFrom = currentDate.getMonth();
             let dayTo = currentDate.getDate();
             let defaultValue = {
-                    dateFrom: new Date(year, 0, '01'),
-                    dateTo: new Date( year, monthFrom , dayTo)
-                }
+                dateFrom: new Date(year, 0, '01'),
+                dateTo: new Date( year, monthFrom , dayTo)
+            }
             this.setDefaultValue(defaultValue);
         },
         destroy(){

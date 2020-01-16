@@ -73,11 +73,11 @@
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column.dataField === 'name' && e.row !== undefined){
                     this.goToDashboard('CarChangeReport',
-                    {queryParams:
+                        {queryParams:
                         {car_id: e.data.Id,
-                        dateTo: this.dateTo,
-                        dateFrom: this.dateFrom}
-                    });
+                            dateTo: this.dateTo,
+                            dateFrom: this.dateFrom}
+                        });
                 }
             });
             this.dataGridInstance.height = window.innerHeight - 150;
@@ -99,17 +99,17 @@
                 let mm = date.getMinutes();
                 MM += 1;
                 if ((dd.toString()).length === 1) {
- dd = '0' + dd;
-}
+                    dd = '0' + dd;
+                }
                 if ((MM.toString()).length === 1) {
- MM = '0' + MM;
-}
+                    MM = '0' + MM;
+                }
                 if ((HH.toString()).length === 1) {
- HH = '0' + HH;
-}
+                    HH = '0' + HH;
+                }
                 if ((mm.toString()).length === 1) {
- mm = '0' + mm;
-}
+                    mm = '0' + mm;
+                }
                 trueDate = dd + '.' + MM + '.' + yyyy;
             } else {
                 trueDate = ' ';

@@ -34,9 +34,9 @@
                 monthFromFact = thisMonth;
             }
             let defaultValue = {
-                    dateFrom: new Date( year, monthFromFact, dayFromFact ),
-                    dateTo: new Date( year, monthFrom , dayTo )
-                }
+                dateFrom: new Date( year, monthFromFact, dayFromFact ),
+                dateTo: new Date( year, monthFrom , dayTo )
+            }
             this.setDefaultValue(defaultValue);
         },
         destroy(){

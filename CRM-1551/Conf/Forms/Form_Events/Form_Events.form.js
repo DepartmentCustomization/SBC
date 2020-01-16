@@ -56,17 +56,17 @@
                         const objName = {
                             queryCode: 'ak_CloseEvent',
                             parameterValues: [{
-                                    key: '@Id',
-                                    value: this.id
-                                },
-                                {
-                                    key: '@real_end_date',
-                                    value: this.form.getControlValue('real_end_date')
-                                },
-                                {
-                                    key: '@coment_executor',
-                                    value: this.form.getControlValue('coment_executor')
-                                }
+                                key: '@Id',
+                                value: this.id
+                            },
+                            {
+                                key: '@real_end_date',
+                                value: this.form.getControlValue('real_end_date')
+                            },
+                            {
+                                key: '@coment_executor',
+                                value: this.form.getControlValue('coment_executor')
+                            }
                             ]
                         };
                         this.queryExecutor.getValues(objName).subscribe(() => {
@@ -86,8 +86,8 @@
             const addContactCallBack = (param) => {
                 if (param === true) {
                     const body = {
-                            parameterValues: param
-                        }
+                        parameterValues: param
+                    }
                     this.queryExecutor.getValues(body).subscribe(() => {
                     });
                 }

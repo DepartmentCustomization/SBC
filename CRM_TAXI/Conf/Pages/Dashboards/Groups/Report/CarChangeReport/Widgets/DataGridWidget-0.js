@@ -79,19 +79,19 @@
         getFiltersParams: function (message) {
             let filterCar = message.package.value.values.find(f => f.name === 'car').value;
             if (filterCar !== null && filterCar !== '') {
-              this.config.query.parameterValues = [
-                  { key: '@dateFrom', value: this.dateFrom },
-                  { key: '@dateTo', value: this.dateTo },
-                  { key: '@carId', value: filterCar.value },
-              ];
-              this.loadData(this.afterLoadDataHandler);
-          } else {
-              this.config.query.parameterValues = [
-                  { key: '@dateFrom', value: this.dateFrom },
-                  { key: '@dateTo', value: this.dateTo },
-                  { key: '@carId', value: this.car },
-              ];
-              this.loadData(this.afterLoadDataHandler);
+                this.config.query.parameterValues = [
+                    { key: '@dateFrom', value: this.dateFrom },
+                    { key: '@dateTo', value: this.dateTo },
+                    { key: '@carId', value: filterCar.value },
+                ];
+                this.loadData(this.afterLoadDataHandler);
+            } else {
+                this.config.query.parameterValues = [
+                    { key: '@dateFrom', value: this.dateFrom },
+                    { key: '@dateTo', value: this.dateTo },
+                    { key: '@carId', value: this.car },
+                ];
+                this.loadData(this.afterLoadDataHandler);
             }
         },
         afterLoadDataHandler: function () {

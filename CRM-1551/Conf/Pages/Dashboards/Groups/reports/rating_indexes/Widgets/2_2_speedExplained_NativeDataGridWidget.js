@@ -11,7 +11,7 @@
             },
             columns: [],
             summary: {
-            totalItems: [],
+                totalItems: [],
             },
             scrolling: {
                 mode: 'virtual'

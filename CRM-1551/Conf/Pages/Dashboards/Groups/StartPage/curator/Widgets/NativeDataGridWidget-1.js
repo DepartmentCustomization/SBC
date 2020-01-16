@@ -10,7 +10,7 @@
                 chunkSize: 1000
             },
             columns: [
-            {
+                {
                     dataField: 'registration_number',
                     caption: 'Номер питання',
                     fixed: true,
@@ -160,7 +160,7 @@
                 this.config.query.parameterValues = [
                     { key: '@navigation', value: message.value},
                     { key: '@column', value: message.column}
-                    ];
+                ];
                 this.loadData(this.afterLoadDataHandler);
             }
         },

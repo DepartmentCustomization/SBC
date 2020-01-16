@@ -1,9 +1,9 @@
 (function () {
-  return {
-    title: [],
-    hint: '',
-    formatTitle: function() {},
-    customConfig:
+    return {
+        title: [],
+        hint: '',
+        formatTitle: function() {},
+        customConfig:
                 `
                 <style>
                   .newbutton {
@@ -35,13 +35,13 @@
 
                 <input name="The Button" type="button" class='newbutton' id="btn_sendAllClaimToWork" value='Передати все в роботу'>
                 `
-    ,
-    afterViewInit: function() {
-        document.getElementById('btn_block_hiden').style.display = 'none';
-    },
-    init: function() {
-    },
-    load: function() {
-    }
-};
+        ,
+        afterViewInit: function() {
+            document.getElementById('btn_block_hiden').style.display = 'none';
+        },
+        init: function() {
+        },
+        load: function() {
+        }
+    };
 }());

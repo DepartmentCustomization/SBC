@@ -10,7 +10,7 @@
                 queryCode: 'GetReceiptSources',
                 limit: -1,
                 parameterValues: []
-                };
+            };
             this.queryExecutor(executeQuery, this.load, this);
             this.showPreloader = false;
         },

@@ -11,8 +11,8 @@
             },
             columns: [
                 {
-                caption: 'Кількість звернень',
-                columns: [
+                    caption: 'Кількість звернень',
+                    columns: [
                         {
                             caption: 'усіх',
                             alignment: 'center',
@@ -57,7 +57,7 @@
                                 }
                             ]
                         },
-                ]
+                    ]
                 }, {
                     caption: 'Результати розгляду звернень:',
                     alignment: 'center',

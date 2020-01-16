@@ -1,7 +1,7 @@
 (function () {
     return {
         formatTitle: function () {
-           return '<h3 class=\'table2__title\'>Зведені показання за переліком питань: Житлове господарство</h3>'
+            return '<h3 class=\'table2__title\'>Зведені показання за переліком питань: Житлове господарство</h3>'
         },
         config: {
             query: {

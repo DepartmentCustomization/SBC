@@ -1,9 +1,9 @@
 (function () {
-  return {
-    title: ' ',
-    hint: '',
-    formatTitle: function() {},
-    customConfig:
+    return {
+        title: ' ',
+        hint: '',
+        formatTitle: function() {},
+        customConfig:
                 `
                 <style>
                 #reportTitle{
@@ -16,13 +16,13 @@
                  <div id='reportTitle'>Расход запчастей на конкретную дату
                  </div>
                 `
-    ,
-    init: function() {
-    },
-    afterViewInit: function() {
-        const reportTitle = document.getElementById('reportTitle');
-        const organizationNameInput = document.createElement('span');
-        reportTitle.appendChild(organizationNameInput);
-    }
-};
+        ,
+        init: function() {
+        },
+        afterViewInit: function() {
+            const reportTitle = document.getElementById('reportTitle');
+            const organizationNameInput = document.createElement('span');
+            reportTitle.appendChild(organizationNameInput);
+        }
+    };
 }());

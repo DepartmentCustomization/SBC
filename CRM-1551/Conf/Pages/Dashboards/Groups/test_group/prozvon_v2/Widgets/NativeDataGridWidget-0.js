@@ -153,46 +153,46 @@
                 }
             }.bind(this));
             this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
-                                                { key: '@sort', value: this.sort  }];
+                { key: '@sort', value: this.sort  }];
             this.loadData(this.afterLoadDataHandler);
         },
         onOptionChanged: function(args) {
             let columnCode;
             if( args.fullName != undefined){
                 switch(args.fullName){
-                    case('columns[0].sortOrder'):
-                        columnCode = 'registration_number'
-                        break;
-                    case('columns[1].sortOrder'):
-                        columnCode = 'QuestionType'
-                        break;
-                    case('columns[2].sortOrder'):
-                        columnCode = 'full_name'
-                        break;
-                    case('columns[3].sortOrder'):
-                        columnCode = 'phone_number'
-                        break;
-                    case('columns[4].sortOrder'):
-                        columnCode = 'cc_nedozvon'
-                        break;
-                    case('columns[5].sortOrder'):
-                        columnCode = 'District'
-                        break;
-                    case('columns[6].sortOrder'):
-                        columnCode = 'house'
-                        break;
-                    case('columns[7].sortOrder'):
-                        columnCode = 'entrance'
-                        break;
-                    case('columns[8].sortOrder'):
-                        columnCode = 'place_problem'
-                        break;
-                    case('columns[9].sortOrder'):
-                        columnCode = 'vykon'
-                        break;
-                    case('dataSource'):
-                        columnCode = 'dataSource'
-                        break;
+                case('columns[0].sortOrder'):
+                    columnCode = 'registration_number'
+                    break;
+                case('columns[1].sortOrder'):
+                    columnCode = 'QuestionType'
+                    break;
+                case('columns[2].sortOrder'):
+                    columnCode = 'full_name'
+                    break;
+                case('columns[3].sortOrder'):
+                    columnCode = 'phone_number'
+                    break;
+                case('columns[4].sortOrder'):
+                    columnCode = 'cc_nedozvon'
+                    break;
+                case('columns[5].sortOrder'):
+                    columnCode = 'District'
+                    break;
+                case('columns[6].sortOrder'):
+                    columnCode = 'house'
+                    break;
+                case('columns[7].sortOrder'):
+                    columnCode = 'entrance'
+                    break;
+                case('columns[8].sortOrder'):
+                    columnCode = 'place_problem'
+                    break;
+                case('columns[9].sortOrder'):
+                    columnCode = 'vykon'
+                    break;
+                case('dataSource'):
+                    columnCode = 'dataSource'
+                    break;
                 }
                 if(columnCode != undefined ){
                     if(columnCode != 'dataSource'){
@@ -362,42 +362,42 @@
                             if(data.dateFrom != '' ){
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name){
-                                    case 'registration_date':
-                                        this.registrationDate__from = checkDateFrom(elem.value);
-                                        this.registrationDateFrom = checkDateFrom(elem.value);
-                                        break;
-                                    case 'transfer_date':
-                                        this.transferDateFrom = checkDateFrom(elem.value);
-                                        break;
-                                    case 'state_changed_date':
-                                        this.stateChangedDateFrom = checkDateFrom(elem.value);
-                                        break;
-                                    case 'state_changed_date_done':
-                                        this.stateChangedDateDoneFrom = checkDateFrom(elem.value);
-                                        break;
-                                    case 'execution_term':
-                                        this.executionTermFrom = checkDateFrom(elem.value);
-                                        break;
+                                case 'registration_date':
+                                    this.registrationDate__from = checkDateFrom(elem.value);
+                                    this.registrationDateFrom = checkDateFrom(elem.value);
+                                    break;
+                                case 'transfer_date':
+                                    this.transferDateFrom = checkDateFrom(elem.value);
+                                    break;
+                                case 'state_changed_date':
+                                    this.stateChangedDateFrom = checkDateFrom(elem.value);
+                                    break;
+                                case 'state_changed_date_done':
+                                    this.stateChangedDateDoneFrom = checkDateFrom(elem.value);
+                                    break;
+                                case 'execution_term':
+                                    this.executionTermFrom = checkDateFrom(elem.value);
+                                    break;
                                 }
                             }
                             if(data.dateTo != '' ){
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name){
-                                    case 'registration_date':
-                                        this.registrationDateTo = checkDateTo(elem.value);
-                                        break;
-                                    case 'transfer_date':
-                                        this.transferDateTo = checkDateTo(elem.value);
-                                        break;
-                                    case 'state_changed_date':
-                                        this.stateChangedDateTo = checkDateTo(elem.value);
-                                        break;
-                                    case 'state_changed_date_done':
-                                        this.stateChangedDateDoneTo = checkDateTo(elem.value);
-                                        break;
-                                    case 'execution_term':
-                                        this.executionTermTo = checkDateTo(elem.value);
-                                        break;
+                                case 'registration_date':
+                                    this.registrationDateTo = checkDateTo(elem.value);
+                                    break;
+                                case 'transfer_date':
+                                    this.transferDateTo = checkDateTo(elem.value);
+                                    break;
+                                case 'state_changed_date':
+                                    this.stateChangedDateTo = checkDateTo(elem.value);
+                                    break;
+                                case 'state_changed_date_done':
+                                    this.stateChangedDateDoneTo = checkDateTo(elem.value);
+                                    break;
+                                case 'execution_term':
+                                    this.executionTermTo = checkDateTo(elem.value);
+                                    break;
                                 }
                             }
                         }
@@ -461,7 +461,7 @@
             if( filters.length > 0 ){
                 this.textFilterMacros = [];
                 filters.forEach( function(el){
-                this.createFilterMacros( el.code, el.operation, el.value);
+                    this.createFilterMacros( el.code, el.operation, el.value);
                 }.bind(this));
                 let arr = this.textFilterMacros;
                 let str = arr.join(' ');
@@ -473,12 +473,12 @@
                 });
                 this.sendMsgForSetFilterPanelState(false);
                 this.config.query.parameterValues = [ {  key: '@filter', value: this.macrosValue },
-                                                    { key: '@sort', value: this.sort  }];
+                    { key: '@sort', value: this.sort  }];
                 this.loadData(this.afterLoadDataHandler);
             }else{
                 this.macrosValue = '1=1';
                 this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
-                                                    { key: '@sort', value: this.sort }];
+                    { key: '@sort', value: this.sort }];
                 this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish( {
                     name: 'filters',
@@ -497,13 +497,13 @@
         },
         setFilterColumns: function(code, operation, value) {
             const filter = {
-                    key: code,
-                    value: {
-                        operation: operation,
-                        not: false,
-                        values: value
-                    }
-                };
+                key: code,
+                value: {
+                    operation: operation,
+                    not: false,
+                    values: value
+                }
+            };
             this.config.query.filterColumns.push(filter);
         },
         reloadTable: function(message){

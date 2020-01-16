@@ -1,140 +1,140 @@
 (function () {
-  return {
-    config: {
-        query: {
-            code: 'int_claims_typePageTable',
-            parameterValues: [],
-            filterColumns: [],
-            sortColumns: [],
-            skipNotVisibleColumns: true,
-            chunkSize: 1000
-        },
-        columns:[
-            {
-                dataField: 'operation',
-                caption: 'Операція',
-                width: 100
-            },{
-              caption: 'ГородОк',
-              alignment: 'center',
-              columns: [
-                        {
-                        dataField: 'become',
-                        caption: 'Було',
-                        alignment: 'left',
-                    },{
-                        dataField: 'it_was',
-                        caption: 'Стало',
-                        alignment: 'left',
-                    }
-            ]
+    return {
+        config: {
+            query: {
+                code: 'int_claims_typePageTable',
+                parameterValues: [],
+                filterColumns: [],
+                sortColumns: [],
+                skipNotVisibleColumns: true,
+                chunkSize: 1000
             },
-            {
-                dataField: 'is_done',
-                caption: 'Стан',
-                width: 80
-            },{
-                dataField: 'comment',
-                caption: 'Коментар'
-            }
-        ],
-        searchPanel: {
-            visible: true,
-            highlightCaseSensitive: false
+            columns:[
+                {
+                    dataField: 'operation',
+                    caption: 'Операція',
+                    width: 100
+                },{
+                    caption: 'ГородОк',
+                    alignment: 'center',
+                    columns: [
+                        {
+                            dataField: 'become',
+                            caption: 'Було',
+                            alignment: 'left',
+                        },{
+                            dataField: 'it_was',
+                            caption: 'Стало',
+                            alignment: 'left',
+                        }
+                    ]
+                },
+                {
+                    dataField: 'is_done',
+                    caption: 'Стан',
+                    width: 80
+                },{
+                    dataField: 'comment',
+                    caption: 'Коментар'
+                }
+            ],
+            searchPanel: {
+                visible: true,
+                highlightCaseSensitive: false
+            },
+            pager: {
+                showPageSizeSelector:  false,
+                allowedPageSizes: [10, 15, 30],
+                showInfo: true,
+                pageSize: 10
+            },
+            export: {
+                enabled: true,
+                fileName: 'File_name'
+            },
+            editing: {
+                mode: 'batch',
+                allowUpdating: true,
+                useIcons: true
+            },
+            filterRow: {
+                visible: false,
+                applyFilter: 'auto'
+            },
+            height: '550',
+            keyExpr: 'Id',
+            showBorders: true,
+            showColumnLines: true,
+            showRowLines: true,
+            remoteOperations: null,
+            allowColumnReordering: null,
+            rowAlternationEnabled: null,
+            columnAutoWidth: null,
+            hoverStateEnabled: true,
+            columnWidth: null,
+            wordWrapEnabled: true,
+            allowColumnResizing: true,
+            showFilterRow: false,
+            showHeaderFilter: false,
+            showColumnChooser: true,
+            showColumnFixing: true,
+            groupingAutoExpandAll: null
         },
-        pager: {
-            showPageSizeSelector:  false,
-            allowedPageSizes: [10, 15, 30],
-            showInfo: true,
-            pageSize: 10
+        elements: [],
+        init: function() {
+            this.loadData(this.afterLoadDataHandler);
+            this.dataGridInstance.onRowUpdating.subscribe( function(e) {
+                let is_done = e.newData.is_done;
+                let key = e.key;
+                let comment = e.newData.comment;
+                let cat_id = e.oldData.cat_id;
+                let saveChange = {
+                    queryCode: 'int_btnSaveChange_claims_typeGorodok',
+                    limit: -1,
+                    parameterValues: [
+                        {
+                            key: '@key',
+                            value: key
+                        },{
+                            key: '@is_done',
+                            value: is_done
+                        },{
+                            key: '@comment',
+                            value: comment
+                        },{
+                            key: '@cat_id',
+                            value: cat_id
+                        }
+                    ]
+                };
+                this.queryExecutor(saveChange);
+            }.bind(this));
         },
-        export: {
-            enabled: true,
-            fileName: 'File_name'
+        afterLoadDataHandler: function() {
+            this.render();
         },
-        editing: {
-            mode: 'batch',
-            allowUpdating: true,
-            useIcons: true
+        createElement: function(tag, props, ...children) {
+            const element = document.createElement(tag);
+            Object.keys(props).forEach( key => element[key] = props[key] );
+            if(children.length > 0){
+                children.forEach( child =>{
+                    element.appendChild(child);
+                });
+            } return element;
         },
-        filterRow: {
-            visible: false,
-            applyFilter: 'auto'
+        createCustomStyle:function(){
+            let element = document.querySelector('.dx-datagrid-save-button');
+            element.style.marginRight = '9px';
+            element.style.backgroundColor = '#5cb85c';
+            element.firstElementChild.firstElementChild.style.color = '#fff';
+            element.firstElementChild.lastElementChild.style.color = '#fff';
+            element.parentElement.parentElement.classList.remove('dx-toolbar-text-auto-hide');
         },
-        height: '550',
-        keyExpr: 'Id',
-        showBorders: true,
-        showColumnLines: true,
-        showRowLines: true,
-        remoteOperations: null,
-        allowColumnReordering: null,
-        rowAlternationEnabled: null,
-        columnAutoWidth: null,
-        hoverStateEnabled: true,
-        columnWidth: null,
-        wordWrapEnabled: true,
-        allowColumnResizing: true,
-        showFilterRow: false,
-        showHeaderFilter: false,
-        showColumnChooser: true,
-        showColumnFixing: true,
-        groupingAutoExpandAll: null
-    },
-    elements: [],
-    init: function() {
-        this.loadData(this.afterLoadDataHandler);
-        this.dataGridInstance.onRowUpdating.subscribe( function(e) {
-            let is_done = e.newData.is_done;
-            let key = e.key;
-            let comment = e.newData.comment;
-            let cat_id = e.oldData.cat_id;
-            let saveChange = {
-                queryCode: 'int_btnSaveChange_claims_typeGorodok',
-                limit: -1,
-                parameterValues: [
-                    {
-                        key: '@key',
-                        value: key
-                    },{
-                        key: '@is_done',
-                        value: is_done
-                    },{
-                        key: '@comment',
-                        value: comment
-                    },{
-                        key: '@cat_id',
-                        value: cat_id
-                    }
-                ]
-            };
-            this.queryExecutor(saveChange);
-        }.bind(this));
-    },
-    afterLoadDataHandler: function() {
-        this.render();
-    },
-    createElement: function(tag, props, ...children) {
-        const element = document.createElement(tag);
-        Object.keys(props).forEach( key => element[key] = props[key] );
-        if(children.length > 0){
-            children.forEach( child =>{
-                element.appendChild(child);
-            });
-        } return element;
-    },
-    createCustomStyle:function(){
-        let element = document.querySelector('.dx-datagrid-save-button');
-        element.style.marginRight = '9px';
-        element.style.backgroundColor = '#5cb85c';
-        element.firstElementChild.firstElementChild.style.color = '#fff';
-        element.firstElementChild.lastElementChild.style.color = '#fff';
-        element.parentElement.parentElement.classList.remove('dx-toolbar-text-auto-hide');
-    },
-    subscribeToDataGridActions: function() {
-    },
-    onDataGridEditorPreparing: function() {
-    },
-    destroy: function() {
-    }
-};
+        subscribeToDataGridActions: function() {
+        },
+        onDataGridEditorPreparing: function() {
+        },
+        destroy: function() {
+        }
+    };
 }());

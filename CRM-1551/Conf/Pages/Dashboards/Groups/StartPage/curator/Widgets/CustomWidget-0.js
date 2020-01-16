@@ -269,8 +269,8 @@
                         queryCode: 'cc_FilterDelete',
                         limit: -1,
                         parameterValues: [
-                                { key: '@id', value: Number(target.parentElement.id)}
-                            ]
+                            { key: '@id', value: Number(target.parentElement.id)}
+                        ]
                     };
                     let element = target.parentElement;
                     let location = 'district';
@@ -350,8 +350,8 @@
                         queryCode: 'cc_FilterDelete',
                         limit: -1,
                         parameterValues: [
-                                { key: '@id', value: Number(target.parentElement.id)}
-                            ]
+                            { key: '@id', value: Number(target.parentElement.id)}
+                        ]
                     };
                     let element = target.parentElement;
                     let location = 'departament';
@@ -455,7 +455,7 @@
                 filtersWrapper.appendChild(modalWindowContainer);
             }
             while ( modalWindowContainer.hasChildNodes() ) {
-                    modalWindowContainer.removeChild( modalWindowContainer.childNodes[0] );
+                modalWindowContainer.removeChild( modalWindowContainer.childNodes[0] );
             }
             modalWindowContainer.classList.add('modalWindowShowClass');
             let modalFiltersHeader = {};
@@ -730,7 +730,7 @@
             headers = Array.from(headers);
             if( reloadTable == true ){
                 categories.forEach( el => {
-                el.style.display = 'none';
+                    el.style.display = 'none';
                 });
                 let target = document.getElementById(this.targetId);
                 this.showTable(target,  this.column, this.navigation);
@@ -739,7 +739,7 @@
                 el.addEventListener( 'click', function(event){
                     let target = event.currentTarget;
                     categories.forEach( el => {
-                    el.style.display = 'none';
+                        el.style.display = 'none';
                     });
                     let navigator = 'Усі';
                     let column = this.columnName(target);
@@ -750,7 +750,7 @@
                 el.addEventListener( 'click', function(event){
                     let target = event.currentTarget;
                     categories.forEach( el => {
-                    el.style.display = 'none';
+                        el.style.display = 'none';
                     });
                     let navigator = target.firstElementChild.innerText;
                     target = target.parentElement.firstElementChild;

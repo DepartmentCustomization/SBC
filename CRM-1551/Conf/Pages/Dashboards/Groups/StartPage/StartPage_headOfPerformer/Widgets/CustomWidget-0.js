@@ -1,6 +1,6 @@
 (function () {
-  return {
-    customConfig:
+    return {
+        customConfig:
                 `
                     <style>
                     
@@ -115,10 +115,10 @@
                     </section>
                 
                 `
-    ,
-    init: function() {
-    },
-    load: function() {
-    }
-};
+        ,
+        init: function() {
+        },
+        load: function() {
+        }
+    };
 }());

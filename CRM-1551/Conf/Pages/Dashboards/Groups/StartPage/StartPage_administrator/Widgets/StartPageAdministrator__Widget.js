@@ -1,6 +1,6 @@
 (function () {
-  return {
-    customConfig:
+    return {
+        customConfig:
                 `
                     <style>
                         .header-label {
@@ -153,15 +153,15 @@
                     </section>
                 
                 `
-    ,
-    init: function() {
-    },
-    initValue: function(){
-    },
-    load: function() {
-    },
-    afterViewInit:function(){
+        ,
+        init: function() {
+        },
+        initValue: function(){
+        },
+        load: function() {
+        },
+        afterViewInit:function(){
+        }
     }
-}
-;
+    ;
 }());

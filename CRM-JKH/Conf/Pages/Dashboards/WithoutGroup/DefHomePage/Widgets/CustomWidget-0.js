@@ -1,13 +1,13 @@
 (function () {
-  return {
-    customConfig:
+    return {
+        customConfig:
  ` 
  
  `
- ,
-    init: function() {
-    },
-    load: function() {
-    }
-};
+        ,
+        init: function() {
+        },
+        load: function() {
+        }
+    };
 }());

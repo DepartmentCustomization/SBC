@@ -122,9 +122,9 @@
                 queryCode: 'NaDooprNemaMozhlVyk',
                 limit: -1,
                 parameterValues: [
-                        { key: '@organization_id',  value: this.orgId},
-                        { key: '@column', value: this.column},
-                        { key: '@navigation', value: this.navigation}
+                    { key: '@organization_id',  value: this.orgId},
+                    { key: '@column', value: this.column},
+                    { key: '@navigation', value: this.navigation}
                 ]
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
@@ -358,8 +358,8 @@
             }else{
                 document.getElementById('table9_dooproc').style.display = 'block';
                 this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
-                                                    { key: '@column', value: message.column},
-                                                    { key: '@navigation', value: message.navigation}];
+                    { key: '@column', value: message.column},
+                    { key: '@navigation', value: message.navigation}];
                 this.loadData(this.afterLoadDataHandler);
             }
         },

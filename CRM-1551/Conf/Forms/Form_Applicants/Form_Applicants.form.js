@@ -306,10 +306,10 @@
                         const queryForGetValue_UpdatePhone = {
                             queryCode: 'ApplicantPhonesUpdate',
                             parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Id') },
-                            { key: '@TypePhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneType').value },
-                            { key: '@Phone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneNumber').value },
-                            { key: '@IsMain', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneIsMain').value },
-                            { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneId').value }]
+                                { key: '@TypePhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneType').value },
+                                { key: '@Phone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneNumber').value },
+                                { key: '@IsMain', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneIsMain').value },
+                                { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneId').value }]
                         };
                         this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function () {
                         }.bind(this));

@@ -154,7 +154,7 @@
                     let executeQuery = {
                         queryCode: 'Button_NeVKompetentcii',
                         parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
-                                        {key: '@Id', value: el.Id } ],
+                            {key: '@Id', value: el.Id } ],
                         limit: -1
                     };
                     this.queryExecutor(executeQuery);
@@ -257,8 +257,8 @@
                 queryCode: 'CoordinatorController_NeVKompetentsii',
                 limit: -1,
                 parameterValues: [
-                        { key: '@navigation', value: this.navigation }
-                    ]
+                    { key: '@navigation', value: this.navigation }
+                ]
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },

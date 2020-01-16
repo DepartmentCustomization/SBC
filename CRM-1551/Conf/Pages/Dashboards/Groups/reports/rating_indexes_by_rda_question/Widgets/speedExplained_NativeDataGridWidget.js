@@ -36,15 +36,15 @@
         init: function() {
             const getUrlParams = window
                 .location
-                    .search
-                        .replace('?', '')
-                            .split('&')
-                                .reduce(function(p, e) {
-                                    let a = e.split('=');
-                                    p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
-                                    return p;
-                                }, {}
-                            );
+                .search
+                .replace('?', '')
+                .split('&')
+                .reduce(function(p, e) {
+                    let a = e.split('=');
+                    p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                    return p;
+                }, {}
+                );
             const executor = getUrlParams.executor;
             const date = getUrlParams.period;
             const ratingId = getUrlParams.rating;
@@ -96,4 +96,4 @@
             this.sub.unsubscribe();
         }
     };
-  }());
+}());

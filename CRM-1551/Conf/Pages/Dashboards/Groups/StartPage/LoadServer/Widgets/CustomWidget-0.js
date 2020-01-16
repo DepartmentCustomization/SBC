@@ -1,9 +1,9 @@
 (function () {
-  return {
-    title: [],
-    hint: '',
-    formatTitle: function() {},
-    customConfig:
+    return {
+        title: [],
+        hint: '',
+        formatTitle: function() {},
+        customConfig:
                 `
                  
                  <p style="font-size: 1em; font-weight: bold; width: 100%;">Останні зміни стану:</p>
@@ -49,11 +49,11 @@
             	</div>
             	
                             `
-    ,
-    StateCode1: 'Simple load',
-    StateCode2: 'Standart load',
-    StateCode3: 'Hard load',
-    afterViewInit: function() {
+        ,
+        StateCode1: 'Simple load',
+        StateCode2: 'Standart load',
+        StateCode3: 'Hard load',
+        afterViewInit: function() {
             let BtnCreateContent1 = document.getElementById('input_btn_1');
             BtnCreateContent1.addEventListener('click', function() {
                 this.activeElement(BtnCreateContent1);
@@ -72,74 +72,74 @@
             BtnCreateContent1.checked = false;
             BtnCreateContent2.checked = false;
             BtnCreateContent3.checked = false;
-        this.reloadState();
-    },
-    changeState: function(StateId) {
-        let executeQuery = {
-            queryCode: 'LoadServer_InsertRow',
-            limit: -1,
-            parameterValues: [{key: '@StateId', value: StateId}]
-        };
-        this.queryExecutor(executeQuery, this.reloadState, this);
-    },
-    reloadState: function() {
-        let executeQuery = {
-            queryCode: 'LoadServer_SelectRow',
-            limit: -1,
-            parameterValues: []
-        };
-        this.queryExecutor(executeQuery, this.load, this);
-    },
-    activeElement: function(element) {
-        let BtnCreateContent1 = document.getElementById('input_btn_1');
-        let BtnCreateContent2 = document.getElementById('input_btn_2');
-        let BtnCreateContent3 = document.getElementById('input_btn_3');
+            this.reloadState();
+        },
+        changeState: function(StateId) {
+            let executeQuery = {
+                queryCode: 'LoadServer_InsertRow',
+                limit: -1,
+                parameterValues: [{key: '@StateId', value: StateId}]
+            };
+            this.queryExecutor(executeQuery, this.reloadState, this);
+        },
+        reloadState: function() {
+            let executeQuery = {
+                queryCode: 'LoadServer_SelectRow',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        activeElement: function(element) {
+            let BtnCreateContent1 = document.getElementById('input_btn_1');
+            let BtnCreateContent2 = document.getElementById('input_btn_2');
+            let BtnCreateContent3 = document.getElementById('input_btn_3');
             BtnCreateContent1.checked = false;
             BtnCreateContent2.checked = false;
             BtnCreateContent3.checked = false;
             BtnCreateContent1.disabled = false;
             BtnCreateContent2.disabled = false;
             BtnCreateContent3.disabled = false;
-     element.checked = true;
-     element.disabled = true;
-    },
-    extractDate: function(val) {
-                let inMonth = new Date(this.getLocalizedValue(val, 'Datetime'));
-                let dd = inMonth.getDate();
-                let mm = inMonth.getMonth() + 1;
-                let yyyy = inMonth.getFullYear();
-                let hh = inMonth.getHours();
-                let mi = inMonth.getMinutes();
-                let ss = inMonth.getSeconds();
-                if(dd<10) {
+            element.checked = true;
+            element.disabled = true;
+        },
+        extractDate: function(val) {
+            let inMonth = new Date(this.getLocalizedValue(val, 'Datetime'));
+            let dd = inMonth.getDate();
+            let mm = inMonth.getMonth() + 1;
+            let yyyy = inMonth.getFullYear();
+            let hh = inMonth.getHours();
+            let mi = inMonth.getMinutes();
+            let ss = inMonth.getSeconds();
+            if(dd<10) {
                 dd='0'+dd
-                }
-                if(mm<10) {
+            }
+            if(mm<10) {
                 mm='0'+mm
-                }
-                if(hh<10) {
+            }
+            if(hh<10) {
                 hh='0'+hh
-                }
-                if(mi<10) {
+            }
+            if(mi<10) {
                 mi='0'+mi
-                }
-                if(ss<10) {
+            }
+            if(ss<10) {
                 ss='0'+ss
-                }
-              return yyyy+'-'+mm+'-'+dd +' '+hh+':'+mi+':'+ss;
-    },
-    load: function(data) {
-        let BtnCreateContent1 = document.getElementById('input_btn_1');
-        let BtnCreateContent2 = document.getElementById('input_btn_2');
-        let BtnCreateContent3 = document.getElementById('input_btn_3');
-       document.getElementById('LastChangeDate').innerText  = this.extractDate(data.rows[0].values[4]);
-        if (data.rows[0].values[3] == 'Simple load') {
-this.activeElement(BtnCreateContent1);
-} else if (data.rows[0].values[3] == 'Standart load') {
-this.activeElement(BtnCreateContent2);
-} else if (data.rows[0].values[3] == 'Hard load') {
-this.activeElement(BtnCreateContent3);
-}
-    }
-};
+            }
+            return yyyy+'-'+mm+'-'+dd +' '+hh+':'+mi+':'+ss;
+        },
+        load: function(data) {
+            let BtnCreateContent1 = document.getElementById('input_btn_1');
+            let BtnCreateContent2 = document.getElementById('input_btn_2');
+            let BtnCreateContent3 = document.getElementById('input_btn_3');
+            document.getElementById('LastChangeDate').innerText  = this.extractDate(data.rows[0].values[4]);
+            if (data.rows[0].values[3] == 'Simple load') {
+                this.activeElement(BtnCreateContent1);
+            } else if (data.rows[0].values[3] == 'Standart load') {
+                this.activeElement(BtnCreateContent2);
+            } else if (data.rows[0].values[3] == 'Hard load') {
+                this.activeElement(BtnCreateContent3);
+            }
+        }
+    };
 }());

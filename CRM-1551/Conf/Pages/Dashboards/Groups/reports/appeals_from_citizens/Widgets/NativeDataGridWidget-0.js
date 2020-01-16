@@ -40,32 +40,32 @@
                     column: 'questionQ',
                     summaryType: 'sum',
                     customizeText: function(data) {
-                    return 'Сума: ' + data.value;
-                }
+                        return 'Сума: ' + data.value;
+                    }
                 }, {
                     column: 'assignmentQ',
                     summaryType: 'sum',
                     customizeText: function(data) {
-                    return 'Сума: ' + data.value;
-                }
+                        return 'Сума: ' + data.value;
+                    }
                 }, {
                     column: 'doneQ',
                     summaryType: 'sum',
                     customizeText: function(data) {
-                    return 'Сума: ' + data.value;
-                }
+                        return 'Сума: ' + data.value;
+                    }
                 }, {
                     column: 'reworkQ',
                     summaryType: 'sum',
                     customizeText: function(data) {
-                    return 'Сума: ' + data.value;
-                }
+                        return 'Сума: ' + data.value;
+                    }
                 }, {
                     column: 'notCallQ',
                     summaryType: 'sum',
                     customizeText: function(data) {
-                    return 'Сума: ' + data.value;
-                }
+                        return 'Сума: ' + data.value;
+                    }
                 }]
             },
             keyExpr: 'Id',
@@ -133,7 +133,7 @@
                         valuesList.push(val[i].value);
                     }
                 }
-                    return  valuesList.length > 0 ? valuesList : [];
+                return  valuesList.length > 0 ? valuesList : [];
             } else {
                 return [];
             }
