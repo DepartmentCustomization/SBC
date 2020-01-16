@@ -255,7 +255,7 @@
             }
         },
         createTable: function(reloadTable ,data) {
-            for(let i = 2; i < data.columns.length; i ++) {
+            for(let i = 2; i < data.columns.length; i++) {
                 let item = data.columns[i];
                 let columnHeader = this.createElement('div', { id: 'columnHeader_' + i + '', code: '' + item.code + '', className: 'columnHeader', innerText: '' + item.name + ''});
                 if(i == 2) {
@@ -275,10 +275,10 @@
                 let tableContainer = document.getElementById('tableContainer');
                 tableContainer.appendChild(column);
             }
-            for(let i = 0; i < data.rows.length - 1; i ++) {
+            for(let i = 0; i < data.rows.length - 1; i++) {
                 let elRow = data.rows[i];
                 let navigationIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'navigation');
-                for(let j = 2; j < elRow.values.length; j ++) {
+                for(let j = 2; j < elRow.values.length; j++) {
                     let el = elRow.values[j];
                     if(el != 0) {
                         let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '(' + el + ')'});
@@ -293,7 +293,7 @@
             }
             for(let i = data.rows.length - 1; i < data.rows.length; i++) {
                 let summaryHeader = data.rows[i];
-                for(let j = 2; j < summaryHeader.values.length; j ++) {
+                for(let j = 2; j < summaryHeader.values.length; j++) {
                     let el = summaryHeader.values[j];
                     let columnChild = document.getElementById('column_' + j + '').firstElementChild;
                     let sub = columnChild.innerText;
@@ -370,7 +370,7 @@
                 document.getElementById('columnHeader_5').firstElementChild.classList.add('triangle5');
                 document.getElementById('columnHeader_6').firstElementChild.classList.add('triangle6');
                 document.getElementById('columnHeader_7').firstElementChild.classList.add('triangle7');
-                for(let i = 0; i < headers.length; i ++) {
+                for(let i = 0; i < headers.length; i++) {
                     let header = headers[i];
                     header.firstElementChild.classList.remove('triangle');
                     header.firstElementChild.classList.add('triangle' + (i + 2) + '');
@@ -381,7 +381,7 @@
                 this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none');
             }else{
                 target.classList.add('hover');
-                for(let i = 0; i < headers.length; i ++) {
+                for(let i = 0; i < headers.length; i++) {
                     let header = headers[i];
                     if(target.id != header.id) {
                         header.firstElementChild.classList.remove('triangle' + (i + 2) + '');

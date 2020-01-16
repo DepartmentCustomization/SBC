@@ -378,7 +378,7 @@
                     if(this.subColumnCaption.length > 0) {
                         let group = this.subColumnCaption[resCol.index];
                         if(group.colCaption === resCol.caption) {
-                            group.length ++;
+                            group.length++;
                             group.colIndexTo = colIndexTo;
                         }
                     }
@@ -412,7 +412,7 @@
                     const element = resultColumns[j];
                     let index = data.columns.findIndex(el => el.code === element.dataField);
                     let value = rowData.values[index];
-                    if(typeof(value) === 'string') {
+                    if(typeof (value) === 'string') {
                         rowValues[j] = value;
                     }else{
                         let int = isInt(value);

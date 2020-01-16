@@ -214,7 +214,7 @@
         },
         createTable: function(reloadTable, targetId, data) {
             const tableContainer = this.tableContainer;
-            for(let i = 2; i < data.columns.length; i ++) {
+            for(let i = 2; i < data.columns.length; i++) {
                 let item = data.columns[i];
                 let columnTriangle = this.createElement('div', { });
                 let columnHeader = this.createElement('div', { id: 'columnHeader_' + i + '', code: '' + item.code + '', className: 'columnHeader', innerText: '' + item.name + ''}, columnTriangle);
@@ -248,9 +248,9 @@
                 column.classList.add('column_' + i + '');
                 tableContainer.appendChild(column);
             }
-            for(let i = 0; i < data.rows.length; i ++) {
+            for(let i = 0; i < data.rows.length; i++) {
                 let elRow = data.rows[i];
-                for(let j = 2; j < elRow.values.length; j ++) {
+                for(let j = 2; j < elRow.values.length; j++) {
                     let el = elRow.values[j];
                     if(el != 0) {
                         let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '(' + el + ')'});

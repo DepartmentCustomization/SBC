@@ -116,7 +116,7 @@
                 columns.forEach(el => {
                     let elDataField = el.dataField;
                     let elCaption = el.caption;
-                    for (let i = 0; i < data.columns.length; i ++) {
+                    for (let i = 0; i < data.columns.length; i++) {
                         if(elDataField === data.columns[i].code) {
                             let obj = {
                                 name: elDataField,
@@ -180,10 +180,10 @@
                 this.addetedIndexes = [];
                 let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype');
                 let indexQuestionQty = data.columns.findIndex(el => el.code.toLowerCase() === 'questionqty');
-                for(let j = 0; j < data.rows.length; j ++) {
+                for(let j = 0; j < data.rows.length; j++) {
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
-                    for(let i = 0; i < indexArr.length; i ++) {
+                    for(let i = 0; i < indexArr.length; i++) {
                         let el = indexArr[i];
                         if(el.name === 'questionType') {
                             rowItem.questionType = row.values[indexQuestionType];

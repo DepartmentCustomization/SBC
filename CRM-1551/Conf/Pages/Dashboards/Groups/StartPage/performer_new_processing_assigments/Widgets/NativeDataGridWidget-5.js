@@ -218,10 +218,10 @@
             let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date');
             let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_zmist');
             let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress');
-            for(let j = 0; j < data.rows.length; j ++) {
+            for(let j = 0; j < data.rows.length; j++) {
                 const row = data.rows[j];
                 let rowItem = { number: j + 1 };
-                for(let i = 0; i < indexArr.length; i ++) {
+                for(let i = 0; i < indexArr.length; i++) {
                     let el = indexArr[i];
                     let cdValue = this.changeDateTimeValues(row.values[indexControlDate]);
                     if(el.name === 'registration_number') {

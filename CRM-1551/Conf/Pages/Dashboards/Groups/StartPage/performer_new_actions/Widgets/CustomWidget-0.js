@@ -145,7 +145,7 @@
         },
         createSubordinateOrganizationsTable: function(data) {
             this.createHeaderOrganizations();
-            for (let i = 0; i < data.rows.length; i ++) {
+            for (let i = 0; i < data.rows.length; i++) {
                 let row = data.rows[i];
                 let eventElementsСounter = this.createElement('div', { className: 'eventElementsСounter displayFlex'});
                 let eventTitle__name = this.createElement('div', { className: 'eventTitle__name', innerText: '' + row.values[1] + ''});
@@ -154,7 +154,7 @@
                 let eventWrapper = document.getElementById('eventWrapper');
                 eventWrapper.appendChild(event);
                 let name = row.values[1];
-                for (let i = 2; i < row.values.length; i ++) {
+                for (let i = 2; i < row.values.length; i++) {
                     let el = row.values[i];
                     let link = undefined;
                     if(i == 2) {

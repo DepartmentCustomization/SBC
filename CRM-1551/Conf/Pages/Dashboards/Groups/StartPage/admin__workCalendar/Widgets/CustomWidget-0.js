@@ -31,7 +31,7 @@
         },
         load: function(data) {
             this.yearCalendar = [];
-            for(let i = 0; i < data.rows.length; i ++) {
+            for(let i = 0; i < data.rows.length; i++) {
                 let indexDateCode = data.columns.findIndex(el => el.code.toLowerCase() === 'date');
                 let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id');
                 let date = new Date(data.rows[i].values[indexDateCode]);
@@ -88,24 +88,24 @@
                 let saterday = this.createElement('div', { className: 'calenDay', innerText: 'СБ'});
                 let sunday = this.createElement('div', { className: 'calenDay', innerText: 'ВС'});
                 let monthBox = this.createElement('div', { id: 'monthBox_' + month.year + '_' + month.month + '', className: 'month'}, monday, tuesday, wednesday, thursday, friday, saterday, sunday);
-                for(let i = 0; i < month.day - 1; i ++) {
+                for(let i = 0; i < month.day - 1; i++) {
                     dayBox = this.createElement('div', { id: 'day_' + month.year + '_' + month.month + '_00', className: 'calenDay emptyDay'});
                     monthBox.appendChild(dayBox);
                 }
-                for(let i = 0; i < month.monthLength; i ++) {
+                for(let i = 0; i < month.monthLength; i++) {
                     dayBox = this.createElement('div', { dayId: month.arr[i], id: 'day_' + month.year + '_' + month.month + '_' + (i + 1), innerText: i + 1, className: 'calenDay day', isWork: true });
                     monthBox.appendChild(dayBox);
                 }
                 let ml = monthBox.childNodes.length;
                 if(ml < 42 && ml > 36) {
                     let c = 42 - ml;
-                    for(let i = 0; i < c; i ++) {
+                    for(let i = 0; i < c; i++) {
                         let dayBox = this.createElement('div', { id: 'day_' + month.year + '_' + month.month + '_00', className: 'calenDay emptyDay'});
                         monthBox.appendChild(dayBox);
                     }
                 }else if(ml < 49 && ml > 42) {
                     let c = 49 - ml;
-                    for(let i = 0; i < c; i ++) {
+                    for(let i = 0; i < c; i++) {
                         let dayBox = this.createElement('div', { id: 'day_' + month.year + '_' + month.month + '_00', className: 'calenDay emptyDay'});
                         monthBox.appendChild(dayBox);
                     }

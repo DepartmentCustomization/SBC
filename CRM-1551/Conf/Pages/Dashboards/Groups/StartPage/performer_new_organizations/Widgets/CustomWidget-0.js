@@ -247,7 +247,7 @@
                     let orgTitle = this.createElement('div', { className: 'orgTitle displayFlex'}, orgTitle__icon, orgTitle__name);
                     let organization = this.createElement('div', { className: 'organization displayFlex', id: '' + organizationId + ''}, orgTitle, orgElements);
                     orgContainer.appendChild(organization);
-                    for(let i = 2; i < row.values.length; i ++) {
+                    for(let i = 2; i < row.values.length; i++) {
                         let el = row.values[i];
                         let column = this.chooseColumnName(i);
                         let orgElementsСounterItem = {};
@@ -358,7 +358,7 @@
         },
         createOrganizationsSubElements: function(orgElementsReferral, organizationId, data) {
             data.rows.forEach(function(row) {
-                for(let i = 2; i < row.values.length; i ++) {
+                for(let i = 2; i < row.values.length; i++) {
                     let el = row.values[i];
                     let sub = row.values[1];
                     let column = this.chooseColumnName(i);

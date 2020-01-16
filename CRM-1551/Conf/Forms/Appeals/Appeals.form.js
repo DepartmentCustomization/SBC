@@ -1669,7 +1669,7 @@
                         this.form.setControlValue('Applicant_Entrance', value);
                     }
                 }
-                if (typeof(value) === 'string') {
+                if (typeof (value) === 'string') {
                     if (value.length >= 0) {
                         if (value.substr(0,1) === '-' || value.substr(0,1) == '0') {
                             value = '';

@@ -234,7 +234,7 @@
                     if(this.subColumnCaption.length > 0) {
                         let group = this.subColumnCaption[resCol.index];
                         if(group.colCaption === resCol.caption) {
-                            group.length ++;
+                            group.length++;
                             group.colIndexTo = colIndexTo;
                         }
                     }

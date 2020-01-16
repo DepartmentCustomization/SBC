@@ -312,11 +312,11 @@
             filters.forEach(elem => {
                 if(elem.active === true) {
                     let data = elem.value;
-                    if(typeof(data) === 'boolean') {
+                    if(typeof (data) === 'boolean') {
                         this.createObjMacros(elem.name, '=', 'true', elem.placeholder);
-                    }else if(typeof(data) === 'object') {
+                    }else if(typeof (data) === 'object') {
                         if(data[0]) {
-                            if(typeof(data[0].value) === 'number') {
+                            if(typeof (data[0].value) === 'number') {
                                 if(elem.name === 'zayavnyk_age') {
                                     this.ageArr = [];
                                     let ageSendViewValue = '';
@@ -343,7 +343,7 @@
                                     let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
                                     this.createObjMacros(elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
                                 }
-                            }else if(typeof(data[0].value) === 'string') {
+                            }else if(typeof (data[0].value) === 'string') {
                                 let stringSumValue = '';
                                 let stringSumViewValue = '';
                                 if(data.length > 0) {
@@ -401,7 +401,7 @@
                                 }
                             }
                         }
-                    }else if(typeof(data) === 'string') {
+                    }else if(typeof (data) === 'string') {
                         this.createObjMacros(elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue);
                     }
                 }

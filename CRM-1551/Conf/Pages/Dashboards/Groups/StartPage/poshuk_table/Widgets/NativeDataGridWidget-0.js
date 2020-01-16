@@ -136,11 +136,11 @@
             filters.forEach(elem => {
                 if(elem.active === true) {
                     let data = elem.value;
-                    if(typeof(data) === 'boolean') {
+                    if(typeof (data) === 'boolean') {
                         this.createObjMacros(elem.name, '=', 'true', elem.placeholder);
-                    }else if(typeof(data) === 'object') {
+                    }else if(typeof (data) === 'object') {
                         if(data[0]) {
-                            if(typeof(data[0].value) === 'number') {
+                            if(typeof (data[0].value) === 'number') {
                                 if(elem.name === 'zayavnyk_age') {
                                     this.ageArr = [];
                                     let ageSendViewValue = '';
@@ -167,7 +167,7 @@
                                     let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
                                     this.createObjMacros(elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
                                 }
-                            }else if(typeof(data[0].value) === 'string') {
+                            }else if(typeof (data[0].value) === 'string') {
                                 let stringSumValue = '';
                                 let stringSumViewValue = '';
                                 if(data.length > 0) {
@@ -229,7 +229,7 @@
                                 }
                             }
                         }
-                    }else if(typeof(data) === 'string') {
+                    }else if(typeof (data) === 'string') {
                         if(elem.name === 'zayavnyk_phone_number') {
                             this.applicantPhoneNumber = elem.value;
                             this.createObjMacros(elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue);
@@ -461,7 +461,7 @@
                 let columns = this.config.columns; columns.forEach(el => {
                     let elDataField = el.dataField;
                     let elCaption = el.caption;
-                    for (let i = 0; i < data.columns.length; i ++) {
+                    for (let i = 0; i < data.columns.length; i++) {
                         if(elDataField === data.columns[i].code) {
                             let obj = {
                                 name: elDataField,
@@ -573,10 +573,10 @@
                 let indexZayavnykBuildingNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_building_number');
                 let indexAssigmQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'assigm_question_content');
                 let indexExecutionTerm = data.columns.findIndex(el => el.code.toLowerCase() === 'execution_term');
-                for(let j = 0; j < data.rows.length; j ++) {
+                for(let j = 0; j < data.rows.length; j++) {
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
-                    for(let i = 0; i < indexArr.length; i ++) {
+                    for(let i = 0; i < indexArr.length; i++) {
                         let el = indexArr[i];
                         const controlDate = this.changeDateTimeValues(row.values[indexExecutionTerm]);
                         const regDate = this.changeDateTimeValues(row.values[indexRegistrationDate]);
@@ -712,7 +712,7 @@
                     let indexes = this.addedIndexes;
                     let size = Object.keys(el).length;
                     let rowSize = Object.keys(row).length;
-                    for(let i = 0; i < size - rowSize; i ++) {
+                    for(let i = 0; i < size - rowSize; i++) {
                         let prop = indexes[i];
                         switch(prop) {
                         case 'appeals_receipt_source':

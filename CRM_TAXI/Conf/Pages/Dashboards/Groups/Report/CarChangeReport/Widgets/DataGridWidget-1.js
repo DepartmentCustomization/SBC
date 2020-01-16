@@ -86,7 +86,7 @@
                     return p;
                 }, {}
                 );
-            this.car = + getUrlParams.car_id;
+            this.car = +getUrlParams.car_id;
             this.dateTo = new Date(getUrlParams.dateTo);
             this.dateFrom = new Date(getUrlParams.dateFrom);
         },

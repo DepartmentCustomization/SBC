@@ -212,10 +212,10 @@
             let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_zmist');
             let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress');
             let indexReceiptDate = data.columns.findIndex(el => el.code.toLowerCase() === 'receipt_date');
-            for(let j = 0; j < data.rows.length; j ++) {
+            for(let j = 0; j < data.rows.length; j++) {
                 const row = data.rows[j];
                 let rowItem = { number: j + 1 };
-                for(let i = 0; i < indexArr.length; i ++) {
+                for(let i = 0; i < indexArr.length; i++) {
                     let el = indexArr[i];
                     if(el.name === 'registration_number') {
                         rowItem.registration_number = row.values[indexRegistrationNumber] + '. Надійшло: ' + this.changeDateTimeValues(row.values[indexReceiptDate]);
