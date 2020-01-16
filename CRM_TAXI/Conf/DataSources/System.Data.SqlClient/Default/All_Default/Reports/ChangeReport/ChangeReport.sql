@@ -1,16 +1,18 @@
--- declare @dateFrom datetime = '2019-11-01 00:00:00';
--- declare @dateTo datetime = current_timestamp;
+-- DECLARE @dateFrom DATETIME = '2019-11-01 00:00:00';
 
-Select 
-Id,
-part_name,
-articul,
-manufacturer,
-[provider],
-part_price,
-qty,
-sum_price
+-- DECLARE @dateTo DATETIME = CURRENT_TIMESTAMP;
 
-from PartsChange_Group
-where change_date
-between @dateFrom and dateadd(day,1,@dateTo)
+SELECT
+    Id,
+    part_name,
+    articul,
+    manufacturer,
+    [provider],
+    part_price,
+    qty,
+    sum_price
+FROM
+    PartsChange_Group
+WHERE
+    change_date BETWEEN @dateFrom
+    AND dateadd(DAY, 1, @dateTo)

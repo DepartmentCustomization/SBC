@@ -1,11 +1,10 @@
-select
-Id,
-dollar_date,
-dollar_rate
-
-from Dollar_rate
-where
- #filter_columns#
- #sort_columns#
- 
-offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+    Id,
+    dollar_date,
+    dollar_rate
+FROM
+    Dollar_rate
+WHERE
+    #filter_columns#
+    #sort_columns#
+    OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY
