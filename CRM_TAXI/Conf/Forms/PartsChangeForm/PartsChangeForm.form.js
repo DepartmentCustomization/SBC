@@ -11,7 +11,7 @@
             if (url.includes('view') == true) {
                 this.form.setControlVisibility('update_part_change', false);
             }
-            if (this.state == "update") {
+            if (this.state == 'update') {
                 this.checkUserRole();
                 let changeParam = [
                     { parameterCode: '@car', parameterValue: this.form.getControlValue('cars_id') },
@@ -23,9 +23,9 @@
                 this.form.disableControl('part_name');
                 this.form.disableControl('manufacturer');
                 if (document.getElementById('new_part_id').disabled == true) {
-                    document.getElementById("update_part_change").style.display = "none";
+                    document.getElementById('update_part_change').style.display = 'none';
                 }
-                document.getElementById('update_part_change').addEventListener("click", function () {
+                document.getElementById('update_part_change').addEventListener('click', function () {
                     const queryForUpdatePartsChange = {
                         queryCode: 'Remake_PartChange',
                         parameterValues: [
@@ -76,9 +76,9 @@
         sendBadChangeNotify: function (title) {
             this.createOrganisationsNotification({
                 text: title,
-                url: "notifications/unread",
-                notificationTypeCode: "WEB",
-                notificationPriorityCode: "Middle",
+                url: 'notifications/unread',
+                notificationTypeCode: 'WEB',
+                notificationPriorityCode: 'Middle',
                 organisationIds: [4],
                 hasAudio: true
             });
@@ -105,7 +105,7 @@
                 this.form.setControlValue('old_part_id', { key: null, value: null });
             }
             if (this.form.getControlValue('cars_id') != null &&
-                this.form.getControlValue('cars_id') != "") {
+                this.form.getControlValue('cars_id') != '') {
                 let changeParam = [
                     { parameterCode: '@car', parameterValue: car },
                     { parameterCode: '@changeId', parameterValue: this.id }];
@@ -118,8 +118,8 @@
         checkSaveAvailable: function () {
             if (this.form.getControlValue('cars_id') != null &&
                 this.form.getControlValue('new_part_id') != null &&
-                this.form.getControlValue('cars_id') != "" &&
-                this.form.getControlValue('new_part_id') != ""
+                this.form.getControlValue('cars_id') != '' &&
+                this.form.getControlValue('new_part_id') != ''
             ) {
                 document.getElementById('update_part_change').disabled = false;
             } else {
@@ -127,7 +127,7 @@
             }
         },
         checkArticulPresents: function () {
-            if (this.form.getControlValue('new_part_id') == null || this.form.getControlValue('new_part_id') == "") {
+            if (this.form.getControlValue('new_part_id') == null || this.form.getControlValue('new_part_id') == '') {
                 this.form.setControlValue('part_name', null);
                 this.form.setControlValue('manufacturer', null);
                 this.form.setControlValue('part_price', null);
@@ -137,7 +137,7 @@
         },
         getPartName: function () {
             if (this.form.getControlValue('new_part_id') != null &&
-                this.form.getControlValue('new_part_id') != "") {
+                this.form.getControlValue('new_part_id') != '') {
                 const queryForGetPartInfo = {
                     queryCode: 'getPartInfoByArticul',
                     parameterValues: [

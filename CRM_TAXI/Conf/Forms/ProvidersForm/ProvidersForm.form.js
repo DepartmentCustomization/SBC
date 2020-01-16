@@ -2,9 +2,9 @@
     return {
         init: function () {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
-            if (this.state == "create") {
+            if (this.state == 'create') {
                 this.checkUserRole();
-                document.getElementById('save_provider').addEventListener("click", function () {
+                document.getElementById('save_provider').addEventListener('click', function () {
                     const queryForSaveProvider = {
                         queryCode: 'InsertProviders',
                         parameterValues: [
@@ -32,13 +32,13 @@
                         }
                     });
                 }.bind(this));
-            } else if (this.state == "update") {
+            } else if (this.state == 'update') {
                 this.checkUserRole();
                 if (document.getElementById('provider').disabled == true) {
-                    document.getElementById("save_provider").style.display = "none";
-                    document.getElementById("clear_provider").style.display = "none";
+                    document.getElementById('save_provider').style.display = 'none';
+                    document.getElementById('clear_provider').style.display = 'none';
                 }
-                document.getElementById('save_provider').addEventListener("click", function () {
+                document.getElementById('save_provider').addEventListener('click', function () {
                     const queryForUpdateProvider = {
                         queryCode: 'UpdateProviders',
                         parameterValues: [
@@ -76,7 +76,7 @@
             this.form.onControlValueChanged('provider_conditions', this.checkSaveAvailable);
             this.form.onControlValueChanged('provider', this.checkClearAvailable);
             this.form.onControlValueChanged('provider_conditions', this.checkClearAvailable);
-            document.getElementById('clear_provider').addEventListener("click", function () {
+            document.getElementById('clear_provider').addEventListener('click', function () {
                 this.clearFields();
             }.bind(this));
         },
@@ -102,7 +102,7 @@
         },
         checkSaveAvailable: function () {
             if (this.form.getControlValue('provider') != null &&
-                this.form.getControlValue('provider') != "") {
+                this.form.getControlValue('provider') != '') {
                 document.getElementById('save_provider').disabled = false;
             } else {
                 document.getElementById('save_provider').disabled = true;

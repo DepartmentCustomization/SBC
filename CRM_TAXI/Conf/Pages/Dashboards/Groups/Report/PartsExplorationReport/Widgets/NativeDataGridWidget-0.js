@@ -44,7 +44,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: false,
@@ -72,7 +72,7 @@
         },
         getFiltersParams: function (message) {
             let category = message.package.value.values.find(f => f.name === 'category').value;
-            if (category !== null && category !== "") {
+            if (category !== null && category !== '') {
                 this.config.query.parameterValues = [
                     { key: '@category', value: category.value },
                 ];

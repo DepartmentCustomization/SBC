@@ -2,9 +2,9 @@
     return {
         init: function () {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
-            if (this.state == "create") {
+            if (this.state == 'create') {
                 this.checkUserRole();
-                document.getElementById('save_dollar_rate').addEventListener("click", function () {
+                document.getElementById('save_dollar_rate').addEventListener('click', function () {
                     const queryForSaveDollar_rate = {
                         queryCode: 'InsertDollar_rate',
                         parameterValues: [
@@ -32,13 +32,13 @@
                         }
                     });
                 }.bind(this));
-            } else if (this.state == "update") {
+            } else if (this.state == 'update') {
                 this.checkUserRole();
                 if (document.getElementById('dollar_rate').disabled == true) {
-                    document.getElementById("save_dollar_rate").style.display = "none";
-                    document.getElementById("clear_dollar_rate").style.display = "none";
+                    document.getElementById('save_dollar_rate').style.display = 'none';
+                    document.getElementById('clear_dollar_rate').style.display = 'none';
                 }
-                document.getElementById('save_dollar_rate').addEventListener("click", function () {
+                document.getElementById('save_dollar_rate').addEventListener('click', function () {
                     const queryForUpdateDollar_rate = {
                         queryCode: 'UpdateDollar_rate',
                         parameterValues: [
@@ -76,7 +76,7 @@
             this.form.onControlValueChanged('dollar_rate', this.checkSaveAvailable);
             this.form.onControlValueChanged('dollar_date', this.checkClearAvailable);
             this.form.onControlValueChanged('dollar_rate', this.checkClearAvailable);
-            document.getElementById('clear_dollar_rate').addEventListener("click", function () {
+            document.getElementById('clear_dollar_rate').addEventListener('click', function () {
                 this.clearFields();
             }.bind(this));
         },
@@ -103,8 +103,8 @@
         checkSaveAvailable: function () {
             if (this.form.getControlValue('dollar_date') != null &&
                 this.form.getControlValue('dollar_rate') != null &&
-                this.form.getControlValue('dollar_date') != "" &&
-                this.form.getControlValue('dollar_rate') != ""
+                this.form.getControlValue('dollar_date') != '' &&
+                this.form.getControlValue('dollar_rate') != ''
             ) {
                 document.getElementById('save_dollar_rate').disabled = false;
             } else {

@@ -46,10 +46,10 @@
             summary: {
                 totalItems: [
                     {
-                        column: "part_price",
-                        summaryType: "sum",
+                        column: 'part_price',
+                        summaryType: 'sum',
                         customizeText: function (data) {
-                            return "Итого: " + data.value;
+                            return 'Итого: ' + data.value;
                         }
                     }
                 ]
@@ -92,7 +92,7 @@
         },
         getFiltersParams: function (message) {
             let filterCar = message.package.value.values.find(f => f.name === 'car').value;
-            if (filterCar !== null && filterCar !== "") {
+            if (filterCar !== null && filterCar !== '') {
                 this.config.query.parameterValues = [
                     { key: '@dateFrom', value: this.dateFrom },
                     { key: '@dateTo', value: this.dateTo },

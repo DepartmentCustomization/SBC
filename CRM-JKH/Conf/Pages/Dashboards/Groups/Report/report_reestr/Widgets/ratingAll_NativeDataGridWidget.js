@@ -59,8 +59,8 @@
                 enabled: true
             },
             sorting: {
-                mode: "multiple"
-            },   
+                mode: 'multiple'
+            },
             showBorders: false,
             showColumnLines: true,
             showRowLines: true,
@@ -80,7 +80,7 @@
         },
         init: function() {
             let msg = {
-                name: "SetFilterPanelState",
+                name: 'SetFilterPanelState',
                 package: {
                     value: true
                 }
@@ -96,7 +96,7 @@
             this.dateEnd = message.dateEnd;
             this.executor =   message.executor;
             this.claimType =   message.claimType;
-            this.config.query.parameterValues = [ 
+            this.config.query.parameterValues = [
                 {key: '@DateStart' , value: this.dateStart },
                 {key: '@DateEnd' , value: this.dateEnd },
                 {key: '@OrgId', value: this.executor },
@@ -105,23 +105,23 @@
         },
         renderTable: function () {
             let msg = {
-                name: "SetFilterPanelState",
+                name: 'SetFilterPanelState',
                 package: {
                     value: false
                 }
             };
             this.messageService.publish(msg);
             this.loadData(this.afterLoadDataHandler);
-        }, 
+        },
         createTableButton: function (e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                location: "after",
-                options: { 
-                    icon: "exportxlsx",
-                    type: "default",
-                    text: "Excel",
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         let exportQuery = {
@@ -154,17 +154,17 @@
             let emptyCellInfoCaption = worksheet.getCell('A1');
             emptyCellInfoCaption.value = ' ';
             let captions = [];
-            let columnsHeader = [];      
+            let columnsHeader = [];
             for (let i = 0; i < visibleColumns.length; i++) {
                 let column = visibleColumns[i];
                 let caption = column.caption;
                 captions.push(caption);
-                 let header = "";
-                 let key = "";
+                 let header = '';
+                 let key = '';
                 let width = 20;
                 let index = 10;
                 let columnProp = { header, key, width, index };
-                columnsHeader.push(columnProp);    
+                columnsHeader.push(columnProp);
             }
             worksheet.columns = columnsHeader;
             worksheet.getRow(5).values = captions;
@@ -223,7 +223,7 @@
             for (let i = 0; i < visibleColumns.length; i++) {
                 const visCol = visibleColumns[i];
                 let df = visCol.dataField;
-                let index = this.allColumns.findIndex( el => el.dataField === df ); 
+                let index = this.allColumns.findIndex( el => el.dataField === df );
                 resultColumns.push(this.allColumns[index]);
             }
             for (let i = 0; i < resultColumns.length; i++) {
@@ -240,7 +240,7 @@
                     }
                     indexCaptionFrom = 5;
                 }else{
-                    let caption = resCol.caption;        
+                    let caption = resCol.caption;
                     let column = { caption, colIndexTo }
                     indexCaptionFrom = 4;
                     this.columnsWithoutSub.push(column);

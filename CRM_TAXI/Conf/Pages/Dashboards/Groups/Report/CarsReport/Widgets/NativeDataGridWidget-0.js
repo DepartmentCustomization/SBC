@@ -16,7 +16,7 @@
                 }, {
                     dataField: 'name',
                     caption: 'Позывной',
-                    alignment: 'center' 
+                    alignment: 'center'
                 }, {
                     dataField: 'mark',
                     caption: 'Марка автомобиля',
@@ -48,7 +48,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: false,
@@ -71,9 +71,9 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1  =  this.messageService.subscribe( 'sendCarId', this.getCarId, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
-                if(e.column.dataField === "name" && e.row !== undefined){
-                    this.goToDashboard('CarChangeReport', 
-                    {queryParams: 
+                if(e.column.dataField === 'name' && e.row !== undefined){
+                    this.goToDashboard('CarChangeReport',
+                    {queryParams:
                         {car_id: e.data.Id,
                         dateTo: this.dateTo,
                         dateFrom: this.dateFrom}
@@ -99,16 +99,16 @@
                 let mm = date.getMinutes();
                 MM += 1;
                 if ((dd.toString()).length === 1) {
- dd = '0' + dd; 
+ dd = '0' + dd;
 }
                 if ((MM.toString()).length === 1) {
- MM = '0' + MM; 
+ MM = '0' + MM;
 }
                 if ((HH.toString()).length === 1) {
- HH = '0' + HH; 
+ HH = '0' + HH;
 }
                 if ((mm.toString()).length === 1) {
- mm = '0' + mm; 
+ mm = '0' + mm;
 }
                 trueDate = dd + '.' + MM + '.' + yyyy;
             } else {

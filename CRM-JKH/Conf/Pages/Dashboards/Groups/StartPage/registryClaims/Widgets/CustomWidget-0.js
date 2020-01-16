@@ -88,7 +88,7 @@
             for(let j=0; j<data.rows.length; j++){
                 tempArr.push(data.rows[j].values[1]);
                  total += data.rows[j].values[0]
-            }    
+            }
             for(let i=0; i<status.length; i++){
                 let search = find(tempArr, status[i].innerText)
                 if(search != -1){

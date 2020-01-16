@@ -2,9 +2,9 @@
     return {
         init: function () {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
-            if (this.state == "create") {
+            if (this.state == 'create') {
                 this.checkUserRole();
-                document.getElementById('save_category').addEventListener("click", function () {
+                document.getElementById('save_category').addEventListener('click', function () {
                     const queryForSaveCategory = {
                         queryCode: 'InsertCategories',
                         parameterValues: [
@@ -40,13 +40,13 @@
                         }
                     });
                 }.bind(this));
-            } else if (this.state == "update") {
+            } else if (this.state == 'update') {
                 this.checkUserRole();
                 if (document.getElementById('category_name').disabled == true) {
-                    document.getElementById("save_category").style.display = "none";
-                    document.getElementById("clear_category").style.display = "none";
+                    document.getElementById('save_category').style.display = 'none';
+                    document.getElementById('clear_category').style.display = 'none';
                 }
-                document.getElementById('save_category').addEventListener("click", function () {
+                document.getElementById('save_category').addEventListener('click', function () {
                     const queryForSaveCategory = {
                         queryCode: 'UpdateCategories',
                         parameterValues: [
@@ -96,7 +96,7 @@
             this.form.onControlValueChanged('operational_period_km', this.checkClearAvailable);
             this.form.onControlValueChanged('operational_period_day', this.checkClearAvailable);
             this.form.onControlValueChanged('min_count_stock', this.checkClearAvailable);
-            document.getElementById('clear_category').addEventListener("click", function () {
+            document.getElementById('clear_category').addEventListener('click', function () {
                 this.clearFields();
             }.bind(this));
         },
@@ -128,10 +128,10 @@
                 this.form.getControlValue('operational_period_km') != null &&
                 this.form.getControlValue('operational_period_day') != null &&
                 this.form.getControlValue('min_count_stock') != null &&
-                this.form.getControlValue('category_name') != "" &&
-                this.form.getControlValue('operational_period_km') != "" &&
-                this.form.getControlValue('operational_period_day') != "" &&
-                this.form.getControlValue('min_count_stock') != ""
+                this.form.getControlValue('category_name') != '' &&
+                this.form.getControlValue('operational_period_km') != '' &&
+                this.form.getControlValue('operational_period_day') != '' &&
+                this.form.getControlValue('min_count_stock') != ''
             ) {
                 document.getElementById('save_category').disabled = false;
             } else {

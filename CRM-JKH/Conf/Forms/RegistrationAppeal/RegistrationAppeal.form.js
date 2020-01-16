@@ -8,7 +8,7 @@
         this.form.disableControl('appeal_created_at');
         this.form.disableControl('appeal_created_by');
         this.form.disableControl('claim_executor_name');
-        if (this.state == "create") {
+        if (this.state == 'create') {
           let getDataFromLink = window
             .location
             .search
@@ -26,11 +26,11 @@
                     parameterValues: [
                         {
                             key: '@appeal_type_id',
-                            value: Number(getDataFromLink["type"])
+                            value: Number(getDataFromLink['type'])
                         },
                         {
                             key: '@parameter',
-                            value: decodeURIComponent(getDataFromLink["parameter"])
+                            value: decodeURIComponent(getDataFromLink['parameter'])
                         }
                     ]
                 };
@@ -52,28 +52,28 @@
             document.getElementById('applicant_Btn_AddClaim').disabled = true;
             document.getElementById('claim_Btn_SaveClaim').disabled = true;
             document.getElementById('claim_Btn_SaveConsult').disabled = true;
-            document.getElementById('Search_Btn').addEventListener("click", function() {
+            document.getElementById('Search_Btn').addEventListener('click', function() {
                 this.onLoadApplicant();
-            }.bind(this));  
-            document.getElementById('applicant_Btn_AddClaim').addEventListener("click", function() {
+            }.bind(this));
+            document.getElementById('applicant_Btn_AddClaim').addEventListener('click', function() {
               this.GetEmployeeByClaimType();
               this.form.setGroupVisibility('Group_Claim', true);
               this.IsChangeApplicantForClaim = true;
               this.form.setControlValue('claim_StreetId', { key: this.form.getControlValue('applicant_Street'), value: this.form.getControlValue('applicant_StreetName') });
               this.form.setControlValue('claim_HouseId', { key: this.form.getControlValue('applicant_House'), value: this.form.getControlValue('applicant_HouseName') });
               this.form.setControlValue('claim_Flat', this.form.getControlValue('applicant_Flat'));
-            }.bind(this)); 
-          document.getElementById('applicant_Btn_Save').addEventListener("click", function() {
+            }.bind(this));
+          document.getElementById('applicant_Btn_Save').addEventListener('click', function() {
               this.onCreateApplicant();
-          }.bind(this)); 
-          document.getElementById('claim_Btn_SaveClaim').addEventListener("click", function() {
+          }.bind(this));
+          document.getElementById('claim_Btn_SaveClaim').addEventListener('click', function() {
               this.onCreateClaim(2, 1);
-          }.bind(this)); 
-          document.getElementById('claim_Btn_SaveConsult').addEventListener("click", function() {
+          }.bind(this));
+          document.getElementById('claim_Btn_SaveConsult').addEventListener('click', function() {
             this.onCreateClaim(4, 4);
-          }.bind(this)); 
+          }.bind(this));
             this.details.onCellClick('Detail_RegCard_Applicant', this.Detail_Aplicant.bind(this));
-            document.getElementById('applicant_Btn_Clear').addEventListener("click", function() {
+            document.getElementById('applicant_Btn_Clear').addEventListener('click', function() {
                 this.form.setControlValue('applicant_id', null);
                 this.form.setControlValue('applicant_PIB', null);
                 this.form.setControlValue('applicant_Phone1', null);
@@ -83,7 +83,7 @@
                 this.form.setControlValue('applicant_House', {});
                 this.form.setControlValue('applicant_Flat', null);
                 this.form.setGroupVisibility('Group_Claim', false);
-            }.bind(this));   
+            }.bind(this));
         }
     },
     onChanged_Applicant_Id: function() {
@@ -97,7 +97,7 @@
       this.onChanged_Question_Aplicant_Btn_Add_Input();
     },
     onChanged_Question_Aplicant_Btn_Add_Input: function() {
-              if(this.form.getControlValue('applicant_PIB') == "" || this.form.getControlValue('applicant_PIB') == null || this.form.getControlValue('applicant_House')  == "" ||   this.form.getControlValue('applicant_House') == null 
+              if(this.form.getControlValue('applicant_PIB') == '' || this.form.getControlValue('applicant_PIB') == null || this.form.getControlValue('applicant_House')  == '' ||   this.form.getControlValue('applicant_House') == null
                  ||  this.form.getControlValue('applicant_House') == undefined
                  ) {
                      if (this.form.getControlValue('applicant_id') != null || this.form.getControlValue('applicant_id') != '') {
@@ -110,7 +110,7 @@
                   } else {
                        document.getElementById('applicant_Btn_AddClaim').disabled = false;
                   }
-                  document.getElementById('applicant_Btn_Save').disabled = false; 
+                  document.getElementById('applicant_Btn_Save').disabled = false;
               }
     },
     Detail_Aplicant: function(column, row) {
@@ -196,7 +196,7 @@
     onStreetChanged_Claim: function(streetId) {
       if (!this.IsChangeApplicantForClaim) {
           this.form.setControlValue('claim_HouseId',  {});
-      } 
+      }
       let dependParams = [{ parameterCode: '@Street_id', parameterValue: streetId }];
       this.form.setControlParameterValues('claim_HouseId', dependParams);
       this.IsChangeApplicantForClaim = false;
@@ -222,7 +222,7 @@
               ]
           };
           this.queryExecutor.getValues(queryForGetEmployeeValue).subscribe(data => {
-            if (data.rows.length > 0) { 
+            if (data.rows.length > 0) {
                 this.form.setControlValue('claim_executor_id', data.rows[0].values[0]);
                 this.form.setControlValue('claim_executor_name', data.rows[0].values[1]);
             }
@@ -230,14 +230,14 @@
     },
     onChanged_Claim: function() {
       this.GetEmployeeByClaimType();
-      if(this.form.getControlValue('claim_HouseId') == "" || this.form.getControlValue('claim_HouseId') == null ||  this.form.getControlValue('applicant_House') == undefined 
-        || this.form.getControlValue('claim_type_id')  == "" ||   this.form.getControlValue('claim_type_id') == null ||  this.form.getControlValue('claim_type_id') == undefined
+      if(this.form.getControlValue('claim_HouseId') == '' || this.form.getControlValue('claim_HouseId') == null ||  this.form.getControlValue('applicant_House') == undefined
+        || this.form.getControlValue('claim_type_id')  == '' ||   this.form.getControlValue('claim_type_id') == null ||  this.form.getControlValue('claim_type_id') == undefined
          ) {
              document.getElementById('claim_Btn_SaveClaim').disabled = true;
              document.getElementById('claim_Btn_SaveConsult').disabled = true;
       } else {
           document.getElementById('claim_Btn_SaveClaim').disabled = false;
-          document.getElementById('claim_Btn_SaveConsult').disabled = false; 
+          document.getElementById('claim_Btn_SaveConsult').disabled = false;
       }
     },
     onCreateApplicant: function() {

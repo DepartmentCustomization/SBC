@@ -40,8 +40,8 @@
         },
         filterRow: {
             visible: true,
-            applyFilter: "auto"
-        },       
+            applyFilter: 'auto'
+        },
         keyExpr: 'Id',
         showBorders: true,
         showColumnLines: true,
@@ -59,7 +59,7 @@
     init: function() {
         let that = this;
         this.dataGridInstance.onCellClick.subscribe(e => {
-            if(e.column.dataField == "ClaimId" && e.row != undefined){
+            if(e.column.dataField == 'ClaimId' && e.row != undefined){
                 that.navigateTo('sections/Claim/edit/'+e.key)
             }
         });
@@ -131,7 +131,7 @@
         this.config.columns[6].width = 90;
         this.config.columns[9].width = 450;
         this.loadData(this.afterLoadDataHandler)
-    },   
+    },
     createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
         Object.keys(props).forEach( key => element[key] = props[key] );
@@ -140,7 +140,7 @@
                 element.appendChild(child);
             });
         } return element;
-    },     
+    },
     afterLoadDataHandler(){
         this.render();
     }

@@ -58,7 +58,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: false,

@@ -10,7 +10,7 @@
             this.form.onControlValueChanged('car', this.checkSaveChangeAvailable);
             this.form.onControlValueChanged('part', this.checkSaveChangeAvailable);
             this.form.onControlValueChanged('invoice_consumption', this.checkSaveChangeAvailable);
-            document.getElementById('save_part_change').addEventListener("click", function () {
+            document.getElementById('save_part_change').addEventListener('click', function () {
                 const queryForMakePartChange = {
                     queryCode: 'MakePartChange',
                     parameterValues: [
@@ -53,9 +53,9 @@
         sendBadChangeNotify: function (title) {
             this.createOrganisationsNotification({
                 text: title,
-                url: "notifications/unread",
-                notificationTypeCode: "WEB",
-                notificationPriorityCode: "Middle",
+                url: 'notifications/unread',
+                notificationTypeCode: 'WEB',
+                notificationPriorityCode: 'Middle',
                 organisationIds: [4],
                 hasAudio: true
             });
@@ -70,7 +70,7 @@
             }
         },
         checkPartChooseAvailable: function () {
-            if (this.form.getControlValue('car') != null && this.form.getControlValue('car') != "") {
+            if (this.form.getControlValue('car') != null && this.form.getControlValue('car') != '') {
                 this.form.enableControl('part');
             } else {
                 if (!this.form.disableControl('part')) {
@@ -80,9 +80,9 @@
         },
         checkSaveChangeAvailable: function () {
             if (
-                this.form.getControlValue('car') != null && this.form.getControlValue('car') != ""
+                this.form.getControlValue('car') != null && this.form.getControlValue('car') != ''
                 && this.form.getControlValue('invoice_consumption') != null
-                && this.form.getControlValue('invoice_consumption') != ""
+                && this.form.getControlValue('invoice_consumption') != ''
             ) {
                 document.getElementById('save_part_change').disabled = false;
             } else {

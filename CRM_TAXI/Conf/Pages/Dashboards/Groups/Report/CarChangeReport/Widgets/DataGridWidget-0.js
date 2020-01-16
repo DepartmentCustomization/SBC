@@ -74,11 +74,11 @@
                 );
             this.car = +getUrlParams.car_id;
             this.dateTo = new Date(getUrlParams.dateTo);
-            this.dateFrom = new Date(getUrlParams.dateFrom);   
+            this.dateFrom = new Date(getUrlParams.dateFrom);
         },
         getFiltersParams: function (message) {
             let filterCar = message.package.value.values.find(f => f.name === 'car').value;
-            if (filterCar !== null && filterCar !== "") {
+            if (filterCar !== null && filterCar !== '') {
               this.config.query.parameterValues = [
                   { key: '@dateFrom', value: this.dateFrom },
                   { key: '@dateTo', value: this.dateTo },
