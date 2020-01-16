@@ -58,7 +58,7 @@
             this.dataGridInstance.dataSource.forEach( row => {
                 sendData.push(row.Id);
             });
-            sendData = this.GroupQuestionId === null ? sendData : [] ;
+            sendData = this.GroupQuestionId === null ? sendData : [];
             this.messageService.publish( { name: 'renderTable', questionGroupId: this.GroupQuestionId, questionTypesArr: sendData});
         },
         clearData: function(){
@@ -106,7 +106,7 @@
                 this.dataGridInstance.dataSource.forEach( row => {
                     sendData.push(row.Id);
                 });
-                sendData = this.GroupQuestionId === null ? sendData : [] ;
+                sendData = this.GroupQuestionId === null ? sendData : [];
                 this.messageService.publish( { name: 'renderTable', questionGroupId: this.GroupQuestionId, questionTypesArr: sendData});
             }
         },

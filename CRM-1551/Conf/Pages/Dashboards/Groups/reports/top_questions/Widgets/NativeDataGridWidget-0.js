@@ -208,7 +208,7 @@
                     header: 0.0, footer: 0.0
                 };
                 for(let  i = 0; i < rows.length + 1; i++ ){
-                    let number = i + 5 ;
+                    let number = i + 5;
                     let row = worksheet.getRow(number);
                     row.height = 100;
                     worksheet.getRow(number).border = {
@@ -239,7 +239,7 @@
             }
         },
         changeDateTimeValues: function(value){
-            let trueDate ;
+            let trueDate;
             if( value !== null){
                 let date = new Date(value);
                 let dd = date.getDate();
@@ -247,12 +247,12 @@
                 let yyyy = date.getFullYear();
                 let HH = date.getUTCHours()
                 let mm = date.getMinutes();
-                MM += 1 ;
+                MM += 1;
                 if( (dd.toString()).length === 1) {
                     dd = '0' + dd;
                 }
                 if( (MM.toString()).length === 1) {
-                    MM = '0' + MM ;
+                    MM = '0' + MM;
                 }
                 if( (HH.toString()).length === 1) {
                     HH = '0' + HH;
@@ -274,8 +274,8 @@
                 if( period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom =  period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.questionType = questionType === null ? 0 :  questionType === '' ? 0 : questionType.value ;
-                    this.questionGroup = questionGroup === null ? 0 :  questionGroup === '' ? 0 : questionGroup.value ;
+                    this.questionType = questionType === null ? 0 :  questionType === '' ? 0 : questionType.value;
+                    this.questionGroup = questionGroup === null ? 0 :  questionGroup === '' ? 0 : questionGroup.value;
                     if(this.questionType !== 0){
                         this.config.query.parameterValues = [
                             {key: '@dateFrom' , value: this.dateFrom },

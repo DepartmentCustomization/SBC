@@ -287,7 +287,7 @@
                     if( el.name === 'registration_number'  ){
                         rowItem.registration_number = row.values[indexRegistrationNumber] + ', ' + row.values[indexControlDate];
                     } else if(el.name === 'zayavnykName' ) {
-                        let value = row.values[indexAdress] === null ?  '' : row.values[indexAdress] ;
+                        let value = row.values[indexAdress] === null ?  '' : row.values[indexAdress];
                         rowItem.zayavnykName = row.values[indexZayavnikName] + ', ' + value;
                     } else if(el.name === 'QuestionType' ) {
                         rowItem.QuestionType = 'Тип питання: ' + row.values[indexQuestionType] + '. Зміст: ' + row.values[indexQuestionContent];
@@ -312,7 +312,7 @@
                 worksheet.addRow(row);
             });
             for(let  i = 0; i < rows.length + 1; i++ ){
-                let number = i + 5 ;
+                let number = i + 5;
                 let row = worksheet.getRow(number);
                 row.height = 100;
                 worksheet.getRow(number).border = {

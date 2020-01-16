@@ -260,7 +260,7 @@
             this.filtersValuesMacros.push(obj);
         },
         findAllCheckedFilter: function() {
-            this.isSelected === true ? document.getElementById('poshuk_table_main').style.display = 'block' : document.getElementById('poshuk_table_main').style.display = 'none' ;
+            this.isSelected === true ? document.getElementById('poshuk_table_main').style.display = 'block' : document.getElementById('poshuk_table_main').style.display = 'none';
             let filters = this.filtersValuesMacros;
             if( filters.length > 0 || this.applicantPhoneNumber !== null ){
                 this.textFilterMacros = [];
@@ -391,7 +391,7 @@
                         caption: el.caption,
                         width: el.width,
                         customizeText: function(cellInfo) {
-                            let value = cellInfo.value === undefined ? ' ' : cellInfo.value === 'true' ? 'Наявний' : 'Відсутній' ;
+                            let value = cellInfo.value === undefined ? ' ' : cellInfo.value === 'true' ? 'Наявний' : 'Відсутній';
                             return value;
                         }
                     }
@@ -458,7 +458,7 @@
             if( data.rows.length > 0 ){
                 this.showPagePreloader('Зачекайте, формується документ');
                 this.indexArr = [];
-                let columns = this.config.columns;columns.forEach( el => {
+                let columns = this.config.columns; columns.forEach( el => {
                     let elDataField = el.dataField;
                     let elCaption = el.caption;
                     for (let i = 0; i < data.columns.length; i ++){
@@ -712,7 +712,7 @@
                     let indexes = this.addedIndexes;
                     let size = Object.keys(el).length;
                     let rowSize = Object.keys(row).length;
-                    for(let i = 0; i < size - rowSize ; i ++ ){
+                    for(let i = 0; i < size - rowSize; i ++ ){
                         let prop = indexes[i];
                         switch(prop) {
                         case 'appeals_receipt_source':
@@ -818,7 +818,7 @@
                     header: 0.0, footer: 0.0
                 };
                 for(let  i = 0; i < rows.length + 1; i++ ){
-                    let number = i + 5 ;
+                    let number = i + 5;
                     let row = worksheet.getRow(number);
                     row.height = 100;
                     worksheet.getRow(number).border = {

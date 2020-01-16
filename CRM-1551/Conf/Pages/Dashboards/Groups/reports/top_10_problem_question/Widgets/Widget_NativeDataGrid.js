@@ -404,7 +404,7 @@
                     header: 0.0, footer: 0.0
                 };
                 for(let  i = 0; i < rows.length + 1; i++ ){
-                    let number = i + 4 ;
+                    let number = i + 4;
                     let row = worksheet.getRow(number);
                     row.height = number === 4 ? 100 : 50;
                     worksheet.getRow(number).border = {
@@ -446,7 +446,7 @@
                 let yyyy = date.getFullYear();
                 dd = dd.length === 1 ? '0' + dd : dd;
                 mm = mm.length === 1 ? '0' + mm : mm;
-                return dd + '.' + mm + '.' + yyyy ;
+                return dd + '.' + mm + '.' + yyyy;
             }
             return ' ';
         },
@@ -510,8 +510,8 @@
                 if( period.dateFrom !== '' && period.dateTo !== ''){
                     this.dateFrom =  period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.questionGroup = questionGroup === null ? 0 :  questionGroup === '' ? 0 : questionGroup.value ;
-                    this.questionType = questionType === null ? 0 :  questionType === '' ? 0 : questionType.value ;
+                    this.questionGroup = questionGroup === null ? 0 :  questionGroup === '' ? 0 : questionGroup.value;
+                    this.questionType = questionType === null ? 0 :  questionType === '' ? 0 : questionType.value;
                     if(this.questionType !== 0){
                         this.config.query.parameterValues = [
                             {key: '@dateFrom' , value: this.dateFrom },

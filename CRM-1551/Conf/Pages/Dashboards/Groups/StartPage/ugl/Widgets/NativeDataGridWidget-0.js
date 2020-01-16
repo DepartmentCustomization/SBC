@@ -383,7 +383,7 @@
                 worksheet.addRow(row);
             });
             for(let  i = 0; i < rows.length + 1; i++ ){
-                let number = i + 5 ;
+                let number = i + 5;
                 let row = worksheet.getRow(number);
                 row.height = 100;
                 worksheet.getRow(number).border = {

@@ -259,7 +259,7 @@
         setColumnsProperties: function (columns, columnsProperties, worksheet) {
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
-                let header ;
+                let header;
                 let index = 0;
                 let width = column.dataField === 'orgName' ? 20 : 9;
                 let columnProp = { header, width, index };
@@ -360,7 +360,7 @@
                     this.dateFrom =  period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;
-                    this.organization = organization === null ? 0 : organization === '' ? 0 : organization.value ;
+                    this.organization = organization === null ? 0 : organization === '' ? 0 : organization.value;
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },
                         {key: '@dateTo', value: this.dateTo },

@@ -88,7 +88,7 @@
                 let saterday = this.createElement('div', {  className: 'calenDay', innerText: 'СБ'});
                 let sunday = this.createElement('div', {  className: 'calenDay', innerText: 'ВС'});
                 let monthBox = this.createElement('div', { id: 'monthBox_'+month.year+'_'+month.month+'', className: 'month'}, monday, tuesday, wednesday, thursday, friday, saterday, sunday);
-                for(let i = 0; i < month.day -1 ; i ++){
+                for(let i = 0; i < month.day -1; i ++){
                     dayBox = this.createElement('div', { id: 'day_'+month.year+'_'+month.month+'_00', className: 'calenDay emptyDay'});
                     monthBox.appendChild(dayBox);
                 }
@@ -110,7 +110,7 @@
                         monthBox.appendChild(dayBox);
                     }
                 }
-                let title ;
+                let title;
                 switch(month.month) {
                 case 1:
                     title = 'Січень'

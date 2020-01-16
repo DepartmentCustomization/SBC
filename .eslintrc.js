@@ -22,6 +22,7 @@ module.exports = {
         "no-console": "error",
         "no-debugger": "error",
         "brace-style": ["error", "1tbs"],
-        "no-trailing-spaces": "error"
+        "no-trailing-spaces": "error",
+        "semi-spacing": ["error", {"before": false, "after": true}]
     }
 };

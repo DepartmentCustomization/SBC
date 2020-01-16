@@ -217,7 +217,7 @@
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
                     let el = indexArr[i];
-                    let cdValue = this.changeDateTimeValues(row.values[indexControlDate]) ;
+                    let cdValue = this.changeDateTimeValues(row.values[indexControlDate]);
                     if( el.name === 'registration_number'  ){
                         rowItem.registration_number = row.values[indexRegistrationNumber];
                     }else if(el.name === 'zayavnyk' ){
@@ -245,7 +245,7 @@
                 worksheet.addRow(row);
             });
             for(let  i = 0; i < rows.length + 1; i++ ){
-                let number = i + 5 ;
+                let number = i + 5;
                 const row = worksheet.getRow(number);
                 row.height = 100;
                 worksheet.getRow(number).border = {
@@ -283,12 +283,12 @@
                 let yyyy = date.getFullYear();
                 let HH = date.getUTCHours()
                 let mm = date.getMinutes();
-                MM += 1 ;
+                MM += 1;
                 if( (dd.toString()).length === 1){
                     dd = '0' + dd;
                 }
                 if( (MM.toString()).length === 1){
-                    MM = '0' + MM ;
+                    MM = '0' + MM;
                 }
                 if( (HH.toString()).length === 1){
                     HH = '0' + HH;
@@ -296,7 +296,7 @@
                 if( (mm.toString()).length === 1){
                     mm = '0' + mm;
                 }
-                trueDate = dd+'.'+MM+'.' + yyyy ;
+                trueDate = dd+'.'+MM+'.' + yyyy;
             }
             return trueDate;
         },

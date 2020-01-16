@@ -285,7 +285,7 @@
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
         changeDateTimeValues: function(value){
-            let trueDate ;
+            let trueDate;
             if( value !== null){
                 let date = new Date(value);
                 let dd = date.getDate();
@@ -293,12 +293,12 @@
                 let yyyy = date.getFullYear();
                 let HH = date.getUTCHours()
                 let mm = date.getMinutes();
-                MM += 1 ;
+                MM += 1;
                 if( (dd.toString()).length === 1){
                     dd = '0' + dd;
                 }
                 if( (MM.toString()).length === 1){
-                    MM = '0' + MM ;
+                    MM = '0' + MM;
                 }
                 if( (HH.toString()).length === 1){
                     HH = '0' + HH;

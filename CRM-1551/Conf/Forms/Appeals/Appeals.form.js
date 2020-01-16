@@ -1207,7 +1207,7 @@
                     };
                     this.openModalForm(fieldsForm, Question_Close_callback.bind(this));
                 }.bind(this));
-                for (let i=0;i<document.querySelectorAll('div.card-title > div > button').length;i++){
+                for (let i=0; i<document.querySelectorAll('div.card-title > div > button').length; i++){
                     document.querySelectorAll('div.card-title > div > button')[i].style.display = 'none';
                 }
                 this.details.setVisibility('Detail_QuestionApplicant', false);

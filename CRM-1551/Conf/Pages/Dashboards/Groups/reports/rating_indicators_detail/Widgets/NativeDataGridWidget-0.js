@@ -373,7 +373,7 @@
             for (let i = 0; i < resultColumns.length; i++) {
                 const resCol = resultColumns[i];
                 const colIndexTo = i+1;
-                let indexCaptionFrom ;
+                let indexCaptionFrom;
                 if( resCol.isSub === true ){
                     if(this.subColumnCaption.length > 0) {
                         let group = this.subColumnCaption[resCol.index];

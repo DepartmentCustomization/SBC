@@ -180,7 +180,7 @@
         onOptionChanged: function(args) {
             let sortingArr = this.sortingArr;
             if( args.fullName != undefined ){
-                let columnCode ;
+                let columnCode;
                 switch(args.fullName){
                 case('columns[0].sortOrder'):
                     columnCode = 'registration_number'
@@ -240,7 +240,7 @@
         },
         createMasterDetails: function(container, options){
             let currentEmployeeData = options.data;
-            let lastNdzTime ;
+            let lastNdzTime;
             if(currentEmployeeData.comment == null){
                 currentEmployeeData.comment = '';
             }
@@ -288,12 +288,12 @@
             let yyyy = date.getFullYear();
             let HH = date.getHours();
             let mm = date.getMinutes();
-            MM += 1 ;
+            MM += 1;
             if( (dd.toString()).length === 1){
                 dd = '0' + dd;
             }
             if( (MM.toString()).length === 1){
-                MM = '0' + MM ;
+                MM = '0' + MM;
             }
             if( (HH.toString()).length === 1){
                 HH = '0' + HH;

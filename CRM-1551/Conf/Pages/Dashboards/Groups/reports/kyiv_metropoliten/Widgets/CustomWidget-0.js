@@ -150,7 +150,7 @@
                         return sum + current;
                     }, 0);
                     mainHeaders.push(this.rowTable1Length);
-                    for(let i =  this.rowTable1Length  + 1 ; i < (data.length + this.rowTable1Length + 1 ); i++ ){
+                    for(let i =  this.rowTable1Length  + 1; i < (data.length + this.rowTable1Length + 1 ); i++ ){
                         let value = data[i-( this.rowTable1Length + 1)];
                         let columnText = worksheet.getCell('A'+i);
                         let columnCounter = worksheet.getCell('B'+i);

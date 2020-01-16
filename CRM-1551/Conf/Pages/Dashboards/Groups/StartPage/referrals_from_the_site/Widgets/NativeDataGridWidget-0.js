@@ -71,7 +71,7 @@
             groupingAutoExpandAll: null,
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 200 ;
+            this.dataGridInstance.height = window.innerHeight - 200;
             const self = this;
             this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
             this.dataGridInstance.onCellClick.subscribe(e => {

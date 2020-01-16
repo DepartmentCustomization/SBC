@@ -440,10 +440,10 @@
                 month = month + '';
                 hours = hours + '';
                 minutes = minutes + '';
-                month = month.length == 1 ? '0'+month : month ;
-                date = date.length == 1 ?'0'+date : date ;
-                hours = hours.length == 1 ?'0'+hours :hours ;
-                minutes = minutes.length == 1 ?'0'+minutes :minutes ;
+                month = month.length == 1 ? '0'+month : month;
+                date = date.length == 1 ?'0'+date : date;
+                hours = hours.length == 1 ?'0'+hours :hours;
+                minutes = minutes.length == 1 ?'0'+minutes :minutes;
                 let value = ''+year+'-'+month+'-'+date+' '+hours+':'+minutes+'';
                 textMacros = ''+code+' '+operation+' N\''+value+'\' and';
             }

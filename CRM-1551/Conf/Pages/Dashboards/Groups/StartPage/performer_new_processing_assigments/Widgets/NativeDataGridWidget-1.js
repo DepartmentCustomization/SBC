@@ -233,7 +233,7 @@
                 worksheet.addRow(row);
             });
             for(let  i = 0; i < rows.length + 1; i++ ){
-                let number = i + 5 ;
+                let number = i + 5;
                 const row = worksheet.getRow(number);
                 row.height = 100;
                 worksheet.getRow(number).border = {
@@ -269,12 +269,12 @@
             let yyyy = date.getFullYear();
             let HH = date.getUTCHours()
             let mm = date.getMinutes();
-            MM += 1 ;
+            MM += 1;
             if( (dd.toString()).length === 1){
                 dd = '0' + dd;
             }
             if( (MM.toString()).length === 1){
-                MM = '0' + MM ;
+                MM = '0' + MM;
             }
             if( (HH.toString()).length === 1){
                 HH = '0' + HH;

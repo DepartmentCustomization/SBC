@@ -287,12 +287,12 @@
             let yyyy = date.getFullYear();
             let HH = date.getHours()
             let mm = date.getMinutes();
-            MM += 1 ;
+            MM += 1;
             if( (dd.toString()).length === 1){
                 dd = '0' + dd;
             }
             if( (MM.toString()).length === 1){
-                MM = '0' + MM ;
+                MM = '0' + MM;
             }
             if( (HH.toString()).length === 1){
                 HH = '0' + HH;
@@ -447,10 +447,10 @@
                 month = month + '';
                 hours = hours + '';
                 minutes = minutes + '';
-                month = month.length == 1 ? '0' + month : month ;
-                date =  date.length == 1 ?'0'+date : date ;
-                hours = hours.length == 1 ?'0'+hours : hours ;
-                minutes = minutes.length == 1 ?'0'+minutes : minutes ;
+                month = month.length == 1 ? '0' + month : month;
+                date =  date.length == 1 ?'0'+date : date;
+                hours = hours.length == 1 ?'0'+hours : hours;
+                minutes = minutes.length == 1 ?'0'+minutes : minutes;
                 let value = ''+year+'-'+month+'-'+date+' '+hours+':'+minutes+'';
                 textMacros = ''+code+' '+operation+' N\''+value+'\' and';
             }

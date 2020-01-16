@@ -198,7 +198,7 @@
             let yyyy = date.getFullYear();
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
-            return dd + '.' + mm + '.' + yyyy ;
+            return dd + '.' + mm + '.' + yyyy;
         }
     };
 }());

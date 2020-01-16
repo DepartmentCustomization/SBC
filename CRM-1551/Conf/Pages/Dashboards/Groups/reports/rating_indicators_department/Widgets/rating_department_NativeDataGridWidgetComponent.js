@@ -138,7 +138,7 @@
         setColumnsProperties: function (columns, columnsProperties, worksheet) {
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
-                let header ;
+                let header;
                 let index = 0;
                 let width = column.dataField === 'Organization_name' ? 22 : 13;
                 let columnProp = { header, width, index };
