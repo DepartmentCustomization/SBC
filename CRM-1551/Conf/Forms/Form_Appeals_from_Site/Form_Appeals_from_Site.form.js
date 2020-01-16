@@ -229,7 +229,7 @@
         },
         onQuestionControlDate:function(ques_type_id) {
             if (ques_type_id == null) {
-                this.form.setControlValue('Question_ControlDate',null )
+                this.form.setControlValue('Question_ControlDate',null)
             }else{
                 const execute = {
                     queryCode: 'list_onExecuteTerm',
@@ -241,7 +241,7 @@
                 this.queryExecutor.getValues(execute).subscribe(data => {
                     const d = data.rows[0].values[0];
                     const dat = d.replace('T',' ').slice(0,16);
-                    this.form.setControlValue('Question_ControlDate',dat )
+                    this.form.setControlValue('Question_ControlDate',dat)
                 });
             }
         },
@@ -390,7 +390,7 @@
         Question_Organization_Input: undefined,
         Question_TypeId_Input: undefined,
         onChanged_Question_Btn_Add_Input: function() {
-            if( this.Question_TypeId_Input == null || this.Question_TypeId_Input == undefined
+            if(this.Question_TypeId_Input == null || this.Question_TypeId_Input == undefined
           || ((this.Question_Building_Input == undefined || this.Question_Building_Input == null) && (this.Question_Organization_Input == undefined || this.Question_Organization_Input == null)) == true
             ) {
                 document.getElementById('Question_Btn_Add').disabled = true;

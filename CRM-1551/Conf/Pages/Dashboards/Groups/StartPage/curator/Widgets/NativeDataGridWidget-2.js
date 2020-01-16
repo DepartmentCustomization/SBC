@@ -134,7 +134,7 @@
             const name = 'showModalWindow';
             const self = this;
             if (length) {
-                this.messageService.publish( {name, length, self, sendRows, query });
+                this.messageService.publish({name, length, self, sendRows, query });
             }
         },
         createTableButton: function(e) {
@@ -199,13 +199,13 @@
             }
         },
         myCreateExcel: function(data) {
-            let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number' );
-            let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnykname' );
-            let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
-            let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
-            let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress' );
-            let indexOrganizationsName = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationsname' );
-            let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'question_content' );
+            let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number');
+            let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnykname');
+            let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date');
+            let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype');
+            let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress');
+            let indexOrganizationsName = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationsname');
+            let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'question_content');
             this.showPagePreloader('Зачекайте, формується документ');
             this.indexArr = [];
             let column_registration_number = { name: 'registration_number', index: 0 };
@@ -252,7 +252,7 @@
             columnsHeader.push(columnNumber);
             let rowNumber = '№ з/п';
             captions.push(rowNumber);
-            indexArr.forEach( el => {
+            indexArr.forEach(el => {
                 if (el.name === 'registration_number') {
                     let obj = this.getColumnHeader('registration_number', 10);
                     obj.height = 20;
@@ -279,27 +279,27 @@
             worksheet.getRow(5).values = captions;
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
-            for( let j = 0; j < data.rows.length; j ++ ) {
+            for(let j = 0; j < data.rows.length; j ++) {
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++) {
                     let el = indexArr[i];
-                    if( el.name === 'registration_number' ) {
+                    if(el.name === 'registration_number') {
                         rowItem.registration_number = row.values[indexRegistrationNumber] + ', ' + row.values[indexControlDate];
-                    } else if(el.name === 'zayavnykName' ) {
+                    } else if(el.name === 'zayavnykName') {
                         let value = row.values[indexAdress] === null ? '' : row.values[indexAdress];
                         rowItem.zayavnykName = row.values[indexZayavnikName] + ', ' + value;
-                    } else if(el.name === 'QuestionType' ) {
+                    } else if(el.name === 'QuestionType') {
                         rowItem.QuestionType = 'Тип питання: ' + row.values[indexQuestionType] + '. Зміст: ' + row.values[indexQuestionContent];
-                    } else if( el.name === 'vykonavets' ) {
+                    } else if(el.name === 'vykonavets') {
                         rowItem.vykonavets = row.values[indexOrganizationsName];
-                    } else if( el.name === 'adress' ) {
+                    } else if(el.name === 'adress') {
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
-                rows.push( rowItem );
+                rows.push(rowItem);
             }
-            rows.forEach( el => {
+            rows.forEach(el => {
                 let number = el.number + '.'
                 let row = {
                     number: number,
@@ -311,7 +311,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let i = 0; i < rows.length + 1; i++ ) {
+            for(let i = 0; i < rows.length + 1; i++) {
                 let number = i + 5;
                 let row = worksheet.getRow(number);
                 row.height = 100;
@@ -365,21 +365,21 @@
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
-            elementsAll.forEach( el => {
+            elementsAll.forEach(el => {
                 el.style.display = 'flex';
                 el.style.margin = '15px 10px';
             })
             let elementsCaptionAll = document.querySelectorAll('.caption');
             elementsCaptionAll = Array.from(elementsCaptionAll);
-            elementsCaptionAll.forEach( el => {
+            elementsCaptionAll.forEach(el => {
                 el.style.minWidth = '200px';
             })
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

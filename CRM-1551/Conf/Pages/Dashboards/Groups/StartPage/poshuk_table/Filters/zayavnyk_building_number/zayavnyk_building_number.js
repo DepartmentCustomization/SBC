@@ -21,7 +21,7 @@
             ]
         },
         init: function() {
-            this.sub = this.messageService.subscribe( 'messageForBuilding', this.streetValue, this);
+            this.sub = this.messageService.subscribe('messageForBuilding', this.streetValue, this);
         },
         streetValue: function(message) {
             this.streetId = message.value;

@@ -75,9 +75,9 @@
             this.sub = this.messageService.subscribe('setFiltersParams', this.setQueryParams, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
-            this.config.columns.forEach( col => {
+            this.config.columns.forEach(col => {
                 if (col.columns) {
-                    col.columns.forEach( col => setColStyles(col));
+                    col.columns.forEach(col => setColStyles(col));
                 }
                 setColStyles(col);
                 function setColStyles(col) {
@@ -158,7 +158,7 @@
             worksheet.columns = columnsProperties;
         },
         setWorksheetTitle: function(worksheet) {
-            worksheet.mergeCells( 1, 1, 1, this.lastPosition );
+            worksheet.mergeCells(1, 1, 1, this.lastPosition);
             let title = worksheet.getCell(1, 1);
             title.value = 'Показники рейтингу Департаментів';
         },
@@ -169,21 +169,21 @@
                 if (column.columns) {
                     let headerPositionTo = position + column.columns.length;
                     let headerPositionFrom = position + 1;
-                    worksheet.mergeCells( 3, headerPositionFrom, 3, headerPositionTo );
+                    worksheet.mergeCells(3, headerPositionFrom, 3, headerPositionTo);
                     let headerCaption = worksheet.getCell(3, headerPositionFrom);
                     headerCaption.value = column.caption;
                     this.setCellStyle(headerCaption);
                     for (let j = 0; j < column.columns.length; j++) {
                         const element = column.columns[j];
                         position += 1;
-                        worksheet.mergeCells( 4, position, 4, position );
+                        worksheet.mergeCells(4, position, 4, position);
                         const cell = worksheet.getCell(4, position);
                         cell.value = element.caption;
                         this.setCellStyle(cell);
                     }
                 } else {
                     position += 1;
-                    worksheet.mergeCells( 3, position, 4, position );
+                    worksheet.mergeCells(3, position, 4, position);
                     const cell = worksheet.getCell(4, position);
                     cell.value = column.caption;
                     this.setCellStyle(cell);
@@ -214,7 +214,7 @@
             worksheet.getRow(1).height = 30;
             worksheet.getRow(3).height = 40;
             worksheet.getRow(4).height = 40;
-            rowNumbers.forEach( number => {
+            rowNumbers.forEach(number => {
                 worksheet.getRow(number).height = 50;
                 worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, italic: false};
                 worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };

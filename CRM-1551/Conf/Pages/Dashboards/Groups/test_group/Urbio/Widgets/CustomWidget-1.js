@@ -42,7 +42,7 @@
         afterViewInit: function() {
             document.getElementById('btn_GetCountry').addEventListener('click', function() {
                 this.btn_load();
-            }.bind(this) );
+            }.bind(this));
         },
         load: function() {
         }

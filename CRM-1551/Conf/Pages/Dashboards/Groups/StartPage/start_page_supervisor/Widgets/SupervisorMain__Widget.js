@@ -19,22 +19,22 @@
             const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Закрити'});
             const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper' }, modalBtnTrue);
             const listItems = this.createElement('div', { id:'listItems' });
-            data.rows.forEach( el => {
+            data.rows.forEach(el => {
                 let listItem = this.createElement('div', { className: 'listItem', innerText: el.values[1], type: el.values[0] });
-                listItems.appendChild( listItem );
-                listItem.addEventListener( 'click', event => {
+                listItems.appendChild(listItem);
+                listItem.addEventListener('click', event => {
                     let target = event.currentTarget;
                     let phoneNumber = document.getElementById('listPhoneNumberInput').value;
                     window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone='+phoneNumber+'&type='+target.type);
                 });
             });
-            const listTitle = this.createElement('div', { id:'listTitle', innerText: 'Виберіть тип звернення:' } );
-            const listPhoneNumberInput = this.createElement('input', { id:'listPhoneNumberInput', placeholder: 'Введiть номер телефону' } );
-            const listWrapper = this.createElement('div', { id:'listWrapper' }, listTitle, listPhoneNumberInput, listItems );
+            const listTitle = this.createElement('div', { id:'listTitle', innerText: 'Виберіть тип звернення:' });
+            const listPhoneNumberInput = this.createElement('input', { id:'listPhoneNumberInput', placeholder: 'Введiть номер телефону' });
+            const listWrapper = this.createElement('div', { id:'listWrapper' }, listTitle, listPhoneNumberInput, listItems);
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, listWrapper, modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);
-            modalBtnTrue.addEventListener( 'click', event => {
+            modalBtnTrue.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 CONTAINER.removeChild(CONTAINER.lastElementChild);
             });
@@ -48,13 +48,13 @@
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalNumber, modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);
-            modalBtnTrue.addEventListener( 'click', event => {
+            modalBtnTrue.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 let number = modalNumber.value
                 window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone='+number+'&type=1');
                 CONTAINER.removeChild(CONTAINER.lastElementChild);
             });
-            modalBtnClose.addEventListener( 'click', event => {
+            modalBtnClose.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 CONTAINER.removeChild(CONTAINER.lastElementChild);
             });
@@ -67,7 +67,7 @@
             groupRegByPhone__icon.style.color = '#f44336';
             let groupRegByPhone__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupRegByPhone__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupRegByPhone = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegByPhone__icon, groupRegByPhone__description, groupRegByPhone__borderBottom, groupRegByPhone__borderRight );
+            let groupRegByPhone = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegByPhone__icon, groupRegByPhone__description, groupRegByPhone__borderBottom, groupRegByPhone__borderRight);
             groupRegByPhone.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 this.showModalWindow();
@@ -77,7 +77,7 @@
             groupViewAppeals__icon.style.color = '#ff7961';
             let groupViewAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupViewAppeals__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0', url: 'sections/Appeals_from_Site' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight );
+            let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0', url: 'sections/Appeals_from_Site' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight);
             groupViewAppeals.addEventListener('click', event => {
                 const target = event.currentTarget;
                 event.stopImmediatePropagation();
@@ -88,7 +88,7 @@
             groupSearchAppeals__icon.style.color = '#2196F3';
             let groupSearchAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupSearchAppeals__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupSearchAppeals = this.createElement('div', { className: 'group', tabindex: '0', url: 'sections/Appeals' }, groupSearchAppeals__icon, groupSearchAppeals__description, groupSearchAppeals__borderBottom, groupSearchAppeals__borderRight );
+            let groupSearchAppeals = this.createElement('div', { className: 'group', tabindex: '0', url: 'sections/Appeals' }, groupSearchAppeals__icon, groupSearchAppeals__description, groupSearchAppeals__borderBottom, groupSearchAppeals__borderRight);
             groupSearchAppeals.addEventListener('click', event => {
                 const target = event.currentTarget;
                 event.stopImmediatePropagation();
@@ -99,7 +99,7 @@
             groupSearchTable__icon.style.color = '#2196F3';
             let groupSearchTable__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupSearchTable__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupSearchTable = this.createElement('div', { className: 'group', tabindex: '0', url: 'dashboard/page/poshuk_table' }, groupSearchTable__icon, groupSearchTable__description, groupSearchTable__borderBottom, groupSearchTable__borderRight );
+            let groupSearchTable = this.createElement('div', { className: 'group', tabindex: '0', url: 'dashboard/page/poshuk_table' }, groupSearchTable__icon, groupSearchTable__description, groupSearchTable__borderBottom, groupSearchTable__borderRight);
             groupSearchTable.addEventListener('click', event => {
                 const target = event.currentTarget;
                 event.stopImmediatePropagation();
@@ -110,7 +110,7 @@
             groupRegAppeals__icon.style.color = '#2196F3';
             let groupRegAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupRegAppeals__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupRegAppeals = this.createElement('div', { className: 'group', tabindex: '0', url: 'dashboard/page/referrals_from_the_site' }, groupRegAppeals__icon, groupRegAppeals__description, groupRegAppeals__borderBottom, groupRegAppeals__borderRight );
+            let groupRegAppeals = this.createElement('div', { className: 'group', tabindex: '0', url: 'dashboard/page/referrals_from_the_site' }, groupRegAppeals__icon, groupRegAppeals__description, groupRegAppeals__borderBottom, groupRegAppeals__borderRight);
             groupRegAppeals.addEventListener('click', event => {
                 const target = event.currentTarget;
                 event.stopImmediatePropagation();
@@ -121,7 +121,7 @@
             groupCall__icon.style.color = '#2196F3';
             let groupCall__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupCall__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupCall = this.createElement('div', { className: 'group', tabindex: '0', url: 'dashboard/page/prozvon_v2' }, groupCall__icon, groupCall__description, groupCall__borderBottom, groupCall__borderRight );
+            let groupCall = this.createElement('div', { className: 'group', tabindex: '0', url: 'dashboard/page/prozvon_v2' }, groupCall__icon, groupCall__description, groupCall__borderBottom, groupCall__borderRight);
             groupCall.addEventListener('click', event => {
                 const target = event.currentTarget;
                 event.stopImmediatePropagation();
@@ -132,7 +132,7 @@
             groupLetter__icon.style.color = '#6ec6ff';
             let groupLetter__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupLetter__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupLetter = this.createElement('div', { className: 'group', tabindex: '0' }, groupLetter__icon, groupLetter__description, groupLetter__borderBottom, groupLetter__borderRight );
+            let groupLetter = this.createElement('div', { className: 'group', tabindex: '0' }, groupLetter__icon, groupLetter__description, groupLetter__borderBottom, groupLetter__borderRight);
             groupLetter.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 this.showTypesList(data);
@@ -142,24 +142,24 @@
             groupDoubled__icon.style.color = '#6ec6ff';
             let groupDoubled__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupDoubled__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupDoubled = this.createElement('div', { className: 'group', tabindex: '0', url: 'dashboard/page/сombining_duplicate_applicants' }, groupDoubled__icon, groupDoubled__description, groupDoubled__borderBottom, groupDoubled__borderRight );
+            let groupDoubled = this.createElement('div', { className: 'group', tabindex: '0', url: 'dashboard/page/сombining_duplicate_applicants' }, groupDoubled__icon, groupDoubled__description, groupDoubled__borderBottom, groupDoubled__borderRight);
             groupDoubled.addEventListener('click', event => {
                 const target = event.currentTarget;
                 event.stopImmediatePropagation();
                 this.openNewTab(target.url);
             });
-            let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupRegByPhone, groupViewAppeals, groupSearchAppeals, groupSearchTable, groupRegAppeals, groupCall, groupLetter, groupDoubled );
+            let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupRegByPhone, groupViewAppeals, groupSearchAppeals, groupSearchTable, groupRegAppeals, groupCall, groupLetter, groupDoubled);
             CONTAINER.appendChild(title);
             CONTAINER.appendChild(groupsWrapper);
         },
         openNewTab: function(url) {
-            window.open(location.origin + localStorage.getItem('VirtualPath')+'/' + url );
+            window.open(location.origin + localStorage.getItem('VirtualPath')+'/' + url);
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

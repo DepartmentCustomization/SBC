@@ -183,7 +183,7 @@
             keyExpr: 'qtyRepeated_prev'
         },
         init: function() {
-            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
+            this.sub = this.messageService.subscribe('FiltersParams', this.setFilterParams, this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         setFilterParams: function(message) {
@@ -197,7 +197,7 @@
             const name = 'setData';
             const columns = this.config.columns;
             const position = 1;
-            this.messageService.publish( {name, data, columns, position} );
+            this.messageService.publish({name, data, columns, position});
             this.render(this.afterRenderTable());
         },
         afterRenderTable: function() {

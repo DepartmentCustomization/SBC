@@ -136,8 +136,8 @@
         },
         findAllRowsNeVKompetentсii: function() {
             let rows = this.dataGridInstance.instance.getSelectedRowsData();
-            if( rows.length > 0 ) {
-                rows.map( el => {
+            if(rows.length > 0) {
+                rows.map(el => {
                     let executeQuery = {
                         queryCode: 'Button_NeVKompetentcii',
                         parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
@@ -147,7 +147,7 @@
                     this.queryExecutor(executeQuery);
                 });
                 this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish( { name: 'reloadMainTable', column: this.column, navigator: this.navigator, targetId: this.targetId });
+                this.messageService.publish({ name: 'reloadMainTable', column: this.column, navigator: this.navigator, targetId: this.targetId });
             }
         },
         createTableButton: function(e) {
@@ -168,9 +168,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -195,7 +195,7 @@
         createCustomStyle: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element) {
+            elements.forEach(function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
@@ -227,13 +227,13 @@
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
-            elementsAll.forEach( el => {
+            elementsAll.forEach(el => {
                 el.style.display = 'flex';
                 el.style.margin = '15px 10px';
             });
             let elementsCaptionAll = document.querySelectorAll('.caption');
             elementsCaptionAll = Array.from(elementsCaptionAll);
-            elementsCaptionAll.forEach( el => {
+            elementsCaptionAll.forEach(el => {
                 el.style.minWidth = '200px';
             });
         },

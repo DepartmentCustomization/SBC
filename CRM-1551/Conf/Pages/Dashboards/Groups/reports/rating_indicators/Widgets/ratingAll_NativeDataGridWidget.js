@@ -213,8 +213,8 @@
                 }
             };
             this.messageService.publish(msg);
-            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFiltersParams, this );
-            this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.renderTable, this );
+            this.sub = this.messageService.subscribe('FiltersParams', this.setFiltersParams, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.renderTable, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 e.event.stopImmediatePropagation();
                 if(e.column) {
@@ -249,7 +249,7 @@
                     }
                 }
             });
-            this.config.columns.forEach( col => {
+            this.config.columns.forEach(col => {
                 function setColStyles(col) {
                     col.width = col.dataField === 'RDAName' ? '200' : '120';
                     col.alignment = 'center';
@@ -257,7 +257,7 @@
                 }
                 if(col.columns) {
                     setColStyles(col);
-                    col.columns.forEach( col => setColStyles(col));
+                    col.columns.forEach(col => setColStyles(col));
                 }else{
                     setColStyles(col);
                 }
@@ -364,8 +364,8 @@
             for (let i = 0; i < this.config.columns.length; i++) {
                 let column = this.config.columns[i];
                 let colCaption = column.caption;
-                if( !column.dataField ) {
-                    column.columns.forEach( col => {
+                if(!column.dataField) {
+                    column.columns.forEach(col => {
                         let length = 0;
                         let colIndexTo = 0;
                         if(this.subColumnCaption.length > 0) {
@@ -406,14 +406,14 @@
             for (let i = 0; i < visibleColumns.length; i++) {
                 const visCol = visibleColumns[i];
                 let df = visCol.dataField;
-                let index = this.allColumns.findIndex( el => el.dataField === df );
+                let index = this.allColumns.findIndex(el => el.dataField === df);
                 resultColumns.push(this.allColumns[index]);
             }
             for (let i = 0; i < resultColumns.length; i++) {
                 const resCol = resultColumns[i];
                 const colIndexTo = i+1;
                 let indexCaptionFrom;
-                if( resCol.isSub === true ) {
+                if(resCol.isSub === true) {
                     if(this.subColumnCaption.length > 0) {
                         let group = this.subColumnCaption[resCol.index];
                         if(group.colCaption === resCol.caption) {
@@ -428,13 +428,13 @@
                     indexCaptionFrom = 4;
                     this.columnsWithoutSub.push(column);
                 }
-                worksheet.mergeCells(indexCaptionFrom, colIndexTo, 5, colIndexTo );
+                worksheet.mergeCells(indexCaptionFrom, colIndexTo, 5, colIndexTo);
             }
-            this.subColumnCaption.forEach( col => {
+            this.subColumnCaption.forEach(col => {
                 let indexFrom = col.colIndexTo - col.length + 1;
                 let indexTo = col.colIndexTo;
-                if( col.length > 0 ) {
-                    worksheet.mergeCells( 4, indexFrom, 4, indexTo );
+                if(col.length > 0) {
+                    worksheet.mergeCells(4, indexFrom, 4, indexTo);
                     let caption = worksheet.getCell(4, indexFrom);
                     caption.value = col.colCaption;
                 }
@@ -449,7 +449,7 @@
                 let rowValues = [];
                 for (let j = 0; j < resultColumns.length; j++) {
                     const element = resultColumns[j];
-                    let index = data.columns.findIndex(el => el.code === element.dataField );
+                    let index = data.columns.findIndex(el => el.code === element.dataField);
                     rowValues[j] = rowData.values[index];
                 }
                 worksheet.addRow(rowValues);

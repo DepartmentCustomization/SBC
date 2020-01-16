@@ -98,7 +98,7 @@
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.lookupFoo, this);
-            this.dataGridInstance.onRowUpdating.subscribe( function(e) {
+            this.dataGridInstance.onRowUpdating.subscribe(function(e) {
                 let is_done = e.newData.is_done;
                 let key = e.key;
                 let id_1551 = e.oldData.id_1551;

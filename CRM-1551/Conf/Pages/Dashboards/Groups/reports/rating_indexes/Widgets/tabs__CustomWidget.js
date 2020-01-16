@@ -57,20 +57,20 @@
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper'}, tabSpeedDone, tabSpeedExplained, tabFactDone);
             CONTAINER.appendChild(tabsWrapper);
             const tabs = document.querySelectorAll('.tab');
-            tabs.forEach( tab => {
-                tab.addEventListener( 'click', e => {
-                    tabs.forEach( tab => tab.classList.remove('tabHover'));
+            tabs.forEach(tab => {
+                tab.addEventListener('click', e => {
+                    tabs.forEach(tab => tab.classList.remove('tabHover'));
                     let target = e.currentTarget;
                     target.classList.add('tabHover');
-                    this.messageService.publish( {name: 'showTable', tabName: target.id});
+                    this.messageService.publish({name: 'showTable', tabName: target.id});
                 });
             });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -95,7 +95,7 @@
             if(data.rows.length) {
                 for (let i = 0; i < data.columns.length; i++) {
                     const element = data.columns[i];
-                    if( element.code !== 'QuestionTypeId') {
+                    if(element.code !== 'QuestionTypeId') {
                         let format = undefined;
                         const width = i === 1 ? 400 : 120;
                         const dataField = element.code;
@@ -130,7 +130,7 @@
                 return 'Середнє (еталон)';
             } else {
                 const id = +caption.slice(-1);
-                const index = this.districts.findIndex(el => el.id === id );
+                const index = this.districts.findIndex(el => el.id === id);
                 return this.districts[index].name;
             }
         },

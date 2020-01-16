@@ -21,7 +21,7 @@
             ]
         },
         init: function() {
-            this.sub = this.messageService.subscribe( 'messageForOrganization', this.organizationId, this);
+            this.sub = this.messageService.subscribe('messageForOrganization', this.organizationId, this);
         },
         organizationId: function(message) {
             this.pos = message.value;
@@ -41,11 +41,11 @@
             }
             this.messageService.publish(message);
             let value = '';
-            item.forEach( el => {
+            item.forEach(el => {
                 value = value + ', ' + el.value;
             });
             let stringSendValue = value.slice(2, [value.length]);
-            this.messageService.publish( { name: 'messageForTable', value: stringSendValue });
+            this.messageService.publish({ name: 'messageForTable', value: stringSendValue });
         },
         destroy: function() {
             this.sub.unsubscribe();

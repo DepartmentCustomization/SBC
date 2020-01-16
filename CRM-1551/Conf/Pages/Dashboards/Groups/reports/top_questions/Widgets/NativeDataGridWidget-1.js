@@ -72,7 +72,7 @@
             document.getElementById('rep_2_2_classifier_questions').style.display = 'none';
             this.sub = this.messageService.subscribe('showClassifierQuestions', this.showClassifierQuestionsTable, this);
             let self = this;
-            this.treeListInstance.onToolbarPreparing.subscribe( e => {
+            this.treeListInstance.onToolbarPreparing.subscribe(e => {
                 e.toolbarOptions.items.push({
                     widget: 'dxButton',
                     location: 'before',

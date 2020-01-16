@@ -30,7 +30,7 @@
             const dayFrom = dateFrom.getDate();
             const defaultValue = {
                 dateFrom: new Date(yearFrom, monthFrom, dayFrom),
-                dateTo: new Date( yearTo, monthTo , dayTo)
+                dateTo: new Date(yearTo, monthTo , dayTo)
             }
             this.setDefaultValue(defaultValue);
         }

@@ -21,7 +21,7 @@
             groupViewAppeals__icon.style.color = '#ff7961';
             let groupViewAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupViewAppeals__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight );
+            let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight);
             groupViewAppeals.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/ArrivalReport');
             });
@@ -30,7 +30,7 @@
             groupRegAppeals__icon.style.color = '#2196F3';
             let groupRegAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupRegAppeals__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupRegAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegAppeals__icon, groupRegAppeals__description, groupRegAppeals__borderBottom, groupRegAppeals__borderRight );
+            let groupRegAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegAppeals__icon, groupRegAppeals__description, groupRegAppeals__borderBottom, groupRegAppeals__borderRight);
             groupRegAppeals.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/ChangeReport');
             });
@@ -39,7 +39,7 @@
             groupSearchTable__icon.style.color = '#2196F3';
             let groupSearchTable__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupSearchTable__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupSearchTable = this.createElement('div', { className: 'group', tabindex: '0' }, groupSearchTable__icon, groupSearchTable__description, groupSearchTable__borderBottom, groupSearchTable__borderRight );
+            let groupSearchTable = this.createElement('div', { className: 'group', tabindex: '0' }, groupSearchTable__icon, groupSearchTable__description, groupSearchTable__borderBottom, groupSearchTable__borderRight);
             groupSearchTable.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/PartReport');
             });
@@ -48,7 +48,7 @@
             groupCall__icon.style.color = '#ff7961';
             let groupCall__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupCall__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupCall = this.createElement('div', { className: 'group', tabindex: '0' }, groupCall__icon, groupCall__description, groupCall__borderBottom, groupCall__borderRight );
+            let groupCall = this.createElement('div', { className: 'group', tabindex: '0' }, groupCall__icon, groupCall__description, groupCall__borderBottom, groupCall__borderRight);
             groupCall.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/CarsReport');
             });
@@ -57,7 +57,7 @@
             groupCarChangeReport__icon.style.color = '#ff7961';
             let groupCarChangeReport__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupCarChangeReport__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupCarChangeReport = this.createElement('div', { className: 'group', tabindex: '0' }, groupCarChangeReport__icon, groupCarChangeReport__description, groupCarChangeReport__borderBottom, groupCarChangeReport__borderRight );
+            let groupCarChangeReport = this.createElement('div', { className: 'group', tabindex: '0' }, groupCarChangeReport__icon, groupCarChangeReport__description, groupCarChangeReport__borderBottom, groupCarChangeReport__borderRight);
             groupCarChangeReport.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/CarChangeReport');
             });
@@ -66,7 +66,7 @@
             groupChangeOnDateReport__icon.style.color = '#2196F3';
             let groupChangeOnDateReport__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupChangeOnDateReport__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupChangeOnDateReport = this.createElement('div', { className: 'group', tabindex: '0' }, groupChangeOnDateReport__icon, groupChangeOnDateReport__description, groupChangeOnDateReport__borderBottom, groupChangeOnDateReport__borderRight );
+            let groupChangeOnDateReport = this.createElement('div', { className: 'group', tabindex: '0' }, groupChangeOnDateReport__icon, groupChangeOnDateReport__description, groupChangeOnDateReport__borderBottom, groupChangeOnDateReport__borderRight);
             groupChangeOnDateReport.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/ChangeOnDateReport');
             });
@@ -75,7 +75,7 @@
             groupPartsExplorationReport__icon.style.color = '#2196F3';
             let groupPartsExplorationReport__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupPartsExplorationReport__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupPartsExplorationReport = this.createElement('div', { className: 'group', tabindex: '0' }, groupPartsExplorationReport__icon, groupPartsExplorationReport__description, groupPartsExplorationReport__borderBottom, groupPartsExplorationReport__borderRight );
+            let groupPartsExplorationReport = this.createElement('div', { className: 'group', tabindex: '0' }, groupPartsExplorationReport__icon, groupPartsExplorationReport__description, groupPartsExplorationReport__borderBottom, groupPartsExplorationReport__borderRight);
             groupPartsExplorationReport.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/PartsExplorationReport');
             });
@@ -84,7 +84,7 @@
             groupPartFailedReport__icon.style.color = '#ff7961';
             let groupPartFailedReport__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupPartFailedReport__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupPartFailedReport = this.createElement('div', { className: 'group', tabindex: '0' }, groupPartFailedReport__icon, groupPartFailedReport__description, groupPartFailedReport__borderBottom, groupPartFailedReport__borderRight );
+            let groupPartFailedReport = this.createElement('div', { className: 'group', tabindex: '0' }, groupPartFailedReport__icon, groupPartFailedReport__description, groupPartFailedReport__borderBottom, groupPartFailedReport__borderRight);
             groupPartFailedReport.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/PartFailedReport');
             });
@@ -97,9 +97,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

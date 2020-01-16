@@ -29,7 +29,7 @@
                 }
             }
             this.messageService.publish(message);
-            this.messageService.publish( { name: 'messageForOrganization', value: item.value });
+            this.messageService.publish({ name: 'messageForOrganization', value: item.value });
         }
     };
 }());

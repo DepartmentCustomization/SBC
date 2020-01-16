@@ -41,26 +41,26 @@
             TABS_CONTAINER.appendChild(tabDefaultItems);
             let tabs = document.querySelectorAll('.tab');
             tabs = Array.from(tabs);
-            tabs.forEach( tab => {
-                tab.addEventListener( 'click', event => {
-                    tabs.forEach( tab => {
+            tabs.forEach(tab => {
+                tab.addEventListener('click', event => {
+                    tabs.forEach(tab => {
                         tab.classList.remove('tabHover');
                     });
                     let target = event.currentTarget;
                     target.classList.add('tabHover');
-                    this.messageService.publish( { name: 'showTable', value: target.messageValue });
-                    this.messageService.publish( { name: 'sendDataCleanup'});
+                    this.messageService.publish({ name: 'showTable', value: target.messageValue });
+                    this.messageService.publish({ name: 'sendDataCleanup'});
                 });
             });
         },
         sendMessage: function(target) {
-            this.messageService.publish( { name: 'showTable', value: target.messageValue });
+            this.messageService.publish({ name: 'showTable', value: target.messageValue });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

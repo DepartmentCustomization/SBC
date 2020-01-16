@@ -52,7 +52,7 @@
             btn_goToApplicant.addEventListener('click', () => {
                 let appl_id = this.form.getControlValue('appl_id');
                 this.navigateTo('/sections/Applicants/edit/' + appl_id)
-            } );
+            });
             let btn_goToAppeal = document.getElementById('app_registration_numberIcon');
             btn_goToAppeal.style.fontSize = '25px';
             btn_goToAppeal.addEventListener('click', () =>{
@@ -192,7 +192,7 @@
                 parameterValues: [{key: '@id_con', value: this.form.getControlValue('appl_id')}]
             }
             this.queryExecutor.getValues(allp_info).subscribe(data => {
-                this.form.setControlValue('answer_phone',data.rows[0].values[2] );
+                this.form.setControlValue('answer_phone',data.rows[0].values[2]);
                 this.form.setControlValue('answer_post', data.rows[0].values[3]);
                 this.form.setControlValue('answer_mail', data.rows[0].values[1]);
             });

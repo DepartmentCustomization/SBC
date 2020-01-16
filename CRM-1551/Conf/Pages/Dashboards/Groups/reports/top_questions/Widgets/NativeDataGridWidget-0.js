@@ -109,15 +109,15 @@
             });
         },
         myCreateExcel: function(data) {
-            if( data.rows.length > 0 ) {
+            if(data.rows.length > 0) {
                 this.showPagePreloader('Зачекайте, формується документ');
                 this.indexArr = [];
                 let columns = this.config.columns;
-                columns.forEach( el => {
+                columns.forEach(el => {
                     let elDataField = el.dataField;
                     let elCaption = el.caption;
                     for (let i = 0; i < data.columns.length; i ++) {
-                        if( elDataField === data.columns[i].code ) {
+                        if(elDataField === data.columns[i].code) {
                             let obj = {
                                 name: elDataField,
                                 index: i,
@@ -157,8 +157,8 @@
                 columnsHeader.push(columnNumber);
                 let rowNumber = '№ з/п';
                 captions.push(rowNumber);
-                indexArr.forEach( el => {
-                    if( el.name === 'questionType' ) {
+                indexArr.forEach(el => {
+                    if(el.name === 'questionType') {
                         let obj = {
                             key: 'questionType',
                             width: 70,
@@ -166,7 +166,7 @@
                         };
                         columnsHeader.push(obj);
                         captions.push('Тип питання');
-                    }else if(el.name === 'questionQty' ) {
+                    }else if(el.name === 'questionQty') {
                         let obj = {
                             key: 'questionQty',
                             width: 15
@@ -178,22 +178,22 @@
                 worksheet.getRow(5).values = captions;
                 worksheet.columns = columnsHeader;
                 this.addetedIndexes = [];
-                let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
-                let indexQuestionQty = data.columns.findIndex(el => el.code.toLowerCase() === 'questionqty' );
-                for( let j = 0; j < data.rows.length; j ++ ) {
+                let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype');
+                let indexQuestionQty = data.columns.findIndex(el => el.code.toLowerCase() === 'questionqty');
+                for(let j = 0; j < data.rows.length; j ++) {
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
                     for(let i = 0; i < indexArr.length; i ++) {
                         let el = indexArr[i];
-                        if( el.name === 'questionType' ) {
+                        if(el.name === 'questionType') {
                             rowItem.questionType = row.values[indexQuestionType];
-                        }else if(el.name === 'questionQty' ) {
+                        }else if(el.name === 'questionQty') {
                             rowItem.questionQty = row.values[indexQuestionQty];
                         }
                     }
-                    rows.push( rowItem );
+                    rows.push(rowItem);
                 }
-                rows.forEach( el => {
+                rows.forEach(el => {
                     let number = el.number + '.'
                     let row = {
                         number: number,
@@ -207,7 +207,7 @@
                     top: 0.4, bottom: 0.4,
                     header: 0.0, footer: 0.0
                 };
-                for(let i = 0; i < rows.length + 1; i++ ) {
+                for(let i = 0; i < rows.length + 1; i++) {
                     let number = i + 5;
                     let row = worksheet.getRow(number);
                     row.height = 100;
@@ -240,7 +240,7 @@
         },
         changeDateTimeValues: function(value) {
             let trueDate;
-            if( value !== null) {
+            if(value !== null) {
                 let date = new Date(value);
                 let dd = date.getDate();
                 let MM = date.getMonth();
@@ -248,16 +248,16 @@
                 let HH = date.getUTCHours()
                 let mm = date.getMinutes();
                 MM += 1;
-                if( (dd.toString()).length === 1) {
+                if((dd.toString()).length === 1) {
                     dd = '0' + dd;
                 }
-                if( (MM.toString()).length === 1) {
+                if((MM.toString()).length === 1) {
                     MM = '0' + MM;
                 }
-                if( (HH.toString()).length === 1) {
+                if((HH.toString()).length === 1) {
                     HH = '0' + HH;
                 }
-                if( (mm.toString()).length === 1) {
+                if((mm.toString()).length === 1) {
                     mm = '0' + mm;
                 }
                 trueDate = dd+'.'+MM+'.' + yyyy;
@@ -270,8 +270,8 @@
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let questionType = message.package.value.values.find(f => f.name === 'questionTypes').value;
             let questionGroup = message.package.value.values.find(f => f.name === 'questionGroup').value;
-            if( period !== null ) {
-                if( period.dateFrom !== '' && period.dateTo !== '') {
+            if(period !== null) {
+                if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;

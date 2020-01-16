@@ -22,7 +22,7 @@
             groupViewAppeals__icon.style.color = '#ff7961';
             let groupViewAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupViewAppeals__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight );
+            let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight);
             groupViewAppeals.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/registryClaims');
             });
@@ -31,7 +31,7 @@
             groupRegByPhone__icon.style.color = '#f44336';
             let groupRegByPhone__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupRegByPhone__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupRegByPhone = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegByPhone__icon, groupRegByPhone__description, groupRegByPhone__borderBottom, groupRegByPhone__borderRight );
+            let groupRegByPhone = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegByPhone__icon, groupRegByPhone__description, groupRegByPhone__borderBottom, groupRegByPhone__borderRight);
             groupRegByPhone.addEventListener('click', () => {
                 this.showModalWindow();
             });
@@ -41,9 +41,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -66,27 +66,27 @@
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);
             const radioBtn1 = document.getElementById('radioBtn1');
-            radioBtn1.addEventListener( 'click', () => {
+            radioBtn1.addEventListener('click', () => {
                 this.typeAppeal = 1;
                 modalNumber.value = '';
                 modalNumber.disabled = false;
                 modalNumber.placeholder = 'Введіть номер телефону в форматі 0xxxxxxxxx';
             });
             const radioBtn2 = document.getElementById('radioBtn2');
-            radioBtn2.addEventListener( 'click', () => {
+            radioBtn2.addEventListener('click', () => {
                 this.typeAppeal = 2;
                 modalNumber.value = '';
                 modalNumber.disabled = false;
                 modalNumber.placeholder = 'Введіть E-Mail';
             });
             const radioBtn3 = document.getElementById('radioBtn3');
-            radioBtn3.addEventListener( 'click', () => {
+            radioBtn3.addEventListener('click', () => {
                 this.typeAppeal = 3;
                 modalNumber.value = '';
                 modalNumber.disabled = true;
                 modalNumber.placeholder = ''
             });
-            modalBtnTrue.addEventListener( 'click', () => {
+            modalBtnTrue.addEventListener('click', () => {
                 let number = modalNumber.value
                 let r1 = JSON.stringify(number);
                 let r2 = encodeURIComponent(r1);
@@ -94,7 +94,7 @@
                 const container = document.getElementById('container');
                 CONTAINER.removeChild(container.lastElementChild);
             });
-            modalBtnClose.addEventListener( 'click', () => {
+            modalBtnClose.addEventListener('click', () => {
                 const container = document.getElementById('container');
                 CONTAINER.removeChild(container.lastElementChild);
             });

@@ -73,7 +73,7 @@
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 200;
             const self = this;
-            this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 e.event.stopImmediatePropagation();
                 if(e.column) {
@@ -82,9 +82,9 @@
                     }
                 }
             });
-            this.dataGridInstance.onCellPrepared.subscribe( e => {
+            this.dataGridInstance.onCellPrepared.subscribe(e => {
                 if(e.column.caption === 'Перехiд' && e.data !== undefined) {
-                    let icon = self.createElement('span', { className: 'iconToLink dx-icon-arrowright dx-icon-custom-style'} );
+                    let icon = self.createElement('span', { className: 'iconToLink dx-icon-arrowright dx-icon-custom-style'});
                     e.cellElement.appendChild(icon);
                 }
             });
@@ -122,9 +122,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

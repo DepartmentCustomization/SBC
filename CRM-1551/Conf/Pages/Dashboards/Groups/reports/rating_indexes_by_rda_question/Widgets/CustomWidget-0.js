@@ -40,20 +40,20 @@
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper'}, tabSpeedDone, tabSpeedExplained);
             CONTAINER.appendChild(tabsWrapper);
             const tabs = document.querySelectorAll('.tab');
-            tabs.forEach( tab => {
-                tab.addEventListener( 'click', e => {
-                    tabs.forEach( tab => tab.classList.remove('tabHover'));
+            tabs.forEach(tab => {
+                tab.addEventListener('click', e => {
+                    tabs.forEach(tab => tab.classList.remove('tabHover'));
                     let target = e.currentTarget;
                     target.classList.add('tabHover');
-                    this.messageService.publish( {name: 'showTable', tabName: target.id});
+                    this.messageService.publish({name: 'showTable', tabName: target.id});
                 });
             });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

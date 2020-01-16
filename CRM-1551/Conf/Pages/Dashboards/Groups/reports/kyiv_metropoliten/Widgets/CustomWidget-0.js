@@ -39,20 +39,20 @@
                     `
         ,
         init: function() {
-            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this );
-            this.sub1 = this.messageService.subscribe('setData', this.setData, this );
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
+            this.sub1 = this.messageService.subscribe('setData', this.setData, this);
             this.counter = 0;
         },
         afterViewInit: function() {
             const CONTAINER = document.getElementById('container');
-            let reportTitle = this.createElement( 'div', { id: 'reportTitle', innerText: 'Звіт для метрополітену' });
-            let subTitle = this.createElement( 'div', { id: 'subTitle' });
+            let reportTitle = this.createElement('div', { id: 'reportTitle', innerText: 'Звіт для метрополітену' });
+            let subTitle = this.createElement('div', { id: 'subTitle' });
             CONTAINER.appendChild(reportTitle);
             CONTAINER.appendChild(subTitle);
             subTitle.innerText = 'Статистична інформація за період з ' + this.changeDateTimeValues(this.dateFrom)+'до '+this.changeDateTimeValues(this.dateTo)+' Виконавець: КП «Київський метрополітен»';
             this.subTitle = subTitle;
-            let btnExcel = this.createElement('button', { id: 'btnExcel', innerText: 'Вигрузити в Excel', disabled: true } );
-            let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnExcel );
+            let btnExcel = this.createElement('button', { id: 'btnExcel', innerText: 'Вигрузити в Excel', disabled: true });
+            let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnExcel);
             CONTAINER.appendChild(btnWrap);
             btnExcel.addEventListener('click', event => {
                 event.stopImmediatePropagation();
@@ -61,8 +61,8 @@
         },
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
-            if( period !== null ) {
-                if( period.dateFrom !== '' && period.dateTo !== '') {
+            if(period !== null) {
+                if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                 }
@@ -73,14 +73,14 @@
             }
         },
         setData: function(message) {
-            if( message.rep1_data) {
+            if(message.rep1_data) {
                 this.rep1_data = message.rep1_data;
                 this.counter += 1;
-            }else if( message.rep2_data) {
+            }else if(message.rep2_data) {
                 this.rep2_data = message.rep2_data;
                 this.counter += 1;
             }
-            if( this.counter === 2 ) {
+            if(this.counter === 2) {
                 this.dataArray = [ this.rep1_data, this.rep2_data];
                 document.getElementById('btnExcel').disabled = false;
                 this.counter = 0;
@@ -130,7 +130,7 @@
                     let firstColumnCaption = worksheet.getCell('A5');
                     firstColumnCaption.value = 'Показники';
                     mainHeaders.push(5);
-                    for(let i = 6; i < (data.length + 6); i++ ) {
+                    for(let i = 6; i < (data.length + 6); i++) {
                         let value = data[i-6];
                         let columnText = worksheet.getCell('A'+i);
                         let columnCounter = worksheet.getCell('B'+i);
@@ -145,19 +145,19 @@
                     let firstColumnCaption = worksheet.getCell('A'+this.rowTable1Length);
                     firstColumnCaption.value = 'Питання';
                     let summary = [];
-                    data.forEach( el => summary.push(el[2]));
+                    data.forEach(el => summary.push(el[2]));
                     let result = summary.reduce(function(sum, current) {
                         return sum + current;
                     }, 0);
                     mainHeaders.push(this.rowTable1Length);
-                    for(let i = this.rowTable1Length + 1; i < (data.length + this.rowTable1Length + 1 ); i++ ) {
-                        let value = data[i-( this.rowTable1Length + 1)];
+                    for(let i = this.rowTable1Length + 1; i < (data.length + this.rowTable1Length + 1); i++) {
+                        let value = data[i-(this.rowTable1Length + 1)];
                         let columnText = worksheet.getCell('A'+i);
                         let columnCounter = worksheet.getCell('B'+i);
                         columnText.value = value[1];
                         columnCounter.value = value[2];
                         tds.push('A'+i);
-                        tds.push('A'+(i-1) );
+                        tds.push('A'+(i-1));
                         tdsCounter.push('B'+i);
                         tdsCounter.push('B'+(i-1));
                     }
@@ -170,7 +170,7 @@
                     mainHeaders.push(this.sumLength);
                 }
             }
-            for(let i = 0; i < tds.length; i++ ) {
+            for(let i = 0; i < tds.length; i++) {
                 let td = tds[i];
                 worksheet.getCell(td).border = {
                     top: {style:'thin'},
@@ -191,7 +191,7 @@
                     italic: false
                 };
             }
-            for(let i = 0; i < tdsCounter.length; i++ ) {
+            for(let i = 0; i < tdsCounter.length; i++) {
                 let td = tdsCounter[i];
                 worksheet.getCell(td).border = {
                     top: {style:'thin'},
@@ -216,7 +216,7 @@
             worksheet.getCell('A'+(this.sumLength)).border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             worksheet.getCell('B5').border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             worksheet.getCell('B'+(this.sumLength)).border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
-            mainHeaders.forEach( number => {
+            mainHeaders.forEach(number => {
                 worksheet.getRow(number).height = 50;
                 worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
                 worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
@@ -228,10 +228,10 @@
             let dd = date.getDate();
             let mm = date.getMonth() + 1;
             let yyyy = date.getFullYear();
-            if( (dd.toString()).length === 1) {
+            if((dd.toString()).length === 1) {
                 dd = '0' + dd;
             }
-            if( (mm.toString()).length === 1) {
+            if((mm.toString()).length === 1) {
                 mm = '0' + mm;
             }
             let trueDate = dd + '.' + mm + '.' + yyyy;
@@ -239,9 +239,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

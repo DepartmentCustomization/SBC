@@ -50,7 +50,7 @@
             this.loadData(this.afterLoadDataHandler);
             this.sub = this.messageService.subscribe('showApplicants', this.showApplicants, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
-            this.dataGridInstance.onRowUpdating.subscribe( row => {
+            this.dataGridInstance.onRowUpdating.subscribe(row => {
                 this.mainRowId = row.key;
             });
         },
@@ -68,7 +68,7 @@
                             e.event.stopImmediatePropagation();
                             if(this.mainRowId) {
                                 const keys = this.dataGridInstance.selectedRowKeys;
-                                const index = keys.findIndex(value => value === this.mainRowId );
+                                const index = keys.findIndex(value => value === this.mainRowId);
                                 if(index !== -1) {
                                     const rowsId = this.dataGridInstance.selectedRowKeys.join(',');
                                     this.showPagePreloader('Триває об\'єднання');

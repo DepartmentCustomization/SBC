@@ -33,7 +33,7 @@
             showColumnHeaders: false,
         },
         init: function() {
-            this.sub = this.messageService.subscribe( 'ApplyGlobalFilters', this.getFiltersParams, this);
+            this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.getFiltersParams, this);
         },
         setTitle: function(day) {
             return 'Простроченi звернення станом на ' + day;
@@ -42,13 +42,13 @@
             this.config.query.filterColumns = [];
             this.counter = 0;
             this.organization = [];
-            message.package.value.forEach( filter => {
-                if( filter.active === true) {
-                    if( filter.name === 'position' ) {
+            message.package.value.forEach(filter => {
+                if(filter.active === true) {
+                    if(filter.name === 'position') {
                         this.position = filter.value.value;
                         this.counter += 1;
-                    }else if(filter.name === 'year' ) {
-                        if( filter.value.dateFrom !== '' && filter.value.dateTo !== '' ) {
+                    }else if(filter.name === 'year') {
+                        if(filter.value.dateFrom !== '' && filter.value.dateTo !== '') {
                             this.dateFrom = filter.value.dateFrom;
                             this.dateTo = filter.value.dateTo;
                             let dayFrom = this.changeDateTimeValues(this.dateFrom);
@@ -56,13 +56,13 @@
                             this.title = this.setTitle(dayFrom, dayTo);
                             this.counter += 2;
                         }
-                    }else if( filter.name === 'organization') {
+                    }else if(filter.name === 'organization') {
                         this.organization = extractOrgValues(message.package.value.find(f => f.name === 'organization').value);
                     }
                 }
             });
-            if( this.counter === 3 ) {
-                if( this.position !== 0 && this.organization.length > 0) {
+            if(this.counter === 3) {
+                if(this.position !== 0 && this.organization.length > 0) {
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },
                         {key: '@dateTo', value: this.dateTo },
@@ -115,7 +115,7 @@
             return dd + '.' + mm + '.' + yyyy;
         },
         afterLoadDataHandler: function(data) {
-            this.messageService.publish( {name: 'setData', rep3_data: data, rep3_title: this.title} );
+            this.messageService.publish({name: 'setData', rep3_data: data, rep3_title: this.title});
             this.render();
         },
         destroy: function() {

@@ -30,11 +30,11 @@
             }
             this.messageService.publish(message);
             let value = '';
-            item.forEach( el => {
+            item.forEach(el => {
                 value = value + ', ' + el.value;
             });
             let stringSendValue = value.slice(2, [value.length]);
-            this.messageService.publish( { name: 'messageForBuilding', value: stringSendValue });
+            this.messageService.publish({ name: 'messageForBuilding', value: stringSendValue });
         }
     };
 }());

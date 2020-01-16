@@ -9,7 +9,7 @@
                     `
         ,
         init: function() {
-            this.messageService.publish( { name: 'showPagePreloader' } );
+            this.messageService.publish({ name: 'showPagePreloader' });
             const header = document.getElementById('header1');
             header.firstElementChild.style.overflow = 'visible';
             header.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
@@ -61,9 +61,9 @@
             this.showPreloader = false;
         },
         userOrganization: function(data) {
-            let indexOfTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationname' );
-            let indexOfTypeId = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationid' );
-            let indexOfTypeDistribute = data.columns.findIndex(el => el.code.toLowerCase() === 'distribute' );
+            let indexOfTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationname');
+            let indexOfTypeId = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationid');
+            let indexOfTypeDistribute = data.columns.findIndex(el => el.code.toLowerCase() === 'distribute');
             this.organizationId = [];
             if(data.rows[0]) {
                 this.organizationId = (data.rows[0].values[indexOfTypeId]);
@@ -71,16 +71,16 @@
                 this.messageService.publish({name: 'messageWithOrganizationId', value: this.organizationId, distribute:  this.distribute});
                 document.getElementById('organizationName').value = (data.rows[0].values[indexOfTypeId]);
                 document.getElementById('organizationName').innerText = (data.rows[0].values[indexOfTypeName]);
-                if( window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+'') {
+                if(window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+'') {
                     window.location.search = 'id='+data.rows[0].values[indexOfTypeId]+'';
                 }
             }
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -100,11 +100,11 @@
         },
         setOrganizationSelect: function(data) {
             this.organizationSelect = [];
-            if( data.rows.length > 0 ) {
+            if(data.rows.length > 0) {
                 const organizationSelect = [];
-                const indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-                const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name' );
-                data.rows.forEach( row => {
+                const indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id');
+                const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name');
+                data.rows.forEach(row => {
                     let obj = {
                         id: row.values[indexId],
                         name: row.values[indexName],
@@ -131,21 +131,21 @@
             const tabOrganizations = this.createElement('div', { id: 'tabOrganizations', url: 'performer_new_organizations', className: 'tabOrganizations tab tabTo'}, tabOrganizations__title);
             const tabsContainer = this.createElement('div', { id: 'tabsContainer', className: 'tabsContainer'}, tabInformation, tabAction, tabProcessingOrders, tabOrganizations, tabFinder, tabExecutivePosition, tabTemplates);
             const orgLinkСhangerBox__icon = this.createElement('div', { id: 'orgLinkСhangerBox__icon', className:'material-icons', innerText:'more_vert' });
-            const orgLinkСhangerBox = this.createElement('div', { id: 'orgLinkСhangerBox'}, orgLinkСhangerBox__icon );
+            const orgLinkСhangerBox = this.createElement('div', { id: 'orgLinkСhangerBox'}, orgLinkСhangerBox__icon);
             const linkСhangerContainer = this.createElement('div', { id: 'organizationsContainer'}, orgLinkСhangerBox);
             tabsWrapper.appendChild(tabsContainer);
             tabsWrapper.appendChild(linkСhangerContainer);
             orgLinkСhangerBox__icon.addEventListener('click', event => {
-                if(this.organizationSelect.length > 0 ) {
+                if(this.organizationSelect.length > 0) {
                     event.stopImmediatePropagation();
-                    if(orgLinkСhangerBox.children.length === 1 ) {
+                    if(orgLinkСhangerBox.children.length === 1) {
                         let orgLinksWrapper__triangle = this.createElement('div', { className: 'orgLinksWrapper__triangle' });
                         let orgLinksWrapper = this.createElement('div', { id: 'orgLinksWrapper'}, orgLinksWrapper__triangle);
                         orgLinkСhangerBox.appendChild(orgLinksWrapper);
-                        this.organizationSelect.forEach( el => {
+                        this.organizationSelect.forEach(el => {
                             let organizationLink = this.createElement('div', { className: 'organizationLink', orgId: ''+el.id+'', innerText: el.name });
                             orgLinksWrapper.appendChild(organizationLink);
-                            organizationLink.addEventListener( 'click', event => {
+                            organizationLink.addEventListener('click', event => {
                                 event.stopImmediatePropagation();
                                 let target = event.currentTarget;
                                 window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_processing_assigments?id='+target.orgId+'');
@@ -158,13 +158,13 @@
                 }
             });
             const tabs = Array.from(document.querySelectorAll('.tabTo'));
-            tabs.forEach( el => {
-                el.addEventListener( 'click', event => {
+            tabs.forEach(el => {
+                el.addEventListener('click', event => {
                     let target = event.currentTarget;
                     document.getElementById('container').style.display = 'none';
-                    if( target.id === 'tabFinder' ) {
+                    if(target.id === 'tabFinder') {
                         this.goToDashboard(target.url);
-                    } else if ( target.id === 'tabExecutivePosition' || target.id === 'tabTemplates') {
+                    } else if (target.id === 'tabExecutivePosition' || target.id === 'tabTemplates') {
                         this.goToSection(target.url);
                     }else{
                         this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
@@ -178,7 +178,7 @@
             const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
             searchContainer__input.addEventListener('input', event => {
                 event.stopImmediatePropagation();
-                if(searchContainer__input.value.length == 0 ) {
+                if(searchContainer__input.value.length == 0) {
                     this.resultSearch('clearInput', 0);
                     this.showTable(searchContainer__input);
                 }
@@ -201,8 +201,8 @@
             this.column = message.column;
             this.navigator = message.navigator;
             let targetId = message.targetId;
-            while ( tableContainer.hasChildNodes() ) {
-                tableContainer.removeChild( tableContainer.childNodes[0] );
+            while (tableContainer.hasChildNodes()) {
+                tableContainer.removeChild(tableContainer.childNodes[0]);
             }
             let executeQueryValues = {
                 queryCode: 'table2',
@@ -214,33 +214,33 @@
         },
         createTable: function(reloadTable, targetId, data) {
             const tableContainer = this.tableContainer;
-            for(let i = 2; i < data.columns.length; i ++ ) {
+            for(let i = 2; i < data.columns.length; i ++) {
                 let item = data.columns[i];
                 let columnTriangle = this.createElement('div', { });
                 let columnHeader = this.createElement('div', { id: 'columnHeader_'+i+'', code: ''+item.code+'', className: 'columnHeader', innerText: ''+item.name+''}, columnTriangle);
                 let columnsWrapper = this.createElement('div', { id: 'columnsWrapper_'+i+'', className: 'columnsWrapper'});
-                if( i == 2) {
+                if(i == 2) {
                     columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 3) {
+                }else if(i == 3) {
                     columnHeader.style.backgroundColor = 'rgb(173, 118, 205)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 4 ) {
+                }else if(i == 4) {
                     columnHeader.style.backgroundColor = 'rgb(240, 114, 93)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 5) {
+                }else if(i == 5) {
                     columnHeader.style.backgroundColor = 'rgb(238, 163, 54)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 6) {
+                }else if(i == 6) {
                     columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 7) {
+                }else if(i == 7) {
                     columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 8) {
+                }else if(i == 8) {
                     columnHeader.style.backgroundColor = 'rgb(94, 202, 162)';
                     columnTriangle.classList.add('triangle'+i+'');
-                }else if( i == 9) {
+                }else if(i == 9) {
                     columnHeader.style.backgroundColor = 'rgb(73, 155, 199)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }
@@ -248,11 +248,11 @@
                 column.classList.add('column_'+i+'');
                 tableContainer.appendChild(column);
             }
-            for(let i = 0; i < data.rows.length; i ++ ) {
+            for(let i = 0; i < data.rows.length; i ++) {
                 let elRow = data.rows[i];
-                for(let j = 2; j < elRow.values.length; j ++ ) {
+                for(let j = 2; j < elRow.values.length; j ++) {
                     let el = elRow.values[j];
-                    if( el != 0 ) {
+                    if(el != 0) {
                         let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '('+el+')'});
                         let columnCategorie__title = this.createElement('div', { className: 'columnCategorie__title', code: ''+elRow.values[1]+'', innerText: ''+elRow.values[1]+''});
                         let columnCategorie = this.createElement('div', { className: 'columnCategorie', code: ''+elRow.values[1]+''}, columnCategorie__title, columnCategorie__value);
@@ -264,12 +264,12 @@
             let categories = document.querySelectorAll('.columnCategorie');
             categories = Array.from(categories);
             headers = Array.from(headers);
-            headers.forEach( el => {
-                el.addEventListener( 'click', event => {
+            headers.forEach(el => {
+                el.addEventListener('click', event => {
                     let target = event.currentTarget;
                     this.searchContainer__input.value = '';
                     this.resultSearch('clearInput', 0);
-                    categories.forEach( el => {
+                    categories.forEach(el => {
                         el.style.display = 'none';
                     });
                     let navigator = 'Усі';
@@ -277,10 +277,10 @@
                     this.showTable(target, column, navigator);
                 });
             });
-            categories.forEach( el => {
-                el.addEventListener( 'click', event => {
+            categories.forEach(el => {
+                el.addEventListener('click', event => {
                     let target = event.currentTarget;
-                    categories.forEach( el => {
+                    categories.forEach(el => {
                         el.style.display = 'none';
                     });
                     let navigator = target.firstElementChild.innerText;
@@ -289,32 +289,32 @@
                     this.showTable(target, column, navigator);
                 });
             });
-            if( reloadTable == true ) {
-                categories.forEach( el => {
+            if(reloadTable == true) {
+                categories.forEach(el => {
                     el.style.display = 'none';
                 });
                 let target = document.getElementById(targetId);
-                this.showTable(target, this.column, this.navigator );
+                this.showTable(target, this.column, this.navigator);
             }
-            this.messageService.publish( { name: 'hidePagePreloader' } );
+            this.messageService.publish({ name: 'hidePagePreloader' });
         },
         columnName: function(target) {
             let column = '';
-            if( target.code == 'nadiyshlo') {
+            if(target.code == 'nadiyshlo') {
                 column = 'Надійшло'
-            }else if( target.code == 'neVKompetentsii') {
+            }else if(target.code == 'neVKompetentsii') {
                 column = 'Не в компетенції'
-            }else if( target.code == 'prostrocheni') {
+            }else if(target.code == 'prostrocheni') {
                 column = 'Прострочені'
-            }else if( target.code == 'uvaga') {
+            }else if(target.code == 'uvaga') {
                 column = 'Увага'
-            }else if( target.code == 'vroboti') {
+            }else if(target.code == 'vroboti') {
                 column = 'В роботі'
-            }else if( target.code == 'dovidoma') {
+            }else if(target.code == 'dovidoma') {
                 column = 'До відома'
-            }else if( target.code == 'naDoopratsiyvanni' ) {
+            }else if(target.code == 'naDoopratsiyvanni') {
                 column = 'На доопрацюванні'
-            }else if( target.code == 'neVykonNeMozhl') {
+            }else if(target.code == 'neVykonNeMozhl') {
                 column = 'План/Програма'
             }
             return column
@@ -322,8 +322,8 @@
         showTable: function(target, columnName, navigator) {
             let headers = document.querySelectorAll('.columnHeader');
             headers = Array.from(headers);
-            if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input') {
-                headers.forEach( el => {
+            if(target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input') {
+                headers.forEach(el => {
                     el.firstElementChild.classList.remove('triangle');
                 });
                 document.getElementById('columnHeader_2').style.backgroundColor = 'rgb(74, 193, 197)';
@@ -341,7 +341,7 @@
                 document.getElementById('columnHeader_6').firstElementChild.classList.add('triangle6');
                 document.getElementById('columnHeader_7').firstElementChild.classList.add('triangle7');
                 document.getElementById('columnHeader_8').firstElementChild.classList.add('triangle8');
-                headers.forEach( function(el) {
+                headers.forEach(function(el) {
                     el.classList.remove('hover');
                     el.classList.remove('check');
                 }.bind(this));
@@ -349,10 +349,10 @@
                 this.sendMesOnBtnClick('clickOnTable2', 'none', 'none');
             }else{
                 target.classList.add('hover');
-                headers.forEach( function(target, header) {
+                headers.forEach(function(target, header) {
                     let headers = document.querySelectorAll('.columnHeader');
                     headers = Array.from(headers);
-                    if( target.id != header.id ) {
+                    if(target.id != header.id) {
                         header.style.backgroundColor = '#d3d3d3';
                         header.classList.add('check');
                         header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
@@ -366,18 +366,18 @@
         hideAllItems: function(value) {
             let categories = document.querySelectorAll('.columnCategorie');
             categories = Array.from(categories);
-            if( value == 0) {
-                categories.forEach( el => {
+            if(value == 0) {
+                categories.forEach(el => {
                     el.style.display = 'none';
                 });
-            }else if( value == 1) {
-                categories.forEach( el => {
+            }else if(value == 1) {
+                categories.forEach(el => {
                     el.style.display = 'flex';
                 });
             }
         },
-        sendMesOnBtnClick: function(message, column, navigator, targetId ) {
-            this.messageService.publish( {
+        sendMesOnBtnClick: function(message, column, navigator, targetId) {
+            this.messageService.publish({
                 name: message,
                 column: column,
                 navigation: navigator,

@@ -5,8 +5,8 @@
         },
         getFilterParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
-            if( period !== null ) {
-                if( period.dateFrom !== '' && period.dateTo !== '') {
+            if(period !== null) {
+                if(period.dateFrom !== '' && period.dateTo !== '') {
                     const dateFrom = period.dateFrom;
                     const dateTo = period.dateTo;
                     const name = 'FilterParams';

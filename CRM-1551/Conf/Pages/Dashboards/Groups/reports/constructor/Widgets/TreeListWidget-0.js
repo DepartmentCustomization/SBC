@@ -72,7 +72,7 @@
             document.getElementById('question_classificatory').style.display = 'none';
             this.sub = this.messageService.subscribe('showTable', this.showTable, this);
             let self = this;
-            this.treeListInstance.onToolbarPreparing.subscribe( e => {
+            this.treeListInstance.onToolbarPreparing.subscribe(e => {
                 e.toolbarOptions.items.push({
                     widget: 'dxButton',
                     location: 'after',
@@ -90,12 +90,12 @@
         },
         sendSelectItem: function() {
             let selectedRow = this.treeListInstance.instance.getSelectedRowsData();
-            this.messageService.publish( { name: 'sendSelectedRow', value: selectedRow, position: 'clissificator' });
+            this.messageService.publish({ name: 'sendSelectedRow', value: selectedRow, position: 'clissificator' });
         },
         showTable: function(message) {
-            if( message.value === 'group' ) {
+            if(message.value === 'group') {
                 document.getElementById('question_classificatory').style.display = 'none';
-            }else if( message.value === 'default') {
+            }else if(message.value === 'default') {
                 document.getElementById('question_classificatory').style.display = 'block';
             }
         },

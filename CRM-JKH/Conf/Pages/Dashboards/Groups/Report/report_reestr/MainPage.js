@@ -1,7 +1,7 @@
 (function() {
     return {
         init: function() {
-            this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
         getFiltersParams: function(message) {
             const dateFilterStart = message.package.value.values.find(f => f.name === 'period').value.dateFrom;
@@ -16,7 +16,7 @@
             this.messageService.publish({ name, dateStart, dateEnd, executor, claimType });
         },
         changeDateTimeValues: function(value) {
-            if( value === '') {
+            if(value === '') {
                 return value;
             }
             let date = new Date(value);

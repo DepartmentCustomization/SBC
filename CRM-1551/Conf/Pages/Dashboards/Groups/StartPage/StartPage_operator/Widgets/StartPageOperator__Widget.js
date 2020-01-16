@@ -20,22 +20,22 @@
             const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Закрити'});
             const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper' }, modalBtnTrue);
             const listItems = this.createElement('div', { id:'listItems' });
-            data.rows.forEach( el => {
+            data.rows.forEach(el => {
                 let listItem = this.createElement('div', { className: 'listItem', innerText: el.values[1], type: el.values[0] });
-                listItems.appendChild( listItem );
-                listItem.addEventListener( 'click', event => {
+                listItems.appendChild(listItem);
+                listItem.addEventListener('click', event => {
                     let target = event.currentTarget;
                     let phoneNumber = document.getElementById('listPhoneNumberInput').value;
                     window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone='+phoneNumber+'&type='+target.type+'&sipcallid=0');
                 });
             });
-            const listTitle = this.createElement('div', { id:'listTitle', innerText: 'Виберіть тип звернення:' } );
-            const listPhoneNumberInput = this.createElement('input', { id:'listPhoneNumberInput', placeholder: 'Введiть номер телефону' } );
-            const listWrapper = this.createElement('div', { id:'listWrapper' }, listTitle, listPhoneNumberInput, listItems );
+            const listTitle = this.createElement('div', { id:'listTitle', innerText: 'Виберіть тип звернення:' });
+            const listPhoneNumberInput = this.createElement('input', { id:'listPhoneNumberInput', placeholder: 'Введiть номер телефону' });
+            const listWrapper = this.createElement('div', { id:'listWrapper' }, listTitle, listPhoneNumberInput, listItems);
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, listWrapper, modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             this.container.appendChild(modalWindowWrapper);
-            modalBtnTrue.addEventListener( 'click', () => {
+            modalBtnTrue.addEventListener('click', () => {
                 const lastElementChild = this.container.lastElementChild
                 this.container.removeChild(lastElementChild);
             });
@@ -48,7 +48,7 @@
             groupRegByPhone__icon.style.color = '#f44336';
             let groupRegByPhone__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupRegByPhone__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupRegByPhone = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegByPhone__icon, groupRegByPhone__description, groupRegByPhone__borderBottom, groupRegByPhone__borderRight );
+            let groupRegByPhone = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegByPhone__icon, groupRegByPhone__description, groupRegByPhone__borderBottom, groupRegByPhone__borderRight);
             groupRegByPhone.addEventListener('click', () => {
                 this.showModalWindow();
             });
@@ -57,7 +57,7 @@
             groupViewAppeals__icon.style.color = '#ff7961';
             let groupViewAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupViewAppeals__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight );
+            let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight);
             groupViewAppeals.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/sections/Appeals');
             });
@@ -66,7 +66,7 @@
             groupRegAppeals__icon.style.color = '#2196F3';
             let groupRegAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupRegAppeals__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupRegAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegAppeals__icon, groupRegAppeals__description, groupRegAppeals__borderBottom, groupRegAppeals__borderRight );
+            let groupRegAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegAppeals__icon, groupRegAppeals__description, groupRegAppeals__borderBottom, groupRegAppeals__borderRight);
             groupRegAppeals.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/referrals_from_the_site');
             });
@@ -75,7 +75,7 @@
             groupSearchTable__icon.style.color = '#2196F3';
             let groupSearchTable__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupSearchTable__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupSearchTable = this.createElement('div', { className: 'group', tabindex: '0' }, groupSearchTable__icon, groupSearchTable__description, groupSearchTable__borderBottom, groupSearchTable__borderRight );
+            let groupSearchTable = this.createElement('div', { className: 'group', tabindex: '0' }, groupSearchTable__icon, groupSearchTable__description, groupSearchTable__borderBottom, groupSearchTable__borderRight);
             groupSearchTable.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/poshuk_table');
             });
@@ -84,7 +84,7 @@
             groupCall__icon.style.color = '#2196F3';
             let groupCall__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupCall__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupCall = this.createElement('div', { className: 'group', tabindex: '0' }, groupCall__icon, groupCall__description, groupCall__borderBottom, groupCall__borderRight );
+            let groupCall = this.createElement('div', { className: 'group', tabindex: '0' }, groupCall__icon, groupCall__description, groupCall__borderBottom, groupCall__borderRight);
             groupCall.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/prozvon');
             });
@@ -93,19 +93,19 @@
             groupLetter__icon.style.color = '#6ec6ff';
             let groupLetter__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupLetter__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupLetter = this.createElement('div', { className: 'group', tabindex: '0' }, groupLetter__icon, groupLetter__description, groupLetter__borderBottom, groupLetter__borderRight );
+            let groupLetter = this.createElement('div', { className: 'group', tabindex: '0' }, groupLetter__icon, groupLetter__description, groupLetter__borderBottom, groupLetter__borderRight);
             groupLetter.addEventListener('click', () => {
                 this.showTypesList(data);
             });
-            let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupRegByPhone, groupViewAppeals, groupRegAppeals, groupSearchTable, groupCall, groupLetter );
+            let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupRegByPhone, groupViewAppeals, groupRegAppeals, groupSearchTable, groupCall, groupLetter);
             CONTAINER.appendChild(title);
             CONTAINER.appendChild(groupsWrapper);
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -119,13 +119,13 @@
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalNumber, modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);
-            modalBtnTrue.addEventListener( 'click', () => {
+            modalBtnTrue.addEventListener('click', () => {
                 let number = modalNumber.value
                 window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone='+number+'&type=1&sipcallid=0');
                 const lastElementChild = this.container.lastElementChild;
                 this.container.removeChild(lastElementChild);
             });
-            modalBtnClose.addEventListener( 'click', () => {
+            modalBtnClose.addEventListener('click', () => {
                 const lastElementChild = this.container.lastElementChild;
                 this.container.removeChild(lastElementChild);
             });

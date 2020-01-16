@@ -32,13 +32,13 @@
             keyExpr: 'Id'
         },
         init: function() {
-            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams , this );
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams , this);
             this.loadData(this.afterLoadDataHandler);
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
-            if( period !== null ) {
-                if( period.dateFrom !== '' && period.dateTo !== '') {
+            if(period !== null) {
+                if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.config.query.parameterValues = [
@@ -50,7 +50,7 @@
             }
         },
         afterLoadDataHandler: function(data) {
-            this.messageService.publish( {name: 'setData', rep2_data: data} );
+            this.messageService.publish({name: 'setData', rep2_data: data});
             this.render();
         },
         destroy: function() {

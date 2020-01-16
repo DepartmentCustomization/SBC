@@ -2,7 +2,7 @@
     return {
         init:function() {
             let btns = document.querySelectorAll('.add-btn');
-            btns.forEach( el=> {
+            btns.forEach(el=> {
                 el.style.display = 'none'
             });
             this.form.disableControl('registration_date');
@@ -19,7 +19,7 @@
             this.form.disableControl('responsible_name');
             this.form.disableControl('short_answer');
             let rework_counter = this.form.setControlValue('rework_counter')
-            if(rework_counter == 0 || rework_counter == null ) {
+            if(rework_counter == 0 || rework_counter == null) {
                 this.form.setControlVisibility('rework_counter', false);
             }
             this.details.onCellClick('Detail_Assignments_for_view_FILE', this.goToFileView.bind(this));

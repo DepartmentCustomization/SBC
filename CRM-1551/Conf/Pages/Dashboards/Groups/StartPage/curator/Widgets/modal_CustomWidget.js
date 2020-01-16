@@ -24,11 +24,11 @@
                 const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitleCounter, modalTitleChecked, modalBtnWrapper);
                 const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
                 CONTAINER.appendChild(modalWindowWrapper);
-                modalBtnTrue.addEventListener( 'click', () => {
+                modalBtnTrue.addEventListener('click', () => {
                     this.executeQuery(message);
                     CONTAINER.removeChild(CONTAINER.lastElementChild);
                 });
-                modalBtnFalse.addEventListener( 'click', () => {
+                modalBtnFalse.addEventListener('click', () => {
                     CONTAINER.removeChild(CONTAINER.lastElementChild);
                 });
             } else {
@@ -55,9 +55,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

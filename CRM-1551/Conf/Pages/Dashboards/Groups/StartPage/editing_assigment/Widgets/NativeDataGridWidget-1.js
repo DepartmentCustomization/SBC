@@ -93,8 +93,8 @@
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 200;
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
-            this.sub = this.messageService.subscribe( 'sendSearchValue', this.getMessageValue, this);
-            this.sub = this.messageService.subscribe( 'deleteAssigments', this.deleteAssigments, this);
+            this.sub = this.messageService.subscribe('sendSearchValue', this.getMessageValue, this);
+            this.sub = this.messageService.subscribe('deleteAssigments', this.deleteAssigments, this);
             this.loadData(this.afterLoadDataHandler);
         },
         getMessageValue: function(message) {
@@ -122,7 +122,7 @@
                             ],
                             limit: -1
                         };
-                        this.queryExecutor(executeQuery, this.createTableExcel, this );
+                        this.queryExecutor(executeQuery, this.createTableExcel, this);
                     }.bind(this)
                 },
                 location: 'after'
@@ -182,7 +182,7 @@
         validationCheck: function(status) {
             let keys = this.dataGridInstance.selectedRowKeys;
             if(keys.length > 0) {
-                this.messageService.publish( { name: 'validationCheck', status: status } );
+                this.messageService.publish({ name: 'validationCheck', status: status });
             }
         },
         deleteAssigments: function(message) {
@@ -224,11 +224,11 @@
             this.showPagePreloader('Зачекайте, формується документ');
             this.indexArr = [];
             let columns = this.config.columns;
-            columns.forEach( el => {
+            columns.forEach(el => {
                 let elDataField = el.dataField;
                 let elCaption = el.caption;
                 for (let i = 0; i < data.columns.length; i ++) {
-                    if( elDataField === data.columns[i].code ) {
+                    if(elDataField === data.columns[i].code) {
                         let obj = {
                             name: elDataField,
                             index: i,
@@ -264,8 +264,8 @@
             columnsHeader.push(columnNumber);
             let rowNumber = '№ з/п';
             captions.push(rowNumber);
-            indexArr.forEach( el => {
-                if( el.name === 'Registration_number') {
+            indexArr.forEach(el => {
+                if(el.name === 'Registration_number') {
                     let obj = {
                         key: el.name,
                         width: 12,
@@ -287,35 +287,35 @@
                     };
                     columnsHeader.push(obj);
                     captions.push('Стан');
-                }else if( el.name === 'QuestionType') {
+                }else if(el.name === 'QuestionType') {
                     let obj = {
                         key: el.name,
                         width: 16
                     };
                     columnsHeader.push(obj);
                     captions.push('Тип питання');
-                }else if( el.name === 'Zayavnyk') {
+                }else if(el.name === 'Zayavnyk') {
                     let obj = {
                         key: el.name,
                         width: 20
                     };
                     columnsHeader.push(obj);
                     captions.push('Заявник');
-                }else if( el.name === 'Adress') {
+                }else if(el.name === 'Adress') {
                     let obj = {
                         key: el.name,
                         width: 20
                     };
                     columnsHeader.push(obj);
                     captions.push('Місце проблеми');
-                }else if( el.name === 'Vykonavets') {
+                }else if(el.name === 'Vykonavets') {
                     let obj = {
                         key: el.name,
                         width: 20
                     };
                     columnsHeader.push(obj);
                     captions.push('Виконавець');
-                }else if( el.name === 'Control_date') {
+                }else if(el.name === 'Control_date') {
                     let obj = {
                         key: el.name,
                         width: 10
@@ -326,40 +326,40 @@
             });
             worksheet.getRow(2).values = captions;
             worksheet.columns = columnsHeader;
-            let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number' );
-            let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
-            let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk' );
-            let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress' );
-            let indexVykonavets = data.columns.findIndex(el => el.code.toLowerCase() === 'vykonavets' );
-            let indexRegistrDate = data.columns.findIndex(el => el.code.toLowerCase() === 'ass_registration_date' );
-            let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
-            let indexAssignmentState = data.columns.findIndex(el => el.code.toLowerCase() === 'assignmentstate' );
-            for( let j = 0; j < data.rows.length; j ++ ) {
+            let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number');
+            let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype');
+            let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk');
+            let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress');
+            let indexVykonavets = data.columns.findIndex(el => el.code.toLowerCase() === 'vykonavets');
+            let indexRegistrDate = data.columns.findIndex(el => el.code.toLowerCase() === 'ass_registration_date');
+            let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date');
+            let indexAssignmentState = data.columns.findIndex(el => el.code.toLowerCase() === 'assignmentstate');
+            for(let j = 0; j < data.rows.length; j ++) {
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++) {
                     let el = indexArr[i];
-                    if( el.name === 'Registration_number' ) {
+                    if(el.name === 'Registration_number') {
                         rowItem.Registration_number = row.values[indexRegistrationNumber];
-                    }else if(el.name === 'Ass_registration_date' ) {
+                    }else if(el.name === 'Ass_registration_date') {
                         rowItem.Ass_registration_date = this.changeDateTimeValues(row.values[indexRegistrDate]);
-                    }else if(el.name === 'AssignmentState' ) {
+                    }else if(el.name === 'AssignmentState') {
                         rowItem.AssignmentState = row.values[indexAssignmentState];
-                    }else if( el.name === 'QuestionType' ) {
+                    }else if(el.name === 'QuestionType') {
                         rowItem.QuestionType = row.values[indexQuestionType];
-                    }else if( el.name === 'Zayavnyk' ) {
+                    }else if(el.name === 'Zayavnyk') {
                         rowItem.Zayavnyk = row.values[indexZayavnikName];
-                    }else if( el.name === 'Adress' ) {
+                    }else if(el.name === 'Adress') {
                         rowItem.Adress = row.values[indexAdress];
-                    }else if( el.name === 'Vykonavets' ) {
+                    }else if(el.name === 'Vykonavets') {
                         rowItem.Vykonavets = row.values[indexVykonavets];
-                    }else if( el.name === 'Control_date' ) {
+                    }else if(el.name === 'Control_date') {
                         rowItem.Control_date = this.changeDateTimeValues(row.values[indexControlDate]);
                     }
                 }
-                rows.push( rowItem );
+                rows.push(rowItem);
             }
-            rows.forEach( el => {
+            rows.forEach(el => {
                 let number = el.number + '.'
                 let row = {
                     number: number,
@@ -374,7 +374,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let i = 0; i < rows.length + 1; i++ ) {
+            for(let i = 0; i < rows.length + 1; i++) {
                 let number = i + 2;
                 let row = worksheet.getRow(number);
                 row.height = 100;
@@ -406,7 +406,7 @@
         },
         changeDateTimeValues: function(value) {
             let trueDate;
-            if( value !== null) {
+            if(value !== null) {
                 let date = new Date(value);
                 let dd = date.getDate();
                 let MM = date.getMonth();
@@ -414,16 +414,16 @@
                 let HH = date.getUTCHours()
                 let mm = date.getMinutes();
                 MM += 1;
-                if( (dd.toString()).length === 1) {
+                if((dd.toString()).length === 1) {
                     dd = '0' + dd;
                 }
-                if( (MM.toString()).length === 1) {
+                if((MM.toString()).length === 1) {
                     MM = '0' + MM;
                 }
-                if( (HH.toString()).length === 1) {
+                if((HH.toString()).length === 1) {
                     HH = '0' + HH;
                 }
-                if( (mm.toString()).length === 1) {
+                if((mm.toString()).length === 1) {
                     mm = '0' + mm;
                 }
                 trueDate = dd+'.'+MM+'.' + yyyy;

@@ -100,9 +100,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -183,9 +183,9 @@
             columnsHeader.push(columnNumber);
             let rowNumber = '№ з/п';
             captions.push(rowNumber);
-            indexArr.forEach( el => {
+            indexArr.forEach(el => {
                 let obj = {}
-                if( el.name === 'registration_number') {
+                if(el.name === 'registration_number') {
                     obj.key = 'registration_number',
                     obj.width = 10,
                     obj.height = 20,
@@ -198,11 +198,11 @@
                     obj.key = 'zayavnyk',
                     obj.width = 30
                     captions.push('Заявник');
-                }else if( el.name === 'controlDate') {
+                }else if(el.name === 'controlDate') {
                     obj.key = 'controlDate',
                     obj.width = 16
                     captions.push('Дата контролю');
-                }else if( el.name === 'adress') {
+                }else if(el.name === 'adress') {
                     obj.key = 'adress',
                     obj.width = 21
                     captions.push('Місце проблеми (Об\'єкт)');
@@ -212,33 +212,33 @@
             worksheet.getRow(5).values = captions;
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
-            let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number' );
-            let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk' );
-            let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress' );
-            let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
-            let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_zmist' );
-            let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress' );
-            for( let j = 0; j < data.rows.length; j ++ ) {
+            let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number');
+            let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk');
+            let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress');
+            let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date');
+            let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_zmist');
+            let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress');
+            for(let j = 0; j < data.rows.length; j ++) {
                 const row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++) {
                     let el = indexArr[i];
                     let cdValue = this.changeDateTimeValues(row.values[indexControlDate]);
-                    if( el.name === 'registration_number' ) {
+                    if(el.name === 'registration_number') {
                         rowItem.registration_number = row.values[indexRegistrationNumber];
-                    }else if(el.name === 'zayavnyk' ) {
+                    }else if(el.name === 'zayavnyk') {
                         rowItem.zayavnyk = row.values[indexZayavnikName] + ', ' + row.values[indexAdressZ];
-                    }else if(el.name === 'zayavnyk_zmist' ) {
+                    }else if(el.name === 'zayavnyk_zmist') {
                         rowItem.zayavnyk_zmist = 'Зміст: ' + row.values[indexQuestionContent];
-                    }else if( el.name === 'controlDate' ) {
+                    }else if(el.name === 'controlDate') {
                         rowItem.controlDate = cdValue;
-                    }else if( el.name === 'adress' ) {
+                    }else if(el.name === 'adress') {
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
-                rows.push( rowItem );
+                rows.push(rowItem);
             }
-            rows.forEach( el => {
+            rows.forEach(el => {
                 let number = el.number + '.'
                 let row = {
                     number: number,
@@ -250,7 +250,7 @@
                 }
                 worksheet.addRow(row);
             });
-            for(let i = 0; i < rows.length + 1; i++ ) {
+            for(let i = 0; i < rows.length + 1; i++) {
                 let number = i + 5;
                 const row = worksheet.getRow(number);
                 row.height = 100;
@@ -282,7 +282,7 @@
         },
         changeDateTimeValues: function(value) {
             let trueDate = ' ';
-            if( value !== null) {
+            if(value !== null) {
                 let date = new Date(value);
                 let dd = date.getDate();
                 let MM = date.getMonth();
@@ -290,16 +290,16 @@
                 let HH = date.getUTCHours()
                 let mm = date.getMinutes();
                 MM += 1;
-                if( (dd.toString()).length === 1) {
+                if((dd.toString()).length === 1) {
                     dd = '0' + dd;
                 }
-                if( (MM.toString()).length === 1) {
+                if((MM.toString()).length === 1) {
                     MM = '0' + MM;
                 }
-                if( (HH.toString()).length === 1) {
+                if((HH.toString()).length === 1) {
                     HH = '0' + HH;
                 }
-                if( (mm.toString()).length === 1) {
+                if((mm.toString()).length === 1) {
                     mm = '0' + mm;
                 }
                 trueDate = dd+'.'+MM+'.' + yyyy;
@@ -336,13 +336,13 @@
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
-            elementsAll.forEach( el => {
+            elementsAll.forEach(el => {
                 el.style.display = 'flex';
                 el.style.margin = '15px 10px';
             })
             let elementsCaptionAll = document.querySelectorAll('.caption');
             elementsCaptionAll = Array.from(elementsCaptionAll);
-            elementsCaptionAll.forEach( el => {
+            elementsCaptionAll.forEach(el => {
                 el.style.minWidth = '200px';
             })
         },
@@ -350,7 +350,7 @@
             this.orgId = message.orgId;
             this.column = message.column;
             this.navigation = message.navigation;
-            if(message.column != 'На доопрацюванні' ) {
+            if(message.column != 'На доопрацюванні') {
                 document.getElementById('table9_dooproc').style.display = 'none';
             }else{
                 document.getElementById('table9_dooproc').style.display = 'block';
@@ -367,7 +367,7 @@
         createCustomStyle: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element) {
+            elements.forEach(function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));

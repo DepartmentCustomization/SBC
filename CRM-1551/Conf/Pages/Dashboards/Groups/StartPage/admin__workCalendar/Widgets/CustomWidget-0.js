@@ -9,11 +9,11 @@
                 `
         ,
         init: function() {
-            this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
         getFiltersParams: function(message) {
             this.year = message.package.value.values.find(f => f.name === 'FilterYear').value;
-            if( this.year !== '' && this.year !== null) {
+            if(this.year !== '' && this.year !== null) {
                 let executeQuery = {
                     queryCode: 'workDaysCalendar',
                     limit: -1,
@@ -31,10 +31,10 @@
         },
         load: function(data) {
             this.yearCalendar = [];
-            for(let i = 0; i < data.rows.length; i ++ ) {
+            for(let i = 0; i < data.rows.length; i ++) {
                 let indexDateCode = data.columns.findIndex(el => el.code.toLowerCase() === 'date');
                 let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id');
-                let date = new Date( data.rows[i].values[indexDateCode]);
+                let date = new Date(data.rows[i].values[indexDateCode]);
                 let year = date.getFullYear();
                 let month = date.getMonth();
                 let day = date.getDay();
@@ -43,7 +43,7 @@
                 day = day === 0 ? 7 : day;
                 let arr = [];
                 let len = i + monthLength
-                for(let t = i; t < len; t++ ) {
+                for(let t = i; t < len; t++) {
                     let day = data.rows[t];
                     arr.push(day.values[indexId]);
                 }
@@ -69,7 +69,7 @@
             let yearContainer = this.createElement('div', { id: 'yearContainer' });
             container.appendChild(createNewYearContainer);
             container.appendChild(yearContainer);
-            createNewYearBtn.addEventListener( 'click', () => {
+            createNewYearBtn.addEventListener('click', () => {
                 let executeQuery = {
                     queryCode: 'ak_workDaysCalendarAddNewYear',
                     limit: -1,
@@ -78,7 +78,7 @@
                 this.queryExecutor(executeQuery);
                 this.showPreloader = false;
             });
-            this.yearCalendar.forEach( month => {
+            this.yearCalendar.forEach(month => {
                 let dayBox;
                 let monday = this.createElement('div', { className: 'calenDay', innerText: 'ПН'});
                 let tuesday = this.createElement('div', { className: 'calenDay', innerText: 'ВТ'});
@@ -97,13 +97,13 @@
                     monthBox.appendChild(dayBox);
                 }
                 let ml = monthBox.childNodes.length;
-                if( ml < 42 && ml > 36) {
+                if(ml < 42 && ml > 36) {
                     let c = 42 - ml;
                     for(let i = 0; i < c; i ++) {
                         let dayBox = this.createElement('div', { id: 'day_'+month.year+'_'+month.month+'_00', className: 'calenDay emptyDay'});
                         monthBox.appendChild(dayBox);
                     }
-                }else if( ml < 49 && ml > 42 ) {
+                }else if(ml < 49 && ml > 42) {
                     let c = 49 - ml;
                     for(let i = 0; i < c; i ++) {
                         let dayBox = this.createElement('div', { id: 'day_'+month.year+'_'+month.month+'_00', className: 'calenDay emptyDay'});
@@ -155,8 +155,8 @@
             });
             let days = document.querySelectorAll('.day');
             days = Array.from(days);
-            days.forEach( day => {
-                day.addEventListener( 'dblclick', event => {
+            days.forEach(day => {
+                day.addEventListener('dblclick', event => {
                     event.stopImmediatePropagation();
                     let target = event.currentTarget;
                     let executeQuery = {
@@ -166,7 +166,7 @@
                     };
                     this.queryExecutor(executeQuery);
                     this.showPreloader = false;
-                    if( target.isWork === true ) {
+                    if(target.isWork === true) {
                         target.isWork = false;
                         target.style.backgroundColor = '#f4b084';
                     }else{
@@ -178,16 +178,16 @@
             this.setThisYearCalendar(data);
         },
         setThisYearCalendar: function(data) {
-            data.rows.forEach( day => {
-                let dateCode = data.columns.findIndex(el => el.code.toLowerCase() === 'date' );
-                let isWorkCode = data.columns.findIndex(el => el.code.toLowerCase() === 'is_work' );
-                let fullDay = new Date( day.values[dateCode] );
+            data.rows.forEach(day => {
+                let dateCode = data.columns.findIndex(el => el.code.toLowerCase() === 'date');
+                let isWorkCode = data.columns.findIndex(el => el.code.toLowerCase() === 'is_work');
+                let fullDay = new Date(day.values[dateCode]);
                 let year = fullDay.getFullYear();
                 let month = fullDay.getMonth();
                 let date = fullDay.getDate();
                 month = month + 1;
                 let cellDay = document.getElementById('day_'+year+'_'+month+'_'+date+'');
-                if( day.values[isWorkCode] === false ) {
+                if(day.values[isWorkCode] === false) {
                     cellDay.isWork = false;
                     cellDay.style.backgroundColor = '#f4b084';
                 }else{
@@ -198,9 +198,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

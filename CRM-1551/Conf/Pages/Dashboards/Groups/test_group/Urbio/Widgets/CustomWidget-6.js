@@ -31,7 +31,7 @@
         },
         afterViewInit: function() {
             document.getElementById('btn_GetData').addEventListener('click', function() {
-            }.bind(this) );
+            }.bind(this));
         },
         load: function() {
         },

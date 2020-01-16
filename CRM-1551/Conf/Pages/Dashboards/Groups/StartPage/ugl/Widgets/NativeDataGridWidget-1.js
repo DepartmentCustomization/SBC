@@ -111,9 +111,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -142,18 +142,18 @@
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
-            elementsAll.forEach( el => {
+            elementsAll.forEach(el => {
                 el.style.display = 'flex';
                 el.style.margin = '15px 10px';
             })
             let elementsCaptionAll = document.querySelectorAll('.caption');
             elementsCaptionAll = Array.from(elementsCaptionAll);
-            elementsCaptionAll.forEach( el => {
+            elementsCaptionAll.forEach(el => {
                 el.style.minWidth = '200px';
             })
         },
         changeOnTable: function(message) {
-            if(message.column != 'Доопрацьовані' ) {
+            if(message.column != 'Доопрацьовані') {
                 document.getElementById('table7__dooproc').style.display = 'none';
             }else{
                 document.getElementById('table7__dooproc').style.display = 'block';
@@ -171,7 +171,7 @@
         createCustomStyle: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element) {
+            elements.forEach(function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));

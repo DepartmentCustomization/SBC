@@ -125,7 +125,7 @@
             keyExpr: 'qtyExpl_prev'
         },
         init: function() {
-            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
+            this.sub = this.messageService.subscribe('FiltersParams', this.setFilterParams, this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         setFilterParams: function(message) {
@@ -141,7 +141,7 @@
             const name = 'setData';
             const columns = this.config.columns;
             const position = 0;
-            this.messageService.publish( {name, data, columns, position} );
+            this.messageService.publish({name, data, columns, position});
             this.render(this.afterRenderTable());
         },
         afterRenderTable: function() {
@@ -149,8 +149,8 @@
             this.setYears();
         },
         setYears: function() {
-            this.config.columns.forEach( col => {
-                col.columns.forEach( col => {
+            this.config.columns.forEach(col => {
+                col.columns.forEach(col => {
                     col.columns[0].caption = this.previousYear;
                     col.columns[1].caption = this.currentYear;
                 });

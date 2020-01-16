@@ -31,12 +31,12 @@
             const reportListContainer = document.getElementById('reportListContainer');
             let reportListWrap = this.createElement('div', { id: 'reportListWrap'});
             reportListContainer.appendChild(reportListWrap);
-            data.rows.forEach( el => {
+            data.rows.forEach(el => {
                 let reportTitle = el.values[2];
                 let linkToReport = el.values[1];
                 let reportListItem = this.createElement('div', { className: 'reportListItem', link: linkToReport, innerText: reportTitle });
                 reportListWrap.appendChild(reportListItem);
-                reportListItem.addEventListener( 'click', event => {
+                reportListItem.addEventListener('click', event => {
                     let target = event.currentTarget;
                     window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/'+target.link);
                 });
@@ -44,9 +44,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

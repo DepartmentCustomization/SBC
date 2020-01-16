@@ -32,8 +32,8 @@
         init: function() {
             this.config.title =
             document.getElementById('infoContainer').style.display = 'none';
-            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFiltersParams, this );
-            this.sub1 = this.messageService.subscribe( 'showInfo', this.showInfo, this );
+            this.sub = this.messageService.subscribe('FiltersParams', this.setFiltersParams, this);
+            this.sub1 = this.messageService.subscribe('showInfo', this.showInfo, this);
         },
         showInfo: function() {
             document.getElementById('infoContainer').style.display = 'block';

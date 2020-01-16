@@ -108,9 +108,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -121,9 +121,9 @@
             const self = this;
             function func(self) {
                 this.seriesData = [];
-                let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id' );
-                let indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'qname' );
-                let indexValue = data.columns.findIndex(el => el.code.toLowerCase() === 'qty' );
+                let indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id');
+                let indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'qname');
+                let indexValue = data.columns.findIndex(el => el.code.toLowerCase() === 'qty');
                 for(let i = 0; i < data.rows.length; i++) {
                     let element = {
                         id: data.rows[i].values[indexId],
@@ -173,22 +173,22 @@
             while(CHART__INFO.hasChildNodes()) {
                 CHART__INFO.removeChild(CHART__INFO.lastElementChild);
             }
-            let infoWrapper = this.createElement('div', { id: 'infoWrapper' } );
+            let infoWrapper = this.createElement('div', { id: 'infoWrapper' });
             CHART__INFO.appendChild(infoWrapper);
-            let indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'qname' );
-            let indexValue = data.columns.findIndex(el => el.code.toLowerCase() === 'qty' );
+            let indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'qname');
+            let indexValue = data.columns.findIndex(el => el.code.toLowerCase() === 'qty');
             for(let i = 0; i < data.rows.length; i++) {
-                let sphere__dot = this.createElement('div', {className: 'sphere__dot material-icons', innerText: 'fiber_manual_record'} );
+                let sphere__dot = this.createElement('div', {className: 'sphere__dot material-icons', innerText: 'fiber_manual_record'});
                 sphere__dot.style.color = this.colors[i];
-                let sphere__text = this.createElement('div', {className: 'sphere__text', innerText: data.rows[i].values[indexName] + ': ' + data.rows[i].values[indexValue] } );
-                let sphere = this.createElement('div', {className: 'sphere'}, sphere__dot, sphere__text );
+                let sphere__text = this.createElement('div', {className: 'sphere__text', innerText: data.rows[i].values[indexName] + ': ' + data.rows[i].values[indexValue] });
+                let sphere = this.createElement('div', {className: 'sphere'}, sphere__dot, sphere__text);
                 infoWrapper.appendChild(sphere);
             }
             let result = data.rows.reduce(function(sum, current) {
                 return sum + current.values[0];
             }, 0);
-            let sumText = this.createElement('div', { className: 'sumText', innerText: 'Всього по ТОП 10 питань: ' + result } );
-            let sumWrapper = this.createElement('div', { id: 'sumWrapper' }, sumText );
+            let sumText = this.createElement('div', { className: 'sumText', innerText: 'Всього по ТОП 10 питань: ' + result });
+            let sumWrapper = this.createElement('div', { id: 'sumWrapper' }, sumText);
             CHART__INFO.appendChild(sumWrapper);
         },
         changeDateTimeValues: function(value) {

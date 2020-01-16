@@ -25,15 +25,15 @@
         ,
         init: function() {
             this.isSelected = false;
-            this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.setFiltersValue, this );
-            this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.findAllCheckedFilter, this );
-            this.sub2 = this.messageService.subscribe( 'findFilterColumns', this.reloadTable, this );
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
+            this.sub2 = this.messageService.subscribe('findFilterColumns', this.reloadTable, this);
         },
         setFiltersValue: function(message) {
             let elem = message.package.value.values;
             this.filtersLength = elem.length;
             this.filtersWithOutValues = 0;
-            elem.forEach( elem => {
+            elem.forEach(elem => {
                 if(elem.active === false) {
                     this.filtersWithOutValues += 1;
                 }
@@ -45,16 +45,16 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
         afterViewInit: function() {
             const container = document.getElementById('notificationContainer');
-            const captionWarning = this.createElement( 'div',{ className: 'captionWarning', innerText: 'Оберiть фiльтри!' });
+            const captionWarning = this.createElement('div',{ className: 'captionWarning', innerText: 'Оберiть фiльтри!' });
             container.appendChild(captionWarning);
         },
         destroy: function() {

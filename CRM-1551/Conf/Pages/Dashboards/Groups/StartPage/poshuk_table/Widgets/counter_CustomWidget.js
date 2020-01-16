@@ -14,13 +14,13 @@
             this.isSelected = false;
             this.sub = this.messageService.subscribe('dataLength', this.setDataLength, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
-            this.sub2 = this.messageService.subscribe( 'GlobalFilterChanged', this.setFiltersValue, this );
+            this.sub2 = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
         },
         setFiltersValue: function(message) {
             let elem = message.package.value.values;
             this.filtersLength = elem.length;
             this.filtersWithOutValues = 0;
-            elem.forEach( elem => {
+            elem.forEach(elem => {
                 if(elem.active === false) {
                     this.filtersWithOutValues += 1;
                 }

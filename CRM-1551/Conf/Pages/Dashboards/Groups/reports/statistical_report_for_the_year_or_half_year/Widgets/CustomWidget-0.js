@@ -38,8 +38,8 @@
         excelColumnsStart: 0,
         init: function() {
             this.sub = this.messageService.subscribe('showWarning', this.showWarning, this);
-            this.sub1 = this.messageService.subscribe('setData', this.setData, this );
-            this.sub2 = this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
+            this.sub1 = this.messageService.subscribe('setData', this.setData, this);
+            this.sub2 = this.messageService.subscribe('FiltersParams', this.setFilterParams, this);
         },
         setFilterParams: function(message) {
             this.dateFrom = message.dateFrom;
@@ -55,8 +55,8 @@
             reportTitle.appendChild(organizationNameInput);
             organizationNameInput.id = 'organizationName';
             let CONTAINER = document.getElementById('container');
-            let btnExcel = this.createElement('button', { id: 'btnExcel', innerText: 'Вигрузити в Excel', disabled: true } );
-            let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnExcel );
+            let btnExcel = this.createElement('button', { id: 'btnExcel', innerText: 'Вигрузити в Excel', disabled: true });
+            let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnExcel);
             CONTAINER.appendChild(btnWrap);
             btnExcel.addEventListener('click', event => {
                 event.stopImmediatePropagation();
@@ -71,7 +71,7 @@
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);
-            modalBtnTrue.addEventListener( 'click', event => {
+            modalBtnTrue.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 CONTAINER.removeChild(CONTAINER.lastElementChild);
             });
@@ -83,7 +83,7 @@
             }
             this.data[message.position] = table;
             this.counter += 1;
-            if( this.counter === 5 ) {
+            if(this.counter === 5) {
                 document.getElementById('btnExcel').disabled = false;
                 this.counter = 0;
             }
@@ -112,10 +112,10 @@
             for (let i = 0; i < this.data.length; i++) {
                 const data = this.data[i];
                 const columns = data.columns;
-                if(i === 0 || i === 1 ) {
-                    if( i === 0) {
+                if(i === 0 || i === 1) {
+                    if(i === 0) {
                         this.setTableType1Header(columns, worksheet1, data);
-                    } else if ( i === 1) {
+                    } else if (i === 1) {
                         this.setTableType2Header(columns, worksheet1, data);
                     }
                     this.setCellValuesStyles(worksheet1);
@@ -182,13 +182,13 @@
                     const cellBot = this.startStep + 1;
                     const cellTop = this.startStep + 1;
                     position += 1;
-                    worksheet.mergeCells( cellTop, position, cellBot, position);
-                    const cell = worksheet.getCell( cellTop, position);
+                    worksheet.mergeCells(cellTop, position, cellBot, position);
+                    const cell = worksheet.getCell(cellTop, position);
                     cell.value = element.caption;
                     this.setCellStyle(cell);
                     this.setRowStyle(cellTop, worksheet, 50);
                 }
-                worksheet.mergeCells( headerTop, headerLeft, headerBot, headerRight );
+                worksheet.mergeCells(headerTop, headerLeft, headerBot, headerRight);
                 const cell = worksheet.getCell(headerTop, headerLeft);
                 cell.value = column.caption;
                 this.setCellStyle(cell);
@@ -204,8 +204,8 @@
                 const yearTop = this.startStep + 2;
                 const yearBot = this.startStep + 2;
                 const yearPosition = position + i;
-                worksheet.mergeCells( yearTop, yearPosition, yearBot, yearPosition);
-                const cell = worksheet.getCell( yearTop, yearPosition);
+                worksheet.mergeCells(yearTop, yearPosition, yearBot, yearPosition);
+                const cell = worksheet.getCell(yearTop, yearPosition);
                 cell.value = year.caption;
                 this.setCellStyle(cell);
                 this.setRowStyle(yearTop, worksheet, 50);
@@ -213,13 +213,13 @@
         },
         setTableType3Header: function(columns, worksheet, data) {
             let position = this.excelColumnsStart + 1;
-            columns.forEach( column => {
+            columns.forEach(column => {
                 if(column.columns) {
                     const headerTop = this.startStep;
                     const headerBot = this.startStep;
                     const headerLeft = position + 2;
                     const headerRight = position + column.columns.length * 2 + 1;
-                    worksheet.mergeCells( headerTop, headerLeft, headerBot, headerRight );
+                    worksheet.mergeCells(headerTop, headerLeft, headerBot, headerRight);
                     const cell = worksheet.getCell(headerTop, headerLeft);
                     cell.value = column.caption;
                     this.setCellStyle(cell);
@@ -246,8 +246,8 @@
                 const cellTop = startStep + 1;
                 const cellLeft = position;
                 const cellRight = cellLeft + 1;
-                worksheet.mergeCells( cellTop, cellLeft, cellBot, cellRight);
-                const cell = worksheet.getCell( cellTop, cellLeft);
+                worksheet.mergeCells(cellTop, cellLeft, cellBot, cellRight);
+                const cell = worksheet.getCell(cellTop, cellLeft);
                 cell.value = subHeader.caption;
                 this.setCellYearsValue(subHeader, position, worksheet);
                 this.setCellStyle(cell);
@@ -260,8 +260,8 @@
             const bot = this.startStep + 2;
             const right = this.excelColumnsStart + start;
             const left = this.excelColumnsStart + start;
-            worksheet.mergeCells( top, right, bot, left);
-            const cell = worksheet.getCell( top, right);
+            worksheet.mergeCells(top, right, bot, left);
+            const cell = worksheet.getCell(top, right);
             cell.value = caption;
             this.setCellStyle(cell);
         },
@@ -288,20 +288,20 @@
             worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
         },
         setCellValuesStyles: function(worksheet) {
-            this.numberRowsArray.forEach( row => {
+            this.numberRowsArray.forEach(row => {
                 for (let j = 0; j < row.values.length; j++) {
                     const top = row.number;
                     const left = j + 1;
-                    const cell = worksheet.getCell( top, left);
+                    const cell = worksheet.getCell(top, left);
                     this.setCellStyle(cell);
                 }
             });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

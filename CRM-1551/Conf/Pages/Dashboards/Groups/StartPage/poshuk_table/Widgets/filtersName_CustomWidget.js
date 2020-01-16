@@ -19,13 +19,13 @@
                 }
             };
             this.messageService.publish(msg);
-            this.sub = this.messageService.subscribe('filters', this.showApplyFiltersValue, this );
-            this.sub1 = this.messageService.subscribe('clickOnFiltersBtn', this.clickOnGear, this );
+            this.sub = this.messageService.subscribe('filters', this.showApplyFiltersValue, this);
+            this.sub1 = this.messageService.subscribe('clickOnFiltersBtn', this.clickOnGear, this);
             this.filterColumns = [];
             this.defaultCheckedItem = [];
         },
         clickOnGear: function() {
-            if( document.getElementById('modalWindowWrapper').style.display == 'none' ) {
+            if(document.getElementById('modalWindowWrapper').style.display == 'none') {
                 document.getElementById('modalWindowWrapper').style.display = 'block'
             }
         },
@@ -41,26 +41,26 @@
         },
         checkItems: function() {
             let elements = this.filterColumns;
-            elements.forEach( e => {
+            elements.forEach(e => {
                 document.getElementById(e.displayValue).checked = true;
             });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
         },
         showApplyFiltersValue: function(message) {
             let container = document.getElementById('filtersContainer');
-            while( container.hasChildNodes() ) {
-                container.removeChild( container.lastElementChild );
+            while(container.hasChildNodes()) {
+                container.removeChild(container.lastElementChild);
             }
             const filtersBox = [];
-            message.value.forEach( el => {
+            message.value.forEach(el => {
                 let value = el.operation;
                 let obj = {};
                 switch(value) {
@@ -90,7 +90,7 @@
             this.createFilterBox(filtersBox);
         },
         operation: function(operation, title) {
-            switch( operation ) {
+            switch(operation) {
             case '>=':
                 title = title + ' з'
                 break
@@ -107,21 +107,21 @@
             day = day.toString();
             month = month.toString();
             year = year.toString();
-            if( day.length == 1) {
+            if(day.length == 1) {
                 day = '0'+ day;
             }
-            if( month.length == 1) {
+            if(month.length == 1) {
                 month = '0'+ month;
             }
             let fullDate = day +'-'+ month + '-'+ year;
             return fullDate;
         },
         createFilterBox: function(filtersBox) {
-            for( let i = 0; i < filtersBox.length; i++ ) {
+            for(let i = 0; i < filtersBox.length; i++) {
                 let el = filtersBox[i];
                 let filterBox__value = this.createElement('div', { className: 'filterBox__value tooltip', title: el.value, innerText: el.value });
                 let filterBox__title = this.createElement('div', { className: 'filterBox__title', innerText: el.title+' : '});
-                let filterBox = this.createElement('div', { className: 'filterBox'}, filterBox__title, filterBox__value );
+                let filterBox = this.createElement('div', { className: 'filterBox'}, filterBox__title, filterBox__value);
                 document.getElementById('filtersContainer').appendChild(filterBox);
             }
         },
@@ -146,7 +146,7 @@
             const group1__element4_checkBox = this.createElement('input', {type: 'checkbox', className: 'group__element_checkBox', columnWidth: 90, value: 'appeals_files_check', id: 'appeals_files_check' });
             const group1__element4_title = this.createElement('div', { className: 'group__element_title', innerText: 'Ознака'});
             const group1__element4 = this.createElement('div', { className: 'group__element'}, group1__element4_checkBox, group1__element4_title);
-            const group1__container = this.createElement('div', { className: 'groupContainer'}, group1__title, group1__element1, group1__element5, group1__element2, group1__element3, group1__element4 );
+            const group1__container = this.createElement('div', { className: 'groupContainer'}, group1__title, group1__element1, group1__element5, group1__element2, group1__element3, group1__element4);
             const group2__element2_checkBox = this.createElement('input', {type: 'checkbox', className: 'group__element_checkBox', columnWidth: 120, value: 'zayavnyk_phone_number', id: 'zayavnyk_phone_number' });
             const group2__element2_title = this.createElement('div', { className: 'group__element_title', innerText: 'Номер телефону'});
             const group2__element2 = this.createElement('div', { className: 'group__element'}, group2__element2_checkBox, group2__element2_title);
@@ -184,7 +184,7 @@
             const group3__element7_checkBox = this.createElement('input', {type: 'checkbox', className: 'group__element_checkBox', columnWidth: 150, value: 'question_list_state', id: 'question_list_state' });
             const group3__element7_title = this.createElement('div', { className: 'group__element_title', innerText: 'Перелiк'});
             const group3__element7 = this.createElement('div', { className: 'group__element'}, group3__element7_checkBox, group3__element7_title);
-            const group3__container = this.createElement('div', { className: 'groupContainer'}, group1__title, group3__element2, group3__element4, group3__element6, group3__element7 );
+            const group3__container = this.createElement('div', { className: 'groupContainer'}, group1__title, group3__element2, group3__element4, group3__element6, group3__element7);
             const group4__element2_checkBox = this.createElement('input', {type: 'checkbox', className: 'group__element_checkBox', columnWidth: 100, value: 'assigm_main_executor', id: 'assigm_main_executor' });
             const group4__element2_title = this.createElement('div', { className: 'group__element_title', innerText: 'Головний'});
             const group4__element2 = this.createElement('div', { className: 'group__element'}, group4__element2_checkBox, group4__element2_title);
@@ -215,7 +215,7 @@
             const group4__element11_checkBox = this.createElement('input', {type: 'checkbox', className: 'group__element_checkBox', columnWidth: 250, value: 'control_comment', id: 'control_comment' });
             const group4__element11_title = this.createElement('div', { className: 'group__element_title', innerText: 'Коментар виконавця'});
             const group4__element11 = this.createElement('div', { className: 'group__element'}, group4__element11_checkBox, group4__element11_title);
-            const group4__container = this.createElement('div', { className: 'groupContainer'}, group4__title, group4__element2, group4__element3, group4__element4, group4__element5, group4__element6, group4__element7 , group4__element8 , group4__element9, group4__element11, group4__element10 );
+            const group4__container = this.createElement('div', { className: 'groupContainer'}, group4__title, group4__element2, group4__element3, group4__element4, group4__element5, group4__element6, group4__element7 , group4__element8 , group4__element9, group4__element11, group4__element10);
             const group5__element2_checkBox = this.createElement('input', {type: 'checkbox', className: 'group__element_checkBox', columnWidth: 100, value: 'transfer_date', id: 'transfer_date'});
             const group5__element2_title = this.createElement('div', { className: 'group__element_title', innerText: 'Передано'});
             const group5__element2 = this.createElement('div', { className: 'group__element'}, group5__element2_checkBox, group5__element2_title);
@@ -231,8 +231,8 @@
             const group5__element6_checkBox = this.createElement('input', {type: 'checkbox', className: 'group__element_checkBox', columnWidth: 100, value: 'control_date', id: 'control_date'});
             const group5__element6_title = this.createElement('div', { className: 'group__element_title', innerText: 'Перевірка'});
             const group5__element6 = this.createElement('div', { className: 'group__element'}, group5__element6_checkBox, group5__element6_title);
-            const group5__container = this.createElement('div', { className: 'groupContainer'}, group5__title, group5__element2, group5__element3, group5__element4, group5__element5, group5__element6 );
-            const group1 = this.createElement('div', { id:'group1', className: 'group1'}, group1__title, group1__container );
+            const group5__container = this.createElement('div', { className: 'groupContainer'}, group5__title, group5__element2, group5__element3, group5__element4, group5__element5, group5__element6);
+            const group1 = this.createElement('div', { id:'group1', className: 'group1'}, group1__title, group1__container);
             const group2 = this.createElement('div', { id:'group2', className: 'group2'}, group2__title, group2__container);
             const group3 = this.createElement('div', { id:'group3', className: 'group3'}, group3__title, group3__container);
             const group4 = this.createElement('div', { id:'group4', className: 'group4'}, group4__title, group4__container);
@@ -251,8 +251,8 @@
                 this.filterColumns = [];
                 let checkedElements = document.querySelectorAll('.group__element');
                 checkedElements = Array.from(checkedElements);
-                checkedElements.forEach( function(el) {
-                    if( el.firstElementChild.checked == true ) {
+                checkedElements.forEach(function(el) {
+                    if(el.firstElementChild.checked == true) {
                         let width = Number(el.firstElementChild.columnWidth);
                         let displayValue = el.firstElementChild.value;
                         let caption = el.lastElementChild.innerText;
@@ -261,16 +261,16 @@
                     }
                 }.bind(this));
                 let columns = this.filterColumns;
-                this.messageService.publish( {
+                this.messageService.publish({
                     name: 'findFilterColumns', value: columns
                 });
                 document.getElementById('modalWindowWrapper').style.display = 'none';
             });
             modalWindow.appendChild(modalBtnWrapper);
             modalWindow.appendChild(groupsContainer);
-            if(this.defaultCheckedItem.length > 0 ) {
+            if(this.defaultCheckedItem.length > 0) {
                 let arr = this.defaultCheckedItem;
-                arr.forEach( e => {
+                arr.forEach(e => {
                     document.getElementById(e.displayValue).checked = true;
                 });
             }

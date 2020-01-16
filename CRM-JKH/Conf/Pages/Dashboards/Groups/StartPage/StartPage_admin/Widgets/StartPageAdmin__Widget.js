@@ -22,7 +22,7 @@
             groupViewAppeals__icon.style.color = '#ff7961';
             let groupViewAppeals__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupViewAppeals__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight );
+            let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight);
             groupViewAppeals.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/admin/users');
             });
@@ -31,7 +31,7 @@
             groupViewAppeals2__icon.style.color = '#ff7961';
             let groupViewAppeals2__borderBottom = this.createElement('div', { className: 'border-bottom' });
             let groupViewAppeals2__borderRight = this.createElement('div', { className: 'border-right'});
-            let groupViewAppeals2 = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals2__icon, groupViewAppeals2__description, groupViewAppeals2__borderBottom, groupViewAppeals2__borderRight );
+            let groupViewAppeals2 = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals2__icon, groupViewAppeals2__description, groupViewAppeals2__borderBottom, groupViewAppeals2__borderRight);
             groupViewAppeals2.addEventListener('click', () => {
                 window.open(location.origin + localStorage.getItem('VirtualPath')+'/sections/Organizations');
             });
@@ -41,9 +41,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

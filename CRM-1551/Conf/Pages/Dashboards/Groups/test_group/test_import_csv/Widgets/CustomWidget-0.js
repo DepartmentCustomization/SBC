@@ -13,11 +13,11 @@
         afterViewInit: function() {
             const CONTAINER = document.getElementById('container');
             let input = this.createElement('input', { type: 'file', id: 'fileInput', accept: '.csv' });
-            let btn = this.createElement('button', { id:'importBtn', innerText: 'Import csv files' } );
+            let btn = this.createElement('button', { id:'importBtn', innerText: 'Import csv files' });
             let form = this.createElement('form', { method:'post', enctype: 'multipart/form-data'}, input);
-            let wrapper = this.createElement('div', { id: 'wrapper' },form, btn );
+            let wrapper = this.createElement('div', { id: 'wrapper' },form, btn);
             CONTAINER.appendChild(wrapper);
-            btn.addEventListener( 'click', event => {
+            btn.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 this.showPagePreloader('Зачекайте, файл завантажується');
                 let fileInput = document.getElementById('fileInput');
@@ -33,7 +33,7 @@
                         let json = xhr.responseText;
                         let response = JSON.parse(json);
                         let responseNotification = {};
-                        if(response.errors.length === 0 ) {
+                        if(response.errors.length === 0) {
                             responseNotification = {
                                 title: 'Завантаження пройшло успiшно!',
                                 success: 'Завантажено строк: ' + response.success
@@ -51,9 +51,9 @@
                     }
                 });
                 let url = window.location.origin + '/api/section/demo/import/csv';
-                xhr.open('POST', url );
+                xhr.open('POST', url);
                 let token = localStorage.getItem('X-Auth-Token');
-                xhr.setRequestHeader('Authorization', 'Bearer ' + token );
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
                 xhr.send(data);
             });
         },
@@ -64,12 +64,12 @@
             const modalTitle = this.createElement('div', { id:'modalTitle', innerText: 'Результат завантаження:'});
             const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, contentWrapper ,modalBtnWrapper);
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
-            modalBtnTrue.addEventListener( 'click', event => {
+            modalBtnTrue.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 CONTAINER.removeChild(CONTAINER.lastElementChild);
             });
             for (let key in responseNotification) {
-                if( key === 'title') {
+                if(key === 'title') {
                     let responseTitle = this.createElement('div', { id: 'responseTitle', className: 'responseTest', innerText: responseNotification[key] });
                     responseModal.appendChild(responseTitle);
                 }else if(key === 'errorInfo') {
@@ -88,9 +88,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

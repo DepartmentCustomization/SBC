@@ -39,8 +39,8 @@
             'rgb(145, 232, 225)'
         ],
         init: function() {
-            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFiltersParams, this );
-            this.sub1 = this.messageService.subscribe( 'showInfo', this.showInfo, this );
+            this.sub = this.messageService.subscribe('FiltersParams', this.setFiltersParams, this);
+            this.sub1 = this.messageService.subscribe('showInfo', this.showInfo, this);
         },
         setFiltersParams: function(message) {
             this.date = message.date;

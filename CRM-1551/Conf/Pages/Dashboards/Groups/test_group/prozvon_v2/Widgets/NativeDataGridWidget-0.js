@@ -129,14 +129,14 @@
             this.queryExecutor(executeQuery, this.showUser, this);
             this.showPreloader = false;
             this.sortingArr = [];
-            this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.setFiltersValue, this );
-            this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.findAllCheckedFilter, this );
-            this.sub2 = this.messageService.subscribe( 'reloadMainTable', this.reloadMainTable, this );
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
+            this.sub2 = this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this);
             this.config.onToolbarPreparing = this.createDGButtons.bind(this);
             this.config.masterDetail.template = this.createMasterDetails.bind(this);
             this.config.onOptionChanged = this.onOptionChanged.bind(this);
-            this.dataGridInstance.onCellClick.subscribe( function(e) {
-                if( e.column ) {
+            this.dataGridInstance.onCellClick.subscribe(function(e) {
+                if(e.column) {
                     if(e.column.dataField == 'full_name' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonApplicant_v2?id='+e.data.ApplicantsId+'');
                     }else if(e.column.dataField == 'house' && e.row != undefined) {
@@ -147,7 +147,7 @@
                         let CurrentUserPhone = e.row.data.phone_number;
                         let PhoneForCall = this.userPhoneNumber;
                         let xhr = new XMLHttpRequest();
-                        xhr.open('GET', 'https://cc.1551.gov.ua:5566/CallService/Call/number=' + CurrentUserPhone + '&operator=' + PhoneForCall );
+                        xhr.open('GET', 'https://cc.1551.gov.ua:5566/CallService/Call/number=' + CurrentUserPhone + '&operator=' + PhoneForCall);
                         xhr.send();
                     }
                 }
@@ -158,7 +158,7 @@
         },
         onOptionChanged: function(args) {
             let columnCode;
-            if( args.fullName != undefined) {
+            if(args.fullName != undefined) {
                 switch(args.fullName) {
                 case('columns[0].sortOrder'):
                     columnCode = 'registration_number'
@@ -194,14 +194,14 @@
                     columnCode = 'dataSource'
                     break;
                 }
-                if(columnCode != undefined ) {
+                if(columnCode != undefined) {
                     if(columnCode != 'dataSource') {
                         const infoColumn = { name: columnCode, value: args.value };
-                        if( this.sortingArr.length === 0 ) {
+                        if(this.sortingArr.length === 0) {
                             this.sortingArr.push(infoColumn);
                         }else{
                             const index = this.sortingArr.findIndex(x => x.name === columnCode);
-                            if( index === -1 ) {
+                            if(index === -1) {
                                 this.sortingArr.push(infoColumn);
                             }else{
                                 this.sortingArr.splice(index, 1);
@@ -214,14 +214,14 @@
             }
         },
         showUser: function(data) {
-            const indexPhoneNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'phonenumber' );
+            const indexPhoneNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'phonenumber');
             this.userPhoneNumber = data.rows[0].values[indexPhoneNumber]
         },
         openModalCloserForm: function() {
             let rowsMessage = [];
             let selectedRows = [];
             selectedRows = this.dataGridInstance.instance.getSelectedRowsData();
-            selectedRows.forEach( row => {
+            selectedRows.forEach(row => {
                 let obj = {
                     id: row.Id,
                     organization_id: row.Organizations_Id
@@ -229,7 +229,7 @@
                 rowsMessage.push(obj);
             });
             if(selectedRows.length > 0) {
-                this.messageService.publish( { name: 'openModalForm', value: rowsMessage } );
+                this.messageService.publish({ name: 'openModalForm', value: rowsMessage });
             }
         },
         createMasterDetails: function(container, options) {
@@ -270,13 +270,13 @@
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
-            elementsAll.forEach( el => {
+            elementsAll.forEach(el => {
                 el.style.display = 'flex';
                 el.style.margin = '15px 10px';
             });
             let elementsCaptionAll = document.querySelectorAll('.caption');
             elementsCaptionAll = Array.from(elementsCaptionAll);
-            elementsCaptionAll.forEach( el => {
+            elementsCaptionAll.forEach(el => {
                 el.style.minWidth = '200px';
             });
         },
@@ -288,16 +288,16 @@
             let HH = date.getHours()
             let mm = date.getMinutes();
             MM += 1;
-            if( (dd.toString()).length === 1) {
+            if((dd.toString()).length === 1) {
                 dd = '0' + dd;
             }
-            if( (MM.toString()).length === 1) {
+            if((MM.toString()).length === 1) {
                 MM = '0' + MM;
             }
-            if( (HH.toString()).length === 1) {
+            if((HH.toString()).length === 1) {
                 HH = '0' + HH;
             }
-            if( (mm.toString()).length === 1) {
+            if((mm.toString()).length === 1) {
                 mm = '0' + mm;
             }
             return dd+'.'+MM+'.' + yyyy +' '+ HH +':'+ mm;
@@ -309,18 +309,18 @@
             this.filtersValues = [];
             this.filtersValuesMacros = [];
             let filters = message.package.value.values;
-            filters.forEach( elem => {
+            filters.forEach(elem => {
                 if(elem.active === true) {
                     let data = elem.value;
                     if(typeof(data) === 'boolean') {
-                        this.createObjMacros( elem.name, '=', 'true', elem.placeholder);
-                    }else if( typeof(data) === 'object') {
+                        this.createObjMacros(elem.name, '=', 'true', elem.placeholder);
+                    }else if(typeof(data) === 'object') {
                         if(data[0]) {
-                            if(typeof(data[0].value) === 'number' ) {
-                                if( elem.name === 'zayavnyk_age' ) {
+                            if(typeof(data[0].value) === 'number') {
+                                if(elem.name === 'zayavnyk_age') {
                                     this.ageArr = [];
                                     let ageSendViewValue = '';
-                                    data.forEach( el => {
+                                    data.forEach(el => {
                                         let values = el.viewValue.split('-');
                                         let ageValue = '(zayavnyk_age>='+values[0]+' and zayavnyk_age<='+values[1]+')';
                                         this.ageArr.push(ageValue);
@@ -329,37 +329,37 @@
                                     ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
                                     let ageSendValue = this.ageArr.join(' or ');
                                     ageSendValue = '('+ageSendValue+')';
-                                    this.createObjMacros( elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
+                                    this.createObjMacros(elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
                                 }else{
                                     let sumValue = '';
                                     let sumViewValue = '';
                                     if(data.length > 0) {
-                                        data.forEach( row => {
+                                        data.forEach(row => {
                                             sumValue = sumValue + ', '+ row.value;
                                             sumViewValue = sumViewValue + ', '+ row.viewValue;
                                         });
                                     }
                                     let numberSendValue = sumValue.slice(2, [sumValue.length]);
                                     let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
-                                    this.createObjMacros( elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
+                                    this.createObjMacros(elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
                                 }
-                            }else if(typeof(data[0].value) === 'string' ) {
+                            }else if(typeof(data[0].value) === 'string') {
                                 let stringSumValue = '';
                                 let stringSumViewValue = '';
                                 if(data.length > 0) {
-                                    data.forEach( row => {
+                                    data.forEach(row => {
                                         stringSumValue = stringSumValue + ', \''+ row.value + '\'';
                                         stringSumViewValue = stringSumViewValue + ', '+ row.viewValue;
                                     });
                                 }
                                 let stringSendValue = stringSumValue.slice(2, [stringSumValue.length]);
                                 let stringSendViewValue = stringSumViewValue.slice(2, [stringSumViewValue.length]);
-                                this.createObjMacros( elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
+                                this.createObjMacros(elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
                             }
-                        }else if( data.value && data.viewValue ) {
-                            this.createObjMacros( elem.name, 'in', data.value, elem.placeholder, data.viewValue );
+                        }else if(data.value && data.viewValue) {
+                            this.createObjMacros(elem.name, 'in', data.value, elem.placeholder, data.viewValue);
                         }else{
-                            if(data.dateFrom != '' ) {
+                            if(data.dateFrom != '') {
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name) {
                                 case 'registration_date':
@@ -380,7 +380,7 @@
                                     break;
                                 }
                             }
-                            if(data.dateTo != '' ) {
+                            if(data.dateTo != '') {
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name) {
                                 case 'registration_date':
@@ -401,8 +401,8 @@
                                 }
                             }
                         }
-                    }else if( typeof(data) === 'string') {
-                        this.createObjMacros( elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue );
+                    }else if(typeof(data) === 'string') {
+                        this.createObjMacros(elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue);
                     }
                 }
             });
@@ -425,19 +425,19 @@
         },
         createFilterMacros: function(code, operation, currentDate) {
             let textMacros = '';
-            if( operation == 'like' ) {
+            if(operation == 'like') {
                 textMacros = ''+code+' '+operation+' \'%'+currentDate+'%\' and';
-            }else if( operation == '===') {
+            }else if(operation == '===') {
                 textMacros = ''+currentDate+' and';
-            }else if( operation == '==') {
+            }else if(operation == '==') {
                 textMacros = ''+code+' '+'='+' '+currentDate+' and';
-            }else if( operation == '+""+') {
+            }else if(operation == '+""+') {
                 textMacros = ''+code+' in  (N\''+currentDate+'\' and';
-            }else if( operation == 'in') {
+            }else if(operation == 'in') {
                 textMacros = ''+code+' in ('+currentDate+') and';
-            }else if( operation == '=') {
+            }else if(operation == '=') {
                 textMacros = ''+code+' '+operation+' N\''+currentDate+'\' and';
-            }else if( operation == '>=' || operation == '<=' ) {
+            }else if(operation == '>=' || operation == '<=') {
                 let year = currentDate.getFullYear();
                 let month = currentDate.getMonth() + 1;
                 let date = currentDate.getDate();
@@ -458,16 +458,16 @@
         },
         findAllCheckedFilter: function() {
             let filters = this.filtersValuesMacros;
-            if( filters.length > 0 ) {
+            if(filters.length > 0) {
                 this.textFilterMacros = [];
-                filters.forEach( function(el) {
-                    this.createFilterMacros( el.code, el.operation, el.value);
+                filters.forEach(function(el) {
+                    this.createFilterMacros(el.code, el.operation, el.value);
                 }.bind(this));
                 let arr = this.textFilterMacros;
                 let str = arr.join(' ');
                 let macrosValue = str.slice(0, -4);
                 this.macrosValue = macrosValue;
-                this.messageService.publish( {
+                this.messageService.publish({
                     name: 'filters',
                     value: this.filtersValuesMacros
                 });
@@ -480,7 +480,7 @@
                 this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
                     { key: '@sort', value: this.sort }];
                 this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish( {
+                this.messageService.publish({
                     name: 'filters',
                     value: this.filtersValuesMacros
                 });
@@ -507,7 +507,7 @@
             this.config.query.filterColumns.push(filter);
         },
         reloadTable: function(message) {
-            message.value.forEach( el => {
+            message.value.forEach(el => {
                 let column = {
                     dataField: el.displayValue,
                     caption: el.caption,
@@ -528,9 +528,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;

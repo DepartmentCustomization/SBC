@@ -69,7 +69,7 @@
         },
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.sub1 = this.messageService.subscribe( 'sendCarId', this.getCarId, this);
+            this.sub1 = this.messageService.subscribe('sendCarId', this.getCarId, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column.dataField === 'name' && e.row !== undefined) {
                     this.goToDashboard('CarChangeReport',

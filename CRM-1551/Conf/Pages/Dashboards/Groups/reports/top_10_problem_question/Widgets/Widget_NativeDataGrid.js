@@ -155,7 +155,7 @@
             groupingAutoExpandAll: null,
         },
         init: function() {
-            this.sub1 = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
+            this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.arrayColor = [
                 '63be7b',
                 '85c87d',
@@ -198,15 +198,15 @@
             });
         },
         myCreateExcel: function(data) {
-            if( data.rows.length > 0 ) {
+            if(data.rows.length > 0) {
                 this.showPagePreloader('Зачекайте, формується документ');
                 this.indexArr = [];
                 let columns = this.config.columns;
-                columns.forEach( el => {
+                columns.forEach(el => {
                     let elDataField = el.dataField;
                     let elCaption = el.caption;
                     for (let i = 0; i < data.columns.length; i ++) {
-                        if( elDataField === data.columns[i].code ) {
+                        if(elDataField === data.columns[i].code) {
                             let obj = {
                                 name: elDataField,
                                 index: i,
@@ -244,85 +244,85 @@
                     width: 5
                 }
                 columnsHeader.push(columnNumber);
-                indexArr.forEach( el => {
-                    if( el.name === 'questionType' ) {
+                indexArr.forEach(el => {
+                    if(el.name === 'questionType') {
                         let obj = {
                             key: el.name,
                             width: 28,
                         };
                         columnsHeader.push(obj);
                         captions.push('Тип питання');
-                    }else if(el.name === 'Golosiivsky' ) {
+                    }else if(el.name === 'Golosiivsky') {
                         let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Голосіївський');
-                    }else if(el.name === 'Darnitsky' ) {
+                    }else if(el.name === 'Darnitsky') {
                         let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Дарницький');
-                    } else if (el.name === 'Desnyansky' ) {
+                    } else if (el.name === 'Desnyansky') {
                         let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Деснянський');
-                    }else if(el.name === 'Dnirovsky' ) {
+                    }else if(el.name === 'Dnirovsky') {
                         let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Дніпровський');
-                    }else if(el.name === 'Obolonsky' ) {
+                    }else if(el.name === 'Obolonsky') {
                         let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Оболонський');
-                    }else if(el.name === 'Pechersky' ) {
+                    }else if(el.name === 'Pechersky') {
                         let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Печерський');
-                    }else if(el.name === 'Podilsky' ) {
+                    }else if(el.name === 'Podilsky') {
                         let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Подільський');
-                    }else if(el.name === 'Svyatoshinsky' ) {
+                    }else if(el.name === 'Svyatoshinsky') {
                         let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Святошинський');
-                    }else if(el.name === 'Solomiansky' ) {
+                    }else if(el.name === 'Solomiansky') {
                         let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Солом`янський');
-                    }else if(el.name === 'Shevchenkovsky' ) {
+                    }else if(el.name === 'Shevchenkovsky') {
                         let obj = {
                             key: el.name,
                             width: 8
                         };
                         columnsHeader.push(obj);
                         captions.push('Шевченківський');
-                    }else if(el.name === 'allQuestionsQty' ) {
+                    }else if(el.name === 'allQuestionsQty') {
                         let obj = {
                             key: el.name,
                             width: 8
@@ -334,52 +334,52 @@
                 worksheet.getRow(4).values = captions;
                 worksheet.columns = columnsHeader;
                 this.addetedIndexes = [];
-                let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
-                let indexGolosiivsky = data.columns.findIndex(el => el.code.toLowerCase() === 'golosiivsky' );
-                let indexDarnitsky = data.columns.findIndex(el => el.code.toLowerCase() === 'darnitsky' );
-                let indexDesnyansky = data.columns.findIndex(el => el.code.toLowerCase() === 'desnyansky' );
-                let indexDnirovsky = data.columns.findIndex(el => el.code.toLowerCase() === 'dnirovsky' );
-                let indexObolonsky = data.columns.findIndex(el => el.code.toLowerCase() === 'obolonsky' );
-                let indexPechersky = data.columns.findIndex(el => el.code.toLowerCase() === 'pechersky' );
-                let indexPodilsky = data.columns.findIndex(el => el.code.toLowerCase() === 'podilsky' );
-                let indexSvyatoshinsky = data.columns.findIndex(el => el.code.toLowerCase() === 'svyatoshinsky' );
-                let indexSolomiansky = data.columns.findIndex(el => el.code.toLowerCase() === 'solomiansky' );
-                let indexShevchenkovsky = data.columns.findIndex(el => el.code.toLowerCase() === 'shevchenkovsky' );
-                let indexAllQuestionsQty = data.columns.findIndex(el => el.code.toLowerCase() === 'allquestionsqty' );
-                for( let j = 0; j < data.rows.length; j ++ ) {
+                let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype');
+                let indexGolosiivsky = data.columns.findIndex(el => el.code.toLowerCase() === 'golosiivsky');
+                let indexDarnitsky = data.columns.findIndex(el => el.code.toLowerCase() === 'darnitsky');
+                let indexDesnyansky = data.columns.findIndex(el => el.code.toLowerCase() === 'desnyansky');
+                let indexDnirovsky = data.columns.findIndex(el => el.code.toLowerCase() === 'dnirovsky');
+                let indexObolonsky = data.columns.findIndex(el => el.code.toLowerCase() === 'obolonsky');
+                let indexPechersky = data.columns.findIndex(el => el.code.toLowerCase() === 'pechersky');
+                let indexPodilsky = data.columns.findIndex(el => el.code.toLowerCase() === 'podilsky');
+                let indexSvyatoshinsky = data.columns.findIndex(el => el.code.toLowerCase() === 'svyatoshinsky');
+                let indexSolomiansky = data.columns.findIndex(el => el.code.toLowerCase() === 'solomiansky');
+                let indexShevchenkovsky = data.columns.findIndex(el => el.code.toLowerCase() === 'shevchenkovsky');
+                let indexAllQuestionsQty = data.columns.findIndex(el => el.code.toLowerCase() === 'allquestionsqty');
+                for(let j = 0; j < data.rows.length; j ++) {
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
                     for(let i = 0; i < indexArr.length; i ++) {
                         let el = indexArr[i];
-                        if( el.name === 'questionType' ) {
+                        if(el.name === 'questionType') {
                             rowItem.questionType = row.values[indexQuestionType];
-                        }else if(el.name === 'Golosiivsky' ) {
+                        }else if(el.name === 'Golosiivsky') {
                             rowItem.Golosiivsky = row.values[indexGolosiivsky];
-                        }else if(el.name === 'Darnitsky' ) {
+                        }else if(el.name === 'Darnitsky') {
                             rowItem.Darnitsky = row.values[indexDarnitsky];
-                        }else if(el.name === 'Desnyansky' ) {
+                        }else if(el.name === 'Desnyansky') {
                             rowItem.Desnyansky = row.values[indexDesnyansky];
-                        }else if(el.name === 'Dnirovsky' ) {
+                        }else if(el.name === 'Dnirovsky') {
                             rowItem.Dnirovsky = row.values[indexDnirovsky];
-                        }else if(el.name === 'Obolonsky' ) {
+                        }else if(el.name === 'Obolonsky') {
                             rowItem.Obolonsky = row.values[indexObolonsky];
-                        }else if(el.name === 'Pechersky' ) {
+                        }else if(el.name === 'Pechersky') {
                             rowItem.Pechersky = row.values[indexPechersky];
-                        }else if(el.name === 'Podilsky' ) {
+                        }else if(el.name === 'Podilsky') {
                             rowItem.Podilsky = row.values[indexPodilsky];
-                        }else if(el.name === 'Svyatoshinsky' ) {
+                        }else if(el.name === 'Svyatoshinsky') {
                             rowItem.Svyatoshinsky = row.values[indexSvyatoshinsky];
-                        }else if(el.name === 'Solomiansky' ) {
+                        }else if(el.name === 'Solomiansky') {
                             rowItem.Solomiansky = row.values[indexSolomiansky];
-                        }else if(el.name === 'Shevchenkovsky' ) {
+                        }else if(el.name === 'Shevchenkovsky') {
                             rowItem.Shevchenkovsky = row.values[indexShevchenkovsky];
-                        }else if(el.name === 'allQuestionsQty' ) {
+                        }else if(el.name === 'allQuestionsQty') {
                             rowItem.allQuestionsQty = row.values[indexAllQuestionsQty];
                         }
                     }
-                    rows.push( rowItem );
+                    rows.push(rowItem);
                 }
-                rows.forEach( el => {
+                rows.forEach(el => {
                     let number = el.number + '.'
                     let row = {
                         number: number,
@@ -403,7 +403,7 @@
                     top: 0.4, bottom: 0.4,
                     header: 0.0, footer: 0.0
                 };
-                for(let i = 0; i < rows.length + 1; i++ ) {
+                for(let i = 0; i < rows.length + 1; i++) {
                     let number = i + 4;
                     let row = worksheet.getRow(number);
                     row.height = number === 4 ? 100 : 50;
@@ -439,7 +439,7 @@
             }
         },
         changeDateTimeValues: function(value) {
-            if( value !== null) {
+            if(value !== null) {
                 let date = new Date(value);
                 let dd = date.getDate().toString();
                 let mm = (date.getMonth() + 1).toString();
@@ -458,23 +458,23 @@
             let indexes = [];
             for(let i = 0; i < arr.length; i++) {
                 let cellValue = arr[i].textContent;
-                if (+cellValue === val ) {
+                if (+cellValue === val) {
                     indexes.push(i);
                 }
             }
             return indexes;
         },
         afterRenderTable: function() {
-            if(this.data.length > 0 ) {
+            if(this.data.length > 0) {
                 const data = this.data;
                 this.sortArray = [];
                 let rows = document.querySelectorAll('.dx-row');
                 let rowsAll = Array.from(rows);
                 rowsAll.shift();
                 rowsAll.pop();
-                data.forEach( row => {
+                data.forEach(row => {
                     let arrRow = [];
-                    for( let i = 2; i < row.length; i++) {
+                    for(let i = 2; i < row.length; i++) {
                         let value = row[i];
                         arrRow.push(value)
                     }
@@ -483,7 +483,7 @@
                 });
                 for (let k = 0; k < this.sortArray.length; k++) {
                     let row = this.sortArray[k];
-                    for( let j = 0; j < row.length; j++ ) {
+                    for(let j = 0; j < row.length; j++) {
                         let value = row[j];
                         let color = this.arrayColor[j];
                         if(rowsAll[k]) {
@@ -491,7 +491,7 @@
                                 let array = Array.prototype.slice.call(rowsAll[k].children);
                                 array.pop();
                                 let indexes = this.getAllIndexes(array, value);
-                                for( let i = 0; i < indexes.length; i++ ) {
+                                for(let i = 0; i < indexes.length; i++) {
                                     let index = indexes[i];
                                     let cell = array[index];
                                     cell.style.backgroundColor = '#'+color;
@@ -506,8 +506,8 @@
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let questionGroup = message.package.value.values.find(f => f.name === 'questionGroup').value;
             let questionType = message.package.value.values.find(f => f.name === 'questionType').value;
-            if( period !== null ) {
-                if( period.dateFrom !== '' && period.dateTo !== '') {
+            if(period !== null) {
+                if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.questionGroup = questionGroup === null ? 0 : questionGroup === '' ? 0 : questionGroup.value;

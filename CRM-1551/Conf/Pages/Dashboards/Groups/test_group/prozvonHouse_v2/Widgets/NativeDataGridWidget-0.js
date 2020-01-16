@@ -93,14 +93,14 @@
             };
             this.queryExecutor(executeQuery, this.showUser, this);
             this.showPreloader = false;
-            this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.findAllCheckedFilter, this );
-            this.sub2 = this.messageService.subscribe( 'reloadMainTable', this.reloadMainTable, this );
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
+            this.sub2 = this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this);
             this.sortingArr = [];
             this.config.onToolbarPreparing = this.createDGButtons.bind(this);
             this.config.masterDetail.template = this.createMasterDetails.bind(this);
             this.config.onOptionChanged = this.onOptionChanged.bind(this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
-            this.dataGridInstance.onCellClick.subscribe( function(e) {
+            this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
                     if(e.column.dataField == 'registration_number' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.data.Id+'');
@@ -108,7 +108,7 @@
                         let CurrentUserPhone = e.row.data.phone_number;
                         let PhoneForCall = this.userPhoneNumber;
                         let xhr = new XMLHttpRequest();
-                        xhr.open('GET', 'http://10.192.200.14:5566/CallService/Call/number=' + CurrentUserPhone + '&operator=' + PhoneForCall );
+                        xhr.open('GET', 'http://10.192.200.14:5566/CallService/Call/number=' + CurrentUserPhone + '&operator=' + PhoneForCall);
                         xhr.send();
                     }
                 }
@@ -136,8 +136,8 @@
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         onCellPrepared: function(options) {
-            if( options.rowType === 'data') {
-                if( options.column.dataField == 'states') {
+            if(options.rowType === 'data') {
+                if(options.column.dataField == 'states') {
                     options.cellElement.classList.add('stateResult');
                 }
             }
@@ -147,17 +147,17 @@
             for (let i = 0; i < stateResult.length; i++) {
                 let el = stateResult[i];
                 let number = el.parentElement.children[2].innerText;
-                let dataIndex = this.numbers.findIndex( num => num === number );
-                let spanCircle = this.createElement( 'span', { classList: 'material-icons', innerText: 'lens'});
+                let dataIndex = this.numbers.findIndex(num => num === number);
+                let spanCircle = this.createElement('span', { classList: 'material-icons', innerText: 'lens'});
                 el.style.textAlign = 'center';
                 spanCircle.style.width = '100%';
-                if( el.childNodes.length < 2 ) {
+                if(el.childNodes.length < 2) {
                     el.appendChild(spanCircle);
                 }
                 let cond1 = this.data[dataIndex][17];
                 let cond2 = this.data[dataIndex][18];
-                if(cond1 === 'На перевірці' ) {
-                    if( cond2 === 'Не в компетенції' || cond2 === 'Роз`яснено' ) {
+                if(cond1 === 'На перевірці') {
+                    if(cond2 === 'Не в компетенції' || cond2 === 'Роз`яснено') {
                         spanCircle.classList.add('onCheck');
                     }else{
                         spanCircle.classList.add('yellow');
@@ -174,12 +174,12 @@
             }
         },
         showUser: function(data) {
-            const indexPhoneNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'phonenumber' );
+            const indexPhoneNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'phonenumber');
             this.userPhoneNumber = data.rows[0].values[indexPhoneNumber]
         },
         onOptionChanged: function(args) {
             let sortingArr = this.sortingArr;
-            if( args.fullName != undefined ) {
+            if(args.fullName != undefined) {
                 let columnCode;
                 switch(args.fullName) {
                 case('columns[0].sortOrder'):
@@ -219,14 +219,14 @@
                     columnCode = 'dataSource'
                     break;
                 }
-                if(columnCode != undefined ) {
+                if(columnCode != undefined) {
                     if(columnCode != 'dataSource') {
                         let infoColumn = { fullName: columnCode, value: args.value };
-                        if( sortingArr.length === 0 ) {
+                        if(sortingArr.length === 0) {
                             sortingArr.push(infoColumn);
                         }else{
                             const index = sortingArr.findIndex(x => x.fullName === columnCode);
-                            if( index === -1 ) {
+                            if(index === -1) {
                                 sortingArr.push(infoColumn);
                             }else{
                                 sortingArr.splice(index, 1);
@@ -272,12 +272,12 @@
             let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
-            elementsAll.forEach( el => {
+            elementsAll.forEach(el => {
                 el.style.display = 'flex';
                 el.style.margin = '15px 10px';
             });
             let elementsCaptionAll = document.querySelectorAll('.caption');
-            elementsCaptionAll.forEach( el => {
+            elementsCaptionAll.forEach(el => {
                 el.style.minWidth = '200px';
             });
         },
@@ -289,16 +289,16 @@
             let HH = date.getHours();
             let mm = date.getMinutes();
             MM += 1;
-            if( (dd.toString()).length === 1) {
+            if((dd.toString()).length === 1) {
                 dd = '0' + dd;
             }
-            if( (MM.toString()).length === 1) {
+            if((MM.toString()).length === 1) {
                 MM = '0' + MM;
             }
-            if( (HH.toString()).length === 1) {
+            if((HH.toString()).length === 1) {
                 HH = '0' + HH;
             }
-            if( (mm.toString()).length === 1) {
+            if((mm.toString()).length === 1) {
                 mm = '0' + mm;
             }
             return dd+'.'+MM+'.' + yyyy +' '+ HH +':'+ mm;
@@ -314,7 +314,7 @@
         afterLoadDataHandler: function(data) {
             this.numbers = [];
             this.data = data;
-            data.forEach( data => this.numbers.push(data[1]));
+            data.forEach(data => this.numbers.push(data[1]));
             this.render();
         },
         createDGButtons: function(e) {
@@ -335,9 +335,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -345,7 +345,7 @@
         openModalCloserForm: function() {
             let rowsMessage = [];
             let selectedRows = this.dataGridInstance.instance.getSelectedRowsData();
-            selectedRows.forEach( row => {
+            selectedRows.forEach(row => {
                 let obj = {
                     id: row.Id,
                     organization_id: row.Organizations_Id
@@ -353,7 +353,7 @@
                 rowsMessage.push(obj);
             });
             if(selectedRows.length > 0) {
-                this.messageService.publish( { name: 'openModalForm', value: rowsMessage } );
+                this.messageService.publish({ name: 'openModalForm', value: rowsMessage });
             }
         },
         destroy: function() {

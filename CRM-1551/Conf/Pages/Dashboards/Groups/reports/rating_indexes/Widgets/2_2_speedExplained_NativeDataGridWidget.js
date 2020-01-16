@@ -44,8 +44,8 @@
             document.getElementById('containerSpeedExplained').style.display = 'none';
             this.sub = this.messageService.subscribe('showTable', this.showTable, this);
             this.sub1 = this.messageService.subscribe('FilterParameters', this.executeQuery, this);
-            this.sub2 = this.messageService.subscribe( 'ApplyGlobalFilters', this.renderTable, this );
-            this.sub3 = this.messageService.subscribe( 'setConfig2', this.setConfig, this);
+            this.sub2 = this.messageService.subscribe('ApplyGlobalFilters', this.renderTable, this);
+            this.sub3 = this.messageService.subscribe('setConfig2', this.setConfig, this);
         },
         showTable: function(message) {
             const tabName = message.tabName;

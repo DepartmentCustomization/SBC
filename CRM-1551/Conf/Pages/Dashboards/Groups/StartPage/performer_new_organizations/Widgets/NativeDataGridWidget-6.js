@@ -103,7 +103,7 @@
             });
         },
         changeOnTable: function(message) {
-            if( message.column != 'План/Програма') {
+            if(message.column != 'План/Програма') {
                 document.getElementById('table10_Plan_Programs').style.display = 'none';
             }else{
                 document.getElementById('table10_Plan_Programs').style.display = 'block';
@@ -145,20 +145,20 @@
             let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
-            elementsAll.forEach( el => {
+            elementsAll.forEach(el => {
                 el.style.display = 'flex';
                 el.style.margin = '15px 10px';
             })
             let elementsCaptionAll = document.querySelectorAll('.caption');
-            elementsCaptionAll.forEach( el => {
+            elementsCaptionAll.forEach(el => {
                 el.style.minWidth = '200px';
             })
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -170,7 +170,7 @@
         createCustomStyle: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element) {
+            elements.forEach(function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));

@@ -7,7 +7,7 @@
             const period = message.package.value.values.find(f => f.name === 'period').value;
             const executor = message.package.value.values.find(f => f.name === 'executor').value;
             const rating = message.package.value.values.find(f => f.name === 'rating').value;
-            if( period !== '' && period !== null) {
+            if(period !== '' && period !== null) {
                 const periodValue = this.convertDateTimeToDate(period);
                 const executorValue = executor === null ? 0 : executor === '' ? 0 : executor.value;
                 const ratingValue = rating === null ? 0 : rating === '' ? 0 : rating.value;

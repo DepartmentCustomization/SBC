@@ -39,9 +39,9 @@
             },
             createElement: function(tag, props, ...children) {
                 const element = document.createElement(tag);
-                Object.keys(props).forEach( key => element[key] = props[key] );
+                Object.keys(props).forEach(key => element[key] = props[key]);
                 if(children.length > 0) {
-                    children.forEach( child =>{
+                    children.forEach(child =>{
                         element.appendChild(child);
                     });
                 } return element;

@@ -25,11 +25,11 @@
                 `
         ,
         afterViewInit: function() {
-            this.sub = this.messageService.subscribe('setData', this.setData, this );
+            this.sub = this.messageService.subscribe('setData', this.setData, this);
             this.counter = 0
             const CONTAINER = document.getElementById('container');
-            let btnExcel = this.createElement('button', { id: 'btnExcel', innerText: 'Вигрузити в Excel', disabled: true } );
-            let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnExcel );
+            let btnExcel = this.createElement('button', { id: 'btnExcel', innerText: 'Вигрузити в Excel', disabled: true });
+            let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnExcel);
             CONTAINER.appendChild(btnWrap);
             btnExcel.addEventListener('click', event => {
                 event.stopImmediatePropagation();
@@ -37,29 +37,29 @@
             });
         },
         setData: function(message) {
-            document.querySelectorAll('#title').forEach( title => title.style.textAlign = 'center');
-            if( message.rep1_data) {
+            document.querySelectorAll('#title').forEach(title => title.style.textAlign = 'center');
+            if(message.rep1_data) {
                 this.rep1_data = message.rep1_data;
                 this.rep1_title = message.rep1_title;
                 this.counter += 1;
-            }else if( message.rep2_data) {
+            }else if(message.rep2_data) {
                 this.rep2_data = message.rep2_data;
                 this.rep2_title = message.rep2_title;
                 this.counter += 1;
-            }else if( message.rep3_data) {
+            }else if(message.rep3_data) {
                 this.rep3_data = message.rep3_data;
                 this.rep3_title = message.rep3_title;
                 this.counter += 1;
-            }else if( message.rep4_data) {
+            }else if(message.rep4_data) {
                 this.rep4_data = message.rep4_data;
                 this.rep4_title = message.rep4_title;
                 this.counter += 1;
-            }else if( message.rep5_data) {
+            }else if(message.rep5_data) {
                 this.rep5_data = message.rep5_data;
                 this.rep5_title = message.rep5_title;
                 this.counter += 1;
             }
-            if( this.counter === 5 ) {
+            if(this.counter === 5) {
                 this.dataArray = [ this.rep1_data, this.rep2_data, this.rep3_data, this.rep4_data, this.rep5_data];
                 document.getElementById('btnExcel').disabled = false;
                 this.counter = 0;
@@ -67,9 +67,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -101,8 +101,8 @@
                 let indexArr = this.indexArr;
                 let captions = [];
                 let columnsHeader = [];
-                indexArr.forEach( el => {
-                    if( el.name === 'orgName') {
+                indexArr.forEach(el => {
+                    if(el.name === 'orgName') {
                         let obj = {
                             key: el.name,
                             width: 44,
@@ -141,7 +141,7 @@
                     tds.push('A1');
                     tds.push('A2');
                     tds.push('B2');
-                    for(let i = 3; i < (data.length + 3); i++ ) {
+                    for(let i = 3; i < (data.length + 3); i++) {
                         let value = data[i-3];
                         columnText = worksheet.getCell('A'+i);
                         columnCounter = worksheet.getCell('B'+i);
@@ -160,7 +160,7 @@
                     tds.push('D1');
                     tds.push('D2');
                     tds.push('E2');
-                    for(let i = 3; i < (data.length + 3); i++ ) {
+                    for(let i = 3; i < (data.length + 3); i++) {
                         let value = data[i-3];
                         columnText = worksheet.getCell('D'+i);
                         columnCounter = worksheet.getCell('E'+i);
@@ -179,7 +179,7 @@
                     worksheet.getCell('B'+(this.rowTable1+1)).value = captionCounter;
                     tds.push('A'+(this.rowTable1+1));
                     tds.push('B'+(this.rowTable1+1));
-                    for(let i = this.rowTable1 + 2; i < (data.length + this.rowTable1 + 2); i++ ) {
+                    for(let i = this.rowTable1 + 2; i < (data.length + this.rowTable1 + 2); i++) {
                         let value = data[i-(2 + this.rowTable1)];
                         columnText = worksheet.getCell('A'+i);
                         columnCounter = worksheet.getCell('B'+i);
@@ -200,7 +200,7 @@
                     worksheet.getCell('E'+(counter+1)).value = captionCounter;
                     tds.push('D'+(counter+1));
                     tds.push('E'+(counter+1));
-                    for(let i = counter + 2; i < (data.length + counter + 2); i++ ) {
+                    for(let i = counter + 2; i < (data.length + counter + 2); i++) {
                         let value = data[i-(2 + counter)];
                         columnText = worksheet.getCell('D'+i);
                         columnCounter = worksheet.getCell('E'+i);
@@ -221,7 +221,7 @@
                     worksheet.getCell('B'+(counter+1)).value = captionCounter;
                     tds.push('A'+(counter+1));
                     tds.push('B'+(counter+1));
-                    for(let i = counter + 2; i < (data.length + counter + 2); i++ ) {
+                    for(let i = counter + 2; i < (data.length + counter + 2); i++) {
                         let value = data[i-(2 + counter)];
                         columnText = worksheet.getCell('A'+i);
                         columnCounter = worksheet.getCell('B'+i);
@@ -232,7 +232,7 @@
                     }
                 }
                 worksheet.columns = columnsHeader;
-                for(let i = 0; i < tds.length; i++ ) {
+                for(let i = 0; i < tds.length; i++) {
                     let td = tds[i];
                     worksheet.getCell(td).border = {
                         top: {style:'thin'},
@@ -253,7 +253,7 @@
                         italic: false
                     };
                 }
-                for(let i = 0; i < tdsCounter.length; i++ ) {
+                for(let i = 0; i < tdsCounter.length; i++) {
                     let td = tdsCounter[i];
                     worksheet.getCell(td).border = {
                         top: {style:'thin'},
@@ -274,7 +274,7 @@
                         italic: false
                     };
                 }
-                mainHeaders.forEach( number => {
+                mainHeaders.forEach(number => {
                     worksheet.getRow(number).height = 70;
                     worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
                     worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
@@ -286,7 +286,7 @@
         },
         changeDateTimeValues: function(value) {
             let trueDate;
-            if( value !== null) {
+            if(value !== null) {
                 let date = new Date(value);
                 let dd = date.getDate();
                 let MM = date.getMonth();
@@ -294,16 +294,16 @@
                 let HH = date.getUTCHours()
                 let mm = date.getMinutes();
                 MM += 1;
-                if( (dd.toString()).length === 1) {
+                if((dd.toString()).length === 1) {
                     dd = '0' + dd;
                 }
-                if( (MM.toString()).length === 1) {
+                if((MM.toString()).length === 1) {
                     MM = '0' + MM;
                 }
-                if( (HH.toString()).length === 1) {
+                if((HH.toString()).length === 1) {
                     HH = '0' + HH;
                 }
-                if( (mm.toString()).length === 1) {
+                if((mm.toString()).length === 1) {
                     mm = '0' + mm;
                 }
                 trueDate = dd+'.'+MM+'.' + yyyy;

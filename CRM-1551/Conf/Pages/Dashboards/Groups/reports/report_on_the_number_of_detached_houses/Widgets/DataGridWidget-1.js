@@ -48,11 +48,11 @@
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight / 2 - 150;
-            this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
-            if( period !== null ) {
+            if(period !== null) {
                 this.dateFrom = period.dateFrom;
                 this.dateTo = period.dateTo;
                 this.config.query.parameterValues = [

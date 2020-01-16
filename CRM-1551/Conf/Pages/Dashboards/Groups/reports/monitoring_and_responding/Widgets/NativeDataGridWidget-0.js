@@ -192,16 +192,16 @@
         init: function() {
             this.summary = [];
             this.dataGridInstance.height = window.innerHeight - 200;
-            this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         afterRenderTable: function() {
             this.summary = [];
             const collections = document.querySelectorAll('.dx-row');
-            collections.forEach( collection => {
-                const summary = Array.prototype.slice.call(collection.cells, 0 );
-                summary.forEach( cell => {
+            collections.forEach(collection => {
+                const summary = Array.prototype.slice.call(collection.cells, 0);
+                summary.forEach(cell => {
                     const sum = cell.innerText.slice(0, 5);
                     if(sum === 'Разом' || sum === 'Серед') {
                         this.summary.push(cell.innerText);
@@ -279,7 +279,7 @@
             worksheet.columns = columnsProperties;
         },
         setWorksheetTitle: function(worksheet) {
-            worksheet.mergeCells( 1, 1, 1, this.lastPosition );
+            worksheet.mergeCells(1, 1, 1, this.lastPosition);
             let title = worksheet.getCell(1, 1);
             title.value = 'Моніторинг та реагування на звернення громадян';
         },
@@ -290,19 +290,19 @@
                 if(column.columns) {
                     let headerPositionTo = position + column.columns.length;
                     let headerPositionFrom = position + 1;
-                    worksheet.mergeCells( 3, headerPositionFrom, 3, headerPositionTo );
+                    worksheet.mergeCells(3, headerPositionFrom, 3, headerPositionTo);
                     let headerCaption = worksheet.getCell(3, headerPositionFrom);
                     headerCaption.value = column.caption;
                     for (let j = 0; j < column.columns.length; j++) {
                         const element = column.columns[j];
                         position += 1;
-                        worksheet.mergeCells( 4, position, 4, position );
+                        worksheet.mergeCells(4, position, 4, position);
                         let caption = worksheet.getCell(4, position);
                         caption.value = element.caption;
                     }
                 } else {
                     position += 1;
-                    worksheet.mergeCells( 3, position, 4, position );
+                    worksheet.mergeCells(3, position, 4, position);
                     let caption = worksheet.getCell(4, position);
                     caption.value = column.caption;
                 }
@@ -313,7 +313,7 @@
             for (let i = 0; i < data.rows.length; i++) {
                 let rowData = data.rows[i];
                 let rowValues = [];
-                rows.push( i + 5);
+                rows.push(i + 5);
                 for (let j = 2; j < rowData.values.length; j++) {
                     const value = rowData.values[j];
                     rowValues.push(value);
@@ -332,7 +332,7 @@
             worksheet.getRow(1).height = 50;
             worksheet.getRow(3).height = 70;
             worksheet.getRow(4).height = 70;
-            rows.forEach( row => {
+            rows.forEach(row => {
                 worksheet.getRow(row).height = 100;
                 worksheet.getRow(row).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, italic: false};
                 worksheet.getRow(row).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
@@ -341,7 +341,7 @@
         },
         setSummaryValues: function(worksheet) {
             const values = [ ' ' ];
-            this.summary.forEach( value => values.push(value));
+            this.summary.forEach(value => values.push(value));
             worksheet.addRow(values);
             const number = this.summaryStartRow - 1;
             this.setSummaryStyle(worksheet, number);
@@ -355,8 +355,8 @@
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let questionType = message.package.value.values.find(f => f.name === 'questionType').value;
             let organization = message.package.value.values.find(f => f.name === 'organization').value;
-            if( period !== null ) {
-                if( period.dateFrom !== '' && period.dateTo !== '') {
+            if(period !== null) {
+                if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;

@@ -82,7 +82,7 @@
                     text: 'Налаштування фiльтрiв',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
-                        this.messageService.publish( { name: 'clickOnFiltersBtn'});
+                        this.messageService.publish({ name: 'clickOnFiltersBtn'});
                     }.bind(this)
                 },
                 location: 'after'
@@ -90,9 +90,9 @@
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
@@ -102,11 +102,11 @@
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 230;
             document.getElementById('poshuk_table_main').style.display = 'none';
-            this.sub = this.messageService.subscribe( 'GlobalFilterChanged', this.setFiltersValue, this );
-            this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.findAllCheckedFilter, this );
-            this.sub2 = this.messageService.subscribe( 'findFilterColumns', this.reloadTable, this );
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
+            this.sub2 = this.messageService.subscribe('findFilterColumns', this.reloadTable, this);
             this.config.onToolbarPreparing = this.createButtons.bind(this);
-            this.dataGridInstance.onCellClick.subscribe( function(e) {
+            this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
                     if(e.column.dataField == 'question_registration_number' && e.row != undefined) {
                         window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.data.Id+'');
@@ -133,18 +133,18 @@
             let filters = message.package.value.values;
             this.filtersLength = filters.length;
             this.filtersWithOutValues = 0;
-            filters.forEach( elem => {
+            filters.forEach(elem => {
                 if(elem.active === true) {
                     let data = elem.value;
                     if(typeof(data) === 'boolean') {
-                        this.createObjMacros( elem.name, '=', 'true', elem.placeholder);
-                    }else if( typeof(data) === 'object') {
+                        this.createObjMacros(elem.name, '=', 'true', elem.placeholder);
+                    }else if(typeof(data) === 'object') {
                         if(data[0]) {
-                            if(typeof(data[0].value) === 'number' ) {
-                                if( elem.name === 'zayavnyk_age' ) {
+                            if(typeof(data[0].value) === 'number') {
+                                if(elem.name === 'zayavnyk_age') {
                                     this.ageArr = [];
                                     let ageSendViewValue = '';
-                                    data.forEach( el => {
+                                    data.forEach(el => {
                                         let values = el.viewValue.split('-');
                                         let ageValue = '(zayavnyk_age>='+values[0]+' and zayavnyk_age<='+values[1]+')';
                                         this.ageArr.push(ageValue);
@@ -153,35 +153,35 @@
                                     ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
                                     let ageSendValue = this.ageArr.join(' or ');
                                     ageSendValue = '('+ageSendValue+')';
-                                    this.createObjMacros( elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
+                                    this.createObjMacros(elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
                                 }else{
                                     let sumValue = '';
                                     let sumViewValue = '';
                                     if(data.length > 0) {
-                                        data.forEach( row => {
+                                        data.forEach(row => {
                                             sumValue = sumValue + ', '+ row.value;
                                             sumViewValue = sumViewValue + ', '+ row.viewValue;
                                         });
                                     }
                                     let numberSendValue = sumValue.slice(2, [sumValue.length]);
                                     let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
-                                    this.createObjMacros( elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
+                                    this.createObjMacros(elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
                                 }
-                            }else if(typeof(data[0].value) === 'string' ) {
+                            }else if(typeof(data[0].value) === 'string') {
                                 let stringSumValue = '';
                                 let stringSumViewValue = '';
                                 if(data.length > 0) {
-                                    data.forEach( row => {
+                                    data.forEach(row => {
                                         stringSumValue = stringSumValue + ', \''+ row.value + '\'';
                                         stringSumViewValue = stringSumViewValue + ', '+ row.viewValue;
                                     });
                                 }
                                 let stringSendValue = stringSumValue.slice(2, [stringSumValue.length]);
                                 let stringSendViewValue = stringSumViewValue.slice(2, [stringSumViewValue.length]);
-                                this.createObjMacros( elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
+                                this.createObjMacros(elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
                             }
                         }else{
-                            if(data.dateFrom != '' ) {
+                            if(data.dateFrom != '') {
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name) {
                                 case 'registration_date':
@@ -205,7 +205,7 @@
                                     break;
                                 }
                             }
-                            if(data.dateTo != '' ) {
+                            if(data.dateTo != '') {
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name) {
                                 case 'registration_date':
@@ -229,12 +229,12 @@
                                 }
                             }
                         }
-                    }else if( typeof(data) === 'string') {
+                    }else if(typeof(data) === 'string') {
                         if(elem.name === 'zayavnyk_phone_number') {
                             this.applicantPhoneNumber = elem.value;
-                            this.createObjMacros( elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue );
+                            this.createObjMacros(elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue);
                         }else{
-                            this.createObjMacros( elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue );
+                            this.createObjMacros(elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue);
                         }
                     }
                 }else if(elem.active === false) {
@@ -262,10 +262,10 @@
         findAllCheckedFilter: function() {
             this.isSelected === true ? document.getElementById('poshuk_table_main').style.display = 'block' : document.getElementById('poshuk_table_main').style.display = 'none';
             let filters = this.filtersValuesMacros;
-            if( filters.length > 0 || this.applicantPhoneNumber !== null ) {
+            if(filters.length > 0 || this.applicantPhoneNumber !== null) {
                 this.textFilterMacros = [];
-                filters.forEach( el => {
-                    this.createFilterMacros( el.code, el.operation, el.value);
+                filters.forEach(el => {
+                    this.createFilterMacros(el.code, el.operation, el.value);
                 });
                 let arr = this.textFilterMacros;
                 let str = arr.join(' ');
@@ -289,32 +289,32 @@
                     { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
                 ];
                 this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish( {
+                this.messageService.publish({
                     name: 'filters',
                     value: this.filtersValuesMacros
                 });
             } else{
-                this.messageService.publish( {
+                this.messageService.publish({
                     name: 'filters',
                     value: this.filtersValuesMacros
                 });
             }
         },
         createFilterMacros: function(code, operation, value) {
-            if(code !== 'zayavnyk_phone_number' ) {
-                if( operation !== '>=' && operation !== '<=' ) {
+            if(code !== 'zayavnyk_phone_number') {
+                if(operation !== '>=' && operation !== '<=') {
                     let textMacros = '';
-                    if( operation == 'like' ) {
+                    if(operation == 'like') {
                         textMacros = ''+code+' '+operation+' \'%'+value+'%\' and';
-                    }else if( operation == '===') {
+                    }else if(operation == '===') {
                         textMacros = ''+value+' and';
-                    }else if( operation == '==') {
+                    }else if(operation == '==') {
                         textMacros = ''+code+' '+'='+' '+value+' and';
-                    }else if( operation == '+""+') {
+                    }else if(operation == '+""+') {
                         textMacros = ''+code+' in  (N\''+value+'\' and';
-                    }else if( operation == 'in') {
+                    }else if(operation == 'in') {
                         textMacros = ''+code+' in ('+value+') and';
-                    }else if( operation == '=') {
+                    }else if(operation == '=') {
                         textMacros = ''+code+' '+operation+' N\''+value+'\' and';
                     }
                     this.textFilterMacros.push(textMacros);
@@ -415,7 +415,7 @@
         afterRenderTable: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach( function(element) {
+            elements.forEach(function(element) {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
@@ -455,14 +455,14 @@
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },
         myCreateExcel: function(data) {
-            if( data.rows.length > 0 ) {
+            if(data.rows.length > 0) {
                 this.showPagePreloader('Зачекайте, формується документ');
                 this.indexArr = [];
-                let columns = this.config.columns; columns.forEach( el => {
+                let columns = this.config.columns; columns.forEach(el => {
                     let elDataField = el.dataField;
                     let elCaption = el.caption;
                     for (let i = 0; i < data.columns.length; i ++) {
-                        if( elDataField === data.columns[i].code ) {
+                        if(elDataField === data.columns[i].code) {
                             let obj = {
                                 name: elDataField,
                                 index: i,
@@ -507,8 +507,8 @@
                 columnsHeader.push(columnNumber);
                 let rowNumber = '№ з/п';
                 captions.push(rowNumber);
-                indexArr.forEach( el => {
-                    if( el.name === 'question_registration_number' ) {
+                indexArr.forEach(el => {
+                    if(el.name === 'question_registration_number') {
                         let obj = {
                             key: 'registration_number',
                             width: 10,
@@ -516,7 +516,7 @@
                         };
                         columnsHeader.push(obj);
                         captions.push('Номер, дата, час');
-                    }else if(el.name === 'zayavnyk_full_name' ) {
+                    }else if(el.name === 'zayavnyk_full_name') {
                         let obj = {
                             key: 'name',
                             width: 15
@@ -536,21 +536,21 @@
                         };
                         columnsHeader.push(obj2);
                         captions.push('Суть питання');
-                    }else if( el.name === 'assigm_executor_organization' ) {
+                    }else if(el.name === 'assigm_executor_organization') {
                         let obj = {
                             key: 'organization',
                             width: 11
                         };
                         columnsHeader.push(obj);
                         captions.push('Виконавець');
-                    }else if( el.name === 'question_object' ) {
+                    }else if(el.name === 'question_object') {
                         let obj = {
                             key: 'object',
                             width: 16
                         };
                         columnsHeader.push(obj);
                         captions.push('Місце проблеми (Об\'єкт)');
-                    }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat') {
+                    }else if(el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat') {
                         let obj = {
                             key: el.name,
                             width: 13
@@ -568,30 +568,30 @@
                 worksheet.getRow(5).values = captions;
                 worksheet.columns = columnsHeader;
                 this.addedIndexes = [];
-                let indexRegistrationDate = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_date' );
-                let indexZayavnykFlat = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_flat' );
-                let indexZayavnykBuildingNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_building_number' );
-                let indexAssigmQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'assigm_question_content' );
-                let indexExecutionTerm = data.columns.findIndex(el => el.code.toLowerCase() === 'execution_term' );
-                for( let j = 0; j < data.rows.length; j ++ ) {
+                let indexRegistrationDate = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_date');
+                let indexZayavnykFlat = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_flat');
+                let indexZayavnykBuildingNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_building_number');
+                let indexAssigmQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'assigm_question_content');
+                let indexExecutionTerm = data.columns.findIndex(el => el.code.toLowerCase() === 'execution_term');
+                for(let j = 0; j < data.rows.length; j ++) {
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
                     for(let i = 0; i < indexArr.length; i ++) {
                         let el = indexArr[i];
                         const controlDate = this.changeDateTimeValues(row.values[indexExecutionTerm]);
                         const regDate = this.changeDateTimeValues(row.values[indexRegistrationDate]);
-                        if( el.name === 'question_registration_number' ) {
+                        if(el.name === 'question_registration_number') {
                             rowItem.registration_number = row.values[el.index] + ' ' + regDate;
-                        }else if(el.name === 'zayavnyk_full_name' ) {
+                        }else if(el.name === 'zayavnyk_full_name') {
                             rowItem.name = row.values[el.index] + ' ' + row.values[indexZayavnykBuildingNumber] + ', кв. ' + row.values[indexZayavnykFlat];
-                        }else if(el.name === 'question_question_type' ) {
+                        }else if(el.name === 'question_question_type') {
                             rowItem.question_type = 'Тип питання: ' + row.values[el.index];
                             rowItem.assigm_question_content = 'Зміст: ' + row.values[indexAssigmQuestionContent];
-                        }else if( el.name === 'assigm_executor_organization' ) {
+                        }else if(el.name === 'assigm_executor_organization') {
                             rowItem.organization = row.values[el.index] + '. Дату контролю: ' + controlDate;
-                        }else if( el.name === 'question_object' ) {
+                        }else if(el.name === 'question_object') {
                             rowItem.object = row.values[el.index];
-                        }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat' ) {
+                        }else if(el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat') {
                             let obj = {
                                 key: el.name,
                                 width: 13
@@ -697,9 +697,9 @@
                             this.addedIndexes.push(prop);
                         }
                     }
-                    rows.push( rowItem );
+                    rows.push(rowItem);
                 }
-                rows.forEach( el => {
+                rows.forEach(el => {
                     let row = {
                         number: el.number + '.',
                         name: el.name,
@@ -712,7 +712,7 @@
                     let indexes = this.addedIndexes;
                     let size = Object.keys(el).length;
                     let rowSize = Object.keys(row).length;
-                    for(let i = 0; i < size - rowSize; i ++ ) {
+                    for(let i = 0; i < size - rowSize; i ++) {
                         let prop = indexes[i];
                         switch(prop) {
                         case 'appeals_receipt_source':
@@ -817,7 +817,7 @@
                     top: 0.4, bottom: 0.4,
                     header: 0.0, footer: 0.0
                 };
-                for(let i = 0; i < rows.length + 1; i++ ) {
+                for(let i = 0; i < rows.length + 1; i++) {
                     let number = i + 5;
                     let row = worksheet.getRow(number);
                     row.height = 100;
@@ -849,7 +849,7 @@
             }
         },
         changeDateTimeValues: function(value) {
-            if( value === null) {
+            if(value === null) {
                 return ' '
             }
             const dateUTC = new Date(value);

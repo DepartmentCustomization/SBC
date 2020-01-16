@@ -36,9 +36,9 @@
                 }.bind(self);
             }
             this.showPreloader = false;
-            this.sub = this.messageService.subscribe( 'showPagePreloader', this.showMyPreloader, this);
-            this.sub1 = this.messageService.subscribe( 'hidePagePreloader', this.hideMyPreloader, this);
-            this.sub2 = this.messageService.subscribe( 'afterRenderTable', this.createCustomStyle, this);
+            this.sub = this.messageService.subscribe('showPagePreloader', this.showMyPreloader, this);
+            this.sub1 = this.messageService.subscribe('hidePagePreloader', this.hideMyPreloader, this);
+            this.sub2 = this.messageService.subscribe('afterRenderTable', this.createCustomStyle, this);
         },
         showMyPreloader: function() {
             this.showPagePreloader();
@@ -48,16 +48,16 @@
         },
         createCustomStyle: function() {
             const elements = Array.from(document.querySelectorAll('.dx-datagrid-export-button'));
-            elements.forEach( function(element) {
+            elements.forEach(function(element) {
                 const spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
-            Object.keys(props).forEach( key => element[key] = props[key] );
+            Object.keys(props).forEach(key => element[key] = props[key]);
             if(children.length > 0) {
-                children.forEach( child =>{
+                children.forEach(child =>{
                     element.appendChild(child);
                 });
             } return element;
