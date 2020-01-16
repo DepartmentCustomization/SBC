@@ -10,7 +10,7 @@
         date_in_form: '',
         previous_result: '',
         init: function() {
-            if (this.form.getControlValue('editable') === false) {
+            if (this.form.getControlValue('editable') === 2) {
                 this.navigateTo('/sections/Assignments/view/' + this.id);
             }
             let param_ass_id = [
