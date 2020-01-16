@@ -16,13 +16,17 @@
         "Code": "provider",
         "Name": "Поставщик",
         "Position": 2,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "provider",
+        "FilterParameterCode": "@provider"
       },
       {
         "Code": "provider_conditions",
         "Name": "Условия сотрудничества",
         "Position": 3,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "provider_conditions",
+        "FilterParameterCode": "@provider_conditions"
       }
     ],
     "Parameters": [

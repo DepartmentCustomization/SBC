@@ -1,15 +1,9 @@
----- QUERY HEADER FOR TSQL LINTER----
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-SET ANSI_NULLS ON;
-SET NOCOUNT ON;
-SET QUOTED_IDENTIFIER OFF;
----- END HEADER ----
-
 --DECLARE @changeId INT;
 --DECLARE @prev_part_id INT = 6;
 --DECLARE @part_id INT;
 --DECLARE @cars_id INT = 1;
 --DECLARE @user_id NVARCHAR(128) = (SELECT TOP 1 UserId FROM CRM_TAXI_System.dbo.[User]);
+
 DECLARE @car_maxday_run DATETIME = (SELECT MAX(create_date) FROM dbo.RunCar WHERE car_id = @cars_id);
 DECLARE @info TABLE (
     Id INT,

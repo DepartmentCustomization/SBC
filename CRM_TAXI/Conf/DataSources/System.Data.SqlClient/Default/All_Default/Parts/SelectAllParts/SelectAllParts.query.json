@@ -23,25 +23,33 @@
         "Code": "part_name",
         "Name": "Название",
         "Position": 3,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "part_name",
+        "FilterParameterCode": "@part_name"
       },
       {
         "Code": "articul",
         "Name": "Артикул",
         "Position": 4,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "articul",
+        "FilterParameterCode": "@articul"
       },
       {
         "Code": "category_name",
         "Name": "Катерогия",
         "Position": 5,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "category_name",
+        "FilterParameterCode": "@category_name"
       },
       {
         "Code": "manufacturer",
         "Name": "Производитель",
         "Position": 6,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "manufacturer",
+        "FilterParameterCode": "@manufacturer"
       }
     ],
     "Parameters": [
