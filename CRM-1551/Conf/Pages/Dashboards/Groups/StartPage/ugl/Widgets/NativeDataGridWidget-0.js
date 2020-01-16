@@ -71,7 +71,7 @@
         },
         paging: {
             pageSize: 500
-        },        
+        },
         searchPanel: {
             visible: false,
             highlightCaseSensitive: true
@@ -111,7 +111,7 @@
         this.showPreloader = false;
         document.getElementById('table5__NeVKompetentsii').style.display = 'none';
         this.sub = this.messageService.subscribe('clickOnСoordinator_table', this.changeOnTable, this);
-        this.changedRows = [];    
+        this.changedRows = [];
         this.config.masterDetail.template = this.createMasterDetail.bind(this);
         this.config.onToolbarPreparing = this.createTableButton.bind(this);
         this.dataGridInstance.onCellClick.subscribe(e => {
@@ -151,14 +151,14 @@
                 parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
                                   {key: '@Id', value: el.Id } ],
                 limit: -1
-            };        
+            };
             this.queryExecutor(executeQuery);
             }.bind(this));
             rows = [];
             this.loadData(this.afterLoadDataHandler);
             this.messageService.publish( { name: 'reloadMainTable', navigation: this.navigation, column: this.column, targetId: this.targetId }  );
         }
-    },    
+    },
     createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
         Object.keys(props).forEach( key => element[key] = props[key] );
@@ -209,7 +209,7 @@
             let obj = {
                 "ID": el.values[0],
                 "Name": el.values[1],
-            } 
+            }
             this.elements.push(obj);
         }
         this.config.columns[5].lookup.dataSource.store = this.elements;
@@ -226,12 +226,12 @@
             let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
             element.firstElementChild.appendChild(spanElement);
         }.bind(this));
-    },    
+    },
     createTableButton: function(e) {
         let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push({
-            widget: "dxButton", 
-            options: { 
+            widget: "dxButton",
+            options: {
                 icon: "upload",
                 type: "default",
                 text: "Передати",
@@ -326,21 +326,21 @@
                 columnsHeader.push(obj);
                 captions.push('Заявник');
             }else if(el.name === 'QuestionType'){
-                let obj =  { 
+                let obj =  {
                     key: 'QuestionType',
                     width: 52
                 };
                 columnsHeader.push(obj);
                 captions.push('Суть питання');
             }else if( el.name === 'vykonavets'){
-                let obj =  { 
+                let obj =  {
                     key: 'vykonavets',
                     width: 16
                 };
                 columnsHeader.push(obj);
                 captions.push('Виконавець');
             }else if( el.name === 'adress'){
-                let obj =  { 
+                let obj =  {
                     key: 'adress',
                     width: 16
                 };
@@ -351,7 +351,7 @@
         worksheet.getRow(5).values = captions;
         worksheet.columns = columnsHeader;
         this.addetedIndexes = [];
-        for( let  j = 0; j < data.rows.length; j ++ ){  
+        for( let  j = 0; j < data.rows.length; j ++ ){
             let row = data.rows[j];
             let rowItem = { number: j + 1 };
             for(let i = 0; i < indexArr.length; i ++){
@@ -392,10 +392,10 @@
                 bottom: {style:'thin'},
                 right: {style:'thin'}
             };
-            worksheet.getRow(number).alignment = { 
+            worksheet.getRow(number).alignment = {
                 vertical: 'middle',
                 horizontal: 'center',
-                wrapText: true 
+                wrapText: true
             };
             worksheet.getRow(number).font = {
                 name: 'Times New Roman',
@@ -411,7 +411,7 @@
         worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
         this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
-    },    
+    },
     destroy: function() {
         this.sub.unsubscribe();
     }

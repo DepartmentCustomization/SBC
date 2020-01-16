@@ -14,7 +14,7 @@
                     dataField: 'OrgName',
                     caption: 'Назва установи',
                     fixed: true
-                }, {    
+                }, {
                     caption: 'Зареєстровано, В роботі, На доопрацюванні, На перевірці за попередній період',
                     alignItems: 'middle',
                     columns: [
@@ -36,7 +36,7 @@
                         }, {
                             dataField: 'PreviousPeriod_Closed',
                             caption: 'Закрито',
-                        } 
+                        }
                     ]
                 }, {
                     dataField: 'CurrentMonth_Total',
@@ -60,7 +60,7 @@
                         }, {
                             dataField: 'CurrentMonth_Closed',
                             caption: 'Закрито',
-                        } 
+                        }
                     ]
                 }, {
                     dataField: 'OfThem_Registered',
@@ -179,11 +179,11 @@
                     format: function (value) {
                         return value.toFixed(2);
                     }
-                }    
+                }
             ],
             columnChooser: {
                 enabled: true
-            },   
+            },
             showBorders: false,
             showColumnLines: true,
             showRowLines: true,
@@ -236,19 +236,19 @@
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
         renderTable: function () {
-            this.config.query.parameterValues = [ 
+            this.config.query.parameterValues = [
                 {key: '@DateCalc' , value: this.period },
-                {key: '@RDAId', value: this.executor },  
-                {key: '@RatingId', value: this.rating } 
+                {key: '@RDAId', value: this.executor },
+                {key: '@RatingId', value: this.rating }
             ];
             this.loadData(this.afterLoadDataHandler);
         },
         createTableButton: function (e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
+                widget: "dxButton",
                 location: "after",
-                options: { 
+                options: {
                     icon: "exportxlsx",
                     type: "default",
                     text: "Excel",
@@ -298,7 +298,7 @@
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 16, underline: false, bold: true , italic: false};
             worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
             let captions = [];
-            let columnsHeader = [];      
+            let columnsHeader = [];
             for (let i = 0; i < visibleColumns.length; i++) {
                 let column = visibleColumns[i];
                 let caption = column.caption;
@@ -308,7 +308,7 @@
                 let width = 15;
                 let index = 10;
                 let columnProp = { header, key, width, index };
-                columnsHeader.push(columnProp);    
+                columnsHeader.push(columnProp);
             }
             worksheet.columns = columnsHeader;
             worksheet.getRow(5).values = captions;
@@ -367,7 +367,7 @@
             for (let i = 0; i < visibleColumns.length; i++) {
                 const visCol = visibleColumns[i];
                 let df = visCol.dataField;
-                let index = this.allColumns.findIndex( el => el.dataField === df ); 
+                let index = this.allColumns.findIndex( el => el.dataField === df );
                 resultColumns.push(this.allColumns[index]);
             }
             for (let i = 0; i < resultColumns.length; i++) {
@@ -384,7 +384,7 @@
                     }
                     indexCaptionFrom = 5;
                 }else{
-                    let caption = resCol.caption;        
+                    let caption = resCol.caption;
                     let column = { caption, colIndexTo }
                     indexCaptionFrom = 4;
                     this.columnsWithoutSub.push(column);

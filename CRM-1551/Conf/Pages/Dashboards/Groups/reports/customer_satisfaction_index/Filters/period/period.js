@@ -5,7 +5,7 @@
         stepMinute: 1,
         timeOnly: false,
         onItemSelect: function(date) {
-            this.yourFunctionName(date); 
+            this.yourFunctionName(date);
         },
         yourFunctionName: function(date) {
             let message = {
@@ -32,7 +32,7 @@
                 dateFrom: new Date(yearFrom, monthFrom, dayFrom),
                 dateTo: new Date( yearTo, monthTo , dayTo)
             }
-            this.setDefaultValue(defaultValue); 
+            this.setDefaultValue(defaultValue);
         }
     };
 }());

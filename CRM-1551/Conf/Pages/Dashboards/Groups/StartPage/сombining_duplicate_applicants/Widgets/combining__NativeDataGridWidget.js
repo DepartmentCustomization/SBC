@@ -58,9 +58,9 @@
         let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push(
             {
-                widget: "dxButton", 
+                widget: "dxButton",
                 location: "after",
-                options: { 
+                options: {
                     icon: "collapse",
                     type: "default",
                     text: 'Об\'єднати',
@@ -78,9 +78,9 @@
                     }.bind(this)
                 },
             }, {
-                widget: "dxButton", 
+                widget: "dxButton",
                 location: "after",
-                options: { 
+                options: {
                     icon: "clear",
                     type: "default",
                     text: 'Пропустити',

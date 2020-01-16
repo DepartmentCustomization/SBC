@@ -33,7 +33,7 @@
                                     self.messageService.publish(messageSelect);
                             }.bind(self);
                     }.bind(self);
-                }.bind(self);  
+                }.bind(self);
             }
             this.showPreloader = false;
             this.sub  = this.messageService.subscribe( 'showPagePreloader', this.showMyPreloader, this)

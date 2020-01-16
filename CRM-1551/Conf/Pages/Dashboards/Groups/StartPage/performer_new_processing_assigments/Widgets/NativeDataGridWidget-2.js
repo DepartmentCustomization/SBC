@@ -96,7 +96,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,       
+            groupingAutoExpandAll: null,
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 300;
@@ -143,22 +143,22 @@
                         parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
                                         {key: '@Id', value: el.Id}  ],
                         limit: -1
-                    };        
+                    };
                     this.queryExecutor(executeQuery);
                 });
                 this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish( { name: 'reloadMainTable', column: this.column,   navigator: this.navigator, targetId: this.targetId });
             }
-        },    
+        },
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "upload",
                     type: "default",
                     text: "Передати",
-                    onClick: function(e) { 
+                    onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.findAllRowsNeVKompetentсii();
                     }.bind(this)
@@ -174,7 +174,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },    
+        },
         lookupFoo: function(data) {
             this.elements = [];
             for(let i = 0; i < data.rows.length; i++){
@@ -182,7 +182,7 @@
                 let obj = {
                     "ID": el.values[0],
                     "Name": el.values[1],
-                } 
+                }
                 this.elements.push(obj);
             }
             this.config.columns[5].lookup.dataSource.store = this.elements;
@@ -199,7 +199,7 @@
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
-        },     
+        },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
             if(currentEmployeeData.comment == null || currentEmployeeData.comment == undefined){
@@ -222,7 +222,7 @@
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
             let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ""+currentEmployeeData.balans_name+""});
             let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: "Балансоутримувач"});
-            let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);         
+            let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
             let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');

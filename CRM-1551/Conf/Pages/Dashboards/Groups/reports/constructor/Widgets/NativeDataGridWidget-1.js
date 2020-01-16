@@ -17,8 +17,8 @@
         ],
         selection: {
             mode: "single",
-        }, 
-        filterRow: { 
+        },
+        filterRow: {
             visible: true
         },
         keyExpr: 'Id'
@@ -32,9 +32,9 @@
     createTableButton: function(e) {
         let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push({
-            widget: "dxButton", 
+            widget: "dxButton",
             location: "after",
-            options: { 
+            options: {
                 icon: "add",
                 type: "default",
                 onClick: function(e) {
@@ -43,7 +43,7 @@
                 }.bind(this)
             },
         });
-    },    
+    },
     sendSelectItem: function(){
         let selectedRow = this.dataGridInstance.instance.getSelectedRowsData();
         this.messageService.publish( { name: 'sendSelectedRow', value: selectedRow,  position: 'groups'  });

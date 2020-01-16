@@ -18,8 +18,8 @@
                     let currentYear = new Date(dateTo).getFullYear();
                     if( previousYear === currentYear) {
                         previousYear -= 1;
-                        this.previousYear = previousYear;            
-                        this.currentYear = currentYear;  
+                        this.previousYear = previousYear;
+                        this.currentYear = currentYear;
                         this.messageService.publish({  name, dateFrom, dateTo, previousYear, currentYear, dateFromViewValues, dateToViewValues })
                     } else {
                         this.messageService.publish( { name: 'showWarning' });
@@ -57,7 +57,7 @@
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
             return dd + '.' + mm + '.' + yyyy;
-        },  
+        },
         destroy: function () {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();

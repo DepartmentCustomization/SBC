@@ -14,8 +14,8 @@
                 const name = 'FilterParameters';
                 const parameters = [
                     {key: '@DateCalc' , value:  periodValue },
-                    {key: '@RDAId', value: executorValue },  
-                    {key: '@RatingId', value: ratingValue } 
+                    {key: '@RDAId', value: executorValue },
+                    {key: '@RatingId', value: ratingValue }
                 ];
                 if(ratingValue !== 0) {
                     this.showPagePreloader('Зачекайте, завантажуються фiльтри');
@@ -31,7 +31,7 @@
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
             return yyyy + '-' + mm + '-' + dd;
-        }, 
+        },
         destroy: function () {
             this.sub.unsubscribe();
         },

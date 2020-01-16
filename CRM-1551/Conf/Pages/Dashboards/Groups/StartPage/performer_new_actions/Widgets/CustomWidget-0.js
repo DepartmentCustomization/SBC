@@ -8,7 +8,7 @@
                     <div id = 'container'></div>
                 `
     ,
-    init: function() { 
+    init: function() {
         this.messageService.publish( { name: 'showPagePreloader'  } );
         const header1 = document.getElementById('header1');
         header1.firstElementChild.style.overflow = 'visible';
@@ -20,7 +20,7 @@
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.userOrganization, this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
         }else{
             let getUrlParams = window
                             .location
@@ -42,17 +42,17 @@
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.userOrganization, this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
         }
         let executeQueryOrganizations = {
             queryCode: 'events',
             limit: -1,
-            parameterValues: [ 
+            parameterValues: [
                     { key: '@organization_id', value: this.organizationId }
                 ]
         };
         this.queryExecutor(executeQueryOrganizations, this.createSubordinateOrganizationsTable, this);
-        this.showPreloader = false; 
+        this.showPreloader = false;
     },
     userOrganization: function(data){
         let indexOfTypeId = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationid' );
@@ -64,7 +64,7 @@
         if( window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+''){
             window.location.search = 'id='+data.rows[0].values[indexOfTypeId]+'';
         }
-    },    
+    },
     createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
         Object.keys(props).forEach( key => element[key] = props[key] );
@@ -73,7 +73,7 @@
                 element.appendChild(child);
             });
         } return element;
-    }, 
+    },
     afterViewInit: function(){
         const container = document.getElementById('container')
         const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
@@ -104,7 +104,7 @@
                 let target =  event.currentTarget;
                 document.getElementById('container').style.display = 'none';
                 this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
-            })    
+            })
         }.bind(this));
     },
     sendMesOnBtnClick: function(message, typeEvent, source, orgId){
@@ -123,7 +123,7 @@
             document.getElementById('eventWrapper').classList.remove('displayNone');
             document.getElementById('eventWrapper').classList.add('displayFlex');
             headers.forEach( function(el) {
-                el.classList.remove('check'); 
+                el.classList.remove('check');
                 el.classList.remove('hover');
             }.bind(this));
             this.sendMesOnBtnClick('showEventTable', 'none', 'none');
@@ -137,7 +137,7 @@
                     header.classList.add('check');
                     header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
                     header.firstElementChild.classList.add('triangle');
-                }  
+                }
                 headers[2].firstElementChild.classList.remove('triangle');
             }.bind(this, target));
             this.sendMesOnBtnClick('showEventTable', typeEvent, source, this.organizationId);
@@ -147,7 +147,7 @@
         this.createHeaderOrganizations();
         for ( let i = 0; i < data.rows.length; i ++){
             let row = data.rows[i];
-            let eventElementsСounter = this.createElement('div', {  className: 'eventElementsСounter displayFlex'});    
+            let eventElementsСounter = this.createElement('div', {  className: 'eventElementsСounter displayFlex'});
             let eventTitle__name = this.createElement('div', {  className: 'eventTitle__name', innerText: ''+row.values[1]+''});
             let eventTitle = this.createElement('div', {  className: 'eventTitle displayFlex'}, eventTitle__name);
             let event = this.createElement('div', {  className: 'event displayFlex', id: ''+row.values[0]+''}, eventTitle, eventElementsСounter);
@@ -173,7 +173,7 @@
                 }
                 eventElementsСounter.appendChild(eventElementsСounterItem);
             }
-        }    
+        }
         let counterHeaderElements = document.querySelectorAll('.counter');
         counterHeaderElements = Array.from(counterHeaderElements);
         counterHeaderElements.forEach( el => {
@@ -223,7 +223,7 @@
         headerItem__notActive.style.backgroundColor = "rgb( 132, 199, 96 )";
         headerItem__inWork.style.backgroundColor = 'rgb(173, 118, 205)';
         const headerItems = this.createElement('div', { id: 'headerItems', className: 'headerItems displayFlex'}, headerItem__overdue, headerItem__notActive, headerItem__inWork);
-        const headerTitle = this.createElement('div', { id: 'headerTitle'});        
+        const headerTitle = this.createElement('div', { id: 'headerTitle'});
         const eventsHeader = this.createElement('div', { id: 'eventsHeader', className: 'orgContainer displayFlex'}, headerTitle, headerItems);
         const eventWrapper = this.createElement('div', { id: 'eventWrapper', value: 0 , className: 'eventWrapper displayFlex'});
         let table = document.getElementById('table');

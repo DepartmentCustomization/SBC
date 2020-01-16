@@ -37,7 +37,7 @@
                               position: 1,
                               fullScreen: false,
                               value: this.form.getControlValue('phone_number'),
-                              type: 'text'  
+                              type: 'text'
                             },
                             {
                               code:'n_full_name',
@@ -47,7 +47,7 @@
                               position: 2,
                               fullScreen: true,
                               value: '',
-                              type: 'text'  
+                              type: 'text'
                             },
                             {
                               code:'n_applicant_type_id',
@@ -59,7 +59,7 @@
                               queryListCode: "dir_ApplicantTypes_SelectRows",
                               listDisplayColumn: "name",
                               listKeyColumn: "Id",
-                              type: 'select'  
+                              type: 'select'
                             },
                             {
                               code:'n_social_state_id',
@@ -71,7 +71,7 @@
                               queryListCode: "dir_SocialState_SelectRows",
                               listDisplayColumn: "name",
                               listKeyColumn: "Id",
-                              type: 'select'  
+                              type: 'select'
                             },
                             {
                               code:'n_applicant_category_id',
@@ -83,7 +83,7 @@
                               queryListCode: "dir_ApplicantCategories_SelectRows",
                               listDisplayColumn: "name",
                               listKeyColumn: "Id",
-                              type: 'select'  
+                              type: 'select'
                             },
                             {
                               code:'n_sex',

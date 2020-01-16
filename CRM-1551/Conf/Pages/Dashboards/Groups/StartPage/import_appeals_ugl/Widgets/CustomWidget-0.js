@@ -23,7 +23,7 @@
         this.container.appendChild(btnsWrapper);
         fileInput.addEventListener('input', event => {
             let target = event.currentTarget;
-            if (target.value !== '') { 
+            if (target.value !== '') {
                 btnImportFile.disabled = false;
              }
         });
@@ -56,7 +56,7 @@
                             }
                         }
                         let responseModal =  this.createElement('div', { id: 'responseModal'});
-                        this.showModalWindow(responseModal, responseNotification);                        
+                        this.showModalWindow(responseModal, responseNotification);
                     }
                 });
                 let url = window.location.origin + '/api/section/Appeals_UGL/import/csv';
@@ -86,8 +86,8 @@
         const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
         const contentWrapper =  this.createElement('div', { id:'contentWrapper'}, responseModal);
         const modalTitle =  this.createElement('div', { id:'modalTitle', innerText: 'Результат завантаження:'});
-        const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, contentWrapper ,modalBtnWrapper); 
-        const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
+        const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, contentWrapper ,modalBtnWrapper);
+        const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
         modalBtnTrue.addEventListener( 'click', event => {
             let target = event.currentTarget;
             target.disabled = true;
@@ -108,9 +108,9 @@
             }
         });
         for (let key in responseNotification) {
-            if( key === 'title'){ 
+            if( key === 'title'){
                 let responseTitle =  this.createElement('div', { id: 'responseTitle', className: 'responseTest', innerText: responseNotification[key] });
-                responseModal.appendChild(responseTitle); 
+                responseModal.appendChild(responseTitle);
             }else if(key === 'errorInfo'){
                 let responseErrorInfo =  this.createElement('div', { id: 'responseErrorInfo', className: 'responseTest', innerText:responseNotification[key] });
                 responseModal.appendChild(responseErrorInfo);
@@ -133,6 +133,6 @@
                 element.appendChild(child);
             });
         } return element;
-    }     
+    }
 };
 }());

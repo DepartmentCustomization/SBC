@@ -1,5 +1,5 @@
 (function () {
-    return {  
+    return {
         customConfig:
                 `
                 <div id='container'></div>  
@@ -65,7 +65,7 @@
                         document.getElementById('container').style.display = 'none';
                         this.goToDashboard(target.url);
                     }
-                });   
+                });
             }.bind(this));
         },
         createElement: function(tag, props, ...children) {

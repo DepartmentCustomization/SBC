@@ -27,7 +27,7 @@
                     dataField: 'control_date',
                     caption: 'Дата контролю',
                     dataType: "datetime",
-                    format: "dd.MM.yyyy HH:mm"             
+                    format: "dd.MM.yyyy HH:mm"
                 }
             ],
             filterRow: {
@@ -138,7 +138,7 @@
             elementsCaptionAll.forEach( el => {
                 el.style.minWidth = '200px';
             })
-        },    
+        },
         changeOnTable: function(message){
             if( message.column != 'План/Програма'){
                 document.getElementById('table10_Plan_Programs').style.display = 'none';
@@ -148,7 +148,7 @@
                 this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
                                                     { key: '@column', value: message.column},
                                                     { key: '@navigation', value: message.navigation}];
-                this.loadData(this.afterLoadDataHandler);          
+                this.loadData(this.afterLoadDataHandler);
             }
         },
         createElement: function(tag, props, ...children) {
@@ -159,11 +159,11 @@
                     element.appendChild(child);
                 });
             } return element;
-        },    
+        },
         afterLoadDataHandler: function() {
             this.render();
             this.createCustomStyle();
-        },	    
+        },
         createCustomStyle: function(){
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
@@ -171,7 +171,7 @@
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
-        }, 
+        },
         destroy: function() {
             this.sub.unsubscribe();
         }

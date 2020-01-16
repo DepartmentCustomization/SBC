@@ -30,7 +30,7 @@
                 dateFrom: new Date(year, monthFrom , dayTo, '00', '00'),
                 dateTo: new Date( year, monthFrom , dayTo, hh, mm)
             }
-            this.setDefaultValue(defaultValue); 
+            this.setDefaultValue(defaultValue);
         },
         destroy(){
         }

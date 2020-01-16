@@ -66,7 +66,7 @@
                     alignment: 'center',
                     format: function(value){
                         return value + '%';
-                    },        
+                    },
                 },  {
                     dataField: 'donePercent',
                     caption: '% виконання без План/Програма',
@@ -81,7 +81,7 @@
                     format: function(value){
                         return value + '%';
                     },
-                } 
+                }
             ],
             summary: {
                 totalItems: [
@@ -212,9 +212,9 @@
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
+                widget: "dxButton",
                 location: "after",
-                options: { 
+                options: {
                     icon: "exportxlsx",
                     type: "default",
                     text: "Excel",
@@ -268,14 +268,14 @@
                         const subColumn = column.columns[j];
                         columnProp.index += 1;
                         header = subColumn.caption;
-                        columnsProperties.push(columnProp); 
+                        columnsProperties.push(columnProp);
                     }
                 } else {
                     columnProp.header = column.caption;
                     columnProp.index += 1;
                     columnsProperties.push(columnProp);
                 }
-            }    
+            }
             worksheet.columns = columnsProperties;
         },
         setWorksheetTitle: function (worksheet) {
@@ -324,18 +324,18 @@
         },
         setTableRowsStyles: function (worksheet, rows) {
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 14, underline: false, bold: true , italic: false};
-            worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };    
+            worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-            worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };    
+            worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-            worksheet.getRow(4).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };  
+            worksheet.getRow(4).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(1).height = 50;
             worksheet.getRow(3).height = 70;
             worksheet.getRow(4).height = 70;
             rows.forEach( row => {
                 worksheet.getRow(row).height = 100;
                 worksheet.getRow(row).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, italic: false};
-                worksheet.getRow(row).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }; 
+                worksheet.getRow(row).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
                 worksheet.getCell('A' + row).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
             });
         },
@@ -349,7 +349,7 @@
         setSummaryStyle: function (worksheet, number) {
             worksheet.getRow(number).height = 50;
             worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, italic: false};
-            worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }; 
+            worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
         },
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
@@ -361,11 +361,11 @@
                     this.dateTo = period.dateTo;
                     this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;
                     this.organization = organization === null ? 0 : organization === '' ? 0 : organization.value ;
-                    this.config.query.parameterValues = [ 
-                        {key: '@dateFrom' , value: this.dateFrom },  
-                        {key: '@dateTo', value: this.dateTo },  
-                        {key: '@question_type_id', value: this.questionType },  
-                        {key: '@org', value: this.organization }  
+                    this.config.query.parameterValues = [
+                        {key: '@dateFrom' , value: this.dateFrom },
+                        {key: '@dateTo', value: this.dateTo },
+                        {key: '@question_type_id', value: this.questionType },
+                        {key: '@org', value: this.organization }
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }
@@ -379,12 +379,12 @@
             } else {
                 return [];
             }
-        },    
+        },
         afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
             this.sub.unsubscribe();
-        }, 
+        },
     };
 }());

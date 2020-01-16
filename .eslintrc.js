@@ -19,6 +19,7 @@ module.exports = {
         "no-inline-comments": "warn",
         "no-console": "error",
         "no-debugger": "error",
-        "brace-style": ["error", "1tbs"]
+        "brace-style": ["error", "1tbs"],
+        "no-trailing-spaces": "warn"
     }
 };

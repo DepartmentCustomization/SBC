@@ -74,8 +74,8 @@
             },
             masterDetail: {
                 enabled: true,
-            },        
-            columnFixing: { 
+            },
+            columnFixing: {
                 enabled: true
             },
             showBorders: false,
@@ -86,8 +86,8 @@
         createDGButtons: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "refresh",
                     type: "default",
                     text: "Очистити сортування",
@@ -96,7 +96,7 @@
                         this.sortingArr = [];
                         this.config.query.parameterValues = [
                             { key: '@filter', value: this.macrosValue },
-                            { key: '@sort', value:  '1=1'  } 
+                            { key: '@sort', value:  '1=1'  }
                         ];
                         this.loadData(this.afterLoadDataHandler);
                     }.bind(this)
@@ -104,8 +104,8 @@
                 location: "before"
             });
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "close",
                     type: "default",
                     text: "Закрити",
@@ -118,7 +118,7 @@
             });
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 150;   
+            this.dataGridInstance.height = window.innerHeight - 150;
             this.sort = '1=1';
             this.macrosValue = '1=1';
             let executeQuery = {
@@ -204,7 +204,7 @@
                             if( index === -1 ){
                                 this.sortingArr.push(infoColumn);
                             }else{
-                                this.sortingArr.splice(index, 1); 
+                                this.sortingArr.splice(index, 1);
                                 this.sortingArr.push(infoColumn);
                             }
                         }
@@ -236,16 +236,16 @@
             let currentEmployeeData = options.data;
             let lastNdzTime;
             if(currentEmployeeData.comment == null){
-                currentEmployeeData.comment = ''; 
+                currentEmployeeData.comment = '';
             }
             if(currentEmployeeData.history == null){
-                currentEmployeeData.history = ''; 
+                currentEmployeeData.history = '';
             }
             if(currentEmployeeData.zmist == null){
-                currentEmployeeData.zmist = ''; 
+                currentEmployeeData.zmist = '';
             }
             if(currentEmployeeData.cc_nedozvon == null){
-                currentEmployeeData.cc_nedozvon = ''; 
+                currentEmployeeData.cc_nedozvon = '';
             }
             if(currentEmployeeData.edit_date === null){
                 lastNdzTime = ''
@@ -253,7 +253,7 @@
                 lastNdzTime = this.changeDateTimeValues(currentEmployeeData.edit_date);
             }
             if(currentEmployeeData.control_comment == null){
-                currentEmployeeData.control_comment = ''; 
+                currentEmployeeData.control_comment = '';
             }
             let ndz = currentEmployeeData.cc_nedozvon;
             let ndzComment = currentEmployeeData.control_comment;
@@ -289,16 +289,16 @@
             let mm = date.getMinutes();
             MM += 1 ;
             if( (dd.toString()).length === 1){
-                dd = '0' + dd; 
+                dd = '0' + dd;
             }
             if( (MM.toString()).length === 1){
-                MM = '0' + MM ; 
+                MM = '0' + MM ;
             }
             if( (HH.toString()).length === 1){
-                HH = '0' + HH; 
+                HH = '0' + HH;
             }
             if( (mm.toString()).length === 1){
-                mm = '0' + mm; 
+                mm = '0' + mm;
             }
             return dd+'.'+MM+'.' + yyyy +' '+ HH +':'+ mm;
         },
@@ -327,37 +327,37 @@
                                         ageSendViewValue = ageSendViewValue + ', '+ el.viewValue;
                                     });
                                     ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
-                                    let ageSendValue =  this.ageArr.join(' or '); 
+                                    let ageSendValue =  this.ageArr.join(' or ');
                                     ageSendValue = '('+ageSendValue+')';
                                     this.createObjMacros( elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
                                 }else{
                                     let sumValue = '';
                                     let sumViewValue = '';
                                     if(data.length > 0){
-                                        data.forEach( row => { 
+                                        data.forEach( row => {
                                             sumValue =  sumValue + ', '+ row.value;
                                             sumViewValue =  sumViewValue + ', '+ row.viewValue;
                                         });
                                     }
                                     let numberSendValue = sumValue.slice(2, [sumValue.length]);
                                     let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
-                                    this.createObjMacros( elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue); 
+                                    this.createObjMacros( elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
                                 }
                             }else if(typeof(data[0].value) === 'string' ){
                                 let stringSumValue = '';
                                 let stringSumViewValue = '';
                                 if(data.length > 0){
-                                    data.forEach( row => { 
+                                    data.forEach( row => {
                                         stringSumValue =  stringSumValue + ', \''+ row.value + '\'';
                                         stringSumViewValue =  stringSumViewValue + ', '+ row.viewValue;
                                     });
                                 }
                                 let stringSendValue = stringSumValue.slice(2, [stringSumValue.length]);
                                 let stringSendViewValue = stringSumViewValue.slice(2, [stringSumViewValue.length]);
-                                this.createObjMacros( elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue); 
+                                this.createObjMacros( elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
                             }
                         }else if( data.value && data.viewValue ){
-                            this.createObjMacros( elem.name, 'in', data.value, elem.placeholder, data.viewValue ); 
+                            this.createObjMacros( elem.name, 'in', data.value, elem.placeholder, data.viewValue );
                         }else{
                             if(data.dateFrom != '' ){
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
@@ -442,15 +442,15 @@
                 let month = currentDate.getMonth() + 1;
                 let date = currentDate.getDate();
                 let hours = currentDate.getHours();
-                let minutes = currentDate.getMinutes();            
+                let minutes = currentDate.getMinutes();
                 date = date + "";
                 month = month + "";
                 hours = hours + "";
                 minutes = minutes + "";
                 month = month.length == 1 ? '0' + month : month ;
-                date =  date.length == 1 ?'0'+date : date ;            
-                hours = hours.length == 1 ?'0'+hours : hours ;            
-                minutes = minutes.length == 1 ?'0'+minutes : minutes ;            
+                date =  date.length == 1 ?'0'+date : date ;
+                hours = hours.length == 1 ?'0'+hours : hours ;
+                minutes = minutes.length == 1 ?'0'+minutes : minutes ;
                 let value = ""+year+"-"+month+"-"+date+" "+hours+":"+minutes+"";
                 textMacros = ""+code+" "+operation+" N'"+value+"' and";
             }
@@ -467,7 +467,7 @@
                 let str = arr.join(' ');
                 let macrosValue = str.slice(0, -4);
                 this.macrosValue = macrosValue;
-                this.messageService.publish( { 
+                this.messageService.publish( {
                     name: 'filters',
                     value: this.filtersValuesMacros
                 });
@@ -480,7 +480,7 @@
                 this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
                                                     { key: '@sort', value: this.sort }];
                 this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish( { 
+                this.messageService.publish( {
                     name: 'filters',
                     value: this.filtersValuesMacros
                 });
@@ -522,7 +522,7 @@
             this.sort = message.sortingString;
             this.config.query.parameterValues = [
                 { key: '@filter', value: this.macrosValue },
-                { key: '@sort', value:  this.sort  } 
+                { key: '@sort', value:  this.sort  }
             ];
             this.loadData(this.afterLoadDataHandler);
         },

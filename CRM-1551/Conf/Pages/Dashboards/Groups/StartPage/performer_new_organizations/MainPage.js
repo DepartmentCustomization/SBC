@@ -8,7 +8,7 @@
         },
         emptyPage: function(){
             this.showPagePreloader('Доручень немає');
-        }, 
+        },
         showMyPreloader: function(){
             this.showPagePreloader('Зачекайте, сторінка завантажується');
         },

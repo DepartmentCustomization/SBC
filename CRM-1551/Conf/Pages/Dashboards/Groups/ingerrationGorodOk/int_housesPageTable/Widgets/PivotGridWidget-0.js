@@ -47,7 +47,7 @@
                                    alignment: 'center'
                                 }]
                         }
-                    ]  
+                    ]
                         },{
               caption: '1551',
               alignment: 'center',
@@ -93,7 +93,7 @@
                 dataField: 'comment',
                 caption: 'Коментар'
             }
-        ], 
+        ],
         searchPanel: {
             visible: true,
             highlightCaseSensitive: false
@@ -224,7 +224,7 @@
             let obj = {
                 "Id": el.values[0],
                 "name": el.values[1],
-            } 
+            }
             this.elements_dis.push(obj);
         }
         this.config.columns[2].columns[0].lookup.dataSource.store = this.elements_dis;
@@ -238,7 +238,7 @@
                 "Id": el.values[0],
                 "name": el.values[1],
                 "district_id": el.values[2]
-            } 
+            }
             this.elements.push(obj);
         }
         this.config.columns[2].columns[1].lookup.dataSource.store = this.elements;

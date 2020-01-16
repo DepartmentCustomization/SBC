@@ -18,7 +18,7 @@
                     value: false
                 }
             };
-            this.messageService.publish(msg);  
+            this.messageService.publish(msg);
             const query = this.getQueryOptions();
             this.getChunkedValues(query, this.setData, this);
         },
@@ -84,20 +84,20 @@
         },
         setBtnState: function(message){
             let btn = document.getElementById('apply-filters-button');
-            let dateReceipt  = message.package.value.values.find(f => f.name === 'date_receipt').value;    
+            let dateReceipt  = message.package.value.values.find(f => f.name === 'date_receipt').value;
             let organization = message.package.value.values.find(f => f.name === 'organization').value;
             let groupOrganization = message.package.value.values.find(f => f.name === 'group_organization').value;
             if(btn){
                 if(dateReceipt){
                     if( dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== '' ){
                         if( organization && groupOrganization ){
-                            document.getElementById('apply-filters-button').disabled = true; 
+                            document.getElementById('apply-filters-button').disabled = true;
                         }else{
                             document.getElementById('apply-filters-button').disabled = false;
                         }
                     }
                 }else{
-                document.getElementById('apply-filters-button').disabled = true; 
+                document.getElementById('apply-filters-button').disabled = true;
                 }
             }
         },
@@ -161,16 +161,16 @@
                 document.getElementById('summary__table').style.display = 'block';
                 document.getElementById('content').style.display = 'none';
                 this.loadData();
-            }   
-        },     
+            }
+        },
         getQueryOptions: function() {
             return {
                 code: 'ak_ConstructrQuestionTable',
                 parameterValues: [
-                    { key: '@RegistrationDateFrom', value: this.dateReceipt__from}, 
+                    { key: '@RegistrationDateFrom', value: this.dateReceipt__from},
                     { key: '@RegistrationDateTo', value: this.dateReceipt__to},
-                    { key: '@OrganizationExecId', value:  this.organization },    
-                    { key: '@OrganizationExecGroupId', value:  this.groupOrganization},    
+                    { key: '@OrganizationExecId', value:  this.organization },
+                    { key: '@OrganizationExecGroupId', value:  this.groupOrganization},
                     { key: '@ReceiptSourcesId', value: this.receiptSource},
                     { key: '@QuestionGroupId', value: this.QuestionGroupId},
                 ],

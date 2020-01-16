@@ -18,7 +18,7 @@
                 dateFrom: new Date('2019', '05' , '01'),
                 dateTo: new Date( year, monthFrom , dayTo, HH, MM)
             }
-            this.setDefaultValue(defaultValue); 
+            this.setDefaultValue(defaultValue);
         },
         yourFunctionName: function(date) {
             let message = {

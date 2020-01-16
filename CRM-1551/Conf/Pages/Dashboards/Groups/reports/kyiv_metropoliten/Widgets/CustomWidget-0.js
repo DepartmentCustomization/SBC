@@ -102,7 +102,7 @@
             };
             worksheet.mergeCells('A1:B1');
             worksheet.mergeCells('A2:B2');
-            worksheet.mergeCells('A3:B3'); 
+            worksheet.mergeCells('A3:B3');
             let cellInfoCaption = worksheet.getCell('A1');
             cellInfoCaption.value = 'Виконавець: КП «Київський метрополітен»';
             let cellInfo = worksheet.getCell('A2');
@@ -178,10 +178,10 @@
                     bottom: {style:'thin'},
                     right: {style:'thin'}
                 };
-                worksheet.getCell(td).alignment = { 
+                worksheet.getCell(td).alignment = {
                     vertical: 'middle',
                     horizontal: 'left',
-                    wrapText: true 
+                    wrapText: true
                 };
                 worksheet.getCell(td).font = {
                     name: 'Times New Roman',
@@ -199,10 +199,10 @@
                     bottom: {style:'thin'},
                     right: {style:'thin'}
                 };
-                worksheet.getCell(td).alignment = { 
+                worksheet.getCell(td).alignment = {
                     vertical: 'middle',
                     horizontal: 'center',
-                    wrapText: true 
+                    wrapText: true
                 };
                 worksheet.getCell(td).font = {
                     name: 'Times New Roman',
@@ -222,21 +222,21 @@
                 worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
             });
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
-        }, 
+        },
         changeDateTimeValues: function(value){
             let date = new Date(value);
             let dd = date.getDate();
             let mm = date.getMonth() + 1;
             let yyyy = date.getFullYear();
             if( (dd.toString()).length === 1) {
-                dd = '0' + dd; 
+                dd = '0' + dd;
             }
             if( (mm.toString()).length === 1) {
-                mm = '0' + mm; 
+                mm = '0' + mm;
             }
             let trueDate = dd + '.' + mm + '.' + yyyy;
             return trueDate;
-        },     
+        },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -245,7 +245,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },   
+        },
         destroy: function(){
             this.sub.unsubscribe();
             this.sub1.unsubscribe();

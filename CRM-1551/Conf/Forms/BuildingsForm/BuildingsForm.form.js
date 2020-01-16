@@ -9,7 +9,7 @@
     },
     init: function() {
         this.details.setVisibility('BuildingHistory_details', false);
-        this.details.onCellClick('BuildingHistory', this.Detail_History.bind(this)); 
+        this.details.onCellClick('BuildingHistory', this.Detail_History.bind(this));
         this.form.disableControl('street_id');
         this.form.disableControl('number');
         document.getElementById('change_but').disabled = true;
@@ -29,7 +29,7 @@
                         key: '@building',
                         value: this.form.getControlValue('change_building')
                         }
-                        ] }; 
+                        ] };
                         this.queryExecutor.getValues(queryForUpdateBuilding).subscribe(data => {
                         if (data) {
                         if (data.rows.length > 0) {
@@ -47,7 +47,7 @@
                             this.details.loadData('BuildingQuestion', parameters, filters, sorting);
                               }
                           }
-                    }); 
+                    });
             }.bind(this));
         this.form.onControlValueChanged('change_building', this.onBuildingChanged);
     },
@@ -77,7 +77,7 @@
                                 }
                         }
                     }
-            });  
+            });
     },
     DeleteObject: function (value) {
         if (value) {
@@ -88,14 +88,14 @@
                         key: '@Id',
                         value: this.form.getControlValue('Id')
                                     } ]
-                        }; 
+                        };
                         this.queryExecutor.getValues(queryForDeleteBuilding).subscribe(data => {
                         if (data) {
                         if (data.rows.length > 0) {
                             this.back();
                               }
                           }
-                    }); 
+                    });
         }
     }
 };

@@ -29,7 +29,7 @@
         ],
         scrolling: {
             mode: "virtual"
-        }, 
+        },
         columnFixing: {
             enabled: false
         },
@@ -74,7 +74,7 @@
         let self = this;
         this.treeListInstance.onToolbarPreparing.subscribe( e => {
             e.toolbarOptions.items.push({
-                widget: "dxButton", 
+                widget: "dxButton",
                 location: "after",
                 options: {
                     type: "default",
@@ -82,16 +82,16 @@
                     onClick: function() {
                         event.stopImmediatePropagation();
                         self.sendSelectItem();
-                    } 
+                    }
                 },
             })
         });
         this.loadData();
-    },    
+    },
     sendSelectItem: function(){
         let selectedRow = this.treeListInstance.instance.getSelectedRowsData();
         this.messageService.publish( { name: 'sendSelectedRow', value: selectedRow, position: 'clissificator' });
-    },    
+    },
     showTable: function(message){
         if( message.value === 'group' ){
             document.getElementById('question_classificatory').style.display = 'none';

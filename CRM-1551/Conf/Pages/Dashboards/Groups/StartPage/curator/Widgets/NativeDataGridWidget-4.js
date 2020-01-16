@@ -57,7 +57,7 @@
             },
             paging: {
                 pageSize: 500
-            },       
+            },
             scrolling: {
                 mode: 'standart',
                 rowRenderingMode: null,
@@ -127,7 +127,7 @@
             }
             if(currentEmployeeData.question_content == null){
                 currentEmployeeData.question_content = '';
-            }        
+            }
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.adressZ+""});
             let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
             let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);

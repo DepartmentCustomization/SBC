@@ -31,7 +31,7 @@
         load: function (data) {
             const CONTAINER = document.getElementById('container');
             if (data.rows.length) {
-                CONTAINER.innerText = data.rows[0].values[0]; 
+                CONTAINER.innerText = data.rows[0].values[0];
             }
         },
     };

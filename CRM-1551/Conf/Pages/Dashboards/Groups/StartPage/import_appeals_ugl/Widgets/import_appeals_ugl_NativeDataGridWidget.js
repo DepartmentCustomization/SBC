@@ -64,10 +64,10 @@
                     this.dateTo = period.dateTo;
                     this.users = extractOrgValues(users);
                     this.processed = processed === null ? null : processed === '' ? null : processed.value;
-                    this.config.query.parameterValues = [ 
-                        {key: '@dateFrom' , value: this.dateFrom },  
-                        {key: '@dateTo', value: this.dateTo },  
-                        {key: '@is_worked', value: this.processed } 
+                    this.config.query.parameterValues = [
+                        {key: '@dateFrom' , value: this.dateFrom },
+                        {key: '@dateTo', value: this.dateTo },
+                        {key: '@is_worked', value: this.processed }
                     ];
                     if (this.users.length > 0) {
                         let filter = {
@@ -90,7 +90,7 @@
                         for (let i = 0; i < val.length; i++) {
                             valuesList.push(val[i].value);
                         }
-                    }    
+                    }
                     return  valuesList.length > 0 ? valuesList : [];
                 }else{
                     return [];
@@ -105,7 +105,7 @@
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
             return dd + '.' + mm + '.' + yyyy;
-        },    
+        },
         applyChanges: function() {
             const msg = {
                 name: "SetFilterPanelState",

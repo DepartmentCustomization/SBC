@@ -14,7 +14,7 @@
         isCategoryFull: false,
         init: function() {
             this.hidePagePreloader();
-            this.messageService.publish( { name: 'showPagePreloader'});    
+            this.messageService.publish( { name: 'showPagePreloader'});
             this.sub = this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this);
             this.column = [];
             this.navigator = [];
@@ -30,42 +30,42 @@
                 parameterValues: []
             };
             this.queryExecutor(executeQueryTable, this.createTable.bind(this,  false ), this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
             let executeQueryFiltersDist = {
                 queryCode: 'cc_FilterName',
                 limit: -1,
                 parameterValues: []
             };
             this.queryExecutor(executeQueryFiltersDist, this.setDistrictData.bind(this, status, location), this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
             let executeQueryFiltersDepart = {
                 queryCode: 'cc_FilterNameDepartment',
                 limit: -1,
                 parameterValues: []
             };
             this.queryExecutor(executeQueryFiltersDepart, this.setDepartmentData.bind(this, status, location), this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
             let executeQueryDisctict = {
                 queryCode: 'cc_FilterDistrict',
                 limit: -1,
                 parameterValues: []
             };
             this.queryExecutor(executeQueryDisctict, this.setDistrictCategories, this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
             let executeQueryCategories = {
                 queryCode: 'cc_FilterQuestionTypes',
                 limit: -1,
                 parameterValues: []
             };
             this.queryExecutor(executeQueryCategories, this.setQuestionTypesCategories, this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
             let executeQueryDepartament = {
                 queryCode: 'cc_FilterDepartment',
                 limit: -1,
                 parameterValues: []
             };
             this.queryExecutor(executeQueryDepartament, this.setDepartmentCategories, this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
         },
         afterViewInit: function(){
             const container = document.getElementById('container');
@@ -144,7 +144,7 @@
                         document.getElementById('container').style.display = 'none';
                         this.goToDashboard(target.url);
                     }
-                });   
+                });
             }.bind(this));
         },
         createFilterAddBox: function(){
@@ -190,7 +190,7 @@
                     this.resultSearch('resultSearch', searchContainer__input.value);
                     this.hideAllItems(0);
                 }
-            }.bind(this));        
+            }.bind(this));
         },
         setDistrictData: function(status, location, data){
             let dataDistrict = [];
@@ -226,7 +226,7 @@
             let container = document.getElementById('filtersContainerDistrict');
             while (container.hasChildNodes()) {
                 container.removeChild( container.lastElementChild );
-            }          
+            }
             for (let i = 0; i < data.length; i++){
                 let row = data[i];
                 let filter_closer = this.createElement('div', { className: 'filter_closer filter_closer_district filter_closer_hide'});
@@ -307,7 +307,7 @@
             let container = document.getElementById('filtersContainerDepart');
             while ( container.hasChildNodes() ) {
                 container.removeChild( container.lastElementChild );
-            }             
+            }
             for (let i = 0; i < data.length; i++){
                 let row = data[i];
                 let filter_closer = this.createElement('div', { className: 'filter_closer filter_closer_depart filter_closer_hide'});
@@ -433,7 +433,7 @@
             let tableContainer = document.getElementById('tableContainer');
             while ( tableContainer.hasChildNodes() ) {
                 tableContainer.removeChild( tableContainer.childNodes[0] );
-            }        
+            }
             let reloadTable = false;
             if(message) {
                 this.column = message.column;
@@ -540,7 +540,7 @@
                 }
                 districtItemSelect.appendChild(districtItemSelect__option);
             });
-        }, 
+        },
         createFilterCategories: function(categorieId, categorieItemSelect, data){
             data.forEach( el => {
                 let categorieItemSelect__option =  this.createElement('option', {innerText: el.questionTypeName, value: el.id, className: "districtItemSelect__option"});
@@ -570,7 +570,7 @@
             this.isLoadDistrict = true;
             this.closePreload(location);
             this.districtId = 0;
-            $('#departamentNewItemSelect').on('select2:select', function (e) { 
+            $('#departamentNewItemSelect').on('select2:select', function (e) {
                 let districtId = Number(e.params.data.id);
                 this.isDistrictFull = true;
                 let positionFilter = 'district';
@@ -588,7 +588,7 @@
             this.isLoadDistrict = true;
             this.closePreload(location);
             this.districtId = 0;
-            $('#districtNewItemSelect').on('select2:select', function (e) { 
+            $('#districtNewItemSelect').on('select2:select', function (e) {
                 let districtId = Number(e.params.data.id);
                 this.isDistrictFull = true;
                 let positionFilter = 'district';
@@ -606,7 +606,7 @@
             this.isLoadCategorie = true;
             this.closePreload(location);
             this.categorieId = 0;
-            $('#categorieNewItemSelect').on('select2:select', function (e) { 
+            $('#categorieNewItemSelect').on('select2:select', function (e) {
                 let categorieId = Number(e.params.data.id);
                 this.isCategorieFull = true;
                 let positionFilter = 'categorie';
@@ -628,12 +628,12 @@
                         limit: -1,
                         parameterValues: [
                             { key: '@district_id', value:  this.districtId },
-                            { key: '@questiondirection_id', value: this.categorieId }    
+                            { key: '@questiondirection_id', value: this.categorieId }
                         ]
                     };
                     this.queryExecutor(executeQueryInsertItem, this.reloadFilters.bind(this, location), this);
                     this.showPreloader = false;
-                }    
+                }
             }else if( location === 'departament' ){
                 this.departamentId = id;
                 this.isCategorieFull = false;
@@ -642,7 +642,7 @@
                     queryCode: 'cc_FilterInsert',
                     limit: -1,
                     parameterValues: [
-                        { key: '@department_id', value:  this.departamentId },    
+                        { key: '@department_id', value:  this.departamentId },
                     ]
                 };
                 this.queryExecutor(executeQueryInsertItem, this.reloadFilters.bind(this, location), this);
@@ -658,7 +658,7 @@
                     parameterValues: []
                 };
                 this.queryExecutor(executeQueryFilters, this.setDistrictData.bind(this, status, location), this);
-                this.showPreloader = false; 
+                this.showPreloader = false;
             } else if ( location === 'departament' ) {
                 let executeQueryFilters = {
                     queryCode: 'cc_FilterNameDepartment',
@@ -666,7 +666,7 @@
                     parameterValues: []
                 };
                 this.queryExecutor(executeQueryFilters, this.setDepartmentData.bind(this, status, location), this);
-                this.showPreloader = false; 
+                this.showPreloader = false;
             }
         },
         closePreload: function(location){
@@ -685,9 +685,9 @@
                 if( i == 2){
                     columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
                 }else if( i == 3){
-                    columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';            
+                    columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';
                 }else if( i == 4 ){
-                    columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';                
+                    columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';
                 }else if( i == 5){
                     columnHeader.style.backgroundColor = 'rgb(240, 114, 93)';
                 }else if( i == 6){
@@ -730,7 +730,7 @@
             headers = Array.from(headers);
             if( reloadTable == true ){
                 categories.forEach( el => {
-                el.style.display = 'none'; 
+                el.style.display = 'none';
                 });
                 let target = document.getElementById(this.targetId);
                 this.showTable(target,  this.column, this.navigation);
@@ -739,7 +739,7 @@
                 el.addEventListener( 'click', function(event){
                     let target = event.currentTarget;
                     categories.forEach( el => {
-                    el.style.display = 'none'; 
+                    el.style.display = 'none';
                     });
                     let navigator = 'Усі';
                     let column = this.columnName(target);
@@ -750,7 +750,7 @@
                 el.addEventListener( 'click', function(event){
                     let target = event.currentTarget;
                     categories.forEach( el => {
-                    el.style.display = 'none'; 
+                    el.style.display = 'none';
                     });
                     let navigator = target.firstElementChild.innerText;
                     target = target.parentElement.firstElementChild;
@@ -758,7 +758,7 @@
                     this.showTable(target, column, navigator);
                 }.bind(this));
             }.bind(this));
-            this.messageService.publish( { name: 'hidePagePreloader'});    
+            this.messageService.publish( { name: 'hidePagePreloader'});
         },
         columnName: function(target){
             let column = '';
@@ -780,8 +780,8 @@
             headers = Array.from(headers);
             if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input'){
                 document.getElementById('columnHeader_2').style.backgroundColor = 'rgb(248, 195, 47)';
-                document.getElementById('columnHeader_3').style.backgroundColor = 'rgb(74, 193, 197)';          
-                document.getElementById('columnHeader_4').style.backgroundColor = 'rgb(132, 199, 96)';  
+                document.getElementById('columnHeader_3').style.backgroundColor = 'rgb(74, 193, 197)';
+                document.getElementById('columnHeader_4').style.backgroundColor = 'rgb(132, 199, 96)';
                 document.getElementById('columnHeader_5').style.backgroundColor = 'rgb(240, 114, 93)';
                 document.getElementById('columnHeader_6').style.backgroundColor = 'rgba(238, 163, 54, 1)';
                 document.getElementById('columnHeader_3').firstElementChild.classList.add('triangle3');
@@ -792,8 +792,8 @@
                     let header = headers[i];
                     header.firstElementChild.classList.remove('triangle');
                     header.firstElementChild.classList.add('triangle'+(i+2)+'');
-                    header.classList.remove('hover'); 
-                    header.classList.remove('check'); 
+                    header.classList.remove('hover');
+                    header.classList.remove('check');
                 }
                 this.hideAllItems(1);
                 this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none');
@@ -806,7 +806,7 @@
                         header.firstElementChild.classList.add('triangle');
                         header.style.backgroundColor = "#d3d3d3";
                         header.classList.add('check');
-                    }  
+                    }
                 }
                 headers[headers.length - 1].firstElementChild.classList.remove('triangle');
                 this.sendMesOnBtnClick('clickOnСoordinator_table', columnName, navigator, target.id);
@@ -817,13 +817,13 @@
             categories = Array.from(categories);
             if( value == 0){
                 categories.forEach( el => {
-                    el.style.display = 'none'; 
-                });                                                            
+                    el.style.display = 'none';
+                });
             }else if( value == 1){
                 categories.forEach( el => {
-                    el.style.display = 'flex'; 
-                }); 
-            }    
+                    el.style.display = 'flex';
+                });
+            }
         },
         sendMesOnBtnClick: function(message, column, navigator, targetId){
             this.messageService.publish({name: message, column: column,  value: navigator, targetId: targetId });
@@ -847,9 +847,9 @@
                     allowClear: true
                 });
             });
-        },  
+        },
         destroy: function() {
             this.sub.unsubscribe();
-        }    
+        }
     };
 }());

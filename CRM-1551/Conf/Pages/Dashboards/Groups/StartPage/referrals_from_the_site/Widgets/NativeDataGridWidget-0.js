@@ -38,7 +38,7 @@
                 caption: 'Перехiд',
                 width: 150,
                 alignment: 'center'
-            }, 
+            },
         ],
         pager: {
             showPageSizeSelector:  true,
@@ -47,7 +47,7 @@
         },
         paging: {
             pageSize: 20
-        },          
+        },
         keyExpr: 'Id',
         filterRow: {
             visible: true,
@@ -92,8 +92,8 @@
     getFiltersParams: function(message){
         let result = message.package.value.values.find(f => f.name === 'appeals_result').value;
         this.result = result === null ?  [] : result === '' ? 0 : this.extractFilterValues(result);
-        this.config.query.parameterValues = [ 
-            {key: '@result' , value: this.result },  
+        this.config.query.parameterValues = [
+            {key: '@result' , value: this.result },
         ];
         this.config.query.filterColumns = [];
         if (this.result.length > 0) {
@@ -128,7 +128,7 @@
                 element.appendChild(child);
             });
         } return element;
-    },    
+    },
     extractFilterValues: function(val){
             if(val !== ''){
                 let valuesList = [];

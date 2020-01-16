@@ -1,6 +1,6 @@
 (function () {
   return {
-    stateForm: '', 
+    stateForm: '',
     init:function(){
       let categoryIdParam = [{ parameterCode: '@assignment_id', parameterValue: this.form.getControlValue('assignment_id') }];
       this.form.setControlParameterValues('template_id', categoryIdParam);

@@ -61,7 +61,7 @@
         },
         paging: {
             pageSize: 500
-        },      
+        },
         scrolling: {
             mode: 'standart',
             rowRenderingMode: null,
@@ -99,7 +99,7 @@
         this.dataGridInstance.height = window.innerHeight - 305;
         this.showPreloader = false;
         document.getElementById('table7__dooproc').style.display = 'none';
-        this.config.masterDetail.template = this.createMasterDetail.bind(this);    
+        this.config.masterDetail.template = this.createMasterDetail.bind(this);
         this.sub = this.messageService.subscribe('clickOnСoordinator_table', this.changeOnTable, this);
         this.dataGridInstance.onCellClick.subscribe(e => {
             if(e.column) {
@@ -151,13 +151,13 @@
         elementsCaptionAll.forEach( el => {
             el.style.minWidth = '200px';
         })
-    },    
+    },
     changeOnTable: function(message){
         if(message.column != 'Доопрацьовані' ){
             document.getElementById('table7__dooproc').style.display = 'none';
-        }else{          
+        }else{
             document.getElementById('table7__dooproc').style.display = 'block';
-            this.config.query.parameterValues = [ 
+            this.config.query.parameterValues = [
                 { key: '@navigation', value: message.value},
                 { key: '@column', value: message.column}
                 ];
@@ -167,7 +167,7 @@
 	afterLoadDataHandler: function() {
 		this.render();
         this.createCustomStyle();
-	},	    
+	},
     createCustomStyle: function(){
         let elements = document.querySelectorAll('.dx-datagrid-export-button');
         elements = Array.from(elements);
@@ -175,7 +175,7 @@
             let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
             element.firstElementChild.appendChild(spanElement);
         }.bind(this));
-    }, 
+    },
     destroy: function() {
         this.sub.unsubscribe();
     }

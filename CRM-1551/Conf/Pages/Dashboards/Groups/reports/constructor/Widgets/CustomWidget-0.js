@@ -50,8 +50,8 @@
                 target.classList.add('tabHover');
                 this.messageService.publish( { name: 'showTable', value: target.messageValue });
                 this.messageService.publish( { name: 'sendDataCleanup'});
-            });    
-        });        
+            });
+        });
     },
     sendMessage: function(target){
         this.messageService.publish( { name: 'showTable', value: target.messageValue });
@@ -64,6 +64,6 @@
                 element.appendChild(child);
             });
         } return element;
-    },     
+    },
 };
 }());

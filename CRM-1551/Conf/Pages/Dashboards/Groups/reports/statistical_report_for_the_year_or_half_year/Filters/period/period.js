@@ -24,7 +24,7 @@
             dateFrom: new Date(year, 0, '01'),
             dateTo: new Date( year, monthFrom , dayTo)
         }
-        this.setDefaultValue(defaultValue); 
+        this.setDefaultValue(defaultValue);
     },
     destroy(){
     }

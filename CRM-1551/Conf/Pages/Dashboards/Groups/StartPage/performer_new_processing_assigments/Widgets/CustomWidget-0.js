@@ -21,7 +21,7 @@
                     limit: -1
                 };
                 this.queryExecutor(executeQuery, this.userOrganization, this);
-                this.showPreloader = false; 
+                this.showPreloader = false;
             }else{
                 let getUrlParams = window
                                 .location
@@ -43,14 +43,14 @@
                     parameterValues: [ { key: '@organization_id',  value: this.organizationId} ]
                 };
                 this.queryExecutor(executeQueryValues, this.createTable.bind(this, false, null), this);
-                this.showPreloader = false; 
+                this.showPreloader = false;
                 let executeQuery = {
                     queryCode: 'organization_name',
                     parameterValues: [{ key: '@organizationId',  value: this.organizationId}],
                     limit: -1
                 };
                 this.queryExecutor(executeQuery, this.userOrganization, this);
-                this.showPreloader = false; 
+                this.showPreloader = false;
             }
             let executeOrganizationSelect = {
                 queryCode: 'OrganizationSelect',
@@ -58,7 +58,7 @@
                 parameterValues: []
             };
             this.queryExecutor(executeOrganizationSelect, this.setOrganizationSelect, this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
         },
         userOrganization: function(data){
             let indexOfTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationname' );
@@ -75,7 +75,7 @@
                     window.location.search = 'id='+data.rows[0].values[indexOfTypeId]+'';
                 }
             }
-        },    
+        },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -84,7 +84,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        }, 
+        },
         afterViewInit: function(){
             const container = document.getElementById('container')
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
@@ -113,7 +113,7 @@
                 });
                 this.organizationSelect = organizationSelect;
             }
-        },     
+        },
         createTabs: function(tabsWrapper){
             let tabInformation__title  = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
             let tabAction__title  = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
@@ -169,7 +169,7 @@
                     }else{
                         this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
                     }
-                });    
+                });
             });
         },
         createFilters: function(filtersWrapper){
@@ -203,14 +203,14 @@
             let targetId = message.targetId;
             while ( tableContainer.hasChildNodes() ) {
                 tableContainer.removeChild( tableContainer.childNodes[0] );
-            }   
+            }
             let executeQueryValues = {
                 queryCode: 'table2',
                 limit: -1,
                 parameterValues: [ { key: '@organization_id',  value: this.organizationId} ]
             };
             this.queryExecutor(executeQueryValues, this.createTable.bind(this, true, targetId), this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
         },
         createTable: function(reloadTable, targetId, data) {
             const tableContainer = this.tableContainer;
@@ -270,7 +270,7 @@
                     this.searchContainer__input.value = '';
                     this.resultSearch('clearInput', 0);
                     categories.forEach( el => {
-                    el.style.display = 'none'; 
+                    el.style.display = 'none';
                     });
                     let navigator = 'Усі';
                     let column = this.columnName(target);
@@ -281,7 +281,7 @@
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
                     categories.forEach( el => {
-                    el.style.display = 'none'; 
+                    el.style.display = 'none';
                     });
                     let navigator = target.firstElementChild.innerText;
                     target = target.parentElement.parentElement.firstElementChild;
@@ -291,8 +291,8 @@
             });
             if( reloadTable == true ){
                 categories.forEach( el => {
-                el.style.display = 'none'; 
-                });            
+                el.style.display = 'none';
+                });
                 let target = document.getElementById(targetId);
                 this.showTable(target,  this.column, this.navigator );
             }
@@ -325,7 +325,7 @@
             if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input'){
                 headers.forEach( el => {
                     el.firstElementChild.classList.remove('triangle');
-                });            
+                });
                 document.getElementById('columnHeader_2').style.backgroundColor = "rgb(74, 193, 197)";
                 document.getElementById('columnHeader_3').style.backgroundColor = "rgb(173, 118, 205)";
                 document.getElementById('columnHeader_4').style.backgroundColor = "rgb(240, 114, 93)";
@@ -342,8 +342,8 @@
                 document.getElementById('columnHeader_7').firstElementChild.classList.add('triangle7');
                 document.getElementById('columnHeader_8').firstElementChild.classList.add('triangle8');
                 headers.forEach( function(el) {
-                    el.classList.remove('hover'); 
-                    el.classList.remove('check'); 
+                    el.classList.remove('hover');
+                    el.classList.remove('check');
                 }.bind(this));
                 this.hideAllItems(1)
                 this.sendMesOnBtnClick('clickOnTable2', 'none', 'none');
@@ -357,7 +357,7 @@
                         header.classList.add('check');
                         header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
                         header.firstElementChild.classList.add('triangle');
-                    }  
+                    }
                     headers[7].firstElementChild.classList.remove('triangle');
                 }.bind(this, target));
                 this.sendMesOnBtnClick('clickOnTable2', columnName, navigator, target.id);
@@ -368,29 +368,29 @@
             categories = Array.from(categories);
             if( value == 0){
                 categories.forEach( el => {
-                el.style.display = 'none'; 
-                });                                                            
+                el.style.display = 'none';
+                });
             }else if( value == 1){
                 categories.forEach( el => {
-                el.style.display = 'flex'; 
-                }); 
-            }    
+                el.style.display = 'flex';
+                });
+            }
         },
         sendMesOnBtnClick: function(message, column, navigator, targetId ){
             this.messageService.publish( {
                 name: message,
-                column: column,  
-                navigation: navigator, 
-                orgId: this.organizationId, 
+                column: column,
+                navigation: navigator,
+                orgId: this.organizationId,
                 orgName: this.organizationName.innerText,
                 targetId:  targetId
             });
         },
         resultSearch: function(message, value, id){
             this.messageService.publish({name: message, value: value, orgId: id });
-        },  
+        },
         destroy: function() {
             this.sub.unsubscribe();
-        }    
+        }
     };
 }());

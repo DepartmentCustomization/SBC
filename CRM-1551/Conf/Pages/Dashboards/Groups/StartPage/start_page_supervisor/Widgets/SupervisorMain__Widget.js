@@ -1,5 +1,5 @@
 (function () {
-    return {  
+    return {
         customConfig:
                     `
                     <div id='container'></div>  
@@ -31,8 +31,8 @@
             const listTitle  =  this.createElement('div', { id:'listTitle', innerText: 'Виберіть тип звернення:' } );
             const listPhoneNumberInput =  this.createElement('input', { id:'listPhoneNumberInput', placeholder: 'Введiть номер телефону' } );
             const listWrapper =  this.createElement('div', { id:'listWrapper' }, listTitle, listPhoneNumberInput, listItems );
-            const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, listWrapper, modalBtnWrapper); 
-            const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
+            const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, listWrapper, modalBtnWrapper);
+            const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);
             modalBtnTrue.addEventListener( 'click', event => {
                 event.stopImmediatePropagation();
@@ -45,8 +45,8 @@
             const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Підтвердити'});
             const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper' }, modalBtnTrue, modalBtnClose);
             const modalNumber =  this.createElement('input', { id:'modalNumber', type:"text", placeholder:"Введіть номер телефону в форматі 0xxxxxxxxx",  value: ""});
-            const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalNumber, modalBtnWrapper); 
-            const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
+            const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalNumber, modalBtnWrapper);
+            const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);
             modalBtnTrue.addEventListener( 'click', event => {
                 event.stopImmediatePropagation();
@@ -58,7 +58,7 @@
                 event.stopImmediatePropagation();
                 CONTAINER.removeChild(CONTAINER.lastElementChild);
             });
-        }, 
+        },
         load: function(data) {
             const CONTAINER = document.getElementById('container');
             let title = this.createElement('div', { className: 'header-label', innerText: 'КБУ "Контактний центр міста Києва 1551"'});
@@ -68,7 +68,7 @@
             let groupRegByPhone__borderBottom = this.createElement('div', { className: "border-bottom" });
             let groupRegByPhone__borderRight = this.createElement('div', { className: "border-right"});
             let groupRegByPhone = this.createElement('div', { className: "group", tabindex: '0' }, groupRegByPhone__icon, groupRegByPhone__description, groupRegByPhone__borderBottom, groupRegByPhone__borderRight );
-            groupRegByPhone.addEventListener('click',  event => { 
+            groupRegByPhone.addEventListener('click',  event => {
                 event.stopImmediatePropagation();
                 this.showModalWindow();
             });
@@ -78,7 +78,7 @@
             let groupViewAppeals__borderBottom = this.createElement('div', { className: "border-bottom" });
             let groupViewAppeals__borderRight = this.createElement('div', { className: "border-right"});
             let groupViewAppeals = this.createElement('div', { className: "group", tabindex: '0', url: 'sections/Appeals_from_Site' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight );
-            groupViewAppeals.addEventListener('click',  event => { 
+            groupViewAppeals.addEventListener('click',  event => {
                 const target = event.currentTarget;
                 event.stopImmediatePropagation();
                 this.openNewTab(target.url);
@@ -100,7 +100,7 @@
             let groupSearchTable__borderBottom = this.createElement('div', { className: "border-bottom" });
             let groupSearchTable__borderRight = this.createElement('div', { className: "border-right"});
             let groupSearchTable = this.createElement('div', { className: "group", tabindex: '0', url: 'dashboard/page/poshuk_table' }, groupSearchTable__icon, groupSearchTable__description, groupSearchTable__borderBottom, groupSearchTable__borderRight );
-            groupSearchTable.addEventListener('click',  event => { 
+            groupSearchTable.addEventListener('click',  event => {
                 const target = event.currentTarget;
                 event.stopImmediatePropagation();
                 this.openNewTab(target.url);
@@ -111,7 +111,7 @@
             let groupRegAppeals__borderBottom = this.createElement('div', { className: "border-bottom" });
             let groupRegAppeals__borderRight = this.createElement('div', { className: "border-right"});
             let groupRegAppeals = this.createElement('div', { className: "group", tabindex: '0', url: 'dashboard/page/referrals_from_the_site' }, groupRegAppeals__icon, groupRegAppeals__description, groupRegAppeals__borderBottom, groupRegAppeals__borderRight );
-            groupRegAppeals.addEventListener('click',  event => { 
+            groupRegAppeals.addEventListener('click',  event => {
                 const target = event.currentTarget;
                 event.stopImmediatePropagation();
                 this.openNewTab(target.url);
@@ -134,7 +134,7 @@
             let groupLetter__borderRight = this.createElement('div', { className: "border-right"});
             let groupLetter = this.createElement('div', { className: "group", tabindex: '0' }, groupLetter__icon, groupLetter__description, groupLetter__borderBottom, groupLetter__borderRight );
             groupLetter.addEventListener('click',  event => {
-                event.stopImmediatePropagation(); 
+                event.stopImmediatePropagation();
                 this.showTypesList(data);
             });
             let groupDoubled__icon = this.createElement('div', { className: "icon letterIcon material-icons",  innerText: 'shuffle' });

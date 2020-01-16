@@ -1,6 +1,6 @@
 (function () {
     return {
-        title: '',    
+        title: '',
         config: {
             query: {
                 code: 'db_Report_5_1',
@@ -28,7 +28,7 @@
                         return "Разом: " + data.value;
                     }
                 }]
-            },        
+            },
             keyExpr: 'orgId',
             showColumnHeaders: false,
         },
@@ -36,7 +36,7 @@
             this.sub = this.messageService.subscribe( 'ApplyGlobalFilters', this.getFiltersParams, this);
         },
         setTitle: function(dayFrom, dayTo){
-            return 'Надходження звернень з початку року з ' + dayFrom + ', по ' + dayTo; 
+            return 'Надходження звернень з початку року з ' + dayFrom + ', по ' + dayTo;
         },
         getFiltersParams: function(message){
             this.config.query.filterColumns = [];
@@ -63,8 +63,8 @@
             });
             if( this.counter === 3 ){
                 if( this.position !== 0 && this.organization.length > 0){
-                this.config.query.parameterValues = [ 
-                    {key: '@dateFrom' , value: this.dateFrom },  
+                this.config.query.parameterValues = [
+                    {key: '@dateFrom' , value: this.dateFrom },
                     {key: '@dateTo', value: this.dateTo },
                     {key: '@pos', value: this.position },
                 ];
@@ -79,11 +79,11 @@
                 this.config.query.filterColumns.push(filter);
                 this.loadData(this.afterLoadDataHandler);
                 }else if(this.position !== 0 && this.organization.length === 0){
-                    this.config.query.parameterValues = [ 
-                        {key: '@dateFrom' , value: this.dateFrom },  
+                    this.config.query.parameterValues = [
+                        {key: '@dateFrom' , value: this.dateFrom },
                         {key: '@dateTo', value: this.dateTo },
                         {key: '@pos', value: this.position },
-                    ];               
+                    ];
                     this.config.query.filterColumns = [];
                     this.loadData(this.afterLoadDataHandler);
                 }
@@ -95,7 +95,7 @@
                         for (let i = 0; i < val.length; i++) {
                             valuesList.push(val[i].value);
                         }
-                    }    
+                    }
                         return  valuesList.length > 0 ? valuesList : [];
                 } else {
                     return [];
@@ -113,7 +113,7 @@
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
             return  dd + '.' + mm + '.' + yyyy;
-        },  
+        },
         afterLoadDataHandler: function(data) {
             this.messageService.publish( {name: 'setData', rep1_data: data, rep1_title: this.title} );
             this.render();

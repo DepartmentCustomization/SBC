@@ -52,7 +52,7 @@
             },
             paging: {
                 pageSize: 10
-            },        
+            },
             scrolling: {
                 mode: 'standart',
                 rowRenderingMode: null,
@@ -65,7 +65,7 @@
             },
             selection: {
                 mode: "multiple"
-            },    
+            },
             sorting: {
                 mode: "multiple"
             },
@@ -116,7 +116,7 @@
                 this.config.query.parameterValues = [{ key: '@organization_id',  value: message.orgId},
                                                     { key: '@organizationName', value: message.orgName},
                                                     { key: '@navigation', value: message.navigation}];
-                this.loadData(this.afterLoadDataHandler);          
+                this.loadData(this.afterLoadDataHandler);
             }
         },
         findAllSelectRowsToArrived: function() {
@@ -129,32 +129,32 @@
                     limit: -1
                 };
                 this.queryExecutor(executeQuery);
-                this.loadData(this.afterLoadDataHandler); 
+                this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish( { name: 'reloadMainTable', column: this.column,   navigator: this.navigator, targetId: this.targetId });
             }
         },
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "exportxlsx",
                     type: "default",
                     text: "Excel",
-                    onClick: function(e) { 
+                    onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.exportToExcel();
                     }.bind(this)
                 },
                 location: "after"
-            });  
+            });
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "check",
                     type: "default",
                     text: "Взяти в роботу",
-                    onClick: function(e) { 
+                    onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.findAllSelectRowsToArrived();
                     }.bind(this)
@@ -244,7 +244,7 @@
                 }else if( el.name === 'adress'){
                     obj.key = 'adress',
                     obj.width = 21
-                    captions.push('Місце проблеми (Об\'єкт)'); 
+                    captions.push('Місце проблеми (Об\'єкт)');
                 }
                 columnsHeader.push(obj);
             });
@@ -270,7 +270,7 @@
                 }else if( el.name === 'adress'){
                     obj.key = 'adress',
                     obj.width = 21
-                    captions.push('Місце проблеми (Об\'єкт)'); 
+                    captions.push('Місце проблеми (Об\'єкт)');
                 }
                 columnsHeader.push(obj);
             });
@@ -283,9 +283,9 @@
             let indexVykonavets = data.columns.findIndex(el => el.code.toLowerCase() === 'vykonavets' );
             let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_zmist' );
             let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress' );
-            let indexRegistrDate = data.columns.findIndex(el => el.code.toLowerCase() === 'ass_registration_date' );        
-            let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );        
-            for( let  j = 0; j < data.rows.length; j ++ ){  
+            let indexRegistrDate = data.columns.findIndex(el => el.code.toLowerCase() === 'ass_registration_date' );
+            let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
+            for( let  j = 0; j < data.rows.length; j ++ ){
                 const row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
@@ -326,10 +326,10 @@
                     bottom: {style:'thin'},
                     right: {style:'thin'}
                 };
-                worksheet.getRow(number).alignment = { 
+                worksheet.getRow(number).alignment = {
                     vertical: 'middle',
                     horizontal: 'center',
-                    wrapText: true 
+                    wrapText: true
                 };
                 worksheet.getRow(number).font = {
                     name: 'Times New Roman',
@@ -355,24 +355,24 @@
             let mm = date.getMinutes();
             MM += 1 ;
             if( (dd.toString()).length === 1){
-                dd = '0' + dd; 
+                dd = '0' + dd;
             }
             if( (MM.toString()).length === 1){
-                MM = '0' + MM ; 
+                MM = '0' + MM ;
             }
             if( (HH.toString()).length === 1){
-                HH = '0' + HH; 
+                HH = '0' + HH;
             }
             if( (mm.toString()).length === 1){
-                mm = '0' + mm; 
+                mm = '0' + mm;
             }
             let trueDate = dd+'.'+MM+'.' + yyyy ;
             return trueDate;
-        },         
+        },
         afterLoadDataHandler: function() {
             this.render();
             this.createCustomStyle();
-        },	    
+        },
         createCustomStyle: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
@@ -380,9 +380,9 @@
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
-        }, 
+        },
         reloadAfterSend: function() {
-            this.loadData(this.afterLoadDataHandler); 
+            this.loadData(this.afterLoadDataHandler);
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
@@ -415,7 +415,7 @@
             elementsCaptionAll.forEach( el => {
                 el.style.minWidth = '200px';
             })
-        },    
+        },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -424,7 +424,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },    
+        },
         orgIdDistribute: function(message){
             this.organizationId = message.value;
             this.distribute = message.distribute;

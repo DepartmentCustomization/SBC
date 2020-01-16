@@ -51,7 +51,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },      
+        },
         afterViewInit: function() {
             const container = document.getElementById('notificationContainer');
             const captionWarning =  this.createElement( 'div',{ className: 'captionWarning', innerText: 'Оберiть фiльтри!' });

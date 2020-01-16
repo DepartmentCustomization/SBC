@@ -57,7 +57,7 @@
             },
             paging: {
                 pageSize: 10
-            },  
+            },
             editing: {
                 enabled: false,
             },
@@ -92,12 +92,12 @@
         sub: [],
         sub1: [],
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 300;   
+            this.dataGridInstance.height = window.innerHeight - 300;
             document.getElementById('searchTable').style.display = 'none';
             this.sub = this.messageService.subscribe('resultSearch', this.changeOnTable, this);
             this.sub1 = this.messageService.subscribe('clearInput', this.hideAllTable, this);
             this.sub2 = this.messageService.subscribe('clickOnСoordinator_table', this.hideSearchTable, this);
-            this.config.masterDetail.template = this.createMasterDetail.bind(this);    
+            this.config.masterDetail.template = this.createMasterDetail.bind(this);
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
@@ -132,7 +132,7 @@
             elementsCaptionAll.forEach( el => {
                 el.style.minWidth = '200px';
             })
-        },   
+        },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -141,7 +141,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },     
+        },
         changeOnTable: function(message){
             if(message.value != ''){
                 document.getElementById('searchTable').style.display = 'block';
@@ -160,14 +160,14 @@
         },
         hideAllTable: function(){
             document.getElementById('searchTable').style.display = 'none';
-        },    
+        },
         hideSearchTable: function(){
             document.getElementById('searchTable').style.display = 'none';
             document.getElementById('searchContainer__input').value = '';
         },
         afterLoadDataHandler: function() {
             this.render();
-        },	    
+        },
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();

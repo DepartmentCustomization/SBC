@@ -130,12 +130,12 @@
                         customizeText: function(data) {
                             return "Разом: " + data.value;
                         }
-                    }, 
+                    },
                 ]
             },
             sorting: {
                 mode: "none"
-            },                
+            },
             keyExpr: 'Id',
             showBorders: false,
             showColumnLines: false,
@@ -156,7 +156,7 @@
         },
         init: function() {
             this.sub1 = this.messageService.subscribe( 'GlobalFilterChanged', this.getFiltersParams, this );
-            this.arrayColor = [ 
+            this.arrayColor = [
                 '63be7b',
                 '85c87d',
                 'a8d27f',
@@ -174,9 +174,9 @@
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
+                widget: "dxButton",
                 location: "after",
-                options: { 
+                options: {
                     icon: "exportxlsx",
                     type: "default",
                     text: "Excel",
@@ -186,10 +186,10 @@
                             queryCode: 'db_Report_3',
                             limit: -1,
                             parameterValues: [
-                                {key: '@dateFrom' , value: this.dateFrom },  
-                                {key: '@dateTo', value: this.dateTo }, 
-                                {key: '@questionGroup', value: this.questionGroup }, 
-                                {key: '@questionType', value: this.questionType }, 
+                                {key: '@dateFrom' , value: this.dateFrom },
+                                {key: '@dateTo', value: this.dateTo },
+                                {key: '@questionGroup', value: this.questionGroup },
+                                {key: '@questionType', value: this.questionType },
                             ]
                         };
                         this.queryExecutor(exportQuery, this.myCreateExcel, this);
@@ -198,7 +198,7 @@
             });
         },
         myCreateExcel: function(data){
-            if( data.rows.length > 0 ){    
+            if( data.rows.length > 0 ){
                 this.showPagePreloader('Зачекайте, формується документ');
                 this.indexArr = [];
                 let columns = this.config.columns;
@@ -346,7 +346,7 @@
                 let indexSolomiansky = data.columns.findIndex(el => el.code.toLowerCase() === 'solomiansky' );
                 let indexShevchenkovsky = data.columns.findIndex(el => el.code.toLowerCase() === 'shevchenkovsky' );
                 let indexAllQuestionsQty = data.columns.findIndex(el => el.code.toLowerCase() === 'allquestionsqty' );
-                for( let  j = 0; j < data.rows.length; j ++ ){  
+                for( let  j = 0; j < data.rows.length; j ++ ){
                     let row = data.rows[j];
                     let rowItem = { number: j + 1 };
                     for(let i = 0; i < indexArr.length; i ++){
@@ -413,10 +413,10 @@
                         bottom: {style:'thin'},
                         right: {style:'thin'}
                     };
-                    worksheet.getRow(number).alignment = { 
+                    worksheet.getRow(number).alignment = {
                         vertical: 'middle',
                         horizontal: 'center',
-                        wrapText: true 
+                        wrapText: true
                     };
                     worksheet.getRow(number).font = {
                         name: 'Times New Roman',
@@ -428,7 +428,7 @@
                 }
                 worksheet.getRow(3).border = {
                     bottom: {style:'thin'}
-                };            
+                };
                 worksheet.getRow(4).font = { vertAlign: 'subscript', name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false };
                 worksheet.getRow(4).alignment = { textRotation: +90, vertical: 'middle', horizontal: 'center', wrapText: true };
                 let numberTitle = worksheet.getCell('A4');
@@ -436,7 +436,7 @@
                 numberTitle.alignment = { textRotation: 0, vertical: 'middle', horizontal: 'center', wrapText: true };
                 qustTitle.alignment = { textRotation: 0, vertical: 'middle', horizontal: 'center', wrapText: true };
                 this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
-            }    
+            }
         },
         changeDateTimeValues: function(value){
             if( value !== null){
@@ -459,7 +459,7 @@
             for(let i = 0; i < arr.length; i++){
                 let cellValue = arr[i].textContent;
                 if (+cellValue === val ) {
-                    indexes.push(i); 
+                    indexes.push(i);
                 }
             }
             return indexes;
@@ -499,7 +499,7 @@
                             }
                         }
                     }
-                }   
+                }
             }
         },
         getFiltersParams: function(message){
@@ -513,11 +513,11 @@
                     this.questionGroup = questionGroup === null ? 0 :  questionGroup === '' ? 0 : questionGroup.value ;
                     this.questionType = questionType === null ? 0 :  questionType === '' ? 0 : questionType.value ;
                     if(this.questionType !== 0){
-                        this.config.query.parameterValues = [ 
-                            {key: '@dateFrom' , value: this.dateFrom },  
-                            {key: '@dateTo', value: this.dateTo }, 
-                            {key: '@questionGroup', value: this.questionGroup }, 
-                            {key: '@questionType', value: this.questionType }, 
+                        this.config.query.parameterValues = [
+                            {key: '@dateFrom' , value: this.dateFrom },
+                            {key: '@dateTo', value: this.dateTo },
+                            {key: '@questionGroup', value: this.questionGroup },
+                            {key: '@questionType', value: this.questionType },
                         ];
                         this.loadData(this.afterLoadDataHandler);
                     }

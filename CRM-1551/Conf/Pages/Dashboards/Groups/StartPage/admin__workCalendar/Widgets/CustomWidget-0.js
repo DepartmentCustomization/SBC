@@ -18,11 +18,11 @@
                 queryCode: 'workDaysCalendar',
                 limit: -1,
                 parameterValues: [
-                    { key: '@year', value: this.year.viewValue  }    
+                    { key: '@year', value: this.year.viewValue  }
                 ]
             };
             this.queryExecutor(executeQuery, this.load, this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
         }
     },
     getLastDayOfMonth: function(year, month) {
@@ -76,7 +76,7 @@
                 parameterValues: []
             };
             this.queryExecutor(executeQuery);
-            this.showPreloader = false; 
+            this.showPreloader = false;
         });
         this.yearCalendar.forEach( month => {
             let dayBox;
@@ -98,13 +98,13 @@
             }
             let ml = monthBox.childNodes.length;
             if(  ml < 42  &&  ml > 36){
-                let c = 42 - ml; 
+                let c = 42 - ml;
                 for(let i = 0; i < c; i ++){
                     let dayBox = this.createElement('div', { id: 'day_'+month.year+'_'+month.month+'_00', className: 'calenDay emptyDay'});
                     monthBox.appendChild(dayBox);
                 }
             }else if( ml < 49  &&  ml > 42 ){
-                let c = 49 - ml; 
+                let c = 49 - ml;
                 for(let i = 0; i < c; i ++){
                     let dayBox = this.createElement('div', { id: 'day_'+month.year+'_'+month.month+'_00', className: 'calenDay emptyDay'});
                     monthBox.appendChild(dayBox);
@@ -112,41 +112,41 @@
             }
             let title ;
             switch(month.month) {
-              case 1: 
-                title = 'Січень' 
+              case 1:
+                title = 'Січень'
                 break
-              case 2: 
-                title = 'Лютий' 
+              case 2:
+                title = 'Лютий'
                 break
-              case 3: 
-                title = 'Березень' 
+              case 3:
+                title = 'Березень'
                 break
-              case 4: 
-                title = 'Квітень' 
+              case 4:
+                title = 'Квітень'
                 break
-              case 5: 
-                title = 'Травень' 
+              case 5:
+                title = 'Травень'
                 break
-              case 6: 
-                title = 'Червень' 
+              case 6:
+                title = 'Червень'
                 break
-              case 7: 
-                title = 'Липень' 
+              case 7:
+                title = 'Липень'
                 break
-              case 8: 
-                title = 'Серпень' 
+              case 8:
+                title = 'Серпень'
                 break
-              case 9: 
-                title = 'Вересень' 
+              case 9:
+                title = 'Вересень'
                 break
-              case 10: 
-                title = 'Жовтень' 
+              case 10:
+                title = 'Жовтень'
                 break
-              case 11: 
-                title = 'Листопад' 
+              case 11:
+                title = 'Листопад'
                 break
-              case 12: 
-                title = 'Грудень' 
+              case 12:
+                title = 'Грудень'
                 break
             }
             let monthTitle = this.createElement('div', {  className: 'monthTitle', innerText: title});
@@ -204,7 +204,7 @@
                 element.appendChild(child);
             });
         } return element;
-    },     
+    },
     destroy: function(){
         this.sub.unsubscribe();
     },

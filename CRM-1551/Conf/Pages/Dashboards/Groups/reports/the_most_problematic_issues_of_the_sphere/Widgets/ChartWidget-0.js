@@ -62,7 +62,7 @@
                 
                 </div>
                 `
-    , 
+    ,
     init: function() {
         this.colors = {
             0: 'rgb(124, 181, 236)',
@@ -86,11 +86,11 @@
                                                       p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                                                       return p;
                                                     }, {}
-                                                );                                            
+                                                );
         this.sphereId = Number(getUrlParams.sphereId);
         this.sphereName = getUrlParams.name;
         this.dateFromViewValues = this.changeDateTimeValues(getUrlParams.dateFrom);
-        this.dateToViewValues = this.changeDateTimeValues(getUrlParams.dateTo);  
+        this.dateToViewValues = this.changeDateTimeValues(getUrlParams.dateTo);
         let dateFrom = getUrlParams.dateFrom;
         let dateTo = getUrlParams.dateTo;
         this.dateFrom = new Date(dateFrom);
@@ -99,8 +99,8 @@
             queryCode: 'db_Report_8_2',
             limit: -1,
             parameterValues: [
-                { key: '@dateFrom', value: this.dateFrom},    
-                { key: '@dateTo', value: this.dateTo},  
+                { key: '@dateFrom', value: this.dateFrom},
+                { key: '@dateTo', value: this.dateTo},
                 { key: '@typeId', value: this.sphereId},
             ]
         };
@@ -114,7 +114,7 @@
                 element.appendChild(child);
             });
         } return element;
-    },    
+    },
     load: function(data){
         document.getElementById('widgetTitle').innerText = 'ТОП-10 найпроблемніших питань сфери «'+this.sphereName+'» за перiод: ' +this.dateFromViewValues+ ' по: '+this.dateToViewValues;
         this.createChartInfo(data);

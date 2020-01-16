@@ -56,7 +56,7 @@
         },
         paging: {
             pageSize: 10
-        },        
+        },
         scrolling: {
             mode: 'standart',
             rowRenderingMode: null,
@@ -107,12 +107,12 @@
     createTableButton: function(e) {
         let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push({
-            widget: "dxButton", 
-            options: { 
+            widget: "dxButton",
+            options: {
                 icon: "exportxlsx",
                 type: "default",
                 text: "Excel",
-                onClick: function(e) { 
+                onClick: function(e) {
                     e.event.stopImmediatePropagation();
                     let executeQuery = {
                         queryCode: 'ak_EditAssigmetsSearchResult',
@@ -128,8 +128,8 @@
             location: "after"
         });
         toolbarItems.push({
-            widget: "dxButton", 
-            options: { 
+            widget: "dxButton",
+            options: {
                 icon: "trash",
                 type: "default",
                 text: "Видалити",
@@ -143,10 +143,10 @@
                 }.bind(this)
             },
             location: "after"
-        });        
+        });
         toolbarItems.push({
-            widget: "dxButton", 
-            options: { 
+            widget: "dxButton",
+            options: {
                 icon: "todo",
                 type: "default",
                 text: "Роз'яснено",
@@ -162,14 +162,14 @@
             location: "after"
         });
         toolbarItems.push({
-            widget: "dxButton", 
-            options: { 
+            widget: "dxButton",
+            options: {
                 icon: "close",
                 type: "default",
                 text: "Не в компетенції",
                 elementAttr: {
                     id: "button_arrived",
-                },                
+                },
                 onClick: function(e) {
                     e.event.stopImmediatePropagation();
                     let status = 'noCompetence';
@@ -178,7 +178,7 @@
             },
             location: "after"
         });
-    }, 
+    },
     validationCheck: function(status){
         let keys = this.dataGridInstance.selectedRowKeys;
         if(keys.length > 0){
@@ -212,7 +212,7 @@
                 };
                 self.queryExecutor(executeQuery, requestResponse, this);
             }else{
-                self.loadData(self.afterLoadDataHandler); 
+                self.loadData(self.afterLoadDataHandler);
             }
             function requestResponse(){
                 return makeRequest(index+1);
@@ -274,7 +274,7 @@
                 columnsHeader.push(obj);
                 captions.push('Номеп питання');
             }else if(el.name === 'Ass_registration_date'){
-                let obj =  { 
+                let obj =  {
                     key: el.name,
                     width: 12
                 };
@@ -288,40 +288,40 @@
                 columnsHeader.push(obj);
                 captions.push('Стан');
             }else if( el.name === 'QuestionType'){
-                let obj =  { 
+                let obj =  {
                     key: el.name,
                     width: 16
                 };
                 columnsHeader.push(obj);
                 captions.push('Тип питання');
             }else if( el.name === 'Zayavnyk'){
-                let obj =  { 
+                let obj =  {
                     key: el.name,
                     width: 20
                 };
                 columnsHeader.push(obj);
-                captions.push('Заявник'); 
+                captions.push('Заявник');
             }else if( el.name === 'Adress'){
-                let obj =  { 
+                let obj =  {
                     key: el.name,
                     width: 20
                 };
                 columnsHeader.push(obj);
-                captions.push('Місце проблеми'); 
+                captions.push('Місце проблеми');
             }else if( el.name === 'Vykonavets'){
-                let obj =  { 
+                let obj =  {
                     key: el.name,
                     width: 20
                 };
                 columnsHeader.push(obj);
-                captions.push('Виконавець'); 
+                captions.push('Виконавець');
             }else if( el.name === 'Control_date'){
-                let obj =  { 
+                let obj =  {
                     key: el.name,
                     width: 10
                 };
                 columnsHeader.push(obj);
-                captions.push('Дата контролю'); 
+                captions.push('Дата контролю');
             }
         });
         worksheet.getRow(2).values = captions;
@@ -332,9 +332,9 @@
         let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress' );
         let indexVykonavets = data.columns.findIndex(el => el.code.toLowerCase() === 'vykonavets' );
         let indexRegistrDate = data.columns.findIndex(el => el.code.toLowerCase() === 'ass_registration_date' );
-        let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );               
-        let indexAssignmentState = data.columns.findIndex(el => el.code.toLowerCase() === 'assignmentstate' );               
-        for( let  j = 0; j < data.rows.length; j ++ ){  
+        let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date' );
+        let indexAssignmentState = data.columns.findIndex(el => el.code.toLowerCase() === 'assignmentstate' );
+        for( let  j = 0; j < data.rows.length; j ++ ){
             let row = data.rows[j];
             let rowItem = { number: j + 1 };
             for(let i = 0; i < indexArr.length; i ++){
@@ -370,7 +370,7 @@
                 Zayavnyk: el.Zayavnyk ,
                 Adress: el.Adress ,
                 Vykonavets: el.Vykonavets ,
-                Control_date: el.Control_date 
+                Control_date: el.Control_date
             }
             worksheet.addRow(row);
         });
@@ -384,10 +384,10 @@
                 bottom: {style:'thin'},
                 right: {style:'thin'}
             };
-            worksheet.getRow(number).alignment = { 
+            worksheet.getRow(number).alignment = {
                 vertical: 'middle',
                 horizontal: 'center',
-                wrapText: true 
+                wrapText: true
             };
             worksheet.getRow(number).font = {
                 name: 'Times New Roman',
@@ -403,7 +403,7 @@
         worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
         worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
         this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
-    }, 
+    },
     changeDateTimeValues: function(value){
         let trueDate ;
         if( value !== null){
@@ -415,23 +415,23 @@
             let mm = date.getMinutes();
             MM += 1 ;
             if( (dd.toString()).length === 1){
-  dd = '0' + dd; 
+  dd = '0' + dd;
 }
             if( (MM.toString()).length === 1){
- MM = '0' + MM ; 
+ MM = '0' + MM ;
 }
             if( (HH.toString()).length === 1){
-  HH = '0' + HH; 
+  HH = '0' + HH;
 }
             if( (mm.toString()).length === 1){
- mm = '0' + mm; 
+ mm = '0' + mm;
 }
             trueDate = dd+'.'+MM+'.' + yyyy;
         }else{
             trueDate = ' ';
         }
         return trueDate;
-    },      
+    },
     afterLoadDataHandler: function() {
         this.render();
     },

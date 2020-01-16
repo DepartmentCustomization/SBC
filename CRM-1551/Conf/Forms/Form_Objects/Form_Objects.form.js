@@ -5,7 +5,7 @@
                             { key: '@history_id', value: row.values[0]}
                            ];
         this.details.loadData('ObjectHistory_details', parameters);
-        this.details.setVisibility('ObjectHistory_details', true);       
+        this.details.setVisibility('ObjectHistory_details', true);
     },
     date_in_form: '',
     previous_result: '',

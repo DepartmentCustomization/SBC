@@ -17,7 +17,7 @@
                     script2.onload = function () {
                         this.messageService.publish({  name: 'LoadLib' });
                   }.bind(this);
-            }.bind(this);  
+            }.bind(this);
         }
         this.showPreloader = false;
     },

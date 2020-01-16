@@ -33,7 +33,7 @@
                     }
                 }
             ]
-        },        
+        },
         keyExpr: 'Id',
         scrolling: {
             mode: 'virtual'
@@ -57,7 +57,7 @@
         showHeaderFilter: false,
         showColumnChooser: false,
         showColumnFixing: true,
-        groupingAutoExpandAll: null, 
+        groupingAutoExpandAll: null,
     },
     init: function() {
         this.dataGridInstance.height = window.innerHeight - 150;
@@ -72,9 +72,9 @@
     createTableButton: function(e) {
         let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push({
-            widget: "dxButton", 
+            widget: "dxButton",
             location: "after",
-            options: { 
+            options: {
                 icon: "exportxlsx",
                 type: "default",
                 text: "Excel",
@@ -84,9 +84,9 @@
                         queryCode: 'db_Report_2',
                         limit: -1,
                         parameterValues: [
-                            {key: '@dateFrom' , value: this.dateFrom },  
-                            {key: '@dateTo', value: this.dateTo },  
-                            {key: '@questionType', value: this.questionType }, 
+                            {key: '@dateFrom' , value: this.dateFrom },
+                            {key: '@dateTo', value: this.dateTo },
+                            {key: '@questionType', value: this.questionType },
                             {key: '@questionGroup', value: this.questionGroup },
                         ]
                     };
@@ -95,9 +95,9 @@
             },
         });
         toolbarItems.push({
-            widget: "dxButton", 
+            widget: "dxButton",
             location: "after",
-            options: { 
+            options: {
                 icon: "arrowright",
                 type: "default",
                 text: "До класифікатору питань",
@@ -109,7 +109,7 @@
         });
     },
     myCreateExcel: function(data){
-        if( data.rows.length > 0 ){    
+        if( data.rows.length > 0 ){
             this.showPagePreloader('Зачекайте, формується документ');
             this.indexArr = [];
             let columns = this.config.columns;
@@ -180,7 +180,7 @@
             this.addetedIndexes = [];
             let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'questiontype' );
             let indexQuestionQty = data.columns.findIndex(el => el.code.toLowerCase() === 'questionqty' );
-            for( let  j = 0; j < data.rows.length; j ++ ){  
+            for( let  j = 0; j < data.rows.length; j ++ ){
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
@@ -217,10 +217,10 @@
                     bottom: {style:'thin'},
                     right: {style:'thin'}
                 };
-                worksheet.getRow(number).alignment = { 
+                worksheet.getRow(number).alignment = {
                     vertical: 'middle',
                     horizontal: 'center',
-                    wrapText: true 
+                    wrapText: true
                 };
                 worksheet.getRow(number).font = {
                     name: 'Times New Roman',
@@ -232,11 +232,11 @@
             }
             worksheet.getRow(4).border = {
                 bottom: {style:'thin'}
-            };            
+            };
             worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
-        }    
+        }
     },
     changeDateTimeValues: function(value){
         let trueDate ;
@@ -255,7 +255,7 @@
                 MM = '0' + MM ;
             }
             if( (HH.toString()).length === 1) {
-                HH = '0' + HH; 
+                HH = '0' + HH;
             }
             if( (mm.toString()).length === 1){
                 mm = '0' + mm;
@@ -265,7 +265,7 @@
             trueDate = ' ';
         }
         return trueDate;
-    },    
+    },
     getFiltersParams: function(message){
         let period = message.package.value.values.find(f => f.name === 'period').value;
         let questionType = message.package.value.values.find(f => f.name === 'questionTypes').value;
@@ -277,17 +277,17 @@
                 this.questionType = questionType === null ? 0 :  questionType === '' ? 0 : questionType.value ;
                 this.questionGroup = questionGroup === null ? 0 :  questionGroup === '' ? 0 : questionGroup.value ;
                 if(this.questionType !== 0){
-                    this.config.query.parameterValues = [ 
-                        {key: '@dateFrom' , value: this.dateFrom },  
-                        {key: '@dateTo', value: this.dateTo },  
-                        {key: '@questionType', value: this.questionType },  
-                        {key: '@questionGroup', value: this.questionGroup },  
+                    this.config.query.parameterValues = [
+                        {key: '@dateFrom' , value: this.dateFrom },
+                        {key: '@dateTo', value: this.dateTo },
+                        {key: '@questionType', value: this.questionType },
+                        {key: '@questionGroup', value: this.questionGroup },
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }
             }
         }
-    },    
+    },
     extractOrgValues: function(val) {
         if(val !== ''){
             let valuesList = [];
@@ -296,7 +296,7 @@
         } else {
             return [];
         }
-	},       
+	},
     afterLoadDataHandler: function() {
         this.render();
     },

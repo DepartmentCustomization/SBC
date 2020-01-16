@@ -62,7 +62,7 @@
             },
             paging: {
                 pageSize: 10
-            },  
+            },
             editing: {
                 enabled: false,
             },
@@ -152,7 +152,7 @@
             elementsCaptionAll.forEach( el => {
                 el.style.minWidth = '200px';
             });
-        },   
+        },
         changeOnTable: function(message){
             document.getElementById('allTables').style.display = 'none';
             if(message.value != ''){
@@ -169,7 +169,7 @@
         hideAllTable: function(){
             document.getElementById('allTables').style.display = 'none';
             document.getElementById('searchTable').style.display = 'none';
-        },   
+        },
         hideSearchTable: function(){
             document.getElementById('allTables').style.display = 'block';
             document.getElementById('searchTable').style.display = 'none';

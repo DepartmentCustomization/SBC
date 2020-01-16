@@ -13,7 +13,7 @@
             keyExpr: ''
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 100;   
+            this.dataGridInstance.height = window.innerHeight - 100;
             const getUrlParams = window
                                 .location
                                     .search
@@ -31,21 +31,21 @@
             const rdaId = Number(getUrlParams.rdaid);
             this.config.query.parameterValues = [
                 {key: '@CalcDate' , value: date },
-                {key: '@RDAId', value: rdaId },  
+                {key: '@RDAId', value: rdaId },
                 {key: '@RatingId', value: ratingId },
-                {key: '@ColumnCode', value: columnCode } 
+                {key: '@ColumnCode', value: columnCode }
             ];
             let exportQuery = {
                 queryCode: this.config.query.code,
                 limit: -1,
                 parameterValues: [
                     {key: '@CalcDate' , value:  date },
-                    {key: '@RDAId', value: rdaId },  
+                    {key: '@RDAId', value: rdaId },
                     {key: '@RatingId', value: ratingId },
-                    {key: '@ColumnCode', value: columnCode } 
+                    {key: '@ColumnCode', value: columnCode }
                 ]
             };
-            this.queryExecutor(exportQuery, this.setColumns, this);  
+            this.queryExecutor(exportQuery, this.setColumns, this);
         },
         setColumns: function (data) {
             for (let i = 0; i < data.columns.length; i++) {

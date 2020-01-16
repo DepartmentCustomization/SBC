@@ -14,7 +14,7 @@
                     dataField: 'source',
                     caption: ' ',
                     width: 200,
-                }, 
+                },
                 {
                     caption: 'у тому числі питання:',
                     columns: [
@@ -175,7 +175,7 @@
                             ]
                         }
                     ]
-                }, 
+                },
             ],
             keyExpr: 'source'
         },
@@ -185,18 +185,18 @@
         },
         setFilterParams: function (message) {
             this.config.query.parameterValues = [
-                {key: '@dateFrom' , value:  message.dateFrom },  
-                {key: '@dateTo', value: message.dateTo } 
+                {key: '@dateFrom' , value:  message.dateFrom },
+                {key: '@dateTo', value: message.dateTo }
             ];
             this.loadData(this.afterLoadDataHandler);
-        }, 
+        },
         afterLoadDataHandler: function(data) {
             const name = 'setData';
             const columns = this.config.columns;
             const position = 4;
             this.messageService.publish( {name, data, columns, position} );
             this.render(this.afterRenderTable());
-        },   
+        },
         afterRenderTable: function () {
             this.messageService.publish({ name: 'setStyles'});
             this.messageService.publish({

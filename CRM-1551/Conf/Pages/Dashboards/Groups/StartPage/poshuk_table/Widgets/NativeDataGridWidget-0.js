@@ -53,7 +53,7 @@
             },
             sorting: {
                 mode: "multiple"
-            },        
+            },
             showBorders: false,
             showColumnLines: false,
             showRowLines: true,
@@ -62,8 +62,8 @@
         createButtons: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "exportxlsx",
                     type: "default",
                     text: "Excel",
@@ -75,8 +75,8 @@
                 location: "after"
             });
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "preferences",
                     type: "default",
                     text: "Налаштування фiльтрiв",
@@ -96,7 +96,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },  
+        },
         filtersValuesMacros: [],
         textFilterMacros: '',
         init: function() {
@@ -151,34 +151,34 @@
                                         ageSendViewValue = ageSendViewValue + ', '+ el.viewValue;
                                     });
                                     ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
-                                    let ageSendValue =  this.ageArr.join(' or '); 
+                                    let ageSendValue =  this.ageArr.join(' or ');
                                     ageSendValue = '('+ageSendValue+')';
                                     this.createObjMacros( elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
                                 }else{
                                     let sumValue = '';
                                     let sumViewValue = '';
                                     if(data.length > 0){
-                                        data.forEach( row => { 
+                                        data.forEach( row => {
                                             sumValue =  sumValue + ', '+ row.value;
                                             sumViewValue =  sumViewValue + ', '+ row.viewValue;
                                         });
                                     }
                                     let numberSendValue = sumValue.slice(2, [sumValue.length]);
                                     let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
-                                    this.createObjMacros( elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue); 
+                                    this.createObjMacros( elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
                                 }
                             }else if(typeof(data[0].value) === 'string' ){
                                 let stringSumValue = '';
                                 let stringSumViewValue = '';
                                 if(data.length > 0){
-                                    data.forEach( row => { 
+                                    data.forEach( row => {
                                         stringSumValue =  stringSumValue + ', \''+ row.value + '\'';
                                         stringSumViewValue =  stringSumViewValue + ', '+ row.viewValue;
                                     });
                                 }
                                 let stringSendValue = stringSumValue.slice(2, [stringSumValue.length]);
                                 let stringSendViewValue = stringSumViewValue.slice(2, [stringSumViewValue.length]);
-                                this.createObjMacros( elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue); 
+                                this.createObjMacros( elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
                             }
                         }else{
                             if(data.dateFrom != '' ){
@@ -247,7 +247,7 @@
             function checkDateTo(val){
                 return val ? val.dateTo : null;
             }
-            this.filtersWithOutValues === this.filtersLength ?  this.isSelected = false   : this.isSelected = true; 
+            this.filtersWithOutValues === this.filtersLength ?  this.isSelected = false   : this.isSelected = true;
         },
         createObjMacros: function(name, operation, value, placeholder, viewValue) {
             let obj = {
@@ -273,31 +273,31 @@
                 this.macrosValue = macrosValue === '' ?  '1=1' : macrosValue;
                 this.sendMsgForSetFilterPanelState(false);
                 this.config.query.parameterValues = [
-                    {  key: '@param1', value: this.macrosValue }, 
-                    {  key: '@registration_date_from', value: this.registrationDateFrom }, 
+                    {  key: '@param1', value: this.macrosValue },
+                    {  key: '@registration_date_from', value: this.registrationDateFrom },
                     {  key: '@registration_date_to', value: this.registrationDateTo },
-                    {  key: '@transfer_date_from', value: this.transferDateFrom }, 
+                    {  key: '@transfer_date_from', value: this.transferDateFrom },
                     {  key: '@transfer_date_to', value: this.transferDateTo },
-                    {  key: '@state_changed_date_from', value: this.stateChangedDateFrom }, 
+                    {  key: '@state_changed_date_from', value: this.stateChangedDateFrom },
                     {  key: '@state_changed_date_to', value: this.stateChangedDateTo },
-                    {  key: '@state_changed_date_done_from', value: this.stateChangedDateDoneFrom }, 
+                    {  key: '@state_changed_date_done_from', value: this.stateChangedDateDoneFrom },
                     {  key: '@state_changed_date_done_to', value: this.stateChangedDateDoneTo },
-                    {  key: '@execution_term_from', value: this.executionTermFrom }, 
+                    {  key: '@execution_term_from', value: this.executionTermFrom },
                     {  key: '@execution_term_to', value: this.executionTermTo },
-                    {  key: '@control_date_from', value: this.controlDateFrom }, 
+                    {  key: '@control_date_from', value: this.controlDateFrom },
                     {  key: '@control_date_to', value: this.controlDateTo },
                     {  key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
                 ];
                 this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish( { 
+                this.messageService.publish( {
                     name: 'filters',
                     value: this.filtersValuesMacros
-                });    
+                });
             } else{
-                this.messageService.publish( { 
+                this.messageService.publish( {
                     name: 'filters',
                     value: this.filtersValuesMacros
-                });        
+                });
             }
         },
         createFilterMacros: function(code, operation, value) {
@@ -319,7 +319,7 @@
                     }
                     this.textFilterMacros.push(textMacros);
                 }
-            }   
+            }
         },
         setFilterColumns: function(code, operation, value) {
             const filter = {
@@ -341,23 +341,23 @@
                     width: 120
                 }, {
                     dataField: 'question_question_type',
-                    caption: 'Тип питання', 
+                    caption: 'Тип питання',
                 }, {
                     dataField: 'zayavnyk_full_name',
                     caption: 'ПІБ Заявника',
-                    width: 250               
+                    width: 250
                 }, {
                     dataField: 'zayavnyk_building_number',
                     caption: 'Будинок',
-                    width: 250               
+                    width: 250
                 }, {
                     dataField: 'zayavnyk_flat',
                     caption: 'Квартира',
-                    width: 60               
+                    width: 60
                 }, {
                     dataField: 'question_object',
                     caption: "Об'єкт",
-                    width: 250               
+                    width: 250
                 }, {
                     dataField: 'assigm_executor_organization',
                     caption: 'Виконавець',
@@ -368,7 +368,7 @@
                     caption: 'Поступило',
                     width: 130,
                     dateType: 'datetime',
-                    format: 'dd.MM.yyy HH.mm'                
+                    format: 'dd.MM.yyy HH.mm'
                 }
             ]
             message.value.forEach(function(el){
@@ -382,7 +382,7 @@
                             caption: el.caption,
                             width: 130,
                             dateType: 'datetime',
-                            format: 'dd.MM.yyy HH.mm'                         
+                            format: 'dd.MM.yyy HH.mm'
                         }
                         break;
                     case 'appeals_files_check':
@@ -434,19 +434,19 @@
                 queryCode: 'ak_QueryCodeSearch',
                 limit: -1,
                 parameterValues: [
-                    {  key: '@param1', value: this.macrosValue }, 
-                    {  key: '@registration_date_from', value: this.registrationDateFrom }, 
+                    {  key: '@param1', value: this.macrosValue },
+                    {  key: '@registration_date_from', value: this.registrationDateFrom },
                     {  key: '@registration_date_to', value: this.registrationDateTo },
-                    {  key: '@transfer_date_from', value: this.transferDateFrom }, 
+                    {  key: '@transfer_date_from', value: this.transferDateFrom },
                     {  key: '@transfer_date_to', value: this.transferDateTo },
-                    {  key: '@state_changed_date_from', value: this.stateChangedDateFrom }, 
+                    {  key: '@state_changed_date_from', value: this.stateChangedDateFrom },
                     {  key: '@state_changed_date_to', value: this.stateChangedDateTo },
-                    {  key: '@state_changed_date_done_from', value: this.stateChangedDateDoneFrom }, 
+                    {  key: '@state_changed_date_done_from', value: this.stateChangedDateDoneFrom },
                     {  key: '@state_changed_date_done_to', value: this.stateChangedDateDoneTo },
-                    {  key: '@execution_term_from', value: this.executionTermFrom }, 
+                    {  key: '@execution_term_from', value: this.executionTermFrom },
                     {  key: '@execution_term_to', value: this.executionTermTo },
                     {  key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
-                    {  key: '@control_date_from', value: this.controlDateFrom }, 
+                    {  key: '@control_date_from', value: this.controlDateFrom },
                     {  key: '@control_date_to', value: this.controlDateTo },
                     { key: '@pageOffsetRows', value: 0},
                     { key: '@pageLimitRows', value: 10}
@@ -455,7 +455,7 @@
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },
         myCreateExcel: function(data) {
-            if( data.rows.length > 0 ){    
+            if( data.rows.length > 0 ){
                 this.showPagePreloader('Зачекайте, формується документ');
                 this.indexArr = [];
                 let columns = this.config.columns;columns.forEach( el => {
@@ -484,8 +484,8 @@
                 cellPeriod.value = 'Період вводу з (включно) : дата з ' +this.changeDateTimeValues(this.registrationDateFrom)+ ' дата по ' +this.changeDateTimeValues(this.registrationDateTo)+ ' (Розширений пошук).';
                 let cellNumber = worksheet.getCell('A4');
                 cellNumber.value = 'Реєстраційний № РДА …';
-                worksheet.mergeCells('A1:F1'); 
-                worksheet.mergeCells('A2:F2'); 
+                worksheet.mergeCells('A1:F1');
+                worksheet.mergeCells('A2:F2');
                 worksheet.mergeCells('A3:F3');
                 worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
                 worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
@@ -524,13 +524,13 @@
                         columnsHeader.push(obj);
                         captions.push('Заявник');
                     }else if(el.name === 'question_question_type'){
-                        let obj1 =  { 
+                        let obj1 =  {
                             key: 'question_type',
                             width: 10
                         };
                         columnsHeader.push(obj1);
                         captions.push('Тип питання');
-                        let obj2 =  { 
+                        let obj2 =  {
                             key: 'assigm_question_content',
                             width: 62
                         };
@@ -544,20 +544,20 @@
                         columnsHeader.push(obj);
                         captions.push('Виконавець');
                     }else if( el.name === 'question_object'  ){
-                        let obj =  { 
+                        let obj =  {
                             key: 'object',
                             width: 16
                         };
                         columnsHeader.push(obj);
                         captions.push('Місце проблеми (Об\'єкт)');
                     }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat'){
-                        let obj =  { 
+                        let obj =  {
                             key: el.name,
                             width: 13
                         };
                         otherColumns.push(obj);
                     }else{
-                        let obj =  { 
+                        let obj =  {
                             key: el.name,
                             width: 13
                         };
@@ -592,7 +592,7 @@
                         }else if( el.name === 'question_object'  ){
                             rowItem.object = row.values[el.index];
                         }else if( el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat'  ){
-                            let obj =  { 
+                            let obj =  {
                                 key: el.name,
                                 width: 13
                             };
@@ -692,7 +692,7 @@
                                     break
                                 case 'ConsDocumentContent':
                                     rowItem.ConsDocumentContent = row.values[el.index];
-                                    break    
+                                    break
                             }
                             this.addedIndexes.push(prop);
                         }
@@ -798,10 +798,10 @@
                                 break
                             case 'appeals_enter_number':
                                 row.appeals_enter_number = el.appeals_enter_number;
-                                break   
+                                break
                             case 'control_comment':
                                 row.control_comment = el.control_comment;
-                                break  
+                                break
                             case 'control_date':
                                 row.control_date = el.control_date;
                                 break
@@ -827,10 +827,10 @@
                         bottom: {style:'thin'},
                         right: {style:'thin'}
                     };
-                    worksheet.getRow(number).alignment = { 
+                    worksheet.getRow(number).alignment = {
                         vertical: 'middle',
                         horizontal: 'center',
-                        wrapText: true 
+                        wrapText: true
                     };
                     worksheet.getRow(number).font = {
                         name: 'Times New Roman',
@@ -846,7 +846,7 @@
                 worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
                 worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true  };
                 this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
-            }    
+            }
         },
         changeDateTimeValues: function(value) {
             if( value === null){
@@ -866,9 +866,9 @@
             return  dd + '.' + mm + '.' + yyyy + ' ' + HH + ':' + MM;
         },
         destroy: function() {
-            this.sub.unsubscribe();  
-            this.sub1.unsubscribe();  
-            this.sub2.unsubscribe();  
+            this.sub.unsubscribe();
+            this.sub1.unsubscribe();
+            this.sub2.unsubscribe();
         },
     };
 }());

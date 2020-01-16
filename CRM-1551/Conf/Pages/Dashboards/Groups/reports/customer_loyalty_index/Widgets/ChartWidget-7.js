@@ -119,7 +119,7 @@
             let yy = date.getFullYear().toString().slice(-2);
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
-            return  dd + '-' + mm + '-' + yy;  
+            return  dd + '-' + mm + '-' + yy;
         },
         destroy: function () {
             this.sub.unsubscribe();

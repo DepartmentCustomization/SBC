@@ -9,7 +9,7 @@
     },
     init:function(){
         this.details.setVisibility('Question_History', false);
-        this.details.onCellClick('Detail_Que_Hisroty', this.Detail_History.bind(this)); 
+        this.details.onCellClick('Detail_Que_Hisroty', this.Detail_History.bind(this));
         const onChangeStatus = {
                 queryCode: 'Question_RightsFilter_HideAndDisableColumns',
                 parameterValues: []
@@ -144,7 +144,7 @@
                               position: 2,
                               fullScreen: true,
                               value: this.form.getControlValue('user_name'),
-                              type: 'text'  
+                              type: 'text'
                             },
                             {
                               code: "guilty",
@@ -165,7 +165,7 @@
                               required: false,
                               position: 4,
                               fullScreen: true,
-                              type: 'textarea'  
+                              type: 'textarea'
                             }
                         ]
                     }

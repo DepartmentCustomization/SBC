@@ -61,15 +61,15 @@
             btnExcel.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 this.createExcelWorkbook();
-            });         
+            });
         },
         showWarning: function() {
             const CONTAINER = document.getElementById('container');
             const modalBtnTrue =  this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
             const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
             const modalTitle =  this.createElement('div', { id:'modalTitle', innerText: 'Оберiть правильну дату!'});
-            const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, modalBtnWrapper); 
-            const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
+            const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, modalBtnWrapper);
+            const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             CONTAINER.appendChild(modalWindowWrapper);
             modalBtnTrue.addEventListener( 'click', event => {
                 event.stopImmediatePropagation();
@@ -79,7 +79,7 @@
         setData: function(message) {
             let table = {
                 data: message.data,
-                columns: message.columns   
+                columns: message.columns
             }
             this.data[message.position] = table;
             this.counter += 1;
@@ -148,7 +148,7 @@
             title.value = 'Статистичний звіт за період з ' + this.dateFromViewValues + ' по ' + this.dateToViewValues;
             title.font = { name: 'Times New Roman', family: 4, size: 12, underline: false, bold: true , italic: false};
             title.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false  };
-            worksheet.mergeCells('A1:N1'); 
+            worksheet.mergeCells('A1:N1');
         },
         setTableType1Header: function (columns, worksheet, data) {
             let position = this.excelColumnsStart - 1;
@@ -218,7 +218,7 @@
                     const headerTop = this.startStep;
                     const headerBot = this.startStep;
                     const headerLeft = position + 2;
-                    const headerRight = position + column.columns.length * 2 + 1;     
+                    const headerRight = position + column.columns.length * 2 + 1;
                     worksheet.mergeCells( headerTop, headerLeft, headerBot, headerRight );
                     const cell = worksheet.getCell(headerTop, headerLeft);
                     cell.value = column.caption;

@@ -35,7 +35,7 @@
                     dataField: 'control_date',
                     caption: 'Дата контролю',
                     dataType: "datetime",
-                    format: "dd.MM.yyyy HH:mm"   
+                    format: "dd.MM.yyyy HH:mm"
                 }, {
                     dataField: 'transfer_to_organization_id',
                     caption: 'Можливий виконавець',
@@ -76,7 +76,7 @@
             },
             paging: {
                 pageSize: 500
-            },        
+            },
             searchPanel: {
                 visible: false,
                 highlightCaseSensitive: true
@@ -156,14 +156,14 @@
                         parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
                                         {key: '@Id', value: el.Id } ],
                         limit: -1
-                    };        
+                    };
                     this.queryExecutor(executeQuery);
                 }.bind(this));
             }
             rows = [];
             this.loadData(this.afterLoadDataHandler);
             this.messageService.publish( { name: 'reloadMainTable', navigation: this.navigation, column: this.column, targetId: this.targetId }  );
-        },    
+        },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -214,7 +214,7 @@
                 let obj = {
                     "ID": el.values[0],
                     "Name": el.values[1],
-                } 
+                }
                 this.elements.push(obj);
             }
             this.config.columns[6].lookup.dataSource.store = this.elements;
@@ -226,21 +226,21 @@
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "exportxlsx",
                     type: "default",
                     text: "Excel",
-                    onClick: function(e) { 
+                    onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.exportToExcel();
                     }.bind(this)
                 },
                 location: "after"
-            });        
+            });
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "upload",
                     type: "default",
                     text: "Передати",
@@ -334,21 +334,21 @@
                     columnsHeader.push(obj);
                     captions.push('Заявник');
                 }else if(el.name === 'QuestionType'){
-                    let obj =  { 
+                    let obj =  {
                         key: 'QuestionType',
                         width: 52
                     };
                     columnsHeader.push(obj);
                     captions.push('Суть питання');
                 }else if( el.name === 'vykonavets'){
-                    let obj =  { 
+                    let obj =  {
                         key: 'vykonavets',
                         width: 16
                     };
                     columnsHeader.push(obj);
                     captions.push('Виконавець');
                 }else if( el.name === 'adress'){
-                    let obj =  { 
+                    let obj =  {
                         key: 'adress',
                         width: 16
                     };
@@ -359,7 +359,7 @@
             worksheet.getRow(5).values = captions;
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
-            for( let  j = 0; j < data.rows.length; j ++ ){  
+            for( let  j = 0; j < data.rows.length; j ++ ){
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
@@ -400,10 +400,10 @@
                     bottom: {style:'thin'},
                     right: {style:'thin'}
                 };
-                worksheet.getRow(number).alignment = { 
+                worksheet.getRow(number).alignment = {
                     vertical: 'middle',
                     horizontal: 'center',
-                    wrapText: true 
+                    wrapText: true
                 };
                 worksheet.getRow(number).font = {
                     name: 'Times New Roman',
@@ -419,7 +419,7 @@
             worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
-        },    
+        },
         destroy: function() {
             this.sub.unsubscribe();
         }

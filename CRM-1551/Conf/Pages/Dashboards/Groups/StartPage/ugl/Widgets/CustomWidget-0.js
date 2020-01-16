@@ -18,7 +18,7 @@
     isCategorieFull: false,
     init: function() {
         this.hidePagePreloader();
-        this.messageService.publish( { name: 'showPagePreloader'});    
+        this.messageService.publish( { name: 'showPagePreloader'});
         this.sub = this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this);
         this.column = [];
         this.navigator = [];
@@ -35,7 +35,7 @@
         this.showPreloader = false;
     },
     afterViewInit: function(){
-        const container = document.getElementById('container');        
+        const container = document.getElementById('container');
         const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
         const filtersWrapper = this.createElement('div', { id: 'filtersWrapper', className: 'filtersWrapper'});
         const filtersInfo = this.createElement('div', { id: 'filtersInfo', className: 'filtersInfo'});
@@ -64,8 +64,8 @@
                 this.resultSearch('resultSearch', searchContainer__input.value);
                 this.hideAllItems(0);
             }
-        }.bind(this));        
-    },    
+        }.bind(this));
+    },
     setDistrictData: function(data){
         this.districtData = data;
         this.createFilterDistrictElements(data);
@@ -183,12 +183,12 @@
         if (location === 'district') {
             this.districtData = data;
         } else if ( location === 'departament' ) {
-            this.departData = data;   
+            this.departData = data;
         }
         this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none');
-        this.messageService.publish( { name: 'showPagePreloader'}); 
+        this.messageService.publish( { name: 'showPagePreloader'});
         this.reloadMainTable();
-    },    
+    },
     createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
         Object.keys(props).forEach( key => element[key] = props[key] );
@@ -242,7 +242,7 @@
                     document.getElementById('container').style.display = 'none';
                     this.goToDashboard(target.url);
                 }
-            });   
+            });
         }.bind(this));
     },
     closePreload: function(location){
@@ -261,9 +261,9 @@
             if( i == 2){
                 columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
             }else if( i == 3){
-                columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';            
+                columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';
             }else if( i == 4 ){
-                columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';                
+                columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';
             }else if( i == 5){
                 columnHeader.style.backgroundColor = 'rgb(86 162 78)';
             }else if( i == 6){
@@ -308,7 +308,7 @@
         headers = Array.from(headers);
         if( reloadTable == true ){
             categories.forEach( el => {
-               el.style.display = 'none'; 
+               el.style.display = 'none';
             });
             let target = document.getElementById(this.targetId);
             this.showTable(target,  this.column, this.navigation);
@@ -317,7 +317,7 @@
             el.addEventListener( 'click', function(event){
                 let target = event.currentTarget;
                 categories.forEach( el => {
-                   el.style.display = 'none'; 
+                   el.style.display = 'none';
                 });
                 let navigator = 'Усі';
                 let column = this.columnName(target);
@@ -328,7 +328,7 @@
             el.addEventListener( 'click', function(event){
                 let target = event.currentTarget;
                 categories.forEach( el => {
-                   el.style.display = 'none'; 
+                   el.style.display = 'none';
                 });
                 let navigator = target.firstElementChild.innerText;
                 target = target.parentElement.firstElementChild;
@@ -336,7 +336,7 @@
                 this.showTable(target, column, navigator);
             }.bind(this));
         }.bind(this));
-        this.messageService.publish( { name: 'hidePagePreloader'});    
+        this.messageService.publish( { name: 'hidePagePreloader'});
     },
     columnName: function(target){
         let column = '';
@@ -360,8 +360,8 @@
         headers = Array.from(headers);
         if( target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input'){
             document.getElementById('columnHeader_2').style.backgroundColor = 'rgb(248, 195, 47)';
-            document.getElementById('columnHeader_3').style.backgroundColor = 'rgb(74, 193, 197)';          
-            document.getElementById('columnHeader_4').style.backgroundColor = 'rgb(132, 199, 96)';  
+            document.getElementById('columnHeader_3').style.backgroundColor = 'rgb(74, 193, 197)';
+            document.getElementById('columnHeader_4').style.backgroundColor = 'rgb(132, 199, 96)';
             document.getElementById('columnHeader_5').style.backgroundColor = 'rgb(86 162 78)';
             document.getElementById('columnHeader_6').style.backgroundColor = 'rgb(240, 114, 93)';
             document.getElementById('columnHeader_7').style.backgroundColor = 'rgb(238, 123, 54)';
@@ -374,8 +374,8 @@
                 let header = headers[i];
                 header.firstElementChild.classList.remove('triangle');
                 header.firstElementChild.classList.add('triangle'+(i+2)+'');
-                header.classList.remove('hover'); 
-                header.classList.remove('check'); 
+                header.classList.remove('hover');
+                header.classList.remove('check');
             }
             this.hideAllItems(1)
             this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none');
@@ -388,7 +388,7 @@
                     header.firstElementChild.classList.add('triangle');
                     header.style.backgroundColor = "#d3d3d3";
                     header.classList.add('check');
-                }  
+                }
             }
             headers[headers.length - 1].firstElementChild.classList.remove('triangle');
             this.sendMesOnBtnClick('clickOnСoordinator_table', columnName, navigator, target.id);
@@ -399,13 +399,13 @@
         categories = Array.from(categories);
         if( value == 0){
             categories.forEach( el => {
-               el.style.display = 'none'; 
-            });                                                            
+               el.style.display = 'none';
+            });
         }else if( value == 1){
              categories.forEach( el => {
-               el.style.display = 'flex'; 
-            }); 
-        }    
+               el.style.display = 'flex';
+            });
+        }
     },
     sendMesOnBtnClick: function(message, column, navigator, targetId){
         this.messageService.publish({name: message, column: column,  value: navigator, targetId: targetId });
@@ -429,9 +429,9 @@
                 allowClear: true
             });
         });
-    },    
+    },
     destroy: function() {
         this.sub.unsubscribe();
-    }    
+    }
 };
 }());

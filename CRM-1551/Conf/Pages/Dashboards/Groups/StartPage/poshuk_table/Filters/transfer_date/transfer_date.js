@@ -1,6 +1,6 @@
 (function () {
     return {
-        showTime: true,   
+        showTime: true,
         placeholder: 'Дата передано',
         type: 'DateTime',
         stepMinute: 1,

@@ -22,8 +22,8 @@
         onClearFilter: function() {
         },
         initValue: function() {
-            this.setDefaultValue('first'); 
-        }, 
+            this.setDefaultValue('first');
+        },
         setValues: function(item) {
             let message = {
                 name: '',

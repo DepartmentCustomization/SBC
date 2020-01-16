@@ -37,7 +37,7 @@
                     dateFrom: new Date( year, monthFromFact, dayFromFact ),
                     dateTo: new Date( year, monthFrom , dayTo )
                 }
-            this.setDefaultValue(defaultValue); 
+            this.setDefaultValue(defaultValue);
         },
         destroy(){
         }

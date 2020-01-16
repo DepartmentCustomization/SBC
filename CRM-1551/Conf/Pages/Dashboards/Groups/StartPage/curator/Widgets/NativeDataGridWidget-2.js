@@ -53,7 +53,7 @@
             },
             paging: {
                 pageSize: 500
-            },       
+            },
             scrolling: {
                 mode: 'standart',
                 rowRenderingMode: null,
@@ -69,7 +69,7 @@
             },
             sorting: {
                 mode: "multiple"
-            },        
+            },
             keyExpr: 'Id',
             focusedRowEnabled: true,
             showBorders: false,
@@ -121,8 +121,8 @@
                 this.column = message.column;
                 this.targetId = message.targetId;
                 document.getElementById('table6_rozyasneno').style.display = 'block';
-                this.config.query.parameterValues = [ 
-                    { key: '@navigation', value: message.value}, 
+                this.config.query.parameterValues = [
+                    { key: '@navigation', value: message.value},
                     { key: '@column', value: message.column}
                 ];
                 this.loadData(this.afterLoadDataHandler);
@@ -140,8 +140,8 @@
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "exportxlsx",
                     type: "default",
                     text: "Excel",
@@ -151,10 +151,10 @@
                     }.bind(this)
                 },
                 location: "after"
-            });  
+            });
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "check",
                     type: "default",
                     text: "Роз'яснено",
@@ -167,8 +167,8 @@
                 location: "after"
             });
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "tel",
                     type: "default",
                     text: "Прозвон",
@@ -186,7 +186,7 @@
                 queryCode: 'CoordinatorController_Doopr_Roz_Prostr_NemMozh',
                 limit: -1,
                 parameterValues: [
-                        { key: '@navigation', value: this.navigation }, 
+                        { key: '@navigation', value: this.navigation },
                         { key: '@column', value: this.column }
                     ]
             };
@@ -279,7 +279,7 @@
             worksheet.getRow(5).values = captions;
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
-            for( let  j = 0; j < data.rows.length; j ++ ){  
+            for( let  j = 0; j < data.rows.length; j ++ ){
                 let row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
@@ -321,10 +321,10 @@
                     bottom: {style:'thin'},
                     right: {style:'thin'}
                 };
-                worksheet.getRow(number).alignment = { 
+                worksheet.getRow(number).alignment = {
                     vertical: 'middle',
                     horizontal: 'center',
-                    wrapText: true 
+                    wrapText: true
                 };
                 worksheet.getRow(number).font = {
                     name: 'Times New Roman',
@@ -340,7 +340,7 @@
             worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
             worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
-        },       
+        },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
             if(currentEmployeeData.short_answer == null){
@@ -351,7 +351,7 @@
             }
             if(currentEmployeeData.question_content == null){
                 currentEmployeeData.question_content = '';
-            }        
+            }
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.adressZ+""});
             let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
             let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);

@@ -76,16 +76,16 @@
             },
             masterDetail: {
                 enabled: true,
-            },        
+            },
             showBorders: false,
             showColumnLines: false,
             showRowLines: true,
-            wordWrapEnabled: true,        
+            wordWrapEnabled: true,
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 130;
             this.sort = '1=1';
-            this.filter = '1=1';        
+            this.filter = '1=1';
             let executeQuery = {
                 queryCode: 'es_show_user_phone_v2',
                 limit: -1,
@@ -112,7 +112,7 @@
                         xhr.send();
                     }
                 }
-            }.bind(this));        
+            }.bind(this));
             if(window.location.search != ''){
                 let getUrlParams =  window
                                         .location
@@ -152,7 +152,7 @@
                 el.style.textAlign = 'center';
                 spanCircle.style.width = '100%';
                 if( el.childNodes.length < 2 ){
-    el.appendChild(spanCircle); 
+    el.appendChild(spanCircle);
     }
                 let cond1 = this.data[dataIndex][17];
                 let cond2 = this.data[dataIndex][18];
@@ -229,7 +229,7 @@
                             if( index === -1 ){
                                 sortingArr.push(infoColumn);
                             }else{
-                                sortingArr.splice(index, 1); 
+                                sortingArr.splice(index, 1);
                                 sortingArr.push(infoColumn);
                             }
                         }
@@ -237,18 +237,18 @@
                     }
                 }
             }
-        },      
+        },
         createMasterDetails: function(container, options){
             let currentEmployeeData = options.data;
             let lastNdzTime ;
             if(currentEmployeeData.comment == null){
-                currentEmployeeData.comment = ''; 
+                currentEmployeeData.comment = '';
             }
             if(currentEmployeeData.zmist == null){
-                currentEmployeeData.zmist = ''; 
+                currentEmployeeData.zmist = '';
             }
             if(currentEmployeeData.cc_nedozvon == null){
-                currentEmployeeData.cc_nedozvon = ''; 
+                currentEmployeeData.cc_nedozvon = '';
             }
             if(currentEmployeeData.edit_date === null){
                 lastNdzTime = ''
@@ -256,7 +256,7 @@
                 lastNdzTime = this.changeDateTimeValues(currentEmployeeData.edit_date);
             }
             if(currentEmployeeData.control_comment == null){
-                currentEmployeeData.control_comment = ''; 
+                currentEmployeeData.control_comment = '';
             }
             let ndz = currentEmployeeData.cc_nedozvon;
             let ndzComment = currentEmployeeData.control_comment;
@@ -290,19 +290,19 @@
             let mm = date.getMinutes();
             MM += 1 ;
             if( (dd.toString()).length === 1){
-                dd = '0' + dd; 
+                dd = '0' + dd;
             }
             if( (MM.toString()).length === 1){
-                MM = '0' + MM ; 
+                MM = '0' + MM ;
             }
             if( (HH.toString()).length === 1){
-                HH = '0' + HH; 
+                HH = '0' + HH;
             }
             if( (mm.toString()).length === 1){
-                mm = '0' + mm; 
+                mm = '0' + mm;
             }
             return dd+'.'+MM+'.' + yyyy +' '+ HH +':'+ mm;
-        },     
+        },
         reloadMainTable: function(message){
             this.config.query.parameterValues = [
                 { key: '@filter', value: this.filter },
@@ -320,8 +320,8 @@
         createDGButtons: function(e) {
                 let toolbarItems = e.toolbarOptions.items;
                 toolbarItems.push({
-                    widget: "dxButton", 
-                    options: { 
+                    widget: "dxButton",
+                    options: {
                         icon: "close",
                         type: "default",
                         text: "Закрити",
@@ -341,7 +341,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },     
+        },
         openModalCloserForm: function(){
             let rowsMessage = [];
             let selectedRows = this.dataGridInstance.instance.getSelectedRowsData();
@@ -356,9 +356,9 @@
                 this.messageService.publish( { name: 'openModalForm', value: rowsMessage } );
             }
         },
-        destroy: function(){  
-            this.sub1.unsubscribe();  
-            this.sub2.unsubscribe();  
+        destroy: function(){
+            this.sub1.unsubscribe();
+            this.sub2.unsubscribe();
         },
     };
 }());

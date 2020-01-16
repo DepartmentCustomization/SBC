@@ -91,7 +91,7 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null, 
+            groupingAutoExpandAll: null,
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 200;
@@ -105,9 +105,9 @@
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.citizenName = this.extractOrgValues(citizenName);
-                    this.config.query.parameterValues = [ 
-                        {key: '@dateFrom' , value: this.dateFrom },  
-                        {key: '@dateTo', value: this.dateTo }  
+                    this.config.query.parameterValues = [
+                        {key: '@dateFrom' , value: this.dateFrom },
+                        {key: '@dateTo', value: this.dateTo }
                     ];
                     this.config.query.filterColumns = [];
                     if (this.citizenName.length > 0) {
@@ -122,7 +122,7 @@
                         this.config.query.filterColumns.push(filter);
                     }
                     this.loadData(this.afterLoadDataHandler);
-                }    
+                }
             }
         },
         extractOrgValues: function(val) {
@@ -132,7 +132,7 @@
                     for (let i = 0; i < val.length; i++) {
                         valuesList.push(val[i].value);
                     }
-                }    
+                }
                     return  valuesList.length > 0 ? valuesList : [];
             } else {
                 return [];

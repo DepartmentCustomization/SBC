@@ -143,18 +143,18 @@
                         parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
                                         {key: '@Id', value: el.Id}  ],
                         limit: -1
-                    };        
+                    };
                     this.queryExecutor(executeQuery);
                 });
                 this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish( { name: 'reloadMainTable', column: this.column,   navigator: this.navigator, targetId: this.targetId });
             }
-        },    
+        },
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "upload",
                     type: "default",
                     text: "Передати",

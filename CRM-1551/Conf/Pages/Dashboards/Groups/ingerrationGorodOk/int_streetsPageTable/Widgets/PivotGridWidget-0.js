@@ -27,7 +27,7 @@
                         caption: 'Стало',
                         alignment: 'left',
                     }
-            ]  
+            ]
             },{
                 dataField: 'id_1551',
                 caption: 'Назва вулиці у системі 1551',
@@ -140,7 +140,7 @@
             let obj = {
                 "Id": el.values[0],
                 "streets": el.values[1],
-            } 
+            }
             this.elements.push(obj);
         }
         this.config.columns[2].lookup.dataSource.store = this.elements;

@@ -15,7 +15,7 @@
             columns: [],
             sorting: {
                 mode: "multiple"
-            },  
+            },
             showBorders: false,
             showColumnLines: true,
             showRowLines: true,
@@ -30,10 +30,10 @@
             key: 'RDAId'
         },
         init: function() {
-            this.config.title = 
+            this.config.title =
             document.getElementById('infoContainer').style.display = 'none';
-            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFiltersParams, this );  
-            this.sub1 = this.messageService.subscribe( 'showInfo', this.showInfo, this );  
+            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFiltersParams, this );
+            this.sub1 = this.messageService.subscribe( 'showInfo', this.showInfo, this );
         },
         showInfo: function () {
             document.getElementById('infoContainer').style.display = 'block';
@@ -48,9 +48,9 @@
         setFiltersParams: function (message) {
             this.date = message.date;
             this.rating =   message.rating;
-            this.config.query.parameterValues = [ 
+            this.config.query.parameterValues = [
                 {key: '@CalcDate' , value: this.date },
-                {key: '@RatingId', value: this.rating } 
+                {key: '@RatingId', value: this.rating }
             ];
         },
         setColumns: function (data) {
@@ -83,8 +83,8 @@
             this.render();
         },
         destroy: function () {
-            this.sub.unsubscribe();      
-            this.sub1.unsubscribe();      
+            this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         }
     };
 }());

@@ -31,7 +31,7 @@
         this.messageService.publish(message);
     },
     initValue: function() {
-        this.setDefaultValue('first'); 
-    },    
+        this.setDefaultValue('first');
+    },
 };
 }());

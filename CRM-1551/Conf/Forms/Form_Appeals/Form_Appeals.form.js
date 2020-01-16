@@ -1,7 +1,7 @@
 (function () {
   return {
     init: function() {
-        this.details.setVisibility('Detail_test', false) 
+        this.details.setVisibility('Detail_test', false)
         this.form.disableControl('registration_number');
         this.form.disableControl('receipt_source_id');
         this.form.disableControl('phone_number');

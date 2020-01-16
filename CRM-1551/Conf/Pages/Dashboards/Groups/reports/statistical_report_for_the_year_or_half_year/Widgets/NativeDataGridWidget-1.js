@@ -178,7 +178,7 @@
                             }
                         }
                     ]
-                }, 
+                },
             ],
             keyExpr: 'qtyRepeated_prev'
         },
@@ -188,18 +188,18 @@
         },
         setFilterParams: function (message) {
             this.config.query.parameterValues = [
-                {key: '@dateFrom' , value:  message.dateFrom },  
-                {key: '@dateTo', value: message.dateTo } 
+                {key: '@dateFrom' , value:  message.dateFrom },
+                {key: '@dateTo', value: message.dateTo }
             ];
             this.loadData(this.afterLoadDataHandler);
-        }, 
+        },
         afterLoadDataHandler: function(data) {
             const name = 'setData';
             const columns = this.config.columns;
             const position = 1;
             this.messageService.publish( {name, data, columns, position} );
             this.render(this.afterRenderTable());
-        },   
+        },
         afterRenderTable: function () {
             this.messageService.publish({ name: 'setStyles'});
             this.messageService.publish({
@@ -209,6 +209,6 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        }, 
+        },
     };
 }());

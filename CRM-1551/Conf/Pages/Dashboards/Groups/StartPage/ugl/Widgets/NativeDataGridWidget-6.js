@@ -62,7 +62,7 @@
         },
         paging: {
             pageSize: 10
-        },  
+        },
         editing: {
             enabled: false,
         },
@@ -146,7 +146,7 @@
         elementsCaptionAll.forEach( el => {
             el.style.minWidth = '200px';
         });
-    },    
+    },
     changeOnTable: function(message){
         document.getElementById('allTables').style.display = 'none';
         if(message.value != ''){
@@ -166,7 +166,7 @@
     hideAllTable: function(){
         document.getElementById('allTables').style.display = 'none';
         document.getElementById('searchTable').style.display = 'none';
-    },    
+    },
     hideSearchTable: function(){
         document.getElementById('allTables').style.display = 'block';
         document.getElementById('searchTable').style.display = 'none';
@@ -174,7 +174,7 @@
 	afterLoadDataHandler: function() {
 		this.render();
         this.createCustomStyle();
-	},	    
+	},
     createCustomStyle: function(){
         let elements = document.querySelectorAll('.dx-datagrid-export-button');
         elements = Array.from(elements);
@@ -182,7 +182,7 @@
             let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
             element.firstElementChild.appendChild(spanElement);
         }.bind(this));
-    },    	
+    },
     destroy: function() {
         this.sub.unsubscribe();
         this.sub1.unsubscribe();

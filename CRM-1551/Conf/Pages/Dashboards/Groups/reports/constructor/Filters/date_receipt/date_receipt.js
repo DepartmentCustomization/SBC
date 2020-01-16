@@ -28,7 +28,7 @@
                 dateFrom: new Date(year, '01' , '01', '08', '00'),
                 dateTo: new Date( year, monthFrom , dayTo, hh, mm)
             }
-            this.setDefaultValue(defaultValue); 
+            this.setDefaultValue(defaultValue);
         },
     };
 }());

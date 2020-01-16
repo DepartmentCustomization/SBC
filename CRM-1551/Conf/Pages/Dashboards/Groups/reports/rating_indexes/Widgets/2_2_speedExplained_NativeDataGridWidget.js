@@ -83,7 +83,7 @@
                         }
                     };
                     this.messageService.publish(msg);
-                    this.loadData(this.afterLoadDataHandler);  
+                    this.loadData(this.afterLoadDataHandler);
                 }
             }
         },

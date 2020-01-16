@@ -74,8 +74,8 @@
             },
             masterDetail: {
                 enabled: true,
-            },        
-            columnFixing: { 
+            },
+            columnFixing: {
                 enabled: true
             },
             showBorders: false,
@@ -86,8 +86,8 @@
         createDGButtons: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "refresh",
                     type: "default",
                     text: "Очистити сортування",
@@ -104,8 +104,8 @@
                 location: "before"
             });
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "close",
                     type: "default",
                     text: "Закрити",
@@ -118,7 +118,7 @@
             });
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 150;   
+            this.dataGridInstance.height = window.innerHeight - 150;
             this.sort = '1=1';
             this.macrosValue = '1=1';
             let executeQuery = {
@@ -206,7 +206,7 @@
                             if( index === -1 ){
                                 this.sortingArr.push(infoColumn);
                             }else{
-                                this.sortingArr.splice(index, 1); 
+                                this.sortingArr.splice(index, 1);
                                 this.sortingArr.push(infoColumn);
                             }
                         }
@@ -320,37 +320,37 @@
                                         ageSendViewValue = ageSendViewValue + ', '+ el.viewValue;
                                     });
                                     ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
-                                    let ageSendValue =  this.ageArr.join(' or '); 
+                                    let ageSendValue =  this.ageArr.join(' or ');
                                     ageSendValue = '('+ageSendValue+')';
                                     this.createObjMacros( elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
                                 }else{
                                     let sumValue = '';
                                     let sumViewValue = '';
                                     if(data.length > 0){
-                                        data.forEach( row => { 
+                                        data.forEach( row => {
                                             sumValue =  sumValue + ', '+ row.value;
                                             sumViewValue =  sumViewValue + ', '+ row.viewValue;
                                         });
                                     }
                                     let numberSendValue = sumValue.slice(2, [sumValue.length]);
                                     let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
-                                    this.createObjMacros( elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue); 
+                                    this.createObjMacros( elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
                                 }
                             }else if(typeof(data[0].value) === 'string' ){
                                 let stringSumValue = '';
                                 let stringSumViewValue = '';
                                 if(data.length > 0){
-                                    data.forEach( row => { 
+                                    data.forEach( row => {
                                         stringSumValue =  stringSumValue + ', \''+ row.value + '\'';
                                         stringSumViewValue =  stringSumViewValue + ', '+ row.viewValue;
                                     });
                                 }
                                 let stringSendValue = stringSumValue.slice(2, [stringSumValue.length]);
                                 let stringSendViewValue = stringSumViewValue.slice(2, [stringSumViewValue.length]);
-                                this.createObjMacros( elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue); 
+                                this.createObjMacros( elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
                             }
                         }else if( data.value && data.viewValue ){
-                            this.createObjMacros( elem.name, 'in', data.value, elem.placeholder, data.viewValue ); 
+                            this.createObjMacros( elem.name, 'in', data.value, elem.placeholder, data.viewValue );
                         }else{
                             if(data.dateFrom != '' ){
                                 this.createObjMacros('cast('+elem.name+' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
@@ -460,7 +460,7 @@
                 let str = arr.join(' ');
                 let macrosValue = str.slice(0, -4);
                 this.macrosValue = macrosValue;
-                this.messageService.publish( { 
+                this.messageService.publish( {
                     name: 'filters',
                     value: this.filtersValuesMacros
                 });
@@ -473,7 +473,7 @@
                 this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
                                                     { key: '@sort', value: this.sort }];
                 this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish( { 
+                this.messageService.publish( {
                     name: 'filters',
                     value: this.filtersValuesMacros
                 });
@@ -487,7 +487,7 @@
                 }
             };
             this.messageService.publish(msg);
-        },      
+        },
         setFilterColumns: function(code, operation, value) {
             const filter = {
                     key: code,
@@ -515,7 +515,7 @@
             this.sort = message.sortingString;
             this.config.query.parameterValues = [
                 { key: '@filter', value: this.macrosValue },
-                { key: '@sort', value:  this.sort  } 
+                { key: '@sort', value:  this.sort  }
             ];
             this.loadData(this.afterLoadDataHandler);
         },
@@ -527,7 +527,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },     
+        },
         destroy: function(){
             this.sub.unsubscribe();
             this.sub1.unsubscribe();

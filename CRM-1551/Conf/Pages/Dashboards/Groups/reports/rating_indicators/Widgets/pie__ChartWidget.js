@@ -40,7 +40,7 @@
         ],
         init: function () {
             this.sub = this.messageService.subscribe( 'FiltersParams', this.setFiltersParams, this );
-            this.sub1 = this.messageService.subscribe( 'showInfo', this.showInfo, this );  
+            this.sub1 = this.messageService.subscribe( 'showInfo', this.showInfo, this );
         },
         setFiltersParams: function (message) {
             this.date = message.date;
@@ -105,8 +105,8 @@
             return result;
         },
         destroy: function () {
-            this.sub.unsubscribe();      
-            this.sub1.unsubscribe();      
+            this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         }
     };
 }());

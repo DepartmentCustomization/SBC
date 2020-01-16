@@ -7,6 +7,6 @@
         },
         afterSave: function(data){
              this.navigateTo('/sections/Hotline/edit/' + data.rows[0].values[0]);
-         } 
+         }
     }
     }());

@@ -66,15 +66,15 @@
             }.bind(this), true);
             let BtnCreateContent3 = document.getElementById('input_btn_3');
             BtnCreateContent3.addEventListener("click", function() {
-                this.activeElement(BtnCreateContent3); 
-                this.changeState(3); 
+                this.activeElement(BtnCreateContent3);
+                this.changeState(3);
             }.bind(this), true);
             BtnCreateContent1.checked = false;
             BtnCreateContent2.checked = false;
             BtnCreateContent3.checked = false;
         this.reloadState();
     },
-    changeState: function(StateId) { 
+    changeState: function(StateId) {
         let executeQuery = {
             queryCode: 'LoadServer_InsertRow',
             limit: -1,
@@ -82,7 +82,7 @@
         };
         this.queryExecutor(executeQuery, this.reloadState, this);
     },
-    reloadState: function() { 
+    reloadState: function() {
         let executeQuery = {
             queryCode: 'LoadServer_SelectRow',
             limit: -1,
@@ -90,7 +90,7 @@
         };
         this.queryExecutor(executeQuery, this.load, this);
     },
-    activeElement: function(element) { 
+    activeElement: function(element) {
         let BtnCreateContent1 = document.getElementById('input_btn_1');
         let BtnCreateContent2 = document.getElementById('input_btn_2');
         let BtnCreateContent3 = document.getElementById('input_btn_3');
@@ -100,10 +100,10 @@
             BtnCreateContent1.disabled = false;
             BtnCreateContent2.disabled = false;
             BtnCreateContent3.disabled = false;
-     element.checked = true;       
-     element.disabled = true;     
+     element.checked = true;
+     element.disabled = true;
     },
-    extractDate: function(val) { 
+    extractDate: function(val) {
                 let inMonth = new Date(this.getLocalizedValue(val, "Datetime"));
                 let dd = inMonth.getDate();
                 let mm = inMonth.getMonth() + 1;
@@ -125,7 +125,7 @@
                 }
                 if(ss<10) {
                 ss='0'+ss
-                }   
+                }
               return yyyy+'-'+mm+'-'+dd +' '+hh+':'+mi+':'+ss;
     },
     load: function(data) {

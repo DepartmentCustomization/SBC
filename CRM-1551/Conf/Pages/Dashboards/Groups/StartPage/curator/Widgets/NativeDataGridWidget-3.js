@@ -61,7 +61,7 @@
             },
             paging: {
                 pageSize: 500
-            },        
+            },
             scrolling: {
                 mode: 'standart',
                 rowRenderingMode: null,
@@ -70,7 +70,7 @@
             },
             selection: {
                 mode: "multiple"
-            },    
+            },
             sorting: {
                 mode: "multiple"
             },
@@ -142,7 +142,7 @@
             }
             if(currentEmployeeData.question_content == null){
                 currentEmployeeData.question_content = '';
-            }        
+            }
             let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.adressZ+""});
             let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
             let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
@@ -165,12 +165,12 @@
             elementsCaptionAll.forEach( el => {
                 el.style.minWidth = '200px';
             })
-        }, 
+        },
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "check",
                     type: "default",
                     text: "Роз'яснено",
@@ -183,8 +183,8 @@
                 location: "after"
             });
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "tel",
                     type: "default",
                     text: "Прозвон",

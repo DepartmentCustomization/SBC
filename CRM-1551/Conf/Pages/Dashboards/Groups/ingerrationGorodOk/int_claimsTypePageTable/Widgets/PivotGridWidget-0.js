@@ -27,7 +27,7 @@
                         caption: 'Стало',
                         alignment: 'left',
                     }
-            ]  
+            ]
             },
             {
                 dataField: 'is_done',
@@ -37,7 +37,7 @@
                 dataField: 'comment',
                 caption: 'Коментар'
             }
-        ],  
+        ],
         searchPanel: {
             visible: true,
             highlightCaseSensitive: false
@@ -121,7 +121,7 @@
                 element.appendChild(child);
             });
         } return element;
-    },       
+    },
     createCustomStyle:function(){
         let element = document.querySelector('.dx-datagrid-save-button');
         element.style.marginRight = '9px';
@@ -135,6 +135,6 @@
     onDataGridEditorPreparing: function() {
     },
     destroy: function() {
-    } 
+    }
 };
 }());

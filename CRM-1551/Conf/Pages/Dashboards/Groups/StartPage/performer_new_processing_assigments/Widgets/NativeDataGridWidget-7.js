@@ -44,7 +44,7 @@
             },
             masterDetail: {
                 enabled: true,
-            },        
+            },
             searchPanel: {
                 visible: false,
                 highlightCaseSensitive: true
@@ -57,7 +57,7 @@
             },
             paging: {
                 pageSize: 10
-            },  
+            },
             editing: {
                 enabled: false,
             },
@@ -97,7 +97,7 @@
             this.sub2 = this.messageService.subscribe('clickOnСoordinator_table', this.hideSearchTable, this);
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
         },
-        createMasterDetail: function(container, options) {        
+        createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
             if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined){
                 currentEmployeeData.short_answer = '';
@@ -142,7 +142,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },     
+        },
         changeOnTable: function(message){
             if(message.value != ''){
                 document.getElementById('searchTable').style.display = 'block';
@@ -160,14 +160,14 @@
         },
         hideAllTable: function(){
             document.getElementById('searchTable').style.display = 'none';
-        },    
+        },
         hideSearchTable: function(){
             document.getElementById('searchTable').style.display = 'none';
             document.getElementById('searchContainer__input').value = '';
         },
         afterLoadDataHandler: function() {
             this.render();
-        },	    
+        },
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();

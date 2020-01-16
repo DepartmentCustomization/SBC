@@ -1,11 +1,11 @@
 (function () {
-  return {   
+  return {
     IsCreateApplicant: 0,
     IsFormReturnModerated: function(){
         this.form.setControlVisibility('btn_searchPerson', false);
         this.form.setControlVisibility('additional', false);
-        this.form.setGroupVisibility('Group_App_site', true); 
-        this.form.setGroupVisibility('Appeal', true); 
+        this.form.setGroupVisibility('Group_App_site', true);
+        this.form.setGroupVisibility('Appeal', true);
     },
     queryFor_Applicant1551: function(ApplicantId){
                 const queryFor_Applicant1551_IsFormOnlyRead = {
@@ -24,7 +24,7 @@
                       this.form.setControlValue('Applicant_INFO', 'Вибрано існуючого заявника в системі "'+data.rows[0].values[0]+'"');
                 });
         this.form.setControlValue('Applicant_Id', ApplicantId);
-    },  
+    },
     IsFormOnlyRead: function(){
         this.form.setGroupVisibility('Group_App_site', false);
         this.form.setGroupVisibility('Group2', false);
@@ -33,9 +33,9 @@
         this.form.setGroupVisibility('bad_Appeal', false);
         this.form.setControlVisibility('btn_person1551_question', false);
         this.form.setControlVisibility('additional', false);
-        this.form.setGroupVisibility('Group_PreviewApplicant', true); 
-        this.form.setGroupVisibility('Appeal', true); 
-        this.queryFor_Applicant1551(this.form.getControlValue('Applicant_Id'));    
+        this.form.setGroupVisibility('Group_PreviewApplicant', true);
+        this.form.setGroupVisibility('Appeal', true);
+        this.queryFor_Applicant1551(this.form.getControlValue('Applicant_Id'));
     },
     init: function(){
         if (this.form.getControlValue('AppealFromSite_geolocation_lat')) {
@@ -104,30 +104,30 @@
                                 this.form.setControlValue('Question_Building', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
                              });
             }
-        }.bind(this));   
+        }.bind(this));
         document.getElementById('btn_person1551_question').addEventListener("click", function() {
             this.CreateApplicant1551();
             this.details.setVisibility('Site_Applicant', false);
-        }.bind(this)); 
+        }.bind(this));
         document.getElementById('btn_searchPerson').addEventListener("click", function() {
             this.form.setGroupVisibility('Group2', true);
             this.form.setControlVisibility('btn_CreateApplicant1551', false);
-        }.bind(this)); 
+        }.bind(this));
         document.getElementById('btn_searchAdressByCoordinate').addEventListener("click", function() {
              window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/SearchGoogle?lat="+this.form.getControlValue('AppealFromSite_geolocation_lat')+"&lon="+this.form.getControlValue('AppealFromSite_geolocation_lon')+"");
-        }.bind(this)); 
+        }.bind(this));
         document.getElementById('Question_BuildingIcon').style.fontSize = '30px';
         document.getElementById('Question_BuildingIcon').addEventListener("click", function(event) {
             event.stopImmediatePropagation();
             this.form.setControlValue('Question_Building',{ key: this.form.getControlValue('AppealFromSite_Object'), value: this.form.getControlDisplayValue('AppealFromSite_Object')});
-        }.bind(this)); 
+        }.bind(this));
         document.getElementById('btn_SearchApplicant1551').addEventListener("click", function() {
             this.form.setControlVisibility('btn_CreateApplicant1551', true);
             this.SerchApplicant1551();
-        }.bind(this));  
+        }.bind(this));
         document.getElementById('return_appeal').addEventListener("click", function() {
             this.ReturnAppealToApplicant();
-        }.bind(this));  
+        }.bind(this));
         this.form.onGroupCloseClick('Group2',this.GroupClose_Group2.bind(this));
         this.form.onGroupCloseClick('Group_PreviewApplicant',this.GroupClose_Group_PreviewApplicant.bind(this));
         this.form.onGroupCloseClick('Appeal_Question',this.GroupClose_Appeal_Question.bind(this));
@@ -219,12 +219,12 @@
                             this.form.setControlValue('Applicant_Id', data.rows[0].values[2]);
                             this.IsFormOnlyRead();
                 });
-         }.bind(this));   
+         }.bind(this));
          if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') == 3) {
-           this.IsFormOnlyRead();  
+           this.IsFormOnlyRead();
          }
          if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') == 2) {
-           this.IsFormReturnModerated();  
+           this.IsFormReturnModerated();
          }
     },
     onQuestionControlDate:function(ques_type_id){
@@ -315,7 +315,7 @@
             });
     },
      onChanged_Question_Building_Input: function(value) {
-        if (value) {   
+        if (value) {
         if (typeof value === "string") {
              return
         } else {
@@ -348,7 +348,7 @@
                                            this.form.setControlVisibility('entrance', false);
                                            this.form.setControlVisibility('flat', false);
                                       }
-                                  });   
+                                  });
           }
         }
       } else {
@@ -391,10 +391,10 @@
     Question_TypeId_Input: undefined,
     onChanged_Question_Btn_Add_Input: function() {
        if( this.Question_TypeId_Input == null || this.Question_TypeId_Input == undefined
-          || ((this.Question_Building_Input == undefined || this.Question_Building_Input == null) && (this.Question_Organization_Input  == undefined || this.Question_Organization_Input  == null)) == true 
+          || ((this.Question_Building_Input == undefined || this.Question_Building_Input == null) && (this.Question_Organization_Input  == undefined || this.Question_Organization_Input  == null)) == true
          ) {
            document.getElementById('Question_Btn_Add').disabled = true;
-       } else { 
+       } else {
            document.getElementById('Question_Btn_Add').disabled = false;
        }
     },
@@ -405,8 +405,8 @@
     },
     OnCellClikc_Detail_Site_Applicant: function(column, row) {
         this.form.setGroupVisibility('Group_PreviewApplicant', true);
-        this.queryFor_Applicant1551(row.values[0]); 
-        this.form.setGroupVisibility('Group2', false);        
+        this.queryFor_Applicant1551(row.values[0]);
+        this.form.setGroupVisibility('Group2', false);
         this.IsCreateApplicant = 0;
     },
     SerchApplicant1551:function(){
@@ -426,18 +426,18 @@
     GroupClose_Appeal_Question:function(){
        this.form.setGroupVisibility('Group2', false);
        this.details.setVisibility('Site_Applicant', false);
-       this.form.setGroupVisibility('Group_App_site', true); 
-       this.form.setGroupExpanding('Group_App_site', true); 
+       this.form.setGroupVisibility('Group_App_site', true);
+       this.form.setGroupExpanding('Group_App_site', true);
     },
     GroupClose_Group_PreviewApplicant:function(){
         if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') == 1) {
             this.form.setGroupVisibility('Group2', false);
             this.form.setControlValue('Applicant_Id', null);
             this.form.setControlValue('Applicant_INFO', null);
-            this.form.setGroupVisibility('Appeal_Question', false); 
+            this.form.setGroupVisibility('Appeal_Question', false);
             this.details.setVisibility('Site_Applicant', false);
-            this.form.setGroupVisibility('Group_App_site', true); 
-            this.form.setGroupExpanding('Group_App_site', true);  
+            this.form.setGroupVisibility('Group_App_site', true);
+            this.form.setGroupExpanding('Group_App_site', true);
          } else {
              event.stopImmediatePropagation();
          }
@@ -462,7 +462,7 @@
                 };
                 this.queryExecutor.getValues(queryForReturnAppealToApplicant).subscribe(() => {
                        this.form.setGroupVisibility('bad_Appeal', false);
-                       this.form.setControlValue('AppealFromSite_SiteAppealsResult', {key: 2, value: 'Повернуто заявнику'});     
+                       this.form.setControlValue('AppealFromSite_SiteAppealsResult', {key: 2, value: 'Повернуто заявнику'});
                 });
     }
 };

@@ -52,12 +52,12 @@
             const question = getUrlParams.code;
             this.config.query.parameterValues = [
                 {key: '@Date' , value: date },
-                {key: '@RDAId', value: rdaId },  
+                {key: '@RDAId', value: rdaId },
                 {key: '@RatingId', value: ratingId },
                 {key: '@Question', value: question },
-                {key: '@Executor', value: executor } 
+                {key: '@Executor', value: executor }
             ];
-            this.loadData(this.afterLoadDataHandler);  
+            this.loadData(this.afterLoadDataHandler);
             this.active = true;
             this.sub = this.messageService.subscribe('showTable', this.showTable, this);
         },
@@ -70,7 +70,7 @@
                 this.active = true;
                 document.getElementById('containerSpeedDone').style.display = 'block';
             }
-        }, 
+        },
         renderTable: function () {
             if (this.period) {
                 if (this.active) {
@@ -81,14 +81,14 @@
                         }
                     };
                     this.messageService.publish(msg);
-                    this.config.query.parameterValues = [ 
+                    this.config.query.parameterValues = [
                         {key: '@DateCalc' , value: this.period },
-                        {key: '@RDAId', value: this.executor },  
-                        {key: '@RatingId', value: this.rating } 
+                        {key: '@RDAId', value: this.executor },
+                        {key: '@RatingId', value: this.rating }
                     ];
-                    this.loadData(this.afterLoadDataHandler);  
+                    this.loadData(this.afterLoadDataHandler);
                 }
-            }   
+            }
         },
         afterLoadDataHandler: function() {
             this.render();

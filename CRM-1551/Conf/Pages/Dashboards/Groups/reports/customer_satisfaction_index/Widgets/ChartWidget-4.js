@@ -3,7 +3,7 @@
         chartConfig:{
             title: {
                 text: 'Простота роботи з оператором'
-            },       
+            },
             xAxis: {
                 categories: []
             },

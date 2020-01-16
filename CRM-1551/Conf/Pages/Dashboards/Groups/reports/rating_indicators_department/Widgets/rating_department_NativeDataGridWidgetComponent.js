@@ -50,7 +50,7 @@
                 }, {
                     dataField: 'Vids_vz',
                     caption: '% вчасно закритих',
-                }, 
+                },
             ],
             keyExpr: 'Id',
             showBorders: false,
@@ -92,9 +92,9 @@
         createTableButton: function(e) {
             const toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
+                widget: "dxButton",
                 location: "after",
-                options: { 
+                options: {
                     icon: "exportxlsx",
                     type: "default",
                     text: "Excel",
@@ -147,14 +147,14 @@
                         const subColumn = column.columns[j];
                         columnProp.index += 1;
                         columnProp.header = subColumn.caption;
-                        columnsProperties.push(columnProp); 
+                        columnsProperties.push(columnProp);
                     }
                 } else {
                     columnProp.header = column.caption;
                     columnProp.index += 1;
                     columnsProperties.push(columnProp);
                 }
-            }    
+            }
             worksheet.columns = columnsProperties;
         },
         setWorksheetTitle: function (worksheet) {
@@ -206,18 +206,18 @@
         },
         setTableRowsStyles: function (worksheet, rowNumbers) {
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 14, underline: false, bold: true , italic: false};
-            worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };    
+            worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-            worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };    
+            worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-            worksheet.getRow(4).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };  
+            worksheet.getRow(4).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(1).height = 30;
             worksheet.getRow(3).height = 40;
             worksheet.getRow(4).height = 40;
             rowNumbers.forEach( number => {
                 worksheet.getRow(number).height = 50;
                 worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, italic: false};
-                worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }; 
+                worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
                 worksheet.getCell('A' + number).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
             });
         },

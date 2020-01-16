@@ -66,7 +66,7 @@
             filterRow: {
                 visible: true,
                 applyFilter: "auto"
-            }, 
+            },
             keyExpr: 'Id',
             focusedRowEnabled: true,
             showBorders: false,
@@ -113,7 +113,7 @@
                     { key: '@column', value: message.column},
                     { key: '@navigation', value: message.navigation}
                 ];
-                this.loadData(this.afterLoadDataHandler);          
+                this.loadData(this.afterLoadDataHandler);
             }
         },
         createMasterDetail: function(container, options) {
@@ -141,7 +141,7 @@
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
             let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ""+currentEmployeeData.balans_name+""});
             let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: "Балансоутримувач"});
-            let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content); 
+            let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
             let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
@@ -162,11 +162,11 @@
                     element.appendChild(child);
                 });
             } return element;
-        },       
+        },
         afterLoadDataHandler: function() {
             this.render();
             this.createCustomStyle();
-        },	    
+        },
         createCustomStyle: function(){
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
@@ -174,7 +174,7 @@
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
-        },     
+        },
         destroy: function() {
             this.sub.unsubscribe();
         }

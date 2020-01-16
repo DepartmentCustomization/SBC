@@ -3,10 +3,10 @@
         chartConfig:{
             title: {
                 text: 'Якiсть проведення робiт'
-            },      
+            },
             xAxis: {
                 categories: []
-            }, 
+            },
             yAxis: {
                 title: {
                     text: ''
@@ -16,7 +16,7 @@
                 layout: 'vertical',
                 align: 'right',
                 verticalAlign: 'middle'
-            },        
+            },
             plotOptions: {
                 series: {
                     label: {

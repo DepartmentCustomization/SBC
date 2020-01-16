@@ -25,7 +25,7 @@
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.userOrganization, this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
         }else{
             let getUrlParams = window
                             .location
@@ -47,7 +47,7 @@
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.userOrganization, this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
         }
         let executeQueryOrganizations = {
             queryCode: 'table3',
@@ -55,14 +55,14 @@
             parameterValues: [ { key: '@organization_id',  value: this.organizationId }  ]
         };
         this.queryExecutor(executeQueryOrganizations, this.createSubordinateOrganizationsTable.bind(this, false, null), this);
-        this.showPreloader = false; 
+        this.showPreloader = false;
         let executeOrganizationSelect = {
             queryCode: 'OrganizationSelect',
             limit: -1,
             parameterValues: []
         };
         this.queryExecutor(executeOrganizationSelect, this.setOrganizationSelect, this);
-        this.showPreloader = false; 
+        this.showPreloader = false;
     },
     userOrganization: function(data){
         let indexOfTypeName = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationname' );
@@ -80,7 +80,7 @@
                 window.location.search = 'id='+data.rows[0].values[indexOfTypeId]+'';
             }
         }
-    },    
+    },
     createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
         Object.keys(props).forEach( key => element[key] = props[key] );
@@ -89,7 +89,7 @@
                 element.appendChild(child);
             });
         } return element;
-    }, 
+    },
     afterViewInit: function(){
         const container = document.getElementById('container')
         const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
@@ -152,7 +152,7 @@
                 }else{
                     this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
                 }
-            })    
+            })
         }.bind(this));
     },
     createFilters: function(){
@@ -200,7 +200,7 @@
             });
             this.organizationSelect = organizationSelect;
         }
-    },    
+    },
     reloadMainTable: function(message){
         document.getElementById('container').removeChild(document.getElementById('orgHeader'));
         document.getElementById('container').removeChild(document.getElementById('orgContainer'));
@@ -213,7 +213,7 @@
             parameterValues: [ { key: '@organization_id',  value: this.organizationId }  ]
         };
         this.queryExecutor(executeQueryOrganizations, this.createSubordinateOrganizationsTable.bind(this, true, targetId ), this);
-        this.showPreloader = false; 
+        this.showPreloader = false;
     },
     createSubordinateOrganizationsTable: function(reloadTable, targetId, data){
         this.createHeaderOrganizations();
@@ -265,7 +265,7 @@
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.createOrganizationsSubElements.bind( this, orgElementsReferral, organizationId ), this);
-            this.showPreloader = false; 
+            this.showPreloader = false;
         }.bind(this));
         }else {
             this.messageService.publish( { name: 'emptyPage'  } );
@@ -308,7 +308,7 @@
                 let emptyBox = this.createElement('div', {  className: 'emptyBox'});
                 el.appendChild(emptyBox);
             }
-        }.bind(this));  
+        }.bind(this));
         if( reloadTable == true ){
             let target = document.getElementById(targetId);
             let thisName = document.getElementById('organizationName').innerText;
@@ -341,7 +341,7 @@
         headerItem__onRefinement.style.backgroundColor = "rgb(94, 202, 162)";
         headerItem__planOrProgram.style.backgroundColor = "rgb(73, 155, 199)";
         const headerItems = this.createElement('div', { id: 'headerItems', className: 'displayFlex'}, headerItem__arrived, headerItem__notCompetence, headerItem__overdue, headerItem__warning, headerItem__inWork, headerItem__toAttention, headerItem__onRefinement, headerItem__planOrProgram);
-        const headerTitle = this.createElement('div', { id: 'headerTitle', innerText: 'Підлеглі організації'});        
+        const headerTitle = this.createElement('div', { id: 'headerTitle', innerText: 'Підлеглі організації'});
         const orgHeader = this.createElement('div', { id: 'orgHeader', className: 'orgContainer displayFlex'}, headerTitle, headerItems);
         let container = document.getElementById('container');
         container.appendChild(orgHeader);
@@ -386,10 +386,10 @@
                 this.targetOrgId = target.orgId;
                 let column = target.column;
                 switch(column) {
-                    case 'Надійшло':  
+                    case 'Надійшло':
                         target = document.getElementById('headerItem__arrived')
                         break;
-                    case 'Не в компетенції': 
+                    case 'Не в компетенції':
                         target =  document.getElementById('headerItem__notCompetence')
                         break;
                     case 'Прострочені':
@@ -408,7 +408,7 @@
                         target =  document.getElementById('headerItem__onRefinement')
                         break;
                     case 'План/Програма':
-                        target = document.getElementById('headerItem__planOrProgram') 
+                        target = document.getElementById('headerItem__planOrProgram')
                         break;
                 }
                 this.showTable(target, column, navigator, thisName, 'item');
@@ -419,10 +419,10 @@
     chooseColumnName: function(i){
         let column = '';
         switch(i) {
-            case 2:  
+            case 2:
                 column = 'Надійшло'
                 break;
-            case 3: 
+            case 3:
                 column = 'Не в компетенції'
                 break;
             case 4:
@@ -471,8 +471,8 @@
             document.getElementById('organizationName').innerText = this.organizationName;
             document.getElementById('organizationChildCat').innerText = ' ';
             headers.forEach( function(el) {
-                el.classList.remove('hover'); 
-                el.classList.remove('check'); 
+                el.classList.remove('hover');
+                el.classList.remove('check');
             }.bind(this));
             document.getElementById('orgContainer').style.display = 'block';
             this.sendMesOnBtnClick('clickOnTable2', 'none', 'none');
@@ -499,7 +499,7 @@
                         header.classList.add('check');
                         header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
                         header.firstElementChild.classList.add('triangle');
-                    }  
+                    }
                     headers[7].firstElementChild.classList.remove('triangle');
                 }.bind(this, target));
                 this.sendMesOnBtnClick('clickOnTable2', columnName, navigator, thisName, this.targetOrgId, target.id);
@@ -508,10 +508,10 @@
     },
     sendMesOnBtnClick: function(message, column, navigator, thisName, organizationId, targetId){
         this.messageService.publish({name: message, column: column,  navigation: navigator, orgId: organizationId, orgName: thisName, targetId: targetId });
-    },    
+    },
     resultSearch: function(message, value){
         this.messageService.publish({name: message, value: value, orgId: this.organizationId});
-    }, 
+    },
     destroy: function(){
         this.sub.unsubscribe();
     }

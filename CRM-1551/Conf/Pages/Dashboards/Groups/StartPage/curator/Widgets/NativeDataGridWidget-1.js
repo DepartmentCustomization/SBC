@@ -61,7 +61,7 @@
             },
             paging: {
                 pageSize: 500
-            },      
+            },
             scrolling: {
                 mode: 'standart',
                 rowRenderingMode: null,
@@ -99,7 +99,7 @@
             this.showPreloader = false;
             document.getElementById('table7__dooproc').style.display = 'none';
             this.sub = this.messageService.subscribe('clickOnСoordinator_table', this.changeOnTable, this);
-            this.config.masterDetail.template = this.createMasterDetails.bind(this);    
+            this.config.masterDetail.template = this.createMasterDetails.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
@@ -151,13 +151,13 @@
             elementsCaptionAll.forEach( el => {
                 el.style.minWidth = '200px';
             })
-        },  
+        },
         changeOnTable: function(message){
             if(message.column != 'Доопрацьовані' ){
                 document.getElementById('table7__dooproc').style.display = 'none';
-            }else{          
+            }else{
                 document.getElementById('table7__dooproc').style.display = 'block';
-                this.config.query.parameterValues = [ 
+                this.config.query.parameterValues = [
                     { key: '@navigation', value: message.value},
                     { key: '@column', value: message.column}
                     ];

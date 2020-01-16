@@ -75,7 +75,7 @@
             },
             masterDetail: {
                 enabled: true,
-            },        
+            },
             showBorders: false,
             showColumnLines: false,
             showRowLines: true,
@@ -110,8 +110,8 @@
                         xhr.open('GET', `http://10.192.200.14:5566/CallService/Call/number=` + CurrentUserPhone + `&operator=` + PhoneForCall );
                         xhr.send();
                     }
-                }    
-            }.bind(this)); 
+                }
+            }.bind(this));
             if(window.location.search != ''){
                 let getUrlParams =  window
                                         .location
@@ -183,7 +183,7 @@
                             if( index === -1 ){
                                 sortingArr.push(infoColumn);
                             }else{
-                                sortingArr.splice(index, 1); 
+                                sortingArr.splice(index, 1);
                                 sortingArr.push(infoColumn);
                             }
                         }
@@ -191,7 +191,7 @@
                     }
                 }
             }
-        },      
+        },
         showUser: function(data) {
             const indexPhoneNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'phonenumber' );
             this.userPhoneNumber = data.rows[0].values[indexPhoneNumber]
@@ -199,20 +199,20 @@
         createMasterDetails: function(container, options) {
             let currentEmployeeData = options.data;
             if(currentEmployeeData.comment == null){
-                currentEmployeeData.comment = ''; 
+                currentEmployeeData.comment = '';
             }
             if(currentEmployeeData.zmist == null){
-                currentEmployeeData.zmist = ''; 
+                currentEmployeeData.zmist = '';
             }
             if(currentEmployeeData.cc_nedozvon == null){
-                currentEmployeeData.cc_nedozvon = ''; 
+                currentEmployeeData.cc_nedozvon = '';
             }
             let lastNdzTime = ''
             if(currentEmployeeData.edit_date !== null){
                 lastNdzTime = this.changeDateTimeValues(currentEmployeeData.edit_date);
             }
             if(currentEmployeeData.control_comment == null){
-                currentEmployeeData.control_comment = ''; 
+                currentEmployeeData.control_comment = '';
             }
             let ndz = currentEmployeeData.cc_nedozvon;
             let ndzComment = currentEmployeeData.control_comment;
@@ -254,7 +254,7 @@
                 el.style.textAlign = 'center';
                 spanCircle.style.width = '100%';
                 if( el.childNodes.length < 2 ) {
-                    el.appendChild(spanCircle); 
+                    el.appendChild(spanCircle);
                 }
                 let cond1 = this.data[dataIndex][19];
                 let cond2 = this.data[dataIndex][21];
@@ -274,7 +274,7 @@
                     spanCircle.classList.add('notDone');
                 }
             }
-        },    
+        },
         changeDateTimeValues: function(value) {
             let date = new Date(value);
             let dd = date.getDate().toString();
@@ -287,7 +287,7 @@
             HH = HH.length === 1 ? '0' + HH : HH;
             MM = MM.length === 1 ? '0' + MM : MM;
             return  dd + '.' + mm + '.' + yyyy + ' ' + HH + ':' + MM;
-        },     
+        },
         reloadMainTable: function(message) {
             this.config.query.parameterValues = [
                 { key: '@filter', value: '1=1' },
@@ -305,8 +305,8 @@
         createDGButtons: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "close",
                     type: "default",
                     text: "Закрити",
@@ -326,7 +326,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },    
+        },
         openModalCloserForm: function() {
             let rowsMessage = [];
             let selectedRows = this.dataGridInstance.instance.getSelectedRowsData();

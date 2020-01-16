@@ -15,7 +15,7 @@
                     caption: 'Тип питання',
                 }
             ],
-            filterRow: { 
+            filterRow: {
                 visible: true
             },
             editing: {
@@ -41,9 +41,9 @@
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
+                widget: "dxButton",
                 location: "after",
-                options: { 
+                options: {
                     icon: "clear",
                     type: "default",
                     onClick: function(e) {
@@ -95,7 +95,7 @@
                     this.loadData(this.afterLoadDataHandler);
                 }
             }
-        }, 
+        },
         afterLoadDataHandler: function() {
             this.render();
         },

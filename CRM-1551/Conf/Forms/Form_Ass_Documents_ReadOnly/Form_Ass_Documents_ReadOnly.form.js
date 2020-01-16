@@ -1,6 +1,6 @@
 (function () {
   return {
-    stateForm: '', 
+    stateForm: '',
     init:function(){
             this.form.disableControl('name');
             this.form.disableControl('doc_type_id');

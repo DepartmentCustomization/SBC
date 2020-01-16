@@ -1,7 +1,7 @@
 (function () {
     return {
         init: function() {
-            let select2LibraryJS = 'select2LibraryJS'; 
+            let select2LibraryJS = 'select2LibraryJS';
             if (!document.getElementById(select2LibraryJS)) {
                 let head  = document.getElementsByTagName('head')[0];
                 let script  = document.createElement('script');
@@ -30,10 +30,10 @@
                                             value: 1
                                         }
                                     }
-                                    self.messageService.publish(messageSelect);    
+                                    self.messageService.publish(messageSelect);
                             }.bind(self);
-                    }.bind(self); 
-                }.bind(self);  
+                    }.bind(self);
+                }.bind(self);
             }
             this.showPreloader = false;
             this.sub  = this.messageService.subscribe( 'showPagePreloader', this.showMyPreloader, this);

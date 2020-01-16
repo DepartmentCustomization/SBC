@@ -25,11 +25,11 @@
             {
                 dataField: 'Name',
                 caption: 'Назва питання',
-            }, 
+            },
         ],
         sorting: {
             mode: "none"
-        },        
+        },
         columnFixing: {
             enabled: false
         },
@@ -74,19 +74,19 @@
         let self = this;
         this.treeListInstance.onToolbarPreparing.subscribe( e => {
             e.toolbarOptions.items.push({
-                widget: "dxButton", 
+                widget: "dxButton",
                 location: "before",
                 options: {
                     type: "default",
                     text: "До питань",
                     icon: "arrowleft",
-                    onClick: function() { 
+                    onClick: function() {
                         self.messageService.publish({ name: 'showTopQuestions' });
-                    } 
+                    }
                 },
             })
         });
-        this.loadData(); 
+        this.loadData();
     },
     showClassifierQuestionsTable: function(){
         document.getElementById('rep_2_1_top_questions').style.display = 'none';

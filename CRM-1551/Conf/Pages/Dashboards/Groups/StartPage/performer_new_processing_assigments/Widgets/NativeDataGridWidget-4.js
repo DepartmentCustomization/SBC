@@ -43,7 +43,7 @@
             },
             paging: {
                 pageSize: 10
-            },        
+            },
             scrolling: {
                 mode: 'standart',
                 rowRenderingMode: null,
@@ -56,7 +56,7 @@
             },
             selection: {
                 mode: "multiple"
-            },	
+            },
             sorting: {
                 mode: "multiple"
             },
@@ -101,7 +101,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },  
+        },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
             if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined){
@@ -124,7 +124,7 @@
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
             let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ""+currentEmployeeData.balans_name+""});
             let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: "Балансоутримувач"});
-            let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);        
+            let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
             let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
@@ -142,19 +142,19 @@
         createTableButton: function(e) {
                 let toolbarItems = e.toolbarOptions.items;
                 toolbarItems.push({
-                    widget: "dxButton", 
-                    options: { 
+                    widget: "dxButton",
+                    options: {
                         icon: "check",
                         type: "default",
                         text: "Ознайомився",
-                        onClick: function(e) { 
+                        onClick: function(e) {
                             e.event.stopImmediatePropagation();
                             this.findAllSelectRowsDoVidoma();
                         }.bind(this)
                     },
                     location: "after"
                 });
-        },    
+        },
         changeOnTable: function(message){
             this.column = message.column;
             this.navigator = message.navigation;
@@ -179,14 +179,14 @@
                     limit: -1
                 };
                 this.queryExecutor(executeQuery);
-                this.loadData(this.afterLoadDataHandler); 
+                this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish( { name: 'reloadMainTable', column: this.column,   navigator: this.navigator, targetId: this.targetId });
             }
         },
         afterLoadDataHandler: function() {
             this.render();
             this.createCustomStyle();
-        },    
+        },
         createCustomStyle: function(){
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
@@ -194,7 +194,7 @@
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
-        }, 
+        },
         destroy: function() {
             this.sub.unsubscribe();
         }

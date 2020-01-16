@@ -53,7 +53,7 @@
         },
         paging: {
             pageSize: 500
-        },       
+        },
         scrolling: {
             mode: 'standart',
             rowRenderingMode: null,
@@ -69,7 +69,7 @@
         },
         sorting: {
             mode: "multiple"
-        },        
+        },
         keyExpr: 'Id',
         focusedRowEnabled: true,
         showBorders: false,
@@ -111,8 +111,8 @@
             this.column = message.column;
             this.targetId = message.targetId;
             document.getElementById('table10_vukonano').style.display = 'block';
-            this.config.query.parameterValues = [ 
-                { key: '@navigation', value: message.value}, 
+            this.config.query.parameterValues = [
+                { key: '@navigation', value: message.value},
                 { key: '@column', value: message.column}
             ];
             this.loadData(this.afterLoadDataHandler);
@@ -128,7 +128,7 @@
         }
         if(currentEmployeeData.question_content == null){
             currentEmployeeData.question_content = '';
-        }        
+        }
         let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.adressZ+""});
         let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
         let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
@@ -164,7 +164,7 @@
 	afterLoadDataHandler: function() {
 		this.render();
         this.createCustomStyle();
-	},	
+	},
     createCustomStyle: function(){
         let elements = document.querySelectorAll('.dx-datagrid-export-button');
         elements = Array.from(elements);
@@ -172,7 +172,7 @@
             let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
             element.firstElementChild.appendChild(spanElement);
         }.bind(this));
-    }, 	
+    },
     destroy: function() {
         this.sub.unsubscribe();
     }

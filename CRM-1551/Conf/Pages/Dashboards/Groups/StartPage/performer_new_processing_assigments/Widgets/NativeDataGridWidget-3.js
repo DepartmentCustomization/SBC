@@ -18,7 +18,7 @@
                     dataField: 'receipt_date',
                     caption: 'Дата надходження',
                     dataType: "datetime",
-                    format: "dd.MM.yyyy HH:mm" 
+                    format: "dd.MM.yyyy HH:mm"
                 }, {
                     dataField: 'QuestionType',
                     caption: 'Тип питання',
@@ -34,7 +34,7 @@
                     sortOrder: 'desc',
                     allowSorting: true,
                     dataType: "datetime",
-                    format: "dd.MM.yyyy HH:mm"           
+                    format: "dd.MM.yyyy HH:mm"
                 }
             ],
             masterDetail: {
@@ -51,7 +51,7 @@
             },
             paging: {
                 pageSize: 10
-            },        
+            },
             scrolling: {
                 mode: 'standart',
                 rowRenderingMode: null,
@@ -101,18 +101,18 @@
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                options: { 
+                widget: "dxButton",
+                options: {
                     icon: "exportxlsx",
                     type: "default",
                     text: "Excel",
-                    onClick: function(e) { 
+                    onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.exportToExcel();
                     }.bind(this)
                 },
                 location: "after"
-            });  
+            });
         },
         exportToExcel: function(){
             let exportQuery = {
@@ -197,7 +197,7 @@
                 }else if( el.name === 'adress'){
                     obj.key = 'adress',
                     obj.width = 21
-                    captions.push('Місце проблеми (Об\'єкт)'); 
+                    captions.push('Місце проблеми (Об\'єкт)');
                 }
                 columnsHeader.push(obj);
             });
@@ -211,8 +211,8 @@
             let indexVykonavets = data.columns.findIndex(el => el.code.toLowerCase() === 'vykonavets' );
             let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_zmist' );
             let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress' );
-            let indexReceiptDate = data.columns.findIndex(el => el.code.toLowerCase() === 'receipt_date' );    
-            for( let  j = 0; j < data.rows.length; j ++ ){  
+            let indexReceiptDate = data.columns.findIndex(el => el.code.toLowerCase() === 'receipt_date' );
+            for( let  j = 0; j < data.rows.length; j ++ ){
                 const row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i ++){
@@ -253,10 +253,10 @@
                     bottom: {style:'thin'},
                     right: {style:'thin'}
                 };
-                worksheet.getRow(number).alignment = { 
+                worksheet.getRow(number).alignment = {
                     vertical: 'middle',
                     horizontal: 'center',
-                    wrapText: true 
+                    wrapText: true
                 };
                 worksheet.getRow(number).font = {
                     name: 'Times New Roman',
@@ -282,19 +282,19 @@
             let mm = date.getMinutes();
             MM += 1 ;
             if( (dd.toString()).length === 1){
-                dd = '0' + dd; 
-            }                 
+                dd = '0' + dd;
+            }
             if( (MM.toString()).length === 1){
-                MM = '0' + MM ; 
+                MM = '0' + MM ;
             }
             if( (HH.toString()).length === 1){
-                HH = '0' + HH; 
+                HH = '0' + HH;
             }
             if( (mm.toString()).length === 1){
-                mm = '0' + mm; 
+                mm = '0' + mm;
             }
             return dd+'.'+MM+'.' + yyyy;
-        },     
+        },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach( key => element[key] = props[key] );
@@ -303,7 +303,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },    
+        },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
             if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined){
@@ -340,7 +340,7 @@
             elementsCaptionAll.forEach( el => {
                 el.style.minWidth = '200px';
             })
-        },    
+        },
         changeOnTable: function(message){
             if(message.column != 'Прострочені' &&  message.column != 'Увага' && message.column != 'В роботі'){
                 document.getElementById('table6__ProstrocheniUvagaVRoboti').style.display = 'none';
@@ -354,13 +354,13 @@
                                                     { key: '@organizationName', value: message.orgName},
                                                     { key: '@column', value: message.column},
                                                     { key: '@navigation', value: message.navigation}];
-            this.loadData(this.afterLoadDataHandler);          
+            this.loadData(this.afterLoadDataHandler);
             }
         },
         afterLoadDataHandler: function() {
             this.render();
             this.createCustomStyle();
-        },    
+        },
         createCustomStyle: function(){
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
@@ -368,7 +368,7 @@
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
             }.bind(this));
-        }, 
+        },
         destroy: function() {
             this.sub.unsubscribe();
         },

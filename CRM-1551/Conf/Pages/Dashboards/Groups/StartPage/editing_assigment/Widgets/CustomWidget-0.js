@@ -21,7 +21,7 @@
                 this.messageService.publish( { name: 'sendSearchValue', searchValue: searchContainer__input.value });
             }
         }.bind(this));
-        this.container.appendChild(searchContainer);    
+        this.container.appendChild(searchContainer);
     },
 	createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
@@ -38,8 +38,8 @@
         const modalBtnExit =  this.createElement('button', { id:'modalBtnExit', className: 'btn', innerText: 'Вийти'});
         const modalBtnWrapper =  this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue, modalBtnExit);
         const modalTitle =  this.createElement('div', { id:'modalTitle', innerText: 'Ви дійсно впевнені, що бажаєте видалити Звернення?'});
-        const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, modalBtnWrapper); 
-        const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow); 
+        const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, modalBtnWrapper);
+        const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
         this.container.appendChild(modalWindowWrapper);
         modalBtnTrue.addEventListener( 'click', () => {
             this.messageService.publish( { name: 'deleteAssigments', status: status  });

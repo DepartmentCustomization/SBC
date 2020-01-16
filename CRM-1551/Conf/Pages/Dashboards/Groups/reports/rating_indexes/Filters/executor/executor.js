@@ -22,7 +22,7 @@
       onClearFilter: function() {
       },
       initValue: function() {
-      }, 
+      },
       setValues: function(item) {
           let message = {
               name: '',

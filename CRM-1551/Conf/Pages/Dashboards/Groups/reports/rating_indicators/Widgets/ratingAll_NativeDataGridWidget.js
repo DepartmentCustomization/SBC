@@ -15,7 +15,7 @@
                     caption: 'Назва установи',
                     fixed: true,
                     width: 200
-                }, {    
+                }, {
                     caption: 'Зареєстровано, В роботі, На доопрацюванні, На перевірці за попередній період',
                     alignItems: 'middle',
                     columns: [
@@ -37,7 +37,7 @@
                         }, {
                             dataField: 'PreviousPeriod_Closed',
                             caption: 'Закрито',
-                        } 
+                        }
                     ]
                 }, {
                     dataField: 'CurrentMonth_Total',
@@ -61,7 +61,7 @@
                         }, {
                             dataField: 'CurrentMonth_Closed',
                             caption: 'Закрито',
-                        } 
+                        }
                     ]
                 }, {
                     dataField: 'OfThem_Registered',
@@ -135,59 +135,59 @@
                 }, {
                     dataField: 'PercentClosedOnTime',
                     caption: '% вчасно закритих',
-                    format: function (value) { 
+                    format: function (value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'PercentOfExecution',
                     caption: '% виконання',
-                    format: function (value) { 
+                    format: function (value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'PercentOnVeracity',
                     caption: '% достовірності',
-                    format: function (value) { 
+                    format: function (value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'IndexOfSpeedToExecution',
                     caption: 'Індекс швидкості виконання',
-                    format: function (value) { 
+                    format: function (value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'IndexOfSpeedToExplain',
                     caption: 'Індекс швидкості роз\'яснення',
-                    format: function (value) { 
+                    format: function (value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'IndexOfFactToExecution',
                     caption: 'Індекс фактичного виконання',
-                    format: function (value) { 
+                    format: function (value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'PercentPleasureOfExecution',
                     caption: '% задоволеність виконанням',
-                    format: function (value) { 
+                    format: function (value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'IntegratedMetric_PerformanceLevel',
                     caption: 'Рівень виконання',
-                    format: function (value) { 
+                    format: function (value) {
                         return value.toFixed(2);
                     }
-                }    
+                }
             ],
             columnChooser: {
                 enabled: true
             },
             sorting: {
                 mode: "multiple"
-            },   
+            },
             showBorders: false,
             showColumnLines: true,
             showRowLines: true,
@@ -269,7 +269,7 @@
             this.date = message.date;
             this.executor = message.executor;
             this.rating = message.rating;
-            this.config.query.parameterValues = [ 
+            this.config.query.parameterValues = [
                 {key: '@DateCalc' , value: this.date },
                 {key: '@RDAId', value: this.executor },
                 {key: '@RatingId', value: this.rating }
@@ -284,13 +284,13 @@
             };
             this.messageService.publish(msg);
             this.loadData(this.afterLoadDataHandler);
-        }, 
+        },
         createTableButton: function (e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
+                widget: "dxButton",
                 location: "after",
-                options: { 
+                options: {
                     icon: "exportxlsx",
                     type: "default",
                     text: "Excel",
@@ -337,7 +337,7 @@
             worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 16, underline: false, bold: true , italic: false};
             worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
             let captions = [];
-            let columnsHeader = [];      
+            let columnsHeader = [];
             for (let i = 0; i < visibleColumns.length; i++) {
                 let column = visibleColumns[i];
                 let caption = column.caption;
@@ -347,7 +347,7 @@
                 let width = 15;
                 let index = 10;
                 let columnProp = { header, key, width, index };
-                columnsHeader.push(columnProp);    
+                columnsHeader.push(columnProp);
             }
             worksheet.columns = columnsHeader;
             worksheet.getRow(5).values = captions;
@@ -406,7 +406,7 @@
             for (let i = 0; i < visibleColumns.length; i++) {
                 const visCol = visibleColumns[i];
                 let df = visCol.dataField;
-                let index = this.allColumns.findIndex( el => el.dataField === df ); 
+                let index = this.allColumns.findIndex( el => el.dataField === df );
                 resultColumns.push(this.allColumns[index]);
             }
             for (let i = 0; i < resultColumns.length; i++) {
@@ -423,7 +423,7 @@
                     }
                     indexCaptionFrom = 5;
                 }else{
-                    let caption = resCol.caption;        
+                    let caption = resCol.caption;
                     let column = { caption, colIndexTo }
                     indexCaptionFrom = 4;
                     this.columnsWithoutSub.push(column);

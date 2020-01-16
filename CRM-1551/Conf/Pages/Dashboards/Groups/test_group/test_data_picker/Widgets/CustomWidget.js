@@ -3,7 +3,7 @@
         title: ' ',
         hint: '',
         formatTitle: function() {},
-        customConfig: 
+        customConfig:
                 `
                     <div id='modalContainer'></div>
                 `

@@ -74,7 +74,7 @@
                     element.appendChild(child);
                 });
             } return element;
-        },  
+        },
         executeQuery: function (message) {
             this.results = [];
             const tab = message.tab;

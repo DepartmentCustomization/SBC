@@ -16,7 +16,7 @@
                 }, {
                     dataField: 'qty',
                     caption: 'Кількість ',
-                }, 
+                },
             ],
             summary: {
                 totalItems: [
@@ -41,14 +41,14 @@
                 if( period.dateFrom !== '' && period.dateTo !== ''){
                     this.dateFrom =  period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.config.query.parameterValues = [ 
-                        {key: '@dateFrom' , value: this.dateFrom },  
-                        {key: '@dateTo', value: this.dateTo },   
+                    this.config.query.parameterValues = [
+                        {key: '@dateFrom' , value: this.dateFrom },
+                        {key: '@dateTo', value: this.dateTo },
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }
             }
-        }, 
+        },
         afterLoadDataHandler: function(data) {
             this.messageService.publish( {name: 'setData', rep2_data: data} );
             this.render();

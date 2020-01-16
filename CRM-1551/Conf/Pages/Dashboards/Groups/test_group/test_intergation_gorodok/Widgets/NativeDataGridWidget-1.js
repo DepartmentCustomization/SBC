@@ -100,7 +100,7 @@
                 let obj = {
                     "Id": el.values[0],
                     "streets": el.values[1],
-                } 
+                }
                 this.elements.push(obj);
             }
             this.config.columns[5].lookup.dataSource.store = this.elements;

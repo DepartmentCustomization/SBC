@@ -1063,9 +1063,9 @@
         },
         convertDateNull: function (value) {
             if (!value) {
-                return this.extractStartDate(); 
+                return this.extractStartDate();
             } else {
-                return value; 
+                return value;
             }
         },
         onChanged_Search_Appeals_Input: function (value) {

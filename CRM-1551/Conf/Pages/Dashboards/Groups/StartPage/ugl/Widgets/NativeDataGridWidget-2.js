@@ -53,7 +53,7 @@
         },
         paging: {
             pageSize: 500
-        },       
+        },
         scrolling: {
             mode: 'standart',
             rowRenderingMode: null,
@@ -66,7 +66,7 @@
         },
         sorting: {
             mode: "multiple"
-        },        
+        },
         keyExpr: 'Id',
         focusedRowEnabled: true,
         showBorders: false,
@@ -108,8 +108,8 @@
             this.column = message.column;
             this.targetId = message.targetId;
             document.getElementById('table6_rozyasneno').style.display = 'block';
-            this.config.query.parameterValues = [ 
-                { key: '@navigation', value: message.value}, 
+            this.config.query.parameterValues = [
+                { key: '@navigation', value: message.value},
                 { key: '@column', value: message.column}
             ];
             this.loadData(this.afterLoadDataHandler);
@@ -148,7 +148,7 @@
         elementsCaptionAll.forEach( el => {
             el.style.minWidth = '200px';
         });
-    },    
+    },
     createElement: function(tag, props, ...children) {
         const element = document.createElement(tag);
         Object.keys(props).forEach( key => element[key] = props[key] );
@@ -161,7 +161,7 @@
 	afterLoadDataHandler: function() {
 		this.render();
         this.createCustomStyle();
-	},	
+	},
     createCustomStyle: function(){
         let elements = document.querySelectorAll('.dx-datagrid-export-button');
         elements = Array.from(elements);
@@ -169,7 +169,7 @@
             let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
             element.firstElementChild.appendChild(spanElement);
         }.bind(this));
-    }, 	
+    },
     destroy: function() {
         this.sub.unsubscribe();
     }

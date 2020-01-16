@@ -73,7 +73,7 @@
                 element.appendChild(child);
             });
         } return element;
-    },   
+    },
     createTableExcel: function(){
         this.showPagePreloader('Зачекайте, формується документ');
         const workbook = this.createExcel();
@@ -110,14 +110,14 @@
                     columnsHeader.push(obj);
                     captions.push('Назва');
                 }else if(el.name === 'questionQty'){
-                    let obj =  { 
+                    let obj =  {
                         key: el.name,
                         width: 8
                     };
                     columnsHeader.push(obj);
                     captions.push('Кiлькiсть');
                 }else if(el.name === 'empty'){
-                    let obj =  { 
+                    let obj =  {
                         key: el.name,
                         width: 8
                     };
@@ -134,7 +134,7 @@
             if(i === 0){
                 let cellInfoCaption0 = worksheet.getCell('A1');
                 cellInfoCaption0.value = this.rep1_title;
-                worksheet.mergeCells('A1:B1'); 
+                worksheet.mergeCells('A1:B1');
                 mainHeaders.push(1);
                 worksheet.getCell('A2').value = captionName;
                 worksheet.getCell('B2').value = captionCounter;
@@ -151,7 +151,7 @@
                     tdsCounter.push('B'+i);
                 }
             }else if(i === 1){
-                let cellInfoCaption1 = worksheet.getCell('D1');  
+                let cellInfoCaption1 = worksheet.getCell('D1');
                 cellInfoCaption1.value = this.rep2_title;
                 worksheet.mergeCells('D1:E1');
                 tds.push('D1');
@@ -159,7 +159,7 @@
                 worksheet.getCell('E2').value = captionCounter;
                 tds.push('D1');
                 tds.push('D2');
-                tds.push('E2');                
+                tds.push('E2');
                 for(let i = 3; i < (data.length + 3); i++ ){
                     let value = data[i-3];
                     columnText = worksheet.getCell('D'+i);
@@ -167,7 +167,7 @@
                     columnText.value = value[0];
                     columnCounter.value = value[1];
                     tds.push('D'+i);
-                    tdsCounter.push('E'+i);                    
+                    tdsCounter.push('E'+i);
                 }
             }else if(i === 2){
                 this.rowTable1 = (this.dataArray[0].length+3 + 1);
@@ -186,7 +186,7 @@
                     columnText.value = value[0];
                     columnCounter.value = value[1];
                     tds.push('A'+i);
-                    tdsCounter.push('B'+i);                    
+                    tdsCounter.push('B'+i);
                 }
             }else if(i === 3){
                 this.rowTable2 = (this.dataArray[1].length+3 + 1);
@@ -194,7 +194,7 @@
                 mainHeaders.push(counter);
                 let cellInfoCaption3 = worksheet.getCell('D'+(counter));
                 cellInfoCaption3.value = this.rep4_title;
-                worksheet.mergeCells('D'+(counter)+':'+'E'+(counter)); 
+                worksheet.mergeCells('D'+(counter)+':'+'E'+(counter));
                 tds.push('D'+counter);
                 worksheet.getCell('D'+(counter+1)).value = captionName;
                 worksheet.getCell('E'+(counter+1)).value = captionCounter;
@@ -207,7 +207,7 @@
                     columnText.value = value[0];
                     columnCounter.value = value[1];
                     tds.push('D'+i);
-                    tdsCounter.push('E'+i);                   
+                    tdsCounter.push('E'+i);
                 }
             }else if(i === 4){
                 let counter =  this.rowTable2 + this.rowTable1 - 1;
@@ -228,7 +228,7 @@
                     columnText.value = value[0];
                     columnCounter.value = value[1];
                     tds.push('A'+i);
-                    tdsCounter.push('B'+i);                     
+                    tdsCounter.push('B'+i);
                 }
             }
             worksheet.columns = columnsHeader;
@@ -240,10 +240,10 @@
                     bottom: {style:'thin'},
                     right: {style:'thin'}
                 };
-                worksheet.getCell(td).alignment = { 
+                worksheet.getCell(td).alignment = {
                     vertical: 'middle',
                     horizontal: 'left',
-                    wrapText: true 
+                    wrapText: true
                 };
                 worksheet.getCell(td).font = {
                     name: 'Times New Roman',
@@ -261,10 +261,10 @@
                     bottom: {style:'thin'},
                     right: {style:'thin'}
                 };
-                worksheet.getCell(td).alignment = { 
+                worksheet.getCell(td).alignment = {
                     vertical: 'middle',
                     horizontal: 'center',
-                    wrapText: true 
+                    wrapText: true
                 };
                 worksheet.getCell(td).font = {
                     name: 'Times New Roman',
@@ -283,7 +283,7 @@
             });
         }
         this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
-    }, 
+    },
     changeDateTimeValues: function(value){
         let trueDate ;
         if( value !== null){
@@ -295,22 +295,22 @@
             let mm = date.getMinutes();
             MM += 1 ;
             if( (dd.toString()).length === 1){
-  dd = '0' + dd; 
+  dd = '0' + dd;
 }
             if( (MM.toString()).length === 1){
- MM = '0' + MM ; 
+ MM = '0' + MM ;
 }
             if( (HH.toString()).length === 1){
-  HH = '0' + HH; 
+  HH = '0' + HH;
 }
             if( (mm.toString()).length === 1){
- mm = '0' + mm; 
+ mm = '0' + mm;
 }
             trueDate = dd+'.'+MM+'.' + yyyy;
         }else{
             trueDate = ' ';
         }
         return trueDate;
-    }, 
+    },
 };
 }());
