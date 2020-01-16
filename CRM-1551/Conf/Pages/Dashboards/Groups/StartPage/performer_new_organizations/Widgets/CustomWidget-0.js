@@ -11,7 +11,7 @@
     init: function() {
         this.messageService.publish( { name: 'showPagePreloader'  } );
         const header1 = document.getElementById('header1');
-        header1.parentElement.style.flexFlow = "column nowrap";
+        header1.parentElement.style.flexFlow = 'column nowrap';
         header1.firstElementChild.style.overflow = 'visible';
         header1.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
         this.column = [];
@@ -132,7 +132,7 @@
                         organizationLink.addEventListener( 'click', event => {
                             event.stopImmediatePropagation();
                             let target  =  event.currentTarget;
-                            window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/performer_new_organizations?id="+target.orgId+"");
+                            window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_organizations?id='+target.orgId+'');
                         });
                     });
                 }else if(orgLinkСhangerBox.children.length === 2){
@@ -158,8 +158,8 @@
     createFilters: function(){
         const organizationName = this.createElement('div', {id: 'organizationName', className: 'orgName'});
         const organizationChildCat = this.createElement('div', {id: 'organizationChildCat', className: 'orgName', innerText: ' '});
-        const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: "searchContainer__input"});
-        const searchContainer = this.createElement('div', {id: 'searchContainer', className: "searchContainer"}, searchContainer__input);
+        const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
+        const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
         searchContainer__input.addEventListener('input', () =>  {
             if(searchContainer__input.value.length == 0 ){
                 this.resultSearch('clearInput', 0);
@@ -332,14 +332,14 @@
         const headerItem__toAttention     = this.createElement('div', { id: 'headerItem__toAttention', className: 'headerItem displayFlex', innerText: 'До відома'}, headerItem__toAttention_triangle);
         const headerItem__onRefinement    = this.createElement('div', { id: 'headerItem__onRefinement', className: 'headerItem displayFlex', innerText: 'На доопрацюванні'}, headerItem__onRefinement_triangle);
         const headerItem__planOrProgram   = this.createElement('div', { id: 'headerItem__planOrProgram', className: 'headerItem displayFlex', innerText: 'План/Програма'}, headerItem__planOrProgram_triangle);
-        headerItem__arrived.style.backgroundColor = "rgb(74, 193, 197)";
-        headerItem__notCompetence.style.backgroundColor = "rgb(173, 118, 205)";
-        headerItem__overdue.style.backgroundColor = "rgb(240, 114, 93)";
-        headerItem__warning.style.backgroundColor = "rgb(238, 163, 54)";
-        headerItem__inWork.style.backgroundColor = "rgb(132, 199, 96)";
-        headerItem__toAttention.style.backgroundColor = "rgb(248, 195, 47)";
-        headerItem__onRefinement.style.backgroundColor = "rgb(94, 202, 162)";
-        headerItem__planOrProgram.style.backgroundColor = "rgb(73, 155, 199)";
+        headerItem__arrived.style.backgroundColor = 'rgb(74, 193, 197)';
+        headerItem__notCompetence.style.backgroundColor = 'rgb(173, 118, 205)';
+        headerItem__overdue.style.backgroundColor = 'rgb(240, 114, 93)';
+        headerItem__warning.style.backgroundColor = 'rgb(238, 163, 54)';
+        headerItem__inWork.style.backgroundColor = 'rgb(132, 199, 96)';
+        headerItem__toAttention.style.backgroundColor = 'rgb(248, 195, 47)';
+        headerItem__onRefinement.style.backgroundColor = 'rgb(94, 202, 162)';
+        headerItem__planOrProgram.style.backgroundColor = 'rgb(73, 155, 199)';
         const headerItems = this.createElement('div', { id: 'headerItems', className: 'displayFlex'}, headerItem__arrived, headerItem__notCompetence, headerItem__overdue, headerItem__warning, headerItem__inWork, headerItem__toAttention, headerItem__onRefinement, headerItem__planOrProgram);
         const headerTitle = this.createElement('div', { id: 'headerTitle', innerText: 'Підлеглі організації'});
         const orgHeader = this.createElement('div', { id: 'orgHeader', className: 'orgContainer displayFlex'}, headerTitle, headerItems);
@@ -452,14 +452,14 @@
             headers.forEach( el => {
                 el.firstElementChild.classList.remove('triangle');
             });
-            document.getElementById('headerItem__arrived').style.backgroundColor = "rgb(74, 193, 197)";
-            document.getElementById('headerItem__notCompetence').style.backgroundColor = "rgb(173, 118, 205)";
-            document.getElementById('headerItem__overdue').style.backgroundColor = "rgb(240, 114, 93)";
-            document.getElementById('headerItem__warning').style.backgroundColor = "rgb(238, 163, 54)";
-            document.getElementById('headerItem__inWork').style.backgroundColor = "rgb(132, 199, 96)";
-            document.getElementById('headerItem__toAttention').style.backgroundColor = "rgb(248, 195, 47)";
-            document.getElementById('headerItem__onRefinement').style.backgroundColor = "rgb(94, 202, 162)";
-            document.getElementById('headerItem__planOrProgram').style.backgroundColor = "rgb(73, 155, 199)";
+            document.getElementById('headerItem__arrived').style.backgroundColor = 'rgb(74, 193, 197)';
+            document.getElementById('headerItem__notCompetence').style.backgroundColor = 'rgb(173, 118, 205)';
+            document.getElementById('headerItem__overdue').style.backgroundColor = 'rgb(240, 114, 93)';
+            document.getElementById('headerItem__warning').style.backgroundColor = 'rgb(238, 163, 54)';
+            document.getElementById('headerItem__inWork').style.backgroundColor = 'rgb(132, 199, 96)';
+            document.getElementById('headerItem__toAttention').style.backgroundColor = 'rgb(248, 195, 47)';
+            document.getElementById('headerItem__onRefinement').style.backgroundColor = 'rgb(94, 202, 162)';
+            document.getElementById('headerItem__planOrProgram').style.backgroundColor = 'rgb(73, 155, 199)';
             document.getElementById('headerItem__arrived').firstElementChild.classList.add('arrived_triangle');
             document.getElementById('headerItem__notCompetence').firstElementChild.classList.add('notCompetence_triangle');
             document.getElementById('headerItem__overdue').firstElementChild.classList.add('overdue_triangle');
@@ -495,7 +495,7 @@
                     let headers = document.querySelectorAll('.headerItem');
                     headers = Array.from(headers);
                     if( target.id != header.id ){
-                        header.style.backgroundColor = "#d3d3d3";
+                        header.style.backgroundColor = '#d3d3d3';
                         header.classList.add('check');
                         header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
                         header.firstElementChild.classList.add('triangle');

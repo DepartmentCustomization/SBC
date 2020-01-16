@@ -18,7 +18,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: false,
@@ -77,7 +77,7 @@
             if (this.period) {
                 if (this.active) {
                     const msg = {
-                        name: "SetFilterPanelState",
+                        name: 'SetFilterPanelState',
                         package: {
                             value: false
                         }

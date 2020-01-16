@@ -26,7 +26,7 @@
     onClearFilter: function() {
     },
     initValue:function() {
-        this.setDefaultValue("first");
+        this.setDefaultValue('first');
     },
     init:function() {
     },

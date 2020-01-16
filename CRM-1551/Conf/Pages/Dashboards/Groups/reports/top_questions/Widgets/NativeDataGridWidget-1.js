@@ -28,7 +28,7 @@
             },
         ],
         sorting: {
-            mode: "none"
+            mode: 'none'
         },
         columnFixing: {
             enabled: false
@@ -74,12 +74,12 @@
         let self = this;
         this.treeListInstance.onToolbarPreparing.subscribe( e => {
             e.toolbarOptions.items.push({
-                widget: "dxButton",
-                location: "before",
+                widget: 'dxButton',
+                location: 'before',
                 options: {
-                    type: "default",
-                    text: "До питань",
-                    icon: "arrowleft",
+                    type: 'default',
+                    text: 'До питань',
+                    icon: 'arrowleft',
                     onClick: function() {
                         self.messageService.publish({ name: 'showTopQuestions' });
                     }

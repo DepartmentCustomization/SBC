@@ -17,8 +17,8 @@
             }, {
                 dataField: 'Ass_registration_date',
                 caption: 'Дата надходження',
-                dataType: "datetime",
-                format: "dd.MM.yyyy HH:mm"
+                dataType: 'datetime',
+                format: 'dd.MM.yyyy HH:mm'
             }, {
                 dataField: 'AssignmentState',
                 caption: 'Стан',
@@ -37,13 +37,13 @@
             },  {
                 dataField: 'Control_date',
                 caption: 'Дата контролю',
-                dataType: "datetime",
-                format: "dd.MM.yyyy HH:mm"
+                dataType: 'datetime',
+                format: 'dd.MM.yyyy HH:mm'
             }
         ],
         filterRow: {
             visible: true,
-            applyFilter: "auto"
+            applyFilter: 'auto'
         },
         export: {
             enabled: false,
@@ -71,7 +71,7 @@
             mode: 'multiple',
         },
         sorting: {
-            mode: "multiple"
+            mode: 'multiple'
         },
         keyExpr: 'Id',
         showBorders: false,
@@ -107,11 +107,11 @@
     createTableButton: function(e) {
         let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push({
-            widget: "dxButton",
+            widget: 'dxButton',
             options: {
-                icon: "exportxlsx",
-                type: "default",
-                text: "Excel",
+                icon: 'exportxlsx',
+                type: 'default',
+                text: 'Excel',
                 onClick: function(e) {
                     e.event.stopImmediatePropagation();
                     let executeQuery = {
@@ -125,16 +125,16 @@
                     this.queryExecutor(executeQuery, this.createTableExcel, this );
                 }.bind(this)
             },
-            location: "after"
+            location: 'after'
         });
         toolbarItems.push({
-            widget: "dxButton",
+            widget: 'dxButton',
             options: {
-                icon: "trash",
-                type: "default",
-                text: "Видалити",
+                icon: 'trash',
+                type: 'default',
+                text: 'Видалити',
                 elementAttr: {
-                    id: "button_ozpodil",
+                    id: 'button_ozpodil',
                 },
                 onClick: function(e) {
                     e.event.stopImmediatePropagation();
@@ -142,16 +142,16 @@
                     this.validationCheck(status);
                 }.bind(this)
             },
-            location: "after"
+            location: 'after'
         });
         toolbarItems.push({
-            widget: "dxButton",
+            widget: 'dxButton',
             options: {
-                icon: "todo",
-                type: "default",
-                text: "Роз'яснено",
+                icon: 'todo',
+                type: 'default',
+                text: 'Роз\'яснено',
                 elementAttr: {
-                    id: "button_ozpodil",
+                    id: 'button_ozpodil',
                 },
                 onClick: function(e) {
                     e.event.stopImmediatePropagation();
@@ -159,16 +159,16 @@
                     this.findAllSelectRows(status);
                 }.bind(this)
             },
-            location: "after"
+            location: 'after'
         });
         toolbarItems.push({
-            widget: "dxButton",
+            widget: 'dxButton',
             options: {
-                icon: "close",
-                type: "default",
-                text: "Не в компетенції",
+                icon: 'close',
+                type: 'default',
+                text: 'Не в компетенції',
                 elementAttr: {
-                    id: "button_arrived",
+                    id: 'button_arrived',
                 },
                 onClick: function(e) {
                     e.event.stopImmediatePropagation();
@@ -176,7 +176,7 @@
                     this.findAllSelectRows(status);
                 }.bind(this)
             },
-            location: "after"
+            location: 'after'
         });
     },
     validationCheck: function(status){

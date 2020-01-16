@@ -82,11 +82,11 @@
             this.form.disableControl('1551_ApplicantFromSite_Phone');
             this.form.setControlValue('1551_ApplicantFromSite_PIB',this.form.getControlValue('ApplicantFromSite_PIB'));
             this.form.setControlValue('1551_ApplicantFromSite_Phone',this.form.getControlValue('ApplicantFromSite_Phone'));
-        document.getElementById('additional').addEventListener("click", function() {
+        document.getElementById('additional').addEventListener('click', function() {
             this.form.setGroupVisibility('bad_Appeal', true);
             this.IsFormReturnModerated();
         }.bind(this));
-        document.getElementById('btn_CreateApplicant1551').addEventListener("click", function() {
+        document.getElementById('btn_CreateApplicant1551').addEventListener('click', function() {
             this.CreateApplicant1551();
             this.details.setVisibility('Site_Applicant', false);
             this.form.setControlValue('Applicant_INFO', 'Буде створено новий заявник в системі "'+this.form.getControlValue('ApplicantFromSite_PIB')+'"');
@@ -105,34 +105,34 @@
                              });
             }
         }.bind(this));
-        document.getElementById('btn_person1551_question').addEventListener("click", function() {
+        document.getElementById('btn_person1551_question').addEventListener('click', function() {
             this.CreateApplicant1551();
             this.details.setVisibility('Site_Applicant', false);
         }.bind(this));
-        document.getElementById('btn_searchPerson').addEventListener("click", function() {
+        document.getElementById('btn_searchPerson').addEventListener('click', function() {
             this.form.setGroupVisibility('Group2', true);
             this.form.setControlVisibility('btn_CreateApplicant1551', false);
         }.bind(this));
-        document.getElementById('btn_searchAdressByCoordinate').addEventListener("click", function() {
-             window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/SearchGoogle?lat="+this.form.getControlValue('AppealFromSite_geolocation_lat')+"&lon="+this.form.getControlValue('AppealFromSite_geolocation_lon')+"");
+        document.getElementById('btn_searchAdressByCoordinate').addEventListener('click', function() {
+             window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/SearchGoogle?lat='+this.form.getControlValue('AppealFromSite_geolocation_lat')+'&lon='+this.form.getControlValue('AppealFromSite_geolocation_lon')+'');
         }.bind(this));
         document.getElementById('Question_BuildingIcon').style.fontSize = '30px';
-        document.getElementById('Question_BuildingIcon').addEventListener("click", function(event) {
+        document.getElementById('Question_BuildingIcon').addEventListener('click', function(event) {
             event.stopImmediatePropagation();
             this.form.setControlValue('Question_Building',{ key: this.form.getControlValue('AppealFromSite_Object'), value: this.form.getControlDisplayValue('AppealFromSite_Object')});
         }.bind(this));
-        document.getElementById('btn_SearchApplicant1551').addEventListener("click", function() {
+        document.getElementById('btn_SearchApplicant1551').addEventListener('click', function() {
             this.form.setControlVisibility('btn_CreateApplicant1551', true);
             this.SerchApplicant1551();
         }.bind(this));
-        document.getElementById('return_appeal').addEventListener("click", function() {
+        document.getElementById('return_appeal').addEventListener('click', function() {
             this.ReturnAppealToApplicant();
         }.bind(this));
         this.form.onGroupCloseClick('Group2',this.GroupClose_Group2.bind(this));
         this.form.onGroupCloseClick('Group_PreviewApplicant',this.GroupClose_Group_PreviewApplicant.bind(this));
         this.form.onGroupCloseClick('Appeal_Question',this.GroupClose_Appeal_Question.bind(this));
         this.details.onCellClick('Site_Applicant', this.OnCellClikc_Detail_Site_Applicant.bind(this));
-         document.getElementById('Question_Btn_Add').addEventListener("click", function() {
+         document.getElementById('Question_Btn_Add').addEventListener('click', function() {
              const queryForGetValue3 = {
                     queryCode: 'ForSite_Question_Btn_Add_InsertRow',
                     parameterValues: [
@@ -316,7 +316,7 @@
     },
      onChanged_Question_Building_Input: function(value) {
         if (value) {
-        if (typeof value === "string") {
+        if (typeof value === 'string') {
              return
         } else {
          this.Question_Building_Input = value;
@@ -418,7 +418,7 @@
         const filters = [
         ];
         const sorting = [
-            { key: "PIB", value: 0 }
+            { key: 'PIB', value: 0 }
         ];
         this.details.loadData('Site_Applicant', parameters, filters, sorting);
         this.details.setVisibility('Site_Applicant', true);

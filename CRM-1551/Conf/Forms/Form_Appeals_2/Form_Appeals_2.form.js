@@ -21,8 +21,8 @@
         this.form.onControlValueChanged('applicant_id', this.ondataApplicant);
         const formNewApplicant = {
             title: 'Новий заявник',
-            acceptBtnText: "save",
-            cancelBtnText: "cancel",
+            acceptBtnText: 'save',
+            cancelBtnText: 'cancel',
             fieldGroups:[
                     {
                         code: 'ModalNewApp',
@@ -56,9 +56,9 @@
                               required: true,
                               position: 3,
                               fullScreen: false,
-                              queryListCode: "dir_ApplicantTypes_SelectRows",
-                              listDisplayColumn: "name",
-                              listKeyColumn: "Id",
+                              queryListCode: 'dir_ApplicantTypes_SelectRows',
+                              listDisplayColumn: 'name',
+                              listKeyColumn: 'Id',
                               type: 'select'
                             },
                             {
@@ -68,9 +68,9 @@
                               required: true,
                               position: 4,
                               fullScreen: false,
-                              queryListCode: "dir_SocialState_SelectRows",
-                              listDisplayColumn: "name",
-                              listKeyColumn: "Id",
+                              queryListCode: 'dir_SocialState_SelectRows',
+                              listDisplayColumn: 'name',
+                              listKeyColumn: 'Id',
                               type: 'select'
                             },
                             {
@@ -80,9 +80,9 @@
                               required: true,
                               position: 5,
                               fullScreen: true,
-                              queryListCode: "dir_ApplicantCategories_SelectRows",
-                              listDisplayColumn: "name",
-                              listKeyColumn: "Id",
+                              queryListCode: 'dir_ApplicantCategories_SelectRows',
+                              listDisplayColumn: 'name',
+                              listKeyColumn: 'Id',
                               type: 'select'
                             },
                             {
@@ -92,9 +92,9 @@
                               required: true,
                               position: 6,
                               fullScreen: true,
-                              queryListCode: "dir_ApplicantCategories_SelectRows",
-                              listDisplayColumn: "name",
-                              listKeyColumn: "Id",
+                              queryListCode: 'dir_ApplicantCategories_SelectRows',
+                              listDisplayColumn: 'name',
+                              listKeyColumn: 'Id',
                               radioItems: [{ value: 1, viewValue: 'Жінка' },{ value: 2, viewValue: 'Чоловік' }],
                               type: 'radio'
                             }
@@ -112,7 +112,7 @@
             }
         }
         let icon = document.getElementById('applicant_idIcon');
-        icon.addEventListener("click", () =>  {
+        icon.addEventListener('click', () =>  {
             this.openModalForm(formNewApplicant, addApplicantCallBack);
         });
     },

@@ -33,8 +33,8 @@
                         dataSource:  {
                             store: this.elements
                         },
-                        displayExpr: "streets",
-                        valueExpr: "Id"
+                        displayExpr: 'streets',
+                        valueExpr: 'Id'
                     }
                 }
             ],
@@ -59,7 +59,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             height: '550',
             keyExpr: 'Id',
@@ -80,7 +80,7 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
             selection: {
-                mode: "multiple"
+                mode: 'multiple'
             }
         },
         elements: [],
@@ -98,8 +98,8 @@
             for(let i = 0; i < data.rows.length; i++){
                 let el = data.rows[i];
                 let obj = {
-                    "Id": el.values[0],
-                    "streets": el.values[1],
+                    'Id': el.values[0],
+                    'streets': el.values[1],
                 }
                 this.elements.push(obj);
             }

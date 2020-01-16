@@ -14,10 +14,10 @@
         this.form.disableControl('number');
         document.getElementById('change_but').disabled = true;
         this.ChangeBtn_Check();
-                document.getElementById('delete_but').addEventListener("click", function() {
+                document.getElementById('delete_but').addEventListener('click', function() {
                     this.openPopUpConfirmDialog('Ви впевнені що потрібно видалити будинок?', this.DeleteObject);
             }.bind(this));
-               document.getElementById('change_but').addEventListener("click", function() {
+               document.getElementById('change_but').addEventListener('click', function() {
                 const queryForUpdateBuilding = {
                       queryCode: 'ChangeBuilding',
                       parameterValues: [

@@ -50,22 +50,22 @@
             	
                             `
     ,
-    StateCode1: "Simple load",
-    StateCode2: "Standart load",
-    StateCode3: "Hard load",
+    StateCode1: 'Simple load',
+    StateCode2: 'Standart load',
+    StateCode3: 'Hard load',
     afterViewInit: function() {
             let BtnCreateContent1 = document.getElementById('input_btn_1');
-            BtnCreateContent1.addEventListener("click", function() {
+            BtnCreateContent1.addEventListener('click', function() {
                 this.activeElement(BtnCreateContent1);
                 this.changeState(1);
             }.bind(this), true);
             let BtnCreateContent2 = document.getElementById('input_btn_2');
-            BtnCreateContent2.addEventListener("click", function() {
+            BtnCreateContent2.addEventListener('click', function() {
                 this.activeElement(BtnCreateContent2);
                 this.changeState(2);
             }.bind(this), true);
             let BtnCreateContent3 = document.getElementById('input_btn_3');
-            BtnCreateContent3.addEventListener("click", function() {
+            BtnCreateContent3.addEventListener('click', function() {
                 this.activeElement(BtnCreateContent3);
                 this.changeState(3);
             }.bind(this), true);
@@ -78,7 +78,7 @@
         let executeQuery = {
             queryCode: 'LoadServer_InsertRow',
             limit: -1,
-            parameterValues: [{key: "@StateId", value: StateId}]
+            parameterValues: [{key: '@StateId', value: StateId}]
         };
         this.queryExecutor(executeQuery, this.reloadState, this);
     },
@@ -104,7 +104,7 @@
      element.disabled = true;
     },
     extractDate: function(val) {
-                let inMonth = new Date(this.getLocalizedValue(val, "Datetime"));
+                let inMonth = new Date(this.getLocalizedValue(val, 'Datetime'));
                 let dd = inMonth.getDate();
                 let mm = inMonth.getMonth() + 1;
                 let yyyy = inMonth.getFullYear();
@@ -133,11 +133,11 @@
         let BtnCreateContent2 = document.getElementById('input_btn_2');
         let BtnCreateContent3 = document.getElementById('input_btn_3');
        document.getElementById('LastChangeDate').innerText  = this.extractDate(data.rows[0].values[4]);
-        if (data.rows[0].values[3] == "Simple load") {
+        if (data.rows[0].values[3] == 'Simple load') {
 this.activeElement(BtnCreateContent1);
-} else if (data.rows[0].values[3] == "Standart load") {
+} else if (data.rows[0].values[3] == 'Standart load') {
 this.activeElement(BtnCreateContent2);
-} else if (data.rows[0].values[3] == "Hard load") {
+} else if (data.rows[0].values[3] == 'Hard load') {
 this.activeElement(BtnCreateContent3);
 }
     }

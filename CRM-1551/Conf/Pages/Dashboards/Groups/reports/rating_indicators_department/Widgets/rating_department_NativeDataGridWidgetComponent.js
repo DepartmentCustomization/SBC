@@ -92,12 +92,12 @@
         createTableButton: function(e) {
             const toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton",
-                location: "after",
+                widget: 'dxButton',
+                location: 'after',
                 options: {
-                    icon: "exportxlsx",
-                    type: "default",
-                    text: "Excel",
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.showPagePreloader('Зачекайте, формується документ');

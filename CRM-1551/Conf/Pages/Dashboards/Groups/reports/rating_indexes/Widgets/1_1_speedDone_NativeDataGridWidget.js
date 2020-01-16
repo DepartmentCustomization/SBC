@@ -18,7 +18,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: false,
@@ -42,7 +42,7 @@
             this.dataGridInstance.height = window.innerHeight - 200;
             this.active = true;
             let msg = {
-                name: "SetFilterPanelState",
+                name: 'SetFilterPanelState',
                 package: {
                     value: true
                 }
@@ -85,7 +85,7 @@
             if (this.period) {
                 if (this.active) {
                     let msg = {
-                        name: "SetFilterPanelState",
+                        name: 'SetFilterPanelState',
                         package: {
                             value: false
                         }

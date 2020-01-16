@@ -214,9 +214,9 @@
                         return p;
                     }, {}
                 );
-            this.period = getDataFromLink["DateCalc"];
-            this.executor = getDataFromLink["RDAId"] === null ? 0 :  getDataFromLink["RDAId"] === '' ? 0 : getDataFromLink["RDAId"];
-            this.rating = getDataFromLink["RatingId"] === null ? 0 :  getDataFromLink["RatingId"] === '' ? 0 : getDataFromLink["RatingId"];
+            this.period = getDataFromLink['DateCalc'];
+            this.executor = getDataFromLink['RDAId'] === null ? 0 :  getDataFromLink['RDAId'] === '' ? 0 : getDataFromLink['RDAId'];
+            this.rating = getDataFromLink['RatingId'] === null ? 0 :  getDataFromLink['RatingId'] === '' ? 0 : getDataFromLink['RatingId'];
             this.renderTable();
             this.config.columns.forEach( col => {
                 function setColStyles(col){
@@ -246,12 +246,12 @@
         createTableButton: function (e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton",
-                location: "after",
+                widget: 'dxButton',
+                location: 'after',
                 options: {
-                    icon: "exportxlsx",
-                    type: "default",
-                    text: "Excel",
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         let exportQuery = {

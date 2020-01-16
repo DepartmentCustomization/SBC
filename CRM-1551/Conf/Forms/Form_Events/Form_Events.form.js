@@ -21,16 +21,16 @@
                 this.details.setVisibility('Detail_EventQuestionsTypes_create', false);
             }
             this.form.disableControl('event_id');
-            this.form.disableControl("object_id");
-            this.form.disableControl("active");
+            this.form.disableControl('object_id');
+            this.form.disableControl('active');
             if (this.form.getControlValue('real_end_date') == null) {
                 document.getElementById('active_button').disabled = true;
             }
             this.form.onControlValueChanged('real_end_date', this.changeOndateFact.bind(this));
             const formNewContact = {
                 title: 'Аудіофайл',
-                acceptBtnText: "save",
-                cancelBtnText: "cancel",
+                acceptBtnText: 'save',
+                cancelBtnText: 'cancel',
                 fieldGroups: [{
                     code: 'file',
                     expand: true,
@@ -47,7 +47,7 @@
                     ]
                 }]
             }
-            document.getElementById('active_button').addEventListener("click", function(event) {
+            document.getElementById('active_button').addEventListener('click', function(event) {
                 event.stopImmediatePropagation();
                 const Question_Close_callback = (response) => {
                     if (!response) {
@@ -93,11 +93,11 @@
                 }
             }
             let icon = document.getElementById('fileIcon');
-            icon.addEventListener("click", (e) => {
+            icon.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.openModalForm(formNewContact, addContactCallBack);
             });
-            icon.style.fontSize = "20px";
+            icon.style.fontSize = '20px';
             if (this.state != 'create') {
                 this.form.disableControl('event_id');
                 this.form.disableControl('event_class_id');
@@ -123,7 +123,7 @@
             this.details.loadData('P_Question', param2);
         },
         onEventQueType: function(type_id) {
-            if (typeof type_id === "string") {
+            if (typeof type_id === 'string') {
                 return
             } else {
                 const param = [{ key: '@Id', value: type_id }];

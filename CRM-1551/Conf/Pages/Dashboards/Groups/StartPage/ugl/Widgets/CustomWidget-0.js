@@ -23,7 +23,7 @@
         this.column = [];
         this.navigator = [];
         const header = document.getElementById('header1');
-        header.parentElement.style.flexFlow = "column nowrap";
+        header.parentElement.style.flexFlow = 'column nowrap';
         header.firstElementChild.style.overflow = 'visible';
         header.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
         let executeQueryTable = {
@@ -49,8 +49,8 @@
         this.createSearchInput(filtersWrapper);
     },
     createSearchInput: function(filtersWrapper){
-        const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: "searchContainer__input"});
-        const searchContainer = this.createElement('div', {id: 'searchContainer', className: "searchContainer"}, searchContainer__input);
+        const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
+        const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
         filtersWrapper.appendChild(searchContainer);
         searchContainer__input.addEventListener('input', () =>  {
             if(searchContainer__input.value.length == 0 ){
@@ -340,7 +340,7 @@
     },
     columnName: function(target){
         let column = '';
-        if( target.code == "rozyasneno"){
+        if( target.code == 'rozyasneno'){
             column = 'Роз`яcнено'
         }else if( target.code == 'neVKompetentsii'){
             column = 'Не в компетенції'
@@ -386,7 +386,7 @@
                 if( target.id != header.id ){
                     header.firstElementChild.classList.remove('triangle'+(i+2)+'');
                     header.firstElementChild.classList.add('triangle');
-                    header.style.backgroundColor = "#d3d3d3";
+                    header.style.backgroundColor = '#d3d3d3';
                     header.classList.add('check');
                 }
             }
@@ -416,16 +416,16 @@
     createOptions: function() {
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
-            $(".js-example-placeholder-district").select2({
-                placeholder: "Обрати район",
+            $('.js-example-placeholder-district').select2({
+                placeholder: 'Обрати район',
                 allowClear: true
             });
-            $(".js-example-placeholder-categorie").select2({
-                placeholder: "Обрати напрямок робiт",
+            $('.js-example-placeholder-categorie').select2({
+                placeholder: 'Обрати напрямок робiт',
                 allowClear: true
             });
-            $(".js-example-placeholder-departament").select2({
-                placeholder: "Обрати департамент",
+            $('.js-example-placeholder-departament').select2({
+                placeholder: 'Обрати департамент',
                 allowClear: true
             });
         });

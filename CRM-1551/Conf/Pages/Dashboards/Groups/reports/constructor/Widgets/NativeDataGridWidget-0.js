@@ -19,8 +19,8 @@
                 visible: true
             },
             editing: {
-                refreshMode: "reshape",
-                mode: "cell",
+                refreshMode: 'reshape',
+                mode: 'cell',
                 allowAdding: true,
                 allowUpdating: true,
                 allowDeleting: true,
@@ -41,11 +41,11 @@
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton",
-                location: "after",
+                widget: 'dxButton',
+                location: 'after',
                 options: {
-                    icon: "clear",
-                    type: "default",
+                    icon: 'clear',
+                    type: 'default',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.clearData();
@@ -78,7 +78,7 @@
                         data.push(message.value[0].Id);
                     }
                     let filter = {
-                        key: "Id",
+                        key: 'Id',
                         value: {
                             operation: 0,
                             not: false,

@@ -54,24 +54,24 @@
                 const buttonWrapper = this.createElement('div', { id: 'buttonWrapper' }, button_close, button_save);
                 button_save.disabled = true;
                 const resultSelectOption = this.createElement('option', { innerText: '', value: 0 });
-                const resultSelect = this.createElement('select', { id: 'resultSelect', className: "resultSelect selectItem js-example-basic-single" }, resultSelectOption);
+                const resultSelect = this.createElement('select', { id: 'resultSelect', className: 'resultSelect selectItem js-example-basic-single' }, resultSelectOption);
                 const assigmResult = this.createElement('div', { id: 'assigmResult', className: 'modalItem' }, resultSelect);
                 const assigmResultTitle = this.createElement('span', { className: 'assigmResultTitle caption', innerText: 'Результат' });
                 const assigmResultWrapper = this.createElement('div', { className: 'assigmResultWrapper' }, assigmResultTitle, assigmResult);
                 const rating5__title = this.createElement('span', { className: 'rating__title', innerText: '5' });
-                const rating5__checkBox = this.createElement('input', { type: "radio", name: "radio", checked: "checked", className: 'radio', mark: 5 });
+                const rating5__checkBox = this.createElement('input', { type: 'radio', name: 'radio', checked: 'checked', className: 'radio', mark: 5 });
                 const rating5 = this.createElement('div', { id: 'rating1', className: 'container' }, rating5__checkBox, rating5__title);
                 const rating4__title = this.createElement('span', { className: 'rating__title', innerText: '4' });
-                const rating4__checkBox = this.createElement('input', { type: "radio", name: "radio", className: 'radio', mark: 4 });
+                const rating4__checkBox = this.createElement('input', { type: 'radio', name: 'radio', className: 'radio', mark: 4 });
                 const rating4 = this.createElement('div', { id: 'rating1', className: 'container' }, rating4__checkBox, rating4__title);
                 const rating3__title = this.createElement('span', { className: 'rating__title', innerText: '3' });
-                const rating3__checkBox = this.createElement('input', { type: "radio", name: "radio", className: 'radio', mark: 3 });
+                const rating3__checkBox = this.createElement('input', { type: 'radio', name: 'radio', className: 'radio', mark: 3 });
                 const rating3 = this.createElement('div', { id: 'rating1', className: 'container' }, rating3__checkBox, rating3__title);
                 const rating2__title = this.createElement('span', { className: 'rating__title', innerText: '2' });
-                const rating2__checkBox = this.createElement('input', { type: "radio", name: "radio", className: 'radio', mark: 2 });
+                const rating2__checkBox = this.createElement('input', { type: 'radio', name: 'radio', className: 'radio', mark: 2 });
                 const rating2 = this.createElement('div', { id: 'rating1', className: 'container' }, rating2__checkBox, rating2__title);
                 const rating1__title = this.createElement('span', { className: 'rating__title', innerText: '1' });
-                const rating1__checkBox = this.createElement('input', { type: "radio", name: "radio", className: 'radio', mark: 1 });
+                const rating1__checkBox = this.createElement('input', { type: 'radio', name: 'radio', className: 'radio', mark: 1 });
                 const rating1 = this.createElement('div', { id: 'rating1', className: 'container' }, rating1__checkBox, rating1__title);
                 const ratingElements = this.createElement('div', { id: 'ratingElements', className: '' }, rating1, rating2, rating3, rating4, rating5);
                 const ratingTitle = this.createElement('div', { className: 'assigmRating__title caption', innerText: 'Оцінка результату виконаних робіт' });
@@ -80,7 +80,7 @@
                 const assigmResolution = this.createElement('div', { id: 'assigmResolutionValue', className: 'modalItem' }, resolution__value);
                 const assigmResolutionTitle = this.createElement('span', { className: 'assigmResultTitle caption', innerText: 'Резолюцiя' });
                 const assigmResolutionWrapper = this.createElement('div', { id: 'assigmResolution', className: 'displayNone assigmResultWrapper' }, assigmResolutionTitle, assigmResolution);
-                const assigmComment = this.createElement('input', { type: "text", id: 'assigmComment', className: 'displayNone modalItem', placeholder: 'Коментар перевіряючого' });
+                const assigmComment = this.createElement('input', { type: 'text', id: 'assigmComment', className: 'displayNone modalItem', placeholder: 'Коментар перевіряючого' });
                 const modalWindow = this.createElement('div', { id: 'modalWindow' }, assigmResultWrapper, assigmResolutionWrapper, assigmRating, assigmComment, buttonWrapper);
                 const modalWrapper = this.createElement('div', { id: 'modalWrapper' }, modalWindow);
                 modalContainer.appendChild(modalWrapper);
@@ -102,7 +102,7 @@
         },
         showAssigmResult: function(select, button_save, data) {
             data.forEach(el => {
-                let option = this.createElement('option', { innerText: el.innerText, value: el.value, className: "option" });
+                let option = this.createElement('option', { innerText: el.innerText, value: el.value, className: 'option' });
                 select.appendChild(option);
             });
             this.createOptions();
@@ -297,12 +297,12 @@
         createOptions: function() {
             $(document).ready(function() {
                 $('.js-example-basic-single').select2();
-                $(".js-example-placeholder-district").select2({
-                    placeholder: "Обрати район",
+                $('.js-example-placeholder-district').select2({
+                    placeholder: 'Обрати район',
                     allowClear: true
                 });
-                $(".js-example-placeholder-categorie").select2({
-                    placeholder: "Обрати напрямок робiт",
+                $('.js-example-placeholder-categorie').select2({
+                    placeholder: 'Обрати напрямок робiт',
                     allowClear: true
                 });
             });

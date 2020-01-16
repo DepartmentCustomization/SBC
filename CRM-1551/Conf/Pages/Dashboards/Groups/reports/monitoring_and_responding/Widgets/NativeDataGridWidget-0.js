@@ -22,16 +22,16 @@
                     caption: 'Закриття виконавцем',
                     columns: [
                         {
-                            caption: "Вчасно",
-                            dataField: "inTimeQty",
+                            caption: 'Вчасно',
+                            dataField: 'inTimeQty',
                             alignment: 'center'
                         }, {
-                            caption: "Не вчасно",
-                            dataField: "outTimeQty",
+                            caption: 'Не вчасно',
+                            dataField: 'outTimeQty',
                             alignment: 'center'
                         }, {
-                            caption: "Прострочено",
-                            dataField: "waitTimeQty",
+                            caption: 'Прострочено',
+                            dataField: 'waitTimeQty',
                             alignment: 'center'
                         }
                     ]
@@ -39,20 +39,20 @@
                     caption: 'Виконання звернень',
                     columns: [
                         {
-                            caption: "Виконано",
-                            dataField: "doneClosedQty",
+                            caption: 'Виконано',
+                            dataField: 'doneClosedQty',
                             alignment: 'center'
                         }, {
-                            caption: "Не виконано",
-                            dataField: "notDoneClosedQty",
+                            caption: 'Не виконано',
+                            dataField: 'notDoneClosedQty',
                             alignment: 'center'
                         }, {
-                            caption: "План/Програма",
-                            dataField: "PlanProg",
+                            caption: 'План/Програма',
+                            dataField: 'PlanProg',
                             alignment: 'center'
                         }, {
-                            caption: "На перевірці",
-                            dataField: "doneOnCheckQty",
+                            caption: 'На перевірці',
+                            dataField: 'doneOnCheckQty',
                             alignment: 'center'
                         }
                     ]
@@ -86,79 +86,79 @@
             summary: {
                 totalItems: [
                     {
-                        column: "AllCount",
-                        summaryType: "sum",
+                        column: 'AllCount',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "inTimeQty",
-                        summaryType: "sum",
+                        column: 'inTimeQty',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "outTimeQty",
-                        summaryType: "sum",
+                        column: 'outTimeQty',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "waitTimeQty",
-                        summaryType: "sum",
+                        column: 'waitTimeQty',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "doneClosedQty",
-                        summaryType: "sum",
+                        column: 'doneClosedQty',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "notDoneClosedQty",
-                        summaryType: "sum",
+                        column: 'notDoneClosedQty',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "PlanProg",
-                        summaryType: "sum",
+                        column: 'PlanProg',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "doneOnCheckQty",
-                        summaryType: "sum",
+                        column: 'doneOnCheckQty',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "inWorkQty",
-                        summaryType: "sum",
+                        column: 'inWorkQty',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "inTimePercent",
-                        summaryType: "avg",
-                        format: "percent",
+                        column: 'inTimePercent',
+                        summaryType: 'avg',
+                        format: 'percent',
                         customizeText: function(data) {
-                            return "Середнє: " + data.value.toFixed(2);
+                            return 'Середнє: ' + data.value.toFixed(2);
                         }
                     },  {
-                        column: "donePercent",
-                        summaryType: "avg",
-                        format: "percent",
+                        column: 'donePercent',
+                        summaryType: 'avg',
+                        format: 'percent',
                         customizeText: function(data) {
-                            return "Середнє: " + data.value.toFixed(2);
+                            return 'Середнє: ' + data.value.toFixed(2);
                         }
                     },  {
-                        column: "withPlanPercent",
-                        summaryType: "avg",
-                        format: "percent",
+                        column: 'withPlanPercent',
+                        summaryType: 'avg',
+                        format: 'percent',
                         customizeText: function(data) {
-                            return "Середнє: " + data.value.toFixed(2);
+                            return 'Середнє: ' + data.value.toFixed(2);
                         }
                     }
                 ]
@@ -169,7 +169,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: true,
@@ -212,12 +212,12 @@
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton",
-                location: "after",
+                widget: 'dxButton',
+                location: 'after',
                 options: {
-                    icon: "exportxlsx",
-                    type: "default",
-                    text: "Excel",
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.showPagePreloader('Зачекайте, формується документ');
@@ -340,7 +340,7 @@
             });
         },
         setSummaryValues: function (worksheet) {
-            const values = [ " " ];
+            const values = [ ' ' ];
             this.summary.forEach( value => values.push(value));
             worksheet.addRow(values);
             const number = this.summaryStartRow - 1;

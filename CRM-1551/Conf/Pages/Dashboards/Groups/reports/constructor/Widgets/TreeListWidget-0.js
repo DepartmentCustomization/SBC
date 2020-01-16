@@ -28,7 +28,7 @@
             }
         ],
         scrolling: {
-            mode: "virtual"
+            mode: 'virtual'
         },
         columnFixing: {
             enabled: false
@@ -74,11 +74,11 @@
         let self = this;
         this.treeListInstance.onToolbarPreparing.subscribe( e => {
             e.toolbarOptions.items.push({
-                widget: "dxButton",
-                location: "after",
+                widget: 'dxButton',
+                location: 'after',
                 options: {
-                    type: "default",
-                    icon: "add",
+                    type: 'default',
+                    icon: 'add',
                     onClick: function() {
                         event.stopImmediatePropagation();
                         self.sendSelectItem();

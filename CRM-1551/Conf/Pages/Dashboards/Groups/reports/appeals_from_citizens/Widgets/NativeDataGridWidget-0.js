@@ -37,34 +37,34 @@
             ],
             summary: {
                 totalItems: [{
-                    column: "questionQ",
-                    summaryType: "sum",
+                    column: 'questionQ',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                    return "Сума: " + data.value;
+                    return 'Сума: ' + data.value;
                 }
                 }, {
-                    column: "assignmentQ",
-                    summaryType: "sum",
+                    column: 'assignmentQ',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                    return "Сума: " + data.value;
+                    return 'Сума: ' + data.value;
                 }
                 }, {
-                    column: "doneQ",
-                    summaryType: "sum",
+                    column: 'doneQ',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                    return "Сума: " + data.value;
+                    return 'Сума: ' + data.value;
                 }
                 }, {
-                    column: "reworkQ",
-                    summaryType: "sum",
+                    column: 'reworkQ',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                    return "Сума: " + data.value;
+                    return 'Сума: ' + data.value;
                 }
                 }, {
-                    column: "notCallQ",
-                    summaryType: "sum",
+                    column: 'notCallQ',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                    return "Сума: " + data.value;
+                    return 'Сума: ' + data.value;
                 }
                 }]
             },
@@ -74,7 +74,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: false,
@@ -112,7 +112,7 @@
                     this.config.query.filterColumns = [];
                     if (this.citizenName.length > 0) {
                         const filter = {
-                            key: "operId",
+                            key: 'operId',
                             value: {
                                 operation: 0,
                                 not: false,

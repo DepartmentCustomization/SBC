@@ -51,7 +51,7 @@
         keyExpr: 'Id',
         filterRow: {
             visible: true,
-            applyFilter: "auto"
+            applyFilter: 'auto'
         },
         showBorders: false,
         showColumnLines: false,
@@ -77,13 +77,13 @@
         this.dataGridInstance.onCellClick.subscribe(e => {
             e.event.stopImmediatePropagation();
             if(e.column){
-                if(e.column.dataField == "linkTo" && e.row != undefined){
-                    window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/Appeals_from_Site/edit/"+e.key+"");
+                if(e.column.dataField == 'linkTo' && e.row != undefined){
+                    window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Appeals_from_Site/edit/'+e.key+'');
                 }
             }
         });
         this.dataGridInstance.onCellPrepared.subscribe( e => {
-            if(e.column.caption === "Перехiд" && e.data !== undefined){
+            if(e.column.caption === 'Перехiд' && e.data !== undefined){
                 let icon = self.createElement('span', { className: 'iconToLink dx-icon-arrowright dx-icon-custom-style'} );
                 e.cellElement.appendChild(icon);
             }
@@ -98,7 +98,7 @@
         this.config.query.filterColumns = [];
         if (this.result.length > 0) {
             const filter = {
-                key: "result",
+                key: 'result',
                 value: {
                     operation: 0,
                     not: false,
@@ -109,7 +109,7 @@
         }else{
             this.result = [ 1 ];
             const filter = {
-                key: "result",
+                key: 'result',
                 value: {
                     operation: 0,
                     not: false,

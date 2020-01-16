@@ -12,22 +12,22 @@
         },
         afterViewInit: function() {
             const CONTAINER = document.getElementById('container');
-            let input  =  this.createElement('input', { type: 'file', id: 'fileInput', accept: ".csv"  });
+            let input  =  this.createElement('input', { type: 'file', id: 'fileInput', accept: '.csv'  });
             let btn  =  this.createElement('button', { id:'importBtn', innerText: 'Import csv files' } );
             let form = this.createElement('form', { method:'post', enctype: 'multipart/form-data'}, input);
             let wrapper = this.createElement('div', { id: 'wrapper' },form, btn );
             CONTAINER.appendChild(wrapper);
             btn.addEventListener( 'click', event => {
                 event.stopImmediatePropagation();
-                this.showPagePreloader("Зачекайте, файл завантажується");
+                this.showPagePreloader('Зачекайте, файл завантажується');
                 let fileInput = document.getElementById('fileInput');
                 let files = fileInput.files;
                 let file  = files[0];
                 let data = new FormData();
-                data.append("file", file);
-                data.append("configuration", "{\n   \"HasHeaderRecord\":true,\n   \"EncodingName\":\"windows-1251\",\n   \"Delimiter\":\";\",\n   \"Quote\":\"\\\"\",\n   \"MaxAllowedErrors\":0\n}");
+                data.append('file', file);
+                data.append('configuration', '{\n   "HasHeaderRecord":true,\n   "EncodingName":"windows-1251",\n   "Delimiter":";",\n   "Quote":"\\"",\n   "MaxAllowedErrors":0\n}');
                 let xhr = new XMLHttpRequest();
-                xhr.addEventListener("readystatechange", event => {
+                xhr.addEventListener('readystatechange', event => {
                     event.stopImmediatePropagation();
                     if (xhr.readyState === 4) {
                         let json = xhr.responseText;
@@ -51,9 +51,9 @@
                     }
                 });
                 let url = window.location.origin + '/api/section/demo/import/csv';
-                xhr.open("POST", url );
+                xhr.open('POST', url );
                 let token = localStorage.getItem('X-Auth-Token');
-                xhr.setRequestHeader("Authorization", 'Bearer ' + token );
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token );
                 xhr.send(data);
             });
         },

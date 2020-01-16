@@ -35,7 +35,7 @@
                 reportListWrap.appendChild(reportListItem);
                 reportListItem.addEventListener( 'click', event => {
                     const target = event.currentTarget;
-                    window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/"+target.url);
+                    window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/'+target.url);
                 });
             });
         },

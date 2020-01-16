@@ -1,7 +1,7 @@
 (function () {
     return {
         placeholder: 'Період',
-        type: "Date",
+        type: 'Date',
         onItemSelect: function () {
         },
         init: function () {

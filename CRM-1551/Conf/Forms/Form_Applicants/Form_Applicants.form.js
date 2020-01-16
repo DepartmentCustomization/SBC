@@ -45,7 +45,7 @@
                                 required: false,
                                 value: data.rows[j].values[3],
                                 disabled: true,
-                                type: "text",
+                                type: 'text',
                                 icon: 'phone_forwarded',
                                 iconHint: 'Скопіювати з вхідного номера телефону',
                                 maxlength: 14,
@@ -59,12 +59,12 @@
                                 placeholder: 'Тип',
                                 position: 2,
                                 required: false,
-                                value: "Мобільний",
+                                value: 'Мобільний',
                                 keyValue: 1,
-                                listKeyColumn: "Id",
-                                listDisplayColumn: "name",
-                                type: "select",
-                                queryListCode: "dir_PhoneTypes_SelectRows",
+                                listKeyColumn: 'Id',
+                                listDisplayColumn: 'name',
+                                type: 'select',
+                                queryListCode: 'dir_PhoneTypes_SelectRows',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_0);
@@ -76,7 +76,7 @@
                                 position: 3,
                                 required: false,
                                 value: false,
-                                type: "checkbox",
+                                type: 'checkbox',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_2);
@@ -88,7 +88,7 @@
                                 position: 4,
                                 icon: 'add',
                                 required: false,
-                                type: "button",
+                                type: 'button',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_1);
@@ -110,7 +110,7 @@
                                 position: 1,
                                 required: false,
                                 value: data.rows[j].values[3],
-                                type: "text",
+                                type: 'text',
                                 maxlength: 14,
                                 width: '50%'
                             };
@@ -124,10 +124,10 @@
                                 required: false,
                                 value: data.rows[j].values[7],
                                 keyValue: data.rows[j].values[6],
-                                listKeyColumn: "Id",
-                                listDisplayColumn: "name",
-                                type: "select",
-                                queryListCode: "dir_PhoneTypes_SelectRows",
+                                listKeyColumn: 'Id',
+                                listDisplayColumn: 'name',
+                                type: 'select',
+                                queryListCode: 'dir_PhoneTypes_SelectRows',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_1);
@@ -139,7 +139,7 @@
                                 position: 3,
                                 required: false,
                                 value: data.rows[j].values[4],
-                                type: "checkbox",
+                                type: 'checkbox',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_2);
@@ -152,7 +152,7 @@
                                     position: 4,
                                     required: false,
                                     icon: 'delete',
-                                    type: "button",
+                                    type: 'button',
                                     width: '50%'
                                 };
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_0);
@@ -165,7 +165,7 @@
                                     position: 4,
                                     required: false,
                                     icon: 'delete',
-                                    type: "button",
+                                    type: 'button',
                                     width: '50%'
                                 };
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_1);
@@ -178,7 +178,7 @@
                                 position: 5,
                                 value: data.rows[j].values[8],
                                 required: false,
-                                type: "text",
+                                type: 'text',
                                 width: '100%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_4);
@@ -215,7 +215,7 @@
                 parameterValues: [{ key: '@PhoneId', value: this.formModalConfig.getControlValue('modal_phone' + phone + '_phoneId') }]
             };
             this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function () {
-                let event = new Event("click");
+                let event = new Event('click');
                 document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                 this.onLoadModalPhone();
                 this.onRecalcCardPhone();
@@ -230,37 +230,37 @@
             this.formModalConfig = form;
             if (this.kolvoPhonesForApplicant > 0) {
                 for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
-                    document.getElementById('modal_phone' + (u + 1) + '_phoneIsMain').addEventListener("click", function () {
+                    document.getElementById('modal_phone' + (u + 1) + '_phoneIsMain').addEventListener('click', function () {
                         this.formConfig.onChangeCardPhone(true);
                     }.bind(form));
                     if (document.getElementById('modal_phone' + (u + 1) + '_phoneDelete')) {
-                        document.getElementById('modal_phone' + (u + 1) + '_phoneDelete').addEventListener("click", function () {
+                        document.getElementById('modal_phone' + (u + 1) + '_phoneDelete').addEventListener('click', function () {
                             this.formConfig.onDeleteCardPhone(u + 1);
                         }.bind(form));
                     }
-                    let input = document.getElementById("modal_phone" + (u + 1) + "_phoneNumber");
-                    input.addEventListener("input", this.mask, false);
-                    input.addEventListener("focus", this.mask, false);
-                    input.addEventListener("blur", this.mask, false);
-                    input.addEventListener("change", this.mask, false);
+                    let input = document.getElementById('modal_phone' + (u + 1) + '_phoneNumber');
+                    input.addEventListener('input', this.mask, false);
+                    input.addEventListener('focus', this.mask, false);
+                    input.addEventListener('blur', this.mask, false);
+                    input.addEventListener('change', this.mask, false);
                 }
                 document.getElementById('phoneDelete_Disabled').disabled = true;
                 for (let u2 = 0; u2 < this.kolvoPhonesForApplicant; u2++) {
-                    document.getElementById("modal_phone" + (u2 + 1) + "_phoneNumber").focus();
+                    document.getElementById('modal_phone' + (u2 + 1) + '_phoneNumber').focus();
                 }
             }
             form.onControlValueChanged('modal_phone_NEW', this.onModalPhonesChanged);
             document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
             if (this.form.getControlValue('Id')) {
-                document.getElementById('modal_phone_NEW_phoneDelete').addEventListener("click", function () {
+                document.getElementById('modal_phone_NEW_phoneDelete').addEventListener('click', function () {
                     const queryForGetValue_AddNewPhone = {
                         queryCode: 'ApplicantPhonesAdd',
                         parameterValues: [{ key: '@Applicant_id', value: this.formConfig.form.getControlValue('Id') }, { key: '@TypePhone', value: this.getControlValue('modal_phone_NEW_phoneType') }, { key: '@Phone', value: this.getControlValue('modal_phone_NEW') }, { key: '@IsMain', value: this.getControlValue('modal_phone_NEW_phoneIsMain') }]
                     };
                     this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function (data) {
-                        if (data.rows[0].values[0] == "OK") {
+                        if (data.rows[0].values[0] == 'OK') {
                             this.setControlValue('modal_phone_NEW', null);
-                            let event = new Event("click");
+                            let event = new Event('click');
                             document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                             this.formConfig.onLoadModalPhone();
                             this.formConfig.onRecalcCardPhone();
@@ -274,14 +274,14 @@
                         }
                     }.bind(this));
                 }.bind(form));
-                let input3 = document.getElementById("modal_phone_NEW");
-                input3.addEventListener("input", this.mask, false);
-                input3.addEventListener("focus", this.mask, false);
-                input3.addEventListener("blur", this.mask, false);
-                input3.addEventListener("change", this.mask, false);
+                let input3 = document.getElementById('modal_phone_NEW');
+                input3.addEventListener('input', this.mask, false);
+                input3.addEventListener('focus', this.mask, false);
+                input3.addEventListener('blur', this.mask, false);
+                input3.addEventListener('change', this.mask, false);
                 document.getElementById('modal_phone_NEW').focus();
                 document.getElementById('modal_phone_NEW_phoneDelete').focus();
-                document.getElementById('modal_phone_NEWIcon').addEventListener("click", function () {
+                document.getElementById('modal_phone_NEWIcon').addEventListener('click', function () {
                     this.setControlValue('modal_phone_NEW', this.formConfig.form.getControlValue('Phone'));
                     document.getElementById('modal_phone_NEW').focus();
                     document.getElementById('modal_phone_NEW_phoneDelete').focus();
@@ -325,9 +325,9 @@
         init: function () {
             this.details.setVisibility('ApplicantHistory_details', false);
             this.details.onCellClick('ApplicantHistory', this.Detail_History.bind(this));
-            this.form.disableControl("district_id");
-            this.form.disableControl("age");
-            document.getElementById('phone_number').addEventListener("click", function () {
+            this.form.disableControl('district_id');
+            this.form.disableControl('age');
+            document.getElementById('phone_number').addEventListener('click', function () {
                 this.onLoadModalPhone();
             }.bind(this));
             function setCursorPosition(pos, elem) {
@@ -337,33 +337,33 @@
                 } else if (elem.createTextRange) {
                     let range = elem.createTextRange();
                     range.collapse(true);
-                    range.moveEnd("character", pos);
-                    range.moveStart("character", pos);
+                    range.moveEnd('character', pos);
+                    range.moveStart('character', pos);
                     range.select()
                 }
             }
             function mask1(event2) {
-                let matrix = "__-__",
+                let matrix = '__-__',
                     i = 0,
-                    def = matrix.replace(/\D/g, ""),
-                    val = this.value.replace(/\D/g, "");
+                    def = matrix.replace(/\D/g, ''),
+                    val = this.value.replace(/\D/g, '');
                 if (def.length >= val.length) val = def;
                 this.value = matrix.replace(/./g, function (a) {
-                    return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a
+                    return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a
                 });
-                if (event2.type == "blur") {
-                    if (this.value.length == 2) this.value = ""
+                if (event2.type == 'blur') {
+                    if (this.value.length == 2) this.value = ''
                 } else {
                     setCursorPosition(this.value.length, this)
                 }
             }
-            this.form.onControlValueChanged("birth_year", this.inputGetYear);
-            this.form.onControlValueChanged("day_month", this.inputGetYear);
-            let input = document.getElementById("day_month");
+            this.form.onControlValueChanged('birth_year', this.inputGetYear);
+            this.form.onControlValueChanged('day_month', this.inputGetYear);
+            let input = document.getElementById('day_month');
             input.placeholder = 'дд-мм';
-            input.addEventListener("input", mask1, false);
-            input.addEventListener("focus", mask1, false);
-            input.addEventListener("blur", mask1, false);
+            input.addEventListener('input', mask1, false);
+            input.addEventListener('focus', mask1, false);
+            input.addEventListener('blur', mask1, false);
             this.form.onControlValueChanged('birth_date', this.validateDate);
             this.form.onControlValueChanged('building_id', this.onChanged_Applicant_Building);
         },
@@ -389,8 +389,8 @@
             }
         },
         inputGetYear: function (data) {
-            let inputYear = document.getElementById("birth_year");
-            let input = document.getElementById("day_month");
+            let inputYear = document.getElementById('birth_year');
+            let input = document.getElementById('day_month');
             let dataStr = data.toString();
             if (dataStr.length == 4 && input.value.length == 5) {
                 let val = input.value;

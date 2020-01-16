@@ -13,8 +13,8 @@
     afterViewInit: function(){
         this.container = document.getElementById('container');
         this.sub = this.messageService.subscribe( 'validationCheck', this.openModalForm, this);
-        const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: "searchContainer__input"});
-        const searchContainer = this.createElement('div', {id: 'searchContainer', className: "searchContainer"}, searchContainer__input);
+        const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
+        const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
         searchContainer__input.addEventListener('keypress', function (e) {
             let key = e.which || e.keyCode;
             if (key === 13) {

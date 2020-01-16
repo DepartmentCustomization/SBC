@@ -148,7 +148,7 @@
                             organizationLink.addEventListener( 'click', event => {
                                 event.stopImmediatePropagation();
                                 let target  =  event.currentTarget;
-                                window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/performer_new_processing_assigments?id="+target.orgId+"");
+                                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_processing_assigments?id='+target.orgId+'');
                             });
                         });
                     }else if(orgLinkСhangerBox.children.length === 2){
@@ -173,9 +173,9 @@
             });
         },
         createFilters: function(filtersWrapper){
-            const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: "searchContainer__input"});
+            const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
             this.searchContainer__input = searchContainer__input;
-            const searchContainer = this.createElement('div', {id: 'searchContainer', className: "searchContainer"}, searchContainer__input);
+            const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
             searchContainer__input.addEventListener('input', event =>  {
                 event.stopImmediatePropagation();
                 if(searchContainer__input.value.length == 0 ){
@@ -191,7 +191,7 @@
                     this.hideAllItems(0);
                 }
             }.bind(this));
-            const organizationName =  this.createElement('div', { id: 'organizationName', className: "organizationName" });
+            const organizationName =  this.createElement('div', { id: 'organizationName', className: 'organizationName' });
             this.organizationName = organizationName;
             filtersWrapper.appendChild(organizationName);
             filtersWrapper.appendChild(searchContainer);
@@ -220,31 +220,31 @@
                 let columnHeader =  this.createElement('div', { id: 'columnHeader_'+i+'', code: ''+item.code+'',  className: 'columnHeader', innerText: ''+item.name+''}, columnTriangle);
                 let columnsWrapper =  this.createElement('div', { id: 'columnsWrapper_'+i+'',  className: 'columnsWrapper'});
                 if( i == 2){
-                    columnHeader.style.backgroundColor = "rgb(74, 193, 197)";
+                    columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }else if( i == 3){
-                    columnHeader.style.backgroundColor = "rgb(173, 118, 205)";
+                    columnHeader.style.backgroundColor = 'rgb(173, 118, 205)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }else if( i == 4 ){
-                    columnHeader.style.backgroundColor = "rgb(240, 114, 93)";
+                    columnHeader.style.backgroundColor = 'rgb(240, 114, 93)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }else if( i == 5){
-                    columnHeader.style.backgroundColor = "rgb(238, 163, 54)";
+                    columnHeader.style.backgroundColor = 'rgb(238, 163, 54)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }else if( i == 6){
-                    columnHeader.style.backgroundColor = "rgb(132, 199, 96)";
+                    columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }else if( i == 7){
-                    columnHeader.style.backgroundColor = "rgb(248, 195, 47)";
+                    columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }else if( i == 8){
-                    columnHeader.style.backgroundColor = "rgb(94, 202, 162)";
+                    columnHeader.style.backgroundColor = 'rgb(94, 202, 162)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }else if( i == 9){
-                    columnHeader.style.backgroundColor = "rgb(73, 155, 199)";
+                    columnHeader.style.backgroundColor = 'rgb(73, 155, 199)';
                     columnTriangle.classList.add('triangle'+i+'');
                 }
-                let column =  this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: "column"}, columnHeader, columnsWrapper);
+                let column =  this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: 'column'}, columnHeader, columnsWrapper);
                 column.classList.add('column_'+i+'');
                 tableContainer.appendChild(column);
             }
@@ -326,14 +326,14 @@
                 headers.forEach( el => {
                     el.firstElementChild.classList.remove('triangle');
                 });
-                document.getElementById('columnHeader_2').style.backgroundColor = "rgb(74, 193, 197)";
-                document.getElementById('columnHeader_3').style.backgroundColor = "rgb(173, 118, 205)";
-                document.getElementById('columnHeader_4').style.backgroundColor = "rgb(240, 114, 93)";
-                document.getElementById('columnHeader_5').style.backgroundColor = "rgb(238, 163, 54)";
-                document.getElementById('columnHeader_6').style.backgroundColor = "rgb(132, 199, 96)";
-                document.getElementById('columnHeader_7').style.backgroundColor = "rgb(248, 195, 47)";
-                document.getElementById('columnHeader_8').style.backgroundColor = "rgb(94, 202, 162)";
-                document.getElementById('columnHeader_9').style.backgroundColor = "rgb(73, 155, 199)";
+                document.getElementById('columnHeader_2').style.backgroundColor = 'rgb(74, 193, 197)';
+                document.getElementById('columnHeader_3').style.backgroundColor = 'rgb(173, 118, 205)';
+                document.getElementById('columnHeader_4').style.backgroundColor = 'rgb(240, 114, 93)';
+                document.getElementById('columnHeader_5').style.backgroundColor = 'rgb(238, 163, 54)';
+                document.getElementById('columnHeader_6').style.backgroundColor = 'rgb(132, 199, 96)';
+                document.getElementById('columnHeader_7').style.backgroundColor = 'rgb(248, 195, 47)';
+                document.getElementById('columnHeader_8').style.backgroundColor = 'rgb(94, 202, 162)';
+                document.getElementById('columnHeader_9').style.backgroundColor = 'rgb(73, 155, 199)';
                 document.getElementById('columnHeader_2').firstElementChild.classList.add('triangle2');
                 document.getElementById('columnHeader_3').firstElementChild.classList.add('triangle3');
                 document.getElementById('columnHeader_4').firstElementChild.classList.add('triangle4');
@@ -353,7 +353,7 @@
                     let headers = document.querySelectorAll('.columnHeader');
                     headers = Array.from(headers);
                     if( target.id != header.id ){
-                        header.style.backgroundColor = "#d3d3d3";
+                        header.style.backgroundColor = '#d3d3d3';
                         header.classList.add('check');
                         header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
                         header.firstElementChild.classList.add('triangle');

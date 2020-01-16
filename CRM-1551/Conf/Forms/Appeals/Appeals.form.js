@@ -38,7 +38,7 @@
                                 required: false,
                                 value: data.rows[j].values[3],
                                 disabled: true,
-                                type: "text",
+                                type: 'text',
                                 icon: 'phone_forwarded',
                                 iconHint: 'Скопіювати з вхідного номера телефону',
                                 maxlength: 14,
@@ -52,12 +52,12 @@
                                 placeholder: 'Тип',
                                 position: 2,
                                 required: false,
-                                value: "Мобільний",
+                                value: 'Мобільний',
                                 keyValue: 1,
-                                listKeyColumn: "Id",
-                                listDisplayColumn: "name",
-                                type: "select",
-                                queryListCode: "dir_PhoneTypes_SelectRows",
+                                listKeyColumn: 'Id',
+                                listDisplayColumn: 'name',
+                                type: 'select',
+                                queryListCode: 'dir_PhoneTypes_SelectRows',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_0);
@@ -69,7 +69,7 @@
                                 position: 3,
                                 required: false,
                                 value: false,
-                                type: "checkbox",
+                                type: 'checkbox',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_2);
@@ -81,7 +81,7 @@
                                 position: 4,
                                 icon: 'add',
                                 required: false,
-                                type: "button",
+                                type: 'button',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_1);
@@ -103,7 +103,7 @@
                                 position: 1,
                                 required: false,
                                 value: data.rows[j].values[3],
-                                type: "text",
+                                type: 'text',
                                 maxlength: 14,
                                 width: '50%'
                             };
@@ -117,10 +117,10 @@
                                 required: false,
                                 value: data.rows[j].values[7],
                                 keyValue: data.rows[j].values[6],
-                                listKeyColumn: "Id",
-                                listDisplayColumn: "name",
-                                type: "select",
-                                queryListCode: "dir_PhoneTypes_SelectRows",
+                                listKeyColumn: 'Id',
+                                listDisplayColumn: 'name',
+                                type: 'select',
+                                queryListCode: 'dir_PhoneTypes_SelectRows',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_1);
@@ -132,7 +132,7 @@
                                 position: 3,
                                 required: false,
                                 value: data.rows[j].values[4],
-                                type: "checkbox",
+                                type: 'checkbox',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_2);
@@ -145,7 +145,7 @@
                                     position: 4,
                                     required: false,
                                     icon: 'delete',
-                                    type: "button",
+                                    type: 'button',
                                     width: '50%'
                                 };
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_0);
@@ -158,7 +158,7 @@
                                     position: 4,
                                     required: false,
                                     icon: 'delete',
-                                    type: "button",
+                                    type: 'button',
                                     width: '50%'
                                 };
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_1);
@@ -171,7 +171,7 @@
                                 position: 5,
                                 value: data.rows[j].values[8],
                                 required: false,
-                                type: "text",
+                                type: 'text',
                                 width: '100%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_4);
@@ -231,21 +231,21 @@
                 } else if (elem.createTextRange) {
                     let range = elem.createTextRange();
                     range.collapse(true);
-                    range.moveEnd("character", pos);
-                    range.moveStart("character", pos);
+                    range.moveEnd('character', pos);
+                    range.moveStart('character', pos);
                     range.select()
                 }
             }
-            let matrix = "(___)___-__-__",
+            let matrix = '(___)___-__-__',
             i = 0,
-            def = matrix.replace(/\D/g, ""),
-            val = this.value.replace(/\D/g, "");
+            def = matrix.replace(/\D/g, ''),
+            val = this.value.replace(/\D/g, '');
             if (def.length >= val.length) val = def;
             this.value = matrix.replace(/./g, function(a) {
-                return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a
+                return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a
             });
-            if (event.type == "blur") {
-                if (this.value.length == 2) this.value = ""
+            if (event.type == 'blur') {
+                if (this.value.length == 2) this.value = ''
             } else {
                 setCursorPosition(this.value.length, this)
             }
@@ -283,7 +283,7 @@
                 parameterValues: [{ key: '@PhoneId', value: this.formModalConfig.getControlValue('modal_phone'+phone+'_phoneId')}]
             };
             this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function (){
-                let event = new Event("click");
+                let event = new Event('click');
                 document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                 this.onLoadModalPhone();
                 this.onRecalcCardPhone();
@@ -298,37 +298,37 @@
             this.formModalConfig = form;
             if (this.kolvoPhonesForApplicant > 0) {
                 for (let u = 0; u < this.kolvoPhonesForApplicant; u++ ){
-                    document.getElementById('modal_phone'+(u+1)+'_phoneIsMain').addEventListener("click", function() {
+                    document.getElementById('modal_phone'+(u+1)+'_phoneIsMain').addEventListener('click', function() {
                         this.formConfig.onChangeCardPhone(true);
                     }.bind(form));
                     if (document.getElementById('modal_phone'+(u+1)+'_phoneDelete')) {
-                        document.getElementById('modal_phone'+(u+1)+'_phoneDelete').addEventListener("click", function() {
+                        document.getElementById('modal_phone'+(u+1)+'_phoneDelete').addEventListener('click', function() {
                             this.formConfig.onDeleteCardPhone(u+1);
                         }.bind(form));
                     }
-                    let input = document.getElementById("modal_phone"+(u+1)+"_phoneNumber");
-                    input.addEventListener("input", this.mask, false);
-                    input.addEventListener("focus", this.mask, false);
-                    input.addEventListener("blur", this.mask, false);
-                    input.addEventListener("change", this.mask, false);
+                    let input = document.getElementById('modal_phone'+(u+1)+'_phoneNumber');
+                    input.addEventListener('input', this.mask, false);
+                    input.addEventListener('focus', this.mask, false);
+                    input.addEventListener('blur', this.mask, false);
+                    input.addEventListener('change', this.mask, false);
                 }
                 document.getElementById('phoneDelete_Disabled').disabled = true;
                 for (let u2 = 0; u2 < this.kolvoPhonesForApplicant; u2++ ){
-                    document.getElementById("modal_phone"+(u2+1)+"_phoneNumber").focus();
+                    document.getElementById('modal_phone'+(u2+1)+'_phoneNumber').focus();
                 }
             }
             form.onControlValueChanged('modal_phone_NEW', this.onModalPhonesChanged);
             document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
             if (this.form.getControlValue('Applicant_Id')) {
-                document.getElementById('modal_phone_NEW_phoneDelete').addEventListener("click", function() {
+                document.getElementById('modal_phone_NEW_phoneDelete').addEventListener('click', function() {
                     const queryForGetValue_AddNewPhone = {
                         queryCode: 'ApplicantPhonesAdd',
                         parameterValues: [{ key: '@Applicant_id', value: this.formConfig.form.getControlValue('Applicant_Id')}, { key: '@TypePhone', value: this.getControlValue('modal_phone_NEW_phoneType')}, { key: '@Phone', value: this.getControlValue('modal_phone_NEW')}, { key: '@IsMain', value: this.getControlValue('modal_phone_NEW_phoneIsMain')}]
                     };
                     this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function (data){
-                        if (data.rows[0].values[0] == "OK") {
+                        if (data.rows[0].values[0] == 'OK') {
                             this.setControlValue('modal_phone_NEW', null);
-                            let event = new Event("click");
+                            let event = new Event('click');
                             document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                             this.formConfig.onLoadModalPhone();
                             this.formConfig.onRecalcCardPhone();
@@ -342,14 +342,14 @@
                         }
                     }.bind(this));
                 }.bind(form));
-                let input3 = document.getElementById("modal_phone_NEW");
-                    input3.addEventListener("input", this.mask, false);
-                    input3.addEventListener("focus", this.mask, false);
-                    input3.addEventListener("blur", this.mask, false);
-                    input3.addEventListener("change", this.mask, false);
+                let input3 = document.getElementById('modal_phone_NEW');
+                    input3.addEventListener('input', this.mask, false);
+                    input3.addEventListener('focus', this.mask, false);
+                    input3.addEventListener('blur', this.mask, false);
+                    input3.addEventListener('change', this.mask, false);
                     document.getElementById('modal_phone_NEW').focus();
                     document.getElementById('modal_phone_NEW_phoneDelete').focus();
-                document.getElementById('modal_phone_NEWIcon').addEventListener("click", function() {
+                document.getElementById('modal_phone_NEWIcon').addEventListener('click', function() {
                     this.setControlValue('modal_phone_NEW',this.formConfig.form.getControlValue('Phone'));
                     document.getElementById('modal_phone_NEW').focus();
                     document.getElementById('modal_phone_NEW_phoneDelete').focus();
@@ -391,7 +391,7 @@
             };
             this.queryExecutor.getValue(queryForGetValueDublicate).subscribe(data => {
                     if (data) {
-                        if (typeof data === "string") {
+                        if (typeof data === 'string') {
                                     const fieldsForm_Error = {
                                         title: ' ',
                                         text: data,
@@ -422,7 +422,7 @@
             this.form.setControlVisibility('flat', false);
             this.form.setControlVisibility('Event_Prew_Name', false);
             document.getElementsByClassName('float_r')[0].style.display = 'none';
-            if (this.state == "create") {
+            if (this.state == 'create') {
                 let getDataFromLink = window
                     .location
                         .search
@@ -435,22 +435,22 @@
                                             return p;
                                         }, {}
                                     );
-                this.TypeFormId = Number(getDataFromLink["type"]);
-                if (Number(getDataFromLink["type"]) >= 1 && Number(getDataFromLink["type"]) <= 8) {
+                this.TypeFormId = Number(getDataFromLink['type']);
+                if (Number(getDataFromLink['type']) >= 1 && Number(getDataFromLink['type']) <= 8) {
                     let val_phone = '';
-                    if (getDataFromLink["phone"] == undefined) {
+                    if (getDataFromLink['phone'] == undefined) {
                         val_phone = '«не визначений»';
                     } else {
-                        val_phone = getDataFromLink["phone"]
+                        val_phone = getDataFromLink['phone']
                     }
                 let val_sipcallid = '';
-                val_sipcallid = getDataFromLink["sipcallid"]
+                val_sipcallid = getDataFromLink['sipcallid']
                     const queryForGetValue = {
                         queryCode: 'Appeals_Insert',
                         parameterValues: [
                             {
                                 key: '@receipt_source_id',
-                                value: Number(getDataFromLink["type"])
+                                value: Number(getDataFromLink['type'])
                             },
                             {
                                 key: '@phone_number',
@@ -467,7 +467,7 @@
                     });
                 }
             }else{
-                document.getElementById('CardPhone').addEventListener("click", function() {
+                document.getElementById('CardPhone').addEventListener('click', function() {
                     this.onLoadModalPhone();
                 }.bind(this));
                 const queryForGetValue_enter_number = {
@@ -482,7 +482,7 @@
                 this.queryExecutor.getValues(queryForGetValue_enter_number).subscribe(data => {
                     if (data) {
                         if (data.rows.length > 0) {
-                            if (data.rows[0].values[0] == "UGL" || data.rows[0].values[0] == "Mail" || data.rows[0].values[0] == "Letter") {
+                            if (data.rows[0].values[0] == 'UGL' || data.rows[0].values[0] == 'Mail' || data.rows[0].values[0] == 'Letter') {
                                 this.form.setControlVisibility('Appeal_enter_number', true);
                             } else {
                                 this.form.setControlVisibility('Appeal_enter_number', false);
@@ -494,7 +494,7 @@
                         this.form.setControlVisibility('Appeal_enter_number', false);
                     }
                 });
-                document.getElementById('Appeal_enter_numberIcon').addEventListener("click", function() {
+                document.getElementById('Appeal_enter_numberIcon').addEventListener('click', function() {
                     const queryForGetValueSet_enter_number = {
                         queryCode: 'GetAppeal_Set_enter_number',
                         parameterValues: [
@@ -535,11 +535,11 @@
                     parameterValues: []
                 };
                 this.queryExecutor.getValues(queryForGetValueStateServer).subscribe(data => {
-                    if (data.rows[0].values[3] == "Simple load") {
+                    if (data.rows[0].values[3] == 'Simple load') {
                         this.StateServerId = 1;
-                    } else if (data.rows[0].values[3] == "Standart load") {
+                    } else if (data.rows[0].values[3] == 'Standart load') {
                         this.StateServerId = 2;
-                    } else if (data.rows[0].values[3] == "Hard load") {
+                    } else if (data.rows[0].values[3] == 'Hard load') {
                         this.StateServerId = 3;
                         this.form.setGroupVisibility('Group_WIKI', false);
                     }
@@ -578,15 +578,15 @@
                     let d = new Date();
                     this.form.setControlValue('DateEnd', d);
                 }.bind(this), 1000);
-                this.form.disableControl("ExecutorInRoleForObject");
-                this.form.disableControl("Applicant_District");
+                this.form.disableControl('ExecutorInRoleForObject');
+                this.form.disableControl('Applicant_District');
                 const menuDetail_Aplicant =  [{
-                    "title": "Додати до списку дублікатів",
-                    "icon": "fa fa-random",
-                    "functionName": "Dublicate_Aplicant"
+                    'title': 'Додати до списку дублікатів',
+                    'icon': 'fa fa-random',
+                    'functionName': 'Dublicate_Aplicant'
                 }];
-                this.details.setActionMenu("Detail_Aplicant", menuDetail_Aplicant);
-                document.getElementById('WIKI_Btn_Search').addEventListener("click", function() {
+                this.details.setActionMenu('Detail_Aplicant', menuDetail_Aplicant);
+                document.getElementById('WIKI_Btn_Search').addEventListener('click', function() {
                     const queryForGetValue3 = {
                         queryCode: 'WIKI_Btn_Search_InsertRow',
                         parameterValues: [
@@ -614,7 +614,7 @@
                         this.details.loadData('Detail_Consultation', parameters1);
                     });
                 }.bind(this));
-                document.getElementById('WIKI_Btn_Consultation').addEventListener("click", function() {
+                document.getElementById('WIKI_Btn_Consultation').addEventListener('click', function() {
                     const queryForGetValue3 = {
                         queryCode: 'WIKI_Btn_Search_InsertRow',
                         parameterValues: [
@@ -645,7 +645,7 @@
                         this.details.loadData('Detail_Consultation', parameters1);
                     });
                 }.bind(this));
-                document.getElementById('Question_Prew_Btn_Consultation').addEventListener("click", function() {
+                document.getElementById('Question_Prew_Btn_Consultation').addEventListener('click', function() {
                     const queryForGetValue3 = {
                         queryCode: 'Question_Prew_Btn_Consultation_InsertRow',
                         parameterValues: [
@@ -680,7 +680,7 @@
                         this.details.loadData('Detail_Consultation', parameters1);
                     });
                 }.bind(this));
-                document.getElementById('GorodokClaim_Prew_Btn_Consultation').addEventListener("click", function() {
+                document.getElementById('GorodokClaim_Prew_Btn_Consultation').addEventListener('click', function() {
                     const queryForGetValue3 = {
                         queryCode: 'GorodokClaim_Prew_Btn_Consultation_InsertRow',
                         parameterValues: [
@@ -711,7 +711,7 @@
                         this.details.loadData('Detail_Consultation', parameters1);
                     });
                 }.bind(this));
-                document.getElementById('Event_Prew_Btn_Consultation').addEventListener("click", function() {
+                document.getElementById('Event_Prew_Btn_Consultation').addEventListener('click', function() {
                     const queryForGetValue3 = {
                         queryCode: 'Event_Prew_Btn_Consultation_InsertRow',
                         parameterValues: [
@@ -742,7 +742,7 @@
                         this.details.loadData('Detail_Consultation', parameters1);
                     });
                 }.bind(this));
-                document.getElementById('Question_Btn_Add').addEventListener("click", function() {
+                document.getElementById('Question_Btn_Add').addEventListener('click', function() {
                     const queryForGetValue3 = {
                         queryCode: 'Question_Btn_Add_InsertRow',
                         parameterValues: [
@@ -839,10 +839,10 @@
                         });
                     });
                     this.form.setControlValue('Question_Organization', {});
-                    this.form.setControlValue('Question_Content', "");
+                    this.form.setControlValue('Question_Content', '');
                     this.form.setControlValue('Question_TypeId', {});
                     this.form.setControlValue('Question_OrganizationId', {});
-                    this.form.setControlValue('Question_ControlDate', "");
+                    this.form.setControlValue('Question_ControlDate', '');
                     this.form.setControlValue('Question_EventId', null);
                 }.bind(this));
                 this.details.onCellClick('Detail_Aplicant', this.Detail_Aplicant.bind(this));
@@ -852,7 +852,7 @@
                 this.form.setGroupVisibility('Group_Preview_Question', false);
                 this.form.setGroupVisibility('Group_Events', false);
                 this.form.setGroupVisibility('Group_GorodokClaims', false);
-                document.getElementById('Applicant_Btn_Add').addEventListener("click", function() {
+                document.getElementById('Applicant_Btn_Add').addEventListener('click', function() {
                     const queryForGetValue2 = {
                         queryCode: 'Applicant_Btn_Add_InsertRow',
                         parameterValues: [
@@ -962,7 +962,7 @@
                     document.getElementById('Applicant_Btn_Add').disabled = true;
                     this.details.setVisibility('Detail_Consultation', true);
                 }.bind(this));
-                document.getElementById('Applicant_Btn_Clear').addEventListener("click", function() {
+                document.getElementById('Applicant_Btn_Clear').addEventListener('click', function() {
                     this.form.setGroupVisibility('Group_CreateQuestion', false);
                     this.form.setControlValue('Applicant_Id', null);
                     this.form.setControlValue('Applicant_PIB', '');
@@ -986,7 +986,7 @@
                     this.form.setControlValue('CardPhone', this.form.getControlValue('Phone'));
                 }.bind(this));
                 this.form.setGroupVisibility('Group_CreateQuestion', false);
-                document.getElementById('Question_Aplicant_Btn_Add').addEventListener("click", function() {
+                document.getElementById('Question_Aplicant_Btn_Add').addEventListener('click', function() {
                     const objNameQuestion_AnswerType = {
                         queryCode: 'dir_AnswerTypes_SelectRow',
                         parameterValues: [
@@ -1007,24 +1007,24 @@
                     this.form.setControlValue('Question_EventId', null);
                     this.scrollTopMainForm();
                 }.bind(this));
-                document.getElementById('GorodokClaim_Prew_Btn_Add').addEventListener("click", function() {
+                document.getElementById('GorodokClaim_Prew_Btn_Add').addEventListener('click', function() {
                     this.form.setGroupVisibility('Group_CreateQuestion', true);
                     this.form.setGroupVisibility('Group_Preview_Question', false)
                     this.form.setGroupVisibility('Group_Events', false);
                     this.form.setGroupVisibility('Group_GorodokClaims', false);
                     this.form.setControlValue('Question_EventId', null);
                 }.bind(this));
-                document.getElementById('Question_Prew_Btn_Add').addEventListener("click", function() {
+                document.getElementById('Question_Prew_Btn_Add').addEventListener('click', function() {
                     this.form.setGroupVisibility('Group_CreateQuestion', true);
                     this.form.setGroupVisibility('Group_Preview_Question', false)
                     this.form.setGroupVisibility('Group_Events', false);
                     this.form.setGroupVisibility('Group_GorodokClaims', false);
                     this.form.setControlValue('Question_EventId', null);
                 }.bind(this));
-                document.getElementById('Question_Btn_work_with').addEventListener("click", function() {
+                document.getElementById('Question_Btn_work_with').addEventListener('click', function() {
                     this.form.setGroupVisibility('Group_Work_with_a_question', true);
                 }.bind(this));
-                document.getElementById('Event_Prew_Btn_Add').addEventListener("click", function() {
+                document.getElementById('Event_Prew_Btn_Add').addEventListener('click', function() {
                     this.form.setGroupVisibility('Group_CreateQuestion', true);
                     this.form.setGroupVisibility('Group_Preview_Question', false)
                     this.form.setGroupVisibility('Group_Events', false);
@@ -1089,7 +1089,7 @@
                 this.form.onControlValueChanged('Question_AnswerType', this.onChanged_Question_AnswerType_Input.bind(this));
                 this.form.onControlValueChanged('Search_Appeals_Input', this.onChanged_Search_Appeals_Input.bind(this));
                 document.getElementById('Search_Appeals_Search').disabled = true;
-                document.getElementById('Search_Appeals_Search').addEventListener("click", function() {
+                document.getElementById('Search_Appeals_Search').addEventListener('click', function() {
                     this.details.setVisibility('Detail_ConsultationAplicant', false);
                     this.details.setVisibility('Detail_QuestionApplicant', false);
                     this.details.setVisibility('Detail_QuestionObjectAplicant', false);
@@ -1103,7 +1103,7 @@
                     this.details.loadData('Detail_QuestionNumberAppeal', parameters);
                     this.details.setVisibility('Detail_QuestionNumberAppeal', true);
                 }.bind(this));
-                document.getElementById('Question_Prew_Btn_Close').addEventListener("click", function() {
+                document.getElementById('Question_Prew_Btn_Close').addEventListener('click', function() {
                     const Question_Close_callback = (response) => {
                         if (response) {
                             const objName = {
@@ -1156,26 +1156,26 @@
                                 position: 1,
                                 fields: [
                                     {
-                                        code: "Question_Prew_AssignmentResults",
+                                        code: 'Question_Prew_AssignmentResults',
                                         fullScreen: true,
                                         hidden: false,
-                                        listKeyColumn: "Id",
-                                        listDisplayColumn: "Name",
-                                        placeholder: "Результат питання",
+                                        listKeyColumn: 'Id',
+                                        listDisplayColumn: 'Name',
+                                        placeholder: 'Результат питання',
                                         position: 1,
-                                        queryListCode: "List_AssignmentResults_InClosed_SelectRows",
+                                        queryListCode: 'List_AssignmentResults_InClosed_SelectRows',
                                         filterList: [{ parameterCode: '@QuestionId', parameterValue: this.form.getControlValue('Question_Prew_Id') }],
                                         required: true,
-                                        type: "select"
+                                        type: 'select'
                                     },
                                     {
-                                        code: "Question_Prew_Rating",
+                                        code: 'Question_Prew_Rating',
                                         fullScreen: true,
                                         hidden: false,
-                                        placeholder: "Оцінка результату виконаних робіт",
+                                        placeholder: 'Оцінка результату виконаних робіт',
                                         position: 3,
                                         required: true,
-                                        type: "radio",
+                                        type: 'radio',
                                         radioItems: [{ value: 1, viewValue: 1 },
                                                         { value: 2, viewValue: 2 },
                                                         { value: 3, viewValue: 3 },
@@ -1183,22 +1183,22 @@
                                                         { value: 5, viewValue: 5 }]
                                     },
                                     {
-                                        code: "Question_Prew_Comment",
+                                        code: 'Question_Prew_Comment',
                                         fullScreen: true,
                                         hidden: false,
-                                        placeholder: "Коментар оператора",
+                                        placeholder: 'Коментар оператора',
                                         position: 4,
                                         required: true,
-                                        type: "text"
+                                        type: 'text'
                                     },
                                     {
-                                        code: "Question_Close_QuestionId",
+                                        code: 'Question_Close_QuestionId',
                                         fullScreen: true,
                                         hidden: true,
-                                        placeholder: "Question_Close_QuestionId",
+                                        placeholder: 'Question_Close_QuestionId',
                                         position: 5,
                                         required: false,
-                                        type: "number",
+                                        type: 'number',
                                         value: this.form.getControlValue('Question_Prew_Id')
                                     }
                                 ]
@@ -1251,7 +1251,7 @@
             this.form.setGroupVisibility('Group_Work_with_a_question', false);
             this.form.onControlValueChanged('Work_with_a_question_organization', this.onPhoneWorkOrganization.bind(this));
             this.form.onControlValueChanged('Work_with_a_question_notes', this.onChanged_Work_with_a_question_notes.bind(this));
-            document.getElementById('Work_with_a_question_Btn_save').addEventListener("click", function() {
+            document.getElementById('Work_with_a_question_Btn_save').addEventListener('click', function() {
                 const work_notes  = {
                     queryCode: 'WorkWithaQuestionNotesSave',
                     parameterValues: [
@@ -1275,7 +1275,7 @@
         },
         onPhoneWorkOrganization:function(id_org){
             if (id_org) {
-                if (typeof id_org === "string") {
+                if (typeof id_org === 'string') {
                     return
                 } else {
                     if (id_org) {
@@ -1389,7 +1389,7 @@
             this.scrollTopMainForm();
         },
         onChangedApplicant_Id: function(value) {
-            if (!value || value  == "") {
+            if (!value || value  == '') {
                 this.form.disableControl('CardPhone');
                 this.form.setControlValue('CardPhone', this.form.getControlValue('Phone'));
             } else {
@@ -1409,7 +1409,7 @@
             }
         },
         onChanged_Search_Appeals_Input: function(value) {
-            if(value == "") {
+            if(value == '') {
                 document.getElementById('Search_Appeals_Search').disabled = true;
             } else {
                 document.getElementById('Search_Appeals_Search').disabled = false;
@@ -1418,7 +1418,7 @@
         Question_Building_Input: undefined,
         Question_Organization_Input: undefined,
         Question_TypeId: undefined,
-        Question_Content_Input: "",
+        Question_Content_Input: '',
         Question_AnswerType_Input: undefined,
         getOrgExecut: function() {
             if (this.StateServerId == 1) {
@@ -1540,7 +1540,7 @@
                 } else {
                     this.Question_Organization_ResultState = 'OK';
                 }
-                if( this.form.getControlValue('Applicant_Id') == "" || this.form.getControlValue('Applicant_Id') == null  || this.Question_Content_Input == "" || this.Question_AnswerType_Input == null  || this.Question_AnswerType_Input == undefined || this.Question_TypeId_Input == null || this.Question_TypeId_Input == undefined
+                if( this.form.getControlValue('Applicant_Id') == '' || this.form.getControlValue('Applicant_Id') == null  || this.Question_Content_Input == '' || this.Question_AnswerType_Input == null  || this.Question_AnswerType_Input == undefined || this.Question_TypeId_Input == null || this.Question_TypeId_Input == undefined
                     || ((this.Question_Building_ResultState == 'OK') && (this.Question_Organization_ResultState == 'OK')) != true
                 ) {
                     document.getElementById('Question_Btn_Add').disabled = true;
@@ -1551,7 +1551,7 @@
         },
         onChanged_Question_Building_Input: function(value) {
             if (value) {
-                if (typeof value === "string") {
+                if (typeof value === 'string') {
                     return
                 } else {
                     this.Question_Building_Input = value;
@@ -1612,17 +1612,17 @@
             this.onChanged_Work_with_a_question_Btn_save_Input();
         },
         onChanged_Work_with_a_question_Btn_save_Input: function() {
-            if( this.Work_with_a_question_notes == "" ||  this.Work_with_a_question_notes == undefined) {
+            if( this.Work_with_a_question_notes == '' ||  this.Work_with_a_question_notes == undefined) {
                 document.getElementById('Work_with_a_question_Btn_save').disabled = true;
             } else {
                 document.getElementById('Work_with_a_question_Btn_save').disabled = false;
             }
         },
-        Applicant_PIB_Input: "",
-        Applicant_Phone_Input: "",
+        Applicant_PIB_Input: '',
+        Applicant_Phone_Input: '',
         Applicant_Building_Input: undefined,
-        Applicant_Entrance_Input: "",
-        Applicant_Flat_Input: "",
+        Applicant_Entrance_Input: '',
+        Applicant_Flat_Input: '',
         onChanged_Applicant_CategoryType_Input: function() {
             if(this.InitialState_Applicant_CategoryType == this.onChanged_Input(this.form.getControlValue('Applicant_CategoryType'))) {
                 this.CheckParamForApplicant_CategoryType = 0
@@ -1665,14 +1665,14 @@
             if (value) {
                 if (value.length >= 0) {
                     if (value.substr(0,1) === 0) {
-                        value = "";
+                        value = '';
                         this.form.setControlValue('Applicant_Entrance', value);
                     }
                 }
-                if (typeof(value) === "string") {
+                if (typeof(value) === 'string') {
                     if (value.length >= 0) {
-                        if (value.substr(0,1) === "-" || value.substr(0,1) == "0") {
-                            value = "";
+                        if (value.substr(0,1) === '-' || value.substr(0,1) == '0') {
+                            value = '';
                             this.form.setControlValue('Applicant_Entrance', value);
                         }
                     }
@@ -1732,7 +1732,7 @@
         },
         onChanged_Applicant_Building_Input: function(value) {
             if (value) {
-                if (typeof value === "string") {
+                if (typeof value === 'string') {
                     return
                 } else {
                     if (value) {
@@ -1812,7 +1812,7 @@
             }
         },
         onChanged_Question_Aplicant_Btn_Add_Input: function() {
-            if(this.Applicant_Entrance_Input == "" || this.Applicant_PIB_Input == "" || this.Applicant_Phone_Input  == "" ||   this.Applicant_Building_Input == null ||  this.Applicant_Building_Input == undefined ) {
+            if(this.Applicant_Entrance_Input == '' || this.Applicant_PIB_Input == '' || this.Applicant_Phone_Input  == '' ||   this.Applicant_Building_Input == null ||  this.Applicant_Building_Input == undefined ) {
                 if (this.form.getControlValue('Applicant_Id') != null || this.form.getControlValue('Applicant_Id') != '') {
                     document.getElementById('Question_Aplicant_Btn_Add').disabled = true;
                 }
@@ -1823,7 +1823,7 @@
                     document.getElementById('Question_Aplicant_Btn_Add').disabled = false;
                 }
             }
-            if(this.Applicant_PIB_Input == "" || this.Applicant_Building_Input == "" || this.Applicant_Building_Input == undefined || this.Applicant_Building_Input == null || this.Applicant_Flat_Input == undefined || this.Applicant_Flat_Input == null || this.Applicant_Flat_Input == "") {
+            if(this.Applicant_PIB_Input == '' || this.Applicant_Building_Input == '' || this.Applicant_Building_Input == undefined || this.Applicant_Building_Input == null || this.Applicant_Flat_Input == undefined || this.Applicant_Flat_Input == null || this.Applicant_Flat_Input == '') {
                     document.getElementById('Applicant_Btn_Add').disabled = true;
             } else {
                 if( this.CheckParamForApplicant_PIB == 0 &&
@@ -1847,10 +1847,10 @@
                 }
             }
         },
-        TargetElement_Detail_Consultation_Prev: "",
+        TargetElement_Detail_Consultation_Prev: '',
         OnCellClikc_Detail_Consultation: function(column, row, value, event) {
             if (this.StateServerId == 1 || this.StateServerId == 2) {
-                if (this.TargetElement_Detail_Consultation_Prev != "") {
+                if (this.TargetElement_Detail_Consultation_Prev != '') {
                     this.TargetElement_Detail_Consultation_Prev.style.removeProperty('color');
                     this.TargetElement_Detail_Consultation_Prev.style.removeProperty('background');
                 }
@@ -1865,350 +1865,350 @@
                 this.details.setVisibility('Detail_GorodokClaim', false);
                 this.details.setVisibility('Detail_QuestionNumberAppeal', false);
                 this.form.setGroupVisibility('Group_Preview_Question', false);
-                if (value == "питання заявника") {
+                if (value == 'питання заявника') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Усі"}
+                        { key: '@type', value: 'Усі'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (row.values[1] == "питання заявника" && column.code == "Зареєстровано") {
+                if (row.values[1] == 'питання заявника' && column.code == 'Зареєстровано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Зареєстровано"}
+                        { key: '@type', value: 'Зареєстровано'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (row.values[1] == "питання заявника" && column.code == "В роботі") {
+                if (row.values[1] == 'питання заявника' && column.code == 'В роботі') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "В роботі"}
+                        { key: '@type', value: 'В роботі'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (row.values[1] == "питання заявника" && column.code == "Просрочено") {
+                if (row.values[1] == 'питання заявника' && column.code == 'Просрочено') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Просрочено"}
+                        { key: '@type', value: 'Просрочено'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (row.values[1] == "питання заявника" && column.code == "Виконано") {
+                if (row.values[1] == 'питання заявника' && column.code == 'Виконано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Виконано"}
+                        { key: '@type', value: 'Виконано'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (row.values[1] == "питання заявника" && column.code == "Доопрацювання") {
+                if (row.values[1] == 'питання заявника' && column.code == 'Доопрацювання') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Доопрацювання"}
+                        { key: '@type', value: 'Доопрацювання'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (value == "питання заявника (old)") {
+                if (value == 'питання заявника (old)') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Усі (old)"}
+                        { key: '@type', value: 'Усі (old)'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (row.values[1] == "питання заявника (old)" && column.code == "Зареєстровано") {
+                if (row.values[1] == 'питання заявника (old)' && column.code == 'Зареєстровано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Зареєстровано (old)"}
+                        { key: '@type', value: 'Зареєстровано (old)'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (row.values[1] == "питання заявника (old)" && column.code == "В роботі") {
+                if (row.values[1] == 'питання заявника (old)' && column.code == 'В роботі') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "В роботі (old)"}
+                        { key: '@type', value: 'В роботі (old)'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (row.values[1] == "питання заявника (old)" && column.code == "Просрочено") {
+                if (row.values[1] == 'питання заявника (old)' && column.code == 'Просрочено') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Просрочено (old)"}
+                        { key: '@type', value: 'Просрочено (old)'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (row.values[1] == "питання заявника (old)" && column.code == "Виконано") {
+                if (row.values[1] == 'питання заявника (old)' && column.code == 'Виконано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Виконано (old)"}
+                        { key: '@type', value: 'Виконано (old)'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (row.values[1] == "питання заявника (old)" && column.code == "Доопрацювання") {
+                if (row.values[1] == 'питання заявника (old)' && column.code == 'Доопрацювання') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Доопрацювання (old)"}
+                        { key: '@type', value: 'Доопрацювання (old)'}
                     ];
                     this.details.loadData('Detail_QuestionApplicant', parameters);
                     this.details.setVisibility('Detail_QuestionApplicant', true);
                 }
-                if (value == "консультації заявника") {
+                if (value == 'консультації заявника') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Усі"},
+                        { key: '@type', value: 'Усі'},
                         { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')}
                     ];
                     this.details.loadData('Detail_ConsultationAplicant', parameters);
                     this.details.setVisibility('Detail_ConsultationAplicant', true);
                 }
-                if (row.values[1] == "консультації заявника" && column.code == "Зареєстровано") {
+                if (row.values[1] == 'консультації заявника' && column.code == 'Зареєстровано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Зареєстровано"},
+                        { key: '@type', value: 'Зареєстровано'},
                         { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')}
                     ];
                     this.details.loadData('Detail_ConsultationAplicant', parameters);
                     this.details.setVisibility('Detail_ConsultationAplicant', true);
                 }
-                if (row.values[1] == "консультації заявника" && column.code == "В роботі") {
+                if (row.values[1] == 'консультації заявника' && column.code == 'В роботі') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "В роботі"},
+                        { key: '@type', value: 'В роботі'},
                         { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')}
                     ];
                     this.details.loadData('Detail_ConsultationAplicant', parameters);
                     this.details.setVisibility('Detail_ConsultationAplicant', true);
                 }
-                if (row.values[1] == "консультації заявника" && column.code == "Просрочено") {
+                if (row.values[1] == 'консультації заявника' && column.code == 'Просрочено') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Просрочено"},
+                        { key: '@type', value: 'Просрочено'},
                         { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')}
                     ];
                     this.details.loadData('Detail_ConsultationAplicant', parameters);
                     this.details.setVisibility('Detail_ConsultationAplicant', true);
                 }
-                if (row.values[1] == "консультації заявника" && column.code == "Виконано") {
+                if (row.values[1] == 'консультації заявника' && column.code == 'Виконано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Виконано"},
+                        { key: '@type', value: 'Виконано'},
                         { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')}
                     ];
                     this.details.loadData('Detail_ConsultationAplicant', parameters);
                     this.details.setVisibility('Detail_ConsultationAplicant', true);
                 }
-                if (row.values[1] == "консультації заявника" && column.code == "Доопрацювання") {
+                if (row.values[1] == 'консультації заявника' && column.code == 'Доопрацювання') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Доопрацювання"},
+                        { key: '@type', value: 'Доопрацювання'},
                         { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')}
                     ];
                     this.details.loadData('Detail_ConsultationAplicant', parameters);
                     this.details.setVisibility('Detail_ConsultationAplicant', true);
                 }
-                if (value == "питання за помешканням заявника") {
+                if (value == 'питання за помешканням заявника') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Усі"}
+                        { key: '@type', value: 'Усі'}
                     ];
                     this.details.loadData('Detail_QuestionObjectAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionObjectAplicant', true);
                 }
-                if (row.values[1] == "питання за помешканням заявника" && column.code == "Зареєстровано") {
+                if (row.values[1] == 'питання за помешканням заявника' && column.code == 'Зареєстровано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Зареєстровано"}
+                        { key: '@type', value: 'Зареєстровано'}
                     ];
                     this.details.loadData('Detail_QuestionObjectAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionObjectAplicant', true);
                 }
-                if (row.values[1] == "питання за помешканням заявника" && column.code == "В роботі") {
+                if (row.values[1] == 'питання за помешканням заявника' && column.code == 'В роботі') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "В роботі"}
+                        { key: '@type', value: 'В роботі'}
                     ];
                     this.details.loadData('Detail_QuestionObjectAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionObjectAplicant', true);
                 }
-                if (row.values[1] == "питання за помешканням заявника" && column.code == "Просрочено") {
+                if (row.values[1] == 'питання за помешканням заявника' && column.code == 'Просрочено') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Просрочено"}
+                        { key: '@type', value: 'Просрочено'}
                     ];
                     this.details.loadData('Detail_QuestionObjectAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionObjectAplicant', true);
                 }
-                if (row.values[1] == "питання за помешканням заявника" && column.code == "Виконано") {
+                if (row.values[1] == 'питання за помешканням заявника' && column.code == 'Виконано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Виконано"}
+                        { key: '@type', value: 'Виконано'}
                     ];
                     this.details.loadData('Detail_QuestionObjectAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionObjectAplicant', true);
                 }
-                if (row.values[1] == "питання за помешканням заявника" && column.code == "Доопрацювання") {
+                if (row.values[1] == 'питання за помешканням заявника' && column.code == 'Доопрацювання') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Доопрацювання"}
+                        { key: '@type', value: 'Доопрацювання'}
                     ];
                     this.details.loadData('Detail_QuestionObjectAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionObjectAplicant', true);
                 }
-                if (value == "питання з номеру телефону заявника") {
+                if (value == 'питання з номеру телефону заявника') {
                     const parameters = [
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')},
-                        { key: '@type', value: "Усі"}
+                        { key: '@type', value: 'Усі'}
                     ];
                     this.details.loadData('Detail_QuestionPhone', parameters);
                     this.details.setVisibility('Detail_QuestionPhone', true);
                 }
-                if (row.values[1] == "питання з номеру телефону заявника" && column.code == "Зареєстровано") {
+                if (row.values[1] == 'питання з номеру телефону заявника' && column.code == 'Зареєстровано') {
                     const parameters = [
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')},
-                        { key: '@type', value: "Зареєстровано"}
+                        { key: '@type', value: 'Зареєстровано'}
                     ];
                     this.details.loadData('Detail_QuestionPhone', parameters);
                     this.details.setVisibility('Detail_QuestionPhone', true);
                 }
-                if (row.values[1] == "питання з номеру телефону заявника" && column.code == "В роботі") {
+                if (row.values[1] == 'питання з номеру телефону заявника' && column.code == 'В роботі') {
                     const parameters = [
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')},
-                        { key: '@type', value: "В роботі"}
+                        { key: '@type', value: 'В роботі'}
                     ];
                     this.details.loadData('Detail_QuestionPhone', parameters);
                     this.details.setVisibility('Detail_QuestionPhone', true);
                 }
-                if (row.values[1] == "питання з номеру телефону заявника" && column.code == "Просрочено") {
+                if (row.values[1] == 'питання з номеру телефону заявника' && column.code == 'Просрочено') {
                     const parameters = [
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')},
-                        { key: '@type', value: "Просрочено"}
+                        { key: '@type', value: 'Просрочено'}
                     ];
                     this.details.loadData('Detail_QuestionPhone', parameters);
                     this.details.setVisibility('Detail_QuestionPhone', true);
                 }
-                if (row.values[1] == "питання з номеру телефону заявника" && column.code == "Виконано") {
+                if (row.values[1] == 'питання з номеру телефону заявника' && column.code == 'Виконано') {
                     const parameters = [
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')},
-                        { key: '@type', value: "Виконано"}
+                        { key: '@type', value: 'Виконано'}
                     ];
                     this.details.loadData('Detail_QuestionPhone', parameters);
                     this.details.setVisibility('Detail_QuestionPhone', true);
                 }
-                if (row.values[1] == "питання з номеру телефону заявника" && column.code == "Доопрацювання") {
+                if (row.values[1] == 'питання з номеру телефону заявника' && column.code == 'Доопрацювання') {
                     const parameters = [
                         { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')},
-                        { key: '@type', value: "Доопрацювання"}
+                        { key: '@type', value: 'Доопрацювання'}
                     ];
                     this.details.loadData('Detail_QuestionPhone', parameters);
                     this.details.setVisibility('Detail_QuestionPhone', true);
                 }
-                if (value == "питання по будинку") {
+                if (value == 'питання по будинку') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Усі"}
+                        { key: '@type', value: 'Усі'}
                     ];
                     this.details.loadData('Detail_QuestionBuildingAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionBuildingAplicant', true);
                 }
-                if (row.values[1] == "питання по будинку" && column.code == "Зареєстровано") {
+                if (row.values[1] == 'питання по будинку' && column.code == 'Зареєстровано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Зареєстровано"}
+                        { key: '@type', value: 'Зареєстровано'}
                     ];
                     this.details.loadData('Detail_QuestionBuildingAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionBuildingAplicant', true);
                 }
-                if (row.values[1] == "питання по будинку" && column.code == "В роботі") {
+                if (row.values[1] == 'питання по будинку' && column.code == 'В роботі') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "В роботі"}
+                        { key: '@type', value: 'В роботі'}
                     ];
                     this.details.loadData('Detail_QuestionBuildingAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionBuildingAplicant', true);
                 }
-                if (row.values[1] == "питання по будинку" && column.code == "Просрочено") {
+                if (row.values[1] == 'питання по будинку' && column.code == 'Просрочено') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Просрочено"}
+                        { key: '@type', value: 'Просрочено'}
                     ];
                     this.details.loadData('Detail_QuestionBuildingAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionBuildingAplicant', true);
                 }
-                if (row.values[1] == "питання по будинку" && column.code == "Виконано") {
+                if (row.values[1] == 'питання по будинку' && column.code == 'Виконано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Виконано"}
+                        { key: '@type', value: 'Виконано'}
                     ];
                     this.details.loadData('Detail_QuestionBuildingAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionBuildingAplicant', true);
                 }
-                if (row.values[1] == "питання по будинку" && column.code == "Доопрацювання") {
+                if (row.values[1] == 'питання по будинку' && column.code == 'Доопрацювання') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Доопрацювання"}
+                        { key: '@type', value: 'Доопрацювання'}
                     ];
                     this.details.loadData('Detail_QuestionBuildingAplicant', parameters);
                     this.details.setVisibility('Detail_QuestionBuildingAplicant', true);
                 }
-                if (value == "заявки за Городком") {
+                if (value == 'заявки за Городком') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Усі"}
+                        { key: '@type', value: 'Усі'}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
                 }
-                if (row.values[1] == "заявки за Городком" && column.code == "Зареєстровано") {
+                if (row.values[1] == 'заявки за Городком' && column.code == 'Зареєстровано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Зареєстровано"}
+                        { key: '@type', value: 'Зареєстровано'}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
                 }
-                if (row.values[1] == "заявки за Городком" && column.code == "В роботі") {
+                if (row.values[1] == 'заявки за Городком' && column.code == 'В роботі') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "В роботі"}
+                        { key: '@type', value: 'В роботі'}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
                 }
-                if (row.values[1] == "заявки за Городком" && column.code == "Просрочено") {
+                if (row.values[1] == 'заявки за Городком' && column.code == 'Просрочено') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Просрочено"}
+                        { key: '@type', value: 'Просрочено'}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
                 }
-                if (row.values[1] == "заявки за Городком" && column.code == "Виконано") {
+                if (row.values[1] == 'заявки за Городком' && column.code == 'Виконано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Виконано"}
+                        { key: '@type', value: 'Виконано'}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
                 }
-                if (row.values[1] == "заявки за Городком" && column.code == "Доопрацювання") {
+                if (row.values[1] == 'заявки за Городком' && column.code == 'Доопрацювання') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: "Доопрацювання"}
+                        { key: '@type', value: 'Доопрацювання'}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
@@ -2405,7 +2405,7 @@
             this.onChanged_Question_Aplicant_Btn_Add_Input();
         },
         Group_Preview_Question_Close: function() {
-            if(this.Applicant_PIB_Input == "" || this.Applicant_Phone_Input  == "" ||  this.Applicant_Building_Input == null ||  this.Applicant_Building_Input == undefined) {
+            if(this.Applicant_PIB_Input == '' || this.Applicant_Phone_Input  == '' ||  this.Applicant_Building_Input == null ||  this.Applicant_Building_Input == undefined) {
             this.form.setGroupVisibility('Group_CreateQuestion', false);
             } else {
             this.form.setGroupVisibility('Group_CreateQuestion', false);

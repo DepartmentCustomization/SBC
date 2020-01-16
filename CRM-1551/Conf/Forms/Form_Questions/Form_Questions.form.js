@@ -80,7 +80,7 @@
             this.form.setControlVisibility('answer_phone',false);
             this.form.setControlVisibility('answer_mail', false);
         }
-        document.getElementById('add_Assignment').addEventListener("click", function(){
+        document.getElementById('add_Assignment').addEventListener('click', function(){
             const queryForInsert = {
                     queryCode: 'cx_test_Procedur_Insert',
                     parameterValues: [
@@ -113,7 +113,7 @@
                 this.queryExecutor.getValues(queryForInsert).subscribe(() => {
                 })
         }.bind(this));
-        document.getElementById('add_Complain').addEventListener("click", function(){
+        document.getElementById('add_Complain').addEventListener('click', function(){
             const formAddComplain = {
                 title: 'Створити скаргу',
                 acceptBtnText: 'save',
@@ -125,15 +125,15 @@
                         position: 1,
                         fields:[
                             {
-                              code: "complain_type_id",
+                              code: 'complain_type_id',
                               placeholder:'Тип скарги',
                               hidden: false,
                               required: true,
                               position: 1,
                               fullScreen: true,
-                              queryListCode: "list_complain_type",
-                              listDisplayColumn: "name",
-                              listKeyColumn: "Id",
+                              queryListCode: 'list_complain_type',
+                              listDisplayColumn: 'name',
+                              listKeyColumn: 'Id',
                               type: 'select'
                             },
                             {
@@ -147,15 +147,15 @@
                               type: 'text'
                             },
                             {
-                              code: "guilty",
+                              code: 'guilty',
                               placeholder:'Винуватець',
                               hidden: false,
                               required: true,
                               position: 1,
                               fullScreen: true,
-                              queryListCode: "list_Question_Executors",
-                              listDisplayColumn: "name",
-                              listKeyColumn: "Id",
+                              queryListCode: 'list_Question_Executors',
+                              listDisplayColumn: 'name',
+                              listKeyColumn: 'Id',
                               type: 'select'
                             },
                             {

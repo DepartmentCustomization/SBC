@@ -10,7 +10,7 @@
         ,
         init: function() {
             const msg = {
-                name: "SetFilterPanelState",
+                name: 'SetFilterPanelState',
                 package: {
                     value: true
                 }

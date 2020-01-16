@@ -186,7 +186,7 @@
                 enabled: true
             },
             sorting: {
-                mode: "multiple"
+                mode: 'multiple'
             },
             showBorders: false,
             showColumnLines: true,
@@ -207,7 +207,7 @@
         },
         init: function() {
             let msg = {
-                name: "SetFilterPanelState",
+                name: 'SetFilterPanelState',
                 package: {
                     value: true
                 }
@@ -234,7 +234,7 @@
                         const columncode = e.column.dataField;
                         const date = this.date;
                         const string = 'rdaid='+rdaid+'&ratingid='+ratingid+'&columncode='+columncode+'&date='+date;
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/district_rating_indicator?"+string);
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/district_rating_indicator?'+string);
                     }
                     if (e.row !== undefined && e.column.dataField === 'IntegratedMetric_PerformanceLevel') {
                         this.showPagePreloader('');
@@ -245,13 +245,13 @@
                         let ratingid = e.data.RatingId;
                         let date = this.date;
                         let string = 'RDAId='+rdaid+'&RatingId='+ratingid+'&DateCalc='+date;
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + "/dashboard/page/rating_indicators_detail?"+string);
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/rating_indicators_detail?'+string);
                     }
                 }
             });
             this.config.columns.forEach( col => {
                 function setColStyles(col){
-                    col.width = col.dataField === "RDAName" ? '200' : '120';
+                    col.width = col.dataField === 'RDAName' ? '200' : '120';
                     col.alignment = 'center';
                     col.verticalAlignment = 'Bottom';
                 }
@@ -277,7 +277,7 @@
         },
         renderTable: function () {
             let msg = {
-                name: "SetFilterPanelState",
+                name: 'SetFilterPanelState',
                 package: {
                     value: false
                 }
@@ -288,12 +288,12 @@
         createTableButton: function (e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton",
-                location: "after",
+                widget: 'dxButton',
+                location: 'after',
                 options: {
-                    icon: "exportxlsx",
-                    type: "default",
-                    text: "Excel",
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         let exportQuery = {

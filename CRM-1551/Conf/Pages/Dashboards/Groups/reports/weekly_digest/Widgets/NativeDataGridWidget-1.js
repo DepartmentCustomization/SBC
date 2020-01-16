@@ -22,10 +22,10 @@
             ],
             summary: {
                 totalItems: [{
-                    column: "questionQty",
-                    summaryType: "sum",
+                    column: 'questionQty',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                        return "Разом: " + data.value;
+                        return 'Разом: ' + data.value;
                     }
                 }]
             },
@@ -69,7 +69,7 @@
                     {key: '@pos', value: this.position },
                 ];
                 let filter = {
-                    key: "orgId",
+                    key: 'orgId',
                     value: {
                         operation: 0,
                         not: false,

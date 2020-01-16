@@ -58,11 +58,11 @@
         let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push(
             {
-                widget: "dxButton",
-                location: "after",
+                widget: 'dxButton',
+                location: 'after',
                 options: {
-                    icon: "collapse",
-                    type: "default",
+                    icon: 'collapse',
+                    type: 'default',
                     text: 'Об\'єднати',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
@@ -70,7 +70,7 @@
                             const keys = this.dataGridInstance.selectedRowKeys;
                             const index = keys.findIndex(value => value === this.mainRowId );
                             if(index !== -1) {
-                                const rowsId = this.dataGridInstance.selectedRowKeys.join(",");
+                                const rowsId = this.dataGridInstance.selectedRowKeys.join(',');
                                 this.showPagePreloader('Триває об\'єднання');
                                 this.executeQueryCombining(rowsId);
                             }
@@ -78,11 +78,11 @@
                     }.bind(this)
                 },
             }, {
-                widget: "dxButton",
-                location: "after",
+                widget: 'dxButton',
+                location: 'after',
                 options: {
-                    icon: "clear",
-                    type: "default",
+                    icon: 'clear',
+                    type: 'default',
                     text: 'Пропустити',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();

@@ -29,7 +29,7 @@
             series: []
         },
         init: function() {
-            const query = this.query("ak_NPS_Index1_2");
+            const query = this.query('ak_NPS_Index1_2');
             this.queryExecutor(query, this.getYesterdayIndex, this);
             this.showPreloader = false;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
@@ -55,17 +55,17 @@
             }
         },
         executeQuery: function () {
-            const query = this.query("ak_NPS_Graf1_2");
+            const query = this.query('ak_NPS_Graf1_2');
             this.queryExecutor(query, this.load, this);
             this.showPreloader = false;
         },
         query: function (queryCode) {
             return {
-                "queryCode": queryCode,
-                "limit": -1,
-                "parameterValues": [
-                    { "key": "@date_from", "value": this.dateFrom },
-                    { "key": "@date_to", "value": this.dateTo }
+                'queryCode': queryCode,
+                'limit': -1,
+                'parameterValues': [
+                    { 'key': '@date_from', 'value': this.dateFrom },
+                    { 'key': '@date_to', 'value': this.dateTo }
                 ],
             };
         },

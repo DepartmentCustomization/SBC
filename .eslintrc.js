@@ -13,13 +13,14 @@ module.exports = {
         "ecmaVersion": 2018
     },
     "rules": {
+        "quotes": ["error", "single"],
         "no-var": "error",
         "no-multiple-empty-lines": ["error", { max: 0 }],
-        "line-comment-position": ["warn", { "position": "beside" }],
-        "no-inline-comments": "warn",
+        "line-comment-position": ["error", { "position": "beside" }],
+        "no-inline-comments": "error",
         "no-console": "error",
         "no-debugger": "error",
         "brace-style": ["error", "1tbs"],
-        "no-trailing-spaces": "warn"
+        "no-trailing-spaces": "error"
     }
 };

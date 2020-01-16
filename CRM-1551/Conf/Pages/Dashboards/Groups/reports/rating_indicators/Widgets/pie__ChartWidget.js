@@ -51,16 +51,16 @@
         },
         executeQuery: function () {
             const query = {
-                "queryCode": "db_ReestrRating_PieChart",
-                "limit": -1,
-                "parameterValues": [
+                'queryCode': 'db_ReestrRating_PieChart',
+                'limit': -1,
+                'parameterValues': [
                     {
-                        "key": "@CalcDate",
-                        "value": this.date
+                        'key': '@CalcDate',
+                        'value': this.date
                     },
                     {
-                        "key": "@RatingId",
-                        "value": this.rating
+                        'key': '@RatingId',
+                        'value': this.rating
                     }
                 ]
             };

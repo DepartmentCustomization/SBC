@@ -3,7 +3,7 @@
     init: function() {
         this.sub = this.messageService.subscribe( 'ApplyGlobalFilters', this.hideFilterPanel, this);
         let msg = {
-            name: "SetFilterPanelState",
+            name: 'SetFilterPanelState',
             package: {
                 value: true
             }
@@ -12,7 +12,7 @@
     },
     hideFilterPanel: function(){
         let msg = {
-            name: "SetFilterPanelState",
+            name: 'SetFilterPanelState',
             package: {
                 value: false
             }

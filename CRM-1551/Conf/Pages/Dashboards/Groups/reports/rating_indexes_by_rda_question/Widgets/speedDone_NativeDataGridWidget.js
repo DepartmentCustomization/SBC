@@ -75,7 +75,7 @@
             if (this.period) {
                 if (this.active) {
                     let msg = {
-                        name: "SetFilterPanelState",
+                        name: 'SetFilterPanelState',
                         package: {
                             value: false
                         }

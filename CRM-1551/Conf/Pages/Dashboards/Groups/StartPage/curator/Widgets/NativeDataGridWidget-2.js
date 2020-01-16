@@ -35,8 +35,8 @@
                     caption: 'Дата контролю',
                     fixed: true,
                     sortOrder: 'desc',
-                    dataType: "datetime",
-                    format: "dd.MM.yyyy HH:mm"
+                    dataType: 'datetime',
+                    format: 'dd.MM.yyyy HH:mm'
                 }
             ],
             masterDetail: {
@@ -44,7 +44,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             pager: {
                 showPageSizeSelector:  true,
@@ -68,7 +68,7 @@
                 mode: 'multiple'
             },
             sorting: {
-                mode: "multiple"
+                mode: 'multiple'
             },
             keyExpr: 'Id',
             focusedRowEnabled: true,
@@ -101,8 +101,8 @@
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == "registration_number" && e.row != undefined){
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/Assignments/edit/"+e.key+"");
+                    if(e.column.dataField == 'registration_number' && e.row != undefined){
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.key+'');
                     }
                 }
             });
@@ -140,45 +140,45 @@
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton",
+                widget: 'dxButton',
                 options: {
-                    icon: "exportxlsx",
-                    type: "default",
-                    text: "Excel",
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.exportToExcel();
                     }.bind(this)
                 },
-                location: "after"
+                location: 'after'
             });
             toolbarItems.push({
-                widget: "dxButton",
+                widget: 'dxButton',
                 options: {
-                    icon: "check",
-                    type: "default",
-                    text: "Роз'яснено",
+                    icon: 'check',
+                    type: 'default',
+                    text: 'Роз\'яснено',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         const query = 'Coordinator_Button_Rozyasneno';
                         this.sendMessageToReload(query);
                     }.bind(this)
                 },
-                location: "after"
+                location: 'after'
             });
             toolbarItems.push({
-                widget: "dxButton",
+                widget: 'dxButton',
                 options: {
-                    icon: "tel",
-                    type: "default",
-                    text: "Прозвон",
+                    icon: 'tel',
+                    type: 'default',
+                    text: 'Прозвон',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         const query = 'Coordinator_Button_Prozvon';
                         this.sendMessageToReload(query);
                     }.bind(this)
                 },
-                location: "after"
+                location: 'after'
             });
         },
         exportToExcel: function(){
@@ -352,14 +352,14 @@
             if(currentEmployeeData.question_content == null){
                 currentEmployeeData.question_content = '';
             }
-            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.adressZ+""});
-            let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
+            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ''+currentEmployeeData.adressZ+''});
+            let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: 'Адреса заявника'});
             let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.question_content+""});
-            let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
+            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ''+currentEmployeeData.question_content+''});
+            let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ""+currentEmployeeData.short_answer+""});
-            let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: "Коментар виконавця"});
+            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ''+currentEmployeeData.short_answer+''});
+            let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
             let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
             container.appendChild(elementsWrapper);

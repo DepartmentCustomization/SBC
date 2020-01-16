@@ -29,8 +29,8 @@
                                 return p;
                             }, {}
                         );
-                     this.googleMapConfig.latitude = getDataFromLink["lat"];
-                     this.googleMapConfig.longitude = getDataFromLink["lon"];
+                     this.googleMapConfig.latitude = getDataFromLink['lat'];
+                     this.googleMapConfig.longitude = getDataFromLink['lon'];
      },
     afterViewInit: function() {
         let getDataFromLink = window
@@ -46,7 +46,7 @@
                             }, {}
                         );
         new window.google.maps.Marker({
-            position: new window.google.maps.LatLng(getDataFromLink["lat"], getDataFromLink["lon"]),
+            position: new window.google.maps.LatLng(getDataFromLink['lat'], getDataFromLink['lon']),
             map: this.map,
             title: '',
             label: ''

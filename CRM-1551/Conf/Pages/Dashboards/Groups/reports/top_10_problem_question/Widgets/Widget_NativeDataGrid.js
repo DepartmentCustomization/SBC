@@ -65,76 +65,76 @@
             summary: {
                 totalItems: [
                     {
-                        column: "Golosiivsky",
-                        summaryType: "sum",
+                        column: 'Golosiivsky',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "Darnitsky",
-                        summaryType: "sum",
+                        column: 'Darnitsky',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "Desnyansky",
-                        summaryType: "sum",
+                        column: 'Desnyansky',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "Dnirovsky",
-                        summaryType: "sum",
+                        column: 'Dnirovsky',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "Obolonsky",
-                        summaryType: "sum",
+                        column: 'Obolonsky',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "Pechersky",
-                        summaryType: "sum",
+                        column: 'Pechersky',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "Podilsky",
-                        summaryType: "sum",
+                        column: 'Podilsky',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "Svyatoshinsky",
-                        summaryType: "sum",
+                        column: 'Svyatoshinsky',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "Solomiansky",
-                        summaryType: "sum",
+                        column: 'Solomiansky',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "Shevchenkovsky",
-                        summaryType: "sum",
+                        column: 'Shevchenkovsky',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },  {
-                        column: "allQuestionsQty",
-                        summaryType: "sum",
+                        column: 'allQuestionsQty',
+                        summaryType: 'sum',
                         customizeText: function(data) {
-                            return "Разом: " + data.value;
+                            return 'Разом: ' + data.value;
                         }
                     },
                 ]
             },
             sorting: {
-                mode: "none"
+                mode: 'none'
             },
             keyExpr: 'Id',
             showBorders: false,
@@ -174,12 +174,12 @@
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton",
-                location: "after",
+                widget: 'dxButton',
+                location: 'after',
                 options: {
-                    icon: "exportxlsx",
-                    type: "default",
-                    text: "Excel",
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         let exportQuery = {

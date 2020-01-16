@@ -53,7 +53,7 @@
                 }
             ],
             allowColumnResizing: true,
-            columnResizingMode: "widget",
+            columnResizingMode: 'widget',
             columnMinWidth: 50,
             columnAutoWidth: true,
             pager: {
@@ -69,10 +69,10 @@
                 fileName: 'File_name'
             },
             sorting: {
-                mode: "multiple"
+                mode: 'multiple'
             },
             selection: {
-                mode: "multiple"
+                mode: 'multiple'
             },
             masterDetail: {
                 enabled: true,
@@ -102,13 +102,13 @@
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.dataGridInstance.onCellClick.subscribe( function(e) {
                 if(e.column){
-                    if(e.column.dataField == "registration_number" && e.row != undefined){
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/Assignments/edit/"+e.data.Id+"");
-                    }else if(e.column.dataField == "phone_number" && e.row != undefined){
+                    if(e.column.dataField == 'registration_number' && e.row != undefined){
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.data.Id+'');
+                    }else if(e.column.dataField == 'phone_number' && e.row != undefined){
                         let CurrentUserPhone = e.row.data.phone_number;
                         let PhoneForCall = this.userPhoneNumber;
                         let xhr = new XMLHttpRequest();
-                        xhr.open('GET', `http://10.192.200.14:5566/CallService/Call/number=` + CurrentUserPhone + `&operator=` + PhoneForCall );
+                        xhr.open('GET', 'http://10.192.200.14:5566/CallService/Call/number=' + CurrentUserPhone + '&operator=' + PhoneForCall );
                         xhr.send();
                     }
                 }
@@ -261,13 +261,13 @@
             let ndz = currentEmployeeData.cc_nedozvon;
             let ndzComment = currentEmployeeData.control_comment;
             let elementHistory__content = this.createElement('div', { className: 'elementHistory__content content', innerText: ndz +  ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment  });
-            let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: "Історія"});
+            let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія'});
             let elementHistory = this.createElement('div', { className: 'elementHistory element'}, elementHistory__caption, elementHistory__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.zmist+""});
-            let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
+            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ''+currentEmployeeData.zmist+''});
+            let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ""+currentEmployeeData.comment+""});
-            let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: "Коментар виконавця"});
+            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ''+currentEmployeeData.comment+''});
+            let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
             let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
             container.appendChild(elementsWrapper);
@@ -311,17 +311,17 @@
         createDGButtons: function(e) {
                 let toolbarItems = e.toolbarOptions.items;
                 toolbarItems.push({
-                    widget: "dxButton",
+                    widget: 'dxButton',
                     options: {
-                        icon: "close",
-                        type: "default",
-                        text: "Закрити",
+                        icon: 'close',
+                        type: 'default',
+                        text: 'Закрити',
                         onClick: function(e) {
                             e.event.stopImmediatePropagation();
                             this.openModalCloserForm();
                         }.bind(this)
                     },
-                    location: "after"
+                    location: 'after'
                 });
         },
         createElement: function(tag, props, ...children) {

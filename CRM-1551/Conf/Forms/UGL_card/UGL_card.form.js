@@ -38,7 +38,7 @@
                                 required: false,
                                 value: data.rows[j].values[3],
                                 disabled: true,
-                                type: "text",
+                                type: 'text',
                                 icon: 'phone_forwarded',
                                 iconHint: 'Скопіювати з вхідного номера телефону',
                                 maxlength: 14,
@@ -52,12 +52,12 @@
                                 placeholder: 'Тип',
                                 position: 2,
                                 required: false,
-                                value: "Мобільний",
+                                value: 'Мобільний',
                                 keyValue: 1,
-                                listKeyColumn: "Id",
-                                listDisplayColumn: "name",
-                                type: "select",
-                                queryListCode: "dir_PhoneTypes_SelectRows",
+                                listKeyColumn: 'Id',
+                                listDisplayColumn: 'name',
+                                type: 'select',
+                                queryListCode: 'dir_PhoneTypes_SelectRows',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_0);
@@ -69,7 +69,7 @@
                                 position: 3,
                                 required: false,
                                 value: false,
-                                type: "checkbox",
+                                type: 'checkbox',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_2);
@@ -81,7 +81,7 @@
                                 position: 4,
                                 icon: 'add',
                                 required: false,
-                                type: "button",
+                                type: 'button',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_1);
@@ -103,7 +103,7 @@
                                 position: 1,
                                 required: false,
                                 value: data.rows[j].values[3],
-                                type: "text",
+                                type: 'text',
                                 maxlength: 14,
                                 width: '50%'
                             };
@@ -117,10 +117,10 @@
                                 required: false,
                                 value: data.rows[j].values[7],
                                 keyValue: data.rows[j].values[6],
-                                listKeyColumn: "Id",
-                                listDisplayColumn: "name",
-                                type: "select",
-                                queryListCode: "dir_PhoneTypes_SelectRows",
+                                listKeyColumn: 'Id',
+                                listDisplayColumn: 'name',
+                                type: 'select',
+                                queryListCode: 'dir_PhoneTypes_SelectRows',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_1);
@@ -132,7 +132,7 @@
                                 position: 3,
                                 required: false,
                                 value: data.rows[j].values[4],
-                                type: "checkbox",
+                                type: 'checkbox',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_2);
@@ -145,7 +145,7 @@
                                     position: 4,
                                     required: false,
                                     icon: 'delete',
-                                    type: "button",
+                                    type: 'button',
                                     width: '50%'
                                 };
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_0);
@@ -158,7 +158,7 @@
                                     position: 4,
                                     required: false,
                                     icon: 'delete',
-                                    type: "button",
+                                    type: 'button',
                                     width: '50%'
                                 };
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_1);
@@ -171,7 +171,7 @@
                                 position: 5,
                                 value: data.rows[j].values[8],
                                 required: false,
-                                type: "text",
+                                type: 'text',
                                 width: '100%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_4);
@@ -208,7 +208,7 @@
                 parameterValues: [{ key: '@PhoneId', value: this.formModalConfig.getControlValue('modal_phone' + phone + '_phoneId') }]
             };
             this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function () {
-                let event = new Event("click");
+                let event = new Event('click');
                 document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                 this.onLoadModalPhone();
                 this.onRecalcCardPhone();
@@ -223,37 +223,37 @@
             this.formModalConfig = form;
             if (this.kolvoPhonesForApplicant > 0) {
                 for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
-                    document.getElementById('modal_phone' + (u + 1) + '_phoneIsMain').addEventListener("click", function () {
+                    document.getElementById('modal_phone' + (u + 1) + '_phoneIsMain').addEventListener('click', function () {
                         this.formConfig.onChangeCardPhone(true);
                     }.bind(form));
                     if (document.getElementById('modal_phone' + (u + 1) + '_phoneDelete')) {
-                        document.getElementById('modal_phone' + (u + 1) + '_phoneDelete').addEventListener("click", function () {
+                        document.getElementById('modal_phone' + (u + 1) + '_phoneDelete').addEventListener('click', function () {
                             this.formConfig.onDeleteCardPhone(u + 1);
                         }.bind(form));
                     }
-                    let input = document.getElementById("modal_phone" + (u + 1) + "_phoneNumber");
-                    input.addEventListener("input", this.mask, false);
-                    input.addEventListener("focus", this.mask, false);
-                    input.addEventListener("blur", this.mask, false);
-                    input.addEventListener("change", this.mask, false);
+                    let input = document.getElementById('modal_phone' + (u + 1) + '_phoneNumber');
+                    input.addEventListener('input', this.mask, false);
+                    input.addEventListener('focus', this.mask, false);
+                    input.addEventListener('blur', this.mask, false);
+                    input.addEventListener('change', this.mask, false);
                 }
                 document.getElementById('phoneDelete_Disabled').disabled = true;
                 for (let u2 = 0; u2 < this.kolvoPhonesForApplicant; u2++) {
-                    document.getElementById("modal_phone" + (u2 + 1) + "_phoneNumber").focus();
+                    document.getElementById('modal_phone' + (u2 + 1) + '_phoneNumber').focus();
                 }
             }
             form.onControlValueChanged('modal_phone_NEW', this.onModalPhonesChanged);
             document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
             if (this.form.getControlValue('Applicant_Id')) {
-                document.getElementById('modal_phone_NEW_phoneDelete').addEventListener("click", function () {
+                document.getElementById('modal_phone_NEW_phoneDelete').addEventListener('click', function () {
                     const queryForGetValue_AddNewPhone = {
                         queryCode: 'ApplicantPhonesAdd',
                         parameterValues: [{ key: '@Applicant_id', value: this.formConfig.form.getControlValue('Applicant_Id') }, { key: '@TypePhone', value: this.getControlValue('modal_phone_NEW_phoneType') }, { key: '@Phone', value: this.getControlValue('modal_phone_NEW') }, { key: '@IsMain', value: this.getControlValue('modal_phone_NEW_phoneIsMain') }]
                     };
                     this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function (data) {
-                        if (data.rows[0].values[0] == "OK") {
+                        if (data.rows[0].values[0] == 'OK') {
                             this.setControlValue('modal_phone_NEW', null);
-                            let event = new Event("click");
+                            let event = new Event('click');
                             document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                             this.formConfig.onLoadModalPhone();
                             this.formConfig.onRecalcCardPhone();
@@ -267,14 +267,14 @@
                         }
                     }.bind(this));
                 }.bind(form));
-                let input3 = document.getElementById("modal_phone_NEW");
-                input3.addEventListener("input", this.mask, false);
-                input3.addEventListener("focus", this.mask, false);
-                input3.addEventListener("blur", this.mask, false);
-                input3.addEventListener("change", this.mask, false);
+                let input3 = document.getElementById('modal_phone_NEW');
+                input3.addEventListener('input', this.mask, false);
+                input3.addEventListener('focus', this.mask, false);
+                input3.addEventListener('blur', this.mask, false);
+                input3.addEventListener('change', this.mask, false);
                 document.getElementById('modal_phone_NEW').focus();
                 document.getElementById('modal_phone_NEW_phoneDelete').focus();
-                document.getElementById('modal_phone_NEWIcon').addEventListener("click", function () {
+                document.getElementById('modal_phone_NEWIcon').addEventListener('click', function () {
                     this.setControlValue('modal_phone_NEW', this.formConfig.form.getControlValue('Phone'));
                     document.getElementById('modal_phone_NEW').focus();
                     document.getElementById('modal_phone_NEW_phoneDelete').focus();
@@ -316,7 +316,7 @@
             }
         },
         init: function () {
-            if (this.state == "create") {
+            if (this.state == 'create') {
                 let getDataFromLink = window
                     .location
                     .search
@@ -330,10 +330,10 @@
                         }, {}
                     );
                 let uglId;
-                if (getDataFromLink["uglId"] == undefined) {
+                if (getDataFromLink['uglId'] == undefined) {
                     uglId = 'невідомо';
                 } else {
-                    uglId = getDataFromLink["uglId"]
+                    uglId = getDataFromLink['uglId']
                 }
                 const queryForGetUGLAppeal = {
                     queryCode: 'CreateAppeal_FromUGL',
@@ -350,7 +350,7 @@
             } else {
                 this.form.setControlValue('AppealId', this.id);
                 this.form.setControlValue('ReceiptSources', { key: 3, value: 'УГЛ' });
-                document.getElementById('CardPhone').addEventListener("click", function () {
+                document.getElementById('CardPhone').addEventListener('click', function () {
                     this.onLoadModalPhone();
                 }.bind(this));
                 document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
@@ -419,7 +419,7 @@
                     this.details.loadData('Detail_UGL_Aplicant', parameters);
                 });
                 this.details.onCellClick('Detail_UGL_Aplicant', this.getApplicantInfo.bind(this));
-                document.getElementById('Applicant_Btn_Add').addEventListener("click", function () {
+                document.getElementById('Applicant_Btn_Add').addEventListener('click', function () {
                     let entrance = this.form.getControlValue('Applicant_Entrance');
                     if (entrance != null && entrance < 1) {
                         this.openPopUpInfoDialog('Номер під`їзду не може бути менше 1');
@@ -526,7 +526,7 @@
                         });
                     }
                 }.bind(this));
-                document.getElementById('Applicant_Btn_Clear').addEventListener("click", function () {
+                document.getElementById('Applicant_Btn_Clear').addEventListener('click', function () {
                     this.form.setControlValue('Applicant_Id', null);
                     this.form.setControlValue('Applicant_PIB', null);
                     this.form.setControlValue('Applicant_District', null);
@@ -544,7 +544,7 @@
                     this.form.setControlValue('Applicant_Email', null);
                     this.form.setControlValue('Applicant_Comment', null);
                 }.bind(this));
-                document.getElementById('Question_Aplicant_Btn_Add').addEventListener("click", function () {
+                document.getElementById('Question_Aplicant_Btn_Add').addEventListener('click', function () {
                     let build = this.form.getControlValue('Applicant_Building');
                     this.getBuildingInfo(build);
                     this.form.setGroupVisibility('UGL_Group_CreateQuestion', true);
@@ -564,7 +564,7 @@
                     });
                 }.bind(this));
             }
-            document.getElementById('Question_Btn_Add').addEventListener("click", function () {
+            document.getElementById('Question_Btn_Add').addEventListener('click', function () {
                 const queryForGetValue3 = {
                     queryCode: 'Question_UGL_InsertRow',
                     parameterValues: [
@@ -673,15 +673,15 @@
                     });
                 });
                 this.form.setControlValue('Question_Organization', {});
-                this.form.setControlValue('Question_Content', "");
+                this.form.setControlValue('Question_Content', '');
                 this.form.setControlValue('Question_TypeId', {});
                 this.form.setControlValue('Question_OrganizationId', {});
-                this.form.setControlValue('Question_ControlDate', "");
+                this.form.setControlValue('Question_ControlDate', '');
                 this.form.setControlValue('Question_EventId', null);
             }.bind(this));
             this.form.onControlValueChanged('Search_Appeals_Input', this.onChanged_Search_Appeals_Input.bind(this));
             document.getElementById('Search_Appeals_Search').disabled = true;
-            document.getElementById('Search_Appeals_Search').addEventListener("click", function () {
+            document.getElementById('Search_Appeals_Search').addEventListener('click', function () {
                 const parameters = [
                     { key: '@AppealRegistrationNumber', value: this.form.getControlValue('Search_Appeals_Input') }
                 ];
@@ -926,7 +926,7 @@
         },
         onChanged_Question_TypeId: function () {
             let questionType = this.form.getControlValue('Question_TypeId');
-            if (questionType === "" || questionType === undefined || questionType === null) {
+            if (questionType === '' || questionType === undefined || questionType === null) {
                 this.form.setControlValue('Question_Organization', { key: null, value: null });
                 this.form.setControlValue('flat', null);
                 this.form.setControlValue('entrance', null);
@@ -1007,7 +1007,7 @@
                         ||
                         ((questionOrg === undefined) || (questionOrg === null))
                         ||
-                        ((questionContent === "") || (questionContent === null))
+                        ((questionContent === '') || (questionContent === null))
                         ||
                         ((howToAnswer === undefined) || (howToAnswer === null))
                     ) {
@@ -1069,7 +1069,7 @@
             }
         },
         onChanged_Search_Appeals_Input: function (value) {
-            if (value == "") {
+            if (value == '') {
                 document.getElementById('Search_Appeals_Search').disabled = true;
             } else {
                 document.getElementById('Search_Appeals_Search').disabled = false;

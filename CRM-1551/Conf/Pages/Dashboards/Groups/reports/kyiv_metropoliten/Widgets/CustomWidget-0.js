@@ -66,7 +66,7 @@
                     this.dateFrom =  period.dateFrom;
                     this.dateTo = period.dateTo;
                 }
-                let subTitle = document.getElementById("subTitle");
+                let subTitle = document.getElementById('subTitle');
                 if(subTitle !== null){
                     subTitle.innerText = 'Статистична інформація за період з '+this.changeDateTimeValues(this.dateFrom)+'до '+this.changeDateTimeValues(this.dateTo)+' Виконавець: КП «Київський метрополітен»';
                 }

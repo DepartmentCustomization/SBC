@@ -138,11 +138,11 @@
             if(data.rows.length) {
                  for (let i = 0; i < data.columns.length; i++) {
                     const element = data.columns[i];
-                    const dataField = "Place_" + element.code;
+                    const dataField = 'Place_' + element.code;
                     const value = data.rows[0].values[i];
                     let objAvg = {
                         column: dataField,
-                        summaryType: "avg",
+                        summaryType: 'avg',
                         customizeText: function(data) {
                             return data.value.toFixed(2);
                         },
@@ -150,7 +150,7 @@
                     let obj = {
                         column: dataField,
                         name: dataField,
-                        summaryType: "custom"
+                        summaryType: 'custom'
                     }
                     this.results.push(value);
                     config.summary.totalItems.push(objAvg);

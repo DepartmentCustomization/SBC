@@ -21,9 +21,9 @@
         ,
         init: function() {
             const query = {
-                "queryCode": "ak_CSI_yesterday_indicator",
-                "limit": -1,
-                "parameterValues": []
+                'queryCode': 'ak_CSI_yesterday_indicator',
+                'limit': -1,
+                'parameterValues': []
             };
             this.queryExecutor(query, this.load, this);
             this.showPreloader = false;

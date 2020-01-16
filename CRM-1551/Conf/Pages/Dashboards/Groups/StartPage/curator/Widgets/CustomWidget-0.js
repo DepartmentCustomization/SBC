@@ -19,7 +19,7 @@
             this.column = [];
             this.navigator = [];
             const header1 = document.getElementById('header1');
-            header1.parentElement.style.flexFlow = "column nowrap";
+            header1.parentElement.style.flexFlow = 'column nowrap';
             header1.firstElementChild.style.overflow = 'visible';
             header1.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
             let status = 'new';
@@ -69,8 +69,8 @@
         },
         afterViewInit: function(){
             const container = document.getElementById('container');
-            const filtersContainerDepart =  this.createElement('div', { id: 'filtersContainerDepart', className: "filtersContainer"});
-            const filtersContainerDistrict =  this.createElement('div', { id: 'filtersContainerDistrict', className: "filtersContainer"});
+            const filtersContainerDepart =  this.createElement('div', { id: 'filtersContainerDepart', className: 'filtersContainer'});
+            const filtersContainerDistrict =  this.createElement('div', { id: 'filtersContainerDistrict', className: 'filtersContainer'});
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper', className: 'tabsWrapper'});
             const filtersWrapper = this.createElement('div', { id: 'filtersWrapper', className: 'filtersWrapper'});
             const filtersInfo = this.createElement('div', { id: 'filtersInfo', className: 'filtersInfo'});
@@ -101,7 +101,7 @@
             const techBox__icon = this.createElement('div', { id: 'techBox__icon', className:'material-icons', innerText:'help' });
             const techBox = this.createElement('div', { id: 'techWrapper' }, techBox__icon);
             const techInfoCont = this.createElement('div', { id: 'techInfoCont', className: 'techInfoCont'}, techBox);
-            let tabsWrapper = document.getElementById("tabsWrapper");
+            let tabsWrapper = document.getElementById('tabsWrapper');
             tabsWrapper.appendChild(tabsContainer);
             tabsWrapper.appendChild(techInfoCont);
             techBox__icon.addEventListener('click', event => {
@@ -150,12 +150,12 @@
         createFilterAddBox: function(){
             let filtersCaptionBox =  this.createElement('div', { id: 'filtersCaptionBox' });
             const modalWindowContainer =  this.createElement('div', { id: 'modalWindowContainer' });
-            const filterEditDistrict__title =  this.createElement('div', {  className: "filterEditDistrict__title", innerText: 'Район'});
-            const filterEditDistrict__icon =  this.createElement('div', {  className: "material-icons filterEditDistrict__icon", innerText: 'add_circle_outline'});
+            const filterEditDistrict__title =  this.createElement('div', {  className: 'filterEditDistrict__title', innerText: 'Район'});
+            const filterEditDistrict__icon =  this.createElement('div', {  className: 'material-icons filterEditDistrict__icon', innerText: 'add_circle_outline'});
             const filterDistrictAddWrap =  this.createElement('div', { className: 'filterDistrictAddWrap filterWrap'}, filterEditDistrict__icon, filterEditDistrict__title );
-            const filterEditDepart__title =  this.createElement('div', {  className: "filterEditDistrict__title", innerText: 'Департамент'});
-            const filterEditDepart__icon =  this.createElement('div', {  className: "material-icons filterEditDistrict__icon", innerText: 'add_circle_outline'});
-            const filterEditDepartAddWrap =  this.createElement('div', {  className: "filterEditDepartAddWrap filterWrap" }, filterEditDepart__icon, filterEditDepart__title);
+            const filterEditDepart__title =  this.createElement('div', {  className: 'filterEditDistrict__title', innerText: 'Департамент'});
+            const filterEditDepart__icon =  this.createElement('div', {  className: 'material-icons filterEditDistrict__icon', innerText: 'add_circle_outline'});
+            const filterEditDepartAddWrap =  this.createElement('div', {  className: 'filterEditDepartAddWrap filterWrap' }, filterEditDepart__icon, filterEditDepart__title);
             filterDistrictAddWrap.addEventListener('click', function (){
                 if(!modalWindowContainer.classList.contains('modalWindowShowClass')) {
                     let location = 'district';
@@ -170,13 +170,13 @@
             }.bind(this, modalWindowContainer));
             filtersCaptionBox.appendChild(filterDistrictAddWrap);
             filtersCaptionBox.appendChild(filterEditDepartAddWrap);
-            let filtersWrapper = document.getElementById("filtersWrapper");
+            let filtersWrapper = document.getElementById('filtersWrapper');
             filtersWrapper.appendChild(filtersCaptionBox);
             filtersWrapper.appendChild(modalWindowContainer);
         },
         createSearchInput: function(filtersWrapper){
-            const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: "searchContainer__input"});
-            const searchContainer = this.createElement('div', {id: 'searchContainer', className: "searchContainer"}, searchContainer__input);
+            const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
+            const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
             filtersWrapper.appendChild(searchContainer);
             searchContainer__input.addEventListener('input', () =>  {
                 if(searchContainer__input.value.length == 0 ){
@@ -230,9 +230,9 @@
             for (let i = 0; i < data.length; i++){
                 let row = data[i];
                 let filter_closer = this.createElement('div', { className: 'filter_closer filter_closer_district filter_closer_hide'});
-                let filter__icon = this.createElement('div', { className: " filterIcon material-icons", innerText: 'filter_list'});
-                let filter__title = this.createElement('div', {  className: "filterTitle", innerText: ''+row.filterName+''});
-                let filterWrapper  =  this.createElement('div', { id: ''+row.id+'', district_id: ''+row.districtId+'', question_id: ''+row.questDirectId+'', className: "filter_district filter"}, filter__icon, filter__title, filter_closer);
+                let filter__icon = this.createElement('div', { className: ' filterIcon material-icons', innerText: 'filter_list'});
+                let filter__title = this.createElement('div', {  className: 'filterTitle', innerText: ''+row.filterName+''});
+                let filterWrapper  =  this.createElement('div', { id: ''+row.id+'', district_id: ''+row.districtId+'', question_id: ''+row.questDirectId+'', className: 'filter_district filter'}, filter__icon, filter__title, filter_closer);
                 let filtersContainerDistrict = document.getElementById('filtersContainerDistrict');
                 filtersContainerDistrict.appendChild(filterWrapper);
             }
@@ -311,10 +311,10 @@
             for (let i = 0; i < data.length; i++){
                 let row = data[i];
                 let filter_closer = this.createElement('div', { className: 'filter_closer filter_closer_depart filter_closer_hide'});
-                let filter__icon = this.createElement('div', { className: " filterIcon material-icons", innerText: 'filter_list'});
-                let filter__title = this.createElement('div', {  className: "filterTitle", innerText: ''+row.departamentName+''});
-                let filterWrapper  =  this.createElement('div', { id: ''+row.id+'',  question_id: ''+row.organizationId+'', className: "filter_depart filter"}, filter__icon, filter__title, filter_closer);
-                let filtersContainerDepart = document.getElementById("filtersContainerDepart");
+                let filter__icon = this.createElement('div', { className: ' filterIcon material-icons', innerText: 'filter_list'});
+                let filter__title = this.createElement('div', {  className: 'filterTitle', innerText: ''+row.departamentName+''});
+                let filterWrapper  =  this.createElement('div', { id: ''+row.id+'',  question_id: ''+row.organizationId+'', className: 'filter_depart filter'}, filter__icon, filter__title, filter_closer);
+                let filtersContainerDepart = document.getElementById('filtersContainerDepart');
                 filtersContainerDepart.appendChild(filterWrapper);
             }
             this.changeFilterItemDepart();
@@ -488,10 +488,10 @@
                 data.forEach( el => {
                     let districtId = el.districtId;
                     let categorieId = el.questDirectId;
-                    let categorieItemSelect  =  this.createElement('select', { className: "categorieItemSelect selectItem js-example-basic-single"});
-                    let categorieItem  =  this.createElement('div', { className: "districtItem"}, categorieItemSelect);
-                    let districtItemSelect  =  this.createElement('select', { className: "districtItemSelect selectItem  js-example-basic-single"});
-                    let districtItem  =  this.createElement('div', { className: "districtItem"}, districtItemSelect);
+                    let categorieItemSelect  =  this.createElement('select', { className: 'categorieItemSelect selectItem js-example-basic-single'});
+                    let categorieItem  =  this.createElement('div', { className: 'districtItem'}, categorieItemSelect);
+                    let districtItemSelect  =  this.createElement('select', { className: 'districtItemSelect selectItem  js-example-basic-single'});
+                    let districtItem  =  this.createElement('div', { className: 'districtItem'}, districtItemSelect);
                     const modalFiltersContainerItem__categorie =  this.createElement('div', { className: 'modalFiltersContainer__categorie'}, categorieItem);
                     const modalFiltersContainerItem__district =  this.createElement('div', { className: 'modalFiltersContainer__district'}, districtItem);
                     const modalFiltersContainerItem =  this.createElement('div', { className: 'modalFiltersContainerItem'}, modalFiltersContainerItem__district, modalFiltersContainerItem__categorie);
@@ -502,10 +502,10 @@
                     this.createFilterDistrict( districtId, districtItemSelect,  this.districtNameCategories );
                     this.createFilterCategories( categorieId, categorieItemSelect,  this.questionTypeCategories );
                 });
-                let categorieNewItemSelect  =  this.createElement('select', {id: 'categorieNewItemSelect',  className: "categorieItemSelect selectItem js-example-basic-single js-example-placeholder-categorie"});
-                let categorieNewItem  =  this.createElement('div', { className: "districtItem"}, categorieNewItemSelect);
-                let districtNewItemSelect  =  this.createElement('select', { id: 'districtNewItemSelect', className: "districtItemSelect selectItem  js-example-basic-single js-example-placeholder-district"});
-                let districtNewItem  =  this.createElement('div', { className: "districtItem"}, districtNewItemSelect);
+                let categorieNewItemSelect  =  this.createElement('select', {id: 'categorieNewItemSelect',  className: 'categorieItemSelect selectItem js-example-basic-single js-example-placeholder-categorie'});
+                let categorieNewItem  =  this.createElement('div', { className: 'districtItem'}, categorieNewItemSelect);
+                let districtNewItemSelect  =  this.createElement('select', { id: 'districtNewItemSelect', className: 'districtItemSelect selectItem  js-example-basic-single js-example-placeholder-district'});
+                let districtNewItem  =  this.createElement('div', { className: 'districtItem'}, districtNewItemSelect);
                 const modalFiltersContainerItemNew__categorie =  this.createElement('div', { className: 'modalFiltersContainer__categorie'}, categorieNewItem);
                 const modalFiltersContainerItemNew__district =  this.createElement('div', { className: 'modalFiltersContainer__district'}, districtNewItem);
                 const modalFiltersContainerItemNew =  this.createElement('div', { className: 'modalFiltersContainerItem'}, modalFiltersContainerItemNew__district, modalFiltersContainerItemNew__categorie);
@@ -515,8 +515,8 @@
             }else if( location === 'departament' ){
                 data.forEach( function (el){
                     let departamentId = el.organizationId;
-                    let departamentItemSelect  =  this.createElement('select', { className: "departamentItemSelect selectItem  js-example-basic-single"});
-                    let departamentItem  =  this.createElement('div', { className: "departamentItem"}, departamentItemSelect);
+                    let departamentItemSelect  =  this.createElement('select', { className: 'departamentItemSelect selectItem  js-example-basic-single'});
+                    let departamentItem  =  this.createElement('div', { className: 'departamentItem'}, departamentItemSelect);
                     const modalFiltersContainerItem__departament =  this.createElement('div', { className: 'modalFiltersContainer__depart'}, departamentItem);
                     const modalFiltersContainerItem =  this.createElement('div', { className: 'modalFiltersContainerItem'}, modalFiltersContainerItem__departament);
                     this.messageService.publish( { name: 'showPagePreloader'});
@@ -524,8 +524,8 @@
                     this.createFilterDepartment(departamentId, departamentItemSelect, this.departamentCategories);
                     this.showPreloader = false;
                 }.bind(this));
-                let departamentNewItemSelect  =  this.createElement('select', { id: 'departamentNewItemSelect', className: "departamentItemSelect selectItem  js-example-basic-single js-example-placeholder-departament"});
-                let departamentNewItem  =  this.createElement('div', { className: "departamentItem"}, departamentNewItemSelect);
+                let departamentNewItemSelect  =  this.createElement('select', { id: 'departamentNewItemSelect', className: 'departamentItemSelect selectItem  js-example-basic-single js-example-placeholder-departament'});
+                let departamentNewItem  =  this.createElement('div', { className: 'departamentItem'}, departamentNewItemSelect);
                 const modalFiltersContainerItemNew__departament =  this.createElement('div', { className: 'modalFiltersContainer__depart'}, departamentNewItem);
                 const modalFiltersContainerItemNew =  this.createElement('div', { className: 'modalFiltersContainerItem'}, modalFiltersContainerItemNew__departament);
                 modalFiltersContainer.appendChild(modalFiltersContainerItemNew);
@@ -534,7 +534,7 @@
         },
         createFilterDistrict: function(districtId, districtItemSelect, data){
             data.forEach( el =>  {
-                let districtItemSelect__option =  this.createElement('option', {innerText: el.filterName, value: el.id, className: "districtItemSelect__option"});
+                let districtItemSelect__option =  this.createElement('option', {innerText: el.filterName, value: el.id, className: 'districtItemSelect__option'});
                 if( districtId === el.id ){
                     districtItemSelect__option.selected = true;
                 }
@@ -543,7 +543,7 @@
         },
         createFilterCategories: function(categorieId, categorieItemSelect, data){
             data.forEach( el => {
-                let categorieItemSelect__option =  this.createElement('option', {innerText: el.questionTypeName, value: el.id, className: "districtItemSelect__option"});
+                let categorieItemSelect__option =  this.createElement('option', {innerText: el.questionTypeName, value: el.id, className: 'districtItemSelect__option'});
                 if( categorieId === el.id ){
                     categorieItemSelect__option.selected = true;
                 }
@@ -552,7 +552,7 @@
         },
         createFilterDepartment: function(departamentId, departamentItemSelect, data){
             data.forEach( el => {
-                let departamentItemSelect__option =  this.createElement('option', {innerText: el.departamentName, value: el.id, className: "districtItemSelect__option"});
+                let departamentItemSelect__option =  this.createElement('option', {innerText: el.departamentName, value: el.id, className: 'districtItemSelect__option'});
                 if( departamentId === el.id ){
                     departamentItemSelect__option.selected = true;
                 }
@@ -560,10 +560,10 @@
             });
         },
         createNewFilterDepartament: function( departamentNewItemSelect, location,  data){
-            let districtItemSelect__optionEmpty =  this.createElement('option', { className: "districtItemSelect__option"});
+            let districtItemSelect__optionEmpty =  this.createElement('option', { className: 'districtItemSelect__option'});
             departamentNewItemSelect.appendChild(districtItemSelect__optionEmpty)
             data.forEach( function (el){
-                let districtItemSelect__option =  this.createElement('option', {innerText: el.departamentName, value: el.id, className: "districtItemSelect__option"});
+                let districtItemSelect__option =  this.createElement('option', {innerText: el.departamentName, value: el.id, className: 'districtItemSelect__option'});
                 departamentNewItemSelect.appendChild(districtItemSelect__option);
             }.bind(this));
             this.createOptions();
@@ -578,10 +578,10 @@
             }.bind(this));
         },
         createNewFilterDistrict: function( districtNewItemSelect, location,  data){
-            let districtItemSelect__optionEmpty =  this.createElement('option', { className: "districtItemSelect__option"});
+            let districtItemSelect__optionEmpty =  this.createElement('option', { className: 'districtItemSelect__option'});
             districtNewItemSelect.appendChild(districtItemSelect__optionEmpty)
             data.forEach( function (el){
-                let districtItemSelect__option =  this.createElement('option', {innerText: el.filterName, value: el.id, className: "districtItemSelect__option"});
+                let districtItemSelect__option =  this.createElement('option', {innerText: el.filterName, value: el.id, className: 'districtItemSelect__option'});
                 districtNewItemSelect.appendChild(districtItemSelect__option);
             }.bind(this));
             this.createOptions();
@@ -596,10 +596,10 @@
             }.bind(this));
         },
         createNewFilterCategories: function( categorieNewItemSelect, location, data){
-            let categorieItemSelect__optionEmpty =  this.createElement('option', { className: "districtItemSelect__option"});
+            let categorieItemSelect__optionEmpty =  this.createElement('option', { className: 'districtItemSelect__option'});
             categorieNewItemSelect.appendChild(categorieItemSelect__optionEmpty)
             data.forEach( function (el){
-                let categorieItemSelect__option =  this.createElement('option', {innerText: el.questionTypeName, value: el.id, className: "districtItemSelect__option"});
+                let categorieItemSelect__option =  this.createElement('option', {innerText: el.questionTypeName, value: el.id, className: 'districtItemSelect__option'});
                 categorieNewItemSelect.appendChild(categorieItemSelect__option);
             }.bind(this));
             this.createOptions();
@@ -762,7 +762,7 @@
         },
         columnName: function(target){
             let column = '';
-            if( target.code == "rozyasneno"){
+            if( target.code == 'rozyasneno'){
                 column = 'Роз`яcнено'
             }else if( target.code == 'neVKompetentsii'){
                 column = 'Не в компетенції'
@@ -804,7 +804,7 @@
                     if( target.id != header.id ){
                         header.firstElementChild.classList.remove('triangle'+(i+2)+'');
                         header.firstElementChild.classList.add('triangle');
-                        header.style.backgroundColor = "#d3d3d3";
+                        header.style.backgroundColor = '#d3d3d3';
                         header.classList.add('check');
                     }
                 }
@@ -834,16 +834,16 @@
         createOptions: function() {
             $(document).ready(function() {
                 $('.js-example-basic-single').select2();
-                $(".js-example-placeholder-district").select2({
-                    placeholder: "Обрати район",
+                $('.js-example-placeholder-district').select2({
+                    placeholder: 'Обрати район',
                     allowClear: true
                 });
-                $(".js-example-placeholder-categorie").select2({
-                    placeholder: "Обрати напрямок робiт",
+                $('.js-example-placeholder-categorie').select2({
+                    placeholder: 'Обрати напрямок робiт',
                     allowClear: true
                 });
-                $(".js-example-placeholder-departament").select2({
-                    placeholder: "Обрати департамент",
+                $('.js-example-placeholder-departament').select2({
+                    placeholder: 'Обрати департамент',
                     allowClear: true
                 });
             });

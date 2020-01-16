@@ -53,16 +53,16 @@
       },
       executeQuery: function () {
         const query = {
-          "queryCode": "db_Report_8_1",
-          "limit": -1,
-          "parameterValues": [
+          'queryCode': 'db_Report_8_1',
+          'limit': -1,
+          'parameterValues': [
             {
-              "key": "@dateFrom",
-              "value": this.dateFrom
+              'key': '@dateFrom',
+              'value': this.dateFrom
             },
             {
-              "key": "@dateTo",
-              "value": this.dateTo
+              'key': '@dateTo',
+              'value': this.dateTo
             }
           ]
         };

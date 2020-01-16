@@ -39,8 +39,8 @@
                         paginate: true,
                         store: this.elements,
                     },
-                    valueExpr: "ID",
-                    displayExpr: "Name"
+                    valueExpr: 'ID',
+                    displayExpr: 'Name'
                 }
             }
         ],
@@ -58,7 +58,7 @@
         },
         filterRow: {
             visible: true,
-            applyFilter: "auto"
+            applyFilter: 'auto'
         },
         export: {
             enabled: false,
@@ -82,10 +82,10 @@
             useIcons: true
         },
         sorting: {
-            mode: "multiple"
+            mode: 'multiple'
         },
         selection: {
-            mode: "multiple"
+            mode: 'multiple'
         },
         keyExpr: 'Id',
         focusedRowEnabled: true,
@@ -116,8 +116,8 @@
         this.config.onToolbarPreparing = this.createTableButton.bind(this);
         this.dataGridInstance.onCellClick.subscribe(e => {
             if(e.column) {
-                if(e.column.dataField === "registration_number" && e.row !== undefined){
-                    window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/Assignments/edit/"+e.key+"");
+                if(e.column.dataField === 'registration_number' && e.row !== undefined){
+                    window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.key+'');
                 }
             }
         });
@@ -179,14 +179,14 @@
         if(currentEmployeeData.question_content == null){
             currentEmployeeData.question_content = '';
         }
-        let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ""+currentEmployeeData.adressZ+""});
-        let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: "Адреса заявника"});
+        let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ''+currentEmployeeData.adressZ+''});
+        let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: 'Адреса заявника'});
         let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
-        let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ""+currentEmployeeData.question_content+""});
-        let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: "Зміст"});
+        let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ''+currentEmployeeData.question_content+''});
+        let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
         let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-        let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ""+currentEmployeeData.short_answer+""});
-        let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: "Коментар виконавця"});
+        let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ''+currentEmployeeData.short_answer+''});
+        let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
         let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
         let elementsWrapper  = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
         container.appendChild(elementsWrapper);
@@ -207,8 +207,8 @@
         for(let i = 0; i < data.rows.length; i++){
             let el = data.rows[i];
             let obj = {
-                "ID": el.values[0],
-                "Name": el.values[1],
+                'ID': el.values[0],
+                'Name': el.values[1],
             }
             this.elements.push(obj);
         }
@@ -230,17 +230,17 @@
     createTableButton: function(e) {
         let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push({
-            widget: "dxButton",
+            widget: 'dxButton',
             options: {
-                icon: "upload",
-                type: "default",
-                text: "Передати",
+                icon: 'upload',
+                type: 'default',
+                text: 'Передати',
                 onClick: function(e) {
                     e.event.stopImmediatePropagation();
                     this.findAllRowsNeVKompetentсii();
                 }.bind(this)
             },
-            location: "after"
+            location: 'after'
         });
     },
     exportToExcel: function(){

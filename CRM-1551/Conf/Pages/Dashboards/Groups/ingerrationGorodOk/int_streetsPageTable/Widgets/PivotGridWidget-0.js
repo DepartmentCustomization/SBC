@@ -36,8 +36,8 @@
                         paginate: true,
                         store: this.elements
                     },
-                    displayExpr: "streets",
-                    valueExpr: "Id"
+                    displayExpr: 'streets',
+                    valueExpr: 'Id'
                 }
             },{
                 dataField: 'is_done',
@@ -68,7 +68,7 @@
         },
         filterRow: {
             visible: false,
-            applyFilter: "auto"
+            applyFilter: 'auto'
         },
         height: '750',
         keyExpr: 'Id',
@@ -138,8 +138,8 @@
         for(let i = 0; i < data.rows.length; i++){
             let el = data.rows[i];
             let obj = {
-                "Id": el.values[0],
-                "streets": el.values[1],
+                'Id': el.values[0],
+                'streets': el.values[1],
             }
             this.elements.push(obj);
         }

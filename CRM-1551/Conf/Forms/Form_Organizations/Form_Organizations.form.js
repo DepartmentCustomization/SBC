@@ -12,7 +12,7 @@
         icon.addEventListener('click', function() {
           let phone_number = document.getElementById('phone_number');
           let xhr = new XMLHttpRequest();
-          xhr.open('GET', `http://172.16.0.197:5566/CallService/Call/number=` + phone_number.value + `&operator=699`);
+          xhr.open('GET', 'http://172.16.0.197:5566/CallService/Call/number=' + phone_number.value + '&operator=699');
           xhr.send();
         });
     }

@@ -11,7 +11,7 @@
     container: {},
     afterViewInit: function() {
         this.container = document.getElementById('container');
-        let fileInput  =  this.createElement('input', { type: 'file', className: 'inputfile', id: 'fileInput', accept: ".csv"});
+        let fileInput  =  this.createElement('input', { type: 'file', className: 'inputfile', id: 'fileInput', accept: '.csv'});
         let fileLabel__triangle  = this.createElement('div', {className: 'triangle fileLabel__triangle' });
         let fileLabelText = this.createElement('div', { id: 'fileChooserText', className: 'btn', innerText: '1. Обрати файл'});
         let fileLabel = this.createElement('label', { id: 'fileLabel', htmlFor: 'fileInput' }, fileLabelText, fileLabel__triangle);
@@ -30,14 +30,14 @@
         btnImportFile.addEventListener('click', () => {
             let fileInput = document.getElementById('fileInput');
             if (fileInput.files.length > 0) {
-                this.showPagePreloader("Зачекайте, файл завантажується");
+                this.showPagePreloader('Зачекайте, файл завантажується');
                 let files = fileInput.files;
                 let file = files[0];
                 let data = new FormData();
-                data.append("file", file);
-                data.append("configuration", "{\n   \"HasHeaderRecord\":true,\n   \"EncodingName\":\"windows-1251\",\n   \"Delimiter\":\";\",\n   \"Quote\":\"\\\"\",\n   \"MaxAllowedErrors\":0\n}");
+                data.append('file', file);
+                data.append('configuration', '{\n   "HasHeaderRecord":true,\n   "EncodingName":"windows-1251",\n   "Delimiter":";",\n   "Quote":"\\"",\n   "MaxAllowedErrors":0\n}');
                 let xhr = new XMLHttpRequest();
-                xhr.addEventListener("readystatechange", () => {
+                xhr.addEventListener('readystatechange', () => {
                     if (xhr.readyState === 4) {
                         let json = xhr.responseText;
                         let response = JSON.parse(json);
@@ -60,9 +60,9 @@
                     }
                 });
                 let url = window.location.origin + '/api/section/Appeals_UGL/import/csv';
-                xhr.open("POST", url );
+                xhr.open('POST', url );
                 let token = localStorage.getItem('X-Auth-Token');
-                xhr.setRequestHeader("Authorization", 'Bearer ' + token );
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token );
                 xhr.send(data);
             }
         });

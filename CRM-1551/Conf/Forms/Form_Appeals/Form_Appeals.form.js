@@ -15,9 +15,9 @@
         this.form.onControlValueChanged('phone_number', this.onAppealsChanged);
         this.onAppealsChanged(num);
         let icon = document.getElementById('applicant_idIcon');
-        icon.style.fontSize = "1.6rem";
-        icon.style.position = "relative";
-        icon.style.bottom = "0.3em";
+        icon.style.fontSize = '1.6rem';
+        icon.style.position = 'relative';
+        icon.style.bottom = '0.3em';
         this.form.onControlValueChanged('applicant_id', this.testDetail);
     },
     testDetail: function(){

@@ -37,7 +37,7 @@
         });
     },
     setData: function(message){
-        document.querySelectorAll('#title').forEach( title => title.style.textAlign = "center");
+        document.querySelectorAll('#title').forEach( title => title.style.textAlign = 'center');
         if( message.rep1_data){
             this.rep1_data =  message.rep1_data;
             this.rep1_title =  message.rep1_title;

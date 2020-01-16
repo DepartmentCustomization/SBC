@@ -26,10 +26,10 @@
         summary: {
             totalItems: [
                 {
-                    column: "questionQty",
-                    summaryType: "sum",
+                    column: 'questionQty',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                        return "Разом: " + data.value;
+                        return 'Разом: ' + data.value;
                     }
                 }
             ]
@@ -40,7 +40,7 @@
         },
         filterRow: {
             visible: true,
-            applyFilter: "auto"
+            applyFilter: 'auto'
         },
         showBorders: false,
         showColumnLines: false,
@@ -72,12 +72,12 @@
     createTableButton: function(e) {
         let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push({
-            widget: "dxButton",
-            location: "after",
+            widget: 'dxButton',
+            location: 'after',
             options: {
-                icon: "exportxlsx",
-                type: "default",
-                text: "Excel",
+                icon: 'exportxlsx',
+                type: 'default',
+                text: 'Excel',
                 onClick: function(e) {
                     e.event.stopImmediatePropagation();
                     let exportQuery = {
@@ -95,12 +95,12 @@
             },
         });
         toolbarItems.push({
-            widget: "dxButton",
-            location: "after",
+            widget: 'dxButton',
+            location: 'after',
             options: {
-                icon: "arrowright",
-                type: "default",
-                text: "До класифікатору питань",
+                icon: 'arrowright',
+                type: 'default',
+                text: 'До класифікатору питань',
                 onClick: function(e) {
                     e.event.stopImmediatePropagation();
                     this.messageService.publish({ name: 'showClassifierQuestions',});

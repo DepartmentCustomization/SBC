@@ -5,7 +5,7 @@
         this.form.disableControl('edit_date');
         this.form.disableControl('user_edit_id');
         this.form.disableControl('qwerty');
-        document.getElementById("qwerty").style.backgroundColor="white";
+        document.getElementById('qwerty').style.backgroundColor='white';
         let btn_changeRule = document.getElementById('btn_changeRule');
         let that = this;
         btn_changeRule.addEventListener('click', function(){
@@ -28,8 +28,8 @@
                                  required: false,
                                  type: 'select',
                                  queryListCode: 'list_ExecutorRoleLevel',
-                                 listDisplayColumn: "name",
-                                 listKeyColumn: "Id"
+                                 listDisplayColumn: 'name',
+                                 listKeyColumn: 'Id'
                                 },
                                 {
                                  code: 'executor_role',
@@ -76,8 +76,8 @@
                                  required: false,
                                  type: 'select',
                                  queryListCode: 'list_ProcessingKind',
-                                 listDisplayColumn: "name",
-                                 listKeyColumn: "Id"
+                                 listDisplayColumn: 'name',
+                                 listKeyColumn: 'Id'
                                 }
                             ]
                         }]

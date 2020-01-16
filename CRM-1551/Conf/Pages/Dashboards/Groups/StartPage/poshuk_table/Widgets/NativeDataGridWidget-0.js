@@ -27,7 +27,7 @@
                     caption: 'Квартира'
                 }, {
                     dataField: 'question_object',
-                    caption: "Об'єкт"
+                    caption: 'Об\'єкт'
                 }, {
                     dataField: 'assigm_executor_organization',
                     caption: 'Виконавець'
@@ -40,7 +40,7 @@
             ],
             focusedRowEnabled: true,
             allowColumnResizing: true,
-            columnResizingMode: "widget",
+            columnResizingMode: 'widget',
             columnMinWidth: 50,
             columnAutoWidth: true,
             hoverStateEnabled: true,
@@ -52,7 +52,7 @@
                 pageSize: 50
             },
             sorting: {
-                mode: "multiple"
+                mode: 'multiple'
             },
             showBorders: false,
             showColumnLines: false,
@@ -62,30 +62,30 @@
         createButtons: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton",
+                widget: 'dxButton',
                 options: {
-                    icon: "exportxlsx",
-                    type: "default",
-                    text: "Excel",
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.exportToExcel();
                     }.bind(this)
                 },
-                location: "after"
+                location: 'after'
             });
             toolbarItems.push({
-                widget: "dxButton",
+                widget: 'dxButton',
                 options: {
-                    icon: "preferences",
-                    type: "default",
-                    text: "Налаштування фiльтрiв",
+                    icon: 'preferences',
+                    type: 'default',
+                    text: 'Налаштування фiльтрiв',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         this.messageService.publish( { name: 'clickOnFiltersBtn'});
                     }.bind(this)
                 },
-                location: "after"
+                location: 'after'
             });
         },
         createElement: function(tag, props, ...children) {
@@ -108,8 +108,8 @@
             this.config.onToolbarPreparing = this.createButtons.bind(this);
             this.dataGridInstance.onCellClick.subscribe( function(e) {
                 if(e.column){
-                    if(e.column.dataField == "question_registration_number" && e.row != undefined){
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/Assignments/edit/"+e.data.Id+"");
+                    if(e.column.dataField == 'question_registration_number' && e.row != undefined){
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.data.Id+'');
                     }
                 }
             }.bind(this));
@@ -136,9 +136,9 @@
             filters.forEach( elem => {
                 if(elem.active === true) {
                     let data = elem.value;
-                    if(typeof(data) === "boolean"){
+                    if(typeof(data) === 'boolean'){
                         this.createObjMacros( elem.name, '=', 'true', elem.placeholder);
-                    }else if( typeof(data) === "object"){
+                    }else if( typeof(data) === 'object'){
                         if(data[0]){
                             if(typeof(data[0].value) === 'number' ){
                                 if(  elem.name === 'zayavnyk_age' ){
@@ -229,7 +229,7 @@
                                 }
                             }
                         }
-                    }else if( typeof(data) === "string"){
+                    }else if( typeof(data) === 'string'){
                         if(elem.name === 'zayavnyk_phone_number'){
                             this.applicantPhoneNumber = elem.value;
                             this.createObjMacros( elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue );
@@ -305,17 +305,17 @@
                 if( operation !== '>=' && operation !== '<=' ){
                     let textMacros = '';
                     if( operation == 'like' ){
-                        textMacros = ""+code+" "+operation+" '%"+value+"%' and";
+                        textMacros = ''+code+' '+operation+' \'%'+value+'%\' and';
                     }else if(  operation == '==='){
-                        textMacros = ""+value+" and";
+                        textMacros = ''+value+' and';
                     }else if(  operation == '=='){
-                        textMacros = ""+code+" "+'='+" "+value+" and";
+                        textMacros = ''+code+' '+'='+' '+value+' and';
                     }else if(  operation == '+""+'){
-                        textMacros = ""+code+" in  (N'"+value+"' and";
+                        textMacros = ''+code+' in  (N\''+value+'\' and';
                     }else if(  operation == 'in'){
-                        textMacros = ""+code+" in ("+value+") and";
+                        textMacros = ''+code+' in ('+value+') and';
                     }else if(  operation == '='){
-                        textMacros = ""+code+" "+operation+" N'"+value+"' and";
+                        textMacros = ''+code+' '+operation+' N\''+value+'\' and';
                     }
                     this.textFilterMacros.push(textMacros);
                 }
@@ -356,7 +356,7 @@
                     width: 60
                 }, {
                     dataField: 'question_object',
-                    caption: "Об'єкт",
+                    caption: 'Об\'єкт',
                     width: 250
                 }, {
                     dataField: 'assigm_executor_organization',
@@ -422,7 +422,7 @@
         },
         sendMsgForSetFilterPanelState: function(state) {
             const msg = {
-                name: "SetFilterPanelState",
+                name: 'SetFilterPanelState',
                 package: {
                     value: state
                 }

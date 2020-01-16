@@ -16,7 +16,7 @@
             }
         ],
         selection: {
-            mode: "single",
+            mode: 'single',
         },
         filterRow: {
             visible: true
@@ -32,11 +32,11 @@
     createTableButton: function(e) {
         let toolbarItems = e.toolbarOptions.items;
         toolbarItems.push({
-            widget: "dxButton",
-            location: "after",
+            widget: 'dxButton',
+            location: 'after',
             options: {
-                icon: "add",
-                type: "default",
+                icon: 'add',
+                type: 'default',
                 onClick: function(e) {
                     e.event.stopImmediatePropagation();
                     this.sendSelectItem();

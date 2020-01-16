@@ -31,14 +31,14 @@
             let tds = document.querySelectorAll('td');
             let tdsArr = Array.from(tds);
             tdsArr.forEach( td => {
-                td.style.whiteSpace = "pre-wrap";
+                td.style.whiteSpace = 'pre-wrap';
             });
             function setTdPreWrap(){
                 let noWrapTdCollection = document.querySelectorAll('.dx-datagrid-text-content');
                 let noWrapTdArr = Array.from(noWrapTdCollection);
                 noWrapTdArr.forEach( td => {
-                    td.style.whiteSpace = "pre-wrap";
-                    td.parentElement.style.verticalAlign = "middle";
+                    td.style.whiteSpace = 'pre-wrap';
+                    td.parentElement.style.verticalAlign = 'middle';
                 });
             }
             setTimeout(setTdPreWrap, 100);

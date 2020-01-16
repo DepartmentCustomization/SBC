@@ -54,16 +54,16 @@
         },
         executeQuery: function () {
             const query = {
-                "queryCode": "ak_CSI_graph1_3",
-                "limit": -1,
-                "parameterValues": [
+                'queryCode': 'ak_CSI_graph1_3',
+                'limit': -1,
+                'parameterValues': [
                     {
-                        "key": "@date_from",
-                        "value": this.dateFrom
+                        'key': '@date_from',
+                        'value': this.dateFrom
                     },
                     {
-                        "key": "@date_to",
-                        "value": this.dateTo
+                        'key': '@date_to',
+                        'value': this.dateTo
                     }
                 ]
             };

@@ -49,7 +49,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             height: '550',
             keyExpr: 'Id',
@@ -70,7 +70,7 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
             selection: {
-                mode: "multiple"
+                mode: 'multiple'
             }
         },
         init: function() {

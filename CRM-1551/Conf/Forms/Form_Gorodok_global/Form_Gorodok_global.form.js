@@ -6,7 +6,7 @@
             if (finish_date != null) {
                 document.getElementById('active_button').disabled = false;
             }
-            document.getElementById('active_button').addEventListener("click", function(event) {
+            document.getElementById('active_button').addEventListener('click', function(event) {
                 event.stopImmediatePropagation();
                 const Question_Close_callback = (response) => {
                     if (response) {

@@ -59,7 +59,7 @@
         },
         filterRow: {
             visible: false,
-            applyFilter: "auto"
+            applyFilter: 'auto'
         },
         height: '550',
         keyExpr: 'Id',

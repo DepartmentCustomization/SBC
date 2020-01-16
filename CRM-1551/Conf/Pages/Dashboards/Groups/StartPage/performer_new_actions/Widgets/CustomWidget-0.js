@@ -115,8 +115,8 @@
             headers.forEach( el => {
                 el.firstElementChild.classList.remove('triangle');
             });
-            document.getElementById('headerItem__overdue').style.backgroundColor = "rgb(74, 193, 197)";
-            document.getElementById('headerItem__notActive').style.backgroundColor = "rgb( 132, 199, 96 )";
+            document.getElementById('headerItem__overdue').style.backgroundColor = 'rgb(74, 193, 197)';
+            document.getElementById('headerItem__notActive').style.backgroundColor = 'rgb( 132, 199, 96 )';
             document.getElementById('headerItem__inWork').style.backgroundColor = 'rgb(173, 118, 205)';
             document.getElementById('headerItem__overdue').firstElementChild.classList.add('overdue_triangle');
             document.getElementById('headerItem__notActive').firstElementChild.classList.add('notActive_triangle');
@@ -133,7 +133,7 @@
             document.getElementById('eventWrapper').classList.remove('displayFlex');
             headers.forEach( function(target, header) {
                 if( target.id != header.id ){
-                    header.style.backgroundColor = "#d3d3d3";
+                    header.style.backgroundColor = '#d3d3d3';
                     header.classList.add('check');
                     header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
                     header.firstElementChild.classList.add('triangle');
@@ -219,8 +219,8 @@
         const headerItem__overdue    = this.createElement('div', { id: 'headerItem__overdue', value: 'Прострочені', className: 'headerItem overdue displayFlex', innerText: 'Прострочені'}, headerItem__overdue_triangle);
         const headerItem__notActive  = this.createElement('div', { id: 'headerItem__notActive', value: 'Не активні', className: 'headerItem notActive displayFlex', innerText: 'Не активні'}, headerItem__notActive_triangle);
         const headerItem__inWork     = this.createElement('div', { id: 'headerItem__inWork', value: 'В роботі', className: 'headerItem inWork displayFlex', innerText: 'В роботі'}, headerItem__inWork_triangle);
-        headerItem__overdue.style.backgroundColor = "rgb(74, 193, 197)";
-        headerItem__notActive.style.backgroundColor = "rgb( 132, 199, 96 )";
+        headerItem__overdue.style.backgroundColor = 'rgb(74, 193, 197)';
+        headerItem__notActive.style.backgroundColor = 'rgb( 132, 199, 96 )';
         headerItem__inWork.style.backgroundColor = 'rgb(173, 118, 205)';
         const headerItems = this.createElement('div', { id: 'headerItems', className: 'headerItems displayFlex'}, headerItem__overdue, headerItem__notActive, headerItem__inWork);
         const headerTitle = this.createElement('div', { id: 'headerTitle'});
@@ -234,7 +234,7 @@
         let btnWrapper = document.getElementById('btnWrapper');
         btnWrapper.appendChild(btnContainer);
         createNewEventBtn.addEventListener( 'click', () => {
-            window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/Events/add");
+            window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Events/add');
         });
     }
 };

@@ -13,7 +13,7 @@
         loadData: function() {
             document.querySelector('.filter-block').style.zIndex = '16';
             const msg = {
-                name: "SetFilterPanelState",
+                name: 'SetFilterPanelState',
                 package: {
                     value: false
                 }
@@ -49,31 +49,31 @@
             let indexQuestionResolution = values[0].findIndex(el => el.code.toLowerCase() === 'resolution');
             let indexQuestionResult = values[0].findIndex(el => el.code.toLowerCase() === 'result');
             const reportData = values.map((row, index) => ({
-                "Батькiвська 1 рiвень": values[index][indexOrgatization_Level_1],
-                "Батькiвська 2 рiвень": values[index][indexOrgatization_Level_2],
-                "Батькiвська 3 рiвень": values[index][indexOrgatization_Level_3],
-                "Батькiвська 4 рiвень": values[index][indexOrgatization_Level_4],
-                "Дата регистрации": values[index][indexRegistration_date],
-                "Дата виконання": values[index][indexVykon_date],
-                "Дата закриття": values[index][indexClose_date],
-                "Стан питання": values[index][indexQuestionState],
-                "Загальна кiлькiсть": values[index][indexCount],
-                "Кiлькость прострочено": values[index][indexСount_prostr],
-                "Виконавець": values[index][indexOrgExecutName],
-                "Шлях органiзацii. Варiант 1": values[index][indexOrgExecutLabelName],
-                "Шлях органiзацii. Варiант 2": values[index][indexOrgExecutLabelName2],
-                "Група органiзацiй": values[index][indexGroupOrganisations],
-                "Група типiв питань": values[index][indexGroupQuestionTypes],
-                "Джерело надходження": values[index][indexReceiptSources],
-                "Тип питання": values[index][indexQuestionTypeName],
-                "Стан питання. Зареєстровано": values[index][indexQuestionStateRegistered],
-                "Стан питання. В роботі": values[index][indexQuestionStateInWork],
-                "Стан питання. На перевірці": values[index][indexQuestionStateOnCheck],
-                "Стан питання. На доопрацюванні": values[index][indexQuestionStateOnRefinement],
-                "Стан питання. Закрито": values[index][indexQuestionStateClose],
-                "Об'єкт питання": values[index][indexQuestionObject],
-                "Резолюція": values[index][indexQuestionResolution],
-                "Результат": values[index][indexQuestionResult]
+                'Батькiвська 1 рiвень': values[index][indexOrgatization_Level_1],
+                'Батькiвська 2 рiвень': values[index][indexOrgatization_Level_2],
+                'Батькiвська 3 рiвень': values[index][indexOrgatization_Level_3],
+                'Батькiвська 4 рiвень': values[index][indexOrgatization_Level_4],
+                'Дата регистрации': values[index][indexRegistration_date],
+                'Дата виконання': values[index][indexVykon_date],
+                'Дата закриття': values[index][indexClose_date],
+                'Стан питання': values[index][indexQuestionState],
+                'Загальна кiлькiсть': values[index][indexCount],
+                'Кiлькость прострочено': values[index][indexСount_prostr],
+                'Виконавець': values[index][indexOrgExecutName],
+                'Шлях органiзацii. Варiант 1': values[index][indexOrgExecutLabelName],
+                'Шлях органiзацii. Варiант 2': values[index][indexOrgExecutLabelName2],
+                'Група органiзацiй': values[index][indexGroupOrganisations],
+                'Група типiв питань': values[index][indexGroupQuestionTypes],
+                'Джерело надходження': values[index][indexReceiptSources],
+                'Тип питання': values[index][indexQuestionTypeName],
+                'Стан питання. Зареєстровано': values[index][indexQuestionStateRegistered],
+                'Стан питання. В роботі': values[index][indexQuestionStateInWork],
+                'Стан питання. На перевірці': values[index][indexQuestionStateOnCheck],
+                'Стан питання. На доопрацюванні': values[index][indexQuestionStateOnRefinement],
+                'Стан питання. Закрито': values[index][indexQuestionStateClose],
+                'Об\'єкт питання': values[index][indexQuestionObject],
+                'Резолюція': values[index][indexQuestionResolution],
+                'Результат': values[index][indexQuestionResult]
             }));
             const report = {
                 dataSource: {
@@ -176,7 +176,7 @@
                 ],
                 filterColumns: [
                     {
-                        key: "QuestionTypeId",
+                        key: 'QuestionTypeId',
                         value: {
                                     operation: 0,
                                     not: false,
@@ -184,7 +184,7 @@
                                 }
                     },
                     {
-                        key: "Vykon_date",
+                        key: 'Vykon_date',
                         value: {
                                     operation: this.operationVykonDate,
                                     not: false,
@@ -192,7 +192,7 @@
                                 }
                     },
                     {
-                        key: "Close_date",
+                        key: 'Close_date',
                         value: {
                                     operation: this.operationCloseDate,
                                     not: false,

@@ -140,7 +140,7 @@
             masterDetail: null
         },
         sub1: {},
-        filter_month: "2018-12",
+        filter_month: '2018-12',
         init: function() {
             this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.chengeFilters, this);
             this.loadData();

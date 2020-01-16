@@ -65,8 +65,8 @@
                                 paginate: true,
                                 store: this.elements_dis
                             },
-                            displayExpr: "name",
-                            valueExpr: "Id"
+                            displayExpr: 'name',
+                            valueExpr: 'Id'
                         }
                     },{
                         dataField: 'id_1551',
@@ -80,8 +80,8 @@
                                     filter: options.data ? ['district_id', '=', options.data.district_id] : null
                                 }
                             },
-                            displayExpr: "name",
-                            valueExpr: "Id"
+                            displayExpr: 'name',
+                            valueExpr: 'Id'
                         }
                     }
                 ]
@@ -114,20 +114,20 @@
             useIcons: true,
             text: [
                 {
-                    editRow: "Editdfdsf",
-                    saveAllChanges: "Save changes 123",
-                    saveRowChanges: "Save",
+                    editRow: 'Editdfdsf',
+                    saveAllChanges: 'Save changes 123',
+                    saveRowChanges: 'Save',
                 }
             ]
         },
         onEditorPreparing: function(e) {
-            if(e.parentType === "dataRow" && e.dataField === 'id_1551') {
-                e.editorOptions.disabled = (typeof e.row.data.district_id !== "number");
+            if(e.parentType === 'dataRow' && e.dataField === 'id_1551') {
+                e.editorOptions.disabled = (typeof e.row.data.district_id !== 'number');
             }
         },
         filterRow: {
             visible: false,
-            applyFilter: "auto"
+            applyFilter: 'auto'
         },
         height: '550',
         keyExpr: 'Id',
@@ -149,12 +149,12 @@
         groupingAutoExpandAll: null,
         toolbarPreparing: function(data) {
             let indexSaveButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function (item) {
-                return item.name == "saveButton";
+                return item.name == 'saveButton';
             }));
             if (indexSaveButton != -1)
                 data.toolbarOptions.items.splice(indexSaveButton, 1);
             let indexRevertButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function (item) {
-                return item.name == "revertButton";
+                return item.name == 'revertButton';
             }));
             if (indexRevertButton != -1)
                 data.toolbarOptions.items.splice(indexRevertButton, 1);
@@ -222,8 +222,8 @@
         for(let i = 0; i < data.rows.length; i++){
             let el = data.rows[i];
             let obj = {
-                "Id": el.values[0],
-                "name": el.values[1],
+                'Id': el.values[0],
+                'name': el.values[1],
             }
             this.elements_dis.push(obj);
         }
@@ -235,9 +235,9 @@
         for(let i = 0; i < data.rows.length; i++){
             let el = data.rows[i];
             let obj = {
-                "Id": el.values[0],
-                "name": el.values[1],
-                "district_id": el.values[2]
+                'Id': el.values[0],
+                'name': el.values[1],
+                'district_id': el.values[2]
             }
             this.elements.push(obj);
         }
