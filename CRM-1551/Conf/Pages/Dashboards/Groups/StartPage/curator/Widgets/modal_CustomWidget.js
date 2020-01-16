@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
@@ -13,7 +13,7 @@
         init: function() {
             this.sub = this.messageService.subscribe('showModalWindow', this.showModalWindow, this);
         },
-        showModalWindow: function (message) {
+        showModalWindow: function(message) {
             if (message.length > 50) {
                 let CONTAINER = document.getElementById('container');
                 const modalBtnFalse = this.createElement('button', { id:'modalBtnFalse', className: 'btn', innerText: 'Нi'});
@@ -35,7 +35,7 @@
                 this.executeQuery(message);
             }
         },
-        executeQuery: function (message) {
+        executeQuery: function(message) {
             const query = {
                 queryCode: message.query,
                 parameterValues: [ {key: '@Ids', value: message.sendRows} ],
@@ -46,7 +46,7 @@
             this.messageService.publish({ name: 'renderAfterCloseModal' });
             this.sendMessageToReloadMainTable(message);
         },
-        sendMessageToReloadMainTable: function (message) {
+        sendMessageToReloadMainTable: function(message) {
             const name = 'reloadMainTable';
             const navigation = message.self.navigation;
             const column = message.self.column;
@@ -62,7 +62,7 @@
                 });
             } return element;
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

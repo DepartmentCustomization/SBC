@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -107,10 +107,10 @@
                 }
             });
         },
-        afterRenderTable: function () {
+        afterRenderTable: function() {
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
         },
-        renderAfterCloseModal: function () {
+        renderAfterCloseModal: function() {
             this.loadData(this.afterLoadDataHandler);
         },
         changeOnTable: function(message) {

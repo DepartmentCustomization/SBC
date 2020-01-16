@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'На прозвон',
         onItemSelect: function(date) {

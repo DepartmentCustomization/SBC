@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         customConfig:
                 `
@@ -55,7 +55,7 @@
             tabsWrapper.appendChild(tabsContainer);
             let tabs = document.querySelectorAll('.tabTo');
             tabs = Array.from(tabs);
-            tabs.forEach( function (el) {
+            tabs.forEach( function(el) {
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
                     if( target.location == 'section') {

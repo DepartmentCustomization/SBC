@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Архiвнi',
         onItemSelect: function(value) {

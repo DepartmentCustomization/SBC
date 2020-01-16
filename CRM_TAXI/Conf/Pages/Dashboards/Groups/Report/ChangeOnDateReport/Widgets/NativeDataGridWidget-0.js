@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -77,17 +77,17 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
         },
-        init: function () {
+        init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.dataGridInstance.height = window.innerHeight - 150;
         },
-        showTopQuestionsTable: function () {
+        showTopQuestionsTable: function() {
             document.getElementById('cars_report').style.display = 'block';
         },
-        getOrganizationId: function (message) {
+        getOrganizationId: function(message) {
             this.car_id = message.car_id;
         },
-        getFiltersParams: function (message) {
+        getFiltersParams: function(message) {
             let calendar = message.package.value.values.find(f => f.name === 'calendar').value;
             if (calendar !== null) {
                 if (calendar !== '') {
@@ -98,7 +98,7 @@
                 }
             }
         },
-        extractOrgValues: function (val) {
+        extractOrgValues: function(val) {
             if (val !== '') {
                 let valuesList = [];
                 valuesList.push(val.value);
@@ -107,10 +107,10 @@
                 return [];
             }
         },
-        afterLoadDataHandler: function () {
+        afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         },
     };

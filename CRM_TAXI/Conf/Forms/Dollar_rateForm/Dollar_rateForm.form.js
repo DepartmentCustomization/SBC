@@ -1,10 +1,10 @@
-(function () {
+(function() {
     return {
-        init: function () {
+        init: function() {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             if (this.state == 'create') {
                 this.checkUserRole();
-                document.getElementById('save_dollar_rate').addEventListener('click', function () {
+                document.getElementById('save_dollar_rate').addEventListener('click', function() {
                     const queryForSaveDollar_rate = {
                         queryCode: 'InsertDollar_rate',
                         parameterValues: [
@@ -38,7 +38,7 @@
                     document.getElementById('save_dollar_rate').style.display = 'none';
                     document.getElementById('clear_dollar_rate').style.display = 'none';
                 }
-                document.getElementById('save_dollar_rate').addEventListener('click', function () {
+                document.getElementById('save_dollar_rate').addEventListener('click', function() {
                     const queryForUpdateDollar_rate = {
                         queryCode: 'UpdateDollar_rate',
                         parameterValues: [
@@ -76,11 +76,11 @@
             this.form.onControlValueChanged('dollar_rate', this.checkSaveAvailable);
             this.form.onControlValueChanged('dollar_date', this.checkClearAvailable);
             this.form.onControlValueChanged('dollar_rate', this.checkClearAvailable);
-            document.getElementById('clear_dollar_rate').addEventListener('click', function () {
+            document.getElementById('clear_dollar_rate').addEventListener('click', function() {
                 this.clearFields();
             }.bind(this));
         },
-        checkUserRole: function () {
+        checkUserRole: function() {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
                 parameterValues: [
@@ -96,11 +96,11 @@
                 }
             });
         },
-        clearFields: function () {
+        clearFields: function() {
             this.form.setControlValue('dollar_date', null)
             this.form.setControlValue('dollar_rate', null)
         },
-        checkSaveAvailable: function () {
+        checkSaveAvailable: function() {
             if (this.form.getControlValue('dollar_date') != null &&
                 this.form.getControlValue('dollar_rate') != null &&
                 this.form.getControlValue('dollar_date') != '' &&
@@ -111,7 +111,7 @@
                 document.getElementById('save_dollar_rate').disabled = true;
             }
         },
-        checkClearAvailable: function () {
+        checkClearAvailable: function() {
             if (this.form.getControlValue('dollar_date') != null ||
                 this.form.getControlValue('dollar_rate') != null
             ) {

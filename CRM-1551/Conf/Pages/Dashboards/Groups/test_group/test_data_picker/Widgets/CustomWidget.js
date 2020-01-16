@@ -18,7 +18,7 @@
             this.messageService.publish(msg);
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParam, this);
         },
-        getFiltersParam: function (message) {
+        getFiltersParam: function(message) {
             this.d1 = message.package.value.values.find(f => f.name === 'd1').value;
             this.d2 = message.package.value.values.find(f => f.name === 'd2').value;
             this.d3 = message.package.value.values.find(f => f.name === 'd3').value;

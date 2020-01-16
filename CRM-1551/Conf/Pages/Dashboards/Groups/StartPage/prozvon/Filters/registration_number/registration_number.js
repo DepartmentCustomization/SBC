@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Номер питання',
         onChangeValue: function(value) {

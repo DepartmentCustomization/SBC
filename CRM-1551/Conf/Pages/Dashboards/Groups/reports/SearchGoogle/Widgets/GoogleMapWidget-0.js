@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: 'Goole Maps',
         hint: '',

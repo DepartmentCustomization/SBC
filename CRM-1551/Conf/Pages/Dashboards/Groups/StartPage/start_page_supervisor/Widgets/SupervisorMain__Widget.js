@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         customConfig:
                     `
@@ -152,7 +152,7 @@
             CONTAINER.appendChild(title);
             CONTAINER.appendChild(groupsWrapper);
         },
-        openNewTab: function (url) {
+        openNewTab: function(url) {
             window.open(location.origin + localStorage.getItem('VirtualPath')+'/' + url );
         },
         createElement: function(tag, props, ...children) {

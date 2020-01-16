@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
@@ -81,7 +81,7 @@
         },
         sendMessageToTable: function() {
         },
-        showModalWindow: function (responseModal, responseNotification) {
+        showModalWindow: function(responseModal, responseNotification) {
             const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
             const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
             const contentWrapper = this.createElement('div', { id:'contentWrapper'}, responseModal);

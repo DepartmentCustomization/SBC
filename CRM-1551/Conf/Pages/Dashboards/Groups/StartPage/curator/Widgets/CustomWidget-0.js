@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
@@ -134,7 +134,7 @@
             });
             let tabs = document.querySelectorAll('.tabTo');
             tabs = Array.from(tabs);
-            tabs.forEach( function (el) {
+            tabs.forEach( function(el) {
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
                     if( target.location == 'section') {
@@ -156,13 +156,13 @@
             const filterEditDepart__title = this.createElement('div', { className: 'filterEditDistrict__title', innerText: 'Департамент'});
             const filterEditDepart__icon = this.createElement('div', { className: 'material-icons filterEditDistrict__icon', innerText: 'add_circle_outline'});
             const filterEditDepartAddWrap = this.createElement('div', { className: 'filterEditDepartAddWrap filterWrap' }, filterEditDepart__icon, filterEditDepart__title);
-            filterDistrictAddWrap.addEventListener('click', function () {
+            filterDistrictAddWrap.addEventListener('click', function() {
                 if(!modalWindowContainer.classList.contains('modalWindowShowClass')) {
                     let location = 'district';
                     this.createModalForm(modalWindowContainer, location, this.districtData);
                 }
             }.bind(this, modalWindowContainer));
-            filterEditDepartAddWrap.addEventListener('click', function () {
+            filterEditDepartAddWrap.addEventListener('click', function() {
                 if(!modalWindowContainer.classList.contains('modalWindowShowClass')) {
                     let location = 'departament';
                     this.createModalForm(modalWindowContainer, location, this.departData);
@@ -184,7 +184,7 @@
                     this.showTable(searchContainer__input);
                 }
             });
-            searchContainer__input.addEventListener('keypress', function (e) {
+            searchContainer__input.addEventListener('keypress', function(e) {
                 let key = e.which || e.keyCode;
                 if (key === 13) {
                     this.resultSearch('resultSearch', searchContainer__input.value);
@@ -513,7 +513,7 @@
                 this.createNewFilterDistrict(districtNewItemSelect, location, this.districtNameCategories);
                 this.createNewFilterCategories(categorieNewItemSelect, location, this.questionTypeCategories);
             }else if( location === 'departament' ) {
-                data.forEach( function (el) {
+                data.forEach( function(el) {
                     let departamentId = el.organizationId;
                     let departamentItemSelect = this.createElement('select', { className: 'departamentItemSelect selectItem  js-example-basic-single'});
                     let departamentItem = this.createElement('div', { className: 'departamentItem'}, departamentItemSelect);
@@ -562,7 +562,7 @@
         createNewFilterDepartament: function( departamentNewItemSelect, location, data) {
             let districtItemSelect__optionEmpty = this.createElement('option', { className: 'districtItemSelect__option'});
             departamentNewItemSelect.appendChild(districtItemSelect__optionEmpty)
-            data.forEach( function (el) {
+            data.forEach( function(el) {
                 let districtItemSelect__option = this.createElement('option', {innerText: el.departamentName, value: el.id, className: 'districtItemSelect__option'});
                 departamentNewItemSelect.appendChild(districtItemSelect__option);
             }.bind(this));
@@ -570,7 +570,7 @@
             this.isLoadDistrict = true;
             this.closePreload(location);
             this.districtId = 0;
-            $('#departamentNewItemSelect').on('select2:select', function (e) {
+            $('#departamentNewItemSelect').on('select2:select', function(e) {
                 let districtId = Number(e.params.data.id);
                 this.isDistrictFull = true;
                 let positionFilter = 'district';
@@ -580,7 +580,7 @@
         createNewFilterDistrict: function( districtNewItemSelect, location, data) {
             let districtItemSelect__optionEmpty = this.createElement('option', { className: 'districtItemSelect__option'});
             districtNewItemSelect.appendChild(districtItemSelect__optionEmpty)
-            data.forEach( function (el) {
+            data.forEach( function(el) {
                 let districtItemSelect__option = this.createElement('option', {innerText: el.filterName, value: el.id, className: 'districtItemSelect__option'});
                 districtNewItemSelect.appendChild(districtItemSelect__option);
             }.bind(this));
@@ -588,7 +588,7 @@
             this.isLoadDistrict = true;
             this.closePreload(location);
             this.districtId = 0;
-            $('#districtNewItemSelect').on('select2:select', function (e) {
+            $('#districtNewItemSelect').on('select2:select', function(e) {
                 let districtId = Number(e.params.data.id);
                 this.isDistrictFull = true;
                 let positionFilter = 'district';
@@ -598,7 +598,7 @@
         createNewFilterCategories: function( categorieNewItemSelect, location, data) {
             let categorieItemSelect__optionEmpty = this.createElement('option', { className: 'districtItemSelect__option'});
             categorieNewItemSelect.appendChild(categorieItemSelect__optionEmpty)
-            data.forEach( function (el) {
+            data.forEach( function(el) {
                 let categorieItemSelect__option = this.createElement('option', {innerText: el.questionTypeName, value: el.id, className: 'districtItemSelect__option'});
                 categorieNewItemSelect.appendChild(categorieItemSelect__option);
             }.bind(this));
@@ -606,7 +606,7 @@
             this.isLoadCategorie = true;
             this.closePreload(location);
             this.categorieId = 0;
-            $('#categorieNewItemSelect').on('select2:select', function (e) {
+            $('#categorieNewItemSelect').on('select2:select', function(e) {
                 let categorieId = Number(e.params.data.id);
                 this.isCategorieFull = true;
                 let positionFilter = 'categorie';

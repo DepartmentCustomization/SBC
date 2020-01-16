@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -72,7 +72,7 @@
                 document.getElementById('containerSpeedExplained').style.display = 'block';
             }
         },
-        renderTable: function () {
+        renderTable: function() {
             if (this.active) {
                 let msg = {
                     name: 'SetFilterPanelState',
@@ -92,7 +92,7 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

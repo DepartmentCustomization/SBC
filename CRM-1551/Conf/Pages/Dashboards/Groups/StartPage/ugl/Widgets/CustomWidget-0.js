@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
@@ -58,7 +58,7 @@
                     this.showTable(searchContainer__input);
                 }
             });
-            searchContainer__input.addEventListener('keypress', function (e) {
+            searchContainer__input.addEventListener('keypress', function(e) {
                 let key = e.which || e.keyCode;
                 if (key === 13) {
                     this.resultSearch('resultSearch', searchContainer__input.value);
@@ -232,7 +232,7 @@
             tabsWrapper.appendChild(tabsContainer);
             let tabs = document.querySelectorAll('.tabTo');
             tabs = Array.from(tabs);
-            tabs.forEach( function (el) {
+            tabs.forEach( function(el) {
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
                     if( target.location == 'section') {

@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         stateForm: '',
         init: function() {

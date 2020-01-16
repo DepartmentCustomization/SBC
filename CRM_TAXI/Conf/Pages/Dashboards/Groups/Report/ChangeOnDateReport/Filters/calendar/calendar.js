@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Дата',
         minDate: null,
@@ -18,14 +18,14 @@
         type: 'Date',
         disabledDays: null,
         disabledDates: null,
-        onItemSelect: function (date) {
+        onItemSelect: function(date) {
             this.yourFunctionName(date);
         },
-        initValue: function () {
+        initValue: function() {
             let calendar = new Date(Date.now())
             this.setDefaultValue(calendar);
         },
-        yourFunctionName: function (value) {
+        yourFunctionName: function(value) {
             let message = {
                 name: '',
                 package: {

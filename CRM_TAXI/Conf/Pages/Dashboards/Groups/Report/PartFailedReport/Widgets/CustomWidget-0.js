@@ -1,15 +1,15 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
-        formatTitle: function () { },
+        formatTitle: function() { },
         customConfig:
             `
                 `
         ,
-        init: function () {
+        init: function() {
         },
-        afterViewInit: function () {
+        afterViewInit: function() {
         }
     };
 }());

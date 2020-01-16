@@ -1,10 +1,10 @@
-(function () {
+(function() {
     return {
-        init: function () {
+        init: function() {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             if (this.state == 'create') {
                 this.checkUserRole();
-                document.getElementById('save_provider').addEventListener('click', function () {
+                document.getElementById('save_provider').addEventListener('click', function() {
                     const queryForSaveProvider = {
                         queryCode: 'InsertProviders',
                         parameterValues: [
@@ -38,7 +38,7 @@
                     document.getElementById('save_provider').style.display = 'none';
                     document.getElementById('clear_provider').style.display = 'none';
                 }
-                document.getElementById('save_provider').addEventListener('click', function () {
+                document.getElementById('save_provider').addEventListener('click', function() {
                     const queryForUpdateProvider = {
                         queryCode: 'UpdateProviders',
                         parameterValues: [
@@ -76,11 +76,11 @@
             this.form.onControlValueChanged('provider_conditions', this.checkSaveAvailable);
             this.form.onControlValueChanged('provider', this.checkClearAvailable);
             this.form.onControlValueChanged('provider_conditions', this.checkClearAvailable);
-            document.getElementById('clear_provider').addEventListener('click', function () {
+            document.getElementById('clear_provider').addEventListener('click', function() {
                 this.clearFields();
             }.bind(this));
         },
-        checkUserRole: function () {
+        checkUserRole: function() {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
                 parameterValues: [
@@ -96,11 +96,11 @@
                 }
             });
         },
-        clearFields: function () {
+        clearFields: function() {
             this.form.setControlValue('provider', null)
             this.form.setControlValue('provider_conditions', null)
         },
-        checkSaveAvailable: function () {
+        checkSaveAvailable: function() {
             if (this.form.getControlValue('provider') != null &&
                 this.form.getControlValue('provider') != '') {
                 document.getElementById('save_provider').disabled = false;
@@ -108,7 +108,7 @@
                 document.getElementById('save_provider').disabled = true;
             }
         },
-        checkClearAvailable: function () {
+        checkClearAvailable: function() {
             if (this.form.getControlValue('provider') != null ||
                 this.form.getControlValue('provider_conditions') != null
             ) {

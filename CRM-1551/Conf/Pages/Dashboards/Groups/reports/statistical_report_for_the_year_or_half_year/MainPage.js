@@ -1,11 +1,11 @@
-(function () {
+(function() {
     return {
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFilterParams, this );
             this.sub1 = this.messageService.subscribe('setYears', this.setYears, this );
             this.sub2 = this.messageService.subscribe('setStyles', this.setStyles, this );
         },
-        getFilterParams: function (message) {
+        getFilterParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
             if( period !== null ) {
                 if( period.dateFrom !== '' && period.dateTo !== '') {
@@ -43,7 +43,7 @@
             }
             setTimeout(setTdPreWrap, 100);
         },
-        setYears: function (message) {
+        setYears: function(message) {
             message.columns.forEach( col => {
                 col.columns[0].caption = this.previousYear;
                 col.columns[1].caption = this.currentYear;
@@ -58,7 +58,7 @@
             mm = mm.length === 1 ? '0' + mm : mm;
             return dd + '.' + mm + '.' + yyyy;
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
             this.sub2.unsubscribe();

@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         init:function() {
             let btns = document.querySelectorAll('.add-btn');

@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Номер телефону',
         onChangeValue: function(value) {

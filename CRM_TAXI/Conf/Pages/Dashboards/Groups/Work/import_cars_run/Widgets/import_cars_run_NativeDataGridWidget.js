@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -37,17 +37,17 @@
             },
             keyExpr: 'Id'
         },
-        init: function () {
+        init: function() {
             this.dataGridInstance.height = window.innerHeight - 200;
             this.sub2 = this.messageService.subscribe('showTable', this.showTable, this);
         },
-        showTable: function () {
+        showTable: function() {
             this.loadData(this.afterLoadDataHandler);
         },
-        afterLoadDataHandler: function () {
+        afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub2.unsubscribe();
         }
     };

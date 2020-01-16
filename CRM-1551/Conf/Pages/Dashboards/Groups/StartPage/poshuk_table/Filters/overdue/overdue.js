@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Прострочені',
         onItemSelect: function(value) {

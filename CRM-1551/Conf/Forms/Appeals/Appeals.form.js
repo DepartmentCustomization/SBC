@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         RecordId: 0,
         StateServerId: 0,
@@ -8,7 +8,7 @@
                 queryCode: 'GetApplicantPhonesForApplicantId',
                 parameterValues: [{ key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')}]
             };
-            this.queryExecutor.getValues(queryForGetValue22).subscribe(function (data) {
+            this.queryExecutor.getValues(queryForGetValue22).subscribe(function(data) {
                 this.kolvoPhonesForApplicant = data.rows.length-1;
                 if (data.rows.length > 0) {
                     const fieldsForm = {
@@ -266,14 +266,14 @@
                 queryCode: 'ApplicantPhonesRecalcCardPhone',
                 parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id')}]
             };
-            this.queryExecutor.getValues(queryForGetValue_RecalcPhone).subscribe(function (data) {
+            this.queryExecutor.getValues(queryForGetValue_RecalcPhone).subscribe(function(data) {
                 this.form.setControlValue('CardPhone' ,data.rows[0].values[0]);
             }.bind(this));
             const queryForGetValue_GetIsMainPhone = {
                 queryCode: 'GetApplicantPhonesIsMain',
                 parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id')}]
             };
-            this.queryExecutor.getValues(queryForGetValue_GetIsMainPhone).subscribe(function (data) {
+            this.queryExecutor.getValues(queryForGetValue_GetIsMainPhone).subscribe(function(data) {
                 this.form.setControlValue('Applicant_Phone_Hide' ,data.rows[0].values[0]);
             }.bind(this));
         },
@@ -282,7 +282,7 @@
                 queryCode: 'ApplicantPhonesDelete',
                 parameterValues: [{ key: '@PhoneId', value: this.formModalConfig.getControlValue('modal_phone'+phone+'_phoneId')}]
             };
-            this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function () {
+            this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function() {
                 let event = new Event('click');
                 document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                 this.onLoadModalPhone();
@@ -325,7 +325,7 @@
                         queryCode: 'ApplicantPhonesAdd',
                         parameterValues: [{ key: '@Applicant_id', value: this.formConfig.form.getControlValue('Applicant_Id')}, { key: '@TypePhone', value: this.getControlValue('modal_phone_NEW_phoneType')}, { key: '@Phone', value: this.getControlValue('modal_phone_NEW')}, { key: '@IsMain', value: this.getControlValue('modal_phone_NEW_phoneIsMain')}]
                     };
-                    this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function (data) {
+                    this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function(data) {
                         if (data.rows[0].values[0] == 'OK') {
                             this.setControlValue('modal_phone_NEW', null);
                             let event = new Event('click');
@@ -368,7 +368,7 @@
                                 { key: '@IsMain', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneIsMain').value},
                                 { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneId').value}]
                         };
-                        this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function () {
+                        this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function() {
                         }.bind(this));
                     }
                     const parameters_03 = [
@@ -379,7 +379,7 @@
                 }
             }
         },
-        Dublicate_Aplicant: function () {
+        Dublicate_Aplicant: function() {
             const queryForGetValueDublicate = {
                 queryCode: 'ApplicantDublicateInsertRow',
                 parameterValues: [

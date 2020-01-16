@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -63,14 +63,14 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
         },
-        init: function () {
+        init: function() {
             this.dataGridInstance.height = window.innerHeight - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
-        showTopQuestionsTable: function () {
+        showTopQuestionsTable: function() {
             document.getElementById('part_qty_report').style.display = 'block';
         },
-        getFiltersParams: function (message) {
+        getFiltersParams: function(message) {
             let category = message.package.value.values.find(f => f.name === 'category').value;
             if (category !== null && category !== '') {
                 this.config.query.parameterValues = [
@@ -79,7 +79,7 @@
                 this.loadData(this.afterLoadDataHandler);
             }
         },
-        extractOrgValues: function (val) {
+        extractOrgValues: function(val) {
             if (val !== '') {
                 let valuesList = [];
                 valuesList.push(val.value);
@@ -88,10 +88,10 @@
                 return [];
             }
         },
-        afterLoadDataHandler: function () {
+        afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         },
     };

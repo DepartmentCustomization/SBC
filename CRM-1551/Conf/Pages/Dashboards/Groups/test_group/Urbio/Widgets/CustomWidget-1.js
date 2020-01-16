@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: [],
         hint: '',
@@ -18,7 +18,7 @@
             let xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
             let token_text = document.getElementById('input_token').value;
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
                     if(xhr.status == 200) {
                         this.Data.push(JSON.parse(xhr.responseText));

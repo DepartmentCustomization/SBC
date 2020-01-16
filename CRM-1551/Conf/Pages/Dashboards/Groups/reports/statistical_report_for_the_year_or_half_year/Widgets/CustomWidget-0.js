@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
@@ -41,7 +41,7 @@
             this.sub1 = this.messageService.subscribe('setData', this.setData, this );
             this.sub2 = this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
         },
-        setFilterParams: function (message) {
+        setFilterParams: function(message) {
             this.dateFrom = message.dateFrom;
             this.dateTo = message.dateTo;
             this.previousYear = message.previousYear;
@@ -88,7 +88,7 @@
                 this.counter = 0;
             }
         },
-        createExcelWorkbook: function () {
+        createExcelWorkbook: function() {
             const workbook = this.createExcel();
             const worksheet1 = this.createWorksheet(workbook, 'Таблицi 1');
             const worksheet2 = this.createWorksheet(workbook, 'Таблицi 2');
@@ -130,7 +130,7 @@
             this.setExcelTitle(worksheet2);
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-        createWorksheet: function (workbook, name) {
+        createWorksheet: function(workbook, name) {
             return workbook.addWorksheet(name, {
                 pageSetup:{
                     orientation: 'landscape',
@@ -143,14 +143,14 @@
                 }
             });
         },
-        setExcelTitle: function (worksheet) {
+        setExcelTitle: function(worksheet) {
             const title = worksheet.getCell('A1');
             title.value = 'Статистичний звіт за період з ' + this.dateFromViewValues + ' по ' + this.dateToViewValues;
             title.font = { name: 'Times New Roman', family: 4, size: 12, underline: false, bold: true , italic: false};
             title.alignment = { vertical: 'middle', horizontal: 'center', wrapText: false };
             worksheet.mergeCells('A1:N1');
         },
-        setTableType1Header: function (columns, worksheet, data) {
+        setTableType1Header: function(columns, worksheet, data) {
             let position = this.excelColumnsStart - 1;
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
@@ -169,7 +169,7 @@
             this.setHeaderRowValues(data, worksheet, headerHeight);
             this.startStep += 5;
         },
-        setTableType2Header: function (columns, worksheet, data) {
+        setTableType2Header: function(columns, worksheet, data) {
             let position = this.excelColumnsStart;
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
@@ -198,7 +198,7 @@
             this.setHeaderRowValues(data, worksheet, headerHeight);
             this.startStep = 3;
         },
-        setCellYearsValue: function (subHeader, position, worksheet) {
+        setCellYearsValue: function(subHeader, position, worksheet) {
             for (let i = 0; i < subHeader.columns.length; i++) {
                 const year = subHeader.columns[i];
                 const yearTop = this.startStep + 2;
@@ -211,7 +211,7 @@
                 this.setRowStyle(yearTop, worksheet, 50);
             }
         },
-        setTableType3Header: function (columns, worksheet, data) {
+        setTableType3Header: function(columns, worksheet, data) {
             let position = this.excelColumnsStart + 1;
             columns.forEach( column => {
                 if(column.columns) {
@@ -238,7 +238,7 @@
             this.setHeaderRowValues(data, worksheet, headerHeight);
             this.startStep += this.step + 3;
         },
-        setSubHeaders: function (column, worksheet, position, startStep) {
+        setSubHeaders: function(column, worksheet, position, startStep) {
             for (let i = 0; i < column.columns.length; i++) {
                 position += 2;
                 const subHeader = column.columns[i];
@@ -255,7 +255,7 @@
             }
             return position;
         },
-        setStandardCells: function (start, caption, worksheet) {
+        setStandardCells: function(start, caption, worksheet) {
             const top = this.startStep;
             const bot = this.startStep + 2;
             const right = this.excelColumnsStart + start;
@@ -265,12 +265,12 @@
             cell.value = caption;
             this.setCellStyle(cell);
         },
-        setCellStyle: function (cell) {
+        setCellStyle: function(cell) {
             cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             cell.font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: false , italic: false };
         },
-        setHeaderRowValues: function (message, worksheet, headerHeight) {
+        setHeaderRowValues: function(message, worksheet, headerHeight) {
             for (let i = 0; i < message.data.length; i++) {
                 const values = message.data[i];
                 const number = this.startStep + headerHeight + i;
@@ -281,13 +281,13 @@
                 this.setRowStyle(number, worksheet, height);
             }
         },
-        setRowStyle: function (number, worksheet, cellHeight) {
+        setRowStyle: function(number, worksheet, cellHeight) {
             const height = cellHeight ? cellHeight : 60;
             worksheet.getRow(number).height = height;
             worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: false , italic: false};
             worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
         },
-        setCellValuesStyles: function (worksheet) {
+        setCellValuesStyles: function(worksheet) {
             this.numberRowsArray.forEach( row => {
                 for (let j = 0; j < row.values.length; j++) {
                     const top = row.number;

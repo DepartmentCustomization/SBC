@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         chartConfig: {
             chart: {
@@ -48,10 +48,10 @@
         groupQuestionId: undefined,
         groupQuestionName: undefined,
         qty: undefined,
-        init: function () {
+        init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
-        executeQuery: function () {
+        executeQuery: function() {
             const query = {
                 'queryCode': 'db_Report_8_1',
                 'limit': -1,
@@ -68,13 +68,13 @@
             };
             this.queryExecutor(query, this.load, this);
         },
-        load: function (data) {
+        load: function(data) {
             this.fillIndexes(data);
             this.publishMessage(data);
             this.setChartSeries(data);
             this.render();
         },
-        publishMessage: function (data) {
+        publishMessage: function(data) {
             const message = {
                 name: this.MESSAGES.CHART_INFO,
                 package: {
@@ -87,7 +87,7 @@
             };
             this.messageService.publish(message);
         },
-        getFiltersParams: function (message) {
+        getFiltersParams: function(message) {
             let period = message.package.value.values.find((el) => {
                 return el.name.toLowerCase() === 'period';
             });
@@ -100,12 +100,12 @@
                 }
             }
         },
-        fillIndexes: function (data) {
+        fillIndexes: function(data) {
             this.groupQuestionId = this.getIndex(data, 'groupquestionid');
             this.groupQuestionName = this.getIndex(data, 'groupquestionname');
             this.qty = this.getIndex(data, 'qty');
         },
-        setChartSeries: function (data) {
+        setChartSeries: function(data) {
             const chartData = {
                 name: 'Кіл-ть заявок',
                 colorByPoint: true,
@@ -114,12 +114,12 @@
             this.chartConfig.series = [];
             this.chartConfig.series.push(chartData);
         },
-        getIndex: function (data, name) {
+        getIndex: function(data, name) {
             return data.columns.findIndex((el) => {
                 return el.code.toLowerCase() === name;
             })
         },
-        getSeriesData: function (data) {
+        getSeriesData: function(data) {
             let result = [];
             for (let i = 0; i < data.rows.length; i++) {
                 let element = {
@@ -132,7 +132,7 @@
             }
             return result;
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

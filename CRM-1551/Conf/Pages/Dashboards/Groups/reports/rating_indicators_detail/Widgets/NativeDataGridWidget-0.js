@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -134,49 +134,49 @@
                 }, {
                     dataField: 'PercentClosedOnTime',
                     caption: '% вчасно закритих',
-                    format: function (value) {
+                    format: function(value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'PercentOfExecution',
                     caption: '% виконання',
-                    format: function (value) {
+                    format: function(value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'PercentOnVeracity',
                     caption: '% достовірності',
-                    format: function (value) {
+                    format: function(value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'IndexOfSpeedToExecution',
                     caption: 'Індекс швидкості виконання',
-                    format: function (value) {
+                    format: function(value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'IndexOfSpeedToExplain',
                     caption: 'Індекс швидкості роз\'яснення',
-                    format: function (value) {
+                    format: function(value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'IndexOfFactToExecution',
                     caption: 'Індекс фактичного виконання',
-                    format: function (value) {
+                    format: function(value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'PercentPleasureOfExecution',
                     caption: '% задоволеність виконанням',
-                    format: function (value) {
+                    format: function(value) {
                         return value.toFixed(2);
                     }
                 }, {
                     dataField: 'IntegratedMetric_PerformanceLevel',
                     caption: 'Рівень виконання',
-                    format: function (value) {
+                    format: function(value) {
                         return value.toFixed(2);
                     }
                 }
@@ -235,7 +235,7 @@
             this.config.onContentReady = this.onMyContentReady.bind(this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
-        renderTable: function () {
+        renderTable: function() {
             this.config.query.parameterValues = [
                 {key: '@DateCalc' , value: this.period },
                 {key: '@RDAId', value: this.executor },
@@ -243,7 +243,7 @@
             ];
             this.loadData(this.afterLoadDataHandler);
         },
-        createTableButton: function (e) {
+        createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
                 widget: 'dxButton',
@@ -268,7 +268,7 @@
                 },
             });
         },
-        myCreateExcel: function (data) {
+        myCreateExcel: function(data) {
             this.showPagePreloader('Зачекайте, формується документ');
             let visibleColumns = this.visibleColumns;
             this.columnsWithoutSub = [];
@@ -442,7 +442,7 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        onMyContentReady: function () {
+        onMyContentReady: function() {
             this.visibleColumns = this.dataGridInstance.instance.getVisibleColumns();
         }
     };

@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Дата закриття',
         type: 'Date',

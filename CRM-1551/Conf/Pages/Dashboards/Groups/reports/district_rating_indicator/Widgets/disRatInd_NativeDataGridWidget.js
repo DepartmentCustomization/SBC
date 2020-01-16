@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -47,7 +47,7 @@
             };
             this.queryExecutor(exportQuery, this.setColumns, this);
         },
-        setColumns: function (data) {
+        setColumns: function(data) {
             for (let i = 0; i < data.columns.length; i++) {
                 const element = data.columns[i];
                 if( this.config.key === '') {

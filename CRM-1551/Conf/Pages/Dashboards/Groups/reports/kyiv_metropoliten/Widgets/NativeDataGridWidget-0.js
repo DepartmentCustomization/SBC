@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -42,7 +42,7 @@
             this.messageService.publish( {name: 'setData', rep1_data: data} );
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

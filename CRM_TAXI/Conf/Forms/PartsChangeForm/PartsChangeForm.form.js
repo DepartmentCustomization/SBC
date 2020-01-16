@@ -1,7 +1,7 @@
-(function () {
+(function() {
     return {
         openCar: undefined,
-        init: function () {
+        init: function() {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             this.openCar = this.form.getControlValue('cars_id');
             let url = window.location.href;
@@ -25,7 +25,7 @@
                 if (document.getElementById('new_part_id').disabled == true) {
                     document.getElementById('update_part_change').style.display = 'none';
                 }
-                document.getElementById('update_part_change').addEventListener('click', function () {
+                document.getElementById('update_part_change').addEventListener('click', function() {
                     const queryForUpdatePartsChange = {
                         queryCode: 'Remake_PartChange',
                         parameterValues: [
@@ -73,7 +73,7 @@
             this.form.onControlValueChanged('new_part_id', this.checkArticulPresents);
             this.form.onControlValueChanged('new_part_id', this.getPartName);
         },
-        sendBadChangeNotify: function (title) {
+        sendBadChangeNotify: function(title) {
             this.createOrganisationsNotification({
                 text: title,
                 url: 'notifications/unread',
@@ -83,7 +83,7 @@
                 hasAudio: true
             });
         },
-        checkUserRole: function () {
+        checkUserRole: function() {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
                 parameterValues: [
@@ -99,7 +99,7 @@
                 }
             });
         },
-        checkCarAvailable: function () {
+        checkCarAvailable: function() {
             let car = this.form.getControlValue('cars_id');
             if (this.openCar != car) {
                 this.form.setControlValue('old_part_id', { key: null, value: null });
@@ -115,7 +115,7 @@
                 this.form.setControlParameterValues('old_part_id', null);
             }
         },
-        checkSaveAvailable: function () {
+        checkSaveAvailable: function() {
             if (this.form.getControlValue('cars_id') != null &&
                 this.form.getControlValue('new_part_id') != null &&
                 this.form.getControlValue('cars_id') != '' &&
@@ -126,7 +126,7 @@
                 document.getElementById('update_part_change').disabled = true;
             }
         },
-        checkArticulPresents: function () {
+        checkArticulPresents: function() {
             if (this.form.getControlValue('new_part_id') == null || this.form.getControlValue('new_part_id') == '') {
                 this.form.setControlValue('part_name', null);
                 this.form.setControlValue('manufacturer', null);
@@ -135,7 +135,7 @@
                 this.getPartPrice();
             }
         },
-        getPartName: function () {
+        getPartName: function() {
             if (this.form.getControlValue('new_part_id') != null &&
                 this.form.getControlValue('new_part_id') != '') {
                 const queryForGetPartInfo = {
@@ -155,7 +155,7 @@
                 });
             }
         },
-        getPartPrice: function () {
+        getPartPrice: function() {
             if (this.form.getControlValue('new_part_id') != null) {
                 const queryForCheckUserRole = {
                     queryCode: 'SelectPartPrice',

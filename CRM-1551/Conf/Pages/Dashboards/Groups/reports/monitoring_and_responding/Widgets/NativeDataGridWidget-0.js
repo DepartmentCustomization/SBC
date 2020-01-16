@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -196,7 +196,7 @@
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-        afterRenderTable: function () {
+        afterRenderTable: function() {
             this.summary = [];
             const collections = document.querySelectorAll('.dx-row');
             collections.forEach( collection => {
@@ -232,7 +232,7 @@
                 },
             });
         },
-        createExcelWorkbook: function (data) {
+        createExcelWorkbook: function(data) {
             let workbook = this.createExcel();
             let worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
@@ -256,7 +256,7 @@
             this.setSummaryValues(worksheet);
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-        setColumnsProperties: function (columns, columnsProperties, worksheet) {
+        setColumnsProperties: function(columns, columnsProperties, worksheet) {
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
                 let header;
@@ -278,12 +278,12 @@
             }
             worksheet.columns = columnsProperties;
         },
-        setWorksheetTitle: function (worksheet) {
+        setWorksheetTitle: function(worksheet) {
             worksheet.mergeCells( 1, 1, 1, this.lastPosition );
             let title = worksheet.getCell(1, 1);
             title.value = 'Моніторинг та реагування на звернення громадян';
         },
-        setTableHeader: function (columns, worksheet) {
+        setTableHeader: function(columns, worksheet) {
             let position = 0;
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
@@ -309,7 +309,7 @@
             }
             this.lastPosition = position;
         },
-        setTableValues: function (data, columns, worksheet, rows) {
+        setTableValues: function(data, columns, worksheet, rows) {
             for (let i = 0; i < data.rows.length; i++) {
                 let rowData = data.rows[i];
                 let rowValues = [];
@@ -322,7 +322,7 @@
                 this.summaryStartRow = i + 7;
             }
         },
-        setTableRowsStyles: function (worksheet, rows) {
+        setTableRowsStyles: function(worksheet, rows) {
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 14, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -339,14 +339,14 @@
                 worksheet.getCell('A' + row).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
             });
         },
-        setSummaryValues: function (worksheet) {
+        setSummaryValues: function(worksheet) {
             const values = [ ' ' ];
             this.summary.forEach( value => values.push(value));
             worksheet.addRow(values);
             const number = this.summaryStartRow - 1;
             this.setSummaryStyle(worksheet, number);
         },
-        setSummaryStyle: function (worksheet, number) {
+        setSummaryStyle: function(worksheet, number) {
             worksheet.getRow(number).height = 50;
             worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, italic: false};
             worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };

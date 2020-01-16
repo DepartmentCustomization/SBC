@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -91,7 +91,7 @@
             this.config.onContentReady = this.onMyContentReady.bind(this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
-        setFiltersParams: function (message) {
+        setFiltersParams: function(message) {
             this.dateStart = message.dateStart;
             this.dateEnd = message.dateEnd;
             this.executor = message.executor;
@@ -103,7 +103,7 @@
                 {key: '@TypeId', value: this.claimType }
             ];
         },
-        renderTable: function () {
+        renderTable: function() {
             let msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -113,7 +113,7 @@
             this.messageService.publish(msg);
             this.loadData(this.afterLoadDataHandler);
         },
-        createTableButton: function (e) {
+        createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
                 widget: 'dxButton',
@@ -135,7 +135,7 @@
                 },
             });
         },
-        myCreateExcel: function (data) {
+        myCreateExcel: function(data) {
             this.showPagePreloader('Зачекайте, формується документ');
             let visibleColumns = this.visibleColumns;
             this.columnsWithoutSub = [];
@@ -276,10 +276,10 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        onMyContentReady: function () {
+        onMyContentReady: function() {
             this.visibleColumns = this.dataGridInstance.instance.getVisibleColumns();
         },
-        destroy: function () {
+        destroy: function() {
         },
     };
 }());

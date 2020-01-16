@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Джерело надходження',
         keyValue: 'Id',

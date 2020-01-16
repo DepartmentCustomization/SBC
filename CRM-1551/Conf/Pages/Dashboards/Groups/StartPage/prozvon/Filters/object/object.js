@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Об`єкт',
         keyValue: 'Id',

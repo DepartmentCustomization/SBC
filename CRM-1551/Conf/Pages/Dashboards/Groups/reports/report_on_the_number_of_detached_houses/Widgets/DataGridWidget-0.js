@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: 'Кількість звернень по відсутніх послугах',
         config: {

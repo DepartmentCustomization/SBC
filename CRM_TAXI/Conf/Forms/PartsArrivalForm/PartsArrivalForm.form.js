@@ -1,6 +1,6 @@
-(function () {
+(function() {
     return {
-        init: function () {
+        init: function() {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             if (this.state == 'update') {
                 this.checkUserRole();
@@ -8,7 +8,7 @@
                     document.getElementById('save_part_arrival').style.display = 'none';
                     document.getElementById('clear_part_arrival').style.display = 'none';
                 }
-                document.getElementById('save_part_arrival').addEventListener('click', function () {
+                document.getElementById('save_part_arrival').addEventListener('click', function() {
                     const queryForUpdatePartArrival = {
                         queryCode: 'UpdatePartsArrival',
                         parameterValues: [
@@ -75,11 +75,11 @@
             this.form.disableControl('manufacturer');
             this.form.onControlValueChanged('part_price', this.calculateArrivalSum);
             this.form.onControlValueChanged('part_quantity', this.calculateArrivalSum);
-            document.getElementById('clear_part_arrival').addEventListener('click', function () {
+            document.getElementById('clear_part_arrival').addEventListener('click', function() {
                 this.clearArrivalValues();
             }.bind(this));
         },
-        getPartName: function () {
+        getPartName: function() {
             if (this.form.getControlValue('articul') != null &&
                 this.form.getControlValue('articul') != '') {
                 const queryForGetPartInfo = {
@@ -99,7 +99,7 @@
                 });
             }
         },
-        checkUserRole: function () {
+        checkUserRole: function() {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
                 parameterValues: [
@@ -115,13 +115,13 @@
                 }
             });
         },
-        checkArticulPresents: function () {
+        checkArticulPresents: function() {
             if (this.form.getControlValue('articul') == null || this.form.getControlValue('articul') == '') {
                 this.form.setControlValue('part_name', null);
                 this.form.setControlValue('manufacturer', null);
             }
         },
-        calculateArrivalSum: function () {
+        calculateArrivalSum: function() {
             if (
                 this.form.getControlValue('part_quantity') != null
                 && this.form.getControlValue('part_quantity') != ''
@@ -134,7 +134,7 @@
                 this.form.setControlValue('sum_price', sumPrice);
             }
         },
-        checkClearAvailable: function () {
+        checkClearAvailable: function() {
             if (
                 (this.form.getControlValue('articul') != null && this.form.getControlValue('articul') != '')
                 ||
@@ -149,7 +149,7 @@
                 document.getElementById('clear_part_arrival').disabled = true;
             }
         },
-        checkSaveArrivalAvailable: function () {
+        checkSaveArrivalAvailable: function() {
             if (
                 (this.form.getControlValue('articul') != null && this.form.getControlValue('articul') != '')
                 &&
@@ -166,13 +166,13 @@
                 document.getElementById('save_part_arrival').disabled = true;
             }
         },
-        clearArrivalValues: function () {
+        clearArrivalValues: function() {
             this.form.setControlValue('articul', { key: null, value: null });
             this.form.setControlValue('provider', { key: null, value: null });
             this.form.setControlValue('part_quantity', null);
             this.form.setControlValue('part_price', null);
         },
-        clearArrivalSum: function () {
+        clearArrivalSum: function() {
             this.form.setControlValue('sum_price', null);
         }
     };

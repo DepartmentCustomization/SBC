@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Дата з початку року',
         type: 'Date',

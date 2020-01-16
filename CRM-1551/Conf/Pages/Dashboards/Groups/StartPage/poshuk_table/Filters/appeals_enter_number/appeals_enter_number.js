@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Вхідний номер УГЛ',
         onChangeValue: function(value) {

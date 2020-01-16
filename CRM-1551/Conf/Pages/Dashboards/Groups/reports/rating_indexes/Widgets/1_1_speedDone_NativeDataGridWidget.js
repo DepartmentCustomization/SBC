@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -66,10 +66,10 @@
                 this.renderTable();
             }
         },
-        setConfig: function (message) {
+        setConfig: function(message) {
             this.config = message.config;
         },
-        executeQuery: function (message) {
+        executeQuery: function(message) {
             this.config.query.parameterValues = [];
             this.period = message.period;
             this.rating = message.rating;
@@ -81,7 +81,7 @@
             const tab = 1;
             this.messageService.publish({ name, parameters, codeResult, config, tab });
         },
-        renderTable: function () {
+        renderTable: function() {
             if (this.period) {
                 if (this.active) {
                     let msg = {
@@ -98,7 +98,7 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
             this.sub2.unsubscribe();

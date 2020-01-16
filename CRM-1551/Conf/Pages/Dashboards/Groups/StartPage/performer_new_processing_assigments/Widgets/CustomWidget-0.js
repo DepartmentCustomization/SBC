@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
@@ -183,7 +183,7 @@
                     this.showTable(searchContainer__input);
                 }
             });
-            searchContainer__input.addEventListener('keypress', function (e) {
+            searchContainer__input.addEventListener('keypress', function(e) {
                 let key = e.which || e.keyCode;
                 if (key === 13) {
                     this.resultSearch('resultSearch', searchContainer__input.value, this.organizationId);

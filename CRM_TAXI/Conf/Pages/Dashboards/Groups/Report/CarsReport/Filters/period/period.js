@@ -1,7 +1,7 @@
-(function () {
+(function() {
     return {
         placeholder: 'Период',
-        onItemSelect: function (date) {
+        onItemSelect: function(date) {
             this.datePeriod(date);
         },
         datePeriod(date) {
@@ -14,9 +14,9 @@
             }
             this.messageService.publish(message);
         },
-        init: function () {
+        init: function() {
         },
-        initValue: function () {
+        initValue: function() {
             let currentDate = new Date();
             let year = currentDate.getFullYear();
             let monthFrom = currentDate.getMonth();

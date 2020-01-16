@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         chartConfig: {
             chart: {
@@ -40,11 +40,11 @@
             'rgb(244, 91, 91)',
             'rgb(145, 232, 225)'
         ],
-        init: function () {
+        init: function() {
             this.sub = this.messageService.subscribe( 'FiltersParams', this.setFiltersParams, this );
             this.sub1 = this.messageService.subscribe( 'showInfo', this.showInfo, this );
         },
-        executeQuery: function () {
+        executeQuery: function() {
             const query = {
                 'queryCode': 'db_ReestrRating_LineChart',
                 'limit': -1,
@@ -62,22 +62,22 @@
             this.queryExecutor(query, this.load, this);
             this.showPreloader = false;
         },
-        load: function (data) {
+        load: function(data) {
             this.setChartSeries(data);
             this.render();
         },
-        setFiltersParams: function (message) {
+        setFiltersParams: function(message) {
             this.date = message.date;
             this.rating = message.rating;
         },
-        showInfo: function () {
+        showInfo: function() {
             this.executeQuery();
         },
-        setChartSeries: function (data) {
+        setChartSeries: function(data) {
             this.chartConfig.series = [];
             this.chartConfig.series = this.getSeriesData(data);
         },
-        getSeriesData: function (array) {
+        getSeriesData: function(array) {
             let result = [];
             let categories = this.chartConfig.xAxis.categories = [];
             for (let i = 2; i < array.columns.length; i++) {
@@ -99,7 +99,7 @@
             }
             return result;
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
         }

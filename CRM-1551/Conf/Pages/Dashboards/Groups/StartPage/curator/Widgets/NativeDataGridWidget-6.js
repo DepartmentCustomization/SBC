@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -107,7 +107,7 @@
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-        afterRenderTable: function () {
+        afterRenderTable: function() {
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
         },
         createElement: function(tag, props, ...children) {

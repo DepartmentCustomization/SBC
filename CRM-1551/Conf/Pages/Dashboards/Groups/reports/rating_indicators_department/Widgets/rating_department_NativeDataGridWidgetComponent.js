@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -86,7 +86,7 @@
                 }
             });
         },
-        afterRenderTable: function () {
+        afterRenderTable: function() {
             this.messageService.publish({ name: 'setStyles'});
         },
         createTableButton: function(e) {
@@ -112,7 +112,7 @@
                 },
             });
         },
-        createExcelWorkbook: function (data) {
+        createExcelWorkbook: function(data) {
             const workbook = this.createExcel();
             let worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
@@ -135,7 +135,7 @@
             this.setTableRowsStyles(worksheet, rows);
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
-        setColumnsProperties: function (columns, columnsProperties, worksheet) {
+        setColumnsProperties: function(columns, columnsProperties, worksheet) {
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
                 let header;
@@ -157,12 +157,12 @@
             }
             worksheet.columns = columnsProperties;
         },
-        setWorksheetTitle: function (worksheet) {
+        setWorksheetTitle: function(worksheet) {
             worksheet.mergeCells( 1, 1, 1, this.lastPosition );
             let title = worksheet.getCell(1, 1);
             title.value = 'Показники рейтингу Департаментів';
         },
-        setTableHeader: function (columns, worksheet) {
+        setTableHeader: function(columns, worksheet) {
             let position = 0;
             for (let i = 0; i < columns.length; i++) {
                 const column = columns[i];
@@ -191,7 +191,7 @@
             }
             this.lastPosition = position;
         },
-        setTableValues: function (data, worksheet, rowNumbers) {
+        setTableValues: function(data, worksheet, rowNumbers) {
             for (let i = 0; i < data.rows.length; i++) {
                 const rowData = data.rows[i];
                 const rowStart = i + 5;
@@ -204,7 +204,7 @@
                 }
             }
         },
-        setTableRowsStyles: function (worksheet, rowNumbers) {
+        setTableRowsStyles: function(worksheet, rowNumbers) {
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 14, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -221,12 +221,12 @@
                 worksheet.getCell('A' + number).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
             });
         },
-        setCellStyle: function (cell) {
+        setCellStyle: function(cell) {
             cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             cell.font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: false , italic: false };
         },
-        setQueryParams: function (message) {
+        setQueryParams: function(message) {
             this.config.query.parameterValues = [ { key: '@Date', value: message.date}],
             this.loadData(this.afterLoadDataHandler);
         },

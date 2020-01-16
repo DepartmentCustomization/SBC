@@ -1,10 +1,10 @@
-(function () {
+(function() {
     return {
-        init: function () {
+        init: function() {
             this.form.disableControl('orgName', true)
             this.form.onControlValueChanged('User', this.findUserJobAndUUID);
         },
-        findUserJobAndUUID: function (value) {
+        findUserJobAndUUID: function(value) {
             if (value) {
                 const getInfo = {
                     queryCode: 'Find_JobAndUUID',

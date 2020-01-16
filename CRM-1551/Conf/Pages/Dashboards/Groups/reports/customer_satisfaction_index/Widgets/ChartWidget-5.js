@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         chartConfig:{
             chart: {
@@ -35,7 +35,7 @@
                 this.executeQuery();
             }
         },
-        executeQuery: function () {
+        executeQuery: function() {
             const query = {
                 'queryCode': 'ak_CSI_graph1_6',
                 'limit': -1,
@@ -52,22 +52,22 @@
             };
             this.queryExecutor(query, this.load, this);
         },
-        load: function (data) {
+        load: function(data) {
             this.fillIndexes(data);
             this.setChartSeries(data);
             this.render();
         },
-        fillIndexes: function (data) {
+        fillIndexes: function(data) {
             this.valueId = this.getIndex(data, 'id');
             this.grade = this.getIndex(data, 'grade');
             this.countQuestions = this.getIndex(data, 'count_questions');
         },
-        getIndex: function (data, name) {
+        getIndex: function(data, name) {
             return data.columns.findIndex((el) => {
                 return el.code.toLowerCase() === name;
             })
         },
-        setChartSeries: function (data) {
+        setChartSeries: function(data) {
             const chartData = {
                 name: 'this.chartConfig.title.text',
                 colorByPoint: true,
@@ -76,7 +76,7 @@
             this.chartConfig.series = [];
             this.chartConfig.series.push(chartData);
         },
-        getSeriesData: function (data) {
+        getSeriesData: function(data) {
             let result = [];
             for (let i = 0; i < data.rows.length; i++) {
                 let element = {
@@ -88,7 +88,7 @@
             }
             return result;
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

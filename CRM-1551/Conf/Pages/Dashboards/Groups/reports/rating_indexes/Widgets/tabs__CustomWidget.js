@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
@@ -75,7 +75,7 @@
                 });
             } return element;
         },
-        executeQuery: function (message) {
+        executeQuery: function(message) {
             this.results = [];
             const tab = message.tab;
             const codeResult = message.codeResult;
@@ -91,7 +91,7 @@
             this.queryExecutor(executeQuery, this.setColumns.bind(this, config, codeResult, tab), this);
             this.showPreloader = false;
         },
-        setColumns: function (config, codeResult, tab, data) {
+        setColumns: function(config, codeResult, tab, data) {
             if(data.rows.length) {
                 for (let i = 0; i < data.columns.length; i++) {
                     const element = data.columns[i];
@@ -102,7 +102,7 @@
                         const caption = this.setCaption(element.name);
                         const columnSliced = element.name.slice(0, 7);
                         if(columnSliced === 'Percent') {
-                            format = function (value) {
+                            format = function(value) {
                                 return value.toFixed(2);
                             }
                         }
@@ -123,7 +123,7 @@
                 this.hidePagePreloader('Зачекайте, завантажуються фiльтри');
             }
         },
-        setCaption: function (caption) {
+        setCaption: function(caption) {
             if(caption === 'QuestionTypeName') {
                 return '';
             } else if(caption === 'EtalonDays') {
@@ -134,7 +134,7 @@
                 return this.districts[index].name;
             }
         },
-        setColumnsSummary: function (config, tab, data) {
+        setColumnsSummary: function(config, tab, data) {
             if(data.rows.length) {
                 for (let i = 0; i < data.columns.length; i++) {
                     const element = data.columns[i];
@@ -164,7 +164,7 @@
                 this.hidePagePreloader('Зачекайте, завантажуються фiльтри');
             }
         },
-        calculateCustomSummary: function (options) {
+        calculateCustomSummary: function(options) {
             switch (options.name) {
             case 'Place_2000':
                 options.totalValue = this.results[0].toFixed(2);

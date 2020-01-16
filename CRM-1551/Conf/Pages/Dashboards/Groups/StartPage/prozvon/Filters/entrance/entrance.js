@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Парадне',
         onChangeValue: function(value) {

@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Соц.стан',
         keyValue: 'Id',

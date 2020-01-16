@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'E-mail',
         onChangeValue: function(value) {

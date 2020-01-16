@@ -1,8 +1,8 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: ' ',
-        formatTitle: function () { },
+        formatTitle: function() { },
         customConfig:
             `
             <style>
@@ -29,18 +29,18 @@
         MESSAGES: {
             CHART_INFO: 'CHART_INFO'
         },
-        init: function () {
+        init: function() {
             const sub = this.messageService.subscribe(this.MESSAGES.CHART_INFO, this.setSumText, this);
             this.subsctiptions.push(sub);
         },
-        destroy: function () {
+        destroy: function() {
             this.subsctiptions.forEach((item) => {
                 item.unsubscribe();
             });
         },
-        setSumText: function (message) {
+        setSumText: function(message) {
             const data = message.package.chartData;
-            let result = data.rows.reduce(function (sum, current) {
+            let result = data.rows.reduce(function(sum, current) {
                 return sum + current.values[2];
             }, 0);
             const sumInfo = document.getElementById('sumInfo');
@@ -54,7 +54,7 @@
             }, sumText);
             sumInfo.appendChild(sumWrapper);
         },
-        createElement: function (tag, props, ...children) {
+        createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
             if (children.length > 0) {
@@ -64,7 +64,7 @@
             }
             return element;
         },
-        clearSumInfo: function (sumInfo) {
+        clearSumInfo: function(sumInfo) {
             while (sumInfo.hasChildNodes()) {
                 sumInfo.removeChild(sumInfo.lastElementChild);
             }

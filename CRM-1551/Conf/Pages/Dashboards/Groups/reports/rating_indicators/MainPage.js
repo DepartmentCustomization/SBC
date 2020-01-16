@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         init: function() {
             this.sub3 = this.messageService.subscribe('GlobalFilterChanged', this.getFilterParams, this);
@@ -27,7 +27,7 @@
             mm = mm.length === 1 ? '0' + mm : mm;
             return yyyy + '-' + mm + '-' + dd;
         },
-        destroy: function () {
+        destroy: function() {
             this.sub3.unsubscribe();
         }
     };

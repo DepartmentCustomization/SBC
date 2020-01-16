@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -48,7 +48,7 @@
                     {
                         column: 'part_price',
                         summaryType: 'sum',
-                        customizeText: function (data) {
+                        customizeText: function(data) {
                             return 'Итого: ' + data.value;
                         }
                     }
@@ -72,7 +72,7 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
         },
-        init: function () {
+        init: function() {
             this.dataGridInstance.height = window.innerHeight / 2 - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             let getUrlParams = window
@@ -80,7 +80,7 @@
                 .search
                 .replace('?', '')
                 .split('&')
-                .reduce(function (p, e) {
+                .reduce(function(p, e) {
                     let a = e.split('=');
                     p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                     return p;
@@ -90,7 +90,7 @@
             this.dateTo = new Date(getUrlParams.dateTo);
             this.dateFrom = new Date(getUrlParams.dateFrom);
         },
-        getFiltersParams: function (message) {
+        getFiltersParams: function(message) {
             let filterCar = message.package.value.values.find(f => f.name === 'car').value;
             if (filterCar !== null && filterCar !== '') {
                 this.config.query.parameterValues = [
@@ -108,10 +108,10 @@
                 this.loadData(this.afterLoadDataHandler);
             }
         },
-        afterLoadDataHandler: function () {
+        afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         },
     };

@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'ПІБ Заявника',
         onChangeValue: function(value) {

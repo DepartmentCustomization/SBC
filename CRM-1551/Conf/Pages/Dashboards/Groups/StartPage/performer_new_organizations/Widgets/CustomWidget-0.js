@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
@@ -143,7 +143,7 @@
             });
             let tabs = document.querySelectorAll('.tabTo');
             tabs = Array.from(tabs);
-            tabs.forEach( function (el) {
+            tabs.forEach( function(el) {
                 el.addEventListener( 'click', event => {
                     let target = event.currentTarget;
                     document.getElementById('container').style.display = 'none';
@@ -166,7 +166,7 @@
                     this.showTable(searchContainer__input);
                 }
             });
-            searchContainer__input.addEventListener('keypress', function (e) {
+            searchContainer__input.addEventListener('keypress', function(e) {
                 let key = e.which || e.keyCode;
                 if (key === 13) {
                     let orgContainer = document.getElementById('orgContainer');

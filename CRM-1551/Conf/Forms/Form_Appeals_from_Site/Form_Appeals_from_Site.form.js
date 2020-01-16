@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         IsCreateApplicant: 0,
         IsFormReturnModerated: function() {
@@ -398,7 +398,7 @@
                 document.getElementById('Question_Btn_Add').disabled = false;
             }
         },
-        CreateApplicant1551: function () {
+        CreateApplicant1551: function() {
             this.form.setGroupVisibility('Group_App_site', false);
             this.form.setGroupVisibility('Group2', false);
             this.form.setGroupVisibility('Appeal_Question', true);

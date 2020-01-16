@@ -27,6 +27,7 @@ module.exports = {
         "block-spacing": "error",
         "no-multi-spaces": "error",
         "no-mixed-spaces-and-tabs": "error",
-        "space-before-blocks": "error"
+        "space-before-blocks": "error",
+        "space-before-function-paren": ["error", "never"]
     }
 };

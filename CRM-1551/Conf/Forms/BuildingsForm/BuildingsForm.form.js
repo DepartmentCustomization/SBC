@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         Detail_History: function(column, row) {
             const parameters = [
@@ -58,7 +58,7 @@
                 document.getElementById('change_but').disabled = true;
             }
         },
-        ChangeBtn_Check: function () {
+        ChangeBtn_Check: function() {
             const checkResult = {
                 queryCode: 'CheckApplicantsAndQuestions',
                 parameterValues:[
@@ -79,7 +79,7 @@
                 }
             });
         },
-        DeleteObject: function (value) {
+        DeleteObject: function(value) {
             if (value) {
                 const queryForDeleteBuilding = {
                     queryCode: 'DeleteBuilding',

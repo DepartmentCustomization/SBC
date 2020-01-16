@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         init: function() {
             let select2LibraryJS = 'select2LibraryJS';
@@ -9,13 +9,13 @@
                 script.type = 'text/javascript';
                 script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js';
                 head.appendChild(script);
-                script.onload = function () {
+                script.onload = function() {
                     let script2 = document.createElement('script');
                     script2.id = 'select2LibraryJS';
                     script2.type = 'text/javascript';
                     script2.src = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js';
                     head.appendChild(script2);
-                    script2.onload = function () {
+                    script2.onload = function() {
                         let style = document.createElement('style');
                         let styleSelect = document.createElement('link');
                         styleSelect.rel = 'stylesheet';
@@ -23,7 +23,7 @@
                         styleSelect.type = 'text/css';
                         let tag_head = document.getElementsByTagName('head');
                         tag_head[0].appendChild(styleSelect);
-                        style.onload = function () {
+                        style.onload = function() {
                             let messageSelect = {
                                 name: 'LoadLib',
                                 package: {

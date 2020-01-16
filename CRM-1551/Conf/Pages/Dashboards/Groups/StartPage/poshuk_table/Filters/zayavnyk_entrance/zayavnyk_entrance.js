@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Під`їзд',
         onChangeValue: function(value) {

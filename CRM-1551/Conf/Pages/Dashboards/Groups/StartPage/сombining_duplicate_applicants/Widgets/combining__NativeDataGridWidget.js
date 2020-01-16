@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -95,14 +95,14 @@
                 }
             );
         },
-        showApplicants: function (message) {
+        showApplicants: function(message) {
             this.tableId = message.id;
             this.config.query.parameterValues = [
                 { key: '@Id', value: this.tableId }
             ];
             this.loadData(this.afterLoadDataHandler);
         },
-        executeQueryCombining: function (rowsId) {
+        executeQueryCombining: function(rowsId) {
             let query = {
                 queryCode: 'ak_db_doubles_ButtonCombine',
                 limit: -1,
@@ -115,7 +115,7 @@
             this.queryExecutor(query, this.response, this);
             this.showPreloader = false;
         },
-        executeQueryMissing: function () {
+        executeQueryMissing: function() {
             let query = {
                 queryCode: 'ak_db_doubles_ButtonSkip',
                 limit: -1,
@@ -126,7 +126,7 @@
             this.queryExecutor(query, this.response, this);
             this.showPreloader = false;
         },
-        response: function () {
+        response: function() {
             window.location.reload();
         },
         afterLoadDataHandler: function(data) {

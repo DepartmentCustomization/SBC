@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -67,7 +67,7 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
         },
-        init: function () {
+        init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe( 'sendCarId', this.getCarId, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
@@ -82,13 +82,13 @@
             });
             this.dataGridInstance.height = window.innerHeight - 150;
         },
-        showTopQuestionsTable: function () {
+        showTopQuestionsTable: function() {
             document.getElementById('cars_report').style.display = 'block';
         },
         getOrganizationId: function(message) {
             this.car_id = message.car_id;
         },
-        changeDateTimeValues: function (value) {
+        changeDateTimeValues: function(value) {
             let trueDate;
             if (value !== null) {
                 let date = new Date(value);
@@ -116,7 +116,7 @@
             }
             return trueDate;
         },
-        getFiltersParams: function (message) {
+        getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             if (period !== null) {
                 if (period.dateFrom !== '' && period.dateTo !== '') {
@@ -130,7 +130,7 @@
                 }
             }
         },
-        extractOrgValues: function (val) {
+        extractOrgValues: function(val) {
             if (val !== '') {
                 let valuesList = [];
                 valuesList.push(val.value);
@@ -139,10 +139,10 @@
                 return [];
             }
         },
-        afterLoadDataHandler: function () {
+        afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         },
     };

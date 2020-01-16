@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Період',
         onItemSelect: function(date) {

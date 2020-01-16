@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Група організацій',
         keyValue: 'Id',

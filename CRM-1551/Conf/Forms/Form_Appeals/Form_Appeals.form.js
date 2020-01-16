@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         init: function() {
             this.details.setVisibility('Detail_test', false)

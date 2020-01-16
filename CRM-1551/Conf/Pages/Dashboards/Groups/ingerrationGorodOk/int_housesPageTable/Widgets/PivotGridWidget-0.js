@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -148,12 +148,12 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
             toolbarPreparing: function(data) {
-                let indexSaveButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function (item) {
+                let indexSaveButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function(item) {
                     return item.name == 'saveButton';
                 }));
                 if (indexSaveButton != -1)
                     data.toolbarOptions.items.splice(indexSaveButton, 1);
-                let indexRevertButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function (item) {
+                let indexRevertButton = data.toolbarOptions.items.indexOf(data.toolbarOptions.items.find(function(item) {
                     return item.name == 'revertButton';
                 }));
                 if (indexRevertButton != -1)

@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         init: function() {
             this.showPagePreloader('Зачекайте, сторінка завантажується');

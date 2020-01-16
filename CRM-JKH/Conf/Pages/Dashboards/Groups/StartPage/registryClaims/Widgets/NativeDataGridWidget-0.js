@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -87,7 +87,7 @@
         load: function(data) {
             let that = this;
             let tableParams;
-            document.getElementById('btn_sendAllClaimToWork').addEventListener('click', function () {
+            document.getElementById('btn_sendAllClaimToWork').addEventListener('click', function() {
                 let executeQuery = {
                     queryCode: 'Claims_State_Update_Table',
                     limit: -1,
@@ -96,8 +96,8 @@
                 this.queryExecutor(executeQuery, this.callback_updateRows, this);
             }.bind(that))
             let items = [...document.getElementsByClassName('item')];
-            items.forEach(function (item, i, arr) {
-                item.addEventListener('click', function () {
+            items.forEach(function(item, i, arr) {
+                item.addEventListener('click', function() {
                     arr.forEach(function(item) {
                         item.style.opacity = 0.5;
                         item.style.transform = 'scale(1)';

@@ -1,6 +1,6 @@
-(function () {
+(function() {
     return {
-        formatTitle: function () {
+        formatTitle: function() {
             return '<h3 class=\'table2__title\'>Зведені показання за переліком питань: Житлове господарство</h3>'
         },
         config: {
@@ -35,7 +35,7 @@
             this.sub = this.messageService.subscribe( 'FiltersParams', this.setFiltersParams, this );
             this.sub1 = this.messageService.subscribe( 'showInfo', this.showInfo, this );
         },
-        showInfo: function () {
+        showInfo: function() {
             document.getElementById('infoContainer').style.display = 'block';
             let createTableQuery = {
                 queryCode: this.config.query.code,
@@ -45,7 +45,7 @@
             this.queryExecutor(createTableQuery, this.setColumns, this);
             this.showPreloader = false;
         },
-        setFiltersParams: function (message) {
+        setFiltersParams: function(message) {
             this.date = message.date;
             this.rating = message.rating;
             this.config.query.parameterValues = [
@@ -53,7 +53,7 @@
                 {key: '@RatingId', value: this.rating }
             ];
         },
-        setColumns: function (data) {
+        setColumns: function(data) {
             for (let i = 0; i < data.columns.length; i++) {
                 const element = data.columns[i];
                 const dataField = element.code;
@@ -82,7 +82,7 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
         }

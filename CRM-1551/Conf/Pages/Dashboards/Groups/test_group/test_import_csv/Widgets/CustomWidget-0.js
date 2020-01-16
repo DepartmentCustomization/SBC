@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
@@ -57,7 +57,7 @@
                 xhr.send(data);
             });
         },
-        showModalWindow: function (responseModal, responseNotification, CONTAINER) {
+        showModalWindow: function(responseModal, responseNotification, CONTAINER) {
             const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
             const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
             const contentWrapper = this.createElement('div', { id:'contentWrapper'}, responseModal);
@@ -95,7 +95,7 @@
                 });
             } return element;
         },
-        destroy: function () {
+        destroy: function() {
         }
     };
 }());

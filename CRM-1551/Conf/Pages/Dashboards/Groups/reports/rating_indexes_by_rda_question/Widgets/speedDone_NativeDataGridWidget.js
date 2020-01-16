@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -71,7 +71,7 @@
                 document.getElementById('containerSpeedDone').style.display = 'block';
             }
         },
-        renderTable: function () {
+        renderTable: function() {
             if (this.period) {
                 if (this.active) {
                     let msg = {
@@ -93,7 +93,7 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

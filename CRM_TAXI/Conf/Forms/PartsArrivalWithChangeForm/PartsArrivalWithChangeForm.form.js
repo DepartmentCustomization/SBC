@@ -1,7 +1,7 @@
-(function () {
+(function() {
     return {
         forUser: [],
-        init: function () {
+        init: function() {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             document.getElementById('save_part_change').disabled = true;
             this.form.onControlValueChanged('car', this.getAutoForQuery);
@@ -10,7 +10,7 @@
             this.form.onControlValueChanged('car', this.checkSaveChangeAvailable);
             this.form.onControlValueChanged('part', this.checkSaveChangeAvailable);
             this.form.onControlValueChanged('invoice_consumption', this.checkSaveChangeAvailable);
-            document.getElementById('save_part_change').addEventListener('click', function () {
+            document.getElementById('save_part_change').addEventListener('click', function() {
                 const queryForMakePartChange = {
                     queryCode: 'MakePartChange',
                     parameterValues: [
@@ -50,7 +50,7 @@
                 });
             }.bind(this));
         },
-        sendBadChangeNotify: function (title) {
+        sendBadChangeNotify: function(title) {
             this.createOrganisationsNotification({
                 text: title,
                 url: 'notifications/unread',
@@ -60,7 +60,7 @@
                 hasAudio: true
             });
         },
-        getAutoForQuery: function () {
+        getAutoForQuery: function() {
             if (this.form.getControlValue('car')) {
                 let partParams = [
                     { parameterCode: '@car', parameterValue: this.form.getControlValue('car') },
@@ -69,7 +69,7 @@
                 this.form.setControlParameterValues('part', partParams);
             }
         },
-        checkPartChooseAvailable: function () {
+        checkPartChooseAvailable: function() {
             if (this.form.getControlValue('car') != null && this.form.getControlValue('car') != '') {
                 this.form.enableControl('part');
             } else {
@@ -78,7 +78,7 @@
                 }
             }
         },
-        checkSaveChangeAvailable: function () {
+        checkSaveChangeAvailable: function() {
             if (
                 this.form.getControlValue('car') != null && this.form.getControlValue('car') != ''
                 && this.form.getControlValue('invoice_consumption') != null

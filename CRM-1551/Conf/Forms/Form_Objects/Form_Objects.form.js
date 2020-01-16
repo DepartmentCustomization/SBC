@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         Detail_History: function(column, row) {
             const parameters = [

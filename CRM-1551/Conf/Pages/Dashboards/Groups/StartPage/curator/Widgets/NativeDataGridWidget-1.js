@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -167,7 +167,7 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        afterRenderTable: function () {
+        afterRenderTable: function() {
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
         },
         createCustomStyle: function() {

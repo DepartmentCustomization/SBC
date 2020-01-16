@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         chartConfig: {
             chart: {
@@ -34,14 +34,14 @@
             this.showPreloader = false;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
-        getYesterdayIndex: function (data) {
+        getYesterdayIndex: function(data) {
             let value = 0;
             if (data.rows.length) {
                 value = data.rows[0].values[0];
             }
             this.chartConfig.subtitle.text = value;
         },
-        getFiltersParams: function (message) {
+        getFiltersParams: function(message) {
             let period = message.package.value.values.find((el) => {
                 return el.name.toLowerCase() === 'period';
             });
@@ -54,12 +54,12 @@
                 }
             }
         },
-        executeQuery: function () {
+        executeQuery: function() {
             const query = this.query('ak_NPS_Graf0_0');
             this.queryExecutor(query, this.load, this);
             this.showPreloader = false;
         },
-        query: function (queryCode) {
+        query: function(queryCode) {
             return {
                 'queryCode': queryCode,
                 'limit': -1,
@@ -69,22 +69,22 @@
                 ],
             };
         },
-        load: function (data) {
+        load: function(data) {
             this.fillIndexes(data);
             this.setChartSeries(data);
             this.render();
         },
-        fillIndexes: function (data) {
+        fillIndexes: function(data) {
             this.id = this.getIndex(data, 'id');
             this.integralIndicator = this.getIndex(data, 'integral_indicator');
             this.calcDate = this.getIndex(data, 'calc_date');
         },
-        getIndex: function (data, name) {
+        getIndex: function(data, name) {
             return data.columns.findIndex(el => {
                 return el.code.toLowerCase() === name;
             })
         },
-        setChartSeries: function (data) {
+        setChartSeries: function(data) {
             const chartData = {
                 name: 'Дні',
                 data: this.getSeriesData(data)
@@ -95,7 +95,7 @@
             this.chartConfig.xAxis.categories = [];
             this.chartConfig.xAxis.categories = categories;
         },
-        getSeriesData: function (data) {
+        getSeriesData: function(data) {
             let result = [];
             for (let i = 0; i < data.rows.length; i++) {
                 let value = data.rows[i].values[this.integralIndicator];
@@ -104,7 +104,7 @@
             }
             return result;
         },
-        getCategories: function (data) {
+        getCategories: function(data) {
             let result = [];
             for (let i = 0; i < data.rows.length; i++) {
                 let value = this.setDete(data.rows[i].values[this.calcDate]);
@@ -112,7 +112,7 @@
             }
             return result;
         },
-        setDete: function (value) {
+        setDete: function(value) {
             let date = new Date(value);
             let dd = date.getDate().toString();
             let mm = (date.getMonth() + 1).toString();
@@ -121,7 +121,7 @@
             mm = mm.length === 1 ? '0' + mm : mm;
             return dd + '-' + mm + '-' + yy;
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

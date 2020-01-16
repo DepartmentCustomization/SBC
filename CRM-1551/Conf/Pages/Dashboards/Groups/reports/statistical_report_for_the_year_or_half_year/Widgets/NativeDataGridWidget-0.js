@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -128,7 +128,7 @@
             this.sub = this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-        setFilterParams: function (message) {
+        setFilterParams: function(message) {
             this.previousYear = message.previousYear;
             this.currentYear = message.currentYear;
             this.config.query.parameterValues = [
@@ -144,7 +144,7 @@
             this.messageService.publish( {name, data, columns, position} );
             this.render(this.afterRenderTable());
         },
-        afterRenderTable: function () {
+        afterRenderTable: function() {
             this.messageService.publish({ name: 'setStyles'});
             this.setYears();
         },

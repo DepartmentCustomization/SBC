@@ -1,15 +1,15 @@
-(function () {
+(function() {
     return {
         title: ' ',
         hint: '',
-        formatTitle: function () { },
+        formatTitle: function() { },
         customConfig:
             `
                   <div id='container' ></div>
                   `
         ,
         disabled: false,
-        afterViewInit: function () {
+        afterViewInit: function() {
             this.clearImportTable();
             const CONTAINER = document.getElementById('container');
             let fileInput = this.createElement('input', { type: 'file', className: 'inputfile', id: 'fileInput', accept: '.csv' });
@@ -95,12 +95,12 @@
                 fileLabel.appendChild(fileLabel__triangle);
             });
         },
-        hidePreloader: function (data) {
+        hidePreloader: function(data) {
             this.hidePagePreloader();
             let responseModal = this.createElement('div', { id: 'responseModal' });
             this.showLoadInfo(responseModal, data);
         },
-        showModalWindow: function (responseModal, responseNotification, CONTAINER) {
+        showModalWindow: function(responseModal, responseNotification, CONTAINER) {
             const modalBtnTrue = this.createElement('button', { id: 'modalBtnTrue', className: 'btn', innerText: 'ОК' });
             const modalBtnWrapper = this.createElement('div', { id: 'modalBtnWrapper', className: 'modalBtnWrapper' }, modalBtnTrue);
             const contentWrapper = this.createElement('div', { id: 'contentWrapper' }, responseModal);
@@ -133,7 +133,7 @@
             this.hidePagePreloader();
             CONTAINER.appendChild(modalWindowWrapper);
         },
-        showLoadInfo: function (responseModal, data) {
+        showLoadInfo: function(responseModal, data) {
             const CONTAINER = document.getElementById('container');
             const modalBtnTrue = this.createElement('button', { id: 'modalBtnTrue', className: 'btn', innerText: 'ОК' });
             const modalBtnWrapper = this.createElement('div', { id: 'modalBtnWrapper', className: 'modalBtnWrapper' }, modalBtnTrue);
@@ -148,7 +148,7 @@
             });
             CONTAINER.appendChild(modalWindowWrapper);
         },
-        createElement: function (tag, props, ...children) {
+        createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
             if (children.length > 0) {
@@ -157,7 +157,7 @@
                 });
             } return element;
         },
-        clearImportTable: function () {
+        clearImportTable: function() {
             let clearQuery = {
                 queryCode: 'Clear_Import',
                 parameterValues: []
