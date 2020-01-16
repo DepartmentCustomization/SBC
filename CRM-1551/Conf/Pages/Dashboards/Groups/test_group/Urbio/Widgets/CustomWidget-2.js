@@ -24,7 +24,7 @@
             xhr.open('POST', 'https://address-stage.kyivcity.gov.ua/address');
             xhr.setRequestHeader('Accept', 'application/json');
             xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.setRequestHeader('Authorization', 'Bearer '+token_text);
+            xhr.setRequestHeader('Authorization', 'Bearer ' + token_text);
             xhr.setRequestHeader('Cache-Control', 'no-cache');
             xhr.send(data);
         },

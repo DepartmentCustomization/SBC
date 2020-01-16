@@ -142,13 +142,13 @@
                     tds.push('A2');
                     tds.push('B2');
                     for(let i = 3; i < (data.length + 3); i++) {
-                        let value = data[i-3];
-                        columnText = worksheet.getCell('A'+i);
-                        columnCounter = worksheet.getCell('B'+i);
+                        let value = data[i - 3];
+                        columnText = worksheet.getCell('A' + i);
+                        columnCounter = worksheet.getCell('B' + i);
                         columnText.value = value[0];
                         columnCounter.value = value[1];
-                        tds.push('A'+i);
-                        tdsCounter.push('B'+i);
+                        tds.push('A' + i);
+                        tdsCounter.push('B' + i);
                     }
                 }else if(i === 1) {
                     let cellInfoCaption1 = worksheet.getCell('D1');
@@ -161,74 +161,74 @@
                     tds.push('D2');
                     tds.push('E2');
                     for(let i = 3; i < (data.length + 3); i++) {
-                        let value = data[i-3];
-                        columnText = worksheet.getCell('D'+i);
-                        columnCounter = worksheet.getCell('E'+i);
+                        let value = data[i - 3];
+                        columnText = worksheet.getCell('D' + i);
+                        columnCounter = worksheet.getCell('E' + i);
                         columnText.value = value[0];
                         columnCounter.value = value[1];
-                        tds.push('D'+i);
-                        tdsCounter.push('E'+i);
+                        tds.push('D' + i);
+                        tdsCounter.push('E' + i);
                     }
                 }else if(i === 2) {
-                    this.rowTable1 = (this.dataArray[0].length+3 + 1);
-                    let cellInfoCaption2 = worksheet.getCell('A'+(this.rowTable1));
+                    this.rowTable1 = (this.dataArray[0].length + 3 + 1);
+                    let cellInfoCaption2 = worksheet.getCell('A' + (this.rowTable1));
                     cellInfoCaption2.value = this.rep3_title;
-                    worksheet.mergeCells('A'+(this.rowTable1)+':'+'B'+(this.rowTable1));
-                    tds.push('A'+(this.rowTable1));
-                    worksheet.getCell('A'+(this.rowTable1+1)).value = captionName;
-                    worksheet.getCell('B'+(this.rowTable1+1)).value = captionCounter;
-                    tds.push('A'+(this.rowTable1+1));
-                    tds.push('B'+(this.rowTable1+1));
+                    worksheet.mergeCells('A' + (this.rowTable1) + ':' + 'B' + (this.rowTable1));
+                    tds.push('A' + (this.rowTable1));
+                    worksheet.getCell('A' + (this.rowTable1 + 1)).value = captionName;
+                    worksheet.getCell('B' + (this.rowTable1 + 1)).value = captionCounter;
+                    tds.push('A' + (this.rowTable1 + 1));
+                    tds.push('B' + (this.rowTable1 + 1));
                     for(let i = this.rowTable1 + 2; i < (data.length + this.rowTable1 + 2); i++) {
-                        let value = data[i-(2 + this.rowTable1)];
-                        columnText = worksheet.getCell('A'+i);
-                        columnCounter = worksheet.getCell('B'+i);
+                        let value = data[i - (2 + this.rowTable1)];
+                        columnText = worksheet.getCell('A' + i);
+                        columnCounter = worksheet.getCell('B' + i);
                         columnText.value = value[0];
                         columnCounter.value = value[1];
-                        tds.push('A'+i);
-                        tdsCounter.push('B'+i);
+                        tds.push('A' + i);
+                        tdsCounter.push('B' + i);
                     }
                 }else if(i === 3) {
-                    this.rowTable2 = (this.dataArray[1].length+3 + 1);
+                    this.rowTable2 = (this.dataArray[1].length + 3 + 1);
                     let counter = this.rowTable1 >= this.rowTable2 ? this.rowTable1 : this.rowTable2;
                     mainHeaders.push(counter);
-                    let cellInfoCaption3 = worksheet.getCell('D'+(counter));
+                    let cellInfoCaption3 = worksheet.getCell('D' + (counter));
                     cellInfoCaption3.value = this.rep4_title;
-                    worksheet.mergeCells('D'+(counter)+':'+'E'+(counter));
-                    tds.push('D'+counter);
-                    worksheet.getCell('D'+(counter+1)).value = captionName;
-                    worksheet.getCell('E'+(counter+1)).value = captionCounter;
-                    tds.push('D'+(counter+1));
-                    tds.push('E'+(counter+1));
+                    worksheet.mergeCells('D' + (counter) + ':' + 'E' + (counter));
+                    tds.push('D' + counter);
+                    worksheet.getCell('D' + (counter + 1)).value = captionName;
+                    worksheet.getCell('E' + (counter + 1)).value = captionCounter;
+                    tds.push('D' + (counter + 1));
+                    tds.push('E' + (counter + 1));
                     for(let i = counter + 2; i < (data.length + counter + 2); i++) {
-                        let value = data[i-(2 + counter)];
-                        columnText = worksheet.getCell('D'+i);
-                        columnCounter = worksheet.getCell('E'+i);
+                        let value = data[i - (2 + counter)];
+                        columnText = worksheet.getCell('D' + i);
+                        columnCounter = worksheet.getCell('E' + i);
                         columnText.value = value[0];
                         columnCounter.value = value[1];
-                        tds.push('D'+i);
-                        tdsCounter.push('E'+i);
+                        tds.push('D' + i);
+                        tdsCounter.push('E' + i);
                     }
                 }else if(i === 4) {
                     let counter = this.rowTable2 + this.rowTable1 - 1;
                     this.lastTableCounter = counter;
                     mainHeaders.push(counter);
-                    let cellInfoCaption3 = worksheet.getCell('A'+counter);
+                    let cellInfoCaption3 = worksheet.getCell('A' + counter);
                     cellInfoCaption3.value = this.rep4_title;
-                    worksheet.mergeCells('A'+counter+':'+'B'+counter);
-                    tds.push('A'+counter);
-                    worksheet.getCell('A'+(counter+1)).value = captionName;
-                    worksheet.getCell('B'+(counter+1)).value = captionCounter;
-                    tds.push('A'+(counter+1));
-                    tds.push('B'+(counter+1));
+                    worksheet.mergeCells('A' + counter + ':' + 'B' + counter);
+                    tds.push('A' + counter);
+                    worksheet.getCell('A' + (counter + 1)).value = captionName;
+                    worksheet.getCell('B' + (counter + 1)).value = captionCounter;
+                    tds.push('A' + (counter + 1));
+                    tds.push('B' + (counter + 1));
                     for(let i = counter + 2; i < (data.length + counter + 2); i++) {
-                        let value = data[i-(2 + counter)];
-                        columnText = worksheet.getCell('A'+i);
-                        columnCounter = worksheet.getCell('B'+i);
+                        let value = data[i - (2 + counter)];
+                        columnText = worksheet.getCell('A' + i);
+                        columnCounter = worksheet.getCell('B' + i);
                         columnText.value = value[0];
                         columnCounter.value = value[1];
-                        tds.push('A'+i);
-                        tdsCounter.push('B'+i);
+                        tds.push('A' + i);
+                        tdsCounter.push('B' + i);
                     }
                 }
                 worksheet.columns = columnsHeader;
@@ -278,8 +278,8 @@
                     worksheet.getRow(number).height = 70;
                     worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
                     worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-                    worksheet.getRow(number+1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                    worksheet.getRow(number+1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+                    worksheet.getRow(number + 1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+                    worksheet.getRow(number + 1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
                 });
             }
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
@@ -306,7 +306,7 @@
                 if((mm.toString()).length === 1) {
                     mm = '0' + mm;
                 }
-                trueDate = dd+'.'+MM+'.' + yyyy;
+                trueDate = dd + '.' + MM + '.' + yyyy;
             }else{
                 trueDate = ' ';
             }

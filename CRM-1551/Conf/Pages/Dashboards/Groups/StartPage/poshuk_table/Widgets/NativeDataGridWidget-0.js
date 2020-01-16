@@ -109,7 +109,7 @@
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
                     if(e.column.dataField == 'question_registration_number' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.data.Id+'');
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id + '');
                     }
                 }
             }.bind(this));
@@ -146,21 +146,21 @@
                                     let ageSendViewValue = '';
                                     data.forEach(el => {
                                         let values = el.viewValue.split('-');
-                                        let ageValue = '(zayavnyk_age>='+values[0]+' and zayavnyk_age<='+values[1]+')';
+                                        let ageValue = '(zayavnyk_age>=' + values[0] + ' and zayavnyk_age<=' + values[1] + ')';
                                         this.ageArr.push(ageValue);
-                                        ageSendViewValue = ageSendViewValue + ', '+ el.viewValue;
+                                        ageSendViewValue = ageSendViewValue + ', ' + el.viewValue;
                                     });
                                     ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
                                     let ageSendValue = this.ageArr.join(' or ');
-                                    ageSendValue = '('+ageSendValue+')';
+                                    ageSendValue = '(' + ageSendValue + ')';
                                     this.createObjMacros(elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
                                 }else{
                                     let sumValue = '';
                                     let sumViewValue = '';
                                     if(data.length > 0) {
                                         data.forEach(row => {
-                                            sumValue = sumValue + ', '+ row.value;
-                                            sumViewValue = sumViewValue + ', '+ row.viewValue;
+                                            sumValue = sumValue + ', ' + row.value;
+                                            sumViewValue = sumViewValue + ', ' + row.viewValue;
                                         });
                                     }
                                     let numberSendValue = sumValue.slice(2, [sumValue.length]);
@@ -172,8 +172,8 @@
                                 let stringSumViewValue = '';
                                 if(data.length > 0) {
                                     data.forEach(row => {
-                                        stringSumValue = stringSumValue + ', \''+ row.value + '\'';
-                                        stringSumViewValue = stringSumViewValue + ', '+ row.viewValue;
+                                        stringSumValue = stringSumValue + ', \'' + row.value + '\'';
+                                        stringSumViewValue = stringSumViewValue + ', ' + row.viewValue;
                                     });
                                 }
                                 let stringSendValue = stringSumValue.slice(2, [stringSumValue.length]);
@@ -182,7 +182,7 @@
                             }
                         }else{
                             if(data.dateFrom != '') {
-                                this.createObjMacros('cast('+elem.name+' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
+                                this.createObjMacros('cast(' + elem.name + ' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name) {
                                 case 'registration_date':
                                     this.registrationDate__from = checkDateFrom(elem.value);
@@ -206,7 +206,7 @@
                                 }
                             }
                             if(data.dateTo != '') {
-                                this.createObjMacros('cast('+elem.name+' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
+                                this.createObjMacros('cast(' + elem.name + ' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name) {
                                 case 'registration_date':
                                     this.registrationDateTo = checkDateTo(elem.value);
@@ -305,17 +305,17 @@
                 if(operation !== '>=' && operation !== '<=') {
                     let textMacros = '';
                     if(operation == 'like') {
-                        textMacros = ''+code+' '+operation+' \'%'+value+'%\' and';
+                        textMacros = '' + code + ' ' + operation + ' \'%' + value + '%\' and';
                     }else if(operation == '===') {
-                        textMacros = ''+value+' and';
+                        textMacros = '' + value + ' and';
                     }else if(operation == '==') {
-                        textMacros = ''+code+' '+'='+' '+value+' and';
+                        textMacros = '' + code + ' ' + '=' + ' ' + value + ' and';
                     }else if(operation == '+""+') {
-                        textMacros = ''+code+' in  (N\''+value+'\' and';
+                        textMacros = '' + code + ' in  (N\'' + value + '\' and';
                     }else if(operation == 'in') {
-                        textMacros = ''+code+' in ('+value+') and';
+                        textMacros = '' + code + ' in (' + value + ') and';
                     }else if(operation == '=') {
-                        textMacros = ''+code+' '+operation+' N\''+value+'\' and';
+                        textMacros = '' + code + ' ' + operation + ' N\'' + value + '\' and';
                     }
                     this.textFilterMacros.push(textMacros);
                 }
@@ -481,7 +481,7 @@
                 let cellInfo = worksheet.getCell('A2');
                 cellInfo.value = 'про звернення громадян, що надійшли до Контактного центру  міста Києва. Термін виконання …';
                 let cellPeriod = worksheet.getCell('A3');
-                cellPeriod.value = 'Період вводу з (включно) : дата з ' +this.changeDateTimeValues(this.registrationDateFrom)+ ' дата по ' +this.changeDateTimeValues(this.registrationDateTo)+ ' (Розширений пошук).';
+                cellPeriod.value = 'Період вводу з (включно) : дата з ' + this.changeDateTimeValues(this.registrationDateFrom) + ' дата по ' + this.changeDateTimeValues(this.registrationDateTo) + ' (Розширений пошук).';
                 let cellNumber = worksheet.getCell('A4');
                 cellNumber.value = 'Реєстраційний № РДА …';
                 worksheet.mergeCells('A1:F1');

@@ -136,7 +136,7 @@
                 let cellInfo = worksheet.getCell('A2');
                 cellInfo.value = ' що надійшли через КБУ "Контактний центр міста Києва.';
                 let cellPeriod = worksheet.getCell('A3');
-                cellPeriod.value = 'Період вводу з (включно) : дата з ' +this.changeDateTimeValues(this.dateFrom)+ ' дата по ' +this.changeDateTimeValues(this.dateTo);
+                cellPeriod.value = 'Період вводу з (включно) : дата з ' + this.changeDateTimeValues(this.dateFrom) + ' дата по ' + this.changeDateTimeValues(this.dateTo);
                 worksheet.mergeCells('A1:C1');
                 worksheet.mergeCells('A2:C2');
                 worksheet.mergeCells('A3:C3');
@@ -260,7 +260,7 @@
                 if((mm.toString()).length === 1) {
                     mm = '0' + mm;
                 }
-                trueDate = dd+'.'+MM+'.' + yyyy;
+                trueDate = dd + '.' + MM + '.' + yyyy;
             } else {
                 trueDate = ' ';
             }

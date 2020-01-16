@@ -138,11 +138,11 @@
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
                     if(e.column.dataField == 'full_name' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonApplicant?id='+e.data.ApplicantsId+'');
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonApplicant?id=' + e.data.ApplicantsId + '');
                     }else if(e.column.dataField == 'house' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonHouse?id='+e.data.BuildingId+'');
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvonHouse?id=' + e.data.BuildingId + '');
                     }else if(e.column.dataField == 'registration_number' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.data.Id+'');
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id + '');
                     }else if(e.column.dataField == 'phone_number' && e.row != undefined) {
                         let CurrentUserPhone = e.row.data.phone_number;
                         let PhoneForCall = this.userPhoneNumber;
@@ -262,10 +262,10 @@
             let elementHistory__content = this.createElement('div', { className: 'elementHistory__content content', innerText: ndz + ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment });
             let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія'});
             let elementHistory = this.createElement('div', { className: 'elementHistory element'}, elementHistory__caption, elementHistory__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ''+currentEmployeeData.zmist+''});
+            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: '' + currentEmployeeData.zmist + ''});
             let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: ''+currentEmployeeData.comment+''});
+            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: '' + currentEmployeeData.comment + ''});
             let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
             let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
             let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
@@ -315,21 +315,21 @@
                                     let ageSendViewValue = '';
                                     data.forEach(el => {
                                         let values = el.viewValue.split('-');
-                                        let ageValue = '(zayavnyk_age>='+values[0]+' and zayavnyk_age<='+values[1]+')';
+                                        let ageValue = '(zayavnyk_age>=' + values[0] + ' and zayavnyk_age<=' + values[1] + ')';
                                         this.ageArr.push(ageValue);
-                                        ageSendViewValue = ageSendViewValue + ', '+ el.viewValue;
+                                        ageSendViewValue = ageSendViewValue + ', ' + el.viewValue;
                                     });
                                     ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
                                     let ageSendValue = this.ageArr.join(' or ');
-                                    ageSendValue = '('+ageSendValue+')';
+                                    ageSendValue = '(' + ageSendValue + ')';
                                     this.createObjMacros(elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
                                 }else{
                                     let sumValue = '';
                                     let sumViewValue = '';
                                     if(data.length > 0) {
                                         data.forEach(row => {
-                                            sumValue = sumValue + ', '+ row.value;
-                                            sumViewValue = sumViewValue + ', '+ row.viewValue;
+                                            sumValue = sumValue + ', ' + row.value;
+                                            sumViewValue = sumViewValue + ', ' + row.viewValue;
                                         });
                                     }
                                     let numberSendValue = sumValue.slice(2, [sumValue.length]);
@@ -341,8 +341,8 @@
                                 let stringSumViewValue = '';
                                 if(data.length > 0) {
                                     data.forEach(row => {
-                                        stringSumValue = stringSumValue + ', \''+ row.value + '\'';
-                                        stringSumViewValue = stringSumViewValue + ', '+ row.viewValue;
+                                        stringSumValue = stringSumValue + ', \'' + row.value + '\'';
+                                        stringSumViewValue = stringSumViewValue + ', ' + row.viewValue;
                                     });
                                 }
                                 let stringSendValue = stringSumValue.slice(2, [stringSumValue.length]);
@@ -353,7 +353,7 @@
                             this.createObjMacros(elem.name, 'in', data.value, elem.placeholder, data.viewValue);
                         }else{
                             if(data.dateFrom != '') {
-                                this.createObjMacros('cast('+elem.name+' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
+                                this.createObjMacros('cast(' + elem.name + ' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name) {
                                 case 'registration_date':
                                     this.registrationDate__from = checkDateFrom(elem.value);
@@ -374,7 +374,7 @@
                                 }
                             }
                             if(data.dateTo != '') {
-                                this.createObjMacros('cast('+elem.name+' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
+                                this.createObjMacros('cast(' + elem.name + ' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
                                 switch(elem.name) {
                                 case 'registration_date':
                                     this.registrationDateTo = checkDateTo(elem.value);
@@ -419,17 +419,17 @@
         createFilterMacros: function(code, operation, currentDate) {
             let textMacros = '';
             if(operation == 'like') {
-                textMacros = ''+code+' '+operation+' \'%'+currentDate+'%\' and';
+                textMacros = '' + code + ' ' + operation + ' \'%' + currentDate + '%\' and';
             }else if(operation == '===') {
-                textMacros = ''+currentDate+' and';
+                textMacros = '' + currentDate + ' and';
             }else if(operation == '==') {
-                textMacros = ''+code+' '+'='+' '+currentDate+' and';
+                textMacros = '' + code + ' ' + '=' + ' ' + currentDate + ' and';
             }else if(operation == '+""+') {
-                textMacros = ''+code+' in  (N\''+currentDate+'\' and';
+                textMacros = '' + code + ' in  (N\'' + currentDate + '\' and';
             }else if(operation == 'in') {
-                textMacros = ''+code+' in ('+currentDate+') and';
+                textMacros = '' + code + ' in (' + currentDate + ') and';
             }else if(operation == '=') {
-                textMacros = ''+code+' '+operation+' N\''+currentDate+'\' and';
+                textMacros = '' + code + ' ' + operation + ' N\'' + currentDate + '\' and';
             }else if(operation == '>=' || operation == '<=') {
                 let year = currentDate.getFullYear();
                 let month = currentDate.getMonth() + 1;
@@ -440,12 +440,12 @@
                 month = month + '';
                 hours = hours + '';
                 minutes = minutes + '';
-                month = month.length == 1 ? '0'+month : month;
-                date = date.length == 1 ?'0'+date : date;
-                hours = hours.length == 1 ?'0'+hours :hours;
-                minutes = minutes.length == 1 ?'0'+minutes :minutes;
-                let value = ''+year+'-'+month+'-'+date+' '+hours+':'+minutes+'';
-                textMacros = ''+code+' '+operation+' N\''+value+'\' and';
+                month = month.length == 1 ? '0' + month : month;
+                date = date.length == 1 ? '0' + date : date;
+                hours = hours.length == 1 ? '0' + hours : hours;
+                minutes = minutes.length == 1 ? '0' + minutes : minutes;
+                let value = '' + year + '-' + month + '-' + date + ' ' + hours + ':' + minutes + '';
+                textMacros = '' + code + ' ' + operation + ' N\'' + value + '\' and';
             }
             this.textFilterMacros.push(textMacros);
         },

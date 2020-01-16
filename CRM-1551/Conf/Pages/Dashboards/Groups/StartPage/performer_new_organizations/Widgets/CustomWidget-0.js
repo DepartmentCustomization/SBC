@@ -76,8 +76,8 @@
                 document.getElementById('organizationName').value = (data.rows[0].values[indexOfTypeId]);
                 document.getElementById('organizationName').innerText = (data.rows[0].values[indexOfTypeName]);
                 this.organizationName = data.rows[0].values[indexOfTypeName];
-                if(window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+'') {
-                    window.location.search = 'id='+data.rows[0].values[indexOfTypeId]+'';
+                if(window.location.search != '?id=' + data.rows[0].values[indexOfTypeId] + '') {
+                    window.location.search = 'id=' + data.rows[0].values[indexOfTypeId] + '';
                 }
             }
         },
@@ -127,12 +127,12 @@
                         let orgLinksWrapper = this.createElement('div', { id: 'orgLinksWrapper'}, orgLinksWrapper__triangle);
                         orgLinkСhangerBox.appendChild(orgLinksWrapper);
                         this.organizationSelect.forEach(el => {
-                            let organizationLink = this.createElement('div', { className: 'organizationLink', orgId: ''+el.id+'', innerText: el.name });
+                            let organizationLink = this.createElement('div', { className: 'organizationLink', orgId: '' + el.id + '', innerText: el.name });
                             orgLinksWrapper.appendChild(organizationLink);
                             organizationLink.addEventListener('click', event => {
                                 event.stopImmediatePropagation();
                                 let target = event.currentTarget;
-                                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_organizations?id='+target.orgId+'');
+                                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_organizations?id=' + target.orgId + '');
                             });
                         });
                     }else if(orgLinkСhangerBox.children.length === 2) {
@@ -243,17 +243,17 @@
                     let orgElementsСounter = this.createElement('div', { className: 'orgElementsСounter displayFlex'});
                     let orgElements = this.createElement('div', { className: 'orgElements displayFlex'}, orgElementsСounter, orgElementsReferral);
                     let orgTitle__icon = this.createElement('div', { className: 'orgTitle__icon material-icons',value: 0 , innerText: 'add_circle_outline'});
-                    let orgTitle__name = this.createElement('div', { className: 'orgTitle__name', innerText: ''+row.values[1]+''});
+                    let orgTitle__name = this.createElement('div', { className: 'orgTitle__name', innerText: '' + row.values[1] + ''});
                     let orgTitle = this.createElement('div', { className: 'orgTitle displayFlex'}, orgTitle__icon, orgTitle__name);
-                    let organization = this.createElement('div', { className: 'organization displayFlex', id: ''+organizationId+''}, orgTitle, orgElements);
+                    let organization = this.createElement('div', { className: 'organization displayFlex', id: '' + organizationId + ''}, orgTitle, orgElements);
                     orgContainer.appendChild(organization);
-                    for(let i = 2; i <row.values.length; i ++) {
+                    for(let i = 2; i < row.values.length; i ++) {
                         let el = row.values[i];
                         let column = this.chooseColumnName(i);
                         let orgElementsСounterItem = {};
                         if(el != 0) {
-                            let orgElementsСounterItem__value = this.createElement('div', { className: ' counter_value', innerText: ''+el+''});
-                            orgElementsСounterItem = this.createElement('div', {orgId: organizationId, column: column, orgName: ''+row.values[1]+'', className: 'counter counterHeader'}, orgElementsСounterItem__value);
+                            let orgElementsСounterItem__value = this.createElement('div', { className: ' counter_value', innerText: '' + el + ''});
+                            orgElementsСounterItem = this.createElement('div', {orgId: organizationId, column: column, orgName: '' + row.values[1] + '', className: 'counter counterHeader'}, orgElementsСounterItem__value);
                         } else {
                             orgElementsСounterItem = this.createElement('div', { className: 'counter counterHeader'});
                         }
@@ -358,16 +358,16 @@
         },
         createOrganizationsSubElements: function(orgElementsReferral, organizationId, data) {
             data.rows.forEach(function(row) {
-                for(let i = 2; i <row.values.length; i ++) {
+                for(let i = 2; i < row.values.length; i ++) {
                     let el = row.values[i];
                     let sub = row.values[1];
                     let column = this.chooseColumnName(i);
                     if(el != 0) {
-                        let orgElementsReferal__itemValue_number = this.createElement('div', { className: 'refItem__value', innerText: ' ('+el+')'});
-                        let orgElementsReferal__itemValue_title = this.createElement('div', { className: 'refItem__value', innerText: ''+sub+' '});
+                        let orgElementsReferal__itemValue_number = this.createElement('div', { className: 'refItem__value', innerText: ' (' + el + ')'});
+                        let orgElementsReferal__itemValue_title = this.createElement('div', { className: 'refItem__value', innerText: '' + sub + ' '});
                         let orgElementsReferal__itemValue = this.createElement('div', { className: 'refItem__value'}, orgElementsReferal__itemValue_title, orgElementsReferal__itemValue_number);
-                        let orgElementsReferal__item = this.createElement('div', { orgId: organizationId, column: column, orgName: ''+row.values[1]+'', className: 'counter referalItem counterBorder'}, orgElementsReferal__itemValue);
-                        orgElementsReferral.childNodes[i-2].appendChild(orgElementsReferal__item);
+                        let orgElementsReferal__item = this.createElement('div', { orgId: organizationId, column: column, orgName: '' + row.values[1] + '', className: 'counter referalItem counterBorder'}, orgElementsReferal__itemValue);
+                        orgElementsReferral.childNodes[i - 2].appendChild(orgElementsReferal__item);
                     }
                 }
             }.bind(this));

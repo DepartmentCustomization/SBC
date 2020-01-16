@@ -215,7 +215,7 @@
                     self.loadData(self.afterLoadDataHandler);
                 }
                 function requestResponse() {
-                    return makeRequest(index+1);
+                    return makeRequest(index + 1);
                 }
             }
             makeRequest(0);
@@ -426,7 +426,7 @@
                 if((mm.toString()).length === 1) {
                     mm = '0' + mm;
                 }
-                trueDate = dd+'.'+MM+'.' + yyyy;
+                trueDate = dd + '.' + MM + '.' + yyyy;
             }else{
                 trueDate = ' ';
             }

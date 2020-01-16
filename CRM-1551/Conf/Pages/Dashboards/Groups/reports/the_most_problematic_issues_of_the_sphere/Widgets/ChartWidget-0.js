@@ -116,7 +116,7 @@
             } return element;
         },
         load: function(data) {
-            document.getElementById('widgetTitle').innerText = 'ТОП-10 найпроблемніших питань сфери «'+this.sphereName+'» за перiод: ' +this.dateFromViewValues+ ' по: '+this.dateToViewValues;
+            document.getElementById('widgetTitle').innerText = 'ТОП-10 найпроблемніших питань сфери «' + this.sphereName + '» за перiод: ' + this.dateFromViewValues + ' по: ' + this.dateToViewValues;
             this.createChartInfo(data);
             const self = this;
             function func(self) {

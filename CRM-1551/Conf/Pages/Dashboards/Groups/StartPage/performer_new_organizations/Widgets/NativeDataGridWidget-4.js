@@ -89,7 +89,7 @@
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     if(e.column.dataField == 'registration_number' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/'+e.key+'');
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.key + '');
                     }
                 }
             });
@@ -152,13 +152,13 @@
             if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined) {
                 currentEmployeeData.balans_name = '';
             }
-            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: ''+currentEmployeeData.zayavnyk_adress+''});
+            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: '' + currentEmployeeData.zayavnyk_adress + ''});
             let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: 'Адреса заявника'});
             let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: ''+currentEmployeeData.zayavnyk_zmist+''});
+            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: '' + currentEmployeeData.zayavnyk_zmist + ''});
             let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
             let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: ''+currentEmployeeData.balans_name+''});
+            let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: '' + currentEmployeeData.balans_name + ''});
             let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: 'Балансоутримувач'});
             let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
             let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance);

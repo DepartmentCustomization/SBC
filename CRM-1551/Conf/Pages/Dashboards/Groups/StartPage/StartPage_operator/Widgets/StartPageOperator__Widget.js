@@ -26,7 +26,7 @@
                 listItem.addEventListener('click', event => {
                     let target = event.currentTarget;
                     let phoneNumber = document.getElementById('listPhoneNumberInput').value;
-                    window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone='+phoneNumber+'&type='+target.type+'&sipcallid=0');
+                    window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone=' + phoneNumber + '&type=' + target.type + '&sipcallid=0');
                 });
             });
             const listTitle = this.createElement('div', { id:'listTitle', innerText: 'Виберіть тип звернення:' });
@@ -59,7 +59,7 @@
             let groupViewAppeals__borderRight = this.createElement('div', { className: 'border-right'});
             let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight);
             groupViewAppeals.addEventListener('click', () => {
-                window.open(location.origin + localStorage.getItem('VirtualPath')+'/sections/Appeals');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Appeals');
             });
             let groupRegAppeals__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'desktop_windows' });
             let groupRegAppeals__description = this.createElement('div', { className: 'description', innerText: 'Реєстрація Звернень з сайту'});
@@ -68,7 +68,7 @@
             let groupRegAppeals__borderRight = this.createElement('div', { className: 'border-right'});
             let groupRegAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupRegAppeals__icon, groupRegAppeals__description, groupRegAppeals__borderBottom, groupRegAppeals__borderRight);
             groupRegAppeals.addEventListener('click', () => {
-                window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/referrals_from_the_site');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/referrals_from_the_site');
             });
             let groupSearchTable__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'find_in_page' });
             let groupSearchTable__description = this.createElement('div', { className: 'description', innerText: 'Розширений пошук'});
@@ -77,7 +77,7 @@
             let groupSearchTable__borderRight = this.createElement('div', { className: 'border-right'});
             let groupSearchTable = this.createElement('div', { className: 'group', tabindex: '0' }, groupSearchTable__icon, groupSearchTable__description, groupSearchTable__borderBottom, groupSearchTable__borderRight);
             groupSearchTable.addEventListener('click', () => {
-                window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/poshuk_table');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/poshuk_table');
             });
             let groupCall__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'perm_phone_msg' });
             let groupCall__description = this.createElement('div', { className: 'description', innerText: 'Прозвон'});
@@ -86,7 +86,7 @@
             let groupCall__borderRight = this.createElement('div', { className: 'border-right'});
             let groupCall = this.createElement('div', { className: 'group', tabindex: '0' }, groupCall__icon, groupCall__description, groupCall__borderBottom, groupCall__borderRight);
             groupCall.addEventListener('click', () => {
-                window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/prozvon');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/prozvon');
             });
             let groupLetter__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'mail' });
             let groupLetter__description = this.createElement('div', { className: 'description', innerText: 'Реєстрація Звернення згідно листа'});
@@ -121,7 +121,7 @@
             CONTAINER.appendChild(modalWindowWrapper);
             modalBtnTrue.addEventListener('click', () => {
                 let number = modalNumber.value
-                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone='+number+'&type=1&sipcallid=0');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone=' + number + '&type=1&sipcallid=0');
                 const lastElementChild = this.container.lastElementChild;
                 this.container.removeChild(lastElementChild);
             });

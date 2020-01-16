@@ -36,7 +36,7 @@
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.getFiltersParams, this);
         },
         setTitle: function(dayFrom, dayTo) {
-            return 'Звернення, що закритi з порушенням термiну виконання  за тиждень з ' + dayFrom +' по ' + dayTo;
+            return 'Звернення, що закритi з порушенням термiну виконання  за тиждень з ' + dayFrom + ' по ' + dayTo;
         },
         getFiltersParams: function(message) {
             this.config.query.filterColumns = [];

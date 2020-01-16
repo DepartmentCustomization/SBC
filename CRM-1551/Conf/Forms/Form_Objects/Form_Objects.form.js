@@ -21,7 +21,7 @@
                 if (name === null) {
                     this.form.setControlValue('full_name', type + ' : ' + bul);
                 }else{
-                    this.form.setControlValue('full_name', type + ' : ' + bul +' ('+ name + ')');
+                    this.form.setControlValue('full_name', type + ' : ' + bul + ' (' + name + ')');
                 }
             }
             this.form.onControlValueChanged('object_name', this.fullName);
@@ -29,7 +29,7 @@
         fullName:function(name) {
             let type = this.form.getControlDisplayValue('obj_type_id');
             let bul = this.form.getControlDisplayValue('builbing_id');
-            this.form.setControlValue('full_name', type + ' : ' + bul +' ('+ name + ')');
+            this.form.setControlValue('full_name', type + ' : ' + bul + ' (' + name + ')');
         }
     };
 }());

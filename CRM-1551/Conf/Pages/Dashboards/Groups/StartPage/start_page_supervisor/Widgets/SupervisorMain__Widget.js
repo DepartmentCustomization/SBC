@@ -25,7 +25,7 @@
                 listItem.addEventListener('click', event => {
                     let target = event.currentTarget;
                     let phoneNumber = document.getElementById('listPhoneNumberInput').value;
-                    window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone='+phoneNumber+'&type='+target.type);
+                    window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone=' + phoneNumber + '&type=' + target.type);
                 });
             });
             const listTitle = this.createElement('div', { id:'listTitle', innerText: 'Виберіть тип звернення:' });
@@ -51,7 +51,7 @@
             modalBtnTrue.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 let number = modalNumber.value
-                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone='+number+'&type=1');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal/add?phone=' + number + '&type=1');
                 CONTAINER.removeChild(CONTAINER.lastElementChild);
             });
             modalBtnClose.addEventListener('click', event => {
@@ -153,7 +153,7 @@
             CONTAINER.appendChild(groupsWrapper);
         },
         openNewTab: function(url) {
-            window.open(location.origin + localStorage.getItem('VirtualPath')+'/' + url);
+            window.open(location.origin + localStorage.getItem('VirtualPath') + '/' + url);
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);

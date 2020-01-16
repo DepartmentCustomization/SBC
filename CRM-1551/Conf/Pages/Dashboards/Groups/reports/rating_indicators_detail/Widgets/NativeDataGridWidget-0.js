@@ -372,7 +372,7 @@
             }
             for (let i = 0; i < resultColumns.length; i++) {
                 const resCol = resultColumns[i];
-                const colIndexTo = i+1;
+                const colIndexTo = i + 1;
                 let indexCaptionFrom;
                 if(resCol.isSub === true) {
                     if(this.subColumnCaption.length > 0) {

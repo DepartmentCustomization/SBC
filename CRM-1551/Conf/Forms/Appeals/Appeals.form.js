@@ -9,7 +9,7 @@
                 parameterValues: [{ key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')}]
             };
             this.queryExecutor.getValues(queryForGetValue22).subscribe(function(data) {
-                this.kolvoPhonesForApplicant = data.rows.length-1;
+                this.kolvoPhonesForApplicant = data.rows.length - 1;
                 if (data.rows.length > 0) {
                     const fieldsForm = {
                         title: 'Телефони заявника',
@@ -21,14 +21,14 @@
                     for (let j = 0; j < data.rows.length; j++) {
                         if(data.rows[j].values[5] == 1) {
                             let p = {
-                                code: 'GroupPhone'+j,
+                                code: 'GroupPhone' + j,
                                 name: 'Створення телефону',
                                 expand: true,
                                 position: data.rows[j].values[0],
                                 fields: []
                             };
                             fieldsForm.fieldGroups.push(p);
-                            let c = fieldsForm.fieldGroups.length-1;
+                            let c = fieldsForm.fieldGroups.length - 1;
                             let t = {
                                 code: data.rows[j].values[1],
                                 fullScreen: true,
@@ -46,7 +46,7 @@
                             };
                             fieldsForm.fieldGroups[c].fields.push(t);
                             let t0_0 = {
-                                code: data.rows[j].values[1]+'_phoneType',
+                                code: data.rows[j].values[1] + '_phoneType',
                                 fullScreen: true,
                                 hidden: false,
                                 placeholder: 'Тип',
@@ -62,7 +62,7 @@
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_0);
                             let t0_2 = {
-                                code: data.rows[j].values[1]+'_phoneIsMain',
+                                code: data.rows[j].values[1] + '_phoneIsMain',
                                 fullScreen: true,
                                 hidden: false,
                                 placeholder: 'Основний?',
@@ -74,7 +74,7 @@
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_2);
                             let t0_1 = {
-                                code: data.rows[j].values[1]+'_phoneDelete',
+                                code: data.rows[j].values[1] + '_phoneDelete',
                                 fullScreen: true,
                                 hidden: false,
                                 placeholder: 'Додати',
@@ -87,16 +87,16 @@
                             fieldsForm.fieldGroups[c].fields.push(t0_1);
                         } else {
                             let p1 = {
-                                code: 'GroupPhone'+j,
+                                code: 'GroupPhone' + j,
                                 name: data.rows[j].values[2],
                                 expand: true,
                                 position: data.rows[j].values[0],
                                 fields: []
                             };
                             fieldsForm.fieldGroups.push(p1);
-                            let c1 = fieldsForm.fieldGroups.length-1;
+                            let c1 = fieldsForm.fieldGroups.length - 1;
                             let t1_0 = {
-                                code: data.rows[j].values[1]+'_phoneNumber',
+                                code: data.rows[j].values[1] + '_phoneNumber',
                                 fullScreen: true,
                                 hidden: false,
                                 placeholder: 'Номер телефону',
@@ -109,7 +109,7 @@
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_0);
                             let t1_1 = {
-                                code: data.rows[j].values[1]+'_phoneType',
+                                code: data.rows[j].values[1] + '_phoneType',
                                 fullScreen: true,
                                 hidden: false,
                                 placeholder: 'Тип',
@@ -125,7 +125,7 @@
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_1);
                             let t1_2 = {
-                                code: data.rows[j].values[1]+'_phoneIsMain',
+                                code: data.rows[j].values[1] + '_phoneIsMain',
                                 fullScreen: true,
                                 hidden: false,
                                 placeholder: 'Основний?',
@@ -151,7 +151,7 @@
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_0);
                             } else {
                                 let t1_3_1 = {
-                                    code: data.rows[j].values[1]+'_phoneDelete',
+                                    code: data.rows[j].values[1] + '_phoneDelete',
                                     fullScreen: true,
                                     hidden: false,
                                     placeholder: 'Видалити',
@@ -164,7 +164,7 @@
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_1);
                             }
                             let t1_4 = {
-                                code: data.rows[j].values[1]+'_phoneId',
+                                code: data.rows[j].values[1] + '_phoneId',
                                 fullScreen: true,
                                 hidden: true,
                                 placeholder: 'Id',
@@ -183,38 +183,38 @@
         },
         onChangeCardPhone: function() {
             for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
-                this.formModalConfig.setControlValue('modal_phone'+(u+1)+'_phoneIsMain', false);
+                this.formModalConfig.setControlValue('modal_phone' + (u + 1) + '_phoneIsMain', false);
             }
         },
         extractStartDate:function() {
             function addDays(theDate, days) {
-                return new Date(theDate.getTime() + days*24*60*60*1000);
+                return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
             }
             let newDate = addDays(new Date(), 14);
             let inMonth = newDate;
-            inMonth.setMonth(newDate.getMonth()+1);
+            inMonth.setMonth(newDate.getMonth() + 1);
             let dd = inMonth.getDate();
             let mm = inMonth.getMonth();
             let yyyy = inMonth.getFullYear();
             let hh = inMonth.getHours();
             let mi = inMonth.getMinutes();
             let ss = inMonth.getSeconds();
-            if(dd<10) {
-                dd='0'+dd
+            if(dd < 10) {
+                dd = '0' + dd
             }
-            if(mm<10) {
-                mm='0'+mm
+            if(mm < 10) {
+                mm = '0' + mm
             }
-            if(hh<10) {
-                hh='0'+hh
+            if(hh < 10) {
+                hh = '0' + hh
             }
-            if(mi<10) {
-                mi='0'+mi
+            if(mi < 10) {
+                mi = '0' + mi
             }
-            if(ss<10) {
-                ss='0'+ss
+            if(ss < 10) {
+                ss = '0' + ss
             }
-            return yyyy+'-'+mm+'-'+dd+' 23:59:59';
+            return yyyy + '-' + mm + '-' + dd + ' 23:59:59';
         },
         convertDateNull:function(value) {
             if (!value) {
@@ -280,7 +280,7 @@
         onDeleteCardPhone: function(phone) {
             const queryForGetValue_DeletePhone = {
                 queryCode: 'ApplicantPhonesDelete',
-                parameterValues: [{ key: '@PhoneId', value: this.formModalConfig.getControlValue('modal_phone'+phone+'_phoneId')}]
+                parameterValues: [{ key: '@PhoneId', value: this.formModalConfig.getControlValue('modal_phone' + phone + '_phoneId')}]
             };
             this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function() {
                 let event = new Event('click');
@@ -298,15 +298,15 @@
             this.formModalConfig = form;
             if (this.kolvoPhonesForApplicant > 0) {
                 for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
-                    document.getElementById('modal_phone'+(u+1)+'_phoneIsMain').addEventListener('click', function() {
+                    document.getElementById('modal_phone' + (u + 1) + '_phoneIsMain').addEventListener('click', function() {
                         this.formConfig.onChangeCardPhone(true);
                     }.bind(form));
-                    if (document.getElementById('modal_phone'+(u+1)+'_phoneDelete')) {
-                        document.getElementById('modal_phone'+(u+1)+'_phoneDelete').addEventListener('click', function() {
-                            this.formConfig.onDeleteCardPhone(u+1);
+                    if (document.getElementById('modal_phone' + (u + 1) + '_phoneDelete')) {
+                        document.getElementById('modal_phone' + (u + 1) + '_phoneDelete').addEventListener('click', function() {
+                            this.formConfig.onDeleteCardPhone(u + 1);
                         }.bind(form));
                     }
-                    let input = document.getElementById('modal_phone'+(u+1)+'_phoneNumber');
+                    let input = document.getElementById('modal_phone' + (u + 1) + '_phoneNumber');
                     input.addEventListener('input', this.mask, false);
                     input.addEventListener('focus', this.mask, false);
                     input.addEventListener('blur', this.mask, false);
@@ -314,7 +314,7 @@
                 }
                 document.getElementById('phoneDelete_Disabled').disabled = true;
                 for (let u2 = 0; u2 < this.kolvoPhonesForApplicant; u2++) {
-                    document.getElementById('modal_phone'+(u2+1)+'_phoneNumber').focus();
+                    document.getElementById('modal_phone' + (u2 + 1) + '_phoneNumber').focus();
                 }
             }
             form.onControlValueChanged('modal_phone_NEW', this.onModalPhonesChanged);
@@ -363,10 +363,10 @@
                         const queryForGetValue_UpdatePhone = {
                             queryCode: 'ApplicantPhonesUpdate',
                             parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                                { key: '@TypePhone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneType').value},
-                                { key: '@Phone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneNumber').value},
-                                { key: '@IsMain', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneIsMain').value},
-                                { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone'+(u+1)+'_phoneId').value}]
+                                { key: '@TypePhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneType').value},
+                                { key: '@Phone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneNumber').value},
+                                { key: '@IsMain', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneIsMain').value},
+                                { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneId').value}]
                         };
                         this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function() {
                         }.bind(this));
@@ -463,7 +463,7 @@
                         ]
                     };
                     this.queryExecutor.getValue(queryForGetValue).subscribe(data => {
-                        this.navigateTo('sections/CreateAppeal/edit/'+data)
+                        this.navigateTo('sections/CreateAppeal/edit/' + data)
                     });
                 }
             }else{
@@ -1207,7 +1207,7 @@
                     };
                     this.openModalForm(fieldsForm, Question_Close_callback.bind(this));
                 }.bind(this));
-                for (let i=0; i<document.querySelectorAll('div.card-title > div > button').length; i++) {
+                for (let i = 0; i < document.querySelectorAll('div.card-title > div > button').length; i++) {
                     document.querySelectorAll('div.card-title > div > button')[i].style.display = 'none';
                 }
                 this.details.setVisibility('Detail_QuestionApplicant', false);
@@ -2233,7 +2233,7 @@
             this.form.setControlValue('Applicant_Id', row.values[0]);
             this.form.setControlValue('Applicant_PIB', row.values[1]);
             this.form.setControlValue('Applicant_District', { key: row.values[10], value: row.values[11] });
-            this.form.setControlValue('Applicant_Building', { key: row.values[2], value: row.values[13]+' '+row.values[3] });
+            this.form.setControlValue('Applicant_Building', { key: row.values[2], value: row.values[13] + ' ' + row.values[3] });
             this.form.setControlValue('Applicant_HouseBlock', row.values[16]);
             this.form.setControlValue('Applicant_Entrance', row.values[17]);
             this.form.setControlValue('Applicant_Flat', row.values[18]);

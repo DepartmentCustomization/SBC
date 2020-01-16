@@ -15,7 +15,7 @@
             this.messageService.publish(message);
         },
         initValue: function() {
-            const weekAgo = 1000*60*60*24*7;
+            const weekAgo = 1000 * 60 * 60 * 24 * 7;
             const currentDate = new Date();
             let startDate = new Date(Date.now() - weekAgo);
             let defaultValue = {

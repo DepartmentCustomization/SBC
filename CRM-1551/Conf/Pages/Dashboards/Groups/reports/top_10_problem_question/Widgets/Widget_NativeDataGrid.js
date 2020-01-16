@@ -224,7 +224,7 @@
                 let cellInfoCaption = worksheet.getCell('A1');
                 cellInfoCaption.value = 'ТОП-10 найпроблемніших питань в розрізі районів';
                 let cellPeriod = worksheet.getCell('A2');
-                cellPeriod.value = 'Період вводу з (включно) : дата з ' +this.changeDateTimeValues(this.dateFrom)+ ' дата по ' +this.changeDateTimeValues(this.dateTo);
+                cellPeriod.value = 'Період вводу з (включно) : дата з ' + this.changeDateTimeValues(this.dateFrom) + ' дата по ' + this.changeDateTimeValues(this.dateTo);
                 worksheet.mergeCells('A1:M1');
                 worksheet.mergeCells('A2:M2');
                 worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -494,7 +494,7 @@
                                 for(let i = 0; i < indexes.length; i++) {
                                     let index = indexes[i];
                                     let cell = array[index];
-                                    cell.style.backgroundColor = '#'+color;
+                                    cell.style.backgroundColor = '#' + color;
                                 }
                             }
                         }

@@ -49,7 +49,7 @@
             let subTitle = this.createElement('div', { id: 'subTitle' });
             CONTAINER.appendChild(reportTitle);
             CONTAINER.appendChild(subTitle);
-            subTitle.innerText = 'Статистична інформація за період з ' + this.changeDateTimeValues(this.dateFrom)+'до '+this.changeDateTimeValues(this.dateTo)+' Виконавець: КП «Київський метрополітен»';
+            subTitle.innerText = 'Статистична інформація за період з ' + this.changeDateTimeValues(this.dateFrom) + 'до ' + this.changeDateTimeValues(this.dateTo) + ' Виконавець: КП «Київський метрополітен»';
             this.subTitle = subTitle;
             let btnExcel = this.createElement('button', { id: 'btnExcel', innerText: 'Вигрузити в Excel', disabled: true });
             let btnWrap = this.createElement('div', { className: 'btnWrap' }, btnExcel);
@@ -68,7 +68,7 @@
                 }
                 let subTitle = document.getElementById('subTitle');
                 if(subTitle !== null) {
-                    subTitle.innerText = 'Статистична інформація за період з '+this.changeDateTimeValues(this.dateFrom)+'до '+this.changeDateTimeValues(this.dateTo)+' Виконавець: КП «Київський метрополітен»';
+                    subTitle.innerText = 'Статистична інформація за період з ' + this.changeDateTimeValues(this.dateFrom) + 'до ' + this.changeDateTimeValues(this.dateTo) + ' Виконавець: КП «Київський метрополітен»';
                 }
             }
         },
@@ -131,18 +131,18 @@
                     firstColumnCaption.value = 'Показники';
                     mainHeaders.push(5);
                     for(let i = 6; i < (data.length + 6); i++) {
-                        let value = data[i-6];
-                        let columnText = worksheet.getCell('A'+i);
-                        let columnCounter = worksheet.getCell('B'+i);
+                        let value = data[i - 6];
+                        let columnText = worksheet.getCell('A' + i);
+                        let columnCounter = worksheet.getCell('B' + i);
                         columnText.value = value[1];
                         columnCounter.value = value[2];
-                        tds.push('A'+i);
-                        tdsCounter.push('B'+i);
+                        tds.push('A' + i);
+                        tdsCounter.push('B' + i);
                     }
                 } else if(i === 1) {
                     this.rowTable1Length = (this.dataArray[0].length + 7);
                     worksheet.getRow(this.rowTable1Length).values = captions;
-                    let firstColumnCaption = worksheet.getCell('A'+this.rowTable1Length);
+                    let firstColumnCaption = worksheet.getCell('A' + this.rowTable1Length);
                     firstColumnCaption.value = 'Питання';
                     let summary = [];
                     data.forEach(el => summary.push(el[2]));
@@ -151,21 +151,21 @@
                     }, 0);
                     mainHeaders.push(this.rowTable1Length);
                     for(let i = this.rowTable1Length + 1; i < (data.length + this.rowTable1Length + 1); i++) {
-                        let value = data[i-(this.rowTable1Length + 1)];
-                        let columnText = worksheet.getCell('A'+i);
-                        let columnCounter = worksheet.getCell('B'+i);
+                        let value = data[i - (this.rowTable1Length + 1)];
+                        let columnText = worksheet.getCell('A' + i);
+                        let columnCounter = worksheet.getCell('B' + i);
                         columnText.value = value[1];
                         columnCounter.value = value[2];
-                        tds.push('A'+i);
-                        tds.push('A'+(i-1));
-                        tdsCounter.push('B'+i);
-                        tdsCounter.push('B'+(i-1));
+                        tds.push('A' + i);
+                        tds.push('A' + (i - 1));
+                        tdsCounter.push('B' + i);
+                        tdsCounter.push('B' + (i - 1));
                     }
                     let dataLength = data.length === 0 ? 0 : data.length;
-                    this.sumLength = dataLength + this.rowTable1Length+1;
-                    let allTitle = worksheet.getCell('A'+(this.sumLength));
+                    this.sumLength = dataLength + this.rowTable1Length + 1;
+                    let allTitle = worksheet.getCell('A' + (this.sumLength));
                     allTitle.value = 'Всього:';
-                    let allValue = worksheet.getCell('B'+(this.sumLength));
+                    let allValue = worksheet.getCell('B' + (this.sumLength));
                     allValue.value = result;
                     mainHeaders.push(this.sumLength);
                 }
@@ -213,9 +213,9 @@
                 };
             }
             worksheet.getCell('A5').border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
-            worksheet.getCell('A'+(this.sumLength)).border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+            worksheet.getCell('A' + (this.sumLength)).border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             worksheet.getCell('B5').border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
-            worksheet.getCell('B'+(this.sumLength)).border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+            worksheet.getCell('B' + (this.sumLength)).border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
             mainHeaders.forEach(number => {
                 worksheet.getRow(number).height = 50;
                 worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};

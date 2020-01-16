@@ -85,11 +85,11 @@
                 }
                 return -1;
             }
-            for(let j=0; j<data.rows.length; j++) {
+            for(let j = 0; j < data.rows.length; j++) {
                 tempArr.push(data.rows[j].values[1]);
                 total += data.rows[j].values[0]
             }
-            for(let i=0; i<status.length; i++) {
+            for(let i = 0; i < status.length; i++) {
                 let search = find(tempArr, status[i].innerText)
                 if(search != -1) {
                     numbers[i].innerText = data.rows[search].values[0]

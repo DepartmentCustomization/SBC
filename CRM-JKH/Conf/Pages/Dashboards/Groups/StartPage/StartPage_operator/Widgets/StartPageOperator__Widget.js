@@ -24,7 +24,7 @@
             let groupViewAppeals__borderRight = this.createElement('div', { className: 'border-right'});
             let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight);
             groupViewAppeals.addEventListener('click', () => {
-                window.open(location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/registryClaims');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/registryClaims');
             });
             let groupRegByPhone__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'contact_phone' });
             let groupRegByPhone__description = this.createElement('div', { className: 'description', innerText: 'Реєстрація Звернення'});
@@ -90,7 +90,7 @@
                 let number = modalNumber.value
                 let r1 = JSON.stringify(number);
                 let r2 = encodeURIComponent(r1);
-                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/RegistrationAppeal/add?parameter='+r2+'&type='+this.typeAppeal+'');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/RegistrationAppeal/add?parameter=' + r2 + '&type=' + this.typeAppeal + '');
                 const container = document.getElementById('container');
                 CONTAINER.removeChild(container.lastElementChild);
             });

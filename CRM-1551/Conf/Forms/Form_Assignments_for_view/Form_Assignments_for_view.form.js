@@ -25,7 +25,7 @@
             this.details.onCellClick('Detail_Assignments_for_view_FILE', this.goToFileView.bind(this));
         },
         goToFileView:function(column, row) {
-            this.navigateTo('/sections/Ass_Documents_ReadOnly/view/'+ row.values[0]);
+            this.navigateTo('/sections/Ass_Documents_ReadOnly/view/' + row.values[0]);
         }
     };
 }());

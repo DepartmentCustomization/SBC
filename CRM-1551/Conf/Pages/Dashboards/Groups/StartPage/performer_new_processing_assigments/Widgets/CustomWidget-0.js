@@ -71,8 +71,8 @@
                 this.messageService.publish({name: 'messageWithOrganizationId', value: this.organizationId, distribute:  this.distribute});
                 document.getElementById('organizationName').value = (data.rows[0].values[indexOfTypeId]);
                 document.getElementById('organizationName').innerText = (data.rows[0].values[indexOfTypeName]);
-                if(window.location.search != '?id='+data.rows[0].values[indexOfTypeId]+'') {
-                    window.location.search = 'id='+data.rows[0].values[indexOfTypeId]+'';
+                if(window.location.search != '?id=' + data.rows[0].values[indexOfTypeId] + '') {
+                    window.location.search = 'id=' + data.rows[0].values[indexOfTypeId] + '';
                 }
             }
         },
@@ -143,12 +143,12 @@
                         let orgLinksWrapper = this.createElement('div', { id: 'orgLinksWrapper'}, orgLinksWrapper__triangle);
                         orgLinkСhangerBox.appendChild(orgLinksWrapper);
                         this.organizationSelect.forEach(el => {
-                            let organizationLink = this.createElement('div', { className: 'organizationLink', orgId: ''+el.id+'', innerText: el.name });
+                            let organizationLink = this.createElement('div', { className: 'organizationLink', orgId: '' + el.id + '', innerText: el.name });
                             orgLinksWrapper.appendChild(organizationLink);
                             organizationLink.addEventListener('click', event => {
                                 event.stopImmediatePropagation();
                                 let target = event.currentTarget;
-                                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_processing_assigments?id='+target.orgId+'');
+                                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_processing_assigments?id=' + target.orgId + '');
                             });
                         });
                     }else if(orgLinkСhangerBox.children.length === 2) {
@@ -217,35 +217,35 @@
             for(let i = 2; i < data.columns.length; i ++) {
                 let item = data.columns[i];
                 let columnTriangle = this.createElement('div', { });
-                let columnHeader = this.createElement('div', { id: 'columnHeader_'+i+'', code: ''+item.code+'', className: 'columnHeader', innerText: ''+item.name+''}, columnTriangle);
-                let columnsWrapper = this.createElement('div', { id: 'columnsWrapper_'+i+'', className: 'columnsWrapper'});
+                let columnHeader = this.createElement('div', { id: 'columnHeader_' + i + '', code: '' + item.code + '', className: 'columnHeader', innerText: '' + item.name + ''}, columnTriangle);
+                let columnsWrapper = this.createElement('div', { id: 'columnsWrapper_' + i + '', className: 'columnsWrapper'});
                 if(i == 2) {
                     columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';
-                    columnTriangle.classList.add('triangle'+i+'');
+                    columnTriangle.classList.add('triangle' + i + '');
                 }else if(i == 3) {
                     columnHeader.style.backgroundColor = 'rgb(173, 118, 205)';
-                    columnTriangle.classList.add('triangle'+i+'');
+                    columnTriangle.classList.add('triangle' + i + '');
                 }else if(i == 4) {
                     columnHeader.style.backgroundColor = 'rgb(240, 114, 93)';
-                    columnTriangle.classList.add('triangle'+i+'');
+                    columnTriangle.classList.add('triangle' + i + '');
                 }else if(i == 5) {
                     columnHeader.style.backgroundColor = 'rgb(238, 163, 54)';
-                    columnTriangle.classList.add('triangle'+i+'');
+                    columnTriangle.classList.add('triangle' + i + '');
                 }else if(i == 6) {
                     columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';
-                    columnTriangle.classList.add('triangle'+i+'');
+                    columnTriangle.classList.add('triangle' + i + '');
                 }else if(i == 7) {
                     columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
-                    columnTriangle.classList.add('triangle'+i+'');
+                    columnTriangle.classList.add('triangle' + i + '');
                 }else if(i == 8) {
                     columnHeader.style.backgroundColor = 'rgb(94, 202, 162)';
-                    columnTriangle.classList.add('triangle'+i+'');
+                    columnTriangle.classList.add('triangle' + i + '');
                 }else if(i == 9) {
                     columnHeader.style.backgroundColor = 'rgb(73, 155, 199)';
-                    columnTriangle.classList.add('triangle'+i+'');
+                    columnTriangle.classList.add('triangle' + i + '');
                 }
-                let column = this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: 'column'}, columnHeader, columnsWrapper);
-                column.classList.add('column_'+i+'');
+                let column = this.createElement('div', { id: 'column_' + i + '', code: '' + item.code + '', className: 'column'}, columnHeader, columnsWrapper);
+                column.classList.add('column_' + i + '');
                 tableContainer.appendChild(column);
             }
             for(let i = 0; i < data.rows.length; i ++) {
@@ -253,10 +253,10 @@
                 for(let j = 2; j < elRow.values.length; j ++) {
                     let el = elRow.values[j];
                     if(el != 0) {
-                        let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '('+el+')'});
-                        let columnCategorie__title = this.createElement('div', { className: 'columnCategorie__title', code: ''+elRow.values[1]+'', innerText: ''+elRow.values[1]+''});
-                        let columnCategorie = this.createElement('div', { className: 'columnCategorie', code: ''+elRow.values[1]+''}, columnCategorie__title, columnCategorie__value);
-                        document.getElementById('columnsWrapper_'+j+'').appendChild(columnCategorie);
+                        let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '(' + el + ')'});
+                        let columnCategorie__title = this.createElement('div', { className: 'columnCategorie__title', code: '' + elRow.values[1] + '', innerText: '' + elRow.values[1] + ''});
+                        let columnCategorie = this.createElement('div', { className: 'columnCategorie', code: '' + elRow.values[1] + ''}, columnCategorie__title, columnCategorie__value);
+                        document.getElementById('columnsWrapper_' + j + '').appendChild(columnCategorie);
                     }
                 }
             }

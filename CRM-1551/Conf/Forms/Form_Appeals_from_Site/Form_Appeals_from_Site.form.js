@@ -21,7 +21,7 @@
                 this.form.setControlValue('1551_Applicant_PIB', data.rows[0].values[0]);
                 this.form.setControlValue('1551_Applicant_Phone', data.rows[0].values[1]);
                 this.form.setControlValue('1551_Applicant_Address', data.rows[0].values[2]);
-                this.form.setControlValue('Applicant_INFO', 'Вибрано існуючого заявника в системі "'+data.rows[0].values[0]+'"');
+                this.form.setControlValue('Applicant_INFO', 'Вибрано існуючого заявника в системі "' + data.rows[0].values[0] + '"');
             });
             this.form.setControlValue('Applicant_Id', ApplicantId);
         },
@@ -89,7 +89,7 @@
             document.getElementById('btn_CreateApplicant1551').addEventListener('click', function() {
                 this.CreateApplicant1551();
                 this.details.setVisibility('Site_Applicant', false);
-                this.form.setControlValue('Applicant_INFO', 'Буде створено новий заявник в системі "'+this.form.getControlValue('ApplicantFromSite_PIB')+'"');
+                this.form.setControlValue('Applicant_INFO', 'Буде створено новий заявник в системі "' + this.form.getControlValue('ApplicantFromSite_PIB') + '"');
                 if (this.form.getControlValue('1551_ApplicantFromSite_Address_Building')) {
                     const queryFor_Applicant1551_Build = {
                         queryCode: 'GetOrgById',
@@ -114,7 +114,7 @@
                 this.form.setControlVisibility('btn_CreateApplicant1551', false);
             }.bind(this));
             document.getElementById('btn_searchAdressByCoordinate').addEventListener('click', function() {
-                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/SearchGoogle?lat='+this.form.getControlValue('AppealFromSite_geolocation_lat')+'&lon='+this.form.getControlValue('AppealFromSite_geolocation_lon')+'');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/SearchGoogle?lat=' + this.form.getControlValue('AppealFromSite_geolocation_lat') + '&lon=' + this.form.getControlValue('AppealFromSite_geolocation_lon') + '');
             }.bind(this));
             document.getElementById('Question_BuildingIcon').style.fontSize = '30px';
             document.getElementById('Question_BuildingIcon').addEventListener('click', function(event) {

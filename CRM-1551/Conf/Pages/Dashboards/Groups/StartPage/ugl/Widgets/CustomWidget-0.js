@@ -257,7 +257,7 @@
         createTable: function(reloadTable ,data) {
             for(let i = 2; i < data.columns.length; i ++) {
                 let item = data.columns[i];
-                let columnHeader = this.createElement('div', { id: 'columnHeader_'+i+'', code: ''+item.code+'', className: 'columnHeader', innerText: ''+item.name+''});
+                let columnHeader = this.createElement('div', { id: 'columnHeader_' + i + '', code: '' + item.code + '', className: 'columnHeader', innerText: '' + item.name + ''});
                 if(i == 2) {
                     columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
                 }else if(i == 3) {
@@ -271,7 +271,7 @@
                 }else if(i == 7) {
                     columnHeader.style.backgroundColor = 'rgb(238, 123, 54)';
                 }
-                let column = this.createElement('div', { id: 'column_'+i+'', code: ''+item.code+'', className: 'column'}, columnHeader);
+                let column = this.createElement('div', { id: 'column_' + i + '', code: '' + item.code + '', className: 'column'}, columnHeader);
                 let tableContainer = document.getElementById('tableContainer');
                 tableContainer.appendChild(column);
             }
@@ -281,13 +281,13 @@
                 for(let j = 2; j < elRow.values.length; j ++) {
                     let el = elRow.values[j];
                     if(el != 0) {
-                        let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '('+el+')'});
-                        let columnCategorie__title = this.createElement('div', { className: 'columnCategorie__title', code: ''+elRow.values[navigationIndex]+'', innerText: ''+elRow.values[navigationIndex]+''});
-                        let columnCategorie = this.createElement('div', { className: 'columnCategorie', code: ''+elRow.values[navigationIndex]+''}, columnCategorie__title, columnCategorie__value);
+                        let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '(' + el + ')'});
+                        let columnCategorie__title = this.createElement('div', { className: 'columnCategorie__title', code: '' + elRow.values[navigationIndex] + '', innerText: '' + elRow.values[navigationIndex] + ''});
+                        let columnCategorie = this.createElement('div', { className: 'columnCategorie', code: '' + elRow.values[navigationIndex] + ''}, columnCategorie__title, columnCategorie__value);
                         if(j == 2) {
                             columnCategorie.classList.add('columnCategorie__yellow');
                         }
-                        document.getElementById('column_'+j+'').appendChild(columnCategorie);
+                        document.getElementById('column_' + j + '').appendChild(columnCategorie);
                     }
                 }
             }
@@ -295,10 +295,10 @@
                 let summaryHeader = data.rows[i];
                 for(let j = 2; j < summaryHeader.values.length; j ++) {
                     let el = summaryHeader.values[j];
-                    let columnChild = document.getElementById('column_'+j+'').firstElementChild;
+                    let columnChild = document.getElementById('column_' + j + '').firstElementChild;
                     let sub = columnChild.innerText;
-                    columnChild.innerText = sub + ' ('+el+') ';
-                    let columnHeaderTriangle = this.createElement('div', {className: 'triangle'+j+' ' });
+                    columnChild.innerText = sub + ' (' + el + ') ';
+                    let columnHeaderTriangle = this.createElement('div', {className: 'triangle' + j + ' ' });
                     columnChild.appendChild(columnHeaderTriangle);
                 }
             }
@@ -373,7 +373,7 @@
                 for(let i = 0; i < headers.length; i ++) {
                     let header = headers[i];
                     header.firstElementChild.classList.remove('triangle');
-                    header.firstElementChild.classList.add('triangle'+(i+2)+'');
+                    header.firstElementChild.classList.add('triangle' + (i + 2) + '');
                     header.classList.remove('hover');
                     header.classList.remove('check');
                 }
@@ -384,7 +384,7 @@
                 for(let i = 0; i < headers.length; i ++) {
                     let header = headers[i];
                     if(target.id != header.id) {
-                        header.firstElementChild.classList.remove('triangle'+(i+2)+'');
+                        header.firstElementChild.classList.remove('triangle' + (i + 2) + '');
                         header.firstElementChild.classList.add('triangle');
                         header.style.backgroundColor = '#d3d3d3';
                         header.classList.add('check');

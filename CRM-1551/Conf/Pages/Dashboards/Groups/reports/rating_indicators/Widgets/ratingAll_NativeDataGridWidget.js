@@ -233,8 +233,8 @@
                         const ratingid = e.data.RatingId;
                         const columncode = e.column.dataField;
                         const date = this.date;
-                        const string = 'rdaid='+rdaid+'&ratingid='+ratingid+'&columncode='+columncode+'&date='+date;
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/district_rating_indicator?'+string);
+                        const string = 'rdaid=' + rdaid + '&ratingid=' + ratingid + '&columncode=' + columncode + '&date=' + date;
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/district_rating_indicator?' + string);
                     }
                     if (e.row !== undefined && e.column.dataField === 'IntegratedMetric_PerformanceLevel') {
                         this.showPagePreloader('');
@@ -244,8 +244,8 @@
                         let rdaid = e.data.RDAId;
                         let ratingid = e.data.RatingId;
                         let date = this.date;
-                        let string = 'RDAId='+rdaid+'&RatingId='+ratingid+'&DateCalc='+date;
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/rating_indicators_detail?'+string);
+                        let string = 'RDAId=' + rdaid + '&RatingId=' + ratingid + '&DateCalc=' + date;
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/rating_indicators_detail?' + string);
                     }
                 }
             });
@@ -411,7 +411,7 @@
             }
             for (let i = 0; i < resultColumns.length; i++) {
                 const resCol = resultColumns[i];
-                const colIndexTo = i+1;
+                const colIndexTo = i + 1;
                 let indexCaptionFrom;
                 if(resCol.isSub === true) {
                     if(this.subColumnCaption.length > 0) {

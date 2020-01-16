@@ -111,22 +111,22 @@
             let hh = inMonth.getHours();
             let mi = inMonth.getMinutes();
             let ss = inMonth.getSeconds();
-            if(dd<10) {
-                dd='0'+dd
+            if(dd < 10) {
+                dd = '0' + dd
             }
-            if(mm<10) {
-                mm='0'+mm
+            if(mm < 10) {
+                mm = '0' + mm
             }
-            if(hh<10) {
-                hh='0'+hh
+            if(hh < 10) {
+                hh = '0' + hh
             }
-            if(mi<10) {
-                mi='0'+mi
+            if(mi < 10) {
+                mi = '0' + mi
             }
-            if(ss<10) {
-                ss='0'+ss
+            if(ss < 10) {
+                ss = '0' + ss
             }
-            return yyyy+'-'+mm+'-'+dd +' '+hh+':'+mi+':'+ss;
+            return yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + mi + ':' + ss;
         },
         load: function(data) {
             let BtnCreateContent1 = document.getElementById('input_btn_1');

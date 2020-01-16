@@ -116,7 +116,7 @@
         filter_dataStart: '03.10.2018',
         filter_dataEnd: '10.10.2018',
         init: function() {
-            const weekAgo = 1000*60*60*24*7;
+            const weekAgo = 1000 * 60 * 60 * 24 * 7;
             const currentDate = new Date();
             let startDate = new Date(Date.now() - weekAgo);
             this.filter_dataStart = startDate;

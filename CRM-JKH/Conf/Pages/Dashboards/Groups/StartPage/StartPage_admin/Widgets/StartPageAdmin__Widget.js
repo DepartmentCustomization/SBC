@@ -24,7 +24,7 @@
             let groupViewAppeals__borderRight = this.createElement('div', { className: 'border-right'});
             let groupViewAppeals = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals__icon, groupViewAppeals__description, groupViewAppeals__borderBottom, groupViewAppeals__borderRight);
             groupViewAppeals.addEventListener('click', () => {
-                window.open(location.origin + localStorage.getItem('VirtualPath')+'/admin/users');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/admin/users');
             });
             let groupViewAppeals2__icon = this.createElement('div', { className: 'icon letterIcon material-icons', innerText: 'location_city' });
             let groupViewAppeals2__description = this.createElement('div', { className: 'description', innerText: 'Організації'});
@@ -33,7 +33,7 @@
             let groupViewAppeals2__borderRight = this.createElement('div', { className: 'border-right'});
             let groupViewAppeals2 = this.createElement('div', { className: 'group', tabindex: '0' }, groupViewAppeals2__icon, groupViewAppeals2__description, groupViewAppeals2__borderBottom, groupViewAppeals2__borderRight);
             groupViewAppeals2.addEventListener('click', () => {
-                window.open(location.origin + localStorage.getItem('VirtualPath')+'/sections/Organizations');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Organizations');
             });
             let groupsWrapper = this.createElement('div', { className: 'group-btns' }, groupViewAppeals, groupViewAppeals2);
             CONTAINER.appendChild(title);

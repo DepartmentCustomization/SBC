@@ -108,19 +108,19 @@
             month = month.toString();
             year = year.toString();
             if(day.length == 1) {
-                day = '0'+ day;
+                day = '0' + day;
             }
             if(month.length == 1) {
-                month = '0'+ month;
+                month = '0' + month;
             }
-            let fullDate = day +'-'+ month + '-'+ year;
+            let fullDate = day + '-' + month + '-' + year;
             return fullDate;
         },
         createFilterBox: function(filtersBox) {
             for(let i = 0; i < filtersBox.length; i++) {
                 let el = filtersBox[i];
                 let filterBox__value = this.createElement('div', { className: 'filterBox__value tooltip', title: el.value, innerText: el.value });
-                let filterBox__title = this.createElement('div', { className: 'filterBox__title', innerText: el.title+' : '});
+                let filterBox__title = this.createElement('div', { className: 'filterBox__title', innerText: el.title + ' : '});
                 let filterBox = this.createElement('div', { className: 'filterBox'}, filterBox__title, filterBox__value);
                 document.getElementById('filtersContainer').appendChild(filterBox);
             }

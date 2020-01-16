@@ -60,7 +60,7 @@
             let that = this;
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column.dataField == 'ClaimId' && e.row != undefined) {
-                    that.navigateTo('sections/Claim/edit/'+e.key)
+                    that.navigateTo('sections/Claim/edit/' + e.key)
                 }
             });
             let executeQuery = {
@@ -119,7 +119,7 @@
                     that.loadData(this.afterLoadDataHandler);
                 }.bind(that))
             })
-            for(let i=1; i<data.columns.length; i++) {
+            for(let i = 1; i < data.columns.length; i++) {
                 this.config.columns[i] = {
                     dataField : data.columns[i].code,
                     caption: data.columns[i].name,

@@ -35,7 +35,7 @@
                     ]
                 };
                 this.queryExecutor.getValue(queryForGetValue).subscribe(data => {
-                    this.navigateTo('sections/RegistrationAppeal/edit/'+data);
+                    this.navigateTo('sections/RegistrationAppeal/edit/' + data);
                 });
             } else {
                 this.onLoadApplicant();

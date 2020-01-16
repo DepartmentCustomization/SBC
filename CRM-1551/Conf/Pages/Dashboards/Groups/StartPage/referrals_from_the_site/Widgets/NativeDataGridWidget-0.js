@@ -78,7 +78,7 @@
                 e.event.stopImmediatePropagation();
                 if(e.column) {
                     if(e.column.dataField == 'linkTo' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Appeals_from_Site/edit/'+e.key+'');
+                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Appeals_from_Site/edit/' + e.key + '');
                     }
                 }
             });
