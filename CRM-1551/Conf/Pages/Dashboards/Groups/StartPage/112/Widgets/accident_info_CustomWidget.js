@@ -296,7 +296,6 @@
                 const listItem = { id, value };
                 list.push(listItem);
             });
-            console.log('тип: ' + type + 'List: ' + list)
         }
     };
 }());

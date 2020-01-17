@@ -11,17 +11,6 @@
         init: function() {
             this.messageService.subscribe('captionAccidentCaller', this.createCaption, this);
         },
-        // afterViewInit: function() {
-        //     const container = document.getElementById('containerCaller');
-        //     this.container = container;
-        //     const header = {
-        //         text: 'Заявник',
-        //         iconClass: 'fa fa-user',
-        //         widget: 'AccidentCaller'
-        //     }
-        //     const name = 'createHeader';
-        //     this.messageService.publish({ name, header });
-        // },
         createCaption: function(message) {
             this.container.appendChild(message.caption)
         },

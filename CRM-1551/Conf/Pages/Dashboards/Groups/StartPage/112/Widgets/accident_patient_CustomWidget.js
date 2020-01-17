@@ -11,17 +11,6 @@
         init: function() {
             this.messageService.subscribe('headerAccidentPatient', this.setHeader, this);
         },
-        // afterViewInit: function() {
-        //     const container = document.getElementById('containerPatient');
-        //     this.container = container;
-        //     const header = {
-        //         text: 'Пацієнт',
-        //         iconClass: 'fa fa-user',
-        //         widget: 'AccidentPatient'
-        //     }
-        //     const name = 'createHeader';
-        //     this.messageService.publish({ name, header });
-        // },
         createCaption: function(message) {
             this.container.appendChild(message.caption)
         },
