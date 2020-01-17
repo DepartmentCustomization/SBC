@@ -5,7 +5,7 @@ SELECT TOP 1 oirr.editable
 FROM [dbo].[Assignments] a INNER JOIN 
 [dbo].[OrganizationInResponsibilityRights] oirr ON a.[executor_organization_id]=oirr.organization_id
 INNER JOIN [dbo].[Positions] p ON oirr.position_id=p.Id
-WHERE a.Id=@Id AND P.programuser_id=@user_id)='true'
+WHERE a.Id=@Id AND P.programuser_id=@user_edit_id)='true'
 
 BEGIN
 
