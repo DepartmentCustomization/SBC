@@ -15,7 +15,8 @@ BEGIN
         cars_id = @car
         AND p.category_id = @category
         AND pc.remove_operation_id IS NULL
-        AND #filter_columns#
+        AND 
+        #filter_columns#
         #sort_columns#
 END
 

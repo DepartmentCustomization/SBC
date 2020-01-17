@@ -1,13 +1,12 @@
-Select 
-Id,
-articul,
-part_name,
-part_quantity
-
-from Parts
-where category_id = @Id
-and
- #filter_columns#
- #sort_columns#
- 
- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+    Id,
+    articul,
+    part_name,
+    part_quantity
+FROM
+    Parts
+WHERE
+    category_id = @Id
+    AND #filter_columns#
+        #sort_columns#
+    OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
