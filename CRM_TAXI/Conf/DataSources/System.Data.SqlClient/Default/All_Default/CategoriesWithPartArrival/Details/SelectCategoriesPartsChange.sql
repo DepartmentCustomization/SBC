@@ -1,42 +1,59 @@
---declare @Id int = 3;
+-- DECLARE @Id INT = 3;
 
-declare @removal_part table (part_change_id int, part_id int, invoice_consumption nvarchar(100), 
-                             cars_name int, instrall_date datetime, remove_id int);
+DECLARE @removal_part TABLE (
+    part_change_id INT,
+    part_id INT,
+    invoice_consumption NVARCHAR(100),
+    cars_name INT,
+    instrall_date DATETIME,
+    remove_id INT
+);
 
-begin
-Insert into @removal_part
-Select 
-pc.Id,
-p.Id as part_id,
-pc.invoice_consumption,
-c.cars_name,
-pc.install_date,
-pc.remove_operation_id
-
-from PartChange pc
-join Parts p on p.Id = pc.part_id
-join Cars c on c.Id = pc.cars_id 
-
-where p.category_id = @Id
-end
-
+BEGIN
+INSERT INTO
+    @removal_part
+SELECT
+    pc.Id,
+    p.Id AS part_id,
+    pc.invoice_consumption,
+    c.cars_name,
+    pc.install_date,
+    pc.remove_operation_id
+FROM
+    dbo.PartChange pc
+    INNER JOIN dbo.Parts p ON p.Id = pc.part_id
+    INNER JOIN dbo.Cars c ON c.Id = pc.cars_id
+WHERE
+    p.category_id = @Id;
+END 
 --select * from @removal_part
+DECLARE @removeInfo TABLE (
+    Id INT,
+    invoice_consumption NVARCHAR(100),
+    part_name NVARCHAR(100),
+    remove_date DATETIME,
+    cars_name INT
+);
 
-declare @removeInfo table (Id int, invoice_consumption nvarchar(100), 
-                           part_name nvarchar(100), remove_date datetime, cars_name int)
-insert into @removeInfo 
-select 
-rp.part_change_id as Id,
-rp.invoice_consumption,
-p.[part_name] as part_name,
-rp.instrall_date as remove_date,
-rp.cars_name
+INSERT INTO
+    @removeInfo
+SELECT
+    rp.part_change_id AS Id,
+    rp.invoice_consumption,
+    p.[part_name] AS part_name,
+    rp.instrall_date AS remove_date,
+    rp.cars_name
+FROM
+    @removal_part rp
+   INNER JOIN dbo.Parts p ON p.Id = part_id;
 
-from @removal_part rp
-join Parts p on p.Id = part_id
-
-select *
-from @removeInfo 
- order by remove_date desc 
- 
--- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+    Id,
+    invoice_consumption,
+    part_name,
+    remove_date,
+    cars_name
+FROM
+    @removeInfo
+ORDER BY
+    remove_date DESC OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;

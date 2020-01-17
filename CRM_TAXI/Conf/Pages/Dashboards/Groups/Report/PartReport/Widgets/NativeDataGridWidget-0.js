@@ -68,43 +68,12 @@
         showTopQuestionsTable: function() {
             document.getElementById('part_qty_report').style.display = 'block';
         },
-        changeDateTimeValues: function(value) {
-            let trueDate;
-            if (value !== null) {
-                let date = new Date(value);
-                let dd = date.getDate();
-                let MM = date.getMonth();
-                let yyyy = date.getFullYear();
-                let HH = date.getUTCHours()
-                let mm = date.getMinutes();
-                MM += 1;
-                if ((dd.toString()).length === 1) {
-                    dd = '0' + dd;
-                }
-                if ((MM.toString()).length === 1) {
-                    MM = '0' + MM;
-                }
-                if ((HH.toString()).length === 1) {
-                    HH = '0' + HH;
-                }
-                if ((mm.toString()).length === 1) {
-                    mm = '0' + mm;
-                }
-                trueDate = dd + '.' + MM + '.' + yyyy;
-            } else {
-                trueDate = ' ';
-            }
-            return trueDate;
-        },
         getFiltersParams: function(message) {
-            let period = message.package.value.values.find(f => f.name === 'period').value;
-            if (period !== null) {
-                if (period.dateFrom !== '' && period.dateTo !== '') {
-                    this.dateFrom = period.dateFrom;
-                    this.dateTo = period.dateTo;
+            let calendar = message.package.value.values.find(f => f.name === 'calendar').value;
+            if (calendar !== null) {
+                if (calendar !== '') {
                     this.config.query.parameterValues = [
-                        { key: '@dateFrom', value: this.dateFrom },
-                        { key: '@dateTo', value: this.dateTo }
+                        { key: '@dateTo', value: calendar }
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }
