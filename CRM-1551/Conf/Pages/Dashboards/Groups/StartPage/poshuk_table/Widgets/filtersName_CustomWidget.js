@@ -176,7 +176,7 @@
                 className: 'group__element'
             }, group1__element1_checkBox, group1__element1_title);
             const group1__element5_checkBox = this.createElement('input', {
-                type: 'checkbox', 
+                type: 'checkbox',
                 className: 'group__element_checkBox',
                 columnWidth: 150,
                 value: 'appeals_enter_number',
