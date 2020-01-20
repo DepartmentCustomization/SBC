@@ -222,26 +222,26 @@
             captions.push(rowNumber);
             indexArr.forEach(el => {
                 let obj = {}
-                if(el.name === 'registration_number') {
-                    obj.key = 'registration_number',
-                    obj.width = 10,
-                    obj.height = 20,
+                if (el.name === 'registration_number') {
+                    obj.key = 'registration_number';
+                    obj.width = 10;
+                    obj.height = 20;
                     captions.push('Номер, дата, час');
-                }else if(el.name === 'QuestionType') {
-                    obj.key = 'QuestionType',
-                    obj.width = 44
+                } else if(el.name === 'QuestionType') {
+                    obj.key = 'QuestionType';
+                    obj.width = 44;
                     captions.push('Суть питання');
-                }else if(el.name === 'zayavnyk') {
-                    obj.key = 'zayavnyk',
-                    obj.width = 30
+                } else if(el.name === 'zayavnyk') {
+                    obj.key = 'zayavnyk';
+                    obj.width = 30;
                     captions.push('Заявник');
-                }else if(el.name === 'vykonavets') {
-                    obj.key = 'vykonavets',
-                    obj.width = 16
+                } else if(el.name === 'vykonavets') {
+                    obj.key = 'vykonavets';
+                    obj.width = 16;
                     captions.push('Виконавець');
-                }else if(el.name === 'adress') {
-                    obj.key = 'adress',
-                    obj.width = 21
+                } else if(el.name === 'adress') {
+                    obj.key = 'adress';
+                    obj.width = 21;
                     captions.push('Місце проблеми (Об\'єкт)');
                 }
                 columnsHeader.push(obj);
