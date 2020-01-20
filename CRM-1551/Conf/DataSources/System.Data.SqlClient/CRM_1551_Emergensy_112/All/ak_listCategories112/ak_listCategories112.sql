@@ -17,5 +17,6 @@
   UNION
   SELECT CASE WHEN @gas='true' THEN 4 ELSE 0 END Id)) t
   WHERE  #filter_columns#
-  #sort_columns#
+  --#sort_columns#
+  ORDER BY 1
  offset @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only
