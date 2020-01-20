@@ -55,5 +55,10 @@
   {
     "Code": "@answer_phone",
     "Name": "answer_phone"
+  },
+  {
+    "Code": "@ass_result_id",
+    "Name": "ass_result_id",
+    "ParameterType": "Integer"
   }
 ]

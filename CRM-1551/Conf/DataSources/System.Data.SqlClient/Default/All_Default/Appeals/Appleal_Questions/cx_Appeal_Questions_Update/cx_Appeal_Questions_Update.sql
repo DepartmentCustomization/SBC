@@ -71,7 +71,25 @@ BEGIN
     		update [Assignments] 
 			set current_assignment_consideration_id = @new_con 
 			,[edit_date] = getutcdate()
-			where Id = @assigment
+			where Id = @assigment;
+
+			IF  (SELECT code
+			FROM [dbo].[AssignmentResults]
+			WHERE  Id=@ass_result_id)=N'Actually' --фактично
+
+			BEGIN
+
+				UPDATE [dbo].[AssignmentRevisions]
+				SET [rework_counter]=ISNULL([rework_counter], 0)+1
+				WHERE Id IN 
+				(
+				SELECT ar.Id
+				FROM [dbo].[AssignmentRevisions] ar
+				INNER JOIN [dbo].[AssignmentConsiderations] ac ON ar.assignment_consideration_іd=ac.Id
+				INNER JOIN [dbo].[Assignments] a ON a.[current_assignment_consideration_id]=ac.Id
+				WHERE a.question_id=@Id)
+
+  			END
     	end
 END
 
