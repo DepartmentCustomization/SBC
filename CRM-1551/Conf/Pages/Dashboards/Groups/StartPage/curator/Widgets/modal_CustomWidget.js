@@ -16,13 +16,36 @@
         showModalWindow: function(message) {
             if (message.length > 50) {
                 let CONTAINER = document.getElementById('container');
-                const modalBtnFalse = this.createElement('button', { id:'modalBtnFalse', className: 'btn', innerText: 'Нi'});
-                const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Так'});
-                const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue, modalBtnFalse);
-                const modalTitleCounter = this.createElement('div', { className:'modalTitle', innerText: 'Кількість обраних доручень: ' + message.length});
-                const modalTitleChecked = this.createElement('div', { className:'modalTitle', innerText: 'Ви дійсно бажаєте їх закрити?'});
-                const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitleCounter, modalTitleChecked, modalBtnWrapper);
-                const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
+                const modalBtnFalse = this.createElement('button', {
+                    id:'modalBtnFalse',
+                    className: 'btn',
+                    innerText: 'Нi'
+                });
+                const modalBtnTrue = this.createElement('button', {
+                    id:'modalBtnTrue',
+                    className: 'btn',
+                    innerText: 'Так'
+                });
+                const modalBtnWrapper = this.createElement('div', {
+                    id:'modalBtnWrapper',
+                    className: 'modalBtnWrapper'
+                }, modalBtnTrue, modalBtnFalse);
+                const modalTitleCounter = this.createElement('div', {
+                    className:'modalTitle',
+                    innerText: 'Кількість обраних доручень: ' + message.length
+                });
+                const modalTitleChecked = this.createElement('div', {
+                    className:'modalTitle',
+                    innerText: 'Ви дійсно бажаєте їх закрити?'
+                });
+                const modalWindow = this.createElement('div', {
+                    id:'modalWindow',
+                    className: 'modalWindow'
+                }, modalTitleCounter, modalTitleChecked, modalBtnWrapper);
+                const modalWindowWrapper = this.createElement('div', {
+                    id:'modalWindowWrapper',
+                    className: 'modalWindowWrapper'
+                }, modalWindow);
                 CONTAINER.appendChild(modalWindowWrapper);
                 modalBtnTrue.addEventListener('click', () => {
                     this.executeQuery(message);

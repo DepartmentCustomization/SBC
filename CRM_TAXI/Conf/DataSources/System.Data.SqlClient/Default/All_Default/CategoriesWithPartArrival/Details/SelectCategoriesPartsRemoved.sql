@@ -1,46 +1,75 @@
---declare @Id int = 1;
+-- DECLARE @Id INT = 1;
 
-declare @removal_part table (part_id int, instrall_date datetime, remove_id int, run_km_onInstall int, cars_name int);
+DECLARE @removal_part TABLE (
+      part_id INT,
+      instrall_date DATETIME,
+      remove_id INT,
+      run_km_onInstall INT,
+      cars_name INT
+);
 
-begin
-Insert into @removal_part
-Select 
-p.Id,
-pc.install_date,
-pc.remove_operation_id,
-pc.run_km_install_day,
-c.cars_name
-
-from PartChange pc
-join Parts p on p.Id = pc.part_id
-join Cars c on c.Id = pc.cars_id
-where p.category_id = @Id 
-and remove_operation_id is not null
-end
-
+BEGIN
+INSERT INTO
+      @removal_part
+SELECT
+      p.Id,
+      pc.install_date,
+      pc.remove_operation_id,
+      pc.run_km_install_day,
+      c.cars_name
+FROM
+      dbo.PartChange pc
+      INNER JOIN dbo.Parts p ON p.Id = pc.part_id
+      INNER JOIN dbo.Cars c ON c.Id = pc.cars_id
+WHERE
+      p.category_id = @Id
+      AND remove_operation_id 
+      IS NOT NULL;
+END 
 --select * from @removal_part
+DECLARE @removeInfo TABLE (
+      Id INT,
+      part_name NVARCHAR(100),
+      remove_date DATETIME,
+      cars_name INT,
+      run_km INT,
+      run_day INT
+);
 
-declare @removeInfo table (Id int, part_name nvarchar(100), remove_date datetime, cars_name int, run_km int, run_day int)
-insert into @removeInfo 
-select 
-rp.part_id, 
-p.[part_name],
-rd.install_date,
-rp.cars_name,
-rd.run_km_install_day - rp.run_km_onInstall as run_km,
-datediff(day, rp.instrall_date, rd.install_date) run_day
+INSERT INTO
+      @removeInfo
+SELECT
+      rp.part_id,
+      p.[part_name],
+      rd.install_date,
+      rp.cars_name,
+      rd.run_km_install_day - rp.run_km_onInstall AS run_km,
+      datediff(DAY, rp.instrall_date, rd.install_date) run_day
+FROM
+      @removal_part rp
+      INNER JOIN dbo.Parts p ON p.Id = part_id
+      JOIN (
+            SELECT
+                  Id,
+                  install_date,
+                  run_km_install_day
+            FROM
+                  dbo.PartChange
+            WHERE
+                  Id IN (
+                        SELECT
+                              remove_id
+                        FROM
+                              @removal_part
+                  )
+      ) rd ON rd.Id = rp.remove_id;
 
-from @removal_part rp
-join Parts p on p.Id = part_id
-join (
-select Id, install_date, run_km_install_day
-      from PartChange where Id in (select remove_id from @removal_part)
-	  ) rd on rd.Id = rp.remove_id
-
-select *
-from @removeInfo 
-where
-#filter_columns#
- order by remove_date desc 
- 
--- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+      *
+FROM
+      @removeInfo
+WHERE
+      #filter_columns#
+ORDER BY
+      remove_date DESC
+ offset @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only;

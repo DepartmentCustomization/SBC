@@ -1,68 +1,68 @@
 {
-    "ModelType": "Query",
-    "Code": "SelectCategoriesPartsChange",
-    "Name": "SelectCategoriesPartsChange",
-    "ConnectionCode": "Default",
-    "IsUsedForRightsFilter": false,
-    "Columns": [
-        {
-            "Code": "Id",
-            "Name": "Id",
-            "Position": 1,
-            "ViewState": "Hidden",
-            "IsPrintable": false
-          },
-          {
-            "Code": "invoice_consumption",
-            "Name": "Номер расхода",
-            "Position": 2,
-            "IsPrintable": false,
-            "SqlName": "invoice_consumption",
-            "FilterParameterCode": "@invoice_consumption",
-            "ReferenceKeyCode": "Id",
-            "ReferenceSectionCode": "PartsChange"
-          },
-          {
-            "Code": "part_name",
-            "Name": "Название",
-            "Position": 3,
-            "IsPrintable": false,
-            "SqlName": "part_name",
-            "FilterParameterCode": "@PartName"
-          },          
-          {
-            "Code": "remove_date",
-            "Name": "Дата списания",
-            "Position": 4,
-            "IsPrintable": false
-          },
-          {
-            "Code": "cars_name",
-            "Name": "Позывной",
-            "Position": 5,
-            "IsPrintable": false,
-            "SqlName": "cars_name",
-            "FilterParameterCode": "@CarName"
-          }
-    ],
-    "Parameters": [
-      {
-        "Code": "@Id",
-        "Name": "Id",
-        "ParameterType": "Integer",
-        "IsPrimaryKey": true
-      },
-      {
-        "Code": "@pageLimitRows",
-        "Name": "pageLimitRows",
-        "ParameterType": "Integer",
-        "IsPageLimitRows": true
-      },
-      {
-        "Code": "@pageOffsetRows",
-        "Name": "pageOffsetRows",
-        "ParameterType": "Integer",
-        "IsPageOffsetRows": true
-      }
-    ]
-  }
+  "ModelType": "Query",
+  "Code": "SelectCategoriesPartsChange",
+  "Name": "SelectCategoriesPartsChange",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "invoice_consumption",
+      "Name": "Номер расхода",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "invoice_consumption",
+      "FilterParameterCode": "@invoice_consumption",
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "PartsChange"
+    },
+    {
+      "Code": "part_name",
+      "Name": "Название",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "part_name",
+      "FilterParameterCode": "@PartName"
+    },
+    {
+      "Code": "remove_date",
+      "Name": "Дата списания",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cars_name",
+      "Name": "Позывной",
+      "Position": 5,
+      "IsPrintable": false,
+      "SqlName": "cars_name",
+      "FilterParameterCode": "@CarName"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

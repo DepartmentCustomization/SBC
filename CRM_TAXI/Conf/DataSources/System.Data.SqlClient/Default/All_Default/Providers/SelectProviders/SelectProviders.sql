@@ -1,7 +1,8 @@
-select 
-Id,
-[provider],
-provider_conditions
-
-from Providers
-where Id = @Id 
+SELECT
+    Id,
+    [provider],
+    provider_conditions
+FROM
+    dbo.Providers
+WHERE
+    Id = @Id;

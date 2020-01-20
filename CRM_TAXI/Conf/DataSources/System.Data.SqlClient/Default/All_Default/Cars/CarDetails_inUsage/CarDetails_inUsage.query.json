@@ -16,12 +16,16 @@
             "Code": "articul",
             "Name": "Артикул",
             "Position": 1,
-            "IsPrintable": false
+            "IsPrintable": false,
+            "SqlName": "p.articul",
+            "FilterParameterCode": "@articul"
         },
         {
             "Code": "part_name",
             "Name": "Название",
-            "Position": 2
+            "Position": 2,
+            "SqlName": "p.part_name",
+            "FilterParameterCode": "@part_name"
         }
     ],
     "Parameters": [
