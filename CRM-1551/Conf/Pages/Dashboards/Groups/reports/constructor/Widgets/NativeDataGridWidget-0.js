@@ -34,7 +34,7 @@
             this.sub = this.messageService.subscribe('sendSelectedRow', this.setReceivedData, this);
             this.sub1 = this.messageService.subscribe('sendDataCleanup', this.clearData, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
-            this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: 0}],
+            this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: 0}];
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.loadData(this.afterLoadDataHandler);
         },
@@ -59,12 +59,16 @@
                 sendData.push(row.Id);
             });
             sendData = this.GroupQuestionId === null ? sendData : [];
-            this.messageService.publish({ name: 'renderTable', questionGroupId: this.GroupQuestionId, questionTypesArr: sendData});
+            this.messageService.publish({
+                name: 'renderTable',
+                questionGroupId: this.GroupQuestionId,
+                questionTypesArr: sendData
+            });
         },
         clearData: function() {
             this.selectedRows = [];
-            this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: 0}],
-            this.config.query.filterColumns = [ ],
+            this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: 0}];
+            this.config.query.filterColumns = [ ];
             this.loadData(this.afterLoadDataHandler);
         },
         setReceivedData: function(message) {
@@ -86,11 +90,16 @@
                         }
                     };
                     this.config.query.filterColumns.push(filter);
-                    this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: null } ],
+                    this.config.query.parameterValues = [{
+                        key: '@GroupQuestionId',
+                        value: null
+                    }];
                     this.loadData(this.afterLoadDataHandler);
                 }else if(message.position === 'groups') {
                     this.GroupQuestionId = message.value[0].Id;
-                    this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: this.GroupQuestionId}],
+                    this.config.query.parameterValues = [{
+                        key: '@GroupQuestionId',
+                        value: this.GroupQuestionId}];
                     this.config.query.filterColumns = [];
                     this.loadData(this.afterLoadDataHandler);
                 }
@@ -107,7 +116,11 @@
                     sendData.push(row.Id);
                 });
                 sendData = this.GroupQuestionId === null ? sendData : [];
-                this.messageService.publish({ name: 'renderTable', questionGroupId: this.GroupQuestionId, questionTypesArr: sendData});
+                this.messageService.publish({
+                    name: 'renderTable',
+                    questionGroupId: this.GroupQuestionId,
+                    questionTypesArr: sendData
+                });
             }
         },
         destroy: function() {
