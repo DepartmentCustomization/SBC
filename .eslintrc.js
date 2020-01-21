@@ -34,7 +34,7 @@ module.exports = {
         "space-unary-ops": ["error", { "words": true, "nonwords": false }],
         "block-scoped-var": "error",
         "comma-dangle": ["error", "never"],
-        "max-len": ["error", { "code": 120 }],
+        "max-len": ["error", { "code": 140 }],
         "eqeqeq": "error",
         "no-proto": "error",
         "consistent-return": "error",
