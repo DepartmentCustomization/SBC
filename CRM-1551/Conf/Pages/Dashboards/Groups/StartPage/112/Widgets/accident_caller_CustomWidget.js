@@ -13,7 +13,7 @@
                             flex-direction: row;
                             justify-content: center;
                         }
-                        .callerCheckBoxWrapper{
+                        .callerCBW{
                             justify-content: center;
                             align-items: center;
                         }
@@ -173,7 +173,7 @@
             });
             const callerCheckBoxWrapper = this.createElement(
                 'div',
-                {className: 'checkBoxWrapper callerCheckBoxWrapper topLeftRightPadding botPadding rightSeparator wrapBorderBot'},
+                {className: 'checkBoxWrapper callerCBW topLeftRightPadding botPadding rightSeparator wrapBorderBot'},
                 checkBox, label
             );
             return callerCheckBoxWrapper;

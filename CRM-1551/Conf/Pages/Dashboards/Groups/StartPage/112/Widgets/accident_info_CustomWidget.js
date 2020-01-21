@@ -703,7 +703,10 @@
             );
             const addressWrapper = this.createElement(
                 'div',
-                {id: 'infoAddressWrapper', className: 'addressWrapper wrapBorderBot topLeftRightPadding botPadding bgcLightGrey'},
+                {
+                    id: 'infoAddressWrapper',
+                    className: 'addressWrapper wrapBorderBot topLeftRightPadding botPadding bgcLightGrey'
+                },
                 addressHeader, addressContentWrapper
             );
             return addressWrapper;
