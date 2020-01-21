@@ -54,7 +54,7 @@ module.exports = {
         "no-sequences": "error",
         "no-throw-literal": "error",
         "yoda": "error",
-        "no-magic-numbers": "warn",
+        "no-magic-numbers": [ "warn", { "ignore": [0], "ignoreArrayIndexes": true }],
         "default-case": "warn",
         "no-empty-function": "warn",
         "no-implicit-coercion": "warn"
