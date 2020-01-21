@@ -22,7 +22,7 @@
         "children": [
           {
             "width": "auto",
-            "margin": "0 0 10px",
+            "margin": "0 0 10px 0",
             "flexWrap": "nowrap",
             "flexDirection": "row",
             "order": 1,
@@ -38,16 +38,16 @@
             ],
             "id": "Container-3",
             "height": "auto",
-            "minHeight": "100px",
+            "minHeight": "calc(69% - 10px)",
             "minWidth": "300px",
-            "backgroundColor": "white"
+            "backgroundColor": "#e8e7e7"
           },
           {
             "width": "auto",
             "margin": "0 0 10px",
             "flexWrap": "wrap",
             "flexDirection": "row",
-            "order": 1,
+            "order": 3,
             "flexGrow": 1,
             "alignSelf": "auto",
             "border": "none",
@@ -60,16 +60,16 @@
             ],
             "id": "Container-3",
             "height": "auto",
-            "minHeight": "100px",
-            "minWidth": "calc(100% - 10px)",
-            "backgroundColor": "white"
+            "minHeight": "calc(55% - 10px)",
+            "minWidth": "300px",
+            "backgroundColor": "#e8e7e7"
           },
           {
             "width": "auto",
             "margin": "0 0 10px",
             "flexWrap": "wrap",
             "flexDirection": "row",
-            "order": 1,
+            "order": 2,
             "flexGrow": 1,
             "alignSelf": "auto",
             "border": "none",
@@ -82,32 +82,16 @@
             ],
             "id": "Container-3",
             "height": "auto",
-            "minHeight": "100px",
-            "minWidth": "calc(100% - 10px)",
-            "backgroundColor": "white"
-          },
-          {
-            "width": "auto",
-            "margin": "0 5px 10px",
-            "flexWrap": "wrap",
-            "flexDirection": "row",
-            "order": 1,
-            "flexGrow": 1,
-            "alignSelf": "auto",
-            "border": "none",
-            "children": [],
-            "id": "Container-3",
-            "height": "auto",
-            "minHeight": "100px",
-            "minWidth": "calc(100% - 10px)",
-            "backgroundColor": "white"
+            "minHeight": "calc(45% - 10px)",
+            "minWidth": "300px",
+            "backgroundColor": "#e8e7e7"
           }
         ],
         "id": "Container-0",
-        "height": "auto",
-        "minHeight": "100px",
-        "minWidth": "100px",
-        "backgroundColor": "white"
+        "height": "calc(100% - 10px)",
+        "minHeight": "calc(100% - 10px)",
+        "minWidth": "300px",
+        "backgroundColor": "#e8e7e7"
       },
       {
         "width": "calc(13% - 10px)",
@@ -121,7 +105,7 @@
         "children": [],
         "id": "Container-1",
         "height": "calc(100% - 10px)",
-        "minHeight": "100px",
+        "minHeight": "calc(100% - 10px)",
         "minWidth": "100px",
         "backgroundColor": "white"
       },
@@ -137,7 +121,7 @@
         "children": [],
         "id": "Container-2",
         "height": "calc(100% - 10px)",
-        "minHeight": "100px",
+        "minHeight": "calc(100% - 10px)",
         "minWidth": "100px",
         "backgroundColor": "white"
       }

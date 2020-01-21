@@ -2,10 +2,12 @@
     return {
         title: ' ',
         hint: '',
-        formatTitle: function() {},
         customConfig:
                     `
                     <style>
+                    #containerInfo, #containerCaller, #containerPatient{
+                        background-color: #fff;
+                    }
                         .header{
                             padding: 0.5em 0.5em 0.5em 1em;
                             margin: 0;
@@ -98,6 +100,9 @@
                         .btnExternChecked{
                             background: red;
                             color: #fff;
+                        }
+                        .bgcLightGrey{
+                            background-color: #fafafa
                         }
 
 
@@ -223,7 +228,7 @@
                             flex-direction: row;
                             width: 100%;
                         }
-                        .medicalCheckBoxWrapper{
+                        #medicalCheckBoxWrapper{
                             text-align: left;
                         }
                         .checkBox{
@@ -243,6 +248,15 @@
                             width: 100%;
                             height: 100%;
                             border: none;
+                            outline: none;
+                        }
+
+                        .wrapBorderBot{
+                            border-bottom: 1px solid #e0e0e0;
+                        }
+
+                        .accidentPropertiesWrapper{
+                            display: flex;
                         }
                 </style>
                     <div id="containerInfo"></div>
@@ -254,10 +268,12 @@
         gas: false,
         externList: [],
         categoryList: [],
+        callerTypeList: [],
+        workLineList: [],
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
-            if(children.length > 0) {
+            if(children.length) {
                 children.forEach(child =>{
                     element.appendChild(child);
                 });
@@ -302,15 +318,19 @@
             const buttonsWrapper = this.createButtons();
             const categoriesWrapper = this.createCategories();
             const accidentDateTimerWrapper = this.createAccidentDateTimer();
-            const medicalCheckBoxes = this.createMedicalCheckBoxes();
-            const accidentTextContent = this.createAccidentTextContent();
+            const accidentPropertiesWrapper = this.createAccidentPropertiesWrapper();
+            const medicalCheckBoxWrapper = this.createMedicalCheckBoxWrapper();
+            const accidentTextContentWrapper = this.createAccidentTextContentWrapper();
+            const addressWrapper = this.createAddressWrapper();
             this.addContainerChild(
                 this.header,
                 buttonsWrapper,
                 categoriesWrapper,
                 accidentDateTimerWrapper,
-                medicalCheckBoxes,
-                accidentTextContent
+                accidentPropertiesWrapper,
+                medicalCheckBoxWrapper,
+                accidentTextContentWrapper,
+                addressWrapper
             );
         },
         addContainerChild: function(...params) {
@@ -354,7 +374,7 @@
             }
             const allCategories = this.createSelect(category);
             const categoriesWrapper = this.createElement('div',
-                {className: 'categoriesWrapper separator'},
+                {className: 'categoriesWrapper separator bgcLightGrey'},
                 btnExtern, allCategories
             );
             return categoriesWrapper;
@@ -393,11 +413,28 @@
                 {
                     type: 'text',
                     className: 'input',
-                    id: 'categoryValue',
+                    id: element.id,
                     value: ' ',
-                    valueId: undefined}
+                    valueId: undefined
+                }
             );
-            this._categoryId = input.valueId;
+            let listItems = [];
+            switch (element.id) {
+            case 'categoryList':
+                this._categoryValueId = input.valueId;
+                listItems = this.categoryList;
+                break;
+            case 'callerTypeList':
+                this._callerTypeValueId = input.valueId;
+                listItems = this.callerTypeList;
+                break;
+            case 'workLineList':
+                this._workLineValueId = input.valueId;
+                listItems = this.workLineList;
+                break;
+            default:
+                break;
+            }
             const placeholder = this.createElement('span', { className: 'placeholder',innerText: element.placeholder});
             const selectInput = this.createElement('div',
                 {
@@ -410,7 +447,6 @@
             const inputWrapper = this.createElement('div',
                 {
                     className: 'inputWrapper borderBottom',
-                    id: element.id,
                     showModal: false,
                     changeText: false
                 },
@@ -423,9 +459,12 @@
                 },
                 inputWrapper
             );
+            if(element.borderRight) {
+                selectWrapper.classList.add('rightSeparator');
+            }
             arrow.addEventListener('click', e => {
                 e.stopImmediatePropagation();
-                this.showModalList(selectWrapper, selectInput.id, inputWrapper, this.categoryList);
+                this.showModalList(selectWrapper, selectInput.id, inputWrapper, listItems);
             });
             return selectWrapper;
         },
@@ -455,12 +494,22 @@
                             switch (inputId) {
                             case 'btnExtern':
                                 this.changeExternBtn(inputId);
+                                this.changeButtons();
+                                this.changeCategoryInput(value, id);
+                                break;
+                            case '_valueCat':
+                                this.changeButtons();
+                                this.changeCategoryInput(value, id);
+                                break;
+                            case '_valueCallerType':
+                                this.changeCallerTypeInput(value, id);
+                                break;
+                            case '_valueWorkLine':
+                                this.changeWorkLineInput(value, id);
                                 break;
                             default:
                                 break;
                             }
-                            this.changeButtons();
-                            this.changeCategoryInput(value, id);
                             this.hideModal(wrapper);
                         });
                         modalList.appendChild(listItem);
@@ -469,19 +518,29 @@
                 }
                 this.activeModalContainer = container;
             } else {
-                this.hideModal(wrapper);
+                if(listItems.length) {
+                    this.hideModal(wrapper);
+                }
             }
         },
         changeCategoryInput: function(value, id) {
-            document.getElementById('categoryValue').value = value;
-            this._categoryId = id;
-            console.log('CatValue : ' + value + ', catID : ' + id);
+            document.getElementById('categoryList').value = value;
+            this._categoryValueId = id;
+        },
+        changeCallerTypeInput: function(value, id) {
+            document.getElementById('callerTypeList').value = value;
+            this._callerTypeValueId = id;
+        },
+        changeWorkLineInput: function(value, id) {
+            document.getElementById('workLineList').value = value;
+            this._workLineValueId = id;
         },
         changeExternBtn: function(inputId) {
             document.getElementById(inputId).classList.remove('btnExternUnchecked');
             document.getElementById(inputId).classList.add('btnExternChecked');
         },
         changeButtons: function() {
+            this.fire = false;
         },
         hideModal: function(wrapper) {
             this.activeModalContainer.removeChild(this.activeModalContainer.lastElementChild);
@@ -489,7 +548,17 @@
             wrapper.showModal = false;
         },
         getList: function(type, data) {
-            const list = type === 'externListType' ? this.externList : this.categoryList;
+            let list = undefined;
+            switch (type) {
+            case 'externListType':
+                list = this.externList
+                break;
+            case 'categoryListType':
+                list = this.categoryList
+                break;
+            default:
+                break;
+            }
             data.rows.forEach(row => {
                 const indexId = 0;
                 const indexValue = 1;
@@ -503,7 +572,7 @@
             const accidentDateWrapper = this.createAccidentDateWrapper();
             const accidentTimerWrapper = this.createAccidentTimerWrapper();
             const accidentDateTimerWrapper = this.createElement('div',
-                {className: 'accidentDateTimerWrapper separator'},
+                {className: 'accidentDateTimerWrapper separator bgcLightGrey'},
                 accidentDateWrapper, accidentTimerWrapper
             );
             return accidentDateTimerWrapper;
@@ -526,7 +595,7 @@
             const accidentDateWrapper = this.createElement(
                 'div',
                 {
-                    className: 'accidentDateWrapper topLeftRightPadding rightSeparator botPadding ',
+                    className: 'accidentDateWrapper bgcLightGrey topLeftRightPadding rightSeparator botPadding ',
                     id: 'accidentDateWrapper'
                 },
                 elementsWrapper
@@ -561,14 +630,42 @@
             )
             return wrapper;
         },
-        createMedicalCheckBoxes: function() {
+        createAccidentPropertiesWrapper: function() {
+            const callerType = {
+                placeholder: 'Тип заявника',
+                borderRight: true,
+                array: this.callerTypeList,
+                id: 'callerTypeList',
+                inputId: '_valueCallerType'
+            }
+            const selectCallerType = this.createSelect(callerType);
+            const workLine = {
+                placeholder: 'Лiнiя роботи',
+                borderRight: false,
+                array: this.workLineList,
+                id: 'workLineList',
+                inputId: '_valueWorkLine'
+            }
+            const selectWorkLine = this.createSelect(workLine);
+            const accidentPropertiesWrapper = this.createElement(
+                'div',
+                {className: 'accidentPropertiesWrapper bgcLightGrey wrapBorderBot'},
+                selectCallerType, selectWorkLine
+            );
+            return accidentPropertiesWrapper;
+        },
+        createMedicalCheckBoxWrapper: function() {
             const checkBoxMe = this.createMedicalCheckBox('Визов 103 для себе', 'checkBoxMe');
             const checkBoxAnother = this.createMedicalCheckBox('Визов 103 для іншого', 'checkBoxAnother');
             const medicalCheckBoxWrapper = this.createElement(
                 'div',
-                { className: 'medicalCheckBoxWrapper checkBoxWrapper borderBottom topLeftRightPadding botPadding ' },
+                {
+                    id: 'medicalCheckBoxWrapper',
+                    className: 'bgcLightGrey checkBoxWrapper wrapBorderBot topLeftRightPadding botPadding '
+                },
                 checkBoxMe, checkBoxAnother
             );
+            this.medicalCheckBoxWrapper = medicalCheckBoxWrapper;
             return medicalCheckBoxWrapper;
         },
         createMedicalCheckBox: function(text, id) {
@@ -587,17 +684,92 @@
             );
             return medicalCheckBoxWrapper;
         },
-        createAccidentTextContent: function() {
+        createAccidentTextContentWrapper: function() {
             const accidentTextContent = this.createElement(
                 'textarea',
-                { id: 'accidentTextContent', placeholder: 'Опис ...'}
+                { id: 'accidentTextContent', placeholder: 'Опис...'}
             );
             const accidentTextContentWrapper = this.createElement(
                 'div',
-                { className: 'accidentTextContentWrapper borderBottom topLeftRightPadding botPadding' },
+                { className: 'accidentTextContentWrapper wrapBorderBot topLeftRightPadding botPadding' },
                 accidentTextContent
             );
             return accidentTextContentWrapper;
+        },
+        createAddressWrapper: function() {
+            const addressHeader = this.createAddressHeader();
+            const addressContentWrapper = this.createAddressContentWrapper(
+                'callerAddressContent'
+            );
+            const addressWrapper = this.createElement(
+                'div',
+                {id: 'infoAddressWrapper', className: 'addressWrapper wrapBorderBot topLeftRightPadding botPadding bgcLightGrey'},
+                addressHeader, addressContentWrapper
+            );
+            return addressWrapper;
+        },
+        createAddressHeader: function() {
+            const addressCaption = this.createElement(
+                'span',
+                {className: 'addressCaption', innerText: 'Адреса заявника *'}
+            );
+            const addressEditorWrapper = this.createAddressEditorWrapper(
+                'btnAccidentAddressClear',
+                'btnAccidentAddressEdit'
+            );
+            const addressHeader = this.createElement(
+                'div',
+                { className: 'addressHeader'},
+                addressCaption, addressEditorWrapper
+            );
+            return addressHeader;
+        },
+        createAddressEditorWrapper: function(idClear, idEdit) {
+            const btnAddressEdit = this.createElement(
+                'span',
+                { id: idEdit, className: 'material-icons editBtn addressBtn', innerText: 'edit'}
+            );
+            const btnAddressClear = this.createElement(
+                'span',
+                { id: idClear, className: 'material-icons clearBtn addressBtn', innerText: 'clear'}
+            );
+            const addressEditorWrapper = this.createElement(
+                'div',
+                { className: 'addressEditorWrapper'},
+                btnAddressClear, btnAddressEdit
+            );
+            return addressEditorWrapper;
+        },
+        createAddressContentWrapper: function(id) {
+            const marker = this.createElement(
+                'span',
+                { className: 'fa fa-map-marker marker'}
+            );
+            const content = this.createElement(
+                'span',
+                {innerText: ' ', className: 'addressContent'}
+            );
+            this.addressContent = content.innerText;
+            const addressContentWrapper = this.createElement(
+                'div',
+                {id: id, className: 'addressContentWrapper'},
+                marker, content
+            );
+            addressContentWrapper.style.display = 'none';
+            this.addressContentWrapper = addressContentWrapper;
+            return addressContentWrapper;
+        },
+        showAddressContent: function() {
+            this.addressContentWrapper.style.display = 'block';
+        },
+        hideAddressContent: function() {
+            this.addressContentWrapper.style.display = 'none';
+        },
+        showMedicalCheckBoxWrapper: function() {
+            this.medicalCheckBoxWrapper.style.display = 'block';
+        },
+        hideMedicalCheckBoxWrapper: function() {
+            this.medicalCheckBoxWrapper.style.display = 'none';
         }
     };
 }());
