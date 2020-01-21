@@ -1785,7 +1785,8 @@
             this.details.setVisibility('Detail_QuestionBuildingAplicant', false);
             this.details.setVisibility('Detail_GorodokClaim', false);
         },
-        onChanged_Applicant_Entrance_Input: function(value) {
+        onChanged_Applicant_Entrance_Input: function(param) {
+            let value = param;
             if (value) {
                 if (value.length >= 0) {
                     if (value.substr(0,1) === 0) {
