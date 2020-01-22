@@ -102,7 +102,30 @@
         "flexGrow": 1,
         "alignSelf": "auto",
         "border": "none",
-        "children": [],
+        "children": [
+          {
+            "width": "auto",
+            "margin": "0 0 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 2,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "modal_maps_CustomWidget",
+                "type": "CustomWidgetComponent",
+                "name": "modalMaps"
+              }
+            ],
+            "id": "Container-3",
+            "height": "50%",
+            "minHeight": "50px",
+            "minWidth": "300px",
+            "backgroundColor": "red"
+          }
+        ],
         "id": "Container-1",
         "height": "calc(100% - 10px)",
         "minHeight": "calc(100% - 10px)",
