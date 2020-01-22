@@ -47,8 +47,10 @@
             this.sub2 = this.messageService.subscribe('showTable', this.showTable, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == 'EnterNumber' && e.row != undefined) {
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/CreateAppeal_UGL/add?uglId=' + e.data.Id);
+                    if(e.column.dataField === 'EnterNumber' && e.row !== undefined) {
+                        window.open(location.origin +
+                        localStorage.getItem('VirtualPath') +
+                        '/sections/CreateAppeal_UGL/add?uglId=' + e.data.Id);
                     }
                 }
             });

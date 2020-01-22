@@ -16,7 +16,15 @@
             let fileLabelText = this.createElement('div', { id: 'fileChooserText', className: 'btn', innerText: '1. Обрати файл'});
             let fileLabel = this.createElement('label', { id: 'fileLabel', htmlFor: 'fileInput' }, fileLabelText, fileLabel__triangle);
             let btnImportFile__triangle = this.createElement('div', {className: 'triangle btnImportFile__triangle' });
-            let btnImportFile = this.createElement('div', {disabled: true, className: 'btn', id: 'btnImportFile', innerText: '2. Завантажити файл' }, btnImportFile__triangle);
+            let btnImportFile = this.createElement('div',
+                {
+                    disabled: true,
+                    className: 'btn',
+                    id: 'btnImportFile',
+                    innerText: '2. Завантажити файл'
+                },
+                btnImportFile__triangle
+            );
             let showTable__triangle = this.createElement('div', {className: 'triangle showTable__triangle' });
             this.createElement('div', { className: 'btn', id: 'btnShowTable', innerText: '3. Вiдобразити таблицю' },showTable__triangle);
             let btnsWrapper = this.createElement('div', { id: 'btnsWrapper' }, fileInput, fileLabel, btnImportFile);
@@ -35,7 +43,10 @@
                     let file = files[0];
                     let data = new FormData();
                     data.append('file', file);
-                    data.append('configuration', '{\n   "HasHeaderRecord":true,\n   "EncodingName":"windows-1251",\n   "Delimiter":";",\n   "Quote":"\\"",\n   "MaxAllowedErrors":0\n}');
+                    data.append(
+                        'configuration',
+                        '{\n   "HasHeaderRecord":true,\n   "EncodingName":"windows-1251",' +
+                        '\n   "Delimiter":";",\n   "Quote":"\\"",\n   "MaxAllowedErrors":0\n}');
                     let xhr = new XMLHttpRequest();
                     xhr.addEventListener('readystatechange', () => {
                         if (xhr.readyState === 4) {
@@ -59,7 +70,8 @@
                             this.showModalWindow(responseModal, responseNotification);
                         }
                     });
-                    let url = window.location.origin + '/api/section/Appeals_UGL/import/csv';
+                    let url = window.window.location.origin
+                    + window.localStorage.VirtualPath + '/api/section/Appeals_UGL/import/csv';
                     xhr.open('POST', url);
                     let token = localStorage.getItem('X-Auth-Token');
                     xhr.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -79,14 +91,18 @@
                 fileLabel.appendChild(fileLabel__triangle);
             });
         },
-        sendMessageToTable: function() {
-        },
         showModalWindow: function(responseModal, responseNotification) {
             const modalBtnTrue = this.createElement('button', { id:'modalBtnTrue', className: 'btn', innerText: 'Сховати'});
             const modalBtnWrapper = this.createElement('div', { id:'modalBtnWrapper', className: 'modalBtnWrapper'}, modalBtnTrue);
             const contentWrapper = this.createElement('div', { id:'contentWrapper'}, responseModal);
             const modalTitle = this.createElement('div', { id:'modalTitle', innerText: 'Результат завантаження:'});
-            const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'}, modalTitle, contentWrapper ,modalBtnWrapper);
+            const modalWindow = this.createElement('div',
+                {
+                    id:'modalWindow',
+                    className: 'modalWindow'
+                },
+                modalTitle, contentWrapper ,modalBtnWrapper
+            );
             const modalWindowWrapper = this.createElement('div', { id:'modalWindowWrapper', className: 'modalWindowWrapper'}, modalWindow);
             modalBtnTrue.addEventListener('click', event => {
                 let target = event.currentTarget;
@@ -98,32 +114,59 @@
                         limit: -1,
                         parameterValues: []
                     };
-                    this.queryExecutor(executeQuery, sendMessageToTable, this);
+                    this.queryExecutor(executeQuery, this.sendMessageToTable, this);
                     this.showPreloader = false;
-                }
-                function sendMessageToTable() {
-                    this.messageService.publish({ name: 'showTable'});
-                    let lastElementChild = this.container.lastElementChild;
-                    this.container.removeChild(lastElementChild);
+                } else {
+                    this.container.removeChild(this.container.lastElementChild);
                 }
             });
             for (let key in responseNotification) {
                 if(key === 'title') {
-                    let responseTitle = this.createElement('div', { id: 'responseTitle', className: 'responseTest', innerText: responseNotification[key] });
+                    let responseTitle = this.createElement(
+                        'div',
+                        {
+                            id: 'responseTitle',
+                            className: 'responseTest',
+                            innerText: responseNotification[key]
+                        }
+                    );
                     responseModal.appendChild(responseTitle);
                 }else if(key === 'errorInfo') {
-                    let responseErrorInfo = this.createElement('div', { id: 'responseErrorInfo', className: 'responseTest', innerText:responseNotification[key] });
+                    let responseErrorInfo = this.createElement(
+                        'div',
+                        {
+                            id: 'responseErrorInfo',
+                            className: 'responseTest',
+                            innerText:responseNotification[key]
+                        }
+                    );
                     responseModal.appendChild(responseErrorInfo);
                 }else if(key === 'errorRow') {
-                    let responseErrorRow = this.createElement('div', { id: 'responseErrorRow', className: 'responseError responseTest', innerText: responseNotification[key] });
+                    let responseErrorRow = this.createElement('div',
+                        {
+                            id: 'responseErrorRow',
+                            className: 'responseError responseTest',
+                            innerText: responseNotification[key]
+                        }
+                    );
                     responseModal.appendChild(responseErrorRow);
                 }else if(key === 'errorColumn') {
-                    let responseErrorColumn = this.createElement('div', { id: 'responseErrorColumn', className: 'responseError responseTest', innerText: responseNotification[key] });
+                    let responseErrorColumn = this.createElement('div',
+                        {
+                            id: 'responseErrorColumn',
+                            className: 'responseError responseTest',
+                            innerText: responseNotification[key]
+                        }
+                    );
                     responseModal.appendChild(responseErrorColumn);
                 }
             }
             this.hidePagePreloader();
             this.container.appendChild(modalWindowWrapper);
+        },
+        sendMessageToTable: function() {
+            this.messageService.publish({ name: 'showTable'});
+            this.container.removeChild(this.container.lastElementChild);
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
