@@ -8,7 +8,8 @@ SELECT DISTINCT TOP 1
    ,ReceiptSources.name AS receipt_source_name
    ,Questions.registration_date AS que_reg_date
    ,Applicants.full_name
-   ,Applicants.ApplicantAdress LiveAddress
+   --,Applicants.ApplicantAdress LiveAddress
+   ,Appeals.ApplicantAddress LiveAddress
    ,[Objects].Id AS [object_id]
    ,ISNULL(ObjectTypes.name + N' : ', N'') +
 	ISNULL([Objects].name + ' ', N'') [object_name]
