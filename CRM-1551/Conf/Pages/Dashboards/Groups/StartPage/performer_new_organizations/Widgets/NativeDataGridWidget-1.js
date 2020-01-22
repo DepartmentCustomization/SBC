@@ -98,7 +98,12 @@
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     if(e.column.dataField === 'registration_number' && e.row !== undefined) {
-                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.key));
+                        window.open(String(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/sections/Assignments/edit/' +
+                            e.key
+                        ));
                     }
                 }
             });
@@ -121,7 +126,7 @@
         },
         findAllSelectRowsToArrived: function() {
             let rows = this.dataGridInstance.selectedRowKeys;
-            if(rows.length > 0) {
+            if (rows.length > 0) {
                 let arrivedSendValueRows = rows.join(', ');
                 let executeQuery = {
                     queryCode: 'Button_Nadiishlo_VzyatyVRobotu',
@@ -130,7 +135,12 @@
                 };
                 this.queryExecutor(executeQuery);
                 this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish({ name: 'reloadMainTable', column: this.column, navigator: this.navigator, targetId: this.targetId });
+                this.messageService.publish({
+                    name: 'reloadMainTable',
+                    column: this.column,
+                    navigator: this.navigator,
+                    targetId: this.targetId
+                });
             }
         },
         createTableButton: function(e) {
@@ -182,7 +192,13 @@
             let column_QuestionType = { name: 'QuestionType', index: 2 };
             let column_vykonavets = { name: 'vykonavets', index: 3 };
             let column_adress = { name: 'adress', index: 4 };
-            this.indexArr = [ column_registration_number, column_zayavnyk, column_QuestionType, column_vykonavets, column_adress];
+            this.indexArr = [
+                column_registration_number,
+                column_zayavnyk,
+                column_QuestionType,
+                column_vykonavets,
+                column_adress
+            ];
             const workbook = this.createExcel();
             const worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
@@ -198,7 +214,8 @@
             let cellInfoCaption = worksheet.getCell('A1');
             cellInfoCaption.value = 'Інформація';
             let cellInfo = worksheet.getCell('A2');
-            cellInfo.value = 'про звернення громадян, що надійшли до Контактного центру  міста Києва. Термін виконання …';
+            cellInfo.value =
+                'про звернення громадян, що надійшли до Контактного центру  міста Києва. Термін виконання …';
             let cellPeriod = worksheet.getCell('A3');
             cellPeriod.value = 'Період вводу з (включно) : дата з … дата по … .';
             let cellNumber = worksheet.getCell('A4');
@@ -206,13 +223,41 @@
             worksheet.mergeCells('A1:F1');
             worksheet.mergeCells('A2:F2');
             worksheet.mergeCells('A3:F3');
-            worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(1).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
-            worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(2).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true ,
+                italic: false
+            };
             worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
-            worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(3).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'left' };
-            worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(4).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'left' };
             let indexArr = this.indexArr;
             let rows = [];
@@ -224,52 +269,52 @@
             captions.push(rowNumber);
             indexArr.forEach(el => {
                 let obj = {}
-                if(el.name === 'registration_number') {
-                    obj.key = 'registration_number',
-                    obj.width = 10,
-                    obj.height = 20,
+                if (el.name === 'registration_number') {
+                    obj.key = 'registration_number';
+                    obj.width = 10;
+                    obj.height = 20;
                     captions.push('Номер, дата, час');
-                }else if(el.name === 'QuestionType') {
-                    obj.key = 'QuestionType',
-                    obj.width = 44
+                } else if(el.name === 'QuestionType') {
+                    obj.key = 'QuestionType';
+                    obj.width = 44;
                     captions.push('Суть питання');
-                }else if(el.name === 'zayavnyk') {
-                    obj.key = 'zayavnyk',
-                    obj.width = 30
+                } else if(el.name === 'zayavnyk') {
+                    obj.key = 'zayavnyk';
+                    obj.width = 30;
                     captions.push('Заявник');
-                }else if(el.name === 'vykonavets') {
-                    obj.key = 'vykonavets',
-                    obj.width = 16
+                } else if(el.name === 'vykonavets') {
+                    obj.key = 'vykonavets';
+                    obj.width = 16;
                     captions.push('Виконавець');
-                }else if(el.name === 'adress') {
-                    obj.key = 'adress',
-                    obj.width = 21
+                } else if(el.name === 'adress') {
+                    obj.key = 'adress';
+                    obj.width = 21;
                     captions.push('Місце проблеми (Об\'єкт)');
                 }
                 columnsHeader.push(obj);
             });
             indexArr.forEach(el => {
                 let obj = {}
-                if(el.name === 'registration_number') {
-                    obj.key = 'registration_number',
-                    obj.width = 10,
-                    obj.height = 20,
+                if (el.name === 'registration_number') {
+                    obj.key = 'registration_number';
+                    obj.width = 10;
+                    obj.height = 20;
                     captions.push('Номер, дата, час');
-                }else if(el.name === 'QuestionType') {
-                    obj.key = 'QuestionType',
-                    obj.width = 44
+                } else if(el.name === 'QuestionType') {
+                    obj.key = 'QuestionType';
+                    obj.width = 44;
                     captions.push('Суть питання');
-                }else if(el.name === 'zayavnyk') {
-                    obj.key = 'zayavnyk',
-                    obj.width = 30
+                } else if(el.name === 'zayavnyk') {
+                    obj.key = 'zayavnyk';
+                    obj.width = 30;
                     captions.push('Заявник');
-                }else if(el.name === 'vykonavets') {
-                    obj.key = 'vykonavets',
-                    obj.width = 16
+                } else if(el.name === 'vykonavets') {
+                    obj.key = 'vykonavets';
+                    obj.width = 16;
                     captions.push('Виконавець');
-                }else if(el.name === 'adress') {
-                    obj.key = 'adress',
-                    obj.width = 21
+                } else if(el.name === 'adress') {
+                    obj.key = 'adress';
+                    obj.width = 21;
                     captions.push('Місце проблеми (Об\'єкт)');
                 }
                 columnsHeader.push(obj);
@@ -290,15 +335,19 @@
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i++) {
                     let el = indexArr[i];
-                    if(el.name === 'registration_number') {
-                        rowItem.registration_number = row.values[indexRegistrationNumber] + ', ' + this.changeDateTimeValues(row.values[indexRegistrDate]);
-                    }else if(el.name === 'zayavnyk') {
+                    if (el.name === 'registration_number') {
+                        rowItem.registration_number = row.values[indexRegistrationNumber] +
+                        ', ' +
+                        this.changeDateTimeValues(row.values[indexRegistrDate]);
+                    } else if(el.name === 'zayavnyk') {
                         rowItem.zayavnyk = row.values[indexZayavnikName] + ', ' + row.values[indexAdressZ];
-                    }else if(el.name === 'QuestionType') {
+                    } else if(el.name === 'QuestionType') {
                         rowItem.QuestionType = 'Зміст: ' + row.values[indexQuestionContent];
-                    }else if(el.name === 'vykonavets') {
-                        rowItem.vykonavets = row.values[indexVykonavets] + '. Дата контролю:  ' + this.changeDateTimeValues(row.values[indexControlDate]);
-                    }else if(el.name === 'adress') {
+                    } else if(el.name === 'vykonavets') {
+                        rowItem.vykonavets = row.values[indexVykonavets] +
+                        '. Дата контролю:  ' +
+                        this.changeDateTimeValues(row.values[indexControlDate]);
+                    } else if(el.name === 'adress') {
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
@@ -342,7 +391,14 @@
             worksheet.getRow(2).border = {
                 bottom: {style:'thin'}
             };
-            worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(5).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
@@ -395,16 +451,42 @@
             if(currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined) {
                 currentEmployeeData.zayavnyk_adress = '';
             }
-            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: String(String(currentEmployeeData.zayavnyk_adress))});
-            let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: 'Адреса заявника'});
-            let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.zayavnyk_zmist))});
-            let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
-            let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: String(String(currentEmployeeData.balans_name))});
-            let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: 'Балансоутримувач'});
-            let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
-            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance);
+            let elementAdress__content = this.createElement('div', {
+                className: 'elementAdress__content content',
+                innerText: String(String(currentEmployeeData.zayavnyk_adress))
+            });
+            let elementAdress__caption = this.createElement('div', {
+                className: 'elementAdress__caption caption',
+                innerText: 'Адреса заявника'
+            });
+            let elementAdress = this.createElement('div', {
+                className: 'elementAdress element'
+            }, elementAdress__caption, elementAdress__content);
+            let elementСontent__content = this.createElement('div', {
+                className: 'elementСontent__content content',
+                innerText: String(String(currentEmployeeData.zayavnyk_zmist))
+            });
+            let elementСontent__caption = this.createElement('div', {
+                className: 'elementСontent__caption caption',
+                innerText: 'Зміст'
+            });
+            let elementСontent = this.createElement('div', {
+                className: 'elementСontent element'
+            }, elementСontent__caption, elementСontent__content);
+            let elementBalance__content = this.createElement('div', {
+                className: 'elementBalance__content content',
+                innerText: String(String(currentEmployeeData.balans_name))
+            });
+            let elementBalance__caption = this.createElement('div', {
+                className: 'elementBalance__caption caption',
+                innerText: 'Балансоутримувач'
+            });
+            let elementBalance = this.createElement('div', {
+                className: 'elementСontent element'
+            }, elementBalance__caption, elementBalance__content);
+            let elementsWrapper = this.createElement('div', {
+                className: 'elementsWrapper'
+            }, elementAdress, elementСontent, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll.forEach(el => {

@@ -34,7 +34,7 @@ module.exports = {
         "space-unary-ops": ["error", { "words": true, "nonwords": false }],
         "block-scoped-var": "error",
         "comma-dangle": ["error", "never"],
-        "max-len": ["error", { "code": 120 }],
+        "max-len": ["error", { "code": 140 }],
         "eqeqeq": "error",
         "no-proto": "error",
         "consistent-return": "error",
@@ -54,7 +54,7 @@ module.exports = {
         "no-sequences": "error",
         "no-throw-literal": "error",
         "yoda": "error",
-        "no-magic-numbers": "warn",
+        "no-magic-numbers": [ "warn", { "ignore": [0], "ignoreArrayIndexes": true }],
         "default-case": "warn",
         "no-empty-function": "warn",
         "no-implicit-coercion": "warn"

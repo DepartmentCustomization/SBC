@@ -1116,7 +1116,7 @@ BEGIN
 				   ,[user_edit_id] = @user_edit_id
 				   ,control_date = GETUTCDATE()
 				   ,control_result_id = @result_id
-				--,rework_counter = @rework_counter + 1
+				   ,rework_counter = @rework_counter + 1
 				WHERE [assignment_consideration_іd] = @ass_cons_id;
 
 				UPDATE Assignments
@@ -1237,5 +1237,14 @@ BEGIN
 		END --(F11)
 	END
 END
+/*
+IF (SELECT ar.code
+  FROM [dbo].[AssignmentResults] ar 
+  WHERE ar.Id=@result_id)=N'Actually' --фактично
+	BEGIN
+		UPDATE [dbo].[AssignmentRevisions]
+		SET [rework_counter]=ISNULL([rework_counter],0)+1
+		WHERE [assignment_consideration_іd]=@current_consid;
+	END*/
 
-END
+END;

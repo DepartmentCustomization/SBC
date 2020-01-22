@@ -205,18 +205,45 @@
             }
         },
         setTableRowsStyles: function(worksheet, rowNumbers) {
-            worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 14, underline: false, bold: true , italic: false};
+            worksheet.getRow(1).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 14,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-            worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(3).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-            worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(4).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(4).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             worksheet.getRow(1).height = 30;
             worksheet.getRow(3).height = 40;
             worksheet.getRow(4).height = 40;
             rowNumbers.forEach(number => {
                 worksheet.getRow(number).height = 50;
-                worksheet.getRow(number).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, italic: false};
+                worksheet.getRow(number).font = {
+                    name: 'Times New Roman',
+                    family: 4,
+                    size: 10,
+                    underline: false,
+                    italic: false
+                };
                 worksheet.getRow(number).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
                 worksheet.getCell('A' + number).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
             });
@@ -227,7 +254,7 @@
             cell.font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: false , italic: false };
         },
         setQueryParams: function(message) {
-            this.config.query.parameterValues = [ { key: '@Date', value: message.date}],
+            this.config.query.parameterValues = [ { key: '@Date', value: message.date}];
             this.loadData(this.afterLoadDataHandler);
         },
         afterLoadDataHandler: function() {

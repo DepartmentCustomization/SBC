@@ -43,7 +43,8 @@
             let indexQuestionStateRegistered = values[0].findIndex(el => el.code.toLowerCase() === 'stateregistered');
             let indexQuestionStateInWork = values[0].findIndex(el => el.code.toLowerCase() === 'stateinwork');
             let indexQuestionStateOnCheck = values[0].findIndex(el => el.code.toLowerCase() === 'stateoncheck');
-            let indexQuestionStateOnRefinement = values[0].findIndex(el => el.code.toLowerCase() === 'stateonrefinement');
+            let indexQuestionStateOnRefinement = values[0].findIndex(el =>
+                el.code.toLowerCase() === 'stateonrefinement');
             let indexQuestionStateClose = values[0].findIndex(el => el.code.toLowerCase() === 'stateclose');
             let indexQuestionObject = values[0].findIndex(el => el.code.toLowerCase() === 'objectname');
             let indexQuestionResolution = values[0].findIndex(el => el.code.toLowerCase() === 'resolution');
@@ -155,8 +156,16 @@
                         }
                     }
                     this.organization = organization === null ? null : organization === '' ? null : organization.value;
-                    this.groupOrganization = groupOrganization === null ? null : groupOrganization === '' ? null : groupOrganization.value;
-                    this.receiptSource = receiptSource === null ? null : receiptSource === '' ? null : receiptSource.value;
+                    this.groupOrganization = groupOrganization === null
+                        ? null
+                        : groupOrganization === ''
+                            ? null
+                            : groupOrganization.value;
+                    this.receiptSource = receiptSource === null
+                        ? null
+                        : receiptSource === ''
+                            ? null
+                            : receiptSource.value;
                 }
                 document.getElementById('summary__table').style.display = 'block';
                 document.getElementById('content').style.display = 'none';

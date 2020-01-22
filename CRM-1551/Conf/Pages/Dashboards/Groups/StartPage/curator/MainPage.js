@@ -19,7 +19,8 @@
                         let style = document.createElement('style');
                         let styleSelect = document.createElement('link');
                         styleSelect.rel = 'stylesheet';
-                        styleSelect.href = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css';
+                        styleSelect.href =
+                            'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css';
                         styleSelect.type = 'text/css';
                         let tag_head = document.getElementsByTagName('head');
                         tag_head[0].appendChild(styleSelect);

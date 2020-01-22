@@ -8,7 +8,8 @@ SELECT DISTINCT TOP 1
    ,ReceiptSources.name AS receipt_source_name
    ,Questions.registration_date AS que_reg_date
    ,Applicants.full_name
-   ,Applicants.ApplicantAdress LiveAddress
+   --,Applicants.ApplicantAdress LiveAddress
+   ,Appeals.ApplicantAddress LiveAddress
    ,[Objects].Id AS [object_id]
    ,ISNULL(ObjectTypes.name + N' : ', N'') +
 	ISNULL([Objects].name + ' ', N'') [object_name]
@@ -67,15 +68,22 @@ SELECT DISTINCT TOP 1
 		WHERE ac.assignment_id = @Id
 		ORDER BY ar.Id DESC)
 	AS control_comment
-   ,(SELECT
-			COUNT(Id)
-		FROM [dbo].AssignmentRevisions
-		WHERE assignment_consideration_іd IN (SELECT
-				Id
-			FROM [dbo].AssignmentConsiderations
-			WHERE assignment_id = @Id)
-		AND control_result_id = 5)
-	AS rework_counter
+--    ,(SELECT
+-- 			COUNT(Id)
+-- 		FROM [dbo].AssignmentRevisions
+-- 		WHERE assignment_consideration_іd IN (SELECT
+-- 				Id
+-- 			FROM [dbo].AssignmentConsiderations
+-- 			WHERE assignment_id = @Id)
+-- 		AND control_result_id in (5))
+-- 	AS rework_counter
+	,ISNULL((SELECT TOP 1 ar.rework_counter
+	FROM [dbo].[Assignments] a
+	INNER JOIN [dbo].[AssignmentConsiderations] ac ON a.Id=ac.assignment_id
+	INNER JOIN [dbo].[AssignmentRevisions] ar ON ar.assignment_consideration_іd=ac.Id
+	WHERE a.Id=@Id
+	ORDER BY ar.Id DESC),0) rework_counter
+	--,assRev.rework_counter
    ,assC.[transfer_to_organization_id]
 
    ,CASE

@@ -122,7 +122,12 @@
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     if(e.column.dataField == 'registration_number' && e.row != undefined) {
-                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.key));
+                        window.open(String(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/sections/Assignments/edit/' +
+                            e.key
+                        ));
                     }
                 }
             });
@@ -162,7 +167,12 @@
             }
             rows = [];
             this.loadData(this.afterLoadDataHandler);
-            this.messageService.publish({ name: 'reloadMainTable', navigation: this.navigation, column: this.column, targetId: this.targetId });
+            this.messageService.publish({
+                name: 'reloadMainTable',
+                navigation: this.navigation,
+                column: this.column,
+                targetId: this.targetId
+            });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
@@ -184,16 +194,42 @@
             if(currentEmployeeData.question_content == null) {
                 currentEmployeeData.question_content = '';
             }
-            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: String(String(currentEmployeeData.adressZ))});
-            let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: 'Адреса заявника'});
-            let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.question_content))});
-            let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
-            let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: String(String(currentEmployeeData.short_answer))});
-            let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
-            let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
-            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementComment);
+            let elementAdress__content = this.createElement('div', {
+                className: 'elementAdress__content content',
+                innerText: String(String(currentEmployeeData.adressZ))
+            });
+            let elementAdress__caption = this.createElement('div', {
+                className: 'elementAdress__caption caption',
+                innerText: 'Адреса заявника'
+            });
+            let elementAdress = this.createElement('div', {
+                className: 'elementAdress element'
+            }, elementAdress__caption, elementAdress__content);
+            let elementСontent__content = this.createElement('div', {
+                className: 'elementСontent__content content',
+                innerText: String(String(currentEmployeeData.question_content))
+            });
+            let elementСontent__caption = this.createElement('div', {
+                className: 'elementСontent__caption caption',
+                innerText: 'Зміст'
+            });
+            let elementСontent = this.createElement('div', {
+                className: 'elementСontent element'
+            }, elementСontent__caption, elementСontent__content);
+            let elementComment__content = this.createElement('div', {
+                className: 'elementComment__content content',
+                innerText: String(String(currentEmployeeData.short_answer))
+            });
+            let elementComment__caption = this.createElement('div', {
+                className: 'elementComment__caption caption',
+                innerText: 'Коментар виконавця'
+            });
+            let elementComment = this.createElement('div', {
+                className: 'elementСontent element'
+            }, elementComment__caption, elementComment__content);
+            let elementsWrapper = this.createElement('div', {
+                className: 'elementsWrapper'
+            }, elementAdress, elementСontent, elementComment);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
@@ -277,7 +313,13 @@
             let column_QuestionType = { name: 'QuestionType', index: 2 };
             let column_vykonavets = { name: 'vykonavets', index: 3 };
             let column_adress = { name: 'adress', index: 4 };
-            this.indexArr = [ column_registration_number, column_zayavnyk, column_QuestionType, column_vykonavets, column_adress];
+            this.indexArr = [
+                column_registration_number,
+                column_zayavnyk,
+                column_QuestionType,
+                column_vykonavets,
+                column_adress
+            ];
             const workbook = this.createExcel();
             const worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
@@ -293,7 +335,10 @@
             let cellInfoCaption = worksheet.getCell('A1');
             cellInfoCaption.value = 'Інформація';
             let cellInfo = worksheet.getCell('A2');
-            cellInfo.value = 'про звернення громадян, що надійшли до Контактного центру  міста Києва. Термін виконання …';
+            cellInfo.value =
+                'про звернення громадян, ' +
+                'що надійшли до Контактного центру ' +
+                'міста Києва. Термін виконання …';
             let cellPeriod = worksheet.getCell('A3');
             cellPeriod.value = 'Період вводу з (включно) : дата з … дата по … (Розширений пошук).';
             let cellNumber = worksheet.getCell('A4');
@@ -301,13 +346,41 @@
             worksheet.mergeCells('A1:F1');
             worksheet.mergeCells('A2:F2');
             worksheet.mergeCells('A3:F3');
-            worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(1).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
-            worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(2).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
-            worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(3).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'left' };
-            worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(4).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'left' };
             let indexArr = this.indexArr;
             let rows = [];
@@ -318,7 +391,7 @@
             let rowNumber = '№ з/п';
             captions.push(rowNumber);
             indexArr.forEach(el => {
-                if(el.name === 'registration_number') {
+                if (el.name === 'registration_number') {
                     let obj = {
                         key: 'registration_number',
                         width: 10,
@@ -326,28 +399,28 @@
                     };
                     columnsHeader.push(obj);
                     captions.push('Номер питання');
-                }else if(el.name === 'zayavnikName') {
+                } else if(el.name === 'zayavnikName') {
                     let obj = {
                         key: 'zayavnikName',
                         width: 25
                     };
                     columnsHeader.push(obj);
                     captions.push('Заявник');
-                }else if(el.name === 'QuestionType') {
+                } else if(el.name === 'QuestionType') {
                     let obj = {
                         key: 'QuestionType',
                         width: 52
                     };
                     columnsHeader.push(obj);
                     captions.push('Суть питання');
-                }else if(el.name === 'vykonavets') {
+                } else if(el.name === 'vykonavets') {
                     let obj = {
                         key: 'vykonavets',
                         width: 16
                     };
                     columnsHeader.push(obj);
                     captions.push('Виконавець');
-                }else if(el.name === 'adress') {
+                } else if(el.name === 'adress') {
                     let obj = {
                         key: 'adress',
                         width: 16
@@ -364,15 +437,17 @@
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i++) {
                     let el = indexArr[i];
-                    if(el.name === 'registration_number') {
+                    if (el.name === 'registration_number') {
                         rowItem.registration_number = row.values[indexRegistrationNumber];
-                    }else if(el.name === 'zayavnikName') {
+                    } else if(el.name === 'zayavnikName') {
                         rowItem.zayavnikName = row.values[indexZayavnikName] + ' ' + row.values[indexAdressZ];
-                    }else if(el.name === 'QuestionType') {
-                        rowItem.QuestionType = 'Тип питання: ' + row.values[indexQuestionType] + '. Зміст: ' + row.values[indexQuestionContent];
-                    }else if(el.name === 'vykonavets') {
+                    } else if(el.name === 'QuestionType') {
+                        rowItem.QuestionType =
+                            'Тип питання: ' + row.values[indexQuestionType] +
+                            '. Зміст: ' + row.values[indexQuestionContent];
+                    } else if(el.name === 'vykonavets') {
                         rowItem.vykonavets = row.values[indexVykonavets]
-                    }else if(el.name === 'adress') {
+                    } else if(el.name === 'adress') {
                         rowItem.adress = row.values[indexAdress];
                     }
                 }
@@ -416,7 +491,14 @@
             worksheet.getRow(2).border = {
                 bottom: {style:'thin'}
             };
-            worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(5).font = {
+                name: 'Times New Roman',
+                family: 4,
+                size: 10,
+                underline: false,
+                bold: true,
+                italic: false
+            };
             worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },

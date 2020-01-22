@@ -21,7 +21,8 @@
                 this.form.setControlValue('1551_Applicant_PIB', data.rows[0].values[0]);
                 this.form.setControlValue('1551_Applicant_Phone', data.rows[0].values[1]);
                 this.form.setControlValue('1551_Applicant_Address', data.rows[0].values[2]);
-                this.form.setControlValue('Applicant_INFO', 'Вибрано існуючого заявника в системі "' + data.rows[0].values[0] + '"');
+                this.form.setControlValue('Applicant_INFO', 'Вибрано існуючого заявника в системі "'
+                + data.rows[0].values[0] + '"');
             });
             this.form.setControlValue('Applicant_Id', ApplicantId);
         },
@@ -48,7 +49,8 @@
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             this.form.onControlValueChanged('Question_TypeId', this.onChanged_Question_TypeId_Input.bind(this));
             this.form.onControlValueChanged('Question_Building', this.onChanged_Question_Building_Input.bind(this));
-            this.form.onControlValueChanged('Question_Organization', this.onChanged_Question_Organization_Input.bind(this));
+            this.form.onControlValueChanged('Question_Organization',
+                this.onChanged_Question_Organization_Input.bind(this));
             this.form.onControlValueChanged('Applicant_Id', this.onChangedApplicant_Id.bind(this));
             this.form.disableControl('Question_ControlDate');
             this.details.setVisibility('Site_Applicant', false);
@@ -81,7 +83,8 @@
             this.form.disableControl('1551_ApplicantFromSite_PIB');
             this.form.disableControl('1551_ApplicantFromSite_Phone');
             this.form.setControlValue('1551_ApplicantFromSite_PIB',this.form.getControlValue('ApplicantFromSite_PIB'));
-            this.form.setControlValue('1551_ApplicantFromSite_Phone',this.form.getControlValue('ApplicantFromSite_Phone'));
+            this.form.setControlValue('1551_ApplicantFromSite_Phone',
+                this.form.getControlValue('ApplicantFromSite_Phone'));
             document.getElementById('additional').addEventListener('click', function() {
                 this.form.setGroupVisibility('bad_Appeal', true);
                 this.IsFormReturnModerated();
@@ -89,7 +92,8 @@
             document.getElementById('btn_CreateApplicant1551').addEventListener('click', function() {
                 this.CreateApplicant1551();
                 this.details.setVisibility('Site_Applicant', false);
-                this.form.setControlValue('Applicant_INFO', 'Буде створено новий заявник в системі "' + this.form.getControlValue('ApplicantFromSite_PIB') + '"');
+                this.form.setControlValue('Applicant_INFO', 'Буде створено новий заявник в системі "'
+                    + this.form.getControlValue('ApplicantFromSite_PIB') + '"');
                 if (this.form.getControlValue('1551_ApplicantFromSite_Address_Building')) {
                     const queryFor_Applicant1551_Build = {
                         queryCode: 'GetOrgById',
@@ -101,7 +105,8 @@
                         ]
                     };
                     this.queryExecutor.getValues(queryFor_Applicant1551_Build).subscribe(data => {
-                        this.form.setControlValue('Question_Building', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                        this.form.setControlValue('Question_Building',
+                            {key: data.rows[0].values[0], value: data.rows[0].values[1]});
                     });
                 }
             }.bind(this));
@@ -114,12 +119,15 @@
                 this.form.setControlVisibility('btn_CreateApplicant1551', false);
             }.bind(this));
             document.getElementById('btn_searchAdressByCoordinate').addEventListener('click', function() {
-                window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/SearchGoogle?lat=' + this.form.getControlValue('AppealFromSite_geolocation_lat') + '&lon=' + this.form.getControlValue('AppealFromSite_geolocation_lon')));
+                window.open(String(location.origin + localStorage.getItem('VirtualPath')
+                    + '/dashboard/page/SearchGoogle?lat=' + this.form.getControlValue('AppealFromSite_geolocation_lat')
+                    + '&lon=' + this.form.getControlValue('AppealFromSite_geolocation_lon')));
             }.bind(this));
             document.getElementById('Question_BuildingIcon').style.fontSize = '30px';
             document.getElementById('Question_BuildingIcon').addEventListener('click', function(event) {
                 event.stopImmediatePropagation();
-                this.form.setControlValue('Question_Building',{ key: this.form.getControlValue('AppealFromSite_Object'), value: this.form.getControlDisplayValue('AppealFromSite_Object')});
+                this.form.setControlValue('Question_Building',{ key: this.form.getControlValue('AppealFromSite_Object'),
+                    value: this.form.getControlDisplayValue('AppealFromSite_Object')});
             }.bind(this));
             document.getElementById('btn_SearchApplicant1551').addEventListener('click', function() {
                 this.form.setControlVisibility('btn_CreateApplicant1551', true);
@@ -133,6 +141,7 @@
             this.form.onGroupCloseClick('Appeal_Question',this.GroupClose_Appeal_Question.bind(this));
             this.details.onCellClick('Site_Applicant', this.OnCellClikc_Detail_Site_Applicant.bind(this));
             document.getElementById('Question_Btn_Add').addEventListener('click', function() {
+                document.getElementById('Question_Btn_Add').disabled = true;
                 const queryForGetValue3 = {
                     queryCode: 'ForSite_Question_Btn_Add_InsertRow',
                     parameterValues: [
@@ -215,20 +224,21 @@
                         { key: '@AppealId', value: data.rows[0].values[3] }
                     ];
                     this.details.loadData('Detail_QuestionReestration_Site', parameters2);
-                    this.form.setControlValue('AppealFromSite_SiteAppealsResult', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                    this.form.setControlValue('AppealFromSite_SiteAppealsResult', { key: data.rows[0].values[0],
+                        value: data.rows[0].values[1] });
                     this.form.setControlValue('Applicant_Id', data.rows[0].values[2]);
                     this.IsFormOnlyRead();
                 });
             }.bind(this));
-            if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') == 3) {
+            if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') === 3) {
                 this.IsFormOnlyRead();
             }
-            if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') == 2) {
+            if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') === 2) {
                 this.IsFormReturnModerated();
             }
         },
         onQuestionControlDate:function(ques_type_id) {
-            if (ques_type_id == null) {
+            if (ques_type_id === null) {
                 this.form.setControlValue('Question_ControlDate',null)
             }else{
                 const execute = {
@@ -279,12 +289,12 @@
                         };
                         this.queryExecutor.getValues(objAndFlat).subscribe(data => {
                             if (data.rows.length > 0) {
-                                if (this.form.getControlValue('Question_TypeId') == null) {
+                                if (this.form.getControlValue('Question_TypeId') === null) {
                                     this.form.setControlVisibility('entrance', false);
                                     this.form.setControlVisibility('flat', false);
                                 } else {
                                     if (data.rows.length > 0) {
-                                        if (data.rows[0].values == 1 || data.rows[0].values == 112) {
+                                        if (data.rows[0].values === 1 || data.rows[0].values === 112) {
                                             this.form.setControlVisibility('entrance', true);
                                             this.form.setControlVisibility('flat', true);
                                         } else {
@@ -322,7 +332,7 @@
                 this.Question_Building_Input = value;
                 this.onChanged_Question_Btn_Add_Input();
                 this.getOrgExecut();
-                if (this.form.getControlValue('Question_TypeId') == null) {
+                if (this.form.getControlValue('Question_TypeId') === null) {
                     this.form.setControlVisibility('entrance', false);
                     this.form.setControlVisibility('flat', false);
                 } else {
@@ -337,7 +347,7 @@
                     };
                     this.queryExecutor.getValues(objAndFlat).subscribe(data => {
                         if (data.rows.length > 0) {
-                            if (data.rows[0].values == 1 || data.rows[0].values == 112) {
+                            if (data.rows[0].values === 1 || data.rows[0].values === 112) {
                                 this.form.setControlVisibility('entrance', true);
                                 this.form.setControlVisibility('flat', true);
                             } else {
@@ -382,15 +392,17 @@
                 ]
             };
             this.queryExecutor.getValues(objAndOrg).subscribe(data => {
-                this.form.setControlValue('Question_OrganizationId', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                this.form.setControlValue('Question_OrganizationId',
+                    {key: data.rows[0].values[0], value: data.rows[0].values[1]});
             });
         },
         Question_Building_Input: undefined,
         Question_Organization_Input: undefined,
         Question_TypeId_Input: undefined,
         onChanged_Question_Btn_Add_Input: function() {
-            if(this.Question_TypeId_Input == null || this.Question_TypeId_Input == undefined
-          || ((this.Question_Building_Input == undefined || this.Question_Building_Input == null) && (this.Question_Organization_Input == undefined || this.Question_Organization_Input == null)) == true
+            if(this.Question_TypeId_Input === null || this.Question_TypeId_Input === undefined
+          || ((this.Question_Building_Input === undefined || this.Question_Building_Input === null)
+          && (this.Question_Organization_Input === undefined || this.Question_Organization_Input === null)) === true
             ) {
                 document.getElementById('Question_Btn_Add').disabled = true;
             } else {
@@ -429,7 +441,7 @@
             this.form.setGroupExpanding('Group_App_site', true);
         },
         GroupClose_Group_PreviewApplicant:function() {
-            if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') == 1) {
+            if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') === 1) {
                 this.form.setGroupVisibility('Group2', false);
                 this.form.setControlValue('Applicant_Id', null);
                 this.form.setControlValue('Applicant_INFO', null);
