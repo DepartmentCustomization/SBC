@@ -298,6 +298,28 @@
             };
             const externListType = 'externListType';
             this.queryExecutor(queryExternList, this.getList.bind(this, externListType), this);
+            const queryCallerTypeList = {
+                queryCode: 'ak_listApplicantTypes112',
+                parameterValues: [
+                    { key: '@pageOffsetRows', value: 0},
+                    { key: '@pageLimitRows', value: 10}
+                ],
+                filterColumns: [],
+                limit: -1
+            };
+            const callerTypeList = 'callerTypeList';
+            this.queryExecutor(queryCallerTypeList, this.getList.bind(this, callerTypeList), this);
+            const queryWorkLineList = {
+                queryCode: 'ak_listWorkLines112',
+                parameterValues: [
+                    { key: '@pageOffsetRows', value: 0},
+                    { key: '@pageLimitRows', value: 10}
+                ],
+                filterColumns: [],
+                limit: -1
+            };
+            const workLineList = 'workLineList';
+            this.queryExecutor(queryWorkLineList, this.getList.bind(this, workLineList), this);
             this.showPreloader = false;
             this.showPreloader = false;
             this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
@@ -435,7 +457,7 @@
         createCategories: function() {
             const btnExtern = this.createBtnExtern();
             const category = {
-                placeholder: 'Категория *',
+                placeholder: 'Категорія *',
                 borderRight: false,
                 array: this.categoryList,
                 id: 'categoryList',
@@ -517,7 +539,9 @@
             arrow.addEventListener('click', e => {
                 e.stopImmediatePropagation();
                 const listItems = this.setTrueItemsList(selectInput.id, input);
-                this.showModalList(selectWrapper, selectInput.id, inputWrapper, listItems);
+                if(listItems.length) {
+                    this.showModalList(selectWrapper, selectInput.id, inputWrapper, listItems);
+                }
             });
             return selectWrapper;
         },
@@ -567,11 +591,11 @@
                             switch (inputId) {
                             case 'btnExtern':
                                 this.changeExternBtn(inputId);
-                                this.changeButtons(inputId);
+                                this.getItemProps(id);
                                 this.changeCategoryInput(value, id);
                                 break;
                             case '_valueCat':
-                                this.changeButtons(inputId);
+                                this.getItemProps(id);
                                 this.changeCategoryInput(value, id);
                                 break;
                             case '_valueCallerType':
@@ -612,8 +636,21 @@
             document.getElementById(inputId).classList.remove('btnExternUnchecked');
             document.getElementById(inputId).classList.add('btnExternChecked');
         },
-        changeButtons: function() {
-            this.fire = false;
+        getItemProps: function(id) {
+            const queryItemId = {
+                queryCode: 'ak_listService112',
+                parameterValues: [
+                    { key: '@pageOffsetRows', value: 0},
+                    { key: '@pageLimitRows', value: 10},
+                    { key: '@Category_Id', value: id}
+                ],
+                filterColumns: [],
+                limit: -1
+            };
+            this.queryExecutor(queryItemId, this.changeServiceButtons, this);
+        },
+        changeServiceButtons: function(data) {
+            this.police = data;
         },
         hideModal: function(wrapper) {
             this.activeModalContainer.removeChild(this.activeModalContainer.lastElementChild);
@@ -621,10 +658,16 @@
             wrapper.showModal = false;
         },
         getList: function(type, data) {
-            let list = [];
+            let list = undefined;
             switch (type) {
             case 'externListType':
                 list = this.externList
+                break;
+            case 'callerTypeList':
+                list = this.callerTypeList
+                break;
+            case 'workLineList':
+                list = this.workLineList
                 break;
             case 'categoryListType':
                 if(this.categoryList.length) {
@@ -635,14 +678,16 @@
             default:
                 break;
             }
-            data.rows.forEach(row => {
-                const indexId = 0;
-                const indexValue = 1;
-                const id = row.values[indexId];
-                const value = row.values[indexValue];
-                const listItem = { id, value };
-                list.push(listItem);
-            });
+            if(list) {
+                data.rows.forEach(row => {
+                    const indexId = 0;
+                    const indexValue = 1;
+                    const id = row.values[indexId];
+                    const value = row.values[indexValue];
+                    const listItem = { id, value };
+                    list.push(listItem);
+                });
+            }
         },
         createAccidentDateTimer: function() {
             const accidentDateWrapper = this.createAccidentDateWrapper();
