@@ -8,16 +8,17 @@
       {
         "Code": "Id",
         "Name": "Id",
-        "Position": 0,
-        "SqlName": "Id",
-        "FilterParameterCode": "@Id"
+        "Position": 0
       },
       {
         "Code": "Name",
         "Name": "Name",
-        "Position": 1,
-        "SqlName": "Name",
-        "FilterParameterCode": "@service_name"
+        "Position": 1
+      },
+      {
+        "Code": "Service_is",
+        "Name": "Service_is",
+        "Position": 2
       }
     ],
     "Parameters": [
