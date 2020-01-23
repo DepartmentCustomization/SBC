@@ -20,7 +20,14 @@
                     `
         ,
         init: function() {
+            const widget = document.getElementById('accident_patient');
+            this.widget = widget;
+            const status = 'none';
+            const name = 'showHideWidget';
+            const message = { name, widget, status};
+            this.messageService.publish(message);
             this.messageService.subscribe('headerAccidentPatient', this.setHeader, this);
+            this.messageService.subscribe('changeHeaderCaption', this.changeHeaderCaption, this);
         },
         createCaption: function(message) {
             this.container.appendChild(message.caption)

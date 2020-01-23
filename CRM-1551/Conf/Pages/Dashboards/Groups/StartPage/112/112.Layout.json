@@ -62,7 +62,8 @@
             "height": "auto",
             "minHeight": "calc(55% - 10px)",
             "minWidth": "300px",
-            "backgroundColor": "#e8e7e7"
+            "backgroundColor": "#e8e7e7",
+            "containerId": "accident_caller"
           },
           {
             "width": "auto",
@@ -84,7 +85,8 @@
             "height": "auto",
             "minHeight": "calc(45% - 10px)",
             "minWidth": "300px",
-            "backgroundColor": "#e8e7e7"
+            "backgroundColor": "#e8e7e7",
+            "containerId": "accident_patient"
           }
         ],
         "id": "Container-0",

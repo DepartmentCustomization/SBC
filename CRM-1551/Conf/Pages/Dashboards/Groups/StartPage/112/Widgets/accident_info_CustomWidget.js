@@ -67,9 +67,7 @@
                         .button{
                             cursor: pointer;
                             text-align: center;
-                            border: 1px solid #c4c4c4;
                             display: inline-block;
-                            color: #3e50b4 !important;
                             font-weight: bold;
                             width: 23%;
                             height: 100%;
@@ -79,7 +77,15 @@
                             font-size: 1em;
                             text-transform: uppercase;
                         }
-
+                        .accidentBtnUnchecked{
+                            border: 1px solid #c4c4c4;
+                            color: #3e50b4 !important;
+                        }
+                        .accidentBtnChecked{
+                            background-color: #3e50b4;
+                            border-color: #3e50b4;
+                            color: white !important;
+                        }
                         .btnExtern{
                             border: solid 1px;
                             border-radius: 0;
@@ -262,7 +268,7 @@
                     <div id="containerInfo"></div>
                     `
         ,
-        police: true,
+        police: false,
         medical: false,
         fire: false,
         gas: false,
@@ -349,10 +355,10 @@
             this.header = message.header;
         },
         createButtons: function() {
-            const btnFire = this.createElement('div', {className: 'button btnFire', innerText: '101' });
-            const btnPolice = this.createElement('div', {className: 'button btnPolice', innerText: '102' });
-            const btnMedical = this.createElement('div', {className: 'button btnMedical', innerText: '103' });
-            const btnGas = this.createElement('div', {className: 'button btnGas', innerText: '104' });
+            const btnPolice = this.createAccidentBtn('btnPolice', '102');
+            const btnMedical = this.createAccidentBtn('btnMedical', '103');
+            const btnFire = this.createAccidentBtn('btnFire', '101');
+            const btnGas = this.createAccidentBtn('btnGas', '104');
             const buttonsWrapper = this.createElement(
                 'div',
                 {className: 'separator accident-type-wrapper'},
@@ -362,6 +368,67 @@
                 btnGas
             );
             return buttonsWrapper;
+        },
+        createAccidentBtn: function(id, text) {
+            const btn = this.createElement('div',
+                {
+                    className: 'button accidentBtnUnchecked',
+                    innerText: text,
+                    id: id,
+                    value: 0
+                }
+            );
+            btn.addEventListener('click', e => {
+                const btn = e.currentTarget;
+                const id = btn.id;
+                const value = Number(btn.value) === 0 ? 1 : 0;
+                const remove = value === 0 ? 'accidentBtnChecked' : 'accidentBtnUnchecked';
+                const add = value === 0 ? 'accidentBtnUnchecked' : 'accidentBtnChecked';
+                this.changeAccidentBtn(id, value, remove, add, btn);
+            });
+            return btn;
+        },
+        changeAccidentBtn: function(id, value, remove, add, btn) {
+            document.getElementById(id).value = value;
+            document.getElementById(id).classList.remove(remove);
+            document.getElementById(id).classList.add(add);
+            this.changeInfoProps(id, value, btn);
+        },
+        changeInfoProps: function(id, value) {
+            if(id === 'btnMedical') {
+                if(value === 1) {
+                    this.showMedicalCheckBoxWrapper();
+                    if(this.activeCheckBox !== null) {
+                        if(this.activeCheckBox === this.checkBoxMe) {
+                            this.changeCheckBoxMe(this.checkBoxMe);
+                        }
+                        if(this.activeCheckBox === this.checkBoxAnother) {
+                            this.changeCheckBoxAnother(this.checkBoxAnother);
+                        }
+                    }
+                } else {
+                    const statusPatient = 'none';
+                    const idPatient = 'accident_patient';
+                    this.showHideWidget(statusPatient, idPatient);
+                    const accident_caller = 'block';
+                    const idCaller = 'accident_caller';
+                    this.showHideWidget(accident_caller, idCaller);
+                    this.changePatientHeader('Пацієнт');
+                    this.showHideAddress('block');
+                    this.hideMedicalCheckBoxWrapper();
+                }
+                this.medical = value === 1 ? true : false;
+            } else if (id === 'btnPolice') {
+                this.police = value === 1 ? true : false;
+            } else if (id === 'btnFire') {
+                this.fire = value === 1 ? true : false;
+            } else if (id === 'btnGas') {
+                this.gas = value === 1 ? true : false;
+            }
+            this.changeCategoryList();
+        },
+        changeCategoryList: function() {
+            this.police = true;
         },
         createCategories: function() {
             const btnExtern = this.createBtnExtern();
@@ -494,11 +561,11 @@
                             switch (inputId) {
                             case 'btnExtern':
                                 this.changeExternBtn(inputId);
-                                this.changeButtons();
+                                this.changeButtons(inputId);
                                 this.changeCategoryInput(value, id);
                                 break;
                             case '_valueCat':
-                                this.changeButtons();
+                                this.changeButtons(inputId);
                                 this.changeCategoryInput(value, id);
                                 break;
                             case '_valueCallerType':
@@ -666,23 +733,102 @@
                 checkBoxMe, checkBoxAnother
             );
             this.medicalCheckBoxWrapper = medicalCheckBoxWrapper;
+            this.medicalCheckBoxWrapper.style.display = 'none';
             return medicalCheckBoxWrapper;
         },
         createMedicalCheckBox: function(text, id) {
             const label = this.createElement(
                 'span',
-                { className: 'medicalCheckBoxLabel', id: id, innerText: text}
+                { className: 'medicalCheckBoxLabel', innerText: text}
             );
             const checkBox = this.createElement(
                 'input',
-                { className: 'medicalCheckBox checkBox', type: 'checkBox'}
+                {id: id, className: 'medicalCheckBox checkBox', type: 'checkBox'}
             );
+            if(id === 'checkBoxMe') {
+                this.checkBoxMe = checkBox;
+            } else if (id === 'checkBoxAnother') {
+                this.checkBoxAnother = checkBox;
+            }
+            checkBox.addEventListener('change', e => {
+                const checkBox = e.currentTarget;
+                this.activeCheckBox = checkBox;
+                if(checkBox.id === 'checkBoxMe') {
+                    this.changeCheckBoxMe(checkBox);
+                } else if(checkBox.id === 'checkBoxAnother') {
+                    this.changeCheckBoxAnother(checkBox);
+                }
+            });
             const medicalCheckBoxWrapper = this.createElement(
                 'div',
-                { className: 'medicalCheckBoxWrapper checkBoxWrapper'},
+                { className: 'checkBoxWrapper'},
                 checkBox, label
             );
             return medicalCheckBoxWrapper;
+        },
+        changeCheckBoxMe: function(checkBox) {
+            this.checkBoxAnother.checked = false;
+            if(!checkBox.checked) {
+                this.activeCheckBox = null;
+                checkBox.checked = false;
+                const statusPatient = 'none';
+                const idPatient = 'accident_patient';
+                this.showHideWidget(statusPatient, idPatient);
+                const accident_caller = 'block';
+                const idCaller = 'accident_caller';
+                this.showHideWidget(accident_caller, idCaller);
+                this.changePatientHeader('Пацієнт');
+                this.showHideAddress('block');
+            } else {
+                checkBox.checked = true;
+                const statusPatient = 'block';
+                const idPatient = 'accident_patient';
+                this.showHideWidget(statusPatient, idPatient);
+                const accident_caller = 'none';
+                const idCaller = 'accident_caller';
+                this.showHideWidget(accident_caller, idCaller);
+                this.changePatientHeader('Заявник/Пацієнт');
+                this.showHideAddress('none');
+            }
+        },
+        changeCheckBoxAnother: function(checkBox) {
+            this.checkBoxMe.checked = false;
+            if(!checkBox.checked) {
+                this.activeCheckBox = null;
+                checkBox.checked = false;
+                const statusPatient = 'none';
+                const idPatient = 'accident_patient';
+                this.showHideWidget(statusPatient, idPatient);
+                const accident_caller = 'block';
+                const idCaller = 'accident_caller';
+                this.showHideWidget(accident_caller, idCaller);
+                this.changePatientHeader('Пацієнт');
+                this.showHideAddress('block');
+            } else {
+                checkBox.checked = true;
+                const statusPatient = 'block';
+                const idPatient = 'accident_patient';
+                this.showHideWidget(statusPatient, idPatient);
+                const accident_caller = 'block';
+                const idCaller = 'accident_caller';
+                this.showHideWidget(accident_caller, idCaller);
+                this.changePatientHeader('Пацієнт');
+                this.showHideAddress('none');
+            }
+        },
+        showHideAddress: function(status) {
+            document.getElementById('infoAddressWrapper').style.display = status;
+        },
+        changePatientHeader: function(caption) {
+            const name = 'changeHeaderCaption';
+            const message = { name, caption };
+            this.messageService.publish(message);
+        },
+        showHideWidget: function(status, id) {
+            const widget = document.getElementById(id);
+            const name = 'showHideWidget';
+            const message = { name, widget, status};
+            this.messageService.publish(message);
         },
         createAccidentTextContentWrapper: function() {
             const accidentTextContent = this.createElement(
@@ -762,14 +908,11 @@
             this.addressContentWrapper = addressContentWrapper;
             return addressContentWrapper;
         },
-        showAddressContent: function() {
-            this.addressContentWrapper.style.display = 'block';
-        },
-        hideAddressContent: function() {
-            this.addressContentWrapper.style.display = 'none';
+        showHideAddressContent: function(status) {
+            this.addressContentWrapper.style.display = status;
         },
         showMedicalCheckBoxWrapper: function() {
-            this.medicalCheckBoxWrapper.style.display = 'block';
+            this.medicalCheckBoxWrapper.style.display = 'flex';
         },
         hideMedicalCheckBoxWrapper: function() {
             this.medicalCheckBoxWrapper.style.display = 'none';

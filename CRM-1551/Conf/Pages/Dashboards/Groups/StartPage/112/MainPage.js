@@ -2,6 +2,7 @@
     return {
         init: function() {
             this.messageService.subscribe('createHeader', this.createHeader, this);
+            this.messageService.subscribe('showHideWidget', this.showHideWidget, this);
         },
         createHeader: function(message) {
             const text = message.header.text;
@@ -24,6 +25,11 @@
                 });
             }
             return element;
+        },
+        showHideWidget:  function(message) {
+            const widget = message.widget;
+            const status = message.status;
+            widget.style.display = status;
         }
     };
 }());
