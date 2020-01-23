@@ -2,10 +2,11 @@
     return {
         title: ' ',
         hint: '',
-        formatTitle: function() {},
-        init: function() {
-        },
-        afterViewInit: function() {
+        mapOptions: {
+            zoom: 11,
+            latitude: 50.450418,
+            longitude: 30.523541,
+            maxZoom: 19
         }
     };
 }());

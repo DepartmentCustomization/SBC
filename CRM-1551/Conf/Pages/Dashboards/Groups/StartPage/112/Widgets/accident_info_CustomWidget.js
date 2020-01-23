@@ -276,6 +276,9 @@
         categoryList: [],
         callerTypeList: [],
         workLineList: [],
+        differentMinutes: 0,
+        differentHours: 0,
+        differentDays: 0,
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
@@ -362,6 +365,8 @@
                 accidentTextContentWrapper,
                 addressWrapper
             );
+            this.setDateTimeDefaultValue();
+            this.setTimerDefaultValue();
         },
         addContainerChild: function(...params) {
             params.forEach(item => this.container.appendChild(item));
@@ -759,6 +764,16 @@
                     id: 'accidentDateTimeInput'
                 }
             );
+            accidentDateTimeInput.addEventListener('change', e => {
+                const target = e.currentTarget;
+                const oldMsSec = new Date(this.accidentDateTimeValue).setMilliseconds('0');
+                const newMsSec = new Date(target.value).setMilliseconds('0');
+                const differenceTime = oldMsSec - newMsSec;
+                if(differenceTime > 0) {
+                    this.setTimerDifferentTime(differenceTime);
+                }
+            });
+            this.accidentDateTimeInput = accidentDateTimeInput;
             const accidentDateCaption = this.createElement(
                 'div',{ className: 'placeholder', innerText: 'Дата та час'}
             );
@@ -775,22 +790,88 @@
             );
             return accidentDateWrapper;
         },
+        setTimerDifferentTime: function(differenceTime) {
+            const oneDay = 60 * 1000 * 60 * 24;
+            const oneMinute = 60 * 1000;
+            const differentAllDays = Math.round(differenceTime % oneDay);
+            if(differentAllDays === 0) {
+                this.setDifferentDays(Math.round(differenceTime / oneDay));
+            } else {
+                const differentAllHours = Math.round(differentAllDays % oneMinute);
+                if(differentAllHours > 60) {
+                    const hours = Math.round(differentAllHours / 60);
+                    const minutes = Math.round(differentAllHours % 60);
+                    this.setDifferentDays(this.differentDays);
+                    this.setDifferentHours(hours);
+                    this.setDifferentMinutes(minutes);
+                } else if(differentAllHours === 60) {
+                    const hours = Math.round(differentAllHours / 60);
+                    this.setDifferentDays(this.differentDays);
+                    this.setDifferentHours(hours);
+                    this.setDifferentMinutes(this.differentMinutes);
+                } else {
+                    const minutes = Math.round(differentAllDays / 60);
+                    this.setDifferentDays(this.differentDays);
+                    this.setDifferentHours(this.differentHours);
+                    this.setDifferentMinutes(minutes);
+                }
+            }
+        },
+        setDifferentMinutes: function(differentMinutes) {
+            this.differentMinutes = differentMinutes;
+            document.getElementById('differentMinutes').value = differentMinutes;
+        },
+        setDifferentHours: function(differentHours) {
+            this.differentHours = differentHours;
+            document.getElementById('differentHours').value = differentHours;
+        },
+        setDifferentDays: function(differentDays) {
+            this.differentDays = differentDays;
+            document.getElementById('differentDays').value = differentDays;
+        },
+        setDateTimeValues: function() {
+            let date = new Date();
+            let DD = date.getDate().toString();
+            let MM = (date.getMonth() + 1).toString();
+            let YYYY = date.getFullYear().toString();
+            let hh = date.getHours().toString();
+            let mm = date.getMinutes().toString();
+            DD = DD.length === 1 ? '0' + DD : DD;
+            MM = MM.length === 1 ? '0' + MM : MM;
+            hh = hh.length === 1 ? '0' + hh : hh;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return YYYY + '-' + MM + '-' + DD + 'T' + hh + ':' + mm;
+        },
+        setDateTimeDefaultValue: function() {
+            this.accidentDateTimeValue = this.setDateTimeValues();
+            this.accidentDateTimeInput.value = this.accidentDateTimeValue;
+        },
         createAccidentTimerWrapper: function() {
-            const days = this.createIntegerInput('дн');
-            const hours = this.createIntegerInput('г');
-            const minutes = this.createIntegerInput('хвилини назад');
+            const days = this.createIntegerInput('дн', 'differentDays');
+            const hours = this.createIntegerInput('г', 'differentHours');
+            const minutes = this.createIntegerInput('хвилини назад', 'differentMinutes');
             const accidentTimerWrapper = this.createElement(
                 'div',{ className: 'accidentTimerWrapper', id: 'accidentTimerWrapper' },days, hours, minutes
             );
             return accidentTimerWrapper;
         },
-        createIntegerInput: function(text) {
+        createIntegerInput: function(text, id) {
             const input = this.createElement('input',
                 {
+                    id: id,
                     type: 'text',
-                    className: 'input integerInput'
+                    className: 'input integerInput',
+                    value: ' '
                 }
             );
+            input.disabled = true;
+            if(text === 'дн') {
+                this.differenceDays = input;
+            } else if(text === 'г') {
+                this.differenceHours = input;
+            } else if(text === 'хвилини назад') {
+                this.differenceMinutes = input;
+            }
             const placeholder = this.createElement('span', { className: 'placeholder placeholderInt',innerText: text});
             const integerInput = this.createElement('div',
                 {
@@ -802,6 +883,9 @@
                 'div', {className: 'integerInput borderBottom'}, integerInput
             )
             return wrapper;
+        },
+        setTimerDefaultValue: function() {
+            this.differenceMinutes.value = '0';
         },
         createAccidentPropertiesWrapper: function() {
             const callerType = {
