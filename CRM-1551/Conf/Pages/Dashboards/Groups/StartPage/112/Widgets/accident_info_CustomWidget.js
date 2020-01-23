@@ -299,6 +299,10 @@
             const externListType = 'externListType';
             this.queryExecutor(queryExternList, this.getList.bind(this, externListType), this);
             this.showPreloader = false;
+            this.showPreloader = false;
+            this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
+        },
+        setCategoryList: function() {
             const queryCategoryList = {
                 queryCode: 'ak_listCategories112',
                 parameterValues: [
@@ -314,8 +318,6 @@
             };
             const categoryListType = 'categoryListType';
             this.queryExecutor(queryCategoryList, this.getList.bind(this, categoryListType), this);
-            this.showPreloader = false;
-            this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
         },
         afterViewInit: function() {
             const container = document.getElementById('containerInfo');
@@ -425,7 +427,7 @@
             } else if (id === 'btnGas') {
                 this.gas = value === 1 ? true : false;
             }
-            this.changeCategoryList();
+            this.setCategoryList();
         },
         changeCategoryList: function() {
             this.police = true;
@@ -485,23 +487,6 @@
                     valueId: undefined
                 }
             );
-            let listItems = [];
-            switch (element.id) {
-            case 'categoryList':
-                this._categoryValueId = input.valueId;
-                listItems = this.categoryList;
-                break;
-            case 'callerTypeList':
-                this._callerTypeValueId = input.valueId;
-                listItems = this.callerTypeList;
-                break;
-            case 'workLineList':
-                this._workLineValueId = input.valueId;
-                listItems = this.workLineList;
-                break;
-            default:
-                break;
-            }
             const placeholder = this.createElement('span', { className: 'placeholder',innerText: element.placeholder});
             const selectInput = this.createElement('div',
                 {
@@ -531,9 +516,30 @@
             }
             arrow.addEventListener('click', e => {
                 e.stopImmediatePropagation();
+                const listItems = this.setTrueItemsList(selectInput.id, input);
                 this.showModalList(selectWrapper, selectInput.id, inputWrapper, listItems);
             });
             return selectWrapper;
+        },
+        setTrueItemsList: function(id, input) {
+            let listItems = undefined;
+            switch (id) {
+            case '_valueCat':
+                this._categoryValueId = input.valueId;
+                listItems = this.categoryList;
+                break;
+            case '_valueCallerType':
+                this._callerTypeValueId = input.valueId;
+                listItems = this.callerTypeList;
+                break;
+            case '_valueWorkLine':
+                this._workLineValueId = input.valueId;
+                listItems = this.workLineList;
+                break;
+            default:
+                break;
+            }
+            return listItems;
         },
         showModalList:  function(container, inputId, wrapper, listItems) {
             const status = wrapper.showModal;
@@ -548,7 +554,7 @@
                         className: 'modalList'
                     }
                 )
-                if(listItems.length) {
+                if(listItems) {
                     listItems.forEach(item => {
                         const id = item.id;
                         const innerText = item.value;
@@ -615,12 +621,15 @@
             wrapper.showModal = false;
         },
         getList: function(type, data) {
-            let list = undefined;
+            let list = [];
             switch (type) {
             case 'externListType':
                 list = this.externList
                 break;
             case 'categoryListType':
+                if(this.categoryList.length) {
+                    this.categoryList = [];
+                }
                 list = this.categoryList
                 break;
             default:
