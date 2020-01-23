@@ -408,15 +408,15 @@
                 const value = Number(btn.value) === 0 ? 1 : 0;
                 const remove = value === 0 ? 'accidentBtnChecked' : 'accidentBtnUnchecked';
                 const add = value === 0 ? 'accidentBtnUnchecked' : 'accidentBtnChecked';
-                this.changeAccidentBtn(id, value, remove, add, btn);
+                this.changeAccidentBtn(id, value, remove, add);
             });
             return btn;
         },
-        changeAccidentBtn: function(id, value, remove, add, btn) {
+        changeAccidentBtn: function(id, value, remove, add) {
             document.getElementById(id).value = value;
             document.getElementById(id).classList.remove(remove);
             document.getElementById(id).classList.add(add);
-            this.changeInfoProps(id, value, btn);
+            this.changeInfoProps(id, value);
         },
         changeInfoProps: function(id, value) {
             if(id === 'btnMedical') {
@@ -450,9 +450,6 @@
                 this.gas = value === 1 ? true : false;
             }
             this.setCategoryList();
-        },
-        changeCategoryList: function() {
-            this.police = true;
         },
         createCategories: function() {
             const btnExtern = this.createBtnExtern();
@@ -650,7 +647,62 @@
             this.queryExecutor(queryItemId, this.changeServiceButtons, this);
         },
         changeServiceButtons: function(data) {
-            this.police = data;
+            const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name');
+            const indexService = data.columns.findIndex(el => el.code.toLowerCase() === 'service_is');
+            this.setAccidentBtnGlobalVariables(data);
+            for (let i = 0; i < data.rows.length; i++) {
+                const element = data.rows[i];
+                const service = element.values[indexName];
+                const btnId = this.getServiceBtnId(service);
+                const dataValue = element.values[indexService];
+                const value = dataValue === 'true' ? 1 : 0;
+                const remove = value === 0 ? 'accidentBtnChecked' : 'accidentBtnUnchecked';
+                const add = value === 0 ? 'accidentBtnUnchecked' : 'accidentBtnChecked';
+                this.changeAccidentBtn(btnId, value, remove, add);
+            }
+        },
+        getServiceBtnId: function(service) {
+            let value = undefined;
+            switch (service) {
+            case '101':
+                value = 'btnFire'
+                break;
+            case '102':
+                value = 'btnPolice'
+                break;
+            case '103':
+                value = 'btnMedical'
+                break;
+            case '104':
+                value = 'btnGas'
+                break;
+            default:
+                break;
+            }
+            return value
+        },
+        setAccidentBtnGlobalVariables: function(data) {
+            const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name');
+            const indexService = data.columns.findIndex(el => el.code.toLowerCase() === 'service_is');
+            data.rows.forEach(service => {
+                const name = service.values[indexName];
+                switch (name) {
+                case '101':
+                    this.fire = service.values[indexService];
+                    break;
+                case '102':
+                    this.police = service.values[indexService];
+                    break;
+                case '103':
+                    this.medical = service.values[indexService];
+                    break;
+                case '104':
+                    this.gas = service.values[indexService];
+                    break;
+                default:
+                    break;
+                }
+            });
         },
         hideModal: function(wrapper) {
             this.activeModalContainer.removeChild(this.activeModalContainer.lastElementChild);
