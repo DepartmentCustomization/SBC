@@ -292,7 +292,7 @@
             };
             const externListType = 'externListType';
             this.queryExecutor(queryExternList, this.getList.bind(this, externListType), this);
-            this.showPagePreloader = false;
+            this.showPreloader = false;
             const queryCategoryList = {
                 queryCode: 'ak_listCategories112',
                 parameterValues: [
@@ -308,7 +308,7 @@
             };
             const categoryListType = 'categoryListType';
             this.queryExecutor(queryCategoryList, this.getList.bind(this, categoryListType), this);
-            this.showPagePreloader = false;
+            this.showPreloader = false;
             this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
         },
         afterViewInit: function() {

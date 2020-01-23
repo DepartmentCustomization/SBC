@@ -3,7 +3,7 @@
   "rootContainer": {
     "width": "auto",
     "margin": "0",
-    "flexWrap": "wrap",
+    "flexWrap": "nowrap",
     "flexDirection": "row",
     "order": 1,
     "flexGrow": 1,
@@ -94,7 +94,7 @@
         "backgroundColor": "#e8e7e7"
       },
       {
-        "width": "calc(13% - 10px)",
+        "width": "calc(33% - 10px)",
         "margin": "0 5px 10px",
         "flexWrap": "wrap",
         "flexDirection": "row",
@@ -104,9 +104,9 @@
         "border": "none",
         "children": [
           {
-            "width": "auto",
+            "width": "calc(100% - 10px)",
             "margin": "0 0 10px",
-            "flexWrap": "wrap",
+            "flexWrap": "nowrap",
             "flexDirection": "row",
             "order": 2,
             "flexGrow": 1,
@@ -114,23 +114,103 @@
             "border": "none",
             "children": [
               {
-                "code": "modal_maps_CustomWidget",
-                "type": "CustomWidgetComponent",
-                "name": "modalMaps"
+                "width": "auto",
+                "margin": "0 0 10px",
+                "flexWrap": "wrap",
+                "flexDirection": "row",
+                "order": 2,
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "code": "all_appeal_LeafletMapWidget",
+                    "type": "LeafletMapWidgetComponent",
+                    "name": "allAppealLeafLetMap"
+                  }
+                ],
+                "id": "Container-3",
+                "height": "calc(100% - 10px)",
+                "minHeight": "50px",
+                "minWidth": "100px",
+                "backgroundColor": "#e8e7e7",
+                "containerId": "allAppealLeafLetMap"
+              },
+              {
+                "width": "auto",
+                "margin": "0",
+                "flexWrap": "wrap",
+                "flexDirection": "column",
+                "order": 2,
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "width": "auto",
+                    "margin": "0 5px",
+                    "flexWrap": "wrap",
+                    "flexDirection": "row",
+                    "order": 1,
+                    "flexGrow": 1,
+                    "alignSelf": "auto",
+                    "border": "none",
+                    "children": [
+                      {
+                        "code": "search_LeafletMapWidget",
+                        "type": "LeafletMapWidgetComponent",
+                        "name": "searchLeafLetMap"
+                      }
+                    ],
+                    "id": "Container-3",
+                    "height": "calc(50% - 10px)",
+                    "minHeight": "100px",
+                    "minWidth": "100px",
+                    "backgroundColor": "#e8e7e7"
+                  },
+                  {
+                    "width": "auto",
+                    "margin": "0 5px",
+                    "flexWrap": "wrap",
+                    "flexDirection": "row",
+                    "order": 1,
+                    "flexGrow": 1,
+                    "alignSelf": "auto",
+                    "border": "none",
+                    "children": [
+                      {
+                        "code": "search_address_CustomWidget",
+                        "type": "CustomWidgetComponent",
+                        "name": "searchAddressContainer"
+                      }
+                    ],
+                    "id": "Container-3",
+                    "height": "calc(50% - 10px)",
+                    "minHeight": "100px",
+                    "minWidth": "100px",
+                    "backgroundColor": "#e8e7e7"
+                  }
+                ],
+                "id": "Container-3",
+                "height": "calc(100% - 10px)",
+                "minHeight": "50px",
+                "minWidth": "100px",
+                "backgroundColor": "#e8e7e7",
+                "containerId": "searchAddressContainer"
               }
             ],
             "id": "Container-3",
-            "height": "50%",
+            "height": "calc(100% - 10px)",
             "minHeight": "50px",
-            "minWidth": "300px",
-            "backgroundColor": "red"
+            "minWidth": "100px",
+            "backgroundColor": "#e8e7e7"
           }
         ],
         "id": "Container-1",
         "height": "calc(100% - 10px)",
         "minHeight": "calc(100% - 10px)",
         "minWidth": "100px",
-        "backgroundColor": "white"
+        "backgroundColor": "#e8e7e7"
       },
       {
         "width": "calc(33% - 10px)",
