@@ -1,0 +1,80 @@
+{
+    "ModelType": "Query",
+    "Code": "ak_listAddressSearch",
+    "Name": "ak_listAddressSearch",
+    "ConnectionCode": "CRM_1551_Emergensy_112",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": 0
+      },
+      {
+        "Code": "entrance",
+        "Name": "entrance",
+        "Position": 1
+      },
+      {
+        "Code": "entercode",
+        "Name": "entercode",
+        "Position": 2
+      },
+      {
+        "Code": "storeysnumber",
+        "Name": "storeysnumber",
+        "Position": 3
+      },
+      {
+        "Code": "floor",
+        "Name": "floor",
+        "Position": 4
+      },
+      {
+        "Code": "flat",
+        "Name": "flat",
+        "Position": 5
+      },
+      {
+        "Code": "exit",
+        "Name": "exit",
+        "Position": 6
+      },
+      {
+        "Code": "moreinformation",
+        "Name": "moreinformation",
+        "Position": 7
+      },
+      {
+        "Code": "longitude",
+        "Name": "longitude",
+        "Position": 8
+      },
+      {
+        "Code": "latitude",
+        "Name": "latitude",
+        "Position": 9
+      },
+      {
+        "Code": "AdressSearch",
+        "Name": "AdressSearch",
+        "Position": 10,
+        "SqlName": "ISNULL(s.name, N'')+ISNULL(b.name, N'')",
+        "FilterParameterCode": "@AdressSearch"
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@pageOffsetRows",
+        "Name": "pageOffsetRows",
+        "ParameterType": "Integer",
+        "IsPageOffsetRows": true
+      },
+      {
+        "Code": "@pageLimitRows",
+        "Name": "pageLimitRows",
+        "ParameterType": "Integer",
+        "IsPageLimitRows": true
+      }
+    ]
+  }
