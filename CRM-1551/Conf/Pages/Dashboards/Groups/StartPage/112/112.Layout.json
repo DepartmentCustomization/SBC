@@ -217,7 +217,7 @@
       {
         "width": "calc(33% - 10px)",
         "margin": "0 5px 10px",
-        "flexWrap": "nowrap",
+        "flexWrap": "wrap",
         "flexDirection": "row",
         "order": 1,
         "flexGrow": 1,
@@ -225,7 +225,7 @@
         "border": "none",
         "children": [
           {
-            "width": "auto",
+            "width": "calc(100% - 10px)",
             "margin": "0 5px",
             "flexWrap": "wrap",
             "flexDirection": "row",
@@ -235,19 +235,20 @@
             "border": "none",
             "children": [
               {
-                "code": "000_CustomWidget",
+                "code": "card_algorithm_CustomWidget",
                 "type": "CustomWidgetComponent",
-                "name": "searchLeafLetMap"
+                "name": "cardAlgorithmContainer"
               }
             ],
             "id": "Container-3",
-            "height": "calc(100% - 20px)",
+            "height": "calc(100% - 60px)",
             "minHeight": "100px",
             "minWidth": "100px",
-            "backgroundColor": "#e8e7e7"
+            "backgroundColor": "white",
+            "containerId": "cardAlgorithmContainer"
           },
           {
-            "width": "auto",
+            "width": "calc(100% - 10px)",
             "margin": "0 5px",
             "flexWrap": "wrap",
             "flexDirection": "row",
@@ -266,7 +267,7 @@
             "height": "10px",
             "minHeight": "10px",
             "minWidth": "100px",
-            "backgroundColor": "red",
+            "backgroundColor": "transparent",
             "containerId": "saveButtonContainer"
           }
         ],
@@ -274,7 +275,7 @@
         "height": "calc(100% - 10px)",
         "minHeight": "calc(100% - 10px)",
         "minWidth": "100px",
-        "backgroundColor": "white"
+        "backgroundColor": "#e8e7e7"
       }
     ],
     "id": "Container-0",

@@ -1,18 +1,20 @@
-Select 
-pa.Id, 
-invoice_number,
-pa.create_date,
-p.part_name,
-p.articul,
-p.manufacturer, 
-pr.[provider],
-pa.part_price,
-pa.part_quantity,
-pa.part_price * pa.part_quantity as sum_price
+-- DECLARE @Id INT = 1013;
 
-from 
-PartArrival pa
-join Parts p on p.Id = pa.part_id
-join Providers pr on pr.Id = pa.provider_id
-
-where pa.Id = @Id
+SELECT
+    pa.Id,
+    invoice_number,
+    pa.create_date,
+    p.Id AS articul,
+	p.part_name,
+    p.manufacturer,
+	pr.Id AS [provider],
+    pr.[provider] AS provider_name,
+    pa.part_price,
+    pa.part_quantity,
+    pa.part_price * pa.part_quantity AS sum_price
+FROM
+    PartArrival pa
+    INNER JOIN Parts p ON p.Id = pa.part_id
+    INNER JOIN Providers pr ON pr.Id = pa.provider_id
+WHERE
+    pa.Id = @Id

@@ -1,73 +1,52 @@
 -- DECLARE @dateTo DATETIME = CURRENT_TIMESTAMP;
+DECLARE @FilterDate DATETIME = DATEADD(HOUR, 3, @dateTo);
 
-DECLARE @on_arrival TABLE (
-    articul NVARCHAR(100),
-    [provider] NVARCHAR(100),
-    price FLOAT(25),
-    quantity INT,
-    sum_price FLOAT(25)
-);
- DECLARE @on_change TABLE (
-    articul NVARCHAR(100),
-    price FLOAT(25),
-    quantity INT,
-    sum_price FLOAT(25)
-);
+IF OBJECT_ID('tempdb..##Arrival') IS NOT NULL
+AND OBJECT_ID('tempdb..##Change') IS NOT NULL
+BEGIN
+  DROP TABLE ##Arrival;
+  DROP TABLE ##Change;
+END
+---> Получить запчасть и колво с приходов по дату
+   SELECT 
+        part_id,
+        part_quantity,
+		provider_id,
+		part_price
+    INTO ##Arrival 
+    FROM dbo.PartArrival 
+    WHERE create_date <= @FilterDate;
 
-INSERT INTO
-    @on_arrival
+---> Получить запчасть и колво ее расходов по дату
+   SELECT 
+        part_id,
+        COUNT(Id) AS changeQty
+    INTO ##Change
+    FROM dbo.PartChange 
+    WHERE create_date <= @FilterDate
+	GROUP BY part_id;
+    
+---> Защитать остаток по приходам-расходам
 SELECT
-    DISTINCT articul,
-    prov.[provider],
-    arrival.part_price,
-    arrival.part_quantity,
-    part.part_price * arrival.part_quantity AS sum_price
-FROM
-    dbo.Parts part
-    INNER JOIN dbo.PartArrival arrival ON arrival.part_id = part.Id
-    INNER JOIN dbo.Providers prov ON prov.Id = arrival.provider_id
-WHERE
-    arrival.create_date  <= @dateTo
-    -- select * from @on_arrival
-INSERT INTO
-    @on_change
-SELECT
-    DISTINCT articul,
-    CHANGE.part_price,
-    isnull(count(CHANGE.part_id), 0),
-    CHANGE.part_price * count(CHANGE.part_id)
-FROM
-    dbo.Parts part
-    LEFT JOIN dbo.PartChange CHANGE ON CHANGE.part_id = part.Id
-WHERE
-    CHANGE.create_date <= @dateTo
-GROUP BY
-    articul,
-    CHANGE.part_price ;
-
-SELECT
-    Id,
-    part_name,
-    articul,
-    manufacturer,
-    [provider],
-    part_price,
-    qty,
-    z.part_price * z.qty AS sum_price
-FROM
-    (
-        SELECT
-            DISTINCT p.Id,
-            p.part_name,
-            p.articul,
-            p.manufacturer,
-            ar.[provider],
-            p.part_price,
-            isnull(ar.quantity - isnull(ch.quantity, 0), 0) AS qty
-        FROM
-            @on_arrival ar
-            LEFT JOIN @on_change ch ON ch.articul = ar.articul
-            INNER JOIN dbo.Parts p ON ar.articul = p.articul
-    ) z
---WHERE
---    qty > 0 ;
+     Id,
+	 part_name,
+	 articul,
+	 manufacturer,
+	 [provider],
+	 part_price,
+	 partVal AS qty,
+	 part_price * partVal  AS sum_price
+FROM (
+	SELECT 
+	part.Id,
+	part.part_name,
+	part.articul,
+	part.manufacturer,
+	pr.[provider],
+	arr.part_price,
+	ISNULL(arr.part_quantity - ISNULL(ch.changeQty,0),0) AS partVal
+	FROM dbo.Parts part 
+	INNER JOIN ##Arrival arr ON arr.part_id = part.Id 
+	INNER JOIN dbo.Providers pr ON pr.Id = arr.provider_id
+    LEFT JOIN ##Change ch ON ch.part_id = part.id
+	) Lionel_Messi ;

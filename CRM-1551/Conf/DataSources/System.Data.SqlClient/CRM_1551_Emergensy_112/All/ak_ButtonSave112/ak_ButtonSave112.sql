@@ -1,7 +1,7 @@
 
-DECLARE @output_pacient TABLE (Id INT);
-DECLARE @output_applicant TABLE (Id INT);
-DECLARE @output_event TABLE (Id INT);
+declare @output_pacient table (Id int);
+declare @output_applicant table (Id int);
+declare @output_event table (Id int);
 
 INSERT INTO [dbo].[Persons]
   (
@@ -27,7 +27,7 @@ INSERT INTO [dbo].[Persons]
       ,[edit_date]
   )
 
-  OUTPUT [inserted].[Id] INTO @output_applicant (Id)
+  output [inserted].[Id] into @output_applicant (Id)
 
   SELECT @applicant_last_name [last_name]
       ,@applicant_first_name [first_name]
@@ -48,7 +48,7 @@ INSERT INTO [dbo].[Persons]
       ,@user_id [user_id]
       ,GETUTCDATE() [create_date]
       ,@user_id [user_edit_id]
-      ,GETUTCDATE() [edit_date];
+      ,GETUTCDATE() [edit_date]
 
 
 	  INSERT INTO [dbo].[Persons]
@@ -75,7 +75,7 @@ INSERT INTO [dbo].[Persons]
       ,[edit_date]
   )
 
-  OUTPUT [inserted].[Id] INTO @output_pacient (Id)
+  output [inserted].[Id] into @output_pacient (Id)
 
   SELECT @pacient_last_name [last_name]
       ,@pacient_first_name [first_name]
@@ -96,7 +96,7 @@ INSERT INTO [dbo].[Persons]
       ,@user_id [user_id]
       ,GETUTCDATE() [create_date]
       ,@user_id [user_edit_id]
-      ,GETUTCDATE() [edit_date];
+      ,GETUTCDATE() [edit_date]
 
 
 	  ----------табличка события
@@ -128,7 +128,7 @@ INSERT INTO [dbo].[Persons]
       ,[user_edit_id]
   )
 
-  OUTPUT [inserted].[Id] INTO @output_event (Id)
+  output [inserted].[Id] into @output_event (Id)
 
   SELECT @event_receipt_date [receipt_date]
       ,@event_work_line_id [work_line_id]
@@ -152,15 +152,66 @@ INSERT INTO [dbo].[Persons]
       ,@event_sipcallid [sipcallid]
       ,@user_id [user_id]
       ,GETUTCDATE() [edit_date]
-      ,@user_id [user_edit_id];
+      ,@user_id [user_edit_id]
 
 
 
-	  INSERT INTO [dbo].[EventExecutors]
+	DECLARE @Services_EX NVARCHAR(MAX)=
+
+  N'SELECT '+(SELECT TOP 1 LTRIM(id) FROM @output_event)+N' event_id, 
+  s.id, N'''+@user_id+N''', GETUTCDATE() [edit_date]
+  FROM [dbo].[Services] s
+  WHERE s.id IN ('+ISNULL(@service_ids, N'0')+N')'
+
+
+
+	  INSERT INTO [EventExecutors]
   (
   [event_id]
   ,[service_id]
+  ,[user_id]
+  ,[create_date]
   )
 
-  SELECT (SELECT TOP 1 Id FROM @output_event) event_id
-  ,@service_id;
+  EXEC(@Services_EX)
+
+
+  --- заполнение [PersonClasses]
+  DECLARE @PersonClasses_EX NVARCHAR(max)=
+  N'
+  SELECT 
+	   '+(SELECT TOP 1 LTRIM(id) FROM @output_applicant)+N' [person_id]
+      ,id [class_id]
+      ,N'''+@user_id+N''' [user_id]
+      ,GETUTCDATE() [create_date]
+      ,N'''+@user_id+N''' [user_edit_id]
+      ,GETUTCDATE() [edit_date]
+  FROM [dbo].[Classes]
+  WHERE id IN ('+ISNULL(@applicant_classes_ids,N'0')+N')
+  
+  UNION 
+
+  SELECT 
+	   '+(SELECT TOP 1 LTRIM(id) FROM @output_pacient)+N' [person_id]
+      ,id [class_id]
+      ,N'''+@user_id+N''' [user_id]
+      ,GETUTCDATE() [create_date]
+      ,N'''+@user_id+N''' [user_edit_id]
+      ,GETUTCDATE() [edit_date]
+  FROM [dbo].[Classes]
+  WHERE id IN ('+ISNULL(@pacient_classes_ids,N'0')+N')
+
+  '
+
+  INSERT INTO [dbo].[PersonClasses]
+  (
+  [person_id]
+      ,[class_id]
+      ,[user_id]
+      ,[create_date]
+      ,[user_edit_id]
+      ,[edit_date]
+  )
+  
+  EXEC(@PersonClasses_EX)
+  

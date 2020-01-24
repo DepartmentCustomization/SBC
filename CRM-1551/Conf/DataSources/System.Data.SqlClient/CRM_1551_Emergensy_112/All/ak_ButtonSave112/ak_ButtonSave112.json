@@ -232,9 +232,16 @@
         "Name": "event_sipcallid"
       },
       {
-        "Code": "@service_id",
-        "Name": "service_id",
-        "ParameterType": "Integer"
+        "Code": "@service_ids",
+        "Name": "service_ids"
+      }, 
+      {
+        "Code": "@applicant_classes_ids",
+        "Name": "applicant_classes_ids"
+      },
+      {
+        "Code": "@pacient_classes_ids",
+        "Name": "pacient_classes_ids"
       }
     ]
   }

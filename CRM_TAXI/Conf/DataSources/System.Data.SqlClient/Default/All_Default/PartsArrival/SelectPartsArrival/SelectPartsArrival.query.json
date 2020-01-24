@@ -28,7 +28,8 @@
             "Code": "part_name",
             "Name": "Название",
             "Position": 3,
-            "IsPrintable": false
+            "IsPrintable": false,
+            "ReferenceKeyCode": "articul"
         },
         {
             "Code": "articul",
@@ -47,6 +48,13 @@
             "Name": "Поставщик",
             "Position": 6,
             "IsPrintable": false
+        },
+        {
+            "Code": "provider_name",
+            "Name": "Поставщик (название)",
+            "Position": 6,
+            "IsPrintable": false,
+            "ReferenceKeyCode": "provider"
         },
         {
             "Code": "part_price",
