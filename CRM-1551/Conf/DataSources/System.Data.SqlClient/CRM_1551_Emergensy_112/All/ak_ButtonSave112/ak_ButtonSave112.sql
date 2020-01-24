@@ -1,7 +1,7 @@
 
-declare @output_pacient table (Id int);
-declare @output_applicant table (Id int);
-declare @output_event table (Id int);
+DECLARE @output_pacient TABLE (Id INT);
+DECLARE @output_applicant TABLE (Id INT);
+DECLARE @output_event TABLE (Id INT);
 
 INSERT INTO [dbo].[Persons]
   (
@@ -27,7 +27,7 @@ INSERT INTO [dbo].[Persons]
       ,[edit_date]
   )
 
-  output [inserted].[Id] into @output_applicant (Id)
+  OUTPUT [inserted].[Id] INTO @output_applicant (Id)
 
   SELECT @applicant_last_name [last_name]
       ,@applicant_first_name [first_name]
@@ -48,7 +48,7 @@ INSERT INTO [dbo].[Persons]
       ,@user_id [user_id]
       ,GETUTCDATE() [create_date]
       ,@user_id [user_edit_id]
-      ,GETUTCDATE() [edit_date]
+      ,GETUTCDATE() [edit_date];
 
 
 	  INSERT INTO [dbo].[Persons]
@@ -75,7 +75,7 @@ INSERT INTO [dbo].[Persons]
       ,[edit_date]
   )
 
-  output [inserted].[Id] into @output_pacient (Id)
+  OUTPUT [inserted].[Id] INTO @output_pacient (Id)
 
   SELECT @pacient_last_name [last_name]
       ,@pacient_first_name [first_name]
@@ -96,7 +96,7 @@ INSERT INTO [dbo].[Persons]
       ,@user_id [user_id]
       ,GETUTCDATE() [create_date]
       ,@user_id [user_edit_id]
-      ,GETUTCDATE() [edit_date]
+      ,GETUTCDATE() [edit_date];
 
 
 	  ----------табличка события
@@ -128,7 +128,7 @@ INSERT INTO [dbo].[Persons]
       ,[user_edit_id]
   )
 
-  output [inserted].[Id] into @output_event (Id)
+  OUTPUT [inserted].[Id] INTO @output_event (Id)
 
   SELECT @event_receipt_date [receipt_date]
       ,@event_work_line_id [work_line_id]
@@ -152,7 +152,7 @@ INSERT INTO [dbo].[Persons]
       ,@event_sipcallid [sipcallid]
       ,@user_id [user_id]
       ,GETUTCDATE() [edit_date]
-      ,@user_id [user_edit_id]
+      ,@user_id [user_edit_id];
 
 
 
@@ -161,11 +161,11 @@ INSERT INTO [dbo].[Persons]
   N'SELECT '+(SELECT TOP 1 LTRIM(id) FROM @output_event)+N' event_id, 
   s.id, N'''+@user_id+N''', GETUTCDATE() [edit_date]
   FROM [dbo].[Services] s
-  WHERE s.id IN ('+ISNULL(@service_ids, N'0')+N')'
+  WHERE s.id IN ('+ISNULL(@service_ids, N'0')+N')';
 
 
 
-	  INSERT INTO [EventExecutors]
+	  INSERT INTO [dbo].[EventExecutors]
   (
   [event_id]
   ,[service_id]
@@ -173,7 +173,7 @@ INSERT INTO [dbo].[Persons]
   ,[create_date]
   )
 
-  EXEC(@Services_EX)
+  EXEC(@Services_EX);
 
 
   --- заполнение [PersonClasses]
@@ -199,9 +199,7 @@ INSERT INTO [dbo].[Persons]
       ,N'''+@user_id+N''' [user_edit_id]
       ,GETUTCDATE() [edit_date]
   FROM [dbo].[Classes]
-  WHERE id IN ('+ISNULL(@pacient_classes_ids,N'0')+N')
-
-  '
+  WHERE id IN ('+ISNULL(@pacient_classes_ids,N'0')+N')';
 
   INSERT INTO [dbo].[PersonClasses]
   (
@@ -213,5 +211,5 @@ INSERT INTO [dbo].[Persons]
       ,[edit_date]
   )
   
-  EXEC(@PersonClasses_EX)
+  EXEC(@PersonClasses_EX);
   
