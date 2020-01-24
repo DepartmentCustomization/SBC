@@ -46,9 +46,7 @@ FROM (
 	arr.part_price,
 	ISNULL(arr.part_quantity - ISNULL(ch.changeQty,0),0) AS partVal
 	FROM dbo.Parts part 
-	LEFT JOIN ##Arrival arr ON arr.part_id = part.Id 
-	LEFT JOIN dbo.Providers pr ON pr.Id = arr.provider_id
+	INNER JOIN ##Arrival arr ON arr.part_id = part.Id 
+	INNER JOIN dbo.Providers pr ON pr.Id = arr.provider_id
     LEFT JOIN ##Change ch ON ch.part_id = part.id
-	-- WHERE part.Id = 29
 	) Lionel_Messi ;
-	-- ORDER BY part_name

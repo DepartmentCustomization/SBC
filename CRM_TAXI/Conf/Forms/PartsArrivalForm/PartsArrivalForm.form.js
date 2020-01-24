@@ -153,7 +153,7 @@
             if (
                 (this.form.getControlValue('articul') !== null && this.form.getControlValue('articul') !== '')
                 &&
-                (this.form.getControlValue('provider') !== null && this.form.getControlValue('provider') != '')
+                (this.form.getControlValue('provider') !== null && this.form.getControlValue('provider') !== '')
                 &&
                 (this.form.getControlValue('part_quantity') !== null && this.form.getControlValue('part_quantity') !== '')
                 &&
