@@ -217,13 +217,59 @@
       {
         "width": "calc(33% - 10px)",
         "margin": "0 5px 10px",
-        "flexWrap": "wrap",
+        "flexWrap": "nowrap",
         "flexDirection": "row",
         "order": 1,
         "flexGrow": 1,
         "alignSelf": "auto",
         "border": "none",
-        "children": [],
+        "children": [
+          {
+            "width": "auto",
+            "margin": "0 5px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "000_CustomWidget",
+                "type": "CustomWidgetComponent",
+                "name": "searchLeafLetMap"
+              }
+            ],
+            "id": "Container-3",
+            "height": "calc(100% - 20px)",
+            "minHeight": "100px",
+            "minWidth": "100px",
+            "backgroundColor": "#e8e7e7"
+          },
+          {
+            "width": "auto",
+            "margin": "0 5px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "save_button_CustomWidget",
+                "type": "CustomWidgetComponent",
+                "name": "saveButtonContainer"
+              }
+            ],
+            "id": "Container-3",
+            "height": "10px",
+            "minHeight": "10px",
+            "minWidth": "100px",
+            "backgroundColor": "red",
+            "containerId": "saveButtonContainer"
+          }
+        ],
         "id": "Container-2",
         "height": "calc(100% - 10px)",
         "minHeight": "calc(100% - 10px)",

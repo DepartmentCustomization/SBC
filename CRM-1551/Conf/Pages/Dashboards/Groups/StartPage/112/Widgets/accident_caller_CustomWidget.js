@@ -89,14 +89,55 @@
         ,
         stringEmpty: '',
         fullName: [],
-        btnDeafAndDumbValue: 0,
-        btnInadequateValue: 0,
-        btnBlindValue: 0,
-        btnDeafValue: 0,
-        btnDumbValue: 0,
+        statusCaller: {
+            DeafAndDumb: {id: 0, value: 0},
+            Inadequate: {id: 0, value: 0},
+            Blind: {id: 0, value: 0},
+            Deaf: {id: 0, value: 0},
+            Dumb: {id: 0, value: 0}
+        },
         init: function() {
             this.messageService.subscribe('captionAccidentCaller', this.createCaption, this);
             this.messageService.subscribe('headerAccidentCaller', this.setHeader, this);
+            this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
+            const queryStatusCaller = {
+                queryCode: 'ak_listClasses112',
+                parameterValues: [
+                    { key: '@pageOffsetRows', value: 0},
+                    { key: '@pageLimitRows', value: 10}
+                ],
+                filterColumns: [],
+                limit: -1
+            };
+            this.queryExecutor(queryStatusCaller, this.setStatusCallerId, this);
+            this.showPreloader = false;
+        },
+        setStatusCallerId: function(data) {
+            const indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id');
+            const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name');
+            for (let i = 0; i < data.rows.length; i++) {
+                const element = data.rows[i];
+                const name = element.values[indexName];
+                switch (name) {
+                case 'Глухонімий':
+                    this.statusCaller.DeafAndDumb.id = element.values[indexId];
+                    break;
+                case 'Глухий':
+                    this.statusCaller.Deaf.id = element.values[indexId];
+                    break;
+                case 'Німий':
+                    this.statusCaller.Dumb.id = element.values[indexId];
+                    break;
+                case 'Сліпий':
+                    this.statusCaller.Blind.id = element.values[indexId];
+                    break;
+                case 'Неадекватний':
+                    this.statusCaller.Inadequate.id = element.values[indexId];
+                    break;
+                default:
+                    break;
+                }
+            }
         },
         createCaption: function(message) {
             this.container.appendChild(message.caption)
@@ -143,8 +184,8 @@
         },
         createPropertiesWrapper: function() {
             const anonymousCheckBox = this.createAnonymousCheckBox('Анонiм', 'anonymousCheckBox');
-            const callerPhoneNumber = this.createTextInput('Телефон', 'text', true);
-            const callerBirthday = this.createTextInput('Дата народження', 'date', false);
+            const callerPhoneNumber = this.createTextInput('Телефон', 'text', true, 'CallerPhone');
+            const callerBirthday = this.createTextInput('Дата народження', 'date', false, 'CallerBirthday');
             const propertiesWrapper = this.createElement(
                 'div',
                 { className: 'propertiesWrapper bgcLightGrey'},
@@ -178,16 +219,17 @@
             );
             return callerCheckBoxWrapper;
         },
-        createTextInput: function(text, type, borderRight, position) {
+        createTextInput: function(text, type, borderRight, id, position) {
             const input = this.createElement('input',
                 {
                     type: type,
                     className: 'input textInput',
-                    innerText: this.stringEmpty
+                    innerText: this.stringEmpty,
+                    id: id
                 }
             );
+            this.setTextInputValue(id, input);
             if(position) {
-                this.getTextInputPosition(position, input);
                 input.addEventListener('change', e => {
                     e.stopImmediatePropagation();
                     this.anonymousCheckBox.checked = false;
@@ -209,31 +251,39 @@
             }
             return wrapper;
         },
-        getTextInputPosition: function(position, input) {
-            switch (position) {
-            case 'Name':
+        setTextInputValue: function(id, input) {
+            switch (id) {
+            case 'CallerName':
                 this.callerName = input;
                 this.callerNameValue = input.innerText;
                 this.fullName.push(input);
                 break;
-            case 'SecondName':
+            case 'CallerSecondName':
                 this.callerSecondName = input;
                 this.callerSecondNameValue = input.innerText;
                 this.fullName.push(input);
                 break;
-            case 'FatherName':
+            case 'CallerFatherName':
                 this.callerFatherName = input;
                 this.callerFatherNameValue = input.innerText;
                 this.fullName.push(input);
+                break;
+            case 'CallerBirthday':
+                this.callerBirthday = input;
+                this.callerBirthdayValue = input.innerText;
+                break;
+            case 'CallerPhone':
+                this.callerPhone = input;
+                this.callerPhoneValue = input.innerText;
                 break;
             default:
                 break;
             }
         },
         createCallerNameWrapper: function() {
-            const callerSecondName = this.createTextInput('Прізвище', 'text', true, 'Name');
-            const callerName = this.createTextInput('Iм\'я', 'text', true, 'SecondName');
-            const callerFatherName = this.createTextInput('По батькові', 'text', false, 'FatherName');
+            const callerSecondName = this.createTextInput('Прізвище', 'text', true, 'CallerName', true);
+            const callerName = this.createTextInput('Iм\'я', 'text', true, 'CallerSecondName', true);
+            const callerFatherName = this.createTextInput('По батькові', 'text', false, 'CallerFatherName', true);
             const callerNameWrapper = this.createElement(
                 'div',
                 { className: 'callerNameWrapper wrapBorderBot bgcLightGrey'},
@@ -290,62 +340,66 @@
         },
         setBtnDeafAndDumbStatus: function(value, zero) {
             if(value === zero) {
-                this.btnDeafValue = 1;
+                this.statusCaller.Deaf.value = 1;
                 this.setActiveStatusBtn('btnDeaf');
-                this.btnDumbValue = 1;
+                this.statusCaller.Dumb.value = 1;
                 this.setActiveStatusBtn('btnDumb');
-                this.btnDeafAndDumbValue = 1;
+                this.statusCaller.DeafAndDumb.value = 1;
                 this.setActiveStatusBtn('btnDeafAndDumb');
             } else {
-                this.btnDeafValue = 0;
+                this.statusCaller.Deaf.value = 0;
                 this.setPassiveStatusBtn('btnDeaf');
-                this.btnDumbValue = 0;
+                this.statusCaller.Dumb.value = 0;
                 this.setPassiveStatusBtn('btnDumb');
-                this.btnDeafAndDumbValue = 0;
+                this.statusCaller.DeafAndDumb.value = 0;
                 this.setPassiveStatusBtn('btnDeafAndDumb');
             }
         },
         setBtnDeafStatus: function(value, zero) {
             if(value === zero) {
-                this.btnDeafValue = 1;
+                this.statusCaller.Deaf.value = 1;
                 this.setActiveStatusBtn('btnDeaf');
-                this.btnDeafAndDumbValue = 1;
-                this.setActiveStatusBtn('btnDeafAndDumb');
+                if(this.statusCaller.Dumb.value === 1) {
+                    this.statusCaller.DeafAndDumb.value = 1;
+                    this.setActiveStatusBtn('btnDeafAndDumb');
+                }
             } else {
-                this.btnDeafValue = 0;
+                this.statusCaller.Deaf.value = 0;
                 this.setPassiveStatusBtn('btnDeaf');
-                this.btnDeafAndDumbValue = 0;
+                this.statusCaller.DeafAndDumb.value = 0;
                 this.setPassiveStatusBtn('btnDeafAndDumb');
             }
         },
         setBtnDumbStatus: function(value, zero) {
             if(value === zero) {
-                this.btnDumbValue = 1;
+                this.statusCaller.Dumb.value = 1;
                 this.setActiveStatusBtn('btnDumb');
-                this.btnDeafAndDumbValue = 1;
-                this.setActiveStatusBtn('btnDeafAndDumb');
+                if(this.statusCaller.Deaf.value === 1) {
+                    this.statusCaller.DeafAndDumb.value = 1;
+                    this.setActiveStatusBtn('btnDeafAndDumb');
+                }
             } else {
-                this.btnDumbValue = 0;
+                this.statusCaller.Dumb.value = 0;
                 this.setPassiveStatusBtn('btnDumb');
-                this.btnDeafAndDumbValue = 0;
+                this.statusCaller.DeafAndDumb.value = 0;
                 this.setPassiveStatusBtn('btnDeafAndDumb');
             }
         },
         setBtnBlindStatus: function(btn, value, zero) {
             if(value === zero) {
-                this.btnBlindValue = 1;
+                this.statusCaller.Blind.value = 1;
                 this.setActiveStatusBtn(btn.id);
             } else {
-                this.btnBlindValue = 0;
+                this.statusCaller.Blind.value = 0;
                 this.setPassiveStatusBtn(btn.id);
             }
         },
         setBtnInadequateStatus: function(btn, value, zero) {
             if(value === zero) {
-                this.btnInadequateValue = 1;
+                this.statusCaller.Inadequate.value = 1;
                 this.setActiveStatusBtn(btn.id);
             } else {
-                this.btnInadequateValue = 0;
+                this.statusCaller.Inadequate.value = 0;
                 this.setPassiveStatusBtn(btn.id);
             }
         },
@@ -374,7 +428,7 @@
         createAddressHeader: function() {
             const addressCaption = this.createElement(
                 'span',
-                {className: 'addressCaption', innerText: 'Адреса заявника *'}
+                {className: 'addressCaption', innerText: 'Адреса пацєiнта *'}
             );
             const addressEditorWrapper = this.createAddressEditorWrapper(
                 'btnCallerAddressClear',
@@ -435,6 +489,32 @@
             this.callerSecondNameValue = this.stringEmpty
             this.callerFatherName.value = this.stringEmpty;
             this.callerFatherNameValue = this.stringEmpty;
+        },
+        setInfoValues: function() {
+            const callerStatus = this.setCallerStatus();
+            const callerInfo = {
+                anonymous: this.anonymousCheckBox.value,
+                callerName: this.callerNameValue,
+                callerSecondName: this.callerSecondNameValue,
+                callerFatherName: this.callerFatherNameValue,
+                callerPhone: this.callerPhoneValue ,
+                callerBirthday: this.callerBirthdayValue,
+                callerStatus: callerStatus
+            }
+            const name = 'saveValues';
+            this.messageService.publish({ name, callerInfo});
+        },
+        setCallerStatus: function() {
+            let callerStatus = '';
+            for (const property in this.statusCaller) {
+                if(this.statusCaller[property].value === 1) {
+                    callerStatus = callerStatus + this.statusCaller[property].id + ' ';
+                }
+            }
+            if(callerStatus.length > 0) {
+                callerStatus = callerStatus.slice(0, -1);
+            }
+            return callerStatus
         }
     };
 }());

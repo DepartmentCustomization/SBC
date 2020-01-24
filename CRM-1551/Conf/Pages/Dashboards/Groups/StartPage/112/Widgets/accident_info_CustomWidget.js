@@ -197,7 +197,7 @@
                             max-width: 100%;
                             vertical-align: bottom;
                             text-align: inherit;
-                            font-size: 22px;
+                            font-size: 16px;
                             margin-top: 10px;
                         }
                         .placeholder{
@@ -211,7 +211,9 @@
                             display: flex;
                         }
                         .accidentDateTimeInput{
+                            outline: none;
                             border: none;
+                            background-color: inherit;
                         }
                         .accidentTimerWrapper{
                             display: flex;
@@ -264,6 +266,19 @@
                         .accidentPropertiesWrapper{
                             display: flex;
                         }
+
+                        #selectBackground{
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            height: 100%;
+                            width: 100%;
+                            background-color: rgba(128, 128, 128, 0.3);
+                            z-index: 9000;
+                        }
+
                 </style>
                     <div id="containerInfo"></div>
                     `
@@ -276,9 +291,10 @@
         categoryList: [],
         callerTypeList: [],
         workLineList: [],
-        differentMinutes: 0,
-        differentHours: 0,
-        differentDays: 0,
+        differentMinutesValue: 0,
+        differentHoursValue: 0,
+        differentDaysValue: 0,
+        activeCheckBox: null,
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
@@ -326,6 +342,7 @@
             this.showPreloader = false;
             this.showPreloader = false;
             this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
+            this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
         },
         setCategoryList: function() {
             const queryCategoryList = {
@@ -570,57 +587,73 @@
         showModalList:  function(container, inputId, wrapper, listItems) {
             const status = wrapper.showModal;
             const changeText = wrapper.changeText;
-            if(!status) {
-                if(!changeText) {
-                    document.getElementById(inputId);
-                }
-                wrapper.showModal = !status;
-                const modalList = this.createElement('div',
-                    {
-                        className: 'modalList'
+            if(this.activeModalContainer === undefined) {
+                this.addSelectBackground(wrapper);
+                if(!status) {
+                    if(!changeText) {
+                        document.getElementById(inputId);
                     }
-                )
-                if(listItems) {
-                    listItems.forEach(item => {
-                        const id = item.id;
-                        const innerText = item.value;
-                        const className = 'listItem';
-                        const listItem = this.createElement('div', {id, innerText, className});
-                        listItem.addEventListener('click', e => {
-                            const target = e.currentTarget;
-                            const id = Number(target.id);
-                            const value = target.innerText;
-                            switch (inputId) {
-                            case 'btnExtern':
-                                this.changeExternBtn(inputId);
-                                this.getItemProps(id);
-                                this.changeCategoryInput(value, id);
-                                break;
-                            case '_valueCat':
-                                this.getItemProps(id);
-                                this.changeCategoryInput(value, id);
-                                break;
-                            case '_valueCallerType':
-                                this.changeCallerTypeInput(value, id);
-                                break;
-                            case '_valueWorkLine':
-                                this.changeWorkLineInput(value, id);
-                                break;
-                            default:
-                                break;
-                            }
-                            this.hideModal(wrapper);
+                    wrapper.showModal = !status;
+                    const modalList = this.createElement('div',
+                        {
+                            className: 'modalList'
+                        }
+                    );
+                    if(listItems) {
+                        listItems.forEach(item => {
+                            const id = item.id;
+                            const innerText = item.value;
+                            const className = 'listItem';
+                            const listItem = this.createElement('div', {id, innerText, className});
+                            listItem.addEventListener('click', e => {
+                                const target = e.currentTarget;
+                                const id = Number(target.id);
+                                const value = target.innerText;
+                                switch (inputId) {
+                                case 'btnExtern':
+                                    this.changeExternBtn(inputId);
+                                    this.getItemProps(id);
+                                    this.changeCategoryInput(value, id);
+                                    break;
+                                case '_valueCat':
+                                    this.getItemProps(id);
+                                    this.changeCategoryInput(value, id);
+                                    break;
+                                case '_valueCallerType':
+                                    this.changeCallerTypeInput(value, id);
+                                    break;
+                                case '_valueWorkLine':
+                                    this.changeWorkLineInput(value, id);
+                                    break;
+                                default:
+                                    break;
+                                }
+                                this.removeSelectBackground(wrapper, '1');
+                            });
+                            modalList.appendChild(listItem);
                         });
-                        modalList.appendChild(listItem);
-                    });
-                    container.appendChild(modalList);
-                }
-                this.activeModalContainer = container;
-            } else {
-                if(listItems.length) {
-                    this.hideModal(wrapper);
+                        container.appendChild(modalList);
+                    }
+                    this.activeModalContainer = container;
+                } else {
+                    if(listItems.length) {
+                        this.removeSelectBackground(wrapper, '2');
+                    }
                 }
             }
+        },
+        addSelectBackground: function(wrapper) {
+            const selectBackground = this.createElement('div', { id: 'selectBackground'});
+            this.selectBackground = selectBackground;
+            selectBackground.addEventListener('click', e => {
+                e.stopImmediatePropagation();
+                this.removeSelectBackground(wrapper, '3');
+            });
+            this.container.appendChild(selectBackground)
+        },
+        removeSelectBackground: function(wrapper) {
+            this.container.removeChild(this.selectBackground);
+            this.hideModal(wrapper);
         },
         changeCategoryInput: function(value, id) {
             document.getElementById('categoryList').value = value;
@@ -768,9 +801,13 @@
                 const target = e.currentTarget;
                 const oldMsSec = new Date(this.accidentDateTimeValue).setMilliseconds('0');
                 const newMsSec = new Date(target.value).setMilliseconds('0');
-                const differenceTime = oldMsSec - newMsSec;
+                const differenceTime = (oldMsSec - newMsSec) / 1000;
                 if(differenceTime > 0) {
                     this.setTimerDifferentTime(differenceTime);
+                } else {
+                    this.setDifferentDays('0');
+                    this.setDifferentHours('0');
+                    this.setDifferentMinutes('0');
                 }
             });
             this.accidentDateTimeInput = accidentDateTimeInput;
@@ -791,43 +828,42 @@
             return accidentDateWrapper;
         },
         setTimerDifferentTime: function(differenceTime) {
-            const oneDay = 60 * 1000 * 60 * 24;
-            const oneMinute = 60 * 1000;
-            const differentAllDays = Math.round(differenceTime % oneDay);
-            if(differentAllDays === 0) {
-                this.setDifferentDays(Math.round(differenceTime / oneDay));
-            } else {
-                const differentAllHours = Math.round(differentAllDays % oneMinute);
-                if(differentAllHours > 60) {
-                    const hours = Math.round(differentAllHours / 60);
-                    const minutes = Math.round(differentAllHours % 60);
-                    this.setDifferentDays(this.differentDays);
-                    this.setDifferentHours(hours);
-                    this.setDifferentMinutes(minutes);
-                } else if(differentAllHours === 60) {
-                    const hours = Math.round(differentAllHours / 60);
-                    this.setDifferentDays(this.differentDays);
-                    this.setDifferentHours(hours);
-                    this.setDifferentMinutes(this.differentMinutes);
-                } else {
-                    const minutes = Math.round(differentAllDays / 60);
-                    this.setDifferentDays(this.differentDays);
-                    this.setDifferentHours(this.differentHours);
-                    this.setDifferentMinutes(minutes);
-                }
+            const oneMinute = 60;
+            const oneHour = 60 * 60;
+            const oneDay = 60 * 60 * 24;
+            if(differenceTime >= oneDay) {
+                const days = Math.round(differenceTime / oneDay);
+                const hours = Math.round(differenceTime / oneHour);
+                const hour = Math.round(hours % 24);
+                const minutes = Math.round(differenceTime / oneMinute);
+                const minute = Math.round(minutes % oneMinute);
+                this.setDifferentDays(days);
+                this.setDifferentHours(hour);
+                this.setDifferentMinutes(minute);
+            } else if(differenceTime >= oneHour) {
+                const hours = Math.round(differenceTime / oneHour);
+                const minutes = Math.round(differenceTime / oneMinute);
+                const minute = Math.round(minutes % oneMinute);
+                this.setDifferentDays(this.differentDaysValue);
+                this.setDifferentHours(hours);
+                this.setDifferentMinutes(minute);
+            } else if(differenceTime >= oneMinute) {
+                this.setDifferentDays('0');
+                this.setDifferentHours('0');
+                this.setDifferentMinutes(differenceTime / oneMinute);
             }
         },
         setDifferentMinutes: function(differentMinutes) {
-            this.differentMinutes = differentMinutes;
-            document.getElementById('differentMinutes').value = differentMinutes;
+            this.differentMinutesValue = differentMinutes;
+            document.getElementById('differentMinutes').value = this.differentMinutesValue;
         },
         setDifferentHours: function(differentHours) {
-            this.differentHours = differentHours;
-            document.getElementById('differentHours').value = differentHours;
+            this.differentHoursValue = differentHours;
+            document.getElementById('differentHours').value = this.differentHoursValue;
         },
         setDifferentDays: function(differentDays) {
-            this.differentDays = differentDays;
-            document.getElementById('differentDays').value = differentDays;
+            this.differentDaysValue = differentDays;
+            document.getElementById('differentDays').value = this.differentDaysValue;
         },
         setDateTimeValues: function() {
             let date = new Date();
@@ -866,11 +902,14 @@
             );
             input.disabled = true;
             if(text === 'дн') {
-                this.differenceDays = input;
+                this.differentDays = input;
+                this.differentDaysValue = input.value;
             } else if(text === 'г') {
-                this.differenceHours = input;
+                this.differentHours = input;
+                this.differentHoursValue = input.value;
             } else if(text === 'хвилини назад') {
-                this.differenceMinutes = input;
+                this.differentMinutes = input;
+                this.differentMinutesValue = input.value;
             }
             const placeholder = this.createElement('span', { className: 'placeholder placeholderInt',innerText: text});
             const integerInput = this.createElement('div',
@@ -885,7 +924,7 @@
             return wrapper;
         },
         setTimerDefaultValue: function() {
-            this.differenceMinutes.value = '0';
+            this.differentMinutes.value = '0';
         },
         createAccidentPropertiesWrapper: function() {
             const callerType = {
@@ -1025,6 +1064,7 @@
                 'textarea',
                 { id: 'accidentTextContent', placeholder: 'Опис...'}
             );
+            this.accidentTextContentValue = accidentTextContent;
             const accidentTextContentWrapper = this.createElement(
                 'div',
                 { className: 'accidentTextContentWrapper wrapBorderBot topLeftRightPadding botPadding' },
@@ -1106,6 +1146,24 @@
         },
         hideMedicalCheckBoxWrapper: function() {
             this.medicalCheckBoxWrapper.style.display = 'none';
+        },
+        setInfoValues: function() {
+            const activeCheckBoxId = this.activeCheckBox !== null ? this.activeCheckBox.id : null;
+            const accidentInfo = {
+                fire: this.fire,
+                police: this.police,
+                medical: this.medical,
+                gas: this.gas,
+                categoryId: this._categoryValueId,
+                callerType: this._callerTypeValueId,
+                workLineId: this._workLineValueId,
+                callMedical: activeCheckBoxId,
+                accidentDateTime: this.accidentDateTimeValue,
+                accidentComment: this.accidentTextContentValue.value,
+                accidentAddress: null
+            }
+            const name = 'saveValues';
+            this.messageService.publish({ name, accidentInfo});
         }
     };
 }());
