@@ -1,7 +1,7 @@
 {
     "ModelType": "Query",
-    "Code": "ak_listAddressSearch",
-    "Name": "ak_listAddressSearch",
+    "Code": "ak_EventInfo112",
+    "Name": "ak_EventInfo112",
     "ConnectionCode": "CRM_1551_Emergensy_112",
     "IsUsedForRightsFilter": false,
     "Columns": [
@@ -11,25 +11,26 @@
         "Position": 0
       },
       {
-        "Code": "geolocation_lat",
-        "Name": "geolocation_lat",
+        "Code": "number",
+        "Name": "number",
         "Position": 1
       },
       {
-        "Code": "geolocation_lon",
-        "Name": "geolocation_lon",
+        "Code": "category_name",
+        "Name": "category_name",
         "Position": 2
       },
       {
-        "Code": "AddressSearch",
-        "Name": "AddressSearch",
+        "Code": "receipt_date",
+        "Name": "receipt_date",
         "Position": 3
       }
     ],
     "Parameters": [
       {
-        "Code": "@search",
-        "Name": "search"
+        "Code": "@event_id",
+        "Name": "event_id",
+        "ParameterType": "Integer"
       }
     ]
   }
