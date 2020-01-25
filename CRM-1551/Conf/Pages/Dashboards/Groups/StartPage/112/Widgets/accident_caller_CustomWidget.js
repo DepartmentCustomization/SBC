@@ -77,6 +77,7 @@
                             height: 24px;
                             text-align: center;
                             color: #000;
+                            margin-right: 10px;
                         }
                         .addressBtn{
                             cursor: pointer;
@@ -100,6 +101,8 @@
             this.messageService.subscribe('captionAccidentCaller', this.createCaption, this);
             this.messageService.subscribe('headerAccidentCaller', this.setHeader, this);
             this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
+            this.messageService.subscribe('sendCallerSearchAddress', this.setCallerSearchAddress, this);
+            this.messageService.subscribe('sendInfoSearchAddress', this.setInfoSearchAddress, this);
             const queryStatusCaller = {
                 queryCode: 'ak_listClasses112',
                 parameterValues: [
@@ -111,6 +114,8 @@
             };
             this.queryExecutor(queryStatusCaller, this.setStatusCallerId, this);
             this.showPreloader = false;
+            this.latitude = null;
+            this.longitude = null;
         },
         setStatusCallerId: function(data) {
             const indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id');
@@ -166,6 +171,7 @@
                 addressWrapper,
                 callerStatusButtonsWrapper
             );
+            this.showHideElement('btnCallerAddressClear','none');
         },
         createHeader: function() {
             const header = {
@@ -428,7 +434,7 @@
         createAddressHeader: function() {
             const addressCaption = this.createElement(
                 'span',
-                {className: 'addressCaption', innerText: 'Адреса пацєiнта *'}
+                {className: 'addressCaption', innerText: 'Адреса заявника *'}
             );
             const addressEditorWrapper = this.createAddressEditorWrapper(
                 'btnCallerAddressClear',
@@ -450,6 +456,18 @@
                 'span',
                 { id: idClear, className: 'material-icons clearBtn addressBtn', innerText: 'clear'}
             );
+            btnAddressClear.addEventListener('click', e => {
+                e.stopImmediatePropagation();
+                this.clearSearchCallerAddress();
+            });
+            btnAddressEdit.addEventListener('click', e => {
+                const btnEdit = e.currentTarget;
+                const id = btnEdit.id;
+                const message = 'sendCallerSearchAddress';
+                const name = 'showSearchAddressContainer';
+                this.messageService.publish({name, message, id});
+                this.messageService.publish({name: 'hideAllAppealLeafLetMap'});
+            });
             const addressEditorWrapper = this.createElement(
                 'div',
                 { className: 'addressEditorWrapper'},
@@ -464,9 +482,9 @@
             );
             const content = this.createElement(
                 'span',
-                {innerText: ' ', className: 'addressContent'}
+                {innerText: ' ', id: 'searchCallerAddress', className: 'addressContent'}
             );
-            this.addressContent = content.innerText;
+            this.searchCallerAddress = content;
             const addressContentWrapper = this.createElement(
                 'div',
                 {id: id, className: 'addressContentWrapper'},
@@ -475,6 +493,12 @@
             addressContentWrapper.style.display = 'none';
             this.addressContentWrapper = addressContentWrapper;
             return addressContentWrapper;
+        },
+        clearSearchCallerAddress: function() {
+            this.searchCallerAddress.innerText = ' ';
+        },
+        showHideElement: function(id, status) {
+            document.getElementById(id).style.display = status;
         },
         showAddressContent: function() {
             this.addressContentWrapper.style.display = 'block';
@@ -515,6 +539,17 @@
                 callerStatus = callerStatus.slice(0, -1);
             }
             return callerStatus
+        },
+        setCallerSearchAddress: function(message) {
+            this.searchCallerAddress.innerText = message.address;
+            this.latitude = message.coordinates.latitude;
+            this.longitude = message.coordinates.longitude;
+            this.showHideElement('callerAddressContent', 'flex');
+        },
+        setInfoSearchAddress: function(message) {
+            this.searchInfoAddress = message.address
+            this.infoLatitude = message.coordinates.latitude;
+            this.infoLongitude = message.coordinates.longitude;
         }
     };
 }());

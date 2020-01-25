@@ -343,6 +343,8 @@
             this.showPreloader = false;
             this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
             this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
+            this.messageService.subscribe('sendCallerSearchAddress', this.setCallerSearchAddress, this);
+            this.messageService.subscribe('sendPatientSearchAddress', this.setPatientSearchAddress, this);
         },
         setCategoryList: function() {
             const queryCategoryList = {
@@ -1075,7 +1077,7 @@
         createAddressWrapper: function() {
             const addressHeader = this.createAddressHeader();
             const addressContentWrapper = this.createAddressContentWrapper(
-                'callerAddressContent'
+                'infoAddressContent'
             );
             const addressWrapper = this.createElement(
                 'div',
@@ -1090,7 +1092,7 @@
         createAddressHeader: function() {
             const addressCaption = this.createElement(
                 'span',
-                {className: 'addressCaption', innerText: 'Адреса заявника *'}
+                {className: 'addressCaption', innerText: 'Адреса події *'}
             );
             const addressEditorWrapper = this.createAddressEditorWrapper(
                 'btnAccidentAddressClear',
@@ -1164,6 +1166,16 @@
             }
             const name = 'saveValues';
             this.messageService.publish({ name, accidentInfo});
+        },
+        setCallerSearchAddress: function(message) {
+            this.searchCallerAddress = message.address
+            this.caLLerLatitude = message.coordinates.latitude;
+            this.caLLerLongitude = message.coordinates.longitude;
+        },
+        setPatientSearchAddress: function(message) {
+            this.searchPatientAddress = message.address
+            this.patientLatitude = message.coordinates.latitude;
+            this.patientLongitude = message.coordinates.longitude;
         }
     };
 }());

@@ -29,7 +29,9 @@
             this.messageService.publish(message);
             this.messageService.subscribe('headerAccidentPatient', this.setHeader, this);
             this.messageService.subscribe('changeHeaderCaption', this.changeHeaderCaption, this);
-            this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
+            this.messageService.subscribe('saveAppeal', this.setPatientValues, this);
+            this.messageService.subscribe('sendCallerSearchAddress', this.setCallerSearchAddress, this);
+            this.messageService.subscribe('sendInfoSearchAddress', this.setInfoSearchAddress, this);
         },
         createCaption: function(message) {
             this.container.appendChild(message.caption)
@@ -213,7 +215,7 @@
         createAddressHeader: function() {
             const addressCaption = this.createElement(
                 'span',
-                {className: 'addressCaption', innerText: 'Адреса заявника *'}
+                {className: 'addressCaption', innerText: 'Адреса пацієнта *'}
             );
             const addressEditorWrapper = this.createAddressEditorWrapper(
                 'btnPatientAddressClear',
@@ -271,7 +273,7 @@
             const caption = message.caption;
             this.header.lastElementChild.innerText = caption;
         },
-        setInfoValues: function() {
+        setPatientValues: function() {
             const patientInfo = {
                 patientName: this.patientNameValue,
                 patientSecondName: this.patientSecondNameValue,
@@ -284,6 +286,16 @@
             }
             const name = 'saveValues';
             this.messageService.publish({ name, patientInfo});
+        },
+        setCallerSearchAddress: function(message) {
+            this.searchCallerAddress = message.address
+            this.caLLerLatitude = message.coordinates.latitude;
+            this.caLLerLongitude = message.coordinates.longitude;
+        },
+        setInfoSearchAddress: function(message) {
+            this.searchInfoAddress = message.address
+            this.infoLatitude = message.coordinates.latitude;
+            this.infoLongitude = message.coordinates.longitude;
         }
     };
 }());
