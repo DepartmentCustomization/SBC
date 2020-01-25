@@ -257,6 +257,26 @@
       {
         "Code": "@pacient_classes_ids",
         "Name": "pacient_classes_ids"
+      },
+      {
+        "Code": "@fire",
+        "Name": "fire",
+        "ParameterType": "Boolean"
+      },
+      {
+        "Code": "@police",
+        "Name": "police",
+        "ParameterType": "Boolean"
+      },
+      {
+        "Code": "@medical",
+        "Name": "medical",
+        "ParameterType": "Boolean"
+      },
+      {
+        "Code": "@gas",
+        "Name": "gas",
+        "ParameterType": "Boolean"
       }
     ]
   }
