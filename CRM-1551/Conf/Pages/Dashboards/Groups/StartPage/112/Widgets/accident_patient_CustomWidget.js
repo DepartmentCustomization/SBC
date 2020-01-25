@@ -32,6 +32,7 @@
             this.messageService.subscribe('saveAppeal', this.setPatientValues, this);
             this.messageService.subscribe('sendCallerSearchAddress', this.setCallerSearchAddress, this);
             this.messageService.subscribe('sendInfoSearchAddress', this.setInfoSearchAddress, this);
+            this.messageService.subscribe('sendPatientSearchAddress', this.setPatientSearchAddress, this);
         },
         createCaption: function(message) {
             this.container.appendChild(message.caption)
@@ -58,6 +59,7 @@
                 patientNameWrapper,
                 addressWrapper
             );
+            this.showHideElement('btnPatientAddressClear','none');
         },
         createHeader: function() {
             const header = {
@@ -203,7 +205,7 @@
         createAddressWrapper: function() {
             const addressHeader = this.createAddressHeader();
             const addressContentWrapper = this.createAddressContentWrapper(
-                'callerAddressContent'
+                'patientAddressContent'
             );
             const addressWrapper = this.createElement(
                 'div',
@@ -237,6 +239,19 @@
                 'span',
                 { id: idClear, className: 'material-icons clearBtn addressBtn', innerText: 'clear'}
             );
+            btnAddressEdit.addEventListener('click', e => {
+                const btnEdit = e.currentTarget;
+                const id = btnEdit.id;
+                const message = 'sendPatientSearchAddress';
+                const name = 'showSearchAddressContainer';
+                this.messageService.publish({name, message, id});
+                this.messageService.publish({name: 'hideAllAppealLeafLetMap'});
+            });
+            btnAddressClear.addEventListener('click', e => {
+                e.stopImmediatePropagation();
+                this.clearSearchAddress();
+                this.showHideElement('btnInfoAddressClear', 'none');
+            });
             const addressEditorWrapper = this.createElement(
                 'div',
                 { className: 'addressEditorWrapper'},
@@ -253,7 +268,7 @@
                 'span',
                 {innerText: ' ', className: 'addressContent'}
             );
-            this.addressContent = content.innerText;
+            this.searchAddress = content;
             const addressContentWrapper = this.createElement(
                 'div',
                 {id: id, className: 'addressContentWrapper'},
@@ -262,6 +277,14 @@
             addressContentWrapper.style.display = 'none';
             this.addressContentWrapper = addressContentWrapper;
             return addressContentWrapper;
+        },
+        clearSearchAddress: function() {
+            this.searchAddress.innerText = ' ';
+            this.showHideElement('patientAddressContent', 'none');
+            this.showHideElement('btnPatientAddressClear', 'none');
+        },
+        showHideElement: function(id, status) {
+            document.getElementById(id).style.display = status;
         },
         showAddressContent: function() {
             this.addressContentWrapper.style.display = 'block';
@@ -286,6 +309,13 @@
             }
             const name = 'saveValues';
             this.messageService.publish({ name, patientInfo});
+        },
+        setPatientSearchAddress: function(message) {
+            this.searchAddress.innerText = message.address
+            this.latitude = message.coordinates.latitude;
+            this.longitude = message.coordinates.longitude;
+            this.showHideElement('patientAddressContent', 'flex');
+            this.showHideElement('btnPatientAddressClear', 'block');
         },
         setCallerSearchAddress: function(message) {
             this.searchCallerAddress = message.address

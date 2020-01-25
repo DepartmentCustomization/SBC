@@ -83,6 +83,9 @@
                             cursor: pointer;
                         }
 
+                        .addressEditorWrapper{
+                            display: flex;
+                        }
 
                     </style>
                     <div id="containerCaller"></div>
@@ -458,7 +461,8 @@
             );
             btnAddressClear.addEventListener('click', e => {
                 e.stopImmediatePropagation();
-                this.clearSearchCallerAddress();
+                this.clearSearchAddress();
+                this.showHideElement('btnCallerAddressClear', 'none');
             });
             btnAddressEdit.addEventListener('click', e => {
                 const btnEdit = e.currentTarget;
@@ -484,7 +488,7 @@
                 'span',
                 {innerText: ' ', id: 'searchCallerAddress', className: 'addressContent'}
             );
-            this.searchCallerAddress = content;
+            this.searchAddress = content;
             const addressContentWrapper = this.createElement(
                 'div',
                 {id: id, className: 'addressContentWrapper'},
@@ -494,8 +498,9 @@
             this.addressContentWrapper = addressContentWrapper;
             return addressContentWrapper;
         },
-        clearSearchCallerAddress: function() {
-            this.searchCallerAddress.innerText = ' ';
+        clearSearchAddress: function() {
+            this.searchAddress.innerText = ' ';
+            this.showHideElement('callerAddressContent', 'none');
         },
         showHideElement: function(id, status) {
             document.getElementById(id).style.display = status;
@@ -541,10 +546,11 @@
             return callerStatus
         },
         setCallerSearchAddress: function(message) {
-            this.searchCallerAddress.innerText = message.address;
+            this.searchAddress.innerText = message.address;
             this.latitude = message.coordinates.latitude;
             this.longitude = message.coordinates.longitude;
             this.showHideElement('callerAddressContent', 'flex');
+            this.showHideElement('btnCallerAddressClear', 'block');
         },
         setInfoSearchAddress: function(message) {
             this.searchInfoAddress = message.address

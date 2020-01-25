@@ -55,6 +55,7 @@
             this.addContainerChild(
                 tabsWrapper
             );
+            this.addActiveTabBorder('tabCards');
         },
         addContainerChild: function(...params) {
             params.forEach(item => this.container.appendChild(item));
@@ -83,9 +84,6 @@
                 },
                 span
             );
-            if(active) {
-                this.addActiveTabBorder(id);
-            }
             tab.addEventListener('click', e => {
                 e.stopImmediatePropagation();
                 const tab = e.currentTarget;
