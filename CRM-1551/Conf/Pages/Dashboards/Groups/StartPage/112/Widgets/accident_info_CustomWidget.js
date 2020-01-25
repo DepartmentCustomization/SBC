@@ -1184,27 +1184,22 @@
                 callMedical: activeCheckBoxId,
                 accidentDateTime: this.accidentDateTimeValue,
                 accidentComment: this.accidentTextContentValue.value,
-                accidentAddress: null
+                address: this.address
             }
             const name = 'saveValues';
             this.messageService.publish({ name, accidentInfo});
         },
         sendInfoSearchAddress: function(message) {
-            this.searchAddress.innerText = message.address
-            this.latitude = message.coordinates.latitude;
-            this.longitude = message.coordinates.longitude;
+            this.searchAddress.innerText = message.address.fullAddress;
+            this.address = message.address;
             this.showHideElement('infoAddressContent', 'flex');
             this.showHideElement('btnInfoAddressClear', 'block');
         },
         setPatientSearchAddress: function(message) {
-            this.searchPatientAddress = message.address
-            this.patientLatitude = message.coordinates.latitude;
-            this.patientLongitude = message.coordinates.longitude;
+            this.patientAddress = message.address;
         },
         setCallerSearchAddress: function(message) {
-            this.searchCallerAddress = message.address
-            this.caLLerLatitude = message.coordinates.latitude;
-            this.caLLerLongitude = message.coordinates.longitude;
+            this.callerAddress = message.address;
         }
     };
 }());

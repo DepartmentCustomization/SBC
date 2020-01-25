@@ -33,10 +33,11 @@
                 let indexOfLongitude = data.columns.findIndex(el => el.code.toLowerCase() === 'geolocation_lon');
                 this.indexId = indexId;
                 const address = data.rows[0].values[indexAddress];
+                const addressId = data.rows[0].values[indexId];
                 const name = 'sendSearchAddress'
                 const latitude = data.rows[0].values[indexOfLatitude];
                 const longitude = data.rows[0].values[indexOfLongitude];
-                this.messageService.publish({name, address, latitude, longitude});
+                this.messageService.publish({name, address, addressId, latitude, longitude});
                 this.indexAddress = indexAddress;
                 let LeafIcon = L.Icon.extend({
                     options: {

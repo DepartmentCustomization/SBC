@@ -106,6 +106,7 @@
             this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
             this.messageService.subscribe('sendCallerSearchAddress', this.setCallerSearchAddress, this);
             this.messageService.subscribe('sendInfoSearchAddress', this.setInfoSearchAddress, this);
+            this.messageService.subscribe('sendPatientSearchAddress', this.setPatientSearchAddress, this);
             const queryStatusCaller = {
                 queryCode: 'ak_listClasses112',
                 parameterValues: [
@@ -264,26 +265,26 @@
             switch (id) {
             case 'CallerName':
                 this.callerName = input;
-                this.callerNameValue = input.innerText;
+                this.callerNameValue = input.value;
                 this.fullName.push(input);
                 break;
             case 'CallerSecondName':
                 this.callerSecondName = input;
-                this.callerSecondNameValue = input.innerText;
+                this.callerSecondNameValue = input.value;
                 this.fullName.push(input);
                 break;
             case 'CallerFatherName':
                 this.callerFatherName = input;
-                this.callerFatherNameValue = input.innerText;
+                this.callerFatherNameValue = input.value;
                 this.fullName.push(input);
                 break;
             case 'CallerBirthday':
                 this.callerBirthday = input;
-                this.callerBirthdayValue = input.innerText;
+                this.callerBirthdayValue = input.value;
                 break;
             case 'CallerPhone':
                 this.callerPhone = input;
-                this.callerPhoneValue = input.innerText;
+                this.callerPhoneValue = input.value;
                 break;
             default:
                 break;
@@ -523,12 +524,13 @@
             const callerStatus = this.setCallerStatus();
             const callerInfo = {
                 anonymous: this.anonymousCheckBox.value,
-                callerName: this.callerNameValue,
-                callerSecondName: this.callerSecondNameValue,
-                callerFatherName: this.callerFatherNameValue,
-                callerPhone: this.callerPhoneValue ,
-                callerBirthday: this.callerBirthdayValue,
-                callerStatus: callerStatus
+                name: this.callerNameValue,
+                secondName: this.callerSecondNameValue,
+                fatherName: this.callerFatherNameValue,
+                phone: this.callerPhoneValue ,
+                birthday: this.callerBirthdayValue,
+                status: callerStatus,
+                address: this.address
             }
             const name = 'saveValues';
             this.messageService.publish({ name, callerInfo});
@@ -546,16 +548,16 @@
             return callerStatus
         },
         setCallerSearchAddress: function(message) {
-            this.searchAddress.innerText = message.address;
-            this.latitude = message.coordinates.latitude;
-            this.longitude = message.coordinates.longitude;
+            this.searchAddress.innerText = message.address.fullAddress;
+            this.address = message.address;
             this.showHideElement('callerAddressContent', 'flex');
             this.showHideElement('btnCallerAddressClear', 'block');
         },
         setInfoSearchAddress: function(message) {
-            this.searchInfoAddress = message.address
-            this.infoLatitude = message.coordinates.latitude;
-            this.infoLongitude = message.coordinates.longitude;
+            this.infoAddress = message.address;
+        },
+        setPatientSearchAddress: function(message) {
+            this.patientAddress = message.address;
         }
     };
 }());

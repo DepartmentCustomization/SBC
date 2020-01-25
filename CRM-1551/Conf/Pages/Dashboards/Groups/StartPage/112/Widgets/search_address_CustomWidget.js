@@ -8,7 +8,7 @@
                         #searchAddressFields{
                             margin-top: 10px;
                         }
-                        #searchAddTextContent{
+                        #searchTextContent{
                             margin: 10px 0 7px;
                             width: 100%;
                             height: 100%;
@@ -64,7 +64,21 @@
         flatExit: null,
         fullAddressValue: null,
         activeAddressId: undefined,
+        viewAddress: undefined,
         stringEmpty: '',
+        address: {
+            houseEntrance: null,
+            houseEntranceCode: null,
+            houseFloorsCounter: null,
+            flatFloor: null,
+            flatApartmentOffice: null,
+            flatExit: null,
+            latitude: null,
+            longitude: null,
+            addressId: null,
+            fullAddress: null,
+            searchTextContent: null
+        },
         init: function() {
             this.searchAddressContainer = document.getElementById('searchAddressContainer');
             this.searchAddressContainer.style.position = 'relative';
@@ -153,7 +167,7 @@
                 const input = e.currentTarget;
                 const id = input.id;
                 const value = input.value;
-                this.setSearchAddress(undefined, id, value);
+                this.setAddressProps(id, value);
             });
             this.setTextInput(id, input);
             const placeholder = this.createElement('span', { className: 'placeholder placeholderInt',innerText: text});
@@ -199,9 +213,15 @@
         createSearchAddInfoWrapper: function() {
             const searchTextContent = this.createElement(
                 'textarea',
-                { id: 'searchAddTextContent', placeholder: 'Додаткова інформація'}
+                { id: 'searchTextContent', placeholder: 'Додаткова інформація'}
             );
             this.searchTextContent = searchTextContent;
+            searchTextContent.addEventListener('change', e => {
+                e.stopImmediatePropagation();
+                const input = e.currentTarget;
+                const value = input.value;
+                this.address.searchTextContent = value;
+            });
             const searchAddInfoWrapper = this.createElement(
                 'div',
                 { className: 'accidentTextContentWrapper' },
@@ -255,16 +275,13 @@
                 const btn = e.currentTarget;
                 if(this.fullAddressValue.innerText.length) {
                     if(btn.id === 'btnSearchAccept') {
-                        const address = this.fullAddressValue.innerText;
-                        const coordinates = {
-                            latitude: this.latitude,
-                            longitude: this.longitude
-                        };
+                        const address = this.address;
                         const name = this.activeAddressMessage;
-                        this.messageService.publish({name, address, coordinates});
+                        this.messageService.publish({name, address});
                     }
                     this.activeAddressMessage = undefined;
                     this.clearAllInputs();
+                    this.clearAddressValues();
                     this.hideSearchAddressContainer();
                     this.messageService.publish({name: 'showAllAppealLeafLetMap'});
                 }
@@ -283,8 +300,31 @@
             this.flatFloor.value = this.stringEmpty;
             this.flatExit.value = this.stringEmpty;
             this.searchInput.value = this.stringEmpty;
-            this.latitude = null;
-            this.longitude = null;
+            this.searchTextContent.value = this.stringEmpty;
+        },
+        clearAddressValues: function() {
+            this.address = {
+                houseEntrance: null,
+                houseEntranceCode: null,
+                houseFloorsCounter: null,
+                flatFloor: null,
+                flatApartmentOffice: null,
+                flatExit: null,
+                latitude: null,
+                longitude: null,
+                addressId: null,
+                fullAddress: null,
+                searchTextContent: null
+            }
+            this.fullAddressValue.innerText = this.stringEmpty;
+            this.activeAddressId = undefined;
+            this.viewAddress = undefined;
+            this.houseEntranceValue = this.stringEmpty;
+            this.houseEntranceCodeValue = this.stringEmpty;
+            this.houseFloorsCounterValue = this.stringEmpty;
+            this.flatFloorValue = this.stringEmpty;
+            this.flatApartmentOfficeValue = this.stringEmpty;
+            this.flatExitValue = this.stringEmpty;
         },
         createSearchInputWrapper: function() {
             const searchInput = this.createSearchMapInput();
@@ -327,38 +367,52 @@
             const name = 'setSearchMarker';
             this.messageService.publish({name, data});
         },
-        setSearchAddress: function(message, id, value) {
-            let address = 'Вул. '
+        setSearchAddress: function(message) {
             if(message) {
-                this.address = address + message.address + ', ';
-                this.latitude = message.latitude;
-                this.longitude = message.longitude;
+                this.viewAddress = 'Вул. ' + message.address + ', ';
+                this.address.latitude = message.latitude;
+                this.address.longitude = message.longitude;
+                this.address.addressId = message.addressId;
             }
-            switch (id) {
-            case 'houseEntrance':
-                this.houseEntranceValue = 'під\'їзд ' + value;
-                break;
-            case 'houseEntranceCode':
-                this.houseEntranceCodeValue = ' (код ' + value + ') ';
-                break;
-            case 'houseFloorsCounter':
-                this.houseFloorsCounterValue = '/' + value;
-                break;
-            case 'flatFloor':
-                this.flatFloorValue = ', поверх: ' + value;
-                break;
-            case 'flatApartmentOffice':
-                this.flatApartmentOfficeValue = 'кв. ' + value + ', '
-                break;
-            case 'flatExit':
-                this.flatExitValue = ', ' + value;
-                break;
-            default:
-                break;
+            this.setFullAddress();
+        },
+        setAddressProps: function(id, value) {
+            if(this.viewAddress) {
+                switch (id) {
+                case 'houseEntrance':
+                    this.houseEntranceValue = 'під\'їзд ' + value;
+                    this.address.houseEntrance = value;
+                    break;
+                case 'houseEntranceCode':
+                    this.houseEntranceCodeValue = ' (код ' + value + ') ';
+                    this.address.houseEntranceCode = value;
+                    break;
+                case 'houseFloorsCounter':
+                    this.houseFloorsCounterValue = '/' + value;
+                    this.address.houseFloorsCounter = value;
+                    break;
+                case 'flatFloor':
+                    this.flatFloorValue = ', поверх: ' + value;
+                    this.address.flatFloor = value;
+                    break;
+                case 'flatApartmentOffice':
+                    this.flatApartmentOfficeValue = 'кв. ' + value + ', ';
+                    this.address.flatApartmentOffice = value;
+                    break;
+                case 'flatExit':
+                    this.flatExitValue = ', ' + value;
+                    this.address.flatExit = value;
+                    break;
+                default:
+                    break;
+                }
             }
-            this.fullAddressValue.innerText = this.address + this.flatApartmentOfficeValue + this.houseEntranceValue +
-            this.houseEntranceCodeValue + this.flatFloorValue + this.houseFloorsCounterValue +
-            this.flatExitValue;
+            this.setFullAddress();
+        },
+        setFullAddress: function() {
+            this.fullAddressValue.innerText = this.viewAddress + this.flatApartmentOfficeValue + this.houseEntranceValue +
+            this.houseEntranceCodeValue + this.flatFloorValue + this.houseFloorsCounterValue + this.flatExitValue;
+            this.address.fullAddress = this.fullAddressValue.innerText;
         }
     };
 }());

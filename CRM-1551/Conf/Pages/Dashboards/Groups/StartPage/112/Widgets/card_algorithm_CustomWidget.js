@@ -86,8 +86,6 @@
             );
             tab.addEventListener('click', e => {
                 e.stopImmediatePropagation();
-                const tab = e.currentTarget;
-                this.setTabBorder(tab);
             });
             return tab;
         },
