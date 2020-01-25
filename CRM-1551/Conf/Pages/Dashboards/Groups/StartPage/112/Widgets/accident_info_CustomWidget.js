@@ -345,6 +345,7 @@
             this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
             this.messageService.subscribe('sendCallerSearchAddress', this.setCallerSearchAddress, this);
             this.messageService.subscribe('sendPatientSearchAddress', this.setPatientSearchAddress, this);
+            this.messageService.subscribe('sendInfoSearchAddress', this.sendInfoSearchAddress, this);
         },
         setCategoryList: function() {
             const queryCategoryList = {
@@ -386,6 +387,7 @@
             );
             this.setDateTimeDefaultValue();
             this.setTimerDefaultValue();
+            this.showHideElement('btnInfoAddressClear','none');
         },
         addContainerChild: function(...params) {
             params.forEach(item => this.container.appendChild(item));
@@ -1095,8 +1097,8 @@
                 {className: 'addressCaption', innerText: 'Адреса події *'}
             );
             const addressEditorWrapper = this.createAddressEditorWrapper(
-                'btnAccidentAddressClear',
-                'btnAccidentAddressEdit'
+                'btnInfoAddressClear',
+                'btnInfoAddressEdit'
             );
             const addressHeader = this.createElement(
                 'div',
@@ -1114,6 +1116,19 @@
                 'span',
                 { id: idClear, className: 'material-icons clearBtn addressBtn', innerText: 'clear'}
             );
+            btnAddressEdit.addEventListener('click', e => {
+                const btnEdit = e.currentTarget;
+                const id = btnEdit.id;
+                const message = 'sendInfoSearchAddress';
+                const name = 'showSearchAddressContainer';
+                this.messageService.publish({name, message, id});
+                this.messageService.publish({name: 'hideAllAppealLeafLetMap'});
+            });
+            btnAddressClear.addEventListener('click', e => {
+                e.stopImmediatePropagation();
+                this.clearSearchAddress();
+                this.showHideElement('btnInfoAddressClear', 'none');
+            });
             const addressEditorWrapper = this.createElement(
                 'div',
                 { className: 'addressEditorWrapper'},
@@ -1130,7 +1145,7 @@
                 'span',
                 {innerText: ' ', className: 'addressContent'}
             );
-            this.addressContent = content.innerText;
+            this.searchAddress = content;
             const addressContentWrapper = this.createElement(
                 'div',
                 {id: id, className: 'addressContentWrapper'},
@@ -1139,6 +1154,13 @@
             addressContentWrapper.style.display = 'none';
             this.addressContentWrapper = addressContentWrapper;
             return addressContentWrapper;
+        },
+        clearSearchAddress: function() {
+            this.searchAddress.innerText = ' ';
+            this.showHideElement('infoAddressContent', 'none');
+        },
+        showHideElement: function(id, status) {
+            document.getElementById(id).style.display = status;
         },
         showHideAddressContent: function(status) {
             this.addressContentWrapper.style.display = status;
@@ -1167,15 +1189,22 @@
             const name = 'saveValues';
             this.messageService.publish({ name, accidentInfo});
         },
-        setCallerSearchAddress: function(message) {
-            this.searchCallerAddress = message.address
-            this.caLLerLatitude = message.coordinates.latitude;
-            this.caLLerLongitude = message.coordinates.longitude;
+        sendInfoSearchAddress: function(message) {
+            this.searchAddress.innerText = message.address
+            this.latitude = message.coordinates.latitude;
+            this.longitude = message.coordinates.longitude;
+            this.showHideElement('infoAddressContent', 'flex');
+            this.showHideElement('btnInfoAddressClear', 'block');
         },
         setPatientSearchAddress: function(message) {
             this.searchPatientAddress = message.address
             this.patientLatitude = message.coordinates.latitude;
             this.patientLongitude = message.coordinates.longitude;
+        },
+        setCallerSearchAddress: function(message) {
+            this.searchCallerAddress = message.address
+            this.caLLerLatitude = message.coordinates.latitude;
+            this.caLLerLongitude = message.coordinates.longitude;
         }
     };
 }());
