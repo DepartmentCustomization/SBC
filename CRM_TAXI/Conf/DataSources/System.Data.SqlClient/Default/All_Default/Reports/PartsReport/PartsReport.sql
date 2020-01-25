@@ -35,7 +35,11 @@ SELECT
 	 [provider],
 	 part_price,
 	 partVal AS qty,
-	 part_price * partVal  AS sum_price
+	 IIF(
+	 RIGHT(2,CAST(part_price * partVal AS NUMERIC(15,2) ) ) = '00',
+	 part_price * partVal,
+	 CAST(part_price * partVal AS NUMERIC(15,2))
+	 ) AS sum_price
 FROM (
 	SELECT 
 	part.Id,
@@ -44,9 +48,16 @@ FROM (
 	part.manufacturer,
 	pr.[provider],
 	arr.part_price,
-	ISNULL(arr.part_quantity - ISNULL(ch.changeQty,0),0) AS partVal
+	SUM(ISNULL(arr.part_quantity - ISNULL(ch.changeQty,0),0)) AS partVal
 	FROM dbo.Parts part 
 	INNER JOIN ##Arrival arr ON arr.part_id = part.Id 
 	INNER JOIN dbo.Providers pr ON pr.Id = arr.provider_id
     LEFT JOIN ##Change ch ON ch.part_id = part.id
+	GROUP BY 
+	part.Id, 
+	part.part_name,
+	part.articul,
+	part.manufacturer,
+	pr.[provider],
+	arr.part_price
 	) Lionel_Messi ;
