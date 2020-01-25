@@ -19,6 +19,7 @@
                     <div id="containerPatient"></div>
                     `
         ,
+        patientSexValue: null,
         init: function() {
             const widget = document.getElementById('accident_patient');
             this.widget = widget;
@@ -28,6 +29,9 @@
             this.messageService.publish(message);
             this.messageService.subscribe('headerAccidentPatient', this.setHeader, this);
             this.messageService.subscribe('changeHeaderCaption', this.changeHeaderCaption, this);
+            this.messageService.subscribe('saveAppeal', this.setPatientValues, this);
+            this.messageService.subscribe('sendCallerSearchAddress', this.setCallerSearchAddress, this);
+            this.messageService.subscribe('sendInfoSearchAddress', this.setInfoSearchAddress, this);
         },
         createCaption: function(message) {
             this.container.appendChild(message.caption)
@@ -72,9 +76,9 @@
         },
         createPropertiesWrapper: function() {
             const patientSexWrapper = this.createPatientSexWrapper();
-            const patientAge = this.createTextInput('Вiк', 'text', true);
-            const patientBirthday = this.createTextInput('Дата народження', 'date', true);
-            const patientPhoneNumber = this.createTextInput('Телефон', 'text', false);
+            const patientAge = this.createTextInput('Вiк', 'text', true, 'patientAge');
+            const patientBirthday = this.createTextInput('Дата народження', 'date', true, 'patientBirthday');
+            const patientPhoneNumber = this.createTextInput('Телефон', 'text', false, 'patientPhoneNumber');
             const propertiesWrapper = this.createElement(
                 'div',
                 { className: 'propertiesWrapper bgcLightGrey'},
@@ -82,13 +86,15 @@
             );
             return propertiesWrapper;
         },
-        createTextInput: function(text, type, separator) {
+        createTextInput: function(text, type, separator, id) {
             const input = this.createElement('input',
                 {
                     type: type,
-                    className: 'input textInput'
+                    className: 'input textInput',
+                    id: id
                 }
             );
+            this.setTextInputValue(id, input)
             const placeholder = this.createElement('span', { className: 'placeholder placeholderInt',innerText: text});
             const textInputWrapper = this.createElement(
                 'div',
@@ -105,9 +111,39 @@
             }
             return wrapper;
         },
+        setTextInputValue: function(id, input) {
+            switch (id) {
+            case 'patientAge':
+                this.patientAge = input;
+                this.patientAgeValue = input.innerText;
+                break;
+            case 'patientBirthday':
+                this.patientBirthday = input;
+                this.patientBirthdayValue = input.innerText;
+                break;
+            case 'patientPhoneNumber':
+                this.patientPhoneNumber = input;
+                this.patientPhoneNumberValue = input.innerText;
+                break;
+            case 'patientSecondName':
+                this.patientSecondName = input;
+                this.patientSecondNameValue = input.innerText;
+                break;
+            case 'patientName':
+                this.patientName = input;
+                this.patientNameValue = input.innerText;
+                break;
+            case 'patientFatherName':
+                this.patientFatherName = input;
+                this.patientFatherNameValue = input.innerText;
+                break;
+            default:
+                break;
+            }
+        },
         createPatientSexWrapper: function() {
-            const checkBoxMale = this.createPatientCheckBox('Ч', 'checkBoxMale');
-            const checkBoxFemale = this.createPatientCheckBox('Ж', 'checkBoxFemale');
+            const checkBoxMale = this.createPatientCheckBox('Ч', 'Male', 2);
+            const checkBoxFemale = this.createPatientCheckBox('Ж', 'Female', 1);
             const patientSexWrapper = this.createElement(
                 'div',
                 { className: 'patientSexWrapper rightSeparator wrapBorderBot bgcLightGrey'},
@@ -115,15 +151,25 @@
             );
             return patientSexWrapper;
         },
-        createPatientCheckBox: function(text, id) {
+        createPatientCheckBox: function(text, id, valueId) {
             const label = this.createElement(
                 'span',
-                { className: 'patientCheckBoxLabel', id: id, innerText: text}
+                {className: 'patientCheckBoxLabel', innerText: text}
             );
             const checkBox = this.createElement(
                 'input',
-                { className: 'patientCheckBox checkBox', type: 'checkBox'}
+                { className: 'patientCheckBox checkBox', type: 'checkBox', id: id, valueId: valueId}
             );
+            this.setCheckBoxValue(id, checkBox);
+            checkBox.addEventListener('change', e => {
+                const checkBox = e.currentTarget;
+                this.patientSexValue = checkBox.valueId;
+                if(checkBox.id === 'Male') {
+                    this.checkBoxFemale.checked = false;
+                } else if(checkBox.id === 'Female') {
+                    this.checkBoxMale.checked = false;
+                }
+            });
             const patientCheckBoxWrapper = this.createElement(
                 'div',
                 { className: 'patientCheckBoxWrapper checkBoxWrapper bgcLightGrey'},
@@ -131,10 +177,22 @@
             );
             return patientCheckBoxWrapper;
         },
+        setCheckBoxValue: function(id, checkBox) {
+            switch (id) {
+            case 'Male':
+                this.checkBoxMale = checkBox;
+                break;
+            case 'Female':
+                this.checkBoxFemale = checkBox;
+                break;
+            default:
+                break;
+            }
+        },
         createPatientNameWrapper: function() {
-            const callerSecondName = this.createTextInput('Прізвище', 'text', true);
-            const callerName = this.createTextInput('Iм\'я', 'text', true);
-            const callerFatherName = this.createTextInput('По батькові', 'text', false);
+            const callerSecondName = this.createTextInput('Прізвище', 'text', true, 'patientSecondName');
+            const callerName = this.createTextInput('Iм\'я', 'text', true, 'patientName');
+            const callerFatherName = this.createTextInput('По батькові', 'text', false, 'patientFatherName');
             const callerNameWrapper = this.createElement(
                 'div',
                 { className: 'callerNameWrapper wrapBorderBot bgcLightGrey'},
@@ -157,7 +215,7 @@
         createAddressHeader: function() {
             const addressCaption = this.createElement(
                 'span',
-                {className: 'addressCaption', innerText: 'Адреса заявника *'}
+                {className: 'addressCaption', innerText: 'Адреса пацієнта *'}
             );
             const addressEditorWrapper = this.createAddressEditorWrapper(
                 'btnPatientAddressClear',
@@ -214,6 +272,30 @@
         changeHeaderCaption: function(message) {
             const caption = message.caption;
             this.header.lastElementChild.innerText = caption;
+        },
+        setPatientValues: function() {
+            const patientInfo = {
+                patientName: this.patientNameValue,
+                patientSecondName: this.patientSecondNameValue,
+                patientFatherName: this.patientFatherNameValue,
+                patientPhoneNumber: this.patientPhoneNumberValue,
+                patientBirthday: this.patientBirthdayValue,
+                patientAge: this.patientAgeValue,
+                patientSex: this.patientSexValue,
+                patientAddress: this.patientAddressValue
+            }
+            const name = 'saveValues';
+            this.messageService.publish({ name, patientInfo});
+        },
+        setCallerSearchAddress: function(message) {
+            this.searchCallerAddress = message.address
+            this.caLLerLatitude = message.coordinates.latitude;
+            this.caLLerLongitude = message.coordinates.longitude;
+        },
+        setInfoSearchAddress: function(message) {
+            this.searchInfoAddress = message.address
+            this.infoLatitude = message.coordinates.latitude;
+            this.infoLongitude = message.coordinates.longitude;
         }
     };
 }());

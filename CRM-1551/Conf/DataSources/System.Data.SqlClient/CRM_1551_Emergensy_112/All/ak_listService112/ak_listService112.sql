@@ -5,4 +5,4 @@
   RIGHT JOIN [dbo].[Services] s ON cis.service_id=s.id AND cis.category_id=@Category_Id
   WHERE #filter_columns#
   ORDER BY 1--#sort_columns#
- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+  offset @pageOffsetRows rows fetch next @pageLimitRows rows only

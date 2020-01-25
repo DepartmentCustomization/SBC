@@ -5,7 +5,6 @@
         formatTitle: function() {},
         init: function() {
             this.allAppealLeafLetMap = document.getElementById('allAppealLeafLetMap');
-            this.hideAllAppealLeafLetMap();
             this.messageService.subscribe('showAllAppealLeafLetMap', this.showAllAppealLeafLetMap, this);
             this.messageService.subscribe('hideAllAppealLeafLetMap', this.hideAllAppealLeafLetMap, this);
         },

@@ -223,12 +223,59 @@
         "flexGrow": 1,
         "alignSelf": "auto",
         "border": "none",
-        "children": [],
+        "children": [
+          {
+            "width": "calc(100% - 10px)",
+            "margin": "0 5px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "card_algorithm_CustomWidget",
+                "type": "CustomWidgetComponent",
+                "name": "cardAlgorithmContainer"
+              }
+            ],
+            "id": "Container-3",
+            "height": "calc(100% - 60px)",
+            "minHeight": "100px",
+            "minWidth": "100px",
+            "backgroundColor": "white",
+            "containerId": "cardAlgorithmContainer"
+          },
+          {
+            "width": "calc(100% - 10px)",
+            "margin": "0 5px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "save_button_CustomWidget",
+                "type": "CustomWidgetComponent",
+                "name": "saveButtonContainer"
+              }
+            ],
+            "id": "Container-3",
+            "height": "10px",
+            "minHeight": "10px",
+            "minWidth": "100px",
+            "backgroundColor": "transparent",
+            "containerId": "saveButtonContainer"
+          }
+        ],
         "id": "Container-2",
         "height": "calc(100% - 10px)",
         "minHeight": "calc(100% - 10px)",
         "minWidth": "100px",
-        "backgroundColor": "white"
+        "backgroundColor": "#e8e7e7"
       }
     ],
     "id": "Container-0",
