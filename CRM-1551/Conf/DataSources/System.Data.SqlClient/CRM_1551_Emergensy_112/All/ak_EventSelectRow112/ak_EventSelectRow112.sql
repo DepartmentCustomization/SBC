@@ -1,7 +1,7 @@
 
   --DECLARE @event_id INT =1;
 
-  SELECT e.Id
+  SELECT DISTINCT e.Id
       ,e.[id] [event_id]
       ,e.[receipt_date] [event_receipt_date]
       ,e.[work_line_id] [event_work_line_id]
@@ -66,11 +66,20 @@
       ,p.[longitude] [pacient_longitude]
       ,p.[latitude] [pacient_latitude]
 
-	  ,(SELECT STUFF((
-  SELECT N', '+LTRIM([service_id])
-  FROM [dbo].[EventExecutors]
-  WHERE [EventExecutors].event_id=e.id
-  FOR XML PATH('')), 1, 2, N'')) service_ids
+	--   ,(SELECT STUFF((
+  -- SELECT N', '+LTRIM([service_id])
+  -- FROM [dbo].[EventExecutors]
+  -- WHERE [EventExecutors].event_id=e.id
+  -- FOR XML PATH('')), 1, 2, N'')) service_ids
+
+  , ISNULL((SELECT TOP 1 CONVERT(BIT, 'true') FROM [dbo].[EventExecutors] WHERE [service_id]=1 AND [event_id]=e.id),'false') event_fire
+
+  , ISNULL((SELECT TOP 1 CONVERT(BIT, 'true') FROM [dbo].[EventExecutors] WHERE [service_id]=2 AND [event_id]=e.id), 'false') event_police
+  
+  , ISNULL((SELECT TOP 1 CONVERT(BIT, 'true') FROM [dbo].[EventExecutors] WHERE [service_id]=3 AND [event_id]=e.id), 'false') event_medical
+
+  , ISNULL((SELECT TOP 1 CONVERT(BIT, 'true') FROM [dbo].[EventExecutors] WHERE [service_id]=4 AND [event_id]=e.id), 'false') event_gas
+
 
   ,(SELECT STUFF((SELECT N', '+c.name
   FROM [dbo].[PersonClasses] pc
