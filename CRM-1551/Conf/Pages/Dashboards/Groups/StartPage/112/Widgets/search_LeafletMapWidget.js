@@ -38,7 +38,28 @@
                 const longitude = data.rows[0].values[indexOfLongitude];
                 this.messageService.publish({name, address, latitude, longitude});
                 this.indexAddress = indexAddress;
+                let LeafIcon = L.Icon.extend({
+                    options: {
+                        shadowUrl: '',
+                        iconSize: [28, 28],
+                        shadowSize: [50, 64]
+                    }
+                });
+                let yellowIcon = new LeafIcon({
+                    iconUrl: 'assets/img/marker-icon.png'
+                });
+                const search = L.layerGroup(this.dataForMap.search);
+                search.addTo(this.map);
+                search.clearLayers();
+                L.icon = function(options) {
+                    return new L.Icon(options);
+                };
+                if(data.rows.length) {
+                    let marker = L.marker([data.rows[0].values[indexOfLatitude], data.rows[0].values[indexOfLongitude]], {icon: yellowIcon}).addTo(this.map);
+                    this.dataForMap.search.push(marker);
+                    this.initMap(13, data.rows[0].values[indexOfLatitude], data.rows[0].values[indexOfLongitude]);
+                }
             }
-        }
+        },
     };
 }());
