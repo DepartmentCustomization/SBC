@@ -1,15 +1,56 @@
-SELECT ROW_NUMBER() OVER (ORDER BY building_id, [entrance], [entercode], [storeysnumber], [floor], [flat], [exit], [moreinformation], [longitude], [latitude]) Id,
-  [entrance], [entercode], [storeysnumber], [floor], [flat], [exit], [moreinformation], [longitude], [latitude],
-  ISNULL(s.name, N'')+ISNULL(b.name, N'') AdressSearch
+  --DECLARE @search NVARCHAR(100)=N'Ломоносова';
+
+  
+
+-- наша входная строка с айдишниками
+DECLARE @input_str NVARCHAR(MAX) = @search+N' ';
+-- создаем таблицу в которую будем
+-- записывать наши айдишники
+DECLARE @table TABLE (id NVARCHAR(200));
+-- создаем переменную, хранящую разделитель
+DECLARE @delimeter NVARCHAR(1) = ' ';
+-- определяем позицию первого разделителя
+DECLARE @pos INT = charindex(@delimeter,@input_str);
+-- создаем переменную для хранения
+-- одного айдишника
+DECLARE @id NVARCHAR(200);
+WHILE (@pos != 0)
+BEGIN
+    -- получаем айдишник
+    SET @id = SUBSTRING(@input_str, 1, @pos-1);
+    -- записываем в таблицу
+    INSERT INTO @table (id) VALUES(@id);
+    -- сокращаем исходную строку на
+    -- размер полученного айдишника
+    -- и разделителя
+    SET @input_str = SUBSTRING(@input_str, @pos+1, LEN(@input_str));
+    -- определяем позицию след. разделителя
+    SET @pos = CHARINDEX(@delimeter,@input_str);
+END
+
+DECLARE @ex_parameter NVARCHAR(MAX)=
+
+CASE 
+WHEN @search IS NULL OR @search=N' ' OR @search=N','
+THEN N'1=2'
+ELSE
+(SELECT STUFF(
+(SELECT N' AND AddressSearch LIKE''%'+Id+N'%''' 
+FROM @table
+FOR XML PATH('')), 1, 4, N'')) END;
+
+
+  DECLARE @exec NVARCHAR(MAX)=
+
+  N'SELECT Id, geolocation_lat, geolocation_lon, AddressSearch
   FROM
-  (
-  SELECT [entrance], [entercode], [storeysnumber], [floor], [flat], [exit], [moreinformation], [longitude], [latitude], building_id
-  FROM [dbo].[Persons]
-  UNION
-  SELECT [entrance], [entercode], [storeysnumber], [floor], [flat/office], [exit], [moreinformation], [longitude], [latitude], building_id
-  FROM [dbo].[Events]) t
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] b ON T.building_id=b.Id
-  LEFT JOIN [CRM_1551_Analitics].[dbo].Streets s ON b.street_id=s.Id
-  WHERE #filter_columns#
-  ORDER BY 1--#sort_columns#
-  OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only
+  (SELECT b.Id, o.geolocation_lat, o.geolocation_lon, 
+  ISNULL(s.name+N'' '',N'''')+ISNULL(LTRIM(b.number),N'''')+ISNULL(b.letter,N'''') AddressSearch
+  FROM [CRM_1551_Analitics].[dbo].[Buildings] b 
+  INNER JOIN [CRM_1551_Analitics].[dbo].[Objects] o ON o.builbing_id=b.Id
+  INNER JOIN [CRM_1551_Analitics].[dbo].Streets s ON b.street_id=s.Id
+  WHERE o.geolocation_lat IS NOT NULL AND o.geolocation_lon IS NOT NULL
+  ) t
+  WHERE '+@ex_parameter;
+  
+  EXEC(@exec);
