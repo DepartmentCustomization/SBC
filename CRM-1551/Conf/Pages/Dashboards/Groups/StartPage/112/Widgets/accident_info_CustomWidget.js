@@ -197,7 +197,7 @@
                             max-width: 100%;
                             vertical-align: bottom;
                             text-align: inherit;
-                            font-size: 22px;
+                            font-size: 16px;
                             margin-top: 10px;
                         }
                         .placeholder{
@@ -211,7 +211,9 @@
                             display: flex;
                         }
                         .accidentDateTimeInput{
+                            outline: none;
                             border: none;
+                            background-color: inherit;
                         }
                         .accidentTimerWrapper{
                             display: flex;
@@ -264,6 +266,19 @@
                         .accidentPropertiesWrapper{
                             display: flex;
                         }
+
+                        #selectBackground{
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            height: 100%;
+                            width: 100%;
+                            background-color: rgba(128, 128, 128, 0.3);
+                            z-index: 9000;
+                        }
+
                 </style>
                     <div id="containerInfo"></div>
                     `
@@ -276,6 +291,10 @@
         categoryList: [],
         callerTypeList: [],
         workLineList: [],
+        differentMinutesValue: 0,
+        differentHoursValue: 0,
+        differentDaysValue: 0,
+        activeCheckBox: null,
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
@@ -298,9 +317,34 @@
             };
             const externListType = 'externListType';
             this.queryExecutor(queryExternList, this.getList.bind(this, externListType), this);
+            const queryCallerTypeList = {
+                queryCode: 'ak_listApplicantTypes112',
+                parameterValues: [
+                    { key: '@pageOffsetRows', value: 0},
+                    { key: '@pageLimitRows', value: 10}
+                ],
+                filterColumns: [],
+                limit: -1
+            };
+            const callerTypeList = 'callerTypeList';
+            this.queryExecutor(queryCallerTypeList, this.getList.bind(this, callerTypeList), this);
+            const queryWorkLineList = {
+                queryCode: 'ak_listWorkLines112',
+                parameterValues: [
+                    { key: '@pageOffsetRows', value: 0},
+                    { key: '@pageLimitRows', value: 10}
+                ],
+                filterColumns: [],
+                limit: -1
+            };
+            const workLineList = 'workLineList';
+            this.queryExecutor(queryWorkLineList, this.getList.bind(this, workLineList), this);
             this.showPreloader = false;
             this.showPreloader = false;
             this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
+            this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
+            this.messageService.subscribe('sendCallerSearchAddress', this.setCallerSearchAddress, this);
+            this.messageService.subscribe('sendPatientSearchAddress', this.setPatientSearchAddress, this);
         },
         setCategoryList: function() {
             const queryCategoryList = {
@@ -340,6 +384,8 @@
                 accidentTextContentWrapper,
                 addressWrapper
             );
+            this.setDateTimeDefaultValue();
+            this.setTimerDefaultValue();
         },
         addContainerChild: function(...params) {
             params.forEach(item => this.container.appendChild(item));
@@ -386,15 +432,15 @@
                 const value = Number(btn.value) === 0 ? 1 : 0;
                 const remove = value === 0 ? 'accidentBtnChecked' : 'accidentBtnUnchecked';
                 const add = value === 0 ? 'accidentBtnUnchecked' : 'accidentBtnChecked';
-                this.changeAccidentBtn(id, value, remove, add, btn);
+                this.changeAccidentBtn(id, value, remove, add);
             });
             return btn;
         },
-        changeAccidentBtn: function(id, value, remove, add, btn) {
+        changeAccidentBtn: function(id, value, remove, add) {
             document.getElementById(id).value = value;
             document.getElementById(id).classList.remove(remove);
             document.getElementById(id).classList.add(add);
-            this.changeInfoProps(id, value, btn);
+            this.changeInfoProps(id, value);
         },
         changeInfoProps: function(id, value) {
             if(id === 'btnMedical') {
@@ -429,13 +475,10 @@
             }
             this.setCategoryList();
         },
-        changeCategoryList: function() {
-            this.police = true;
-        },
         createCategories: function() {
             const btnExtern = this.createBtnExtern();
             const category = {
-                placeholder: 'Категория *',
+                placeholder: 'Категорія *',
                 borderRight: false,
                 array: this.categoryList,
                 id: 'categoryList',
@@ -517,7 +560,9 @@
             arrow.addEventListener('click', e => {
                 e.stopImmediatePropagation();
                 const listItems = this.setTrueItemsList(selectInput.id, input);
-                this.showModalList(selectWrapper, selectInput.id, inputWrapper, listItems);
+                if(listItems.length) {
+                    this.showModalList(selectWrapper, selectInput.id, inputWrapper, listItems);
+                }
             });
             return selectWrapper;
         },
@@ -544,57 +589,73 @@
         showModalList:  function(container, inputId, wrapper, listItems) {
             const status = wrapper.showModal;
             const changeText = wrapper.changeText;
-            if(!status) {
-                if(!changeText) {
-                    document.getElementById(inputId);
-                }
-                wrapper.showModal = !status;
-                const modalList = this.createElement('div',
-                    {
-                        className: 'modalList'
+            if(this.activeModalContainer === undefined) {
+                this.addSelectBackground(wrapper);
+                if(!status) {
+                    if(!changeText) {
+                        document.getElementById(inputId);
                     }
-                )
-                if(listItems) {
-                    listItems.forEach(item => {
-                        const id = item.id;
-                        const innerText = item.value;
-                        const className = 'listItem';
-                        const listItem = this.createElement('div', {id, innerText, className});
-                        listItem.addEventListener('click', e => {
-                            const target = e.currentTarget;
-                            const id = Number(target.id);
-                            const value = target.innerText;
-                            switch (inputId) {
-                            case 'btnExtern':
-                                this.changeExternBtn(inputId);
-                                this.changeButtons(inputId);
-                                this.changeCategoryInput(value, id);
-                                break;
-                            case '_valueCat':
-                                this.changeButtons(inputId);
-                                this.changeCategoryInput(value, id);
-                                break;
-                            case '_valueCallerType':
-                                this.changeCallerTypeInput(value, id);
-                                break;
-                            case '_valueWorkLine':
-                                this.changeWorkLineInput(value, id);
-                                break;
-                            default:
-                                break;
-                            }
-                            this.hideModal(wrapper);
+                    wrapper.showModal = !status;
+                    const modalList = this.createElement('div',
+                        {
+                            className: 'modalList'
+                        }
+                    );
+                    if(listItems) {
+                        listItems.forEach(item => {
+                            const id = item.id;
+                            const innerText = item.value;
+                            const className = 'listItem';
+                            const listItem = this.createElement('div', {id, innerText, className});
+                            listItem.addEventListener('click', e => {
+                                const target = e.currentTarget;
+                                const id = Number(target.id);
+                                const value = target.innerText;
+                                switch (inputId) {
+                                case 'btnExtern':
+                                    this.changeExternBtn(inputId);
+                                    this.getItemProps(id);
+                                    this.changeCategoryInput(value, id);
+                                    break;
+                                case '_valueCat':
+                                    this.getItemProps(id);
+                                    this.changeCategoryInput(value, id);
+                                    break;
+                                case '_valueCallerType':
+                                    this.changeCallerTypeInput(value, id);
+                                    break;
+                                case '_valueWorkLine':
+                                    this.changeWorkLineInput(value, id);
+                                    break;
+                                default:
+                                    break;
+                                }
+                                this.removeSelectBackground(wrapper, '1');
+                            });
+                            modalList.appendChild(listItem);
                         });
-                        modalList.appendChild(listItem);
-                    });
-                    container.appendChild(modalList);
-                }
-                this.activeModalContainer = container;
-            } else {
-                if(listItems.length) {
-                    this.hideModal(wrapper);
+                        container.appendChild(modalList);
+                    }
+                    this.activeModalContainer = container;
+                } else {
+                    if(listItems.length) {
+                        this.removeSelectBackground(wrapper, '2');
+                    }
                 }
             }
+        },
+        addSelectBackground: function(wrapper) {
+            const selectBackground = this.createElement('div', { id: 'selectBackground'});
+            this.selectBackground = selectBackground;
+            selectBackground.addEventListener('click', e => {
+                e.stopImmediatePropagation();
+                this.removeSelectBackground(wrapper, '3');
+            });
+            this.container.appendChild(selectBackground)
+        },
+        removeSelectBackground: function(wrapper) {
+            this.container.removeChild(this.selectBackground);
+            this.hideModal(wrapper);
         },
         changeCategoryInput: function(value, id) {
             document.getElementById('categoryList').value = value;
@@ -612,8 +673,76 @@
             document.getElementById(inputId).classList.remove('btnExternUnchecked');
             document.getElementById(inputId).classList.add('btnExternChecked');
         },
-        changeButtons: function() {
-            this.fire = false;
+        getItemProps: function(id) {
+            const queryItemId = {
+                queryCode: 'ak_listService112',
+                parameterValues: [
+                    { key: '@pageOffsetRows', value: 0},
+                    { key: '@pageLimitRows', value: 10},
+                    { key: '@Category_Id', value: id}
+                ],
+                filterColumns: [],
+                limit: -1
+            };
+            this.queryExecutor(queryItemId, this.changeServiceButtons, this);
+        },
+        changeServiceButtons: function(data) {
+            const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name');
+            const indexService = data.columns.findIndex(el => el.code.toLowerCase() === 'service_is');
+            this.setAccidentBtnGlobalVariables(data);
+            for (let i = 0; i < data.rows.length; i++) {
+                const element = data.rows[i];
+                const service = element.values[indexName];
+                const btnId = this.getServiceBtnId(service);
+                const dataValue = element.values[indexService];
+                const value = dataValue === 'true' ? 1 : 0;
+                const remove = value === 0 ? 'accidentBtnChecked' : 'accidentBtnUnchecked';
+                const add = value === 0 ? 'accidentBtnUnchecked' : 'accidentBtnChecked';
+                this.changeAccidentBtn(btnId, value, remove, add);
+            }
+        },
+        getServiceBtnId: function(service) {
+            let value = undefined;
+            switch (service) {
+            case '101':
+                value = 'btnFire'
+                break;
+            case '102':
+                value = 'btnPolice'
+                break;
+            case '103':
+                value = 'btnMedical'
+                break;
+            case '104':
+                value = 'btnGas'
+                break;
+            default:
+                break;
+            }
+            return value
+        },
+        setAccidentBtnGlobalVariables: function(data) {
+            const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'name');
+            const indexService = data.columns.findIndex(el => el.code.toLowerCase() === 'service_is');
+            data.rows.forEach(service => {
+                const name = service.values[indexName];
+                switch (name) {
+                case '101':
+                    this.fire = service.values[indexService];
+                    break;
+                case '102':
+                    this.police = service.values[indexService];
+                    break;
+                case '103':
+                    this.medical = service.values[indexService];
+                    break;
+                case '104':
+                    this.gas = service.values[indexService];
+                    break;
+                default:
+                    break;
+                }
+            });
         },
         hideModal: function(wrapper) {
             this.activeModalContainer.removeChild(this.activeModalContainer.lastElementChild);
@@ -621,10 +750,16 @@
             wrapper.showModal = false;
         },
         getList: function(type, data) {
-            let list = [];
+            let list = undefined;
             switch (type) {
             case 'externListType':
                 list = this.externList
+                break;
+            case 'callerTypeList':
+                list = this.callerTypeList
+                break;
+            case 'workLineList':
+                list = this.workLineList
                 break;
             case 'categoryListType':
                 if(this.categoryList.length) {
@@ -635,14 +770,16 @@
             default:
                 break;
             }
-            data.rows.forEach(row => {
-                const indexId = 0;
-                const indexValue = 1;
-                const id = row.values[indexId];
-                const value = row.values[indexValue];
-                const listItem = { id, value };
-                list.push(listItem);
-            });
+            if(list) {
+                data.rows.forEach(row => {
+                    const indexId = 0;
+                    const indexValue = 1;
+                    const id = row.values[indexId];
+                    const value = row.values[indexValue];
+                    const listItem = { id, value };
+                    list.push(listItem);
+                });
+            }
         },
         createAccidentDateTimer: function() {
             const accidentDateWrapper = this.createAccidentDateWrapper();
@@ -662,6 +799,20 @@
                     id: 'accidentDateTimeInput'
                 }
             );
+            accidentDateTimeInput.addEventListener('change', e => {
+                const target = e.currentTarget;
+                const oldMsSec = new Date(this.accidentDateTimeValue).setMilliseconds('0');
+                const newMsSec = new Date(target.value).setMilliseconds('0');
+                const differenceTime = (oldMsSec - newMsSec) / 1000;
+                if(differenceTime > 0) {
+                    this.setTimerDifferentTime(differenceTime);
+                } else {
+                    this.setDifferentDays('0');
+                    this.setDifferentHours('0');
+                    this.setDifferentMinutes('0');
+                }
+            });
+            this.accidentDateTimeInput = accidentDateTimeInput;
             const accidentDateCaption = this.createElement(
                 'div',{ className: 'placeholder', innerText: 'Дата та час'}
             );
@@ -678,22 +829,90 @@
             );
             return accidentDateWrapper;
         },
+        setTimerDifferentTime: function(differenceTime) {
+            const oneMinute = 60;
+            const oneHour = 60 * 60;
+            const oneDay = 60 * 60 * 24;
+            if(differenceTime >= oneDay) {
+                const days = Math.round(differenceTime / oneDay);
+                const hours = Math.round(differenceTime / oneHour);
+                const hour = Math.round(hours % 24);
+                const minutes = Math.round(differenceTime / oneMinute);
+                const minute = Math.round(minutes % oneMinute);
+                this.setDifferentDays(days);
+                this.setDifferentHours(hour);
+                this.setDifferentMinutes(minute);
+            } else if(differenceTime >= oneHour) {
+                const hours = Math.round(differenceTime / oneHour);
+                const minutes = Math.round(differenceTime / oneMinute);
+                const minute = Math.round(minutes % oneMinute);
+                this.setDifferentDays(this.differentDaysValue);
+                this.setDifferentHours(hours);
+                this.setDifferentMinutes(minute);
+            } else if(differenceTime >= oneMinute) {
+                this.setDifferentDays('0');
+                this.setDifferentHours('0');
+                this.setDifferentMinutes(differenceTime / oneMinute);
+            }
+        },
+        setDifferentMinutes: function(differentMinutes) {
+            this.differentMinutesValue = differentMinutes;
+            document.getElementById('differentMinutes').value = this.differentMinutesValue;
+        },
+        setDifferentHours: function(differentHours) {
+            this.differentHoursValue = differentHours;
+            document.getElementById('differentHours').value = this.differentHoursValue;
+        },
+        setDifferentDays: function(differentDays) {
+            this.differentDaysValue = differentDays;
+            document.getElementById('differentDays').value = this.differentDaysValue;
+        },
+        setDateTimeValues: function() {
+            let date = new Date();
+            let DD = date.getDate().toString();
+            let MM = (date.getMonth() + 1).toString();
+            let YYYY = date.getFullYear().toString();
+            let hh = date.getHours().toString();
+            let mm = date.getMinutes().toString();
+            DD = DD.length === 1 ? '0' + DD : DD;
+            MM = MM.length === 1 ? '0' + MM : MM;
+            hh = hh.length === 1 ? '0' + hh : hh;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return YYYY + '-' + MM + '-' + DD + 'T' + hh + ':' + mm;
+        },
+        setDateTimeDefaultValue: function() {
+            this.accidentDateTimeValue = this.setDateTimeValues();
+            this.accidentDateTimeInput.value = this.accidentDateTimeValue;
+        },
         createAccidentTimerWrapper: function() {
-            const days = this.createIntegerInput('дн');
-            const hours = this.createIntegerInput('г');
-            const minutes = this.createIntegerInput('хвилини назад');
+            const days = this.createIntegerInput('дн', 'differentDays');
+            const hours = this.createIntegerInput('г', 'differentHours');
+            const minutes = this.createIntegerInput('хвилини назад', 'differentMinutes');
             const accidentTimerWrapper = this.createElement(
                 'div',{ className: 'accidentTimerWrapper', id: 'accidentTimerWrapper' },days, hours, minutes
             );
             return accidentTimerWrapper;
         },
-        createIntegerInput: function(text) {
+        createIntegerInput: function(text, id) {
             const input = this.createElement('input',
                 {
+                    id: id,
                     type: 'text',
-                    className: 'input integerInput'
+                    className: 'input integerInput',
+                    value: ' '
                 }
             );
+            input.disabled = true;
+            if(text === 'дн') {
+                this.differentDays = input;
+                this.differentDaysValue = input.value;
+            } else if(text === 'г') {
+                this.differentHours = input;
+                this.differentHoursValue = input.value;
+            } else if(text === 'хвилини назад') {
+                this.differentMinutes = input;
+                this.differentMinutesValue = input.value;
+            }
             const placeholder = this.createElement('span', { className: 'placeholder placeholderInt',innerText: text});
             const integerInput = this.createElement('div',
                 {
@@ -705,6 +924,9 @@
                 'div', {className: 'integerInput borderBottom'}, integerInput
             )
             return wrapper;
+        },
+        setTimerDefaultValue: function() {
+            this.differentMinutes.value = '0';
         },
         createAccidentPropertiesWrapper: function() {
             const callerType = {
@@ -844,6 +1066,7 @@
                 'textarea',
                 { id: 'accidentTextContent', placeholder: 'Опис...'}
             );
+            this.accidentTextContentValue = accidentTextContent;
             const accidentTextContentWrapper = this.createElement(
                 'div',
                 { className: 'accidentTextContentWrapper wrapBorderBot topLeftRightPadding botPadding' },
@@ -854,7 +1077,7 @@
         createAddressWrapper: function() {
             const addressHeader = this.createAddressHeader();
             const addressContentWrapper = this.createAddressContentWrapper(
-                'callerAddressContent'
+                'infoAddressContent'
             );
             const addressWrapper = this.createElement(
                 'div',
@@ -869,7 +1092,7 @@
         createAddressHeader: function() {
             const addressCaption = this.createElement(
                 'span',
-                {className: 'addressCaption', innerText: 'Адреса заявника *'}
+                {className: 'addressCaption', innerText: 'Адреса події *'}
             );
             const addressEditorWrapper = this.createAddressEditorWrapper(
                 'btnAccidentAddressClear',
@@ -925,6 +1148,34 @@
         },
         hideMedicalCheckBoxWrapper: function() {
             this.medicalCheckBoxWrapper.style.display = 'none';
+        },
+        setInfoValues: function() {
+            const activeCheckBoxId = this.activeCheckBox !== null ? this.activeCheckBox.id : null;
+            const accidentInfo = {
+                fire: this.fire,
+                police: this.police,
+                medical: this.medical,
+                gas: this.gas,
+                categoryId: this._categoryValueId,
+                callerType: this._callerTypeValueId,
+                workLineId: this._workLineValueId,
+                callMedical: activeCheckBoxId,
+                accidentDateTime: this.accidentDateTimeValue,
+                accidentComment: this.accidentTextContentValue.value,
+                accidentAddress: null
+            }
+            const name = 'saveValues';
+            this.messageService.publish({ name, accidentInfo});
+        },
+        setCallerSearchAddress: function(message) {
+            this.searchCallerAddress = message.address
+            this.caLLerLatitude = message.coordinates.latitude;
+            this.caLLerLongitude = message.coordinates.longitude;
+        },
+        setPatientSearchAddress: function(message) {
+            this.searchPatientAddress = message.address
+            this.patientLatitude = message.coordinates.latitude;
+            this.patientLongitude = message.coordinates.longitude;
         }
     };
 }());
