@@ -21,6 +21,19 @@
         ,
         patientSexValue: null,
         init: function() {
+            this.address = {
+                houseEntrance: null,
+                houseEntranceCode: null,
+                houseFloorsCounter: null,
+                flatFloor: null,
+                flatApartmentOffice: null,
+                flatExit: null,
+                latitude: null,
+                longitude: null,
+                addressId: null,
+                fullAddress: null,
+                searchTextContent: null
+            }
             const widget = document.getElementById('accident_patient');
             this.widget = widget;
             const status = 'none';
@@ -302,9 +315,9 @@
                 secondName: this.patientSecondNameValue,
                 fatherName: this.patientFatherNameValue,
                 phoneNumber: this.patientPhoneNumberValue,
-                birthday: this.patientBirthdayValue,
+                birthday: new Date(this.patientBirthdayValue),
                 age: this.patientAgeValue,
-                sex: this.patientSexValue,
+                sex: Number(this.patientSexValue),
                 address: this.address
             }
             const name = 'saveValues';

@@ -111,6 +111,7 @@
             } return element;
         },
         afterViewInit: function() {
+            this.messageService.publish({name: 'sendDefaultAddress', address: null});
             const container = document.getElementById('searchAddressFields');
             this.container = container;
             const housePropertiesWrapper = this.createHousePropertiesWrapper();
@@ -381,19 +382,19 @@
                 switch (id) {
                 case 'houseEntrance':
                     this.houseEntranceValue = 'під\'їзд ' + value;
-                    this.address.houseEntrance = value;
+                    this.address.houseEntrance = Number(value);
                     break;
                 case 'houseEntranceCode':
                     this.houseEntranceCodeValue = ' (код ' + value + ') ';
-                    this.address.houseEntranceCode = value;
+                    this.address.houseEntranceCode = Number(value);
                     break;
                 case 'houseFloorsCounter':
                     this.houseFloorsCounterValue = '/' + value;
-                    this.address.houseFloorsCounter = value;
+                    this.address.houseFloorsCounter = Number(value);
                     break;
                 case 'flatFloor':
                     this.flatFloorValue = ', поверх: ' + value;
-                    this.address.flatFloor = value;
+                    this.address.flatFloor = Number(value);
                     break;
                 case 'flatApartmentOffice':
                     this.flatApartmentOfficeValue = 'кв. ' + value + ', ';

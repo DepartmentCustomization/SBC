@@ -101,6 +101,19 @@
             Dumb: {id: 0, value: 0}
         },
         init: function() {
+            this.address = {
+                houseEntrance: null,
+                houseEntranceCode: null,
+                houseFloorsCounter: null,
+                flatFloor: null,
+                flatApartmentOffice: null,
+                flatExit: null,
+                latitude: null,
+                longitude: null,
+                addressId: null,
+                fullAddress: null,
+                searchTextContent: null
+            }
             this.messageService.subscribe('captionAccidentCaller', this.createCaption, this);
             this.messageService.subscribe('headerAccidentCaller', this.setHeader, this);
             this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
@@ -118,8 +131,6 @@
             };
             this.queryExecutor(queryStatusCaller, this.setStatusCallerId, this);
             this.showPreloader = false;
-            this.latitude = null;
-            this.longitude = null;
         },
         setStatusCallerId: function(data) {
             const indexId = data.columns.findIndex(el => el.code.toLowerCase() === 'id');
@@ -528,7 +539,7 @@
                 secondName: this.callerSecondNameValue,
                 fatherName: this.callerFatherNameValue,
                 phone: this.callerPhoneValue ,
-                birthday: this.callerBirthdayValue,
+                birthday: new Date(this.callerBirthdayValue),
                 status: callerStatus,
                 address: this.address
             }

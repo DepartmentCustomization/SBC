@@ -75,231 +75,246 @@
                 this.counter++;
             }
             if(this.counter === 3) {
-                debugger;
                 this.counter = 0;
+                this.setQuerySave();
             }
+        },
+        setQuerySave: function() {
+            this.showPagePreloader('Зачекайте, данні зберігається');
+            const querySave = {
+                queryCode: 'ak_ButtonSave112',
+                parameterValues: this.setQueryParameters(),
+                limit: -1
+            };
+            this.queryExecutor(querySave, this.getQueryResponse, this);
         },
         setQueryParameters: function() {
             const parameters = [
                 {
-                  "key": "@user_id",
-                  "value": "user_id",
+                    'key': '@applicant_last_name',
+                    'value': this.applicant.secondName
                 },
                 {
-                  "key": "@applicant_last_name",
-                  "value": "applicant_last_name"
+                    'key': '@applicant_first_name',
+                    'value': this.applicant.name
                 },
                 {
-                  "key": "@applicant_first_name",
-                  "value": "applicant_first_name"
+                    'key': '@applicant_middle_name',
+                    'value': this.applicant.fatherName
                 },
                 {
-                  "key": "@applicant_middle_name",
-                  "value": "applicant_middle_name"
+                    'key': '@applicant_person_phone',
+                    'value': this.applicant.phone
                 },
                 {
-                  "key": "@applicant_person_phone",
-                  "value": "applicant_person_phone"
+                    'key': '@applicant_sex',
+                    'value': null
                 },
                 {
-                  "key": "@applicant_sex",
-                  "value": "applicant_sex"
+                    'key': '@applicant_birth_date',
+                    'value': this.applicant.birthday
                 },
                 {
-                  "key": "@applicant_birth_date",
-                  "value": "applicant_birth_date"
+                    'key': '@applicant_building_id',
+                    'value': this.applicant.address.addressId
                 },
                 {
-                  "key": "@applicant_building_id",
-                  "value": "applicant_building_id"
+                    'key': '@applicant_entrance',
+                    'value': this.applicant.address.houseEntrance
                 },
                 {
-                  "key": "@applicant_entrance",
-                  "value": "applicant_entrance"
+                    'key': '@applicant_entercode',
+                    'value': this.applicant.address.houseEntranceCode
                 },
                 {
-                  "key": "@applicant_entercode",
-                  "value": "applicant_entercode"
+                    'key': '@applicant_storeysnumber',
+                    'value': this.applicant.address.houseFloorsCounter
                 },
                 {
-                  "key": "@applicant_storeysnumber",
-                  "value": "applicant_storeysnumber"
+                    'key': '@applicant_floor',
+                    'value': this.applicant.address.flatFloor
                 },
                 {
-                  "key": "@applicant_floor",
-                  "value": "applicant_floor"
+                    'key': '@applicant_flat',
+                    'value': this.applicant.address.flatApartmentOffice
                 },
                 {
-                  "key": "@applicant_flat",
-                  "value": "applicant_flat"
+                    'key': '@applicant_exit',
+                    'value': this.applicant.address.flatExit
                 },
                 {
-                  "key": "@applicant_exit",
-                  "value": "applicant_exit"
+                    'key': '@applicant_moreinformation',
+                    'value': this.applicant.address.searchTextContent
                 },
                 {
-                  "key": "@applicant_moreinformation",
-                  "value": "applicant_moreinformation"
+                    'key': '@applicant_longitude',
+                    'value': this.applicant.address.longitude
                 },
                 {
-                  "key": "@applicant_longitude",
-                  "value": "applicant_longitude"
-                }, 
-                {
-                  "key": "@applicant_latitude",
-                  "value": "applicant_latitude"
+                    'key': '@applicant_latitude',
+                    'value': this.applicant.address.latitude
                 },
                 {
-                  "key": "@pacient_last_name",
-                  "value": "pacient_last_name"
+                    'key': '@pacient_last_name',
+                    'value': this.applicant.secondName
                 },
                 {
-                  "key": "@pacient_first_name",
-                  "value": "pacient_first_name"
+                    'key': '@pacient_first_name',
+                    'value': this.applicant.name
                 },
                 {
-                  "key": "@pacient_middle_name",
-                  "value": "pacient_middle_name"
+                    'key': '@pacient_middle_name',
+                    'value': this.applicant.fatherName
                 },
                 {
-                  "key": "@pacient_person_phone",
-                  "value": "pacient_person_phone"
+                    'key': '@pacient_person_phone',
+                    'value': this.patient.phoneNumber
                 },
                 {
-                  "key": "@pacient_sex",
-                  "value": "pacient_sex"
+                    'key': '@pacient_sex',
+                    'value': this.patient.sex
                 },
                 {
-                  "key": "@pacient_birth_date",
-                  "value": "pacient_birth_date"
+                    'key': '@pacient_birth_date',
+                    'value': this.patient.birthday
                 },
                 {
-                  "key": "@pacient_building_id",
-                  "value": "pacient_building_id"
+                    'key': '@pacient_building_id',
+                    'value': this.patient.address.addressId
                 },
                 {
-                  "key": "@pacient_entrance",
-                  "value": "pacient_entrance"
+                    'key': '@pacient_entrance',
+                    'value': this.patient.address.houseEntrance
                 },
                 {
-                  "key": "@pacient_entercode",
-                  "value": "pacient_entercode"
+                    'key': '@pacient_entercode',
+                    'value': this.patient.address.houseEntranceCode
                 },
                 {
-                  "key": "@pacient_storeysnumber",
-                  "value": "pacient_storeysnumber"
+                    'key': '@pacient_storeysnumber',
+                    'value': this.patient.address.houseFloorsCounter
                 },
                 {
-                  "key": "@pacient_floor",
-                  "value": "pacient_floor"
+                    'key': '@pacient_floor',
+                    'value': this.patient.address.flatFloor
                 },
                 {
-                  "key": "@pacient_flat",
-                  "value": "pacient_flat"
+                    'key': '@pacient_flat',
+                    'value': this.patient.address.flatApartmentOffice
                 },
                 {
-                  "key": "@pacient_exit",
-                  "value": "pacient_exit"
+                    'key': '@pacient_exit',
+                    'value': this.patient.address.flatExit
                 },
                 {
-                  "key": "@pacient_moreinformation",
-                  "value": "pacient_moreinformation"
+                    'key': '@pacient_moreinformation',
+                    'value': this.patient.address.searchTextContent
                 },
                 {
-                  "key": "@pacient_longitude",
-                  "value": "pacient_longitude"
-                }, 
-                {
-                  "key": "@pacient_latitude",
-                  "value": "pacient_latitude"
+                    'key': '@pacient_longitude',
+                    'value': this.patient.address.longitude
                 },
                 {
-                  "key": "@event_receipt_date",
-                  "value": "event_receipt_date"
+                    'key': '@pacient_latitude',
+                    'value': this.patient.address.latitude
                 },
                 {
-                  "key": "@event_work_line_id",
-                  "value": "event_work_line_id"
+                    'key': '@event_receipt_date',
+                    'value': this.event.callDateTime
                 },
                 {
-                  "key": "@event_work_line_value",
-                  "value": "event_work_line_value"
+                    'key': '@event_event_date',
+                    'value': this.event.accidentDateTime
                 },
                 {
-                  "key": "@event_category_id",
-                  "value": "event_category_id"
-                }, 
-                {
-                  "key": "@event_event_date",
-                  "value": "event_event_date"
-                }, 
-                {
-                  "key": "@event_applicant_type_id",
-                  "value": "event_applicant_type_id"
+                    'key': '@event_work_line_id',
+                    'value': this.event.workLineId
                 },
                 {
-                  "key": "@event_building_id",
-                  "value": "event_building_id"
+                    'key': '@event_work_line_value',
+                    'value': this.event.workLineValue
                 },
                 {
-                  "key": "@event_entrance",
-                  "value": "event_entrance"
+                    'key': '@event_category_id',
+                    'value': this.event.categoryId
                 },
                 {
-                  "key": "@event_entercode",
-                  "value": "event_entercode"
-                }, 
-                {
-                  "key": "@event_storeysnumber",
-                  "value": "event_storeysnumber",
-                  "ParameterType": "Integer"
-                }, 
-                {
-                  "key": "@event_floor",
-                  "value": "event_floor"
-                }, 
-                {
-                  "key": "@event_flat_office",
-                  "value": "event_flat_office"
+                    'key': '@event_applicant_type_id',
+                    'value': this.event.callerTypeId
                 },
                 {
-                  "key": "@event_exit",
-                  "value": "event_exit"
+                    'key': '@event_building_id',
+                    'value': this.event.address.addressId
                 },
                 {
-                  "key": "@event_moreinformation",
-                  "value": "event_moreinformation"
+                    'key': '@event_entrance',
+                    'value': this.event.address.houseEntrance
                 },
                 {
-                  "key": "@event_longitude",
-                  "value": "event_longitude"
-                }, 
-                {
-                  "key": "@event_latitude",
-                  "value": "event_latitude"
+                    'key': '@event_entercode',
+                    'value': this.event.address.houseEntranceCode
                 },
                 {
-                  "key": "@event_content",
-                  "value": "event_content"
-                }, 
-                {
-                  "key": "@event_sipcallid",
-                  "value": "event_sipcallid"
+                    'key': '@event_floor',
+                    'value': this.event.address.flatFloor
                 },
                 {
-                  "key": "@service_ids",
-                  "value": "service_ids"
-                }, 
-                {
-                  "key": "@applicant_classes_ids",
-                  "value": "applicant_classes_ids"
+                    'key': '@event_flat_office',
+                    'value': this.event.address.flatApartmentOffice
                 },
                 {
-                  "key": "@pacient_classes_ids",
-                  "value": "pacient_classes_ids"
+                    'key': '@event_exit',
+                    'value': this.event.address.flatExit
+                },
+                {
+                    'key': '@event_moreinformation',
+                    'value': this.event.address.searchTextContent
+                },
+                {
+                    'key': '@event_longitude',
+                    'value': this.event.address.longitude
+                },
+                {
+                    'key': '@event_latitude',
+                    'value': this.event.address.latitude
+                },
+                {
+                    'key': '@event_content',
+                    'value': this.event.accidentComment
+                },
+                {
+                    'key': '@event_sipcallid',
+                    'value': null
+                },
+                {
+                    'key': '@service_ids',
+                    'value': null
+                },
+                {
+                    'key': '@applicant_classes_ids',
+                    'value': this.applicant.callerStatus
+                },
+                {
+                    'key': '@police',
+                    'value': this.event.police
+                },
+                {
+                    'key': '@medical',
+                    'value': this.event.medical
+                },
+                {
+                    'key': '@fire',
+                    'value': this.event.fire
+                },
+                {
+                    'key': '@gas',
+                    'value': this.event.gas
                 }
             ]
             return parameters;
+        },
+        getQueryResponse: function() {
+            this.hidePagePreloader();
         }
     };
 }());
