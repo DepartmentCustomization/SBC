@@ -27,6 +27,7 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        cursor: pointer;
                     }
                     .tabsBorderBottom{
                         border-bottom: 4px solid #fff;
@@ -86,8 +87,22 @@
             );
             tab.addEventListener('click', e => {
                 e.stopImmediatePropagation();
+                const target = e.currentTarget;
+                if(target.id === 'tabCards') {
+                    this.showHideTabs('eventCardsContainer', 'eventAlgorithmContainer');
+                    this.removeActiveTabBorder('tabAlgorithm');
+                    this.addActiveTabBorder('tabCards');
+                } else if(target.id === 'tabAlgorithm') {
+                    this.showHideTabs('eventAlgorithmContainer', 'eventCardsContainer');
+                    this.removeActiveTabBorder('tabCards');
+                    this.addActiveTabBorder('tabAlgorithm');
+                }
             });
             return tab;
+        },
+        showHideTabs: function(show, hide) {
+            document.getElementById(show).style.display = 'block';
+            document.getElementById(hide).style.display = 'none';
         },
         addActiveTabBorder: function(id) {
             document.getElementById(id).classList.add('tabsBorderBottom');

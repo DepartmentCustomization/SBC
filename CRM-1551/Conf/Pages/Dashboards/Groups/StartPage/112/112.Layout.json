@@ -241,7 +241,71 @@
               }
             ],
             "id": "Container-3",
-            "height": "calc(100% - 60px)",
+            "height": "46px",
+            "minHeight": "30px",
+            "minWidth": "100px",
+            "backgroundColor": "white",
+            "containerId": "cardAlgorithmContainer"
+          },
+          {
+            "width": "calc(100% - 10px)",
+            "margin": "0 5px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "width": "calc(100% - 10px)",
+                "margin": "0",
+                "flexWrap": "wrap",
+                "flexDirection": "row",
+                "order": 1,
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "code": "event_cards_CustomWidget",
+                    "type": "CustomWidgetComponent",
+                    "name": "eventCardsContainer"
+                  }
+                ],
+                "id": "Container-3",
+                "height": "calc(100% - 60px)",
+                "minHeight": "100px",
+                "minWidth": "100px",
+                "backgroundColor": "white",
+                "containerId": "eventCardsContainer"
+              },
+              {
+                "width": "calc(100% - 10px)",
+                "margin": "0",
+                "flexWrap": "wrap",
+                "flexDirection": "row",
+                "order": 1,
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "code": "event_algorithm_CustomWidget",
+                    "type": "CustomWidgetComponent",
+                    "name": "eventAlgorithmContainer"
+                  }
+                ],
+                "id": "Container-3",
+                "height": "calc(100% - 60px)",
+                "minHeight": "100px",
+                "minWidth": "100px",
+                "backgroundColor": "white",
+                "containerId": "eventAlgorithmContainer"
+              }
+            ],
+            "id": "Container-3",
+            "height": "calc(100% - 120px)",
             "minHeight": "100px",
             "minWidth": "100px",
             "backgroundColor": "white",
@@ -275,7 +339,7 @@
         "height": "calc(100% - 10px)",
         "minHeight": "calc(100% - 10px)",
         "minWidth": "100px",
-        "backgroundColor": "#e8e7e7"
+        "backgroundColor": "#fff"
       }
     ],
     "id": "Container-0",
