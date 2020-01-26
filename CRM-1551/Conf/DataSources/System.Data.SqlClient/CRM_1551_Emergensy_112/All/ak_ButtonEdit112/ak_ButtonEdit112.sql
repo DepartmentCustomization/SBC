@@ -58,7 +58,7 @@ UPDATE [dbo].[Persons]
       ,[category_id]=@event_category_id
       ,[event_date]=@event_event_date
       ,[applicant_id]=@applicant_id
-      ,[patient_id]=@patient_id
+      ,[patient_id]=@pacient_id
       ,[applicant_type_id]=@event_applicant_type_id
       ,[building_id]=@event_building_id
       ,[entrance]=@event_entrance
@@ -82,12 +82,12 @@ UPDATE [dbo].[Persons]
   WHERE event_id=@event_id;
 
 
-  DECLARE @Services_EX NVARCHAR(MAX)=
+--   DECLARE @Services_EX NVARCHAR(MAX)=
 
-  N'SELECT '+LTRIM(@event_id)+N' event_id, 
-  s.id, N'''+@user_id+N''', GETUTCDATE() [edit_date]
-  FROM [dbo].[Services] s
-  WHERE s.id IN ('+ISNULL(@service_ids, N'0')+N')';
+--   N'SELECT '+LTRIM(@event_id)+N' event_id, 
+--   s.id, N'''+@user_id+N''', GETUTCDATE() [edit_date]
+--   FROM [dbo].[Services] s
+--   WHERE s.id IN ('+ISNULL(@service_ids, N'0')+N')';
 
 	  INSERT INTO [dbo].[EventExecutors]
   (
@@ -97,7 +97,17 @@ UPDATE [dbo].[Persons]
   ,[create_date]
   )
 
-  EXEC(@Services_EX);
+  SELECT (SELECT TOP 1 LTRIM(id) FROM @output_event) event_id
+  ,[service_id]
+  ,@user_id [user_id]
+  ,GETUTCDATE() [create_date]
+  FROM
+  (SELECT CASE WHEN @fire='true' THEN N'1' END service_id WHERE @fire='true' UNION
+    SELECT CASE WHEN @police='true' THEN N'2' END service_id WHERE @police='true' UNION
+    SELECT CASE WHEN @medical='true' THEN N'3' END service_id WHERE @medical='true' UNION
+    SELECT CASE WHEN @gas='true' THEN N'4' END service_id WHERE @gas='true') t;
+
+ -- EXEC(@Services_EX);
   ----
 
   DELETE [dbo].[PersonClasses]

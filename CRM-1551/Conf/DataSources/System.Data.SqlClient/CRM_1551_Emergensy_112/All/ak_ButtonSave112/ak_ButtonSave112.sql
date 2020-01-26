@@ -156,12 +156,12 @@ INSERT INTO [dbo].[Persons]
 
 
 
-	DECLARE @Services_EX NVARCHAR(MAX)=
+-- 	DECLARE @Services_EX NVARCHAR(MAX)=
 
-  N'SELECT '+(SELECT TOP 1 LTRIM(id) FROM @output_event)+N' event_id, 
-  s.id, N'''+@user_id+N''', GETUTCDATE() [edit_date]
-  FROM [dbo].[Services] s
-  WHERE s.id IN ('+ISNULL(@service_ids, N'0')+N')';
+--   N'SELECT '+(SELECT TOP 1 LTRIM(id) FROM @output_event)+N' event_id, 
+--   s.id, N'''+@user_id+N''', GETUTCDATE() [edit_date]
+--   FROM [dbo].[Services] s
+--   WHERE s.id IN ('+ISNULL(@service_ids, N'0')+N')';
 
 
 
@@ -173,7 +173,16 @@ INSERT INTO [dbo].[Persons]
   ,[create_date]
   )
 
-  EXEC(@Services_EX);
+    SELECT (SELECT TOP 1 LTRIM(id) FROM @output_event) event_id
+  ,[service_id]
+  ,@user_id [user_id]
+  ,GETUTCDATE() [create_date]
+  FROM
+  (SELECT CASE WHEN @fire='true' THEN N'1' END service_id WHERE @fire='true' UNION
+    SELECT CASE WHEN @police='true' THEN N'2' END service_id WHERE @police='true' UNION
+    SELECT CASE WHEN @medical='true' THEN N'3' END service_id WHERE @medical='true' UNION
+    SELECT CASE WHEN @gas='true' THEN N'4' END service_id WHERE @gas='true') t;
+  --EXEC(@Services_EX);
 
 
   --- заполнение [PersonClasses]
