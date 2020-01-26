@@ -120,6 +120,7 @@
             this.messageService.subscribe('sendCallerSearchAddress', this.setCallerSearchAddress, this);
             this.messageService.subscribe('sendInfoSearchAddress', this.setInfoSearchAddress, this);
             this.messageService.subscribe('sendPatientSearchAddress', this.setPatientSearchAddress, this);
+            this.messageService.subscribe('getInputElements', this.sendInputElements, this);
             const queryStatusCaller = {
                 queryCode: 'ak_listClasses112',
                 parameterValues: [
@@ -188,6 +189,22 @@
             );
             this.showHideElement('btnCallerAddressClear','none');
         },
+        sendInputElements: function() {
+            const elements = {
+                anonymous: this.anonymousCheckBox,
+                name: this.callerName,
+                secondName: this.callerSecondName,
+                fatherName: this.callerFatherName,
+                phone: this.callerPhone,
+                birthday: this.callerBirthday,
+                address: this.address,
+                addressInput: this.searchAddress,
+                callerStatusBtn: this.statusCaller
+            };
+            const name = 'sendWidgetElements';
+            const widget = 'caller';
+            this.messageService.publish({name, widget, elements});
+        },
         createHeader: function() {
             const header = {
                 text: 'Заявник',
@@ -205,8 +222,8 @@
         },
         createPropertiesWrapper: function() {
             const anonymousCheckBox = this.createAnonymousCheckBox('Анонiм', 'anonymousCheckBox');
-            const callerPhoneNumber = this.createTextInput('Телефон', 'text', true, 'CallerPhone');
-            const callerBirthday = this.createTextInput('Дата народження', 'date', false, 'CallerBirthday');
+            const callerPhoneNumber = this.createTextInput('Телефон', 'text', true, 'CallerPhone', true);
+            const callerBirthday = this.createTextInput('Дата народження', 'date', false, 'CallerBirthday', true);
             const propertiesWrapper = this.createElement(
                 'div',
                 { className: 'propertiesWrapper bgcLightGrey'},
@@ -254,6 +271,7 @@
                 input.addEventListener('change', e => {
                     e.stopImmediatePropagation();
                     this.anonymousCheckBox.checked = false;
+                    this.setTextInputValue(id, input);
                 });
             }
             const placeholder = this.createElement('span', { className: 'placeholder placeholderInt',innerText: text});
@@ -532,9 +550,9 @@
             this.callerFatherNameValue = this.stringEmpty;
         },
         setInfoValues: function() {
-            const callerStatus = this.setCallerStatus();
+            const callerStatus = this.setCallerStatusToString();
             const callerInfo = {
-                anonymous: this.anonymousCheckBox.value,
+                anonymous: this.anonymousCheckBox.checked,
                 name: this.callerNameValue,
                 secondName: this.callerSecondNameValue,
                 fatherName: this.callerFatherNameValue,
@@ -543,10 +561,11 @@
                 status: callerStatus,
                 address: this.address
             }
+            debugger;
             const name = 'saveValues';
             this.messageService.publish({ name, callerInfo});
         },
-        setCallerStatus: function() {
+        setCallerStatusToString: function() {
             let callerStatus = '';
             for (const property in this.statusCaller) {
                 if(this.statusCaller[property].value === 1) {

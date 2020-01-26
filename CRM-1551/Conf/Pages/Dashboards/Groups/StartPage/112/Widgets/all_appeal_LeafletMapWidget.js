@@ -3,10 +3,17 @@
         title: ' ',
         hint: '',
         formatTitle: function() {},
+        subscriptions: [],
+        sub1: {},
+        sub2: {},
         init: function() {
             this.allAppealLeafLetMap = document.getElementById('allAppealLeafLetMap');
-            this.messageService.subscribe('showAllAppealLeafLetMap', this.showAllAppealLeafLetMap, this);
-            this.messageService.subscribe('hideAllAppealLeafLetMap', this.hideAllAppealLeafLetMap, this);
+            this.sub1 = this.messageService.subscribe('showAllAppealLeafLetMap', this.showAllAppealLeafLetMap, this);
+            this.sub2 = this.messageService.subscribe('hideAllAppealLeafLetMap', this.hideAllAppealLeafLetMap, this);
+
+            this.subscriptions.push(this.sub1);
+            this.subscriptions.push(this.sub2);
+
             const queryEventCardsList = {
                 queryCode: 'ak_LastCard112',
                 parameterValues: [
@@ -22,16 +29,16 @@
             claims: []
         },
         convertDateTime: function (datetime) {
-            var d = new Date(datetime), // Конвертируем метку в миллисекунды
-            yyyy = d.getFullYear(), // Конвертируем метку в год
-            mm = ('0' + (d.getMonth() + 1)).slice(-2), // Конвертируем метку в месяц
-            dd = ('0' + d.getDate()).slice(-2), // Конвертируем метку в число месяца
-            hh = d.getHours(), // Конвертируем метку в часы
+            let d = new Date(datetime),
+            yyyy = d.getFullYear(),
+            mm = ('0' + (d.getMonth() + 1)).slice(-2),
+            dd = ('0' + d.getDate()).slice(-2),
+            hh = d.getHours(),
             h = hh,
-            min = ('0' + d.getMinutes()).slice(-2), // Конвертируем метку в минуты
+            min = ('0' + d.getMinutes()).slice(-2),
             time;
-            
-            time = yyyy + '-' + mm + '-' + dd + ' ' + h + ':' + min; // Шаблон вывода: год-месяц-день, часы-минуты
+
+            time = yyyy + '-' + mm + '-' + dd + ' ' + h + ':' + min;
             return time;
         },
         load: function(data){
@@ -69,13 +76,22 @@
                         icon: yellowIcon
                     }).addTo(this.map).bindPopup('<div id="infowindow_marker01' + i.toString() + '" style="display: flex; height: 173px;">' +
                         '<div style="display: inline-block; height: 100%; padding-left: 15px;">' +
-                        '<p style="font-weight: bold; color: black; font-size: 16px; margin-bottom: 0px;">Заявка: <b>' + data.rows[i].values[indexIdRow] + '</b></p>' +
+                        '<p style="font-weight: bold; color: black; font-size: 16px; margin-bottom: 0px;">Подія: <b>' + data.rows[i].values[indexIdRow] + '</b></p>' +
                         '<p style="margin: 5px 0;">Дата реєстрації: <b>' + this.convertDateTime(data.rows[i].values[indexReceipt_date]) + '</b></p>' +
                         '<p style="margin: 5px 0;">Заявник: <b>' + data.rows[i].values[indexFIO] + '</b></p>' +
                         '<p style="margin: 5px 0;">Телефон заявника: <b>' + data.rows[i].values[indexPerson_phone] + '</b></p>' +
                         '<p style="margin: 5px 0;">Опис: <b>' + data.rows[i].values[indexContent] + '</b></p>' +
                         '</div></div>', {maxWidth: 800, maxHeight: 500});
                         this.dataForMap.claims.push(marker);
+
+                        marker.IdRow = data.rows[i].values[indexIdRow];
+                        marker.addEventListener("click", function(e){
+                            let message = {
+                                name: 'LeafletMap_SelectRow',
+                                id:  e.sourceTarget.IdRow
+                            }
+                            this.messageService.publish(message);
+                        }.bind(this));
                 };
                this.initMap();
             };
@@ -89,6 +105,14 @@
         },
         hideAllAppealLeafLetMap: function() {
             this.allAppealLeafLetMap.style.display = 'none';
+        },
+        unsubscribeFromMessages(){
+            for(var i =0; i < this.subscriptions.length; i++) {
+                    this.subscriptions[i].unsubscribe();
+            }
+        },
+         destroy(){
+             this.unsubscribeFromMessages();
         }
     };
 }());

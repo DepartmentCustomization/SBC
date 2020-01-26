@@ -89,6 +89,7 @@
             this.queryExecutor(querySave, this.getQueryResponse, this);
         },
         setQueryParameters: function() {
+            debugger;
             const parameters = [
                 {
                     'key': '@applicant_last_name',

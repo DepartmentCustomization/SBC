@@ -358,6 +358,16 @@
             this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
             this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
             this.messageService.subscribe('sendInfoSearchAddress', this.sendInfoSearchAddress, this);
+            this.messageService.subscribe('getInputElements', this.sendInputElements, this);
+        },
+        sendInputElements: function() {
+            const elements = {
+                accidentDateTimeInput: this.accidentDateTimeInput,
+                accidentComment: this.accidentTextContentValue
+            };
+            const name = 'sendWidgetElements';
+            const widget = 'event';
+            this.messageService.publish({name, widget, elements});
         },
         setCategoryList: function() {
             const queryCategoryList = {

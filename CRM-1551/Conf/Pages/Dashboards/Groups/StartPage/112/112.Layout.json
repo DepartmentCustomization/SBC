@@ -226,7 +226,7 @@
         "children": [
           {
             "width": "calc(100% - 10px)",
-            "margin": "0 5px",
+            "margin": "0",
             "flexWrap": "wrap",
             "flexDirection": "row",
             "order": 1,
@@ -249,7 +249,7 @@
           },
           {
             "width": "calc(100% - 10px)",
-            "margin": "0 5px",
+            "margin": "0",
             "flexWrap": "wrap",
             "flexDirection": "row",
             "order": 1,
