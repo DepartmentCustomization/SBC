@@ -561,7 +561,6 @@
                 status: callerStatus,
                 address: this.address
             }
-            debugger;
             const name = 'saveValues';
             this.messageService.publish({ name, callerInfo});
         },

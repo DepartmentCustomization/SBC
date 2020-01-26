@@ -89,15 +89,14 @@
             this.queryExecutor(querySave, this.getQueryResponse, this);
         },
         setQueryParameters: function() {
-            debugger;
             const parameters = [
                 {
                     'key': '@applicant_last_name',
-                    'value': this.applicant.secondName
+                    'value': this.applicant.name
                 },
                 {
                     'key': '@applicant_first_name',
-                    'value': this.applicant.name
+                    'value': this.applicant.secondName
                 },
                 {
                     'key': '@applicant_middle_name',
@@ -157,15 +156,15 @@
                 },
                 {
                     'key': '@pacient_last_name',
-                    'value': this.applicant.secondName
+                    'value': this.patient.secondName
                 },
                 {
                     'key': '@pacient_first_name',
-                    'value': this.applicant.name
+                    'value': this.patient.name
                 },
                 {
                     'key': '@pacient_middle_name',
-                    'value': this.applicant.fatherName
+                    'value': this.patient.fatherName
                 },
                 {
                     'key': '@pacient_person_phone',
@@ -264,6 +263,10 @@
                     'value': this.event.address.flatApartmentOffice
                 },
                 {
+                    'key': '@event_storeysnumber',
+                    'value': this.event.address.houseFloorsCounter
+                },
+                {
                     'key': '@event_exit',
                     'value': this.event.address.flatExit
                 },
@@ -316,6 +319,7 @@
         },
         getQueryResponse: function() {
             this.hidePagePreloader();
+            window.location.reload();
         }
     };
 }());

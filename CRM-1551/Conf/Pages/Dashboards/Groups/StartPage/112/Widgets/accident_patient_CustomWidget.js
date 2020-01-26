@@ -109,7 +109,11 @@
                     id: id
                 }
             );
-            this.setTextInputValue(id, input)
+            this.setTextInputValue(id, input);
+            input.addEventListener('change', e => {
+                e.stopImmediatePropagation();
+                this.setTextInputValue(id, input);
+            });
             const placeholder = this.createElement('span', { className: 'placeholder placeholderInt',innerText: text});
             const textInputWrapper = this.createElement(
                 'div',
