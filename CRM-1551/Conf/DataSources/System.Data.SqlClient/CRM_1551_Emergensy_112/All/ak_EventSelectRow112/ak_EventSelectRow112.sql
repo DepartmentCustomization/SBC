@@ -81,17 +81,17 @@
   , ISNULL((SELECT TOP 1 CONVERT(BIT, 'true') FROM [dbo].[EventExecutors] WHERE [service_id]=4 AND [event_id]=e.id), 'false') event_gas
 
 
-  ,(SELECT STUFF((SELECT N', '+c.name
+  ,(SELECT STUFF((SELECT N', '+LTRIM(c.id)
   FROM [dbo].[PersonClasses] pc
   INNER JOIN [dbo].[Classes] c ON pc.class_id=c.id
   WHERE pc.person_id=app.id
-  FOR XML PATH('')), 1, 2, N'')) applicant_classes_names
+  FOR XML PATH('')), 1, 2, N'')) applicant_classes_ids
 
-  ,(SELECT STUFF((SELECT N', '+c.name
+  ,(SELECT STUFF((SELECT N', '+LTRIM(c.id)
   FROM [dbo].[PersonClasses] pc
   INNER JOIN [dbo].[Classes] c ON pc.class_id=c.id
   WHERE pc.person_id=p.id
-  FOR XML PATH('')), 1, 2, N'')) pacient_classes_names
+  FOR XML PATH('')), 1, 2, N'')) pacient_classes_ids
   
 
   FROM [dbo].[Events] e
