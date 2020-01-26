@@ -3,10 +3,17 @@
         title: ' ',
         hint: '',
         formatTitle: function() {},
+        subscriptions: [],
+        sub1: {},
+        sub2: {},
         init: function() {
             this.allAppealLeafLetMap = document.getElementById('allAppealLeafLetMap');
-            this.messageService.subscribe('showAllAppealLeafLetMap', this.showAllAppealLeafLetMap, this);
-            this.messageService.subscribe('hideAllAppealLeafLetMap', this.hideAllAppealLeafLetMap, this);
+            this.sub1 = this.messageService.subscribe('showAllAppealLeafLetMap', this.showAllAppealLeafLetMap, this);
+            this.sub2 = this.messageService.subscribe('hideAllAppealLeafLetMap', this.hideAllAppealLeafLetMap, this);
+
+            this.subscriptions.push(this.sub1);
+            this.subscriptions.push(this.sub2);
+
             const queryEventCardsList = {
                 queryCode: 'ak_LastCard112',
                 parameterValues: [
@@ -100,6 +107,14 @@
         },
         hideAllAppealLeafLetMap: function() {
             this.allAppealLeafLetMap.style.display = 'none';
+        },
+        unsubscribeFromMessages(){
+            for(var i =0; i < this.subscriptions.length; i++) {
+                    this.subscriptions[i].unsubscribe();
+            }
+        },
+         destroy(){
+             this.unsubscribeFromMessages();
         }
     };
 }());
