@@ -76,6 +76,17 @@
                         '<p style="margin: 5px 0;">Опис: <b>' + data.rows[i].values[indexContent] + '</b></p>' +
                         '</div></div>', {maxWidth: 800, maxHeight: 500});
                         this.dataForMap.claims.push(marker);
+
+                        marker.IdRow = data.rows[i].values[indexIdRow];
+                        marker.addEventListener("click", function(e){
+                            let message = {
+                                name: 'LeafletMap_SelectRow',
+                                package: {
+                                    IdRow: e.sourceTarget.IdRow
+                                }
+                            }
+                            this.messageService.publish(message);
+                        }.bind(this));
                 };
                this.initMap();
             };
