@@ -25,10 +25,8 @@
         },
         init: function() {
             this.eventAlgorithmContainer = document.getElementById('eventAlgorithmContainer');
+            this.eventAlgorithmContainer.style.display = 'none';
             this.messageService.subscribe('sendCategoryId', this.executeAlgorithmQuery, this);
-        },
-        showHideAddressContent: function(message) {
-            this.eventCardsContainer.style.display = message.status;
         },
         afterViewInit: function() {
             const container = document.getElementById('containerEventAlgorithm');
@@ -65,7 +63,7 @@
                     'div',
                     {
                         className: 'categoryAlgorithm',
-                        innerText: '<h1>' + text + '</h1>',
+                        innerText: text,
                         id: data.rows[0].values[0]
                     }
                 );
