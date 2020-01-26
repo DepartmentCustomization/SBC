@@ -88,9 +88,7 @@
                         marker.addEventListener("click", function(e){
                             let message = {
                                 name: 'LeafletMap_SelectRow',
-                                package: {
-                                    IdRow: e.sourceTarget.IdRow
-                                }
+                                id:  e.sourceTarget.IdRow
                             }
                             this.messageService.publish(message);
                         }.bind(this));
