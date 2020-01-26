@@ -79,6 +79,7 @@
             fullAddress: null,
             searchTextContent: null
         },
+        searchTextInputs: [],
         init: function() {
             this.searchAddressContainer = document.getElementById('searchAddressContainer');
             this.searchAddressContainer.style.position = 'relative';
@@ -111,7 +112,6 @@
             } return element;
         },
         afterViewInit: function() {
-            this.messageService.publish({name: 'sendDefaultAddress', address: null});
             const container = document.getElementById('searchAddressFields');
             this.container = container;
             const housePropertiesWrapper = this.createHousePropertiesWrapper();
@@ -158,11 +158,13 @@
             const input = this.createElement('input',
                 {
                     type: type,
-                    className: 'input textInput',
+                    className: 'input textInput searchTextInput',
                     id: id,
                     value: this.stringEmpty
                 }
             );
+            input.disabled = true;
+            this.searchTextInputs.push(input);
             input.addEventListener('change', e => {
                 e.stopImmediatePropagation();
                 const input = e.currentTarget;
@@ -280,12 +282,13 @@
                         const name = this.activeAddressMessage;
                         this.messageService.publish({name, address});
                     }
-                    this.activeAddressMessage = undefined;
-                    this.clearAllInputs();
-                    this.clearAddressValues();
-                    this.hideSearchAddressContainer();
-                    this.messageService.publish({name: 'showAllAppealLeafLetMap'});
                 }
+                this.activeAddressMessage = undefined;
+                this.clearAllInputs();
+                this.clearAddressValues();
+                this.hideSearchAddressContainer();
+                this.changeTextInputStatus(true);
+                this.messageService.publish({name: 'showAllAppealLeafLetMap'});
             });
             btn.classList.add(className);
             return btn;
@@ -370,12 +373,18 @@
         },
         setSearchAddress: function(message) {
             if(message) {
+                this.changeTextInputStatus(false);
                 this.viewAddress = 'Вул. ' + message.address + ', ';
                 this.address.latitude = message.latitude;
                 this.address.longitude = message.longitude;
                 this.address.addressId = message.addressId;
             }
             this.setFullAddress();
+        },
+        changeTextInputStatus: function(status) {
+            this.searchTextInputs.forEach(input => {
+                input.disabled = status;
+            });
         },
         setAddressProps: function(id, value) {
             if(this.viewAddress) {

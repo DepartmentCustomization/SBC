@@ -635,6 +635,7 @@
                                 case '_valueCat':
                                     this.getItemProps(id);
                                     this.changeCategoryInput(value, id);
+                                    this.messageService.publish({name: 'sendCategoryId', id: id});
                                     break;
                                 case '_valueCallerType':
                                     this.changeCallerTypeInput(value, id);
