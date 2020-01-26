@@ -58,9 +58,19 @@
             };
             this.queryExecutor(queryAlgorithm, this.createCategoryAlgorithm, this);
         },
-        createCategoryAlgorithm: function() {
-            const categoryAlgorithm = this.createElement('div', {className: 'categoryAlgorithm'});
-            this.algorithmWrapper.appendChild(categoryAlgorithm);
+        createCategoryAlgorithm: function(data) {
+            const text = data.rows[0].values[1];
+            if(data.rows.length) {
+                const categoryAlgorithm = this.createElement(
+                    'div',
+                    {
+                        className: 'categoryAlgorithm',
+                        innerText: '<h1>' + text + '</h1>',
+                        id: data.rows[0].values[0]
+                    }
+                );
+                this.algorithmWrapper.appendChild(categoryAlgorithm);
+            }
         }
     };
 }());
