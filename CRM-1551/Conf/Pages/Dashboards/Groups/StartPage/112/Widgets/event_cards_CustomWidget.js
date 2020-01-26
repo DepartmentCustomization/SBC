@@ -240,8 +240,6 @@
                 const indexBtnMedical = data.columns.findIndex(el => el.code.toLowerCase() === 'pacient_birth_date');
                 const indexBtnGas = data.columns.findIndex(el => el.code.toLowerCase() === 'pacient_birth_date');
                 const indexCallerStatusId = data.columns.findIndex(el => el.code.toLowerCase() === 'applicant_classes_names');
-
-                debugger;
             }
         },
         setDateTimeValues: function() {
