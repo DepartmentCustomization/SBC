@@ -295,6 +295,7 @@
         differentHoursValue: 0,
         differentDaysValue: 0,
         activeCheckBox: null,
+        accidentCallDateTime: new Date(),
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
@@ -306,6 +307,19 @@
             return element;
         },
         init: function() {
+            this.address = {
+                houseEntrance: null,
+                houseEntranceCode: null,
+                houseFloorsCounter: null,
+                flatFloor: null,
+                flatApartmentOffice: null,
+                flatExit: null,
+                latitude: null,
+                longitude: null,
+                addressId: null,
+                fullAddress: null,
+                searchTextContent: null
+            }
             const queryExternList = {
                 queryCode: 'ak_listCategories_urg112',
                 parameterValues: [
@@ -343,8 +357,6 @@
             this.showPreloader = false;
             this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
             this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
-            this.messageService.subscribe('sendCallerSearchAddress', this.setCallerSearchAddress, this);
-            this.messageService.subscribe('sendPatientSearchAddress', this.setPatientSearchAddress, this);
             this.messageService.subscribe('sendInfoSearchAddress', this.sendInfoSearchAddress, this);
         },
         setCategoryList: function() {
@@ -581,6 +593,7 @@
                 break;
             case '_valueWorkLine':
                 this._workLineValueId = input.valueId;
+                this._workLineValue = input.value;
                 listItems = this.workLineList;
                 break;
             default:
@@ -805,6 +818,7 @@
                 const target = e.currentTarget;
                 const oldMsSec = new Date(this.accidentDateTimeValue).setMilliseconds('0');
                 const newMsSec = new Date(target.value).setMilliseconds('0');
+                this.accidentCallDateTime = new Date(target.value);
                 const differenceTime = (oldMsSec - newMsSec) / 1000;
                 if(differenceTime > 0) {
                     this.setTimerDifferentTime(differenceTime);
@@ -1179,32 +1193,29 @@
                 medical: this.medical,
                 gas: this.gas,
                 categoryId: this._categoryValueId,
-                callerType: this._callerTypeValueId,
+                callerTypeId: this._callerTypeValueId,
                 workLineId: this._workLineValueId,
+                workLineValue: this._workLineValue,
                 callMedical: activeCheckBoxId,
-                accidentDateTime: this.accidentDateTimeValue,
+                accidentDateTime: new Date(this.accidentDateTimeValue),
+                callDateTime: new Date(this.accidentCallDateTime),
                 accidentComment: this.accidentTextContentValue.value,
-                accidentAddress: null
+                address: this.address
             }
             const name = 'saveValues';
             this.messageService.publish({ name, accidentInfo});
         },
         sendInfoSearchAddress: function(message) {
-            this.searchAddress.innerText = message.address
-            this.latitude = message.coordinates.latitude;
-            this.longitude = message.coordinates.longitude;
+            this.searchAddress.innerText = message.address.fullAddress;
+            this.address = message.address;
             this.showHideElement('infoAddressContent', 'flex');
             this.showHideElement('btnInfoAddressClear', 'block');
         },
         setPatientSearchAddress: function(message) {
-            this.searchPatientAddress = message.address
-            this.patientLatitude = message.coordinates.latitude;
-            this.patientLongitude = message.coordinates.longitude;
+            this.patientAddress = message.address;
         },
         setCallerSearchAddress: function(message) {
-            this.searchCallerAddress = message.address
-            this.caLLerLatitude = message.coordinates.latitude;
-            this.caLLerLongitude = message.coordinates.longitude;
+            this.callerAddress = message.address;
         }
     };
 }());

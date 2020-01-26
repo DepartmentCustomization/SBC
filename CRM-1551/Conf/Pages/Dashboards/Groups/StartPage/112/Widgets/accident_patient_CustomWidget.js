@@ -21,6 +21,19 @@
         ,
         patientSexValue: null,
         init: function() {
+            this.address = {
+                houseEntrance: null,
+                houseEntranceCode: null,
+                houseFloorsCounter: null,
+                flatFloor: null,
+                flatApartmentOffice: null,
+                flatExit: null,
+                latitude: null,
+                longitude: null,
+                addressId: null,
+                fullAddress: null,
+                searchTextContent: null
+            }
             const widget = document.getElementById('accident_patient');
             this.widget = widget;
             const status = 'none';
@@ -298,34 +311,29 @@
         },
         setPatientValues: function() {
             const patientInfo = {
-                patientName: this.patientNameValue,
-                patientSecondName: this.patientSecondNameValue,
-                patientFatherName: this.patientFatherNameValue,
-                patientPhoneNumber: this.patientPhoneNumberValue,
-                patientBirthday: this.patientBirthdayValue,
-                patientAge: this.patientAgeValue,
-                patientSex: this.patientSexValue,
-                patientAddress: this.patientAddressValue
+                name: this.patientNameValue,
+                secondName: this.patientSecondNameValue,
+                fatherName: this.patientFatherNameValue,
+                phoneNumber: this.patientPhoneNumberValue,
+                birthday: new Date(this.patientBirthdayValue),
+                age: this.patientAgeValue,
+                sex: Number(this.patientSexValue),
+                address: this.address
             }
             const name = 'saveValues';
             this.messageService.publish({ name, patientInfo});
         },
         setPatientSearchAddress: function(message) {
-            this.searchAddress.innerText = message.address
-            this.latitude = message.coordinates.latitude;
-            this.longitude = message.coordinates.longitude;
+            this.searchAddress.innerText = message.address.fullAddress;
+            this.address = message.address;
             this.showHideElement('patientAddressContent', 'flex');
             this.showHideElement('btnPatientAddressClear', 'block');
         },
         setCallerSearchAddress: function(message) {
-            this.searchCallerAddress = message.address
-            this.caLLerLatitude = message.coordinates.latitude;
-            this.caLLerLongitude = message.coordinates.longitude;
+            this.callerAddress = message.address;
         },
         setInfoSearchAddress: function(message) {
-            this.searchInfoAddress = message.address
-            this.infoLatitude = message.coordinates.latitude;
-            this.infoLongitude = message.coordinates.longitude;
+            this.infoAddress = message.address;
         }
     };
 }());
