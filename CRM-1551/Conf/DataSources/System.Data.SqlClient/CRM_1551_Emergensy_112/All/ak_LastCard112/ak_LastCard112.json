@@ -44,6 +44,11 @@
         "Code": "event_address",
         "Name": "event_address",
         "Position": 7
+      },
+      {
+        "Code": "category_name",
+        "Name": "category_name",
+        "Position": 8
       }
     ],
     "Parameters": [
