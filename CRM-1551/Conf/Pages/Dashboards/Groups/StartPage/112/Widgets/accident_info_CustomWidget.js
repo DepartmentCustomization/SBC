@@ -410,6 +410,7 @@
             this.setDateTimeDefaultValue();
             this.setTimerDefaultValue();
             this.showHideElement('btnInfoAddressClear','none');
+            this.setDefaultSelectValue();
         },
         addContainerChild: function(...params) {
             params.forEach(item => this.container.appendChild(item));
@@ -589,6 +590,11 @@
                 }
             });
             return selectWrapper;
+        },
+        setDefaultSelectValue: function() {
+            this.changeCategoryInput('Інша подія', 10);
+            this.changeCallerTypeInput('Свідок', 3);
+            this.changeWorkLineInput('Телефонний виклик', 1);
         },
         setTrueItemsList: function(id, input) {
             let listItems = undefined;

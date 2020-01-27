@@ -87,6 +87,7 @@
                 limit: -1
             };
             this.queryExecutor(querySave, this.getQueryResponse, this);
+            this.showPreloader = false;
         },
         setQueryParameters: function() {
             const parameters = [
