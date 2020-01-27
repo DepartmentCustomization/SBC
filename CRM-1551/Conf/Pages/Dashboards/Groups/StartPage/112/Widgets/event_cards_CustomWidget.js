@@ -114,20 +114,25 @@
             const indexPersonPhone = data.columns.findIndex(el => el.code.toLowerCase() === 'person_phone');
             const indexContent = data.columns.findIndex(el => el.code.toLowerCase() === 'content');
             const indexFullName = data.columns.findIndex(el => el.code.toLowerCase() === 'fio');
+            const indexAddress = data.columns.findIndex(el => el.code.toLowerCase() === 'event_address');
+            const indexCategoryName = data.columns.findIndex(el => el.code.toLowerCase() === 'category_name');
             const idValue = props.values[indexId];
             const receiptDateValue = props.values[indexReceiptDate];
+            const addressEventValue = props.values[indexAddress];
             const personPhoneValue = props.values[indexPersonPhone];
             const contentValue = props.values[indexContent];
             const fullNameValue = props.values[indexFullName];
-            const card__number = this.createElement('div', {className: 'card__number', innerText: 'Номер: '});
+            const categoryName = props.values[indexCategoryName];
+            const card__number = this.createElement('div', {className: 'card__number', innerText: 'Номер: ' + idValue});
+            const card__category = this.createElement('div', {className: 'card__number', innerText: categoryName });
             const curd__receiptDate = this.createElement('div',
                 {className: 'card__receiptDate', innerText: this.setDateTimeValues(receiptDateValue)}
             );
             const cardHeader = this.createElement('div', {className: 'cardHeader'},
-                card__number, curd__receiptDate
+                card__number, card__category, curd__receiptDate
             );
             const cardInfo__location_icon = this.createElement('i', {className: 'fa fa-map-marker typ marker'});
-            const cardInfo__location_text = this.createElement('i', {className: 'cardInfoItemText', innerText: 'Локацiя'});
+            const cardInfo__location_text = this.createElement('i', {className: 'cardInfoItemText', innerText: addressEventValue });
             const cardInfo__location = this.createElement('div', {className: 'cardInfoItem'},
                 cardInfo__location_icon, cardInfo__location_text
             );
