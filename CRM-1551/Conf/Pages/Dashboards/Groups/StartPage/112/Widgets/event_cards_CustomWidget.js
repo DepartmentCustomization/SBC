@@ -123,10 +123,11 @@
             const contentValue = props.values[indexContent];
             const fullNameValue = props.values[indexFullName];
             const categoryName = props.values[indexCategoryName];
+            const dateTime = this.setDateTimeValues(receiptDateValue);
             const card__number = this.createElement('div', {className: 'card__number', innerText: 'Номер: ' + idValue});
             const card__category = this.createElement('div', {className: 'card__number', innerText: categoryName });
             const curd__receiptDate = this.createElement('div',
-                {className: 'card__receiptDate', innerText: this.setDateTimeValues(receiptDateValue)}
+                {className: 'card__receiptDate', innerText: dateTime }
             );
             const cardHeader = this.createElement('div', {className: 'cardHeader'},
                 card__number, card__category, curd__receiptDate
@@ -248,8 +249,8 @@
                 const indexCallerStatusId = data.columns.findIndex(el => el.code.toLowerCase() === 'applicant_classes_names');
             }
         },
-        setDateTimeValues: function() {
-            let date = new Date();
+        setDateTimeValues: function(receiptDateValue) {
+            let date = new Date(receiptDateValue);
             let DD = date.getDate().toString();
             let MM = (date.getMonth() + 1).toString();
             let YYYY = date.getFullYear().toString();

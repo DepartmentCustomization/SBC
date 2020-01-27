@@ -738,8 +738,8 @@
             this.callerBirthday.value = birthday;
             this.checkedAnonymousStatus();
         },
-        setDateTimeValues: function() {
-            let date = new Date();
+        setDateTimeValues: function(value) {
+            let date = new Date(value);
             let DD = date.getDate().toString();
             let MM = (date.getMonth() + 1).toString();
             let YYYY = date.getFullYear().toString();
