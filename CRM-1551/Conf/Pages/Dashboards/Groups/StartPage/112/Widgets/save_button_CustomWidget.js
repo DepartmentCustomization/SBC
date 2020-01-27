@@ -305,7 +305,7 @@
                 },
                 {
                     'key': '@applicant_classes_ids',
-                    'value': this.applicant.callerStatus
+                    'value': this.applicant.status
                 },
                 {
                     'key': '@police',
