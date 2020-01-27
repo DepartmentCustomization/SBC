@@ -386,6 +386,8 @@
                     if(this.anonymousCheckBox) {
                         this.anonymousCheckBox.checked = true;
                     }
+                } else {
+                    this.anonymousCheckBox.checked = false;
                 }
             }
         },
@@ -659,10 +661,6 @@
             this.patientAddress = message.address;
         },
         getApplicantsProps: function(urlPhoneNumber, data) {
-            this.setCallerPropsByUrlPhoneNumber(urlPhoneNumber, data);
-            this.executeCounterQuestionQuery(urlPhoneNumber);
-        },
-        executeCounterQuestionQuery: function(urlPhoneNumber) {
             const queryCounter = {
                 queryCode: 'CoutQuestionForNumber112',
                 parameterValues: [
@@ -670,18 +668,23 @@
                 ],
                 limit: -1
             };
-            this.queryExecutor(queryCounter,this.callerQuestionCounter, this);
+            this.queryExecutor(queryCounter,this.callerQuestionCounter.bind(this, data, urlPhoneNumber), this);
             this.showPreloader = false;
         },
-        callerQuestionCounter: function(data) {
+        callerQuestionCounter: function(applicantProps, urlPhoneNumber, data) {
             const indexApplicantId = data.columns.findIndex(el => el.code.toLowerCase() === 'applicantid');
             const indexCounter = data.columns.findIndex(el => el.code.toLowerCase() === 'count_questions');
             const counter = data.rows[0].values[indexCounter];
             const applicantId = data.rows[0].values[indexApplicantId];
+            this.setApplicantPhoneNumber(urlPhoneNumber);
             if(data.rows.length && counter) {
                 const questionWrapper = this.createQuestionWrapper(counter, applicantId);
                 this.container.appendChild(questionWrapper);
             }
+            if(applicantProps.rows.length) {
+                this.setCallerPropsByUrlPhoneNumber(applicantProps);
+            }
+            this.hidePagePreloader();
         },
         createQuestionWrapper: function(counter, applicantId) {
             const questionBtn = this.createElement(
@@ -701,8 +704,51 @@
             );
             return questionWrapper;
         },
-        setCallerPropsByUrlPhoneNumber: function() {
-            this.hidePagePreloader();
+        setCallerPropsByUrlPhoneNumber: function(data) {
+            const indexName = data.columns.findIndex(el => el.code.toLowerCase() === 'last_name');
+            const indexSecondName = data.columns.findIndex(el => el.code.toLowerCase() === 'first_name');
+            const indexFatherName = data.columns.findIndex(el => el.code.toLowerCase() === 'middle_name');
+            const indexBirthday = data.columns.findIndex(el => el.code.toLowerCase() === 'birth_date');
+            const indexAddressBuildingId = data.columns.findIndex(el => el.code.toLowerCase() === 'building_id');
+            const indexAddressHouseEntrance = data.columns.findIndex(el => el.code.toLowerCase() === 'entrance');
+            const indexAddressHouseEntranceCode = data.columns.findIndex(el => el.code.toLowerCase() === 'entercode');
+            const indexAddressHouseFloorsCounter = data.columns.findIndex(el => el.code.toLowerCase() === 'storeysnumber');
+            const indexAddressFlatFloor = data.columns.findIndex(el => el.code.toLowerCase() === 'floor');
+            const indexAddressFlatApartmentOffice = data.columns.findIndex(el => el.code.toLowerCase() === 'flat');
+            const indexAddressFlatExit = data.columns.findIndex(el => el.code.toLowerCase() === 'exit');
+            const indexAddressSearchTextContent = data.columns.findIndex(el => el.code.toLowerCase() === 'moreinformation');
+            const indexAddressLongitude = data.columns.findIndex(el => el.code.toLowerCase() === 'longitude');
+            const indexAddressLatitude = data.columns.findIndex(el => el.code.toLowerCase() === 'latitude');
+            const indexAddressFullAddress = data.columns.findIndex(el => el.code.toLowerCase() === 'event_address');
+            this.address.addressId = data.rows[0].values[indexAddressBuildingId];
+            this.address.houseEntrance = data.rows[0].values[indexAddressHouseEntrance];
+            this.address.houseEntranceCode = data.rows[0].values[indexAddressHouseEntranceCode];
+            this.address.houseFloorsCounter = data.rows[0].values[indexAddressHouseFloorsCounter];
+            this.address.flatFloor = data.rows[0].values[indexAddressFlatFloor];
+            this.address.flatApartmentOffice = data.rows[0].values[indexAddressFlatApartmentOffice];
+            this.address.flatExit = data.rows[0].values[indexAddressFlatExit];
+            this.address.latitude = data.rows[0].values[indexAddressLatitude];
+            this.address.longitude = data.rows[0].values[indexAddressLongitude];
+            this.address.fullAddress = data.rows[0].values[indexAddressFullAddress];
+            this.address.searchTextContent = data.rows[0].values[indexAddressSearchTextContent];
+            this.callerName.value = data.rows[0].values[indexName];
+            this.callerSecondName.value = data.rows[0].values[indexSecondName];
+            this.callerFatherName.value = data.rows[0].values[indexFatherName];
+            const birthday = this.setDateTimeValues(data.rows[0].values[indexBirthday]);
+            this.callerBirthday.value = birthday;
+            this.checkedAnonymousStatus();
+        },
+        setDateTimeValues: function() {
+            let date = new Date();
+            let DD = date.getDate().toString();
+            let MM = (date.getMonth() + 1).toString();
+            let YYYY = date.getFullYear().toString();
+            DD = DD.length === 1 ? '0' + DD : DD;
+            MM = MM.length === 1 ? '0' + MM : MM;
+            return YYYY + '-' + MM + '-' + DD;
+        },
+        setApplicantPhoneNumber: function(urlPhoneNumber) {
+            this.callerPhone.value = urlPhoneNumber;
         }
     };
 }());
