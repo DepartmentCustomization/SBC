@@ -3,6 +3,9 @@ DECLARE @output_pacient TABLE (Id INT);
 DECLARE @output_applicant TABLE (Id INT);
 DECLARE @output_event TABLE (Id INT);
 
+IF @for_yourself103='false' OR @for_yourself103 IS NULL
+BEGIN
+
 INSERT INTO [dbo].[Persons]
   (
   [last_name]
@@ -50,6 +53,7 @@ INSERT INTO [dbo].[Persons]
       ,@user_id [user_edit_id]
       ,GETUTCDATE() [edit_date];
 
+END
 
 	  INSERT INTO [dbo].[Persons]
   (
@@ -135,7 +139,9 @@ INSERT INTO [dbo].[Persons]
       ,@event_work_line_value [work_line_value]
       ,@event_category_id [category_id]
       ,@event_event_date [event_date]
-      ,(SELECT TOP 1 Id FROM @output_applicant) [applicant_id]
+      ,CASE WHEN @for_yourself103='true'
+      THEN (SELECT TOP 1 Id FROM @output_applicant)
+      ELSE (SELECT TOP 1 Id FROM @output_pacient) END [applicant_id]
       ,(SELECT TOP 1 Id FROM @output_pacient) [patient_id]
       ,@event_applicant_type_id [applicant_type_id]
       --,@event_building_id [building_id]
