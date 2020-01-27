@@ -262,6 +262,16 @@
         "Code": "@gas",
         "Name": "gas",
         "ParameterType": "Boolean"
+      },
+      {
+        "Code": "@for_yourself103",
+        "Name": "for_yourself103",
+        "ParameterType": "Boolean"
+      },
+      {
+        "Code": "@for_another103",
+        "Name": "for_another103",
+        "ParameterType": "Boolean"
       }
     ]
   }
