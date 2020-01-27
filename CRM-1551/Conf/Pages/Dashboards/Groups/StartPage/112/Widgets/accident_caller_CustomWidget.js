@@ -87,6 +87,27 @@
                             display: flex;
                         }
 
+                        .questionWrapper{
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: center;
+                            padding: 10px;
+                        }
+                        .questionBtn{
+                            color: white;
+                            font-size: 100%;
+                            font-weight: normal;
+                            text-transform: uppercase;
+                            line-height: 1.5em;
+                            border: 1px solid #2d9cdb;
+                            background: #2d9cdb;
+                            display: flex;
+                            align-items: center;
+                            padding: 7px 25px;
+                            border-radius: 15px;
+                            cursor: pointer;
+                        }
+
                     </style>
                     <div id="containerCaller"></div>
                     `
@@ -114,6 +135,19 @@
                 fullAddress: null,
                 searchTextContent: null
             }
+            const getUrlParams = window
+                .location
+                .search
+                .replace('?', '')
+                .split('&')
+                .reduce(function(p, e) {
+                    let a = e.split('=');
+                    p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                    return p;
+                }, {}
+                );
+            const urlPhoneNumber = getUrlParams.phone;
+            this.urlPhoneNumber = urlPhoneNumber;
             this.messageService.subscribe('captionAccidentCaller', this.createCaption, this);
             this.messageService.subscribe('headerAccidentCaller', this.setHeader, this);
             this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
@@ -121,6 +155,13 @@
             this.messageService.subscribe('sendInfoSearchAddress', this.setInfoSearchAddress, this);
             this.messageService.subscribe('sendPatientSearchAddress', this.setPatientSearchAddress, this);
             this.messageService.subscribe('getInputElements', this.sendInputElements, this);
+            this.executeStatusCallerQuery();
+            if(urlPhoneNumber) {
+                this.showPagePreloader('Зачекайте, данні заповнюються');
+                this.executeQuestionQuery(urlPhoneNumber);
+            }
+        },
+        executeStatusCallerQuery: function() {
             const queryStatusCaller = {
                 queryCode: 'ak_listClasses112',
                 parameterValues: [
@@ -131,6 +172,17 @@
                 limit: -1
             };
             this.queryExecutor(queryStatusCaller, this.setStatusCallerId, this);
+            this.showPreloader = false;
+        },
+        executeQuestionQuery: function(urlPhoneNumber) {
+            const queryQuestion = {
+                queryCode: 'GetEmergensyContactByPhone',
+                parameterValues: [
+                    { key: '@Phone', value: urlPhoneNumber}
+                ],
+                limit: -1
+            };
+            this.queryExecutor(queryQuestion,this.getApplicantsProps.bind(this, urlPhoneNumber), this);
             this.showPreloader = false;
         },
         setStatusCallerId: function(data) {
@@ -586,7 +638,7 @@
             let callerStatus = '';
             for (const property in this.statusCaller) {
                 if(this.statusCaller[property].value === 1) {
-                    callerStatus = callerStatus + this.statusCaller[property].id + ' ';
+                    callerStatus = callerStatus + this.statusCaller[property].id + ', ';
                 }
             }
             if(callerStatus.length > 0) {
@@ -605,6 +657,52 @@
         },
         setPatientSearchAddress: function(message) {
             this.patientAddress = message.address;
+        },
+        getApplicantsProps: function(urlPhoneNumber, data) {
+            this.setCallerPropsByUrlPhoneNumber(urlPhoneNumber, data);
+            this.executeCounterQuestionQuery(urlPhoneNumber);
+        },
+        executeCounterQuestionQuery: function(urlPhoneNumber) {
+            const queryCounter = {
+                queryCode: 'CoutQuestionForNumber112',
+                parameterValues: [
+                    { key: '@Phone', value: urlPhoneNumber}
+                ],
+                limit: -1
+            };
+            this.queryExecutor(queryCounter,this.callerQuestionCounter, this);
+            this.showPreloader = false;
+        },
+        callerQuestionCounter: function(data) {
+            const indexApplicantId = data.columns.findIndex(el => el.code.toLowerCase() === 'applicantid');
+            const indexCounter = data.columns.findIndex(el => el.code.toLowerCase() === 'count_questions');
+            const counter = data.rows[0].values[indexCounter];
+            const applicantId = data.rows[0].values[indexApplicantId];
+            if(data.rows.length && counter) {
+                const questionWrapper = this.createQuestionWrapper(counter, applicantId);
+                this.container.appendChild(questionWrapper);
+            }
+        },
+        createQuestionWrapper: function(counter, applicantId) {
+            const questionBtn = this.createElement(
+                'button',
+                { className: 'questionBtn', innerText: 'Питань: ' + counter, applicantId }
+            );
+            questionBtn.addEventListener('click', e => {
+                e.stopImmediatePropagation();
+                const btn = e.currentTarget;
+                const id = btn.applicantId;
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Applicants/edit/' + id);
+            });
+            const questionWrapper = this.createElement(
+                'div',
+                { className: 'questionWrapper'},
+                questionBtn
+            );
+            return questionWrapper;
+        },
+        setCallerPropsByUrlPhoneNumber: function() {
+            this.hidePagePreloader();
         }
     };
 }());
