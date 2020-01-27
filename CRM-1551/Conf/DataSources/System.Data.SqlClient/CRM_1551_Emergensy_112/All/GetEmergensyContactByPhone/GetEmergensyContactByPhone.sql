@@ -1,0 +1,18 @@
+SELECT TOP (1)     
+	   [last_name]
+      ,[first_name]
+      ,[middle_name]
+      ,[person_phone]
+      ,[birth_date]
+      ,[building_id]
+      ,[entrance]
+      ,[entercode]
+      ,[storeysnumber]
+      ,[floor]
+      ,[flat]
+      ,[exit]
+      ,[moreinformation]
+      ,[longitude]
+      ,[latitude]
+  FROM [CRM_1551_Emergensy_112].[dbo].[Persons]
+  WHERE person_phone = @Phone
