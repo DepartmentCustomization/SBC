@@ -1211,7 +1211,9 @@
                 accidentDateTime: new Date(this.accidentDateTimeValue),
                 callDateTime: new Date(this.accidentCallDateTime),
                 accidentComment: this.accidentTextContentValue.value,
-                address: this.address
+                address: this.address,
+                checkBoxMe: this.checkBoxMe.checked,
+                checkBoxAnother: this.checkBoxAnother.checked
             }
             const name = 'saveValues';
             this.messageService.publish({ name, accidentInfo});

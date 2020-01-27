@@ -291,6 +291,14 @@
                     'value': null
                 },
                 {
+                    'key': '@for_yourself103',
+                    'value': this.event.checkBoxMe
+                },
+                {
+                    'key': '@for_another103',
+                    'value': this.event.checkBoxAnother
+                },
+                {
                     'key': '@service_ids',
                     'value': null
                 },
