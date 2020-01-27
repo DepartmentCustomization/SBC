@@ -138,16 +138,47 @@ INSERT INTO [dbo].[Persons]
       ,(SELECT TOP 1 Id FROM @output_applicant) [applicant_id]
       ,(SELECT TOP 1 Id FROM @output_pacient) [patient_id]
       ,@event_applicant_type_id [applicant_type_id]
-      ,@event_building_id [building_id]
-      ,@event_entrance [entrance]
-      ,@event_entercode [entercode]
-      ,@event_storeysnumber [storeysnumber]
-      ,@event_floor [floor]
-      ,@event_flat_office [flat/office]
-      ,@event_exit [exit]
-      ,@event_moreinformation [moreinformation]
-      ,@event_longitude [longitude]
-      ,@event_latitude [latitude]
+      --,@event_building_id [building_id]
+      ,CASE WHEN @event_building_id IS NULL AND @pacient_building_id IS NOT NULL THEN @pacient_building_id
+            WHEN @event_building_id IS NULL AND @pacient_building_id IS NULL THEN @applicant_building_id
+            ELSE @event_building_id END
+      --,@event_entrance [entrance]
+      ,CASE WHEN @event_entrance IS NULL AND @pacient_entrance IS NOT NULL THEN @pacient_entrance
+            WHEN @event_entrance IS NULL AND @pacient_entrance IS NULL THEN @applicant_entrance
+            ELSE @event_entrance END
+      --,@event_entercode [entercode]
+      ,CASE WHEN @event_entercode IS NULL AND @pacient_entercode IS NOT NULL THEN @pacient_entercode
+            WHEN @event_entercode IS NULL AND @pacient_entercode IS NULL THEN @applicant_entercode
+            ELSE @event_entercode END
+      --,@event_storeysnumber [storeysnumber]
+      ,CASE WHEN @event_storeysnumber IS NULL AND @pacient_storeysnumber IS NOT NULL THEN @pacient_storeysnumber
+            WHEN @event_storeysnumber IS NULL AND @pacient_storeysnumber IS NULL THEN @applicant_storeysnumber
+            ELSE @event_storeysnumber END
+      --,@event_floor [floor]
+      ,CASE WHEN @event_floor IS NULL AND @pacient_floor IS NOT NULL THEN @pacient_floor
+            WHEN @event_floor IS NULL AND @pacient_floor IS NULL THEN @applicant_floor
+            ELSE @event_floor END
+      --,@event_flat_office [flat/office]
+      ,CASE WHEN @event_flat_office IS NULL AND @pacient_flat IS NOT NULL THEN @pacient_flat
+            WHEN @event_flat_office IS NULL AND @pacient_flat IS NULL THEN @applicant_flat
+            ELSE @event_flat_office END
+      --,@event_exit [exit]
+      ,CASE WHEN @event_exit IS NULL AND @pacient_exit IS NOT NULL THEN @pacient_exit
+            WHEN @event_exit IS NULL AND @pacient_exit IS NULL THEN @applicant_exit
+            ELSE @event_exit END
+      --,@event_moreinformation [moreinformation]
+      ,CASE WHEN @event_moreinformation IS NULL AND @pacient_moreinformation IS NOT NULL THEN @pacient_moreinformation
+            WHEN @event_moreinformation IS NULL AND @pacient_moreinformation IS NULL THEN @applicant_moreinformation
+            ELSE @event_moreinformation END
+      --,@event_longitude [longitude]
+      ,CASE WHEN @event_longitude IS NULL AND @pacient_longitude IS NOT NULL THEN @pacient_longitude
+            WHEN @event_longitude IS NULL AND @pacient_longitude IS NULL THEN @applicant_longitude
+            ELSE @event_longitude END
+
+      ,CASE WHEN @event_latitude IS NULL AND @pacient_latitude IS NOT NULL THEN @pacient_latitude
+            WHEN @event_latitude IS NULL AND @pacient_latitude IS NULL THEN @applicant_latitude
+            ELSE @event_latitude END
+      --,@event_latitude [latitude]
       ,@event_content [content]
       ,@event_sipcallid [sipcallid]
       ,@user_id [user_id]
