@@ -88,5 +88,11 @@
     "Name": "latitude",
     "Position": 14,
     "IsPrintable": false
+  },
+  {
+    "Code": "event_address",
+    "Name": "event_address",
+    "Position": 15,
+    "IsPrintable": false
   }
 ]
