@@ -134,27 +134,27 @@
             switch (id) {
             case 'patientAge':
                 this.patientAge = input;
-                this.patientAgeValue = input.innerText;
+                this.patientAgeValue = input.value;
                 break;
             case 'patientBirthday':
                 this.patientBirthday = input;
-                this.patientBirthdayValue = input.innerText;
+                this.patientBirthdayValue = input.value;
                 break;
             case 'patientPhoneNumber':
                 this.patientPhoneNumber = input;
-                this.patientPhoneNumberValue = input.innerText;
+                this.patientPhoneNumberValue = input.value;
                 break;
             case 'patientSecondName':
                 this.patientSecondName = input;
-                this.patientSecondNameValue = input.innerText;
+                this.patientSecondNameValue = input.value;
                 break;
             case 'patientName':
                 this.patientName = input;
-                this.patientNameValue = input.innerText;
+                this.patientNameValue = input.value;
                 break;
             case 'patientFatherName':
                 this.patientFatherName = input;
-                this.patientFatherNameValue = input.innerText;
+                this.patientFatherNameValue = input.value;
                 break;
             default:
                 break;

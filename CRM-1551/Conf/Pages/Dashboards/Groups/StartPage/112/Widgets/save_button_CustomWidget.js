@@ -87,6 +87,7 @@
                 limit: -1
             };
             this.queryExecutor(querySave, this.getQueryResponse, this);
+            this.showPreloader = false;
         },
         setQueryParameters: function() {
             const parameters = [
@@ -291,12 +292,20 @@
                     'value': null
                 },
                 {
+                    'key': '@for_yourself103',
+                    'value': this.event.checkBoxMe
+                },
+                {
+                    'key': '@for_another103',
+                    'value': this.event.checkBoxAnother
+                },
+                {
                     'key': '@service_ids',
                     'value': null
                 },
                 {
                     'key': '@applicant_classes_ids',
-                    'value': this.applicant.callerStatus
+                    'value': this.applicant.status
                 },
                 {
                     'key': '@police',

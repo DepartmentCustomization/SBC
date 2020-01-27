@@ -24,6 +24,7 @@
                 limit: -1
             };
             this.queryExecutor(queryEventCardsList, this.load, this);
+            this.showPreloader = false;
         },
         dataForMap: {
             claims: []

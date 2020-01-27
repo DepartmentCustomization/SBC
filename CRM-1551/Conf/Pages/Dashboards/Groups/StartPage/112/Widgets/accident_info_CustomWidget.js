@@ -331,6 +331,7 @@
             };
             const externListType = 'externListType';
             this.queryExecutor(queryExternList, this.getList.bind(this, externListType), this);
+            this.showPreloader = false;
             const queryCallerTypeList = {
                 queryCode: 'ak_listApplicantTypes112',
                 parameterValues: [
@@ -342,6 +343,7 @@
             };
             const callerTypeList = 'callerTypeList';
             this.queryExecutor(queryCallerTypeList, this.getList.bind(this, callerTypeList), this);
+            this.showPreloader = false;
             const queryWorkLineList = {
                 queryCode: 'ak_listWorkLines112',
                 parameterValues: [
@@ -353,7 +355,6 @@
             };
             const workLineList = 'workLineList';
             this.queryExecutor(queryWorkLineList, this.getList.bind(this, workLineList), this);
-            this.showPreloader = false;
             this.showPreloader = false;
             this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
             this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
@@ -385,6 +386,7 @@
             };
             const categoryListType = 'categoryListType';
             this.queryExecutor(queryCategoryList, this.getList.bind(this, categoryListType), this);
+            this.showPreloader = false;
         },
         afterViewInit: function() {
             const container = document.getElementById('containerInfo');
@@ -410,6 +412,7 @@
             this.setDateTimeDefaultValue();
             this.setTimerDefaultValue();
             this.showHideElement('btnInfoAddressClear','none');
+            this.setDefaultSelectValue();
         },
         addContainerChild: function(...params) {
             params.forEach(item => this.container.appendChild(item));
@@ -589,6 +592,11 @@
                 }
             });
             return selectWrapper;
+        },
+        setDefaultSelectValue: function() {
+            this.changeCategoryInput('Інша подія', 10);
+            this.changeCallerTypeInput('Свідок', 3);
+            this.changeWorkLineInput('Телефонний виклик', 1);
         },
         setTrueItemsList: function(id, input) {
             let listItems = undefined;
@@ -1211,7 +1219,9 @@
                 accidentDateTime: new Date(this.accidentDateTimeValue),
                 callDateTime: new Date(this.accidentCallDateTime),
                 accidentComment: this.accidentTextContentValue.value,
-                address: this.address
+                address: this.address,
+                checkBoxMe: this.checkBoxMe.checked,
+                checkBoxAnother: this.checkBoxAnother.checked
             }
             const name = 'saveValues';
             this.messageService.publish({ name, accidentInfo});

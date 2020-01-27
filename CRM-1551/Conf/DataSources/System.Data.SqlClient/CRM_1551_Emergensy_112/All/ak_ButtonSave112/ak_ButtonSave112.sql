@@ -140,8 +140,8 @@ END
       ,@event_category_id [category_id]
       ,@event_event_date [event_date]
       ,CASE WHEN @for_yourself103='true'
-      THEN (SELECT TOP 1 Id FROM @output_applicant)
-      ELSE (SELECT TOP 1 Id FROM @output_pacient) END [applicant_id]
+      THEN (SELECT TOP 1 Id FROM @output_pacient)
+      ELSE (SELECT TOP 1 Id FROM @output_applicant) END [applicant_id]
       ,(SELECT TOP 1 Id FROM @output_pacient) [patient_id]
       ,@event_applicant_type_id [applicant_type_id]
       --,@event_building_id [building_id]
