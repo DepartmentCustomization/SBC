@@ -270,7 +270,9 @@
             if(position) {
                 input.addEventListener('change', e => {
                     e.stopImmediatePropagation();
-                    this.anonymousCheckBox.checked = false;
+                    if(id !== 'CallerPhone' && id !== 'CallerBirthday') {
+                        this.anonymousCheckBox.checked = false;
+                    }
                     this.setTextInputValue(id, input);
                 });
             }
@@ -295,16 +297,19 @@
             case 'CallerName':
                 this.callerName = input;
                 this.callerNameValue = input.value;
+                this.checkedAnonymousStatus();
                 this.fullName.push(input);
                 break;
             case 'CallerSecondName':
                 this.callerSecondName = input;
                 this.callerSecondNameValue = input.value;
+                this.checkedAnonymousStatus();
                 this.fullName.push(input);
                 break;
             case 'CallerFatherName':
                 this.callerFatherName = input;
                 this.callerFatherNameValue = input.value;
+                this.checkedAnonymousStatus();
                 this.fullName.push(input);
                 break;
             case 'CallerBirthday':
@@ -317,6 +322,19 @@
                 break;
             default:
                 break;
+            }
+        },
+        checkedAnonymousStatus: function() {
+            if(this.callerName && this.callerSecondName && this.callerFatherName) {
+                if(
+                    this.callerSecondName.value === this.stringEmpty &&
+                    this.callerFatherName.value === this.stringEmpty &&
+                    this.callerFatherNameValue === this.stringEmpty
+                ) {
+                    if(this.anonymousCheckBox) {
+                        this.anonymousCheckBox.checked = true;
+                    }
+                }
             }
         },
         createCallerNameWrapper: function() {
