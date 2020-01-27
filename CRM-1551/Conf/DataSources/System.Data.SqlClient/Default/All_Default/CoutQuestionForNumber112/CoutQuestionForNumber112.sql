@@ -1,7 +1,8 @@
 
 --DECLARE @Phone NVARCHAR='0444111010';
 
-DECLARE @ApplicantsId INT =(SELECT TOP 1 applicant_id FROM [dbo].[ApplicantPhones] WHERE phone_number=@Phone);
+DECLARE @ApplicantsId INT =(SELECT TOP 1 applicant_id FROM [dbo].[ApplicantPhones] WHERE applicant_id IS NOT NULL AND
+ phone_number=@Phone);
 
 
 
