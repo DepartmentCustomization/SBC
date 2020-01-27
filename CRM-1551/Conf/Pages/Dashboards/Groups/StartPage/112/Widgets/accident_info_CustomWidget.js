@@ -331,6 +331,7 @@
             };
             const externListType = 'externListType';
             this.queryExecutor(queryExternList, this.getList.bind(this, externListType), this);
+            this.showPreloader = false;
             const queryCallerTypeList = {
                 queryCode: 'ak_listApplicantTypes112',
                 parameterValues: [
@@ -342,6 +343,7 @@
             };
             const callerTypeList = 'callerTypeList';
             this.queryExecutor(queryCallerTypeList, this.getList.bind(this, callerTypeList), this);
+            this.showPreloader = false;
             const queryWorkLineList = {
                 queryCode: 'ak_listWorkLines112',
                 parameterValues: [
@@ -353,7 +355,6 @@
             };
             const workLineList = 'workLineList';
             this.queryExecutor(queryWorkLineList, this.getList.bind(this, workLineList), this);
-            this.showPreloader = false;
             this.showPreloader = false;
             this.messageService.subscribe('headerAccidentInfo', this.setHeader, this);
             this.messageService.subscribe('saveAppeal', this.setInfoValues, this);
@@ -385,6 +386,7 @@
             };
             const categoryListType = 'categoryListType';
             this.queryExecutor(queryCategoryList, this.getList.bind(this, categoryListType), this);
+            this.showPreloader = false;
         },
         afterViewInit: function() {
             const container = document.getElementById('containerInfo');

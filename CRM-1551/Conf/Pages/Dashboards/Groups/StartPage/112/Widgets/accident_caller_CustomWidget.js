@@ -642,7 +642,7 @@
                 }
             }
             if(callerStatus.length > 0) {
-                callerStatus = callerStatus.slice(0, -1);
+                callerStatus = callerStatus.slice(0, -2);
             }
             return callerStatus
         },

@@ -63,6 +63,7 @@
             };
             this.queryExecutor(queryEventCardsList, this.getCards, this);
             this.messageService.publish({name: 'getInputElements'});
+            this.showPreloader = false;
         },
         setWidgetsElements: function(message) {
             const widget = message.widget;

@@ -20,6 +20,7 @@
                 limit: -1
             };
             this.queryExecutor(queryCategoryList, this.load, this);
+            this.showPreloader = false;
         },
         initMap: function(zoomLevel = 5, viewOne = 50.433841, viewTwo = 30.453244) {
             this.map.setView([Number(viewOne), Number(viewTwo)], zoomLevel);
