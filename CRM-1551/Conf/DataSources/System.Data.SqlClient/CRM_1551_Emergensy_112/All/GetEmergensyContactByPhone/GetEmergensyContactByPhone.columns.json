@@ -94,5 +94,11 @@
     "Name": "event_address",
     "Position": 15,
     "IsPrintable": false
+  },
+  {
+    "Code": "applicant_classes_ids",
+    "Name": "applicant_classes_ids",
+    "Position": 16,
+    "IsPrintable": false
   }
 ]
