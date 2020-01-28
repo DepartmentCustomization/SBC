@@ -233,7 +233,7 @@ END
       ,N'''+@user_id+N''' [user_edit_id]
       ,GETUTCDATE() [edit_date]
   FROM [dbo].[Classes]
-  WHERE id IN ('+ISNULL(@applicant_classes_ids,N'0')+N')
+  WHERE id IN ('+CASE WHEN @pacient_classes_ids IS NULL OR @pacient_classes_ids=N'' THEN N'0' ELSE @pacient_classes_ids END+N')
   
   UNION 
 
@@ -245,7 +245,7 @@ END
       ,N'''+@user_id+N''' [user_edit_id]
       ,GETUTCDATE() [edit_date]
   FROM [dbo].[Classes]
-  WHERE id IN ('+ISNULL(@pacient_classes_ids,N'0')+N')';
+  WHERE id IN ('+CASE WHEN @pacient_classes_ids IS NULL OR @pacient_classes_ids=N'' THEN N'0' ELSE @pacient_classes_ids END+N')';
 
   INSERT INTO [dbo].[PersonClasses]
   (

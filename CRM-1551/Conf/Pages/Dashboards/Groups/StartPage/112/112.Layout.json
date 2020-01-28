@@ -127,7 +127,8 @@
                 "children": [
                   {
                     "code": "all_appeal_LeafletMapWidget",
-                    "type": "LeafletMapWidgetComponent",
+                    "type": "CustomWidgetComponent",
+                    // "type": "LeafletMapWidgetComponent",
                     "name": "allAppealLeafLetMap"
                   }
                 ],
