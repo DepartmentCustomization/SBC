@@ -22,6 +22,7 @@
                         padding: 10px;
                     }
                     .cardInfoItem{
+                        display: flex;
                         border-bottom: 1px dashed black;
                         color: black;
                         padding: 10px;
@@ -133,22 +134,22 @@
                 card__number, card__category, curd__receiptDate
             );
             const cardInfo__location_icon = this.createElement('i', {className: 'fa fa-map-marker typ marker'});
-            const cardInfo__location_text = this.createElement('i', {className: 'cardInfoItemText', innerText: addressEventValue });
+            const cardInfo__location_text = this.createElement('div', {className: 'cardInfoItemText', innerText: addressEventValue });
             const cardInfo__location = this.createElement('div', {className: 'cardInfoItem'},
                 cardInfo__location_icon, cardInfo__location_text
             );
             const cardInfo__content_icon = this.createElement('i', {className: 'fa fa-file-text typ marker'});
-            const cardInfo__content_text = this.createElement('i', {className: 'cardInfoItemText', innerText: contentValue});
+            const cardInfo__content_text = this.createElement('div', {className: 'cardInfoItemText', innerText: contentValue});
             const cardInfo__content = this.createElement('div', {className: 'cardInfoItem'},
                 cardInfo__content_icon, cardInfo__content_text
             );
             const cardInfo__phone_icon = this.createElement('i', {className: 'fa fa-phone fa-lg  marker'});
-            const cardInfo__phone_text = this.createElement('i', {className: 'cardInfoItemText', innerText: personPhoneValue});
+            const cardInfo__phone_text = this.createElement('div', {className: 'cardInfoItemText', innerText: personPhoneValue});
             const cardInfo__phone = this.createElement('div', {className: 'cardInfoItem'},
                 cardInfo__phone_icon, cardInfo__phone_text
             );
             const cardInfo__fullName_icon = this.createElement('i', {className: 'fa fa-user fa-lg marker'});
-            const cardInfo__fullName_text = this.createElement('i', {className: 'cardInfoItemText', innerText: fullNameValue});
+            const cardInfo__fullName_text = this.createElement('div', {className: 'cardInfoItemText', innerText: fullNameValue});
             const cardInfo__fullName = this.createElement('div', {className: 'cardInfoItem'},
                 cardInfo__fullName_icon, cardInfo__fullName_text
             );
@@ -166,7 +167,7 @@
                 const message = {
                     id: card.id
                 }
-                this.executeCardToView(message);
+                // this.executeCardToView(message);
             });
             return card
         },

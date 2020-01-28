@@ -720,6 +720,7 @@
             const indexAddressLongitude = data.columns.findIndex(el => el.code.toLowerCase() === 'longitude');
             const indexAddressLatitude = data.columns.findIndex(el => el.code.toLowerCase() === 'latitude');
             const indexAddressFullAddress = data.columns.findIndex(el => el.code.toLowerCase() === 'event_address');
+            const indexClasses = data.columns.findIndex(el => el.code.toLowerCase() === 'applicant_classes_ids');
             this.address.addressId = data.rows[0].values[indexAddressBuildingId];
             this.address.houseEntrance = data.rows[0].values[indexAddressHouseEntrance];
             this.address.houseEntranceCode = data.rows[0].values[indexAddressHouseEntranceCode];
@@ -737,6 +738,7 @@
             const birthday = this.setDateTimeValues(data.rows[0].values[indexBirthday]);
             this.callerBirthday.value = birthday;
             this.checkedAnonymousStatus();
+            const classes = data.rows[0].values[indexClasses];
         },
         setDateTimeValues: function(value) {
             let date = new Date(value);
