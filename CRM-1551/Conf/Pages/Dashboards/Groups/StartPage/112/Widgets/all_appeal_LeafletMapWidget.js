@@ -5,16 +5,15 @@
         formatTitle: function() {},
         customConfig:
                     `
-                    <style>
- #map {
-      margin: 0;
-      overflow: hidden;
-      position: fixed;
-      width: 100%;
-      height: 100%;
-  }
-</style>
-
+                        <style>
+                        #map {
+                            margin: 0;
+                            overflow: hidden;
+                            position: fixed;
+                            width: 100%;
+                            height: 100%;
+                        }
+                        </style>
                         <div id="map"></div>
                     `
         ,
