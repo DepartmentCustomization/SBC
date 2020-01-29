@@ -2,13 +2,13 @@ module.exports = {
     "env": {
         "browser": true,
         "es6": true,
-        "jquery": true,
-        "L": true
+        "jquery": true
     },
     "extends": "eslint:recommended",
     "globals": {
         "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
+        "SharedArrayBuffer": "readonly",
+        "L": true
     },
     "parserOptions": {
         "ecmaVersion": 2018
