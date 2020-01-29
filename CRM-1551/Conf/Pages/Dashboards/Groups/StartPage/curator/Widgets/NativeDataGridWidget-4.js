@@ -37,6 +37,10 @@
                     sortOrder: 'desc',
                     dataType: 'datetime',
                     format: 'dd.MM.yyyy HH:mm'
+                }, {
+                    dataField: 'OrganizationsName',
+                    caption: 'Захід',
+                    fixed: true
                 }
             ],
             masterDetail: {

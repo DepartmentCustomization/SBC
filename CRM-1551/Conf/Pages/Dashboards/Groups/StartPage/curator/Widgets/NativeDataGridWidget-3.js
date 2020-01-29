@@ -225,8 +225,10 @@
                 widget: 'dxButton',
                 options: {
                     icon: 'tel',
-                    type: 'default',
                     text: 'Прозвон',
+                    elementAttr: {
+                        class: 'yellowProzvonBtn'
+                    },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         const query = 'Coordinator_Button_Prozvon';
