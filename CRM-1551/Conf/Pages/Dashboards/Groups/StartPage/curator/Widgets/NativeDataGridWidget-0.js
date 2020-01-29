@@ -121,7 +121,7 @@
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         window.open(String(
                             location.origin +
                             localStorage.getItem('VirtualPath') +
@@ -136,7 +136,7 @@
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
         },
         changeOnTable: function(message) {
-            if(message.column != 'Не в компетенції') {
+            if(message.column !== 'Не в компетенції') {
                 document.getElementById('table5__NeVKompetentsii').style.display = 'none';
             }else{
                 this.navigation = message.value;
@@ -185,13 +185,13 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null) {
+            if(currentEmployeeData.short_answer === null) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.adressZ == null) {
+            if(currentEmployeeData.adressZ === null) {
                 currentEmployeeData.adressZ = '';
             }
-            if(currentEmployeeData.question_content == null) {
+            if(currentEmployeeData.question_content === null) {
                 currentEmployeeData.question_content = '';
             }
             let elementAdress__content = this.createElement('div', {
