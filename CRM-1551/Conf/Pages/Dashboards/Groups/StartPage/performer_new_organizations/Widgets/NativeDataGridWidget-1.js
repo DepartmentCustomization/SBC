@@ -114,7 +114,7 @@
             this.targetId = message.targetId;
             this.orgId = message.orgId;
             this.orgName = message.orgName;
-            if(message.column != 'Надійшло') {
+            if(message.column !== 'Надійшло') {
                 document.getElementById('table4__arrived').style.display = 'none';
             }else {
                 document.getElementById('table4__arrived').style.display = 'block';
@@ -442,13 +442,13 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined) {
+            if(currentEmployeeData.balans_name === null || currentEmployeeData.balans_name === undefined) {
                 currentEmployeeData.balans_name = '';
             }
-            if(currentEmployeeData.zayavnyk_zmist == null || currentEmployeeData.zayavnyk_zmist == undefined) {
+            if(currentEmployeeData.zayavnyk_zmist === null || currentEmployeeData.zayavnyk_zmist === undefined) {
                 currentEmployeeData.zayavnyk_zmist = '';
             }
-            if(currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined) {
+            if(currentEmployeeData.zayavnyk_adress === null || currentEmployeeData.zayavnyk_adress === undefined) {
                 currentEmployeeData.zayavnyk_adress = '';
             }
             let elementAdress__content = this.createElement('div', {
