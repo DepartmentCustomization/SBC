@@ -126,7 +126,7 @@ end navigation,
 
  ,[Organizations2].Id [transfer_to_organization_id]
  ,[Organizations2].[short_name] [transfer_to_organization_name]
- ,CASE WHEN [Events].[active]=''true'' THEN ''true'' ELSE ''fasle'' END event
+ ,CASE WHEN [Events].[active]=''true'' THEN ''true'' ELSE ''false'' END event
  --,''true'' event
 from 
 [Assignments] with (nolock) inner join 

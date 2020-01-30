@@ -118,10 +118,13 @@
         onCellPrepared: function(options) {
             if(options.rowType === 'data') {
                 if(options.column.dataField === 'event') {
-                    const cellDate = options.data.control_date;
-                    if(cellDate === true) {
+                    const cellDate = options.data.event;
+                    if(cellDate === 'true') {
                         const i = this.createElement('i', {className: 'material-icons', innerText: 'edit_location'});
+                        options.cellElement.innerText = '';
                         options.cellElement.appendChild(i);
+                    }else if(cellDate === 'false') {
+                        options.cellElement.innerText = '';
                     }
                 }
             }
