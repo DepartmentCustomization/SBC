@@ -119,6 +119,7 @@
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
+            this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     if(e.column.dataField === 'registration_number' && e.row !== undefined) {
@@ -131,6 +132,17 @@
                     }
                 }
             });
+        },
+        onCellPrepared: function(options) {
+            if(options.rowType === 'data') {
+                if(options.column.dataField === 'control_date') {
+                    const cellDate = options.data.control_date;
+                    const date = new Date ();
+                    if(cellDate <= date) {
+                        options.cellElement.classList.add('expiredControlDate');
+                    }
+                }
+            }
         },
         afterRenderTable: function() {
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });

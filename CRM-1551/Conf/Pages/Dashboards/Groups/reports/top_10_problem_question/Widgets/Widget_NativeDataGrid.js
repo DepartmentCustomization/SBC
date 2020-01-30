@@ -224,7 +224,8 @@
                 let cellInfoCaption = worksheet.getCell('A1');
                 cellInfoCaption.value = 'ТОП-10 найпроблемніших питань в розрізі районів';
                 let cellPeriod = worksheet.getCell('A2');
-                cellPeriod.value = 'Період вводу з (включно) : дата з ' + this.changeDateTimeValues(this.dateFrom) + ' дата по ' + this.changeDateTimeValues(this.dateTo);
+                cellPeriod.value = 'Період вводу з (включно) : дата з ' + this.changeDateTimeValues(this.dateFrom) +
+                                        ' дата по ' + this.changeDateTimeValues(this.dateTo);
                 worksheet.mergeCells('A1:M1');
                 worksheet.mergeCells('A2:M2');
                 worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
@@ -429,7 +430,9 @@
                 worksheet.getRow(3).border = {
                     bottom: {style:'thin'}
                 };
-                worksheet.getRow(4).font = { vertAlign: 'subscript', name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false };
+                worksheet.getRow(4).font = {
+                    vertAlign: 'subscript', name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false
+                };
                 worksheet.getRow(4).alignment = { textRotation: +90, vertical: 'middle', horizontal: 'center', wrapText: true };
                 let numberTitle = worksheet.getCell('A4');
                 let qustTitle = worksheet.getCell('B4');
@@ -454,9 +457,7 @@
             if (a > b) {
                 return 1;
             }
-            if (a < b) {
-                return -1;
-            }
+            return -1;
         },
         getAllIndexes: function(arr, val) {
             let indexes = [];

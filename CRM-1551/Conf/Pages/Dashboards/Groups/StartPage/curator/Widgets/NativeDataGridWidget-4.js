@@ -38,7 +38,7 @@
                     dataType: 'datetime',
                     format: 'dd.MM.yyyy HH:mm'
                 }, {
-                    dataField: 'OrganizationsName',
+                    dataField: 'event',
                     caption: 'Захід',
                     fixed: true
                 }
@@ -101,6 +101,7 @@
             this.sub = this.messageService.subscribe('clickOnСoordinator_table', this.changeOnTable, this);
             this.config.masterDetail.template = this.createMasterDetails.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
+            this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     if(e.column.dataField === 'registration_number' && e.row !== undefined) {
@@ -113,6 +114,17 @@
                     }
                 }
             });
+        },
+        onCellPrepared: function(options) {
+            if(options.rowType === 'data') {
+                if(options.column.dataField === 'event') {
+                    const cellDate = options.data.control_date;
+                    if(cellDate === true) {
+                        const i = this.createElement('i', {className: 'material-icons', innerText: 'edit_location'});
+                        options.cellElement.appendChild(i);
+                    }
+                }
+            }
         },
         afterRenderTable: function() {
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });

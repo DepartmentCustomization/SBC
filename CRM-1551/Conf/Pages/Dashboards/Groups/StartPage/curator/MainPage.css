@@ -148,10 +148,10 @@
     position: relative;
 }
 #filtersWrapper{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-padding: 10px 0 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0 10px 20px;
 }
 .columnCategorie{
     border-width: 0px;
@@ -576,4 +576,8 @@ padding: 10px 0 10px 20px;
 }
 .dx-button-text{
     color: inherit;
+}
+.expiredControlDate{
+    background-color:  #ed2020;
+    color:  #fff;
 }
