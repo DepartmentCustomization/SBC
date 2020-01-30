@@ -19,31 +19,31 @@
                     alignItems: 'middle',
                     columns: [
                         {
-                            dataField: 'Count_rmz',
+                            dataField: 'ReestrZKMM',
                             caption: 'Минулий період'
                         }, {
-                            dataField: 'Count_rpz',
+                            dataField: 'ReestrZKPM',
                             caption: 'Поточний місяць'
                         }
                     ]
                 }, {
-                    dataField: 'Count_rzz',
+                    dataField: 'ReestrZNZ',
                     caption: 'з них, Зареєстровано'
                 }, {
-                    dataField: 'Count_rzr',
+                    dataField: 'ReestrZNVR',
                     caption: 'з них, В роботі'
                 }, {
                     caption: 'Закриття виконавцем',
                     alignItems: 'middle',
                     columns: [
                         {
-                            dataField: 'Count_rzvv',
+                            dataField: 'ReestrZVV',
                             caption: 'Вчасно'
                         }, {
-                            dataField: 'Count_rzvnv',
+                            dataField: 'ReestrZVNV',
                             caption: 'Не вчасно'
                         }, {
-                            dataField: 'Count_rzvp',
+                            dataField: 'ReestrZVP',
                             caption: 'Прострочено'
                         }
                     ]
@@ -83,6 +83,24 @@
                 function setColStyles(col) {
                     col.alignment = col.dataField === 'Organization_name' ? 'left' : 'center';
                     col.verticalAlignment = 'Bottom';
+                }
+            });
+            this.dataGridInstance.onCellClick.subscribe(e => {
+                e.event.stopImmediatePropagation();
+                if(e.column) {
+                    if (e.row !== undefined
+						&& e.column.dataField !== 'Organization_name'
+                        && e.column.dataField !== 'Vids_vz'
+                    ) {
+                        const orgId = e.data.Id;
+                        const date = this.date;
+                        const query = e.column.dataField;
+                        const string = 'orgId=' + orgId + '&date=' + date + '&query=' + query;
+                        window.open(
+                            location.origin + localStorage.getItem('VirtualPath') +
+                            '/dashboard/page/rating_indicators_department_organization?' + string
+                        );
+                    }
                 }
             });
         },
@@ -254,7 +272,8 @@
             cell.font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: false , italic: false };
         },
         setQueryParams: function(message) {
-            this.config.query.parameterValues = [ { key: '@Date', value: message.date}];
+            this.date = message.date;
+            this.config.query.parameterValues = [ { key: '@Date', value: this.date}];
             this.loadData(this.afterLoadDataHandler);
         },
         afterLoadDataHandler: function() {
