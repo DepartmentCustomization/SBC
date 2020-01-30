@@ -14,7 +14,7 @@
             header.firstElementChild.style.overflow = 'visible';
             header.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
             this.sub = this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this);
-            if(window.location.search == '') {
+            if(window.location.search === '') {
                 let executeQuery = {
                     queryCode: 'organization_name',
                     parameterValues: [],
@@ -71,7 +71,7 @@
                 this.messageService.publish({name: 'messageWithOrganizationId', value: this.organizationId, distribute:  this.distribute});
                 document.getElementById('organizationName').value = (data.rows[0].values[indexOfTypeId]);
                 document.getElementById('organizationName').innerText = (data.rows[0].values[indexOfTypeName]);
-                if(window.location.search != String('?id=' + data.rows[0].values[indexOfTypeId])) {
+                if(window.location.search !== String('?id=' + data.rows[0].values[indexOfTypeId])) {
                     window.location.search = String('id=' + data.rows[0].values[indexOfTypeId]);
                 }
             }
@@ -115,45 +115,78 @@
             }
         },
         createTabs: function(tabsWrapper) {
-            let tabInformation__title = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
+            let tabInformation__title = this.createElement('div',
+                { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'}
+            );
             let tabAction__title = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
-            let tabProcessingOrders__title = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
+            let tabProcessingOrders__title = this.createElement('div',
+                { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'}
+            );
             let tabOrganizations__title = this.createElement('div', { className: 'tabOrganizations tab_title', innerText: 'ОРГАНІЗАЦІЇ'});
             let tabFinder__title = this.createElement('div', { className: ' tab_title', innerText: 'Розширений пошук'});
             let tabExecutivePosition__title = this.createElement('div', { className: ' tab_title', innerText: 'Вибір посади-виконавця'});
             let tabTemplates__title = this.createElement('div', { className: ' tab_title', innerText: 'Шаблони'});
-            const tabFinder = this.createElement('div', { id: 'tabFinder', url: 'poshuk_table', className: 'tabFinder tab tabTo'}, tabFinder__title);
-            const tabTemplates = this.createElement('div', { id: 'tabTemplates', url: 'Templates', className: 'tabTemplates tab tabTo'}, tabTemplates__title);
-            const tabExecutivePosition = this.createElement('div', { id: 'tabExecutivePosition', url: 'PersonExecutorChoose', className: 'tabExecutivePosition tab tabTo'}, tabExecutivePosition__title);
-            const tabInformation = this.createElement('div', { id: 'tabInformation', url: '', className: 'tabInformation tab '}, tabInformation__title);
-            const tabAction = this.createElement('div', { id: 'tabAction', url: 'performer_new_actions', className: 'tabAction tab tabTo'}, tabAction__title);
-            const tabProcessingOrders = this.createElement('div', { id: 'tabProcessingOrders', url: 'performer_new_processing_assigments', className: 'tabHover tabProcessingOrders tab'}, tabProcessingOrders__title);
-            const tabOrganizations = this.createElement('div', { id: 'tabOrganizations', url: 'performer_new_organizations', className: 'tabOrganizations tab tabTo'}, tabOrganizations__title);
-            const tabsContainer = this.createElement('div', { id: 'tabsContainer', className: 'tabsContainer'}, tabInformation, tabAction, tabProcessingOrders, tabOrganizations, tabFinder, tabExecutivePosition, tabTemplates);
-            const orgLinkСhangerBox__icon = this.createElement('div', { id: 'orgLinkСhangerBox__icon', className:'material-icons', innerText:'more_vert' });
-            const orgLinkСhangerBox = this.createElement('div', { id: 'orgLinkСhangerBox'}, orgLinkСhangerBox__icon);
-            const linkСhangerContainer = this.createElement('div', { id: 'organizationsContainer'}, orgLinkСhangerBox);
+            const tabFinder = this.createElement('div',
+                { id: 'tabFinder', url: 'poshuk_table', className: 'tabFinder tab tabTo'},
+                tabFinder__title
+            );
+            const tabTemplates = this.createElement('div',
+                { id: 'tabTemplates', url: 'Templates', className: 'tabTemplates tab tabTo'},
+                tabTemplates__title
+            );
+            const tabExecutivePosition = this.createElement('div',
+                { id: 'tabExecutivePosition', url: 'PersonExecutorChoose', className: 'tabExecutivePosition tab tabTo'},
+                tabExecutivePosition__title
+            );
+            const tabInformation = this.createElement('div',
+                { id: 'tabInformation', url: 'monitoring_and_responding', className: 'tabInformation tab tabTo'},
+                tabInformation__title
+            );
+            const tabAction = this.createElement('div',
+                { id: 'tabAction', url: 'performer_new_actions', className: 'tabAction tab tabTo'},
+                tabAction__title
+            );
+            const tabProcessingOrders = this.createElement('div',
+                { id: 'tabProcessingOrders', url: 'performer_new_processing_assigments', className: 'tabHover tabProcessingOrders tab'},
+                tabProcessingOrders__title
+            );
+            const tabOrganizations = this.createElement('div',
+                { id: 'tabOrganizations', url: 'performer_new_organizations', className: 'tabOrganizations tab tabTo'},
+                tabOrganizations__title
+            );
+            const tabsContainer = this.createElement('div',
+                { id: 'tabsContainer', className: 'tabsContainer'},
+                tabInformation, tabAction, tabProcessingOrders, tabOrganizations, tabFinder, tabExecutivePosition, tabTemplates
+            );
+            const orgLinkСhangerBox__icon = this.createElement('div',
+                { id: 'orgLinkСhangerBox__icon', className:'material-icons', innerText:'more_vert' }
+            );
+            const orgLinkChangerBox = this.createElement('div', { id: 'orgLinkСhangerBox'}, orgLinkСhangerBox__icon);
+            const linkСhangerContainer = this.createElement('div', { id: 'organizationsContainer'}, orgLinkChangerBox);
             tabsWrapper.appendChild(tabsContainer);
             tabsWrapper.appendChild(linkСhangerContainer);
             orgLinkСhangerBox__icon.addEventListener('click', event => {
                 if(this.organizationSelect.length > 0) {
                     event.stopImmediatePropagation();
-                    if(orgLinkСhangerBox.children.length === 1) {
+                    if(orgLinkChangerBox.children.length === 1) {
                         let orgLinksWrapper__triangle = this.createElement('div', { className: 'orgLinksWrapper__triangle' });
                         let orgLinksWrapper = this.createElement('div', { id: 'orgLinksWrapper'}, orgLinksWrapper__triangle);
-                        orgLinkСhangerBox.appendChild(orgLinksWrapper);
+                        orgLinkChangerBox.appendChild(orgLinksWrapper);
                         this.organizationSelect.forEach(el => {
-                            let organizationLink = this.createElement('div', { className: 'organizationLink', orgId: String(String(el.id)), innerText: el.name });
+                            let organizationLink = this.createElement('div',
+                                { className: 'organizationLink', orgId: String(String(el.id)), innerText: el.name }
+                            );
                             orgLinksWrapper.appendChild(organizationLink);
                             organizationLink.addEventListener('click', event => {
                                 event.stopImmediatePropagation();
                                 let target = event.currentTarget;
-                                window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_processing_assigments?id=' + target.orgId));
+                                window.open(String(location.origin + localStorage.getItem('VirtualPath') +
+                                '/dashboard/page/performer_new_processing_assigments?id=' + target.orgId));
                             });
                         });
-                    }else if(orgLinkСhangerBox.children.length === 2) {
+                    }else if(orgLinkChangerBox.children.length === 2) {
                         let container = document.getElementById('orgLinksWrapper');
-                        orgLinkСhangerBox.removeChild(container);
+                        orgLinkChangerBox.removeChild(container);
                     }
                 }
             });
@@ -162,7 +195,7 @@
                 el.addEventListener('click', event => {
                     let target = event.currentTarget;
                     document.getElementById('container').style.display = 'none';
-                    if(target.id === 'tabFinder') {
+                    if(target.id === 'tabFinder' || target.id === 'tabInformation') {
                         this.goToDashboard(target.url);
                     } else if (target.id === 'tabExecutivePosition' || target.id === 'tabTemplates') {
                         this.goToSection(target.url);
@@ -173,12 +206,22 @@
             });
         },
         createFilters: function(filtersWrapper) {
-            const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
+            const searchContainer__input = this.createElement('input',
+                {
+                    id: 'searchContainer__input',
+                    type: 'search',
+                    placeholder: 'Пошук доручення за номером',
+                    className: 'searchContainer__input'
+                }
+            );
             this.searchContainer__input = searchContainer__input;
-            const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
+            const searchContainer = this.createElement('div',
+                {id: 'searchContainer', className: 'searchContainer'},
+                searchContainer__input
+            );
             searchContainer__input.addEventListener('input', event => {
                 event.stopImmediatePropagation();
-                if(searchContainer__input.value.length == 0) {
+                if(searchContainer__input.value.length === 0) {
                     this.resultSearch('clearInput', 0);
                     this.showTable(searchContainer__input);
                 }
@@ -217,34 +260,44 @@
             for(let i = 2; i < data.columns.length; i++) {
                 let item = data.columns[i];
                 let columnTriangle = this.createElement('div', { });
-                let columnHeader = this.createElement('div', { id: String('columnHeader_' + i), code: String(String(item.code)), className: 'columnHeader', innerText: String(String(item.name))}, columnTriangle);
+                let columnHeader = this.createElement('div',
+                    {
+                        id: String('columnHeader_' + i),
+                        code: String(String(item.code)),
+                        className: 'columnHeader',innerText: String(String(item.name))
+                    },
+                    columnTriangle
+                );
                 let columnsWrapper = this.createElement('div', { id: String('columnsWrapper_' + i), className: 'columnsWrapper'});
-                if(i == 2) {
+                if(i === 2) {
                     columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';
                     columnTriangle.classList.add(String('triangle' + i));
-                }else if(i == 3) {
+                }else if(i === 3) {
                     columnHeader.style.backgroundColor = 'rgb(173, 118, 205)';
                     columnTriangle.classList.add(String('triangle' + i));
-                }else if(i == 4) {
+                }else if(i === 4) {
                     columnHeader.style.backgroundColor = 'rgb(240, 114, 93)';
                     columnTriangle.classList.add(String('triangle' + i));
-                }else if(i == 5) {
+                }else if(i === 5) {
                     columnHeader.style.backgroundColor = 'rgb(238, 163, 54)';
                     columnTriangle.classList.add(String('triangle' + i));
-                }else if(i == 6) {
+                }else if(i === 6) {
                     columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';
                     columnTriangle.classList.add(String('triangle' + i));
-                }else if(i == 7) {
+                }else if(i === 7) {
                     columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
                     columnTriangle.classList.add(String('triangle' + i));
-                }else if(i == 8) {
+                }else if(i === 8) {
                     columnHeader.style.backgroundColor = 'rgb(94, 202, 162)';
                     columnTriangle.classList.add(String('triangle' + i));
-                }else if(i == 9) {
+                }else if(i === 9) {
                     columnHeader.style.backgroundColor = 'rgb(73, 155, 199)';
                     columnTriangle.classList.add(String('triangle' + i));
                 }
-                let column = this.createElement('div', { id: String('column_' + i), code: String(String(item.code)), className: 'column'}, columnHeader, columnsWrapper);
+                let column = this.createElement('div',
+                    { id: String('column_' + i), code: String(String(item.code)), className: 'column'},
+                    columnHeader, columnsWrapper
+                );
                 column.classList.add(String('column_' + i));
                 tableContainer.appendChild(column);
             }
@@ -252,10 +305,23 @@
                 let elRow = data.rows[i];
                 for(let j = 2; j < elRow.values.length; j++) {
                     let el = elRow.values[j];
-                    if(el != 0) {
-                        let columnCategorie__value = this.createElement('div', { className: 'columnCategorie__value', innerText: '(' + el + ')'});
-                        let columnCategorie__title = this.createElement('div', { className: 'columnCategorie__title', code: String(String(elRow.values[1])), innerText: String(String(elRow.values[1]))});
-                        let columnCategorie = this.createElement('div', { className: 'columnCategorie', code: String(String(elRow.values[1]))}, columnCategorie__title, columnCategorie__value);
+                    if(el !== 0) {
+                        let columnCategorie__value = this.createElement('div',
+                            { className: 'columnCategorie__value', innerText: '(' + el + ')'}
+                        );
+                        let columnCategorie__title = this.createElement('div',
+                            {
+                                className: 'columnCategorie__title',
+                                code: String(String(elRow.values[1])),
+                                innerText: String(String(elRow.values[1]))}
+                        );
+                        let columnCategorie = this.createElement('div',
+                            {
+                                className: 'columnCategorie',
+                                code: String(String(elRow.values[1]))
+                            },
+                            columnCategorie__title, columnCategorie__value
+                        );
                         document.getElementById(String('columnsWrapper_' + j)).appendChild(columnCategorie);
                     }
                 }
@@ -289,7 +355,7 @@
                     this.showTable(target, column, navigator);
                 });
             });
-            if(reloadTable == true) {
+            if(reloadTable === true) {
                 categories.forEach(el => {
                     el.style.display = 'none';
                 });
@@ -300,21 +366,21 @@
         },
         columnName: function(target) {
             let column = '';
-            if(target.code == 'nadiyshlo') {
+            if(target.code === 'nadiyshlo') {
                 column = 'Надійшло'
-            }else if(target.code == 'neVKompetentsii') {
+            }else if(target.code === 'neVKompetentsii') {
                 column = 'Не в компетенції'
-            }else if(target.code == 'prostrocheni') {
+            }else if(target.code === 'prostrocheni') {
                 column = 'Прострочені'
-            }else if(target.code == 'uvaga') {
+            }else if(target.code === 'uvaga') {
                 column = 'Увага'
-            }else if(target.code == 'vroboti') {
+            }else if(target.code === 'vroboti') {
                 column = 'В роботі'
-            }else if(target.code == 'dovidoma') {
+            }else if(target.code === 'dovidoma') {
                 column = 'До відома'
-            }else if(target.code == 'naDoopratsiyvanni') {
+            }else if(target.code === 'naDoopratsiyvanni') {
                 column = 'На доопрацюванні'
-            }else if(target.code == 'neVykonNeMozhl') {
+            }else if(target.code === 'neVykonNeMozhl') {
                 column = 'План/Програма'
             }
             return column
@@ -322,7 +388,7 @@
         showTable: function(target, columnName, navigator) {
             let headers = document.querySelectorAll('.columnHeader');
             headers = Array.from(headers);
-            if(target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input') {
+            if(target.classList.contains('check') || target.classList.contains('hover') || target.id === 'searchContainer__input') {
                 headers.forEach(el => {
                     el.firstElementChild.classList.remove('triangle');
                 });
@@ -345,14 +411,14 @@
                     el.classList.remove('hover');
                     el.classList.remove('check');
                 }.bind(this));
-                this.hideAllItems(1)
+                this.hideAllItems(1);
                 this.sendMesOnBtnClick('clickOnTable2', 'none', 'none');
             }else{
                 target.classList.add('hover');
                 headers.forEach(function(target, header) {
                     let headers = document.querySelectorAll('.columnHeader');
                     headers = Array.from(headers);
-                    if(target.id != header.id) {
+                    if(target.id !== header.id) {
                         header.style.backgroundColor = '#d3d3d3';
                         header.classList.add('check');
                         header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
@@ -366,11 +432,11 @@
         hideAllItems: function(value) {
             let categories = document.querySelectorAll('.columnCategorie');
             categories = Array.from(categories);
-            if(value == 0) {
+            if(value === 0) {
                 categories.forEach(el => {
                     el.style.display = 'none';
                 });
-            }else if(value == 1) {
+            }else if(value === 1) {
                 categories.forEach(el => {
                     el.style.display = 'flex';
                 });

@@ -45,12 +45,12 @@
             };
             this.queryExecutor(executeQueryFiltersDepart, this.setDepartmentData.bind(this, status, location), this);
             this.showPreloader = false;
-            let executeQueryDisctict = {
+            let executeQueryDistinct = {
                 queryCode: 'cc_FilterDistrict',
                 limit: -1,
                 parameterValues: []
             };
-            this.queryExecutor(executeQueryDisctict, this.setDistrictCategories, this);
+            this.queryExecutor(executeQueryDistinct, this.setDistrictCategories, this);
             this.showPreloader = false;
             let executeQueryCategories = {
                 queryCode: 'cc_FilterQuestionTypes',
@@ -59,12 +59,12 @@
             };
             this.queryExecutor(executeQueryCategories, this.setQuestionTypesCategories, this);
             this.showPreloader = false;
-            let executeQueryDepartament = {
+            let executeQueryDepartment = {
                 queryCode: 'cc_FilterDepartment',
                 limit: -1,
                 parameterValues: []
             };
-            this.queryExecutor(executeQueryDepartament, this.setDepartmentCategories, this);
+            this.queryExecutor(executeQueryDepartment, this.setDepartmentCategories, this);
             this.showPreloader = false;
         },
         afterViewInit: function() {
@@ -108,7 +108,7 @@
                 className: 'tabAppeal tabTitle',
                 innerText: 'РЕЄСТРАЦІЯ ЗВЕРНЕНЬ'
             });
-            let tabAssigment__title = this.createElement('div', {
+            let tabAssignment__title = this.createElement('div', {
                 className: 'tabAssigment tabTitle',
                 innerText: 'ОБРОБКА ДОРУЧЕНЬ'
             });
@@ -136,7 +136,7 @@
                 location: 'dashboard',
                 url: 'curator',
                 className: 'tabAssigment tab tabHover'
-            }, tabAssigment__title);
+            }, tabAssignment__title);
             const tabFinder = this.createElement('div', {
                 id: 'tabFinder',
                 location: 'dashboard',
@@ -215,10 +215,10 @@
             tabs.forEach(function(el) {
                 el.addEventListener('click', event => {
                     let target = event.currentTarget;
-                    if(target.location == 'section') {
+                    if(target.location === 'section') {
                         document.getElementById('container').style.display = 'none';
                         this.goToSection(target.url);
-                    }else if(target.location == 'dashboard') {
+                    }else if(target.location === 'dashboard') {
                         document.getElementById('container').style.display = 'none';
                         this.goToDashboard(target.url);
                     }
@@ -281,7 +281,7 @@
             }, searchContainer__input);
             filtersWrapper.appendChild(searchContainer);
             searchContainer__input.addEventListener('input', () => {
-                if(searchContainer__input.value.length == 0) {
+                if(searchContainer__input.value.length === 0) {
                     this.resultSearch('clearInput', 0);
                     this.showTable(searchContainer__input);
                 }
@@ -574,7 +574,7 @@
             this.showPreloader = false;
         },
         createModalForm: function(modalWindowContainer, location, data) {
-            if(modalWindowContainer.parentElement == null) {
+            if(modalWindowContainer.parentElement === null) {
                 let filtersWrapper = document.getElementById('filtersWrapper');
                 filtersWrapper.appendChild(modalWindowContainer);
             }
@@ -911,15 +911,15 @@
                     className: 'columnHeader',
                     innerText: String(String(item.name))
                 });
-                if (i == 2) {
+                if (i === 2) {
                     columnHeader.style.backgroundColor = 'rgb(248, 195, 47)';
-                } else if (i == 3) {
+                } else if (i === 3) {
                     columnHeader.style.backgroundColor = 'rgb(74, 193, 197)';
-                } else if (i == 4) {
+                } else if (i === 4) {
                     columnHeader.style.backgroundColor = 'rgb(132, 199, 96)';
-                } else if (i == 5) {
+                } else if (i === 5) {
                     columnHeader.style.backgroundColor = 'rgb(240, 114, 93)';
-                } else if (i == 6) {
+                } else if (i === 6) {
                     columnHeader.style.backgroundColor = 'rgba(238, 163, 54, 1)';
                 }
                 let column = this.createElement('div', {
@@ -935,7 +935,7 @@
                 let navigationIndex = data.columns.findIndex(el => el.code.toLowerCase() === 'navigation');
                 for(let j = 2; j < elRow.values.length; j++) {
                     let el = elRow.values[j];
-                    if(el != 0) {
+                    if(el !== 0) {
                         let columnCategorie__value = this.createElement('div', {
                             className: 'columnCategorie__value',
                             innerText: '(' + el + ')'
@@ -949,7 +949,7 @@
                             className: 'columnCategorie',
                             code: String(String(elRow.values[navigationIndex]))
                         }, columnCategorie__title, columnCategorie__value);
-                        if(j == 2) {
+                        if(j === 2) {
                             columnCategorie.classList.add('columnCategorie__yellow');
                         }
                         document.getElementById(String('column_' + j)).appendChild(columnCategorie);
@@ -971,7 +971,7 @@
             categories = Array.from(categories);
             let headers = document.querySelectorAll('.columnHeader');
             headers = Array.from(headers);
-            if(reloadTable == true) {
+            if(reloadTable === true) {
                 categories.forEach(el => {
                     el.style.display = 'none';
                 });
@@ -1005,15 +1005,15 @@
         },
         columnName: function(target) {
             let column = '';
-            if(target.code == 'rozyasneno') {
+            if(target.code === 'rozyasneno') {
                 column = 'Роз`яcнено'
-            }else if(target.code == 'neVKompetentsii') {
+            }else if(target.code === 'neVKompetentsii') {
                 column = 'Не в компетенції'
-            }else if(target.code == 'doopratsiovani') {
+            }else if(target.code === 'doopratsiovani') {
                 column = 'Доопрацьовані'
-            }else if(target.code == 'prostrocheni') {
+            }else if(target.code === 'prostrocheni') {
                 column = 'Прострочені'
-            }else if(target.code == 'neVykonNeMozhl') {
+            }else if(target.code === 'neVykonNeMozhl') {
                 column = 'План / Програма'
             }
             return column
@@ -1023,7 +1023,7 @@
             headers = Array.from(headers);
             if (target.classList.contains('check') ||
                 target.classList.contains('hover') ||
-                target.id == 'searchContainer__input') {
+                target.id === 'searchContainer__input') {
                 document.getElementById('columnHeader_2').style.backgroundColor = 'rgb(248, 195, 47)';
                 document.getElementById('columnHeader_3').style.backgroundColor = 'rgb(74, 193, 197)';
                 document.getElementById('columnHeader_4').style.backgroundColor = 'rgb(132, 199, 96)';
@@ -1046,7 +1046,7 @@
                 target.classList.add('hover');
                 for(let i = 0; i < headers.length; i++) {
                     let header = headers[i];
-                    if(target.id != header.id) {
+                    if(target.id !== header.id) {
                         header.firstElementChild.classList.remove(String('triangle' + (i + 2)));
                         header.firstElementChild.classList.add('triangle');
                         header.style.backgroundColor = '#d3d3d3';
@@ -1060,11 +1060,11 @@
         hideAllItems: function(value) {
             let categories = document.querySelectorAll('.columnCategorie');
             categories = Array.from(categories);
-            if(value == 0) {
+            if(value === 0) {
                 categories.forEach(el => {
                     el.style.display = 'none';
                 });
-            }else if(value == 1) {
+            }else if(value === 1) {
                 categories.forEach(el => {
                     el.style.display = 'flex';
                 });

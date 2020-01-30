@@ -20,7 +20,11 @@
                         enabled: true,
                         format: '{point.name}: {point.y}'
                     },
-                    showInLegend: false
+                    showInLegend: false,
+                    point: {
+                        events: {
+                        }
+                    }
                 }
             },
             series: [],
@@ -50,6 +54,22 @@
         qty: undefined,
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
+            this.chartConfig.plotOptions.pie.point.events.click = this.clickOnPie.bind(this);
+        },
+        clickOnPie: function(e) {
+            const id = e.point.id;
+            const name = e.point.name;
+            const dateFrom = this.dateFrom;
+            const dateTo = this.dateTo;
+            window.open(
+                location.origin +
+                localStorage.getItem('VirtualPath') +
+                '/dashboard/page/the_most_problematic_issues_of_the_sphere' +
+                '?id=' + id +
+                '&name=' + name +
+                '&dateFrom=' + dateFrom +
+                '&dateTo=' + dateTo
+            );
         },
         executeQuery: function() {
             const query = {
