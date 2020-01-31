@@ -163,7 +163,7 @@ END
 						END
 
 					-----
-					IF @control_result_id = 4-- виконано
+					IF @control_result_id IN (4,10,11)-- виконано 11 10
 					BEGIN
 
 						UPDATE [CRM_1551_Analitics].[dbo].[AssignmentRevisions]

@@ -234,18 +234,41 @@
                         const columncode = e.column.dataField;
                         const date = this.date;
                         const string = 'rdaid=' + rdaid + '&ratingid=' + ratingid + '&columncode=' + columncode + '&date=' + date;
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/district_rating_indicator?' + string);
+                        window.open(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/dashboard/page/district_rating_indicator?' +
+                            string
+                        );
                     }
                     if (e.row !== undefined && e.column.dataField === 'IntegratedMetric_PerformanceLevel') {
                         this.showPagePreloader('');
                         this.messageService.publish({ name: 'showInfo'});
                     }
-                    if (e.column.dataField == 'RDAName') {
+                    if (e.row !== undefined &&
+                        (
+                            e.column.dataField === 'IndexOfSpeedToExecution' ||
+                            e.column.dataField === 'IndexOfSpeedToExplain' ||
+                            e.column.dataField === 'IndexOfFactToExecution'
+                        )
+                    ) {
+                        window.open(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/dashboard/page/rating_indexes'
+                        );
+                    }
+                    if (e.column.dataField === 'RDAName') {
                         let rdaid = e.data.RDAId;
                         let ratingid = e.data.RatingId;
                         let date = this.date;
                         let string = 'RDAId=' + rdaid + '&RatingId=' + ratingid + '&DateCalc=' + date;
-                        window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/rating_indicators_detail?' + string);
+                        window.open(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/dashboard/page/rating_indicators_detail?' +
+                            string
+                        );
                     }
                 }
             });

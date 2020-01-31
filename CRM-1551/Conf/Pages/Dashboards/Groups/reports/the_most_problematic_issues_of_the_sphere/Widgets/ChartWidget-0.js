@@ -45,7 +45,7 @@
                     .sumText{
                         font-size: 22px;
                         font-weight: 600;
-                        margin-top: 50px;                        
+                        margin-top: 50px;
                     }
                     
                 </style>
@@ -87,15 +87,15 @@
                     return p;
                 }, {}
                 );
-            this.sphereId = Number(getUrlParams.sphereId);
+            this.sphereId = Number(getUrlParams.id);
             this.sphereName = getUrlParams.name;
             this.dateFromViewValues = this.changeDateTimeValues(getUrlParams.dateFrom);
             this.dateToViewValues = this.changeDateTimeValues(getUrlParams.dateTo);
-            let dateFrom = getUrlParams.dateFrom;
-            let dateTo = getUrlParams.dateTo;
+            const dateFrom = getUrlParams.dateFrom;
+            const dateTo = getUrlParams.dateTo;
             this.dateFrom = new Date(dateFrom);
             this.dateTo = new Date(dateTo);
-            let loadPie = {
+            const queryLoadPie = {
                 queryCode: 'db_Report_8_2',
                 limit: -1,
                 parameterValues: [
@@ -104,7 +104,7 @@
                     { key: '@typeId', value: this.sphereId}
                 ]
             };
-            this.queryExecutor(loadPie, this.load, this);
+            this.queryExecutor(queryLoadPie, this.load, this);
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
@@ -116,7 +116,11 @@
             } return element;
         },
         load: function(data) {
-            document.getElementById('widgetTitle').innerText = 'ТОП-10 найпроблемніших питань сфери «' + this.sphereName + '» за перiод: ' + this.dateFromViewValues + ' по: ' + this.dateToViewValues;
+            document.getElementById('widgetTitle').innerText =
+                'ТОП-10 найпроблемніших питань сфери «' +
+                this.sphereName + '» за перiод: ' +
+                this.dateFromViewValues +
+                ' по: ' + this.dateToViewValues;
             this.createChartInfo(data);
             const self = this;
             function func(self) {
@@ -180,7 +184,13 @@
             for(let i = 0; i < data.rows.length; i++) {
                 let sphere__dot = this.createElement('div', {className: 'sphere__dot material-icons', innerText: 'fiber_manual_record'});
                 sphere__dot.style.color = this.colors[i];
-                let sphere__text = this.createElement('div', {className: 'sphere__text', innerText: data.rows[i].values[indexName] + ': ' + data.rows[i].values[indexValue] });
+                let sphere__text = this.createElement('div',
+                    {
+                        className: 'sphere__text',
+                        innerText: data.rows[i].values[indexName] +
+                        ': ' + data.rows[i].values[indexValue]
+                    }
+                );
                 let sphere = this.createElement('div', {className: 'sphere'}, sphere__dot, sphere__text);
                 infoWrapper.appendChild(sphere);
             }

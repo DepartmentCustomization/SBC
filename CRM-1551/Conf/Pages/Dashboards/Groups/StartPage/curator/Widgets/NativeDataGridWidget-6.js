@@ -121,13 +121,13 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null) {
+            if(currentEmployeeData.short_answer === null) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.adressZ == null) {
+            if(currentEmployeeData.adressZ === null) {
                 currentEmployeeData.adressZ = '';
             }
-            if(currentEmployeeData.question_content == null) {
+            if(currentEmployeeData.question_content === null) {
                 currentEmployeeData.question_content = '';
             }
             let elementAdress__content = this.createElement('div', {
@@ -181,12 +181,12 @@
         },
         changeOnTable: function(message) {
             document.getElementById('allTables').style.display = 'none';
-            if(message.value != '') {
+            if(message.value !== '') {
                 document.getElementById('searchTable').style.display = 'block';
                 this.config.query.parameterValues = [{ key: '@appealNum', value: message.value}];
                 this.loadData(this.afterLoadDataHandler);
                 this.dataGridInstance.onCellClick.subscribe(e => {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         window.open(String(
                             location.origin +
                             localStorage.getItem('VirtualPath') +

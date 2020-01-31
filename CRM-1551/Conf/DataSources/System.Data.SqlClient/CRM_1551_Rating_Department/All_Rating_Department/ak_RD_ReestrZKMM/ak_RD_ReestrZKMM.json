@@ -59,6 +59,11 @@
           "Code": "Department",
           "Name": "Department",
           "Position": 11
+        },
+        {
+          "Code": "AssignmentResolution",
+          "Name": "AssignmentResolution",
+          "Position": 12
         }
       ],
     "Parameters": [
