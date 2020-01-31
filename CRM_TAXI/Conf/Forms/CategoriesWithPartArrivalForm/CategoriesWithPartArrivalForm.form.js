@@ -144,7 +144,7 @@
                     ]
                 };
                 this.queryExecutor.getValues(queryForAddPartsArrival).subscribe(data => {
-                    if (data != undefined) {
+                    if (data !== undefined) {
                         this.form.markAsSaved();
                         this.openPopUpInfoDialog(data.rows[0].values[0]);
                         this.clearArrivalValues();
@@ -155,8 +155,8 @@
             }.bind(this));
         },
         getPartName: function() {
-            if (this.form.getControlValue('articul') != null &&
-                this.form.getControlValue('articul') != '') {
+            if (this.form.getControlValue('articul') !== null &&
+                this.form.getControlValue('articul') !== '') {
                 const queryForGetPartInfo = {
                     queryCode: 'getPartInfoByArticul',
                     parameterValues: [
@@ -167,7 +167,7 @@
                     ]
                 };
                 this.queryExecutor.getValues(queryForGetPartInfo).subscribe(data => {
-                    if (data != undefined) {
+                    if (data !== undefined) {
                         this.form.setControlValue('part_name', data.rows[0].values[0]);
                         this.form.setControlValue('manufacturer', data.rows[0].values[1]);
                     }
@@ -176,10 +176,10 @@
         },
         calculateArrivalSum: function() {
             if (
-                this.form.getControlValue('part_quantity') != null
-                && this.form.getControlValue('part_quantity') != ''
-                && this.form.getControlValue('part_price') != null
-                && this.form.getControlValue('part_price') != ''
+                this.form.getControlValue('part_quantity') !== null
+                && this.form.getControlValue('part_quantity') !== ''
+                && this.form.getControlValue('part_price') !== null
+                && this.form.getControlValue('part_price') !== ''
             ) {
                 let qty = this.form.getControlValue('part_quantity');
                 let price = this.form.getControlValue('part_price');
@@ -188,7 +188,7 @@
             }
         },
         checkArticulPresents: function() {
-            if (this.form.getControlValue('articul') == null || this.form.getControlValue('articul') == '') {
+            if (this.form.getControlValue('articul') === null || this.form.getControlValue('articul') === '') {
                 this.form.setControlValue('part_name', null);
                 this.form.setControlValue('manufacturer', null);
                 document.getElementById('new_article').disabled = false;
@@ -198,15 +198,15 @@
         },
         checkClearAvailable: function() {
             if (
-                (this.form.getControlValue('articul') != null && this.form.getControlValue('articul') != '')
+                (this.form.getControlValue('articul') !== null && this.form.getControlValue('articul') !== '')
                 ||
-                (this.form.getControlValue('provider') != null && this.form.getControlValue('provider') != '')
+                (this.form.getControlValue('provider') !== null && this.form.getControlValue('provider') !== '')
                 ||
-                (this.form.getControlValue('part_quantity') != null && this.form.getControlValue('part_quantity') != '')
+                (this.form.getControlValue('part_quantity') !== null && this.form.getControlValue('part_quantity') !== '')
                 ||
-                (this.form.getControlValue('part_price') != null && this.form.getControlValue('part_price') != '')
+                (this.form.getControlValue('part_price') !== null && this.form.getControlValue('part_price') !== '')
                 ||
-                (this.form.getControlValue('invoice_number') != null && this.form.getControlValue('invoice_number') != '')
+                (this.form.getControlValue('invoice_number') !== null && this.form.getControlValue('invoice_number') !== '')
             ) {
                 document.getElementById('clear_arrival').disabled = false;
             } else {
@@ -215,15 +215,15 @@
         },
         checkSaveArrivalAvailable: function() {
             if (
-                (this.form.getControlValue('articul') != null && this.form.getControlValue('articul') != '')
+                (this.form.getControlValue('articul') !== null && this.form.getControlValue('articul') !== '')
                 &&
-                (this.form.getControlValue('provider') != null && this.form.getControlValue('provider') != '')
+                (this.form.getControlValue('provider') !== null && this.form.getControlValue('provider') !== '')
                 &&
-                (this.form.getControlValue('part_quantity') != null && this.form.getControlValue('part_quantity') != '')
+                (this.form.getControlValue('part_quantity') !== null && this.form.getControlValue('part_quantity') !== '')
                 &&
-                (this.form.getControlValue('part_price') != null && this.form.getControlValue('part_price') != '')
+                (this.form.getControlValue('part_price') !== null && this.form.getControlValue('part_price') !== '')
                 &&
-                (this.form.getControlValue('invoice_number') != null && this.form.getControlValue('invoice_number') != '')
+                (this.form.getControlValue('invoice_number') !== null && this.form.getControlValue('invoice_number') !== '')
             ) {
                 document.getElementById('add_arrival').disabled = false;
             } else {

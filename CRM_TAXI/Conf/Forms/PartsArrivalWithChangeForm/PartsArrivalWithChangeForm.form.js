@@ -37,26 +37,30 @@
                     ]
                 };
                 this.queryExecutor.getValues(queryForMakePartChange).subscribe(data => {
-                    if (data != undefined) {
-                        this.form.markAsSaved();
-                        this.openPopUpInfoDialog(data.rows[0].values[0]);
-                        if (data.rows[0].values[1] != null) {
-                            let notifyText = data.rows[0].values[1];
-                            this.sendBadChangeNotify(notifyText);
+                    if (data !== undefined) {
+                        if (data.rows[0].values[1] !== 'Fail' && data.rows[0].values[1] !== 'OK') {
+                            this.form.markAsSaved();
+                            this.openPopUpInfoDialog(data.rows[0].values[0]);
+                            this.navigateTo('sections/PartsArrivalWithChange');
+                        } else if (data.rows[0].values[1] === 'Fail') {
+                            this.openPopUpInfoDialog(data.rows[0].values[0]);
+                        } else if (data.rows[0].values[1] === 'OK') {
+                            this.form.markAsSaved();
+                            this.openPopUpInfoDialog(data.rows[0].values[0]);
+                            this.navigateTo('sections/PartsArrivalWithChange');
                         }
-                    } else {
-                        this.openPopUpInfoDialog('Ошибка изменения данных');
                     }
                 });
             }.bind(this));
         },
         sendBadChangeNotify: function(title) {
+            let operators = 4;
             this.createOrganisationsNotification({
                 text: title,
                 url: 'notifications/unread',
                 notificationTypeCode: 'WEB',
                 notificationPriorityCode: 'Middle',
-                organisationIds: [4],
+                organisationIds: [operators],
                 hasAudio: true
             });
         },
@@ -70,7 +74,7 @@
             }
         },
         checkPartChooseAvailable: function() {
-            if (this.form.getControlValue('car') != null && this.form.getControlValue('car') != '') {
+            if (this.form.getControlValue('car') !== null && this.form.getControlValue('car') !== '') {
                 this.form.enableControl('part');
             } else {
                 if (!this.form.disableControl('part')) {
@@ -80,9 +84,9 @@
         },
         checkSaveChangeAvailable: function() {
             if (
-                this.form.getControlValue('car') != null && this.form.getControlValue('car') != ''
-                && this.form.getControlValue('invoice_consumption') != null
-                && this.form.getControlValue('invoice_consumption') != ''
+                this.form.getControlValue('car') !== null && this.form.getControlValue('car') !== ''
+                && this.form.getControlValue('invoice_consumption') !== null
+                && this.form.getControlValue('invoice_consumption') !== ''
             ) {
                 document.getElementById('save_part_change').disabled = false;
             } else {

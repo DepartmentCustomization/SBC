@@ -34,12 +34,6 @@
       "IsPrintable": false
     },
     {
-      "Code": "provider",
-      "Name": "provider",
-      "Position": 3,
-      "IsPrintable": false
-    },
-    {
       "Code": "run_km_period",
       "Name": "run_km_period",
       "Position": 4,

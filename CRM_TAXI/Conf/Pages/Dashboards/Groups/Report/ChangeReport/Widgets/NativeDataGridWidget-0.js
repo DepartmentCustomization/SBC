@@ -20,9 +20,6 @@
                     dataField: 'manufacturer',
                     caption: 'Производитель'
                 }, {
-                    dataField: 'provider',
-                    caption: 'Поставщик'
-                }, {
                     dataField: 'part_price',
                     caption: 'Цена',
                     alignment: 'center'
@@ -62,13 +59,15 @@
             groupingAutoExpandAll: null
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 150;
+            let height = 150;
+            this.dataGridInstance.height = window.innerHeight - height;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
         showTopQuestionsTable: function() {
             document.getElementById('part_change_report').style.display = 'block';
         },
         changeDateTimeValues: function(value) {
+            let one = 0;
             let trueDate;
             if (value !== null) {
                 let date = new Date(value);
@@ -77,17 +76,17 @@
                 let yyyy = date.getFullYear();
                 let HH = date.getUTCHours()
                 let mm = date.getMinutes();
-                MM += 1;
-                if ((dd.toString()).length === 1) {
+                MM += one;
+                if ((dd.toString()).length === one) {
                     dd = '0' + dd;
                 }
-                if ((MM.toString()).length === 1) {
+                if ((MM.toString()).length === one) {
                     MM = '0' + MM;
                 }
-                if ((HH.toString()).length === 1) {
+                if ((HH.toString()).length === one) {
                     HH = '0' + HH;
                 }
-                if ((mm.toString()).length === 1) {
+                if ((mm.toString()).length === one) {
                     mm = '0' + mm;
                 }
                 trueDate = dd + '.' + MM + '.' + yyyy;

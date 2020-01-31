@@ -2,11 +2,11 @@
 DECLARE @filterDate DATE = CAST(DATEADD(HOUR, 3, @dateTo) AS DATE);
 
 SELECT
+DISTINCT
     Id,
     part_name,
     articul,
     manufacturer,
-    [provider],
     run_km_period,
     run_day_period,
     cars_number,
@@ -14,6 +14,6 @@ SELECT
     qty,
     sum_price
 FROM
-    PartsChange_Group
+    dbo.PartsChange_Group
 WHERE
-    change_date <= @filterDate
+    change_date = @filterDate ;

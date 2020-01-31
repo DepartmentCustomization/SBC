@@ -1,11 +1,11 @@
--- declare @Id int = 11;
+-- DECLARE @Id INT = 11;
 
-Select 
-p.Id as part_id,
-c.Id as category_id
-
-from PartArrival pa
-join Parts p on p.Id = pa.part_id
-join Categories c on c.Id = p.category_id
-
-where pa.Id = @Id
+SELECT
+    p.Id AS part_id,
+    c.Id AS category_id
+FROM
+    dbo.PartArrival pa
+    JOIN Parts p ON p.Id = pa.part_id
+    JOIN Categories c ON c.Id = p.category_id
+WHERE
+    pa.Id = @Id ;

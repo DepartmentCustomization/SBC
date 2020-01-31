@@ -1,6 +1,4 @@
 (function() {
     return {
-        init: function() {
-        }
     };
 }());
