@@ -99,20 +99,31 @@
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         e.event.stopImmediatePropagation();
-                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id));
-                    }else if(e.column.dataField == 'phone_number' && e.row != undefined) {
+                        window.open(
+                            String(
+                                location.origin +
+                                localStorage.getItem('VirtualPath') +
+                                '/sections/Assignments/edit/' +
+                                e.data.Id
+                            )
+                        );
+                    }else if(e.column.dataField === 'phone_number' && e.row !== undefined) {
                         e.event.stopImmediatePropagation();
                         let CurrentUserPhone = e.row.data.phone_number;
                         let PhoneForCall = this.userPhoneNumber;
                         let xhr = new XMLHttpRequest();
-                        xhr.open('GET', 'http://10.192.200.14:5566/CallService/Call/number=' + CurrentUserPhone + '&operator=' + PhoneForCall);
+                        xhr.open(
+                            'GET',
+                            'http://10.192.200.14:5566/CallService/Call/number=' + CurrentUserPhone +
+                            '&operator=' + PhoneForCall
+                        );
                         xhr.send();
                     }
                 }
             }.bind(this));
-            if(window.location.search != '') {
+            if(window.location.search !== '') {
                 let getUrlParams = window
                     .location
                     .search
@@ -132,11 +143,10 @@
                     { key: '@sort', value: '1=1' } ];
                 this.loadData(this.afterLoadDataHandler);
             }
-            this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         onOptionChanged: function(args) {
             let sortingArr = this.sortingArr;
-            if(args.fullName != undefined) {
+            if(args.fullName !== undefined) {
                 let columnCode;
                 switch(args.fullName) {
                 case('columns[0].sortOrder'):
@@ -172,9 +182,11 @@
                 case('dataSource'):
                     columnCode = 'dataSource'
                     break;
+                default:
+                    break;
                 }
-                if(columnCode != undefined) {
-                    if(columnCode != 'dataSource') {
+                if(columnCode !== undefined) {
+                    if(columnCode !== 'dataSource') {
                         let infoColumn = { fullName: columnCode, value: args.value };
                         if(sortingArr.length === 0) {
                             sortingArr.push(infoColumn);
@@ -198,34 +210,87 @@
         },
         createMasterDetails: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.comment == null) {
+            if(currentEmployeeData.comment === null) {
                 currentEmployeeData.comment = '';
             }
-            if(currentEmployeeData.zmist == null) {
+            if(currentEmployeeData.zmist === null) {
                 currentEmployeeData.zmist = '';
             }
-            if(currentEmployeeData.cc_nedozvon == null) {
+            if(currentEmployeeData.cc_nedozvon === null) {
                 currentEmployeeData.cc_nedozvon = '';
             }
             let lastNdzTime = ''
             if(currentEmployeeData.edit_date !== null) {
                 lastNdzTime = this.changeDateTimeValues(currentEmployeeData.edit_date);
             }
-            if(currentEmployeeData.control_comment == null) {
+            if(currentEmployeeData.control_comment === null) {
                 currentEmployeeData.control_comment = '';
             }
             let ndz = currentEmployeeData.cc_nedozvon;
             let ndzComment = currentEmployeeData.control_comment;
-            let elementHistory__content = this.createElement('div', { className: 'elementHistory__content content', innerText: ndz + ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment });
-            let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія'});
-            let elementHistory = this.createElement('div', { className: 'elementHistory element'}, elementHistory__caption, elementHistory__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.zmist))});
-            let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
-            let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', { className: 'elementComment__content content', innerText: String(String(currentEmployeeData.comment))});
-            let elementComment__caption = this.createElement('div', { className: 'elementComment__caption caption', innerText: 'Коментар виконавця'});
-            let elementComment = this.createElement('div', { className: 'elementСontent element'}, elementComment__caption, elementComment__content);
-            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementHistory, elementСontent, elementComment);
+            let elementHistory__content = this.createElement(
+                'div',
+                {
+                    className: 'elementHistory__content content',
+                    innerText: ndz + ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment
+                }
+            );
+            let elementHistory__caption = this.createElement(
+                'div',
+                {
+                    className: 'elementHistory__caption caption', innerText: 'Історія'
+                }
+            );
+            let elementHistory = this.createElement(
+                'div',
+                {
+                    className: 'elementHistory element'
+                },
+                elementHistory__caption, elementHistory__content
+            );
+            let elementСontent__content = this.createElement(
+                'div',
+                {
+                    className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.zmist))
+                }
+            );
+            let elementСontent__caption = this.createElement(
+                'div',
+                {
+                    className: 'elementСontent__caption caption', innerText: 'Зміст'
+                }
+            );
+            let elementСontent = this.createElement(
+                'div',
+                {
+                    className: 'elementСontent element'}, elementСontent__caption, elementСontent__content
+            );
+            let elementComment__content = this.createElement(
+                'div',
+                {
+                    className: 'elementComment__content content', innerText: String(String(currentEmployeeData.comment))
+                }
+            );
+            let elementComment__caption = this.createElement(
+                'div',
+                {
+                    className: 'elementComment__caption caption', innerText: 'Коментар виконавця'
+                }
+            );
+            let elementComment = this.createElement(
+                'div',
+                {
+                    className: 'elementСontent element'
+                },
+                elementComment__caption, elementComment__content
+            );
+            let elementsWrapper = this.createElement(
+                'div',
+                {
+                    className: 'elementsWrapper'
+                },
+                elementHistory, elementСontent, elementComment
+            );
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll.forEach(el => {
@@ -241,37 +306,27 @@
             if(options.rowType === 'data') {
                 if(options.column.dataField === 'AssignmentStates') {
                     options.cellElement.classList.add('stateResult');
-                }
-            }
-        },
-        afterRenderTable: function() {
-            let stateResult = document.querySelectorAll('.stateResult');
-            for (let i = 0; i < stateResult.length; i++) {
-                let el = stateResult[i];
-                let number = el.parentElement.children[2].innerText;
-                let dataIndex = this.numbers.findIndex(num => num === number);
-                let spanCircle = this.createElement('span', { classList: 'material-icons', innerText: 'lens'});
-                el.style.textAlign = 'center';
-                spanCircle.style.width = '100%';
-                if(el.childNodes.length < 2) {
-                    el.appendChild(spanCircle);
-                }
-                let cond1 = this.data[dataIndex][19];
-                let cond2 = this.data[dataIndex][21];
-                if(cond1 === 'На перевірці') {
-                    if(cond2 === 'Не в компетенції' || cond2 === 'Роз`яснено') {
-                        spanCircle.classList.add('onCheck');
-                    }else{
-                        spanCircle.classList.add('yellow');
+                    const result = options.data.result;
+                    const states = options.data.AssignmentStates;
+                    const spanCircle = this.createElement('span', { classList: 'material-icons', innerText: 'lens'});
+                    spanCircle.style.width = '100%';
+                    options.cellElement.style.textAlign = 'center';
+                    if(states === 'На перевірці') {
+                        if(result === 'Не в компетенції' || result === 'Роз`яснено' || result === 'Не можливо виконати в даний період') {
+                            spanCircle.classList.add('onCheck');
+                        }else{
+                            spanCircle.classList.add('yellow');
+                        }
+                    }else if(states === 'Зареєстровано') {
+                        spanCircle.classList.add('registrated');
+                    }else if(states === 'В роботі') {
+                        spanCircle.classList.add('inWork');
+                    }else if(states === 'Закрито') {
+                        spanCircle.classList.add('closed');
+                    }else if(states === 'Не виконано') {
+                        spanCircle.classList.add('notDone');
                     }
-                }else if(cond1 === 'Зареєстровано') {
-                    spanCircle.classList.add('registrated');
-                }else if(cond1 === 'В роботі') {
-                    spanCircle.classList.add('inWork');
-                }else if(cond1 === 'Закрито') {
-                    spanCircle.classList.add('closed');
-                }else if(cond1 === 'Не виконано') {
-                    spanCircle.classList.add('notDone');
+                    options.cellElement.appendChild(spanCircle);
                 }
             }
         },
