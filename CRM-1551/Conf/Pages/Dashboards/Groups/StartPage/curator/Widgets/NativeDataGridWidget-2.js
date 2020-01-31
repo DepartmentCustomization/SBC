@@ -101,7 +101,7 @@
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         window.open(String(
                             location.origin +
                             localStorage.getItem('VirtualPath') +
@@ -119,7 +119,7 @@
             this.loadData(this.afterLoadDataHandler);
         },
         changeOnTable: function(message) {
-            if(message.column != 'Роз`яcнено') {
+            if(message.column !== 'Роз`яcнено') {
                 document.getElementById('table6_rozyasneno').style.display = 'none';
             }else{
                 this.navigation = message.value;
@@ -175,8 +175,10 @@
                 widget: 'dxButton',
                 options: {
                     icon: 'tel',
-                    type: 'default',
                     text: 'Прозвон',
+                    elementAttr: {
+                        class: 'yellowProzvonBtn'
+                    },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         const query = 'Coordinator_Button_Prozvon';
@@ -395,13 +397,13 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null) {
+            if(currentEmployeeData.short_answer === null) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.adressZ == null) {
+            if(currentEmployeeData.adressZ === null) {
                 currentEmployeeData.adressZ = '';
             }
-            if(currentEmployeeData.question_content == null) {
+            if(currentEmployeeData.question_content === null) {
                 currentEmployeeData.question_content = '';
             }
             let elementAdress__content = this.createElement('div', {

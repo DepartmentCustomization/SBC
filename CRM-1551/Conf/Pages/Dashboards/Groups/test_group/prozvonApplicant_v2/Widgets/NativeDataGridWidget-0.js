@@ -238,7 +238,8 @@
             let elementHistory__caption = this.createElement(
                 'div',
                 {
-                    className: 'elementHistory__caption caption', innerText: 'Історія'
+                    className: 'elementHistory__caption caption',
+                    innerText: 'Історія'
                 }
             );
             let elementHistory = this.createElement(
@@ -251,30 +252,36 @@
             let elementСontent__content = this.createElement(
                 'div',
                 {
-                    className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.zmist))
+                    className: 'elementСontent__content content',
+                    innerText: String(String(currentEmployeeData.zmist))
                 }
             );
             let elementСontent__caption = this.createElement(
                 'div',
                 {
-                    className: 'elementСontent__caption caption', innerText: 'Зміст'
+                    className: 'elementСontent__caption caption',
+                    innerText: 'Зміст'
                 }
             );
             let elementСontent = this.createElement(
                 'div',
                 {
-                    className: 'elementСontent element'}, elementСontent__caption, elementСontent__content
+                    className: 'elementСontent element'
+                },
+                elementСontent__caption, elementСontent__content
             );
             let elementComment__content = this.createElement(
                 'div',
                 {
-                    className: 'elementComment__content content', innerText: String(String(currentEmployeeData.comment))
+                    className: 'elementComment__content content',
+                    innerText: String(String(currentEmployeeData.comment))
                 }
             );
             let elementComment__caption = this.createElement(
                 'div',
                 {
-                    className: 'elementComment__caption caption', innerText: 'Коментар виконавця'
+                    className: 'elementComment__caption caption',
+                    innerText: 'Коментар виконавця'
                 }
             );
             let elementComment = this.createElement(

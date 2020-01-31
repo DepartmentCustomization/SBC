@@ -37,6 +37,10 @@
                     sortOrder: 'desc',
                     dataType: 'datetime',
                     format: 'dd.MM.yyyy HH:mm'
+                }, {
+                    dataField: 'event',
+                    caption: 'Захід',
+                    fixed: true
                 }
             ],
             masterDetail: {
@@ -97,9 +101,10 @@
             this.sub = this.messageService.subscribe('clickOnСoordinator_table', this.changeOnTable, this);
             this.config.masterDetail.template = this.createMasterDetails.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
+            this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         window.open(String(
                             location.origin +
                             localStorage.getItem('VirtualPath') +
@@ -110,11 +115,25 @@
                 }
             });
         },
+        onCellPrepared: function(options) {
+            if(options.rowType === 'data') {
+                if(options.column.dataField === 'event') {
+                    const cellDate = options.data.event;
+                    if(cellDate === 'true') {
+                        const i = this.createElement('i', {className: 'material-icons', innerText: 'edit_location'});
+                        options.cellElement.innerText = '';
+                        options.cellElement.appendChild(i);
+                    }else if(cellDate === 'false') {
+                        options.cellElement.innerText = '';
+                    }
+                }
+            }
+        },
         afterRenderTable: function() {
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
         },
         changeOnTable: function(message) {
-            if(message.column != 'План / Програма') {
+            if(message.column !== 'План / Програма') {
                 document.getElementById('table9_neMozhluvo').style.display = 'none';
             }else{
                 document.getElementById('table9_neMozhluvo').style.display = 'block';
@@ -133,13 +152,13 @@
         },
         createMasterDetails: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null) {
+            if(currentEmployeeData.short_answer === null) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.adressZ == null) {
+            if(currentEmployeeData.adressZ === null) {
                 currentEmployeeData.adressZ = '';
             }
-            if(currentEmployeeData.question_content == null) {
+            if(currentEmployeeData.question_content === null) {
                 currentEmployeeData.question_content = '';
             }
             let elementAdress__content = this.createElement('div', {
