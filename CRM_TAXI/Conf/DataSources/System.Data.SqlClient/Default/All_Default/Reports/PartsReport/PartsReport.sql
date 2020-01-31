@@ -1,6 +1,6 @@
 -- DECLARE @dateTo DATETIME = CURRENT_TIMESTAMP;
 
-SET @dateTo = DATEADD(HOUR, 3, @dateTo);
+SET @dateTo = dateadd(second,59,(dateadd(minute,59,(dateadd(hour,23,cast(cast(dateadd(day,0,@dateTo) as date) as datetime))))));
 
 IF OBJECT_ID('tempdb..##Arrival') IS NOT NULL
 AND OBJECT_ID('tempdb..##Change') IS NOT NULL
