@@ -95,7 +95,7 @@
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         window.open(String(
                             location.origin +
                             localStorage.getItem('VirtualPath') +
@@ -358,16 +358,16 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined) {
+            if(currentEmployeeData.short_answer === null || currentEmployeeData.short_answer === undefined) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.zayavnyk_zmist == null || currentEmployeeData.zayavnyk_zmist == undefined) {
+            if(currentEmployeeData.zayavnyk_zmist === null || currentEmployeeData.zayavnyk_zmist === undefined) {
                 currentEmployeeData.zayavnyk_zmist = '';
             }
-            if(currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined) {
+            if(currentEmployeeData.zayavnyk_adress === null || currentEmployeeData.zayavnyk_adress === undefined) {
                 currentEmployeeData.zayavnyk_adress = '';
             }
-            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined) {
+            if(currentEmployeeData.balans_name === null || currentEmployeeData.balans_name === undefined) {
                 currentEmployeeData.balans_name = '';
             }
             let elementAdress__content = this.createElement('div', {
@@ -434,7 +434,7 @@
             this.orgId = message.orgId;
             this.column = message.column;
             this.navigation = message.navigation;
-            if(message.column != 'На доопрацюванні') {
+            if(message.column !== 'На доопрацюванні') {
                 document.getElementById('table9_dooproc').style.display = 'none';
             }else{
                 document.getElementById('table9_dooproc').style.display = 'block';

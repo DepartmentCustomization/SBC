@@ -49,10 +49,12 @@
         },
         createCustomStyle: function() {
             const elements = Array.from(document.querySelectorAll('.dx-datagrid-export-button'));
-            elements.forEach(function(element) {
+            elements.forEach(element => {
                 const spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
-                element.firstElementChild.appendChild(spanElement);
-            }.bind(this));
+                if(element.firstElementChild.childElementCount === 1) {
+                    element.firstElementChild.appendChild(spanElement);
+                }
+            });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);

@@ -92,7 +92,7 @@
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.key));
                     }
                 }
@@ -361,16 +361,16 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined) {
+            if(currentEmployeeData.short_answer === null || currentEmployeeData.short_answer === undefined) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.zayavnyk_zmist == null || currentEmployeeData.zayavnyk_zmist == undefined) {
+            if(currentEmployeeData.zayavnyk_zmist === null || currentEmployeeData.zayavnyk_zmist === undefined) {
                 currentEmployeeData.zayavnyk_zmist = '';
             }
-            if(currentEmployeeData.zayavnyk_adress == null || currentEmployeeData.zayavnyk_adress == undefined) {
+            if(currentEmployeeData.zayavnyk_adress === null || currentEmployeeData.zayavnyk_adress === undefined) {
                 currentEmployeeData.zayavnyk_adress = '';
             }
-            if(currentEmployeeData.elementBalance == null || currentEmployeeData.elementBalance == undefined) {
+            if(currentEmployeeData.elementBalance === null || currentEmployeeData.elementBalance === undefined) {
                 currentEmployeeData.elementBalance = '';
             }
             let elementAdress__content = this.createElement('div', {
@@ -423,7 +423,7 @@
             })
         },
         changeOnTable: function(message) {
-            if(message.column != 'Прострочені' && message.column != 'Увага' && message.column != 'В роботі') {
+            if(message.column !== 'Прострочені' && message.column !== 'Увага' && message.column !== 'В роботі') {
                 document.getElementById('table6__ProstrocheniUvagaVRoboti').style.display = 'none';
             }else{
                 this.orgId = message.orgId;

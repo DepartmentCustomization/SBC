@@ -18,7 +18,7 @@
             this.navigator = [];
             this.targetId = [];
             this.sub = this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this);
-            if(window.location.search == '') {
+            if(window.location.search === '') {
                 let executeQuery = {
                     queryCode: 'organization_name',
                     parameterValues: [],
@@ -76,7 +76,7 @@
                 document.getElementById('organizationName').value = (data.rows[0].values[indexOfTypeId]);
                 document.getElementById('organizationName').innerText = (data.rows[0].values[indexOfTypeName]);
                 this.organizationName = data.rows[0].values[indexOfTypeName];
-                if(window.location.search != String('?id=' + data.rows[0].values[indexOfTypeId])) {
+                if(window.location.search !== String('?id=' + data.rows[0].values[indexOfTypeId])) {
                     window.location.search = String('id=' + data.rows[0].values[indexOfTypeId]);
                 }
             }
@@ -102,18 +102,80 @@
             this.createFilters();
         },
         createTabs: function() {
-            let tabInformation__title = this.createElement('div', { className: 'tabInformation tab_title', innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'});
-            let tabAction__title = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
-            let tabProcessingOrders__title = this.createElement('div', { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
+            let tabInformation__title = this.createElement('div',
+                {
+                    className: 'tabInformation tab_title',
+                    innerText: 'ЗАГАЛЬНА ІНФОРМАЦІЯ'
+                }
+            );
+            let tabAction__title = this.createElement('div',
+                {
+                    className: 'tabAction tab_title',
+                    innerText: 'ЗАХІД'
+                }
+            );
+            let tabProcessingOrders__title = this.createElement('div',
+                {
+                    className: 'tabProcessingOrders tab_title',
+                    innerText: 'ОБРОБКА ДОРУЧЕНЬ'
+                }
+            );
             let tabOrganizations__title = this.createElement('div', { className: 'tabOrganizations tab_title', innerText: 'ОРГАНІЗАЦІЇ'});
             let tabFinder__title = this.createElement('div', { className: ' tab_title', innerText: 'Розширений пошук'});
-            const tabInformation = this.createElement('div', { id: 'tabInformation', url: '', className: 'tabInformation tab '}, tabInformation__title);
-            const tabAction = this.createElement('div', { id: 'tabAction', url: 'performer_new_actions', className: 'tabAction tab tabTo'}, tabAction__title);
-            const tabProcessingOrders = this.createElement('div', { id: 'tabProcessingOrders', url: 'performer_new_processing_assigments', className: 'tabProcessingOrders tab tabTo'}, tabProcessingOrders__title);
-            const tabOrganizations = this.createElement('div', { id: 'tabOrganizations', url: 'performer_new_organizations', className: 'tabOrganizations tab tabHover'}, tabOrganizations__title);
-            const tabFinder = this.createElement('div', { id: 'tabFinder', url: 'poshuk_table', className: 'tabFinder tab tabTo'}, tabFinder__title);
-            const tabsContainer = this.createElement('div', { id: 'tabsContainer', className: 'tabsContainer'}, tabInformation, tabAction, tabProcessingOrders, tabOrganizations, tabFinder);
-            const orgLinkСhangerBox__icon = this.createElement('div', { id: 'orgLinkСhangerBox__icon', className:'material-icons', innerText:'more_vert' });
+            const tabInformation = this.createElement('div',
+                {
+                    id: 'tabInformation',
+                    url: '',
+                    className: 'tabInformation tab'
+                },
+                tabInformation__title
+            );
+            const tabAction = this.createElement('div',
+                {
+                    id: 'tabAction',
+                    url: 'performer_new_actions',
+                    className: 'tabAction tab tabTo'
+                },
+                tabAction__title
+            );
+            const tabProcessingOrders = this.createElement('div',
+                {
+                    id: 'tabProcessingOrders',
+                    url: 'performer_new_processing_assigments',
+                    className: 'tabProcessingOrders tab tabTo'
+                },
+                tabProcessingOrders__title
+            );
+            const tabOrganizations = this.createElement('div',
+                {
+                    id: 'tabOrganizations',
+                    url: 'performer_new_organizations',
+                    className: 'tabOrganizations tab tabHover'
+                },
+                tabOrganizations__title
+            );
+            const tabFinder = this.createElement('div',
+                {
+                    id: 'tabFinder',
+                    url: 'poshuk_table',
+                    className: 'tabFinder tab tabTo'
+                },
+                tabFinder__title
+            );
+            const tabsContainer = this.createElement('div',
+                {
+                    id: 'tabsContainer',
+                    className: 'tabsContainer'
+                },
+                tabInformation, tabAction, tabProcessingOrders, tabOrganizations, tabFinder
+            );
+            const orgLinkСhangerBox__icon = this.createElement('div',
+                {
+                    id: 'orgLinkСhangerBox__icon',
+                    className:'material-icons',
+                    innerText:'more_vert'
+                }
+            );
             const orgLinkСhangerBox = this.createElement('div', { id: 'orgLinkСhangerBox'}, orgLinkСhangerBox__icon);
             const linkСhangerContainer = this.createElement('div', { id: 'organizationsContainer'}, orgLinkСhangerBox);
             let tabsWrapper = document.getElementById('tabsWrapper');
@@ -127,12 +189,19 @@
                         let orgLinksWrapper = this.createElement('div', { id: 'orgLinksWrapper'}, orgLinksWrapper__triangle);
                         orgLinkСhangerBox.appendChild(orgLinksWrapper);
                         this.organizationSelect.forEach(el => {
-                            let organizationLink = this.createElement('div', { className: 'organizationLink', orgId: String(String(el.id)), innerText: el.name });
+                            let organizationLink = this.createElement('div',
+                                {
+                                    className: 'organizationLink',
+                                    orgId: String(String(el.id)),
+                                    innerText: el.name
+                                }
+                            );
                             orgLinksWrapper.appendChild(organizationLink);
                             organizationLink.addEventListener('click', event => {
                                 event.stopImmediatePropagation();
                                 let target = event.currentTarget;
-                                window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/performer_new_organizations?id=' + target.orgId));
+                                window.open(String(location.origin + localStorage.getItem('VirtualPath') +
+                                '/dashboard/page/performer_new_organizations?id=' + target.orgId));
                             });
                         });
                     }else if(orgLinkСhangerBox.children.length === 2) {
@@ -158,10 +227,23 @@
         createFilters: function() {
             const organizationName = this.createElement('div', {id: 'organizationName', className: 'orgName'});
             const organizationChildCat = this.createElement('div', {id: 'organizationChildCat', className: 'orgName', innerText: ' '});
-            const searchContainer__input = this.createElement('input', {id: 'searchContainer__input', type: 'search', placeholder: 'Пошук доручення за номером', className: 'searchContainer__input'});
-            const searchContainer = this.createElement('div', {id: 'searchContainer', className: 'searchContainer'}, searchContainer__input);
+            const searchContainer__input = this.createElement('input',
+                {
+                    id: 'searchContainer__input',
+                    type: 'search',
+                    placeholder: 'Пошук доручення за номером',
+                    className: 'searchContainer__input'
+                }
+            );
+            const searchContainer = this.createElement('div',
+                {
+                    id: 'searchContainer',
+                    className: 'searchContainer'
+                },
+                searchContainer__input
+            );
             searchContainer__input.addEventListener('input', () => {
-                if(searchContainer__input.value.length == 0) {
+                if(searchContainer__input.value.length === 0) {
                     this.resultSearch('clearInput', 0);
                     this.showTable(searchContainer__input);
                 }
@@ -239,21 +321,72 @@
                     let orgElementsReferral__onRefinement = this.createElement('div', { className: 'referalColumn'});
                     let orgElementsReferral__planOrProgram = this.createElement('div', { className: 'referalColumn'});
                     let organizationId = row.values[0];
-                    let orgElementsReferral = this.createElement('div', { className: 'orgElementsReferral displayNone'}, orgElementsReferral__arrived, orgElementsReferral__notCompetence, orgElementsReferral__overdue, orgElementsReferral__warning, orgElementsReferral__inWork, orgElementsReferral__toAttention, orgElementsReferral__onRefinement, orgElementsReferral__planOrProgram);
-                    let orgElementsСounter = this.createElement('div', { className: 'orgElementsСounter displayFlex'});
-                    let orgElements = this.createElement('div', { className: 'orgElements displayFlex'}, orgElementsСounter, orgElementsReferral);
-                    let orgTitle__icon = this.createElement('div', { className: 'orgTitle__icon material-icons',value: 0 , innerText: 'add_circle_outline'});
-                    let orgTitle__name = this.createElement('div', { className: 'orgTitle__name', innerText: String(String(row.values[1]))});
-                    let orgTitle = this.createElement('div', { className: 'orgTitle displayFlex'}, orgTitle__icon, orgTitle__name);
-                    let organization = this.createElement('div', { className: 'organization displayFlex', id: String(String(organizationId))}, orgTitle, orgElements);
+                    let orgElementsReferral = this.createElement('div',
+                        {
+                            className: 'orgElementsReferral displayNone'
+                        },
+                        orgElementsReferral__arrived,
+                        orgElementsReferral__notCompetence,
+                        orgElementsReferral__overdue,
+                        orgElementsReferral__warning,
+                        orgElementsReferral__inWork,
+                        orgElementsReferral__toAttention,
+                        orgElementsReferral__onRefinement,
+                        orgElementsReferral__planOrProgram
+                    );
+                    let orgElementsСounter = this.createElement('div',
+                        {
+                            className: 'orgElementsСounter displayFlex'
+                        }
+                    );
+                    let orgElements = this.createElement('div',
+                        {
+                            className: 'orgElements displayFlex'
+                        },
+                        orgElementsСounter, orgElementsReferral
+                    );
+                    let orgTitle__icon = this.createElement('div',
+                        {
+                            className: 'orgTitle__icon material-icons',value: 0 , innerText: 'add_circle_outline'
+                        }
+                    );
+                    let orgTitle__name = this.createElement('div',
+                        {
+                            className: 'orgTitle__name', innerText: String(String(row.values[1]))
+                        }
+                    );
+                    let orgTitle = this.createElement('div',
+                        {
+                            className: 'orgTitle displayFlex'
+                        },
+                        orgTitle__icon, orgTitle__name
+                    );
+                    let organization = this.createElement('div',
+                        {
+                            className: 'organization displayFlex', id: String(String(organizationId))
+                        },
+                        orgTitle, orgElements
+                    );
                     orgContainer.appendChild(organization);
                     for(let i = 2; i < row.values.length; i++) {
                         let el = row.values[i];
                         let column = this.chooseColumnName(i);
                         let orgElementsСounterItem = {};
-                        if(el != 0) {
-                            let orgElementsСounterItem__value = this.createElement('div', { className: ' counter_value', innerText: String(String(el))});
-                            orgElementsСounterItem = this.createElement('div', {orgId: organizationId, column: column, orgName: String(String(row.values[1])), className: 'counter counterHeader'}, orgElementsСounterItem__value);
+                        if(el !== 0) {
+                            let orgElementsСounterItem__value = this.createElement('div',
+                                {
+                                    className: ' counter_value', innerText: String(String(el))
+                                }
+                            );
+                            orgElementsСounterItem = this.createElement('div',
+                                {
+                                    orgId: organizationId,
+                                    column: column,
+                                    orgName: String(String(row.values[1])),
+                                    className: 'counter counterHeader'
+                                },
+                                orgElementsСounterItem__value
+                            );
                         } else {
                             orgElementsСounterItem = this.createElement('div', { className: 'counter counterHeader'});
                         }
@@ -264,7 +397,11 @@
                         parameterValues: [{ key: '@organization_id', value: row.values[0]}],
                         limit: -1
                     };
-                    this.queryExecutor(executeQuery, this.createOrganizationsSubElements.bind(this, orgElementsReferral, organizationId), this);
+                    this.queryExecutor(
+                        executeQuery,
+                        this.createOrganizationsSubElements.bind(this, orgElementsReferral, organizationId),
+                        this
+                    );
                     this.showPreloader = false;
                 }.bind(this));
             }else {
@@ -275,14 +412,14 @@
             allIcons.forEach(el =>{
                 el.addEventListener('click', event => {
                     let target = event.currentTarget;
-                    if(target.value == 0) {
+                    if(target.value === 0) {
                         target.parentElement.nextElementSibling.firstElementChild.classList.remove('displayFlex');
                         target.parentElement.nextElementSibling.firstElementChild.classList.add('displayNone');
                         target.parentElement.nextElementSibling.lastElementChild.classList.remove('displayNone');
                         target.parentElement.nextElementSibling.lastElementChild.classList.add('displayFlex');
                         target.value = 1;
                         target.innerText = 'remove_circle_outline';
-                    }else if(target.value == 1) {
+                    }else if(target.value === 1) {
                         target.value = 0;
                         target.innerText = 'add_circle_outline';
                         target.parentElement.nextElementSibling.lastElementChild.classList.remove('displayFlex');
@@ -295,7 +432,7 @@
             let counterHeaderElements = document.querySelectorAll('.counter');
             counterHeaderElements = Array.from(counterHeaderElements);
             counterHeaderElements.forEach(el => {
-                if(el.childNodes.length == 0) {
+                if(el.childNodes.length === 0) {
                     el.style.backgroundColor = 'transparent';
                 }else{
                     el.classList.add('counterBorder');
@@ -304,12 +441,12 @@
             let referalColumnElements = document.querySelectorAll('.referalColumn');
             referalColumnElements = Array.from(referalColumnElements);
             referalColumnElements.forEach(function(el) {
-                if(el.childNodes.length == 0) {
+                if(el.childNodes.length === 0) {
                     let emptyBox = this.createElement('div', { className: 'emptyBox'});
                     el.appendChild(emptyBox);
                 }
             }.bind(this));
-            if(reloadTable == true) {
+            if(reloadTable === true) {
                 let target = document.getElementById(targetId);
                 let thisName = document.getElementById('organizationName').innerText;
                 this.showTable(target, this.column, this.navigator, thisName ,'item');
@@ -324,14 +461,70 @@
             const headerItem__toAttention_triangle = this.createElement('div', { className: 'toAttention_triangle ' });
             const headerItem__onRefinement_triangle = this.createElement('div', { className: 'onRefinement_triangle ' });
             const headerItem__planOrProgram_triangle = this.createElement('div', { className: 'planOrProgram_triangle' });
-            const headerItem__arrived = this.createElement('div', { id: 'headerItem__arrived', className: 'headerItem displayFlex', innerText: 'Надійшло'}, headerItem__arrived_triangle);
-            const headerItem__notCompetence = this.createElement('div', { id: 'headerItem__notCompetence', className: 'headerItem displayFlex', innerText: 'Не в компетенції'}, headerItem__notCompetence_triangle);
-            const headerItem__overdue = this.createElement('div', { id: 'headerItem__overdue', className: 'headerItem displayFlex', innerText: 'Прострочені'}, headerItem__overdue_triangle);
-            const headerItem__warning = this.createElement('div', { id: 'headerItem__warning', className: 'headerItem displayFlex', innerText: 'Увага'}, headerItem__warning_triangle);
-            const headerItem__inWork = this.createElement('div', { id: 'headerItem__inWork', className: 'headerItem displayFlex', innerText: 'В роботі'}, headerItem__inWork_triangle);
-            const headerItem__toAttention = this.createElement('div', { id: 'headerItem__toAttention', className: 'headerItem displayFlex', innerText: 'До відома'}, headerItem__toAttention_triangle);
-            const headerItem__onRefinement = this.createElement('div', { id: 'headerItem__onRefinement', className: 'headerItem displayFlex', innerText: 'На доопрацюванні'}, headerItem__onRefinement_triangle);
-            const headerItem__planOrProgram = this.createElement('div', { id: 'headerItem__planOrProgram', className: 'headerItem displayFlex', innerText: 'План/Програма'}, headerItem__planOrProgram_triangle);
+            const headerItem__arrived = this.createElement('div',
+                {
+                    id: 'headerItem__arrived',
+                    className: 'headerItem displayFlex',
+                    innerText: 'Надійшло'
+                },
+                headerItem__arrived_triangle
+            );
+            const headerItem__notCompetence = this.createElement('div',
+                {
+                    id: 'headerItem__notCompetence',
+                    className: 'headerItem displayFlex',
+                    innerText: 'Не в компетенції'
+                },
+                headerItem__notCompetence_triangle
+            );
+            const headerItem__overdue = this.createElement('div',
+                {
+                    id: 'headerItem__overdue',
+                    className: 'headerItem displayFlex',
+                    innerText: 'Прострочені'
+                },
+                headerItem__overdue_triangle
+            );
+            const headerItem__warning = this.createElement('div',
+                {
+                    id: 'headerItem__warning',
+                    className: 'headerItem displayFlex',
+                    innerText: 'Увага'
+                },
+                headerItem__warning_triangle
+            );
+            const headerItem__inWork = this.createElement('div',
+                {
+                    id: 'headerItem__inWork',
+                    className: 'headerItem displayFlex',
+                    innerText: 'В роботі'
+                },
+                headerItem__inWork_triangle
+            );
+            const headerItem__toAttention = this.createElement('div',
+                {
+                    id: 'headerItem__toAttention',
+                    className: 'headerItem displayFlex',
+                    innerText: 'До відома'
+                },
+                headerItem__toAttention_triangle
+            );
+            const headerItem__onRefinement = this.createElement('div',
+                {
+                    id: 'headerItem__onRefinement',
+                    className: 'headerItem displayFlex',
+                    innerText: 'На доопрацюванні'
+                },
+                headerItem__onRefinement_triangle
+            );
+            const headerItem__planOrProgram = this.createElement('div',
+                {
+                    id: 'headerItem__planOrProgram',
+                    className: 'headerItem displayFlex',
+                    innerText: 'План/Програма'
+                },
+                headerItem__planOrProgram_triangle
+            );
             headerItem__arrived.style.backgroundColor = 'rgb(74, 193, 197)';
             headerItem__notCompetence.style.backgroundColor = 'rgb(173, 118, 205)';
             headerItem__overdue.style.backgroundColor = 'rgb(240, 114, 93)';
@@ -340,9 +533,23 @@
             headerItem__toAttention.style.backgroundColor = 'rgb(248, 195, 47)';
             headerItem__onRefinement.style.backgroundColor = 'rgb(94, 202, 162)';
             headerItem__planOrProgram.style.backgroundColor = 'rgb(73, 155, 199)';
-            const headerItems = this.createElement('div', { id: 'headerItems', className: 'displayFlex'}, headerItem__arrived, headerItem__notCompetence, headerItem__overdue, headerItem__warning, headerItem__inWork, headerItem__toAttention, headerItem__onRefinement, headerItem__planOrProgram);
+            const headerItems = this.createElement('div',
+                {
+                    id: 'headerItems',
+                    className: 'displayFlex'
+                },
+                headerItem__arrived, headerItem__notCompetence, headerItem__overdue,
+                headerItem__warning, headerItem__inWork, headerItem__toAttention,
+                headerItem__onRefinement, headerItem__planOrProgram
+            );
             const headerTitle = this.createElement('div', { id: 'headerTitle', innerText: 'Підлеглі організації'});
-            const orgHeader = this.createElement('div', { id: 'orgHeader', className: 'orgContainer displayFlex'}, headerTitle, headerItems);
+            const orgHeader = this.createElement('div',
+                {
+                    id: 'orgHeader',
+                    className: 'orgContainer displayFlex'
+                },
+                headerTitle, headerItems
+            );
             let container = document.getElementById('container');
             container.appendChild(orgHeader);
             let headers = document.querySelectorAll('.headerItem');
@@ -357,31 +564,54 @@
             }.bind(this));
         },
         createOrganizationsSubElements: function(orgElementsReferral, organizationId, data) {
-            data.rows.forEach(function(row) {
+            data.rows.forEach(row=> {
                 for(let i = 2; i < row.values.length; i++) {
                     let el = row.values[i];
                     let sub = row.values[1];
                     let column = this.chooseColumnName(i);
-                    if(el != 0) {
-                        let orgElementsReferal__itemValue_number = this.createElement('div', { className: 'refItem__value', innerText: ' (' + el + ')'});
-                        let orgElementsReferal__itemValue_title = this.createElement('div', { className: 'refItem__value', innerText: String(sub) + ' '});
-                        let orgElementsReferal__itemValue = this.createElement('div', { className: 'refItem__value'}, orgElementsReferal__itemValue_title, orgElementsReferal__itemValue_number);
-                        let orgElementsReferal__item = this.createElement('div', { orgId: organizationId, column: column, orgName: String(String(row.values[1])), className: 'counter referalItem counterBorder'}, orgElementsReferal__itemValue);
+                    if(el !== 0) {
+                        let orgElementsReferal__itemValue_number = this.createElement('div',
+                            {
+                                className: 'refItem__value', innerText: ' (' + el + ')'
+                            }
+                        );
+                        let orgElementsReferal__itemValue_title = this.createElement('div',
+                            {
+                                className: 'refItem__value', innerText: String(sub) + ' '
+                            }
+                        );
+                        let orgElementsReferal__itemValue = this.createElement('div',
+                            {
+                                className: 'refItem__value'
+                            },
+                            orgElementsReferal__itemValue_title, orgElementsReferal__itemValue_number
+                        );
+                        let orgElementsReferal__item = this.createElement('div',
+                            {
+                                orgId: organizationId,
+                                column: column,
+                                orgProp:row.values[1],
+                                className: 'counter referalItem counterBorder'
+                            },
+                            orgElementsReferal__itemValue
+                        );
+                        orgElementsReferal__item
                         orgElementsReferral.childNodes[i - 2].appendChild(orgElementsReferal__item);
                     }
                 }
-            }.bind(this));
+            });
             let counters = document.querySelectorAll('.counterBorder');
             counters = Array.from(counters);
-            counters.forEach(function(el) {
-                el.addEventListener('click', function(event) {
+            counters.forEach(el => {
+                el.addEventListener('click', event => {
                     event.stopImmediatePropagation();
                     let target = event.currentTarget;
-                    let navigator = target.firstElementChild.firstElementChild.innerText;
-                    let thisName = target.parentElement.parentElement.parentElement.parentElement.firstElementChild.lastElementChild.innerText;
-                    if (target.classList.contains('counterHeader')) {
-                        navigator = 'Усі';
-                        thisName = target.orgName;
+                    let navigator = 'Усі';
+                    let thisName = target.orgName;
+                    if(!target.classList.contains('counterHeader')) {
+                        navigator = target.orgProp;
+                        const organizationRow = target.parentElement.parentElement.parentElement.parentElement;
+                        thisName = organizationRow.firstElementChild.lastElementChild.innerText;
                     }
                     this.targetOrgId = target.orgId;
                     let column = target.column;
@@ -410,10 +640,12 @@
                     case 'План/Програма':
                         target = document.getElementById('headerItem__planOrProgram')
                         break;
+                    default:
+                        break;
                     }
                     this.showTable(target, column, navigator, thisName, 'item');
-                }.bind(this));
-            }.bind(this));
+                });
+            });
             this.messageService.publish({ name: 'hidePagePreloader' });
         },
         chooseColumnName: function(i) {
@@ -443,12 +675,14 @@
             case 9:
                 column = 'План/Програма'
                 break;
+            default:
+                break;
             }
             return column
         },
         showTable: function(target, columnName, navigator, thisName, position) {
             let headers = Array.from(document.querySelectorAll('.headerItem'));
-            if(target.classList.contains('check') || target.classList.contains('hover') || target.id == 'searchContainer__input') {
+            if(target.classList.contains('check') || target.classList.contains('hover') || target.id === 'searchContainer__input') {
                 headers.forEach(el => {
                     el.firstElementChild.classList.remove('triangle');
                 });
@@ -480,21 +714,21 @@
                 let searchContainer__input = document.getElementById('searchContainer__input');
                 searchContainer__input.value = '';
             }else{
-                if(thisName == undefined) {
+                if(thisName === undefined) {
                     document.getElementById('organizationName').innerText = this.organizationName;
                     document.getElementById('organizationChildCat').innerText = ' ';
                 }else{
                     document.getElementById('organizationChildCat').innerText = navigator;
                     document.getElementById('organizationName').innerText = thisName;
                 }
-                if (position == 'item') {
+                if (position === 'item') {
                     target.classList.add('hover');
                     let orgContainer = document.getElementById('orgContainer');
                     orgContainer.style.display = 'none';
                     headers.forEach(function(target, header) {
                         let headers = document.querySelectorAll('.headerItem');
                         headers = Array.from(headers);
-                        if(target.id != header.id) {
+                        if(target.id !== header.id) {
                             header.style.backgroundColor = '#d3d3d3';
                             header.classList.add('check');
                             header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
@@ -507,7 +741,14 @@
             }
         },
         sendMesOnBtnClick: function(message, column, navigator, thisName, organizationId, targetId) {
-            this.messageService.publish({name: message, column: column, navigation: navigator, orgId: organizationId, orgName: thisName, targetId: targetId });
+            this.messageService.publish({
+                name: message,
+                column: column,
+                navigation: navigator,
+                orgId: organizationId,
+                orgName: thisName,
+                targetId: targetId
+            });
         },
         resultSearch: function(message, value) {
             this.messageService.publish({name: message, value: value, orgId: this.organizationId});
