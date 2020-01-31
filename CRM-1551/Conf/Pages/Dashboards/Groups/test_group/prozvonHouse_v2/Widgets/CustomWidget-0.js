@@ -49,16 +49,38 @@
                 message.value.forEach(el => {
                     this.selectedRows.push(el);
                 });
-                const button_close = this.createElement('input', { type: 'submit', id: 'button_close', className: 'modalBtn', value: 'Закрити' });
-                const button_save = this.createElement('input', { type: 'submit', id: 'button_save', className: 'modalBtn', value: 'Зберегти' });
+                const button_close = this.createElement('input',
+                    {
+                        type: 'submit', id: 'button_close', className: 'modalBtn', value: 'Закрити'
+                    }
+                );
+                const button_save = this.createElement('input',
+                    {
+                        type: 'submit', id: 'button_save', className: 'modalBtn', value: 'Зберегти'
+                    }
+                );
                 const buttonWrapper = this.createElement('div', { id: 'buttonWrapper' }, button_close, button_save);
                 const resultSelectOption = this.createElement('option', { innerText: '', value: 0 });
-                const resultSelect = this.createElement('select', { id: 'resultSelect', className: 'resultSelect selectItem js-example-basic-single' }, resultSelectOption);
+                const resultSelect = this.createElement('select',
+                    {
+                        id: 'resultSelect', className: 'resultSelect selectItem js-example-basic-single'
+                    },
+                    resultSelectOption
+                );
                 const assigmResult = this.createElement('div', { id: 'assigmResult', className: 'modalItem' }, resultSelect);
                 const assigmResultTitle = this.createElement('span', { className: 'assigmResultTitle caption', innerText: 'Результат' });
-                const assigmResultWrapper = this.createElement('div', { className: 'assigmResultWrapper' }, assigmResultTitle, assigmResult);
+                const assigmResultWrapper = this.createElement('div',
+                    {
+                        className: 'assigmResultWrapper'
+                    },
+                    assigmResultTitle, assigmResult
+                );
                 const rating5__title = this.createElement('span', { className: 'rating__title', innerText: '5' });
-                const rating5__checkBox = this.createElement('input', { type: 'radio', name: 'radio', checked: 'checked', className: 'radio', mark: 5 });
+                const rating5__checkBox = this.createElement('input',
+                    {
+                        type: 'radio', name: 'radio', checked: 'checked', className: 'radio', mark: 5
+                    }
+                );
                 const rating5 = this.createElement('div', { id: 'rating1', className: 'container' }, rating5__checkBox, rating5__title);
                 const rating4__title = this.createElement('span', { className: 'rating__title', innerText: '4' });
                 const rating4__checkBox = this.createElement('input', { type: 'radio', name: 'radio', className: 'radio', mark: 4 });
@@ -71,16 +93,62 @@
                 const rating2 = this.createElement('div', { id: 'rating1', className: 'container' }, rating2__checkBox, rating2__title);
                 const rating1__title = this.createElement('span', { className: 'rating__title', innerText: '1' });
                 const rating1__checkBox = this.createElement('input', { type: 'radio', name: 'radio', className: 'radio', mark: 1 });
-                const rating1 = this.createElement('div', { id: 'rating1', className: 'container' }, rating1__checkBox, rating1__title);
-                const ratingElements = this.createElement('div', { id: 'ratingElements', className: '' }, rating1, rating2, rating3, rating4, rating5);
-                const ratingTitle = this.createElement('div', { className: 'assigmRating__title caption', innerText: 'Оцінка результату виконаних робіт' });
-                const assigmRating = this.createElement('div', { id: 'assigmRating', className: 'displayNone' }, ratingTitle, ratingElements);
-                const resolution__value = this.createElement('span', { id: 'resolution__value', innerText: '', resolutionId: 0 });
-                const assigmResolution = this.createElement('div', { id: 'assigmResolutionValue', className: 'modalItem' }, resolution__value);
-                const assigmResolutionTitle = this.createElement('span', { className: 'assigmResultTitle caption', innerText: 'Резолюцiя' });
-                const assigmResolutionWrapper = this.createElement('div', { id: 'assigmResolution', className: 'displayNone assigmResultWrapper' }, assigmResolutionTitle, assigmResolution);
-                const assigmComment = this.createElement('input', { type: 'text', id: 'assigmComment', className: 'displayNone modalItem', placeholder: 'Коментар перевіряючого' });
-                const modalWindow = this.createElement('div', { id: 'modalWindow' }, assigmResultWrapper, assigmResolutionWrapper, assigmRating, assigmComment, buttonWrapper);
+                const rating1 = this.createElement('div',
+                    {
+                        id: 'rating1', className: 'container'
+                    },
+                    rating1__checkBox, rating1__title
+                );
+                const ratingElements = this.createElement('div',
+                    {
+                        id: 'ratingElements', className: ''
+                    },
+                    rating1, rating2, rating3, rating4, rating5
+                );
+                const ratingTitle = this.createElement('div',
+                    {
+                        className: 'assigmRating__title caption', innerText: 'Оцінка результату виконаних робіт'
+                    }
+                );
+                const assigmRating = this.createElement('div',
+                    {
+                        id: 'assigmRating', className: 'displayNone'
+                    },
+                    ratingTitle, ratingElements
+                );
+                const resolution__value = this.createElement('span',
+                    {
+                        id: 'resolution__value', innerText: '', resolutionId: 0
+                    }
+                );
+                const assigmResolution = this.createElement('div',
+                    {
+                        id: 'assigmResolutionValue', className: 'modalItem'
+                    },
+                    resolution__value
+                );
+                const assigmResolutionTitle = this.createElement('span',
+                    {
+                        className: 'assigmResultTitle caption', innerText: 'Резолюцiя'
+                    }
+                );
+                const assigmResolutionWrapper = this.createElement('div',
+                    {
+                        id: 'assigmResolution', className: 'displayNone assigmResultWrapper'
+                    },
+                    assigmResolutionTitle, assigmResolution
+                );
+                const assigmComment = this.createElement('input',
+                    {
+                        type: 'text', id: 'assigmComment', className: 'displayNone modalItem', placeholder: 'Коментар перевіряючого'
+                    }
+                );
+                const modalWindow = this.createElement('div',
+                    {
+                        id: 'modalWindow'
+                    },
+                    assigmResultWrapper, assigmResolutionWrapper, assigmRating, assigmComment, buttonWrapper
+                );
                 const modalWrapper = this.createElement('div', { id: 'modalWrapper' }, modalWindow);
                 modalContainer.appendChild(modalWrapper);
                 button_close.addEventListener('click', event => {
@@ -132,6 +200,8 @@
             case 11:
                 resolutionId = 10;
                 resolutionInnerText = 'Заявник усунув проблему власними силами';
+                break;
+            default:
                 break;
             }
             this.resolutionId = resolutionId;
@@ -208,7 +278,7 @@
                 case 10:
                 case 11:
                 case 12:
-                    if (this.resolutionId != '' && this.resolutionId != undefined) {
+                    if (this.resolutionId !== '' && this.resolutionId !== undefined) {
                         let executeQuery = {
                             queryCode: 'Prozvon_Close_Filter_v2',
                             limit: -1,
@@ -229,7 +299,7 @@
                     break
                 case 13:
                 default:
-                    if (this.resultId != '' && this.resultId != undefined) {
+                    if (this.resultId !== '' && this.resultId !== undefined) {
                         let executeQuery = {
                             queryCode: 'Prozvon_Close_Filter_v2',
                             limit: -1,

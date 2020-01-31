@@ -143,7 +143,6 @@
                     { key: '@sort', value: '1=1' } ];
                 this.loadData(this.afterLoadDataHandler);
             }
-            this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         onOptionChanged: function(args) {
             let sortingArr = this.sortingArr;
@@ -314,37 +313,27 @@
             if(options.rowType === 'data') {
                 if(options.column.dataField === 'AssignmentStates') {
                     options.cellElement.classList.add('stateResult');
-                }
-            }
-        },
-        afterRenderTable: function() {
-            let stateResult = document.querySelectorAll('.stateResult');
-            for (let i = 0; i < stateResult.length; i++) {
-                let el = stateResult[i];
-                let number = el.parentElement.children[2].innerText;
-                let dataIndex = this.numbers.findIndex(num => num === number);
-                let spanCircle = this.createElement('span', { classList: 'material-icons', innerText: 'lens'});
-                el.style.textAlign = 'center';
-                spanCircle.style.width = '100%';
-                if(el.childNodes.length < 2) {
-                    el.appendChild(spanCircle);
-                }
-                let cond1 = this.data[dataIndex][19];
-                let cond2 = this.data[dataIndex][21];
-                if(cond1 === 'На перевірці') {
-                    if(cond2 === 'Не в компетенції' || cond2 === 'Роз`яснено') {
-                        spanCircle.classList.add('onCheck');
-                    }else{
-                        spanCircle.classList.add('yellow');
+                    const result = options.data.result;
+                    const states = options.data.AssignmentStates;
+                    const spanCircle = this.createElement('span', { classList: 'material-icons', innerText: 'lens'});
+                    spanCircle.style.width = '100%';
+                    options.cellElement.style.textAlign = 'center';
+                    if(states === 'На перевірці') {
+                        if(result === 'Не в компетенції' || result === 'Роз`яснено' || result === 'Не можливо виконати в даний період') {
+                            spanCircle.classList.add('onCheck');
+                        }else{
+                            spanCircle.classList.add('yellow');
+                        }
+                    }else if(states === 'Зареєстровано') {
+                        spanCircle.classList.add('registrated');
+                    }else if(states === 'В роботі') {
+                        spanCircle.classList.add('inWork');
+                    }else if(states === 'Закрито') {
+                        spanCircle.classList.add('closed');
+                    }else if(states === 'Не виконано') {
+                        spanCircle.classList.add('notDone');
                     }
-                }else if(cond1 === 'Зареєстровано') {
-                    spanCircle.classList.add('registrated');
-                }else if(cond1 === 'В роботі') {
-                    spanCircle.classList.add('inWork');
-                }else if(cond1 === 'Закрито') {
-                    spanCircle.classList.add('closed');
-                }else if(cond1 === 'Не виконано') {
-                    spanCircle.classList.add('notDone');
+                    options.cellElement.appendChild(spanCircle);
                 }
             }
         },
