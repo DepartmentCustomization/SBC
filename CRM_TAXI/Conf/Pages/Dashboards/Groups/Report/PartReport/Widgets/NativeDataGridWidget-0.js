@@ -20,9 +20,6 @@
                     dataField: 'manufacturer',
                     caption: 'Производитель'
                 }, {
-                    dataField: 'provider',
-                    caption: 'Поставщик'
-                }, {
                     dataField: 'part_price',
                     caption: 'Цена',
                     alignment: 'center'
@@ -62,7 +59,8 @@
             groupingAutoExpandAll: null
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 150;
+            let height = 150;
+            this.dataGridInstance.height = window.innerHeight - height;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
         showTopQuestionsTable: function() {

@@ -11,7 +11,7 @@ WHERE
     AND 
     #filter_columns#
     #sort_columns#
-offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only
 END
 
 ELSE 
@@ -25,5 +25,5 @@ FROM
 WHERE
     #filter_columns#
     #sort_columns#
-offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only
 END

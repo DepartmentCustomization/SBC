@@ -1,5 +1,5 @@
-(function() {
-    return {
+(function () {
+  return {
         title: ' ',
         hint: '',
         formatTitle: function() {},

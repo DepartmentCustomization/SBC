@@ -20,9 +20,6 @@
                     dataField: 'manufacturer',
                     caption: 'Производитель'
                 }, {
-                    dataField: 'provider',
-                    caption: 'Поставщик'
-                }, {
                     dataField: 'part_price',
                     caption: 'Цена',
                     alignment: 'center'

@@ -1,5 +1,5 @@
-(function() {
-    return {
+(function () {
+  return {
         config: {
             query: {
                 code: 'ChangeOnDateReport',
@@ -20,10 +20,6 @@
                 }, {
                     dataField: 'manufacturer',
                     caption: 'Производитель',
-                    alignment: 'center'
-                }, {
-                    dataField: 'provider',
-                    caption: 'Поставщик',
                     alignment: 'center'
                 }, {
                     dataField: 'run_km_period',

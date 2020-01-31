@@ -1,7 +1,7 @@
 {
     "ModelType": "Query",
-    "Code": "List_Arrivals",
-    "Name": "List_Arrivals",
+    "Code": "List_PartsInfo",
+    "Name": "List_PartsInfo",
     "ConnectionCode": "Default",
     "IsUsedForRightsFilter": false,
     "Columns": [
@@ -42,31 +42,24 @@
             "FilterParameterCode": "@manufacturer"
           },
           {
-            "Code": "provider",
-            "Name": "Поставщик",
-            "Position": 6,
-            "SqlName": "pr.[provider]",
-            "FilterParameterCode": "@provider"
-          },
-          {
             "Code": "part_price",
             "Name": "Цена",
             "Position": 7,
-            "SqlName": "pa.part_price",
+            "SqlName": "p.part_price",
             "FilterParameterCode": "@part_price"
           },
           {
             "Code": "part_quantity",
             "Name": "Кол-во",
             "Position": 8,
-            "SqlName": "pa.part_quantity",
+            "SqlName": "p.part_quantity",
             "FilterParameterCode": "@part_quantity"
           },
           {
             "Code": "sum_price",
             "Name": "Стоимость",
             "Position": 9,
-            "SqlName": "pa.part_price * pa.part_quantity",
+            "SqlName": "ROUND(p.part_price * ISNULL(p.part_quantity,0),2)",
             "FilterParameterCode": "@sum_price"
           }
     ],
