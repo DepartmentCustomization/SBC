@@ -3,24 +3,41 @@ declare @dateTo date;
 declare @user_id nvarchar(128);
 declare @is_worked bit;
 */
-if @is_worked is not null
-begin
+IF @is_worked IS NOT NULL
+BEGIN
 
-select Id, [№ звернення] [EnterNumber], [Створено] [RegistrationDate], [Заявник] [Applicant], [Адреса] [Address], [Зміст] [Content], [Питання] QuestionNumber
-from [Звернення УГЛ]
-where convert(date, [Створено]) between @dateFrom and @dateTo
-and #filter_columns# /*[Опрацював]=@user_id*/
-and [Опрацьовано]= @is_worked 
+	SELECT
+		Z.Id
+	   ,Z.[№ звернення] [EnterNumber]
+	   ,Z.[Створено] [RegistrationDate]
+	   ,Z.[Заявник] [Applicant]
+	   ,Z.[Адреса] [Address]
+	   ,Z.[Зміст] [Content]
+	   --,Z.[Питання] QuestionNumber
+	   ,q.registration_number QuestionNumber
+	FROM [dbo].[Звернення УГЛ] z
+	LEFT JOIN [dbo].[Questions] q ON Z.Appeals_id=q.appeal_id
+	WHERE CONVERT(DATE, Z.[Створено]) BETWEEN @dateFrom AND @dateTo
+	AND #filter_columns# /*[Опрацював]=@user_id*/
+	AND Z.[Опрацьовано] = @is_worked
 
 -- #sort_columns#
 --  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
 
-end
+END
 
-if @is_worked is null
-begin
-select Id, [№ звернення] [EnterNumber], [Створено] [RegistrationDate], [Заявник] [Applicant], [Адреса] [Address], [Зміст] [Content], [Питання] QuestionNumber
-from [Звернення УГЛ]
-where convert(date, [Створено]) between @dateFrom and @dateTo
-and #filter_columns# /*[Опрацював]=@user_id*/
-end
+IF @is_worked IS NULL
+BEGIN
+	SELECT
+		Z.Id
+	   ,Z.[№ звернення] [EnterNumber]
+	   ,Z.[Створено] [RegistrationDate]
+	   ,Z.[Заявник] [Applicant]
+	   ,Z.[Адреса] [Address]
+	   ,Z.[Зміст] [Content]
+	   ,Z.[Питання] QuestionNumber
+	FROM [dbo].[Звернення УГЛ] z
+	LEFT JOIN [dbo].[Questions] q ON Z.Appeals_id=q.appeal_id
+	WHERE CONVERT(DATE,Z.[Створено]) BETWEEN @dateFrom AND @dateTo
+	AND #filter_columns# /*[Опрацював]=@user_id*/
+END
