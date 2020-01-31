@@ -1,5 +1,5 @@
-(function () {
-  return {
+(function() {
+    return {
         config: {
             query: {
                 code: 'ChangeOnDateReport',
@@ -74,8 +74,9 @@
             groupingAutoExpandAll: null
         },
         init: function() {
+            let height = 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.dataGridInstance.height = window.innerHeight - 150;
+            this.dataGridInstance.height = window.innerHeight - height;
         },
         showTopQuestionsTable: function() {
             document.getElementById('cars_report').style.display = 'block';

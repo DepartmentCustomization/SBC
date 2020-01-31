@@ -1,8 +1,7 @@
-(function () {
-  return {
+(function() {
+    return {
         title: ' ',
         hint: '',
-        formatTitle: function() {},
         customConfig:
                 `
                 <style>
@@ -17,8 +16,6 @@
                  </div>
                 `
         ,
-        init: function() {
-        },
         afterViewInit: function() {
             const reportTitle = document.getElementById('reportTitle');
             const organizationNameInput = document.createElement('span');
