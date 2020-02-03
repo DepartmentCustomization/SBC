@@ -108,8 +108,13 @@
             this.config.onToolbarPreparing = this.createButtons.bind(this);
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
-                    if(e.column.dataField == 'question_registration_number' && e.row != undefined) {
-                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id));
+                    if(e.column.dataField === 'question_registration_number' && e.row !== undefined) {
+                        window.open(String(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/sections/Assignments/edit/' +
+                            e.data.Id
+                        ));
                     }
                 }
             }.bind(this));
@@ -181,8 +186,14 @@
                                 this.createObjMacros(elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
                             }
                         }else{
-                            if(data.dateFrom != '') {
-                                this.createObjMacros('cast(' + elem.name + ' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
+                            if(data.dateFrom !== '') {
+                                this.createObjMacros(
+                                    'cast(' + elem.name + ' as datetime)',
+                                    '>=',
+                                    checkDateFrom(elem.value),
+                                    elem.placeholder,
+                                    elem.value.viewValue
+                                );
                                 switch(elem.name) {
                                 case 'registration_date':
                                     this.registrationDate__from = checkDateFrom(elem.value);
@@ -203,10 +214,18 @@
                                 case 'control_date':
                                     this.controlDateFrom = checkDateFrom(elem.value);
                                     break;
+                                default:
+                                    break;
                                 }
                             }
-                            if(data.dateTo != '') {
-                                this.createObjMacros('cast(' + elem.name + ' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
+                            if(data.dateTo !== '') {
+                                this.createObjMacros(
+                                    'cast(' + elem.name + ' as datetime)',
+                                    '<=',
+                                    checkDateTo(elem.value),
+                                    elem.placeholder,
+                                    elem.value.viewValue
+                                );
                                 switch(elem.name) {
                                 case 'registration_date':
                                     this.registrationDateTo = checkDateTo(elem.value);
@@ -225,6 +244,8 @@
                                     break;
                                 case 'control_date':
                                     this.controlDateTo = checkDateTo(elem.value);
+                                    break;
+                                default:
                                     break;
                                 }
                             }
@@ -260,7 +281,9 @@
             this.filtersValuesMacros.push(obj);
         },
         findAllCheckedFilter: function() {
-            this.isSelected === true ? document.getElementById('poshuk_table_main').style.display = 'block' : document.getElementById('poshuk_table_main').style.display = 'none';
+            this.isSelected === true ?
+                document.getElementById('poshuk_table_main').style.display = 'block' :
+                document.getElementById('poshuk_table_main').style.display = 'none';
             let filters = this.filtersValuesMacros;
             if(filters.length > 0 || this.applicantPhoneNumber !== null) {
                 this.textFilterMacros = [];
@@ -304,17 +327,17 @@
             if(code !== 'zayavnyk_phone_number') {
                 if(operation !== '>=' && operation !== '<=') {
                     let textMacros = '';
-                    if(operation == 'like') {
+                    if(operation === 'like') {
                         textMacros = String(code) + ' ' + operation + ' \'%' + value + '%\' and';
-                    }else if(operation == '===') {
+                    }else if(operation === '===') {
                         textMacros = String(value) + ' and';
-                    }else if(operation == '==') {
+                    }else if(operation === '==') {
                         textMacros = String(code) + ' ' + '=' + ' ' + value + ' and';
-                    }else if(operation == '+""+') {
+                    }else if(operation === '+""+') {
                         textMacros = String(code) + ' in  (N\'' + value + '\' and';
-                    }else if(operation == 'in') {
+                    }else if(operation === 'in') {
                         textMacros = String(code) + ' in (' + value + ') and';
-                    }else if(operation == '=') {
+                    }else if(operation === '=') {
                         textMacros = String(code) + ' ' + operation + ' N\'' + value + '\' and';
                     }
                     this.textFilterMacros.push(textMacros);
@@ -481,7 +504,11 @@
                 let cellInfo = worksheet.getCell('A2');
                 cellInfo.value = 'про звернення громадян, що надійшли до Контактного центру  міста Києва. Термін виконання …';
                 let cellPeriod = worksheet.getCell('A3');
-                cellPeriod.value = 'Період вводу з (включно) : дата з ' + this.changeDateTimeValues(this.registrationDateFrom) + ' дата по ' + this.changeDateTimeValues(this.registrationDateTo) + ' (Розширений пошук).';
+                cellPeriod.value = 'Період вводу з (включно) : дата з ' +
+                    this.changeDateTimeValues(this.registrationDateFrom) +
+                    ' дата по ' +
+                    this.changeDateTimeValues(this.registrationDateTo) +
+                    ' (Розширений пошук).';
                 let cellNumber = worksheet.getCell('A4');
                 cellNumber.value = 'Реєстраційний № РДА …';
                 worksheet.mergeCells('A1:F1');
@@ -583,7 +610,11 @@
                         if(el.name === 'question_registration_number') {
                             rowItem.registration_number = row.values[el.index] + ' ' + regDate;
                         }else if(el.name === 'zayavnyk_full_name') {
-                            rowItem.name = row.values[el.index] + ' ' + row.values[indexZayavnykBuildingNumber] + ', кв. ' + row.values[indexZayavnykFlat];
+                            rowItem.name = row.values[el.index] +
+                            ' ' +
+                            row.values[indexZayavnykBuildingNumber] +
+                            ', кв. ' +
+                            row.values[indexZayavnykFlat];
                         }else if(el.name === 'question_question_type') {
                             rowItem.question_type = 'Тип питання: ' + row.values[el.index];
                             rowItem.assigm_question_content = 'Зміст: ' + row.values[indexAssigmQuestionContent];
@@ -692,6 +723,8 @@
                                 break
                             case 'ConsDocumentContent':
                                 rowItem.ConsDocumentContent = row.values[el.index];
+                                break
+                            default:
                                 break
                             }
                             this.addedIndexes.push(prop);
@@ -807,6 +840,8 @@
                             break
                         case 'ConsDocumentContent':
                             row.ConsDocumentContent = el.ConsDocumentContent;
+                            break
+                        default:
                             break
                         }
                     }

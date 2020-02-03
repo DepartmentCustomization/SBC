@@ -1,5 +1,4 @@
 {
   "Type": "InputFilterComponent",
-  "Owner": "question_registration_number",
-  "Position": 1
+  "Owner": "question_registration_number"
 }

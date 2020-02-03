@@ -25,7 +25,7 @@
             this.defaultCheckedItem = [];
         },
         clickOnGear: function() {
-            if(document.getElementById('modalWindowWrapper').style.display == 'none') {
+            if(document.getElementById('modalWindowWrapper').style.display === 'none') {
                 document.getElementById('modalWindowWrapper').style.display = 'block'
             }
         },
@@ -113,10 +113,10 @@
             day = day.toString();
             month = month.toString();
             year = year.toString();
-            if(day.length == 1) {
+            if(day.length === 1) {
                 day = '0' + day;
             }
-            if(month.length == 1) {
+            if(month.length === 1) {
                 month = '0' + month;
             }
             let fullDate = day + '-' + month + '-' + year;
@@ -677,15 +677,15 @@
                 this.filterColumns = [];
                 let checkedElements = document.querySelectorAll('.group__element');
                 checkedElements = Array.from(checkedElements);
-                checkedElements.forEach(function(el) {
-                    if(el.firstElementChild.checked == true) {
+                checkedElements.forEach(el => {
+                    if(el.firstElementChild.checked === true) {
                         let width = Number(el.firstElementChild.columnWidth);
                         let displayValue = el.firstElementChild.value;
                         let caption = el.lastElementChild.innerText;
                         let obj = { displayValue, caption, width }
                         this.filterColumns.push(obj);
                     }
-                }.bind(this));
+                });
                 let columns = this.filterColumns;
                 this.messageService.publish({
                     name: 'findFilterColumns', value: columns

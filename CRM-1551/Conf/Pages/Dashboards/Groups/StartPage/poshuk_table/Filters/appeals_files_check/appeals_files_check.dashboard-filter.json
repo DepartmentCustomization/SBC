@@ -1,5 +1,4 @@
 {
   "Type": "CheckboxFilterComponent",
-  "Owner": "appeals_files_check",
-  "Position": 35
+  "Owner": "appeals_files_check"
 }
