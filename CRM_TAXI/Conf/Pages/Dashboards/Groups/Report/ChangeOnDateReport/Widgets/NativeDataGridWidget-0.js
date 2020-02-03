@@ -22,10 +22,6 @@
                     caption: 'Производитель',
                     alignment: 'center'
                 }, {
-                    dataField: 'provider',
-                    caption: 'Поставщик',
-                    alignment: 'center'
-                }, {
                     dataField: 'run_km_period',
                     caption: 'Эксплуатационный период (км)',
                     alignment: 'center'
@@ -78,8 +74,9 @@
             groupingAutoExpandAll: null
         },
         init: function() {
+            let height = 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.dataGridInstance.height = window.innerHeight - 150;
+            this.dataGridInstance.height = window.innerHeight - height;
         },
         showTopQuestionsTable: function() {
             document.getElementById('cars_report').style.display = 'block';

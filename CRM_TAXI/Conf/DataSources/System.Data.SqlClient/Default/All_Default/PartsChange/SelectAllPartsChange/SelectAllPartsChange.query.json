@@ -25,7 +25,7 @@
         "Name": "Дата расхода",
         "Position": 3,
         "IsPrintable": false,
-        "SqlName": "change_date",
+        "SqlName": "pc.create_date",
         "FilterParameterCode": "@change_date"
       },
       {

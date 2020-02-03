@@ -1,17 +1,24 @@
---DECLARE @changeId INT;
---DECLARE @prev_part_id INT = 6;
---DECLARE @part_id INT;
---DECLARE @cars_id INT = 1;
---DECLARE @user_id NVARCHAR(128) = (SELECT TOP 1 UserId FROM CRM_TAXI_System.dbo.[User]);
+--  DECLARE @changeId INT = 478;
+--  DECLARE @prev_part_id INT = NULL;
+--  DECLARE @part_id INT = 171;
+--  DECLARE @cars_id INT = 41;
+--  DECLARE @user_id NVARCHAR(128) = (SELECT TOP 1 UserId FROM CRM_TAXI_System.dbo.[User]);
 
-DECLARE @car_maxday_run DATETIME = (SELECT MAX(create_date) FROM dbo.RunCar WHERE car_id = @cars_id);
 DECLARE @info TABLE (
     Id INT,
     part_id INT,
     car_id INT,
     invoice NVARCHAR(100)
 );
+DECLARE @part_name NVARCHAR(100) = (SELECT part_name FROM dbo.Parts WHERE Id = @part_id);
 
+DECLARE @IsPartAvailable BIT = (SELECT CASE 
+									       WHEN ISNULL(part_quantity,0) > 0 
+									       THEN 1 
+									       ELSE 0 
+									   END 
+                                         FROM dbo.Parts 
+										 WHERE Id = @part_id);
 DECLARE @create_info TABLE (
     invoice_consumption NVARCHAR(100),
     install_date DATETIME,
@@ -20,9 +27,11 @@ DECLARE @create_info TABLE (
 ) ;
 DECLARE @part_price FLOAT(25) = (SELECT part_price FROM dbo.Parts
                                  WHERE Id = @part_id);
-DECLARE @run_km_install_day INT = (SELECT isnull(run_km,0) FROM dbo.RunCar
-                                   WHERE car_id = @cars_id AND create_date = @car_maxday_run);
-BEGIN
+
+DECLARE @run_km_install_day INT = (SELECT ISNULL(MAX(run_km),0) 
+                                   FROM dbo.RunCar
+                                   WHERE car_id = @cars_id);
+
 INSERT INTO
     @create_info
 SELECT
@@ -32,7 +41,7 @@ SELECT
     create_date
 FROM dbo.PartChange
 WHERE Id = @changeId;
-END 
+
 DECLARE @is_prev_removed BIT = (
     SELECT CASE WHEN (
                 SELECT Id FROM dbo.PartChange
@@ -42,28 +51,26 @@ DECLARE @is_prev_removed BIT = (
         END
 );
 
-IF(@is_prev_removed = 1) 
+----> Проверка на наличие устанавливаемой детали
+IF(@IsPartAvailable = 1)
 BEGIN
+--- Обработка изменения списания
 
-UPDATE dbo.PartChange
-SET remove_operation_id = NULL
-WHERE remove_operation_id = @changeId;
-END
-
-UPDATE dbo.Parts
-SET part_quantity += 1
-WHERE  Id = (
+   UPDATE dbo.Parts
+   SET part_quantity += 1
+   WHERE Id = (
         SELECT part_id
         FROM dbo.PartChange
         WHERE Id = @changeId
     );
 
-DELETE FROM
-dbo.PartChange
-WHERE Id = @changeId;
+   DELETE FROM
+   dbo.PartChange
+   WHERE Id = @changeId;
+
 
 INSERT INTO
-    [dbo].[PartChange] (
+[dbo].[PartChange] (
         [part_id],
         [cars_id],
         [part_price],
@@ -95,25 +102,22 @@ SELECT
     getutcdate()
 FROM @create_info;
     
-     IF(@prev_part_id IS NOT NULL)
+    IF(@prev_part_id IS NOT NULL)
     BEGIN
-UPDATE
-dbo.PartChange
-SET remove_operation_id = (
-        SELECT TOP 1 Id
-        FROM @info)
-WHERE
-    cars_id = @cars_id
-    AND part_id = @prev_part_id
-    AND remove_operation_id IS NULL
-    AND Id < (
-        SELECT TOP 1 Id
-        FROM @info
-    );
+    UPDATE
+    dbo.PartChange
+    SET remove_operation_id = (
+            SELECT TOP 1 Id
+            FROM @info)
+    WHERE
+        cars_id = @cars_id
+        AND part_id = @prev_part_id
+        AND remove_operation_id IS NULL
+        AND Id < (
+            SELECT TOP 1 Id
+            FROM @info
+        );
     END
-UPDATE dbo.Parts
-SET part_quantity -= 1
-WHERE Id = @part_id;
 
 ---- Данные сколько детали положено было служить в днях и км от категории ----
     DECLARE @category INT = (SELECT category_id FROM dbo.Parts WHERE Id = @part_id);
@@ -155,11 +159,15 @@ WHERE Id = @part_id;
     
     IF(SELECT Id FROM @info) IS NOT NULL 
     BEGIN
-IF(@is_exploration_day_passed = 1 AND @is_exploration_km_passed = 1)
-		BEGIN
+	UPDATE dbo.Parts
+    SET part_quantity -= 1
+    WHERE Id = @part_id;
+
+       IF(@is_exploration_day_passed = 1 AND @is_exploration_km_passed = 1)
+		 BEGIN
     SELECT 
-	N'Списание по накладной "' + i.invoice + N'" изменено' AS result, Id,
-    NULL AS resultNotify
+	N'Списание по накладной "' + i.invoice + N'" изменено' AS result, i.Id,
+    'OK' AS resultNotify
     FROM @info i;
 	    END
 	   ---- Если запчасть не прошла эксплуатационный период в днях и киллометрах ----
@@ -198,5 +206,22 @@ IF(@is_exploration_day_passed = 1 AND @is_exploration_km_passed = 1)
 	INNER JOIN dbo.Parts p ON p.Id = i.part_id
 	INNER JOIN dbo.Cars c ON c.Id = i.car_id ;
 	   END
+    ELSE 
+	   BEGIN
+	   SELECT 
+	N'Списание по накладной "' + i.invoice + N'" изменено' AS result, i.Id,
+	'OK' AS resultNotify
+    FROM @info i
+	INNER JOIN dbo.Parts p ON p.Id = i.part_id
+	INNER JOIN dbo.Cars c ON c.Id = i.car_id ;
+	END
+  END
+END
 
+IF(@IsPartAvailable = 0)
+BEGIN
+	DECLARE @Message NVARCHAR(300) = N'Запчасть "' + @part_name + N'" закончилась ! (Нету в наличии)"';
+    SELECT @Message AS result, 
+    NULL AS Id,
+	N'Fail' AS resultNotify ;
 END

@@ -34,12 +34,6 @@
         "IsPrintable": false
       },
       {
-        "Code": "provider",
-        "Name": "provider",
-        "Position": 3,
-        "IsPrintable": false
-      },
-      {
         "Code": "part_price",
         "Name": "part_price",
         "Position": 4,

@@ -15,5 +15,6 @@ FROM
     JOIN Providers pr ON pr.Id = pa.provider_id
 WHERE
     #filter_columns# 
-    ORDER BY pa.create_date DESC 
-OFFSET @pageOffsetRows ROWS fetch next @pageLimitRows rows only
+   -- #sort_columns#
+    ORDER BY pa.create_date DESC
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only ;
