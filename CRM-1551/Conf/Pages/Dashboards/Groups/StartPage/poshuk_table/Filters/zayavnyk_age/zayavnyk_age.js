@@ -30,5 +30,6 @@
             }
             this.messageService.publish(message);
         }
-    };
+    }
+    ;
 }());
