@@ -5,9 +5,6 @@
         formatTitle: function() {},
         customConfig:
                     `
-                    <style>
-                    
-                    </style>
                     <div id='container' ></div>
                     `
         ,
@@ -63,29 +60,29 @@
                 container.removeChild(container.lastElementChild);
             }
             const filtersBox = [];
-            message.value.forEach(el => {
-                let value = el.operation;
+            message.value.forEach(filter => {
+                let value = filter.operation;
                 let obj = {};
                 switch(value) {
                 case true:
                 case '=':
-                    obj.title = el.placeholder;
+                    obj.title = filter.placeholder;
                     obj.value = 'Наявнiсть'
                     break;
                 case 'like':
-                    obj.title = el.placeholder;
-                    obj.value = el.value
+                    obj.title = filter.placeholder;
+                    obj.value = filter.value
                     break;
                 case '===':
                 case '==':
                 case 'in':
                 case '+""+':
-                    obj.title = el.placeholder;
-                    obj.value = el.value
+                    obj.title = filter.placeholder;
+                    obj.value = filter.viewValue
                     break
                 default:
-                    obj.title = this.operation(el.operation, el.placeholder);
-                    obj.value = this.changeDateValue(el.value);
+                    obj.title = this.operation(filter.operation, filter.placeholder);
+                    obj.value = this.changeDateValue(filter.value);
                     break;
                 }
                 filtersBox.push(obj);
@@ -106,21 +103,13 @@
             }
             return result;
         },
-        changeDateValue: function(value) {
-            let day = value.getDate();
-            let month = value.getMonth() + 1;
-            let year = value.getFullYear();
-            day = day.toString();
-            month = month.toString();
-            year = year.toString();
-            if(day.length === 1) {
-                day = '0' + day;
-            }
-            if(month.length === 1) {
-                month = '0' + month;
-            }
-            let fullDate = day + '-' + month + '-' + year;
-            return fullDate;
+        changeDateValue: function(date) {
+            let dd = date.getDate().toString();
+            let mm = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return dd + '-' + mm + '-' + yyyy;
         },
         createFilterBox: function(filtersBox) {
             for(let i = 0; i < filtersBox.length; i++) {
@@ -257,7 +246,7 @@
             });
             const group2__element4_title = this.createElement('div', {
                 className: 'group__element_title',
-                innerText: 'Парадне'
+                innerText: 'Під`їзд'
             });
             const group2__element4 = this.createElement('div', {
                 className: 'group__element'
@@ -671,7 +660,7 @@
                 event.stopImmediatePropagation();
                 document.getElementById('modalWindowWrapper').style.display = 'none';
             });
-            modalBtnSave.addEventListener('click', event =>{
+            modalBtnSave.addEventListener('click', event => {
                 event.stopImmediatePropagation();
                 this.defaultCheckedItem = [];
                 this.filterColumns = [];

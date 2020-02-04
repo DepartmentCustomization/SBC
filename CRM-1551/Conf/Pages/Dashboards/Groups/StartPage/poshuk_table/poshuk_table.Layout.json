@@ -63,7 +63,7 @@
                 "border": "none",
                 "children": [
                   {
-                    "code": "NativeDataGridWidget-0",
+                    "code": "poshuk_table_NativeDataGridWidget",
                     "type": "NativeDataGridWidgetComponent",
                     "name": "poshuk_table_main"
                   }

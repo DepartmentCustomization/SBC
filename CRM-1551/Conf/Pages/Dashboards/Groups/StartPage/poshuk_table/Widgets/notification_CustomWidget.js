@@ -5,21 +5,6 @@
         formatTitle: function() {},
         customConfig:
                     `
-                    <style>
-                    #notificationContainer{
-                        height: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;                    
-                    }
-                    .captionWarning{
-                        font-size: 40px;
-                        text-transform: uppercase;
-                        font-weight: 600;                    
-                    }
-                    </style>
-                    
                     <div id='notificationContainer' ></div>
                     `
         ,
