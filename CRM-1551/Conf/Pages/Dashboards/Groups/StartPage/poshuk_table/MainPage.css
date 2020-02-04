@@ -170,9 +170,8 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        max-width: 150px;  
-        /*min-width: 60px;*/
-        margin: 10px 0 10px 10px ;
+        max-width: 150px;
+        margin: 10px 0 10px 10px;
 }
 [tooltip]:before {
     position : absolute;
@@ -186,7 +185,8 @@
     pointer-events: none;
 }
 .filterBox__title{
-    white-space: nowrap;}
+    white-space: nowrap;
+}
 #counterWrap {
     font-size: 18px;
     font-weight: 600;
