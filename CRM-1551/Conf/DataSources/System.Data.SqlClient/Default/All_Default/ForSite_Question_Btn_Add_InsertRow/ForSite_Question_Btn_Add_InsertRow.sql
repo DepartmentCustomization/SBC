@@ -237,6 +237,32 @@ select @AppealId
 	
 	
 	
+  INSERT INTO [dbo].[QuestionDocFiles]
+  (
+  --[link]
+      [create_date]
+      ,[user_id]
+      ,[edit_date]
+      ,[edit_user_id]
+      ,[name]
+      ,[File]
+      ,[question_id]
+      --,[GUID]
+  )
+
+  SELECT --N'test' [link]
+      GETUTCDATE() [create_date]
+      ,@CreatedByUserId [user_id]
+      ,GETUTCDATE() [edit_date]
+      ,@CreatedByUserId [edit_user_id]
+      ,[AppealFromSiteFiles].[Name]
+      ,[AppealFromSiteFiles].[File]
+      ,@app_id [question_id]
+      --,[GUID]
+  from [CRM_1551_Site_Integration].[dbo].[AppealFromSiteFiles]
+  where 
+  [AppealFromSiteId]=@AppealsFromSite_Id
+
 	
   update [dbo].[Appeals] set [applicant_id] = @applicant_id
 			  where [Id] = @AppealId	
