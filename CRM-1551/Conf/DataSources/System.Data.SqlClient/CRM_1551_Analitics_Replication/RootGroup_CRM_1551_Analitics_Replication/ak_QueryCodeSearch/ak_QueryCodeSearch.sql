@@ -593,7 +593,7 @@ select distinct --top 5000
   ,[Districts].Id [appeals_district] 
   ,[Districts].name [appeals_district_name] 
   --,case when files_check.assignment_сons_id is not null then ''true'' else ''false'' end appeals_files_check
-  ,''fasle'' appeals_files_check -- изменить
+  ,''false'' appeals_files_check -- изменить
   ,[Applicants].full_name zayavnyk_full_name
   --,phone_number zayavnyk_phone_number
 
@@ -1276,7 +1276,7 @@ when [Applicants].[birth_date] is null then year(getdate())-[Applicants].birth_y
 --  ,[Districts].Id [appeals_district] 
 --  ,[Districts].name [appeals_district_name] 
 --  --,case when files_check.assignment_сons_id is not null then ''true'' else ''false'' end appeals_files_check
---  ,''fasle'' appeals_files_check -- изменить
+--  ,''false'' appeals_files_check -- изменить
 --  ,[Applicants].full_name zayavnyk_full_name
 --  --,phone_number zayavnyk_phone_number
 
@@ -1973,7 +1973,7 @@ when [Applicants].[birth_date] is null then year(getdate())-[Applicants].birth_y
 --   ,[Districts].Id [appeals_district] 
 --   ,[Districts].name [appeals_district_name] 
 --   --,case when files_check.assignment_сons_id is not null then ''true'' else ''false'' end appeals_files_check
---   ,''fasle'' appeals_files_check -- изменить
+--   ,''false'' appeals_files_check -- изменить
 --   ,[Applicants].full_name zayavnyk_full_name
 --   --,phone_number zayavnyk_phone_number
 
