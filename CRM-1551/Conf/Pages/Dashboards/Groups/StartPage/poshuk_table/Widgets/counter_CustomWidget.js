@@ -4,9 +4,7 @@
         hint: '',
         formatTitle: function() {},
         customConfig:
-            `
-                <style>
-                </style>
+                `
                 <div id='counterContainer'></div>
                 `,
         init: function() {

@@ -59,6 +59,38 @@
             showRowLines: true,
             keyExpr: 'Id'
         },
+        filtersValuesMacros: [],
+        textFilterMacros: '',
+        filterValueTypes: {
+            Input: 'Input',
+            Select: 'Select',
+            MultiSelect: 'MultiSelect',
+            Date: 'Date',
+            Time: 'Time',
+            DateTime: 'DateTime',
+            CheckBox: 'CheckBox'
+        },
+        init: function() {
+            this.dataGridInstance.height = window.innerHeight - 230;
+            document.getElementById('poshuk_table_main').style.display = 'none';
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
+            this.sub2 = this.messageService.subscribe('findFilterColumns', this.reloadTable, this);
+            this.config.onToolbarPreparing = this.createButtons.bind(this);
+            this.dataGridInstance.onCellClick.subscribe(function(e) {
+                if(e.column) {
+                    if(e.column.dataField === 'question_registration_number' && e.row !== undefined) {
+                        window.open(String(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/sections/Assignments/edit/' +
+                            e.data.Id
+                        ));
+                    }
+                }
+            }.bind(this));
+            this.config.onContentReady = this.afterRenderTable.bind(this);
+        },
         createButtons: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
@@ -97,157 +129,102 @@
                 });
             } return element;
         },
-        filtersValuesMacros: [],
-        textFilterMacros: '',
-        init: function() {
-            this.dataGridInstance.height = window.innerHeight - 230;
-            document.getElementById('poshuk_table_main').style.display = 'none';
-            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
-            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
-            this.sub2 = this.messageService.subscribe('findFilterColumns', this.reloadTable, this);
-            this.config.onToolbarPreparing = this.createButtons.bind(this);
-            this.dataGridInstance.onCellClick.subscribe(function(e) {
-                if(e.column) {
-                    if(e.column.dataField == 'question_registration_number' && e.row != undefined) {
-                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.data.Id));
-                    }
-                }
-            }.bind(this));
-            this.config.onContentReady = this.afterRenderTable.bind(this);
-        },
         setFiltersValue:function(message) {
-            this.registrationDateFrom = null;
-            this.registrationDateTo = null;
-            this.transferDateFrom = null;
-            this.transferDateTo = null;
-            this.stateChangedDateFrom = null;
-            this.stateChangedDateTo = null;
-            this.stateChangedDateDoneFrom = null;
-            this.stateChangedDateDoneTo = null;
-            this.executionTermFrom = null;
-            this.executionTermTo = null;
-            this.controlDateFrom = null;
-            this.controlDateTo = null;
+            this.dateValues = {
+                registration_date_from: null,
+                registration_date_to: null,
+                transfer_date_from: null,
+                transfer_date_to: null,
+                state_changed_date_from: null,
+                state_changed_date_to: null,
+                state_changed_date_done_from: null,
+                state_changed_date_done_to: null,
+                execution_term_from: null,
+                execution_term_to: null,
+                control_date_from: null,
+                control_date_to: null
+            }
             this.applicantPhoneNumber = null;
             this.filtersValuesMacros = [];
             let filters = message.package.value.values;
             this.filtersLength = filters.length;
             this.filtersWithOutValues = 0;
-            filters.forEach(elem => {
-                if(elem.active === true) {
-                    let data = elem.value;
-                    if(typeof (data) === 'boolean') {
-                        this.createObjMacros(elem.name, '=', 'true', elem.placeholder);
-                    }else if(typeof (data) === 'object') {
-                        if(data[0]) {
-                            if(typeof (data[0].value) === 'number') {
-                                if(elem.name === 'zayavnyk_age') {
-                                    this.ageArr = [];
-                                    let ageSendViewValue = '';
-                                    data.forEach(el => {
-                                        let values = el.viewValue.split('-');
-                                        let ageValue = '(zayavnyk_age>=' + values[0] + ' and zayavnyk_age<=' + values[1] + ')';
-                                        this.ageArr.push(ageValue);
-                                        ageSendViewValue = ageSendViewValue + ', ' + el.viewValue;
-                                    });
-                                    ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
-                                    let ageSendValue = this.ageArr.join(' or ');
-                                    ageSendValue = '(' + ageSendValue + ')';
-                                    this.createObjMacros(elem.name, '===', ageSendValue, elem.placeholder, ageSendViewValue);
-                                }else{
-                                    let sumValue = '';
-                                    let sumViewValue = '';
-                                    if(data.length > 0) {
-                                        data.forEach(row => {
-                                            sumValue = sumValue + ', ' + row.value;
-                                            sumViewValue = sumViewValue + ', ' + row.viewValue;
-                                        });
-                                    }
-                                    let numberSendValue = sumValue.slice(2, [sumValue.length]);
-                                    let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
-                                    this.createObjMacros(elem.name, 'in', numberSendValue, elem.placeholder, numberSendViewValue);
-                                }
-                            }else if(typeof (data[0].value) === 'string') {
-                                let stringSumValue = '';
-                                let stringSumViewValue = '';
-                                if(data.length > 0) {
-                                    data.forEach(row => {
-                                        stringSumValue = stringSumValue + ', \'' + row.value + '\'';
-                                        stringSumViewValue = stringSumViewValue + ', ' + row.viewValue;
-                                    });
-                                }
-                                let stringSendValue = stringSumValue.slice(2, [stringSumValue.length]);
-                                let stringSendViewValue = stringSumViewValue.slice(2, [stringSumViewValue.length]);
-                                this.createObjMacros(elem.name, 'in', stringSendValue, elem.placeholder, stringSendViewValue);
-                            }
-                        }else{
-                            if(data.dateFrom != '') {
-                                this.createObjMacros('cast(' + elem.name + ' as datetime)', '>=', checkDateFrom(elem.value), elem.placeholder, elem.value.viewValue);
-                                switch(elem.name) {
-                                case 'registration_date':
-                                    this.registrationDate__from = checkDateFrom(elem.value);
-                                    this.registrationDateFrom = checkDateFrom(elem.value);
-                                    break;
-                                case 'transfer_date':
-                                    this.transferDateFrom = checkDateFrom(elem.value);
-                                    break;
-                                case 'state_changed_date':
-                                    this.stateChangedDateFrom = checkDateFrom(elem.value);
-                                    break;
-                                case 'state_changed_date_done':
-                                    this.stateChangedDateDoneFrom = checkDateFrom(elem.value);
-                                    break;
-                                case 'execution_term':
-                                    this.executionTermFrom = checkDateFrom(elem.value);
-                                    break;
-                                case 'control_date':
-                                    this.controlDateFrom = checkDateFrom(elem.value);
-                                    break;
-                                }
-                            }
-                            if(data.dateTo != '') {
-                                this.createObjMacros('cast(' + elem.name + ' as datetime)', '<=', checkDateTo(elem.value), elem.placeholder, elem.value.viewValue);
-                                switch(elem.name) {
-                                case 'registration_date':
-                                    this.registrationDateTo = checkDateTo(elem.value);
-                                    break;
-                                case 'transfer_date':
-                                    this.transferDateTo = checkDateTo(elem.value);
-                                    break;
-                                case 'state_changed_date':
-                                    this.stateChangedDateTo = checkDateTo(elem.value);
-                                    break;
-                                case 'state_changed_date_done':
-                                    this.stateChangedDateDoneTo = checkDateTo(elem.value);
-                                    break;
-                                case 'execution_term':
-                                    this.executionTermTo = checkDateTo(elem.value);
-                                    break;
-                                case 'control_date':
-                                    this.controlDateTo = checkDateTo(elem.value);
-                                    break;
-                                }
-                            }
+            filters.forEach(filter => {
+                if(filter.active === true) {
+                    const type = filter.type;
+                    const value = filter.value;
+                    const name = filter.name;
+                    const placeholder = filter.placeholder;
+                    switch (type) {
+                    case this.filterValueTypes.Input:
+                        if(name === 'zayavnyk_phone_number') {
+                            this.applicantPhoneNumber = value;
                         }
-                    }else if(typeof (data) === 'string') {
-                        if(elem.name === 'zayavnyk_phone_number') {
-                            this.applicantPhoneNumber = elem.value;
-                            this.createObjMacros(elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue);
-                        }else{
-                            this.createObjMacros(elem.name, 'like', elem.value, elem.placeholder, elem.value.viewValue);
+                        this.createObjMacros(name, 'like', value, placeholder, value.viewValue);
+                        break;
+                    case this.filterValueTypes.CheckBox:
+                        this.createObjMacros(filter.name, '=', value, filter.placeholder);
+                        break;
+                    case this.filterValueTypes.DateTime:
+                    case this.filterValueTypes.Date:
+                        if(value.dateFrom !== '') {
+                            const property = name + '_from';
+                            this.setFilterDateValues(property, value.dateFrom);
+                            this.setMacrosProps(name, '>=', value.dateFrom, placeholder, value.viewValue);
                         }
+                        if(value.dateTo !== '') {
+                            const property = name + '_to';
+                            this.setFilterDateValues(property, value.dateTo);
+                            this.setMacrosProps(name, '<=', value.dateTo, placeholder, value.viewValue);
+                        }
+                        break;
+                    case this.filterValueTypes.MultiSelect:
+                        if(name === 'zayavnyk_age') {
+                            const age = [];
+                            let ageSendViewValue = '';
+                            value.forEach(filter => {
+                                let values = filter.viewValue.split('-');
+                                let ageValue = '(zayavnyk_age>=' + values[0] + ' and zayavnyk_age<=' + values[1] + ')';
+                                age.push(ageValue);
+                                ageSendViewValue = ageSendViewValue + ', ' + filter.viewValue;
+                            });
+                            ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
+                            const ageSendValue = '(' + age.join(' or ') + ')';
+                            this.createObjMacros(name, '===', ageSendValue, placeholder, ageSendViewValue);
+                        }else{
+                            let sumValue = '';
+                            let sumViewValue = '';
+                            if(value.length > 0) {
+                                value.forEach(filter => {
+                                    sumValue = sumValue + ', ' + filter.value;
+                                    sumViewValue = sumViewValue + ', ' + filter.viewValue;
+                                });
+                            }
+                            let numberSendValue = sumValue.slice(2, [sumValue.length]);
+                            let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
+                            this.createObjMacros(name, 'in', numberSendValue, placeholder, numberSendViewValue);
+                        }
+                        break;
+                    default:
+                        break;
                     }
-                }else if(elem.active === false) {
+                }else if(filter.active === false) {
                     this.filtersWithOutValues += 1;
                 }
             });
-            function checkDateFrom(val) {
-                return val ? val.dateFrom : null;
-            }
-            function checkDateTo(val) {
-                return val ? val.dateTo : null;
-            }
             this.filtersWithOutValues === this.filtersLength ? this.isSelected = false : this.isSelected = true;
+        },
+        setFilterDateValues: function(property, value) {
+            this.dateValues[property] = value;
+        },
+        setMacrosProps: function(name, type, value, placeholder, viewValue) {
+            this.createObjMacros(
+                'cast(' + name + ' as datetime)',
+                type,
+                value,
+                placeholder,
+                viewValue
+            );
         },
         createObjMacros: function(name, operation, value, placeholder, viewValue) {
             let obj = {
@@ -260,7 +237,9 @@
             this.filtersValuesMacros.push(obj);
         },
         findAllCheckedFilter: function() {
-            this.isSelected === true ? document.getElementById('poshuk_table_main').style.display = 'block' : document.getElementById('poshuk_table_main').style.display = 'none';
+            this.isSelected === true ?
+                document.getElementById('poshuk_table_main').style.display = 'block' :
+                document.getElementById('poshuk_table_main').style.display = 'none';
             let filters = this.filtersValuesMacros;
             if(filters.length > 0 || this.applicantPhoneNumber !== null) {
                 this.textFilterMacros = [];
@@ -274,18 +253,18 @@
                 this.sendMsgForSetFilterPanelState(false);
                 this.config.query.parameterValues = [
                     { key: '@param1', value: this.macrosValue },
-                    { key: '@registration_date_from', value: this.registrationDateFrom },
-                    { key: '@registration_date_to', value: this.registrationDateTo },
-                    { key: '@transfer_date_from', value: this.transferDateFrom },
-                    { key: '@transfer_date_to', value: this.transferDateTo },
-                    { key: '@state_changed_date_from', value: this.stateChangedDateFrom },
-                    { key: '@state_changed_date_to', value: this.stateChangedDateTo },
-                    { key: '@state_changed_date_done_from', value: this.stateChangedDateDoneFrom },
-                    { key: '@state_changed_date_done_to', value: this.stateChangedDateDoneTo },
-                    { key: '@execution_term_from', value: this.executionTermFrom },
-                    { key: '@execution_term_to', value: this.executionTermTo },
-                    { key: '@control_date_from', value: this.controlDateFrom },
-                    { key: '@control_date_to', value: this.controlDateTo },
+                    { key: '@registration_date_from', value: this.dateValues.registration_date_from },
+                    { key: '@registration_date_to', value: this.dateValues.registration_date_to },
+                    { key: '@transfer_date_from', value: this.dateValues.transfer_date_from },
+                    { key: '@transfer_date_to', value: this.dateValues.transfer_date_to },
+                    { key: '@state_changed_date_from', value: this.dateValues.state_changed_date_from },
+                    { key: '@state_changed_date_to', value: this.dateValues.state_changed_date_to },
+                    { key: '@state_changed_date_done_from', value: this.dateValues.state_changed_date_done_from },
+                    { key: '@state_changed_date_done_to', value: this.dateValues.state_changed_date_done_to },
+                    { key: '@execution_term_from', value: this.dateValues.execution_term_from },
+                    { key: '@execution_term_to', value: this.dateValues.execution_term_to },
+                    { key: '@control_date_from', value: this.dateValues.control_date_from },
+                    { key: '@control_date_to', value: this.dateValues.control_date_to },
                     { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber }
                 ];
                 this.loadData(this.afterLoadDataHandler);
@@ -304,17 +283,17 @@
             if(code !== 'zayavnyk_phone_number') {
                 if(operation !== '>=' && operation !== '<=') {
                     let textMacros = '';
-                    if(operation == 'like') {
+                    if(operation === 'like') {
                         textMacros = String(code) + ' ' + operation + ' \'%' + value + '%\' and';
-                    }else if(operation == '===') {
+                    }else if(operation === '===') {
                         textMacros = String(value) + ' and';
-                    }else if(operation == '==') {
+                    }else if(operation === '==') {
                         textMacros = String(code) + ' ' + '=' + ' ' + value + ' and';
-                    }else if(operation == '+""+') {
+                    }else if(operation === '+""+') {
                         textMacros = String(code) + ' in  (N\'' + value + '\' and';
-                    }else if(operation == 'in') {
+                    }else if(operation === 'in') {
                         textMacros = String(code) + ' in (' + value + ') and';
-                    }else if(operation == '=') {
+                    }else if(operation === '=') {
                         textMacros = String(code) + ' ' + operation + ' N\'' + value + '\' and';
                     }
                     this.textFilterMacros.push(textMacros);
@@ -415,10 +394,10 @@
         afterRenderTable: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
-            elements.forEach(function(element) {
+            elements.forEach(element => {
                 let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
                 element.firstElementChild.appendChild(spanElement);
-            }.bind(this));
+            });
         },
         sendMsgForSetFilterPanelState: function(state) {
             const msg = {
@@ -431,23 +410,23 @@
         },
         exportToExcel: function() {
             let exportQuery = {
-                queryCode: 'ak_QueryCodeSearch',
+                queryCode: this.config.query.code,
                 limit: -1,
                 parameterValues: [
                     { key: '@param1', value: this.macrosValue },
-                    { key: '@registration_date_from', value: this.registrationDateFrom },
-                    { key: '@registration_date_to', value: this.registrationDateTo },
-                    { key: '@transfer_date_from', value: this.transferDateFrom },
-                    { key: '@transfer_date_to', value: this.transferDateTo },
-                    { key: '@state_changed_date_from', value: this.stateChangedDateFrom },
-                    { key: '@state_changed_date_to', value: this.stateChangedDateTo },
-                    { key: '@state_changed_date_done_from', value: this.stateChangedDateDoneFrom },
-                    { key: '@state_changed_date_done_to', value: this.stateChangedDateDoneTo },
-                    { key: '@execution_term_from', value: this.executionTermFrom },
-                    { key: '@execution_term_to', value: this.executionTermTo },
+                    { key: '@registration_date_from', value: this.dateValues.registration_date_from },
+                    { key: '@registration_date_to', value: this.dateValues.registration_date_to },
+                    { key: '@transfer_date_from', value: this.dateValues.transfer_date_from },
+                    { key: '@transfer_date_to', value: this.dateValues.transfer_date_to },
+                    { key: '@state_changed_date_from', value: this.dateValues.state_changed_date_from },
+                    { key: '@state_changed_date_to', value: this.dateValues.state_changed_date_to },
+                    { key: '@state_changed_date_done_from', value: this.dateValues.state_changed_date_done_from },
+                    { key: '@state_changed_date_done_to', value: this.dateValues.state_changed_date_done_to },
+                    { key: '@execution_term_from', value: this.dateValues.execution_term_from },
+                    { key: '@execution_term_to', value: this.dateValues.execution_term_to },
+                    { key: '@control_date_from', value: this.dateValues.control_date_from },
+                    { key: '@control_date_to', value: this.dateValues.control_date_to },
                     { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
-                    { key: '@control_date_from', value: this.controlDateFrom },
-                    { key: '@control_date_to', value: this.controlDateTo },
                     { key: '@pageOffsetRows', value: 0},
                     { key: '@pageLimitRows', value: 10}
                 ]
@@ -458,15 +437,16 @@
             if(data.rows.length > 0) {
                 this.showPagePreloader('Зачекайте, формується документ');
                 this.indexArr = [];
-                let columns = this.config.columns; columns.forEach(el => {
-                    let elDataField = el.dataField;
-                    let elCaption = el.caption;
+                let columns = this.config.columns;
+                columns.forEach(column => {
+                    let columnDataField = column.dataField;
+                    let columnCaption = column.caption;
                     for (let i = 0; i < data.columns.length; i++) {
-                        if(elDataField === data.columns[i].code) {
+                        if(columnDataField === data.columns[i].code) {
                             let obj = {
-                                name: elDataField,
+                                name: columnDataField,
                                 index: i,
-                                caption: elCaption
+                                caption: columnCaption
                             }
                             this.indexArr.push(obj);
                         }
@@ -481,7 +461,11 @@
                 let cellInfo = worksheet.getCell('A2');
                 cellInfo.value = 'про звернення громадян, що надійшли до Контактного центру  міста Києва. Термін виконання …';
                 let cellPeriod = worksheet.getCell('A3');
-                cellPeriod.value = 'Період вводу з (включно) : дата з ' + this.changeDateTimeValues(this.registrationDateFrom) + ' дата по ' + this.changeDateTimeValues(this.registrationDateTo) + ' (Розширений пошук).';
+                cellPeriod.value = 'Період вводу з (включно) : дата з ' +
+                    this.changeDateTimeValues(this.dateValues.registration_date_from) +
+                    ' дата по ' +
+                    this.changeDateTimeValues(this.dateValues.registration_date_to) +
+                    ' (Розширений пошук).';
                 let cellNumber = worksheet.getCell('A4');
                 cellNumber.value = 'Реєстраційний № РДА …';
                 worksheet.mergeCells('A1:F1');
@@ -583,7 +567,11 @@
                         if(el.name === 'question_registration_number') {
                             rowItem.registration_number = row.values[el.index] + ' ' + regDate;
                         }else if(el.name === 'zayavnyk_full_name') {
-                            rowItem.name = row.values[el.index] + ' ' + row.values[indexZayavnykBuildingNumber] + ', кв. ' + row.values[indexZayavnykFlat];
+                            rowItem.name = row.values[el.index] +
+                            ' ' +
+                            row.values[indexZayavnykBuildingNumber] +
+                            ', кв. ' +
+                            row.values[indexZayavnykFlat];
                         }else if(el.name === 'question_question_type') {
                             rowItem.question_type = 'Тип питання: ' + row.values[el.index];
                             rowItem.assigm_question_content = 'Зміст: ' + row.values[indexAssigmQuestionContent];
@@ -591,12 +579,6 @@
                             rowItem.organization = row.values[el.index] + '. Дату контролю: ' + controlDate;
                         }else if(el.name === 'question_object') {
                             rowItem.object = row.values[el.index];
-                        }else if(el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat') {
-                            let obj = {
-                                key: el.name,
-                                width: 13
-                            };
-                            otherColumns.push(obj);
                         }else{
                             let prop = indexArr[i].name;
                             switch(prop) {
@@ -692,6 +674,8 @@
                                 break
                             case 'ConsDocumentContent':
                                 rowItem.ConsDocumentContent = row.values[el.index];
+                                break
+                            default:
                                 break
                             }
                             this.addedIndexes.push(prop);
@@ -808,6 +792,8 @@
                         case 'ConsDocumentContent':
                             row.ConsDocumentContent = el.ConsDocumentContent;
                             break
+                        default:
+                            break
                         }
                     }
                     worksheet.addRow(row);
@@ -852,8 +838,8 @@
             if(value === null) {
                 return ' '
             }
-            const dateUTC = new Date(value);
-            const date = new Date(dateUTC.getTime() - dateUTC.getTimezoneOffset() * 60000);
+            const dateValue = value + '+0000';
+            const date = new Date(Date.parse(dateValue));
             let dd = date.getDate().toString();
             let mm = (date.getMonth() + 1).toString();
             let yyyy = date.getFullYear().toString();
