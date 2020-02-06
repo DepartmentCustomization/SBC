@@ -312,6 +312,44 @@
             this.config.query.filterColumns.push(filter);
         },
         reloadTable: function(message) {
+            this.setConfigColumns();
+            message.value.forEach(function(el) {
+                let column;
+                switch(el.displayValue) {
+                case 'transfer_date':
+                case 'state_changed_date':
+                case 'state_changed_date_done':
+                    column = {
+                        dataField: el.displayValue,
+                        caption: el.caption,
+                        width: 130,
+                        dateType: 'datetime',
+                        format: 'dd.MM.yyy HH.mm'
+                    }
+                    break;
+                case 'appeals_files_check':
+                    column = {
+                        dataField: el.displayValue,
+                        caption: el.caption,
+                        width: el.width,
+                        customizeText: function(cellInfo) {
+                            return this.setAppealsFilesCheckValue(cellInfo.value);
+                        }.bind(this)
+                    }
+                    break;
+                default:
+                    column = {
+                        dataField: el.displayValue,
+                        caption: el.caption,
+                        width: el.width
+                    }
+                    break;
+                }
+                this.config.columns.push(column);
+            }.bind(this));
+            this.loadData(this.afterLoadDataHandler);
+        },
+        setConfigColumns: function() {
             this.config.columns = [];
             this.config.columns = [
                 {
@@ -350,42 +388,6 @@
                     format: 'dd.MM.yyy HH.mm'
                 }
             ]
-            message.value.forEach(function(el) {
-                let column;
-                switch(el.displayValue) {
-                case 'transfer_date':
-                case 'state_changed_date':
-                case 'state_changed_date_done':
-                    column = {
-                        dataField: el.displayValue,
-                        caption: el.caption,
-                        width: 130,
-                        dateType: 'datetime',
-                        format: 'dd.MM.yyy HH.mm'
-                    }
-                    break;
-                case 'appeals_files_check':
-                    column = {
-                        dataField: el.displayValue,
-                        caption: el.caption,
-                        width: el.width,
-                        customizeText: function(cellInfo) {
-                            let value = cellInfo.value === undefined ? ' ' : cellInfo.value === 'true' ? 'Наявний' : 'Відсутній';
-                            return value;
-                        }
-                    }
-                    break;
-                default:
-                    column = {
-                        dataField: el.displayValue,
-                        caption: el.caption,
-                        width: el.width
-                    }
-                    break;
-                }
-                this.config.columns.push(column);
-            }.bind(this));
-            this.loadData(this.afterLoadDataHandler);
         },
         afterLoadDataHandler: function(data) {
             this.render();
@@ -436,410 +438,272 @@
         myCreateExcel: function(data) {
             if(data.rows.length > 0) {
                 this.showPagePreloader('Зачекайте, формується документ');
-                this.indexArr = [];
-                let columns = this.config.columns;
-                columns.forEach(column => {
-                    let columnDataField = column.dataField;
-                    let columnCaption = column.caption;
-                    for (let i = 0; i < data.columns.length; i++) {
-                        if(columnDataField === data.columns[i].code) {
-                            let obj = {
-                                name: columnDataField,
-                                index: i,
-                                caption: columnCaption
-                            }
-                            this.indexArr.push(obj);
-                        }
-                    }
-                });
                 const workbook = this.createExcel();
                 const worksheet = workbook.addWorksheet('Заявки', {
-                    pageSetup:{orientation: 'landscape', fitToPage: false, fitToWidth: true}
-                });
-                let cellInfoCaption = worksheet.getCell('A1');
-                cellInfoCaption.value = 'Інформація';
-                let cellInfo = worksheet.getCell('A2');
-                cellInfo.value = 'про звернення громадян, що надійшли до Контактного центру  міста Києва. Термін виконання …';
-                let cellPeriod = worksheet.getCell('A3');
-                cellPeriod.value = 'Період вводу з (включно) : дата з ' +
-                    this.changeDateTimeValues(this.dateValues.registration_date_from) +
-                    ' дата по ' +
-                    this.changeDateTimeValues(this.dateValues.registration_date_to) +
-                    ' (Розширений пошук).';
-                let cellNumber = worksheet.getCell('A4');
-                cellNumber.value = 'Реєстраційний № РДА …';
-                worksheet.mergeCells('A1:F1');
-                worksheet.mergeCells('A2:F2');
-                worksheet.mergeCells('A3:F3');
-                worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
-                worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
-                worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'left' };
-                worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'left' };
-                let indexArr = this.indexArr;
-                let rows = [];
-                let captions = [];
-                let columnsHeader = [];
-                let otherColumns = [];
-                let columnNumber = {
-                    key: 'number',
-                    width: 5
-                }
-                columnsHeader.push(columnNumber);
-                let rowNumber = '№ з/п';
-                captions.push(rowNumber);
-                indexArr.forEach(el => {
-                    if(el.name === 'question_registration_number') {
-                        let obj = {
-                            key: 'registration_number',
-                            width: 10,
-                            height: 20
-                        };
-                        columnsHeader.push(obj);
-                        captions.push('Номер, дата, час');
-                    }else if(el.name === 'zayavnyk_full_name') {
-                        let obj = {
-                            key: 'name',
-                            width: 15
-                        };
-                        columnsHeader.push(obj);
-                        captions.push('Заявник');
-                    }else if(el.name === 'question_question_type') {
-                        let obj1 = {
-                            key: 'question_type',
-                            width: 10
-                        };
-                        columnsHeader.push(obj1);
-                        captions.push('Тип питання');
-                        let obj2 = {
-                            key: 'assigm_question_content',
-                            width: 62
-                        };
-                        columnsHeader.push(obj2);
-                        captions.push('Суть питання');
-                    }else if(el.name === 'assigm_executor_organization') {
-                        let obj = {
-                            key: 'organization',
-                            width: 11
-                        };
-                        columnsHeader.push(obj);
-                        captions.push('Виконавець');
-                    }else if(el.name === 'question_object') {
-                        let obj = {
-                            key: 'object',
-                            width: 16
-                        };
-                        columnsHeader.push(obj);
-                        captions.push('Місце проблеми (Об\'єкт)');
-                    }else if(el.name === 'registration_date' || el.name === 'zayavnyk_building_number' || el.name === 'zayavnyk_flat') {
-                        let obj = {
-                            key: el.name,
-                            width: 13
-                        };
-                        otherColumns.push(obj);
-                    }else{
-                        let obj = {
-                            key: el.name,
-                            width: 13
-                        };
-                        columnsHeader.push(obj);
-                        captions.push(el.caption);
+                    pageSetup:{
+                        orientation: 'landscape',
+                        fitToPage: false,
+                        fitToWidth: true
                     }
                 });
-                worksheet.getRow(5).values = captions;
-                worksheet.columns = columnsHeader;
-                this.addedIndexes = [];
-                let indexRegistrationDate = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_date');
-                let indexZayavnykFlat = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_flat');
-                let indexZayavnykBuildingNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_building_number');
-                let indexAssigmQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'assigm_question_content');
-                let indexExecutionTerm = data.columns.findIndex(el => el.code.toLowerCase() === 'execution_term');
-                for(let j = 0; j < data.rows.length; j++) {
-                    let row = data.rows[j];
-                    let rowItem = { number: j + 1 };
-                    for(let i = 0; i < indexArr.length; i++) {
-                        let el = indexArr[i];
-                        const controlDate = this.changeDateTimeValues(row.values[indexExecutionTerm]);
-                        const regDate = this.changeDateTimeValues(row.values[indexRegistrationDate]);
-                        if(el.name === 'question_registration_number') {
-                            rowItem.registration_number = row.values[el.index] + ' ' + regDate;
-                        }else if(el.name === 'zayavnyk_full_name') {
-                            rowItem.name = row.values[el.index] +
-                            ' ' +
-                            row.values[indexZayavnykBuildingNumber] +
-                            ', кв. ' +
-                            row.values[indexZayavnykFlat];
-                        }else if(el.name === 'question_question_type') {
-                            rowItem.question_type = 'Тип питання: ' + row.values[el.index];
-                            rowItem.assigm_question_content = 'Зміст: ' + row.values[indexAssigmQuestionContent];
-                        }else if(el.name === 'assigm_executor_organization') {
-                            rowItem.organization = row.values[el.index] + '. Дату контролю: ' + controlDate;
-                        }else if(el.name === 'question_object') {
-                            rowItem.object = row.values[el.index];
-                        }else{
-                            let prop = indexArr[i].name;
-                            switch(prop) {
-                            case 'appeals_receipt_source':
-                                rowItem.appeals_receipt_source = row.values[el.index]
-                                break
-                            case 'appeals_user':
-                                rowItem.appeals_user = row.values[el.index]
-                                break
-                            case 'appeals_district':
-                                rowItem.appeals_district = row.values[el.index]
-                                break
-                            case 'appeals_files_check':
-                                rowItem.appeals_files_check = row.values[el.index]
-                                break
-                            case 'zayavnyk_phone_number':
-                                rowItem.zayavnyk_phone_number = row.values[el.index]
-                                break
-                            case 'zayavnyk_entrance':
-                                rowItem.zayavnyk_entrance = row.values[el.index]
-                                break
-                            case 'zayavnyk_applicant_privilage':
-                                rowItem.zayavnyk_applicant_privilage = row.values[el.index]
-                                break
-                            case 'zayavnyk_social_state':
-                                rowItem.zayavnyk_social_state = row.values[el.index]
-                                break
-                            case 'zayavnyk_sex':
-                                rowItem.zayavnyk_sex = row.values[el.index]
-                                break
-                            case 'zayavnyk_applicant_type':
-                                rowItem.zayavnyk_applicant_type = row.values[el.index]
-                                break
-                            case 'zayavnyk_age':
-                                rowItem.zayavnyk_age = row.values[el.index]
-                                break
-                            case 'zayavnyk_email':
-                                rowItem.zayavnyk_email = row.values[el.index]
-                                break
-                            case 'question_ObjectTypes':
-                                rowItem.question_ObjectTypes = row.values[el.index]
-                                break
-                            case 'question_organization':
-                                rowItem.question_organization = row.values[el.index]
-                                break
-                            case 'question_question_state':
-                                rowItem.question_question_state = row.values[el.index]
-                                break
-                            case 'question_list_state':
-                                rowItem.question_list_state = row.values[el.index]
-                                break
-                            case 'assigm_main_executor':
-                                rowItem.assigm_main_executor = row.values[el.index]
-                                break
-                            case 'assigm_accountable':
-                                rowItem.assigm_accountable = row.values[el.index]
-                                break
-                            case 'assigm_assignment_state':
-                                rowItem.assigm_assignment_state = row.values[el.index]
-                                break
-                            case 'assigm_assignment_result':
-                                rowItem.assigm_assignment_result = row.values[el.index]
-                                break
-                            case 'assigm_assignment_resolution':
-                                rowItem.assigm_assignment_resolution = row.values[el.index]
-                                break
-                            case 'assigm_user_reviewed':
-                                rowItem.assigm_user_reviewed = row.values[el.index]
-                                break
-                            case 'assigm_user_checked':
-                                rowItem.assigm_user_checked = row.values[el.index]
-                                break
-                            case 'transfer_date':
-                                rowItem.transfer_date = this.changeDateTimeValues(row.values[el.index]);
-                                break
-                            case 'state_changed_date':
-                                rowItem.state_changed_date = this.changeDateTimeValues(row.values[el.index]);
-                                break
-                            case 'state_changed_date_done':
-                                rowItem.state_changed_date_done = this.changeDateTimeValues(row.values[el.index]);
-                                break
-                            case 'execution_term':
-                                rowItem.execution_term = this.changeDateTimeValues(row.values[el.index]);
-                                break
-                            case 'appeals_enter_number':
-                                rowItem.appeals_enter_number = row.values[el.index];
-                                break
-                            case 'control_comment':
-                                rowItem.control_comment = row.values[el.index];
-                                break
-                            case 'control_date':
-                                rowItem.control_date = this.changeDateTimeValues(row.values[el.index]);
-                                break
-                            case 'ConsDocumentContent':
-                                rowItem.ConsDocumentContent = row.values[el.index];
-                                break
-                            default:
-                                break
-                            }
-                            this.addedIndexes.push(prop);
-                        }
-                    }
-                    rows.push(rowItem);
-                }
-                rows.forEach(el => {
-                    let row = {
-                        number: el.number + '.',
-                        name: el.name,
-                        registration_number: el.registration_number,
-                        organization: el.organization,
-                        question_type: el.question_type,
-                        assigm_question_content: el.assigm_question_content,
-                        object: el.object
-                    }
-                    let indexes = this.addedIndexes;
-                    let size = Object.keys(el).length;
-                    let rowSize = Object.keys(row).length;
-                    for(let i = 0; i < size - rowSize; i++) {
-                        let prop = indexes[i];
-                        switch(prop) {
-                        case 'appeals_receipt_source':
-                            row.appeals_receipt_source = el.appeals_receipt_source
-                            break
-                        case 'appeals_user':
-                            row.appeals_user = el.appeals_user
-                            break
-                        case 'appeals_district':
-                            row.appeals_district = el.appeals_district
-                            break
-                        case 'appeals_files_check':
-                            row.appeals_files_check = el.appeals_files_check
-                            break
-                        case 'zayavnyk_phone_number':
-                            row.zayavnyk_phone_number = el.zayavnyk_phone_number
-                            break
-                        case 'zayavnyk_entrance':
-                            row.zayavnyk_entrance = el.zayavnyk_entrance
-                            break
-                        case 'zayavnyk_applicant_privilage':
-                            row.zayavnyk_applicant_privilage = el.zayavnyk_applicant_privilage
-                            break
-                        case 'zayavnyk_social_state':
-                            row.zayavnyk_social_state = el.zayavnyk_social_state
-                            break
-                        case 'zayavnyk_sex':
-                            row.zayavnyk_sex = el.zayavnyk_sex
-                            break
-                        case 'zayavnyk_applicant_type':
-                            row.zayavnyk_applicant_type = el.zayavnyk_applicant_type
-                            break
-                        case 'zayavnyk_age':
-                            row.zayavnyk_age = el.zayavnyk_age
-                            break
-                        case 'zayavnyk_email':
-                            row.zayavnyk_email = el.zayavnyk_email
-                            break
-                        case 'question_ObjectTypes':
-                            row.question_ObjectTypes = el.question_ObjectTypes
-                            break
-                        case 'question_organization':
-                            row.question_organization = el.question_organization
-                            break
-                        case 'question_question_state':
-                            row.question_question_state = el.question_question_state
-                            break
-                        case 'question_list_state':
-                            row.question_list_state = el.question_list_state
-                            break
-                        case 'assigm_main_executor':
-                            row.assigm_main_executor = el.assigm_main_executor
-                            break
-                        case 'assigm_accountable':
-                            row.assigm_accountable = el.assigm_accountable
-                            break
-                        case 'assigm_assignment_state':
-                            row.assigm_assignment_state = el.assigm_assignment_state
-                            break
-                        case 'assigm_assignment_result':
-                            row.assigm_assignment_result = el.assigm_assignment_result
-                            break
-                        case 'assigm_assignment_resolution':
-                            row.assigm_assignment_resolution = el.assigm_assignment_resolution
-                            break
-                        case 'assigm_user_reviewed':
-                            row.assigm_user_reviewed = el.assigm_user_reviewed
-                            break
-                        case 'assigm_user_checked':
-                            row.assigm_user_checked = el.assigm_user_checked
-                            break
-                        case 'transfer_date':
-                            row.transfer_date = el.transfer_date
-                            break
-                        case 'state_changed_date':
-                            row.state_changed_date = el.state_changed_date
-                            break
-                        case 'state_changed_date_done':
-                            row.state_changed_date_done = el.state_changed_date_done
-                            break
-                        case 'execution_term':
-                            row.execution_term = el.execution_term
-                            break
-                        case 'appeals_enter_number':
-                            row.appeals_enter_number = el.appeals_enter_number;
-                            break
-                        case 'control_comment':
-                            row.control_comment = el.control_comment;
-                            break
-                        case 'control_date':
-                            row.control_date = el.control_date;
-                            break
-                        case 'ConsDocumentContent':
-                            row.ConsDocumentContent = el.ConsDocumentContent;
-                            break
-                        default:
-                            break
-                        }
-                    }
-                    worksheet.addRow(row);
-                });
-                worksheet.pageSetup.margins = {
-                    left: 0.4, right: 0.3,
-                    top: 0.4, bottom: 0.4,
-                    header: 0.0, footer: 0.0
-                };
-                for(let i = 0; i < rows.length + 1; i++) {
-                    let number = i + 5;
-                    let row = worksheet.getRow(number);
-                    row.height = 100;
-                    worksheet.getRow(number).border = {
-                        top: {style:'thin'},
-                        left: {style:'thin'},
-                        bottom: {style:'thin'},
-                        right: {style:'thin'}
-                    };
-                    worksheet.getRow(number).alignment = {
-                        vertical: 'middle',
-                        horizontal: 'center',
-                        wrapText: true
-                    };
-                    worksheet.getRow(number).font = {
-                        name: 'Times New Roman',
-                        family: 4, size: 10,
-                        underline: false,
-                        bold: false ,
-                        italic: false
-                    };
-                }
-                worksheet.getRow(2).border = {
-                    bottom: {style:'thin'}
-                };
-                worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
-                worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+                this.excelFields = [];
+                this.setExcelFields(data);
+                this.setHeader(worksheet);
+                this.setWorksheetStyle(worksheet);
+                this.setExcelColumns(worksheet);
+                this.setRowValues(data, worksheet);
                 this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
             }
         },
-        changeDateTimeValues: function(value) {
+        setHeader: function(worksheet) {
+            let cellInfoCaption = worksheet.getCell('A1');
+            cellInfoCaption.value = 'Інформація';
+            let cellInfo = worksheet.getCell('A2');
+            cellInfo.value = 'про звернення громадян, що надійшли до Контактного центру  міста Києва. Термін виконання …';
+            let cellPeriod = worksheet.getCell('A3');
+            cellPeriod.value = 'Період вводу з (включно) : дата з ' +
+                this.changeDateTimeValues(this.dateValues.registration_date_from, true) +
+                ' дата по ' +
+                this.changeDateTimeValues(this.dateValues.registration_date_to, true) +
+                ' (Розширений пошук).';
+            let cellNumber = worksheet.getCell('A4');
+            cellNumber.value = 'Реєстраційний № РДА …';
+            worksheet.mergeCells('A1:F1');
+            worksheet.mergeCells('A2:F2');
+            worksheet.mergeCells('A3:F3');
+        },
+        setExcelFields: function(data) {
+            this.config.columns.forEach(column => {
+                let columnDataField = column.dataField;
+                let columnCaption = column.caption;
+                for (let i = 0; i < data.columns.length; i++) {
+                    const dataColumnDataFiled = data.columns[i].code;
+                    if(
+                        columnDataField === dataColumnDataFiled
+                    ) {
+                        let obj = {
+                            name: columnDataField,
+                            index: i,
+                            caption: columnCaption
+                        }
+                        this.excelFields.push(obj);
+                    }
+                }
+            });
+        },
+        setExcelColumns: function(worksheet) {
+            let captions = [];
+            let columnsHeader = [];
+            let otherColumns = [];
+            let columnNumber = {
+                key: 'number',
+                width: 5
+            }
+            columnsHeader.push(columnNumber);
+            let rowNumber = '№ з/п';
+            captions.push(rowNumber);
+            this.excelFields.forEach(field => {
+                if(field.name === 'question_registration_number') {
+                    let obj = {
+                        key: 'registration_number',
+                        width: 10,
+                        height: 20
+                    };
+                    columnsHeader.push(obj);
+                    captions.push('Номер, дата, час');
+                }else if(field.name === 'zayavnyk_full_name') {
+                    let obj = {
+                        key: 'name',
+                        width: 15
+                    };
+                    columnsHeader.push(obj);
+                    captions.push('Заявник');
+                }else if(field.name === 'question_question_type') {
+                    let obj1 = {
+                        key: 'question_type',
+                        width: 10
+                    };
+                    columnsHeader.push(obj1);
+                    captions.push('Тип питання');
+                    let obj2 = {
+                        key: 'assigm_question_content',
+                        width: 62
+                    };
+                    columnsHeader.push(obj2);
+                    captions.push('Суть питання');
+                }else if(field.name === 'assigm_executor_organization') {
+                    let obj = {
+                        key: 'organization',
+                        width: 11
+                    };
+                    columnsHeader.push(obj);
+                    captions.push('Виконавець');
+                }else if(field.name === 'question_object') {
+                    let obj = {
+                        key: 'object',
+                        width: 16
+                    };
+                    columnsHeader.push(obj);
+                    captions.push('Місце проблеми (Об\'єкт)');
+                }else if(
+                    field.name === 'registration_date' ||
+                    field.name === 'zayavnyk_building_number' ||
+                    field.name === 'zayavnyk_flat' ||
+                    field.name === 'assigm_question_content'
+                ) {
+                    let obj = {
+                        key: field.name,
+                        width: 13
+                    };
+                    otherColumns.push(obj);
+                }else{
+                    let obj = {
+                        key: field.name,
+                        width: 13
+                    };
+                    columnsHeader.push(obj);
+                    captions.push(field.caption);
+                }
+            });
+            worksheet.getRow(5).values = captions;
+            worksheet.columns = columnsHeader;
+        },
+        setWorksheetStyle: function(worksheet) {
+            worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
+            worksheet.getRow(2).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
+            worksheet.getRow(3).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'left' };
+            worksheet.getRow(4).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'left' };
+            worksheet.pageSetup.margins = {
+                left: 0.4, right: 0.3,
+                top: 0.4, bottom: 0.4,
+                header: 0.0, footer: 0.0
+            };
+            worksheet.getRow(2).border = {
+                bottom: {style:'thin'}
+            };
+            worksheet.getRow(5).font = { name: 'Times New Roman', family: 4, size: 10, underline: false, bold: true , italic: false};
+            worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+        },
+        setRowValues: function(data, worksheet) {
+            let indexRegistrationDate = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_date');
+            let indexZayavnykFlat = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_flat');
+            let indexZayavnykFullName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_full_name');
+            let indexZayavnykBuildingNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_building_number');
+            let indexAssigmQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'assigm_question_content');
+            let indexExecutionTerm = data.columns.findIndex(el => el.code.toLowerCase() === 'execution_term');
+            let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'question_registration_number');
+            let indexQuestionType = data.columns.findIndex(el => el.code.toLowerCase() === 'question_question_type');
+            let indexExecutorOrganization = data.columns.findIndex(el => el.code.toLowerCase() === 'assigm_executor_organization');
+            let indexQuestionObject = data.columns.findIndex(el => el.code.toLowerCase() === 'question_object');
+            let rows = [];
+            for(let j = 0; j < data.rows.length; j++) {
+                const row = data.rows[j];
+                const rowItem = { number: j + 1 };
+                const executionTerm = this.changeDateTimeValues(row.values[indexExecutionTerm], false);
+                const regDate = this.changeDateTimeValues(row.values[indexRegistrationDate], false);
+                rowItem.registration_number = row.values[indexRegistrationNumber] + ' ' + regDate;
+                rowItem.name = row.values[indexZayavnykFullName] + ' ' +
+                        row.values[indexZayavnykBuildingNumber] + ', кв. ' +
+                        row.values[indexZayavnykFlat];
+                rowItem.question_type = 'Тип питання: ' + row.values[indexQuestionType];
+                rowItem.assigm_question_content = 'Зміст: ' + row.values[indexAssigmQuestionContent];
+                rowItem.organization = row.values[indexExecutorOrganization] + '. Дату контролю: ' + executionTerm;
+                rowItem.object = row.values[indexQuestionObject];
+                for(let i = 0; i < this.excelFields.length; i++) {
+                    const field = this.excelFields[i];
+                    const prop = this.excelFields[i].name;
+                    switch(prop) {
+                    case 'appeals_user':
+                    case 'appeals_receipt_source':
+                    case 'appeals_district':
+                    case 'zayavnyk_phone_number':
+                    case 'zayavnyk_entrance':
+                    case 'zayavnyk_applicant_privilage':
+                    case 'zayavnyk_social_state':
+                    case 'zayavnyk_sex':
+                    case 'zayavnyk_applicant_type':
+                    case 'zayavnyk_age':
+                    case 'zayavnyk_email':
+                    case 'question_ObjectTypes':
+                    case 'question_organization':
+                    case 'question_question_state':
+                    case 'question_list_state':
+                    case 'assigm_main_executor':
+                    case 'assigm_accountable':
+                    case 'assigm_assignment_state':
+                    case 'assigm_assignment_result':
+                    case 'assigm_assignment_resolution':
+                    case 'assigm_user_reviewed':
+                    case 'assigm_user_checked':
+                    case 'appeals_enter_number':
+                    case 'control_comment':
+                    case 'ConsDocumentContent':
+                        rowItem[prop] = row.values[field.index];
+                        break
+                    case 'transfer_date':
+                    case 'state_changed_date':
+                    case 'state_changed_date_done':
+                    case 'execution_term':
+                    case 'control_date':
+                        rowItem[prop] = this.changeDateTimeValues(row.values[field.index], false);
+                        break
+                    case 'appeals_files_check':
+                        rowItem[prop] = this.setAppealsFilesCheckValue(row.values[field.index]);
+                        break
+                    default:
+                        break
+                    }
+                }
+                rows.push(rowItem);
+            }
+            rows.forEach(row => {
+                worksheet.addRow(row);
+            });
+            this.setRowCellStyle(worksheet, rows);
+        },
+        setRowCellStyle: function(worksheet, rows) {
+            for(let i = 0; i < rows.length + 1; i++) {
+                let number = i + 5;
+                let row = worksheet.getRow(number);
+                row.height = 100;
+                worksheet.getRow(number).border = {
+                    top: {style:'thin'},
+                    left: {style:'thin'},
+                    bottom: {style:'thin'},
+                    right: {style:'thin'}
+                };
+                worksheet.getRow(number).alignment = {
+                    vertical: 'middle',
+                    horizontal: 'center',
+                    wrapText: true
+                };
+                worksheet.getRow(number).font = {
+                    name: 'Times New Roman',
+                    family: 4, size: 10,
+                    underline: false,
+                    bold: false ,
+                    italic: false
+                };
+            }
+        },
+        setAppealsFilesCheckValue: function(value) {
+            return value === 'false' ? 'Відсутній' : 'Наявний';
+        },
+        changeDateTimeValues: function(value, caption) {
             if(value === null) {
                 return ' '
             }
-            const dateValue = value + '+0000';
-            const date = new Date(Date.parse(dateValue));
+            let date = undefined;
+            if(caption) {
+                date = new Date(value);
+            } else {
+                const dateValue = value + '+0000';
+                date = new Date(Date.parse(dateValue));
+            }
             let dd = date.getDate().toString();
             let mm = (date.getMonth() + 1).toString();
             let yyyy = date.getFullYear().toString();
