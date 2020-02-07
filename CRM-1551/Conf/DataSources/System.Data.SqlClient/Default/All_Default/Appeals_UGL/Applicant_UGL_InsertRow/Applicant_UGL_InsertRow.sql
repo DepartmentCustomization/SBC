@@ -1,10 +1,30 @@
+-- DECLARE @Applicant_Id INT = null ;
+-- DECLARE @Applicant_PIB NVARCHAR(100) = 'ШВЕЦЬ МАКСИМ ОЛЕКСАНДРОВИЧ';
+-- DECLARE @Applicant_Privilege INT = null;
+-- DECLARE @Applicant_SocialStates INT = 2;
+-- DECLARE @Applicant_CategoryType INT = null;
+-- DECLARE @Applicant_Type INT = null;
+-- DECLARE @Applicant_Sex INT = 2;
+-- DECLARE @Application_BirthDate INT = null;
+-- DECLARE @Applicant_Age INT = null;
+-- DECLARE @Applicant_Comment INT = null;
+-- DECLARE @Applicant_Building INT = 6108;
+-- DECLARE @Applicant_HouseBlock INT = null;
+-- DECLARE @Applicant_Entrance INT = null;
+-- DECLARE @Applicant_Flat INT = 144;
+-- DECLARE @AppealId INT = 5399962;
+-- DECLARE @Applicant_Phone NVARCHAR(200) = '0634385429, 0965262445, 0445137276';
+-- DECLARE @Applicant_Email INT = null;
+-- DECLARE @Applicant_TypePhone INT = 1;
+-- DECLARE @CreatedUser NVARCHAR(128) = (SELECT TOP 1 UserId FROM CRM_1551_System.dbo.[User] );
+
 DECLARE @output TABLE (Id INT);
 
 DECLARE @app_id INT=0;
 
 DECLARE @interval NUMERIC(8,2) = 0.2;
 
-DECLARE @numbers TABLE (num NVARCHAR(15));
+DECLARE @numbers TABLE (pos INT, num NVARCHAR(15));
 
 DECLARE @valid_date_birth DATETIME = IIF(
         @Application_BirthDate IS NOT NULL,
@@ -15,6 +35,7 @@ DECLARE @valid_date_birth DATETIME = IIF(
 INSERT INTO
     @numbers
 SELECT
+Row_Number() OVER (ORDER BY (SELECT 1)),
     value
 FROM
     string_split(@Applicant_Phone, ',');
@@ -37,7 +58,8 @@ SET
         AND (LEFT(num, 1) != '0') THEN N'0' + num
         ELSE num
     END; 
-    IF len(isnull(rtrim(@Applicant_Id), N'')) > 0 
+
+IF len(isnull(rtrim(@Applicant_Id), N'')) > 0 
     BEGIN
 UPDATE
     [dbo].[Applicants]
@@ -90,20 +112,7 @@ SET
     [edit_date]=GETDATE()
 WHERE
     [Id] = @AppealId;
-    /*
-     if (select count(1) from [dbo].[ApplicantPhones] where applicant_id = @Applicant_Id and phone_number = @Applicant_Phone and IsMain = 1) = 0
-     begin
-     insert into [dbo].[ApplicantPhones]  (applicant_id, phone_type_id, phone_number, IsMain, CreatedAt)
-     values (@Applicant_Id, isnull(@Applicant_TypePhone,1), replace(replace(REPLACE(@Applicant_Phone, N'(', ''), N')', N''), N'-', N''), 1, getutcdate())
-     end
-     else
-     begin
-     update [dbo].[ApplicantPhones] set CreatedAt = getutcdate(), 
-     phone_number = replace(replace(REPLACE(@Applicant_Phone, N'(', ''), N')', N''), N'-', N''), 
-     phone_type_id = isnull(@Applicant_TypePhone,1)
-     where applicant_id = @Applicant_Id and IsMain = 1
-     end
-     */
+   
 SELECT
     @Applicant_Id AS ApplicantId;
 END
@@ -150,12 +159,12 @@ SET @app_id = (
             @output
     ); 
     --------------- INSERT APPLICANT PHONES ------------------- КУУУКУ
-    DECLARE @step TINYINT = 0;
+    DECLARE @step TINYINT = 1;
     DECLARE @phone_qty TINYINT = (
     SELECT COUNT(1)
     FROM @numbers); 
 
-    WHILE (@step < @phone_qty) 
+    WHILE (@step <= @phone_qty) 
     BEGIN
     INSERT INTO
     [dbo].[ApplicantPhones] (
@@ -172,11 +181,10 @@ VALUES(
     GETUTCDATE(),
    (SELECT num
     FROM @numbers 
-    ORDER BY num OFFSET @step ROWS FETCH NEXT @step+1 ROWS ONLY)
+    WHERE pos = @step )
 );
 SET @step += 1;
 END 
------------------------------------------------------------
 
 INSERT INTO
     [dbo].[LiveAddress] (
@@ -205,7 +213,7 @@ SET
     [edit_date] = getutcdate()
 WHERE
     [Id] = @AppealId;
-SELECT
+SELECT 
     @app_id AS ApplicantId;
 END 
 UPDATE
@@ -213,7 +221,7 @@ UPDATE
 SET
     [ApplicantAdress] =(
         SELECT
-            DISTINCT isnull([Districts].name + N' р-н., ', N'') + isnull([StreetTypes].shortname + N' ', N'') + isnull([Streets].name + N' ', N'') + isnull([Buildings].name + N', ', N'') + isnull(
+            TOP 1 isnull([Districts].name + N' р-н., ', N'') + isnull([StreetTypes].shortname + N' ', N'') + isnull([Streets].name + N' ', N'') + isnull([Buildings].name + N', ', N'') + isnull(
                 N'п. ' + ltrim([LiveAddress].[entrance]) + N', ',
                 N''
             ) + isnull(N'кв. ' + ltrim([LiveAddress].flat) + N', ', N'') + N'телефони: ' + isnull(
