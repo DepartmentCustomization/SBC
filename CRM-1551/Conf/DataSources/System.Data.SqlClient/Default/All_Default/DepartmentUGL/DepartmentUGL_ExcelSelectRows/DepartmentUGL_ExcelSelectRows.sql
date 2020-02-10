@@ -1,9 +1,11 @@
+
 /*
 declare @dateFrom DATE='2001-02-01';
 declare @dateTo DATE='2020-12-12';
 declare @user_id nvarchar(128)=N'Вася';
-declare @is_worked BIT;--='true';
-declare @uploaded NVARCHAR(MAX);--=N'N''Вася'',N''Степа''';
+declare @is_worked BIT='true';
+declare @uploaded NVARCHAR(MAX)=N'N''Вася'',N''Степа''';
+DECLARE @processed NVARCHAR(MAX)=N'N''Вася'',N''Степа''';;
 */
 --SELECT convert(nvarchar(10),CONVERT(DATE, @dateFrom))
 
@@ -23,10 +25,14 @@ DECLARE @uploaded_f NVARCHAR(MAX)=
 CASE WHEN @uploaded IS NULL  THEN N'1=1'
 ELSE N'Z.[Завантажив] IN ('+@uploaded+N')' END;
 
+DECLARE @processed_f NVARCHAR(MAX)=
+CASE WHEN @processed IS NULL  THEN N'1=1'
+ELSE N'Z.[Опрацював] IN ('+@processed+N')' END;
+
 --SELECT @dateFrom_f, @dateTo_f, @is_worked_f, @uploaded_f,
 --@dateFrom_f+N' AND '+@dateTo_f+N' AND '+@is_worked_f+N' AND '+@uploaded_f
 
-DECLARE @param NVARCHAR(MAX)=@dateFrom_f+N' AND '+@dateTo_f+N' AND '+@is_worked_f+N' AND '+@uploaded_f;
+DECLARE @param NVARCHAR(MAX)=@dateFrom_f+N' AND '+@dateTo_f+N' AND '+@is_worked_f+N' AND '+@uploaded_f+N' AND '+@processed_f;
 
 --SELECT @param
 

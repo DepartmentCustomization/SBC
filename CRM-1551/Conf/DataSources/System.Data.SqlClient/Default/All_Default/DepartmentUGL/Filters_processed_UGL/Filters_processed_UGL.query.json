@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "Filters_uploaded_UGL",
-  "Name": "Filters_uploaded_UGL",
+  "Code": "Filters_processed_UGL",
+  "Name": "Filters_processed_UGL",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [
@@ -32,7 +32,7 @@
       "Name": "UserFIO",
       "Position": 3,
       "IsPrintable": false,
-      "SqlName": "ISNULL([LastName]+N' ', N'')+ISNULL([FirstName], N'')+ISNULL(N' '+[Patronymic], N'')",
+      "SqlName": "UserFIO",
       "FilterParameterCode": "@UserFIO"
     }
   ],
@@ -48,11 +48,6 @@
         "Name": "pageLimitRows",
         "ParameterType": "Integer",
         "IsPageLimitRows": true
-      },
-      {
-          "Code": "@user_id",
-          "Name": "user_id",
-          "ParameterType": "CurrentUserId"
       }
   ]
 }

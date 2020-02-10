@@ -69,6 +69,10 @@
           "Name": "uploaded"
         },
         {
+          "Code": "@processed",
+          "Name": "processed"
+        },
+        {
           "Code": "@pageOffsetRows",
           "Name": "pageOffsetRows",
           "ParameterType": "Integer",
