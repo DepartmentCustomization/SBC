@@ -80,25 +80,38 @@
             this.config.query.filterColumns = [];
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let processed = message.package.value.values.find(f => f.name === 'processed').value;
-            let users = message.package.value.values.find(f => f.name === 'users').value;
+            let uploaded = message.package.value.values.find(f => f.name === 'uploaded').value;
+            let worked = message.package.value.values.find(f => f.name === 'worked').value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.users = this.extractOrgValues(users);
                     this.processed = processed === null ? null : processed === '' ? null : processed.value;
+                    this.uploaded = this.extractOrgValues(uploaded);
+                    this.worked = this.extractOrgValues(worked);
                     this.config.query.parameterValues = [
-                        {key: '@dateFrom' , value: this.dateFrom },
-                        {key: '@dateTo', value: this.dateTo },
-                        {key: '@is_worked', value: this.processed }
+                        {key: '@dateFrom' , value: this.dateFrom},
+                        {key: '@dateTo', value: this.dateTo},
+                        {key: '@is_worked', value: this.processed}
                     ];
-                    if (this.users.length > 0) {
+                    if (this.uploaded.length > 0) {
                         let filter = {
-                            key: 'users',
+                            key: 'Id',
                             value: {
                                 operation: 0,
                                 not: false,
-                                values: this.users
+                                values: this.uploaded
+                            }
+                        };
+                        this.config.query.filterColumns.push(filter);
+                    }
+                    if (this.worked.length > 0) {
+                        let filter = {
+                            key: 'Id',
+                            value: {
+                                operation: 0,
+                                not: false,
+                                values: this.worked
                             }
                         };
                         this.config.query.filterColumns.push(filter);

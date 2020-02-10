@@ -1,10 +1,10 @@
 (function() {
     return {
-        placeholder: 'Користувач',
+        placeholder: 'Опрацьовано',
         keyValue: 'Id',
-        displayValue: 'Name',
+        displayValue: 'UserFIO',
         baseQueryOptions: {
-            queryCode: 'ys_user_ugl',
+            queryCode: 'Filters_uploaded_UGL',
             filterColumns: null,
             limit: -1,
             parameterValues: [],
