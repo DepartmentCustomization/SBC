@@ -80,25 +80,38 @@
             this.config.query.filterColumns = [];
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let processed = message.package.value.values.find(f => f.name === 'processed').value;
-            let users = message.package.value.values.find(f => f.name === 'users').value;
+            let processedUser = message.package.value.values.find(f => f.name === 'processedUser').value;
+            let uploaded = message.package.value.values.find(f => f.name === 'uploaded').value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.users = this.extractOrgValues(users);
                     this.processed = processed === null ? null : processed === '' ? null : processed.value;
+                    this.uploaded = this.extractOrgValues(uploaded);
+                    this.processedUser = this.extractOrgValues(processedUser);
                     this.config.query.parameterValues = [
-                        {key: '@dateFrom' , value: this.dateFrom },
-                        {key: '@dateTo', value: this.dateTo },
-                        {key: '@is_worked', value: this.processed }
+                        {key: '@dateFrom' , value: this.dateFrom},
+                        {key: '@dateTo', value: this.dateTo},
+                        {key: '@is_worked', value: this.processed}
                     ];
-                    if (this.users.length > 0) {
+                    if (this.uploaded.length > 0) {
                         let filter = {
-                            key: 'users',
+                            key: 'Uploaded',
                             value: {
                                 operation: 0,
                                 not: false,
-                                values: this.users
+                                values: this.uploaded
+                            }
+                        };
+                        this.config.query.filterColumns.push(filter);
+                    }
+                    if (this.processedUser.length > 0) {
+                        let filter = {
+                            key: 'Processed',
+                            value: {
+                                operation: 0,
+                                not: false,
+                                values: this.processedUser
                             }
                         };
                         this.config.query.filterColumns.push(filter);
