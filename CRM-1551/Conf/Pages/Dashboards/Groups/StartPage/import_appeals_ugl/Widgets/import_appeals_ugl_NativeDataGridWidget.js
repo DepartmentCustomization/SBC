@@ -80,15 +80,15 @@
             this.config.query.filterColumns = [];
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let processed = message.package.value.values.find(f => f.name === 'processed').value;
+            let processedUser = message.package.value.values.find(f => f.name === 'processedUser').value;
             let uploaded = message.package.value.values.find(f => f.name === 'uploaded').value;
-            let worked = message.package.value.values.find(f => f.name === 'worked').value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.processed = processed === null ? null : processed === '' ? null : processed.value;
                     this.uploaded = this.extractOrgValues(uploaded);
-                    this.worked = this.extractOrgValues(worked);
+                    this.processedUser = this.extractOrgValues(processedUser);
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom},
                         {key: '@dateTo', value: this.dateTo},
@@ -105,13 +105,13 @@
                         };
                         this.config.query.filterColumns.push(filter);
                     }
-                    if (this.worked.length > 0) {
+                    if (this.processedUser.length > 0) {
                         let filter = {
                             key: 'Id',
                             value: {
                                 operation: 0,
                                 not: false,
-                                values: this.worked
+                                values: this.processedUser
                             }
                         };
                         this.config.query.filterColumns.push(filter);

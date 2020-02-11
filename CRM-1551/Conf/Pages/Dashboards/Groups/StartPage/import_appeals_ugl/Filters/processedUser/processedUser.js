@@ -4,7 +4,7 @@
         keyValue: 'Id',
         displayValue: 'UserFIO',
         baseQueryOptions: {
-            queryCode: 'Filters_uploaded_UGL',
+            queryCode: 'Filters_processed_UGL',
             filterColumns: null,
             limit: -1,
             parameterValues: [],
@@ -20,9 +20,6 @@
             this.yourFunctionName(item);
         },
         onClearFilter: function() {
-        },
-        initValue: function() {
-            this.setDefaultValue('first');
         },
         yourFunctionName: function(item) {
             let message = {
