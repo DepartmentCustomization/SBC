@@ -96,7 +96,7 @@
                     ];
                     if (this.uploaded.length > 0) {
                         let filter = {
-                            key: 'Id',
+                            key: 'Uploaded',
                             value: {
                                 operation: 0,
                                 not: false,
@@ -107,7 +107,7 @@
                     }
                     if (this.processedUser.length > 0) {
                         let filter = {
-                            key: 'Id',
+                            key: 'Processed',
                             value: {
                                 operation: 0,
                                 not: false,

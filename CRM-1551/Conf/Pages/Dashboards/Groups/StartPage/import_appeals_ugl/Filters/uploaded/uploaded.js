@@ -1,7 +1,7 @@
 (function() {
     return {
         placeholder: 'Завантажив',
-        keyValue: 'Id',
+        keyValue: 'UserId',
         displayValue: 'UserFIO',
         baseQueryOptions: {
             queryCode: 'Filters_uploaded_UGL',

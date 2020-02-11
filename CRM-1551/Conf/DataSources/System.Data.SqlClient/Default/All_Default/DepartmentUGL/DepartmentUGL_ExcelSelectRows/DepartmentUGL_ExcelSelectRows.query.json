@@ -51,13 +51,17 @@
         "Code": "Uploaded",
         "Name": "Uploaded",
         "Position": 6,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "Uploaded",
+        "FilterParameterCode": "@Uploaded"
       },
       {
         "Code": "Processed",
         "Name": "Processed",
         "Position": 7,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "Processed",
+        "FilterParameterCode": "@Processed"
       }
     ],
     "Parameters": [
