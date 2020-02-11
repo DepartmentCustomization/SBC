@@ -1,10 +1,10 @@
 (function() {
     return {
-        placeholder: 'Користувач',
-        keyValue: 'Id',
-        displayValue: 'Name',
+        placeholder: 'Опрацьовано',
+        keyValue: 'UserId',
+        displayValue: 'UserFIO',
         baseQueryOptions: {
-            queryCode: 'ys_user_ugl',
+            queryCode: 'Filters_processed_UGL',
             filterColumns: null,
             limit: -1,
             parameterValues: [],
@@ -20,9 +20,6 @@
             this.yourFunctionName(item);
         },
         onClearFilter: function() {
-        },
-        initValue: function() {
-            this.setDefaultValue('first');
         },
         yourFunctionName: function(item) {
             let message = {
