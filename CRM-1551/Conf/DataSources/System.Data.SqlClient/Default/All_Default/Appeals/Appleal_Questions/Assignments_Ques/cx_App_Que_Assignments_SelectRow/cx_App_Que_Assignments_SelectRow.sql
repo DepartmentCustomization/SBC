@@ -163,6 +163,8 @@ SELECT DISTINCT TOP 1
 		WHEN orr.editable = 'false' THEN 2
 	END editable
 	--,2 editable
+	,[Questions].[geolocation_lat]
+	,[Questions].[geolocation_lon]
 FROM [dbo].[Assignments]
 LEFT JOIN [dbo].AssignmentTypes aty
 	ON aty.Id = Assignments.assignment_type_id

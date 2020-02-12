@@ -214,8 +214,12 @@
                             value: this.form.getControlValue('1551_ApplicantFromSite_Address_Entrance')
                         },
                         {
-                            key: '@1551_ApplicantFromSite_Address_Flat',
-                            value: this.form.getControlValue('1551_ApplicantFromSite_Address_Flat')
+                            key: '@AppealFromSite_geolocation_lat',
+                            value: this.form.getControlValue('AppealFromSite_geolocation_lat')
+                        },
+                        {
+                            key: '@AppealFromSite_geolocation_lon',
+                            value: this.form.getControlValue('AppealFromSite_geolocation_lon')
                         }
                     ]
                 };
