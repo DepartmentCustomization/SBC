@@ -19,7 +19,7 @@ declare @getdate datetime = getutcdate();
   INNER JOIN [dbo].[EventObjects] eo ON e.Id=eo.event_id
   INNER JOIN [dbo].[Event_Class] ec ON e.event_class_id=ec.Id
   INNER JOIN [dbo].[EventClass_QuestionType] eqt ON ec.id=eqt.event_class_id
-  WHERE eo.object_id=@Question_Building AND eqt.question_type_id=@Question_TypeId
+  WHERE eo.object_id=@Question_Building AND eqt.question_type_id=@Question_TypeId AND e.registration_date<GETUTCDATE()
   ORDER BY e.active, e.registration_date DESC);
  
  insert into [dbo].[Questions] ([appeal_id]
