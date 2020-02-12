@@ -19,7 +19,7 @@
                         fieldGroups: []
                     };
                     for (let j = 0; j < data.rows.length; j++) {
-                        if (data.rows[j].values[5] == 1) {
+                        if (data.rows[j].values[5] === 1) {
                             let p = {
                                 code: 'GroupPhone' + j,
                                 name: 'Створення телефону',
