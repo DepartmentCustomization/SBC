@@ -208,7 +208,9 @@ declare @getdate datetime = getutcdate();
       ,[user_edit_id]
       ,[last_assignment_for_execution_id]
 	  ,[entrance] -- art
-	  ,[flat]) -- art
+	  ,[flat]
+    ,[geolocation_lat]
+    ,[geolocation_lon]) -- art
 output [inserted].[Id] into @output (Id)	
 select @AppealId
       ,(concat( SUBSTRING ( rtrim(YEAR(getdate())),4,1),'-',(select count(Id) from Appeals where year(Appeals.registration_date) = year(getutcdate())) ))+N'/'+rtrim((select count(1) from [dbo].[Questions] where appeal_id = @AppealId)+1) /*[registration_number]*/
@@ -233,6 +235,8 @@ select @AppealId
       ,NULL /*last_assignment_for_execution_id*/
 	  ,@entrance -- art
 	  ,@flat -- art
+    ,@AppealFromSite_geolocation_lat
+    ,@AppealFromSite_geolocation_lon
 	set @app_id = (select top 1 Id from @output)
 	
 	
