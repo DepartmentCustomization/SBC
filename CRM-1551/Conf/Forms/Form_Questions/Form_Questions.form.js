@@ -8,6 +8,20 @@
             this.details.setVisibility('Question_History', true);
         },
         init:function() {
+            this.form.disableControl('geolocation_lat');
+            this.form.disableControl('geolocation_lon');
+            if (this.form.getControlValue('geolocation_lat')) {
+                this.form.enableControl('geolocation_map');
+                document.getElementById('geolocation_map').disabled = false;
+            } else {
+                this.form.disableControl('geolocation_map');
+                document.getElementById('geolocation_map').disabled = true;
+            }
+            document.getElementById('geolocation_map').addEventListener('click', function() {
+                window.open(String(location.origin + localStorage.getItem('VirtualPath')
+                    + '/dashboard/page/SearchGoogle?lat=' + this.form.getControlValue('geolocation_lat')
+                    + '&lon=' + this.form.getControlValue('geolocation_lon')));
+            }.bind(this));
             this.details.setVisibility('Question_History', false);
             this.details.onCellClick('Detail_Que_Hisroty', this.Detail_History.bind(this));
             const onChangeStatus = {
@@ -17,10 +31,10 @@
             this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
                 if (data.rows.length > 0) {
                     for (let i = 0; i < data.rows.length; i++) {
-                        if(data.rows[i].values[1] == 'disable') {
+                        if(data.rows[i].values[1] === 'disable') {
                             this.form.disableControl(data.rows[i].values[0]);
                         }
-                        if(data.rows[i].values[1] == 'hide') {
+                        if(data.rows[i].values[1] === 'hide') {
                             this.form.setControlVisibility(data.rows[i].values[0], false);
                         }
                     }
@@ -40,7 +54,7 @@
             this.form.disableControl('question_type_id');
             this.form.disableControl('perfom_id');
             let flag_is_state = this.form.getControlValue('flag_is_state');
-            if (flag_is_state == 1) {
+            if (flag_is_state === 1) {
                 this.form.enableControl('object_id');
                 this.form.enableControl('question_type_id');
                 this.form.enableControl('perfom_id');
@@ -60,22 +74,22 @@
                 this.navigateTo('/sections/Appeals/view/' + ques_id)
             });
             let answer = this.form.getControlValue('answer_type_id');
-            if (answer == 1) {
+            if (answer === 1) {
                 this.form.setControlVisibility('answer_post',false);
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_mail', false);
             }
-            if (answer == 2) {
+            if (answer === 2) {
                 this.form.setControlVisibility('answer_phone',true);
                 this.form.setControlVisibility('answer_post', false);
                 this.form.setControlVisibility('answer_mail', false);
             }
-            if (answer == 3) {
+            if (answer === 3) {
                 this.form.setControlVisibility('answer_mail',true);
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_post', false);
             }
-            if (answer == 4 || answer == 5) {
+            if (answer === 4 || answer === 5) {
                 this.form.setControlVisibility('answer_post',true);
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_mail', false);
@@ -172,7 +186,7 @@
                     ]
                 };
                 const addComplain = (param) => {
-                    if(param != false) {
+                    if(param !== false) {
                         const body = {
                             queryCode: 'cx_Complains_Insert',
                             parameterValues: param
@@ -196,7 +210,7 @@
                 this.form.setControlValue('answer_post', data.rows[0].values[3]);
                 this.form.setControlValue('answer_mail', data.rows[0].values[1]);
             });
-            if(value == 1 || value == null) {
+            if(value === 1 || value === null) {
                 this.form.setControlValue('answer_phone', null);
                 this.form.setControlValue('answer_mail', null);
                 this.form.setControlValue('answer_post', null);
@@ -204,17 +218,17 @@
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_mail', false);
             }
-            if(value == 2) {
+            if(value === 2) {
                 this.form.setControlVisibility('answer_phone',true);
                 this.form.setControlVisibility('answer_post', false);
                 this.form.setControlVisibility('answer_mail', false);
             }
-            if(value == 3) {
+            if(value === 3) {
                 this.form.setControlVisibility('answer_mail',true);
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_post', false);
             }
-            if(value == 4 || value == 5) {
+            if(value === 4 || value === 5) {
                 this.form.setControlVisibility('answer_post',true);
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_mail', false);
