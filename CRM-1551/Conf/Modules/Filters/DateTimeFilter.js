@@ -1,4 +1,4 @@
-import { BaseFilter } from '/modules/Filters/BaseFilter.js';
+import { BaseFilter } from '/Modules/Filters/BaseFilter.js';
 
 export class DateTimeFilter extends BaseFilter {
     constructor(name, placeholder, dateFrom, dateTo) {

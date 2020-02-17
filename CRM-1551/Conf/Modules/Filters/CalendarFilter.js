@@ -1,4 +1,4 @@
-import { BaseFilter } from '/modules/Filters/BaseFilter.js';
+import { BaseFilter } from '/Modules/Filters/BaseFilter.js';
 
 export class CalendarFilter extends BaseFilter {
     constructor(name, placeholder, date) {
