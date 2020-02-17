@@ -9,7 +9,7 @@
                 `
         ,
         init: async function() {
-            this.filterHelperModule = await import('modules/Filters/FilterHelper.js');
+            this.filterHelperModule = await import('../modules/Filters/FilterHelper.js');
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -20,8 +20,9 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParam, this);
         },
         getFiltersParam: function(message) {
-            const filterHelper = new this.filterHelperModule.filterHelper(message.package.value.values);
-            this.filterParams = filterHelper.getFiltersParams();
+            const filters = message.package.value.values;
+            const filterHelper = new this.filterHelperModule.FilterHelper(filters);
+            this.filterParams = filterHelper.getFiltersProps();
         }
     };
 }());

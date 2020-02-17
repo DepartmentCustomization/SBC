@@ -1,15 +1,18 @@
-import { Filter } from '/modules/Filters/Filter.js';
-import { DateTimeFilter } from '/modules/Filters/DateTimeFilter.js';
-import { SelectFilter } from '/modules/Filters/SelectFilter.js';
-import { CalendarFilter } from '/modules/Filters/CalendarFilter.js';
+import { Filter } from '/Modules/Filters/Filter.js';
+import { DateTimeFilter } from '/Modules/Filters/DateTimeFilter.js';
+import { SelectFilter } from '/Modules/Filters/SelectFilter.js';
+import { MultiSelectFilter } from '/Modules/Filters/MultiSelectFilter.js';
+import { CalendarFilter } from '/Modules/Filters/CalendarFilter.js';
 
 export class FilterHelper {
-    filterParams = [];
+    filters = [];
     constructor(filters) {
         this.filters = filters;
     }
-    getFiltersProps() {
-        this.filters.forEach(filter => {
+
+    getFiltersProps(filters) {
+        const filterParams = [];
+        filters.forEach(filter => {
             const active = filter.active;
             if(active) {
                 const name = filter.name;
@@ -21,14 +24,14 @@ export class FilterHelper {
                     let valueSelect = value.value;
                     let viewValueSelect = value.viewValue;
                     let filterSelect = new SelectFilter(name, placeholder, valueSelect, viewValueSelect);
-                    this.filterParams.push(filterSelect);
+                    filterParams.push(filterSelect);
                     break;
                 }
                 case 'MultiSelect': {
-                    let valueMultiSelect = setMultipleValues(value, 'value');
-                    let viewValueMultiSelect = setMultipleValues(value, 'viewValue');
-                    let filterMultiSelect = new SelectFilter(name, placeholder, valueMultiSelect, viewValueMultiSelect);
-                    this.filterParams.push(filterMultiSelect);
+                    let valueMultiSelect = value.value;
+                    let viewValueMultiSelect = value.viewValue;
+                    let filterMultiSelect = new MultiSelectFilter(name, placeholder, valueMultiSelect, viewValueMultiSelect);
+                    filterParams.push(filterMultiSelect);
                     break;
                 }
                 case 'Date':
@@ -43,7 +46,7 @@ export class FilterHelper {
                             placeholder,
                             date
                         );
-                        this.filterParams.push(filterCalendar);
+                        filterParams.push(filterCalendar);
                     } else {
                         const filterDateTime = new DateTimeFilter(
                             name,
@@ -51,7 +54,7 @@ export class FilterHelper {
                             dateFrom,
                             dateTo
                         );
-                        this.filterParams.push(filterDateTime);
+                        filterParams.push(filterDateTime);
                     }
                     break;
                 }
@@ -63,7 +66,7 @@ export class FilterHelper {
                         placeholder,
                         valueInput
                     );
-                    this.filterParams.push(simpleFilter);
+                    filterParams.push(simpleFilter);
                 }
                     break;
                 default:
@@ -71,15 +74,6 @@ export class FilterHelper {
                 }
             }
         });
+        return filterParams;
     }
-    getFiltersParams() {
-        this.getFiltersProps();
-        return this.filterParams;
-    }
-}
-
-function setMultipleValues(values, property) {
-    const array = [];
-    values.forEach(value => array.push(value[property]));
-    return array.join(', ');
 }
