@@ -4,25 +4,22 @@ import { MultiSelectFilter } from '../../../Modules/TypeScript/Filters/MultiSele
 import { CalendarFilter } from '../../../Modules/TypeScript/Filters/CalendarFilter';
 import { CheckBoxFilter } from '../../../Modules/TypeScript/Filters/CheckBoxFilter';
 import { InputFilter } from '../../../Modules/TypeScript/Filters/InputFilter';
+import { IFilter } from '../../../Modules/TypeScript/interfaces/filters/filter';
 
-interface IFilter {
-    name: string;
-    string: string;
-    type: string;
-    placeholder: string;
-    active: boolean;
-    value: any;
-}
-
-export class FilterHelper{
-    private filters: any
-    constructor(filters: any) {
+export class FilterHelper {
+    private filters: Array<IFilter>;
+    private filterParams: Array<object> = [];
+    constructor(filters: Array<IFilter>) {
         this.filters = filters;
     }
 
-    private getFiltersParams(): void {
-        const filterParams: any = [];
-        this.filters.forEach((filter: IFilter) => {
+    public getFiltersParams() {
+        return this.filterParams;
+    }
+
+    public setFiltersParams(): void {
+        this.filters.forEach((filter: IFilter): void => {
+            debugger;
             const active = filter.active;
             if(active) {
                 const name = filter.name;
@@ -34,15 +31,14 @@ export class FilterHelper{
                     let valueSelect = value.value;
                     let viewValueSelect = value.viewValue;
                     let filterSelect = new SelectFilter(name, placeholder, valueSelect, viewValueSelect);
-                    filterParams.push(filterSelect);
+                    this.filterParams.push(filterSelect);
                     break;
                 }
                 case 'MultiSelect': {
-                    const value = filter.value;
                     let valueMultiSelect = value.value;
                     let viewValueMultiSelect = value.viewValue;
                     let filterMultiSelect = new MultiSelectFilter(name, placeholder, valueMultiSelect, viewValueMultiSelect);
-                    filterParams.push(filterMultiSelect);
+                    this.filterParams.push(filterMultiSelect);
                     break;
                 }
                 case 'Date':
@@ -57,7 +53,7 @@ export class FilterHelper{
                             placeholder,
                             date
                         );
-                        filterParams.push(filterCalendar);
+                        this.filterParams.push(filterCalendar);
                     } else {
                         const filterDateTime = new DateTimeFilter(
                             name,
@@ -65,7 +61,7 @@ export class FilterHelper{
                             dateFrom,
                             dateTo
                         );
-                        filterParams.push(filterDateTime);
+                        this.filterParams.push(filterDateTime);
                     }
                     break;
                 }
@@ -76,7 +72,7 @@ export class FilterHelper{
                         placeholder,
                         valueInput
                         );
-                        filterParams.push(checkBoxFilter);
+                        this.filterParams.push(checkBoxFilter);
                 }
                     break;
                 case 'Input': {
@@ -86,7 +82,7 @@ export class FilterHelper{
                         placeholder,
                         valueInput
                     );
-                    filterParams.push(inputFilter);
+                    this.filterParams.push(inputFilter);
                 }
                     break;
                 default:
@@ -94,6 +90,5 @@ export class FilterHelper{
                 }
             }
         });
-        return filterParams;
     }
 }

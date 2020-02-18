@@ -1,22 +1,9 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "esModuleInterop": true,
-    "noUnusedLocals": true,
+    "outDir": "./dist/",
     "noImplicitAny": true,
-    "declaration": true,
-    "target": "es2015",
-    "module": "es2015",
-    "strict": true
-  },
-  "include": [
-    "CRM-1551/Conf/Modules/TypeScript/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+    "module": "es6",
+    "target": "typescript",
+    "allowJs": true
+  }
 }
