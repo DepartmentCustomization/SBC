@@ -5,16 +5,30 @@ import { CalendarFilter } from '../../../Modules/TypeScript/Filters/CalendarFilt
 import { CheckBoxFilter } from '../../../Modules/TypeScript/Filters/CheckBoxFilter';
 import { InputFilter } from '../../../Modules/TypeScript/Filters/InputFilter';
 
-export class FilterHelper {
-    private getFiltersProps(filters) {
-        const filterParams = [];
-        filters.forEach(filter => {
+interface IFilter {
+    name: string;
+    string: string;
+    type: string;
+    placeholder: string;
+    active: boolean;
+    value: any;
+}
+
+export class FilterHelper{
+    private filters: any
+    constructor(filters: any) {
+        this.filters = filters;
+    }
+
+    private getFiltersParams(): void {
+        const filterParams: any = [];
+        this.filters.forEach((filter: IFilter) => {
             const active = filter.active;
             if(active) {
                 const name = filter.name;
                 const type = filter.type;
                 const placeholder = filter.placeholder;
-                const value = filter.value;
+                const value: any = filter.value;
                 switch (type) {
                 case 'Select': {
                     let valueSelect = value.value;
@@ -24,6 +38,7 @@ export class FilterHelper {
                     break;
                 }
                 case 'MultiSelect': {
+                    const value = filter.value;
                     let valueMultiSelect = value.value;
                     let viewValueMultiSelect = value.viewValue;
                     let filterMultiSelect = new MultiSelectFilter(name, placeholder, valueMultiSelect, viewValueMultiSelect);
@@ -54,14 +69,16 @@ export class FilterHelper {
                     }
                     break;
                 }
-                case 'CheckBox':
+                case 'CheckBox': {
                     let valueInput = value;
                     let checkBoxFilter = new CheckBoxFilter(
                         name,
                         placeholder,
                         valueInput
-                    );
-                    filterParams.push(checkBoxFilter);
+                        );
+                        filterParams.push(checkBoxFilter);
+                }
+                    break;
                 case 'Input': {
                     let valueInput = value;
                     let inputFilter: InputFilter = new InputFilter(

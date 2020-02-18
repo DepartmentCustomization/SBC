@@ -22,7 +22,7 @@
         getFiltersParam: function(message) {
             const filters = message.package.value.values;
             const filterHelper = new this.filterHelperModule.FilterHelper(filters);
-            this.filterParams = filterHelper.getFiltersProps();
+            this.filterParams = filterHelper.getFiltersParams();
         }
     };
 }());
