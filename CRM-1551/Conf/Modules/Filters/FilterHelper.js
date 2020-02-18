@@ -1,8 +1,8 @@
-import { Filter } from '/Modules/Filters/Filter.js';
-import { DateTimeFilter } from '/Modules/Filters/DateTimeFilter.js';
-import { SelectFilter } from '/Modules/Filters/SelectFilter.js';
-import { MultiSelectFilter } from '/Modules/Filters/MultiSelectFilter.js';
-import { CalendarFilter } from '/Modules/Filters/CalendarFilter.js';
+import { Filter } from '/Modules/JavaScript/Filters/Filter.js';
+import { DateTimeFilter } from '/Modules/JavaScript/Filters/DateTimeFilter.js';
+import { SelectFilter } from '/Modules/JavaScript/Filters/SelectFilter.js';
+import { MultiSelectFilter } from '/Modules/JavaScript/Filters/MultiSelectFilter.js';
+import { CalendarFilter } from '/Modules/JavaScript/Filters/CalendarFilter.js';
 
 export class FilterHelper {
     filters = [];
@@ -10,9 +10,9 @@ export class FilterHelper {
         this.filters = filters;
     }
 
-    getFiltersProps(filters) {
+    getFiltersParams() {
         const filterParams = [];
-        filters.forEach(filter => {
+        this.filters.forEach(filter => {
             const active = filter.active;
             if(active) {
                 const name = filter.name;
