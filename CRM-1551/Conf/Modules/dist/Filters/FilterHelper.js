@@ -1,15 +1,16 @@
-import { DateTimeFilter } from '../../../Modules/TypeScript/Filters/DateTimeFilter';
-import { SelectFilter } from '../../../Modules/TypeScript/Filters/SelectFilter';
-import { MultiSelectFilter } from '../../../Modules/TypeScript/Filters/MultiSelectFilter';
-import { CalendarFilter } from '../../../Modules/TypeScript/Filters/CalendarFilter';
-import { CheckBoxFilter } from '../../../Modules/TypeScript/Filters/CheckBoxFilter';
-import { InputFilter } from '../../../Modules/TypeScript/Filters/InputFilter';
+import { DateTimeFilter } from '../../TypeScript/Filters/DateTimeFilter';
+import { SelectFilter } from '../../TypeScript/Filters/SelectFilter';
+import { MultiSelectFilter } from '../../TypeScript/Filters/MultiSelectFilter';
+import { CalendarFilter } from '../../TypeScript/Filters/CalendarFilter';
+import { CheckBoxFilter } from '../../TypeScript/Filters/CheckBoxFilter';
+import { InputFilter } from '../../TypeScript/Filters/InputFilter';
 var FilterHelper = /** @class */ (function () {
     function FilterHelper(filters) {
         this.filterParams = [];
         this.filters = filters;
     }
     FilterHelper.prototype.getFiltersParams = function () {
+        this.setFiltersParams();
         return this.filterParams;
     };
     FilterHelper.prototype.setFiltersParams = function () {

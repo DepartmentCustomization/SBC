@@ -6,9 +6,16 @@
     "target": "ES5",
     "allowJs": true,
     "lib": ["es5", "es6", "dom"],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "*",
+        "generated/*"
+      ]
+    }
   },
   "include": [
-    "CRM-1551/Conf/Modules/TypeScript"
+    "CRM-1551/Conf/TypeScript"
   ]
 }

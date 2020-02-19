@@ -1,6 +1,6 @@
-import { BaseFilter } from '../../../Modules/TypeScript/Filters/BaseFilter';
+import { BaseFilter } from '../../TypeScript/Filters/BaseFilter';
 
-export class Filter extends BaseFilter {
+export class InputFilter extends BaseFilter {
     value: string;
     constructor(name: string, placeholder: string, value: string) {
         super(name, placeholder);
