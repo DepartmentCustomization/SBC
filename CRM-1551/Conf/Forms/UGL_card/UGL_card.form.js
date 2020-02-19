@@ -552,7 +552,9 @@
                 }.bind(this));
                 document.getElementById('Question_Aplicant_Btn_Add').addEventListener('click', function() {
                     let build = this.form.getControlValue('Applicant_Building');
-                    this.getBuildingInfo(build);
+                    let flat = this.form.getControlValue('Applicant_Flat');
+                    let entrance = this.form.getControlValue('Applicant_Entrance');
+                    this.getBuildingInfo(build, flat, entrance);
                     this.form.setGroupVisibility('UGL_Group_CreateQuestion', true);
                     this.form.setGroupExpanding('UGL_Group_Aplicant', false);
                     this.form.setGroupExpanding('UGL_Group_Appeal', false);
@@ -1052,11 +1054,11 @@
                 }
             }
         },
-        getBuildingInfo: function(building) {
+        getBuildingInfo: function(building, flat, entrance) {
             const findBuilding = {
-                queryCode: 'SelectBuildName',
+                queryCode: 'SelectObjName',
                 parameterValues: [{
-                    key: '@Id',
+                    key: '@buildingId',
                     value: building
                 }]
             };
@@ -1064,8 +1066,8 @@
                 this.form.setControlValue('Question_Building',
                     { key: data.rows[0].values[0], value: data.rows[0].values[1] });
             });
-            this.form.setControlValue('flat', this.form.getControlValue('Applicant_Flat'));
-            this.form.setControlValue('entrance', this.form.getControlValue('Applicant_Entrance'));
+            this.form.setControlValue('flat', flat);
+            this.form.setControlValue('entrance', entrance);
         },
         convertDateNull: function(value) {
             if (!value) {
