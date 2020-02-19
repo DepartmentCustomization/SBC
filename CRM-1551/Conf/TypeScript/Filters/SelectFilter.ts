@@ -1,4 +1,4 @@
-import { Filter } from '../../../Modules/TypeScript/Filters/Filter';
+import { Filter } from '../../TypeScript/Filters/Filter';
 
 export class SelectFilter extends Filter {
     viewValue: string;

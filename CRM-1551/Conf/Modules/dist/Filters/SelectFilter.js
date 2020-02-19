@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { Filter } from '../../../Modules/TypeScript/Filters/Filter';
+import { Filter } from '../Filters/Filter.js';
 var SelectFilter = /** @class */ (function (_super) {
     __extends(SelectFilter, _super);
     function SelectFilter(name, placeholder, value, viewValue) {

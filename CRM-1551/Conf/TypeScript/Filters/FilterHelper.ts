@@ -1,10 +1,10 @@
-import { DateTimeFilter } from '../../../Modules/TypeScript/Filters/DateTimeFilter';
-import { SelectFilter } from '../../../Modules/TypeScript/Filters/SelectFilter';
-import { MultiSelectFilter } from '../../../Modules/TypeScript/Filters/MultiSelectFilter';
-import { CalendarFilter } from '../../../Modules/TypeScript/Filters/CalendarFilter';
-import { CheckBoxFilter } from '../../../Modules/TypeScript/Filters/CheckBoxFilter';
-import { InputFilter } from '../../../Modules/TypeScript/Filters/InputFilter';
-import { IFilter } from '../../../Modules/TypeScript/interfaces/filters/filter';
+import { DateTimeFilter } from '../../TypeScript/Filters/DateTimeFilter';
+import { SelectFilter } from '../../TypeScript/Filters/SelectFilter';
+import { MultiSelectFilter } from '../../TypeScript/Filters/MultiSelectFilter';
+import { CalendarFilter } from '../../TypeScript/Filters/CalendarFilter';
+import { CheckBoxFilter } from '../../TypeScript/Filters/CheckBoxFilter';
+import { InputFilter } from '../../TypeScript/Filters/InputFilter';
+import { IFilter } from '../../TypeScript/interfaces/filters/filter';
 
 export class FilterHelper {
     private filters: Array<IFilter>;
@@ -14,10 +14,11 @@ export class FilterHelper {
     }
 
     public getFiltersParams() {
+        this.setFiltersParams();
         return this.filterParams;
     }
 
-    public setFiltersParams(): void {
+    private setFiltersParams(): void {
         this.filters.forEach((filter: IFilter): void => {
             debugger;
             const active = filter.active;

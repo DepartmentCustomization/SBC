@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { BaseFilter } from './BaseFilter';
+import { BaseFilter } from '../Filters/BaseFilter.js';
 var MultiSelectFilter = /** @class */ (function (_super) {
     __extends(MultiSelectFilter, _super);
     function MultiSelectFilter(name, placeholder, values, viewValues) {
