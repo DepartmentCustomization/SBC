@@ -400,6 +400,7 @@
                 this.form.onControlValueChanged('Question_Building', this.checkQuestionRegistrationAvailable);
                 this.form.onControlValueChanged('Question_Organization', this.checkQuestionRegistrationAvailable);
                 this.form.onControlValueChanged('Question_Organization', this.getOrgExecut);
+                this.form.onControlValueChanged('Question_Building', this.getOrgExecut);
                 const AppealUGL = {
                     queryCode: 'AppealUGL_Info',
                     parameterValues: [
@@ -686,6 +687,7 @@
                 this.form.setControlValue('Question_OrganizationId', {});
                 this.form.setControlValue('Question_ControlDate', '');
                 this.form.setControlValue('Question_EventId', null);
+                this.form.markAsSaved();
             }.bind(this));
             this.form.onControlValueChanged('Search_Appeals_Input', this.onChanged_Search_Appeals_Input.bind(this));
             document.getElementById('Search_Appeals_Search').disabled = true;
@@ -950,27 +952,30 @@
             }
         },
         getOrgExecut: function() {
-            const objAndOrg = {
-                queryCode: 'getOrganizationExecutor',
-                parameterValues: [
-                    {
-                        key: '@question_type_id',
-                        value: this.form.getControlValue('Question_TypeId')
-                    },
-                    {
-                        key: '@object_id',
-                        value: this.form.getControlValue('Question_Building')
-                    },
-                    {
-                        key: '@organization_id',
-                        value: this.form.getControlValue('Question_Organization')
-                    }
-                ]
-            };
-            this.queryExecutor.getValues(objAndOrg).subscribe(data => {
-                this.form.setControlValue('Question_OrganizationId',
-                    { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-            });
+            if(this.form.getControlValue('Question_Building') === null
+            || typeof (this.form.getControlValue('Question_Building')) === 'number') {
+                const objAndOrg = {
+                    queryCode: 'getOrganizationExecutor',
+                    parameterValues: [
+                        {
+                            key: '@question_type_id',
+                            value: this.form.getControlValue('Question_TypeId')
+                        },
+                        {
+                            key: '@object_id',
+                            value: this.form.getControlValue('Question_Building')
+                        },
+                        {
+                            key: '@organization_id',
+                            value: this.form.getControlValue('Question_Organization')
+                        }
+                    ]
+                };
+                this.queryExecutor.getValues(objAndOrg).subscribe(data => {
+                    this.form.setControlValue('Question_OrganizationId',
+                        { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                });
+            }
         },
         onQuestionControlDate: function(ques_type_id) {
             if (ques_type_id === null) {
