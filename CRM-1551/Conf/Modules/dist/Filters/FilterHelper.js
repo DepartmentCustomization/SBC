@@ -1,9 +1,9 @@
-import { DateTimeFilter } from '../../TypeScript/Filters/DateTimeFilter';
-import { SelectFilter } from '../../TypeScript/Filters/SelectFilter';
-import { MultiSelectFilter } from '../../TypeScript/Filters/MultiSelectFilter';
-import { CalendarFilter } from '../../TypeScript/Filters/CalendarFilter';
-import { CheckBoxFilter } from '../../TypeScript/Filters/CheckBoxFilter';
-import { InputFilter } from '../../TypeScript/Filters/InputFilter';
+import { DateTimeFilter } from '../Filters/DateTimeFilter.js';
+import { SelectFilter } from '../Filters/SelectFilter.js';
+import { MultiSelectFilter } from '../Filters/MultiSelectFilter.js';
+import { CalendarFilter } from '../Filters/CalendarFilter.js';
+import { CheckBoxFilter } from '../Filters/CheckBoxFilter.js';
+import { InputFilter } from '../Filters/InputFilter.js';
 var FilterHelper = /** @class */ (function () {
     function FilterHelper(filters) {
         this.filterParams = [];

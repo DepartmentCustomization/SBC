@@ -9,7 +9,6 @@
                 `
         ,
         init: async function() {
-            debugger;
             this.filterHelperModule = await import('../modules/dist/Filters/FilterHelper.js');
             const msg = {
                 name: 'SetFilterPanelState',
@@ -22,8 +21,7 @@
         },
         getFiltersParam: function(message) {
             const filters = message.package.value.values;
-            const filterHelper = new this.filterHelperModule.FilterHelper.setFiltersParams(filters);
-            debugger;
+            const filterHelper = new this.filterHelperModule.FilterHelper(filters);
             this.filterParams = filterHelper.getFiltersParams();
             console.log(this.filterParams);
         }

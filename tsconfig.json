@@ -7,13 +7,7 @@
     "allowJs": true,
     "lib": ["es5", "es6", "dom"],
     "moduleResolution": "node",
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "*",
-        "generated/*"
-      ]
-    }
+    "baseUrl": "CRM-1551/Conf/TypeScript"
   },
   "include": [
     "CRM-1551/Conf/TypeScript"
