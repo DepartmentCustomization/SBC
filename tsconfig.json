@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "CRM-1551/Conf/Modules/dist/",
     "noImplicitAny": true,
-    "module": "es6",
-    "target": "typescript",
-    "allowJs": true
-  }
+    "module": "ES6",
+    "target": "ES5",
+    "allowJs": true,
+    "lib": ["es5", "es6", "dom"],
+    "moduleResolution": "node"
+  },
+  "include": [
+    "CRM-1551/Conf/Modules/TypeScript"
+  ]
 }
