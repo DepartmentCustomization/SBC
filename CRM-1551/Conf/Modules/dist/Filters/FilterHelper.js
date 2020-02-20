@@ -16,7 +16,6 @@ var FilterHelper = /** @class */ (function () {
     FilterHelper.prototype.setFiltersParams = function () {
         var _this = this;
         this.filters.forEach(function (filter) {
-            debugger;
             var active = filter.active;
             if (active) {
                 var name_1 = filter.name;
@@ -77,3 +76,4 @@ var FilterHelper = /** @class */ (function () {
     return FilterHelper;
 }());
 export { FilterHelper };
+//# sourceMappingURL=FilterHelper.js.map

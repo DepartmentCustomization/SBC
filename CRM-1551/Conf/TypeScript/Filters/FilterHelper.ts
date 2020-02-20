@@ -19,6 +19,7 @@ export class FilterHelper {
     }
 
     private setFiltersParams(): void {
+        debugger;
         this.filters.forEach((filter: IFilter): void => {
             debugger;
             const active = filter.active;
