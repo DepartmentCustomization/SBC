@@ -19,7 +19,9 @@
       "Position": 1,
       "IsPrintable": false,
       "SqlName": "p.[position]",
-      "FilterParameterCode": "@position"
+      "FilterParameterCode": "@position",
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "Positions"
     },
     {
       "Code": "short_name",
