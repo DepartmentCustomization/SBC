@@ -7,7 +7,8 @@
     "allowJs": true,
     "lib": ["es5", "es6", "dom"],
     "moduleResolution": "node",
-    "baseUrl": "CRM-1551/Conf/TypeScript"
+    "baseUrl": "CRM-1551/Conf/TypeScript",
+    "sourceMap": true
   },
   "include": [
     "CRM-1551/Conf/TypeScript"

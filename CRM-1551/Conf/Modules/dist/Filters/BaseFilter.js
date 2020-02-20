@@ -6,3 +6,4 @@ var BaseFilter = /** @class */ (function () {
     return BaseFilter;
 }());
 export { BaseFilter };
+//# sourceMappingURL=BaseFilter.js.map
