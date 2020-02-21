@@ -1,16 +1,32 @@
 
 
   --DECLARE @organization_Id INT =1762;
-  --DECLARE @user_id NVARCHAR(300)=N'29796543-b903-48a6-9399-4840f6eac396';
+  --DECLARE @user_id NVARCHAR(300)=N'  ';
 
   IF EXISTS
-  (SELECT orr.*
-  FROM [dbo].[OrganizationInResponsibilityRights] orr
-  INNER JOIN dbo.Positions p ON orr.position_id=P.Id
-  WHERE orr.organization_id=@organization_Id 
-  AND P.programuser_id=@user_id)
 
+
+  --(SELECT orr.*
+  --FROM [dbo].[OrganizationInResponsibilityRights] orr
+  --INNER JOIN dbo.Positions p ON orr.position_id=P.Id
+  --WHERE orr.organization_id=@organization_Id 
+  --AND P.programuser_id=@user_id)
+    (SELECT p.*
+  FROM [dbo].[Positions] p
+  LEFT JOIN [dbo].[PositionsHelpers] pm ON p.Id=pm.main_position_id
+  LEFT JOIN [dbo].[PositionsHelpers] ph on p.Id=ph.helper_position_id
+  WHERE p.[programuser_id]=@user_id
+  AND (pm.main_position_id IS NOT NULL OR ph.helper_position_id IS NOT NULL))
 	BEGIN
+
+	IF object_id('tempdb..#user_organizations') IS NOT NULL DROP TABLE #user_organizations
+
+  SELECT r.name role_name, p.Id position_id, p.organizations_id, p.programuser_id
+  INTO #user_organizations
+  FROM [dbo].[Positions] p
+  LEFT JOIN [dbo].[Roles] r ON p.role_id=r.Id
+  WHERE p.programuser_id=@user_id
+  /*
 		DECLARE @role NVARCHAR(500) = (SELECT
 		[Roles].name
 	FROM [dbo].[Positions] WITH (NOLOCK)
@@ -207,7 +223,7 @@ INSERT INTO @Organization_nevkonp (Id)
 	WHERE [turn_organization_id] IN (SELECT
 			Id
 		FROM @Organization);
-
+*/
 
 		-------------------------------------------------------------------------------------------------------------------------------
 			-------------------------------------------------------------------------------------------------------------------------------
@@ -222,7 +238,7 @@ INSERT INTO @Organization_nevkonp (Id)
 			FROM [dbo].[Assignments] WITH (NOLOCK)
 			WHERE assignment_state_id = 5
 			AND AssignmentResultsId = 7
-			AND executor_organization_id IN (SELECT Id FROM @Organizations_is);
+			AND executor_organization_id IN (SELECT organizations_id FROM #user_organizations);
 
 
 			IF OBJECT_ID('tempdb..#temp_TempAssHistory') IS NOT NULL
@@ -313,8 +329,8 @@ INSERT INTO @Organization_nevkonp (Id)
 					ON [Assignments].current_assignment_consideration_id = [AssignmentConsiderations].Id
 			LEFT JOIN [dbo].[Organizations] as [turn_org] WITH (NOLOCK)
 				ON [AssignmentConsiderations].turn_organization_id = [turn_org].Id
-			WHERE [Assignments].[executor_organization_id] IN (SELECT Id FROM @Organizations_is)
-			or [AssignmentConsiderations].turn_organization_id IN (SELECT Id FROM @Organizations_is);
+			WHERE [Assignments].[executor_organization_id] IN (SELECT organizations_id FROM #user_organizations)
+			or [AssignmentConsiderations].turn_organization_id IN (SELECT organizations_id FROM #user_organizations);
 
 
 			CREATE NONCLUSTERED INDEX [NONCLUSTERED_INDEX_temp_AllAss]
@@ -343,7 +359,7 @@ INSERT INTO @Organization_nevkonp (Id)
 					OR ([AssignmentResult_Code] = N'ReturnedToTheArtist'
 						AND [AssignmentState_Code] = N'Registered')
 				   )
-			AND OrganizationsId in (SELECT Id FROM @Organizations_is);
+			AND OrganizationsId in (SELECT organizations_id FROM #user_organizations);
 
 
 
@@ -352,22 +368,24 @@ INSERT INTO @Organization_nevkonp (Id)
 				DROP TABLE #temp_nevkomp;
 			END;
 			SELECT
-				Id
-			   ,turn_organization_id as OrganizationsId
-			   ,turn_organization_name as OrganizationsName
+				ta.Id
+			   ,ta.turn_organization_id as OrganizationsId
+			   ,ta.turn_organization_name as OrganizationsName
 			INTO #temp_nevkomp
-			FROM #temp_AllAss
-			WHERE [AssignmentType_Code] <> N'ToAttention'
-			AND [AssignmentState_Code] <> N'Closed'
-			AND [AssignmentResult_Code] = N'NotInTheCompetence'
-			AND [AssignmentResolution_Name] IN (N'Повернуто в 1551', N'Повернуто в батьківську організацію')
+			FROM #temp_AllAss ta
+			INNER JOIN #user_organizations uo
+			ON ta.turn_organization_id=uo.organizations_id
+			WHERE ta.[AssignmentType_Code] <> N'ToAttention'
+			AND ta.[AssignmentState_Code] <> N'Closed'
+			AND ta.[AssignmentResult_Code] = N'NotInTheCompetence'
+			AND ta.[AssignmentResolution_Name] IN (N'Повернуто в 1551', N'Повернуто в батьківську організацію')
 			AND (CASE
-				 	WHEN @role = N'Конролер' AND
+				 	WHEN ISNULL(uo.role_name,N'') = N'Конролер' AND
 				 		[AssignmentResolution_Name] = N'Повернуто в 1551' THEN 1
-				 	WHEN @role <> N'Конролер' AND
+				 	WHEN ISNULL(uo.role_name,N'') <> N'Конролер' AND
 				 		[AssignmentResolution_Name] = N'Повернуто в батьківську організацію' THEN 1
 				 END) = 1
-			AND turn_organization_id IN (SELECT Id FROM @Organizations_is)
+			AND turn_organization_id IN (SELECT organizations_id FROM #user_organizations)
 
 
 
@@ -385,7 +403,7 @@ INSERT INTO @Organization_nevkonp (Id)
 			WHERE ([control_date] <= GETUTCDATE()
 					AND [AssignmentType_Code] <> N'ToAttention'
 					AND [AssignmentState_Code] = N'InWork')
-			AND OrganizationsId IN (SELECT Id FROM @Organizations_is);
+			AND OrganizationsId IN (SELECT organizations_id FROM #user_organizations);
 			
 
 
@@ -406,7 +424,7 @@ INSERT INTO @Organization_nevkonp (Id)
 			AND [control_date] >= GETUTCDATE()
 			AND [AssignmentType_Code] <> N'ToAttention'
 			AND [AssignmentState_Code] = N'InWork')
-			AND OrganizationsId IN (SELECT Id FROM @Organizations_is);
+			AND OrganizationsId IN (SELECT organizations_id FROM #user_organizations);
 
 
 
@@ -425,7 +443,7 @@ INSERT INTO @Organization_nevkonp (Id)
 			AND [control_date] >= GETUTCDATE()
 			AND [AssignmentType_Code] <> N'ToAttention'
 			AND [AssignmentState_Code] = N'InWork')
-			AND [OrganizationsId] IN (SELECT Id FROM @Organizations_is);
+			AND [OrganizationsId] IN (SELECT organizations_id FROM #user_organizations);
 
 
 			IF OBJECT_ID('tempdb..#temp_dovidoma') IS NOT NULL
@@ -440,7 +458,7 @@ INSERT INTO @Organization_nevkonp (Id)
 			FROM #temp_AllAss
 			WHERE [AssignmentType_Code] = N'ToAttention'
 			AND [AssignmentState_Code] = N'Registered'
-			AND [OrganizationsId] IN (SELECT Id FROM @Organizations_is);
+			AND [OrganizationsId] IN (SELECT organizations_id FROM #user_organizations);
 
 
 
@@ -458,7 +476,7 @@ INSERT INTO @Organization_nevkonp (Id)
 			WHERE [AssignmentState_Code] = N'NotFulfilled'
 				  AND ([AssignmentResult_Code] = N'ForWork'
 				  OR [AssignmentResult_Code] = N'Actually')
-			AND [OrganizationsId] IN (SELECT Id FROM @Organizations_is);
+			AND [OrganizationsId] IN (SELECT organizations_id FROM #user_organizations);
 
 
 
