@@ -9,12 +9,20 @@
   AND P.programuser_id=@user_id)
 
 	BEGIN
-		DECLARE @role NVARCHAR(500) = (SELECT TOP 1
-		[Roles].name
-	FROM [dbo].[Positions] WITH (NOLOCK)
-	LEFT JOIN [dbo].[Roles]
-		ON [Positions].role_id = [Roles].Id
-	WHERE [Positions].programuser_id = @user_id);
+
+	IF object_id('tempdb..#user_organizations') IS NOT NULL DROP TABLE #user_organizations
+
+  SELECT r.name role_name, p.Id position_id, p.organizations_id, p.programuser_id
+  INTO #user_organizations
+  FROM [dbo].[Positions] p
+  LEFT JOIN [dbo].[Roles] r ON p.role_id=r.Id
+  WHERE p.programuser_id=@user_id
+	--	DECLARE @role NVARCHAR(500) = (SELECT TOP 1
+	--	[Roles].name
+	--FROM [dbo].[Positions] WITH (NOLOCK)
+	--LEFT JOIN [dbo].[Roles]
+	--	ON [Positions].role_id = [Roles].Id
+	--WHERE [Positions].programuser_id = @user_id);
 
 	
 	IF OBJECT_ID('tempdb..#temp_positions_user') IS NOT NULL
@@ -310,18 +318,27 @@ LEFT JOIN [dbo].[AssignmentResolutions] WITH (NOLOCK)
 	ON [Assignments].[AssignmentResolutionsId] = [AssignmentResolutions].Id
 	--
 LEFT JOIN #tpu_organization tpuo 
-	ON [Assignments].executor_organization_id=tpuo.organizations_id
+	--ON [Assignments].executor_organization_id=tpuo.organizations_id если что, убрать коммент
+	ON [AssignmentConsiderations].turn_organization_id=tpuo.organizations_id --здесь поставить
 LEFT JOIN #tpu_position tpuop 
 	ON [Assignments].executor_person_id=tpuop.position_id
+INNER JOIN #user_organizations uo 
+	ON [AssignmentConsiderations].turn_organization_id=uo.organizations_id
 	--
 WHERE [AssignmentTypes].code <> N'ToAttention'
 AND [AssignmentStates].code <> N'Closed'
 AND [AssignmentResults].code = N'NotInTheCompetence'
 AND [AssignmentResolutions].name IN (N'Повернуто в 1551', N'Повернуто в батьківську організацію')
+--AND (CASE
+--	WHEN @role = N'Конролер' AND
+--		[AssignmentResolutions].name = N'Повернуто в 1551' THEN 1
+--	WHEN @role <> N'Конролер' AND
+--		[AssignmentResolutions].name = N'Повернуто в батьківську організацію' THEN 1
+--END) = 1
 AND (CASE
-	WHEN @role = N'Конролер' AND
+	WHEN uo.role_name = N'Конролер' AND
 		[AssignmentResolutions].name = N'Повернуто в 1551' THEN 1
-	WHEN @role <> N'Конролер' AND
+	WHEN ISNULL(uo.role_name, N'')  <> N'Конролер' AND
 		[AssignmentResolutions].name = N'Повернуто в батьківську організацію' THEN 1
 END) = 1
 --AND [AssignmentConsiderations].turn_organization_id = @organization_id;

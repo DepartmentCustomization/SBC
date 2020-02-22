@@ -1,6 +1,6 @@
 /*
  declare @user_id nvarchar(300)=N'02ece542-2d75-479d-adad-fd333d09604d';
- declare @organization_id int =4013;
+ declare @organization_id int =2006;
  declare @navigation nvarchar(400)=N'Усі';
  */
 
@@ -11,17 +11,26 @@ IF EXISTS (SELECT orr.*
   AND P.programuser_id=@user_id)
 
 	BEGIN
-		DECLARE @role NVARCHAR(500) = (SELECT
-		[Roles].name
-	FROM [dbo].[Positions]
-	LEFT JOIN [dbo].[Roles]
-		ON [Positions].role_id = [Roles].Id
-	WHERE [Positions].programuser_id = @user_id);
 
+	IF object_id('tempdb..#user_organizations') IS NOT NULL DROP TABLE #user_organizations
+
+  SELECT r.name role_name, p.Id position_id, p.organizations_id, p.programuser_id
+  INTO #user_organizations
+  FROM [dbo].[Positions] p
+  LEFT JOIN [dbo].[Roles] r ON p.role_id=r.Id
+  WHERE p.programuser_id=@user_id
+
+	--	DECLARE @role NVARCHAR(500) = (SELECT
+	--	[Roles].name
+	--FROM [dbo].[Positions]
+	--LEFT JOIN [dbo].[Roles]
+	--	ON [Positions].role_id = [Roles].Id
+	--WHERE [Positions].programuser_id = @user_id);
+/*
 DECLARE @Organization TABLE (
 	Id INT
 );
-
+*/
 
 DECLARE @NavigationTable TABLE (
 	Id NVARCHAR(400)
@@ -52,7 +61,7 @@ BEGIN
 			@navigation
 END;
 
-
+/*
 DECLARE @OrganizationId INT =
 CASE
 	WHEN @organization_id IS NOT NULL THEN @organization_id
@@ -112,6 +121,55 @@ INSERT INTO @Organization (Id)
 	SELECT
 		Id
 	FROM @IdT;
+*/
+
+IF OBJECT_ID('tempdb..#temp_positions_user') IS NOT NULL
+			BEGIN
+				DROP TABLE #temp_positions_user;
+			END;
+
+  --пункт1 подивився до яких посад має відношення користувач
+  SELECT *
+  INTO #temp_positions_user
+  FROM
+  (SELECT p.Id, [is_main], organizations_id
+  FROM [dbo].[Positions] p
+  WHERE p.[programuser_id]=@user_id
+  UNION 
+  SELECT p2.Id, p2.is_main, p2.organizations_id
+  FROM [dbo].[Positions] p
+  INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.main_position_id
+  INNER JOIN [dbo].[Positions] p2 ON ph.helper_position_id=p2.Id
+  WHERE p.[programuser_id]=@user_id) t
+
+  --select * from #temp_positions_user
+
+  -- создадим временную табличку для п2
+  IF OBJECT_ID('tempdb..#tpu_organization') IS NOT NULL
+			BEGIN
+				DROP TABLE #tpu_organization;
+			END;
+
+
+  SELECT DISTINCT organizations_id
+  INTO #tpu_organization
+  FROM #temp_positions_user
+  WHERE is_main='true' AND organizations_id=@organization_Id
+  
+  --SELECT * FROM #tpu_organization
+
+  -- создадим временную табличку для п3
+  IF OBJECT_ID('tempdb..#tpu_position') IS NOT NULL
+			BEGIN
+				DROP TABLE #tpu_position;
+			END;
+
+
+  SELECT DISTINCT Id position_id
+  INTO #tpu_position
+  FROM #temp_positions_user;
+
+  --SELECT * FROM #tpu_position;
 
 WITH main
 AS
@@ -184,19 +242,35 @@ AS
 		ON [Streets].street_type_id = [StreetTypes].Id
 	LEFT JOIN [dbo].[Organizations] [Organizations2]
 		ON [AssignmentConsiderations].[transfer_to_organization_id] = [Organizations2].Id
-
+	--
+	LEFT JOIN #tpu_organization tpuo 
+		--ON [Assignments].executor_organization_id=tpuo.organizations_id
+		ON [AssignmentConsiderations].turn_organization_id=tpuo.organizations_id
+	LEFT JOIN #tpu_position tpuop 
+		ON [Assignments].executor_person_id=tpuop.position_id
+	INNER JOIN #user_organizations uo 
+		ON [AssignmentConsiderations].turn_organization_id=uo.organizations_id
+	--
 	WHERE [AssignmentTypes].code <> N'ToAttention'
 	AND [AssignmentStates].code <> N'Closed'
 	AND [AssignmentResults].code = N'NotInTheCompetence'
 	AND [AssignmentResolutions].name IN (N'Повернуто в 1551', N'Повернуто в батьківську організацію')
+	--AND (CASE
+	--	WHEN @role = N'Конролер' AND
+	--		[AssignmentResolutions].name = N'Повернуто в 1551' THEN 1
+	--	WHEN @role <> N'Конролер' AND
+	--		[AssignmentResolutions].name = N'Повернуто в батьківську організацію' THEN 1
+	--END) = 1
 	AND (CASE
-		WHEN @role = N'Конролер' AND
-			[AssignmentResolutions].name = N'Повернуто в 1551' THEN 1
-		WHEN @role <> N'Конролер' AND
-			[AssignmentResolutions].name = N'Повернуто в батьківську організацію' THEN 1
-	END) = 1
-
-	AND [AssignmentConsiderations].turn_organization_id = @organization_id)
+	WHEN uo.role_name = N'Конролер' AND
+		[AssignmentResolutions].name = N'Повернуто в 1551' THEN 1
+	WHEN ISNULL(uo.role_name, N'')  <> N'Конролер' AND
+		[AssignmentResolutions].name = N'Повернуто в батьківську організацію' THEN 1
+END) = 1
+	--AND [AssignmentConsiderations].turn_organization_id = @organization_id
+	AND ((tpuo.organizations_id IS NOT NULL AND [Assignments].executor_person_id IS NULL)
+	OR (tpuop.position_id IS NOT NULL))
+	)
 
 SELECT
 	Id
