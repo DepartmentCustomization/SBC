@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'ProstrocheniUvagaVRoboti',
+                code: 'ProstrocheniUvagaVRoboti_686',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -121,7 +121,7 @@
         },
         exportToExcel: function() {
             let exportQuery = {
-                queryCode: 'ProstrocheniUvagaVRoboti',
+                queryCode: this.config.query.code,
                 limit: -1,
                 parameterValues: [
                     { key: '@organization_id', value: this.orgId},
