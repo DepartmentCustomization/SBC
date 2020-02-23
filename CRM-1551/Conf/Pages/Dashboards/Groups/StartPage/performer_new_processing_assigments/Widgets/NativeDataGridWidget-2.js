@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'NeVKompetentcii',
+                code: 'NeVKompetentcii_686',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -122,7 +122,6 @@
                 document.getElementById('table5__NeVKompetentcii').style.display = 'none';
             }else{
                 document.getElementById('table5__NeVKompetentcii').style.display = 'block';
-                this.config.query.queryCode = 'NeVKompetentsii';
                 this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
                     { key: '@organizationName', value: message.orgName},
                     { key: '@navigation', value: message.navigation}];

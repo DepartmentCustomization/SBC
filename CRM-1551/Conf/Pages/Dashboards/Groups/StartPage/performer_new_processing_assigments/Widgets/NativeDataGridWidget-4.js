@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'DoVidoma',
+                code: 'DoVidoma_686',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
