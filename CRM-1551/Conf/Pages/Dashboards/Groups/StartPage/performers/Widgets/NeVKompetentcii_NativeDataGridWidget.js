@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'NaDooprNemaMozhlVyk_686',
+                code: 'NeVKompetentcii',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -16,20 +16,34 @@
                     width: 150
                 }, {
                     dataField: 'QuestionType',
-                    caption: 'Тип питання'
+                    caption: 'Тип питання',
+                    sortOrder: 'asc',
+                    allowSorting: true
                 }, {
                     dataField: 'zayavnyk',
                     caption: 'Заявник'
                 }, {
-                    dataField: 'adress',
+                    dataField: 'adress_place',
                     caption: 'Місце проблеми'
                 }, {
-                    dataField: 'control_date',
-                    caption: 'Дата контролю',
-                    dataType: 'datetime',
-                    format: 'dd.MM.yyyy HH:mm'
+                    dataField: 'pidlegliy',
+                    caption: 'Виконавець'
+                }, {
+                    dataField: 'transfer_to_organization_id',
+                    caption: 'Можливий виконавець',
+                    lookup: {
+                        dataSource: {
+                            paginate: true,
+                            store: this.elements
+                        },
+                        valueExpr: 'ID',
+                        displayExpr: 'Name'
+                    }
                 }
             ],
+            masterDetail: {
+                enabled: true
+            },
             filterRow: {
                 visible: true,
                 applyFilter: 'auto'
@@ -42,9 +56,6 @@
                 visible: false,
                 highlightCaseSensitive: true
             },
-            masterDetail: {
-                enabled: true
-            },
             pager: {
                 showPageSizeSelector: false,
                 allowedPageSizes: [10, 15, 30],
@@ -52,8 +63,9 @@
                 pageSize: 10
             },
             editing: {
-                enabled: false,
-                allowAdding: false
+                mode: 'cell',
+                allowUpdating: true,
+                useIcons: true
             },
             scrolling: {
                 mode: 'standart',
@@ -61,10 +73,10 @@
                 columnRenderingMode: null,
                 showScrollbar: null
             },
-            selection: {
+            sorting: {
                 mode: 'multiple'
             },
-            sorting: {
+            selection: {
                 mode: 'multiple'
             },
             keyExpr: 'Id',
@@ -88,8 +100,10 @@
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 300;
-            document.getElementById('table10_Plan_Programs').style.display = 'none';
+            this.changedRows = [];
+            document.getElementById('table5__NeVKompetentcii').style.display = 'none';
             this.sub = this.messageService.subscribe('clickOnTable2', this.changeOnTable, this);
+            this.sub1 = this.messageService.subscribe('messageWithOrganizationId', this.takeOrganizationId, this);
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
@@ -98,11 +112,103 @@
                     }
                 }
             });
+            this.config.onToolbarPreparing = this.createTableButton.bind(this);
+        },
+        changeOnTable: function(message) {
+            this.column = message.column;
+            this.navigator = message.navigation;
+            this.targetId = message.targetId;
+            if(message.column !== 'Не в компетенції') {
+                document.getElementById('table5__NeVKompetentcii').style.display = 'none';
+            }else{
+                document.getElementById('table5__NeVKompetentcii').style.display = 'block';
+                this.config.query.queryCode = 'NeVKompetentsii';
+                this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
+                    { key: '@organizationName', value: message.orgName},
+                    { key: '@navigation', value: message.navigation}];
+                let executeQuery = {
+                    queryCode: 'Lookup_NeVKompetencii_PidOrganization',
+                    parameterValues: [ {key: '@organization_id', value: this.OrganizationId} ],
+                    limit: -1
+                };
+                this.queryExecutor(executeQuery, this.lookupFoo, this);
+            }
+        },
+        findAllRowsNeVKompetentсii: function() {
+            let rows = this.dataGridInstance.instance.getSelectedRowsData();
+            if(rows.length > 0) {
+                rows.map(el => {
+                    let executeQuery = {
+                        queryCode: 'Button_NeVKompetentcii',
+                        parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
+                            {key: '@Id', value: el.Id} ],
+                        limit: -1
+                    };
+                    this.queryExecutor(executeQuery);
+                });
+                this.loadData(this.afterLoadDataHandler);
+                this.messageService.publish({
+                    name: 'reloadMainTable',
+                    column: this.column,
+                    navigator: this.navigator,
+                    targetId: this.targetId
+                });
+            }
+        },
+        createTableButton: function(e) {
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                options: {
+                    icon: 'upload',
+                    type: 'default',
+                    text: 'Передати',
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
+                        this.findAllRowsNeVKompetentсii();
+                    }.bind(this)
+                },
+                location: 'after'
+            });
+        },
+        createElement: function(tag, props, ...children) {
+            const element = document.createElement(tag);
+            Object.keys(props).forEach(key => element[key] = props[key]);
+            if(children.length > 0) {
+                children.forEach(child =>{
+                    element.appendChild(child);
+                });
+            } return element;
+        },
+        lookupFoo: function(data) {
+            this.elements = [];
+            for(let i = 0; i < data.rows.length; i++) {
+                let el = data.rows[i];
+                let obj = {
+                    'ID': el.values[0],
+                    'Name': el.values[1]
+                }
+                this.elements.push(obj);
+            }
+            this.config.columns[5].lookup.dataSource.store = this.elements;
+            this.loadData(this.afterLoadDataHandler);
+        },
+        afterLoadDataHandler: function() {
+            this.render();
+            this.createCustomStyle();
+        },
+        createCustomStyle: function() {
+            let elements = document.querySelectorAll('.dx-datagrid-export-button');
+            elements = Array.from(elements);
+            elements.forEach(function(element) {
+                let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
+                element.firstElementChild.appendChild(spanElement);
+            }.bind(this));
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer === null || currentEmployeeData.short_answer === undefined) {
-                currentEmployeeData.short_answer = '';
+            if(currentEmployeeData.comment === null || currentEmployeeData.comment === undefined) {
+                currentEmployeeData.comment = '';
             }
             if(currentEmployeeData.zayavnyk_zmist === null || currentEmployeeData.zayavnyk_zmist === undefined) {
                 currentEmployeeData.zayavnyk_zmist = '';
@@ -145,22 +251,6 @@
                 },
                 elementСontent__caption, elementСontent__content
             );
-            let elementComment__content = this.createElement('div',
-                {
-                    className: 'elementComment__content content', innerText: String(String(currentEmployeeData.short_answer))
-                }
-            );
-            let elementComment__caption = this.createElement('div',
-                {
-                    className: 'elementComment__caption caption', innerText: 'Коментар виконавця'
-                }
-            );
-            let elementComment = this.createElement('div',
-                {
-                    className: 'elementСontent element'
-                },
-                elementComment__caption, elementComment__content
-            );
             let elementBalance__content = this.createElement('div',
                 {
                     className: 'elementBalance__content content', innerText: String(String(currentEmployeeData.balans_name))
@@ -181,7 +271,7 @@
                 {
                     className: 'elementsWrapper'
                 },
-                elementAdress, elementСontent, elementComment, elementBalance
+                elementAdress, elementСontent, elementBalance
             );
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
@@ -189,47 +279,19 @@
             elementsAll.forEach(el => {
                 el.style.display = 'flex';
                 el.style.margin = '15px 10px';
-            })
+            });
             let elementsCaptionAll = document.querySelectorAll('.caption');
             elementsCaptionAll = Array.from(elementsCaptionAll);
             elementsCaptionAll.forEach(el => {
                 el.style.minWidth = '200px';
-            })
+            });
         },
-        changeOnTable: function(message) {
-            if(message.column !== 'План/Програма') {
-                document.getElementById('table10_Plan_Programs').style.display = 'none';
-            }else{
-                document.getElementById('table10_Plan_Programs').style.display = 'block';
-                this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
-                    { key: '@column', value: message.column},
-                    { key: '@navigation', value: message.navigation}];
-                this.loadData(this.afterLoadDataHandler);
-            }
-        },
-        createElement: function(tag, props, ...children) {
-            const element = document.createElement(tag);
-            Object.keys(props).forEach(key => element[key] = props[key]);
-            if(children.length > 0) {
-                children.forEach(child =>{
-                    element.appendChild(child);
-                });
-            } return element;
-        },
-        afterLoadDataHandler: function() {
-            this.render();
-            this.createCustomStyle();
-        },
-        createCustomStyle: function() {
-            let elements = document.querySelectorAll('.dx-datagrid-export-button');
-            elements = Array.from(elements);
-            elements.forEach(function(element) {
-                let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
-                element.firstElementChild.appendChild(spanElement);
-            }.bind(this));
+        takeOrganizationId: function(message) {
+            this.OrganizationId = message.value;
         },
         destroy: function() {
             this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         }
     };
 }());

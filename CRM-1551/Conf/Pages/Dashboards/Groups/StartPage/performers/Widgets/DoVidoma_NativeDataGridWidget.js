@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'NaDooprNemaMozhlVyk_686',
+                code: 'DoVidoma',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -23,13 +23,11 @@
                 }, {
                     dataField: 'adress',
                     caption: 'Місце проблеми'
-                }, {
-                    dataField: 'control_date',
-                    caption: 'Дата контролю',
-                    dataType: 'datetime',
-                    format: 'dd.MM.yyyy HH:mm'
                 }
             ],
+            masterDetail: {
+                enabled: true
+            },
             filterRow: {
                 visible: true,
                 applyFilter: 'auto'
@@ -38,28 +36,23 @@
                 enabled: true,
                 fileName: 'Excel'
             },
-            searchPanel: {
-                visible: false,
-                highlightCaseSensitive: true
-            },
-            masterDetail: {
-                enabled: true
-            },
             pager: {
-                showPageSizeSelector: false,
-                allowedPageSizes: [10, 15, 30],
-                showInfo: false,
-                pageSize: 10
+                showPageSizeSelector:  true,
+                allowedPageSizes: [ 10, 15, 30],
+                showInfo: true
             },
-            editing: {
-                enabled: false,
-                allowAdding: false
+            paging: {
+                pageSize: 10
             },
             scrolling: {
                 mode: 'standart',
                 rowRenderingMode: null,
                 columnRenderingMode: null,
                 showScrollbar: null
+            },
+            searchPanel: {
+                visible: false,
+                highlightCaseSensitive: true
             },
             selection: {
                 mode: 'multiple'
@@ -88,8 +81,9 @@
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 300;
-            document.getElementById('table10_Plan_Programs').style.display = 'none';
+            document.getElementById('table7__doVidoma').style.display = 'none';
             this.sub = this.messageService.subscribe('clickOnTable2', this.changeOnTable, this);
+            this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
@@ -98,6 +92,15 @@
                     }
                 }
             });
+        },
+        createElement: function(tag, props, ...children) {
+            const element = document.createElement(tag);
+            Object.keys(props).forEach(key => element[key] = props[key]);
+            if(children.length > 0) {
+                children.forEach(child =>{
+                    element.appendChild(child);
+                });
+            } return element;
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
@@ -145,22 +148,6 @@
                 },
                 elementСontent__caption, elementСontent__content
             );
-            let elementComment__content = this.createElement('div',
-                {
-                    className: 'elementComment__content content', innerText: String(String(currentEmployeeData.short_answer))
-                }
-            );
-            let elementComment__caption = this.createElement('div',
-                {
-                    className: 'elementComment__caption caption', innerText: 'Коментар виконавця'
-                }
-            );
-            let elementComment = this.createElement('div',
-                {
-                    className: 'elementСontent element'
-                },
-                elementComment__caption, elementComment__content
-            );
             let elementBalance__content = this.createElement('div',
                 {
                     className: 'elementBalance__content content', innerText: String(String(currentEmployeeData.balans_name))
@@ -181,7 +168,7 @@
                 {
                     className: 'elementsWrapper'
                 },
-                elementAdress, elementСontent, elementComment, elementBalance
+                elementAdress, elementСontent, elementBalance
             );
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
@@ -196,25 +183,54 @@
                 el.style.minWidth = '200px';
             })
         },
+        createTableButton: function(e) {
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                options: {
+                    icon: 'check',
+                    type: 'default',
+                    text: 'Ознайомився',
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
+                        this.findAllSelectRowsDoVidoma();
+                    }.bind(this)
+                },
+                location: 'after'
+            });
+        },
         changeOnTable: function(message) {
-            if(message.column !== 'План/Програма') {
-                document.getElementById('table10_Plan_Programs').style.display = 'none';
+            this.column = message.column;
+            this.navigator = message.navigation;
+            this.targetId = message.targetId;
+            if(message.column !== 'До відома') {
+                document.getElementById('table7__doVidoma').style.display = 'none';
             }else{
-                document.getElementById('table10_Plan_Programs').style.display = 'block';
+                document.getElementById('table7__doVidoma').style.display = 'block';
                 this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
-                    { key: '@column', value: message.column},
+                    { key: '@organizationName', value: message.orgName},
                     { key: '@navigation', value: message.navigation}];
                 this.loadData(this.afterLoadDataHandler);
             }
         },
-        createElement: function(tag, props, ...children) {
-            const element = document.createElement(tag);
-            Object.keys(props).forEach(key => element[key] = props[key]);
-            if(children.length > 0) {
-                children.forEach(child =>{
-                    element.appendChild(child);
+        findAllSelectRowsDoVidoma: function() {
+            let rows = this.dataGridInstance.selectedRowKeys;
+            if(rows.length > 0) {
+                let arrivedSendValueRows = rows.join(', ');
+                let executeQuery = {
+                    queryCode: 'Button_DoVidoma_Oznayomyvzya',
+                    parameterValues: [ {key: '@Ids', value: arrivedSendValueRows} ],
+                    limit: -1
+                };
+                this.queryExecutor(executeQuery);
+                this.loadData(this.afterLoadDataHandler);
+                this.messageService.publish({
+                    name: 'reloadMainTable',
+                    column: this.column,
+                    navigator: this.navigator,
+                    targetId: this.targetId
                 });
-            } return element;
+            }
         },
         afterLoadDataHandler: function() {
             this.render();

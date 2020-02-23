@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'NaDooprNemaMozhlVyk_686',
+                code: 'ProstrocheniUvagaVRoboti',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -15,6 +15,11 @@
                     caption: 'Номер питання',
                     width: 150
                 }, {
+                    dataField: 'receipt_date',
+                    caption: 'Дата надходження',
+                    dataType: 'datetime',
+                    format: 'dd.MM.yyyy HH:mm'
+                }, {
                     dataField: 'QuestionType',
                     caption: 'Тип питання'
                 }, {
@@ -26,11 +31,10 @@
                 }, {
                     dataField: 'control_date',
                     caption: 'Дата контролю',
+                    sortOrder: 'desc',
+                    allowSorting: true,
                     dataType: 'datetime',
                     format: 'dd.MM.yyyy HH:mm'
-                }, {
-                    dataField: 'rework_counter',
-                    caption: 'Лічильник'
                 }
             ],
             masterDetail: {
@@ -39,10 +43,6 @@
             filterRow: {
                 visible: true,
                 applyFilter: 'auto'
-            },
-            export: {
-                enabled: false,
-                fileName: 'Excel'
             },
             pager: {
                 showPageSizeSelector:  true,
@@ -86,7 +86,7 @@
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 300;
-            document.getElementById('table9_dooproc').style.display = 'none';
+            document.getElementById('table6__ProstrocheniUvagaVRoboti').style.display = 'none';
             this.sub = this.messageService.subscribe('clickOnTable2', this.changeOnTable, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
@@ -102,15 +102,6 @@
                     }
                 }
             });
-        },
-        createElement: function(tag, props, ...children) {
-            const element = document.createElement(tag);
-            Object.keys(props).forEach(key => element[key] = props[key]);
-            if(children.length > 0) {
-                children.forEach(child =>{
-                    element.appendChild(child);
-                });
-            } return element;
         },
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
@@ -130,10 +121,11 @@
         },
         exportToExcel: function() {
             let exportQuery = {
-                queryCode: this.config.query.code,
+                queryCode: 'ProstrocheniUvagaVRoboti',
                 limit: -1,
                 parameterValues: [
                     { key: '@organization_id', value: this.orgId},
+                    { key: '@organizationName', value: this.orgName},
                     { key: '@column', value: this.column},
                     { key: '@navigation', value: this.navigation}
                 ]
@@ -146,15 +138,9 @@
             let column_registration_number = { name: 'registration_number', index: 0 };
             let column_zayavnyk = { name: 'zayavnyk', index: 1 };
             let column_ZayavnykZmist = { name: 'zayavnyk_zmist', index: 2 };
-            let column_controlDate = { name: 'controlDate', index: 3 };
+            let column_vykonavets = { name: 'vykonavets', index: 3 };
             let column_adress = { name: 'adress', index: 4 };
-            this.indexArr = [
-                column_registration_number,
-                column_zayavnyk,
-                column_ZayavnykZmist,
-                column_controlDate,
-                column_adress
-            ];
+            this.indexArr = [ column_registration_number, column_zayavnyk, column_ZayavnykZmist, column_vykonavets, column_adress];
             const workbook = this.createExcel();
             const worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
@@ -225,24 +211,24 @@
             captions.push(rowNumber);
             indexArr.forEach(el => {
                 let obj = {}
-                if (el.name === 'registration_number') {
+                if(el.name === 'registration_number') {
                     obj.key = 'registration_number';
                     obj.width = 10;
                     obj.height = 20;
                     captions.push('Номер, дата, час');
-                } else if(el.name === 'zayavnyk_zmist') {
+                }else if(el.name === 'zayavnyk_zmist') {
                     obj.key = 'zayavnyk_zmist';
                     obj.width = 44;
                     captions.push('Суть питання');
-                } else if(el.name === 'zayavnyk') {
+                }else if(el.name === 'zayavnyk') {
                     obj.key = 'zayavnyk';
                     obj.width = 30;
                     captions.push('Заявник');
-                } else if(el.name === 'controlDate') {
-                    obj.key = 'controlDate';
+                }else if(el.name === 'vykonavets') {
+                    obj.key = 'vykonavets';
                     obj.width = 16;
-                    captions.push('Дата контролю');
-                } else if(el.name === 'adress') {
+                    captions.push('Виконавець');
+                }else if(el.name === 'adress') {
                     obj.key = 'adress';
                     obj.width = 21;
                     captions.push('Місце проблеми (Об\'єкт)');
@@ -256,22 +242,30 @@
             let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk');
             let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress');
             let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date');
+            let indexVykonavets = data.columns.findIndex(el => el.code.toLowerCase() === 'vykonavets');
             let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_zmist');
             let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress');
+            let indexReceiptDate = data.columns.findIndex(el => el.code.toLowerCase() === 'receipt_date');
             for(let j = 0; j < data.rows.length; j++) {
                 const row = data.rows[j];
                 let rowItem = { number: j + 1 };
                 for(let i = 0; i < indexArr.length; i++) {
                     let el = indexArr[i];
-                    let cdValue = this.changeDateTimeValues(row.values[indexControlDate]);
                     if (el.name === 'registration_number') {
-                        rowItem.registration_number = row.values[indexRegistrationNumber];
+                        rowItem.registration_number =
+                            row.values[indexRegistrationNumber] +
+                            '. Надійшло: ' +
+                            this.changeDateTimeValues(row.values[indexReceiptDate]);
                     } else if(el.name === 'zayavnyk') {
                         rowItem.zayavnyk = row.values[indexZayavnikName] + ', ' + row.values[indexAdressZ];
                     } else if(el.name === 'zayavnyk_zmist') {
                         rowItem.zayavnyk_zmist = 'Зміст: ' + row.values[indexQuestionContent];
-                    } else if(el.name === 'controlDate') {
-                        rowItem.controlDate = cdValue;
+                    } else if(el.name === 'vykonavets') {
+                        rowItem.vykonavets =
+                            row.values[indexVykonavets] +
+                            '. ' +
+                            'Дата контролю: ' +
+                            this.changeDateTimeValues(row.values[indexControlDate]);
                     } else if(el.name === 'adress') {
                         rowItem.adress = row.values[indexAdress];
                     }
@@ -285,7 +279,7 @@
                     registration_number: el.registration_number,
                     zayavnyk: el.zayavnyk,
                     zayavnyk_zmist: el.zayavnyk_zmist,
-                    controlDate: el.controlDate,
+                    vykonavets: el.vykonavets,
                     adress: el.adress
                 }
                 worksheet.addRow(row);
@@ -328,35 +322,40 @@
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
         changeDateTimeValues: function(value) {
-            let trueDate = ' ';
-            if(value !== null) {
-                let date = new Date(value);
-                let dd = date.getDate();
-                let MM = date.getMonth();
-                let yyyy = date.getFullYear();
-                let HH = date.getUTCHours()
-                let mm = date.getMinutes();
-                MM += 1;
-                if((dd.toString()).length === 1) {
-                    dd = '0' + dd;
-                }
-                if((MM.toString()).length === 1) {
-                    MM = '0' + MM;
-                }
-                if((HH.toString()).length === 1) {
-                    HH = '0' + HH;
-                }
-                if((mm.toString()).length === 1) {
-                    mm = '0' + mm;
-                }
-                trueDate = dd + '.' + MM + '.' + yyyy;
+            let date = new Date(value);
+            let dd = date.getDate();
+            let MM = date.getMonth();
+            let yyyy = date.getFullYear();
+            let HH = date.getUTCHours()
+            let mm = date.getMinutes();
+            MM += 1;
+            if((dd.toString()).length === 1) {
+                dd = '0' + dd;
             }
-            return trueDate;
+            if((MM.toString()).length === 1) {
+                MM = '0' + MM;
+            }
+            if((HH.toString()).length === 1) {
+                HH = '0' + HH;
+            }
+            if((mm.toString()).length === 1) {
+                mm = '0' + mm;
+            }
+            return dd + '.' + MM + '.' + yyyy;
+        },
+        createElement: function(tag, props, ...children) {
+            const element = document.createElement(tag);
+            Object.keys(props).forEach(key => element[key] = props[key]);
+            if(children.length > 0) {
+                children.forEach(child =>{
+                    element.appendChild(child);
+                });
+            } return element;
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.comment === null || currentEmployeeData.comment === undefined) {
-                currentEmployeeData.comment = '';
+            if(currentEmployeeData.short_answer === null || currentEmployeeData.short_answer === undefined) {
+                currentEmployeeData.short_answer = '';
             }
             if(currentEmployeeData.zayavnyk_zmist === null || currentEmployeeData.zayavnyk_zmist === undefined) {
                 currentEmployeeData.zayavnyk_zmist = '';
@@ -389,17 +388,6 @@
             let elementСontent = this.createElement('div', {
                 className: 'elementСontent element'
             }, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', {
-                className: 'elementComment__content content',
-                innerText: String(String(currentEmployeeData.short_answer))
-            });
-            let elementComment__caption = this.createElement('div', {
-                className: 'elementComment__caption caption',
-                innerText: 'Коментар перевіряючого'
-            });
-            let elementComment = this.createElement('div', {
-                className: 'elementСontent element'
-            }, elementComment__caption, elementComment__content);
             let elementBalance__content = this.createElement('div', {
                 className: 'elementBalance__content content',
                 innerText: String(String(currentEmployeeData.balans_name))
@@ -413,7 +401,7 @@
             }, elementBalance__caption, elementBalance__content);
             let elementsWrapper = this.createElement('div', {
                 className: 'elementsWrapper'
-            }, elementAdress, elementСontent, elementComment, elementBalance);
+            }, elementAdress, elementСontent, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
@@ -428,14 +416,16 @@
             })
         },
         changeOnTable: function(message) {
-            this.orgId = message.orgId;
-            this.column = message.column;
-            this.navigation = message.navigation;
-            if(message.column !== 'На доопрацюванні') {
-                document.getElementById('table9_dooproc').style.display = 'none';
+            if(message.column !== 'Прострочені' && message.column !== 'Увага' && message.column !== 'В роботі') {
+                document.getElementById('table6__ProstrocheniUvagaVRoboti').style.display = 'none';
             }else{
-                document.getElementById('table9_dooproc').style.display = 'block';
+                this.orgId = message.orgId;
+                this.orgName = message.orgName;
+                this.column = message.column;
+                this.navigation = message.navigation;
+                document.getElementById('table6__ProstrocheniUvagaVRoboti').style.display = 'block';
                 this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
+                    { key: '@organizationName', value: message.orgName},
                     { key: '@column', value: message.column},
                     { key: '@navigation', value: message.navigation}];
                 this.loadData(this.afterLoadDataHandler);

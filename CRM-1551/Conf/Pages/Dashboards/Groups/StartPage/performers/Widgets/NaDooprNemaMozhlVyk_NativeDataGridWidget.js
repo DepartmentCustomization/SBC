@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'NaDooprNemaMozhlVyk_686',
+                code: 'NaDooprNemaMozhlVyk',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -130,7 +130,7 @@
         },
         exportToExcel: function() {
             let exportQuery = {
-                queryCode: this.config.query.code,
+                queryCode: 'NaDooprNemaMozhlVyk',
                 limit: -1,
                 parameterValues: [
                     { key: '@organization_id', value: this.orgId},

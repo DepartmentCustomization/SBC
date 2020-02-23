@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'NaDooprNemaMozhlVyk_686',
+                code: 'Nadiyshlo',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -14,6 +14,11 @@
                     dataField: 'registration_number',
                     caption: 'Номер питання',
                     width: 150
+                }, {
+                    dataField: 'ass_registration_date',
+                    caption: 'Дата надходження',
+                    dataType: 'datetime',
+                    format: 'dd.MM.yyyy HH:mm'
                 }, {
                     dataField: 'QuestionType',
                     caption: 'Тип питання'
@@ -29,8 +34,16 @@
                     dataType: 'datetime',
                     format: 'dd.MM.yyyy HH:mm'
                 }, {
-                    dataField: 'rework_counter',
-                    caption: 'Лічильник'
+                    dataField: 'transfer_to_organization_id',
+                    caption: 'Виконавець',
+                    lookup: {
+                        dataSource: {
+                            paginate: true,
+                            store: this.elements
+                        },
+                        valueExpr: 'ID',
+                        displayExpr: 'Name'
+                    }
                 }
             ],
             masterDetail: {
@@ -62,11 +75,19 @@
                 visible: false,
                 highlightCaseSensitive: true
             },
+            editing: {
+                mode: 'cell',
+                allowUpdating: true,
+                useIcons: true
+            },
+            selection:{
+                mode: 'multiple'
+            },
             sorting: {
                 mode: 'multiple'
             },
-            keyExpr: 'Id',
             focusedRowEnabled: true,
+            keyExpr: 'Id',
             showBorders: false,
             showColumnLines: false,
             showRowLines: true,
@@ -81,13 +102,14 @@
             showFilterRow: true,
             showHeaderFilter: false,
             showColumnChooser: false,
-            showColumnFixing: true,
-            groupingAutoExpandAll: null
+            showColumnFixing: true
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 300;
-            document.getElementById('table9_dooproc').style.display = 'none';
+            document.getElementById('table41__arrived').style.display = 'none';
             this.sub = this.messageService.subscribe('clickOnTable2', this.changeOnTable, this);
+            this.sub1 = this.messageService.subscribe('messageWithOrganizationId', this.orgIdDistribute, this);
+            this.changedRows = [];
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
@@ -96,46 +118,21 @@
                         window.open(String(
                             location.origin +
                             localStorage.getItem('VirtualPath') +
-                            '/sections/Assignments/edit/' +
-                            e.key
+                            '/sections/Assignments/edit/' + e.key
                         ));
                     }
                 }
             });
-        },
-        createElement: function(tag, props, ...children) {
-            const element = document.createElement(tag);
-            Object.keys(props).forEach(key => element[key] = props[key]);
-            if(children.length > 0) {
-                children.forEach(child =>{
-                    element.appendChild(child);
-                });
-            } return element;
-        },
-        createTableButton: function(e) {
-            let toolbarItems = e.toolbarOptions.items;
-            toolbarItems.push({
-                widget: 'dxButton',
-                options: {
-                    icon: 'exportxlsx',
-                    type: 'default',
-                    text: 'Excel',
-                    onClick: function(e) {
-                        e.event.stopImmediatePropagation();
-                        this.exportToExcel();
-                    }.bind(this)
-                },
-                location: 'after'
-            });
+            this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         exportToExcel: function() {
             let exportQuery = {
-                queryCode: this.config.query.code,
+                queryCode: 'Nadiyshlo',
                 limit: -1,
                 parameterValues: [
                     { key: '@organization_id', value: this.orgId},
-                    { key: '@column', value: this.column},
-                    { key: '@navigation', value: this.navigation}
+                    { key: '@organizationName', value: this.orgName},
+                    { key: '@navigation', value: this.navigator}
                 ]
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
@@ -145,14 +142,14 @@
             this.indexArr = [];
             let column_registration_number = { name: 'registration_number', index: 0 };
             let column_zayavnyk = { name: 'zayavnyk', index: 1 };
-            let column_ZayavnykZmist = { name: 'zayavnyk_zmist', index: 2 };
-            let column_controlDate = { name: 'controlDate', index: 3 };
+            let column_QuestionType = { name: 'QuestionType', index: 2 };
+            let column_vykonavets = { name: 'vykonavets', index: 3 };
             let column_adress = { name: 'adress', index: 4 };
             this.indexArr = [
                 column_registration_number,
                 column_zayavnyk,
-                column_ZayavnykZmist,
-                column_controlDate,
+                column_QuestionType,
+                column_vykonavets,
                 column_adress
             ];
             const workbook = this.createExcel();
@@ -214,7 +211,7 @@
                 bold: true,
                 italic: false
             };
-            worksheet.getRow(5).alignment = { vertical: 'middle', horizontal: 'left' };
+            worksheet.getRow(4).alignment = { vertical: 'middle', horizontal: 'left' };
             let indexArr = this.indexArr;
             let rows = [];
             let captions = [];
@@ -230,18 +227,18 @@
                     obj.width = 10;
                     obj.height = 20;
                     captions.push('Номер, дата, час');
-                } else if(el.name === 'zayavnyk_zmist') {
-                    obj.key = 'zayavnyk_zmist';
+                } else if(el.name === 'QuestionType') {
+                    obj.key = 'QuestionType';
                     obj.width = 44;
                     captions.push('Суть питання');
                 } else if(el.name === 'zayavnyk') {
                     obj.key = 'zayavnyk';
                     obj.width = 30;
                     captions.push('Заявник');
-                } else if(el.name === 'controlDate') {
-                    obj.key = 'controlDate';
+                } else if(el.name === 'vykonavets') {
+                    obj.key = 'vykonavets';
                     obj.width = 16;
-                    captions.push('Дата контролю');
+                    captions.push('Виконавець');
                 } else if(el.name === 'adress') {
                     obj.key = 'adress';
                     obj.width = 21;
@@ -255,23 +252,30 @@
             let indexRegistrationNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'registration_number');
             let indexZayavnikName = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk');
             let indexAdress = data.columns.findIndex(el => el.code.toLowerCase() === 'adress');
-            let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date');
+            let indexVykonavets = data.columns.findIndex(el => el.code.toLowerCase() === 'vykonavets');
             let indexQuestionContent = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_zmist');
             let indexAdressZ = data.columns.findIndex(el => el.code.toLowerCase() === 'zayavnyk_adress');
+            let indexRegistrDate = data.columns.findIndex(el => el.code.toLowerCase() === 'ass_registration_date');
+            let indexControlDate = data.columns.findIndex(el => el.code.toLowerCase() === 'control_date');
             for(let j = 0; j < data.rows.length; j++) {
                 const row = data.rows[j];
                 let rowItem = { number: j + 1 };
-                for(let i = 0; i < indexArr.length; i++) {
+                for (let i = 0; i < indexArr.length; i++) {
                     let el = indexArr[i];
-                    let cdValue = this.changeDateTimeValues(row.values[indexControlDate]);
                     if (el.name === 'registration_number') {
-                        rowItem.registration_number = row.values[indexRegistrationNumber];
+                        rowItem.registration_number =
+                            row.values[indexRegistrationNumber] +
+                            ', ' +
+                            this.changeDateTimeValues(row.values[indexRegistrDate]);
                     } else if(el.name === 'zayavnyk') {
                         rowItem.zayavnyk = row.values[indexZayavnikName] + ', ' + row.values[indexAdressZ];
-                    } else if(el.name === 'zayavnyk_zmist') {
-                        rowItem.zayavnyk_zmist = 'Зміст: ' + row.values[indexQuestionContent];
-                    } else if(el.name === 'controlDate') {
-                        rowItem.controlDate = cdValue;
+                    } else if(el.name === 'QuestionType') {
+                        rowItem.QuestionType = 'Зміст: ' + row.values[indexQuestionContent];
+                    } else if(el.name === 'vykonavets') {
+                        rowItem.vykonavets =
+                            row.values[indexVykonavets] +
+                            '. Дата контролю:  ' +
+                            this.changeDateTimeValues(row.values[indexControlDate]);
                     } else if(el.name === 'adress') {
                         rowItem.adress = row.values[indexAdress];
                     }
@@ -284,8 +288,8 @@
                     number: number,
                     registration_number: el.registration_number,
                     zayavnyk: el.zayavnyk,
-                    zayavnyk_zmist: el.zayavnyk_zmist,
-                    controlDate: el.controlDate,
+                    QuestionType: el.QuestionType,
+                    vykonavets: el.vykonavets,
                     adress: el.adress
                 }
                 worksheet.addRow(row);
@@ -309,7 +313,7 @@
                     name: 'Times New Roman',
                     family: 4, size: 10,
                     underline: false,
-                    bold: false ,
+                    bold: false,
                     italic: false
                 };
             }
@@ -328,35 +332,93 @@
             this.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
         },
         changeDateTimeValues: function(value) {
-            let trueDate = ' ';
-            if(value !== null) {
-                let date = new Date(value);
-                let dd = date.getDate();
-                let MM = date.getMonth();
-                let yyyy = date.getFullYear();
-                let HH = date.getUTCHours()
-                let mm = date.getMinutes();
-                MM += 1;
-                if((dd.toString()).length === 1) {
-                    dd = '0' + dd;
-                }
-                if((MM.toString()).length === 1) {
-                    MM = '0' + MM;
-                }
-                if((HH.toString()).length === 1) {
-                    HH = '0' + HH;
-                }
-                if((mm.toString()).length === 1) {
-                    mm = '0' + mm;
-                }
-                trueDate = dd + '.' + MM + '.' + yyyy;
+            let date = new Date(value);
+            let dd = date.getDate();
+            let MM = date.getMonth();
+            let yyyy = date.getFullYear();
+            let HH = date.getUTCHours()
+            let mm = date.getMinutes();
+            MM += 1;
+            if ((dd.toString()).length === 1) {
+                dd = '0' + dd;
             }
+            if ((MM.toString()).length === 1) {
+                MM = '0' + MM;
+            }
+            if ((HH.toString()).length === 1) {
+                HH = '0' + HH;
+            }
+            if ((mm.toString()).length === 1) {
+                mm = '0' + mm;
+            }
+            let trueDate = dd + '.' + MM + '.' + yyyy;
             return trueDate;
+        },
+        orgIdDistribute: function(message) {
+            this.organizationId = message.value;
+            this.distribute = message.distribute;
+        },
+        createTableButton: function(e) {
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
+                        this.exportToExcel();
+                    }.bind(this)
+                },
+                location: 'after'
+            });
+            toolbarItems.push({
+                widget: 'dxButton',
+                options: {
+                    icon: 'upload',
+                    type: 'default',
+                    text: 'Розподiлити',
+                    elementAttr: {
+                        id: 'button_ozpodil'
+                    },
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
+                        this.findAllSelectRowsRozpodil();
+                    }.bind(this)
+                },
+                location: 'after'
+            });
+            toolbarItems.push({
+                widget: 'dxButton',
+                options: {
+                    icon: 'check',
+                    type: 'default',
+                    text: 'Взяти в роботу',
+                    elementAttr: {
+                        id: 'button_arrived'
+                    },
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
+                        this.findAllSelectRowsToArrived();
+                    }.bind(this)
+                },
+                location: 'after'
+            });
+        },
+        createElement: function(tag, props, ...children) {
+            const element = document.createElement(tag);
+            Object.keys(props).forEach(key => element[key] = props[key]);
+            if(children.length > 0) {
+                children.forEach(child =>{
+                    element.appendChild(child);
+                });
+            } return element;
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.comment === null || currentEmployeeData.comment === undefined) {
-                currentEmployeeData.comment = '';
+            if(currentEmployeeData.short_answer === null || currentEmployeeData.short_answer === undefined) {
+                currentEmployeeData.short_answer = '';
             }
             if(currentEmployeeData.zayavnyk_zmist === null || currentEmployeeData.zayavnyk_zmist === undefined) {
                 currentEmployeeData.zayavnyk_zmist = '';
@@ -389,17 +451,6 @@
             let elementСontent = this.createElement('div', {
                 className: 'elementСontent element'
             }, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', {
-                className: 'elementComment__content content',
-                innerText: String(String(currentEmployeeData.short_answer))
-            });
-            let elementComment__caption = this.createElement('div', {
-                className: 'elementComment__caption caption',
-                innerText: 'Коментар перевіряючого'
-            });
-            let elementComment = this.createElement('div', {
-                className: 'elementСontent element'
-            }, elementComment__caption, elementComment__content);
             let elementBalance__content = this.createElement('div', {
                 className: 'elementBalance__content content',
                 innerText: String(String(currentEmployeeData.balans_name))
@@ -413,7 +464,7 @@
             }, elementBalance__caption, elementBalance__content);
             let elementsWrapper = this.createElement('div', {
                 className: 'elementsWrapper'
-            }, elementAdress, elementСontent, elementComment, elementBalance);
+            }, elementAdress, elementСontent, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
@@ -428,24 +479,86 @@
             })
         },
         changeOnTable: function(message) {
-            this.orgId = message.orgId;
-            this.column = message.column;
-            this.navigation = message.navigation;
-            if(message.column !== 'На доопрацюванні') {
-                document.getElementById('table9_dooproc').style.display = 'none';
-            }else{
-                document.getElementById('table9_dooproc').style.display = 'block';
+            if(message.column !== 'Надійшло') {
+                document.getElementById('table41__arrived').style.display = 'none';
+            }else if (this.distribute === 1) {
+                this.column = message.column;
+                this.navigator = message.navigation;
+                this.targetId = message.targetId;
+                this.orgId = message.orgId;
+                this.orgName = message.orgName;
+                document.getElementById('table41__arrived').style.display = 'block';
                 this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
-                    { key: '@column', value: message.column},
+                    { key: '@organizationName', value: message.orgName},
                     { key: '@navigation', value: message.navigation}];
-                this.loadData(this.afterLoadDataHandler);
+                let executeQuery = {
+                    queryCode: 'Lookup_NeVKompetencii_PidOrganization',
+                    parameterValues: [ {key: '@organization_id', value: this.organizationId} ],
+                    limit: -1
+                };
+                this.queryExecutor(executeQuery, this.lookupFoo, this);
             }
+        },
+        lookupFoo: function(data) {
+            this.elements = [];
+            for(let i = 0; i < data.rows.length; i++) {
+                let el = data.rows[i];
+                let obj = {
+                    'ID': el.values[0],
+                    'Name': el.values[1]
+                }
+                this.elements.push(obj);
+            }
+            this.config.columns[6].lookup.dataSource.store = this.elements;
+            this.loadData(this.afterLoadDataHandler);
+        },
+        findAllSelectRowsToArrived: function() {
+            let rows = this.dataGridInstance.selectedRowKeys;
+            if(rows.length > 0) {
+                let arrivedSendValueRows = rows.join(', ');
+                let executeQuery = {
+                    queryCode: 'Button_Nadiishlo_VzyatyVRobotu',
+                    parameterValues: [ {key: '@Ids', value: arrivedSendValueRows} ],
+                    limit: -1
+                };
+                this.queryExecutor(executeQuery);
+                this.loadData(this.afterLoadDataHandler);
+                this.messageService.publish({
+                    name: 'reloadMainTable',
+                    column: this.column,
+                    navigator: this.navigator,
+                    targetId: this.targetId
+                });
+            }
+        },
+        findAllSelectRowsRozpodil: function() {
+            let rows = this.dataGridInstance.instance.getSelectedRowsData();
+            if(rows.length > 0) {
+                rows.forEach(function(el) {
+                    let executeQuery = {
+                        queryCode: 'Button_Nadiishlo_Rozpodility',
+                        parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
+                            {key: '@Id', value: el.Id} ],
+                        limit: -1
+                    };
+                    this.queryExecutor(executeQuery);
+                }.bind(this));
+                this.loadData(this.afterLoadDataHandler);
+                this.messageService.publish({
+                    name: 'reloadMainTable',
+                    column: this.column,
+                    navigator: this.navigator,
+                    targetId: this.targetId
+                });
+            }
+        },
+        reloadAfterSend: function() {
+            this.loadData(this.afterLoadDataHandler);
         },
         afterLoadDataHandler: function() {
             this.render();
-            this.createCustomStyle();
         },
-        createCustomStyle: function() {
+        afterRenderTable: function() {
             let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
             elements.forEach(function(element) {
@@ -455,6 +568,7 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         }
     };
 }());

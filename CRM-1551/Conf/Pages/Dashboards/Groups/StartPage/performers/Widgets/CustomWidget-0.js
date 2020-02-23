@@ -38,7 +38,7 @@
                 this.organizationId = [];
                 this.organizationId = (tabInd);
                 let executeQueryValues = {
-                    queryCode: 'table2_686',
+                    queryCode: 'table2',
                     limit: -1,
                     parameterValues: [ { key: '@organization_id', value: this.organizationId} ]
                 };
@@ -120,7 +120,7 @@
             );
             let tabAction__title = this.createElement('div', { className: 'tabAction tab_title', innerText: 'ЗАХІД'});
             let tabProcessingOrders__title = this.createElement('div',
-                { className: 'tabProcessingOrders tab_title', innerText: 'ОБРОБКА ДОРУЧЕНЬ'}
+                { className: 'tabProcessingOrders tab_title', innerText: 'Виконавці'}
             );
             let tabOrganizations__title = this.createElement('div', { className: 'tabOrganizations tab_title', innerText: 'ОРГАНІЗАЦІЇ'});
             let tabFinder__title = this.createElement('div', { className: ' tab_title', innerText: 'Розширений пошук'});
@@ -248,7 +248,7 @@
                 tableContainer.removeChild(tableContainer.childNodes[0]);
             }
             let executeQueryValues = {
-                queryCode: 'table2_686',
+                queryCode: 'table2',
                 limit: -1,
                 parameterValues: [ { key: '@organization_id', value: this.organizationId} ]
             };
