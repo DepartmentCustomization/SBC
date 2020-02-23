@@ -42,6 +42,12 @@
   FROM [dbo].[Positions] p
   INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.main_position_id
   INNER JOIN [dbo].[Positions] p2 ON ph.helper_position_id=p2.Id
+  WHERE p.[programuser_id]=@user_id
+  UNION 
+  SELECT p2.Id, p2.is_main, p2.organizations_id
+  FROM [dbo].[Positions] p
+  INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.helper_position_id
+  INNER JOIN [dbo].[Positions] p2 ON ph.main_position_id=p2.Id
   WHERE p.[programuser_id]=@user_id) t
 
   --select * from #temp_positions_user
