@@ -19,7 +19,7 @@
                 }
             };
             this.messageService.publish(msg);
-            const query = this.getQueryOptions();
+            const query = this.getQueryOptions(this.queryCode);
             this.getChunkedValues(query, this.setData, this);
         },
         setData: function(values) {
@@ -117,6 +117,8 @@
             let organization = message.package.value.find(f => f.name === 'organization').value;
             let groupOrganization = message.package.value.find(f => f.name === 'group_organization').value;
             let receiptSource = message.package.value.find(f => f.name === 'receipt_source').value;
+            let questionState = message.package.value.find(f => f.name === 'questions').value;
+            this.queryCode = questionState ? 'ConstructrtAssignmentTable' : 'ak_ConstructrQuestionTable';
             if(dateReceipt !== null) {
                 if(dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== '') {
                     this.dateReceipt__from = dateReceipt.dateFrom;
@@ -172,9 +174,9 @@
                 this.loadData();
             }
         },
-        getQueryOptions: function() {
+        getQueryOptions: function(queryCode) {
             return {
-                code: 'ak_ConstructrQuestionTable',
+                code: queryCode,
                 parameterValues: [
                     { key: '@RegistrationDateFrom', value: this.dateReceipt__from},
                     { key: '@RegistrationDateTo', value: this.dateReceipt__to},
