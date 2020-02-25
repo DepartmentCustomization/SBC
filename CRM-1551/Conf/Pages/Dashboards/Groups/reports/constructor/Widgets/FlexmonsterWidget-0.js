@@ -118,7 +118,8 @@
             let groupOrganization = message.package.value.find(f => f.name === 'group_organization').value;
             let receiptSource = message.package.value.find(f => f.name === 'receipt_source').value;
             let questionState = message.package.value.find(f => f.name === 'questions').value;
-            this.queryCode = questionState ? 'ConstructrtAssignmentTable' : 'ak_ConstructrQuestionTable';
+            this.queryCode = questionState ?
+                'ConstructrtAssignmentTable' : 'ak_ConstructrQuestionTable';
             if(dateReceipt !== null) {
                 if(dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== '') {
                     this.dateReceipt__from = dateReceipt.dateFrom;
