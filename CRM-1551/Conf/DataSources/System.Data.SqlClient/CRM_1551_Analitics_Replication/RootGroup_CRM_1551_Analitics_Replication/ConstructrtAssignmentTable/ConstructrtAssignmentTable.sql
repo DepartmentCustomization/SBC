@@ -108,9 +108,9 @@ END
 --select * from [OrganizationGroups]
 SELECT
   Ass.Id AS AssignmentId,
-  Ass.Registration_date,
-  [Vykon].Log_Date Vykon_date,
-  [Closed].Log_Date Close_date,
+  CONVERT(VARCHAR(16),[Que].Registration_date, 120) AS Registration_date,
+  CONVERT(VARCHAR(16),[Vykon].Log_Date, 120) AS Vykon_date,
+  CONVERT(VARCHAR(16),[Closed].Log_Date, 120) Close_date,
   [AssState].[name] [AssignmentState],
   1 Count_,
   CASE
