@@ -55,7 +55,7 @@
                 'Батькiвська 2 рiвень': values[index][indexOrgatization_Level_2],
                 'Батькiвська 3 рiвень': values[index][indexOrgatization_Level_3],
                 'Батькiвська 4 рiвень': values[index][indexOrgatization_Level_4],
-                'Дата регистрации': values[index][indexRegistration_date],
+                'Дата реєстрації': values[index][indexRegistration_date],
                 'Дата виконання': values[index][indexVykon_date],
                 'Дата закриття': values[index][indexClose_date],
                 'Стан питання': values[index][indexQuestionState],
