@@ -94,13 +94,13 @@
                 this.details.setVisibility('Site_Applicant', true);
                 this.form.setControlValue('Applicant_INFO', 'Буде створено новий заявник в системі "'
                     + this.form.getControlValue('ApplicantFromSite_PIB') + '"');
-                if (this.form.getControlValue('1551_ApplicantFromSite_Address_Building')) {
+                if (this.form.getControlValue('ApplicantFromSite_Address_Building')) {
                     const queryFor_Applicant1551_Build = {
                         queryCode: 'GetOrgById',
                         parameterValues: [
                             {
                                 key: '@Id',
-                                value: this.form.getControlValue('1551_ApplicantFromSite_Address_Building')
+                                value: this.form.getControlValue('ApplicantFromSite_Address_Building')
                             }
                         ]
                     };
@@ -207,7 +207,7 @@
                         },
                         {
                             key: '@1551_ApplicantFromSite_Address_Building',
-                            value: this.form.getControlValue('1551_ApplicantFromSite_Address_Building')
+                            value: this.form.getControlValue('ApplicantFromSite_Address_Building')
                         },
                         {
                             key: '@1551_ApplicantFromSite_Address_Entrance',
@@ -426,7 +426,7 @@
         SerchApplicant1551:function() {
             const parameters = [
                 { key: '@AppealFromSite_Id', value: this.id },
-                { key: '@BuildingId', value: this.form.getControlValue('1551_ApplicantFromSite_Address_Building') },
+                { key: '@BuildingId', value: this.form.getControlValue('ApplicantFromSite_Address_Building') },
                 { key: '@Flat', value: this.form.getControlValue('1551_ApplicantFromSite_Address_Flat') }
             ];
             const filters = [
