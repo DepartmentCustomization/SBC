@@ -80,7 +80,7 @@
             const report = {
                 dataSource: {
                     data: reportData
-                }
+                },
             };
             this.flexmonster.setReport(report);
         },
@@ -119,12 +119,11 @@
             let groupOrganization = message.package.value.find(f => f.name === 'group_organization').value;
             let receiptSource = message.package.value.find(f => f.name === 'receipt_source').value;
             let questionState = message.package.value.find(f => f.name === 'questions').value;
-            this.queryCode = questionState ? 'ConstructrtAssignmentTable' : 'ak_ConstructrQuestionTable';
+            this.queryCode = questionState ? 'ak_ConstructrQuestionTable' : 'ConstructrtAssignmentTable';
             if(dateReceipt !== null) {
                 if(dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== '') {
                     this.dateReceipt__from = dateReceipt.dateFrom;
                     this.dateReceipt__to = dateReceipt.dateTo;
-                    debugger;
                     if(dateExecution !== null) {
                         this.dateExecution__from = dateExecution.dateFrom === '' ? null : dateExecution.dateFrom;
                         this.dateExecution__to = dateExecution.dateTo === '' ? null : dateExecution.dateTo;
