@@ -19,7 +19,7 @@
                 }
             };
             this.messageService.publish(msg);
-            const query = this.getQueryOptions(this.queryCode);
+            const query = this.getQueryOptions();
             this.getChunkedValues(query, this.setData, this);
         },
         setData: function(values) {
@@ -175,9 +175,9 @@
                 this.loadData();
             }
         },
-        getQueryOptions: function(queryCode) {
+        getQueryOptions: function() {
             return {
-                code: queryCode,
+                code: this.queryCode,
                 parameterValues: [
                     { key: '@RegistrationDateFrom', value: this.dateReceipt__from},
                     { key: '@RegistrationDateTo', value: this.dateReceipt__to},
