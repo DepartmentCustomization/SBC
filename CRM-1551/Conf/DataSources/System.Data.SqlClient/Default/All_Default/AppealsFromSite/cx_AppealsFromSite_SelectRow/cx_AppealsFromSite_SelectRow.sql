@@ -224,7 +224,9 @@ CASE
 	afs.[geolocation_lat] AS [AppealFromSite_geolocation_lat],
 	afs.[geolocation_lon] AS [AppealFromSite_geolocation_lon],
 	applicantObj.Id	AS ApplicantFromSite_Address_Building,
-	applicantObj.name AS ApplicantFromSite_Address_BuildingName
+	applicantObj.name AS ApplicantFromSite_Address_BuildingName,
+	abi.is_verified AS isVerify,
+	afs.Content AS question_content
 FROM
 	[CRM_1551_Site_Integration].[dbo].[AppealsFromSite] afs
 	LEFT JOIN [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite] abi ON abi.Id = afs.ApplicantFromSiteId

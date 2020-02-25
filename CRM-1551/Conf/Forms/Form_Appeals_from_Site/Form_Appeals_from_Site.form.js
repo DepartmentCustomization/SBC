@@ -82,6 +82,7 @@
             this.form.disableControl('AppealFromSite_geolocation_lon');
             this.form.disableControl('1551_ApplicantFromSite_PIB');
             this.form.disableControl('1551_ApplicantFromSite_Phone');
+            this.form.disableControl('isVerify');
             this.form.setControlValue('1551_ApplicantFromSite_PIB',this.form.getControlValue('ApplicantFromSite_PIB'));
             this.form.setControlValue('1551_ApplicantFromSite_Phone',
                 this.form.getControlValue('ApplicantFromSite_Phone'));
@@ -113,10 +114,12 @@
             document.getElementById('btn_person1551_question').addEventListener('click', function() {
                 this.CreateApplicant1551();
                 this.details.setVisibility('Site_Applicant', true);
+                this.form.setGroupExpanding('Group_PreviewApplicant', false);
             }.bind(this));
             document.getElementById('btn_searchPerson').addEventListener('click', function() {
                 this.form.setGroupVisibility('Group2', true);
                 this.form.setControlVisibility('btn_CreateApplicant1551', false);
+                this.form.setGroupExpanding('Group_App_site', false);
             }.bind(this));
             document.getElementById('btn_searchAdressByCoordinate').addEventListener('click', function() {
                 window.open(String(location.origin + localStorage.getItem('VirtualPath')
