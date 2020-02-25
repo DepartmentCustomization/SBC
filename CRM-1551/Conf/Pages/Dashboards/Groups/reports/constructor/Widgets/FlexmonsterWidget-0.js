@@ -19,7 +19,7 @@
                 }
             };
             this.messageService.publish(msg);
-            const query = this.getQueryOptions(this.queryCode);
+            const query = this.getQueryOptions();
             this.getChunkedValues(query, this.setData, this);
         },
         setData: function(values) {
@@ -118,7 +118,8 @@
             let groupOrganization = message.package.value.find(f => f.name === 'group_organization').value;
             let receiptSource = message.package.value.find(f => f.name === 'receipt_source').value;
             let questionState = message.package.value.find(f => f.name === 'questions').value;
-            this.queryCode = questionState ? 'ConstructrtAssignmentTable' : 'ak_ConstructrQuestionTable';
+            this.queryCode = questionState ?
+                'ConstructrtAssignmentTable' : 'ak_ConstructrQuestionTable';
             if(dateReceipt !== null) {
                 if(dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== '') {
                     this.dateReceipt__from = dateReceipt.dateFrom;
@@ -174,9 +175,9 @@
                 this.loadData();
             }
         },
-        getQueryOptions: function(queryCode) {
+        getQueryOptions: function() {
             return {
-                code: queryCode,
+                code: this.queryCode,
                 parameterValues: [
                     { key: '@RegistrationDateFrom', value: this.dateReceipt__from},
                     { key: '@RegistrationDateTo', value: this.dateReceipt__to},
