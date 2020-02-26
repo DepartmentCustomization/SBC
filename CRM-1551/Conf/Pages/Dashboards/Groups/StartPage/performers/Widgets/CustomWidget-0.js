@@ -8,6 +8,7 @@
                         <div id = 'container'></div>
                     `
         ,
+        queryCodeTable: 'dbArt_table2',  
         init: function() {
             this.messageService.publish({ name: 'showPagePreloader' });
             const header = document.getElementById('header1');
@@ -38,7 +39,7 @@
                 this.organizationId = [];
                 this.organizationId = (tabInd);
                 let executeQueryValues = {
-                    queryCode: 'table2',
+                    queryCode: this.queryCodeTable,
                     limit: -1,
                     parameterValues: [ { key: '@organization_id', value: this.organizationId} ]
                 };
@@ -226,14 +227,14 @@
                     this.showTable(searchContainer__input);
                 }
             });
-            searchContainer__input.addEventListener('keypress', function(e) {
+            searchContainer__input.addEventListener('keypress', e => {
                 let key = e.which || e.keyCode;
                 if (key === 13) {
                     this.resultSearch('resultSearch', searchContainer__input.value, this.organizationId);
                     this.resultSearch('clickOnTable2', 'none');
                     this.hideAllItems(0);
                 }
-            }.bind(this));
+            });
             const organizationName = this.createElement('div', { id: 'organizationName', className: 'organizationName' });
             this.organizationName = organizationName;
             filtersWrapper.appendChild(organizationName);
@@ -248,7 +249,7 @@
                 tableContainer.removeChild(tableContainer.childNodes[0]);
             }
             let executeQueryValues = {
-                queryCode: 'table2',
+                queryCode: this.queryCodeTable,
                 limit: -1,
                 parameterValues: [ { key: '@organization_id', value: this.organizationId} ]
             };

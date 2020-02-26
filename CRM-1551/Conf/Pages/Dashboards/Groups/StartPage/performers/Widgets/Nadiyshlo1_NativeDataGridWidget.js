@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'Nadiyshlo',
+                code: 'dbArt_Nadiyshlo',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],

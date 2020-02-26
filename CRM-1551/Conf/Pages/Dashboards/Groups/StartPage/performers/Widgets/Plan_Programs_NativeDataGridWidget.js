@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'NaDooprNemaMozhlVyk',
+                code: 'dbArt_NaDooprNemaMozhlVyk',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -201,7 +201,6 @@
                 document.getElementById('table10_Plan_Programs').style.display = 'none';
             }else{
                 document.getElementById('table10_Plan_Programs').style.display = 'block';
-                this.config.query.queryCode = 'NaDooprNemaMozhlVyk';
                 this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
                     { key: '@column', value: message.column},
                     { key: '@navigation', value: message.navigation}];

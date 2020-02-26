@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'NeVKompetentcii',
+                code: 'dbArt_NeVKompetentcii',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
