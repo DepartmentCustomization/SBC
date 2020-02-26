@@ -112,6 +112,7 @@ SELECT
   CONVERT(VARCHAR(16),[Vykon].Log_Date, 120) AS Vykon_date,
   CONVERT(VARCHAR(16),[Closed].Log_Date, 120) Close_date,
   [QuestionStates].name [QuestionState],
+  [AssState].[name] [AssignmentState],
   1 Count_,
   CASE
     WHEN [Vykon].Log_Date > [Que].control_date THEN 1
@@ -188,6 +189,7 @@ FROM
   LEFT JOIN dbo.[Appeals] ON [Que].appeal_id = [Appeals].Id
   LEFT JOIN dbo.[ReceiptSources] ON [Appeals].receipt_source_id = [ReceiptSources].Id
   LEFT JOIN dbo.[Assignments] AS [Ass] ON [Que].last_assignment_for_execution_id = [Ass].Id
+  LEFT JOIN dbo.[AssignmentStates] AS [AssState] ON Ass.assignment_state_id = [AssState].Id
   LEFT JOIN dbo.[Objects] AS [Obj] ON [Que].[object_id] = [Obj].Id
   LEFT JOIN dbo.[AssignmentResolutions] AS [Resolution] ON [Resolution].Id = [Ass].AssignmentResolutionsId
   LEFT JOIN dbo.[AssignmentResults] AS [Result] ON [Result].Id = [Ass].AssignmentResultsId
@@ -282,4 +284,4 @@ FROM
                 QueTypeId
               FROM
                 #temp_OUT_QuestionGroup)
-            AND  #filter_columns# 
+            AND #filter_columns# 
