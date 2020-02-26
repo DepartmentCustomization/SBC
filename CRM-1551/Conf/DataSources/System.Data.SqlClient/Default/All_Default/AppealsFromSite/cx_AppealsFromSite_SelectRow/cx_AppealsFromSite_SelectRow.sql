@@ -1,4 +1,4 @@
--- DECLARE @Id INT = 3172;
+-- DECLARE @Id INT = 3198;
 
 SELECT
 	TOP 1
@@ -226,7 +226,9 @@ CASE
 	applicantObj.Id	AS ApplicantFromSite_Address_Building,
 	applicantObj.name AS ApplicantFromSite_Address_BuildingName,
 	abi.is_verified AS isVerify,
-	afs.Content AS question_content
+	afs.Content AS question_content,
+	afs.ObjectId AS Question_Building,
+	obj.[name] AS Question_BuildingName
 FROM
 	[CRM_1551_Site_Integration].[dbo].[AppealsFromSite] afs
 	LEFT JOIN [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite] abi ON abi.Id = afs.ApplicantFromSiteId
