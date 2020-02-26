@@ -1,9 +1,9 @@
---  declare @RegistrationDateFrom datetime = '2020-02-01 06:00';
---  declare @RegistrationDateTo datetime = '2020-02-24 14:25';
---  declare @OrganizationExecId int = 1;
---  declare @OrganizationExecGroupId int;
---  declare @ReceiptSourcesId int = null;
---  declare @QuestionGroupId int;
+  -- declare @RegistrationDateFrom datetime = '2020-01-01 06:00';
+  -- declare @RegistrationDateTo datetime = '2020-02-24 14:25';
+  -- declare @OrganizationExecId int = 1;
+  -- declare @OrganizationExecGroupId int;
+  -- declare @ReceiptSourcesId int = null;
+  -- declare @QuestionGroupId int;
 
 IF object_id('tempdb..#temp_OUT') IS NOT NULL 
 BEGIN
@@ -107,11 +107,10 @@ END
 --select * from #temp_OUT
 --select * from [OrganizationGroups]
 SELECT
-  [Que].Id AS QuestionId,
+  Ass.Id AS AssignmentId,
   CONVERT(VARCHAR(16),[Que].Registration_date, 120) AS Registration_date,
   CONVERT(VARCHAR(16),[Vykon].Log_Date, 120) AS Vykon_date,
   CONVERT(VARCHAR(16),[Closed].Log_Date, 120) Close_date,
-  [QuestionStates].name [QuestionState],
   [AssState].[name] [AssignmentState],
   1 Count_,
   CASE
@@ -119,6 +118,7 @@ SELECT
     ELSE 0
   END Сount_prostr,
   [Organizations1].[Id] AS OrgExecutId,
+  [QuesStates].[name] AS [QuestionState],
   [Organizations1].[Name] AS OrgExecutName,
   [Organizations1].[Level] AS LevelToOrgatization,
   [Organizations1].[OrgName_Level1] Orgatization_Level_1,
@@ -160,36 +160,37 @@ SELECT
   [QueTypes].[Id] AS [QuestionTypeId],
   QueTypes.[name] AS [QuestionTypeName],
   CASE
-    WHEN QuestionStates.[name] = N'Зареєстровано' THEN 1
+    WHEN [AssState].[name] = N'Зареєстровано' THEN 1
     ELSE 0
   END AS stateRegistered,
   CASE
-    WHEN QuestionStates.[name] = N'В роботі' THEN 1
+    WHEN [AssState].[name] = N'В роботі' THEN 1
     ELSE 0
   END AS stateInWork,
   CASE
-    WHEN QuestionStates.[name] = N'На перевірці' THEN 1
+    WHEN [AssState].[name] = N'На перевірці' THEN 1
     ELSE 0
   END AS stateOnCheck,
   CASE
-    WHEN QuestionStates.[name] = N'На доопрацюванні' THEN 1
+    WHEN [AssState].[name] = N'Не виконано' THEN 1
     ELSE 0
   END AS stateOnRefinement,
   CASE
-    WHEN QuestionStates.[name] = N'Закрито' THEN 1
+    WHEN [AssState].[name] = N'Закрито' THEN 1
     ELSE 0
   END AS stateClose,
   [Obj].[name] AS objectName,
   isnull([Resolution].[name], N'Невідомо') AS resolution,
   isnull([Result].[name], N'Невідомо') AS result
 FROM
-  dbo.[Questions] AS [Que] 
+ dbo.[Assignments] AS [Ass]   
+  INNER JOIN dbo.[Questions] AS [Que] ON [Que].Id = [Ass].question_id
   LEFT JOIN dbo.[QuestionTypes] AS [QueTypes] ON [Que].question_type_id = [QueTypes].Id
-  LEFT JOIN dbo.[QuestionStates] ON [Que].question_state_id = [QuestionStates].Id
+  LEFT JOIN dbo.[QuestionStates] AS [QuesStates] ON [QuesStates].Id = [Que].question_state_id
+  LEFT JOIN dbo.[AssignmentStates] AS [AssState] ON Ass.assignment_state_id = [AssState].Id
   LEFT JOIN dbo.[Appeals] ON [Que].appeal_id = [Appeals].Id
   LEFT JOIN dbo.[ReceiptSources] ON [Appeals].receipt_source_id = [ReceiptSources].Id
-  LEFT JOIN dbo.[Assignments] AS [Ass] ON [Que].last_assignment_for_execution_id = [Ass].Id
-  LEFT JOIN dbo.[AssignmentStates] AS [AssState] ON Ass.assignment_state_id = [AssState].Id
+
   LEFT JOIN dbo.[Objects] AS [Obj] ON [Que].[object_id] = [Obj].Id
   LEFT JOIN dbo.[AssignmentResolutions] AS [Resolution] ON [Resolution].Id = [Ass].AssignmentResolutionsId
   LEFT JOIN dbo.[AssignmentResults] AS [Result] ON [Result].Id = [Ass].AssignmentResultsId
@@ -266,7 +267,7 @@ FROM
           n = 1
       ) Closed ON [Ass].Id = Closed.assignment_id
     WHERE 
-      CAST([Que].Registration_date AS DATE) 
+      CAST([Que].Registration_date AS DATE)
       BETWEEN CAST(@RegistrationDateFrom AS DATE)
       AND CAST(@RegistrationDateTo AS DATE)
       AND (
@@ -284,4 +285,4 @@ FROM
                 QueTypeId
               FROM
                 #temp_OUT_QuestionGroup)
-            AND #filter_columns# 
+             AND  #filter_columns# 
