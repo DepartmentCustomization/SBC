@@ -95,21 +95,6 @@
                 this.details.setVisibility('Site_Applicant', true);
                 this.form.setControlValue('Applicant_INFO', 'Буде створено новий заявник в системі "'
                     + this.form.getControlValue('ApplicantFromSite_PIB') + '"');
-                if (this.form.getControlValue('ApplicantFromSite_Address_Building')) {
-                    const queryFor_Applicant1551_Build = {
-                        queryCode: 'GetOrgById',
-                        parameterValues: [
-                            {
-                                key: '@Id',
-                                value: this.form.getControlValue('ApplicantFromSite_Address_Building')
-                            }
-                        ]
-                    };
-                    this.queryExecutor.getValues(queryFor_Applicant1551_Build).subscribe(data => {
-                        this.form.setControlValue('Question_Building',
-                            {key: data.rows[0].values[0], value: data.rows[0].values[1]});
-                    });
-                }
             }.bind(this));
             document.getElementById('btn_person1551_question').addEventListener('click', function() {
                 this.CreateApplicant1551();
