@@ -1,9 +1,9 @@
--- declare @RegistrationDateFrom datetime = '2020-01-01 06:00';
--- declare @RegistrationDateTo datetime = '2020-02-24 14:25';
--- declare @OrganizationExecId int = 1;
--- declare @OrganizationExecGroupId int;
--- declare @ReceiptSourcesId int = null;
--- declare @QuestionGroupId int;
+--  declare @RegistrationDateFrom datetime = '2020-02-01 06:00';
+--  declare @RegistrationDateTo datetime = '2020-02-24 14:25';
+--  declare @OrganizationExecId int = 1;
+--  declare @OrganizationExecGroupId int;
+--  declare @ReceiptSourcesId int = null;
+--  declare @QuestionGroupId int;
 
 IF object_id('tempdb..#temp_OUT') IS NOT NULL 
 BEGIN
@@ -108,10 +108,11 @@ END
 --select * from [OrganizationGroups]
 SELECT
   [Que].Id AS QuestionId,
-  [Que].Registration_date,
-  [Vykon].Log_Date Vykon_date,
-  [Closed].Log_Date Close_date,
+  CONVERT(VARCHAR(16),[Que].Registration_date, 120) AS Registration_date,
+  CONVERT(VARCHAR(16),[Vykon].Log_Date, 120) AS Vykon_date,
+  CONVERT(VARCHAR(16),[Closed].Log_Date, 120) Close_date,
   [QuestionStates].name [QuestionState],
+  [AssState].[name] [AssignmentState],
   1 Count_,
   CASE
     WHEN [Vykon].Log_Date > [Que].control_date THEN 1
@@ -188,6 +189,7 @@ FROM
   LEFT JOIN dbo.[Appeals] ON [Que].appeal_id = [Appeals].Id
   LEFT JOIN dbo.[ReceiptSources] ON [Appeals].receipt_source_id = [ReceiptSources].Id
   LEFT JOIN dbo.[Assignments] AS [Ass] ON [Que].last_assignment_for_execution_id = [Ass].Id
+  LEFT JOIN dbo.[AssignmentStates] AS [AssState] ON Ass.assignment_state_id = [AssState].Id
   LEFT JOIN dbo.[Objects] AS [Obj] ON [Que].[object_id] = [Obj].Id
   LEFT JOIN dbo.[AssignmentResolutions] AS [Resolution] ON [Resolution].Id = [Ass].AssignmentResolutionsId
   LEFT JOIN dbo.[AssignmentResults] AS [Result] ON [Result].Id = [Ass].AssignmentResultsId
@@ -282,4 +284,4 @@ FROM
                 QueTypeId
               FROM
                 #temp_OUT_QuestionGroup)
-             AND  #filter_columns# 
+            AND #filter_columns# 

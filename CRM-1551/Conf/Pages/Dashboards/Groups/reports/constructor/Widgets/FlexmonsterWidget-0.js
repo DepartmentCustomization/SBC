@@ -27,6 +27,7 @@
             let indexVykon_date = values[0].findIndex(el => el.code.toLowerCase() === 'vykon_date');
             let indexClose_date = values[0].findIndex(el => el.code.toLowerCase() === 'close_date');
             let indexQuestionState = values[0].findIndex(el => el.code.toLowerCase() === 'questionstate');
+            let indexAssignmentState = values[0].findIndex(el => el.code.toLowerCase() === 'assignmentstate');
             let indexCount = values[0].findIndex(el => el.code === 'Count_');
             let indexСount_prostr = values[0].findIndex(el => el.code.toLowerCase() === 'сount_prostr');
             let indexOrgExecutName = values[0].findIndex(el => el.code.toLowerCase() === 'orgexecutname');
@@ -59,6 +60,7 @@
                 'Дата виконання': values[index][indexVykon_date],
                 'Дата закриття': values[index][indexClose_date],
                 'Стан питання': values[index][indexQuestionState],
+                'Стан доручення': values[index][indexAssignmentState],
                 'Загальна кiлькiсть': values[index][indexCount],
                 'Кiлькость прострочено': values[index][indexСount_prostr],
                 'Виконавець': values[index][indexOrgExecutName],
@@ -119,12 +121,11 @@
             let groupOrganization = message.package.value.find(f => f.name === 'group_organization').value;
             let receiptSource = message.package.value.find(f => f.name === 'receipt_source').value;
             let questionState = message.package.value.find(f => f.name === 'questions').value;
-            this.queryCode = questionState ? 'ConstructrtAssignmentTable' : 'ak_ConstructrQuestionTable';
+            this.queryCode = questionState ? 'ak_ConstructrQuestionTable' : 'ConstructrtAssignmentTable';
             if(dateReceipt !== null) {
                 if(dateReceipt.dateFrom !== '' && dateReceipt.dateTo !== '') {
                     this.dateReceipt__from = dateReceipt.dateFrom;
                     this.dateReceipt__to = dateReceipt.dateTo;
-                    debugger;
                     if(dateExecution !== null) {
                         this.dateExecution__from = dateExecution.dateFrom === '' ? null : dateExecution.dateFrom;
                         this.dateExecution__to = dateExecution.dateTo === '' ? null : dateExecution.dateTo;
