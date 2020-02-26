@@ -82,6 +82,7 @@
             this.form.disableControl('AppealFromSite_geolocation_lon');
             this.form.disableControl('1551_ApplicantFromSite_PIB');
             this.form.disableControl('1551_ApplicantFromSite_Phone');
+            this.form.disableControl('isVerify');
             this.form.setControlValue('1551_ApplicantFromSite_PIB',this.form.getControlValue('ApplicantFromSite_PIB'));
             this.form.setControlValue('1551_ApplicantFromSite_Phone',
                 this.form.getControlValue('ApplicantFromSite_Phone'));
@@ -94,13 +95,13 @@
                 this.details.setVisibility('Site_Applicant', true);
                 this.form.setControlValue('Applicant_INFO', 'Буде створено новий заявник в системі "'
                     + this.form.getControlValue('ApplicantFromSite_PIB') + '"');
-                if (this.form.getControlValue('1551_ApplicantFromSite_Address_Building')) {
+                if (this.form.getControlValue('ApplicantFromSite_Address_Building')) {
                     const queryFor_Applicant1551_Build = {
                         queryCode: 'GetOrgById',
                         parameterValues: [
                             {
                                 key: '@Id',
-                                value: this.form.getControlValue('1551_ApplicantFromSite_Address_Building')
+                                value: this.form.getControlValue('ApplicantFromSite_Address_Building')
                             }
                         ]
                     };
@@ -113,10 +114,12 @@
             document.getElementById('btn_person1551_question').addEventListener('click', function() {
                 this.CreateApplicant1551();
                 this.details.setVisibility('Site_Applicant', true);
+                this.form.setGroupExpanding('Group_PreviewApplicant', false);
             }.bind(this));
             document.getElementById('btn_searchPerson').addEventListener('click', function() {
                 this.form.setGroupVisibility('Group2', true);
                 this.form.setControlVisibility('btn_CreateApplicant1551', false);
+                this.form.setGroupExpanding('Group_App_site', false);
             }.bind(this));
             document.getElementById('btn_searchAdressByCoordinate').addEventListener('click', function() {
                 window.open(String(location.origin + localStorage.getItem('VirtualPath')
@@ -207,7 +210,7 @@
                         },
                         {
                             key: '@1551_ApplicantFromSite_Address_Building',
-                            value: this.form.getControlValue('1551_ApplicantFromSite_Address_Building')
+                            value: this.form.getControlValue('ApplicantFromSite_Address_Building')
                         },
                         {
                             key: '@1551_ApplicantFromSite_Address_Entrance',
@@ -426,7 +429,7 @@
         SerchApplicant1551:function() {
             const parameters = [
                 { key: '@AppealFromSite_Id', value: this.id },
-                { key: '@BuildingId', value: this.form.getControlValue('1551_ApplicantFromSite_Address_Building') },
+                { key: '@BuildingId', value: this.form.getControlValue('ApplicantFromSite_Address_Building') },
                 { key: '@Flat', value: this.form.getControlValue('1551_ApplicantFromSite_Address_Flat') }
             ];
             const filters = [
