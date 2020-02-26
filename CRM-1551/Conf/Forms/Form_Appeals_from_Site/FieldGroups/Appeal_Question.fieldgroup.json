@@ -78,7 +78,7 @@
       "LookupType": "tree",
       "ParentColumnCode": "ParentId",
       "PathColumnCode": "Path",
-      "SearchQueryCode": "List_Organizations_SelectRows_Search",
+      "SearchQueryCode": "List_OrganizationsForCardOper_SelectRows",
       "SearchKeyColumnCode": "Id",
       "SearchDisplayColumnCode": "Name"
     },
