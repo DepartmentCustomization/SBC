@@ -1,0 +1,90 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Organ_MechanismsSelectRows",
+  "Name": "avr_Organ_MechanismsSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "mechanisms_name",
+      "Name": "Техніка",
+      "Position": 2,
+      "SqlName": "[Mechanisms].[Name]",
+      "FilterParameterCode": "@mech",
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "Mechanisms"
+    },
+    {
+      "Code": "mechanism_type_name",
+      "Name": "Тип техніки",
+      "Position": 3,
+      "SqlName": "Mechanism_types.Name",
+      "FilterParameterCode": "@type"
+    },
+    {
+      "Code": "mechanisms_number",
+      "Name": "Державний номер",
+      "Position": 4,
+      "SqlName": "[Mechanisms].[Number]",
+      "FilterParameterCode": "@Number"
+    },
+    {
+      "Code": "ParamW",
+      "Name": "Можливе навантаження",
+      "Position": 5,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "ParamD",
+      "Name": "Довжина стріли",
+      "Position": 6,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "ParamK",
+      "Name": "Розмір ковша",
+      "Position": 7,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "ParamH",
+      "Name": "Висота  техніки",
+      "Position": 8,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "ParamL",
+      "Name": "Довжина техніки",
+      "Position": 9,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@IdMech",
+      "Name": "IdMech",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

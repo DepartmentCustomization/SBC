@@ -1,0 +1,29 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_dir_Phone_Outside",
+  "Name": "avr_dir_Phone_Outside",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Number",
+      "Name": "Number",
+      "Position": 2,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@contact_id",
+      "Name": "contact_id"
+    }
+  ]
+}

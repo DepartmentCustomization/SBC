@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_Actions_Order_InsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Actions",
+  "Name": "8. Роботи",
+  "FormCode": "Form_Actions",
+  "SelectRowsQueryCode": "avr_Actions_SelectRows",
+  "SelectRowQueryCode": "avr_Actions_Order_SelectRow",
+  "UpdateQueryCode": "avr_Actions_Order_UpdateRow",
+  "IsVisible": false
+}

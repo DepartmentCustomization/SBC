@@ -1,0 +1,69 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_shifts_jobs_contact",
+  "Name": "dir_shifts_jobs_contact",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "Огранізація",
+      "Position": 2,
+      "SqlName": "Organizations.Name",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "contacts_name",
+      "Name": "Співробітник",
+      "Position": 3,
+      "SqlName": "Contacts.Name",
+      "FilterParameterCode": "@Contacts_Name"
+    },
+    {
+      "Code": "job_name",
+      "Name": "Позіція",
+      "Position": 4,
+      "SqlName": "[Jobs].[Job_name]",
+      "FilterParameterCode": "@Job_name"
+    },
+    {
+      "Code": "positions_name",
+      "Name": "Посада в організації",
+      "Position": 5,
+      "SqlName": "Positions.Name",
+      "FilterParameterCode": "@vsfs"
+    },
+    {
+      "Code": "jobs",
+      "Name": "Разом",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@sh_id",
+      "Name": "sh_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_AppealsSelectRow",
+  "Name": "avr_AppealsSelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "appeals_date",
+      "Name": "appeals_date",
+      "Position": 2
+    },
+    {
+      "Code": "contacts_Id",
+      "Name": "contacts_Id",
+      "Position": 3,
+      "SqlName": "Contacts.Id"
+    },
+    {
+      "Code": "claims_Id",
+      "Name": "claims_Id",
+      "Position": 4
+    },
+    {
+      "Code": "contacts_name",
+      "Name": "contacts_name",
+      "Position": 5,
+      "ReferenceKeyCode": "contacts_Id"
+    },
+    {
+      "Code": "claims_number",
+      "Name": "claims_number",
+      "Position": 6,
+      "ReferenceKeyCode": "claims_Id"
+    },
+    {
+      "Code": "number_name",
+      "Name": "number_name",
+      "Position": 7
+    },
+    {
+      "Code": "app_Id",
+      "Name": "app_Id",
+      "Position": 8
+    },
+    {
+      "Code": "cl_number",
+      "Name": "cl_number",
+      "Position": 9
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

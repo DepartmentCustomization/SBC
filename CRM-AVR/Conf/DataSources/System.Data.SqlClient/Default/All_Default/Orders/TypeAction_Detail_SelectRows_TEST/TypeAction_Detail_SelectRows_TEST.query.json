@@ -1,0 +1,54 @@
+{
+  "ModelType": "Query",
+  "Code": "TypeAction_Detail_SelectRows_TEST",
+  "Name": "TypeAction_Detail_SelectRows_TEST",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2
+    },
+    {
+      "Code": "Is_move",
+      "Name": "Is_move",
+      "Position": 3
+    },
+    {
+      "Code": "TypeRec",
+      "Name": "TypeRec",
+      "Position": 4
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@test_work",
+      "Name": "@test_work",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Claim_Id",
+      "Name": "Claim_Id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

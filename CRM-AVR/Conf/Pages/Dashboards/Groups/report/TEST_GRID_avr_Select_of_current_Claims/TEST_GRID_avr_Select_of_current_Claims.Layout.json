@@ -1,0 +1,24 @@
+{
+  "rootContainer": {
+    "width": "auto",
+    "margin": "0 5px 10px",
+    "flexWrap": "wrap",
+    "flexDirection": "row",
+    "order": 1,
+    "flexGrow": 1,
+    "alignSelf": "auto",
+    "border": "none",
+    "children": [
+      {
+        "code": "PivotGridWidget-0",
+        "type": "DataGridWidgetComponent",
+        "name": "GRID_widgets_Claims"
+      }
+    ],
+    "id": "Container-0",
+    "height": "100%",
+    "minHeight": "100%",
+    "minWidth": "100%",
+    "backgroundColor": "#eee"
+  }
+}

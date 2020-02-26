@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Claim_Order_Places",
+  "Name": "Заявка -Місце",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claim_Places.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Claim_ID",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Claim_Order_Places.form.js"
+  }
+}

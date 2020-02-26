@@ -1,0 +1,39 @@
+{
+  "Code": "Group_Places",
+  "Name": "Тип місця",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "place_types_id",
+      "Name": "Тип Місця",
+      "FieldType": "select",
+      "IsRequired": true,
+      "QueryCode": "dir_Place_typesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "change",
+      "Name": "Змінити тип місця",
+      "FieldType": "checkbox",
+      "Position": 1
+    },
+    {
+      "Code": "place_types_id_ch",
+      "Name": "Змінити тип місця на:",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "dir_change_Place_typesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "add_new_house",
+      "Name": "Додати нову будівлю",
+      "FieldType": "checkbox",
+      "Position": 1
+    }
+  ]
+}

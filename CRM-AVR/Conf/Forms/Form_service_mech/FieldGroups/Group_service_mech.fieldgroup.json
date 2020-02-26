@@ -1,0 +1,55 @@
+{
+  "Code": "Group_service_mech",
+  "Name": "Технічне обслуговування",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "MechanismsID",
+      "Name": "MechanismsID",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Start_at",
+      "Name": "Дата початку",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Finished_at",
+      "Name": "Дата завершення",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва роботи",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "Comment",
+      "Name": "Результати",
+      "FieldType": "textarea",
+      "Position": 1
+    },
+    {
+      "Code": "Contacts_ID",
+      "Name": "Відповідальний",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "list_contact_WC",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "contacts_name",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Mechanisms.organizations_id",
+          "ParameterCode": "@org_id"
+        }
+      ]
+    }
+  ]
+}

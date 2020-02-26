@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Sequela_Action_Insert_ROW",
+  "Name": "avr_Sequela_Action_Insert_ROW",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

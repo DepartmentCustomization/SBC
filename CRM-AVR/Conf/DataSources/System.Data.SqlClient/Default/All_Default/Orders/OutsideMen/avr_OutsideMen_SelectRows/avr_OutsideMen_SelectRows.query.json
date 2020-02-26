@@ -1,0 +1,81 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_OutsideMen_SelectRows",
+  "Name": "avr_OutsideMen_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "company_name",
+      "Name": "Компанія",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "fiz_name",
+      "Name": "Співробітник компанії",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Call_from",
+      "Name": "Час повідомлення",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Plan_date",
+      "Name": "Планова дата прибуття",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Finish_at",
+      "Name": "Дата відповіді",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Comment",
+      "Name": "Коментар",
+      "Position": 7,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Claims_ID",
+      "Name": "Claims_ID",
+      "Position": 8,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

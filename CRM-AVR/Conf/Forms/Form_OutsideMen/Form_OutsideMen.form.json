@@ -1,0 +1,21 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_OutsideMen",
+  "Name": "Виклик спецслужб",
+  "Details": [
+    "string:Details\\Detail_OutsideMen_Document.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_OutsideMen.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Claims_ID",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_OutsideMen.form.js"
+  }
+}

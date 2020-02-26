@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_PlacesInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Places",
+  "Name": " Місця",
+  "FormCode": "Form_Places",
+  "SelectRowsQueryCode": "avr_PlacesSelectRows",
+  "SelectRowQueryCode": "avr_PlacesSelectRow",
+  "UpdateQueryCode": "avr_PlacesUpdateRow"
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Name",
+    "Name": "Name",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "ParentId",
+    "Name": "ParentId",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Type",
+    "Name": "Type",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "List",
+    "Name": "List",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Icon",
+    "Name": "Icon",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "IconColor",
+    "Name": "IconColor",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "url",
+    "Name": "url",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "place",
+    "Name": "place",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "visibility",
+    "Name": "visibility",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "input_id",
+    "Name": "input_id",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "organization",
+    "Name": "organization",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "key",
+    "Name": "key",
+    "Position": 12,
+    "IsPrintable": false
+  }
+]

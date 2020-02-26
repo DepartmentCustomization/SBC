@@ -1,0 +1,32 @@
+{
+  "Code": "Group_Places_coord",
+  "Name": " ",
+  "Position": 6,
+  "Fields": [
+    {
+      "Code": "distincts_id",
+      "Name": "Район",
+      "FieldType": "select",
+      "QueryCode": "dir_DistrictsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "PatternDescription": "50.хххх",
+      "Code": "Latitude",
+      "Name": "Широта",
+      "FieldType": "text",
+      "Position": 1,
+      "Icon": ""
+    },
+    {
+      "PatternDescription": "30.xxxx",
+      "Code": "Longitude",
+      "Name": "Довгота",
+      "FieldType": "text",
+      "Position": 2,
+      "Icon": ""
+    }
+  ]
+}

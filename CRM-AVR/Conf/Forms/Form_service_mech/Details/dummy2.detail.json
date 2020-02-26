@@ -1,0 +1,9 @@
+{
+  "ModelType": "Detail",
+  "Code": "dummy2",
+  "Name": "dummy2",
+  "SelectRowsQueryCode": "dummy",
+  "SectionCode": "",
+  "Position": 1,
+  "QueryParameters": []
+}

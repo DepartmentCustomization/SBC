@@ -1,0 +1,77 @@
+{
+  "ModelType": "Query",
+  "Code": "test_Claims_types",
+  "Name": "test_Claims_types",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "SqlName": "Id",
+      "FilterParameterCode": "@Id"
+    },
+    {
+      "Code": "Parent_сlaim_types_ID",
+      "Name": "Parent_сlaim_types_ID",
+      "Position": 2,
+      "SqlName": "Parent_сlaim_types_ID",
+      "FilterParameterCode": "@Parent_сlaim_types_ID"
+    },
+    {
+      "Code": "Claim_class_ID",
+      "Name": "Claim_class_ID",
+      "Position": 3
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 4,
+      "SqlName": "Name",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "Priority",
+      "Name": "Priority",
+      "Position": 5
+    },
+    {
+      "Code": "Is_diameter_required",
+      "Name": "Is_diameter_required",
+      "Position": 6
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Sort_index",
+      "Position": 7
+    },
+    {
+      "Code": "TypeAccess_ID",
+      "Name": "TypeAccess_ID",
+      "Position": 8
+    },
+    {
+      "Code": "Full_Name",
+      "Name": "Full_Name",
+      "Position": 9,
+      "SqlName": "Full_Name",
+      "FilterParameterCode": "@Full_Name"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@typeClaim",
+      "Name": "typeClaim",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlobalFilter_ClaimTypes"
+    },
+    {
+      "Code": "@access_id",
+      "Name": "access_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

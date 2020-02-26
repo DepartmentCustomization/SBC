@@ -1,0 +1,30 @@
+{
+  "Code": "Group_Flats_in_Place",
+  "Name": "Додати квартири № від - № до",
+  "Position": 1,
+  "Fields": [
+    {
+      "PatternType": "Numbers",
+      "Pattern": "^[0-9]+$",
+      "Code": "Start",
+      "Name": "Номер квартири від: ",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "PatternType": "Numbers",
+      "Pattern": "^[0-9]+$",
+      "Code": "End",
+      "Name": "Номер квартири до: ",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "hous_id",
+      "Name": "hous_id",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

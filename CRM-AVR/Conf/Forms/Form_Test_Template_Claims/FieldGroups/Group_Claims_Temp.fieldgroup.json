@@ -1,0 +1,78 @@
+{
+  "Code": "Group_Claims_Temp",
+  "Name": "Заявка із шаблона",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Status_id",
+      "Name": "Статус",
+      "FieldType": "select",
+      "QueryCode": "dir_Status_Claim",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "User",
+      "Name": "Зареєстрував",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "First_description",
+      "Name": "Опис проблеми (первинний)",
+      "FieldType": "textarea",
+      "Position": 10,
+      "IsHidden": true
+    },
+    {
+      "Code": "count_orders",
+      "Name": "count_orders",
+      "FieldType": "number",
+      "Position": 25,
+      "IsHidden": true
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата створення",
+      "FieldType": "date-time",
+      "Position": 111,
+      "IsHidden": true
+    },
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "FieldType": "number",
+      "Position": 121,
+      "IsHidden": true
+    },
+    {
+      "Code": "First_Types_name",
+      "Name": "Тип заявки (первинний)",
+      "FieldType": "text",
+      "Position": 123,
+      "IsHidden": true
+    },
+    {
+      "Code": "is_Delve",
+      "Name": "is_Delve",
+      "FieldType": "number",
+      "Position": 125,
+      "IsHidden": true
+    },
+    {
+      "Code": "is_Zasuv",
+      "Name": "is_Zasuv",
+      "FieldType": "number",
+      "Position": 126,
+      "IsHidden": true
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Claim_Number",
+      "FieldType": "text",
+      "Position": 131,
+      "IsHidden": true
+    }
+  ]
+}

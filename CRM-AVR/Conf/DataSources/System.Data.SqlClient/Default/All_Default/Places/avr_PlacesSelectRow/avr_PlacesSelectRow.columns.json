@@ -1,0 +1,103 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "IsPrintable": false
+  },
+  {
+    "Code": "place_types_id",
+    "Name": "place_types_id",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "distincts_id",
+    "Name": "distincts_id",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "streets_id",
+    "Name": "streets_id",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "cross_str_name1",
+    "Name": "cross_str_name1",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "cross_str_id1",
+    "Name": "cross_str_id1",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "cross_str_name2",
+    "Name": "cross_str_name2",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "cross_str_id2",
+    "Name": "cross_str_id2",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Latitude",
+    "Name": "Latitude",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Longitude",
+    "Name": "Longitude",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "distincts_name",
+    "Name": "distincts_name",
+    "Position": 11,
+    "ReferenceKeyCode": "distincts_id"
+  },
+  {
+    "Code": "cross_id",
+    "Name": "cross_id",
+    "Position": 12
+  },
+  {
+    "Code": "cross_name",
+    "Name": "cross_name",
+    "Position": 13,
+    "ReferenceKeyCode": "cross_id"
+  },
+  {
+    "Code": "place_types_name",
+    "Name": "place_types_name",
+    "Position": 14,
+    "ReferenceKeyCode": "place_types_id"
+  },
+  {
+    "Code": "streets_name",
+    "Name": "streets_name",
+    "Position": 15,
+    "ReferenceKeyCode": "streets_id"
+  },
+  {
+    "Code": "area_id",
+    "Name": "area_id",
+    "Position": 16
+  },
+  {
+    "Code": "area_name",
+    "Name": "area_name",
+    "Position": 17,
+    "ReferenceKeyCode": "area_id"
+  }
+]

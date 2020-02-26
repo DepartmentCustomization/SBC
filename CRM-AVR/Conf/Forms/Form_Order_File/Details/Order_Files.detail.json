@@ -1,0 +1,22 @@
+{
+  "DetailType": "File",
+  "ModelType": "Detail",
+  "Code": "Order_Files",
+  "Name": "Файли",
+  "FormCode": "Form_Order_Files",
+  "SelectRowsQueryCode": "avr_Files_Order_SelectRows",
+  "SelectRowQueryCode": "avr_Files_Order_SelectRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Files_Order_Delete",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Files_Order_Insert"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

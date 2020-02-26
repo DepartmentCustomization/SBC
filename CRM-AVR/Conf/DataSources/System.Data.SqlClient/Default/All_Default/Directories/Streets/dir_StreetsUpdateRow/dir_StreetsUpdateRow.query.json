@@ -1,0 +1,24 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_StreetsUpdateRow",
+  "Name": "dir_StreetsUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Old_Name",
+      "Name": "Old_Name"
+    },
+    {
+      "Code": "@Name",
+      "Name": "Name"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

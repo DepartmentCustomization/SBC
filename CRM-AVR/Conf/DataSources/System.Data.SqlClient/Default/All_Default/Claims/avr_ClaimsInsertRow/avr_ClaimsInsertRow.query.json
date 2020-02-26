@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_ClaimsInsertRow",
+  "Name": "avr_ClaimsInsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

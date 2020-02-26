@@ -1,0 +1,28 @@
+{
+  "ModelType": "Query",
+  "Code": "get_organization_id",
+  "Name": "get_organization_id",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Organization_ID",
+      "Name": "Organization_ID",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "isAdmin",
+      "Name": "isAdmin",
+      "Position": 1
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@UserId",
+      "Name": "UserId",
+      "ParameterType": "CurrentUserId"
+    }
+  ]
+}

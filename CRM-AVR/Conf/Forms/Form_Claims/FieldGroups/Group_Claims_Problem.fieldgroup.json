@@ -1,0 +1,199 @@
+{
+  "Code": "Group_Claims_Problem",
+  "Name": "ХАРАКТЕР ЗВЕРНЕННЯ",
+  "Position": 4,
+  "Fields": [
+    {
+      "Code": "place_type_id",
+      "Name": "Тип місця",
+      "FieldType": "select",
+      "QueryCode": "list_place_type_in_claim",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "coordinates",
+      "Name": "Координати місця",
+      "FieldType": "text"
+    },
+    {
+      "Code": "places_id",
+      "Name": "Місце (Адреса)",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 1,
+      "Icon": "location_city",
+      "IconHint": "",
+      "QueryCode": "dir_Places_claims",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "places",
+      "QueryParameters": []
+    },
+    {
+      "Code": "flat_number",
+      "Name": "№ квартири",
+      "FieldType": "select",
+      "Position": 2,
+      "QueryCode": "list_Flats_for_Claim",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "number",
+      "QueryParameters": []
+    },
+    {
+      "Code": "district_id",
+      "Name": "Район",
+      "FieldType": "select",
+      "Position": 3,
+      "QueryCode": "dir_DistrictsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Types_id",
+      "Name": "Тип заявки",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 5,
+      "QueryCode": "list_Claims_types",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Full_Name",
+      "QueryParameters": [],
+      "LookupType": "tree",
+      "ParentColumnCode": "Parent_сlaim_types_ID",
+      "PathColumnCode": "Full_Name",
+      "SearchQueryCode": "List_Claim_types_Search",
+      "SearchKeyColumnCode": "Id",
+      "SearchDisplayColumnCode": "Name"
+    },
+    {
+      "Code": "classes_id",
+      "Name": "Клас",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 6
+    },
+    {
+      "Code": "Diameters_ID",
+      "Name": "Діаметр",
+      "FieldType": "select",
+      "Position": 7,
+      "QueryCode": "dir_DiametersSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Size",
+      "QueryParameters": []
+    },
+    {
+      "Code": "btn_addSwitchOff",
+      "Name": "Додати відключення",
+      "FieldType": "button",
+      "Position": 8,
+      "Width": "35%",
+      "Icon": "add",
+      "IconHint": "Додати відключення"
+    },
+    {
+      "Code": "Organization_id",
+      "Name": "Відповідальний підрозділ",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 38,
+      "Width": "100%",
+      "QueryCode": "avr_ListOrg_Is_select",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "executor_id",
+      "Name": "Виконавець",
+      "FieldType": "select",
+      "Position": 39,
+      "Width": "65%",
+      "QueryCode": "list_ExternalExecutors",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "exec_phone",
+      "Name": "Телефон виконавця",
+      "FieldType": "select",
+      "Position": 40,
+      "Width": "35%",
+      "QueryCode": "getExecutorPhone",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "phone",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Description",
+      "Name": "Додаткова інформація",
+      "FieldType": "textarea",
+      "Position": 41,
+      "Rows": 2
+    },
+    {
+      "Code": "Priority",
+      "Name": "Пріоритет ",
+      "FieldType": "radio",
+      "Position": 41,
+      "Items": [
+        {
+          "Code": "1",
+          "Name": "Важливо"
+        },
+        {
+          "Code": "2",
+          "Name": "Загально"
+        },
+        {
+          "Code": "3",
+          "Name": "Планування"
+        }
+      ]
+    },
+    {
+      "Code": "not_balans",
+      "Name": "Позабалансова",
+      "FieldType": "checkbox",
+      "Position": 44
+    },
+    {
+      "Code": "is_Close",
+      "Name": "(скрито) Виконано",
+      "FieldType": "checkbox",
+      "Position": 44,
+      "IsHidden": true
+    },
+    {
+      "Code": "Street_id",
+      "Name": "(скрито) Street_id",
+      "FieldType": "number",
+      "Position": 133,
+      "IsHidden": true
+    },
+    {
+      "Code": "is_Post",
+      "Name": "(скрито) Відкласти",
+      "FieldType": "checkbox",
+      "Position": 3323,
+      "IsHidden": true
+    },
+    {
+      "Code": "faucet_id",
+      "Name": "(скрито) faucet_id",
+      "FieldType": "number",
+      "Position": 12222,
+      "IsHidden": true
+    },
+    {
+      "Code": "switchOff_type",
+      "Name": "(скрито) switchOff_type",
+      "FieldType": "number",
+      "Position": 12134567,
+      "IsHidden": true
+    }
+  ]
+}

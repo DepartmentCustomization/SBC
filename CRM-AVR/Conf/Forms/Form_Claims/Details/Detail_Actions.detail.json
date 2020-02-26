@@ -1,0 +1,17 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Actions",
+  "Name": "Роботи у заявці",
+  "FormCode": "Form_Actions_Claims",
+  "SelectRowsQueryCode": "avr_Actions_Claims_SelectRows",
+  "SelectRowQueryCode": "avr_Actions_Order_SelectRow",
+  "SectionCode": "",
+  "Position": 3,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

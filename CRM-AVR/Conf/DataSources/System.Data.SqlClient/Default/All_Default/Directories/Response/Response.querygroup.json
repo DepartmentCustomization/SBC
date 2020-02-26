@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Response",
+  "Name": "Результат заявки",
+  "ConnectionCode": "Default"
+}

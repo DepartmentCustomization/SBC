@@ -1,0 +1,17 @@
+@media (max-width: 900px) {
+    #orange-widget {
+        display: none;
+    }
+    #green-widget {
+        order: 2!important;
+    }
+}
+
+@media (max-width: 1000px) {
+    #main-filter-boolean-filter,
+    #main-filter-string-filter,
+    #filter-boolean-filter
+    {
+        display: none;
+    }
+}

@@ -1,0 +1,82 @@
+{
+  "Code": "Group_Claim_types",
+  "Name": "Тип Заявки: Напрямок + Категорія + Зміст",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "access_id",
+      "Name": "Код доступу",
+      "FieldType": "select",
+      "IsRequired": true,
+      "QueryCode": "dir_TypeAccessSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claim_types_id_first",
+      "Name": "Батьківський тип заявки",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "test_Claims_types",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Full_Name",
+      "QueryParameters": [],
+      "LookupType": "tree",
+      "ParentColumnCode": "Parent_сlaim_types_ID"
+    },
+    {
+      "Code": "classes_id",
+      "Name": "Клас типу заявки",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 3,
+      "QueryCode": "dir_ClaimClassesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claim_types_name",
+      "Name": "Назва типу",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 4
+    },
+    {
+      "Code": "Priority",
+      "Name": "Пріоритет заявки",
+      "FieldType": "number",
+      "Position": 5,
+      "Width": "20%"
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Сортування",
+      "FieldType": "number",
+      "Position": 5,
+      "Width": "20%"
+    },
+    {
+      "Code": "Is_diameter_required",
+      "Name": "Необхідний діаметр",
+      "FieldType": "checkbox",
+      "Position": 7,
+      "Width": "30%"
+    },
+    {
+      "Code": "Is_delete",
+      "Name": "Видалити",
+      "FieldType": "checkbox",
+      "Position": 8,
+      "Width": "30%"
+    },
+    {
+      "Code": "full_name",
+      "Name": "Повна назва типу",
+      "FieldType": "text",
+      "Position": 10,
+      "Width": "100%"
+    }
+  ]
+}

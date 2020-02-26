@@ -1,0 +1,22 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Group_Claim_File",
+  "Name": "Документи",
+  "FormCode": "Form_Claim_File",
+  "SelectRowsQueryCode": "avr_Claim_Doc_SelectRows",
+  "SelectRowQueryCode": "avr_Claim_Doc_SelectRow",
+  "SectionCode": "Claims_Documents",
+  "Position": 10,
+  "IsExpand": true,
+  "PrintType": "None",
+  "Add": {
+    "InsertQueryCode": "avr_Claim_Doc_Insert"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

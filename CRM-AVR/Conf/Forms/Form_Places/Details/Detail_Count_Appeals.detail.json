@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Count_Appeals",
+  "Name": "Кількість звернень",
+  "SelectRowsQueryCode": "avr_Counr_Appeals_SelectRows",
+  "SectionCode": "",
+  "Position": 2,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

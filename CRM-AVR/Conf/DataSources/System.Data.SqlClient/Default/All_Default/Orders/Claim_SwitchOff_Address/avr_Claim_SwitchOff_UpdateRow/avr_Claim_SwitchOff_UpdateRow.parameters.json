@@ -1,0 +1,28 @@
+[
+  {
+    "Code": "@switchoff_type_id",
+    "Name": "switchoff_type_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@finish_at",
+    "Name": "finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@places_id",
+    "Name": "places_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@SwitchOff_start",
+    "Name": "SwitchOff_start",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  }
+]

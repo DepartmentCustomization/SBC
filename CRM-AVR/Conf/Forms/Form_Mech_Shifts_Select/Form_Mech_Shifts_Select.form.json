@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Mech_Shifts_Select",
+  "Name": "Вибір техніки для зміни",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Gropu_Mech_Shifts.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

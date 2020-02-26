@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Claim_link_types",
+  "Name": "Довідник- Типи зв'язків Заявок",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claim_link_types.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

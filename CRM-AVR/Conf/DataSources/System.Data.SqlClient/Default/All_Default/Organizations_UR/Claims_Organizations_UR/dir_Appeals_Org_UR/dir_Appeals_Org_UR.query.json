@@ -1,0 +1,44 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Appeals_Org_UR",
+  "Name": "dir_Appeals_Org_UR",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "organizations_name",
+      "Position": 2
+    },
+    {
+      "Code": "streets_name",
+      "Name": "streets_name",
+      "Position": 3
+    },
+    {
+      "Code": "houses_name",
+      "Name": "houses_name",
+      "Position": 4
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

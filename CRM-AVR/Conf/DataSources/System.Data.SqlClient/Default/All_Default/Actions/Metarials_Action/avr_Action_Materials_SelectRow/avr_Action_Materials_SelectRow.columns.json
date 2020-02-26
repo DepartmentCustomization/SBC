@@ -1,0 +1,62 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "Action_ID",
+    "Name": "Action_ID",
+    "Position": 2
+  },
+  {
+    "Code": "materials_id",
+    "Name": "materials_id",
+    "Position": 4
+  },
+  {
+    "Code": "Volume",
+    "Name": "Volume",
+    "Position": 6
+  },
+  {
+    "Code": "In_out",
+    "Name": "In_out",
+    "Position": 7
+  },
+  {
+    "Code": "units_id",
+    "Name": "units_id",
+    "Position": 8
+  },
+  {
+    "Code": "ShortName",
+    "Name": "ShortName",
+    "Position": 9,
+    "ReferenceKeyCode": "units_id"
+  },
+  {
+    "Code": "orders_Id",
+    "Name": "orders_Id",
+    "Position": 10
+  },
+  {
+    "Code": "materials_name",
+    "Name": "materials_name",
+    "Position": 11,
+    "ReferenceKeyCode": "materials_id"
+  },
+  {
+    "Code": "size_id",
+    "Name": "size_id",
+    "Position": 12
+  },
+  {
+    "Code": "Size",
+    "Name": "Size",
+    "Position": 13,
+    "ReferenceKeyCode": "size_id"
+  }
+]

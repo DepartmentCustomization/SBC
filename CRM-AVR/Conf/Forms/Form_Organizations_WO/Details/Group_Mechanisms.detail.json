@@ -1,0 +1,23 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Group_Mechanisms",
+  "Name": "Техніка організації",
+  "FormCode": "Form_Mechanisms",
+  "SelectRowsQueryCode": "avr_Organ_MechanismsSelectRows",
+  "SelectRowQueryCode": "avr_MechanismsSelectRow",
+  "UpdateQueryCode": "avr_MechanismsUpdateRow",
+  "SectionCode": "Mechanisms",
+  "DeleteQueryCode": "avr_MechanismsDeleteRow",
+  "Position": 4,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_MechanismsInsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@IdMech"
+    }
+  ]
+}

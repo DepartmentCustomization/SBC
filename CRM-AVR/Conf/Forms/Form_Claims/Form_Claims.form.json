@@ -1,0 +1,44 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Claims",
+  "Name": "Заявка",
+  "Details": [
+    "string:Details\\Detail_Claim_Faucet.detail.json",
+    "string:Details\\Detail_Claim_Likns.detail.json",
+    "string:Details\\Detail_Orders.detail.json",
+    "string:Details\\Detail_search.detail.json",
+    "string:Details\\Detail_History.detail.json",
+    "string:Details\\Detail_Claim_Faucet2.detail.json",
+    "string:Details\\Detail_Claim_Sequela.detail.json",
+    "string:Details\\Gropu_Places_Claims.detail.json",
+    "string:Details\\Detail_Claim_Likns_new_claim.detail.json",
+    "string:Details\\Group_Claim_File.detail.json",
+    "string:Details\\Detail_AreaClaimLinks.detail.json",
+    "string:Details\\Detail_Actions.detail.json",
+    "string:Details\\Group_Claim_SwitchOff.detail.json",
+    "string:Details\\Detail_OutsideMen_Claims.detail.json",
+    "string:Details\\Detail_Disabling_debtors.detail.json",
+    "string:Details\\Detail_Claims_App_Contact.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claims.fieldgroup.json",
+      "string:FieldGroups\\Group_Claims_Initiator.fieldgroup.json",
+      "string:FieldGroups\\Group_Claims_Problem.fieldgroup.json",
+      "string:FieldGroups\\Group_Claims_Date.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Claim_Number",
+        "ParentFormFieldCodeForKeyValue": "Claim_Number",
+        "ParentFormFieldCodeForDisplayValue": "Claim_Number"
+      },
+      {
+        "Code": "contact_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Claims.form.js"
+  }
+}

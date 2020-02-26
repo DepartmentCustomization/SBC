@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Schedule_dir",
+  "Name": "Табельні позначення",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Schedule_dir.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

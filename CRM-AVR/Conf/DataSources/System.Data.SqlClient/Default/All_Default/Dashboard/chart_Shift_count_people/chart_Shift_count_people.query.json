@@ -1,0 +1,34 @@
+{
+  "ModelType": "Query",
+  "Code": "chart_Shift_count_people",
+  "Name": "chart_Shift_count_people",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 1
+    },
+    {
+      "Code": "count_people",
+      "Name": "count_people",
+      "Position": 2
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Org_Id",
+      "Name": "Org_Id",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

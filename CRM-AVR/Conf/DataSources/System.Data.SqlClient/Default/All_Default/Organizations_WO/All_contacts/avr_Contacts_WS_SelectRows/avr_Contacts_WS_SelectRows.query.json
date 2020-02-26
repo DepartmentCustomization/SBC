@@ -1,0 +1,89 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Contacts_WS_SelectRows",
+  "Name": "avr_Contacts_WS_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "contact_type_name",
+      "Name": "Тип",
+      "Position": 2
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "Організація",
+      "Position": 3,
+      "ViewState": "Hidden",
+      "SqlName": "Organizations.Name",
+      "FilterParameterCode": "@Organizations_Name",
+      "ReferenceKeyCode": "organizations_id",
+      "ReferenceSectionCode": "Organizations_WO"
+    },
+    {
+      "Code": "is_work",
+      "Name": "Працює",
+      "Position": 4,
+      "SqlName": "is_work",
+      "FilterParameterCode": "@is_work"
+    },
+    {
+      "Code": "contacts_name",
+      "Name": "ПІБ працівника",
+      "Position": 5,
+      "SqlName": "Contacts.Name",
+      "FilterParameterCode": "@Contacts_ame",
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "Contact"
+    },
+    {
+      "Code": "Number",
+      "Name": "Контактні номери",
+      "Position": 6,
+      "SqlName": "cast (tabl_phone.phone_number as nvarchar)",
+      "FilterParameterCode": "@Number"
+    },
+    {
+      "Code": "jobs_name",
+      "Name": "Посада",
+      "Position": 7,
+      "SqlName": "Jobs.Job_name",
+      "FilterParameterCode": "@Job_name"
+    },
+    {
+      "Code": "positions_name",
+      "Name": "Професія за класифікатором",
+      "Position": 8,
+      "SqlName": "Positions.Name",
+      "FilterParameterCode": "@Position_ame"
+    },
+    {
+      "Code": "organizations_id",
+      "Name": "organizations_id",
+      "Position": 9,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "Code": "Group_login",
+  "Name": "Логін користувача",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "organizations_id",
+      "Name": "Відділ",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "avr_tree_select_of_organizations",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
+      "LookupType": "tree",
+      "ParentColumnCode": "Parent_Organization_ID"
+    },
+    {
+      "Code": "contact_id",
+      "Name": "ПІБ",
+      "FieldType": "select",
+      "Position": 2,
+      "Width": "100%",
+      "Icon": "account_circle",
+      "IconHint": "Спочатку обери відділ",
+      "QueryCode": "avr_User_selection_for_login",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Job_name",
+      "Name": "Позиція",
+      "FieldType": "text",
+      "Position": 3,
+      "Width": "100%"
+    },
+    {
+      "Code": "Login",
+      "Name": "Логін",
+      "FieldType": "select",
+      "Position": 4,
+      "QueryCode": "sys_UserSys",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "user_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "btn_Add_authority",
+      "Name": "Додати повноваження в системі",
+      "FieldType": "button",
+      "Position": 5
+    },
+    {
+      "Code": "SystemUser_Id",
+      "Name": "SystemUser_Id",
+      "FieldType": "text",
+      "Position": 1333,
+      "IsHidden": true
+    },
+    {
+      "Code": "Login2",
+      "Name": "Логін",
+      "FieldType": "text",
+      "Position": 4
+    }
+  ]
+}

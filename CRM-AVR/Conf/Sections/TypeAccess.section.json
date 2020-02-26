@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_TypeAccessInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "TypeAccess",
+  "Name": "Довідник: Доступи для розділення",
+  "FormCode": "Form_TypeAccess",
+  "SelectRowsQueryCode": "dir_TypeAccessSelectRows",
+  "SelectRowQueryCode": "dir_TypeAccessSelectRow",
+  "UpdateQueryCode": "dir_TypeAccessUpdateRow"
+}

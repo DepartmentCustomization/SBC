@@ -1,0 +1,21 @@
+{
+  "ModelType": "Detail",
+  "Code": "Gropu_Places_Claims",
+  "Name": "Місця",
+  "FormCode": "Form_Claim_Order_Places",
+  "SelectRowsQueryCode": "avr_Claim_Order_Places_SelectRows",
+  "SelectRowQueryCode": "avr_Claim_Order_Places_SelectRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Claim_Order_Places_Delete",
+  "Position": 5,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Claim_Order_Places_InsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

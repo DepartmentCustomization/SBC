@@ -1,0 +1,15 @@
+{
+  "ModelType": "Query",
+  "Code": "list_validate_Action_Zasyv",
+  "Name": "list_validate_Action_Zasyv",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@claim_ID",
+      "Name": "claim_ID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

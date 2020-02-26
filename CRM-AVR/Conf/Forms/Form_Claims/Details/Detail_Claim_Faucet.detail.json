@@ -1,0 +1,19 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Claim_Faucet",
+  "Name": "Запорна Арматура",
+  "FormCode": "Form_faucet",
+  "SelectRowsQueryCode": "avr_Faucet_Claim_SelectRows",
+  "SelectRowQueryCode": "avr_Faucet_Orders_SelectRow",
+  "UpdateQueryCode": "avr_Faucet_Orders_Update",
+  "SectionCode": "",
+  "DeleteQueryCode": "Faucet_Orders_DeleteRow",
+  "Position": 3,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@claim_id"
+    }
+  ]
+}

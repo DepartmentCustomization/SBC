@@ -1,0 +1,66 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claims_Organizatioms_UR_SelectRows",
+  "Name": "avr_Claims_Organizatioms_UR_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "claim_number",
+      "Name": "Номер заявки",
+      "Position": 2,
+      "SqlName": "[Claims].[Claim_Number]",
+      "FilterParameterCode": "@Name",
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "Claims"
+    },
+    {
+      "Code": "discription",
+      "Name": "Опис проблеми",
+      "Position": 3
+    },
+    {
+      "Code": "status_name",
+      "Name": "Статус заявки",
+      "Position": 4
+    },
+    {
+      "Code": "Plan_finish_at",
+      "Name": "Плановий час виконання",
+      "Position": 5
+    },
+    {
+      "Code": "app_date",
+      "Name": "Кількість звернень по заявці",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

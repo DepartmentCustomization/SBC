@@ -1,0 +1,31 @@
+[
+  {
+    "Code": "@Longitude",
+    "Name": "Longitude"
+  },
+  {
+    "Code": "@place_types_id",
+    "Name": "place_types_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Latitude",
+    "Name": "Latitude"
+  },
+  {
+    "Code": "@distincts_id",
+    "Name": "distincts_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@place_types_id_ch",
+    "Name": "place_types_id_ch",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  }
+]

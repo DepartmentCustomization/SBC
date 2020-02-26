@@ -1,0 +1,357 @@
+{
+  "Code": "Group_Order",
+  "Name": "Інформація",
+  "Position": 2,
+  "Fields": [
+    {
+      "Code": "Pushed_at",
+      "Name": "Дата та час виїзду",
+      "FieldType": "date-time",
+      "IsRequired": true,
+      "Width": "40%"
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Планова тривалість",
+      "FieldType": "text",
+      "Position": 1,
+      "Width": "20%"
+    },
+    {
+      "Code": "Start_at",
+      "Name": "Дата та час початку робіт",
+      "FieldType": "date-time",
+      "Position": 2,
+      "Width": "40%"
+    },
+    {
+      "Code": "Finish_at_actions",
+      "Name": "Дата та час завершення робіт",
+      "FieldType": "date-time",
+      "Position": 3
+    },
+    {
+      "Code": "Finished_at",
+      "Name": "Дата та час завершення виїзду",
+      "FieldType": "date-time",
+      "Position": 4
+    },
+    {
+      "Code": "org_1",
+      "Name": "ПІдрозділ",
+      "FieldType": "select",
+      "Position": 10,
+      "Width": "15%",
+      "QueryCode": "list_org_isSelect_isWc_minus28",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Short_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "member_1",
+      "Name": "Співробітник",
+      "FieldType": "select",
+      "Position": 11,
+      "Width": "60%",
+      "QueryCode": "list_check_liberty_jobs",
+      "KeyColumnCode": "Job_Id",
+      "DisplayColumnCode": "pib_position",
+      "QueryParameters": []
+    },
+    {
+      "Code": "in_brigadir_1",
+      "Name": "Бригадир",
+      "FieldType": "checkbox",
+      "Position": 12,
+      "Width": "12%"
+    },
+    {
+      "Code": "in_driver_1",
+      "Name": "Водій",
+      "FieldType": "checkbox",
+      "Position": 13,
+      "Width": "8%"
+    },
+    {
+      "Code": "org_2",
+      "Name": "ПІдрозділ",
+      "FieldType": "select",
+      "Position": 20,
+      "Width": "15%",
+      "QueryCode": "list_org_isSelect_isWc_minus28",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Short_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "member_2",
+      "Name": "Співробітник",
+      "FieldType": "select",
+      "Position": 21,
+      "Width": "60%",
+      "QueryCode": "list_check_liberty_jobs",
+      "KeyColumnCode": "Job_Id",
+      "DisplayColumnCode": "pib_position",
+      "QueryParameters": []
+    },
+    {
+      "Code": "in_brigadir_2",
+      "Name": "Бригадир",
+      "FieldType": "checkbox",
+      "Position": 22,
+      "Width": "12%"
+    },
+    {
+      "Code": "in_driver_2",
+      "Name": "Водій",
+      "FieldType": "checkbox",
+      "Position": 23,
+      "Width": "8%"
+    },
+    {
+      "Code": "org_3",
+      "Name": "ПІдрозділ",
+      "FieldType": "select",
+      "Position": 30,
+      "Width": "15%",
+      "QueryCode": "list_org_isSelect_isWc_minus28",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Short_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "member_3",
+      "Name": "Співробітник",
+      "FieldType": "select",
+      "Position": 31,
+      "Width": "60%",
+      "QueryCode": "list_check_liberty_jobs",
+      "KeyColumnCode": "Job_Id",
+      "DisplayColumnCode": "pib_position",
+      "QueryParameters": []
+    },
+    {
+      "Code": "in_brigadir_3",
+      "Name": "Бригадир",
+      "FieldType": "checkbox",
+      "Position": 32,
+      "Width": "12%"
+    },
+    {
+      "Code": "in_driver_3",
+      "Name": "Водій",
+      "FieldType": "checkbox",
+      "Position": 33,
+      "Width": "8%"
+    },
+    {
+      "Code": "org_4",
+      "Name": "ПІдрозділ",
+      "FieldType": "select",
+      "Position": 40,
+      "Width": "15%",
+      "QueryCode": "list_org_isSelect_isWc_minus28",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Short_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "member_4",
+      "Name": "Співробітник",
+      "FieldType": "select",
+      "Position": 41,
+      "Width": "60%",
+      "QueryCode": "list_check_liberty_jobs",
+      "KeyColumnCode": "Job_Id",
+      "DisplayColumnCode": "pib_position",
+      "QueryParameters": []
+    },
+    {
+      "Code": "in_brigadir_4",
+      "Name": "Бригадир",
+      "FieldType": "checkbox",
+      "Position": 42,
+      "Width": "12%"
+    },
+    {
+      "Code": "in_driver_4",
+      "Name": "Водій",
+      "FieldType": "checkbox",
+      "Position": 43,
+      "Width": "8%"
+    },
+    {
+      "Code": "org_5",
+      "Name": "ПІдрозділ",
+      "FieldType": "select",
+      "Position": 50,
+      "Width": "15%",
+      "QueryCode": "list_org_isSelect_isWc_minus28",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Short_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "member_5",
+      "Name": "Співробітник",
+      "FieldType": "select",
+      "Position": 51,
+      "Width": "60%",
+      "QueryCode": "list_check_liberty_jobs",
+      "KeyColumnCode": "Job_Id",
+      "DisplayColumnCode": "pib_position",
+      "QueryParameters": []
+    },
+    {
+      "Code": "in_brigadir_5",
+      "Name": "Бригадир",
+      "FieldType": "checkbox",
+      "Position": 52,
+      "Width": "12%"
+    },
+    {
+      "Code": "in_driver_5",
+      "Name": "Водій",
+      "FieldType": "checkbox",
+      "Position": 53,
+      "Width": "8%"
+    },
+    {
+      "Code": "bnt_add_members_brigade",
+      "Name": "Призначити людей у Виїзд",
+      "FieldType": "button",
+      "Position": 100,
+      "Width": "40%"
+    },
+    {
+      "Code": "btn_addOrderWorker",
+      "Name": "Додати співробітників без табеля",
+      "FieldType": "button",
+      "Position": 100,
+      "Width": "45%",
+      "Icon": ""
+    },
+    {
+      "Code": "bnt_save_members_brigade",
+      "Name": "Зберегти",
+      "FieldType": "button",
+      "Position": 101,
+      "Width": "33%"
+    },
+    {
+      "Code": "bnt_cleare_members_brigady",
+      "Name": "Відмінити",
+      "FieldType": "button",
+      "Position": 102,
+      "Width": "33%"
+    },
+    {
+      "Code": "Comment_result",
+      "Name": "Результат виїзду",
+      "FieldType": "textarea",
+      "Position": 129,
+      "Rows": 5
+    },
+    {
+      "Code": "add_action",
+      "Name": "Додати роботи с запірною арматурою",
+      "FieldType": "checkbox",
+      "Position": 130,
+      "Width": "30%"
+    },
+    {
+      "Code": "btn_addActions",
+      "Name": "роботи",
+      "FieldType": "button",
+      "Position": 132,
+      "Width": "20%",
+      "Icon": "add"
+    },
+    {
+      "Code": "btn_addAction",
+      "Name": "робота",
+      "FieldType": "button",
+      "Position": 133,
+      "Width": "20%",
+      "Icon": "plus_one"
+    },
+    {
+      "Code": "btn_addSwitchOff",
+      "Name": "Відключення",
+      "FieldType": "button",
+      "Position": 134,
+      "Width": "30%",
+      "Icon": "add",
+      "IconHint": "Додати відключення"
+    },
+    {
+      "Code": "is_closeZasuv",
+      "Name": "(Скрыто)  is_closeZasuv",
+      "FieldType": "number",
+      "Position": 138,
+      "IsHidden": true
+    },
+    {
+      "Code": "Street_id",
+      "Name": "(Скрыто)  Street_id",
+      "FieldType": "number",
+      "Position": 345,
+      "IsHidden": true
+    },
+    {
+      "Code": "calc",
+      "Name": "(Скрыто)  calc",
+      "FieldType": "number",
+      "Position": 456,
+      "IsHidden": true
+    },
+    {
+      "Code": "claims_id",
+      "Name": "(Скрыто)  claims_id",
+      "FieldType": "number",
+      "Position": 1001,
+      "IsHidden": true
+    },
+    {
+      "Code": "shifts_Id",
+      "Name": "(Скрыто) Бригада",
+      "FieldType": "lookup",
+      "Position": 2222,
+      "IsHidden": true,
+      "QueryCode": "dir_Orders_Shifts_SelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Claims.Organization_id",
+          "ParameterCode": "@Org"
+        }
+      ]
+    },
+    {
+      "Code": "status_id",
+      "Name": "(Скрыто)  Статус",
+      "FieldType": "select",
+      "Position": 12222,
+      "IsHidden": true,
+      "QueryCode": "dir_Status_Orders",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "faucet_id",
+      "Name": "(Скрыто) faucet_id",
+      "FieldType": "number",
+      "Position": 32324,
+      "IsHidden": true
+    },
+    {
+      "Code": "switchOff_type",
+      "Name": "(Скрыто) switchOff_type",
+      "FieldType": "number",
+      "Position": 32325,
+      "IsHidden": true
+    }
+  ]
+}

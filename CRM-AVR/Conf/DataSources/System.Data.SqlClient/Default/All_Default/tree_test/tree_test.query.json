@@ -1,0 +1,52 @@
+{
+  "ModelType": "Query",
+  "Code": "tree_test",
+  "Name": "tree_test",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "SqlName": "Id",
+      "FilterParameterCode": "@Id"
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2,
+      "SqlName": "Name",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "ParentId",
+      "Name": "ParentId2",
+      "Position": 3,
+      "SqlName": "ParentId",
+      "FilterParameterCode": "@ParentId"
+    },
+    {
+      "Code": "Group",
+      "Name": "Group",
+      "Position": 4
+    },
+    {
+      "Code": "Icon",
+      "Name": "Icon",
+      "Position": 5
+    },
+    {
+      "Code": "Address",
+      "Name": "Address",
+      "Position": 6
+    },
+    {
+      "Code": "PhoneNumber",
+      "Name": "PhoneNumber",
+      "Position": 7
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Order_History_SelectRows",
+  "Name": "avr_Order_History_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "User",
+      "Name": "Користувач",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Field",
+      "Name": "Операція",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "New_Value",
+      "Name": "Значення",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Date",
+      "Name": "Дата зміни",
+      "Position": 4,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

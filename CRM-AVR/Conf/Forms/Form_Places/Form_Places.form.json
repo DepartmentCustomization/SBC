@@ -1,0 +1,23 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Places",
+  "Name": " Місця",
+  "Details": [
+    "string:Details\\Detail_Count_Appeals.detail.json",
+    "string:Details\\Detail_Flats_in_Places.detail.json",
+    "string:Details\\Detail_Count_Flats.detail.json",
+    "string:Details\\Detail_Places_in_Places.detail.json",
+    "string:Details\\Detail_Place_Claims.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Places.fieldgroup.json",
+      "string:FieldGroups\\Group_Places_houses.fieldgroup.json",
+      "string:FieldGroups\\Group_Places_Cross.fieldgroup.json",
+      "string:FieldGroups\\Group_Places_Area.fieldgroup.json",
+      "string:FieldGroups\\Group_Places_coord.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:Form_Places.form.js"
+  }
+}

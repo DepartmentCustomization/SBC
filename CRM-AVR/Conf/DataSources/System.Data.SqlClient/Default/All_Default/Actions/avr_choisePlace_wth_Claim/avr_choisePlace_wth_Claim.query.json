@@ -1,0 +1,29 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_choisePlace_wth_Claim",
+  "Name": "avr_choisePlace_wth_Claim",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 1,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@claim_ID",
+      "Name": "claim_ID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

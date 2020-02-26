@@ -1,0 +1,14 @@
+{
+  "Code": "Group_TypeAccess",
+  "Name": "Доступи для розділення",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

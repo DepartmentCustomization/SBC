@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "InsertAreaClaim",
+  "Name": "InsertAreaClaim",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

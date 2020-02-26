@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "btn_close_Order",
+  "Name": "btn_close_Order",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

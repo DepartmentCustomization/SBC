@@ -1,0 +1,57 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1
+  },
+  {
+    "Code": "num",
+    "Name": "№/№",
+    "Position": 2
+  },
+  {
+    "Code": "organizations_name",
+    "Name": "Підрозділ",
+    "Position": 3
+  },
+  {
+    "Code": "Claim_Number",
+    "Name": "Заявка №",
+    "Position": 4
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Дата реєстрації",
+    "Position": 5
+  },
+  {
+    "Code": "places_name",
+    "Name": "Адреса",
+    "Position": 6
+  },
+  {
+    "Code": "Description",
+    "Name": "Зміст заявки",
+    "Position": 7
+  },
+  {
+    "Code": "actions_type",
+    "Name": "Виконані роботи",
+    "Position": 8
+  },
+  {
+    "Code": "hour_spells",
+    "Name": "Затрачений час",
+    "Position": 9
+  },
+  {
+    "Code": "actions_comment",
+    "Name": "Приміткі по роботі",
+    "Position": 10
+  },
+  {
+    "Code": "Fact_finish_at",
+    "Name": "Дата закриття",
+    "Position": 11
+  }
+]

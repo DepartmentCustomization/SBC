@@ -1,0 +1,52 @@
+[
+  {
+    "Code": "num",
+    "Name": "num",
+    "Position": 1
+  },
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 2
+  },
+  {
+    "Code": "mechanisms_type_name",
+    "Name": "mechanisms_type_name",
+    "Position": 3
+  },
+  {
+    "Code": "mechanisms_name",
+    "Name": "mechanisms_name",
+    "Position": 4
+  },
+  {
+    "Code": "Number",
+    "Name": "Number",
+    "Position": 5
+  },
+  {
+    "Code": "organizations_name",
+    "Name": "organizations_name",
+    "Position": 6
+  },
+  {
+    "Code": "distance",
+    "Name": "distance",
+    "Position": 7
+  },
+  {
+    "Code": "count_orders",
+    "Name": "count_orders",
+    "Position": 8
+  },
+  {
+    "Code": "service",
+    "Name": "service",
+    "Position": 9
+  },
+  {
+    "Code": "not_work_day",
+    "Name": "not_work_day",
+    "Position": 10
+  }
+]

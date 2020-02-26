@@ -1,0 +1,50 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_MaterialsSelectRow",
+  "Name": "dir_MaterialsSelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2
+    },
+    {
+      "Code": "With_diameter",
+      "Name": "With_diameter",
+      "Position": 3
+    },
+    {
+      "Code": "units_id",
+      "Name": "units_id",
+      "Position": 4,
+      "SqlName": "Units.Id",
+      "FilterParameterCode": "@units"
+    },
+    {
+      "Code": "units_name",
+      "Name": "units_name",
+      "Position": 5,
+      "SqlName": "Units.[ShortName]",
+      "FilterParameterCode": "@u_name",
+      "ReferenceKeyCode": "units_id"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_Type_PP_linkInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Type_PP_link",
+  "Name": "Довідник: Типи пов'заних місць",
+  "FormCode": "Form_Type_PP_link",
+  "SelectRowsQueryCode": "dir_Type_PP_linkSelectRows",
+  "SelectRowQueryCode": "dir_Type_PP_linkSelectRow",
+  "UpdateQueryCode": "dir_Type_PP_linkUpdateRow"
+}

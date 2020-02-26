@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Place_Claims",
+  "Name": "Усі заявки по місцю",
+  "SelectRowsQueryCode": "avr_Place_Claims_SelectRows",
+  "SectionCode": "",
+  "Position": 3,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

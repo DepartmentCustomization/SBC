@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "report",
+  "Position": 57,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "TEST_AVR_emploTime",
+  "Name": "TEST_Відпрацьований час співробітників"
+}

@@ -1,0 +1,78 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_ContactsSelectRows",
+  "Name": "avr_ContactsSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Name",
+      "Name": "Повне ім'я",
+      "Position": 2,
+      "SqlName": "[Contacts].[Name]",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "contact_types_name",
+      "Name": "Тип контакту",
+      "Position": 3,
+      "SqlName": "Contact_types.Name",
+      "FilterParameterCode": "@Contact_types"
+    },
+    {
+      "Code": "adress",
+      "Name": "Адреса",
+      "Position": 4,
+      "SqlName": "concat (Streets.Name,' ', Houses.Name)",
+      "FilterParameterCode": "@addres"
+    },
+    {
+      "Code": "flats_name",
+      "Name": "Кв./ літ. / під. / пов.",
+      "Position": 5,
+      "SqlName": "concat ( case when Flats.Number is null then cast(Flats.Number as nvarchar) else N'кв. ' + cast(Flats.Number as nvarchar)+', ' end, \t\t\t\tcase when Flats.Letter is null then cast (Flats.Letter as nvarchar) else N'літ.'+ Flats.Letter +', ' end, \t\t\t\tcase when Flats.Floor is null then cast (Flats.Floor  as nvarchar)  else N'під.'+ cast (Flats.Floor  as nvarchar)+', ' end, \t\t\t\tcase when Flats.Porch is null then cast(Flats.Porch  as nvarchar)  else N'пов.'+ cast (Flats.Porch  as nvarchar) end \t  )",
+      "FilterParameterCode": "@flats"
+    },
+    {
+      "Code": "Number",
+      "Name": "Номер телефону",
+      "Position": 6,
+      "SqlName": "cast (tabl_phone.phone_number as nvarchar)",
+      "FilterParameterCode": "@phone"
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "Працює в огранізації",
+      "Position": 7,
+      "SqlName": "Organizations.Name",
+      "FilterParameterCode": "@Organization_name"
+    },
+    {
+      "Code": "job_name",
+      "Name": "Посада",
+      "Position": 8
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

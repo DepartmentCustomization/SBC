@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_Contact_typesInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Contact_types",
+  "Name": "Довідник: Типи контактів",
+  "FormCode": "Form_Contact_types",
+  "SelectRowsQueryCode": "dir_Contact_typesSelectRows",
+  "SelectRowQueryCode": "dir_Contact_typesSelectRow",
+  "UpdateQueryCode": "dir_Contact_typesUpdateRow"
+}

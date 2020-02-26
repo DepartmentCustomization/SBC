@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "phone_number_outsideMan",
+  "Name": "phone_number_outsideMan",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Sql": "select  dbo.f_phone_number_outsideMan(@org_id) as number",
+  "Columns": [
+    {
+      "Code": "number",
+      "Name": "number",
+      "Position": 0
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@org_id",
+      "Name": "org_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

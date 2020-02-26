@@ -1,0 +1,16 @@
+{
+  "Code": "group1",
+  "Name": "group1",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1,
+      "Icon": "home",
+      "IconHint": "Super text)"
+    }
+  ]
+}

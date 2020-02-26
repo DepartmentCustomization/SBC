@@ -1,0 +1,44 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_URL_Order_SelectRow",
+  "Name": "avr_URL_Order_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "Doc_Order_Id",
+      "Name": "Doc_Order_Id",
+      "Position": 2
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 3
+    },
+    {
+      "Code": "URL",
+      "Name": "URL",
+      "Position": 4
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Created_at",
+      "Position": 5
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

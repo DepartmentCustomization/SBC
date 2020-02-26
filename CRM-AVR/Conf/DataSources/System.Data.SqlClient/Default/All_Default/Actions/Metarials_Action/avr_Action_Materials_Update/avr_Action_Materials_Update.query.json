@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Action_Materials_Update",
+  "Name": "avr_Action_Materials_Update",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@In_out",
+      "Name": "In_out"
+    },
+    {
+      "Code": "@size_id",
+      "Name": "size_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Volume",
+      "Name": "Volume",
+      "ParameterType": "Integer"
+    }
+  ]
+}

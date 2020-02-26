@@ -1,0 +1,49 @@
+{
+  "Code": "AreaClaimInfo",
+  "Name": "Заявка",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Status_id",
+      "Name": "Статус",
+      "FieldType": "select",
+      "Width": "51%",
+      "QueryCode": "dir_Status_Claim",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата реєстрації",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "User",
+      "Name": "Зареєстрував",
+      "FieldType": "text",
+      "Position": 2
+    },
+    {
+      "Code": "date_close",
+      "Name": "Дата закриття",
+      "FieldType": "date-time",
+      "Position": 4
+    },
+    {
+      "Code": "user_close",
+      "Name": "Закрив",
+      "FieldType": "text",
+      "Position": 5
+    },
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "FieldType": "number",
+      "Position": 111,
+      "IsHidden": true,
+      "Width": "20%"
+    }
+  ]
+}

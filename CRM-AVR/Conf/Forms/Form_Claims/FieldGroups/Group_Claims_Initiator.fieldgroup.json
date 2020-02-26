@@ -1,0 +1,278 @@
+{
+  "Code": "Group_Claims_Initiator",
+  "Name": "Заявник",
+  "Position": 2,
+  "Fields": [
+    {
+      "Code": "contact_type",
+      "Name": "Тип контакта",
+      "FieldType": "radio",
+      "Width": "100%",
+      "Items": [
+        {
+          "Code": "1",
+          "Name": "Абонент- фіз. особа"
+        },
+        {
+          "Code": "0",
+          "Name": "Анонім"
+        },
+        {
+          "Code": "2",
+          "Name": "Абонент- юр. особа"
+        },
+        {
+          "Code": "3",
+          "Name": "Співробітник"
+        }
+      ]
+    },
+    {
+      "Code": "type_employee_2",
+      "Name": " ",
+      "FieldType": "radio",
+      "Items": [
+        {
+          "Code": "5",
+          "Name": "ДЕВГ"
+        },
+        {
+          "Code": "6",
+          "Name": "ДЕКГ"
+        },
+        {
+          "Code": "8",
+          "Name": "РД"
+        },
+        {
+          "Code": "15",
+          "Name": "ДЕН"
+        },
+        {
+          "Code": "1",
+          "Name": "Керівництво "
+        }
+      ]
+    },
+    {
+      "Code": "UR_organization_id",
+      "Name": "Назва організації ",
+      "FieldType": "select",
+      "Position": 1,
+      "Width": "100%",
+      "QueryCode": "list_organization_ur",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "EM_org_id",
+      "Name": "Підрозділ",
+      "FieldType": "select",
+      "Position": 1,
+      "Width": "100%",
+      "QueryCode": "list_employee_type_contact",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "FIZ_contact_fio",
+      "Name": "ПІБ",
+      "FieldType": "text",
+      "Position": 2,
+      "Width": "65%"
+    },
+    {
+      "Code": "EM_contact_fio",
+      "Name": "ПІБ",
+      "FieldType": "select",
+      "Position": 2,
+      "Width": "65%",
+      "QueryCode": "list_employee_type_contact_fio",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "pib",
+      "QueryParameters": []
+    },
+    {
+      "Code": "UR_contact_fio",
+      "Name": "ПІБ",
+      "FieldType": "select",
+      "Position": 2,
+      "Width": "70%",
+      "QueryCode": "list_UR_contact_fio",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "pib",
+      "QueryParameters": []
+    },
+    {
+      "Code": "FIZ_number",
+      "Name": "Номер телефону",
+      "FieldType": "text",
+      "Position": 3,
+      "Width": "35%"
+    },
+    {
+      "Code": "EM_number",
+      "Name": "Номер телефону",
+      "FieldType": "select",
+      "Position": 3,
+      "Width": "35%",
+      "QueryCode": "list_phone_number",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Number",
+      "QueryParameters": []
+    },
+    {
+      "Code": "UR_number",
+      "Name": "Номер телефону",
+      "FieldType": "select",
+      "Position": 3,
+      "Width": "30%",
+      "QueryCode": "list_phone_number",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Number",
+      "QueryParameters": []
+    },
+    {
+      "Code": "x_pib_inspector",
+      "Name": "ПІБ Інспектора",
+      "FieldType": "select",
+      "Position": 4,
+      "Width": "65%",
+      "QueryCode": "list_employee_type_contact_fio",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "pib",
+      "QueryParameters": []
+    },
+    {
+      "Code": "x_phone_inspector",
+      "Name": "Номер телефону",
+      "FieldType": "select",
+      "Position": 4,
+      "Width": "25%",
+      "QueryCode": "list_phone_number",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Number",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Sked",
+      "Name": "Згідно графіку",
+      "FieldType": "text",
+      "Position": 4,
+      "Width": "70%"
+    },
+    {
+      "Code": "TU",
+      "Name": "По ТУ ",
+      "FieldType": "text",
+      "Position": 6,
+      "Width": "31%"
+    },
+    {
+      "Code": "TU_Id",
+      "Name": "Замовник",
+      "FieldType": "text",
+      "Position": 7,
+      "Width": "69%"
+    },
+    {
+      "Code": "Letter",
+      "Name": "За листом ",
+      "FieldType": "text",
+      "Position": 8,
+      "Width": "31%"
+    },
+    {
+      "Code": "L_Contacts_Id",
+      "Name": "Юридична/фізична особа",
+      "FieldType": "text",
+      "Position": 9,
+      "Width": "69%"
+    },
+    {
+      "Code": "Gravamen",
+      "Name": "Скарги",
+      "FieldType": "text",
+      "Position": 10,
+      "Width": "31%"
+    },
+    {
+      "Code": "G_Left",
+      "Name": "Признак",
+      "FieldType": "radio",
+      "Position": 12,
+      "Width": "69%",
+      "Items": [
+        {
+          "Code": "L",
+          "Name": "Лист"
+        },
+        {
+          "Code": "E",
+          "Name": "E-mail"
+        },
+        {
+          "Code": "F",
+          "Name": "Facebook"
+        },
+        {
+          "Code": "T",
+          "Name": "Телефон"
+        }
+      ]
+    },
+    {
+      "Code": "G_PIB",
+      "Name": "ПІБ (хто скаржиться)",
+      "FieldType": "text",
+      "Position": 13,
+      "Width": "100%"
+    },
+    {
+      "Code": "btn_AddJuridicalContact",
+      "Name": "Новий контакт",
+      "FieldType": "button",
+      "Position": 111,
+      "Width": "28%",
+      "Icon": "account_box"
+    },
+    {
+      "Code": "btn_Save_new_concat",
+      "Name": "Зберегти",
+      "FieldType": "button",
+      "Position": 111,
+      "Width": "25%"
+    },
+    {
+      "Code": "btn_Update_concat",
+      "Name": "Оновити",
+      "FieldType": "button",
+      "Position": 112,
+      "Width": "25%"
+    },
+    {
+      "Code": "btn_Cleare",
+      "Name": "Очистити",
+      "FieldType": "button",
+      "Position": 113,
+      "Width": "25%"
+    },
+    {
+      "Code": "btn_Search",
+      "Name": "Пошук за тел.",
+      "FieldType": "button",
+      "Position": 114,
+      "Width": "25%"
+    },
+    {
+      "Code": "FIZ_concact_id",
+      "Name": "FIZ_concact_id",
+      "FieldType": "number",
+      "Position": 1333,
+      "IsHidden": true,
+      "Width": "20%"
+    }
+  ]
+}

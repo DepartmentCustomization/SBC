@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_ClaimsUpdateRow",
+  "Name": "avr_ClaimsUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

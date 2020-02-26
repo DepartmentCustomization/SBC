@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "AddList_ActionClaim_ActionTypeUpdateRow",
+  "Name": "AddList_ActionClaim_ActionTypeUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Actions_Id",
+      "Name": "Actions_Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Order_ID",
+      "Name": "Order_ID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

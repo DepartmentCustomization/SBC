@@ -1,0 +1,44 @@
+{
+  "ModelType": "Query",
+  "Code": "list_Parent_claim_type",
+  "Name": "list_Parent_claim_type",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Батьківський тип",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "Name",
+      "FilterParameterCode": "@name"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@access_id",
+      "Name": "access_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

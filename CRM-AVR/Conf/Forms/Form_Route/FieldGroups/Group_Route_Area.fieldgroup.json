@@ -1,0 +1,55 @@
+{
+  "Code": "Group_Route_Area",
+  "Name": "Місця та параметри",
+  "Position": 2,
+  "IsWithClosing": true,
+  "Fields": [
+    {
+      "Code": "Type_area",
+      "Name": "Тип",
+      "FieldType": "radio",
+      "Position": 1,
+      "Width": "85%",
+      "Items": [
+        {
+          "Code": "2",
+          "Name": "Вулична"
+        },
+        {
+          "Code": "1",
+          "Name": "Дворова"
+        }
+      ]
+    },
+    {
+      "Code": "btn_AddAreaHouses",
+      "Name": "Внести дані ділянки",
+      "FieldType": "button",
+      "Position": 3,
+      "Width": "40%",
+      "Icon": "layers"
+    },
+    {
+      "Code": "GUIDPack",
+      "Name": "GUIDPack",
+      "FieldType": "text",
+      "Position": 999,
+      "IsHidden": true
+    },
+    {
+      "Code": "AreaParam",
+      "Name": "AreaParam",
+      "FieldType": "text",
+      "Position": 999,
+      "IsHidden": true,
+      "Width": "100%"
+    },
+    {
+      "Code": "BoreCount",
+      "Name": "BoreCount",
+      "FieldType": "number",
+      "Position": 999,
+      "IsHidden": true
+    }
+  ]
+}

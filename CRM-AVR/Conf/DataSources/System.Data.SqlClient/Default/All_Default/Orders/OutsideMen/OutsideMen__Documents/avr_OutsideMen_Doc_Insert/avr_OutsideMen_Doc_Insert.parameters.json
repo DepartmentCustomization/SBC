@@ -1,0 +1,26 @@
+[
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@OutsideMen_Id",
+    "Name": "OutsideMen_Id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Type_Id",
+    "Name": "Type_Id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Name",
+    "Name": "Name"
+  },
+  {
+    "Code": "@Comments",
+    "Name": "Comments"
+  }
+]

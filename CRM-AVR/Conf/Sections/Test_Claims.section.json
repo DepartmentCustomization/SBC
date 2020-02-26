@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_ClaimsInsert_Temp"
+  },
+  "ModelType": "Section",
+  "Code": "Test_Claims",
+  "Name": "2. Test_Заявки",
+  "FormCode": "Form_Test_Template_Claims",
+  "SelectRowsQueryCode": "avr_ClaimsSelectRows",
+  "SelectRowQueryCode": "avr_ClaimsSelectRow",
+  "IsVisible": false
+}

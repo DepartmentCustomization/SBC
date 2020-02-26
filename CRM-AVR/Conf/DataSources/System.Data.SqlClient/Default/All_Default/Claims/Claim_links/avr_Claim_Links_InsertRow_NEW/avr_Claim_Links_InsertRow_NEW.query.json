@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claim_Links_InsertRow_NEW",
+  "Name": "avr_Claim_Links_InsertRow_NEW",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

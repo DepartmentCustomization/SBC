@@ -1,0 +1,20 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Claim_Likns_new_claim",
+  "Name": "Пов'язані заявки / створити нову пов'язану заявку",
+  "FormCode": "Form_Link_New_Claims",
+  "SelectRowsQueryCode": "avr_Claim_Links_SelectRows",
+  "SelectRowQueryCode": "avr_Claim_Links_SelectRow",
+  "SectionCode": "",
+  "Position": 8,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Claim_Links_InsertRow_NEW"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

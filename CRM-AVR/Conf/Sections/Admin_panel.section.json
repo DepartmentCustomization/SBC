@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_User_system_login_INSERT"
+  },
+  "ModelType": "Section",
+  "Code": "Admin_panel",
+  "Name": "Admin_panel",
+  "FormCode": "Form_users_login",
+  "SelectRowsQueryCode": "avr_User_system_login_Rows",
+  "SelectRowQueryCode": "avr_User_system_login_Row",
+  "UpdateQueryCode": "avr_User_system_login_UPDATE"
+}

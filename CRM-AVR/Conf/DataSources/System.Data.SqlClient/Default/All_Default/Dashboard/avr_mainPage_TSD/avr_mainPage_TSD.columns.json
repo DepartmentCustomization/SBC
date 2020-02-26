@@ -1,0 +1,92 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_Number",
+    "Name": "Claim_Number",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "org_name",
+    "Name": "org_name",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Adress",
+    "Name": "Adress",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "orders",
+    "Name": "orders",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Lattitude",
+    "Name": "Lattitude",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Longitude",
+    "Name": "Longitude",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "District",
+    "Name": "District",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "ClaimType",
+    "Name": "ClaimType",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Size",
+    "Name": "Size",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Created_at",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Comment",
+    "Name": "Comment",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "switch_places_name",
+    "Name": "switch_places_name",
+    "Position": 12
+  },
+  {
+    "Code": "description_sequela",
+    "Name": "description_sequela",
+    "Position": 13
+  },
+  {
+    "Code": "DisplayID",
+    "Name": "DisplayID",
+    "Position": 14,
+    "IsPrintable": false,
+    "SqlName": "Claims.DisplayID",
+    "FilterParameterCode": "@DisplayID"
+  }
+]

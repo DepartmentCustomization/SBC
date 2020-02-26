@@ -1,0 +1,10 @@
+SELECT [Id]
+      ,[Name]
+      ,[NameColumn]
+      ,[Order]
+      ,[ColumnTypeId]
+      ,[LinkNameColumn]
+      ,[LinkNameTable]
+      ,[QueryForList]
+  FROM [CRM_AVR_Analitics].[dbo].[Report_Column]
+  where #filter_columns#

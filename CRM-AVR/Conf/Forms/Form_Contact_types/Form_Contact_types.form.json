@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Contact_types",
+  "Name": "Довідник- Типи контактів",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Contact_types.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

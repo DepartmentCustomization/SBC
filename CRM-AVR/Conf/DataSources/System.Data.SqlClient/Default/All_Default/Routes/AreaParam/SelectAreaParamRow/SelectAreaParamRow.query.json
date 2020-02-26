@@ -1,0 +1,41 @@
+{
+  "ModelType": "Query",
+  "Code": "SelectAreaParamRow",
+  "Name": "SelectAreaParamRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "AreaId",
+      "Name": "AreaId",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "length",
+      "Name": "length",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "diameter",
+      "Name": "diameter",
+      "Position": 3,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

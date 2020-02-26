@@ -1,0 +1,69 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Sequela_Action_Select_ROWS",
+  "Name": "avr_Sequela_Action_Select_ROWS",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "Position": 2,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Actions_ID",
+      "Name": "Actions_ID",
+      "Position": 3,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Description",
+      "Name": "Опис",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата фіксації",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Fact_finish_at",
+      "Name": "Дата усунення",
+      "Position": 6,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@action_id",
+      "Name": "action_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

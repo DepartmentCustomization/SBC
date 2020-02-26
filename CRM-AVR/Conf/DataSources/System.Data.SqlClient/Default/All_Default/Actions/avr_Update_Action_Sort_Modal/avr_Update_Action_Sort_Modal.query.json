@@ -1,0 +1,21 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Update_Action_Sort_Modal",
+  "Name": "avr_Update_Action_Sort_Modal",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Sort_value",
+      "Name": "Sort_value",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

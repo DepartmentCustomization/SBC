@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_ClaimClassesInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Claim_classes",
+  "Name": "Довідник: Класи заявок",
+  "FormCode": "Form_Claim_classes",
+  "SelectRowsQueryCode": "dir_ClaimClassesSelectRows",
+  "SelectRowQueryCode": "dir_ClaimClassesSelectRow",
+  "UpdateQueryCode": "dir_ClaimClassesUpdateRow"
+}

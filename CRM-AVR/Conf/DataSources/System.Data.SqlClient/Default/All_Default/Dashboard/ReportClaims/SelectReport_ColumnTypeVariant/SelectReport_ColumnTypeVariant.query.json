@@ -1,0 +1,47 @@
+{
+  "ModelType": "Query",
+  "Code": "SelectReport_ColumnTypeVariant",
+  "Name": "SelectReport_ColumnTypeVariant",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "ColumnTypeId",
+      "Name": "ColumnTypeId",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Code",
+      "Name": "Code",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "IsActiveVariant",
+      "Name": "IsActiveVariant",
+      "Position": 5,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@ColumnTypeId",
+      "Name": "ColumnTypeId",
+      "ParameterType": "Integer"
+    }
+  ]
+}

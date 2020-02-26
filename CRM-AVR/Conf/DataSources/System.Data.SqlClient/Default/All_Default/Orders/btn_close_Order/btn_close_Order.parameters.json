@@ -1,0 +1,45 @@
+[
+  {
+    "Code": "@Finished_at",
+    "Name": "Finished_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Finish_at_actions",
+    "Name": "Finish_at_actions",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@claims_id",
+    "Name": "claims_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Start_at",
+    "Name": "Start_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Pushed_at",
+    "Name": "Pushed_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Plan_duration",
+    "Name": "Plan_duration"
+  },
+  {
+    "Code": "@Comment_result",
+    "Name": "Comment_result"
+  },
+  {
+    "Code": "@User",
+    "Name": "User",
+    "ParameterType": "CurrentUserId"
+  }
+]

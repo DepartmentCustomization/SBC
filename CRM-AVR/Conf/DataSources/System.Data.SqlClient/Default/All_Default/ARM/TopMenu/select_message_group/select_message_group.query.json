@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "select_message_group",
+  "Name": "select_message_group",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

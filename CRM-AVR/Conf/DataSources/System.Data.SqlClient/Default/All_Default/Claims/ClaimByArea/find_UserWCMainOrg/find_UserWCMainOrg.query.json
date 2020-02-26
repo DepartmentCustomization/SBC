@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "find_UserWCMainOrg",
+  "Name": "find_UserWCMainOrg",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "mainOrg",
+      "Name": "mainOrg",
+      "Position": 0,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@user",
+      "Name": "user",
+      "ParameterType": "CurrentUserId"
+    }
+  ]
+}

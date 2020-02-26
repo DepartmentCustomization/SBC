@@ -1,0 +1,76 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_timeSheet_Select",
+  "Name": "avr_timeSheet_Select",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Job_Id",
+      "Name": "Job_Id",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Shift_date",
+      "Name": "Shift_date",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "day",
+      "Name": "day",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "weekdays",
+      "Name": "weekdays",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Plan_start_time",
+      "Name": "Plan_start_time",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Time_count",
+      "Name": "Time_count",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Value",
+      "Name": "Value",
+      "Position": 7,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@job_id",
+      "Name": "job_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@year",
+      "Name": "year",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@month",
+      "Name": "month",
+      "ParameterType": "Integer"
+    }
+  ]
+}

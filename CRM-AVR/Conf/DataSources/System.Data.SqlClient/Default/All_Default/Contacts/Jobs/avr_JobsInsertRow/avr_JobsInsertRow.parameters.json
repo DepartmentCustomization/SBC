@@ -1,0 +1,35 @@
+[
+  {
+    "Code": "@organizations_id",
+    "Name": "organizations_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@job_name",
+    "Name": "job_name"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@positions_id",
+    "Name": "positions_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@contacts_id",
+    "Name": "contacts_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Password",
+    "Name": "Password"
+  },
+  {
+    "Code": "@Login",
+    "Name": "Login"
+  }
+]

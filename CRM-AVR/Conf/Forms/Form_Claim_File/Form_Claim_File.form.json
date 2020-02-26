@@ -1,0 +1,22 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Claim_File",
+  "Name": "Документи до заявки",
+  "Details": [
+    "string:Details\\Claim_Files.detail.json",
+    "string:Details\\Claim_URL.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claim_Documents.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Claims_Id",
+        "ParentFormFieldCodeForKeyValue": "claims_id",
+        "ParentFormFieldCodeForDisplayValue": "claims_id"
+      }
+    ],
+    "Script": "string:Form_Claim_File.form.js"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_service_mech",
+  "Name": "ТО",
+  "Details": [
+    "string:Details\\dummy2.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_service_mech.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "MechanismsID",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ]
+  }
+}

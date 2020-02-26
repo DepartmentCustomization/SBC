@@ -1,0 +1,41 @@
+{
+  "ModelType": "Query",
+  "Code": "list_info_for_House",
+  "Name": "list_info_for_House",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Latitude",
+      "Name": "Latitude",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Longitude",
+      "Name": "Longitude",
+      "Position": 4,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@str_id",
+      "Name": "str_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+[
+  {
+    "Code": "@Plan_duration",
+    "Name": "Plan_duration",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@place_id",
+    "Name": "place_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@diameter6",
+    "Name": "diameter6",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Pushed_at",
+    "Name": "Pushed_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@count",
+    "Name": "count",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@diameter4",
+    "Name": "diameter4",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@User",
+    "Name": "User",
+    "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@Finished_at",
+    "Name": "Finished_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@diameter3",
+    "Name": "diameter3",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@diameter2",
+    "Name": "diameter2",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@shifts_Id",
+    "Name": "shifts_Id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@diameter5",
+    "Name": "diameter5",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@diameter1",
+    "Name": "diameter1",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@status_id",
+    "Name": "status_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@claims_id",
+    "Name": "claims_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Comment_result",
+    "Name": "Comment_result"
+  },
+  {
+    "Code": "@Finish_at_actions",
+    "Name": "Finish_at_actions",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Closed_at",
+    "Name": "Closed_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@finish_at",
+    "Name": "finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@diameter7",
+    "Name": "diameter7",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@action_type_id",
+    "Name": "action_type_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@diameter9",
+    "Name": "diameter9",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Start_at",
+    "Name": "Start_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@diameter10",
+    "Name": "diameter10",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@diameter8",
+    "Name": "diameter8",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@add_action",
+    "Name": "add_action",
+    "ParameterType": "Boolean"
+  }
+]

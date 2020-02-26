@@ -1,0 +1,52 @@
+[
+  {
+    "Code": "AddAppeal",
+    "Name": "AddAppeal",
+    "Position": 1
+  },
+  {
+    "Code": "Заявка",
+    "Name": "Заявка",
+    "Position": 2
+  },
+  {
+    "Code": "Тип_Id",
+    "Name": "Тип_Id",
+    "Position": 3
+  },
+  {
+    "Code": "Тип",
+    "Name": "Тип",
+    "Position": 4
+  },
+  {
+    "Code": "Місце_Id",
+    "Name": "Місце_Id",
+    "Position": 5
+  },
+  {
+    "Code": "Місце",
+    "Name": "Місце",
+    "Position": 6
+  },
+  {
+    "Code": "Створена",
+    "Name": "Створена",
+    "Position": 7
+  },
+  {
+    "Code": "План виконання",
+    "Name": "План виконання",
+    "Position": 8
+  },
+  {
+    "Code": "Заявник_Id",
+    "Name": "Заявник_Id",
+    "Position": 9
+  },
+  {
+    "Code": "Заявник",
+    "Name": "Заявник",
+    "Position": 10
+  }
+]

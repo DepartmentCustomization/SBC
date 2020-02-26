@@ -1,0 +1,18 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Action_Files",
+  "Name": "Файли ",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Action_Files.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Doc_Action_Id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ]
+  }
+}

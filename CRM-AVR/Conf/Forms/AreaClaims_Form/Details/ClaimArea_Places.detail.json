@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "ClaimArea_Places",
+  "Name": "Місця ділянки",
+  "SelectRowsQueryCode": "Select_ClaimAreaPlaces",
+  "SectionCode": "",
+  "Position": 4,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@ClaimID"
+    }
+  ]
+}

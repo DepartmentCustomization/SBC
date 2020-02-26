@@ -1,0 +1,57 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_dir_SelectFiz_Outside",
+  "Name": "avr_dir_SelectFiz_Outside",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Працівник",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Contact_type_ID",
+      "Name": "Contact_type_ID",
+      "Position": 3,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Organisation_ID",
+      "Name": "Organisation_ID",
+      "Position": 4,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@org_id",
+      "Name": "org_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

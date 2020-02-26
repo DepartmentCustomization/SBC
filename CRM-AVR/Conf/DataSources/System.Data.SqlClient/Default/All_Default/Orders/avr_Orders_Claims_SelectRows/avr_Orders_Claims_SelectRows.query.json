@@ -1,0 +1,73 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Orders_Claims_SelectRows",
+  "Name": "avr_Orders_Claims_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "row_num",
+      "Name": "Номер виїзда",
+      "Position": 1,
+      "IsPrintable": false,
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "Orders"
+    },
+    {
+      "Code": "Name",
+      "Name": "Бригадир",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Start_at",
+      "Name": "Дата та час початку",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "[Orders].[Start_at]",
+      "FilterParameterCode": "@Start_at"
+    },
+    {
+      "Code": "Pushed_at",
+      "Name": "Дата та час виїзду",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Claim_Number",
+      "Position": 5,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

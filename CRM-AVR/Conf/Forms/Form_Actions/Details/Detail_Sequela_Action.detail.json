@@ -1,0 +1,21 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Sequela_Action",
+  "Name": "Ускладнення по роботі",
+  "FormCode": "Form_Sequela_Action",
+  "SelectRowsQueryCode": "avr_Sequela_Action_Select_ROWS",
+  "SelectRowQueryCode": "avr_Sequela_Action_Select_ROW",
+  "UpdateQueryCode": "avr_Sequela_Claim_Update_ROW",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Sequela_Claim_Insert_ROW"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@action_id"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "ModelType": "Form",
+  "Code": "ActionTypeSelectClaim_Detail",
+  "Name": "Прив'язка створеної роботи до наряду",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Form1.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Order_ID",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ]
+  }
+}

@@ -1,0 +1,111 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_Id",
+    "Name": "Claim_Id",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "org_id",
+    "Name": "org_id",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "employee_id",
+    "Name": "employee_id",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "debt_id",
+    "Name": "debt_id",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "placeDebt_id",
+    "Name": "placeDebt_id",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Number",
+    "Name": "Number",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "placeDis_id",
+    "Name": "placeDis_id",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Number_seal",
+    "Name": "Number_seal",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Amount_due",
+    "Name": "Amount_due",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Payment_departure",
+    "Name": "Payment_departure",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Description",
+    "Name": "Description",
+    "Position": 12,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Is_fixed",
+    "Name": "Is_fixed",
+    "Position": 13,
+    "IsPrintable": false
+  },
+  {
+    "Code": "org_name",
+    "Name": "org_name",
+    "Position": 14,
+    "ReferenceKeyCode": "org_id"
+  },
+  {
+    "Code": "employee_name",
+    "Name": "employee_name",
+    "Position": 15,
+    "ReferenceKeyCode": "employee_id"
+  },
+  {
+    "Code": "debt_name",
+    "Name": "debt_name",
+    "Position": 16,
+    "ReferenceKeyCode": "debt_id"
+  },
+  {
+    "Code": "placeDebt_name",
+    "Name": "placeDebt_name",
+    "Position": 17,
+    "ReferenceKeyCode": "placeDebt_id"
+  },
+  {
+    "Code": "placeDis_name",
+    "Name": "placeDis_name",
+    "Position": 18,
+    "ReferenceKeyCode": "placeDis_id"
+  }
+]

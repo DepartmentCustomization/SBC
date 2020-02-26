@@ -1,0 +1,46 @@
+{
+  "ModelType": "Query",
+  "Code": "sys_SysUser_OrgWC_SelectRow",
+  "Name": "sys_SysUser_OrgWC_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "OrganizationWC_Id",
+      "Name": "OrganizationWC_Id",
+      "Position": 2
+    },
+    {
+      "Code": "SystemUser_Id",
+      "Name": "SystemUser_Id",
+      "Position": 3
+    },
+    {
+      "Code": "OrganizationWC_name",
+      "Name": "OrganizationWC_name",
+      "Position": 4,
+      "ReferenceKeyCode": "OrganizationWC_Id"
+    },
+    {
+      "Code": "SystemUser_name",
+      "Name": "SystemUser_name",
+      "Position": 5,
+      "ReferenceKeyCode": "SystemUser_Id"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

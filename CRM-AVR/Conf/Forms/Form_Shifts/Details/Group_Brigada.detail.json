@@ -1,0 +1,38 @@
+{
+  "ModelType": "Detail",
+  "Code": "Group_Brigada",
+  "Name": "Члени бригади",
+  "FormCode": "Form_Shifts_jobs",
+  "SelectRowsQueryCode": "avr_Shift_JobsSelectRows",
+  "SelectRowQueryCode": "avr_Shift_JobsSelectRow",
+  "UpdateQueryCode": "avr_Shift_JobsUpdateRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Shift_JobsDeleteRow",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryParameterCode": "@jobs_id",
+    "QueryCode": "test_allSelect_Shifts_2",
+    "ColumnCode": "Id",
+    "AddType": "Lookup",
+    "InsertQueryCode": "avr_Shift_JobsInsertRow",
+    "QueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Shift_ID"
+      }
+    ],
+    "InsertQueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Shift_ID"
+      }
+    ]
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

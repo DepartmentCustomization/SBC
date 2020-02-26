@@ -1,0 +1,16 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Claims_App_Contact",
+  "Name": "Звернення за заявкою / заявники",
+  "SelectRowsQueryCode": "avr_Appeals_ClaimsSelectRows",
+  "SectionCode": "",
+  "Position": 9,
+  "IsExpand": true,
+  "PrintType": "Card",
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

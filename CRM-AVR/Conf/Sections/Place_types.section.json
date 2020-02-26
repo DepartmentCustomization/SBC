@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_Place_typesInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Place_types",
+  "Name": "Довідник: Тип місця",
+  "FormCode": "Form_Place_types",
+  "SelectRowsQueryCode": "dir_Place_typesSelectRows",
+  "SelectRowQueryCode": "dir_Place_typesSelectRow",
+  "UpdateQueryCode": "dir_Place_typesUpdateRow"
+}

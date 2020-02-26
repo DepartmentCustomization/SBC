@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Granting_authority",
+  "Name": "Надані повноваження",
+  "SelectRowsQueryCode": "avr_Granting_authority_SelectRows",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "SystemUser_Id",
+      "ParameterCode": "@user"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claim_Order_Places_Delete",
+  "Name": "avr_Claim_Order_Places_Delete",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

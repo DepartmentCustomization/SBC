@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "AVR_damageCounting",
+  "Name": "AVR_damageCounting",
+  "ConnectionCode": "Default"
+}

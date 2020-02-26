@@ -1,0 +1,22 @@
+{
+  "ModelType": "Detail",
+  "Code": "Group_Teams_Organization",
+  "Name": "Графік робочого часу для бригад",
+  "FormCode": "Form_Teams",
+  "SelectRowsQueryCode": "avr_Teams_OrganizationsSelectRows",
+  "SelectRowQueryCode": "avr_Teams_OrganizationsSelectRow",
+  "UpdateQueryCode": "avr_Teams_OrganizationsUpdateRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Teams_OrganizationsDeleteRow",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Teams_OrganizationsInsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

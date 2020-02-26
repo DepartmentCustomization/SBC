@@ -1,0 +1,44 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Order_Doc_SelectRow",
+  "Name": "avr_Order_Doc_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2
+    },
+    {
+      "Code": "Type_Id",
+      "Name": "Type_Id",
+      "Position": 3
+    },
+    {
+      "Code": "Orders_Id",
+      "Name": "Orders_Id",
+      "Position": 4
+    },
+    {
+      "Code": "Comments",
+      "Name": "Comments",
+      "Position": 5
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}
