@@ -1,8 +1,6 @@
 {
   "DashboardGroupCode": "StartPage",
-  "Description": "",
-  "DescriptionUrl": "",
   "ModelType": "Dashboard",
   "Code": "performers",
-  "Name": "Виконавці"
+  "Name": "Стартова виконавця:  організації"
 }

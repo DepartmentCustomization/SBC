@@ -1,5 +1,5 @@
-(function() {
-    return {
+(function () {
+  return {
         config: {
             query: {
                 code: 'dbArt_Nadiyshlo',
@@ -29,13 +29,13 @@
                     dataField: 'adress',
                     caption: 'Місце проблеми'
                 }, {
+                    dataField: 'vykonavets',
+                    caption: 'Виконавець'
+                }, {
                     dataField: 'control_date',
                     caption: 'Дата контролю',
                     dataType: 'datetime',
                     format: 'dd.MM.yyyy HH:mm'
-                }, {
-                    dataField: 'vykonavets',
-                    caption: 'Виконавець'
                 }
             ],
             masterDetail: {
@@ -107,11 +107,74 @@
                     }
                 }
             });
-            this.config.onContentReady = this.afterRenderTable.bind(this);
+        },
+        changeOnTable: function(message) {
+            this.column = message.column;
+            this.navigator = message.navigation;
+            this.targetId = message.targetId;
+            this.orgId = message.orgId;
+            this.orgName = message.orgName;
+            if(message.column !== 'Надійшло') {
+                document.getElementById('table4__arrived').style.display = 'none';
+            }else {
+                document.getElementById('table4__arrived').style.display = 'block';
+                this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
+                    { key: '@organizationName', value: message.orgName},
+                    { key: '@navigation', value: message.navigation}];
+                this.loadData(this.afterLoadDataHandler);
+            }
+        },
+        findAllSelectRowsToArrived: function() {
+            let rows = this.dataGridInstance.selectedRowKeys;
+            if (rows.length > 0) {
+                let arrivedSendValueRows = rows.join(', ');
+                let executeQuery = {
+                    queryCode: 'Button_Nadiishlo_VzyatyVRobotu',
+                    parameterValues: [ {key: '@Ids', value: arrivedSendValueRows} ],
+                    limit: -1
+                };
+                this.queryExecutor(executeQuery);
+                this.loadData(this.afterLoadDataHandler);
+                this.messageService.publish({
+                    name: 'reloadMainTable',
+                    column: this.column,
+                    navigator: this.navigator,
+                    targetId: this.targetId
+                });
+            }
+        },
+        createTableButton: function(e) {
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
+                        this.exportToExcel();
+                    }.bind(this)
+                },
+                location: 'after'
+            });
+            toolbarItems.push({
+                widget: 'dxButton',
+                options: {
+                    icon: 'check',
+                    type: 'default',
+                    text: 'Взяти в роботу',
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
+                        this.findAllSelectRowsToArrived();
+                    }.bind(this)
+                },
+                location: 'after'
+            });
         },
         exportToExcel: function() {
             let exportQuery = {
-                queryCode: 'Nadiyshlo',
+                queryCode: this.config.query.code,
                 limit: -1,
                 parameterValues: [
                     { key: '@organization_id', value: this.orgId},
@@ -129,7 +192,13 @@
             let column_QuestionType = { name: 'QuestionType', index: 2 };
             let column_vykonavets = { name: 'vykonavets', index: 3 };
             let column_adress = { name: 'adress', index: 4 };
-            this.indexArr = [ column_registration_number, column_zayavnyk, column_QuestionType, column_vykonavets, column_adress];
+            this.indexArr = [
+                column_registration_number,
+                column_zayavnyk,
+                column_QuestionType,
+                column_vykonavets,
+                column_adress
+            ];
             const workbook = this.createExcel();
             const worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
@@ -168,7 +237,7 @@
                 family: 4,
                 size: 10,
                 underline: false,
-                bold: true,
+                bold: true ,
                 italic: false
             };
             worksheet.getRow(2).alignment = { vertical: 'middle', horizontal: 'center' };
@@ -224,6 +293,32 @@
                 }
                 columnsHeader.push(obj);
             });
+            indexArr.forEach(el => {
+                let obj = {}
+                if (el.name === 'registration_number') {
+                    obj.key = 'registration_number';
+                    obj.width = 10;
+                    obj.height = 20;
+                    captions.push('Номер, дата, час');
+                } else if(el.name === 'QuestionType') {
+                    obj.key = 'QuestionType';
+                    obj.width = 44;
+                    captions.push('Суть питання');
+                } else if(el.name === 'zayavnyk') {
+                    obj.key = 'zayavnyk';
+                    obj.width = 30;
+                    captions.push('Заявник');
+                } else if(el.name === 'vykonavets') {
+                    obj.key = 'vykonavets';
+                    obj.width = 16;
+                    captions.push('Виконавець');
+                } else if(el.name === 'adress') {
+                    obj.key = 'adress';
+                    obj.width = 21;
+                    captions.push('Місце проблеми (Об\'єкт)');
+                }
+                columnsHeader.push(obj);
+            });
             worksheet.getRow(5).values = captions;
             worksheet.columns = columnsHeader;
             this.addetedIndexes = [];
@@ -241,24 +336,17 @@
                 for(let i = 0; i < indexArr.length; i++) {
                     let el = indexArr[i];
                     if (el.name === 'registration_number') {
-                        rowItem.registration_number =
-                            row.values[indexRegistrationNumber] +
-                            ', ' +
-                            this.changeDateTimeValues(row.values[indexRegistrDate]);
+                        rowItem.registration_number = row.values[indexRegistrationNumber] +
+                        ', ' +
+                        this.changeDateTimeValues(row.values[indexRegistrDate]);
                     } else if(el.name === 'zayavnyk') {
-                        rowItem.zayavnyk =
-                            row.values[indexZayavnikName] +
-                            ', ' +
-                            row.values[indexAdressZ];
+                        rowItem.zayavnyk = row.values[indexZayavnikName] + ', ' + row.values[indexAdressZ];
                     } else if(el.name === 'QuestionType') {
-                        rowItem.QuestionType =
-                            'Зміст: ' +
-                            row.values[indexQuestionContent];
+                        rowItem.QuestionType = 'Зміст: ' + row.values[indexQuestionContent];
                     } else if(el.name === 'vykonavets') {
-                        rowItem.vykonavets =
-                            row.values[indexVykonavets] +
-                            '. Дата контролю:  ' +
-                            this.changeDateTimeValues(row.values[indexControlDate]);
+                        rowItem.vykonavets = row.values[indexVykonavets] +
+                        '. Дата контролю:  ' +
+                        this.changeDateTimeValues(row.values[indexControlDate]);
                     } else if(el.name === 'adress') {
                         rowItem.adress = row.values[indexAdress];
                     }
@@ -319,78 +407,49 @@
             let dd = date.getDate();
             let MM = date.getMonth();
             let yyyy = date.getFullYear();
-            let HH = date.getUTCHours()
+            let HH = date.getHours()
             let mm = date.getMinutes();
             MM += 1;
-            if ((dd.toString()).length === 1) {
+            if((dd.toString()).length === 1) {
                 dd = '0' + dd;
             }
-            if ((MM.toString()).length === 1) {
+            if((MM.toString()).length === 1) {
                 MM = '0' + MM;
             }
-            if ((HH.toString()).length === 1) {
+            if((HH.toString()).length === 1) {
                 HH = '0' + HH;
             }
-            if ((mm.toString()).length === 1) {
+            if((mm.toString()).length === 1) {
                 mm = '0' + mm;
             }
-            return dd + '.' + MM + '.' + yyyy;
+            let trueDate = dd + '.' + MM + '.' + yyyy;
+            return trueDate;
         },
-        orgIdDistribute: function(message) {
-            this.organizationId = message.value;
-            this.distribute = message.distribute;
+        afterLoadDataHandler: function() {
+            this.render();
+            this.createCustomStyle();
         },
-        createTableButton: function(e) {
-            let toolbarItems = e.toolbarOptions.items;
-            toolbarItems.push({
-                widget: 'dxButton',
-                options: {
-                    icon: 'exportxlsx',
-                    type: 'default',
-                    text: 'Excel',
-                    onClick: function(e) {
-                        e.event.stopImmediatePropagation();
-                        this.exportToExcel();
-                    }.bind(this)
-                },
-                location: 'after'
-            });
-            toolbarItems.push({
-                widget: 'dxButton',
-                options: {
-                    icon: 'check',
-                    type: 'default',
-                    text: 'Взяти в роботу',
-                    onClick: function(e) {
-                        e.event.stopImmediatePropagation();
-                        this.findAllSelectRowsToArrived();
-                    }.bind(this)
-                },
-                location: 'after'
-            });
+        createCustomStyle: function() {
+            let elements = document.querySelectorAll('.dx-datagrid-export-button');
+            elements = Array.from(elements);
+            elements.forEach(function(element) {
+                let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
+                element.firstElementChild.appendChild(spanElement);
+            }.bind(this));
         },
-        createElement: function(tag, props, ...children) {
-            const element = document.createElement(tag);
-            Object.keys(props).forEach(key => element[key] = props[key]);
-            if(children.length > 0) {
-                children.forEach(child =>{
-                    element.appendChild(child);
-                });
-            } return element;
+        reloadAfterSend: function() {
+            this.loadData(this.afterLoadDataHandler);
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if (currentEmployeeData.short_answer === null || currentEmployeeData.short_answer === undefined) {
-                currentEmployeeData.short_answer = '';
+            if(currentEmployeeData.balans_name === null || currentEmployeeData.balans_name === undefined) {
+                currentEmployeeData.balans_name = '';
             }
-            if (currentEmployeeData.zayavnyk_zmist === null || currentEmployeeData.zayavnyk_zmist === undefined) {
+            if(currentEmployeeData.zayavnyk_zmist === null || currentEmployeeData.zayavnyk_zmist === undefined) {
                 currentEmployeeData.zayavnyk_zmist = '';
             }
-            if (currentEmployeeData.zayavnyk_adress === null || currentEmployeeData.zayavnyk_adress === undefined) {
+            if(currentEmployeeData.zayavnyk_adress === null || currentEmployeeData.zayavnyk_adress === undefined) {
                 currentEmployeeData.zayavnyk_adress = '';
-            }
-            if (currentEmployeeData.balans_name === null || currentEmployeeData.balans_name === undefined) {
-                currentEmployeeData.balans_name = '';
             }
             let elementAdress__content = this.createElement('div', {
                 className: 'elementAdress__content content',
@@ -430,67 +489,27 @@
             }, elementAdress, elementСontent, elementBalance);
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
-            elementsAll = Array.from(elementsAll);
             elementsAll.forEach(el => {
                 el.style.display = 'flex';
                 el.style.margin = '15px 10px';
-            });
+            })
             let elementsCaptionAll = document.querySelectorAll('.caption');
-            elementsCaptionAll = Array.from(elementsCaptionAll);
             elementsCaptionAll.forEach(el => {
                 el.style.minWidth = '200px';
-            });
+            })
         },
-        changeOnTable: function(message) {
-            if(message.column !== 'Надійшло') {
-                document.getElementById('table4__arrived').style.display = 'none';
-            }else if (this.distribute === null) {
-                this.column = message.column;
-                this.navigator = message.navigation;
-                this.targetId = message.targetId;
-                this.orgId = message.orgId;
-                this.orgName = message.orgName;
-                document.getElementById('table4__arrived').style.display = 'block';
-                this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
-                    { key: '@organizationName', value: message.orgName},
-                    { key: '@navigation', value: message.navigation}];
-                this.loadData(this.afterLoadDataHandler);
-            }
-        },
-        searchRelust: function() {
-        },
-        findAllSelectRowsToArrived: function() {
-            let rows = this.dataGridInstance.selectedRowKeys;
-            if(rows.length > 0) {
-                let arrivedSendValueRows = rows.join(', ');
-                let executeQuery = {
-                    queryCode: 'Button_Nadiishlo_VzyatyVRobotu',
-                    parameterValues: [ {key: '@Ids', value: arrivedSendValueRows} ],
-                    limit: -1
-                };
-                this.queryExecutor(executeQuery);
-                this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish({
-                    name: 'reloadMainTable',
-                    column: this.column,
-                    navigator: this.navigator,
-                    targetId: this.targetId
+        createElement: function(tag, props, ...children) {
+            const element = document.createElement(tag);
+            Object.keys(props).forEach(key => element[key] = props[key]);
+            if(children.length > 0) {
+                children.forEach(child =>{
+                    element.appendChild(child);
                 });
-            }
+            } return element;
         },
-        reloadAfterSend: function() {
-            this.loadData(this.afterLoadDataHandler);
-        },
-        afterLoadDataHandler: function() {
-            this.render();
-        },
-        afterRenderTable: function() {
-            let elements = document.querySelectorAll('.dx-datagrid-export-button');
-            elements = Array.from(elements);
-            elements.forEach(function(element) {
-                let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
-                element.firstElementChild.appendChild(spanElement);
-            }.bind(this));
+        orgIdDistribute: function(message) {
+            this.organizationId = message.value;
+            this.distribute = message.distribute;
         },
         destroy: function() {
             this.sub.unsubscribe();
