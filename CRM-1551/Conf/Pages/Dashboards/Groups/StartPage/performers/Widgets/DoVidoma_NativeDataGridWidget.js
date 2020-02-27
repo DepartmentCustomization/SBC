@@ -2,7 +2,7 @@
   return {
         config: {
             query: {
-                code: 'db_Art_DoVidoma',
+                code: 'dbArt_DoVidoma',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
