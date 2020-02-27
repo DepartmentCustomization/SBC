@@ -124,21 +124,26 @@ DECLARE @exec_ruzult NVARCHAR(MAX) =
 N'with
 temp_positions_user as
  (
- SELECT p.Id, [is_main], organizations_id
+ select po.Id, po.organizations_id
+  from [dbo].[Positions] po 
+  INNER JOIN
+  (
+  --посади, які зв.язані з тим, хто зайшов
+  SELECT p.Id position_id
   FROM [dbo].[Positions] p
   WHERE p.[programuser_id]=N'''+@user_id+N'''
   UNION 
-  SELECT p2.Id, p2.is_main, p2.organizations_id
+  SELECT p2.Id position_id
   FROM [dbo].[Positions] p
   INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.main_position_id
   INNER JOIN [dbo].[Positions] p2 ON ph.helper_position_id=p2.Id
   WHERE p.[programuser_id]=N'''+@user_id+N'''
   UNION 
-  SELECT p2.Id, p2.is_main, p2.organizations_id
+  SELECT p2.Id position_id
   FROM [dbo].[Positions] p
   INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.helper_position_id
   INNER JOIN [dbo].[Positions] p2 ON ph.main_position_id=p2.Id
-  WHERE p.[programuser_id]=N'''+@user_id+N'''
+  WHERE p.[programuser_id]=N'''+@user_id+N''') pp ON po.Id=pp.position_id
  )
 
  ,tpu_organization as
