@@ -1,14 +1,23 @@
-/*
-DECLARE @user_id NVARCHAR(128) = N'c8848a30-38ec-459b-aeaa-db906f3bc141';
-DECLARE @organization_id INT = 2467;
-DECLARE @navigation NVARCHAR(40) = N'Усі';
-*/ 
+ /*
+DECLARE @user_id NVARCHAR(128) = N'  ';--= N'c8848a30-38ec-459b-aeaa-db906f3bc141';
+DECLARE @organization_id INT = 1774;
+DECLARE @navigation NVARCHAR(40) = N'Електронні джерела';
+*/
 
-IF EXISTS (SELECT orr.*
-  FROM [dbo].[OrganizationInResponsibilityRights] orr
-  INNER JOIN dbo.Positions p ON orr.position_id=P.Id
-  WHERE orr.organization_id=@organization_Id 
-  AND P.programuser_id=@user_id)
+IF EXISTS 
+
+
+--(SELECT orr.*
+--  FROM [dbo].[OrganizationInResponsibilityRights] orr
+--  INNER JOIN dbo.Positions p ON orr.position_id=P.Id
+--  WHERE orr.organization_id=@organization_Id 
+--  AND P.programuser_id=@user_id)
+  (SELECT p.*
+  FROM [dbo].[Positions] p
+  LEFT JOIN [dbo].[PositionsHelpers] pm ON p.Id=pm.main_position_id
+  LEFT JOIN [dbo].[PositionsHelpers] ph on p.Id=ph.helper_position_id
+  WHERE p.[programuser_id]=@user_id
+  AND (pm.main_position_id IS NOT NULL OR ph.helper_position_id IS NOT NULL))
 
 	BEGIN
 		DECLARE @NavigationTable TABLE (
@@ -40,8 +49,9 @@ BEGIN
 			@navigation;
 END;
 
---пункт 2 права
 
+
+--пункт 2 права
 if object_id('tempdb..#organizations_rights') IS NOT NULL DROP TABLE #organizations_rights
 
 SELECT DISTINCT r.organization_id
@@ -55,29 +65,29 @@ IF OBJECT_ID('tempdb..#temp_positions_user') IS NOT NULL
 				DROP TABLE #temp_positions_user;
 			END;
 
-  --пункт1 подивився до яких посад має відношення користувач
+  --пункт1 подивився до яких посад та ораганізацій має відношення користувач з даної посади
   SELECT *
   INTO #temp_positions_user
   FROM
-  (SELECT p.Id, [is_main], organizations_id
+  (SELECT p.Id, organizations_id
   FROM [dbo].[Positions] p
   WHERE p.[programuser_id]=@user_id
   UNION 
-  SELECT p2.Id, p2.is_main, p2.organizations_id
+  SELECT p2.Id, p2.organizations_id
   FROM [dbo].[Positions] p
   INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.main_position_id
   INNER JOIN [dbo].[Positions] p2 ON ph.helper_position_id=p2.Id
   WHERE p.[programuser_id]=@user_id
   UNION 
-  SELECT p2.Id, p2.is_main, p2.organizations_id
+  SELECT p2.Id, p2.organizations_id
   FROM [dbo].[Positions] p
   INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.helper_position_id
   INNER JOIN [dbo].[Positions] p2 ON ph.main_position_id=p2.Id
   WHERE p.[programuser_id]=@user_id) t
 
-  --select * from #temp_positions_user
+  --select * from #temp_positions_user ок
 
-  -- создадим временную табличку для п2
+  -- создадим временную табличку для списка уникальных организаций
   IF OBJECT_ID('tempdb..#tpu_organization') IS NOT NULL
 			BEGIN
 				DROP TABLE #tpu_organization;
@@ -86,21 +96,21 @@ IF OBJECT_ID('tempdb..#temp_positions_user') IS NOT NULL
 
   SELECT DISTINCT organizations_id
   INTO #tpu_organization
-  FROM #temp_positions_user
-  WHERE is_main='true' AND organizations_id=@organization_Id
+  FROM #temp_positions_user;
+  --WHERE is_main='true' AND organizations_id=@organization_Id
   
-  --SELECT * FROM #tpu_organization
+  --SELECT * FROM #tpu_organization;
 
   -- создадим временную табличку для п3
-  IF OBJECT_ID('tempdb..#tpu_position') IS NOT NULL
-			BEGIN
-				DROP TABLE #tpu_position;
-			END;
+  --IF OBJECT_ID('tempdb..#tpu_position') IS NOT NULL
+		--	BEGIN
+		--		DROP TABLE #tpu_position;
+		--	END;
 
 
-  SELECT DISTINCT Id position_id
-  INTO #tpu_position
-  FROM #temp_positions_user;
+  --SELECT DISTINCT Id position_id
+  --INTO #tpu_position
+  --FROM #temp_positions_user;
 
   --SELECT * FROM #tpu_position;
 
@@ -150,10 +160,10 @@ AS
 	LEFT JOIN [dbo].[AssignmentTypes]
 		ON [Assignments].assignment_type_id = [AssignmentTypes].Id
 	--
-	LEFT JOIN #tpu_organization tpuo 
+	INNER JOIN #tpu_organization tpuo 
 	ON [Assignments].executor_organization_id=tpuo.organizations_id
-	LEFT JOIN #tpu_position tpuop 
-	ON [Assignments].executor_person_id=tpuop.position_id
+	--LEFT JOIN #tpu_position tpuop 
+	--ON [Assignments].executor_person_id=tpuop.position_id
 	--
 	INNER JOIN [dbo].[Questions]
 		ON [Assignments].question_id = [Questions].Id
@@ -209,10 +219,11 @@ AS
 	WHERE 
 	[AssignmentStates].code = N'Registered' AND
 	[AssignmentTypes].code = N'ToAttention' AND
+	[Assignments].executor_person_id=@organization_id
 
 	--[Assignments].[executor_organization_id] = @organization_id
- ((tpuo.organizations_id IS NOT NULL AND [Assignments].executor_person_id IS NULL)
-OR (tpuop.position_id IS NOT NULL))
+-- ((tpuo.organizations_id IS NOT NULL AND [Assignments].executor_person_id IS NULL)
+--OR (tpuop.position_id IS NOT NULL))
 )
 /*,
 nav

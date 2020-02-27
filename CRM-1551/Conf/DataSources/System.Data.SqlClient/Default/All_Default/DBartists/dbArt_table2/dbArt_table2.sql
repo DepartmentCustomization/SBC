@@ -1,45 +1,81 @@
-/*DECLARE @organization_Id INT =1762--1762;
+
+/*
+DECLARE @organization_id INT =1774--1762;
 DECLARE @user_id NVARCHAR(300)=N'  '--N'  ';
 */
 
-  IF EXISTS
+    IF EXISTS
 
-  --(SELECT orr.*
-  --FROM [dbo].[OrganizationInResponsibilityRights] orr
-  --INNER JOIN dbo.Positions p ON orr.position_id=P.Id
-  --WHERE orr.organization_id=@organization_Id 
-  --AND P.programuser_id=@user_id)
-  (SELECT p.*
+    (SELECT p.*
   FROM [dbo].[Positions] p
   LEFT JOIN [dbo].[PositionsHelpers] pm ON p.Id=pm.main_position_id
   LEFT JOIN [dbo].[PositionsHelpers] ph on p.Id=ph.helper_position_id
   WHERE p.[programuser_id]=@user_id
   AND (pm.main_position_id IS NOT NULL OR ph.helper_position_id IS NOT NULL))
 	BEGIN
-		
-	-- на ДБ виводити доручення всіх посад, до яких відпоситься користувач, що зайшов в систему
+
+   /*
+	IF object_id('tempdb..#user_organizations') IS NOT NULL DROP TABLE #user_organizations
+
+  SELECT r.name role_name, p.Id position_id, p.organizations_id, p.programuser_id
+  INTO #user_organizations
+  FROM [dbo].[Positions] p
+  LEFT JOIN [dbo].[Roles] r ON p.role_id=r.Id
+  WHERE p.programuser_id=@user_id*/
+  
+
+  --
+
+  	--пункт 5 сортировка
+	if object_id ('tempbd..#temp_sort') is not null drop table #temp_sort
+
+  select position_id, min(sort) sort
+  into #temp_sort
+  from (
+  --своя посада
+  SELECT p.Id position_id, 1 sort 
+  FROM [dbo].[Positions] p
+  where programuser_id=@user_id
+  union 
+  --посада директора її організації
+  select ph.main_position_id, 2 sort
+  from [dbo].[Positions] p
+  inner join [dbo].[PositionsHelpers] ph on p.Id=ph.helper_position_id
+  where p.programuser_id=@user_id
+  union
+  --посади в її організації
+  select po.Id, 3 sort
+  from [dbo].[Positions] p
+  inner join [dbo].[Positions] po on p.organizations_id=po.organizations_id
+  where p.programuser_id=@user_id) t
+  group by position_id
+
+
+  -- на ДБ виводити доручення всіх посад, до яких відпоситься користувач, що зайшов в систему
 	IF OBJECT_ID('tempdb..#temp_positions_user') IS NOT NULL
 			BEGIN
 				DROP TABLE #temp_positions_user;
 			END;
 
+
+
   --пункт4 подивився до яких посад має відношення користувач
   SELECT *
   INTO #temp_positions_user
   FROM
-  (SELECT p.Id, [is_main], organizations_id, r.name role_name
+  (SELECT p.Id, p.position, organizations_id, r.name role_name
   FROM [dbo].[Positions] p
   LEFT JOIN [dbo].[Roles] r ON p.role_id=r.Id 
   WHERE p.[programuser_id]=@user_id
   UNION 
-  SELECT p2.Id, p2.is_main, p2.organizations_id, r.name role_name
+  SELECT p2.Id, p2.position, p2.organizations_id, r.name role_name
   FROM [dbo].[Positions] p
   INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.main_position_id
   INNER JOIN [dbo].[Positions] p2 ON ph.helper_position_id=p2.Id
   LEFT JOIN [dbo].[Roles] r ON p2.role_id=r.Id
   WHERE p.[programuser_id]=@user_id
   UNION 
-  SELECT p2.Id, p2.is_main, p2.organizations_id, r.name role_name
+  SELECT p2.Id, p2.position, p2.organizations_id, r.name role_name
   FROM [dbo].[Positions] p
   INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.helper_position_id
   INNER JOIN [dbo].[Positions] p2 ON ph.main_position_id=p2.Id
@@ -54,26 +90,22 @@ DECLARE @user_id NVARCHAR(300)=N'  '--N'  ';
    into #organizations_user
    from #temp_positions_user
 
-   --select * from #organizations_user
-   
-   --end
-	--
-	
-  /*  IF object_id('tempdb..#user_organizations') IS NOT NULL DROP TABLE #user_organizations
-
-  SELECT r.name role_name, p.Id position_id, p.organizations_id, p.programuser_id
-  INTO #user_organizations
-  FROM [dbo].[Positions] p
-  LEFT JOIN [dbo].[Roles] r ON p.role_id=r.Id
-  WHERE p.programuser_id=@user_id
-  */
+   if object_id('tempdb..#position_user') is not null drop table #position_user
+   select distinct id position_id
+   into #position_user
+   from #temp_positions_user
+  
+  --select * from #position_organization
+  --end
 
   if object_id('tempdb..#temp_assingments') is not null drop table #temp_assingments
 
   SELECT a.*
   INTO #temp_assingments
   FROM [dbo].[Assignments] a
+  INNER JOIN #position_user pu ON a.executor_person_id=pu.position_id
   INNER JOIN #organizations_user ou ON a.executor_organization_id=ou.organizations_id
+  WHERE a.executor_person_id=@organization_id
 
 
 
@@ -175,6 +207,8 @@ FROM (SELECT
 		5 Id
 	   ,N'Зауваження') AS t;
 
+--SELECT DISTINCT Id, organizations_id, role_name FROM #temp_positions_user --where Id=@organization_id
+
 IF OBJECT_ID('tempdb..#temp_nadiishlo') IS NOT NULL
 BEGIN
 	DROP TABLE #temp_nadiishlo
@@ -234,7 +268,7 @@ INNER JOIN [dbo].[AssignmentResolutions] WITH (NOLOCK)
 	ON [Assignments].[AssignmentResolutionsId] = [AssignmentResolutions].Id
 LEFT JOIN [dbo].[AssignmentConsiderations] WITH (NOLOCK)
 	ON [Assignments].current_assignment_consideration_id = [AssignmentConsiderations].Id
-INNER JOIN (SELECT DISTINCT organizations_id, role_name FROM #temp_positions_user) uo 
+INNER JOIN (SELECT DISTINCT organizations_id, role_name FROM #temp_positions_user where Id=@organization_id) uo 
 	ON [AssignmentConsiderations].turn_organization_id=uo.organizations_id
 INNER JOIN [dbo].[Questions] WITH (NOLOCK)
 	ON [Assignments].question_id = [Questions].Id
@@ -561,6 +595,10 @@ FROM (SELECT
 PIVOT
 (SUM(cc) FOR main_name IN ([nadiishlo], [nevkomp], [prostr], [uvaga], [vroboti], [dovidoma], [nadoopr], [neVykonNeMozhl])
 ) pvt;
+
+--SELECT * FROM #temp_positions_user
+
+drop table #temp_sort
 	END
    
    ELSE 

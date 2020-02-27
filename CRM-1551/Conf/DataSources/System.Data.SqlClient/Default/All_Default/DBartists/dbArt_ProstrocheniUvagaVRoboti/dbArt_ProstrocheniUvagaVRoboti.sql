@@ -1,15 +1,22 @@
 /*
-DECLARE @user_id NVARCHAR(128) = N'cd01fea0-760c-4b66-9006-152e5b2a87e9'; --128
-DECLARE @organization_id INT = 2008;
-DECLARE @navigation NVARCHAR(40) = N'Усі'; -- 40
-declare @column nvarchar(40)=N'В роботі'; --40
+DECLARE @user_id NVARCHAR(128) = N'  ';--= N'c8848a30-38ec-459b-aeaa-db906f3bc141';
+DECLARE @organization_id INT = 1762;
+DECLARE @navigation NVARCHAR(40) = N'Електронні джерела'; -- 40
+declare @column nvarchar(40)=N'Прострочені'; --40
 */
 
-IF EXISTS (SELECT orr.*
-  FROM [OrganizationInResponsibilityRights] orr
-  INNER JOIN dbo.Positions p ON orr.position_id=P.Id
-  WHERE orr.organization_id=@organization_Id 
-  AND P.programuser_id=@user_id)
+IF EXISTS 
+--(SELECT orr.*
+--  FROM [dbo].[OrganizationInResponsibilityRights] orr
+--  INNER JOIN dbo.Positions p ON orr.position_id=P.Id
+--  WHERE orr.organization_id=@organization_Id 
+--  AND P.programuser_id=@user_id)
+  (SELECT p.*
+  FROM [dbo].[Positions] p
+  LEFT JOIN [dbo].[PositionsHelpers] pm ON p.Id=pm.main_position_id
+  LEFT JOIN [dbo].[PositionsHelpers] ph on p.Id=ph.helper_position_id
+  WHERE p.[programuser_id]=@user_id
+  AND (pm.main_position_id IS NOT NULL OR ph.helper_position_id IS NOT NULL))
 
 	BEGIN
 		
@@ -42,7 +49,7 @@ SET @Nav_Ids=N'SELECT N'''+ISNULL(@navigation,N'')+N''' Id'
 END;
 
 DECLARE @exec_code1 NVARCHAR(MAX) = N'
-select [Assignments].Id, [Organizations].Id OrganizationsId, [Organizations].name OrganizationsName,
+select DISTINCT [Assignments].Id, [Organizations].Id OrganizationsId, [Organizations].name OrganizationsName,
 [Applicants].full_name zayavnyk, 
 
 isnull([Districts].name+N'' р-н, '', N'''')
@@ -85,10 +92,8 @@ end	= nav.Id
 INNER JOIN [AssignmentStates] on [Assignments].assignment_state_id=[AssignmentStates].Id
 INNER JOIN [AssignmentTypes] on [Assignments].assignment_type_id=[AssignmentTypes].Id
 
-LEFT JOIN tpu_organization tpuo 
+INNER JOIN tpu_organization tpuo 
 	ON [Assignments].executor_organization_id=tpuo.organizations_id
-LEFT JOIN tpu_position tpuop 
-	ON [Assignments].executor_person_id=tpuop.position_id
 
 left JOIN [AssignmentResults] on [Assignments].[AssignmentResultsId]=[AssignmentResults].Id 
 left JOIN [AssignmentResolutions] on [Assignments].[AssignmentResolutionsId]=[AssignmentResolutions].Id
@@ -108,11 +113,11 @@ left JOIN [Organizations] [Organizations3] on balans.executor_id=[Organizations3
 left join o_rights on [Assignments].executor_organization_id=o_rights.organization_id
 
 
-where
+where [Assignments].executor_person_id='+LTRIM(@organization_id)+N' AND
 ' + @comment_uvaga + N' (DATEADD(MI, DATEDIFF(MI, [Questions].registration_date, [Questions].control_date)*0.25*-1, [Questions].control_date)<getutcdate() and [Questions].control_date>=getutcdate() and [AssignmentTypes].code<>N''ToAttention'' and [AssignmentStates].code=N''InWork'')
  ' + @comment_prost + N' ([Questions].control_date<=getutcdate() and [AssignmentTypes].code<>N''ToAttention'' and [AssignmentStates].code=N''InWork'' )
  ' + @comment_vroboti + N' (DATEADD(MI, DATEDIFF(MI, [Questions].registration_date, [Questions].control_date)*0.75, [Questions].registration_date)>=getutcdate() and [Questions].control_date>=getutcdate() and [AssignmentTypes].code<>N''ToAttention'' and [AssignmentStates].code=N''InWork'')
-and ((tpuo.organizations_id IS NOT NULL AND [Assignments].executor_person_id IS NULL) OR (tpuop.position_id IS NOT NULL))'
+'
 
 
 DECLARE @exec_ruzult NVARCHAR(MAX) =
@@ -120,31 +125,26 @@ N'with
 temp_positions_user as
  (
  SELECT p.Id, [is_main], organizations_id
-  FROM [Positions] p
+  FROM [dbo].[Positions] p
   WHERE p.[programuser_id]=N'''+@user_id+N'''
   UNION 
   SELECT p2.Id, p2.is_main, p2.organizations_id
-  FROM [Positions] p
-  INNER JOIN [PositionsHelpers] ph ON p.Id=ph.main_position_id
-  INNER JOIN [Positions] p2 ON ph.helper_position_id=p2.Id
+  FROM [dbo].[Positions] p
+  INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.main_position_id
+  INNER JOIN [dbo].[Positions] p2 ON ph.helper_position_id=p2.Id
   WHERE p.[programuser_id]=N'''+@user_id+N'''
   UNION 
   SELECT p2.Id, p2.is_main, p2.organizations_id
-  FROM [Positions] p
-  INNER JOIN [PositionsHelpers] ph ON p.Id=ph.helper_position_id
-  INNER JOIN [Positions] p2 ON ph.main_position_id=p2.Id
+  FROM [dbo].[Positions] p
+  INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.helper_position_id
+  INNER JOIN [dbo].[Positions] p2 ON ph.main_position_id=p2.Id
   WHERE p.[programuser_id]=N'''+@user_id+N'''
  )
 
  ,tpu_organization as
  (SELECT DISTINCT organizations_id
   FROM temp_positions_user
-  WHERE is_main=''true'' AND organizations_id='+LTRIM(@organization_Id)+N'
   )
-
-  ,tpu_position AS 
-  (SELECT DISTINCT Id position_id
-  FROM temp_positions_user)
 
    ,nav as 
 (
@@ -169,7 +169,7 @@ select Id, navigation, registration_number, QuestionType, zayavnyk, adress, vyko
  from main order by registration_date'
 
 EXEC (@exec_ruzult);
-SELECT @exec_ruzult, LEN(@exec_ruzult), @exec_code1, LEN(@exec_code1), @Nav_Ids, LEN(@Nav_Ids)
+--SELECT @exec_ruzult, LEN(@exec_ruzult), @exec_code1, LEN(@exec_code1), @Nav_Ids, LEN(@Nav_Ids)
 --SELECT @exec_ruzult, LEN(@exec_ruzult)
 	END
 

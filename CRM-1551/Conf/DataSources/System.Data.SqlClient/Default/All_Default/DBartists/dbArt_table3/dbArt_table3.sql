@@ -1,15 +1,8 @@
-
---DECLARE @organization_Id INT =1762--1762;
---DECLARE @user_id NVARCHAR(300)=N'  '--N'  ';
-
+/*
+DECLARE @organization_Id INT =1762--1762;
+DECLARE @user_id NVARCHAR(300)=N'  '--N'  ';
+*/
   IF EXISTS
-
-
-  --(SELECT orr.*
-  --FROM [dbo].[OrganizationInResponsibilityRights] orr
-  --INNER JOIN dbo.Positions p ON orr.position_id=P.Id
-  --WHERE orr.organization_id=@organization_Id 
-  --AND P.programuser_id=@user_id)
 
     (SELECT p.*
   FROM [dbo].[Positions] p
@@ -30,29 +23,57 @@
   
 
   --
+
+  	--пункт 5 сортировка
+	if object_id ('tempbd..#temp_sort') is not null drop table #temp_sort
+
+  select position_id, min(sort) sort
+  into #temp_sort
+  from (
+  --своя посада
+  SELECT p.Id position_id, 1 sort 
+  FROM [dbo].[Positions] p
+  where programuser_id=@user_id
+  union 
+  --посада директора її організації
+  select ph.main_position_id, 2 sort
+  from [dbo].[Positions] p
+  inner join [dbo].[PositionsHelpers] ph on p.Id=ph.helper_position_id
+  where p.programuser_id=@user_id
+  union
+  --посади в її організації
+  select po.Id, 3 sort
+  from [dbo].[Positions] p
+  inner join [dbo].[Positions] po on p.organizations_id=po.organizations_id
+  where p.programuser_id=@user_id) t
+  group by position_id
+
+
   -- на ДБ виводити доручення всіх посад, до яких відпоситься користувач, що зайшов в систему
 	IF OBJECT_ID('tempdb..#temp_positions_user') IS NOT NULL
 			BEGIN
 				DROP TABLE #temp_positions_user;
 			END;
 
+
+
   --пункт4 подивився до яких посад має відношення користувач
   SELECT *
   INTO #temp_positions_user
   FROM
-  (SELECT p.Id, [is_main], organizations_id, r.name role_name
+  (SELECT p.Id, p.position, organizations_id, r.name role_name
   FROM [dbo].[Positions] p
   LEFT JOIN [dbo].[Roles] r ON p.role_id=r.Id 
   WHERE p.[programuser_id]=@user_id
   UNION 
-  SELECT p2.Id, p2.is_main, p2.organizations_id, r.name role_name
+  SELECT p2.Id, p2.position, p2.organizations_id, r.name role_name
   FROM [dbo].[Positions] p
   INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.main_position_id
   INNER JOIN [dbo].[Positions] p2 ON ph.helper_position_id=p2.Id
   LEFT JOIN [dbo].[Roles] r ON p2.role_id=r.Id
   WHERE p.[programuser_id]=@user_id
   UNION 
-  SELECT p2.Id, p2.is_main, p2.organizations_id, r.name role_name
+  SELECT p2.Id, p2.position, p2.organizations_id, r.name role_name
   FROM [dbo].[Positions] p
   INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.helper_position_id
   INNER JOIN [dbo].[Positions] p2 ON ph.main_position_id=p2.Id
@@ -67,13 +88,20 @@
    into #organizations_user
    from #temp_positions_user
 
+   if object_id('tempdb..#position_user') is not null drop table #position_user
+   select distinct id position_id
+   into #position_user
+   from #temp_positions_user
   
+  --select * from #position_organization
+  --end
 
   if object_id('tempdb..#temp_assingments') is not null drop table #temp_assingments
 
   SELECT a.*
   INTO #temp_assingments
   FROM [dbo].[Assignments] a
+  INNER JOIN #position_user pu ON a.executor_person_id=pu.position_id
   INNER JOIN #organizations_user ou ON a.executor_organization_id=ou.organizations_id
 
 
@@ -163,8 +191,14 @@
 			   ,[AssignmentConsiderations].[turn_organization_id]
 			   ,[turn_org].[short_name] [turn_organization_name]
 			   ,[Questions].[control_date]
-			   ,[Questions].[registration_date] INTO #temp_AllAss
+			   ,[Questions].[registration_date]
+			   ,[Assignments].[executor_person_id]
+			   ,[Positions].Id Positions_Id
+			   ,[Positions].position Positions_Name
+			   INTO #temp_AllAss
 			FROM [dbo].[Assignments] WITH (NOLOCK)
+			INNER JOIN [dbo].[Positions] 
+				ON [Assignments].executor_person_id=[Positions].Id
 			INNER JOIN [dbo].[Questions] WITH (NOLOCK)
 				ON [Assignments].question_id = [Questions].Id
 			INNER JOIN [dbo].[Appeals] WITH (NOLOCK)
@@ -181,33 +215,35 @@
 				ON [Assignments].[AssignmentResultsId] = [AssignmentResults].Id
 			LEFT JOIN [dbo].[AssignmentResolutions] WITH (NOLOCK)
 				ON [Assignments].[AssignmentResolutionsId] = [AssignmentResolutions].Id
-			LEFT JOIN [dbo].[Organizations] WITH (NOLOCK)
-				ON [Assignments].executor_organization_id = [Organizations].Id
 			LEFT JOIN [dbo].[AssignmentConsiderations] WITH (NOLOCK)
 					ON [Assignments].current_assignment_consideration_id = [AssignmentConsiderations].Id
+
+			LEFT JOIN [dbo].[Organizations] WITH (NOLOCK)
+				ON [Assignments].executor_organization_id = [Organizations].Id
 			LEFT JOIN [dbo].[Organizations] as [turn_org] WITH (NOLOCK)
 				ON [AssignmentConsiderations].turn_organization_id = [turn_org].Id
+
 			WHERE [Assignments].[executor_organization_id] IN (SELECT organizations_id FROM #organizations_user)
 			or [AssignmentConsiderations].turn_organization_id IN (SELECT organizations_id FROM #organizations_user);
 
-
+			
 			CREATE NONCLUSTERED INDEX [NONCLUSTERED_INDEX_temp_AllAss]
 			ON #temp_AllAss ([AssignmentResult_Code],[AssignmentType_Code],[AssignmentState_Code],[AssignmentResolution_Name])
-			INCLUDE ([Id],[OrganizationsId],[turn_organization_id],[turn_organization_name]);
+			INCLUDE ([Id],[OrganizationsId],[turn_organization_id],[turn_organization_name], [Positions_Id], [Positions_Name]);
 	
 			CREATE NONCLUSTERED INDEX [NONCLUSTERED_INDEX_temp_AllAss_INCLUDE]
 			ON #temp_AllAss ([AssignmentState_Code],[AssignmentType_Code],[control_date])
-			INCLUDE ([Id],[OrganizationsId],[OrganizationsName],[registration_date]);
-
+			INCLUDE ([Id],[OrganizationsId],[OrganizationsName],[registration_date], [Positions_Id], [Positions_Name]);
+			
 			-----------------основное-----
 			IF OBJECT_ID('tempdb..#temp_nadiishlo') IS NOT NULL
 			BEGIN
 				DROP TABLE #temp_nadiishlo;
-			END;
+			END
 			SELECT
 				taa.Id
-			   ,taa.OrganizationsId
-			   ,taa.OrganizationsName 
+			   ,taa.Positions_Id
+			   ,taa.Positions_Name 
 			INTO #temp_nadiishlo
 			FROM #temp_AllAss taa
 			INNER JOIN #temp_assingments ta ON taa.Id=ta.Id
@@ -220,7 +256,7 @@
 				   )
 			--AND OrganizationsId in (SELECT organizations_id FROM #user_organizations);
 
-
+			
 
 			IF OBJECT_ID('tempdb..#temp_nevkomp') IS NOT NULL
 			BEGIN
@@ -228,12 +264,12 @@
 			END;
 			SELECT
 				ta.Id
-			   ,ta.turn_organization_id as OrganizationsId
-			   ,ta.turn_organization_name as OrganizationsName
+			   ,ta.Positions_Id--turn_organization_id as OrganizationsId
+			   ,ta.Positions_Name--turn_organization_name as OrganizationsName
 			INTO #temp_nevkomp
 			FROM #temp_AllAss ta
-			INNER JOIN (SELECT DISTINCT organizations_id, role_name  FROM #temp_positions_user) uo
-			ON ta.turn_organization_id=uo.organizations_id
+			INNER JOIN (SELECT DISTINCT Id, organizations_id, role_name  FROM #temp_positions_user) uo
+			ON ta.turn_organization_id=uo.organizations_id and ta.Positions_Id=uo.Id
 			WHERE ta.[AssignmentType_Code] <> N'ToAttention'
 			AND ta.[AssignmentState_Code] <> N'Closed'
 			AND ta.[AssignmentResult_Code] = N'NotInTheCompetence'
@@ -255,8 +291,8 @@
 			END;
 			SELECT
 				taa.Id
-			   ,taa.OrganizationsId
-			   ,taa.OrganizationsName 
+			   ,taa.Positions_Id--OrganizationsId
+			   ,taa.Positions_Name--OrganizationsName 
 			INTO #temp_prostr
 			FROM #temp_AllAss taa
 			INNER JOIN #temp_assingments ta ON taa.Id=ta.Id
@@ -275,8 +311,8 @@
 			END;
 			SELECT
 				taa.Id
-			   ,taa.OrganizationsId
-			   ,taa.OrganizationsName 
+			   ,taa.Positions_Id--OrganizationsId
+			   ,taa.Positions_Name--OrganizationsName 
 			INTO #temp_uvaga
 			FROM #temp_AllAss taa
 			INNER JOIN #temp_assingments ta ON taa.Id=ta.Id
@@ -295,8 +331,8 @@
 			END;
 			SELECT
 				taa.Id
-			   ,taa.OrganizationsId
-			   ,taa.OrganizationsName 
+			   ,taa.Positions_Id--OrganizationsId
+			   ,taa.Positions_Name--OrganizationsName 
 			INTO #temp_vroboti
 			FROM #temp_AllAss taa
 			INNER JOIN #temp_assingments ta ON taa.Id=ta.Id
@@ -314,8 +350,8 @@
 			END;
 			SELECT
 				taa.Id
-			   ,taa.OrganizationsId
-			   ,taa.OrganizationsName 
+			   ,taa.Positions_Id--OrganizationsId
+			   ,taa.Positions_Name--OrganizationsName 
 			INTO #temp_dovidoma
 			FROM #temp_AllAss taa
 			INNER JOIN #temp_assingments ta ON taa.Id=ta.Id
@@ -332,8 +368,8 @@
 			END;
 			SELECT
 				taa.Id
-			   ,taa.OrganizationsId
-			   ,taa.OrganizationsName 
+			   ,taa.Positions_Id--OrganizationsId
+			   ,taa.Positions_Name--OrganizationsName 
 			INTO #temp_nadoopr
 			FROM #temp_AllAss taa
 			INNER JOIN #temp_assingments ta ON taa.Id=ta.Id
@@ -350,9 +386,14 @@
 			END;
 			SELECT
 				[Assignments].Id
-			   ,[Organizations].Id OrganizationsId
-			   ,[Organizations].short_name OrganizationsName INTO #temp_plan_p
+			   --,[Organizations].Id OrganizationsId
+			   --,[Organizations].short_name OrganizationsName 
+			   ,[Positions].Id Positions_Id
+			   ,[Positions].position Positions_Name
+			   INTO #temp_plan_p
 			FROM [dbo].[Assignments] WITH (NOLOCK)
+			INNER JOIN [dbo].[Positions] 
+				ON [Assignments].executor_person_id=[Positions].Id
 			INNER JOIN #temp_end_result
 				ON [Assignments].Id = #temp_end_result.assignment_id
 			INNER JOIN #temp_end_state
@@ -386,66 +427,66 @@ END;
 SELECT
 	Id
    ,N'nadiyshlo' name
-   ,OrganizationsId
-   ,OrganizationsName INTO #temp_main
+   ,Positions_Id
+   ,Positions_Name 
+   INTO #temp_main
 FROM #temp_nadiishlo
 UNION
 SELECT
 	Id
    ,N'neVKompetentsii' name
-   ,OrganizationsId
-   ,OrganizationsName
+   ,Positions_Id
+   ,Positions_Name
 FROM #temp_nevkomp
 UNION
 SELECT
 	Id
    ,N'prostrocheni' name
-   ,OrganizationsId
-   ,OrganizationsName
+   ,Positions_Id
+   ,Positions_Name
 FROM #temp_prostr
 UNION
 SELECT
 	Id
    ,N'uvaga' name
-   ,OrganizationsId
-   ,OrganizationsName
+   ,Positions_Id
+   ,Positions_Name
 FROM #temp_uvaga
 UNION
 SELECT
 	Id
    ,N'vroboti' name
-   ,OrganizationsId
-   ,OrganizationsName
+   ,Positions_Id
+   ,Positions_Name
 FROM #temp_vroboti
 UNION
 SELECT
 	Id
    ,N'dovidoma' name
-   ,OrganizationsId
-   ,OrganizationsName
+   ,Positions_Id
+   ,Positions_Name
 FROM #temp_dovidoma
 UNION 
 SELECT
 	Id 
    ,N'naDoopratsiyvanni' name
-   ,OrganizationsId
-   ,OrganizationsName
+   ,Positions_Id
+   ,Positions_Name
 FROM #temp_nadoopr
 UNION 
 SELECT
 	Id
    ,N'neVykonNeMozhl' name
-   ,OrganizationsId
-   ,OrganizationsName
+   ,Positions_Id
+   ,Positions_Name
 FROM #temp_plan_p;
 
 
-
-
-
 SELECT
-	[OrganizationsId] [OrganizationId]
-   ,[OrganizationsName] [OrganizationName]
+	--[OrganizationsId] [OrganizationId]
+   --,[OrganizationsName] [OrganizationName]
+   [Positions_Id] [OrganizationId]
+   ,[Positions_Name] [OrganizationName]
    ,[nadiyshlo]
    ,[neVKompetentsii]
    ,[prostrocheni]
@@ -454,19 +495,27 @@ SELECT
    ,[dovidoma]
    ,[naDoopratsiyvanni]
    ,[neVykonNeMozhl]
-FROM #temp_main
+   --into #for_organizations
+FROM (SELECT tm.Id, tm.Positions_Id, tm.[Positions_Name], s.sort, tm.name 
+FROM #temp_main tm 
+LEFT JOIN #temp_sort s ON tm.Positions_Id=s.position_id) t
 PIVOT
 (
 COUNT(Id) FOR name IN ([nadiyshlo], [neVKompetentsii], [prostrocheni], [uvaga], [vroboti], [dovidoma], [naDoopratsiyvanni], [neVykonNeMozhl])
 ) pvt
-ORDER BY [OrganizationsId];
+ORDER BY ISNULL(sort,100)
+
+drop table #temp_sort
+
+
+
 	END
    
    ELSE 
 
 	BEGIN
-		SELECT 1 [OrganizationId]
-   ,N'' [OrganizationName]
+		SELECT 1  [OrganizationId] --[Positions_Id]
+   ,N'' [OrganizationName] --[Positions_Name] 
    ,1 [nadiyshlo]
    ,1 [neVKompetentsii]
    ,1 [prostrocheni]
@@ -476,5 +525,7 @@ ORDER BY [OrganizationsId];
    ,1 [naDoopratsiyvanni]
    ,1 [neVykonNeMozhl]
 		WHERE 1=2;
+
+		
 	END
    

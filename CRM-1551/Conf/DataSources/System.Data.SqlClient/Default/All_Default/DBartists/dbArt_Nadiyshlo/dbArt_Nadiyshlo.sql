@@ -1,86 +1,28 @@
 
 /*
-DECLARE @user_id NVARCHAR(128) = N'cd01fea0-760c-4b66-9006-152e5b2a87e9';
-DECLARE @organization_id INT = 2008;
+DECLARE @user_id NVARCHAR(128) = N'7e1bae90-e423-45ad-b727-2539216bf221';
+DECLARE @organization_id INT = 1280;
 DECLARE @navigation NVARCHAR(40) = N'Усі';
 */
-IF EXISTS (SELECT orr.*
-  FROM [dbo].[OrganizationInResponsibilityRights] orr
-  INNER JOIN dbo.Positions p ON orr.position_id=P.Id
-  WHERE orr.organization_id=@organization_Id 
-  AND P.programuser_id=@user_id)
+IF EXISTS 
 
-BEGIN
 
---пункт 2 права
-if object_id('tempdb..#organizations_rights') IS NOT NULL DROP TABLE #organizations_rights
-
-SELECT DISTINCT r.organization_id
-INTO #organizations_rights
+--(SELECT orr.*
+--  FROM [dbo].[OrganizationInResponsibilityRights] orr
+--  INNER JOIN dbo.Positions p ON orr.position_id=P.Id
+--  WHERE orr.organization_id=@organization_Id 
+--  AND P.programuser_id=@user_id)
+  (SELECT p.*
   FROM [dbo].[Positions] p
-  INNER JOIN [dbo].[OrganizationInResponsibilityRights] r ON p.organizations_id=r.organization_id AND p.Id=r.position_id
-  WHERE p.programuser_id=@user_id
-
-IF OBJECT_ID('tempdb..#temp_positions_user') IS NOT NULL
-			BEGIN
-				DROP TABLE #temp_positions_user;
-			END;
-
-  --пункт1 подивився до яких посад має відношення користувач
-  SELECT *
-  INTO #temp_positions_user
-  FROM
-  (SELECT p.Id, [is_main], organizations_id
-  FROM [dbo].[Positions] p
+  LEFT JOIN [dbo].[PositionsHelpers] pm ON p.Id=pm.main_position_id
+  LEFT JOIN [dbo].[PositionsHelpers] ph on p.Id=ph.helper_position_id
   WHERE p.[programuser_id]=@user_id
-  UNION 
-  SELECT p2.Id, p2.is_main, p2.organizations_id
-  FROM [dbo].[Positions] p
-  INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.main_position_id
-  INNER JOIN [dbo].[Positions] p2 ON ph.helper_position_id=p2.Id
-  WHERE p.[programuser_id]=@user_id
-  UNION 
-  SELECT p2.Id, p2.is_main, p2.organizations_id
-  FROM [dbo].[Positions] p
-  INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.helper_position_id
-  INNER JOIN [dbo].[Positions] p2 ON ph.main_position_id=p2.Id
-  WHERE p.[programuser_id]=@user_id) t
+  AND (pm.main_position_id IS NOT NULL OR ph.helper_position_id IS NOT NULL))
 
-  --select * from #temp_positions_user
-
-  -- создадим временную табличку для п2
-  IF OBJECT_ID('tempdb..#tpu_organization') IS NOT NULL
-			BEGIN
-				DROP TABLE #tpu_organization;
-			END;
-
-
-  SELECT DISTINCT organizations_id
-  INTO #tpu_organization
-  FROM #temp_positions_user
-  WHERE is_main='true' AND organizations_id=@organization_Id
-  
-  --SELECT * FROM #tpu_organization
-
-  -- создадим временную табличку для п3
-  IF OBJECT_ID('tempdb..#tpu_position') IS NOT NULL
-			BEGIN
-				DROP TABLE #tpu_position;
-			END;
-
-
-  SELECT DISTINCT Id position_id
-  INTO #tpu_position
-  FROM #temp_positions_user;
-
-  --SELECT * FROM #tpu_position;
-
-
-	DECLARE @NavigationTable TABLE (
-	Id NVARCHAR(40)
+	BEGIN
+		DECLARE @NavigationTable TABLE (
+	Id NVARCHAR(400)
 );
-
---set @navigations=case when @navigation=N'Усі' 
 
 IF @navigation = N'Усі'
 BEGIN
@@ -98,14 +40,79 @@ BEGIN
 			N'Електронні джерела' n
 		UNION ALL
 		SELECT
-			N'Пріоритетне'
+			N'Пріоритетне';
 END
 ELSE
 BEGIN
 	INSERT INTO @NavigationTable (Id)
 		SELECT
-			@navigation
+			@navigation;
 END;
+
+
+
+--пункт 2 права
+if object_id('tempdb..#organizations_rights') IS NOT NULL DROP TABLE #organizations_rights
+
+SELECT DISTINCT r.organization_id
+INTO #organizations_rights
+  FROM [dbo].[Positions] p
+  INNER JOIN [dbo].[OrganizationInResponsibilityRights] r ON p.organizations_id=r.organization_id AND p.Id=r.position_id
+  WHERE p.programuser_id=@user_id
+
+IF OBJECT_ID('tempdb..#temp_positions_user') IS NOT NULL
+			BEGIN
+				DROP TABLE #temp_positions_user;
+			END;
+
+  --пункт1 подивився до яких посад та ораганізацій має відношення користувач з даної посади
+  SELECT *
+  INTO #temp_positions_user
+  FROM
+  (SELECT p.Id, organizations_id
+  FROM [dbo].[Positions] p
+  WHERE p.[programuser_id]=@user_id
+  UNION 
+  SELECT p2.Id, p2.organizations_id
+  FROM [dbo].[Positions] p
+  INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.main_position_id
+  INNER JOIN [dbo].[Positions] p2 ON ph.helper_position_id=p2.Id
+  WHERE p.[programuser_id]=@user_id
+  UNION 
+  SELECT p2.Id, p2.organizations_id
+  FROM [dbo].[Positions] p
+  INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.helper_position_id
+  INNER JOIN [dbo].[Positions] p2 ON ph.main_position_id=p2.Id
+  WHERE p.[programuser_id]=@user_id) t
+
+  --select * from #temp_positions_user ок
+
+  -- создадим временную табличку для списка уникальных организаций
+  IF OBJECT_ID('tempdb..#tpu_organization') IS NOT NULL
+			BEGIN
+				DROP TABLE #tpu_organization;
+			END;
+
+
+  SELECT DISTINCT organizations_id
+  INTO #tpu_organization
+  FROM #temp_positions_user;
+  --WHERE is_main='true' AND organizations_id=@organization_Id
+  
+  --SELECT * FROM #tpu_organization;
+
+  -- создадим временную табличку для п3
+  --IF OBJECT_ID('tempdb..#tpu_position') IS NOT NULL
+		--	BEGIN
+		--		DROP TABLE #tpu_position;
+		--	END;
+
+
+  --SELECT DISTINCT Id position_id
+  --INTO #tpu_position
+  --FROM #temp_positions_user;
+
+  --SELECT * FROM #tpu_position;
 
 
 WITH main
@@ -152,10 +159,8 @@ AS
 	INNER JOIN [dbo].[AssignmentResults]
 		ON [Assignments].[AssignmentResultsId] = [AssignmentResults].Id -- +
 	--
-LEFT JOIN #tpu_organization tpuo 
+	INNER JOIN #tpu_organization tpuo 
 	ON [Assignments].executor_organization_id=tpuo.organizations_id
-LEFT JOIN #tpu_position tpuop 
-	ON [Assignments].executor_person_id=tpuop.position_id
 	--
 	INNER JOIN [dbo].[Questions]
 		ON [Assignments].question_id = [Questions].Id
@@ -216,8 +221,10 @@ LEFT JOIN #tpu_position tpuop
 	OR ([AssignmentResults].code = N'ReturnedToTheArtist'
 	AND [AssignmentStates].code = N'Registered'))
 
-	AND ((tpuo.organizations_id IS NOT NULL AND [Assignments].executor_person_id IS NULL)
-	OR (tpuop.position_id IS NOT NULL))
+	AND [Assignments].executor_person_id=@organization_id
+
+	--AND ((tpuo.organizations_id IS NOT NULL AND [Assignments].executor_person_id IS NULL)
+	--OR (tpuop.position_id IS NOT NULL))
 	--
 --then 1 else 0 end =1
 )

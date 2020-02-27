@@ -1,15 +1,24 @@
 /* 
-DECLARE @user_id NVARCHAR(128) = N'cd01fea0-760c-4b66-9006-152e5b2a87e9';
-DECLARE @organization_id INT = 2006;
+DECLARE @user_id NVARCHAR(128) = N'  ';--= N'c8848a30-38ec-459b-aeaa-db906f3bc141';
+DECLARE @organization_id INT = 1762;
 DECLARE @navigation NVARCHAR(40) = N'Усі';
- declare @column nvarchar(400)=N'План/Програма'; --План/Програма
+ declare @column nvarchar(400)=N'На доопрацюванні'; --План/Програма На доопрацюванні
 */
 
-IF EXISTS (SELECT orr.*
-  FROM [dbo].[OrganizationInResponsibilityRights] orr
-  INNER JOIN dbo.Positions p ON orr.position_id=P.Id
-  WHERE orr.organization_id=@organization_Id 
-  AND P.programuser_id=@user_id)
+
+IF EXISTS 
+
+--(SELECT orr.*
+--  FROM [dbo].[OrganizationInResponsibilityRights] orr
+--  INNER JOIN dbo.Positions p ON orr.position_id=P.Id
+--  WHERE orr.organization_id=@organization_Id 
+--  AND P.programuser_id=@user_id)
+  (SELECT p.*
+  FROM [dbo].[Positions] p
+  LEFT JOIN [dbo].[PositionsHelpers] pm ON p.Id=pm.main_position_id
+  LEFT JOIN [dbo].[PositionsHelpers] ph on p.Id=ph.helper_position_id
+  WHERE p.[programuser_id]=@user_id
+  AND (pm.main_position_id IS NOT NULL OR ph.helper_position_id IS NOT NULL))
 
 	BEGIN
 		DECLARE @comment_naDoopr NVARCHAR(6) = (SELECT
@@ -95,18 +104,15 @@ DECLARE @qcode NVARCHAR(MAX) = N'
  ,tpu_organization as
  (SELECT DISTINCT organizations_id
   FROM temp_positions_user
-  WHERE is_main=''true'' AND organizations_id='+LTRIM(@organization_Id)+N'
   )
 
-  ,tpu_position AS 
-  (SELECT DISTINCT Id position_id
-  FROM temp_positions_user)
     ------------для плана/програми---
  ,main_end as 
   (
   select Id
   from [Assignments] with (nolock)
-  where assignment_state_id=5 and AssignmentResultsId=7 and [executor_organization_id]=' + LTRIM(@organization_id) + N'
+  inner join tpu_organization on [Assignments].[executor_organization_id]=tpu_organization.organizations_id
+  where assignment_state_id=5 and AssignmentResultsId=7
   ), 
   end_state as
   (
@@ -148,7 +154,7 @@ SELECT DISTINCT r.organization_id
 )
 ,main as
 (
-select [Assignments].Id, [Organizations].Id OrganizationsId, [Organizations].name OrganizationsName,
+select distinct [Assignments].Id, [Organizations].Id OrganizationsId, [Organizations].name OrganizationsName,
 [Applicants].full_name zayavnyk,  
 isnull([Districts].name+N'' р-н, '', N'''')
   +isnull([StreetTypes].shortname, N'''')
@@ -185,10 +191,8 @@ ORDER BY ar.id DESC ) as short_answer,
 from 
 [Assignments] with (nolock)
 --
-LEFT JOIN tpu_organization tpuo 
+INNER JOIN tpu_organization tpuo 
 	ON [Assignments].executor_organization_id=tpuo.organizations_id
-LEFT JOIN tpu_position tpuop 
-	ON [Assignments].executor_person_id=tpuop.position_id
 	--
 
 left join end_result on [Assignments].Id=end_result.assignment_id
@@ -241,15 +245,15 @@ group by AssignmentConsiderations.assignment_id) rework_counter on Assignments.I
 
 left join o_rights on [Assignments].executor_organization_id=o_rights.organization_id
 
-where 
+where [Assignments].executor_person_id='+LTRIM(@organization_id)+N' AND
 
- ' + @comment_naDoopr + N'((tpuo.organizations_id IS NOT NULL AND [Assignments].executor_person_id IS NULL) OR (tpuop.position_id IS NOT NULL)) and ([AssignmentStates].code=N''NotFulfilled'' and ([AssignmentResults].code=N''ForWork'' or [AssignmentResults].code=N''Actually''))
+ ' + @comment_naDoopr + N' ([AssignmentStates].code=N''NotFulfilled'' and ([AssignmentResults].code=N''ForWork'' or [AssignmentResults].code=N''Actually''))
  ' + @comment_planProg + N' end_result.assignment_id is not null and end_result.assignment_id is not null and [Questions].event_id is null
  
 )
 
 
-select /*ROW_NUMBER() over(order by registration_number)*/ main.Id, registration_number, QuestionType, zayavnyk, adress, control_date, zayavnykId,
+select main.Id, registration_number, QuestionType, zayavnyk, adress, control_date, zayavnykId,
 zayavnyk_adress, zayavnyk_zmist, short_answer, rework_counter, balans_name, [is_rights]
  from main 
  order by case when rework_counter=2 then 1 else 2 end, Id'
