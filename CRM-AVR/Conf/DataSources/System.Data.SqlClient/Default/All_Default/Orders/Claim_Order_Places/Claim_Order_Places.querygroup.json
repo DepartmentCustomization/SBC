@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Claim_Order_Places",
+  "Name": "Місця в заявках",
+  "ConnectionCode": "Default"
+}

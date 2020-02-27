@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "report",
+  "Position": 54,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "UserRightsAVR",
+  "Name": "AVR права для користувача"
+}

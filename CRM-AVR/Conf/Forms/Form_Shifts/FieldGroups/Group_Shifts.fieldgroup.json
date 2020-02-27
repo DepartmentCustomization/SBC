@@ -1,0 +1,82 @@
+{
+  "Code": "Group_Shifts",
+  "Name": "Бригада на Зміні",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "teams_id",
+      "Name": "Оберіть час робочої зміни для Бригади",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "QueryCode": "dir_team",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "team",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Organizations_WO.organization_id2",
+          "ParameterCode": "@organ"
+        }
+      ]
+    },
+    {
+      "Code": "shifts_name",
+      "Name": "Назва зміни",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "Shift_date",
+      "Name": "Дата зміни",
+      "FieldType": "date",
+      "Position": 1
+    },
+    {
+      "Code": "Plan_start_time",
+      "Name": "Плановий час початку зміни",
+      "FieldType": "time",
+      "Position": 1
+    },
+    {
+      "Code": "Plan_end_time",
+      "Name": "Плановий час закінчення зміни",
+      "FieldType": "time",
+      "Position": 1
+    },
+    {
+      "Code": "Fact_start_time",
+      "Name": "Фактичний час початку зміни",
+      "FieldType": "time",
+      "Position": 1
+    },
+    {
+      "Code": "Fact_end_time",
+      "Name": "Фактичний час кінця зміни",
+      "FieldType": "time",
+      "Position": 1
+    },
+    {
+      "Code": "organizations_id2",
+      "Name": "organizations_id2",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "mechanisms_id",
+      "Name": "Техніка",
+      "FieldType": "lookup",
+      "Position": 1,
+      "IsHidden": true,
+      "QueryCode": "dir_Shift_MechanSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "mechanisms_name",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Shifts.organizations_id2",
+          "ParameterCode": "@organizations_mech"
+        }
+      ]
+    }
+  ]
+}

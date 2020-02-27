@@ -1,0 +1,86 @@
+{
+  "Code": "Group_Claims_Date",
+  "Name": "Дати",
+  "Position": 5,
+  "Fields": [
+    {
+      "Code": "Plan_start_date",
+      "Name": "Плановий початок",
+      "FieldType": "date-time",
+      "Position": 1,
+      "Width": "40%"
+    },
+    {
+      "Code": "Plan_finish_at",
+      "Name": "Планове завершення",
+      "FieldType": "date-time",
+      "Position": 20,
+      "Width": "40%"
+    },
+    {
+      "Code": "Fact_finish_at",
+      "Name": "Фактичне завершення",
+      "FieldType": "date-time",
+      "Position": 40,
+      "IsHidden": true,
+      "Width": "33%"
+    },
+    {
+      "Code": "Is_Template",
+      "Name": "Зробити шаблоном",
+      "FieldType": "checkbox",
+      "Position": 60,
+      "Width": "33%"
+    },
+    {
+      "Code": "btn_copy_claim",
+      "Name": "Копія за зразком",
+      "FieldType": "button",
+      "Position": 121,
+      "Width": "33%"
+    },
+    {
+      "Code": "btn_close_claim",
+      "Name": "Закрити заявку",
+      "FieldType": "button",
+      "Position": 130,
+      "Width": "33%"
+    },
+    {
+      "Code": "organization_name",
+      "Name": "organization_name",
+      "FieldType": "text",
+      "Position": 1222,
+      "IsHidden": true
+    },
+    {
+      "Code": "userID",
+      "Name": "userID",
+      "FieldType": "text",
+      "Position": 1443,
+      "IsHidden": true,
+      "Width": "30%"
+    },
+    {
+      "Code": "answer_claim_type",
+      "Name": "answer_claim_type",
+      "FieldType": "number",
+      "Position": 13333,
+      "IsHidden": true
+    },
+    {
+      "Code": "disregard_type",
+      "Name": "disregard_type",
+      "FieldType": "number",
+      "Position": 13333,
+      "IsHidden": true
+    },
+    {
+      "Code": "is_Zasuv",
+      "Name": "is_Zasuv",
+      "FieldType": "number",
+      "Position": 13333,
+      "IsHidden": true
+    }
+  ]
+}

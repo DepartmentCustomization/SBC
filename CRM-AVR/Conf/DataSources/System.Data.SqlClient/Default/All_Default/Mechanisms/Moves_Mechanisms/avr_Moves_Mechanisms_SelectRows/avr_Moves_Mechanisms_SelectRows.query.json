@@ -1,0 +1,62 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Moves_Mechanisms_SelectRows",
+  "Name": "avr_Moves_Mechanisms_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "contacts_name",
+      "Name": "Водій",
+      "Position": 2
+    },
+    {
+      "Code": "Departure_at",
+      "Name": "Дата та час виїзду",
+      "Position": 3
+    },
+    {
+      "Code": "Distanse",
+      "Name": "Дистанція",
+      "Position": 4
+    },
+    {
+      "Code": "start_place_name",
+      "Name": "Звідки",
+      "Position": 5
+    },
+    {
+      "Code": "finish_place_name",
+      "Name": "Куди",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

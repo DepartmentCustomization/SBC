@@ -1,0 +1,25 @@
+{
+  "ModelType": "Query",
+  "Code": "Reference_on_the_materials_involved",
+  "Name": "Reference_on_the_materials_involved",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@end_date",
+      "Name": "end_date",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@start_date",
+      "Name": "start_date",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@org_id",
+      "Name": "org_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

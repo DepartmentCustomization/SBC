@@ -1,0 +1,73 @@
+{
+  "ModelType": "Query",
+  "Code": "Work_time_of_employees",
+  "Name": "Work_time_of_employees",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "num",
+      "Name": "num",
+      "Position": 1
+    },
+    {
+      "Code": "organization_name",
+      "Name": "organization_name",
+      "Position": 2
+    },
+    {
+      "Code": "contact_name",
+      "Name": "contact_name",
+      "Position": 3
+    },
+    {
+      "Code": "hours_work",
+      "Name": "hours_work",
+      "Position": 4
+    },
+    {
+      "Code": "effective_hour",
+      "Name": "effective_hour",
+      "Position": 5
+    },
+    {
+      "Code": "count_orders",
+      "Name": "count_orders",
+      "Position": 6
+    },
+    {
+      "Code": "distans",
+      "Name": "distans",
+      "Position": 7
+    },
+    {
+      "Code": "organizations_id",
+      "Name": "organizations_id",
+      "Position": 8,
+      "SqlName": "Organizations.Id",
+      "FilterParameterCode": "@org_id"
+    },
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 9
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@name",
+      "Name": "name"
+    },
+    {
+      "Code": "@finish_date",
+      "Name": "finish_date",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@start_date",
+      "Name": "start_date",
+      "ParameterType": "DateTime"
+    }
+  ]
+}

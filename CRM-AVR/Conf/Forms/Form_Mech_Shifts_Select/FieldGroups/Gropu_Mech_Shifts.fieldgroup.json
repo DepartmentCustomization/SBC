@@ -1,0 +1,22 @@
+{
+  "Code": "Gropu_Mech_Shifts",
+  "Name": "Вибрати техніку для зміни",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "mechanisms_id",
+      "Name": "Техніка",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "dir_Shift_MechanSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "mechanisms_name",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Shifts.organizations_id2",
+          "ParameterCode": "@organizations_mech"
+        }
+      ]
+    }
+  ]
+}

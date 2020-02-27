@@ -1,0 +1,23 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Contacts",
+  "Name": " Контакти",
+  "Details": [
+    "string:Details\\Group_Jobs.detail.json",
+    "string:Details\\Group_Appeals_Claims.detail.json",
+    "string:Details\\Group_Alternative_Phone.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Contact.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "organizations_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Contacts.form.js"
+  }
+}

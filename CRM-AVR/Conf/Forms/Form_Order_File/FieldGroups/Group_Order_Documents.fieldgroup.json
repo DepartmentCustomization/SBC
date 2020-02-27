@@ -1,0 +1,34 @@
+{
+  "Code": "Group_Order_Documents",
+  "Name": "Документи до нарядів",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва документа",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "Type_Id",
+      "Name": "Тип",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "Comments",
+      "Name": "Коментар",
+      "FieldType": "textarea",
+      "Position": 1
+    },
+    {
+      "Code": "Orders_Id",
+      "Name": "Orders_Id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

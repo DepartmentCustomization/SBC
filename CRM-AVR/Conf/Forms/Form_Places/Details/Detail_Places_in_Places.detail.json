@@ -1,0 +1,20 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Places_in_Places",
+  "Name": "Пов'язані місця",
+  "FormCode": "Form_Places_in_Places",
+  "SelectRowsQueryCode": "avr_Places_in_Places_SelectRows",
+  "SelectRowQueryCode": "avr_Places_in_Places_SelectRow",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Places_in_Places_InsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_createNewTimesheet",
+  "Name": "avr_createNewTimesheet",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@countDate",
+      "Name": "countDate",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@job_id",
+      "Name": "job_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@start_date",
+      "Name": "start_date",
+      "ParameterType": "DateTime"
+    }
+  ]
+}

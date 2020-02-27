@@ -1,0 +1,69 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Test_Template_Claims",
+  "Name": " Створення нової заявки із шаблона",
+  "Details": [
+    "string:Details\\Detail_Action_Temp2.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claims_Temp.fieldgroup.json",
+      "string:FieldGroups\\Group_Claims_Initiator.fieldgroup.json",
+      "string:FieldGroups\\Group_Claims_Problem.fieldgroup.json",
+      "string:FieldGroups\\Group_Claims_Date.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Description",
+        "ParentFormFieldCodeForKeyValue": "Description",
+        "ParentFormFieldCodeForDisplayValue": "Description"
+      },
+      {
+        "Code": "Diameters_ID",
+        "ParentFormFieldCodeForKeyValue": "Diameters_ID",
+        "ParentFormFieldCodeForDisplayValue": "Size"
+      },
+      {
+        "Code": "Types_id",
+        "ParentFormFieldCodeForKeyValue": "Types_id",
+        "ParentFormFieldCodeForDisplayValue": "Types_name"
+      },
+      {
+        "Code": "places_id",
+        "ParentFormFieldCodeForKeyValue": "places_id",
+        "ParentFormFieldCodeForDisplayValue": "places_name"
+      },
+      {
+        "Code": "Organization_id",
+        "ParentFormFieldCodeForKeyValue": "Organization_id",
+        "ParentFormFieldCodeForDisplayValue": "organization_name"
+      },
+      {
+        "Code": "Priority",
+        "ParentFormFieldCodeForKeyValue": "Priority",
+        "ParentFormFieldCodeForDisplayValue": "Priority"
+      },
+      {
+        "Code": "classes_id",
+        "ParentFormFieldCodeForKeyValue": "classes_id",
+        "ParentFormFieldCodeForDisplayValue": "classes_name"
+      },
+      {
+        "Code": "contact_id",
+        "ParentFormFieldCodeForKeyValue": "contact_id",
+        "ParentFormFieldCodeForDisplayValue": "contact_name"
+      },
+      {
+        "Code": "place_type_id",
+        "ParentFormFieldCodeForKeyValue": "place_type_id",
+        "ParentFormFieldCodeForDisplayValue": "place_type_name"
+      },
+      {
+        "Code": "temp_id",
+        "ParentFormFieldCodeForKeyValue": "temp_id",
+        "ParentFormFieldCodeForDisplayValue": "temp_id"
+      }
+    ],
+    "Script": "string:Form_Test_Template_Claims.form.js"
+  }
+}

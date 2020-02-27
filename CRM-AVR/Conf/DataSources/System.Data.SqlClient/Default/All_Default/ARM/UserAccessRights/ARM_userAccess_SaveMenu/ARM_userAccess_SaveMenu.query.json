@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "ARM_userAccess_SaveMenu",
+  "Name": "ARM_userAccess_SaveMenu",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

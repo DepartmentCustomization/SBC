@@ -1,0 +1,60 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_JobsSelectRows",
+  "Name": "avr_JobsSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "job_name",
+      "Name": "Назва посади",
+      "Position": 2
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "Організація",
+      "Position": 3,
+      "ReferenceKeyCode": "organizations_id",
+      "ReferenceSectionCode": "Organizations_WO"
+    },
+    {
+      "Code": "positions_name",
+      "Name": "Позиція",
+      "Position": 4
+    },
+    {
+      "Code": "organizations_id",
+      "Name": "organizations_id",
+      "Position": 5,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

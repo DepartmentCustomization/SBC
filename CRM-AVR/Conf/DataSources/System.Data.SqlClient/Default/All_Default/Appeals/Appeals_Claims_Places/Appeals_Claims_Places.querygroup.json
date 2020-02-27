@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Appeals_Claims_Places",
+  "Name": "Заявки в зверненнях",
+  "ConnectionCode": "Default"
+}

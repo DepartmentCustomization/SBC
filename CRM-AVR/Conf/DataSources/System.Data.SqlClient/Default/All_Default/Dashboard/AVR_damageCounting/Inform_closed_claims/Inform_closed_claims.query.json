@@ -1,0 +1,25 @@
+{
+  "ModelType": "Query",
+  "Code": "Inform_closed_claims",
+  "Name": "Inform_closed_claims",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@OrgId",
+      "Name": "OrgId",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@end_date",
+      "Name": "end_date",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@start_date",
+      "Name": "start_date",
+      "ParameterType": "DateTime"
+    }
+  ]
+}

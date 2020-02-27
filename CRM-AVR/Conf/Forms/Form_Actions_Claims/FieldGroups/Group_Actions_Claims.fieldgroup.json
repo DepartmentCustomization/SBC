@@ -1,0 +1,85 @@
+{
+  "Code": "Group_Actions_Claims",
+  "Name": "Роботи без наряду",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "action_types_id",
+      "Name": "Тип робіт",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "List_ActionTypeSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Claims.Types_id",
+          "ParameterCode": "@Claim_type_id"
+        }
+      ]
+    },
+    {
+      "Code": "places_id",
+      "Name": "Місце на якому відбуваються роботи",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Plan_start_date",
+      "Name": "Планова дата початку",
+      "FieldType": "date-time",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Finish_at",
+      "Name": "Дата завершення",
+      "FieldType": "date-time",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Планова тривалість (в годинах)",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "Fact_duration",
+      "Name": "Фактична тривалість",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Послідовність",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "Is_Goal",
+      "Name": "Головна робота у заявці",
+      "FieldType": "checkbox",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Comment",
+      "Name": "Результат роботи",
+      "FieldType": "textarea",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

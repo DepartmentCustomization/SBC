@@ -1,0 +1,47 @@
+{
+  "Code": "AreaParamInfo",
+  "Name": "Інформація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "AreaId",
+      "Name": "Ділянка № ",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "30%",
+      "QueryCode": "List_RouteAreas",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "area_num",
+      "QueryParameters": []
+    },
+    {
+      "Code": "diameter",
+      "Name": "Діаметр (см)",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 2,
+      "Width": "30%",
+      "QueryCode": "dir_DiametersSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Size",
+      "QueryParameters": []
+    },
+    {
+      "Code": "length",
+      "Name": "Довжина (м)",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 3,
+      "Width": "30%"
+    },
+    {
+      "Code": "route_id",
+      "Name": "route_id",
+      "FieldType": "number",
+      "Position": 11,
+      "IsHidden": true,
+      "Width": "20%"
+    }
+  ]
+}

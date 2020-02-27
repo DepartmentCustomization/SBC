@@ -1,0 +1,61 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claim_SwitchOff_SelectRow",
+  "Name": "avr_Claim_SwitchOff_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "places_id",
+      "Name": "places_id",
+      "Position": 2
+    },
+    {
+      "Code": "switchoff_type_id",
+      "Name": "switchoff_type_id",
+      "Position": 3
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "Position": 4
+    },
+    {
+      "Code": "SwitchOff_start",
+      "Name": "SwitchOff_start",
+      "Position": 5
+    },
+    {
+      "Code": "finish_at",
+      "Name": "finish_at",
+      "Position": 6
+    },
+    {
+      "Code": "places_name",
+      "Name": "places_name",
+      "Position": 7,
+      "ReferenceKeyCode": "places_id"
+    },
+    {
+      "Code": "switchoff_type_name",
+      "Name": "switchoff_type_name",
+      "Position": 8,
+      "ReferenceKeyCode": "switchoff_type_id"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

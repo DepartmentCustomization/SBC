@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Teams",
+  "Name": "Графік робочого часу для бригад",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Teams.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "organizations_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Teams.form.js"
+  }
+}

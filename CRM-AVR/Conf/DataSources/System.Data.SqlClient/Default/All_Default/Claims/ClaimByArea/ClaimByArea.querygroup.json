@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "ClaimByArea",
+  "Name": "Обхідника",
+  "ConnectionCode": "Default"
+}

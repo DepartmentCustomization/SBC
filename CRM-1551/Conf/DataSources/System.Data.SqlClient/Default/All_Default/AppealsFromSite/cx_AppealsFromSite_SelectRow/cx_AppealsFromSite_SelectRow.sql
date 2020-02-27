@@ -1,4 +1,4 @@
--- DECLARE @Id INT = 3172;
+ -- DECLARE @Id INT = 15;
 
 SELECT
 	TOP 1
@@ -166,13 +166,11 @@ CASE
 		) + N'); '
 		ELSE N''
 	END AS [ApplicantFromSite_Mail],
-(
-		SELECT
-			CASE
-				WHEN aa.BuildingId IS NULL THEN isnull(
-					stuff(
-						(
-							SELECT
+
+   IIF(aa.BuildingId IS NULL, 	
+   stuff(
+			(
+							SELECT TOP 1
 								N';' + isnull(aa.Region + N' обл., ', N'') + isnull(aa.District + N' р-н, ', N'') + isnull(N' місто ' + aa.CityName + ',', N'') + isnull(N' вул. ' + aa.StreetName, N'') + isnull(N' буд. ' + aa.BuildingName, N'')
 							FROM
 								[CRM_1551_Site_Integration].[dbo].[ApplicantFromSiteAddresses] aa
@@ -183,16 +181,8 @@ CASE
 						1,
 						N''
 					),
-					N''
-				)
-				WHEN aa.BuildingId IS NOT NULL THEN d.name + N' р-н, ' + st.name + N' ' + s.name + N', буд. ' + b.name
-			END
-		FROM dbo.Buildings  b 
-		INNER JOIN dbo.Streets s ON s.Id = b.street_id
-		INNER JOIN dbo.StreetTypes st ON st.Id = s.street_type_id
-		INNER JOIN dbo.Districts d ON d.Id = s.district_id 
-		WHERE b.Id = aa.BuildingId
-	) AS [ApplicantFromSite_Address],
+			 d.name + N' р-н, ' + st.name + N' ' + s.name + N', буд. ' + b.name
+			) AS ApplicantFromSite_Address,
 	aa.ApplicantFromSiteId,
 	abi.sex AS [ApplicantFromSite_Sex],
 	abi.birthdate AS [ApplicantFromSite_Birthdate],
@@ -226,7 +216,9 @@ CASE
 	applicantObj.Id	AS ApplicantFromSite_Address_Building,
 	applicantObj.name AS ApplicantFromSite_Address_BuildingName,
 	abi.is_verified AS isVerify,
-	afs.Content AS question_content
+	afs.Content AS question_content,
+	afs.ObjectId AS Question_Building,
+	obj.[name] AS Question_BuildingName
 FROM
 	[CRM_1551_Site_Integration].[dbo].[AppealsFromSite] afs
 	LEFT JOIN [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite] abi ON abi.Id = afs.ApplicantFromSiteId
@@ -237,6 +229,10 @@ FROM
 	LEFT JOIN [CRM_1551_Site_Integration].[dbo].[WorkDirectionTypes] wdt ON wdt.id = afs.WorkDirectionTypeId
 	LEFT JOIN [CRM_1551_Analitics].[dbo].[Objects] obj ON obj.Id = afs.ObjectId
 	LEFT JOIN [CRM_1551_Analitics].[dbo].[Objects] applicantObj ON applicantObj.builbing_id = aa.BuildingId
+	LEFT JOIN CRM_1551_Analitics.dbo.Buildings b ON b.Id = aa.BuildingId
+	LEFT JOIN CRM_1551_Analitics.dbo.Streets s ON s.Id = b.street_id
+	LEFT JOIN CRM_1551_Analitics.dbo.StreetTypes st ON st.Id = s.street_type_id
+	LEFT JOIN CRM_1551_Analitics.dbo.Districts d ON d.Id = s.district_id
 WHERE
 	afs.Id = @Id
 	ORDER BY 5 DESC ;

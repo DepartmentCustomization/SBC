@@ -1,0 +1,26 @@
+[
+  {
+    "Code": "@m_street_id",
+    "Name": "m_street_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@m_district",
+    "Name": "m_district",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@longitude",
+    "Name": "longitude"
+  },
+  {
+    "Code": "@latitude",
+    "Name": "latitude"
+  }
+]

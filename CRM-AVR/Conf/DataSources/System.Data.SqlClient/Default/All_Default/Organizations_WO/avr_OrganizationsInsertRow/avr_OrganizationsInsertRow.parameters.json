@@ -1,0 +1,44 @@
+[
+  {
+    "Code": "@phone_comment",
+    "Name": "phone_comment"
+  },
+  {
+    "Code": "@Number",
+    "Name": "Number",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Comment",
+    "Name": "Comment"
+  },
+  {
+    "Code": "@parent_organization_id",
+    "Name": "parent_organization_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@organizations_name",
+    "Name": "organizations_name"
+  },
+  {
+    "Code": "@adress_id",
+    "Name": "adress_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Short_name",
+    "Name": "Short_name"
+  },
+  {
+    "Code": "@Is_selected",
+    "Name": "Is_selected",
+    "ParameterType": "Boolean"
+  }
+]

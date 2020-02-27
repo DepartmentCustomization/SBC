@@ -1,0 +1,42 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_RoutePlaces",
+  "Name": "Місця",
+  "SelectRowsQueryCode": "avr_RoutePlaces_SelectRows",
+  "SectionCode": "",
+  "DeleteQueryCode": "DeleteAreaObjectRow",
+  "Position": 2,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryParameterCode": "@PlacesID",
+    "QueryCode": "list_add_Places_switchOff",
+    "ColumnCode": "Id",
+    "AddType": "Lookup",
+    "InsertQueryCode": "Add_manyAreaPlaces",
+    "QueryParameters": [],
+    "InsertQueryParameters": [
+      {
+        "FormFieldName": "GUIDPack",
+        "ParameterCode": "@GUIDPack"
+      },
+      {
+        "FormFieldName": "BoreCount",
+        "ParameterCode": "@BoreCount"
+      },
+      {
+        "FormFieldName": "AreaParam",
+        "ParameterCode": "@AreaParam"
+      },
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@RouteId"
+      }
+    ]
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@route_id"
+    }
+  ]
+}

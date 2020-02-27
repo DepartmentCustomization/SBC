@@ -1,0 +1,41 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_mainPage_USER",
+  "Name": "avr_mainPage_USER",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "parent",
+      "Name": "parent",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "DB",
+      "Name": "DB",
+      "Position": 3,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@user",
+      "Name": "user",
+      "ParameterType": "CurrentUserId"
+    }
+  ]
+}

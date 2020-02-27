@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_PositionsInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Positions",
+  "Name": " Класифікатор професій",
+  "FormCode": "Form_Positions",
+  "SelectRowsQueryCode": "avr_PositionsSelectRows",
+  "SelectRowQueryCode": "avr_PositionsSelectRow",
+  "UpdateQueryCode": "avr_PositionsUpdateRow"
+}

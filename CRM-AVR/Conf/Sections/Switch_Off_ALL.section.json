@@ -1,0 +1,7 @@
+{
+  "Add": {},
+  "ModelType": "Section",
+  "Code": "Switch_Off_ALL",
+  "Name": " Усі відключення",
+  "SelectRowsQueryCode": "avr_Swich_Off_ALL_SelectRows"
+}

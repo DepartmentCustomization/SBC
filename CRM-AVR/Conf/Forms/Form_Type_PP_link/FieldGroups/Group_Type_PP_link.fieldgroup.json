@@ -1,0 +1,14 @@
+{
+  "Code": "Group_Type_PP_link",
+  "Name": "Типи пов'заних місць",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

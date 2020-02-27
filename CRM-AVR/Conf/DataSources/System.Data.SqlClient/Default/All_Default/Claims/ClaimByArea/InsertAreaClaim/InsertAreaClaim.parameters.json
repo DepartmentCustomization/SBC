@@ -1,0 +1,40 @@
+[
+  {
+    "Code": "@Claim_type_ID",
+    "Name": "Claim_type_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Response_organization_ID",
+    "Name": "Response_organization_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Description",
+    "Name": "Description"
+  },
+  {
+    "Code": "@RouteID",
+    "Name": "RouteID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Sked",
+    "Name": "Sked"
+  },
+  {
+    "Code": "@User",
+    "Name": "User",
+    "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@Status_id",
+    "Name": "Status_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Claim_class_ID",
+    "Name": "Claim_class_ID",
+    "ParameterType": "Integer"
+  }
+]

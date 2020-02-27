@@ -1,0 +1,14 @@
+{
+  "Code": "Group_Claim_classes",
+  "Name": "Класи заявок",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

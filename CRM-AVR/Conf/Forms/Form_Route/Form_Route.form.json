@@ -1,0 +1,24 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Route",
+  "Name": "Маршрут",
+  "Details": [
+    "string:Details\\Detail_Area.detail.json",
+    "string:Details\\Detail_RoutePlaces.detail.json",
+    "string:Details\\Detail_AreaParams.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Route_main.fieldgroup.json",
+      "string:FieldGroups\\Group_Route_Area.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "route_id",
+        "ParentFormFieldCodeForKeyValue": "route_id",
+        "ParentFormFieldCodeForDisplayValue": "route_id"
+      }
+    ],
+    "Script": "string:Form_Route.form.js"
+  }
+}

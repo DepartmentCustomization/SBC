@@ -1,0 +1,49 @@
+{
+  "Code": "Form1",
+  "Name": "Основна інформація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "action_types_id",
+      "Name": "Тип робіт",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "TypeAction_Detail_SelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Orders.claims_id",
+          "ParameterCode": "@Claim_Id"
+        }
+      ]
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Сортування",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Плановий час виконання робіт (годин)",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Order_ID",
+      "Name": "Order_ID",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

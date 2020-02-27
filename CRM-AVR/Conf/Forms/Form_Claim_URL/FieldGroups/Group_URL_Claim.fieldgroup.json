@@ -1,0 +1,25 @@
+{
+  "Code": "Group_URL_Claim",
+  "Name": "URL",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text"
+    },
+    {
+      "Code": "URL",
+      "Name": "URL",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "Doc_Claim_Id",
+      "Name": "Doc_Claim_Id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_JobsSelectRow",
+  "Name": "avr_JobsSelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "job_name",
+      "Name": "job_name",
+      "Position": 2
+    },
+    {
+      "Code": "organizations_id",
+      "Name": "organizations_id",
+      "Position": 3
+    },
+    {
+      "Code": "positions_id",
+      "Name": "positions_id",
+      "Position": 4
+    },
+    {
+      "Code": "positions_name",
+      "Name": "positions_name",
+      "Position": 5,
+      "ReferenceKeyCode": "positions_id"
+    },
+    {
+      "Code": "contacts_id",
+      "Name": "contacts_id",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "sys_Insert_UserInOrganisation",
+  "Name": "sys_Insert_UserInOrganisation",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Job_name",
+      "Name": "Job_name"
+    },
+    {
+      "Code": "@Type_name",
+      "Name": "Type_name",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@SystemUser_Id",
+      "Name": "SystemUser_Id"
+    }
+  ]
+}

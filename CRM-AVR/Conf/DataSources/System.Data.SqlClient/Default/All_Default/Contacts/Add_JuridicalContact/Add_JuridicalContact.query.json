@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "Add_JuridicalContact",
+  "Name": "Add_JuridicalContact",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

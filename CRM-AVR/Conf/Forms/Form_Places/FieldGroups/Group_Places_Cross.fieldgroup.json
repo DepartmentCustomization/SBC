@@ -1,0 +1,33 @@
+{
+  "Code": "Group_Places_Cross",
+  "Name": "Перехрестя вулиць",
+  "Position": 3,
+  "Fields": [
+    {
+      "Code": "cross_str_id1",
+      "Name": "Перша вулиця",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "list_Street_name_plus_oldName",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "cross_str_id2",
+      "Name": "Друга вулиця",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "list_Street_name_plus_oldName",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "cross_name",
+      "Name": "Назва місця",
+      "FieldType": "text",
+      "Position": 1
+    }
+  ]
+}

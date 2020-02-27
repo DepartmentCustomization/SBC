@@ -1,0 +1,10 @@
+{
+  "IsDraft": true,
+  "DashboardGroupCode": "report",
+  "Position": 52,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "PageClaims",
+  "Name": "Головна сторінка оператора"
+}

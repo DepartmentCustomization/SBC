@@ -1,0 +1,40 @@
+{
+  "ModelType": "Detail",
+  "Code": "Group_Order_SwitchOff",
+  "Name": "Відключення",
+  "FormCode": "Form_Claim_SwitchOff",
+  "SelectRowsQueryCode": "avr_Claim_SwitchOff_SelectRows",
+  "SelectRowQueryCode": "avr_Claim_SwitchOff_SelectRow",
+  "UpdateQueryCode": "avr_Claim_SwitchOff_UpdateRow",
+  "SectionCode": "",
+  "Position": 4,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryParameterCode": "@Place_ID",
+    "QueryCode": "list_add_Places_switchOff",
+    "ColumnCode": "Id",
+    "AddType": "Lookup",
+    "InsertQueryCode": "avr_manyAddPlaces_switchOff_Insert",
+    "QueryParameters": [],
+    "InsertQueryParameters": [
+      {
+        "FormFieldName": "faucet_id",
+        "ParameterCode": "@faucet_id"
+      },
+      {
+        "FormFieldName": "switchOff_type",
+        "ParameterCode": "@switchOff_type"
+      },
+      {
+        "FormFieldName": "claims_id",
+        "ParameterCode": "@Claim_ID"
+      }
+    ]
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "claims_id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

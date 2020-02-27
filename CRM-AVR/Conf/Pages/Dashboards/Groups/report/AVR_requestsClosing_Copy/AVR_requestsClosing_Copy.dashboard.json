@@ -1,0 +1,8 @@
+{
+  "IsVisible": false,
+  "IsDraft": true,
+  "DashboardGroupCode": "report",
+  "ModelType": "Dashboard",
+  "Code": "AVR_requestsClosing_Copy",
+  "Name": "Порівняльна довідка по Закриттю заявок_(для воспроизведения ошибки)"
+}

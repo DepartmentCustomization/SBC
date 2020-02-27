@@ -1,0 +1,30 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Actions",
+  "Name": "Робота",
+  "Details": [
+    "string:Details\\Group_Actions_SwitchOff.detail.json",
+    "string:Details\\Detail_Mechanisms_Moves.detail.json",
+    "string:Details\\Group_Action_File.detail.json",
+    "string:Details\\Group_Action_Materials.detail.json",
+    "string:Details\\Detail_Sequela_Action.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Actions.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Order_ID",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      },
+      {
+        "Code": "Claim_ID",
+        "ParentFormFieldCodeForKeyValue": "claims_id",
+        "ParentFormFieldCodeForDisplayValue": "claims_id"
+      }
+    ],
+    "Script": "string:Form_Actions.form.js"
+  }
+}

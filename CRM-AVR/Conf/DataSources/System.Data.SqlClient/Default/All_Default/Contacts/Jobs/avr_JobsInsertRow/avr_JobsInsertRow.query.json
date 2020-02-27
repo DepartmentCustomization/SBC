@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_JobsInsertRow",
+  "Name": "avr_JobsInsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

@@ -1,0 +1,10 @@
+{
+  "Add": {},
+  "ModelType": "Section",
+  "Code": "Appeals",
+  "Name": " Звернення",
+  "FormCode": "Form_Appeals",
+  "SelectRowsQueryCode": "avr_AppealsSelectRows",
+  "SelectRowQueryCode": "avr_AppealsSelectRow",
+  "UpdateQueryCode": "avr_AppealsUpdateRow"
+}

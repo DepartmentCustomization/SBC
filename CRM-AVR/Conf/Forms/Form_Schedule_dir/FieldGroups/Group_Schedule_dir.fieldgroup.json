@@ -1,0 +1,21 @@
+{
+  "Code": "Group_Schedule_dir",
+  "Name": "Табельні позначення",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "Position": 1,
+      "Width": "70%"
+    },
+    {
+      "Code": "ShortName",
+      "Name": "Коротка назва",
+      "FieldType": "text",
+      "Position": 2,
+      "Width": "30%"
+    }
+  ]
+}

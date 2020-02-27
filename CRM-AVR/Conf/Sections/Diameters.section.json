@@ -1,0 +1,9 @@
+{
+  "Add": {},
+  "ModelType": "Section",
+  "Code": "Diameters",
+  "Name": "Довідник: Діаметри",
+  "FormCode": "Form_Diameters",
+  "SelectRowsQueryCode": "dir_DiametersSelectRows",
+  "SelectRowQueryCode": "dir_DiametersSelectRow"
+}

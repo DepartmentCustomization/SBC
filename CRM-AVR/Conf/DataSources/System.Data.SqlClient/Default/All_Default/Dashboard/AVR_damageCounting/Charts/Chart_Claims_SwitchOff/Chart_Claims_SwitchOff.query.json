@@ -1,0 +1,40 @@
+{
+  "ModelType": "Query",
+  "Code": "Chart_Claims_SwitchOff",
+  "Name": "Chart_Claims_SwitchOff",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 1
+    },
+    {
+      "Code": "Switch_Off_object",
+      "Name": "Switch_Off_object",
+      "Position": 2
+    },
+    {
+      "Code": "Switch_Off_object_time",
+      "Name": "Switch_Off_object_time",
+      "Position": 3
+    },
+    {
+      "Code": "Claim_with_off",
+      "Name": "Claim_with_off",
+      "Position": 4
+    },
+    {
+      "Code": "Claim_with_off_time",
+      "Name": "Claim_with_off_time",
+      "Position": 5
+    },
+    {
+      "Code": "Claim_time",
+      "Name": "Claim_time",
+      "Position": 6
+    }
+  ]
+}

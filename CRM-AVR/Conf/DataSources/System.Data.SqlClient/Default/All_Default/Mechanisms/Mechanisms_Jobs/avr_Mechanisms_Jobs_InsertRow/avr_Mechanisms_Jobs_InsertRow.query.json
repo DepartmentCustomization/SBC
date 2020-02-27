@@ -1,0 +1,26 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Mechanisms_Jobs_InsertRow",
+  "Name": "avr_Mechanisms_Jobs_InsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@jobs_id",
+      "Name": "jobs_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@mechanisms_id",
+      "Name": "mechanisms_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

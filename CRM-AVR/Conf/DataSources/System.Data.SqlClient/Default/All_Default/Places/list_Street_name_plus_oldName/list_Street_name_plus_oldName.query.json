@@ -1,0 +1,38 @@
+{
+  "ModelType": "Query",
+  "Code": "list_Street_name_plus_oldName",
+  "Name": "list_Street_name_plus_oldName",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "Position": 2,
+      "SqlName": "concat(Streets.Name,' ', st.UkrName, case when Old_name is null then Old_name \t                                      else concat (' (',Old_name,')')\t \t                                      end \t                                      ,case when Territory is null then Territory \t\telse concat (' (',Territory,')')\tend)",
+      "FilterParameterCode": "@name"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

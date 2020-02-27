@@ -1,0 +1,67 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_OrganizationsSelectRows",
+  "Name": "avr_OrganizationsSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "organization_name",
+      "Name": "Назва організації / департаменту",
+      "Position": 2,
+      "SqlName": "[Organizations].[Name]",
+      "FilterParameterCode": "@Name",
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "Organizations_WO"
+    },
+    {
+      "Code": "parent_organization",
+      "Name": "Назва головної огранізації",
+      "Position": 3,
+      "SqlName": "dep.Name",
+      "FilterParameterCode": "@Name_dep"
+    },
+    {
+      "Code": "adress",
+      "Name": "Юридична адреса",
+      "Position": 4,
+      "SqlName": "(case when Districts.Name is null then Districts.Name else Districts.Name+', ' end, \t\t  case when Streets.Name is null then Streets.Name else Streets.Name+' ' end, \t\t  case when Houses.Number is null then Houses.Number else Houses.Number end, \t\t  case when Houses.Letter is null then Houses.Letter else ' '+ Houses.Letter end, \t\t  case when Houses.Сorps is null then Houses.Сorps else ' '+ Houses.Сorps end \t  )",
+      "FilterParameterCode": "@adress"
+    },
+    {
+      "Code": "Number",
+      "Name": "Основний номер",
+      "Position": 5,
+      "SqlName": "Contact_phones.Number",
+      "FilterParameterCode": "@Number"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@OrgID",
+      "Name": "OrgID",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

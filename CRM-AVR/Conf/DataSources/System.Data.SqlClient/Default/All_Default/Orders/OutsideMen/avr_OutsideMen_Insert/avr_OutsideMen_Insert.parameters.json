@@ -1,0 +1,41 @@
+[
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Plan_date",
+    "Name": "Plan_date",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Finish_at",
+    "Name": "Finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@fiz_name",
+    "Name": "fiz_name"
+  },
+  {
+    "Code": "@Claims_ID",
+    "Name": "Claims_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Comment",
+    "Name": "Comment"
+  },
+  {
+    "Code": "@Call_from",
+    "Name": "Call_from",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@company_id",
+    "Name": "company_id",
+    "ParameterType": "Integer"
+  }
+]

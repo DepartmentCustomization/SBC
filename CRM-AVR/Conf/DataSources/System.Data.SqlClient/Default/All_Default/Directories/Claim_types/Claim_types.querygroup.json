@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Claim_types",
+  "Name": "Типи заявок",
+  "ConnectionCode": "Default"
+}

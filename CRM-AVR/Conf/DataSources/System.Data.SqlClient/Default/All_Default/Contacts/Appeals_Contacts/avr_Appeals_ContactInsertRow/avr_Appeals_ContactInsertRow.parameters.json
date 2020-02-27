@@ -1,0 +1,57 @@
+[
+  {
+    "Code": "@types_id",
+    "Name": "types_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Description",
+    "Name": "Description"
+  },
+  {
+    "Code": "@Plan_start_date",
+    "Name": "Plan_start_date",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Fact_finish_at",
+    "Name": "Fact_finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@contact_id",
+    "Name": "contact_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Report_action_id",
+    "Name": "Report_action_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@classes_id",
+    "Name": "classes_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@organization_id",
+    "Name": "organization_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@status_id",
+    "Name": "status_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Priority",
+    "Name": "Priority",
+    "ParameterType": "Integer"
+  }
+]

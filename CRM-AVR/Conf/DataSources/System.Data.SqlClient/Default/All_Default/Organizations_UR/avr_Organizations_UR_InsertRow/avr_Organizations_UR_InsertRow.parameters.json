@@ -1,0 +1,50 @@
+[
+  {
+    "Code": "@is_Special_service",
+    "Name": "is_Special_service",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@is_Contract_organization",
+    "Name": "is_Contract_organization",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@organizations_name",
+    "Name": "organizations_name"
+  },
+  {
+    "Code": "@parent_organization_id",
+    "Name": "parent_organization_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@adress_id",
+    "Name": "adress_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@is_External_service",
+    "Name": "is_External_service",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@Number",
+    "Name": "Number",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Contact_type_ID",
+    "Name": "Contact_type_ID"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@phone_comment",
+    "Name": "phone_comment"
+  }
+]

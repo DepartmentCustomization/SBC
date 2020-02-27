@@ -1,0 +1,38 @@
+{
+  "ModelType": "Query",
+  "Code": "Chart_Status_Claims",
+  "Name": "Chart_Status_Claims",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Type",
+      "Name": "Type",
+      "Position": 1
+    },
+    {
+      "Code": "Registered",
+      "Name": "Registered",
+      "Position": 2
+    },
+    {
+      "Code": "In_the_work",
+      "Name": "In_the_work",
+      "Position": 3
+    },
+    {
+      "Code": "Done",
+      "Name": "Done",
+      "Position": 4
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Org_Id",
+      "Name": "Org_Id",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

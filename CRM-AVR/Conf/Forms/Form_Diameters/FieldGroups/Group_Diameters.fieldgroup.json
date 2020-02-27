@@ -1,0 +1,14 @@
+{
+  "Code": "Group_Diameters",
+  "Name": "Діаметри",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Size",
+      "Name": "Розмір діаметру",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

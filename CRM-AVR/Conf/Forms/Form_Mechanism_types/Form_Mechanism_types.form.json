@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Mechanism_types",
+  "Name": "Довідник- Типи техніки",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Mechanism_types.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

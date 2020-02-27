@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_RouteInsert",
+  "Name": "avr_RouteInsert",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

@@ -1,0 +1,15 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_delete_cancel_ClaimOff_modal",
+  "Name": "avr_delete_cancel_ClaimOff_modal",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@claim_ID",
+      "Name": "claim_ID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

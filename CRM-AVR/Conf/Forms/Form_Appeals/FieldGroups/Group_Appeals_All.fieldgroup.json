@@ -1,0 +1,56 @@
+{
+  "Code": "Group_Appeals_All",
+  "Name": "Звернення",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "app_Id",
+      "Name": "Номер звернення",
+      "FieldType": "text"
+    },
+    {
+      "Code": "cl_number",
+      "Name": "Номер заявки",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "off_places",
+      "Name": "off_places",
+      "FieldType": "text",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "contacts_Id",
+      "Name": "Заявник",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 2,
+      "QueryCode": "dir_AppealsContacts",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claims_Id",
+      "Name": "№ заявки",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 9,
+      "IsHidden": true,
+      "QueryCode": "avr_ClaimsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Claim_Number",
+      "QueryParameters": []
+    },
+    {
+      "Code": "appeals_date",
+      "Name": "appeals_date",
+      "FieldType": "date-time",
+      "IsRequired": true,
+      "Position": 10,
+      "IsHidden": true
+    }
+  ]
+}

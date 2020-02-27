@@ -1,0 +1,18 @@
+{
+  "ModelType": "Detail",
+  "Code": "DEtail_Free_Orders",
+  "Name": "Вільні виїзди -->  призначити зміні виїзд",
+  "FormCode": "Form_Shift_Order",
+  "SelectRowsQueryCode": "avr_Free_Orders_SelectRows",
+  "SelectRowQueryCode": "avr_Free_Orders_SelectRow",
+  "UpdateQueryCode": "avr_Free_Orders_Update",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "organizations_id2",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claim_SwitchOff_InsertRow",
+  "Name": "avr_Claim_SwitchOff_InsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

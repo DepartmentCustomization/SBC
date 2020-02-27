@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Schedule_dir",
+  "Name": "Розклад довідник",
+  "ConnectionCode": "Default"
+}

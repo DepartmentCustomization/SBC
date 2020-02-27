@@ -1,0 +1,27 @@
+{
+  "Code": "Group_SysUser_OrgWC",
+  "Name": "SysUser_OrgWC",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "OrganizationWC_Id",
+      "Name": "Огранізація \"Водоканала\"",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "avr_OrganizationsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "organization_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "SystemUser_Id",
+      "Name": "Користувач",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "sys_UserSys",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "user_name",
+      "QueryParameters": []
+    }
+  ]
+}

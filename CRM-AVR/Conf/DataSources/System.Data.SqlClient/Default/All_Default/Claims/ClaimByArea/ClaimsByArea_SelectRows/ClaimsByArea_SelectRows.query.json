@@ -1,0 +1,77 @@
+{
+  "ModelType": "Query",
+  "Code": "ClaimsByArea_SelectRows",
+  "Name": "ClaimsByArea_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Claim_Number",
+      "Name": "Заявка",
+      "Position": 0,
+      "IsPrintable": false,
+      "SqlName": "[Claims].[Claim_Number]",
+      "FilterParameterCode": "@Claim_Number"
+    },
+    {
+      "Code": "Classes_name",
+      "Name": "Клас",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "[Claim_classes].[Name]",
+      "FilterParameterCode": "@Claim_class"
+    },
+    {
+      "Code": "Status_name",
+      "Name": "Статус",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Types_name",
+      "Name": "Тип",
+      "Position": 4,
+      "IsPrintable": false,
+      "SqlName": "[Claim_types].[Name]",
+      "FilterParameterCode": "@Claim_type"
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Створена",
+      "Position": 5,
+      "IsPrintable": false,
+      "SqlName": "Created_at",
+      "FilterParameterCode": "@Created_at"
+    },
+    {
+      "Code": "Organization_name",
+      "Name": "Призначено",
+      "Position": 6,
+      "IsPrintable": false,
+      "SqlName": "[Organizations].[Name]",
+      "FilterParameterCode": "@Organization"
+    },
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 12,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Call_from",
+    "Name": "Call_from",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Plan_date",
+    "Name": "Plan_date",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Finish_at",
+    "Name": "Finish_at",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Comment",
+    "Name": "Comment",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "company_id",
+    "Name": "company_id",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claims_ID",
+    "Name": "Claims_ID",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "company_name",
+    "Name": "company_name",
+    "Position": 9,
+    "ReferenceKeyCode": "company_id"
+  },
+  {
+    "Code": "fiz_name",
+    "Name": "fiz_name",
+    "Position": 10
+  },
+  {
+    "Code": "claim_stat_id",
+    "Name": "claim_stat_id",
+    "Position": 11
+  },
+  {
+    "Code": "contact_number",
+    "Name": "contact_number",
+    "Position": 12
+  }
+]

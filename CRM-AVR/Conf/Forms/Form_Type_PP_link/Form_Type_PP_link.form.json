@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Type_PP_link",
+  "Name": "Довідник- Типи пов'заних місць",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Type_PP_link.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

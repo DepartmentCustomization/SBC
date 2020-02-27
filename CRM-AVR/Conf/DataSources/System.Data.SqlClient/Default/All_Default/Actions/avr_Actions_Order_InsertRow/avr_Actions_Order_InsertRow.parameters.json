@@ -1,0 +1,81 @@
+[
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Plan_start_date",
+    "Name": "Plan_start_date",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Value",
+    "Name": "Value"
+  },
+  {
+    "Code": "@Comment",
+    "Name": "Comment"
+  },
+  {
+    "Code": "@Sort_index",
+    "Name": "Sort_index",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@ac_pl_types_id",
+    "Name": "ac_pl_types_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Fact_duration",
+    "Name": "Fact_duration",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@User_id",
+    "Name": "User_id",
+    "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@Plan_duration",
+    "Name": "Plan_duration",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Start_from",
+    "Name": "Start_from",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Diameters_ID",
+    "Name": "Diameters_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Claim_ID",
+    "Name": "Claim_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Is_Goal",
+    "Name": "Is_Goal",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@Finish_at",
+    "Name": "Finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Order_ID",
+    "Name": "Order_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@places_id",
+    "Name": "places_id",
+    "ParameterType": "Integer"
+  }
+]

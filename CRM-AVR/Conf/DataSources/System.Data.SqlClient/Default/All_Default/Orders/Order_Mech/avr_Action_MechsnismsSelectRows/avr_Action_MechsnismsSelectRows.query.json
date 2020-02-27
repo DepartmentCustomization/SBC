@@ -1,0 +1,62 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Action_MechsnismsSelectRows",
+  "Name": "avr_Action_MechsnismsSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "action_type_name",
+      "Name": "Робота ",
+      "Position": 2
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Порядок виконання ",
+      "Position": 3
+    },
+    {
+      "Code": "mechanisms_name",
+      "Name": "Техніка",
+      "Position": 4
+    },
+    {
+      "Code": "mechanisms_type_name",
+      "Name": "Тип техніки",
+      "Position": 5
+    },
+    {
+      "Code": "Departure_at",
+      "Name": "Виїзд",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

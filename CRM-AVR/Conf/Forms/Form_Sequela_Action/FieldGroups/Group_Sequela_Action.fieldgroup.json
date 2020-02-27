@@ -1,0 +1,40 @@
+{
+  "Code": "Group_Sequela_Action",
+  "Name": "Ускладнення в роботі",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Actions_ID",
+      "Name": "Actions_ID",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Description",
+      "Name": "Опис ускладнення",
+      "FieldType": "textarea",
+      "Position": 1,
+      "Rows": 2
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата та час фіксації ускладнення",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Fact_finish_at",
+      "Name": "Дата та час усуненя ускладнення",
+      "FieldType": "date-time",
+      "Position": 1
+    }
+  ]
+}

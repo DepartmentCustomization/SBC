@@ -1,0 +1,74 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Places_claims",
+  "Name": "dir_Places_claims",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "places",
+      "Name": "Місце",
+      "Position": 3,
+      "SqlName": "[Places].[Name]",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "districts",
+      "Name": "Район",
+      "Position": 3,
+      "SqlName": "Districts.Name",
+      "FilterParameterCode": "@district"
+    },
+    {
+      "Code": "type_places",
+      "Name": "Тип місця",
+      "Position": 4,
+      "SqlName": "Place_types.Name",
+      "FilterParameterCode": "@Place_types_name"
+    },
+    {
+      "Code": "open_claims",
+      "Name": "Відкриті заявки",
+      "Position": 5
+    },
+    {
+      "Code": "Old_name",
+      "Name": "Стара назва вулиці",
+      "Position": 6,
+      "SqlName": "Streets.Old_name",
+      "FilterParameterCode": "@old_name"
+    },
+    {
+      "Code": "Territory",
+      "Name": "Примітка",
+      "Position": 7
+    },
+    {
+      "Code": "flats",
+      "Name": "Чи є квартири",
+      "Position": 8
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

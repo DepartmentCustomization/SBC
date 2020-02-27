@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Materials",
+  "Name": "Матеріали",
+  "SelectRowsQueryCode": "avr_MaterialsSelectRows",
+  "SectionCode": "",
+  "Position": 5,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

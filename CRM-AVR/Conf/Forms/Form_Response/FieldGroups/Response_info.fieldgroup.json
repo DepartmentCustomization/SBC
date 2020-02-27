@@ -1,0 +1,46 @@
+{
+  "Code": "Response_info",
+  "Name": "Інформація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Description",
+      "Name": "Опис",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "100%"
+    },
+    {
+      "Code": "typeAccessID",
+      "Name": "Код доступу",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 2,
+      "QueryCode": "list_TypeAccess",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claimTypeID",
+      "Name": "Тип заявки",
+      "FieldType": "lookup",
+      "Position": 3,
+      "QueryCode": "test_Claims_types",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
+      "LookupType": "tree",
+      "ParentColumnCode": "Parent_сlaim_types_ID"
+    },
+    {
+      "Code": "btn_DeleteRepsonse",
+      "Name": "Видалити",
+      "FieldType": "button",
+      "Position": 4,
+      "Width": "20%",
+      "Icon": "delete"
+    }
+  ]
+}

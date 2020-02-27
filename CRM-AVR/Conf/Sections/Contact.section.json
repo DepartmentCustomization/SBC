@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_ContactsInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Contact",
+  "Name": " Контакти",
+  "FormCode": "Form_Contacts",
+  "SelectRowsQueryCode": "avr_ContactsSelectRows",
+  "SelectRowQueryCode": "avr_ContactsSelectRow",
+  "UpdateQueryCode": "avr_ContactsUpdateRow"
+}

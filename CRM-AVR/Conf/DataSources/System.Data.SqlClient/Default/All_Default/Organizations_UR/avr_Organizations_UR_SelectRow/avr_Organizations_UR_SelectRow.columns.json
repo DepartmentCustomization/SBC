@@ -1,0 +1,62 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "organizations_name",
+    "Name": "organizations_name",
+    "Position": 2
+  },
+  {
+    "Code": "adress_id",
+    "Name": "adress_id",
+    "Position": 3
+  },
+  {
+    "Code": "Number",
+    "Name": "Number",
+    "Position": 4
+  },
+  {
+    "Code": "phone_comment",
+    "Name": "phone_comment",
+    "Position": 5
+  },
+  {
+    "Code": "adress_name",
+    "Name": "adress_name",
+    "Position": 6,
+    "SqlName": "concat  \t  ( \t\t  case when Districts.Name is null then Districts.Name else Districts.Name+', ' end, \t\t  case when Streets.Name is null then Streets.Name else Streets.Name+', ' end, \t\t  case when Houses.Number is null then Houses.Number else Houses.Number end, \t\t  case when Houses.Letter is null then Houses.Letter else ', '+ Houses.Letter end, \t\t  case when Houses.Сorps is null then Houses.Сorps else ', '+ Houses.Сorps end \t  )",
+    "FilterParameterCode": "@addres",
+    "ReferenceKeyCode": "adress_id"
+  },
+  {
+    "Code": "Contacts_ID",
+    "Name": "Contacts_ID",
+    "Position": 7
+  },
+  {
+    "Code": "Contact_type_ID",
+    "Name": "Contact_type_ID",
+    "Position": 8
+  },
+  {
+    "Code": "is_External_service",
+    "Name": "is_External_service",
+    "Position": 9
+  },
+  {
+    "Code": "is_Contract_organization",
+    "Name": "is_Contract_organization",
+    "Position": 10
+  },
+  {
+    "Code": "is_Special_service",
+    "Name": "is_Special_service",
+    "Position": 11
+  }
+]

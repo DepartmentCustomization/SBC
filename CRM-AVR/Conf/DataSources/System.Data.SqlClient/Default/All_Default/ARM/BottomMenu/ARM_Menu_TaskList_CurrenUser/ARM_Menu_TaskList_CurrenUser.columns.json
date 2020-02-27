@@ -1,0 +1,99 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1
+  },
+  {
+    "Code": "ActionsId",
+    "Name": "ActionsId",
+    "Position": 2
+  },
+  {
+    "Code": "Action_typesName",
+    "Name": "Action_typesName",
+    "Position": 3
+  },
+  {
+    "Code": "PlacesName",
+    "Name": "PlacesName",
+    "Position": 4
+  },
+  {
+    "Code": "Plan_duration",
+    "Name": "Plan_duration",
+    "Position": 5
+  },
+  {
+    "Code": "WorkStatus",
+    "Name": "WorkStatus",
+    "Position": 6
+  },
+  {
+    "Code": "Status_ID",
+    "Name": "Status_ID",
+    "Position": 7
+  },
+  {
+    "Code": "StatusName",
+    "Name": "StatusName",
+    "Position": 8
+  },
+  {
+    "Code": "Description",
+    "Name": "Description",
+    "Position": 9
+  },
+  {
+    "Code": "Plan_start_date",
+    "Name": "Plan_start_date",
+    "Position": 10
+  },
+  {
+    "Code": "Plan_finish_at",
+    "Name": "Plan_finish_at",
+    "Position": 11
+  },
+  {
+    "Code": "UserId",
+    "Name": "UserId",
+    "Position": 12
+  },
+  {
+    "Code": "Avatar",
+    "Name": "Avatar",
+    "Position": 13
+  },
+  {
+    "Code": "UserId2",
+    "Name": "UserId2",
+    "Position": 14
+  },
+  {
+    "Code": "JobSystem",
+    "Name": "JobSystem",
+    "Position": 15
+  },
+  {
+    "Code": "Typeee",
+    "Name": "Typeee",
+    "Position": 16
+  },
+  {
+    "Code": "ClaimText",
+    "Name": "ClaimText",
+    "Position": 17
+  },
+  {
+    "Code": "WorkStatus_Label",
+    "Name": "WorkStatus_Label",
+    "Position": 18
+  },
+  {
+    "Code": "organizations_name",
+    "Name": "organizations_name",
+    "Position": 19,
+    "SqlName": "Organizations.Name",
+    "FilterParameterCode": "@organizations_name"
+  }
+]

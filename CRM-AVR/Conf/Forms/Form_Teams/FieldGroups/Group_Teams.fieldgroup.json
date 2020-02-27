@@ -1,0 +1,46 @@
+{
+  "Code": "Group_Teams",
+  "Name": "Бригади",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "teams_name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "35%"
+    },
+    {
+      "Code": "q",
+      "Name": " ",
+      "FieldType": "text",
+      "Position": 2,
+      "Width": "55%"
+    },
+    {
+      "Code": "Plan_start_time",
+      "Name": "Початок роботи",
+      "FieldType": "time",
+      "IsRequired": true,
+      "Position": 3,
+      "Width": "15%"
+    },
+    {
+      "Code": "Plan_end_time",
+      "Name": "Кінец роботи",
+      "FieldType": "time",
+      "IsRequired": true,
+      "Position": 4,
+      "Width": "15%"
+    },
+    {
+      "Code": "organizations_id",
+      "Name": "organizations_id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 122,
+      "IsHidden": true
+    }
+  ]
+}

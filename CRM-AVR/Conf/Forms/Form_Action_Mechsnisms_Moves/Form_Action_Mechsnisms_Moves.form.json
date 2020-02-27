@@ -1,0 +1,24 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Action_Mechsnisms_Moves",
+  "Name": " Техніка для виїзду по нарядам",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Action_Mechsnisms_Moves.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Action_ID",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      },
+      {
+        "Code": "places_finish_id",
+        "ParentFormFieldCodeForKeyValue": "places_id",
+        "ParentFormFieldCodeForDisplayValue": "places_id"
+      }
+    ],
+    "Script": "string:Form_Action_Mechsnisms_Moves.form.js"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "ModelType": "Query",
+  "Code": "accessRights_ListMenu",
+  "Name": "accessRights_ListMenu",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@UserId",
+      "Name": "UserId"
+    }
+  ]
+}

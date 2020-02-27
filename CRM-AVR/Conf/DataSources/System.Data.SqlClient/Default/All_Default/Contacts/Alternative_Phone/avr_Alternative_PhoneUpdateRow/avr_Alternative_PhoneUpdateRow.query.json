@@ -1,0 +1,25 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Alternative_PhoneUpdateRow",
+  "Name": "avr_Alternative_PhoneUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@contact_comment",
+      "Name": "contact_comment"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@contact_number",
+      "Name": "contact_number",
+      "ParameterType": "Integer"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_ActionTypeInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Action_types",
+  "Name": "Довідник: Типи робіт",
+  "FormCode": "Form_Action_types",
+  "SelectRowsQueryCode": "dir_ActionTypeSelectRows",
+  "SelectRowQueryCode": "dir_ActionTypeSelectRow",
+  "UpdateQueryCode": "dir_ActionTypeUpdateRow",
+  "DeleteQueryCode": "dir_ActionTypeDeleteRow"
+}

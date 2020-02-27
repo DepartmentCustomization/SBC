@@ -1,0 +1,45 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Action_Place_type_SelectRow",
+  "Name": "avr_Action_Place_type_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "action_type_id",
+      "Name": "action_type_id",
+      "Position": 2
+    },
+    {
+      "Code": "action_type",
+      "Name": "action_type",
+      "Position": 3
+    },
+    {
+      "Code": "places_type_id",
+      "Name": "places_type_id",
+      "Position": 4
+    },
+    {
+      "Code": "places_type_name",
+      "Name": "places_type_name",
+      "Position": 5,
+      "ReferenceKeyCode": "places_type_id"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

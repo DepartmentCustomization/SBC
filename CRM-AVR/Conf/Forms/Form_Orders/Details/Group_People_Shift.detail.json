@@ -1,0 +1,16 @@
+{
+  "ModelType": "Detail",
+  "Code": "Group_People_Shift",
+  "Name": "Члени бригади",
+  "SelectRowsQueryCode": "avr_Peoples_in_Order_SelectRows",
+  "SectionCode": "",
+  "DeleteQueryCode": "OrderJobs_DeleteRow",
+  "Position": 9,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Contacts_ID",
+    "Name": "Contacts_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Finished_at",
+    "Name": "Finished_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@MechanismsID",
+    "Name": "MechanismsID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Comment",
+    "Name": "Comment"
+  },
+  {
+    "Code": "@Start_at",
+    "Name": "Start_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Name",
+    "Name": "Name"
+  }
+]

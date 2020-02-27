@@ -1,0 +1,30 @@
+{
+  "Code": "Group_Materials",
+  "Name": "Матеріали",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "With_diameter",
+      "Name": "Признак вказування діаметру до матеріалу",
+      "FieldType": "checkbox",
+      "Position": 1
+    },
+    {
+      "Code": "units_id",
+      "Name": "Одиниці виміру",
+      "FieldType": "select",
+      "Position": 3,
+      "QueryCode": "dir_Units_SelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "ShortName",
+      "QueryParameters": []
+    }
+  ]
+}

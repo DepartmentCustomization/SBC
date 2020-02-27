@@ -1,0 +1,46 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Type_District_wiht_place",
+  "Name": "avr_Type_District_wiht_place",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "district_id",
+      "Name": "district_id",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "district",
+      "Name": "district",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "coordinates",
+      "Name": "coordinates",
+      "Position": 5
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@place_id",
+      "Name": "place_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

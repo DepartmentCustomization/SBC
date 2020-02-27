@@ -1,0 +1,27 @@
+[
+  {
+    "Code": "@Created_at",
+    "Name": "Created_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Description",
+    "Name": "Description"
+  },
+  {
+    "Code": "@Actions_ID",
+    "Name": "Actions_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Fact_finish_at",
+    "Name": "Fact_finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  }
+]

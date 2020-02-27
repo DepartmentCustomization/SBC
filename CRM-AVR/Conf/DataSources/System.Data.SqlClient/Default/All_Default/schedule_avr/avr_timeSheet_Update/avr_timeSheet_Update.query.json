@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_timeSheet_Update",
+  "Name": "avr_timeSheet_Update",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@plan_start_time",
+      "Name": "plan_start_time",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@timeSheet_Id",
+      "Name": "timeSheet_Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@value",
+      "Name": "value",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@time_count",
+      "Name": "time_count",
+      "ParameterType": "Integer"
+    }
+  ]
+}

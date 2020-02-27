@@ -1,0 +1,25 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Shifts",
+  "Name": "Бригада на Зміні",
+  "Details": [
+    "string:Details\\Group_Brigada.detail.json",
+    "string:Details\\Shift_Mechanisms.detail.json",
+    "string:Details\\Detail_Open_Claims.detail.json",
+    "string:Details\\Detail_Assigned_orders.detail.json",
+    "string:Details\\DEtail_Free_Orders.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Shifts.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "organizations_id2",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Shifts.form.js"
+  }
+}

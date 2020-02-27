@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Claim_SwitchOff_Address",
+  "Name": "Відключення",
+  "ConnectionCode": "Default"
+}

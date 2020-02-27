@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "ActionTypeSelectALL_Detail",
+  "Name": "Прив'язка роботи до наряду (всі доступні роботи)",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Form1.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

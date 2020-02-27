@@ -1,0 +1,40 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Alternative_PhoneSelectRow",
+  "Name": "avr_Alternative_PhoneSelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Contact_ID",
+      "Name": "Contact_ID",
+      "Position": 2
+    },
+    {
+      "Code": "contact_number",
+      "Name": "contact_number",
+      "Position": 3
+    },
+    {
+      "Code": "contact_comment",
+      "Name": "contact_comment",
+      "Position": 4
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

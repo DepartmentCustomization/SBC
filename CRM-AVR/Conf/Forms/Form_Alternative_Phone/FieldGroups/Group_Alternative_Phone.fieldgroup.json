@@ -1,0 +1,28 @@
+{
+  "Code": "Group_Alternative_Phone",
+  "Name": "Альтернативні телефони",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "contact_number",
+      "Name": "Номер телефона",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "contact_comment",
+      "Name": "Опис",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "Contact_ID",
+      "Name": "Contact_ID",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

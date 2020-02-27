@@ -1,0 +1,17 @@
+{
+  "Code": "Group_Places_houses",
+  "Name": "Житловий будинок",
+  "Position": 2,
+  "Fields": [
+    {
+      "Code": "streets_id",
+      "Name": "Будинок",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "list_Houses_for_places",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    }
+  ]
+}

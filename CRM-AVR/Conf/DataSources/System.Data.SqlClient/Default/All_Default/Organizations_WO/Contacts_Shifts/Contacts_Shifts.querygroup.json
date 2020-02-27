@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Contacts_Shifts",
+  "Name": "Люди на змінах",
+  "ConnectionCode": "Default"
+}

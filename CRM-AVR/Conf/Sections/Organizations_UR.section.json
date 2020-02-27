@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_Organizations_UR_InsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Organizations_UR",
+  "Name": " Юридичні особи / Зовнішні служби",
+  "FormCode": "Form_Organizations_UR",
+  "SelectRowsQueryCode": "avr_Organizations_UR_SelectRows",
+  "SelectRowQueryCode": "avr_Organizations_UR_SelectRow",
+  "UpdateQueryCode": "avr_Organizations_UR_UpdateRow"
+}

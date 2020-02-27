@@ -1,0 +1,58 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Action_Template_SelectRows",
+  "Name": "avr_Action_Template_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "types_id",
+      "Name": "types_id",
+      "Position": 1,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 2,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "action_types_name",
+      "Name": "Робота",
+      "Position": 3
+    },
+    {
+      "Code": "Name",
+      "Name": "Місце",
+      "Position": 4
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Послідовність",
+      "Position": 5
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

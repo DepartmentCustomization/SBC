@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Order_Action_MechsnismsInsertRow",
+  "Name": "avr_Order_Action_MechsnismsInsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

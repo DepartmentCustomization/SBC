@@ -1,0 +1,18 @@
+{
+  "ModelType": "Detail",
+  "Code": "Shift_Mechanisms",
+  "Name": "Техніка зміни",
+  "FormCode": "Form_Mech_Shifts_Select",
+  "SelectRowsQueryCode": "avr_Shift_MechanSelectRows",
+  "SelectRowQueryCode": "avr_Shift_MechanSelectRow",
+  "UpdateQueryCode": "avr_Shift_MechanUpdateRow",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

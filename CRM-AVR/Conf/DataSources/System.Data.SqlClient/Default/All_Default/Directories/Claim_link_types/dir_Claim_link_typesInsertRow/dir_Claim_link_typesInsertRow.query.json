@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Claim_link_typesInsertRow",
+  "Name": "dir_Claim_link_typesInsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@Name",
+      "Name": "Name"
+    }
+  ]
+}

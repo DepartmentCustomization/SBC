@@ -1,0 +1,35 @@
+[
+  {
+    "Code": "@BoreCountAll",
+    "Name": "BoreCountAll",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Number",
+    "Name": "Number"
+  },
+  {
+    "Code": "@Description",
+    "Name": "Description"
+  },
+  {
+    "Code": "@ChangeBy_userID",
+    "Name": "ChangeBy_userID",
+    "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@Author_userID",
+    "Name": "Author_userID",
+    "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@OrgId",
+    "Name": "OrgId",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@GroupLenght",
+    "Name": "GroupLenght",
+    "ParameterType": "Decimal"
+  }
+]

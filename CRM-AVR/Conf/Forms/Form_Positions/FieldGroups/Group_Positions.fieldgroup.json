@@ -1,0 +1,14 @@
+{
+  "Code": "Group_Positions",
+  "Name": "Професія",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Професія",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

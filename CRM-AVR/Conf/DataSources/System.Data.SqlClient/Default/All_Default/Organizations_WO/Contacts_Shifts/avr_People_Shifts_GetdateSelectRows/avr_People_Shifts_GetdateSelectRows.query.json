@@ -1,0 +1,84 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_People_Shifts_GetdateSelectRows",
+  "Name": "avr_People_Shifts_GetdateSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Shift_date",
+      "Name": "Дата Зміни",
+      "Position": 2,
+      "SqlName": "Shifts.Shift_date",
+      "FilterParameterCode": "@Date"
+    },
+    {
+      "Code": "shifts_name",
+      "Name": "Назва",
+      "Position": 3,
+      "ReferenceKeyCode": "shifts_id",
+      "ReferenceSectionCode": "Shifts"
+    },
+    {
+      "Code": "teams_name",
+      "Name": "Бригада",
+      "Position": 4,
+      "SqlName": "Teams.Name",
+      "FilterParameterCode": "@Team_Name"
+    },
+    {
+      "Code": "contacts_name",
+      "Name": "ПІБ працівника",
+      "Position": 5
+    },
+    {
+      "Code": "Is_main",
+      "Name": "Бригадир",
+      "Position": 6
+    },
+    {
+      "Code": "Is_driver",
+      "Name": "Водій",
+      "Position": 7
+    },
+    {
+      "Code": "mechanisms_name",
+      "Name": "Транспортний засіб",
+      "Position": 8
+    },
+    {
+      "Code": "shifts_id",
+      "Name": "shifts_id",
+      "Position": 9,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

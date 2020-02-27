@@ -1,0 +1,32 @@
+[
+  {
+    "Code": "@Actions_ID",
+    "Name": "Actions_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Description",
+    "Name": "Description"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Created_at",
+    "Name": "Created_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Claim_ID",
+    "Name": "Claim_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Fact_finish_at",
+    "Name": "Fact_finish_at",
+    "ParameterType": "DateTime"
+  }
+]

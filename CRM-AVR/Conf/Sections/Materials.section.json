@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_MaterialsInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Materials",
+  "Name": "Довідник: Матеріали",
+  "FormCode": "Form_Materials",
+  "SelectRowsQueryCode": "dir_MaterialsSelectRows",
+  "SelectRowQueryCode": "dir_MaterialsSelectRow",
+  "UpdateQueryCode": "dir_MaterialsUpdateRow"
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "Code": "@from_house",
+    "Name": "from_house",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Longitude",
+    "Name": "Longitude"
+  },
+  {
+    "Code": "@streets_id",
+    "Name": "streets_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@distincts_id",
+    "Name": "distincts_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@place_types_id",
+    "Name": "place_types_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@cross_str_id2",
+    "Name": "cross_str_id2",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Latitude",
+    "Name": "Latitude"
+  },
+  {
+    "Code": "@cross_str_id1",
+    "Name": "cross_str_id1",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Number",
+    "Name": "Number",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@to_house",
+    "Name": "to_house",
+    "ParameterType": "Integer"
+  }
+]

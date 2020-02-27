@@ -1,0 +1,67 @@
+{
+  "ModelType": "Query",
+  "Code": "Table_Comparative_Reference",
+  "Name": "Table_Comparative_Reference",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "num",
+      "Name": "num",
+      "Position": 1
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "Підрозділ",
+      "Position": 2
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Заявка №",
+      "Position": 3
+    },
+    {
+      "Code": "places_name",
+      "Name": "Адреса",
+      "Position": 4
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата реєстрації",
+      "Position": 5
+    },
+    {
+      "Code": "Fact_finish_at",
+      "Name": "Дата Закриття",
+      "Position": 6
+    },
+    {
+      "Code": "types_name",
+      "Name": "Тип заявки",
+      "Position": 7
+    },
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "Position": 8
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@dateStart",
+      "Name": "dateStart",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@OrgId",
+      "Name": "OrgId",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@dateFinish",
+      "Name": "dateFinish",
+      "ParameterType": "DateTime"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "Code": "@Plan_end_time",
+    "Name": "Plan_end_time",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Fact_start_time",
+    "Name": "Fact_start_time",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@mechanisms_id",
+    "Name": "mechanisms_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Fact_end_time",
+    "Name": "Fact_end_time",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Plan_start_time",
+    "Name": "Plan_start_time",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@teams_id",
+    "Name": "teams_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@shifts_name",
+    "Name": "shifts_name"
+  },
+  {
+    "Code": "@Shift_date",
+    "Name": "Shift_date"
+  }
+]

@@ -1,0 +1,74 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Appeals_Claims_Off_SelectRows",
+  "Name": "avr_Appeals_Claims_Off_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "places_name",
+      "Name": "Адреса",
+      "Position": 2,
+      "SqlName": "Places.Name",
+      "FilterParameterCode": "@name"
+    },
+    {
+      "Code": "switchoff_type_name",
+      "Name": "Тип відключення",
+      "Position": 3
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Заявка по якій працюють",
+      "Position": 4,
+      "SqlName": "claims.Claim_Number",
+      "FilterParameterCode": "@claims",
+      "ReferenceKeyCode": "claims_id",
+      "ReferenceSectionCode": "Claims"
+    },
+    {
+      "Code": "SwitchOff_start",
+      "Name": "Початок відключення",
+      "Position": 5
+    },
+    {
+      "Code": "SwitchOff_finish",
+      "Name": "Закінчення відключення",
+      "Position": 6
+    },
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "Position": 7,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Place_Claims_SelectRows",
+  "Name": "avr_Place_Claims_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "status_name",
+      "Name": "Статус",
+      "Position": 2,
+      "SqlName": "Status.Name",
+      "FilterParameterCode": "@Status_Name"
+    },
+    {
+      "Code": "claim_types_name",
+      "Name": "Тип заявки",
+      "Position": 3,
+      "SqlName": "Claim_types.Name",
+      "FilterParameterCode": "@Claim_types_Name"
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата та час реєстрації",
+      "Position": 4,
+      "SqlName": "convert(nvarchar(20), Claims.Created_at, 109) ",
+      "FilterParameterCode": "@date_start"
+    },
+    {
+      "Code": "Plan_finish_at",
+      "Name": "Планова Дата та час закінчення",
+      "Position": 5,
+      "SqlName": "convert(nvarchar(20), Claims.Plan_finish_at, 109) ",
+      "FilterParameterCode": "@date_finish"
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Заявка по якій працюють",
+      "Position": 6,
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "Claims"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

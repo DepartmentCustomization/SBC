@@ -1,0 +1,51 @@
+[
+  {
+    "Code": "@ParamD",
+    "Name": "ParamD",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@ParamK",
+    "Name": "ParamK",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@mechanisms_name",
+    "Name": "mechanisms_name"
+  },
+  {
+    "Code": "@mechanism_type_id",
+    "Name": "mechanism_type_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@organizations_id",
+    "Name": "organizations_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@mechanisms_number",
+    "Name": "mechanisms_number"
+  },
+  {
+    "Code": "@ParamW",
+    "Name": "ParamW",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@ParamH",
+    "Name": "ParamH",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@ParamL",
+    "Name": "ParamL",
+    "ParameterType": "Integer"
+  }
+]

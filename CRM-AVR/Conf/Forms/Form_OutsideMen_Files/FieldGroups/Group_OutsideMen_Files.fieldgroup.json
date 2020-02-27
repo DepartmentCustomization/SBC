@@ -1,0 +1,27 @@
+{
+  "Code": "Group_OutsideMen_Files",
+  "Name": "Файл",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва файла",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "File",
+      "Name": "File",
+      "FieldType": "file",
+      "Position": 1,
+      "FileNameColumnCode": "Name"
+    },
+    {
+      "Code": "Doc_OutsideMen_Id",
+      "Name": "Doc_OutsideMen_Id",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

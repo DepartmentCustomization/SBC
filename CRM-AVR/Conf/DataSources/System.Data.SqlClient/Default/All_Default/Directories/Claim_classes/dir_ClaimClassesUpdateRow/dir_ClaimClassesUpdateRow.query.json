@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_ClaimClassesUpdateRow",
+  "Name": "dir_ClaimClassesUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Name",
+      "Name": "Name"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

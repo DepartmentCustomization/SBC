@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "report",
+  "Position": 1,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "Current_status_claims",
+  "Name": "Поточний стан заявок"
+}

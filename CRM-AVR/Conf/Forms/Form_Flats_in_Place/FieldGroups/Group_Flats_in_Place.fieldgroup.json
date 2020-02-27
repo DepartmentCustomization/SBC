@@ -1,0 +1,44 @@
+{
+  "Code": "Group_Flats_in_Place",
+  "Name": "Квартира №",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "houses_name",
+      "Name": "Будинок",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "flat_number",
+      "Name": "Квартира №",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "Letter",
+      "Name": "Літера квартири",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "Porch",
+      "Name": "Під'їзд",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "Floor",
+      "Name": "Поверх",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "Comment",
+      "Name": "Коментар",
+      "FieldType": "textarea",
+      "Position": 1,
+      "Rows": 2
+    }
+  ]
+}

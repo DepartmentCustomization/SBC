@@ -1,0 +1,21 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_AreaClaim_Likns",
+  "Name": "Пов'язані заявки",
+  "FormCode": "Form_Link_New_Claims",
+  "SelectRowsQueryCode": "avr_Claim_Links_SelectRows",
+  "SelectRowQueryCode": "avr_Claim_Links_SelectRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Claim_Links_DeleteRow",
+  "Position": 2,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Claim_Links_InsertRow_NEW"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

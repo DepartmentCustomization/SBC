@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Group_Depart",
+  "Name": "Пов'язані організації / Департаменти",
+  "SelectRowsQueryCode": "avr_DepartSelectRows",
+  "SectionCode": "",
+  "Position": 3,
+  "PrintType": "Card",
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

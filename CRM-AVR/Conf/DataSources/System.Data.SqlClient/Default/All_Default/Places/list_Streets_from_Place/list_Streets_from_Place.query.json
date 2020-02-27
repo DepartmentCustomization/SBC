@@ -1,0 +1,62 @@
+{
+  "ModelType": "Query",
+  "Code": "list_Streets_from_Place",
+  "Name": "list_Streets_from_Place",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "type_name",
+      "Name": "type_name",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Old_name",
+      "Name": "Old_name",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Territory",
+      "Name": "Territory",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Street_Id",
+      "Name": "Street_Id",
+      "Position": 6,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

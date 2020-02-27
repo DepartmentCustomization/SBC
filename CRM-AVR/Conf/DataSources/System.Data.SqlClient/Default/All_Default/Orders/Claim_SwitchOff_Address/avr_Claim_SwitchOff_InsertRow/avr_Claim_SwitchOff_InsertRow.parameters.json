@@ -1,0 +1,28 @@
+[
+  {
+    "Code": "@switchoff_type_id",
+    "Name": "switchoff_type_id",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Claim_ID",
+    "Name": "Claim_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@places_id",
+    "Name": "places_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@SwitchOff_start",
+    "Name": "SwitchOff_start",
+    "ParameterType": "DateTime"
+  }
+]

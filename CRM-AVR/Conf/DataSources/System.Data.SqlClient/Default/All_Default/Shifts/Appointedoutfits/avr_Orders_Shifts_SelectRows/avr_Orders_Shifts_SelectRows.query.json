@@ -1,0 +1,72 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Orders_Shifts_SelectRows",
+  "Name": "avr_Orders_Shifts_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Виїзд №",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "SqlName": "Orders.Id",
+      "FilterParameterCode": "@Order_ID"
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "По заявці №",
+      "Position": 2,
+      "SqlName": "Claims.Claim_Number",
+      "FilterParameterCode": "@claims"
+    },
+    {
+      "Code": "Start_at",
+      "Name": "Плановий початок",
+      "Position": 3,
+      "SqlName": "Orders.Start_at",
+      "FilterParameterCode": "@startdate"
+    },
+    {
+      "Code": "Name",
+      "Name": "Тип заявки",
+      "Position": 4
+    },
+    {
+      "Code": "Priority",
+      "Name": "Приоритет",
+      "Position": 5
+    },
+    {
+      "Code": "places_name",
+      "Name": "Місце",
+      "Position": 6
+    },
+    {
+      "Code": "Overtime",
+      "Name": "Позапланом",
+      "Position": 7
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

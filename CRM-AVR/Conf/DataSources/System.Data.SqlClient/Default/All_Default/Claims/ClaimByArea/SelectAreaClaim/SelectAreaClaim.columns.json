@@ -1,0 +1,148 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrimaryKey": true,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_Number",
+    "Name": "Claim_Number",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_class_ID",
+    "Name": "Claim_class_ID",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_class_Name",
+    "Name": "Claim_class_Name",
+    "Position": 3,
+    "IsPrintable": false,
+    "ReferenceKeyCode": "Claim_class_ID"
+  },
+  {
+    "Code": "Claim_type_ID",
+    "Name": "Claim_type_ID",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_type_FullName",
+    "Name": "Claim_type_FullName",
+    "Position": 5,
+    "IsPrintable": false,
+    "ReferenceKeyCode": "Claim_type_ID"
+  },
+  {
+    "Code": "Status_id",
+    "Name": "Status_id",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "statusName",
+    "Name": "statusName",
+    "Position": 7,
+    "IsPrintable": false,
+    "ReferenceKeyCode": "Status_id"
+  },
+  {
+    "Code": "Response_organization_ID",
+    "Name": "Response_organization_ID",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Repsonse_organization_Name",
+    "Name": "Repsonse_organization_Name",
+    "Position": 9,
+    "IsPrintable": false,
+    "ReferenceKeyCode": "Response_organization_ID"
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Created_at",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "User",
+    "Name": "User",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Description",
+    "Name": "Description",
+    "Position": 12,
+    "IsPrintable": false
+  },
+  {
+    "Code": "date_close",
+    "Name": "date_close",
+    "Position": 13,
+    "IsPrintable": false
+  },
+  {
+    "Code": "user_close",
+    "Name": "user_close",
+    "Position": 14,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Sked",
+    "Name": "Sked",
+    "Position": 15,
+    "IsPrintable": false
+  },
+  {
+    "Code": "RouteID",
+    "Name": "RouteID",
+    "Position": 16,
+    "IsPrintable": false
+  },
+  {
+    "Code": "routeNumber",
+    "Name": "routeNumber",
+    "Position": 17,
+    "IsPrintable": false,
+    "ReferenceKeyCode": "RouteID"
+  },
+  {
+    "Code": "WalkerJobID",
+    "Name": "WalkerJobID",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "WalkerName",
+    "Name": "WalkerName",
+    "Position": 19,
+    "IsPrintable": false,
+    "ReferenceKeyCode": "WalkerJobID"
+  },
+  {
+    "Code": "ResponseID",
+    "Name": "ResponseID",
+    "Position": 20,
+    "IsPrintable": false
+  },
+  {
+    "Code": "RepsonseName",
+    "Name": "RepsonseName",
+    "Position": 21,
+    "IsPrintable": false,
+    "ReferenceKeyCode": "ResponseID"
+  },
+  {
+    "Code": "claims_id",
+    "Name": "claims_id",
+    "Position": 22,
+    "IsPrintable": false
+  }
+]

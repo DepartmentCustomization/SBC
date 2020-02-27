@@ -1,0 +1,28 @@
+[
+  {
+    "Code": "@Finish_at",
+    "Name": "Finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@places_id",
+    "Name": "places_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@size_id",
+    "Name": "size_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Start_from",
+    "Name": "Start_from",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  }
+]

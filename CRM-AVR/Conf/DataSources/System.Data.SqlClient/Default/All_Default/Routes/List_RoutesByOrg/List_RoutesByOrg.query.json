@@ -1,0 +1,44 @@
+{
+  "ModelType": "Query",
+  "Code": "List_RoutesByOrg",
+  "Name": "List_RoutesByOrg",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Number",
+      "Name": "Number",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "Number",
+      "FilterParameterCode": "@Num"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@UserDepartment",
+      "Name": "UserDepartment",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

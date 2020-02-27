@@ -1,0 +1,21 @@
+{
+  "ModelType": "Form",
+  "Code": "AreaClaims_Form",
+  "Name": "Заявка обхідника",
+  "Details": [
+    "string:Details\\Detail_AreaClaim_Likns.detail.json",
+    "string:Details\\ClaimAreas_Detail.detail.json",
+    "string:Details\\AreaClaim_File.detail.json",
+    "string:Details\\AreaClaimParams.detail.json",
+    "string:Details\\ClaimArea_Places.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\AreaClaimInfo.fieldgroup.json",
+      "string:FieldGroups\\ClaimRoute.fieldgroup.json",
+      "string:FieldGroups\\Informational.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:AreaClaims_Form.form.js"
+  }
+}

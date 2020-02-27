@@ -1,0 +1,15 @@
+{
+  "ModelType": "Query",
+  "Code": "select_message",
+  "Name": "select_message",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@GroupId",
+      "Name": "GroupId",
+      "ParameterType": "Integer"
+    }
+  ]
+}

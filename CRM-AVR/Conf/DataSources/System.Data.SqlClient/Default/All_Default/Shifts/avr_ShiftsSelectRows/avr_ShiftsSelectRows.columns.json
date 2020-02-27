@@ -1,0 +1,72 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "Shift_date",
+    "Name": "Дата зміни",
+    "Position": 2,
+    "SqlName": "[Shifts].[Shift_date]",
+    "FilterParameterCode": "@shifts_name"
+  },
+  {
+    "Code": "organizations_name",
+    "Name": "Організація",
+    "Position": 3,
+    "SqlName": "Organizations.Name",
+    "FilterParameterCode": "@Name"
+  },
+  {
+    "Code": "shifts_name",
+    "Name": "Назва зміни",
+    "Position": 4,
+    "SqlName": "Shifts.Name",
+    "FilterParameterCode": "@name_param"
+  },
+  {
+    "Code": "teams_name",
+    "Name": "Назва зміни",
+    "Position": 5,
+    "SqlName": "[Teams].[Name]",
+    "FilterParameterCode": "@teams"
+  },
+  {
+    "Code": "Plan_start_time",
+    "Name": "З:",
+    "Position": 6
+  },
+  {
+    "Code": "Plan_end_time",
+    "Name": "до: ",
+    "Position": 7
+  },
+  {
+    "Code": "contacts_name_brigabir",
+    "Name": "Бригадир",
+    "Position": 8
+  },
+  {
+    "Code": "phone_brigabir",
+    "Name": "Тел. бригадира",
+    "Position": 9
+  },
+  {
+    "Code": "mechanisms_name",
+    "Name": "Техніка",
+    "Position": 10
+  },
+  {
+    "Code": "contacts_name_voditel",
+    "Name": "Водій",
+    "Position": 11
+  },
+  {
+    "Code": "phone_driver",
+    "Name": "Тел. водія",
+    "Position": 12
+  }
+]

@@ -1,0 +1,74 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_RoutesSelect_Rows",
+  "Name": "avr_RoutesSelect_Rows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Number",
+      "Name": "Маршрут №",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Short_name",
+      "Name": "Відділ",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Author_userID",
+      "Name": "Створив",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "ChangeBy_userID",
+      "Name": "Редагував",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "GroupLenght",
+      "Name": "Загальна довжина маршруту (м)",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "BoreCountAll",
+      "Name": "Загальна кількість люків",
+      "Position": 6,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@UserDepartment",
+      "Name": "UserDepartment",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Action_File",
+  "Name": "Документи до роботи",
+  "Details": [
+    "string:Details\\Action_Files.detail.json",
+    "string:Details\\Action_URL.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Action_Documents.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Actions_Id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Action_File.form.js"
+  }
+}

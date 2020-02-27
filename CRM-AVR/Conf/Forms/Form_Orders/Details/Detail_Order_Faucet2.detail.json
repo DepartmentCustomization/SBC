@@ -1,0 +1,17 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Order_Faucet2",
+  "Name": "Запорна Арматура",
+  "SelectRowsQueryCode": "avr_Faucet_Orders_SelectRows",
+  "SelectRowQueryCode": "avr_Faucet_Orders_SelectRow",
+  "UpdateQueryCode": "avr_Faucet_Orders_Update",
+  "SectionCode": "",
+  "Position": 2,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Order_Id"
+    }
+  ]
+}

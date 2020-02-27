@@ -1,0 +1,21 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_AreaParams",
+  "Name": "Параметри",
+  "FormCode": "Form_RouteParam",
+  "SelectRowsQueryCode": "avr_AreaParams_SelectRows",
+  "SelectRowQueryCode": "SelectAreaParamRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "DeleteAreaParamRow",
+  "Position": 3,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "InsertAreaParam"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@route_id"
+    }
+  ]
+}

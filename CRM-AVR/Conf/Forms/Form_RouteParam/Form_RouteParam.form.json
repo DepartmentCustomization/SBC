@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_RouteParam",
+  "Name": "Параметри ділянки ",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\AreaParamInfo.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "route_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_RouteParam.form.js"
+  }
+}

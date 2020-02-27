@@ -1,0 +1,10 @@
+{
+  "IsVisible": false,
+  "IsDraft": true,
+  "DashboardGroupCode": "report",
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "ReportClaims_IsTest",
+  "Name": "ReportClaims_IsTest"
+}

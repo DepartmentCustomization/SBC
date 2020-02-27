@@ -1,0 +1,60 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_History_Claims",
+  "Name": "avr_History_Claims",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "User",
+      "Name": "Користувач",
+      "Position": 2
+    },
+    {
+      "Code": "Field",
+      "Name": "Поле",
+      "Position": 3,
+      "SqlName": "Field",
+      "FilterParameterCode": "@field"
+    },
+    {
+      "Code": "New_Value",
+      "Name": "Значення",
+      "Position": 4
+    },
+    {
+      "Code": "Date",
+      "Name": "Дата зміни",
+      "Position": 5
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

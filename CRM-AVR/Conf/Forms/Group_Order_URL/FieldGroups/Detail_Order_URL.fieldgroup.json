@@ -1,0 +1,26 @@
+{
+  "Code": "Detail_Order_URL",
+  "Name": "URL",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Doc_Order_Id",
+      "Name": "Doc_Order_Id",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "URL",
+      "Name": "URL",
+      "FieldType": "text",
+      "Position": 1
+    }
+  ]
+}

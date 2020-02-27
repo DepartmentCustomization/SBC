@@ -1,0 +1,28 @@
+{
+  "Code": "Group_Order_Files",
+  "Name": "Файли",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва файла",
+      "FieldType": "text",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "File",
+      "Name": "File",
+      "FieldType": "file",
+      "Position": 1,
+      "FileNameColumnCode": "Name"
+    },
+    {
+      "Code": "Doc_Order_Id",
+      "Name": "Doc_Order_Id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

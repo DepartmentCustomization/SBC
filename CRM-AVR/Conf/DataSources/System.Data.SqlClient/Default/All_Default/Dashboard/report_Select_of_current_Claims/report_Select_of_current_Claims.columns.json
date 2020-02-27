@@ -1,0 +1,65 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "organization_name",
+    "Name": "organization_name",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_Number",
+    "Name": "Claim_Number",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "places_name",
+    "Name": "places_name",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "order_number",
+    "Name": "order_number",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Pushed_at",
+    "Name": "Pushed_at",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "shifts_name",
+    "Name": "shifts_name",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "action_name",
+    "Name": "action_name",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_class_ID",
+    "Name": "Claim_class_ID",
+    "Position": 9,
+    "IsPrintable": false,
+    "SqlName": "Claims.Claim_class_ID",
+    "FilterParameterCode": "@Claim_class_ID"
+  },
+  {
+    "Code": "Status_ID",
+    "Name": "Status_ID",
+    "Position": 10,
+    "SqlName": "Claims.Status_ID",
+    "FilterParameterCode": "@status"
+  }
+]

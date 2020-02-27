@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_ClaimsInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Claims",
+  "Name": " Заявки",
+  "FormCode": "Form_Claims",
+  "SelectRowsQueryCode": "avr_ClaimsSelectRows",
+  "SelectRowQueryCode": "avr_ClaimsSelectRow",
+  "UpdateQueryCode": "avr_ClaimsUpdateRow"
+}

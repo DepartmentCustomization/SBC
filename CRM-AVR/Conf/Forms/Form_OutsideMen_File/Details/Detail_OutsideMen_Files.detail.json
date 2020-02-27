@@ -1,0 +1,22 @@
+{
+  "DetailType": "File",
+  "ModelType": "Detail",
+  "Code": "Detail_OutsideMen_Files",
+  "Name": "Файли",
+  "FormCode": "Form_OutsideMen_Files",
+  "SelectRowsQueryCode": "avr_Files_OutsideMen_SelectRows",
+  "SelectRowQueryCode": "avr_Files_OutsideMen_SelectRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Files_OutsideMen_Delete",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Files_OutsideMen_Insert"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}
