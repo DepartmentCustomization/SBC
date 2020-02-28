@@ -1,9 +1,9 @@
-(function () {
-  return {
-    title: [],
-    hint:  '',
-    formatTitle: function() {},
-    customConfig:
+(function() {
+    return {
+        title: [],
+        hint:  '',
+        formatTitle: function() {},
+        customConfig:
                 `
                 <style>
                     * {
@@ -174,7 +174,7 @@
                                 </div> <!--btn_dropdown_end -->
                             </div>  <!-- menu_checkbox2_end -->
                             
-                            <a id="menu_checkbox_3" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Appeals'+`">
+                            <a id="menu_checkbox_3" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Appeals' + `">
                                 <div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                                 Всі звернення
                             </a>
@@ -198,21 +198,21 @@
                         	</button>
                             
                         	<div class="dropdown-container">
-                        		<a id="menu_checkbox_6" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Claims/add'+`">
+                        		<a id="menu_checkbox_6" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Claims/add' + `">
                         			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         			 • Підрозділу
                         		</a>
                         
-                        		<a id="menu_checkbox_7" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Claims/add/params/JTdCJTIyc29ydENvbHVtbnMlMjIlM0ElNUIlN0IlMjJrZXklMjIlM0ElMjJDcmVhdGVkQXQlMjIlMkMlMjJ2YWx1ZSUyMiUzQTElN0QlNUQlMkMlMjJmaWx0ZXJDb2x1bW5zJTIyJTNBJTVCJTdCJTIya2V5JTIyJTNBJTIyQXBwZWFsVHlwZU5hbWUlMjIlMkMlMjJ2YWx1ZSUyMiUzQSU3QiUyMm9wZXJhdGlvbiUyMiUzQTYlMkMlMjJ2YWx1ZXMlMjIlM0ElNUIlMjIldTA0MTcldTA0MzIldTA0MzUldTA0NDAldTA0M0QldTA0MzUldTA0M0QldTA0M0QldTA0NEYlMjAldTA0MzIlMjAldTA0M0UldTA0NDRpJXUwNDQxJTIyJTVEJTdEJTdEJTVEJTdE'+`">
+                        		<a id="menu_checkbox_7" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Claims/add/params/JTdCJTIyc29ydENvbHVtbnMlMjIlM0ElNUIlN0IlMjJrZXklMjIlM0ElMjJDcmVhdGVkQXQlMjIlMkMlMjJ2YWx1ZSUyMiUzQTElN0QlNUQlMkMlMjJmaWx0ZXJDb2x1bW5zJTIyJTNBJTVCJTdCJTIya2V5JTIyJTNBJTIyQXBwZWFsVHlwZU5hbWUlMjIlMkMlMjJ2YWx1ZSUyMiUzQSU3QiUyMm9wZXJhdGlvbiUyMiUzQTYlMkMlMjJ2YWx1ZXMlMjIlM0ElNUIlMjIldTA0MTcldTA0MzIldTA0MzUldTA0NDAldTA0M0QldTA0MzUldTA0M0QldTA0M0QldTA0NEYlMjAldTA0MzIlMjAldTA0M0UldTA0NDRpJXUwNDQxJTIyJTVEJTdEJTdEJTVEJTdE' + `">
                         			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         			 • Замовленя Техніки
                         		</a>
                         
-                        		<a id="menu_checkbox_8" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Claims/add/params/JTdCJTIyc29ydENvbHVtbnMlMjIlM0ElNUIlN0IlMjJrZXklMjIlM0ElMjJDcmVhdGVkQXQlMjIlMkMlMjJ2YWx1ZSUyMiUzQTElN0QlNUQlMkMlMjJmaWx0ZXJDb2x1bW5zJTIyJTNBJTVCJTdCJTIya2V5JTIyJTNBJTIyQXBwZWFsVHlwZU5hbWUlMjIlMkMlMjJ2YWx1ZSUyMiUzQSU3QiUyMm9wZXJhdGlvbiUyMiUzQTYlMkMlMjJ2YWx1ZXMlMjIlM0ElNUIlMjIldTA0MTcldTA0MzIldTA0MzUldTA0NDAldTA0M0QldTA0MzUldTA0M0QldTA0M0QldTA0NEYlMjAldTA0MzcldTA0MzAlMjAldTA0NDIldTA0MzUldTA0M0IldTA0MzUldTA0NDQldTA0M0UldTA0M0QldTA0M0UldTA0M0MlMjIlNUQlN0QlN0QlNUQlN0Q'+`">
+                        		<a id="menu_checkbox_8" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Claims/add/params/JTdCJTIyc29ydENvbHVtbnMlMjIlM0ElNUIlN0IlMjJrZXklMjIlM0ElMjJDcmVhdGVkQXQlMjIlMkMlMjJ2YWx1ZSUyMiUzQTElN0QlNUQlMkMlMjJmaWx0ZXJDb2x1bW5zJTIyJTNBJTVCJTdCJTIya2V5JTIyJTNBJTIyQXBwZWFsVHlwZU5hbWUlMjIlMkMlMjJ2YWx1ZSUyMiUzQSU3QiUyMm9wZXJhdGlvbiUyMiUzQTYlMkMlMjJ2YWx1ZXMlMjIlM0ElNUIlMjIldTA0MTcldTA0MzIldTA0MzUldTA0NDAldTA0M0QldTA0MzUldTA0M0QldTA0M0QldTA0NEYlMjAldTA0MzcldTA0MzAlMjAldTA0NDIldTA0MzUldTA0M0IldTA0MzUldTA0NDQldTA0M0UldTA0M0QldTA0M0UldTA0M0MlMjIlNUQlN0QlN0QlNUQlN0Q' + `">
                         			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         			 • Замовленя Матеріалів
                         		</a>
-                        		 <a id="menu_checkbox_91" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Template'+`">
+                        		 <a id="menu_checkbox_91" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Template' + `">
                         	 	 <!-- <div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>-->
                         	 	   <div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div> 
                         			 • Заявка із шаблону
@@ -269,7 +269,7 @@
                         		</div>   <!-- btnDropdown  End -->
 	                        </div>  <!-- menuCheckbox9 End-->
                         	
-                        	<a id="menu_checkbox_10" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Claims'+`">
+                        	<a id="menu_checkbox_10" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Claims' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Всі заявки
                         	</a>
@@ -330,12 +330,12 @@
                         		</div>   <!-- btnDropdown  End -->
                         	</div> <!-- dropdownMenu12 End-->
                         	
-                        	<a id="menu_checkbox_13" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Orders'+`">
+                        	<a id="menu_checkbox_13" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Orders' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Виїзди підрозділа
                         	</a>
                         	
-                        	<a id="menu_checkbox_14" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Orders'+`">
+                        	<a id="menu_checkbox_14" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Orders' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Всі виїзди
                         	</a>
@@ -368,28 +368,28 @@
                             	</button>
                             
                             	<div class="dropdown-container">
-                            		<a id="menu_checkbox_18" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            		<a id="menu_checkbox_18" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			• Календар змін-бригад
                             		</a>
                             
-                            		<a id="menu_checkbox_19" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            		<a id="menu_checkbox_19" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			• Посади
                             		</a>
                             
-                            		<a id="menu_checkbox_20" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Mechanisms'+`">
+                            		<a id="menu_checkbox_20" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Mechanisms' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			• Техніка Підрозділа
                             		</a>
                             		
-                            		<a id="menu_checkbox_21" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Organizations_WO'+`">
+                            		<a id="menu_checkbox_21" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Organizations_WO' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			• Мій Підрозділ
                             		</a>
                             	</div> <!-- dropdownMenu17:Мій відділ  End -->
                             	
-                            	<a id="menu_checkbox_22" style="padding-left: 55px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Organizations_WO'+`">
+                            	<a id="menu_checkbox_22" style="padding-left: 55px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Organizations_WO' + `">
                             	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             		Загальна структура
                             	</a>
@@ -439,7 +439,7 @@
                                 		</div>   <!-- dropdownMenu  End --> 
                                 	</div> <!-- menuCheckbox24 End--> 
                             
-                            		<a id="menu_checkbox_25" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            		<a id="menu_checkbox_25" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			• Загалом
                             		</a>
@@ -484,7 +484,7 @@
                                 		</div>   <!-- dropdownMenu27  End -->
                                 	</div> <!-- menuCheckbox26 End--> 
                             
-                            		<a id="menu_checkbox_28" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Mechanisms'+`">
+                            		<a id="menu_checkbox_28" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Mechanisms' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			• Загалом
                             		</a>
@@ -507,24 +507,24 @@
                             	</button>
                             
                             	<div class="dropdown-container">
-                            		<a id="menu_checkbox_31" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            		<a id="menu_checkbox_31" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                             			• Календар змін-бригад
                             		</a>
                             
-                            		<a id="menu_checkbox_32" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            		<a id="menu_checkbox_32" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                             			• Посади
                             		</a>
                             
-                            		<a id="menu_checkbox_33" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Mechanisms'+`">
+                            		<a id="menu_checkbox_33" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Mechanisms' + `">
                             			• Техніка Підрозділа
                             		</a>
                             		
-                            		<a id="menu_checkbox_34" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Organizations_WO'+`">
+                            		<a id="menu_checkbox_34" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Organizations_WO' + `">
                             			• Мій Підрозділ
                             		</a>
                             	</div> <!-- dropdownMenu30:Мій відділ  End -->
                             	
-                            	<a id="menu_checkbox_35" style="padding-left:55px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Organizations_WO'+`">
+                            	<a id="menu_checkbox_35" style="padding-left:55px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Organizations_WO' + `">
                             	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             		Загальна структура
                             	</a>
@@ -574,7 +574,7 @@
                                 		</div>   <!-- dropdownMenu37  End -->
                                 	</div> <!-- menuCheckbox36 End--> 
                             
-                            		<a id="menu_checkbox_38" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            		<a id="menu_checkbox_38" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			• Загалом
                             		</a>
@@ -619,7 +619,7 @@
                                 		</div>   <!-- dropdownMenu40  End -->
                                 	</div> <!-- menuCheckbox39 End--> 
                             
-                            		<a id="menu_checkbox_41" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Mechanisms'+`">
+                            		<a id="menu_checkbox_41" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Mechanisms' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			• Загалом
                             		</a>
@@ -642,24 +642,24 @@
                             	</button>
                             
                             	<div class="dropdown-container">
-                            		<a id="menu_checkbox_44" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            		<a id="menu_checkbox_44" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                             			• Календар змін-бригад
                             		</a>
                             
-                            		<a id="menu_checkbox_45" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            		<a id="menu_checkbox_45" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                             			• Посади
                             		</a>
                             
-                            		<a id="menu_checkbox_46" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Mechanisms'+`">
+                            		<a id="menu_checkbox_46" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Mechanisms' + `">
                             			• Техніка Підрозділа
                             		</a>
                             		
-                            		<a id="menu_checkbox_47" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Organizations_WO'+`">
+                            		<a id="menu_checkbox_47" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Organizations_WO' + `">
                             			• Мій Підрозділ
                             		</a>
                             	</div> <!-- dropdownMenu43:Мій відділ  End -->
                             	
-                            	<a id="menu_checkbox_48" style="padding-left:55px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Organizations_WO'+`">
+                            	<a id="menu_checkbox_48" style="padding-left:55px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Organizations_WO' + `">
                             	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             		Загальна структура
                             	</a>
@@ -709,7 +709,7 @@
                                 		</div>   <!-- dropdownMenu50  End -->
                                 	</div> <!-- menuCheckbox49 End--> 
                             
-                            		<a id="menu_checkbox_51" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            		<a id="menu_checkbox_51" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			• Загалом
                             		</a>
@@ -754,7 +754,7 @@
                                 		</div>   <!-- dropdownMenu53  End -->
                                 	</div> <!-- menuCheckbox52 End--> 
                             
-                            		<a id="menu_checkbox_54" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Mechanisms'+`">
+                            		<a id="menu_checkbox_54" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Mechanisms' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			• Загалом
                             		</a>
@@ -817,12 +817,12 @@
                             		</div>   <!-- dropdownMenu57  End -->
                             	</div> <!-- menuCheckbox56 End--> 
                         
-                        		<a id="menu_checkbox_58" style="padding-left: 55px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Places'+`">
+                        		<a id="menu_checkbox_58" style="padding-left: 55px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Places' + `">
                         			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         			• Загалом
                         		</a>
                         
-                        		<a id="menu_checkbox_59" style="padding-left: 55px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Places/add'+`">
+                        		<a id="menu_checkbox_59" style="padding-left: 55px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Places/add' + `">
                         			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         			• Створити нове месце
                         		</a>
@@ -861,13 +861,13 @@
                             		</div>   <!-- dropdownMenu  End -->
                             	</div> <!-- menuCheckbox61 End-->  
                         
-                        		<a id="menu_checkbox_62" style="padding-left: 55px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Streets'+`">
+                        		<a id="menu_checkbox_62" style="padding-left: 55px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Streets' + `">
                         			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         			• Загалом
                         		</a>
                             </div> <!-- dropdownMenu60  End -->
                             
-                            <a id="menu_checkbox_63" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            <a id="menu_checkbox_63" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Райони
                         	</a>
@@ -924,14 +924,14 @@
                                 		</div>   <!-- dropdownMenu  End -->
                                 	</div> <!-- menuCheckbox66 End-->    
                             
-                            		<a id="menu_checkbox_67" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Contact'+`">
+                            		<a id="menu_checkbox_67" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Contact' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			Загалом
                             		</a>
                             	</div> <!-- dropdownMenu65  End -->
                                 <!--фізочні особи end -->
                                 
-                        		<a id="menu_checkbox_68" style="padding-left: 55px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Contact/add'+`">
+                        		<a id="menu_checkbox_68" style="padding-left: 55px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Contact/add' + `">
                         			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         			• Створити Фіз. особу
                         		</a>
@@ -981,14 +981,14 @@
                                 		</div>   <!-- dropdownMenu  End -->
                                 	</div> <!-- menuCheckbox70 End-->    
                             
-                            		<a id="menu_checkbox_71" style="padding-left: 70px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Contact'+`">
+                            		<a id="menu_checkbox_71" style="padding-left: 70px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Contact' + `">
                             			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                             			Загалом
                             		</a>
                             	</div> <!-- dropdownMenu  End -->
                         		
                         		<!-- юридичні особи end -->
-                        		<a id="menu_checkbox_72" style="padding-left: 55px;" href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Contact/add'+`">
+                        		<a id="menu_checkbox_72" style="padding-left: 55px;" href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Contact/add' + `">
                         			<div class="border-line" style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 90%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         			• Створити Юр. особу
                         		</a>
@@ -1005,37 +1005,37 @@
                         </button>
                         
                         <div class="dropdown-container">
-                            <a id="menu_checkbox_74"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Shifts'+`">
+                            <a id="menu_checkbox_74"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Shifts' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Доступи
                         	</a>
                         	
-                        	<a id="menu_checkbox_75"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Materials'+`">
+                        	<a id="menu_checkbox_75"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Materials' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Матеріали
                         	</a>
                         	
-                        	<a id="menu_checkbox_76"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/SwitchOff_types'+`">
+                        	<a id="menu_checkbox_76"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/SwitchOff_types' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Типи відключень
                         	</a>
                         	
-                        	<a id="menu_checkbox_77"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Claim_types'+`">
+                        	<a id="menu_checkbox_77"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Claim_types' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Типи Заявок
                         	</a>
                         	
-                        	<a id="menu_checkbox_78"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Type_PP_link'+`">
+                        	<a id="menu_checkbox_78"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Type_PP_link' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Типи Пов'заних місць
                         	</a>
                         	
-                        	<a id="menu_checkbox_79"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Action_types'+`">
+                        	<a id="menu_checkbox_79"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Action_types' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Типи Робіт
                         	</a>
                         	
-                        	<a id="menu_checkbox_80"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/sections/Mechanism_types'+`">
+                        	<a id="menu_checkbox_80"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/sections/Mechanism_types' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Типи Техніки
                         	</a>
@@ -1052,47 +1052,47 @@
                         </button>
                         
                         <div class="dropdown-container">
-                            <a id="menu_checkbox_82"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/ReportClaims'+`">
+                            <a id="menu_checkbox_82"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/ReportClaims' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Вільна форма пошуку
                         	</a>
                         	
-                        	<a id="menu_checkbox_83"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/Current_status_claims'+`">
+                        	<a id="menu_checkbox_83"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/Current_status_claims' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Поточний стан заявок
                         	</a>
                         	
-                        	<a id="menu_checkbox_84"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/AVR_teamsTime'+`">
+                        	<a id="menu_checkbox_84"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/AVR_teamsTime' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Відпрацьований час бригадами 
                         	</a>
                         	
-                        	<a id="menu_checkbox_85"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/AVR_Time_Spiv'+`">
+                        	<a id="menu_checkbox_85"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/AVR_Time_Spiv' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Відпрацьований час співробітників
                         	</a>
                         	
-                        	<a id="menu_checkbox_86"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/AVR_allClaims'+`">
+                        	<a id="menu_checkbox_86"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/AVR_allClaims' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Довідка по всіх работах в заявках
                         	</a>
                         	
-                        	<a id="menu_checkbox_87"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/AVR_materialsGeneral'+`">
+                        	<a id="menu_checkbox_87"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/AVR_materialsGeneral' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		* Довідка по залученим матеріалам
                         	</a>
                         	
-                        	<a id="menu_checkbox_88"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/AVR_damageCounting'+`">
+                        	<a id="menu_checkbox_88"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/AVR_damageCounting' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		* Відомість обліку пошкоджень
                         	</a>
                         	
-                        	<a id="menu_checkbox_89"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/AVR_requestsClosing'+`">
+                        	<a id="menu_checkbox_89"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/AVR_requestsClosing' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		Порівняльна довідка по закриттю заявок
                         	</a>
                         	
-                        	<a id="menu_checkbox_90"  href="`+location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/AVR_generalTech'+`">
+                        	<a id="menu_checkbox_90"  href="` + location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/AVR_generalTech' + `">
                         	 	<div style="height: 1px; border-top: 1px dotted #dfe3e7; position: relative; width: 100%; height: 1.1px; right: 10px; margin-top: -10px; padding-top: 6px;"></div>
                         		* Довідка по техниці
                         	</a>
@@ -1104,35 +1104,31 @@
                     <!-- last menu_checkbox_91 --> 
 
                 `
-    ,
-    init: function() {
-        let executeQuery = {
-            queryCode: 'UserLeftMenu',
-            limit: -1,
-            parameterValues: []
-        };
-        this.queryExecutor(executeQuery, this.load, this);
-    },
-    load: function(data) {
+        ,
+        init: function() {
+            let executeQuery = {
+                queryCode: 'UserLeftMenu',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        load: function(data) {
         // debugger;
-        
-        var dropdown = document.getElementsByClassName("dropdown-btn");
-        var i;
-        
-        for (i = 0; i < dropdown.length; i++) {
-          dropdown[i].addEventListener("click", function() {
-            this.classList.toggle("active2");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-              dropdownContent.style.display = "none";
-            } else {
-              dropdownContent.style.display = "block";
+            let dropdown = document.getElementsByClassName('dropdown-btn');
+            let i;
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener('click', function() {
+                    this.classList.toggle('active2');
+                    let dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === 'block') {
+                        dropdownContent.style.display = 'none';
+                    } else {
+                        dropdownContent.style.display = 'block';
+                    }
+                });
             }
-          });
-        };
-
-
-        btn_search_appeals2.addEventListener("click", function() {
+            btn_search_appeals2.addEventListener('click', function() {
             // Сформировать объект с настройками
             // let obj = {
             //         "sortColumns": [{
@@ -1169,510 +1165,445 @@
             //         }
             //         ]
             //     };
-
             // // Получить сериализированный объект
-            // let str = JSON.stringify(obj);
-             
-            // // Получить строку base64
-            // let base64Str = str.encodeBase64();
-            // window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Appeals/params/'+base64Str;
-            
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/dashboard/page/PageClaims?par1='+document.getElementById('input_search_pib_value2').value+'&par2='+document.getElementById('input_search_phone_value2').value+'&par3='+document.getElementById('input_search_address_value2').value+'&par4='+document.getElementById('input_search_text_value2').value
-         });
-
-
-    
-     btn_search_appeals9.addEventListener("click", function() {
+                // let str = JSON.stringify(obj);
+                // // Получить строку base64
+                // let base64Str = str.encodeBase64();
+                // window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Appeals/params/'+base64Str;
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/PageClaims?par1=' + document.getElementById('input_search_pib_value2').value + '&par2=' + document.getElementById('input_search_phone_value2').value + '&par3=' + document.getElementById('input_search_address_value2').value + '&par4=' + document.getElementById('input_search_text_value2').value
+            });
+            btn_search_appeals9.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "Claim_Number",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_request_value9').value]
+                    'filterColumns': [{
+                        'key': 'Claim_Number',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_request_value9').value]
                         }
                     },
                     {
-                        "key": "ContactPhone",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_phone_value9').value]
+                        'key': 'ContactPhone',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_phone_value9').value]
                         }
                     },
                     {
-                        "key": "ContactPIB",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_pib_value9').value]
+                        'key': 'ContactPIB',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_pib_value9').value]
                         }
                     },
                     {
-                        "key": "Adress",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_address_value9').value]
+                        'key': 'Adress',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_address_value9').value]
                         }
                     },
                     {
-                        "key": "Types_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_type_value9').value]
+                        'key': 'Types_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_type_value9').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Claims/params/'+base64Str;
-         });
-
-
-
-    
-     btn_search_appeals12.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Claims/params/' + base64Str;
+            });
+            btn_search_appeals12.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "Id",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_number_value12').value]
+                    'filterColumns': [{
+                        'key': 'Id',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_number_value12').value]
                         }
                     },
                     {
-                        "key": "Claim_Number",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_request_value12').value]
+                        'key': 'Claim_Number',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_request_value12').value]
                         }
                     },
                     {
-                        "key": "shifts_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_pib_value12').value]
+                        'key': 'shifts_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_pib_value12').value]
                         }
                     },
                     {
-                        "key": "organization_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_address_value12').value]
+                        'key': 'organization_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_address_value12').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Orders/params/'+base64Str;
-         });
-
-
-
-
-  
-  btn_search_appeals24.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Orders/params/' + base64Str;
+            });
+            btn_search_appeals24.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "contacts_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_pib_value24').value]
+                    'filterColumns': [{
+                        'key': 'contacts_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_pib_value24').value]
                         }
                     },
                     {
-                        "key": "Number",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_phone_value24').value]
+                        'key': 'Number',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_phone_value24').value]
                         }
                     },
                     {
-                        "key": "jobs_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_position_value24').value]
+                        'key': 'jobs_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_position_value24').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Contacts_WS/params/'+base64Str;
-         });
-   
-   
-    btn_search_appeals37.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Contacts_WS/params/' + base64Str;
+            });
+            btn_search_appeals37.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "contacts_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_pib_value37').value]
+                    'filterColumns': [{
+                        'key': 'contacts_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_pib_value37').value]
                         }
                     },
                     {
-                        "key": "Number",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_phone_value37').value]
+                        'key': 'Number',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_phone_value37').value]
                         }
                     },
                     {
-                        "key": "jobs_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_position_value37').value]
+                        'key': 'jobs_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_position_value37').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Contacts_WS/params/'+base64Str;
-         });
-         
-         
-     btn_search_appeals50.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Contacts_WS/params/' + base64Str;
+            });
+            btn_search_appeals50.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "contacts_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_pib_value50').value]
+                    'filterColumns': [{
+                        'key': 'contacts_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_pib_value50').value]
                         }
                     },
                     {
-                        "key": "Number",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_phone_value50').value]
+                        'key': 'Number',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_phone_value50').value]
                         }
                     },
                     {
-                        "key": "jobs_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_position_value50').value]
+                        'key': 'jobs_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_position_value50').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Contacts_WS/params/'+base64Str;
-         });
-
-
-         
-         
-     btn_search_appeals27.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Contacts_WS/params/' + base64Str;
+            });
+            btn_search_appeals27.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "mechanisms_number",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_number_value27').value]
+                    'filterColumns': [{
+                        'key': 'mechanisms_number',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_number_value27').value]
                         }
                     },
                     {
-                        "key": "mechanism_types_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_phone_value27').value]
+                        'key': 'mechanism_types_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_phone_value27').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Mechanisms/params/'+base64Str;
-         });
-         
-         
-             btn_search_appeals40.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Mechanisms/params/' + base64Str;
+            });
+            btn_search_appeals40.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "mechanisms_number",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_number_value40').value]
+                    'filterColumns': [{
+                        'key': 'mechanisms_number',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_number_value40').value]
                         }
                     },
                     {
-                        "key": "mechanism_types_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_phone_value40').value]
+                        'key': 'mechanism_types_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_phone_value40').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Mechanisms/params/'+base64Str;
-         }); 
-
-
-           btn_search_appeals53.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Mechanisms/params/' + base64Str;
+            });
+            btn_search_appeals53.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "mechanisms_number",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_number_value53').value]
+                    'filterColumns': [{
+                        'key': 'mechanisms_number',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_number_value53').value]
                         }
                     },
                     {
-                        "key": "mechanism_types_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_phone_value53').value]
+                        'key': 'mechanism_types_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_phone_value53').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Mechanisms/params/'+base64Str;
-         });          
-         
-         
-             btn_search_appeals57.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Mechanisms/params/' + base64Str;
+            });
+            btn_search_appeals57.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "place_types_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_type_value57').value]
+                    'filterColumns': [{
+                        'key': 'place_types_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_type_value57').value]
                         }
                     },
                     {
-                        "key": "streets_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_street_value57').value]
+                        'key': 'streets_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_street_value57').value]
                         }
                     },
                     {
-                        "key": "places_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_building_value57').value]
+                        'key': 'places_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_building_value57').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Places/params/'+base64Str;
-         });         
-           
- 
-             btn_search_appeals61.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Places/params/' + base64Str;
+            });
+            btn_search_appeals61.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "Name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_street_value61').value]
+                    'filterColumns': [{
+                        'key': 'Name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_street_value61').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Streets/params/'+base64Str;
-         });  
- 
-   
-   
-            btn_search_appeals70.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Streets/params/' + base64Str;
+            });
+            btn_search_appeals70.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "organizations_name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_name_value70').value]
+                    'filterColumns': [{
+                        'key': 'organizations_name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_name_value70').value]
                         }
                     },
                     {
-                        "key": "Number",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_phone_value70').value]
+                        'key': 'Number',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_phone_value70').value]
                         }
                     },
                     {
-                        "key": "adress",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_place_value70').value]
+                        'key': 'adress',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_place_value70').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Organizations_UR/params/'+base64Str;
-         });      
-   
-   
-   
-           btn_search_appeals66.addEventListener("click", function() {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Organizations_UR/params/' + base64Str;
+            });
+            btn_search_appeals66.addEventListener('click', function() {
             // Сформировать объект с настройками
-            let obj = {
-                    "sortColumns": [{
-                        "key": "Created_at",
-                        "value": 1
+                let obj = {
+                    'sortColumns': [{
+                        'key': 'Created_at',
+                        'value': 1
                     }],
-                    "filterColumns": [{
-                        "key": "Name",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_pib_value66').value]
+                    'filterColumns': [{
+                        'key': 'Name',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_pib_value66').value]
                         }
                     },
                     {
-                        "key": "Number",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_phone_value66').value]
+                        'key': 'Number',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_phone_value66').value]
                         }
                     },
                     {
-                        "key": "adress",
-                        "value": {
-                            "operation": 6,
-                            "values": [document.getElementById('input_search_place_value66').value]
+                        'key': 'adress',
+                        'value': {
+                            'operation': 6,
+                            'values': [document.getElementById('input_search_place_value66').value]
                         }
                     }
                     ]
                 };
-
-            // Получить сериализированный объект
-            let str = JSON.stringify(obj);
-             
-            // Получить строку base64
-            let base64Str = str.encodeBase64();
-            window.location=location.origin + localStorage.getItem('VirtualPath')+'/sections/Contact/params/'+base64Str;
-         });    
-         
-         
-        // console.log(data);
-        if (data) {
+                // Получить сериализированный объект
+                let str = JSON.stringify(obj);
+                // Получить строку base64
+                let base64Str = str.encodeBase64();
+                window.location = location.origin + localStorage.getItem('VirtualPath') + '/sections/Contact/params/' + base64Str;
+            });
+            // console.log(data);
+            if (data) {
             // debugger;
-            for (var i2=0;i2<data.rows.length;i2++){
+                for (let i2 = 0; i2 < data.rows.length; i2++) {
                 //   debugger;
-            // document.getElementsByClassName('menu_checkbox')
-                if (document.getElementById('menu_checkbox_'+data.rows[i2].values[0]))
-                {
+                    // document.getElementsByClassName('menu_checkbox')
+                    if (document.getElementById('menu_checkbox_' + data.rows[i2].values[0])) {
                     // console.log(document.getElementById('menu_checkbox_'+data.rows[i2].values[0]));
-                // document.getElementById('menu_checkbox_'+data.rows[i2].values[0]).classList.add("hid_elem");
-                document.getElementById('menu_checkbox_'+data.rows[i2].values[0]).style.display = "none";
-                    };
-                };
-            };
-    
-        document.getElementById('main_menu').classList.remove("hid_elem"); 
-    }
-};
+                        // document.getElementById('menu_checkbox_'+data.rows[i2].values[0]).classList.add("hid_elem");
+                        document.getElementById('menu_checkbox_' + data.rows[i2].values[0]).style.display = 'none';
+                    }
+                }
+            }
+            document.getElementById('main_menu').classList.remove('hid_elem');
+        }
+    };
 }());

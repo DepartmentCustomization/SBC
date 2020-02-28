@@ -1,9 +1,9 @@
-(function () {
-  return {
-    title: [],
-    hint: '',
-    formatTitle: function() {},
-    customConfig:
+(function() {
+    return {
+        title: [],
+        hint: '',
+        formatTitle: function() {},
+        customConfig:
                 `
                 <style>
                         
@@ -464,68 +464,61 @@ tr:hover {background-color:#f5f5f5;}
     <p hidden id="chanLastValue"></p>            
     <p hidden id="chanLastId"></p>              
     <p hidden id="chanLastIdForPar"></p>              `
-    ,
-    init: function() {
-        let executeQuery = {
-            queryCode: 'SelectReport_Column',
-            limit: -1,
-            parameterValues: []
-        };
-        this.queryExecutor(executeQuery, this.load,this);
-    },
-    SelectedCol:[],
-    load: function(data) {
+        ,
+        init: function() {
+            let executeQuery = {
+                queryCode: 'SelectReport_Column',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQuery, this.load,this);
+        },
+        SelectedCol:[],
+        load: function(data) {
         //console.log(data);
-        
             if (data) {
             //   debugger;
-                if (data.rows.length > 0) {   
-                   var paras = document.getElementsByClassName('container');
-                                            while(paras[0]) {
-                                                paras[0].parentNode.removeChild(paras[0]);
-                                            };
-                        for (var i=0;i<data.rows.length;i++){
-                             var iDiv = document.getElementById('Radio_Filters');
-                                    var iDiv2 = document.createElement('label');
-                                    iDiv2.style = "";
-                                    // debugger;
-                                    iDiv2.innerHTML = `
-                                                        `+data.rows[i].values[1]+`
-                                                          <input type="radio" name="radio_fil" id="`+data.rows[i].values[0]+`" value="`+data.rows[i].values[1]+`">
-                                                          <p hidden id="chanLastId_NEW">`+data.rows[i].values[4]+`</p>
+                if (data.rows.length > 0) {
+                    let paras = document.getElementsByClassName('container');
+                    while(paras[0]) {
+                        paras[0].parentNode.removeChild(paras[0]);
+                    }
+                    for (let i = 0; i < data.rows.length; i++) {
+                        let iDiv = document.getElementById('Radio_Filters');
+                        let iDiv2 = document.createElement('label');
+                        iDiv2.style = '';
+                        // debugger;
+                        iDiv2.innerHTML = `
+                                                        ` + data.rows[i].values[1] + `
+                                                          <input type="radio" name="radio_fil" id="` + data.rows[i].values[0] + '" value="' + data.rows[i].values[1] + `">
+                                                          <p hidden id="chanLastId_NEW">` + data.rows[i].values[4] + `</p>
                                                           <span class="checkmark"></span>
                                                         
                                                         `;
-                                    // Div2.id = 'okrug_radio'+ (Number(i));
-                                    iDiv2.className = 'container';
-                                    iDiv.appendChild(iDiv2);                    
-                                                
-                            
-                            // document.getElementById("changeDistrValue").innerText = "0";
-                            //document.getElementById("input_adr_02").innerText = 'Load Data END';
-                        };
-                };  
-            };
-            
-         btn_search_filters.addEventListener("click", function() {
-
-                for (var i=0;i<document.getElementsByName('radio_fil').length;i++){   
+                        // Div2.id = 'okrug_radio'+ (Number(i));
+                        iDiv2.className = 'container';
+                        iDiv.appendChild(iDiv2);
+                        // document.getElementById("changeDistrValue").innerText = "0";
+                        //document.getElementById("input_adr_02").innerText = 'Load Data END';
+                    }
+                }
+            }
+            btn_search_filters.addEventListener('click', function() {
+                for (var i = 0; i < document.getElementsByName('radio_fil').length; i++) {
                     //debugger;
-                        if (document.getElementsByName('radio_fil')[i].checked == true) {
-                            // debugger;
-                           document.getElementById('chanLastValue').value = document.getElementsByName('radio_fil')[i].value;  
-                           document.getElementById('chanLastId').value = document.getElementsByName('radio_fil')[i].id;  
-                           document.getElementById('chanLastIdForPar').value = Number(document.getElementsByName('radio_fil')[i].nextElementSibling.innerText);
-                           
-                           
-                           var clr_btn_length = document.getElementsByClassName('btn_clear').length;
-                            var iDiv = document.getElementById('tabl_fil');
-                        var iDiv2 = document.createElement('tr');
-                        iDiv2.style = "";
+                    if (document.getElementsByName('radio_fil')[i].checked == true) {
+                        // debugger;
+                        document.getElementById('chanLastValue').value = document.getElementsByName('radio_fil')[i].value;
+                        document.getElementById('chanLastId').value = document.getElementsByName('radio_fil')[i].id;
+                        document.getElementById('chanLastIdForPar').value = Number(document.getElementsByName('radio_fil')[i].nextElementSibling.innerText);
+                        let clr_btn_length = document.getElementsByClassName('btn_clear').length;
+                        let iDiv = document.getElementById('tabl_fil');
+                        let iDiv2 = document.createElement('tr');
+                        iDiv2.style = '';
                         iDiv2.innerHTML = `
-                                <td><i class="material-icons btn_clear" style="font-size: 2em; color:red; cursor: pointer;" id="btn_clear_`+document.getElementById('chanLastId').value+`">clear</i></td>
-                                <td>`+document.getElementById('chanLastValue').value+`</td>
-                                <td id="TypeVariant`+document.getElementById('chanLastIdForPar').value+`">
+                                <td><i class="material-icons btn_clear" style="font-size: 2em; color:red; cursor: pointer;" id="btn_clear_` + document.getElementById('chanLastId').value + `">clear</i></td>
+                                <td>` + document.getElementById('chanLastValue').value + `</td>
+                                <td id="TypeVariant` + document.getElementById('chanLastIdForPar').value + `">
                                 </td> 
                                 <td><select class="select_filters">
                                       <option selected>Пункт 2-1</option>
@@ -534,253 +527,198 @@ tr:hover {background-color:#f5f5f5;}
                                 </td>
                                             
                                             `;
-                        iDiv2.id = 'Fil'+ (Number(document.getElementById('chanLastId').value));
+                        iDiv2.id = 'Fil' + (Number(document.getElementById('chanLastId').value));
                         iDiv2.className = 'Fil_selected';
-                        iDiv.children[0].append(iDiv2);   
-                        
+                        iDiv.children[0].append(iDiv2);
                         let executeQuery_TypeVariant = {
                             queryCode: 'SelectReport_ColumnTypeVariant',
                             limit: -1,
-                            parameterValues: [{key: "@ColumnTypeId", value: Number(document.getElementById('chanLastIdForPar').value)}]
+                            parameterValues: [{key: '@ColumnTypeId', value: Number(document.getElementById('chanLastIdForPar').value)}]
                         };
                         this.queryExecutor(executeQuery_TypeVariant, this.Load_TypeVariant, this);
-                       //
-                        
-                        
-                        
-                        var clr_length = document.getElementsByClassName('Fil_selected').length;
+                        //
+                        let clr_length = document.getElementsByClassName('Fil_selected').length;
                         this.SelectedCol = [];
                         for (var i = 0; i < clr_length; i++) {
-                           this.SelectedCol.push(Number(document.getElementsByClassName('Fil_selected')[i].id.replace('Fil','')));
-                        };
+                            this.SelectedCol.push(Number(document.getElementsByClassName('Fil_selected')[i].id.replace('Fil','')));
+                        }
                         //this.SelectedCol.push(Number(document.getElementById('chanLastId').value));
                         //console.log(this.SelectedCol);
-                        
-                        
-                        
-                         document.getElementById('btn_clear_'+document.getElementById('chanLastId').value).onclick = function() {
+                        document.getElementById('btn_clear_' + document.getElementById('chanLastId').value).onclick = function() {
                             // debugger;
-                             event.currentTarget.parentElement.parentElement.remove()
-                             
-                             this.SelectedCol = [];
-                             var clr_length = document.getElementsByClassName('Fil_selected').length;
-                             for (var i = 0; i < clr_length; i++) {
-                               this.SelectedCol.push(Number(document.getElementsByClassName('Fil_selected')[i].id.replace('Fil','')));
-                            };
+                            event.currentTarget.parentElement.parentElement.remove()
+                            this.SelectedCol = [];
+                            let clr_length = document.getElementsByClassName('Fil_selected').length;
+                            for (let i = 0; i < clr_length; i++) {
+                                this.SelectedCol.push(Number(document.getElementsByClassName('Fil_selected')[i].id.replace('Fil','')));
+                            }
                             //this.SelectedCol.push(Number(document.getElementById('chanLastId').value));
                             //console.log(this.SelectedCol);
-                             
-                         }.bind(this);
+                        }.bind(this);
+                    }
+                }
+                modal1.style.display = 'none';
+            }.bind(this));
+            var modal1 = document.getElementById('myModal1');
+            let span1 = document.querySelector('#myModal1 span.close');
+            span1.onclick = function() {
+                modal1.style.display = 'none';
+            };
+            modal1.style.display = 'block';
+            let btn_add_fil = document.getElementById('btn_add_filter');
+            btn_add_fil.onclick = function() {
+                //debugger;
+                if(this.SelectedCol.length === 0) {
+                    this.SelectedCol = ['']
+                }
+                let executeQuery = {
+                    queryCode: 'SelectReport_Column',
+                    limit: -1,
+                    parameterValues: [],
+                    filterColumns: [{
+                        key: 'Id',
+                        value: {
+                            operation: 0,
+                            not: true,
+                            values: this.SelectedCol
                         }
-                    }; 
-                modal1.style.display = "none"; 
-        }.bind(this) );   
-        
-        
-         var modal1 = document.getElementById('myModal1');
-        var span1 = document.querySelector("#myModal1 span.close");
-        span1.onclick = function() {
-            modal1.style.display = "none";
-        };
-        
-         modal1.style.display = "block";
-         
-         var btn_add_fil = document.getElementById('btn_add_filter');
-         btn_add_fil.onclick = function() {
-                
-        //debugger;
-        if(this.SelectedCol.length === 0){this.SelectedCol = [""]};
-            let executeQuery = {
-                queryCode: 'SelectReport_Column',
-                limit: -1,
-                parameterValues: [],
-                filterColumns: [{
-                                     key: 'Id',
-                                     value: {
-                                         operation: 0,
-                                         not: true,
-                                         values: this.SelectedCol
-                                        }
-                                }]
+                    }]
                 };
-            this.queryExecutor(executeQuery, this.reload,this);
-        
-                
-        }.bind(this);
-         
-        
-    },
-    
-    Load_TypeVariant: function(data) {
+                this.queryExecutor(executeQuery, this.reload,this);
+            }.bind(this);
+        },
+        Load_TypeVariant: function(data) {
         // console.log(data);
         // debugger
-        console.log(document.getElementById('TypeVariant'+data.rows[0].values[1]));
-        
-    
-        
-        var txt_param = '<select class="select_filters" id="Select_'+document.getElementById('TypeVariant'+data.rows[0].values[1]).id+'">';
-         for (var i = 0; i < data.rows.length; i++) {
-             if (i == 0) {
-                 txt_param = txt_param + '<option value="'+data.rows[i].values[0]+'" selected>'+data.rows[i].values[2]+'</option>';
+            console.log(document.getElementById('TypeVariant' + data.rows[0].values[1]));
+            let txt_param = '<select class="select_filters" id="Select_' + document.getElementById('TypeVariant' + data.rows[0].values[1]).id + '">';
+            for (var i = 0; i < data.rows.length; i++) {
+                if (i == 0) {
+                    txt_param = txt_param + '<option value="' + data.rows[i].values[0] + '" selected>' + data.rows[i].values[2] + '</option>';
+                } else {
+                    txt_param = txt_param + '<option value="' + data.rows[i].values[0] + '">' + data.rows[i].values[2] + '</option>';
+                }
+            }
+            txt_param = txt_param + ' </select>';
+            document.getElementById('TypeVariant' + data.rows[0].values[1]).innerHTML = txt_param;
+            //Datetime
+            document.getElementById('Select_' + document.getElementById('TypeVariant' + data.rows[0].values[1]).id).onchange = function() {
+                //debugger;
+                let kol_el = event.currentTarget.parentElement.nextElementSibling.children.length;
+                for (let i = 0; i < kol_el; i++) {
+                    event.currentTarget.parentElement.nextElementSibling.children[i].remove();
+                }
+                let iDiv = event.currentTarget.parentElement.nextElementSibling;
+                let iDiv2 = document.createElement('div');
+                //iDiv2.type = "datetime-local";
+                if (event.currentTarget.selectedOptions[0].innerText == 'Между') {
+                    iDiv2.innerHTML = '<input type="datetime-local" id="date_val1"><input type="datetime-local" id="date_val2">';
+                } else {
+                    iDiv2.innerHTML = '<input type="datetime-local" id="date_val1">';
+                }
+                if (event.currentTarget.selectedOptions[0].innerText == 'Между') {
+                    //list
+                    if (event.currentTarget.id.substr(-1) == '4') {
+                        iDiv2.innerHTML = '<input type="text" id="text_val1"><input type="datetime-local" id="text_val2">';
+                    }
+                    //date
+                    if (event.currentTarget.id.substr(-1) == '1') {
+                        iDiv2.innerHTML = '<input type="datetime-local" id="date_val1"><input type="datetime-local" id="date_val2">';
+                    }
+                } else {
+                    //list
+                    if (event.currentTarget.id.substr(-1) == '4') {
+                        iDiv2.innerHTML = '<input type="text" id="text_val1">';
+                    }
+                    //date
+                    if (event.currentTarget.id.substr(-1) == '1') {
+                        iDiv2.innerHTML = '<input type="datetime-local" id="date_val1">';
+                    }
+                }
+                iDiv2.id = 'date_val';
+                iDiv2.className = 'date_filter';
+                iDiv.append(iDiv2);
+            }.bind(this);
+            //debugger;
+            let kol_el = document.getElementById('Select_TypeVariant' + data.rows[0].values[1]).parentElement.nextElementSibling.children.length;
+            for (var i = 0; i < kol_el; i++) {
+                document.getElementById('Select_TypeVariant' + data.rows[0].values[1]).parentElement.nextElementSibling.children[i].remove();
+            }
+            let iDiv = document.getElementById('Select_TypeVariant' + data.rows[0].values[1]).parentElement.nextElementSibling;
+            let iDiv2 = document.createElement('div');
+            //iDiv2.type = "datetime-local";
+            if (document.getElementById('Select_TypeVariant' + data.rows[0].values[1]).selectedOptions[0].innerText == 'Между') {
+                //Int
+                if (document.getElementById('Select_' + document.getElementById('TypeVariant' + data.rows[0].values[1]).id).id.substr(-1) == '3') {
+                    iDiv2.innerHTML = '<input type="number" id="int_val1"><input type="number" id="int_val2">';
+                }
+                //date
+                if (document.getElementById('Select_' + document.getElementById('TypeVariant' + data.rows[0].values[1]).id).id.substr(-1) == '1') {
+                    iDiv2.innerHTML = '<input type="datetime-local" id="date_val1"><input type="datetime-local" id="date_val2">';
+                }
             } else {
-                 txt_param = txt_param + '<option value="'+data.rows[i].values[0]+'">'+data.rows[i].values[2]+'</option>';  
-            };
-            
-        };
-        txt_param = txt_param + ' </select>';                    
-        
-        document.getElementById('TypeVariant'+data.rows[0].values[1]).innerHTML = txt_param; 
-        
-        
-         
-        //Datetime
-        document.getElementById('Select_'+document.getElementById('TypeVariant'+data.rows[0].values[1]).id).onchange = function() {
-                            //debugger;
-                             var kol_el = event.currentTarget.parentElement.nextElementSibling.children.length;
-                             for (var i = 0; i < kol_el; i++) {
-                                event.currentTarget.parentElement.nextElementSibling.children[i].remove();
-                             };
-                             
-                            var iDiv = event.currentTarget.parentElement.nextElementSibling;
-                            var iDiv2 = document.createElement('div');
-                            //iDiv2.type = "datetime-local";
-                             if (event.currentTarget.selectedOptions[0].innerText == 'Между') {
-                                    iDiv2.innerHTML = `<input type="datetime-local" id="date_val1"><input type="datetime-local" id="date_val2">`;
-                             } else {
-                                 iDiv2.innerHTML = `<input type="datetime-local" id="date_val1">`;
-                             };
-                             
-                             if (event.currentTarget.selectedOptions[0].innerText == 'Между') {
-                                   
-                                    //list
-                                    if (event.currentTarget.id.substr(-1) == '4') {
-                                        iDiv2.innerHTML = `<input type="text" id="text_val1"><input type="datetime-local" id="text_val2">`;
-                                    };
-                                    
-                                    //date
-                                    if (event.currentTarget.id.substr(-1) == '1') {
-                                        iDiv2.innerHTML = `<input type="datetime-local" id="date_val1"><input type="datetime-local" id="date_val2">`;
-                                    };
-                                    
-                             } else {
-                                    //list
-                                    if (event.currentTarget.id.substr(-1) == '4') {
-                                        iDiv2.innerHTML = `<input type="text" id="text_val1">`;
-                                    };
-                                    
-                                    //date
-                                    if (event.currentTarget.id.substr(-1) == '1') {
-                                        iDiv2.innerHTML = `<input type="datetime-local" id="date_val1">`;
-                                    };
-                             };
-                             
-                             
-                             
-                            iDiv2.id = 'date_val';
-                            iDiv2.className = 'date_filter';
-                            iDiv.append(iDiv2); 
-
-        }.bind(this);
-        
-        //debugger;
-                            var kol_el = document.getElementById('Select_TypeVariant'+data.rows[0].values[1]).parentElement.nextElementSibling.children.length;
-                             for (var i = 0; i < kol_el; i++) {
-                                document.getElementById('Select_TypeVariant'+data.rows[0].values[1]).parentElement.nextElementSibling.children[i].remove();
-                             };
-                             
-                            var iDiv = document.getElementById('Select_TypeVariant'+data.rows[0].values[1]).parentElement.nextElementSibling;
-                            var iDiv2 = document.createElement('div');
-                            //iDiv2.type = "datetime-local";
-                             if (document.getElementById('Select_TypeVariant'+data.rows[0].values[1]).selectedOptions[0].innerText == 'Между') {
-                                  
-                                  
-                                    //Int
-                                    if (document.getElementById('Select_'+document.getElementById('TypeVariant'+data.rows[0].values[1]).id).id.substr(-1) == '3') {
-                                        iDiv2.innerHTML = `<input type="number" id="int_val1"><input type="number" id="int_val2">`;
-                                    };
-                                    
-                                    //date
-                                    if (document.getElementById('Select_'+document.getElementById('TypeVariant'+data.rows[0].values[1]).id).id.substr(-1) == '1') {
-                                        iDiv2.innerHTML = `<input type="datetime-local" id="date_val1"><input type="datetime-local" id="date_val2">`;
-                                    };
-                                    
-                             } else {
-                                    
-                                    //int
-                                    if (document.getElementById('Select_'+document.getElementById('TypeVariant'+data.rows[0].values[1]).id).id.substr(-1) == '3') {
-                                        iDiv2.innerHTML = `<input type="number" id="int_val1">`;
-                                    };
-                                 
-                                    //list
-                                    if (document.getElementById('Select_'+document.getElementById('TypeVariant'+data.rows[0].values[1]).id).id.substr(-1) == '4') {
-                                        iDiv2.innerHTML = `<input type="text" id="list_val1">`;
-                                    };
-                                    
-                                    //date
-                                    if (document.getElementById('Select_'+document.getElementById('TypeVariant'+data.rows[0].values[1]).id).id.substr(-1) == '1') {
-                                        iDiv2.innerHTML = `<input type="datetime-local" id="date_val1">`;
-                                    };
-                                    
-                                    //listNested
-                                    if (document.getElementById('Select_'+document.getElementById('TypeVariant'+data.rows[0].values[1]).id).id.substr(-1) == '5') {
-                                        iDiv2.innerHTML = `<input type="text" id="listnested_val1">`;
-                                    };
-                                    
-                                     //text
-                                    if (document.getElementById('Select_'+document.getElementById('TypeVariant'+data.rows[0].values[1]).id).id.substr(-1) == '2') {
-                                        iDiv2.innerHTML = `<input type="text" id="text_val1">`;
-                                    };
-                             };
-                            iDiv2.id = 'date_val';
-                            iDiv2.className = 'date_filter';
-                            iDiv.append(iDiv2); 
-        
-        
-         
-    },
-    
-    reload: function(data) {
+                //int
+                if (document.getElementById('Select_' + document.getElementById('TypeVariant' + data.rows[0].values[1]).id).id.substr(-1) == '3') {
+                    iDiv2.innerHTML = '<input type="number" id="int_val1">';
+                }
+                //list
+                if (document.getElementById('Select_' + document.getElementById('TypeVariant' + data.rows[0].values[1]).id).id.substr(-1) == '4') {
+                    iDiv2.innerHTML = '<input type="text" id="list_val1">';
+                }
+                //date
+                if (document.getElementById('Select_' + document.getElementById('TypeVariant' + data.rows[0].values[1]).id).id.substr(-1) == '1') {
+                    iDiv2.innerHTML = '<input type="datetime-local" id="date_val1">';
+                }
+                //listNested
+                if (document.getElementById('Select_' + document.getElementById('TypeVariant' + data.rows[0].values[1]).id).id.substr(-1) == '5') {
+                    iDiv2.innerHTML = '<input type="text" id="listnested_val1">';
+                }
+                //text
+                if (document.getElementById('Select_' + document.getElementById('TypeVariant' + data.rows[0].values[1]).id).id.substr(-1) == '2') {
+                    iDiv2.innerHTML = '<input type="text" id="text_val1">';
+                }
+            }
+            iDiv2.id = 'date_val';
+            iDiv2.className = 'date_filter';
+            iDiv.append(iDiv2);
+        },
+        reload: function(data) {
         // console.log(data);
-         
-         var paras = document.getElementsByClassName('container');
-                                            while(paras[0]) {
-                                                paras[0].parentNode.removeChild(paras[0]);
-                                            };
-                                            
-         if (data) {
+            var paras = document.getElementsByClassName('container');
+            while(paras[0]) {
+                paras[0].parentNode.removeChild(paras[0]);
+            }
+            if (data) {
             //   debugger;
-                if (data.rows.length > 0) {   
-                   var paras = document.getElementsByClassName('container');
-                                            while(paras[0]) {
-                                                paras[0].parentNode.removeChild(paras[0]);
-                                            };
-                        for (var i=0;i<data.rows.length;i++){
-                             var iDiv = document.getElementById('Radio_Filters');
-                                    var iDiv2 = document.createElement('label');
-                                    iDiv2.style = "";
-                                    // debugger;
-                                    iDiv2.innerHTML = `
-                                                        `+data.rows[i].values[1]+`
-                                                              <input type="radio" name="radio_fil" id="`+data.rows[i].values[0]+`" value="`+data.rows[i].values[1]+`">
-                                                          <p hidden id="chanLastId_NEW">`+data.rows[i].values[4]+`</p>
+                if (data.rows.length > 0) {
+                    var paras = document.getElementsByClassName('container');
+                    while(paras[0]) {
+                        paras[0].parentNode.removeChild(paras[0]);
+                    }
+                    for (let i = 0; i < data.rows.length; i++) {
+                        let iDiv = document.getElementById('Radio_Filters');
+                        let iDiv2 = document.createElement('label');
+                        iDiv2.style = '';
+                        // debugger;
+                        iDiv2.innerHTML = `
+                                                        ` + data.rows[i].values[1] + `
+                                                              <input type="radio" name="radio_fil" id="` + data.rows[i].values[0] + '" value="' + data.rows[i].values[1] + `">
+                                                          <p hidden id="chanLastId_NEW">` + data.rows[i].values[4] + `</p>
                                                           <span class="checkmark"></span>
                                                         
                                                         `;
-                                    // Div2.id = 'okrug_radio'+ (Number(i));
-                                    iDiv2.className = 'container';
-                                    iDiv.appendChild(iDiv2);                    
-                        };
-                        
-                        document.getElementById('span_noData_id').classList.add("display_none");
-                };  
-            };
-            
-       if (data.rows.length == 0) {
-           document.getElementById('span_noData_id').classList.remove("display_none");
-       };
-            
-        var modal1 = document.getElementById('myModal1');
-        modal1.style.display = "block"; 
-    }
-};
+                        // Div2.id = 'okrug_radio'+ (Number(i));
+                        iDiv2.className = 'container';
+                        iDiv.appendChild(iDiv2);
+                    }
+                    document.getElementById('span_noData_id').classList.add('display_none');
+                }
+            }
+            if (data.rows.length == 0) {
+                document.getElementById('span_noData_id').classList.remove('display_none');
+            }
+            let modal1 = document.getElementById('myModal1');
+            modal1.style.display = 'block';
+        }
+    };
 }());
