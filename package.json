@@ -6,7 +6,7 @@
   "scripts": {
     "hook-config": "git config core.hooksPath .\\.githooks",
     "eslint-crm-taxi": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM_TAXI\\ --format .\\node_modules\\eslint-teamcity\\index.js",
-    "eslint-crm-1551": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-1551\\ --format .\\node_modules\\eslint-teamcity\\index.js",
+    "eslint-crm-1551": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-1551/Conf/Pages/Dashboards/Groups/StartPage/performer_new_actions\\ --format .\\node_modules\\eslint-teamcity\\index.js",
     "eslint-crm-jkh": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-JKH\\ --format .\\node_modules\\eslint-teamcity\\index.js",
     "eslint-crm-avr": ".\\node_modules\\.bin\\eslint --ext .js .\\CRM-AVR\\ --format .\\node_modules\\eslint-teamcity\\index.js",
     "tsqllint-crm-taxi": ".\\node_modules\\.bin\\tsqllint -c .tsqllintrc .\\CRM_TAXI\\Conf\\DataSources\\ > tsqllint-report\\tsqllint-crm-taxi-report.txt",
