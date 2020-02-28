@@ -1,8 +1,7 @@
-(function () {
-  return {
-    afterSave: function(){
+(function() {
+    return {
+        afterSave: function() {
             location.reload();
-    }
-    
-};
+        }
+    };
 }());

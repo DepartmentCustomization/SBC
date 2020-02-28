@@ -1,5 +1,5 @@
-(function () {
-  return {
+(function() {
+    return {
     /*
     <div class="mahi_holder">
     <div class="container">
@@ -13,18 +13,15 @@
           </div>
           <span>
             <button type="button" class="btn btn--primary btn--inside uppercase">Send</button>
-            
-            
           </span>
       </div>
     </div>
 </div>
 */
-    
-    title: [],
-    hint: '',
-    formatTitle: function() {},
-    customConfig:
+        title: [],
+        hint: '',
+        formatTitle: function() {},
+        customConfig:
                 `
                 <style>
                 .disabledbutton {
@@ -1446,122 +1443,99 @@ table.table50w50 {
 </div>
 </body>
                 `
-    ,
-    SessionId: 0,
-    ContentNumber: 1,
-    init: function() {
-        
-        let testUsers_Library = 'testUsers'; 
-        
-        if (!document.getElementById(testUsers_Library)) {
-            let head  = document.getElementsByTagName('head')[0];
-            let script  = document.createElement('script');
-            script.id   = 'testUsers';
-            script.type = 'text/javascript';
-            script.src  = 'lib/testUsers/85e13b74a44d32421808252110.js';
-            head.appendChild(script);
-                      script.onload = function () {
-                            let executeQuery = {
-                                queryCode: 'base_q1',
-                                limit: -1,
-                                parameterValues: []
-                            };
-                            this.queryExecutor(executeQuery, this.load, this);
-                            // console.log(this.SystemUserId);
-                    }.bind(this);  
-        } else {
-           let executeQuery = {
-                                queryCode: 'base_q1',
-                                limit: -1,
-                                parameterValues: []
-                            };
-                            this.queryExecutor(executeQuery, this.load, this);  
-        };
-    },
-    
-     load: function(data) {
-         
-            var modal = document.getElementById('myModal1');
-            modal.style.display = "block";
-
-               var BtnCreateContent = document.getElementById('btn_createContent');
-                BtnCreateContent.addEventListener("click", function() {
-                         let executeQuery = {
-                                queryCode: 'CreateSession',
-                                limit: -1,
-                                parameterValues: [{key: "@UserName", value: document.getElementById('nme').value }, {key: "@Comment", value: document.getElementById('msg').value}]
-                            };
-                            this.queryExecutor(executeQuery, this.load2, this);
-                        
-                        
-              }.bind(this), true);
-     },
-     
-    load2: function(data) {
+        ,
+        SessionId: 0,
+        ContentNumber: 1,
+        init: function() {
+            let testUsers_Library = 'testUsers';
+            if (!document.getElementById(testUsers_Library)) {
+                let head = document.getElementsByTagName('head')[0];
+                let script = document.createElement('script');
+                script.id = 'testUsers';
+                script.type = 'text/javascript';
+                script.src = 'lib/testUsers/85e13b74a44d32421808252110.js';
+                head.appendChild(script);
+                script.onload = function() {
+                    let executeQuery = {
+                        queryCode: 'base_q1',
+                        limit: -1,
+                        parameterValues: []
+                    };
+                    this.queryExecutor(executeQuery, this.load, this);
+                    // console.log(this.SystemUserId);
+                }.bind(this);
+            } else {
+                let executeQuery = {
+                    queryCode: 'base_q1',
+                    limit: -1,
+                    parameterValues: []
+                };
+                this.queryExecutor(executeQuery, this.load, this);
+            }
+        },
+        load: function(data) {
+            let modal = document.getElementById('myModal1');
+            modal.style.display = 'block';
+            let BtnCreateContent = document.getElementById('btn_createContent');
+            BtnCreateContent.addEventListener('click', function() {
+                let executeQuery = {
+                    queryCode: 'CreateSession',
+                    limit: -1,
+                    parameterValues: [{key: '@UserName', value: document.getElementById('nme').value }, {key: '@Comment', value: document.getElementById('msg').value}]
+                };
+                this.queryExecutor(executeQuery, this.load2, this);
+            }.bind(this), true);
+        },
+        load2: function(data) {
         // debugger;
-     this.SessionId = data.rows[0].values[0];   
-        
-    var self = this;
-        var els = document.getElementsByClassName("qs_lamp");
-        Array.prototype.forEach.call(els, function(el) {
-            el.addEventListener("click", function(el) {
-            // debugger;
-                var els2 = document.getElementsByClassName("qs_lamp");
-                Array.prototype.forEach.call(els2, function(el2) {
-                    el2.classList.remove("current_qs");
-                }.bind(this));
-                el.currentTarget.classList.add("current_qs");
-                document.getElementById('ContentTitle').innerText = 'Вопрос №'+el.currentTarget.children[1].innerText
-                this.Reload(el.currentTarget.children[1].innerText);
-              }.bind(this), true);
-        }.bind(this));    
-        
-        document.getElementById('ContentBlock').style.display = 'block';
-         var modal = document.getElementById('myModal1');
-            modal.style.display = "none";
-            
-       this.Reload(1);    
-    },
-    
-    Reload: function(ContentNumber) {
-        
-                        let executeQuery = {
-                                queryCode: 'LoadContent',
-                                limit: -1,
-                                parameterValues: [{key: "@SessionId", value: this.SessionId }, {key: "@ContentNumber", value: ContentNumber}]
-                            };
-                            this.queryExecutor(executeQuery, this.load3, this);
-                        
-        this.ContentNumber = ContentNumber;
-    },
-    
-     
-    load3: function(data) {
-        
-        
-        document.getElementById('input_test_qs_text').innerHTML = '<b style="color: #4aacfede;font-size: 0.8em;">Тема по '+data.rows[0].values[5]+'</b><br>'+ data.rows[0].values[0];
-        
-        if (data.rows[0].values[4] == null) {
-            document.getElementById('input_test_attention_inQs').innerText = 'Внимание! Ответ будет дан сразу при выборе одного из предложенных вариантов';
-            document.getElementById('input_test_attention_inQs').style.color = 'red';
-         
-                if (document.getElementsByClassName('test_qs_var')[0]){
-                     while (document.getElementsByClassName('test_qs_var')[0]) {
-                    document.getElementsByClassName('test_qs_var')[0].remove();
+            this.SessionId = data.rows[0].values[0];
+            let self = this;
+            let els = document.getElementsByClassName('qs_lamp');
+            Array.prototype.forEach.call(els, function(el) {
+                el.addEventListener('click', function(el) {
+                    // debugger;
+                    let els2 = document.getElementsByClassName('qs_lamp');
+                    Array.prototype.forEach.call(els2, function(el2) {
+                        el2.classList.remove('current_qs');
+                    }.bind(this));
+                    el.currentTarget.classList.add('current_qs');
+                    document.getElementById('ContentTitle').innerText = 'Вопрос №' + el.currentTarget.children[1].innerText
+                    this.Reload(el.currentTarget.children[1].innerText);
+                }.bind(this), true);
+            }.bind(this));
+            document.getElementById('ContentBlock').style.display = 'block';
+            let modal = document.getElementById('myModal1');
+            modal.style.display = 'none';
+            this.Reload(1);
+        },
+        Reload: function(ContentNumber) {
+            let executeQuery = {
+                queryCode: 'LoadContent',
+                limit: -1,
+                parameterValues: [{key: '@SessionId', value: this.SessionId }, {key: '@ContentNumber', value: ContentNumber}]
+            };
+            this.queryExecutor(executeQuery, this.load3, this);
+            this.ContentNumber = ContentNumber;
+        },
+        load3: function(data) {
+            document.getElementById('input_test_qs_text').innerHTML = '<b style="color: #4aacfede;font-size: 0.8em;">Тема по ' + data.rows[0].values[5] + '</b><br>' + data.rows[0].values[0];
+            if (data.rows[0].values[4] == null) {
+                document.getElementById('input_test_attention_inQs').innerText = 'Внимание! Ответ будет дан сразу при выборе одного из предложенных вариантов';
+                document.getElementById('input_test_attention_inQs').style.color = 'red';
+                if (document.getElementsByClassName('test_qs_var')[0]) {
+                    while (document.getElementsByClassName('test_qs_var')[0]) {
+                        document.getElementsByClassName('test_qs_var')[0].remove();
                     }
                 }
-                
                 var list = document.getElementById('input_test_qs_ansvars');
                 var i;
                 for (i = 0; i < data.rows.length; i++) {
                     var div = document.createElement('div');
-                    div.className = "test_qs_var";
-                    div.id = "var_div"+data.rows[i].values[1];
-                    div.innerHTML = data.rows[i].values[2]+'<input class="ContVariant" id="ContVariant'+data.rows[i].values[1]+'" name="ContVariant" type="hidden" value="'+data.rows[i].values[1]+'">';
+                    div.className = 'test_qs_var';
+                    div.id = 'var_div' + data.rows[i].values[1];
+                    div.innerHTML = data.rows[i].values[2] + '<input class="ContVariant" id="ContVariant' + data.rows[i].values[1] + '" name="ContVariant" type="hidden" value="' + data.rows[i].values[1] + '">';
                     list.appendChild(div);
-        
-                    div.addEventListener("click", function(el) {
-                   
+                    div.addEventListener('click', function(el) {
                         // var els2 = document.getElementsByClassName("qs_lamp");
                         // Array.prototype.forEach.call(els2, function(el2) {
                         //     el2.classList.remove("current_qs");
@@ -1569,159 +1543,145 @@ table.table50w50 {
                         // el.currentTarget.classList.add("current_qs");
                         // document.getElementById('ContentTitle').innerText = 'Вопрос №'+el.currentTarget.children[1].innerText
                         // this.Reload(el.currentTarget.children[1].innerText);
-                           let executeQuery = {
-                                        queryCode: 'UpdateContentVariant',
-                                        limit: -1,
-                                        parameterValues: [{key: "@SessionId", value: this.SessionId }, {key: "@ContentNumber", value: this.ContentNumber}, {key: "@ContentVariantId", value: el.currentTarget.children[0].value}]
-                                    };
-                                    this.queryExecutor(executeQuery, this.VerVariant, this);
-                                
-                      }.bind(this), true);
-                };
-            
-        } else  {
-            
-            document.getElementById('input_test_attention_inQs').innerText = 'Примечание: '+data.rows[0].values[6];
-            document.getElementById('input_test_attention_inQs').style.color = 'green';
-                            
-            if (document.getElementsByClassName('test_qs_var')[0]){
-                     while (document.getElementsByClassName('test_qs_var')[0]) {
-                    document.getElementsByClassName('test_qs_var')[0].remove();
+                        let executeQuery = {
+                            queryCode: 'UpdateContentVariant',
+                            limit: -1,
+                            parameterValues: [{key: '@SessionId', value: this.SessionId }, {key: '@ContentNumber', value: this.ContentNumber}, {key: '@ContentVariantId', value: el.currentTarget.children[0].value}]
+                        };
+                        this.queryExecutor(executeQuery, this.VerVariant, this);
+                    }.bind(this), true);
+                }
+            } else {
+                document.getElementById('input_test_attention_inQs').innerText = 'Примечание: ' + data.rows[0].values[6];
+                document.getElementById('input_test_attention_inQs').style.color = 'green';
+                if (document.getElementsByClassName('test_qs_var')[0]) {
+                    while (document.getElementsByClassName('test_qs_var')[0]) {
+                        document.getElementsByClassName('test_qs_var')[0].remove();
                     }
                 }
-                
                 var list = document.getElementById('input_test_qs_ansvars');
                 var i;
                 for (i = 0; i < data.rows.length; i++) {
                     var div = document.createElement('div');
-                    div.className = "test_qs_var";
-                    div.id = "var_div"+data.rows[i].values[1];
-                    div.innerHTML = data.rows[i].values[2]+'<input class="ContVariant" id="ContVariant'+data.rows[i].values[1]+'" name="ContVariant" type="hidden" value="'+data.rows[i].values[1]+'">';
+                    div.className = 'test_qs_var';
+                    div.id = 'var_div' + data.rows[i].values[1];
+                    div.innerHTML = data.rows[i].values[2] + '<input class="ContVariant" id="ContVariant' + data.rows[i].values[1] + '" name="ContVariant" type="hidden" value="' + data.rows[i].values[1] + '">';
                     list.appendChild(div);
-                };
-                
-             this.VerVariantData = data;
-        //if (Number(data.rows[0].values[0]) == Number(data.rows[0].values[1])) {
-                    var self = this;
-                    var els = document.getElementsByClassName("test_qs_var");
-                    Array.prototype.forEach.call(els, function(el) {
-                        //  debugger;
-                        if(Number(el.children[0].value) == Number(data.rows[0].values[3])) {
-                                el.classList.add("right");
-                        }
-                        else if(Number(el.children[0].value) == Number(data.rows[0].values[4])) {
-                                el.classList.add("wrong");
-                        };
-                        el.classList.add("disabledbutton");
-                        
-                    }.bind(this));   
-        };
-                
-        
-
-
-        //     var BtnContent = document.getElementById('')
-    //     document.getElementsByClassName('qs_lamp')
-    //     BtnContent.addEventListener("click", function() {
-    //       this.handleButtonClick("showWorstest", worstestBtn, greatestBtn);
-    //   }.bind(this), true);
-        
-    },
-   VerVariantData: [], 
-    VerVariant: function(data) {
-    //   debugger;
-     this.VerVariantData = data;
-        //if (Number(data.rows[0].values[0]) == Number(data.rows[0].values[1])) {
-                    var self = this;
-                    var els = document.getElementsByClassName("test_qs_var");
-                    Array.prototype.forEach.call(els, function(el) {
-                        // debugger;
-                        if(Number(el.children[0].value) == Number(data.rows[0].values[0])) {
-                                el.classList.add("right");
-                        }
-                        else if(Number(el.children[0].value) == Number(data.rows[0].values[1])) {el.classList.add("wrong");};
-                        
-                        //if(Number(el.children[0].value) == Number(data.rows[0].values[1])) {el.classList.add("wrong");};
-                        //if(Number(el.children[0].value) == Number(data.rows[0].values[0])) {el.classList.add("right");};
-                        el.classList.add("disabledbutton");
-                    }.bind(this));   
-       // };
-      //debugger;
-         //document.getElementById('input_test_attention_inQs').innerText = 'Внимание! Ответ будет дан сразу при выборе одного из предложенных вариантов';
-         //document.getElementById('input_test_attention_inQs').style.color = 'red';
-         
-        var div = document.getElementsByClassName('current_qs')[0].children[0];
-        if (Number(data.rows[0].values[0]) == Number(data.rows[0].values[1])) {
+                }
+                this.VerVariantData = data;
+                //if (Number(data.rows[0].values[0]) == Number(data.rows[0].values[1])) {
+                let self = this;
+                let els = document.getElementsByClassName('test_qs_var');
+                Array.prototype.forEach.call(els, function(el) {
+                    //  debugger;
+                    if(Number(el.children[0].value) == Number(data.rows[0].values[3])) {
+                        el.classList.add('right');
+                    } else if(Number(el.children[0].value) == Number(data.rows[0].values[4])) {
+                        el.classList.add('wrong');
+                    }
+                    el.classList.add('disabledbutton');
+                }.bind(this));
+            }
+            //     var BtnContent = document.getElementById('')
+            //     document.getElementsByClassName('qs_lamp')
+            //     BtnContent.addEventListener("click", function() {
+            //       this.handleButtonClick("showWorstest", worstestBtn, greatestBtn);
+            //   }.bind(this), true);
+        },
+        VerVariantData: [],
+        VerVariant: function(data) {
+            //   debugger;
+            this.VerVariantData = data;
+            //if (Number(data.rows[0].values[0]) == Number(data.rows[0].values[1])) {
+            let self = this;
+            let els = document.getElementsByClassName('test_qs_var');
+            Array.prototype.forEach.call(els, function(el) {
+                // debugger;
+                if(Number(el.children[0].value) == Number(data.rows[0].values[0])) {
+                    el.classList.add('right');
+                } else if(Number(el.children[0].value) == Number(data.rows[0].values[1])) {
+                    el.classList.add('wrong');
+                }
+                //if(Number(el.children[0].value) == Number(data.rows[0].values[1])) {el.classList.add("wrong");};
+                //if(Number(el.children[0].value) == Number(data.rows[0].values[0])) {el.classList.add("right");};
+                el.classList.add('disabledbutton');
+            }.bind(this));
+            // };
+            //debugger;
+            //document.getElementById('input_test_attention_inQs').innerText = 'Внимание! Ответ будет дан сразу при выборе одного из предложенных вариантов';
+            //document.getElementById('input_test_attention_inQs').style.color = 'red';
+            let div = document.getElementsByClassName('current_qs')[0].children[0];
+            if (Number(data.rows[0].values[0]) == Number(data.rows[0].values[1])) {
             /*div.remove("qs_lamp_ua");
             div.add("qs_lamp_ra");*/
-            div.className = 'qs_lamp_ra';
+                div.className = 'qs_lamp_ra';
             // document.getElementById('input_test_attention_inQs').innerText = 'Примечание: '+data.rows[0].values[2];
             // document.getElementById('input_test_attention_inQs').style.color = 'green';
-        } else {
+            } else {
             /*div.remove("qs_lamp_ua");
             div.add("qs_lamp_wa");*/
-            div.className = 'qs_lamp_wa';
+                div.className = 'qs_lamp_wa';
             // document.getElementById('input_test_attention_inQs').innerText = 'Примечание: '+data.rows[0].values[2];
             // document.getElementById('input_test_attention_inQs').style.color = 'green';
-        };
-        
-        if (document.getElementsByClassName('qs_lamp_ua').length > 0) {
-            
-                var y = document.getElementsByClassName('qs_lamp_ua')[0];
-                                    // var y2 = y[0].nextElementSibling;
-                                    var event = new Event("click");
-                                    y.dispatchEvent(event);
+            }
+            if (document.getElementsByClassName('qs_lamp_ua').length > 0) {
+                let y = document.getElementsByClassName('qs_lamp_ua')[0];
+                // var y2 = y[0].nextElementSibling;
+                let event = new Event('click');
+                y.dispatchEvent(event);
                 // document.getElementById('input_test_attention_inQs').innerText = 'Внимание! Ответ будет дан сразу при выборе одного из предложенных вариантов';
                 // document.getElementById('input_test_attention_inQs').style.color = 'red';
-        } else {
-            document.getElementById('input_test_attention_inQs').innerText = 'Примечание: '+data.rows[0].values[2];
-            document.getElementById('input_test_attention_inQs').style.color = 'green';
-            let executeQuery = {
-                        queryCode: 'LoadContentResult',
-                        limit: -1,
-                        parameterValues: [{key: "@SessionId", value: this.SessionId}]
-                    };
-                    this.queryExecutor(executeQuery, this.ResultContent, this);
-        };
-        
-     },
-     
-     ResultContent: function(data) {
-         
-         var modal2 = document.getElementById('myModal2');
-            modal2.style.display = "block";
+            } else {
+                document.getElementById('input_test_attention_inQs').innerText = 'Примечание: ' + data.rows[0].values[2];
+                document.getElementById('input_test_attention_inQs').style.color = 'green';
+                let executeQuery = {
+                    queryCode: 'LoadContentResult',
+                    limit: -1,
+                    parameterValues: [{key: '@SessionId', value: this.SessionId}]
+                };
+                this.queryExecutor(executeQuery, this.ResultContent, this);
+            }
+        },
+        ResultContent: function(data) {
+            let modal2 = document.getElementById('myModal2');
+            modal2.style.display = 'block';
             document.getElementById('ContentBlock').style.display = 'none';
-           
-           document.getElementById('nme_res2').value = data.rows[0].values[0]+' из '+(Number(data.rows[0].values[0])+Number(data.rows[0].values[1]));
-           document.getElementById('nme_res3').value = data.rows[0].values[2]+'% / '+data.rows[0].values[3]+'%';
-            
-           if (Number(data.rows[0].values[2]) <= 15) {document.getElementById('nme_res1').value = 'Очень плохо'; document.getElementById('nme_res1').style.color = 'red';}
-           if (Number(data.rows[0].values[2]) > 15 && Number(data.rows[0].values[2]) <= 35) {document.getElementById('nme_res1').value = 'Плохо'; document.getElementById('nme_res1').style.color = '#ff7300';}
-           if (Number(data.rows[0].values[2]) > 35 && Number(data.rows[0].values[2]) <= 55) {document.getElementById('nme_res1').value = 'Нормально'; document.getElementById('nme_res1').style.color = '#899611';}
-           if (Number(data.rows[0].values[2]) > 55 && Number(data.rows[0].values[2]) <= 75) {document.getElementById('nme_res1').value = 'Хорошо'; document.getElementById('nme_res1').style.color = '#53b116';}
-           if (Number(data.rows[0].values[2]) > 75 && Number(data.rows[0].values[2]) <= 85) {document.getElementById('nme_res1').value = 'Отлично'; document.getElementById('nme_res1').style.color = '#16a4b1';}
-           if (Number(data.rows[0].values[2]) > 85 && Number(data.rows[0].values[2]) <= 95) {document.getElementById('nme_res1').value = 'Прекрасно'; document.getElementById('nme_res1').style.color = '#1639b1';}
-           if (Number(data.rows[0].values[2]) > 95) {document.getElementById('nme_res1').value = 'Лучше не бывает'; document.getElementById('nme_res1').style.color = '#161cb1';}
-     
-         var BtnResultContent = document.getElementById('btn_createContentResult');
-         BtnResultContent.addEventListener("click", function() {
-                       
-            var modal2 = document.getElementById('myModal2');
-            modal2.style.display = "none";
-            document.getElementById('ContentBlock').style.display = 'block';    
-            document.getElementById('ResultView').style.display = 'block';        
-                        
-              }.bind(this), true);
-         
-         var BtnResultContent2 = document.getElementById('btn_createContentResult_View');
-         BtnResultContent2.addEventListener("click", function() {
-                       
-            var modal2 = document.getElementById('myModal2');
-            modal2.style.display = "block";
-            document.getElementById('ContentBlock').style.display = 'none';    
-              }.bind(this), true); 
-     }
-    
-    
-};
+            document.getElementById('nme_res2').value = data.rows[0].values[0] + ' из ' + (Number(data.rows[0].values[0]) + Number(data.rows[0].values[1]));
+            document.getElementById('nme_res3').value = data.rows[0].values[2] + '% / ' + data.rows[0].values[3] + '%';
+            if (Number(data.rows[0].values[2]) <= 15) {
+                document.getElementById('nme_res1').value = 'Очень плохо'; document.getElementById('nme_res1').style.color = 'red';
+            }
+            if (Number(data.rows[0].values[2]) > 15 && Number(data.rows[0].values[2]) <= 35) {
+                document.getElementById('nme_res1').value = 'Плохо'; document.getElementById('nme_res1').style.color = '#ff7300';
+            }
+            if (Number(data.rows[0].values[2]) > 35 && Number(data.rows[0].values[2]) <= 55) {
+                document.getElementById('nme_res1').value = 'Нормально'; document.getElementById('nme_res1').style.color = '#899611';
+            }
+            if (Number(data.rows[0].values[2]) > 55 && Number(data.rows[0].values[2]) <= 75) {
+                document.getElementById('nme_res1').value = 'Хорошо'; document.getElementById('nme_res1').style.color = '#53b116';
+            }
+            if (Number(data.rows[0].values[2]) > 75 && Number(data.rows[0].values[2]) <= 85) {
+                document.getElementById('nme_res1').value = 'Отлично'; document.getElementById('nme_res1').style.color = '#16a4b1';
+            }
+            if (Number(data.rows[0].values[2]) > 85 && Number(data.rows[0].values[2]) <= 95) {
+                document.getElementById('nme_res1').value = 'Прекрасно'; document.getElementById('nme_res1').style.color = '#1639b1';
+            }
+            if (Number(data.rows[0].values[2]) > 95) {
+                document.getElementById('nme_res1').value = 'Лучше не бывает'; document.getElementById('nme_res1').style.color = '#161cb1';
+            }
+            let BtnResultContent = document.getElementById('btn_createContentResult');
+            BtnResultContent.addEventListener('click', function() {
+                let modal2 = document.getElementById('myModal2');
+                modal2.style.display = 'none';
+                document.getElementById('ContentBlock').style.display = 'block';
+                document.getElementById('ResultView').style.display = 'block';
+            }.bind(this), true);
+            let BtnResultContent2 = document.getElementById('btn_createContentResult_View');
+            BtnResultContent2.addEventListener('click', function() {
+                let modal2 = document.getElementById('myModal2');
+                modal2.style.display = 'block';
+                document.getElementById('ContentBlock').style.display = 'none';
+            }.bind(this), true);
+        }
+    };
 }());

@@ -1,7 +1,7 @@
-(function () {
-  return {
-    placeholder: 'test',
-    onItemSelect: function(value) {
-    }
-};
+(function() {
+    return {
+        placeholder: 'test',
+        onItemSelect: function(value) {
+        }
+    };
 }());

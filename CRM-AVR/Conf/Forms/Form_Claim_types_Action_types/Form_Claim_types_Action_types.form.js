@@ -1,7 +1,7 @@
-(function () {
-  return {
-    afterSave:function(){
-        this.back();
-    }
-};
+(function() {
+    return {
+        afterSave:function() {
+            this.back();
+        }
+    };
 }());

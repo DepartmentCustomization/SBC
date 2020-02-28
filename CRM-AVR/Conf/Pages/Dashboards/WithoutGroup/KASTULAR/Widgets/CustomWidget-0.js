@@ -1,9 +1,9 @@
-(function () {
-  return {
-    title: [],
-    hint: '',
-    formatTitle: function() {},
-    customConfig:
+(function() {
+    return {
+        title: [],
+        hint: '',
+        formatTitle: function() {},
+        customConfig:
                 `
                 
                 <style>
@@ -127,17 +127,16 @@
                 
                 
                 `
-    ,
-    init: function() {
-       
-           let executeQuery = {
-            queryCode: 'ARM_Menu_TaskList_CurrenUser',
-            limit: -1,
-            parameterValues: []
-        };
-        this.queryExecutor(executeQuery, this.load, this);
-    },
-    load: function(data) {
-    }
-};
+        ,
+        init: function() {
+            let executeQuery = {
+                queryCode: 'ARM_Menu_TaskList_CurrenUser',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        load: function(data) {
+        }
+    };
 }());
