@@ -70,9 +70,7 @@ BEGIN
 	DECLARE @currentPersonExecutor INT = (SELECT executor_person_id FROM dbo.Assignments  WHERE Id = @Id);
 	DECLARE @currentShortAnswer NVARCHAR(500) = (SELECT short_answer FROM dbo.AssignmentConsiderations WHERE Id = @ass_cons_id);
 
-     IF(@currentPersonExecutor <> @executor_person_id)
-	  AND 
-	  (@executor_person_id IS NOT NULL)
+	IF(@executor_person_id IS NOT NULL)
 	  BEGIN
 		UPDATE [dbo].[Assignments]
 					SET [edit_date] = GETUTCDATE()
