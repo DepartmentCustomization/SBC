@@ -1,0 +1,60 @@
+{
+  "Code": "Group_Action_Mechsnisms_Moves",
+  "Name": "Техніка для виїзду по нарядам",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Action_ID",
+      "Name": "Action_ID",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "mechanisms_id",
+      "Name": "Техніка",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "avr_MechanismsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "mechanisms_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Departure_at",
+      "Name": "Час виїзду",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "InPlace_at",
+      "Name": "Час прибуття",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Distanse",
+      "Name": "Відстань",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "places_start_id",
+      "Name": "Початкове місце (місце виїзду)",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "avr_Place_Action",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "places_finish_id",
+      "Name": "Місце прибуття (встановлюється у роботі)",
+      "FieldType": "number",
+      "Position": 1
+    }
+  ]
+}

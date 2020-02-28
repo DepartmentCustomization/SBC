@@ -1,0 +1,17 @@
+{
+  "ModelType": "Query",
+  "Code": "DefQuery",
+  "Name": "DefQuery",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Sql": "select 1 as Id",
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "ViewState": "Hidden"
+    }
+  ]
+}

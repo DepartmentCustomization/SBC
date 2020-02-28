@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_RouteInsert"
+  },
+  "ModelType": "Section",
+  "Code": "Routes",
+  "Name": "Маршрути",
+  "FormCode": "Form_Route",
+  "SelectRowsQueryCode": "avr_RoutesSelect_Rows",
+  "SelectRowQueryCode": "avr_RoutesSelect_Row",
+  "UpdateQueryCode": "UpdateRouteRow",
+  "DeleteQueryCode": "DeleteRouteRow"
+}

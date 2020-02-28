@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_OutsideMen_Insert"
+  },
+  "ModelType": "Section",
+  "Code": "OutsideMen",
+  "Name": "Спецслцужби",
+  "FormCode": "Form_OutsideMen",
+  "SelectRowsQueryCode": "avr_OutsideMen_SelectRows",
+  "SelectRowQueryCode": "avr_OutsideMen_SelectRow",
+  "UpdateQueryCode": "avr_OutsideMen_Update",
+  "IsVisible": false
+}

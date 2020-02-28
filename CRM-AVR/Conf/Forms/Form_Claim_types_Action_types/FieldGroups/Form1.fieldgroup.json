@@ -1,0 +1,43 @@
+{
+  "Code": "Form1",
+  "Name": "Основна інформація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Action_type_id",
+      "Name": "Тип робіт",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "35%",
+      "QueryCode": "dir_ActionTypeSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Сортування",
+      "FieldType": "number",
+      "Position": 1,
+      "Width": "10%"
+    },
+    {
+      "PatternType": "Numbers",
+      "Pattern": "^[0-9]+$",
+      "Code": "Plan_duration",
+      "Name": "Плановий час виконання робіт (хвилинах)",
+      "FieldType": "text",
+      "Position": 1,
+      "Width": "20%"
+    },
+    {
+      "Code": "Claim_type_id",
+      "Name": "Claim_type_id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

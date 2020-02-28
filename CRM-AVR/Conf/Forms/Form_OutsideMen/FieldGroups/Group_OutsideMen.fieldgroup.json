@@ -1,0 +1,68 @@
+{
+  "Code": "Group_OutsideMen",
+  "Name": "Спецслужби",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "company_id",
+      "Name": "Зовнішня служба",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "avr_dir_SelectOrganIsOutside",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "fiz_name",
+      "Name": "Представник",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "contact_number",
+      "Name": "Телефон представника ",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "Call_from",
+      "Name": "Дата повідомлення служби",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Plan_date",
+      "Name": "Погоджений час прибуття",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Finish_at",
+      "Name": "Факт надання даних",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Comment",
+      "Name": "Коментар",
+      "FieldType": "textarea",
+      "Position": 1,
+      "Rows": 5
+    },
+    {
+      "Code": "Claims_ID",
+      "Name": "Claims_ID",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "claim_stat_id",
+      "Name": "claim_stat_id",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

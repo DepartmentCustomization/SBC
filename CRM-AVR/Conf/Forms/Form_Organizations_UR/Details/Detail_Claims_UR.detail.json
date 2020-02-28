@@ -1,0 +1,20 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Claims_UR",
+  "Name": "Заявки юридичної особи",
+  "FormCode": "Form_UR_Claim",
+  "SelectRowsQueryCode": "avr_Claims_Organizatioms_UR_SelectRows",
+  "SelectRowQueryCode": "avr_Claims_Organizatioms_UR_SelectRow",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Appeals_ContactInsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

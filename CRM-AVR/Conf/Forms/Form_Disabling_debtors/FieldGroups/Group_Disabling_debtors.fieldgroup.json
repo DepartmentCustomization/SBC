@@ -1,0 +1,104 @@
+{
+  "Code": "Group_Disabling_debtors",
+  "Name": "Інформація про відключення",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "org_id",
+      "Name": "Підрозділ",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "list_OrgWS_from_Dissabling",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "employee_id",
+      "Name": "Інспектор ",
+      "FieldType": "select",
+      "Position": 2,
+      "QueryCode": "list_EmployeeWS_from_Dissabling",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "debt_id",
+      "Name": "ПІБ / назва боржника (оберіть зі справочника)",
+      "FieldType": "select",
+      "Position": 3,
+      "QueryCode": "list_Contact_from_Dissabling",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "placeDebt_id",
+      "Name": "Адреса  (яку відключають)",
+      "FieldType": "select",
+      "Position": 5,
+      "QueryCode": "list_Places_plus_Type",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Number",
+      "Name": "№ квартири",
+      "FieldType": "number",
+      "Position": 6
+    },
+    {
+      "Code": "placeDis_id",
+      "Name": "Адреса (встановлення пломби)",
+      "FieldType": "select",
+      "Position": 7,
+      "QueryCode": "list_Places_plus_Type",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Number_seal",
+      "Name": "Номер пломби",
+      "FieldType": "text",
+      "Position": 7
+    },
+    {
+      "PatternType": "NumbersWithPoint",
+      "Pattern": "",
+      "Code": "Amount_due",
+      "Name": "Сума сплати борга",
+      "FieldType": "text",
+      "Position": 10
+    },
+    {
+      "PatternType": "NumbersWithPoint",
+      "Pattern": "",
+      "Code": "Payment_departure",
+      "Name": "Сума сплати виїзду",
+      "FieldType": "text",
+      "Position": 11
+    },
+    {
+      "Code": "Description",
+      "Name": "Опис",
+      "FieldType": "textarea",
+      "Position": 12
+    },
+    {
+      "Code": "Is_fixed",
+      "Name": "Всі недоліки усунено",
+      "FieldType": "checkbox",
+      "Position": 13
+    },
+    {
+      "Code": "Claim_Id",
+      "Name": "Claim_Id",
+      "FieldType": "number",
+      "Position": 100,
+      "IsHidden": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_service",
+  "Name": "Технічне обслуговування",
+  "FormCode": "Form_service_mech",
+  "SelectRowsQueryCode": "avr_Service_mechnismsSelectRows",
+  "SelectRowQueryCode": "avr_Service_mechnismsSelectRow",
+  "UpdateQueryCode": "avr_Service_mechnismUpdateRow",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Service_mechnismsInsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

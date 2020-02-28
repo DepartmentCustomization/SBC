@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "TEST_Action_Types_INSERT",
+  "Name": "TEST_Action_Types_INSERT",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

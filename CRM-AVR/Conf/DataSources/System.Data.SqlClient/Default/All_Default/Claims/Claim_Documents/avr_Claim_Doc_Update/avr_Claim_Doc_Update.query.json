@@ -1,0 +1,29 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claim_Doc_Update",
+  "Name": "avr_Claim_Doc_Update",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Comments",
+      "Name": "Comments"
+    },
+    {
+      "Code": "@Type_Id",
+      "Name": "Type_Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Name",
+      "Name": "Name"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

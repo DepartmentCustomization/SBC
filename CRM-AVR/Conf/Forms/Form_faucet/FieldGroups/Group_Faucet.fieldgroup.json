@@ -1,0 +1,56 @@
+{
+  "Code": "Group_Faucet",
+  "Name": "Запорна Арматура",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "action_name",
+      "Name": "Робота",
+      "FieldType": "text",
+      "Position": 1,
+      "Width": "30%"
+    },
+    {
+      "Code": "size_id",
+      "Name": "Діаметр",
+      "FieldType": "select",
+      "Position": 3,
+      "Width": "30%",
+      "QueryCode": "dir_DiametersSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Size",
+      "QueryParameters": []
+    },
+    {
+      "Code": "places_id",
+      "Name": "Місце",
+      "FieldType": "select",
+      "Position": 10,
+      "Width": "70%",
+      "QueryCode": "avr_PlacesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "places_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Start_from",
+      "Name": "Дата закриття",
+      "FieldType": "date-time",
+      "IsRequired": true,
+      "Position": 20
+    },
+    {
+      "Code": "Finish_at",
+      "Name": "Дата відкриття",
+      "FieldType": "date-time",
+      "Position": 21
+    },
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "FieldType": "number",
+      "Position": 1333,
+      "IsHidden": true
+    }
+  ]
+}

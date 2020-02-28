@@ -1,0 +1,30 @@
+[
+  {
+    "Code": "@mech_id",
+    "Name": "mech_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@pageOffsetRows",
+    "Name": "pageOffsetRows",
+    "ParameterType": "Integer",
+    "IsPageOffsetRows": true
+  },
+  {
+    "Code": "@orders_id",
+    "Name": "orders_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@pageLimitRows",
+    "Name": "pageLimitRows",
+    "ParameterType": "Integer",
+    "IsPageLimitRows": true
+  },
+  {
+    "Code": "@OrgID",
+    "Name": "OrgID",
+    "ParameterType": "Integer",
+    "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+  }
+]

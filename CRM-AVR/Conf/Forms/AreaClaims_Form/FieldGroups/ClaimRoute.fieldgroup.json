@@ -1,0 +1,42 @@
+{
+  "Code": "ClaimRoute",
+  "Name": "Маршрут",
+  "Position": 2,
+  "Fields": [
+    {
+      "Code": "RouteID",
+      "Name": "Маршрут №",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "List_RoutesByOrg",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Number",
+      "QueryParameters": []
+    },
+    {
+      "Code": "WalkerName",
+      "Name": "Обхідник",
+      "FieldType": "text",
+      "Position": 2
+    },
+    {
+      "Code": "ResponseID",
+      "Name": "Результат обходу",
+      "FieldType": "select",
+      "Position": 3,
+      "QueryCode": "SelectAllRepsonses",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Description",
+      "QueryParameters": []
+    },
+    {
+      "Code": "btn_SetWalker",
+      "Name": "Призначити обхідника",
+      "FieldType": "button",
+      "Position": 4,
+      "Width": "45%",
+      "Icon": "account_box"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Places_in_Places_InsertRow",
+  "Name": "avr_Places_in_Places_InsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@places_id",
+      "Name": "places_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@places2_id",
+      "Name": "places2_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@type_pp_link_id",
+      "Name": "type_pp_link_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

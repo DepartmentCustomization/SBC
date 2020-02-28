@@ -1,0 +1,36 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Order_Action_Mechasnisms",
+  "Name": "Замовлення Техніки",
+  "SelectRowsQueryCode": "avr_Order__MechsnismsSelectRows",
+  "SelectRowQueryCode": "avr_Order__MechsnismsSelectRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Order__MechsnismsDeleteRow",
+  "Position": 7,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryParameterCode": "@mechanisms_id",
+    "QueryCode": "list_Meshamisms_for_Action",
+    "ColumnCode": "Id",
+    "AddType": "Lookup",
+    "InsertQueryCode": "avr_Order__MechsnismsInsertRow",
+    "QueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@orders_id"
+      }
+    ],
+    "InsertQueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@orders_id"
+      }
+    ]
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

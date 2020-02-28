@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_OrdersUpdateRow",
+  "Name": "avr_OrdersUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

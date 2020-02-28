@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Organizations_UR_UpdateRow",
+  "Name": "avr_Organizations_UR_UpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Open_Claims",
+  "Name": "Відкриті заявки",
+  "ConnectionCode": "Default"
+}

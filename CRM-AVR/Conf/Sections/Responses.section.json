@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "InsertResponseRow"
+  },
+  "ModelType": "Section",
+  "Code": "Responses",
+  "Name": "Довідник: Результат заявки",
+  "FormCode": "Form_Response",
+  "SelectRowsQueryCode": "SelectAllRepsonses",
+  "SelectRowQueryCode": "SelectResponseRow",
+  "UpdateQueryCode": "UpdateResponseRow"
+}

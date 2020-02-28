@@ -1,0 +1,9 @@
+{
+  "ModelType": "Query",
+  "Code": "SelectRow",
+  "Name": "SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Sql": "select N'Прив`язати роботу' as name"
+}

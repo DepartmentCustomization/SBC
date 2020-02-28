@@ -1,0 +1,70 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Actions_SelectRows",
+  "Name": "avr_Actions_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "Position": 2
+    },
+    {
+      "Code": "Order_ID",
+      "Name": "Order_ID",
+      "Position": 3
+    },
+    {
+      "Code": "orders_id",
+      "Name": "orders_id",
+      "Position": 4
+    },
+    {
+      "Code": "Is_Goal",
+      "Name": "Is_Goal",
+      "Position": 5
+    },
+    {
+      "Code": "action_types_name",
+      "Name": "action_types_name",
+      "Position": 6
+    },
+    {
+      "Code": "Is_move",
+      "Name": "Is_move",
+      "Position": 7
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Plan_duration",
+      "Position": 8
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Sort_index",
+      "Position": 9
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "AreaClaim_File",
+  "Name": "Документи",
+  "SelectRowsQueryCode": "avr_Claim_Doc_SelectRows",
+  "SectionCode": "Claims_Documents",
+  "Position": 3,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Counr_Appeals_SelectRows",
+  "Name": "avr_Counr_Appeals_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "appeals_date",
+      "Name": "Дата",
+      "Position": 1
+    },
+    {
+      "Code": "count_appeals",
+      "Name": "Кількість звернень",
+      "Position": 2
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

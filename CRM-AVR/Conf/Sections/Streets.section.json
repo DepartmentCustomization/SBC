@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_StreetsInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Streets",
+  "Name": "Довідник: Вулиці",
+  "FormCode": "Form_Streets",
+  "SelectRowsQueryCode": "dir_StreetsSelectRows",
+  "SelectRowQueryCode": "dir_StreetsSelectRow",
+  "UpdateQueryCode": "dir_StreetsUpdateRow"
+}

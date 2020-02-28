@@ -1,0 +1,48 @@
+{
+  "ModelType": "Query",
+  "Code": "list_TEST_action_place_type",
+  "Name": "list_TEST_action_place_type",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Action_type_Id",
+      "Name": "Action_type_Id",
+      "Position": 2,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "action_name",
+      "Name": "Тип роботи",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "Action_types.Name",
+      "FilterParameterCode": "@name"
+    },
+    {
+      "Code": "Place_type_Id",
+      "Name": "Place_type_Id",
+      "Position": 4,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "place_name",
+      "Name": "Тип місця",
+      "Position": 5,
+      "IsPrintable": false,
+      "SqlName": "Place_types.Name",
+      "FilterParameterCode": "@Name"
+    }
+  ]
+}

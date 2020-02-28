@@ -1,0 +1,29 @@
+{
+  "Code": "Group_Shift_Order",
+  "Name": "Прив'язати зміну до виїзду",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Id",
+      "Name": "Виїзд № ",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "Icon": "compare_arrows"
+    },
+    {
+      "Code": "shift_id",
+      "Name": "shift_id",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "shifts_name",
+      "Name": "shifts_name",
+      "FieldType": "text",
+      "Position": 12,
+      "IsHidden": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Open_Claims_New_Order_SelectRow",
+  "Name": "avr_Open_Claims_New_Order_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

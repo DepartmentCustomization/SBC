@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "insertAppeal_contact_claim_anonymous",
+  "Name": "insertAppeal_contact_claim_anonymous",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@contacts_Phone",
+      "Name": "contacts_Phone"
+    },
+    {
+      "Code": "@contacts_Name",
+      "Name": "contacts_Name"
+    },
+    {
+      "Code": "@claims_Id",
+      "Name": "claims_Id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

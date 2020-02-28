@@ -1,0 +1,21 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Group_Action_File",
+  "Name": "Документи",
+  "FormCode": "Form_Action_File",
+  "SelectRowsQueryCode": "avr_Action_Doc_SelectRows",
+  "SelectRowQueryCode": "avr_Action_Doc_SelectRow",
+  "SectionCode": "Actions_Documents",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Action_Doc_Insert"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

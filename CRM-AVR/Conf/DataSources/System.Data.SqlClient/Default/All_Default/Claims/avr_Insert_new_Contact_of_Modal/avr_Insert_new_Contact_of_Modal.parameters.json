@@ -1,0 +1,33 @@
+[
+  {
+    "Code": "@m_Middle_name",
+    "Name": "m_Middle_name"
+  },
+  {
+    "Code": "@m_Contact_type_ID",
+    "Name": "m_Contact_type_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@m_First_name",
+    "Name": "m_First_name"
+  },
+  {
+    "Code": "@org_name",
+    "Name": "org_name"
+  },
+  {
+    "Code": "@m_phone_number",
+    "Name": "m_phone_number"
+  },
+  {
+    "Code": "@m_Surname",
+    "Name": "m_Surname"
+  }
+]

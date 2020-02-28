@@ -19,7 +19,7 @@
                         fieldGroups: []
                     };
                     for (let j = 0; j < data.rows.length; j++) {
-                        if (data.rows[j].values[5] == 1) {
+                        if (data.rows[j].values[5] === 1) {
                             let p = {
                                 code: 'GroupPhone' + j,
                                 name: 'Створення телефону',
@@ -209,7 +209,8 @@
             };
             this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function() {
                 let event = new Event('click');
-                document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
+                document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted')
+                    .dispatchEvent(event);
                 this.onLoadModalPhone();
                 this.onRecalcCardPhone();
                 const parameters = [
@@ -248,13 +249,17 @@
                 document.getElementById('modal_phone_NEW_phoneDelete').addEventListener('click', function() {
                     const queryForGetValue_AddNewPhone = {
                         queryCode: 'ApplicantPhonesAdd',
-                        parameterValues: [{ key: '@Applicant_id', value: this.formConfig.form.getControlValue('Applicant_Id') }, { key: '@TypePhone', value: this.getControlValue('modal_phone_NEW_phoneType') }, { key: '@Phone', value: this.getControlValue('modal_phone_NEW') }, { key: '@IsMain', value: this.getControlValue('modal_phone_NEW_phoneIsMain') }]
+                        parameterValues: [{ key: '@Applicant_id', value: this.formConfig.form.getControlValue('Applicant_Id') },
+                            { key: '@TypePhone', value: this.getControlValue('modal_phone_NEW_phoneType') },
+                            { key: '@Phone', value: this.getControlValue('modal_phone_NEW') },
+                            { key: '@IsMain', value: this.getControlValue('modal_phone_NEW_phoneIsMain') }]
                     };
                     this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function(data) {
-                        if (data.rows[0].values[0] == 'OK') {
+                        if (data.rows[0].values[0] === 'OK') {
                             this.setControlValue('modal_phone_NEW', null);
                             let event = new Event('click');
-                            document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
+                            document.querySelector('smart-bi-modal-form > div.btn-center-control > ' +
+                            'button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                             this.formConfig.onLoadModalPhone();
                             this.formConfig.onRecalcCardPhone();
                             const parameters = [
@@ -285,7 +290,7 @@
             if (!phone) {
                 document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
             } else {
-                if (phone.replace('(', '').replace(')', '').replace(/-/g, '').replace(/\D/g, '').length == 10) {
+                if (phone.replace('(', '').replace(')', '').replace(/-/g, '').replace(/\D/g, '').length === 10) {
                     document.getElementById('modal_phone_NEW_phoneDelete').disabled = false;
                 } else {
                     document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
@@ -316,7 +321,7 @@
             }
         },
         init: function() {
-            if (this.state == 'create') {
+            if (this.state === 'create') {
                 let getDataFromLink = window
                     .location
                     .search
@@ -330,7 +335,7 @@
                         }, {}
                     );
                 let uglId;
-                if (getDataFromLink['uglId'] == undefined) {
+                if (getDataFromLink['uglId'] === undefined) {
                     uglId = 'невідомо';
                 } else {
                     uglId = getDataFromLink['uglId']
@@ -394,6 +399,8 @@
                 this.form.onControlValueChanged('Question_AnswerType', this.onChangedQuestion_AnswerType.bind(this));
                 this.form.onControlValueChanged('Question_Building', this.checkQuestionRegistrationAvailable);
                 this.form.onControlValueChanged('Question_Organization', this.checkQuestionRegistrationAvailable);
+                this.form.onControlValueChanged('Question_Organization', this.getOrgExecut);
+                this.form.onControlValueChanged('Question_Building', this.getOrgExecut);
                 const AppealUGL = {
                     queryCode: 'AppealUGL_Info',
                     parameterValues: [
@@ -421,7 +428,7 @@
                 this.details.onCellClick('Detail_UGL_Aplicant', this.getApplicantInfo.bind(this));
                 document.getElementById('Applicant_Btn_Add').addEventListener('click', function() {
                     let entrance = this.form.getControlValue('Applicant_Entrance');
-                    if (entrance != null && entrance < 1) {
+                    if (entrance !== null && entrance < 1) {
                         this.openPopUpInfoDialog('Номер під`їзду не може бути менше 1');
                     } else {
                         const queryForGetValue2 = {
@@ -546,7 +553,9 @@
                 }.bind(this));
                 document.getElementById('Question_Aplicant_Btn_Add').addEventListener('click', function() {
                     let build = this.form.getControlValue('Applicant_Building');
-                    this.getBuildingInfo(build);
+                    let flat = this.form.getControlValue('Applicant_Flat');
+                    let entrance = this.form.getControlValue('Applicant_Entrance');
+                    this.getBuildingInfo(build, flat, entrance);
                     this.form.setGroupVisibility('UGL_Group_CreateQuestion', true);
                     this.form.setGroupExpanding('UGL_Group_Aplicant', false);
                     this.form.setGroupExpanding('UGL_Group_Appeal', false);
@@ -678,6 +687,7 @@
                 this.form.setControlValue('Question_OrganizationId', {});
                 this.form.setControlValue('Question_ControlDate', '');
                 this.form.setControlValue('Question_EventId', null);
+                this.form.markAsSaved();
             }.bind(this));
             this.form.onControlValueChanged('Search_Appeals_Input', this.onChanged_Search_Appeals_Input.bind(this));
             document.getElementById('Search_Appeals_Search').disabled = true;
@@ -692,7 +702,7 @@
         input_pib: null,
         input_pib_check: 0,
         applicantIsPIBChanged: function(value) {
-            if (this.input_pib == value) {
+            if (this.input_pib === value) {
                 this.input_pib_check = 0;
             } else {
                 this.input_pib_check = 1;
@@ -703,7 +713,7 @@
         input_building: null,
         input_building_check: 0,
         applicantIsBuildingChanged: function(value) {
-            if (this.input_building == value) {
+            if (this.input_building === value) {
                 this.input_building_check = 0;
             } else {
                 this.input_building_check = 1;
@@ -714,7 +724,7 @@
         input_entrance: null,
         input_entrance_check: 0,
         applicantIsEntranceChanged: function(value) {
-            if (this.input_entrance == value) {
+            if (this.input_entrance === value) {
                 this.input_entrance_check = 0;
             } else {
                 this.input_entrance_check = 1;
@@ -725,7 +735,7 @@
         input_flat: null,
         input_flat_check: 0,
         applicantIsFlatChanged: function(value) {
-            if (this.input_flat == value) {
+            if (this.input_flat === value) {
                 this.input_flat_check = 0;
             } else {
                 this.input_flat_check = 1;
@@ -736,7 +746,7 @@
         input_privilege: null,
         input_privilege_check: 0,
         applicantIsPrivilegeChanged: function(value) {
-            if (this.input_privilege == value) {
+            if (this.input_privilege === value) {
                 this.input_privilege_check = 0;
             } else {
                 this.input_privilege_check = 1;
@@ -747,7 +757,7 @@
         input_socialState: null,
         input_socialState_check: 0,
         applicantIsSocialStateChanged: function(value) {
-            if (this.input_socialState == value) {
+            if (this.input_socialState === value) {
                 this.input_socialState_check = 0;
             } else {
                 this.input_socialState_check = 1;
@@ -758,7 +768,7 @@
         input_applicantType: null,
         input_applicantType_check: 0,
         applicantIsApplicantTypeChanged: function(value) {
-            if (this.input_applicantType == value) {
+            if (this.input_applicantType === value) {
                 this.input_applicantType_check = 0;
             } else {
                 this.input_applicantType_check = 1;
@@ -769,7 +779,7 @@
         input_applicantSex: null,
         input_applicantSex_check: 0,
         applicantIsSexChanged: function(value) {
-            if (this.input_applicantSex == value) {
+            if (this.input_applicantSex === value) {
                 this.input_applicantSex_check = 0;
             } else {
                 this.input_applicantSex_check = 1;
@@ -780,7 +790,7 @@
         input_birthDate: null,
         input_birthDate_check: 0,
         applicantIsBirthDateChanged: function(value) {
-            if (this.input_birthDate == value) {
+            if (this.input_birthDate === value) {
                 this.input_birthDate_check = 0;
             } else {
                 this.input_birthDate_check = 1;
@@ -791,7 +801,7 @@
         input_mail: null,
         input_mail_check: 0,
         applicantIsMailChanged: function(value) {
-            if (this.input_mail == value) {
+            if (this.input_mail === value) {
                 this.input_mail_check = 0;
             } else {
                 this.input_mail_check = 1;
@@ -802,7 +812,7 @@
         input_note: null,
         input_note_check: 0,
         applicantIsNoteChanged: function(value) {
-            if (this.input_note == value) {
+            if (this.input_note === value) {
                 this.input_note_check = 0;
             } else {
                 this.input_note_check = 1;
@@ -811,7 +821,7 @@
             this.applicantSaveButtonManager(this.input_note_check);
         },
         applicantSaveButtonManager: function(input_check) {
-            if (this.form.getControlValue('Applicant_Id') != null) {
+            if (this.form.getControlValue('Applicant_Id') !== null) {
                 if (input_check === 1) {
                     document.getElementById('Applicant_Btn_Add').disabled = false;
                 } else if (input_check === 0) {
@@ -821,7 +831,7 @@
         },
         questionObjectOrg: function() {
             let q_type_id = this.form.getControlValue('Question_TypeId');
-            if (q_type_id == undefined) {
+            if (q_type_id === undefined) {
                 this.form.setControlVisibility('Question_Building', false);
                 this.form.setControlVisibility('entrance', false);
                 this.form.setControlVisibility('flat', false);
@@ -868,7 +878,7 @@
         },
         checkApplicantSaveAvailable: function() {
             if (
-                (this.form.getControlValue('Applicant_PIB') == null || this.form.getControlValue('Applicant_Building') == null)
+                (this.form.getControlValue('Applicant_PIB') === null || this.form.getControlValue('Applicant_Building') === null)
             ) {
                 document.getElementById('Applicant_Btn_Add').disabled = true;
             } else {
@@ -889,13 +899,13 @@
             this.queryExecutor.getValues(Applicant).subscribe(data => {
                 if (data) {
                     let BirthDate = null;
-                    if (data.rows[0].values[14] == null) {
+                    if (data.rows[0].values[14] === null) {
                         BirthDate = null;
                     } else {
                         BirthDate = new Date(data.rows[0].values[14]);
                     }
                     let sex = null;
-                    if (data.rows[0].values[13] == null) {
+                    if (data.rows[0].values[13] === null) {
                         sex = null;
                     } else {
                         sex = (data.rows[0].values[13]).toString();
@@ -942,30 +952,33 @@
             }
         },
         getOrgExecut: function() {
-            const objAndOrg = {
-                queryCode: 'getOrganizationExecutor',
-                parameterValues: [
-                    {
-                        key: '@question_type_id',
-                        value: this.form.getControlValue('Question_TypeId')
-                    },
-                    {
-                        key: '@object_id',
-                        value: this.form.getControlValue('Question_Building')
-                    },
-                    {
-                        key: '@organization_id',
-                        value: this.form.getControlValue('Question_Organization')
-                    }
-                ]
-            };
-            this.queryExecutor.getValues(objAndOrg).subscribe(data => {
-                this.form.setControlValue('Question_OrganizationId',
-                    { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-            });
+            if(this.form.getControlValue('Question_Building') === null
+            || typeof (this.form.getControlValue('Question_Building')) === 'number') {
+                const objAndOrg = {
+                    queryCode: 'getOrganizationExecutor',
+                    parameterValues: [
+                        {
+                            key: '@question_type_id',
+                            value: this.form.getControlValue('Question_TypeId')
+                        },
+                        {
+                            key: '@object_id',
+                            value: this.form.getControlValue('Question_Building')
+                        },
+                        {
+                            key: '@organization_id',
+                            value: this.form.getControlValue('Question_Organization')
+                        }
+                    ]
+                };
+                this.queryExecutor.getValues(objAndOrg).subscribe(data => {
+                    this.form.setControlValue('Question_OrganizationId',
+                        { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                });
+            }
         },
         onQuestionControlDate: function(ques_type_id) {
-            if (ques_type_id == null) {
+            if (ques_type_id === null) {
                 this.form.setControlValue('Question_ControlDate', null)
             } else {
                 const execute = {
@@ -984,13 +997,13 @@
         },
         onChangedQuestion_AnswerType: function(value) {
             this.form.setControlValue('Question_AnswerPhoneOrPost', null);
-            if (value == 2) {
+            if (value === 2) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('CardPhone'));
             }
-            if (value == 4 || value == 5) {
+            if (value === 4 || value === 5) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('applicantAddress'));
             }
-            if (value == 3) {
+            if (value === 3) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('Applicant_Email'));
             }
             this.checkQuestionRegistrationAvailable();
@@ -1044,13 +1057,16 @@
                         document.getElementById('Question_Btn_Add').disabled = false;
                     }
                 }
+                if (this.is_obj === false && this.is_org === false) {
+                    document.getElementById('Question_Btn_Add').disabled = false;
+                }
             }
         },
-        getBuildingInfo: function(building) {
+        getBuildingInfo: function(building, flat, entrance) {
             const findBuilding = {
-                queryCode: 'SelectBuildName',
+                queryCode: 'SelectObjName',
                 parameterValues: [{
-                    key: '@Id',
+                    key: '@buildingId',
                     value: building
                 }]
             };
@@ -1058,8 +1074,8 @@
                 this.form.setControlValue('Question_Building',
                     { key: data.rows[0].values[0], value: data.rows[0].values[1] });
             });
-            this.form.setControlValue('flat', this.form.getControlValue('Applicant_Flat'));
-            this.form.setControlValue('entrance', this.form.getControlValue('Applicant_Entrance'));
+            this.form.setControlValue('flat', flat);
+            this.form.setControlValue('entrance', entrance);
         },
         convertDateNull: function(value) {
             if (!value) {
@@ -1068,7 +1084,7 @@
             return value;
         },
         onChanged_Search_Appeals_Input: function(value) {
-            if (value == '') {
+            if (value === '') {
                 document.getElementById('Search_Appeals_Search').disabled = true;
             } else {
                 document.getElementById('Search_Appeals_Search').disabled = false;
@@ -1076,7 +1092,7 @@
         },
         getDistrictAndExecutor: function() {
             let building = this.form.getControlValue('Applicant_Building');
-            if (building != null && typeof (building) === 'number') {
+            if (building !== null && typeof (building) === 'number') {
                 const query = {
                     queryCode: 'DistrictAndExecutor_byBuilding',
                     parameterValues: [{
@@ -1085,7 +1101,7 @@
                     }]
                 };
                 this.queryExecutor.getValues(query).subscribe(function(data) {
-                    if (data.rows[0] != undefined) {
+                    if (data.rows[0] !== undefined) {
                         this.form.setControlValue('Applicant_District', data.rows[0].values[1]);
                         this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[2]);
                     }

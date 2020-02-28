@@ -1,0 +1,29 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Count_Flats_InsertRow",
+  "Name": "avr_Count_Flats_InsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@End",
+      "Name": "End"
+    },
+    {
+      "Code": "@Start",
+      "Name": "Start"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@hous_id",
+      "Name": "hous_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

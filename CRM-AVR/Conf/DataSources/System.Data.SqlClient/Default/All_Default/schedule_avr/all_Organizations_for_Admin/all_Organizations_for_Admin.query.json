@@ -1,0 +1,25 @@
+{
+  "ModelType": "Query",
+  "Code": "all_Organizations_for_Admin",
+  "Name": "all_Organizations_for_Admin",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Short_name",
+      "Name": "Short_name",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "isnull(Short_name,[Name])",
+      "FilterParameterCode": "@name"
+    }
+  ]
+}

@@ -40,7 +40,10 @@
     "Code": "@geolocation_lon",
     "Name": "geolocation_lon",
     "ParameterType": "Text"
+  },
+  {
+    "Code": "@SystemIP",
+    "Name": "SystemIP",
+    "ParameterType": "Text"
   }
-
-  
 ]

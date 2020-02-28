@@ -1,0 +1,23 @@
+[
+  {
+    "Code": "@OrgID",
+    "Name": "OrgID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@UR_Surname",
+    "Name": "UR_Surname"
+  },
+  {
+    "Code": "@NewPhone",
+    "Name": "NewPhone"
+  },
+  {
+    "Code": "@UR_FirstName",
+    "Name": "UR_FirstName"
+  },
+  {
+    "Code": "@UR_MiddleName",
+    "Name": "UR_MiddleName"
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "Code": "@Longitude",
+    "Name": "Longitude",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@flats_id",
+    "Name": "flats_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Lattitude",
+    "Name": "Lattitude",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Orders_ID",
+    "Name": "Orders_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Claim_ID",
+    "Name": "Claim_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Is_demage_place",
+    "Name": "Is_demage_place",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@Demage_place_description",
+    "Name": "Demage_place_description"
+  },
+  {
+    "Code": "@Is_first_place",
+    "Name": "Is_first_place",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@places_id",
+    "Name": "places_id",
+    "ParameterType": "Integer"
+  }
+]

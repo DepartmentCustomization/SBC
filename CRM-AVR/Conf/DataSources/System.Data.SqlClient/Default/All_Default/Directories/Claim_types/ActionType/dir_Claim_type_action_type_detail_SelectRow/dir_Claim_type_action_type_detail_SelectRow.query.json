@@ -1,0 +1,54 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Claim_type_action_type_detail_SelectRow",
+  "Name": "dir_Claim_type_action_type_detail_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1
+    },
+    {
+      "Code": "Claim_type_id",
+      "Name": "Claim_type_id",
+      "Position": 2
+    },
+    {
+      "Code": "Claim_types_name",
+      "Name": "Claim_types_name",
+      "Position": 3
+    },
+    {
+      "Code": "Action_type_id",
+      "Name": "Action_type_id",
+      "Position": 4
+    },
+    {
+      "Code": "Action_type_name",
+      "Name": "Action_type_name",
+      "Position": 5,
+      "ReferenceKeyCode": "Action_type_id"
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Sort_index",
+      "Position": 6
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Plan_duration",
+      "Position": 7
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

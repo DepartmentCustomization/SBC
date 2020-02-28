@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_select_class_with_type",
+  "Name": "avr_select_class_with_type",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 1,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@types_id",
+      "Name": "types_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

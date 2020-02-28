@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_SwitchON_allPlaces",
+  "Name": "avr_SwitchON_allPlaces",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@SwitchOff_finish",
+      "Name": "SwitchOff_finish",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@claim_ID",
+      "Name": "claim_ID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

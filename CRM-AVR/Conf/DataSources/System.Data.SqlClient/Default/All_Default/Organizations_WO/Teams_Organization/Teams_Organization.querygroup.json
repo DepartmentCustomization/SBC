@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Teams_Organization",
+  "Name": "Графік робочого часу для бригад",
+  "ConnectionCode": "Default"
+}

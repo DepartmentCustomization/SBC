@@ -1,0 +1,61 @@
+[
+  {
+    "Code": "@debt_id",
+    "Name": "debt_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@placeDebt_id",
+    "Name": "placeDebt_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@org_id",
+    "Name": "org_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Description",
+    "Name": "Description"
+  },
+  {
+    "Code": "@Payment_departure",
+    "Name": "Payment_departure",
+    "ParameterType": "Decimal"
+  },
+  {
+    "Code": "@employee_id",
+    "Name": "employee_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Number_seal",
+    "Name": "Number_seal"
+  },
+  {
+    "Code": "@placeDis_id",
+    "Name": "placeDis_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Is_fixed",
+    "Name": "Is_fixed",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@Amount_due",
+    "Name": "Amount_due",
+    "ParameterType": "Decimal"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Number",
+    "Name": "Number",
+    "ParameterType": "Integer"
+  }
+]

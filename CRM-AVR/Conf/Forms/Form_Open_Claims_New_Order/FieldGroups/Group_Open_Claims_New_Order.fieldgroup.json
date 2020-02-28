@@ -1,0 +1,67 @@
+{
+  "Code": "Group_Open_Claims_New_Order",
+  "Name": "Group_Open_Claims_New_Order",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "status_id",
+      "Name": "status_id",
+      "FieldType": "text"
+    },
+    {
+      "Code": "Pushed_at",
+      "Name": "Pushed_at",
+      "FieldType": "date",
+      "Position": 1
+    },
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "org_id",
+      "Name": "org_id",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "shifts_Id",
+      "Name": " shifts_Id",
+      "FieldType": "number",
+      "Position": 2
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Plan_duration",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
+      "Code": "Start_at",
+      "Name": "Start_at",
+      "FieldType": "date-time",
+      "Position": 4
+    },
+    {
+      "Code": "Finished_at",
+      "Name": "Finished_at",
+      "FieldType": "date-time",
+      "Position": 5
+    },
+    {
+      "Code": "Closed_at",
+      "Name": "Closed_at",
+      "FieldType": "date-time",
+      "Position": 6
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Created_at",
+      "FieldType": "date-time",
+      "Position": 99,
+      "IsHidden": true
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_flat_contact",
+  "Name": "dir_flat_contact",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "streets_name",
+      "Name": "Вулиця та № будинка",
+      "Position": 2,
+      "SqlName": "concat (Streets.Name,Houses.Name)",
+      "FilterParameterCode": "@Streets_Name"
+    },
+    {
+      "Code": "houses_name",
+      "Name": "будинок",
+      "Position": 3,
+      "ViewState": "Hidden",
+      "SqlName": "Houses.Name",
+      "FilterParameterCode": "@Houses_Name"
+    },
+    {
+      "Code": "Number",
+      "Name": "квартира",
+      "Position": 4,
+      "SqlName": "[Flats].[Number]",
+      "FilterParameterCode": "@flats"
+    },
+    {
+      "Code": "Porch",
+      "Name": "поверх",
+      "Position": 5
+    },
+    {
+      "Code": "Floor",
+      "Name": "під'їзд",
+      "Position": 6
+    },
+    {
+      "Code": "Letter",
+      "Name": "літера",
+      "Position": 7
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

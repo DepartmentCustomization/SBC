@@ -1,0 +1,32 @@
+[
+  {
+    "Code": "@Action_ID",
+    "Name": "Action_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@In_out",
+    "Name": "In_out"
+  },
+  {
+    "Code": "@Volume",
+    "Name": "Volume",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@size_id",
+    "Name": "size_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@materials_id",
+    "Name": "materials_id",
+    "ParameterType": "Integer"
+  }
+]

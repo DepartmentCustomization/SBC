@@ -1,0 +1,39 @@
+[
+  {
+    "Code": "@m_District",
+    "Name": "m_District",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@m_house_letr",
+    "Name": "m_house_letr"
+  },
+  {
+    "Code": "@m_houses_id",
+    "Name": "m_houses_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@m_house_number",
+    "Name": "m_house_number"
+  },
+  {
+    "Code": "@longitude",
+    "Name": "longitude"
+  },
+  {
+    "Code": "@latitude",
+    "Name": "latitude"
+  },
+  {
+    "Code": "@m_Place_type_ID",
+    "Name": "m_Place_type_ID",
+    "ParameterType": "Integer"
+  }
+]

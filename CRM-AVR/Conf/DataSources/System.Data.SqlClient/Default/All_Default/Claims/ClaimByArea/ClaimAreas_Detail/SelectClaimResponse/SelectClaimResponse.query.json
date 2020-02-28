@@ -1,0 +1,29 @@
+{
+  "ModelType": "Query",
+  "Code": "SelectClaimResponse",
+  "Name": "SelectClaimResponse",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "DisplayID",
+      "Name": "DisplayID",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "choosenResponse",
+      "Name": "choosenResponse",
+      "Position": 1,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@ClaimID",
+      "Name": "ClaimID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

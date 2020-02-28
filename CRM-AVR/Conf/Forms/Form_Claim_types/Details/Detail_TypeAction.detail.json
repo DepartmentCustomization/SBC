@@ -1,0 +1,33 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_TypeAction",
+  "Name": "Типи робіт",
+  "FormCode": "Form_Claim_types_Action_types",
+  "SelectRowsQueryCode": "dir_Claim_type_action_type_detail_SelectRows",
+  "SelectRowQueryCode": "dir_Claim_type_action_type_detail_SelectRow",
+  "UpdateQueryCode": "dir_Claim_type_action_type_detail_UpdateRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "dir_Claim_type_action_type_detail_DeleteRow",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryParameterCode": "@Action_type_id",
+    "QueryCode": "list_action_types_for_lookup",
+    "ColumnCode": "Id",
+    "AddType": "Lookup",
+    "InsertQueryCode": "dir_Claim_type_action_type_detail_InsertRow",
+    "QueryParameters": [],
+    "InsertQueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Claim_type_id"
+      }
+    ]
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Claim_type_id"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "Code": "Group_Actions_Materials",
+  "Name": "Матеріали для роботи",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "materials_id",
+      "Name": "Матеріал",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "25%",
+      "QueryCode": "dir_MaterialsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "size_id",
+      "Name": "Розмір",
+      "FieldType": "select",
+      "Position": 1,
+      "Width": "5%",
+      "QueryCode": "dir_DiametersSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Size",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Volume",
+      "Name": "Використана кількість",
+      "FieldType": "number",
+      "Position": 3,
+      "Width": "10%"
+    },
+    {
+      "Code": "Units_Id",
+      "Name": "Одиниця виміру",
+      "FieldType": "select",
+      "Position": 4,
+      "Width": "5%",
+      "QueryCode": "dir_MaterialsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "In_out",
+      "Name": "признак: ",
+      "FieldType": "radio",
+      "IsRequired": true,
+      "Position": 5,
+      "Width": "100%",
+      "Items": [
+        {
+          "Code": "1",
+          "Name": "видобуто"
+        },
+        {
+          "Code": "0",
+          "Name": "використано"
+        }
+      ]
+    },
+    {
+      "Code": "Action_ID",
+      "Name": "Action_ID",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 36,
+      "IsHidden": true
+    },
+    {
+      "Code": "orders_Id",
+      "Name": "orders_Id",
+      "FieldType": "number",
+      "Position": 122,
+      "IsHidden": true
+    }
+  ]
+}

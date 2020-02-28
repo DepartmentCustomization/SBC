@@ -1,0 +1,32 @@
+{
+  "ModelType": "Query",
+  "Code": "avk_onCoutingPlanDuration",
+  "Name": "avk_onCoutingPlanDuration",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "planDuration",
+      "Name": "planDuration",
+      "Position": 0
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Value",
+      "Name": "Value",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@planDuration",
+      "Name": "planDuration",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@action_type",
+      "Name": "action_type",
+      "ParameterType": "Integer"
+    }
+  ]
+}

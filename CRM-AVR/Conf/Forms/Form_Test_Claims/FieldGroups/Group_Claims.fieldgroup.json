@@ -1,0 +1,146 @@
+{
+  "Code": "Group_Claims",
+  "Name": "Заявка (попередній перегляд)",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Status_id",
+      "Name": "Статус",
+      "FieldType": "select",
+      "QueryCode": "dir_Status_Claim",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Diameters_ID",
+      "Name": "Діаметр",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "dir_DiametersSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Size",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата створення",
+      "FieldType": "date-time",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Is_Template",
+      "Name": "Використовувати поточну заявку як Шаблон",
+      "FieldType": "checkbox",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Types_id",
+      "Name": "Тип заявки",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 2,
+      "QueryCode": "test_Claims_types",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
+      "LookupType": "tree",
+      "ParentColumnCode": "Parent_сlaim_types_ID"
+    },
+    {
+      "Code": "places_id",
+      "Name": "Місце",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 3,
+      "QueryCode": "dir_Places_claims",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "places",
+      "QueryParameters": []
+    },
+    {
+      "Code": "First_Types_name",
+      "Name": "Тип заявки (первинний)",
+      "FieldType": "text",
+      "Position": 4,
+      "IsHidden": true
+    },
+    {
+      "Code": "Organization_id",
+      "Name": "Відповідальний підрозділ",
+      "FieldType": "select",
+      "Position": 5,
+      "QueryCode": "avr_OrganizationsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "organization_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Plan_start_date",
+      "Name": "Плановий початок",
+      "FieldType": "date-time",
+      "Position": 6
+    },
+    {
+      "Code": "Plan_finish_at",
+      "Name": "Планове завершення",
+      "FieldType": "date-time",
+      "Position": 7
+    },
+    {
+      "Code": "Priority",
+      "Name": "Пріоритет виконання заявки",
+      "FieldType": "radio",
+      "Position": 8,
+      "Items": [
+        {
+          "Code": "1",
+          "Name": "Важливо"
+        },
+        {
+          "Code": "2",
+          "Name": "Загально"
+        },
+        {
+          "Code": "3",
+          "Name": "Планування"
+        }
+      ]
+    },
+    {
+      "Code": "Description",
+      "Name": "Додаткова інформація",
+      "FieldType": "textarea",
+      "IsRequired": true,
+      "Position": 9
+    },
+    {
+      "Code": "First_description",
+      "Name": "Опис проблеми (первинний)",
+      "FieldType": "textarea",
+      "Position": 10,
+      "IsHidden": true
+    },
+    {
+      "Code": "Fact_finish_at",
+      "Name": "Фактичне завершення",
+      "FieldType": "date-time",
+      "Position": 11
+    },
+    {
+      "Code": "temp_id",
+      "Name": "temp_id",
+      "FieldType": "number",
+      "Position": 99,
+      "IsHidden": true
+    },
+    {
+      "Code": "User",
+      "Name": "User",
+      "FieldType": "text",
+      "Position": 1222
+    }
+  ]
+}

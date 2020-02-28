@@ -1,0 +1,53 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Orders",
+  "Name": "Виїзд",
+  "Details": [
+    "string:Details\\Group_Order_SwitchOff_view.detail.json",
+    "string:Details\\Detail_Order_Action_Mechasnisms2.detail.json",
+    "string:Details\\Group_People_Shift.detail.json",
+    "string:Details\\Detail_Order_Faucet2.detail.json",
+    "string:Details\\Detail_Order_Actions_Places.detail.json",
+    "string:Details\\Group_Order_SwitchOff.detail.json",
+    "string:Details\\Detail_Order_Faucet.detail.json",
+    "string:Details\\Detail_Materials.detail.json",
+    "string:Details\\Detail_Order_Action_Mechasnisms.detail.json",
+    "string:Details\\ActionClaimsALL_Detail.detail.json",
+    "string:Details\\Detail_Action_Orders.detail.json",
+    "string:Details\\Detail_Order_History.detail.json",
+    "string:Details\\Detail_Order_File.detail.json",
+    "string:Details\\Detail_Order_Action_Moves.detail.json",
+    "string:Details\\ActionClaims_Detail.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Order.fieldgroup.json",
+      "string:FieldGroups\\Group_Claim_Order.fieldgroup.json",
+      "string:FieldGroups\\Group_add_latches.fieldgroup.json",
+      "string:FieldGroups\\Group_info.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "claims_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      },
+      {
+        "Code": "place_id",
+        "ParentFormFieldCodeForKeyValue": "places_id",
+        "ParentFormFieldCodeForDisplayValue": "places_id"
+      },
+      {
+        "Code": "places_name",
+        "ParentFormFieldCodeForKeyValue": "places_id",
+        "ParentFormFieldCodeForDisplayValue": "places_name"
+      },
+      {
+        "Code": "Street_id",
+        "ParentFormFieldCodeForKeyValue": "Street_id",
+        "ParentFormFieldCodeForDisplayValue": "Street_id"
+      }
+    ],
+    "Script": "string:Form_Orders.form.js"
+  }
+}

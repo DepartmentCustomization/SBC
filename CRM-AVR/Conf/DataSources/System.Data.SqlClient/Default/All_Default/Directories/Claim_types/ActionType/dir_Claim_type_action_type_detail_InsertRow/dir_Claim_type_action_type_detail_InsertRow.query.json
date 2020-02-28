@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Claim_type_action_type_detail_InsertRow",
+  "Name": "dir_Claim_type_action_type_detail_InsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

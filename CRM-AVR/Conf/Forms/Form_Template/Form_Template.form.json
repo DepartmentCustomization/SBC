@@ -1,0 +1,23 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Template",
+  "Name": " Шаблон по заявці",
+  "Details": [
+    "string:Details\\Detail_Actions_2.detail.json",
+    "string:Details\\Detail_Template.detail.json",
+    "string:Details\\Detail_Places_Cl_2.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claims.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Claim_Number",
+        "ParentFormFieldCodeForKeyValue": "Claim_Number",
+        "ParentFormFieldCodeForDisplayValue": "Claim_Number"
+      }
+    ],
+    "Script": "string:Form_Template.form.js"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Faucet_Orders_SelectRows",
+  "Name": "avr_Faucet_Orders_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "action_name",
+      "Name": "Робота",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "act.Name",
+      "FilterParameterCode": "@name"
+    },
+    {
+      "Code": "Size",
+      "Name": "Діаметр",
+      "Position": 2
+    },
+    {
+      "Code": "Places_name",
+      "Name": "Місце",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "Places.Name",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "Start_from",
+      "Name": "Дата закриття",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Finish_at",
+      "Name": "Дата відкриття",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "sign",
+      "Name": "Є відключення",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Order_Id",
+      "Name": "Order_Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "Code": "Group_Claim_Files",
+  "Name": "Файли",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва файла",
+      "FieldType": "text",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Doc_Claim_Id",
+      "Name": "Doc_Claim_Id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "File",
+      "Name": "File",
+      "FieldType": "file",
+      "Position": 2,
+      "FileNameColumnCode": "Name"
+    }
+  ]
+}

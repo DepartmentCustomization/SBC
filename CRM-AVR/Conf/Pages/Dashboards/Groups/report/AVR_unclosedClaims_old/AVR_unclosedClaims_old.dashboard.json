@@ -1,0 +1,8 @@
+{
+  "IsVisible": false,
+  "DashboardGroupCode": "report",
+  "Position": 5,
+  "ModelType": "Dashboard",
+  "Code": "AVR_unclosedClaims_old",
+  "Name": "Довідка по НЕзакритих заявках (unactive)"
+}

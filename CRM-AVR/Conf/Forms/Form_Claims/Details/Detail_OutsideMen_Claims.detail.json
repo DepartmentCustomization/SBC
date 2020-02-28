@@ -1,0 +1,21 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Detail_OutsideMen_Claims",
+  "Name": "Виклик спецслужб",
+  "FormCode": "Form_OutsideMen",
+  "SelectRowsQueryCode": "avr_OutsideMen_SelectRows",
+  "SelectRowQueryCode": "avr_OutsideMen_SelectRow",
+  "SectionCode": "OutsideMen",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_OutsideMen_Insert"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

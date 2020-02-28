@@ -1,0 +1,21 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Detail_Orders",
+  "Name": "Виїзди",
+  "FormCode": "Form_Orders",
+  "SelectRowsQueryCode": "avr_Orders_Claims_SelectRows",
+  "SelectRowQueryCode": "avr_OrdersSelectRow",
+  "SectionCode": "Orders",
+  "Position": 2,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_OrdersInsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "InsertAreaClaim"
+  },
+  "ModelType": "Section",
+  "Code": "AreaClaims",
+  "Name": "Заявки обхідника",
+  "FormCode": "AreaClaims_Form",
+  "SelectRowsQueryCode": "ClaimsByArea_SelectRows",
+  "SelectRowQueryCode": "SelectAreaClaim",
+  "UpdateQueryCode": "UpdateAreaClaimRow"
+}

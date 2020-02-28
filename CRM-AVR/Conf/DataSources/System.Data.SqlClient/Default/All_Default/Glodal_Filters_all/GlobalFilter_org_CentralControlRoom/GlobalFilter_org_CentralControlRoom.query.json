@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "GlobalFilter_org_CentralControlRoom",
+  "Name": "GlobalFilter_org_CentralControlRoom",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": true,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 1,
+      "IsPrintable": false
+    }
+  ]
+}

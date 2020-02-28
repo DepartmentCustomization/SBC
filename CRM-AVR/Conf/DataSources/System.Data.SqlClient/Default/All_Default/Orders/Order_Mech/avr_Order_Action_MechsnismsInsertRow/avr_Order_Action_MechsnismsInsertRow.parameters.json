@@ -1,0 +1,43 @@
+[
+  {
+    "Code": "@Departure_at",
+    "Name": "Departure_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Action_ID",
+    "Name": "Action_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@places_start_id",
+    "Name": "places_start_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@places_finish_id",
+    "Name": "places_finish_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Distanse",
+    "Name": "Distanse",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@mechanisms_id",
+    "Name": "mechanisms_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@InPlace_at",
+    "Name": "InPlace_at",
+    "ParameterType": "DateTime"
+  }
+]

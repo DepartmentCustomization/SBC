@@ -1,0 +1,73 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_RoutesSelect_Row",
+  "Name": "avr_RoutesSelect_Row",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Number",
+      "Name": "Number",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Author_userID",
+      "Name": "Author_userID",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "ChangeBy_userID",
+      "Name": "ChangeBy_userID",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "GroupLenght",
+      "Name": "GroupLenght",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "BoreCountAll",
+      "Name": "BoreCountAll",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "OrgId",
+      "Name": "OrgId",
+      "Position": 7
+    },
+    {
+      "Code": "Short_name",
+      "Name": "Short_name",
+      "Position": 8,
+      "ReferenceKeyCode": "OrgId"
+    },
+    {
+      "Code": "route_id",
+      "Name": "route_id",
+      "Position": 9,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

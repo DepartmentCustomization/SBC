@@ -1,0 +1,7 @@
+{
+  "Add": {},
+  "ModelType": "Section",
+  "Code": "TestSection(contact)",
+  "Name": "TestSection(contact)",
+  "SelectRowsQueryCode": "avr_ContactsSelectRows"
+}

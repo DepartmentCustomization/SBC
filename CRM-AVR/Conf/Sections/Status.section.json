@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_StatusInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Status",
+  "Name": "Довідник: Стани заявок",
+  "FormCode": "Form_Status",
+  "SelectRowsQueryCode": "dir_StatusSelectRows",
+  "SelectRowQueryCode": "dir_StatusSelectRow",
+  "UpdateQueryCode": "dir_StatusUpdateRow"
+}

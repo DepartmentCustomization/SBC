@@ -1,0 +1,24 @@
+{
+  "ModelType": "Query",
+  "Code": "Working_time_brigades",
+  "Name": "Working_time_brigades",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@finish_date",
+      "Name": "finish_date",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@start_date",
+      "Name": "start_date",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@name",
+      "Name": "name"
+    }
+  ]
+}

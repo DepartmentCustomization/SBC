@@ -1,0 +1,35 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Mechanism_typesSelectRow",
+  "Name": "dir_Mechanism_typesSelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2
+    },
+    {
+      "Code": "Description",
+      "Name": "Description",
+      "Position": 3
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

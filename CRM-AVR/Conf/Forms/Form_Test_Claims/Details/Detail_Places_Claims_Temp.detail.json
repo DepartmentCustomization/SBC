@@ -1,0 +1,16 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Places_Claims_Temp",
+  "Name": "Місця",
+  "FormCode": "Form_Claim_Order_Places",
+  "SelectRowsQueryCode": "avr_Claim_Order_Places_SelectRows",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "temp_id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

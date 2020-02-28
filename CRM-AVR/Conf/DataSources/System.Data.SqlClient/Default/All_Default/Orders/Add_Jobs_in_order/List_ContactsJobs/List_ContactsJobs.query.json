@@ -1,0 +1,55 @@
+{
+  "ModelType": "Query",
+  "Code": "List_ContactsJobs",
+  "Name": "List_ContactsJobs",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "pib",
+      "Name": "ПІБ",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "c.[Name]",
+      "FilterParameterCode": "@pib"
+    },
+    {
+      "Code": "organization",
+      "Name": "Підрозділ",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "o.Short_name",
+      "FilterParameterCode": "@org"
+    },
+    {
+      "Code": "jobName",
+      "Name": "Посада",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "j.Job_name",
+      "FilterParameterCode": "@job"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

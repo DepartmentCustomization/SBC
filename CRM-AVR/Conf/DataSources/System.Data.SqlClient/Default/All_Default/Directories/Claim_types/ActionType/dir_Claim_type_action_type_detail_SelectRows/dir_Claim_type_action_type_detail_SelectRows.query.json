@@ -1,0 +1,72 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Claim_type_action_type_detail_SelectRows",
+  "Name": "dir_Claim_type_action_type_detail_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Claim_type_id",
+      "Name": "Claim_type_id",
+      "Position": 2,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Claim_types_name",
+      "Name": "Тип заявки",
+      "Position": 3,
+      "ViewState": "Hidden",
+      "ReferenceKeyCode": "Claim_type_id"
+    },
+    {
+      "Code": "Action_type_id",
+      "Name": "Action_type_id",
+      "Position": 4,
+      "ViewState": "Hidden",
+      "ReferenceKeyCode": "Claim_types_name"
+    },
+    {
+      "Code": "Action_type_name",
+      "Name": "Тип робіт",
+      "Position": 5
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Сортування",
+      "Position": 6
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Плановий час виконання робіт (хвилин)",
+      "Position": 7
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Claim_type_id",
+      "Name": "Claim_type_id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

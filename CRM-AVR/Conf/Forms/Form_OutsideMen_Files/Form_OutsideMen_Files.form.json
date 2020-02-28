@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_OutsideMen_Files",
+  "Name": "Файли",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_OutsideMen_Files.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Doc_OutsideMen_Id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_OutsideMen_Files.form.js"
+  }
+}

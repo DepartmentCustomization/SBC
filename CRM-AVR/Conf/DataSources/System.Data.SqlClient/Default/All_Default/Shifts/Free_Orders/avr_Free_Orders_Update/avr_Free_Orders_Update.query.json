@@ -1,0 +1,21 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Free_Orders_Update",
+  "Name": "avr_Free_Orders_Update",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@shift_id",
+      "Name": "shift_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

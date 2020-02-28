@@ -1,0 +1,41 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_flats_places",
+  "Name": "dir_flats_places",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1
+    },
+    {
+      "Code": "name",
+      "Name": "name",
+      "Position": 2,
+      "SqlName": "concat( \t\tcase when Streets.Name is null then Streets.Name else Streets.Name end, \t\tcase when Houses.Name is null then Houses.Name else N' ' + Houses.Name end, \t\tcase when Flats.Number is null then cast(Flats.Number as nvarchar) else N' кв. ' + cast(Flats.Number as nvarchar) end, \t\tcase when Flats.Letter is null then cast (Flats.Letter as nvarchar) else N' літ. '+ cast (Flats.Letter as nvarchar) end \t  )",
+      "FilterParameterCode": "@name"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@place_id",
+      "Name": "place_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

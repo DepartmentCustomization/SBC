@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Orders",
+  "Name": "Виїзди",
+  "ConnectionCode": "Default"
+}

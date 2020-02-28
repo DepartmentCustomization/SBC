@@ -1,0 +1,23 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Jobs",
+  "Name": " Посади співробітників",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Jobs.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "contacts_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      },
+      {
+        "Code": "organizations_id",
+        "ParentFormFieldCodeForKeyValue": "organizations_id",
+        "ParentFormFieldCodeForDisplayValue": "organizations_id"
+      }
+    ]
+  }
+}

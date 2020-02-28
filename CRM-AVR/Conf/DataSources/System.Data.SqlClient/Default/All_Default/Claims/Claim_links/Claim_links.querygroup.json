@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Claim_links",
+  "Name": "Пов'язані заявки",
+  "ConnectionCode": "Default"
+}

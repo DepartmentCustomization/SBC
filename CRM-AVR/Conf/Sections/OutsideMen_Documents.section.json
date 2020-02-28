@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_OutsideMen_Doc_Insert"
+  },
+  "ModelType": "Section",
+  "Code": "OutsideMen_Documents",
+  "Name": "Документи(спецслужби)",
+  "FormCode": "Form_OutsideMen_File",
+  "SelectRowsQueryCode": "avr_OutsideMen_Doc_SelectRows",
+  "SelectRowQueryCode": "avr_OutsideMen_Doc_SelectRow",
+  "UpdateQueryCode": "avr_OutsideMen_Doc_Update",
+  "IsVisible": false
+}

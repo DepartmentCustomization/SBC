@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Actions_Materials",
+  "Name": "Матеріали по нарядам",
+  "ConnectionCode": "Default"
+}

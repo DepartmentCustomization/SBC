@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Order_Files",
+  "Name": "Файли до документів",
+  "ConnectionCode": "Default"
+}

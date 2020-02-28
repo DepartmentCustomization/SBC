@@ -1,0 +1,56 @@
+{
+  "Code": "Group_info",
+  "Name": "Виїзд",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Created_at",
+      "Name": "Дата реєстрації",
+      "FieldType": "date-time",
+      "Position": 1,
+      "Width": "20%"
+    },
+    {
+      "Code": "user_name",
+      "Name": "Зареєстрував",
+      "FieldType": "text",
+      "Position": 2,
+      "Width": "35%"
+    },
+    {
+      "Code": "position",
+      "Name": "Посада",
+      "FieldType": "text",
+      "Position": 3,
+      "Width": "45%"
+    },
+    {
+      "Code": "Closed_at",
+      "Name": "Дата закриття",
+      "FieldType": "date-time",
+      "Position": 10,
+      "Width": "20%"
+    },
+    {
+      "Code": "user_edit",
+      "Name": "Закрив",
+      "FieldType": "text",
+      "Position": 11,
+      "Width": "35%"
+    },
+    {
+      "Code": "position_close",
+      "Name": "Посада",
+      "FieldType": "text",
+      "Position": 12,
+      "Width": "45%"
+    },
+    {
+      "Code": "btn_close_order",
+      "Name": "Закрити виїзд",
+      "FieldType": "button",
+      "Position": 20,
+      "Width": "33%"
+    }
+  ]
+}

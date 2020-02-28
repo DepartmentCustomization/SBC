@@ -1,0 +1,21 @@
+{
+  "Code": "Group_Mechanism_types",
+  "Name": "Типи техніки",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "Description",
+      "Name": "Опис",
+      "FieldType": "textarea",
+      "Position": 1,
+      "Rows": 2
+    }
+  ]
+}

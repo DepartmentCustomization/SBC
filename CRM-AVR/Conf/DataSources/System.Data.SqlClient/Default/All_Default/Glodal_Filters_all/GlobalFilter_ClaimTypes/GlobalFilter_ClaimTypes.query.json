@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "GlobalFilter_ClaimTypes",
+  "Name": "GlobalFilter_ClaimTypes",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": true,
+  "IsAnonymousAccess": false,
+  "Sql": "select Id, Name from TypeAccess",
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2,
+      "IsPrintable": false
+    }
+  ]
+}

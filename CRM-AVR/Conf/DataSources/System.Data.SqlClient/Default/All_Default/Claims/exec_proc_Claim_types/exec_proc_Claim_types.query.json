@@ -1,0 +1,29 @@
+{
+  "ModelType": "Query",
+  "Code": "exec_proc_Claim_types",
+  "Name": "exec_proc_Claim_types",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@disregard_type",
+      "Name": "disregard_type",
+      "ParameterType": "Boolean"
+    },
+    {
+      "Code": "@Name",
+      "Name": "Name"
+    },
+    {
+      "Code": "@type_id",
+      "Name": "type_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@answer",
+      "Name": "answer",
+      "ParameterType": "Boolean"
+    }
+  ]
+}

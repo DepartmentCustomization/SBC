@@ -1,0 +1,82 @@
+{
+  "Code": "Group_Claim_Places",
+  "Name": "Місця в заявках",
+  "Position": 1,
+  "Fields": [
+    {
+      "PatternDescription": "Не змінювати",
+      "Code": "Claim_ID",
+      "Name": "Заявка № (не змінювати)",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Orders_ID",
+      "Name": "Наряд №",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "dir_Claim_Order",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "order_number",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Claims.claims_id",
+          "ParameterCode": "@claim_id"
+        }
+      ]
+    },
+    {
+      "Code": "places_id",
+      "Name": "Назва місця",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "dir_Places_claims",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "places",
+      "QueryParameters": []
+    },
+    {
+      "Code": "flats_id",
+      "Name": "Квартира (при потребі)",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "dir_flats_places",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Is_first_place",
+      "Name": "Признак первинного місця заявки",
+      "FieldType": "checkbox",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Is_demage_place",
+      "Name": "Признак місця пошкодження",
+      "FieldType": "checkbox",
+      "Position": 1
+    },
+    {
+      "Code": "Demage_place_description",
+      "Name": "Коментар до місця пошкодження",
+      "FieldType": "textarea",
+      "Position": 1
+    },
+    {
+      "Code": "Lattitude",
+      "Name": "Широта",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "Longitude",
+      "Name": "Довгота",
+      "FieldType": "number",
+      "Position": 1
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Actions_Materials",
+  "Name": " Матеріали ",
+  "Details": [
+    "string:Details\\dummy.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Actions_Materials.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Action_ID",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      },
+      {
+        "Code": "orders_Id",
+        "ParentFormFieldCodeForKeyValue": "Order_ID",
+        "ParentFormFieldCodeForDisplayValue": "Order_ID"
+      }
+    ],
+    "Script": "string:Form_Actions_Materials.form.js"
+  }
+}

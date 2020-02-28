@@ -1,0 +1,15 @@
+{
+  "ModelType": "Query",
+  "Code": "notif_org_in_user",
+  "Name": "notif_org_in_user",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@user",
+      "Name": "user",
+      "ParameterType": "CurrentUserId"
+    }
+  ]
+}

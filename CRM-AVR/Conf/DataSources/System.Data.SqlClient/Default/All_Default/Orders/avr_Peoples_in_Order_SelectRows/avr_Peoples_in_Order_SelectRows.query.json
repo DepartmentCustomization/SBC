@@ -1,0 +1,73 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Peoples_in_Order_SelectRows",
+  "Name": "avr_Peoples_in_Order_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "contacts_name",
+      "Name": "ПІБ",
+      "Position": 2,
+      "SqlName": "c.[Name]",
+      "FilterParameterCode": "@worker"
+    },
+    {
+      "Code": "jobs_name",
+      "Name": "Позиція",
+      "Position": 3,
+      "SqlName": "j.Job_name",
+      "FilterParameterCode": "@job"
+    },
+    {
+      "Code": "org_name",
+      "Name": "Підрозділ",
+      "Position": 3,
+      "SqlName": "org.Short_name",
+      "FilterParameterCode": "@org"
+    },
+    {
+      "Code": "Is_main",
+      "Name": "Бригадир",
+      "Position": 5
+    },
+    {
+      "Code": "Is_driver",
+      "Name": "Водій",
+      "Position": 6
+    },
+    {
+      "Code": "Number",
+      "Name": "Телефон",
+      "Position": 7
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "ModelType": "Query",
+  "Code": "List_Organization",
+  "Name": "List_Organization",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2,
+      "SqlName": "tb1.Name",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "ord",
+      "Name": "ord",
+      "Position": 3,
+      "ViewState": "Hidden",
+      "SqlName": "tb1.ord",
+      "FilterParameterCode": "@ord"
+    },
+    {
+      "Code": "Short_name",
+      "Name": "Short_name",
+      "Position": 4
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@GlodalFilter_UserOrganizations",
+      "Name": "GlodalFilter_UserOrganizations",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

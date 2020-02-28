@@ -1,5 +1,5 @@
-(function() {
-    return {
+(function () {
+  return {
         config: {
             query: {
                 code: 'Poshuk',
@@ -99,28 +99,72 @@
         },
         createMasterDetail: function(container, options) {
             let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer == null || currentEmployeeData.short_answer == undefined) {
+            if(currentEmployeeData.short_answer === null || currentEmployeeData.short_answer === undefined) {
                 currentEmployeeData.short_answer = '';
             }
-            if(currentEmployeeData.question_content == null || currentEmployeeData.question_content == undefined) {
+            if(currentEmployeeData.question_content === null || currentEmployeeData.question_content === undefined) {
                 currentEmployeeData.question_content = '';
             }
-            if(currentEmployeeData.adressZ == null || currentEmployeeData.adressZ == undefined) {
+            if(currentEmployeeData.adressZ === null || currentEmployeeData.adressZ === undefined) {
                 currentEmployeeData.adressZ = '';
             }
-            if(currentEmployeeData.balans_name == null || currentEmployeeData.balans_name == undefined) {
+            if(currentEmployeeData.balans_name === null || currentEmployeeData.balans_name === undefined) {
                 currentEmployeeData.balans_name = '';
             }
-            let elementAdress__content = this.createElement('div', { className: 'elementAdress__content content', innerText: String(String(currentEmployeeData.adressZ))});
-            let elementAdress__caption = this.createElement('div', { className: 'elementAdress__caption caption', innerText: 'Адреса заявника'});
-            let elementAdress = this.createElement('div', { className: 'elementAdress element'}, elementAdress__caption, elementAdress__content);
-            let elementСontent__content = this.createElement('div', { className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.question_content))});
-            let elementСontent__caption = this.createElement('div', { className: 'elementСontent__caption caption', innerText: 'Зміст'});
-            let elementСontent = this.createElement('div', { className: 'elementСontent element'}, elementСontent__caption, elementСontent__content);
-            let elementBalance__content = this.createElement('div', { className: 'elementBalance__content content', innerText: String(String(currentEmployeeData.balans_name))});
-            let elementBalance__caption = this.createElement('div', { className: 'elementBalance__caption caption', innerText: 'Балансоутримувач'});
-            let elementBalance = this.createElement('div', { className: 'elementСontent element'}, elementBalance__caption, elementBalance__content);
-            let elementsWrapper = this.createElement('div', { className: 'elementsWrapper'}, elementAdress, elementСontent, elementBalance);
+            let elementAdress__content = this.createElement('div',
+                {
+                    className: 'elementAdress__content content', innerText: String(String(currentEmployeeData.adressZ))
+                }
+            );
+            let elementAdress__caption = this.createElement('div',
+                {
+                    className: 'elementAdress__caption caption', innerText: 'Адреса заявника'
+                }
+            );
+            let elementAdress = this.createElement('div',
+                {
+                    className: 'elementAdress element'
+                },
+                elementAdress__caption, elementAdress__content
+            );
+            let elementСontent__content = this.createElement('div',
+                {
+                    className: 'elementСontent__content content', innerText: String(String(currentEmployeeData.question_content))
+                }
+            );
+            let elementСontent__caption = this.createElement('div',
+                {
+                    className: 'elementСontent__caption caption', innerText: 'Зміст'
+                }
+            );
+            let elementСontent = this.createElement('div',
+                {
+                    className: 'elementСontent element'
+                },
+                elementСontent__caption, elementСontent__content
+            );
+            let elementBalance__content = this.createElement('div',
+                {
+                    className: 'elementBalance__content content', innerText: String(String(currentEmployeeData.balans_name))
+                }
+            );
+            let elementBalance__caption = this.createElement('div',
+                {
+                    className: 'elementBalance__caption caption', innerText: 'Балансоутримувач'
+                }
+            );
+            let elementBalance = this.createElement('div',
+                {
+                    className: 'elementСontent element'
+                },
+                elementBalance__caption, elementBalance__content
+            );
+            let elementsWrapper = this.createElement('div',
+                {
+                    className: 'elementsWrapper'
+                },
+                elementAdress, elementСontent, elementBalance
+            );
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
             elementsAll = Array.from(elementsAll);
@@ -144,7 +188,7 @@
             } return element;
         },
         changeOnTable: function(message) {
-            if(message.value != '') {
+            if(message.value !== '') {
                 document.getElementById('searchTable').style.display = 'block';
                 this.config.query.parameterValues = [
                     { key: '@appealNum', value: message.value},
@@ -152,7 +196,7 @@
                 ];
                 this.loadData(this.afterLoadDataHandler);
                 this.dataGridInstance.onCellClick.subscribe(e => {
-                    if(e.column.dataField == 'registration_number' && e.row != undefined) {
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Assignments/edit/' + e.key));
                     }
                 });

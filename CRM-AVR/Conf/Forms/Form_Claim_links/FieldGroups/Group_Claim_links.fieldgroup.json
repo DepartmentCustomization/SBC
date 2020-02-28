@@ -1,0 +1,36 @@
+{
+  "Code": "Group_Claim_links",
+  "Name": "Додати існуючу заявку",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "claims_number2",
+      "Name": "Виберіть пов'язану заявку зі списку",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "QueryCode": "avr_ClaimsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Claim_Number",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claim_link_types_id",
+      "Name": "Тип зв'язку",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "dir_Claim_link_typesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "claims_Id",
+      "Name": "claims_Id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

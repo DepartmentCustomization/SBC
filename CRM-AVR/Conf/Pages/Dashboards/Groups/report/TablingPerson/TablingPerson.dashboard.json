@@ -1,0 +1,10 @@
+{
+  "IsDraft": true,
+  "DashboardGroupCode": "report",
+  "Position": 999,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "TablingPerson",
+  "Name": "Табель"
+}

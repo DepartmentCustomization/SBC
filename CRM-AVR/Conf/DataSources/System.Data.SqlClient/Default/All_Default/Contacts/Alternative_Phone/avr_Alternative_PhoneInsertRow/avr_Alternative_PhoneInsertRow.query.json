@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Alternative_PhoneInsertRow",
+  "Name": "avr_Alternative_PhoneInsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Contact_ID",
+      "Name": "Contact_ID",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@contact_number",
+      "Name": "contact_number",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@contact_comment",
+      "Name": "contact_comment"
+    }
+  ]
+}

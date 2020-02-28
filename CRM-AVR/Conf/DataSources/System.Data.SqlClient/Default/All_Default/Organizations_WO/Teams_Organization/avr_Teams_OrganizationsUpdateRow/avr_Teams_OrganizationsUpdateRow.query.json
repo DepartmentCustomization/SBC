@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Teams_OrganizationsUpdateRow",
+  "Name": "avr_Teams_OrganizationsUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@Plan_end_time",
+      "Name": "Plan_end_time",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@teams_name",
+      "Name": "teams_name"
+    },
+    {
+      "Code": "@Plan_start_time",
+      "Name": "Plan_start_time",
+      "ParameterType": "DateTime"
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "Code": "Group_Actions",
+  "Name": "Робота",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "places_id",
+      "Name": "Місце на якому відбуваються роботи",
+      "FieldType": "lookup",
+      "Icon": "location_city",
+      "IconHint": "",
+      "QueryCode": "dir_Places_claims",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "places",
+      "QueryParameters": []
+    },
+    {
+      "Code": "coordinates",
+      "Name": "Координати",
+      "FieldType": "text",
+      "Position": 1,
+      "Width": "30%"
+    },
+    {
+      "Code": "place_type_id",
+      "Name": "Тип місця",
+      "FieldType": "select",
+      "Position": 1,
+      "Width": "40%",
+      "QueryCode": "list_place_type_in_claim",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "ac_pl_types_id",
+      "Name": "Тип робіт",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 2,
+      "Width": "100%",
+      "QueryCode": "list_place_action_TYPES",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "action_place_type_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Units_Id",
+      "Name": "Вимір",
+      "FieldType": "select",
+      "Position": 2,
+      "Width": "10%",
+      "QueryCode": "dir_Units_SelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "ShortName",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Value",
+      "Name": "Кількість",
+      "FieldType": "number",
+      "Position": 2,
+      "Width": "33%"
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Планова тривалість",
+      "FieldType": "time",
+      "Position": 3,
+      "Width": "23%"
+    },
+    {
+      "Code": "Plan_start_date",
+      "Name": "Планова дата початку",
+      "FieldType": "date-time",
+      "Position": 4,
+      "Width": "33%"
+    },
+    {
+      "Code": "Start_from",
+      "Name": "Початок роботи",
+      "FieldType": "date-time",
+      "Position": 5,
+      "Width": "33%"
+    },
+    {
+      "Code": "Finish_at",
+      "Name": "Закінчення роботи",
+      "FieldType": "date-time",
+      "Position": 5,
+      "Width": "33%"
+    },
+    {
+      "Code": "Fact_duration",
+      "Name": "Фактична тривалість",
+      "FieldType": "time",
+      "Position": 6,
+      "Width": "33%"
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Послідовність",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 7,
+      "Width": "34%"
+    },
+    {
+      "Code": "Diameters_ID",
+      "Name": "Діаметр",
+      "FieldType": "select",
+      "Position": 9,
+      "Width": "33%",
+      "QueryCode": "dir_DiametersSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Size",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Is_Goal",
+      "Name": "Головна робота у заявці",
+      "FieldType": "checkbox",
+      "Position": 12,
+      "Width": "100%"
+    },
+    {
+      "Code": "btn_delete_action",
+      "Name": "Видалити роботу",
+      "FieldType": "button",
+      "Position": 50,
+      "Width": "40%"
+    },
+    {
+      "Code": "Comment",
+      "Name": "Результат роботи",
+      "FieldType": "textarea",
+      "Position": 122,
+      "IsHidden": true
+    },
+    {
+      "Code": "claim_stat_id",
+      "Name": "claim_stat_id",
+      "FieldType": "number",
+      "Position": 122,
+      "IsHidden": true
+    },
+    {
+      "Code": "order_stat_id",
+      "Name": "order_stat_id",
+      "FieldType": "number",
+      "Position": 123,
+      "IsHidden": true
+    },
+    {
+      "Code": "is_closeZasuv",
+      "Name": "is_closeZasuv",
+      "FieldType": "number",
+      "Position": 134,
+      "IsHidden": true
+    },
+    {
+      "Code": "Street_id",
+      "Name": "Street_id",
+      "FieldType": "number",
+      "Position": 145,
+      "IsHidden": true
+    },
+    {
+      "Code": "countOff",
+      "Name": "countOff",
+      "FieldType": "number",
+      "Position": 234,
+      "IsHidden": true
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "FieldType": "number",
+      "Position": 1113,
+      "IsHidden": true
+    },
+    {
+      "Code": "Order_ID",
+      "Name": "Order_ID",
+      "FieldType": "number",
+      "Position": 1123,
+      "IsHidden": true
+    },
+    {
+      "Code": "Do_not",
+      "Name": "(скрита) Робота не активна",
+      "FieldType": "checkbox",
+      "Position": 1322,
+      "IsHidden": true
+    }
+  ]
+}

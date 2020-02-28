@@ -1,0 +1,10 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Detail_Template",
+  "Name": "Створити заявку по шаблону",
+  "SelectRowsQueryCode": "SelectNew_Inform",
+  "SectionCode": "Test_Claims",
+  "IsExpand": true,
+  "QueryParameters": []
+}

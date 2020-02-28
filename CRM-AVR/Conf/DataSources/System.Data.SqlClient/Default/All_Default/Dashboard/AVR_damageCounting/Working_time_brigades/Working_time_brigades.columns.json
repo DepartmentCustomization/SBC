@@ -1,0 +1,64 @@
+[
+  {
+    "Code": "num",
+    "Name": "num",
+    "Position": 1
+  },
+  {
+    "Code": "organizations_name",
+    "Name": "organizations_name",
+    "Position": 2
+  },
+  {
+    "Code": "Shift_date",
+    "Name": "Shift_date",
+    "Position": 3
+  },
+  {
+    "Code": "shifts",
+    "Name": "shifts",
+    "Position": 4
+  },
+  {
+    "Code": "contact_name",
+    "Name": "contact_name",
+    "Position": 5
+  },
+  {
+    "Code": "mechnisms_name",
+    "Name": "mechnisms_name",
+    "Position": 6
+  },
+  {
+    "Code": "count_orders",
+    "Name": "count_orders",
+    "Position": 7
+  },
+  {
+    "Code": "count_actions",
+    "Name": "count_actions",
+    "Position": 8
+  },
+  {
+    "Code": "hour_spells",
+    "Name": "hour_spells",
+    "Position": 9
+  },
+  {
+    "Code": "effective_hour",
+    "Name": "effective_hour",
+    "Position": 10
+  },
+  {
+    "Code": "organizations_id",
+    "Name": "organizations_id",
+    "Position": 11,
+    "SqlName": "Organizations.Id",
+    "FilterParameterCode": "@org_id"
+  },
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 12
+  }
+]

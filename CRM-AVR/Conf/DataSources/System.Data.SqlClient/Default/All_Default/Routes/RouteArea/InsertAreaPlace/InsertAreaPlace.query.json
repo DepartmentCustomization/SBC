@@ -1,0 +1,25 @@
+{
+  "ModelType": "Query",
+  "Code": "InsertAreaPlace",
+  "Name": "InsertAreaPlace",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@UserId",
+      "Name": "UserId",
+      "ParameterType": "CurrentUserId"
+    },
+    {
+      "Code": "@PlaceID",
+      "Name": "PlaceID",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@AreaID",
+      "Name": "AreaID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

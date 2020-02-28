@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_Claim_link_typesInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Claim_link_types",
+  "Name": "Довідник: Типи зв'язків Заявок",
+  "FormCode": "Form_Claim_link_types",
+  "SelectRowsQueryCode": "dir_Claim_link_typesSelectRows",
+  "SelectRowQueryCode": "dir_Claim_link_typesSelectRow",
+  "UpdateQueryCode": "dir_Claim_link_typesUpdateRow"
+}

@@ -1,0 +1,67 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claim_SwitchOff_SelectRows",
+  "Name": "avr_Claim_SwitchOff_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "places_name",
+      "Name": "Місце",
+      "Position": 2,
+      "SqlName": "Places.Name",
+      "FilterParameterCode": "@Places_Name"
+    },
+    {
+      "Code": "switchoff_type_name",
+      "Name": "Тип відключення",
+      "Position": 3,
+      "SqlName": "SwitchOff_types.Name",
+      "FilterParameterCode": "@SwitchOff_types"
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "Position": 4,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "SwitchOff_start",
+      "Name": "Відкл. з:",
+      "Position": 5
+    },
+    {
+      "Code": "SwitchOff_finish",
+      "Name": "Відкл. до:",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

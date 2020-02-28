@@ -1,0 +1,16 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Organizations_UR",
+  "Name": " Юридична особа / Зовнішня служба",
+  "Details": [
+    "string:Details\\Detail_ContactPhone.detail.json",
+    "string:Details\\Detail_Claims_UR.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Organizations_UR.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:Form_Organizations_UR.form.js"
+  }
+}

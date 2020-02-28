@@ -1,0 +1,103 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "claims_number",
+    "Name": "claims_number",
+    "Position": 2
+  },
+  {
+    "Code": "claims_id",
+    "Name": "claims_id",
+    "Position": 3
+  },
+  {
+    "Code": "shifts_name",
+    "Name": "shifts_name",
+    "Position": 4
+  },
+  {
+    "Code": "shifts_Id",
+    "Name": "shifts_Id",
+    "Position": 5
+  },
+  {
+    "Code": "status_name",
+    "Name": "status_name",
+    "Position": 6
+  },
+  {
+    "Code": "status_id",
+    "Name": "status_id",
+    "Position": 7
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Created_at",
+    "Position": 8
+  },
+  {
+    "Code": "Pushed_at",
+    "Name": "Pushed_at",
+    "Position": 9
+  },
+  {
+    "Code": "Start_at",
+    "Name": "Start_at",
+    "Position": 10
+  },
+  {
+    "Code": "Plan_duration",
+    "Name": "Plan_duration",
+    "Position": 11
+  },
+  {
+    "Code": "Finished_at",
+    "Name": "Finished_at",
+    "Position": 12
+  },
+  {
+    "Code": "Closed_at",
+    "Name": "Closed_at",
+    "Position": 13
+  },
+  {
+    "Code": "organizations_name",
+    "Name": "organizations_name",
+    "Position": 14
+  },
+  {
+    "Code": "organizations_id",
+    "Name": "organizations_id",
+    "Position": 15
+  },
+  {
+    "Code": "claim_status_name",
+    "Name": "claim_status_name",
+    "Position": 16
+  },
+  {
+    "Code": "claim_status_id",
+    "Name": "claim_status_id",
+    "Position": 17
+  },
+  {
+    "Code": "claim_classes_name",
+    "Name": "claim_classes_name",
+    "Position": 18
+  },
+  {
+    "Code": "claim_classes_id",
+    "Name": "claim_classes_id",
+    "Position": 19
+  },
+  {
+    "Code": "org_id",
+    "Name": "org_id",
+    "Position": 20
+  }
+]

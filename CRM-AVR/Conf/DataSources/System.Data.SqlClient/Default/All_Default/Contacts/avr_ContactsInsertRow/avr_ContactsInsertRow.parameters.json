@@ -1,0 +1,49 @@
+[
+  {
+    "Code": "@Middle_name",
+    "Name": "Middle_name"
+  },
+  {
+    "Code": "@Surname",
+    "Name": "Surname"
+  },
+  {
+    "Code": "@comment_phone",
+    "Name": "comment_phone"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@flats_id",
+    "Name": "flats_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@First_name",
+    "Name": "First_name"
+  },
+  {
+    "Code": "@houses_id",
+    "Name": "houses_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@organizations_id",
+    "Name": "organizations_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@number_name",
+    "Name": "number_name",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@contact_types_id",
+    "Name": "contact_types_id",
+    "ParameterType": "Integer"
+  }
+]

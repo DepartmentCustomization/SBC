@@ -1,0 +1,36 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Sort_Actions_from_Modal",
+  "Name": "avr_Sort_Actions_from_Modal",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Sort_index",
+      "Position": 2,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@order_id",
+      "Name": "order_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

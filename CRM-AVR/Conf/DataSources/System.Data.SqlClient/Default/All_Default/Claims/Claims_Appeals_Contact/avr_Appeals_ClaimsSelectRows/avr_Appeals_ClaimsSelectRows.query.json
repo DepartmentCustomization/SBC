@@ -1,0 +1,52 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Appeals_ClaimsSelectRows",
+  "Name": "avr_Appeals_ClaimsSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "app_Id",
+      "Name": "Кількість звернень",
+      "Position": 1,
+      "SqlName": "concat('Звернення № ', [Appeals].[Id]) ",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "Date",
+      "Name": "Дата звернення",
+      "Position": 2
+    },
+    {
+      "Code": "Name",
+      "Name": "Заявники",
+      "Position": 3
+    },
+    {
+      "Code": "Number",
+      "Name": "Контактний номер",
+      "Position": 4
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

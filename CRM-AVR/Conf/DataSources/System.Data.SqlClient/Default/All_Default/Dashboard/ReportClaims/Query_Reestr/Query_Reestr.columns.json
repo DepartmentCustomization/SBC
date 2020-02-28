@@ -1,0 +1,176 @@
+[
+  {
+    "Code": "rnk_dense",
+    "Name": "rnk_dense",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_Number",
+    "Name": "Claim_Number",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "places_name",
+    "Name": "places_name",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "districts_name",
+    "Name": "districts_name",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "organization_name",
+    "Name": "organization_name",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Created_at",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Fact_finish_at",
+    "Name": "Fact_finish_at",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Size",
+    "Name": "Size",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Full_Name",
+    "Name": "Full_Name",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "classes_name",
+    "Name": "classes_name",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "action_name",
+    "Name": "action_name",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Start_from",
+    "Name": "Start_from",
+    "Position": 12,
+    "IsPrintable": false
+  },
+  {
+    "Code": "MechanismsName",
+    "Name": "MechanismsName",
+    "Position": 13,
+    "IsPrintable": false
+  },
+  {
+    "Code": "MaterialsName",
+    "Name": "MaterialsName",
+    "Position": 14,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Filter_Created_at",
+    "Name": "Filter_Created_at",
+    "Position": 15,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Claims.Created_at",
+    "FilterParameterCode": "@Claims_Created_at"
+  },
+  {
+    "Code": "Filter_Status_ID",
+    "Name": "Filter_Status_ID",
+    "Position": 16,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Claims.Status_ID",
+    "FilterParameterCode": "@Claims_Status_ID"
+  },
+  {
+    "Code": "Filter_Place_ID",
+    "Name": "Filter_Place_ID",
+    "Position": 17,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "cop.Place_ID",
+    "FilterParameterCode": "@cop_Place_ID"
+  },
+  {
+    "Code": "Filter_Street_Id",
+    "Name": "Filter_Street_Id",
+    "Position": 18,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Streets.Id",
+    "FilterParameterCode": "@Streets_Id"
+  },
+  {
+    "Code": "Filter_Districts_Id",
+    "Name": "Filter_Districts_Id",
+    "Position": 19,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Districts.Id",
+    "FilterParameterCode": "@Districts_Id"
+  },
+  {
+    "Code": "Filter_Claim_class_Id",
+    "Name": "Filter_Claim_class_Id",
+    "Position": 20,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Claims.Claim_class_ID",
+    "FilterParameterCode": "@Claims_Claim_class_ID"
+  },
+  {
+    "Code": "Filter_Claim_type_ID",
+    "Name": "Filter_Claim_type_ID",
+    "Position": 21,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Claims.Claim_type_ID",
+    "FilterParameterCode": "@Claims_Claim_type_ID"
+  },
+  {
+    "Code": "Filter_Contacts_ID",
+    "Name": "Filter_Contacts_ID",
+    "Position": 22,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Claims.Contact_ID",
+    "FilterParameterCode": "@Claims_Contact_ID"
+  },
+  {
+    "Code": "Filter_Description",
+    "Name": "Filter_Description",
+    "Position": 23,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Claims.[Description]",
+    "FilterParameterCode": "@Claims_Description"
+  },
+  {
+    "Code": "Filter_Diameters_ID",
+    "Name": "Filter_Diameters_ID",
+    "Position": 24,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Claims.Diameters_ID",
+    "FilterParameterCode": "@Claims_Diameters_ID"
+  }
+]

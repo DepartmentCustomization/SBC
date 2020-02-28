@@ -1,0 +1,38 @@
+{
+  "Code": "Group_Claims_Initiator",
+  "Name": "Замовник",
+  "Position": 2,
+  "Fields": [
+    {
+      "Code": "contact_id",
+      "Name": "ПІБ / Назва організації",
+      "FieldType": "lookup",
+      "Icon": "add_circle_outline",
+      "IconHint": "Додати нового ініціатора",
+      "QueryCode": "List_Initiator_claim",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Number",
+      "Name": "Телефон",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "contact_type_name",
+      "Name": "Тип контакту",
+      "FieldType": "text",
+      "Position": 2,
+      "IsHidden": true
+    },
+    {
+      "Code": "Job_name",
+      "Name": "Посада",
+      "FieldType": "text",
+      "Position": 3,
+      "IsHidden": true
+    }
+  ]
+}

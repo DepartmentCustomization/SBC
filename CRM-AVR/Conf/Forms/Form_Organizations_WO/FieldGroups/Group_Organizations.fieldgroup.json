@@ -1,0 +1,66 @@
+{
+  "Code": "Group_Organizations",
+  "Name": "Огранізація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "organizations_name",
+      "Name": "Назва організації",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "Short_name",
+      "Name": "Коротка назва організації",
+      "FieldType": "text",
+      "Position": 2
+    },
+    {
+      "Code": "adress_id",
+      "Name": "Юридична адреса",
+      "FieldType": "lookup",
+      "Position": 3,
+      "QueryCode": "dir_houses_organization",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "houses",
+      "QueryParameters": []
+    },
+    {
+      "PatternDescription": "код + телефон без пробелов и дефисов",
+      "Code": "Number",
+      "Name": "Номер телефону",
+      "FieldType": "number",
+      "Position": 4
+    },
+    {
+      "Code": "phone_comment",
+      "Name": "Коментар до телефону",
+      "FieldType": "text",
+      "Position": 5
+    },
+    {
+      "Code": "organization_id2",
+      "Name": "organization_id2",
+      "FieldType": "number",
+      "Position": 6,
+      "IsHidden": true
+    },
+    {
+      "Code": "Is_selected",
+      "Name": "Організація може буди використана у заявці",
+      "FieldType": "checkbox",
+      "Position": 7
+    },
+    {
+      "Code": "parent_organization_id",
+      "Name": "Назва головної огранізації",
+      "FieldType": "lookup",
+      "Position": 8,
+      "QueryCode": "avr_parent_organization",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "organization_name",
+      "QueryParameters": []
+    }
+  ]
+}

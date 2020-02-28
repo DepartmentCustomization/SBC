@@ -1,0 +1,50 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_StreetsSelectRow",
+  "Name": "dir_StreetsSelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "type_id",
+      "Name": "type_id",
+      "Position": 2
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 3
+    },
+    {
+      "Code": "Old_name",
+      "Name": "Old_name",
+      "Position": 4
+    },
+    {
+      "Code": "Territory",
+      "Name": "Territory",
+      "Position": 5
+    },
+    {
+      "Code": "type_name",
+      "Name": "type_name",
+      "Position": 6,
+      "ReferenceKeyCode": "type_id"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

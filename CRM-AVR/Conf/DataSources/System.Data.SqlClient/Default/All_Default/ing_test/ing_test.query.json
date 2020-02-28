@@ -1,0 +1,40 @@
+{
+  "ModelType": "Query",
+  "Code": "ing_test",
+  "Name": "ing_test",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "operation",
+      "Name": "operation",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "new_id",
+      "Name": "new_id",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "new_name",
+      "Name": "new_name",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "old_id",
+      "Name": "old_id",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "old_name",
+      "Name": "old_name",
+      "Position": 4,
+      "IsPrintable": false
+    }
+  ]
+}

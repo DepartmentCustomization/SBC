@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "ReportClaims",
+  "Name": "ReportClaims",
+  "ConnectionCode": "Default"
+}

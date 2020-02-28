@@ -1,0 +1,28 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_claim_status_is_5",
+  "Name": "avr_claim_status_is_5",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "status_claim",
+      "Name": "status_claim",
+      "Position": 0,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@status_claim",
+      "Name": "status_claim",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@claim_id",
+      "Name": "claim_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

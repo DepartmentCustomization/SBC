@@ -1,0 +1,63 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Shift_MechanSelectRows",
+  "Name": "dir_Shift_MechanSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "mechanism_types_name",
+      "Name": "Тип",
+      "Position": 2,
+      "SqlName": "Mechanism_types.Name",
+      "FilterParameterCode": "@amane"
+    },
+    {
+      "Code": "mechanisms_name",
+      "Name": "Модель",
+      "Position": 3
+    },
+    {
+      "Code": "mechanisms_number",
+      "Name": "Держ номер",
+      "Position": 4
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "Належить до підрозділу",
+      "Position": 5
+    },
+    {
+      "Code": "model",
+      "Name": "model",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@organizations_mech",
+      "Name": "organizations_mech",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

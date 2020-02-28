@@ -1,0 +1,57 @@
+{
+  "ModelType": "Query",
+  "Code": "list_action_types_for_lookup",
+  "Name": "list_action_types_for_lookup",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "[Action_types].[Name]",
+      "FilterParameterCode": "@name"
+    },
+    {
+      "Code": "typeA_name",
+      "Name": "Тип господарства",
+      "Position": 2,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Action_type_id",
+      "Name": "Action_type_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@TypeAccess",
+      "Name": "TypeAccess",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlobalFilter_ClaimTypes"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

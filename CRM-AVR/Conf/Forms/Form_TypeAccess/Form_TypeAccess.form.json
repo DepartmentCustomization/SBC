@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_TypeAccess",
+  "Name": "Довідник- Доступи для розділення",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_TypeAccess.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

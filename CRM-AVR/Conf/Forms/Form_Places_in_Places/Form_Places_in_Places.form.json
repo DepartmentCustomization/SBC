@@ -1,0 +1,18 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Places_in_Places",
+  "Name": "Пов'язані місця",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_P_in_P.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "places_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "avk_add_jobs_Order_Insert",
+  "Name": "avk_add_jobs_Order_Insert",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@is_driver",
+      "Name": "is_driver",
+      "ParameterType": "Boolean"
+    },
+    {
+      "Code": "@job_id",
+      "Name": "job_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@order_id",
+      "Name": "order_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@is_main",
+      "Name": "is_main",
+      "ParameterType": "Boolean"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Diameters",
+  "Name": "Довідник- Діаметри",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Diameters.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

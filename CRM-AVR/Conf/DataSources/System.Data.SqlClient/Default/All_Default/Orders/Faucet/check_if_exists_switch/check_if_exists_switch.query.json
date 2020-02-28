@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "check_if_exists_switch",
+  "Name": "check_if_exists_switch",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "switch",
+      "Name": "switch",
+      "Position": 0,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

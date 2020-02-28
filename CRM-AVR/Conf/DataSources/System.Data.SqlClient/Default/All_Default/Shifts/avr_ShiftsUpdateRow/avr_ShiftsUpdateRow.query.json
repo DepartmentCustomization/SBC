@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_ShiftsUpdateRow",
+  "Name": "avr_ShiftsUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

@@ -1,0 +1,25 @@
+[
+  {
+    "Code": "@Sked",
+    "Name": "Sked"
+  },
+  {
+    "Code": "@ResponseID",
+    "Name": "ResponseID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Response_organization_ID",
+    "Name": "Response_organization_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Description",
+    "Name": "Description"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer"
+  }
+]

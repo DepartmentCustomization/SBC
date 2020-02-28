@@ -1,0 +1,55 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Places_in_Places_SelectRows",
+  "Name": "avr_Places_in_Places_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "places_name",
+      "Name": "Адреса",
+      "Position": 2,
+      "ReferenceKeyCode": "places_id",
+      "ReferenceSectionCode": "Places"
+    },
+    {
+      "Code": "places_id",
+      "Name": "places_id",
+      "Position": 3,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "type_pp_link_name",
+      "Name": "Тип зв'язку",
+      "Position": 4
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

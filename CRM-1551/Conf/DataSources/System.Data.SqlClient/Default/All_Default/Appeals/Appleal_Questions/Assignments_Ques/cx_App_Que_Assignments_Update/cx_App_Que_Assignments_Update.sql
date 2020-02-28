@@ -1,3 +1,26 @@
+--DECLARE @user_edit_id NVARCHAR(128)=N'bc1b17e2-ffee-41b1-860a-41e1bae57ffd'; --нельзя user_id
+DECLARE @org1761 TABLE (Id INT);
+WITH
+     cte1 -- все подчиненные 3 и 3 1761
+   AS ( SELECT Id,
+         [parent_organization_id] ParentId
+         FROM [dbo].[Organizations] t
+         WHERE Id = 1761
+         UNION ALL
+         SELECT tp.Id,
+         tp.[parent_organization_id] ParentId
+         FROM [dbo].[Organizations] tp 
+         INNER JOIN cte1 curr ON tp.[parent_organization_id] = curr.Id ),
+org_user AS
+(
+SELECT organizations_id FROM [dbo].[Positions]
+WHERE programuser_id=@user_edit_id
+)
+
+INSERT INTO @org1761 (Id)
+SELECT Id 
+FROM cte1 INNER JOIN org_user ON cte1.Id=org_user.organizations_id;
+
 
 IF 
 (
@@ -6,6 +29,7 @@ FROM [dbo].[Assignments] a INNER JOIN
 [dbo].[OrganizationInResponsibilityRights] oirr ON a.[executor_organization_id]=oirr.organization_id
 INNER JOIN [dbo].[Positions] p ON oirr.position_id=p.Id
 WHERE a.Id=@Id AND P.programuser_id=@user_edit_id)='true'
+OR EXISTS(SELECT TOP 1 id FROM @org1761)
 
 BEGIN
 
@@ -483,7 +507,8 @@ BEGIN
 							first_executor_organization_id
 						FROM AssignmentConsiderations
 						WHERE Id = @current_consid);
-
+					-- Стан = зареєстровано	
+                    SET @ass_state_id = 1;
 					-- закрываем Ревижн, + новый AssignmentConsiderations на того же самого исполнителя.
 					UPDATE [dbo].[AssignmentRevisions]
 					SET [assignment_resolution_id] = @resolution_id
@@ -499,7 +524,7 @@ BEGIN
 					UPDATE Assignments
 					SET AssignmentResultsId = @result_id -- Какие результат и резолучия должны быть????
 					   ,AssignmentResolutionsId = @resolution_id
-					   ,assignment_state_id = @ass_state_id -- 04_04
+					   ,assignment_state_id = @ass_state_id
 					   ,edit_date = GETUTCDATE()
 					   ,user_edit_id = @user_edit_id
 					   ,[LogUpdated_Query] = N'cx_App_Que_Assignments_Update_Row404'
@@ -836,7 +861,9 @@ BEGIN
 						executor_organization_id
 					FROM Assignments
 					WHERE Id = @Id);
-
+			-- Стан = зареєстровано	
+                SET @ass_state_id = 1;
+				
 				UPDATE Assignments
 				SET AssignmentResultsId = @result_id
 				   ,AssignmentResolutionsId = @resolution_id

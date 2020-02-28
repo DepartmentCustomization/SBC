@@ -1,0 +1,56 @@
+{
+  "ModelType": "Query",
+  "Code": "test_allSelect_Shifts",
+  "Name": "test_allSelect_Shifts",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "jobs_id",
+      "Name": "jobs_id",
+      "Position": 2
+    },
+    {
+      "Code": "Shift_ID",
+      "Name": "Shift_ID",
+      "Position": 3
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 4
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@Shift_ID",
+      "Name": "Shift_ID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

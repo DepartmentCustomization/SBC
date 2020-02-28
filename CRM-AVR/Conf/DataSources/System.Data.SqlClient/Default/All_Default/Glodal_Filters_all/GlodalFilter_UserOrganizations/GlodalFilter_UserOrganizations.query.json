@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "GlodalFilter_UserOrganizations",
+  "Name": "GlodalFilter_UserOrganizations",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": true,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2
+    }
+  ]
+}

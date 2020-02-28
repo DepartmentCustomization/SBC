@@ -1,0 +1,67 @@
+[
+  {
+    "Code": "num",
+    "Name": "num",
+    "Position": 1
+  },
+  {
+    "Code": "is_out",
+    "Name": "is_out",
+    "Position": 2
+  },
+  {
+    "Code": "material",
+    "Name": "material",
+    "Position": 3
+  },
+  {
+    "Code": "Size",
+    "Name": "Size",
+    "Position": 4
+  },
+  {
+    "Code": "districts",
+    "Name": "districts",
+    "Position": 5
+  },
+  {
+    "Code": "organizations",
+    "Name": "organizations",
+    "Position": 6
+  },
+  {
+    "Code": "count_volume",
+    "Name": "count_volume",
+    "Position": 7
+  },
+  {
+    "Code": "count_claims",
+    "Name": "count_claims",
+    "Position": 8
+  },
+  {
+    "Code": "materials_id",
+    "Name": "materials_id",
+    "Position": 9
+  },
+  {
+    "Code": "diameters_id",
+    "Name": "diameters_id",
+    "Position": 10
+  },
+  {
+    "Code": "districts_id",
+    "Name": "districts_id",
+    "Position": 11
+  },
+  {
+    "Code": "org_id",
+    "Name": "org_id",
+    "Position": 12
+  },
+  {
+    "Code": "details",
+    "Name": "details",
+    "Position": 13
+  }
+]

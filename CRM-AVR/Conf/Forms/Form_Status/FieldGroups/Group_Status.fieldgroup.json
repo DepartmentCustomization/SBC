@@ -1,0 +1,23 @@
+{
+  "Code": "Group_Status",
+  "Name": "Стани Заявок",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Pattern": "",
+      "PatternDescription": "Claim или Orders",
+      "Code": "Object",
+      "Name": "Заявка, Наряд...",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

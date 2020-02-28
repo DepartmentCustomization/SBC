@@ -1,0 +1,21 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Group_Appeals_Claims",
+  "Name": "Заявки контакта",
+  "FormCode": "Form_Contact_Claim",
+  "SelectRowsQueryCode": "avr_Appeals_ContactSelectRows",
+  "SelectRowQueryCode": "avr_Appeals_ContactSelectRow",
+  "SectionCode": "Claims",
+  "Position": 2,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Appeals_ContactInsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_mainPage_Teams",
+  "Name": "avr_mainPage_Teams",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "pib",
+      "Name": "pib",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Job_name",
+      "Name": "Job_name",
+      "Position": 3,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@OrgId",
+      "Name": "OrgID",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

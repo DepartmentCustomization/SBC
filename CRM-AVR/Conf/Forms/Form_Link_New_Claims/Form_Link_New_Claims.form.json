@@ -1,0 +1,24 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Link_New_Claims",
+  "Name": "Пов'язані заявки",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Link_New_Claim.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "claims_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      },
+      {
+        "Code": "Claim_Number",
+        "ParentFormFieldCodeForKeyValue": "Claim_Number",
+        "ParentFormFieldCodeForDisplayValue": "Claim_Number"
+      }
+    ],
+    "Script": "string:Form_Link_New_Claims.form.js"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claim_SwitchOff_UpdateRow",
+  "Name": "avr_Claim_SwitchOff_UpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

@@ -1,0 +1,376 @@
+[
+  {
+    "Code": "@menu_checkbox_46",
+    "Name": "menu_checkbox_46",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_75",
+    "Name": "menu_checkbox_75",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_79",
+    "Name": "menu_checkbox_79",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_56",
+    "Name": "menu_checkbox_56",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_28",
+    "Name": "menu_checkbox_28",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_72",
+    "Name": "menu_checkbox_72",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_30",
+    "Name": "menu_checkbox_30",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_41",
+    "Name": "menu_checkbox_41",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_63",
+    "Name": "menu_checkbox_63",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_25",
+    "Name": "menu_checkbox_25",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_61",
+    "Name": "menu_checkbox_61",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_76",
+    "Name": "menu_checkbox_76",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_2",
+    "Name": "menu_checkbox_2",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_47",
+    "Name": "menu_checkbox_47",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_52",
+    "Name": "menu_checkbox_52",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_5",
+    "Name": "menu_checkbox_5",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_43",
+    "Name": "menu_checkbox_43",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_62",
+    "Name": "menu_checkbox_62",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_21",
+    "Name": "menu_checkbox_21",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_78",
+    "Name": "menu_checkbox_78",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_66",
+    "Name": "menu_checkbox_66",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_14",
+    "Name": "menu_checkbox_14",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_16",
+    "Name": "menu_checkbox_16",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_10",
+    "Name": "menu_checkbox_10",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_36",
+    "Name": "menu_checkbox_36",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_50",
+    "Name": "menu_checkbox_50",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_17",
+    "Name": "menu_checkbox_17",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_27",
+    "Name": "menu_checkbox_27",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_68",
+    "Name": "menu_checkbox_68",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_18",
+    "Name": "menu_checkbox_18",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_49",
+    "Name": "menu_checkbox_49",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_71",
+    "Name": "menu_checkbox_71",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_20",
+    "Name": "menu_checkbox_20",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_33",
+    "Name": "menu_checkbox_33",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_29",
+    "Name": "menu_checkbox_29",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_32",
+    "Name": "menu_checkbox_32",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_39",
+    "Name": "menu_checkbox_39",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_59",
+    "Name": "menu_checkbox_59",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_3",
+    "Name": "menu_checkbox_3",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_58",
+    "Name": "menu_checkbox_58",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_8",
+    "Name": "menu_checkbox_8",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_69",
+    "Name": "menu_checkbox_69",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_12",
+    "Name": "menu_checkbox_12",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_38",
+    "Name": "menu_checkbox_38",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_60",
+    "Name": "menu_checkbox_60",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_70",
+    "Name": "menu_checkbox_70",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_13",
+    "Name": "menu_checkbox_13",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_34",
+    "Name": "menu_checkbox_34",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_77",
+    "Name": "menu_checkbox_77",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_19",
+    "Name": "menu_checkbox_19",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_42",
+    "Name": "menu_checkbox_42",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_35",
+    "Name": "menu_checkbox_35",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_48",
+    "Name": "menu_checkbox_48",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_7",
+    "Name": "menu_checkbox_7",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_74",
+    "Name": "menu_checkbox_74",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_26",
+    "Name": "menu_checkbox_26",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_53",
+    "Name": "menu_checkbox_53",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_23",
+    "Name": "menu_checkbox_23",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@UserId",
+    "Name": "UserId"
+  },
+  {
+    "Code": "@menu_checkbox_57",
+    "Name": "menu_checkbox_57",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_67",
+    "Name": "menu_checkbox_67",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_37",
+    "Name": "menu_checkbox_37",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_65",
+    "Name": "menu_checkbox_65",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_6",
+    "Name": "menu_checkbox_6",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_24",
+    "Name": "menu_checkbox_24",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_40",
+    "Name": "menu_checkbox_40",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_22",
+    "Name": "menu_checkbox_22",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_44",
+    "Name": "menu_checkbox_44",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_51",
+    "Name": "menu_checkbox_51",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_9",
+    "Name": "menu_checkbox_9",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_64",
+    "Name": "menu_checkbox_64",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_45",
+    "Name": "menu_checkbox_45",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_31",
+    "Name": "menu_checkbox_31",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_54",
+    "Name": "menu_checkbox_54",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@menu_checkbox_80",
+    "Name": "menu_checkbox_80",
+    "ParameterType": "Boolean"
+  }
+]

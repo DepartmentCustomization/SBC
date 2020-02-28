@@ -1,0 +1,57 @@
+{
+  "ModelType": "Query",
+  "Code": "table3_claim_switchoff",
+  "Name": "table3_claim_switchoff",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "AddAppeal",
+      "Name": "AddAppeal",
+      "Position": 1
+    },
+    {
+      "Code": "Район_Id",
+      "Name": "Район_Id",
+      "Position": 2
+    },
+    {
+      "Code": "Район",
+      "Name": "Район",
+      "Position": 3
+    },
+    {
+      "Code": "Місце_Id",
+      "Name": "Місце_Id",
+      "Position": 4
+    },
+    {
+      "Code": "Місце",
+      "Name": "Місце",
+      "Position": 5
+    },
+    {
+      "Code": "Заявка",
+      "Name": "Заявка",
+      "Position": 6
+    },
+    {
+      "Code": "Створена",
+      "Name": "Створена",
+      "Position": 7
+    },
+    {
+      "Code": "План виконання",
+      "Name": "План виконання",
+      "Position": 8
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@PlaceId",
+      "Name": "PlaceId",
+      "ParameterType": "Integer"
+    }
+  ]
+}

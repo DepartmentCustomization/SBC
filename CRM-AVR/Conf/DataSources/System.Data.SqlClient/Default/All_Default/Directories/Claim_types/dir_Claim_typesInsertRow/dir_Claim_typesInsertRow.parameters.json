@@ -1,0 +1,46 @@
+[
+  {
+    "Code": "@classes_id",
+    "Name": "classes_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Is_diameter_required",
+    "Name": "Is_diameter_required",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@access_id",
+    "Name": "access_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@claim_types_id_first",
+    "Name": "claim_types_id_first",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@claim_types_name",
+    "Name": "claim_types_name"
+  },
+  {
+    "Code": "@full_name",
+    "Name": "full_name"
+  },
+  {
+    "Code": "@Priority",
+    "Name": "Priority",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Sort_index",
+    "Name": "Sort_index",
+    "ParameterType": "Integer"
+  }
+]
