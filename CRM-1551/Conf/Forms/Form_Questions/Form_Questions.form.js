@@ -7,6 +7,14 @@
             this.details.loadData('Question_History', parameters);
             this.details.setVisibility('Question_History', true);
         },
+        validate: function() {
+            let controlDate = this.form.getControlValue('control_date');
+            let today = new Date();
+            if(controlDate > today) {
+                return true;
+            }
+            return 'Дата контролю менша за поточну';
+        },
         init:function() {
             this.form.disableControl('geolocation_lat');
             this.form.disableControl('geolocation_lon');

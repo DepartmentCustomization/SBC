@@ -40,7 +40,7 @@
     },
     {
       "Code": "Question_Building",
-      "Name": "Об'єкт*",
+      "Name": "Об'єкт",
       "FieldType": "select",
       "Position": 3,
       "Width": "75%",
