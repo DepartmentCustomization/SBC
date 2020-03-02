@@ -1,7 +1,7 @@
-  DECLARE @org INT = 3;
-  DECLARE @dateFrom DATE = '2020-01-01';
-  DECLARE @dateTo DATE = getdate();
-  DECLARE @question_type_id INT = 1;
+  -- DECLARE @org INT = 3;
+  -- DECLARE @dateFrom DATE = '2020-01-01';
+  -- DECLARE @dateTo DATE = getdate();
+  -- DECLARE @question_type_id INT = 1;
 
 IF object_id('tempdb..##temp_QuestionTypes4monitoring') IS NOT NULL 
 BEGIN
