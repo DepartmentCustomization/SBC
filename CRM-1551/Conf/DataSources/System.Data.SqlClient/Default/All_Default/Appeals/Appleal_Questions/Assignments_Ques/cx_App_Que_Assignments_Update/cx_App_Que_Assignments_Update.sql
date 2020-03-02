@@ -530,7 +530,7 @@ BEGIN
 					, @user_edit_id);
 				-- 			execute define_status_Question @question_id
 				-- exec pr_chech_in_status_assignment @Id, @result_id, @resolution_id
-			COMMIT 
+			COMMIT
 				 RETURN;
             END TRY
 
@@ -1328,4 +1328,5 @@ IF (SELECT ar.code
 		WHERE [assignment_consideration_іd]=@current_consid;
 	END*/
 END
-END;
+END
+END 
