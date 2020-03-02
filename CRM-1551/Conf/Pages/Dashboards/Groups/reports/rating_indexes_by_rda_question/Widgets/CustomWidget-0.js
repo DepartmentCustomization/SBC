@@ -35,8 +35,16 @@
         ,
         afterViewInit: function() {
             const CONTAINER = document.getElementById('container');
-            const tabSpeedDone = this.createElement('div', { id: 'tabSpeedDone', className: 'tab tabHover', innerText: 'Швидкість виконання'});
-            const tabSpeedExplained = this.createElement('div', { id: 'tabSpeedExplained', className: 'tab', innerText: 'Швидкість роз\'яснення'});
+            const tabSpeedDone = this.createElement('div',
+                {
+                    id: 'tabSpeedDone', className: 'tab tabHover', innerText: 'Швидкість виконання'
+                }
+            );
+            const tabSpeedExplained = this.createElement('div',
+                {
+                    id: 'tabSpeedExplained',className: 'tab', innerText: 'Швидкість роз\'яснення'
+                }
+            );
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper'}, tabSpeedDone, tabSpeedExplained);
             CONTAINER.appendChild(tabsWrapper);
             const tabs = document.querySelectorAll('.tab');
