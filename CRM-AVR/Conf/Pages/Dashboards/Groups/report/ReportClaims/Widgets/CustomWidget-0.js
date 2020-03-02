@@ -1,9 +1,9 @@
-(function () {
-  return {
-    title: [],
-    hint: '',
-    formatTitle: function() {},
-    customConfig:
+(function() {
+    return {
+        title: [],
+        hint: '',
+        formatTitle: function() {},
+        customConfig:
                 `
                 <style>
                 
@@ -144,100 +144,79 @@ thead tr[class^='ng-star']:last-child th {
                 
                 
                 `
-    ,
-    sub1: {},
-    init: function() {
-        this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this);
-        
-        /* document.getElementById('Tabl1').style.display = 'none';
+        ,
+        sub1: {},
+        init: function() {
+            this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this);
+            /* document.getElementById('Tabl1').style.display = 'none';
          document.getElementById('Tabl1').style.height = "calc(100% - 100px)";
 */
-        
-        let executeQuery = {
-            queryCode: 'Q1',
-            limit: -1,
-            parameterValues: []
-        };
-        this.queryExecutor(executeQuery, this.load, this);
-    },
-    
-    executeSql:function(message) {
-       
-          //  this.IsReportCalc = message.package.value.values[3].value;
-    },
-    
-    load: function(data) {
-        
+            let executeQuery = {
+                queryCode: 'Q1',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        executeSql:function(message) {
+            //  this.IsReportCalc = message.package.value.values[3].value;
+        },
+        load: function(data) {
             //  var y2 = document.querySelectorAll('#DataGridWidget-0 > smart-bi-data-grid-widget > smart-bi-widget-container > dx-data-grid > div > div.dx-datagrid-header-panel > div > div > div.dx-toolbar-after > div:nth-child(1) > div > div');
-            //  y2[0].style.display = 'none';            
-   
-                            
-                            // // var sp2 = document.querySelectorAll('.search-list-wrapper')
-                            // // var t = Array.from(sp2[1].children)
-                            // // t.map(el => el.style.display="none");
-                            
-                            // var t = document.querySelector('.main-block')
-                            // t.style.display = "none";
-                            
-                            // var r = document.querySelector('.mat-input-element');
-                            // // r.placeholder = "";
-                            // r.value = "Усі організації";
-                            
-                            // var y = document.querySelectorAll('.main-block');
-                            // var y2 = y[0].nextElementSibling;
-                            // var event = new Event("click");
-                            // y2.dispatchEvent(event);
-   
-        
-          var btn_calc = document.getElementById("btn1");
-        btn_calc.addEventListener("click", function() {
-                 var message = {
-                                    name: 'LoadData',
-                                    value: 1
-                                };
-            this.messageService.publish(message);
-        }.bind(this));
-          
-          var btn_calc2 = document.getElementById("btn2");
-          btn_calc2.addEventListener("click", function() {
-            
-            //     NameExcel =  'ExportToExcel';  
-            //     var message = {
-            //                         name: NameExcel,
-            //                         value: 1
-            //                     };
-            // this.messageService.publish(message);
-            var y = document.querySelectorAll('#DataGridWidget-0 > smart-bi-data-grid-widget > smart-bi-widget-container > dx-data-grid > div > div.dx-datagrid-header-panel > div > div > div.dx-toolbar-after > div:nth-child(1) > div > div');
-                            var y2 = y[0];
-                            var event = new Event("click");
-                            y2.dispatchEvent(event);
-          }.bind(this));
-          
-          
-        //   document.getElementById('btn1').disabled = false;  
+            //  y2[0].style.display = 'none';
+            // // var sp2 = document.querySelectorAll('.search-list-wrapper')
+            // // var t = Array.from(sp2[1].children)
+            // // t.map(el => el.style.display="none");
+            // var t = document.querySelector('.main-block')
+            // t.style.display = "none";
+            // var r = document.querySelector('.mat-input-element');
+            // // r.placeholder = "";
+            // r.value = "Усі організації";
+            // var y = document.querySelectorAll('.main-block');
+            // var y2 = y[0].nextElementSibling;
+            // var event = new Event("click");
+            // y2.dispatchEvent(event);
+            let btn_calc = document.getElementById('btn1');
+            btn_calc.addEventListener('click', function() {
+                let message = {
+                    name: 'LoadData',
+                    value: 1
+                };
+                this.messageService.publish(message);
+            }.bind(this));
+            let btn_calc2 = document.getElementById('btn2');
+            btn_calc2.addEventListener('click', function() {
+                //     NameExcel =  'ExportToExcel';
+                //     var message = {
+                //                         name: NameExcel,
+                //                         value: 1
+                //                     };
+                // this.messageService.publish(message);
+                let y = document.querySelectorAll('#DataGridWidget-0 > smart-bi-data-grid-widget > smart-bi-widget-container > dx-data-grid > div > div.dx-datagrid-header-panel > div > div > div.dx-toolbar-after > div:nth-child(1) > div > div');
+                let y2 = y[0];
+                let event = new Event('click');
+                y2.dispatchEvent(event);
+            }.bind(this));
+            //   document.getElementById('btn1').disabled = false;
     	   //document.getElementById('btn1').classList.remove("disabled_btn");
     	   //document.getElementById('btn2').disabled = true;
     	   //document.getElementById('btn2').classList.add("disabled_btn");
-    	   
-        /*
+            /*
              if (document.getElementById('calendar_kast_component').value == "") {
     	    document.getElementById('btn1').disabled = true;
     	    document.getElementById('btn1').classList.add("disabled_btn");
     	    document.getElementById('btn2').disabled = true;
     	    document.getElementById('btn2').classList.add("disabled_btn");
     	} else {
-    	   document.getElementById('btn1').disabled = false;  
+    	   document.getElementById('btn1').disabled = false;
     	   document.getElementById('btn1').classList.remove("disabled_btn");
     	   document.getElementById('btn2').disabled = true;
     	   document.getElementById('btn2').classList.add("disabled_btn");
     	};
-                    
-         */           
-    
-    },
-    
- destroy: function() {
-        this.sub1.unsubscribe();
-    }    
-};
+         */
+        },
+        destroy: function() {
+            this.sub1.unsubscribe();
+        }
+    };
 }());

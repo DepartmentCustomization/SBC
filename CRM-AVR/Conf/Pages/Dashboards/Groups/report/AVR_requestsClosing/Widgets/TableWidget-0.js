@@ -1,8 +1,8 @@
-(function () {
-  return {
-    limit: 100,
-    formatTitle: function() {
-        return `
+(function() {
+    return {
+        limit: 100,
+        formatTitle: function() {
+            return `
             <style>
                 thead tr[class^='ng-star']:last-child th {
                     background: rgb(79,129,189) !important;         
@@ -197,222 +197,190 @@
             
             
             
-        ` ;
-    },
-    table: {
-        header: [
-            {
-            title: '№/ №', 
-            columnCode: 'Num'
-            },
-            {
-            title: 'Підрозділ',
-            columnCode: 'organizations_name'
-            },
-            {
-            title: 'Заявка №',
-            columnCode: 'Claim_Number'
-            },
-            {
-            title: 'Адреса',
-            columnCode: 'places_name'
-            },{
-            title: 'Дата реєстрації',
-            columnCode: 'Created_at'
-            },{
-            title: 'Дата закриття',
-            columnCode: 'Fact_finish_at'
-            },{
-            title: 'Тип заявки',
-            columnCode: 'types_name'
-            }
+        `;
+        },
+        table: {
+            header: [
+                {
+                    title: '№/ №',
+                    columnCode: 'Num'
+                },
+                {
+                    title: 'Підрозділ',
+                    columnCode: 'organizations_name'
+                },
+                {
+                    title: 'Заявка №',
+                    columnCode: 'Claim_Number'
+                },
+                {
+                    title: 'Адреса',
+                    columnCode: 'places_name'
+                },{
+                    title: 'Дата реєстрації',
+                    columnCode: 'Created_at'
+                },{
+                    title: 'Дата закриття',
+                    columnCode: 'Fact_finish_at'
+                },{
+                    title: 'Тип заявки',
+                    columnCode: 'types_name'
+                }
             ],
-        columns: [{
+            columns: [{
                 columnCode: 'Claim_Number',
                 visible: true,
-                onCellClick(cell, column, row, value, rowIndex, tableMethods){
-                    tableMethods.goToSection('Claims/edit/' + row.values[7] );
+                onCellClick(cell, column, row, value, rowIndex, tableMethods) {
+                    tableMethods.goToSection('Claims/edit/' + row.values[7]);
                 },
-                format(cell, column, row, value, rowIndex){
+                format(cell, column, row, value, rowIndex) {
                     cell.setStyle('cursor:pointer; text-decoration: underline; color:#1565c0;');
-                    return '<b title="перейти до заявки">' + value+'</b>';
+                    return '<b title="перейти до заявки">' + value + '</b>';
                 }
             },
             {
                 columnCode: 'claims_id',
                 visible: false
             }
-        ]
-    },
-    par1: new Date(2018, 0, 1),
-    par2: new Date(),
-    par3: 'АЦ "Київводоканал"',
-    par4: 19,
-    param_btm_load: 0,
-    
-    par5: new Date(2018, 0, 1),
-    par6: new Date(),
-    par7: 19,
-    
-    
-    sub1: {},
-    init:function() {
-        this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this);
-        
-        let executeQuery = {
-            queryCode: 'Table_Comparative_Reference',
-            parameterValues: [{key: "@dateStart", value: new Date(2018, 0, 1)},{key: "@dateFinish", value: new Date() },{key: "@OrgId", value:28}]
-        };
-        
-        this.queryExecutor(executeQuery, this.load, this);
-    },
-    executeSql:function(message) {debugger
-        // debugger;
-        function checkDateFrom(val) {
-            return val ? val.dateFrom : null;
-        }
-        function checkDateTo(val) {
-            return val ? val.dateTo : null;
-        }
-        function checkValue(val) {
-            return val ? val.value : null;
-        }
-        function checkValue2(val) {
-            return val ? val.viewValue : null;
-        }
-
-        function checkDateText(val) {
-            var today = val;
-            var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
-            var yyyy = today.getFullYear();
-            var hh = today.getHours();
-            var mi = today.getMinutes();
-            var ss = today.getSeconds();
-            
-            if(dd<10) {
-            dd='0'+dd
+            ]
+        },
+        par1: new Date(2018, 0, 1),
+        par2: new Date(),
+        par3: 'АЦ "Київводоканал"',
+        par4: 19,
+        param_btm_load: 0,
+        par5: new Date(2018, 0, 1),
+        par6: new Date(),
+        par7: 19,
+        sub1: {},
+        init:function() {
+            this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this);
+            let executeQuery = {
+                queryCode: 'Table_Comparative_Reference',
+                parameterValues: [{key: '@dateStart', value: new Date(2018, 0, 1)},{key: '@dateFinish', value: new Date() },{key: '@OrgId', value:28}]
+            };
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        executeSql:function(message) {
+            debugger
+            // debugger;
+            function checkDateFrom(val) {
+                return val ? val.dateFrom : null;
             }
-            
-            if(mm<10) {
-            mm='0'+mm
+            function checkDateTo(val) {
+                return val ? val.dateTo : null;
             }
-            
-            if(hh<10) {
-            hh='0'+hh
+            function checkValue(val) {
+                return val ? val.value : null;
             }
-            
-            if(mi<10) {
-            mi='0'+mi
+            function checkValue2(val) {
+                return val ? val.viewValue : null;
             }
-            
-            if(ss<10) {
-            ss='0'+ss
-            }   
-                        
-            today = yyyy+'-'+mm+'-'+dd;
-            return val ? today : null;
-        }
-        
-        this.par1 = checkDateText(message.package.value.values[0].value.dateFrom);
-        this.par2 = checkDateText(message.package.value.values[0].value.dateTo);
-        this.par3 = checkValue2(message.package.value.values[1].value);
-        this.par4 = checkValue(message.package.value.values[1].value); 
-        
-        document.getElementById("dateValue1").innerText = this.par1;
-        document.getElementById("dateValue2").innerText = this.par2;
-        document.getElementById("dateValue3").innerText = this.par3;
-        document.getElementById("dateValue3_2").innerText = this.par4;
-        
-        this.par5 = checkDateFrom(message.package.value.values[0].value);
-        this.par6 = checkDateTo(message.package.value.values[0].value);
-        this.par7 = checkValue(message.package.value.values[1].value); 
-        
-        
-        checkValue(message.package.value.values[0].value)
-        let executeQuery = {
-            queryCode: 'Table_Comparative_Reference',
-            parameterValues: [{key: "@dateStart", value: checkDateFrom(message.package.value.values[0].value) },{key: "@dateFinish", value: checkDateTo(message.package.value.values[0].value)},{key: "@OrgId", value:checkValue(message.package.value.values[1].value) }]
-        };
-        this.queryExecutor(executeQuery, this.load, this);   
-    },
-    load2:function(data) {
-            
-    },
-    load:function(data) {debugger
-   
-        //debugger;
-        if (data && data.rows.length > 0) {
-        document.getElementById("dateValue4").value = data.rows[0].values[1].substring(4,17)+ '@Valentin.happy';
-        }
-         var modal = document.getElementById('myModal1');
-        
-        // Get the button that opens the modal
-        var btn = document.getElementById("infoBtn1");
-        
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close1")[0];
-        
-        // When the user clicks on the button, open the modal 
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-        
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-        
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+            function checkDateText(val) {
+                let today = val;
+                let dd = today.getDate();
+                let mm = today.getMonth() + 1; //January is 0!
+                let yyyy = today.getFullYear();
+                let hh = today.getHours();
+                let mi = today.getMinutes();
+                let ss = today.getSeconds();
+                if(dd < 10) {
+                    dd = '0' + dd
+                }
+                if(mm < 10) {
+                    mm = '0' + mm
+                }
+                if(hh < 10) {
+                    hh = '0' + hh
+                }
+                if(mi < 10) {
+                    mi = '0' + mi
+                }
+                if(ss < 10) {
+                    ss = '0' + ss
+                }
+                today = yyyy + '-' + mm + '-' + dd;
+                return val ? today : null;
             }
-        }
-        
-        if (this.param_btm_load == 0) {
-
-            btn_save_data.addEventListener("click", function() {
-                
-              if (document.getElementById("dateValue4").value=="") {
-                       alert( 'Введіть ел. пошту!' );
-                } else {
-                // debugger;
-                    let executeQuery = {
-                        queryCode: 'Table_Comparative_Reference_ExcelSend',
-                        limit: -1,
-                        parameterValues: [
-                            {key: '@date_Start', value: document.getElementById('dateValue1').innerText},
-                            {key: '@date_Finish', value: document.getElementById('dateValue2').innerText},
-                            {key: '@OrgId', value: Number(document.getElementById('dateValue3_2').innerText)},
-                            {key: '@email', value: document.getElementById("dateValue4").value}
-                        ]
-                        
-                    };
-                    this.queryExecutor(executeQuery, this.load2, this);
-                
-                    modal.style.display = "none";
-    
-                    func = function() {
-                        let executeQuery2 = {
-                            queryCode: 'Table_Comparative_Reference',
-                            parameterValues: [{key: "@dateStart", value: this.par5},{key: "@dateFinish", value: this.par6},{key: "@OrgId", value: this.par7}]
+            this.par1 = checkDateText(message.package.value.values[0].value.dateFrom);
+            this.par2 = checkDateText(message.package.value.values[0].value.dateTo);
+            this.par3 = checkValue2(message.package.value.values[1].value);
+            this.par4 = checkValue(message.package.value.values[1].value);
+            document.getElementById('dateValue1').innerText = this.par1;
+            document.getElementById('dateValue2').innerText = this.par2;
+            document.getElementById('dateValue3').innerText = this.par3;
+            document.getElementById('dateValue3_2').innerText = this.par4;
+            this.par5 = checkDateFrom(message.package.value.values[0].value);
+            this.par6 = checkDateTo(message.package.value.values[0].value);
+            this.par7 = checkValue(message.package.value.values[1].value);
+            checkValue(message.package.value.values[0].value)
+            let executeQuery = {
+                queryCode: 'Table_Comparative_Reference',
+                parameterValues: [{key: '@dateStart', value: checkDateFrom(message.package.value.values[0].value) },{key: '@dateFinish', value: checkDateTo(message.package.value.values[0].value)},{key: '@OrgId', value:checkValue(message.package.value.values[1].value) }]
+            };
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        load2:function(data) {
+        },
+        load:function(data) {
+            debugger
+            //debugger;
+            if (data && data.rows.length > 0) {
+                document.getElementById('dateValue4').value = data.rows[0].values[1].substring(4,17) + '@Valentin.happy';
+            }
+            let modal = document.getElementById('myModal1');
+            // Get the button that opens the modal
+            let btn = document.getElementById('infoBtn1');
+            // Get the <span> element that closes the modal
+            let span = document.getElementsByClassName('close1')[0];
+            // When the user clicks on the button, open the modal
+            btn.onclick = function() {
+                modal.style.display = 'block';
+            }
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = 'none';
+            }
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+            if (this.param_btm_load == 0) {
+                btn_save_data.addEventListener('click', function() {
+                    if (document.getElementById('dateValue4').value == '') {
+                        alert('Введіть ел. пошту!');
+                    } else {
+                        // debugger;
+                        let executeQuery = {
+                            queryCode: 'Table_Comparative_Reference_ExcelSend',
+                            limit: -1,
+                            parameterValues: [
+                                {key: '@date_Start', value: document.getElementById('dateValue1').innerText},
+                                {key: '@date_Finish', value: document.getElementById('dateValue2').innerText},
+                                {key: '@OrgId', value: Number(document.getElementById('dateValue3_2').innerText)},
+                                {key: '@email', value: document.getElementById('dateValue4').value}
+                            ]
                         };
-                        this.queryExecutor(executeQuery2, this.load, this);     
-                    }.bind(this);
-                
-                    setTimeout(func, 1000);
-                    alert( 'Дані відправлено на ел. пошту "'+document.getElementById("dateValue4").value+'"' );
-                };
-         
-            }.bind(this), false);
-            this.param_btm_load = 1;    
- 
-        };  
-        
-    },
-    destroy: function() {
-        this.sub1.unsubscribe();
-    }
-};
+                        this.queryExecutor(executeQuery, this.load2, this);
+                        modal.style.display = 'none';
+                        func = function() {
+                            let executeQuery2 = {
+                                queryCode: 'Table_Comparative_Reference',
+                                parameterValues: [{key: '@dateStart', value: this.par5},{key: '@dateFinish', value: this.par6},{key: '@OrgId', value: this.par7}]
+                            };
+                            this.queryExecutor(executeQuery2, this.load, this);
+                        }.bind(this);
+                        setTimeout(func, 1000);
+                        alert('Дані відправлено на ел. пошту "' + document.getElementById('dateValue4').value + '"');
+                    }
+                }.bind(this), false);
+                this.param_btm_load = 1;
+            }
+        },
+        destroy: function() {
+            this.sub1.unsubscribe();
+        }
+    };
 }());

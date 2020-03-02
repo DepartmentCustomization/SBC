@@ -1,12 +1,12 @@
-(function () {
-  return {
-    title: [],
-    hint:  '',
-    subscriptions: [],
-    formatTitle: function() {},
-    load_page: 0,
-    param_hiden2: 0,
-    customConfig:
+(function() {
+    return {
+        title: [],
+        hint:  '',
+        subscriptions: [],
+        formatTitle: function() {},
+        load_page: 0,
+        param_hiden2: 0,
+        customConfig:
                 `
                 <style>
                     * {
@@ -1121,96 +1121,79 @@
             </div>  
 
                 `
-    ,
-    init: function() {
-        
-        
-        var sub1 = this.messageService.subscribe('showUserData', this.showUserData, this);
-          this.subscriptions.push(sub1);
-          
-        let executeQuery = {
-            queryCode: 'accessRights_ListMenu',
-            limit: -1,
-            parameterValues: [{key: '@UserId', value: ''}]
-        };
-        this.queryExecutor(executeQuery, this.load, this);
-    },
-    
-    showUserData: function(message){
-    //   debugger;
-    document.getElementById('UserId_Value').innerText = message.package.type;
-    
-       let executeQuery = {
-            queryCode: 'accessRights_ListMenu',
-            limit: -1,
-            parameterValues: [{key: '@UserId', value: message.package.type}]
-        };
-        this.queryExecutor(executeQuery, this.load, this);
-    },
-    load: function(data) {
-        
-       if (this.param_hiden2 == 0){ 
-        //  document.getElementById('main_menuUser').classList.add("hid_elem");
-         document.getElementById('main_menuUser_load').classList.remove("hid_elem");
-         document.getElementById('btn_save_data').disabled = "true";
-         this.param_hiden2 = 1
-        }
-        else
-        {
-         document.getElementById('main_menuUser_load').classList.add("hid_elem");
-         document.getElementById('main_menuUser').classList.remove("hid_elem");  
-         document.getElementById('btn_save_data').disabled = "";
-        };
-        
-
-         
-        console.log('LIST-MENU - ', data);
-    // debugger;
-
-
-    if (this.load_page == 0){
-        var dropdown = document.getElementsByClassName("dropdown-btn");
-        var i;
-        for (i = 0; i < dropdown.length; i++) {
-          dropdown[i].addEventListener("click", function() {
-            this.classList.toggle("active2");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-              dropdownContent.style.display = "none";
-            } else {
-              dropdownContent.style.display = "block";
-            }
-          });
-        };
-        this.load_page = 1;
-    };
-    
-        if (data) {
-            // debugger;
-            for (var i2=0;i2<data.rows.length;i2++){
-                //   debugger;
-            // document.getElementsByClassName('menu_checkbox')
-                if (document.getElementById('menu_checkbox_'+data.rows[i2].values[0]))
-                {
-                    //   debugger;
-                    if (data.rows[i2].values[3] == 1){
-                    document.getElementById('menu_checkbox_'+data.rows[i2].values[0]).checked = "true";
-                    } else {
-                         document.getElementById('menu_checkbox_'+data.rows[i2].values[0]).checked = "";
-                    };
-                };
-                    
+        ,
+        init: function() {
+            let sub1 = this.messageService.subscribe('showUserData', this.showUserData, this);
+            this.subscriptions.push(sub1);
+            let executeQuery = {
+                queryCode: 'accessRights_ListMenu',
+                limit: -1,
+                parameterValues: [{key: '@UserId', value: ''}]
             };
-        };
-
-    },
-    unsubscribeFromMessages(){
-        for(var i =0; i < this.subscriptions.length; i++) {
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        showUserData: function(message) {
+            //   debugger;
+            document.getElementById('UserId_Value').innerText = message.package.type;
+            let executeQuery = {
+                queryCode: 'accessRights_ListMenu',
+                limit: -1,
+                parameterValues: [{key: '@UserId', value: message.package.type}]
+            };
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        load: function(data) {
+            if (this.param_hiden2 == 0) {
+                //  document.getElementById('main_menuUser').classList.add("hid_elem");
+                document.getElementById('main_menuUser_load').classList.remove('hid_elem');
+                document.getElementById('btn_save_data').disabled = 'true';
+                this.param_hiden2 = 1
+            } else {
+                document.getElementById('main_menuUser_load').classList.add('hid_elem');
+                document.getElementById('main_menuUser').classList.remove('hid_elem');
+                document.getElementById('btn_save_data').disabled = '';
+            }
+            console.log('LIST-MENU - ', data);
+            // debugger;
+            if (this.load_page == 0) {
+                let dropdown = document.getElementsByClassName('dropdown-btn');
+                let i;
+                for (i = 0; i < dropdown.length; i++) {
+                    dropdown[i].addEventListener('click', function() {
+                        this.classList.toggle('active2');
+                        let dropdownContent = this.nextElementSibling;
+                        if (dropdownContent.style.display === 'block') {
+                            dropdownContent.style.display = 'none';
+                        } else {
+                            dropdownContent.style.display = 'block';
+                        }
+                    });
+                }
+                this.load_page = 1;
+            }
+            if (data) {
+            // debugger;
+                for (let i2 = 0; i2 < data.rows.length; i2++) {
+                //   debugger;
+                    // document.getElementsByClassName('menu_checkbox')
+                    if (document.getElementById('menu_checkbox_' + data.rows[i2].values[0])) {
+                    //   debugger;
+                        if (data.rows[i2].values[3] == 1) {
+                            document.getElementById('menu_checkbox_' + data.rows[i2].values[0]).checked = 'true';
+                        } else {
+                            document.getElementById('menu_checkbox_' + data.rows[i2].values[0]).checked = '';
+                        }
+                    }
+                }
+            }
+        },
+        unsubscribeFromMessages() {
+            for(let i = 0; i < this.subscriptions.length; i++) {
                 this.subscriptions[i].unsubscribe();
+            }
+        },
+        destroy() {
+            this.unsubscribeFromMessages();
         }
-    },
-    destroy(){
-        this.unsubscribeFromMessages();
-    }
-};
+    };
 }());

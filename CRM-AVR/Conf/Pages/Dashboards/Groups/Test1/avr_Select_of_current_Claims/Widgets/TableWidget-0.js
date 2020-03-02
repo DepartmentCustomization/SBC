@@ -1,9 +1,9 @@
-(function () {
-  return {
-   // queryCode: 'report_Select_of_current_Claims',
-   // limit: 100,
-   formatTitle: function() {
-        return `
+(function() {
+    return {
+        // queryCode: 'report_Select_of_current_Claims',
+        // limit: 100,
+        formatTitle: function() {
+            return `
             <style>
                 thead tr[class^='ng-star']:last-child th {
                     background: rgb(79,129,189) !important;         
@@ -20,11 +20,11 @@
         
             <div style="display:flex; justify-content:center; align-items:center; color: #555; text-shadow: 1px 1px 2px #9E9E9E; height: 35px; font-weight: 700; font-size:1.2em; padding:2px;">
                 <span style="">Вибірка поточних заявок</span>
-            </div>` 
-        ;
-    },
-   table: {
-        header:[{
+            </div>`
+            ;
+        },
+        table: {
+            header:[{
                 title: 'Виконавець',
                 columnCode: 'organization_name'
             },{
@@ -63,70 +63,60 @@
             },{
                 title: 'Роботи',
                 columnCode: 'action_name'
-            },
-        ],
-        columns: [{
-            columnCode: 'Claim_class_ID',
-            visible: false
+            }
+            ],
+            columns: [{
+                columnCode: 'Claim_class_ID',
+                visible: false
             }]
-    },
-  
-    init: function(){
-        this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this);
-      
-        
-    },
-    executeSql: function(message){
-        debugger
-        console.log(message);
-    
-        function checkDateFrom(val){
-            return val ? val.dateFrom : null;
-        };
-        function checkDateTo(val){
-            return val ? val.dateTo : null;
-        };
-        function checkClasses(val){
-            let valuesList = [];
+        },
+        init: function() {
+            this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this);
+        },
+        executeSql: function(message) {
+            debugger
+            console.log(message);
+            function checkDateFrom(val) {
+                return val ? val.dateFrom : null;
+            }
+            function checkDateTo(val) {
+                return val ? val.dateTo : null;
+            }
+            function checkClasses(val) {
+                let valuesList = [];
     	    if (val.length > 0) {
-    	        for (var i=0; i<val.length; i++) {
+    	        for (let i = 0; i < val.length; i++) {
     	            valuesList.push(val[i].value);
     	        }
-    	    }    
-    	    console.log("selected values:"+ valuesList);
-    	    return  valuesList.length > 0 ? valuesList : [""];
-        };
-        
-        let executeQuery = {
-            queryCode: 'report_Select_of_current_Claims',
-            parameterValues: [
-                            {
-                                key:'@date_from',
-                                value: checkDateFrom(message.package.value.values[0].value)
-                            },
-                            {
-                                key: '@date_to' ,
-                                value: checkDateTo(message.package.value.values[0].value)
-                            }
-            ],
-            filterColumns: [{
-                            key: 'Claim_class_ID',
-                            value: {
-                                operation: 6,
-                                not: false,
-                                values: checkClasses(message.package.value.values[1].value)
-                            }
+    	    }
+    	    console.log('selected values:' + valuesList);
+    	    return valuesList.length > 0 ? valuesList : [''];
+            }
+            let executeQuery = {
+                queryCode: 'report_Select_of_current_Claims',
+                parameterValues: [
+                    {
+                        key:'@date_from',
+                        value: checkDateFrom(message.package.value.values[0].value)
+                    },
+                    {
+                        key: '@date_to' ,
+                        value: checkDateTo(message.package.value.values[0].value)
+                    }
+                ],
+                filterColumns: [{
+                    key: 'Claim_class_ID',
+                    value: {
+                        operation: 6,
+                        not: false,
+                        values: checkClasses(message.package.value.values[1].value)
+                    }
                 }
-            ]
-            
+                ]
+            }
+            this.queryExecutor(executeQuery, this.load, this)
+        },
+        load: function() {
         }
-        
-        
-        this.queryExecutor(executeQuery, this.load, this)
-    },
-    load: function(){
-        
-    }
-
-};
+    };
 }());

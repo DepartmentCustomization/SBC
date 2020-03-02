@@ -1,12 +1,12 @@
-(function () {
-  return {
-    title: [],
-    hint:  '',
-    global_PIB:  '%',
-    global_Phone:  '%',
-    global_Adress:  '%',
-    formatTitle: function() {},
-    customConfig:
+(function() {
+    return {
+        title: [],
+        hint:  '',
+        global_PIB:  '%',
+        global_Phone:  '%',
+        global_Adress:  '%',
+        formatTitle: function() {},
+        customConfig:
                 `
            
            <style>
@@ -366,183 +366,167 @@
                     </div>   
                     
                 `
-
-    ,
-    init: function() {
-         let executeQuery = {
-            queryCode: 'search_contact',
-            limit: 1,
-            parameterValues: [{key: '@PIB',
-                               value: this.global_PIB
-                               },{
-                               key: '@Phone',
-                               value: this.global_Phone
-                                }
+        ,
+        init: function() {
+            let executeQuery = {
+                queryCode: 'search_contact',
+                limit: 1,
+                parameterValues: [{key: '@PIB',
+                    value: this.global_PIB
+                },{
+                    key: '@Phone',
+                    value: this.global_Phone
+                }
                 ]
-        };
-        this.queryExecutor(executeQuery, this.load, this);
-    
-    
-         
-    
-    },
-    
-    load: function(data) {
-      
-        var params = window
-            .location
-            .search
-            .replace('?','')
-            .split('&')
-            .reduce(
-                function(p,e){
-                    var a = e.split('=');
-                    p[ decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
-                    return p;
-                },
-                {}
-            );
-            
-        
-              if (params[""] == 'undefined')
-     {
-        if (document.getElementById('phone_value3').value == "") {this.global_Adress = "%"} else {this.global_Adress = document.getElementById('phone_value3').value}; 
-     }
-     else
-     {
-      document.getElementById('phone_value3').value = params["par3"];
-      document.getElementById('phone_value4').value = params["par4"];
-      if (document.getElementById('phone_value3').value == "") {this.global_Adress = "%"} else {this.global_Adress = document.getElementById('phone_value3').value}; 
-         
-     };
-     
-   
-        if (params[""] == 'undefined')
-     {
-         if (document.getElementById('phone_value').value == "") {this.global_PIB = "%"} else {this.global_PIB = document.getElementById('phone_value').value};
-         if (document.getElementById('phone_value2').value == "") {this.global_Phone = "%"} else {this.global_Phone = document.getElementById('phone_value2').value};
-     }
-     else
-     {
-      document.getElementById('phone_value').value = params["par1"];
-      document.getElementById('phone_value2').value = params["par2"];
-       if (document.getElementById('phone_value').value == "") {this.global_PIB = "%"} else {this.global_PIB = document.getElementById('phone_value').value};
-       if (document.getElementById('phone_value2').value == "") {this.global_Phone = "%"} else {this.global_Phone = document.getElementById('phone_value2').value};
-         
-     };  
-      
-      
-      //console.log(data);
-      
-        let myBtn = document.getElementById('btn');
-        myBtn.addEventListener( "click" , () => { this.load_search_data(data, this) } );
-
-        let myBtn2 = document.getElementById('btn2');
-        myBtn2.addEventListener( "click" , () => { this.load_search_data(data, this) } );
-        
-        let myBtn3 = document.getElementById('btn3');
-        myBtn3.addEventListener( "click" , () => { this.load_search_data(data, this) } );
-        
-        let myBtn4 = document.getElementById('btn4');
-        myBtn4.addEventListener( "click" , () => { this.load_search_data(data, this) } );
-
-       
-       
-       document.getElementById('search_block_widget').classList.add("overfl");
-       document.querySelector('smart-bi-custom-widget').classList.add("overfl");
-       
-       
-       this.load_search_data(data, this)
-     
-        let myBtn5 = document.getElementById('btn5');
-       myBtn5.addEventListener( "click" , () => {
-            
-            console.log(document.getElementById('place_name').innerText, document.getElementById('place_id').innerText);
-            
-                let r = [ { code: "Description", value: document.getElementById('phone_value4').value },  { code: "places_id", value: document.getElementById('place_name').innerText , keyValue: Number(document.getElementById('place_id').innerText) }];
+            };
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        load: function(data) {
+            let params = window
+                .location
+                .search
+                .replace('?','')
+                .split('&')
+                .reduce(
+                    function(p,e) {
+                        let a = e.split('=');
+                        p[ decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                        return p;
+                    },
+                    {}
+                );
+            if (params[''] == 'undefined') {
+                if (document.getElementById('phone_value3').value == '') {
+                    this.global_Adress = '%'
+                } else {
+                    this.global_Adress = document.getElementById('phone_value3').value
+                }
+            } else {
+                document.getElementById('phone_value3').value = params['par3'];
+                document.getElementById('phone_value4').value = params['par4'];
+                if (document.getElementById('phone_value3').value == '') {
+                    this.global_Adress = '%'
+                } else {
+                    this.global_Adress = document.getElementById('phone_value3').value
+                }
+            }
+            if (params[''] == 'undefined') {
+                if (document.getElementById('phone_value').value == '') {
+                    this.global_PIB = '%'
+                } else {
+                    this.global_PIB = document.getElementById('phone_value').value
+                }
+                if (document.getElementById('phone_value2').value == '') {
+                    this.global_Phone = '%'
+                } else {
+                    this.global_Phone = document.getElementById('phone_value2').value
+                }
+            } else {
+                document.getElementById('phone_value').value = params['par1'];
+                document.getElementById('phone_value2').value = params['par2'];
+                if (document.getElementById('phone_value').value == '') {
+                    this.global_PIB = '%'
+                } else {
+                    this.global_PIB = document.getElementById('phone_value').value
+                }
+                if (document.getElementById('phone_value2').value == '') {
+                    this.global_Phone = '%'
+                } else {
+                    this.global_Phone = document.getElementById('phone_value2').value
+                }
+            }
+            //console.log(data);
+            let myBtn = document.getElementById('btn');
+            myBtn.addEventListener('click' , () => {
+                this.load_search_data(data, this)
+            });
+            let myBtn2 = document.getElementById('btn2');
+            myBtn2.addEventListener('click' , () => {
+                this.load_search_data(data, this)
+            });
+            let myBtn3 = document.getElementById('btn3');
+            myBtn3.addEventListener('click' , () => {
+                this.load_search_data(data, this)
+            });
+            let myBtn4 = document.getElementById('btn4');
+            myBtn4.addEventListener('click' , () => {
+                this.load_search_data(data, this)
+            });
+            document.getElementById('search_block_widget').classList.add('overfl');
+            document.querySelector('smart-bi-custom-widget').classList.add('overfl');
+            this.load_search_data(data, this)
+            let myBtn5 = document.getElementById('btn5');
+            myBtn5.addEventListener('click' , () => {
+                console.log(document.getElementById('place_name').innerText, document.getElementById('place_id').innerText);
+                let r = [ { code: 'Description', value: document.getElementById('phone_value4').value }, { code: 'places_id', value: document.getElementById('place_name').innerText , keyValue: Number(document.getElementById('place_id').innerText) }];
                 let r1 = JSON.stringify(r);
                 let r2 = encodeURI(r1);
-                     console.log(r2);
-                     //row.values[0]
-         
-                   window.open(location.origin + localStorage.getItem('VirtualPath') + "/sections/Claims/add?DefaultValues="+r2, "_self");
+                console.log(r2);
+                //row.values[0]
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Claims/add?DefaultValues=' + r2, '_self');
             });
-
-            // );                                                       
-    },
-
-
- load_search_data: function() {
-     
-
-
-   //  debugger;
-     
-
-         if (document.getElementById('phone_value').value == "") {this.global_PIB = "%"} else {this.global_PIB = document.getElementById('phone_value').value};
-         if (document.getElementById('phone_value2').value == "") {this.global_Phone = "%"} else {this.global_Phone = document.getElementById('phone_value2').value};
-
-
-//?par1=sdf&par2=dsf&par3=fdsre&par4=dsfsd
-
-       
-         let executeQuery = {
-            queryCode: 'search_contact',
-            limit: -1,
-            parameterValues: [{key: '@PIB',
-                               value: this.global_PIB
-                               },{
-                               key: '@Phone',
-                               value: this.global_Phone
-                                }
+            // );
+        },
+        load_search_data: function() {
+            //  debugger;
+            if (document.getElementById('phone_value').value == '') {
+                this.global_PIB = '%'
+            } else {
+                this.global_PIB = document.getElementById('phone_value').value
+            }
+            if (document.getElementById('phone_value2').value == '') {
+                this.global_Phone = '%'
+            } else {
+                this.global_Phone = document.getElementById('phone_value2').value
+            }
+            //?par1=sdf&par2=dsf&par3=fdsre&par4=dsfsd
+            let executeQuery = {
+                queryCode: 'search_contact',
+                limit: -1,
+                parameterValues: [{key: '@PIB',
+                    value: this.global_PIB
+                },{
+                    key: '@Phone',
+                    value: this.global_Phone
+                }
                 ]
-        };
-        this.queryExecutor(executeQuery, this.search_person_data, this);
-        
-        
-      
-
-        if (document.getElementById('phone_value3').value == "") {this.global_Adress = "%"} else {this.global_Adress = document.getElementById('phone_value3').value}; 
-
-      
-        let executeQuery2 = {
-            queryCode: 'search_adress',
-            limit: -1,
-            parameterValues: [{key: '@Adress',
-                               value: this.global_Adress
-                               }]
-        };
-        this.queryExecutor(executeQuery2, this.search_place_data, this);
-        
-    },
-
-
-  search_person_data: function(data, context) {
-               if (document.getElementsByClassName('group_variant')){
-            var paras = document.getElementsByClassName('group_variant');
-            while(paras[0]) {
-                paras[0].parentNode.removeChild(paras[0]);
             };
-        };
-      
-         document.getElementById('person_id').innerText = "0";
-         
-                if (data) { 
-                    
-                                                let message = {
-                                    name: 'showUserData',
-                                    package: {
-                                        type: Number(document.getElementById('person_id').innerText)
-                                    }
-                                };
-                            this.messageService.publish(message);
-                    
-            for (var i=0;i<data.rows.length;i++){
-              
-             if (data.rows[i].values[0] == 0) {   
-                var iDiv = document.getElementById('person_table_id');
-                var iDiv2 = document.createElement('li');
-                    iDiv2.style = `
+            this.queryExecutor(executeQuery, this.search_person_data, this);
+            if (document.getElementById('phone_value3').value == '') {
+                this.global_Adress = '%'
+            } else {
+                this.global_Adress = document.getElementById('phone_value3').value
+            }
+            let executeQuery2 = {
+                queryCode: 'search_adress',
+                limit: -1,
+                parameterValues: [{key: '@Adress',
+                    value: this.global_Adress
+                }]
+            };
+            this.queryExecutor(executeQuery2, this.search_place_data, this);
+        },
+        search_person_data: function(data, context) {
+            if (document.getElementsByClassName('group_variant')) {
+                let paras = document.getElementsByClassName('group_variant');
+                while(paras[0]) {
+                    paras[0].parentNode.removeChild(paras[0]);
+                }
+            }
+            document.getElementById('person_id').innerText = '0';
+            if (data) {
+                let message = {
+                    name: 'showUserData',
+                    package: {
+                        type: Number(document.getElementById('person_id').innerText)
+                    }
+                };
+                this.messageService.publish(message);
+                for (let i = 0; i < data.rows.length; i++) {
+                    if (data.rows[i].values[0] == 0) {
+                        var iDiv = document.getElementById('person_table_id');
+                        var iDiv2 = document.createElement('li');
+                        iDiv2.style = `
                                 font-size: 1em;
                                 color: red;
                                 border-bottom: 1px dotted #c3c3c3;
@@ -554,19 +538,15 @@
                                 cursor: pointer;
                                 list-style-type: none;
                                 outline: none;`;
-                    iDiv2.innerHTML = '<li id="label_m_'+i+'" value="'+data.rows[i].values[0]+'" style="cursor: pointer;" >'+data.rows[i].values[1] + '<param name="'+data.rows[i].values[1]+'" value="'+data.rows[i].values[0]+'" id="param_m_'+i+'"/></li>'; 
-                // debugger;
-                iDiv2.id = 'q_group'+ i;
-                iDiv2.className = 'group_variant back_color_select_row';
-                iDiv.appendChild(iDiv2);
-                
-
-             }
-             else 
-             {
-                var iDiv = document.getElementById('person_table_id');
-                var iDiv2 = document.createElement('li');
-                    iDiv2.style = `
+                        iDiv2.innerHTML = '<li id="label_m_' + i + '" value="' + data.rows[i].values[0] + '" style="cursor: pointer;" >' + data.rows[i].values[1] + '<param name="' + data.rows[i].values[1] + '" value="' + data.rows[i].values[0] + '" id="param_m_' + i + '"/></li>';
+                        // debugger;
+                        iDiv2.id = 'q_group' + i;
+                        iDiv2.className = 'group_variant back_color_select_row';
+                        iDiv.appendChild(iDiv2);
+                    } else {
+                        var iDiv = document.getElementById('person_table_id');
+                        var iDiv2 = document.createElement('li');
+                        iDiv2.style = `
                                 font-size: 1em;
                                 color: rgb(90, 96, 101);
                                 border-bottom: 1px dotted #c3c3c3;
@@ -578,63 +558,50 @@
                                 cursor: pointer;
                                 list-style-type: none;
                                 outline: none;`;
-                    iDiv2.innerHTML = '<li id="label_m_'+i+'" value="'+data.rows[i].values[0]+'" style="cursor: pointer;" >'+data.rows[i].values[1] + '</br>тел: ' +data.rows[i].values[5] + '<param name="'+data.rows[i].values[1]+'" value="'+data.rows[i].values[0]+'" id="param_m_'+i+'"/></li>'; 
-                // debugger;
-                iDiv2.id = 'q_group'+ i;
-                iDiv2.className = 'group_variant';
-                iDiv.appendChild(iDiv2);
-             };
-                
-                
-            };   
-            
-            for (let i = 0; i < document.getElementsByClassName('group_variant').length; i++) {
-                var divMenuItemBlock = "";
-                var divMenuItemBlock = document.getElementsByClassName('group_variant')[i];
-                
-                divMenuItemBlock.addEventListener('click', function(event) {
-                    
-                            //console.log(document.getElementById('param_m_'+i).name, ' / ', document.getElementById('param_m_'+i).value);
-                                                
-                            for (let i = 0; i < document.getElementsByClassName('group_variant').length; i++) {
-                                document.getElementsByClassName('group_variant')[i].classList.remove("back_color_select_row");
-                            };
-                            document.getElementsByClassName('group_variant')[i].classList.add("back_color_select_row");
-                            document.getElementById('person_id').innerText = document.getElementById('param_m_'+i).value;    
-                            document.getElementById('person_name').innerText = document.getElementById('param_m_'+i).name;                                
-                           // console.log(document.getElementById('person_id').innerText);
-                            let message = {
-                                    name: 'showUserData',
-                                    package: {
-                                        type: Number(document.getElementById('person_id').innerText),
-                                        type2: Number(document.getElementById('place_id').innerText)
-                                    }
-                                };
-                            this.messageService.publish(message);
-
-                }.bind(this), false);         
-            };
-
-    };
-     },
-
-search_place_data: function(data, context) {
-               if (document.getElementsByClassName('place_variant')){
-            var paras = document.getElementsByClassName('place_variant');
-            while(paras[0]) {
-                paras[0].parentNode.removeChild(paras[0]);
-            };
-        };
-      
-         
-         
-                if (data) { 
-            for (var i=0;i<data.rows.length;i++){
-              
-             if (data.rows[i].values[0] == 0) {   
-                var iDiv = document.getElementById('place_table_id');
-                var iDiv2 = document.createElement('li');
-                    iDiv2.style = `
+                        iDiv2.innerHTML = '<li id="label_m_' + i + '" value="' + data.rows[i].values[0] + '" style="cursor: pointer;" >' + data.rows[i].values[1] + '</br>тел: ' + data.rows[i].values[5] + '<param name="' + data.rows[i].values[1] + '" value="' + data.rows[i].values[0] + '" id="param_m_' + i + '"/></li>';
+                        // debugger;
+                        iDiv2.id = 'q_group' + i;
+                        iDiv2.className = 'group_variant';
+                        iDiv.appendChild(iDiv2);
+                    }
+                }
+                for (let i = 0; i < document.getElementsByClassName('group_variant').length; i++) {
+                    var divMenuItemBlock = '';
+                    var divMenuItemBlock = document.getElementsByClassName('group_variant')[i];
+                    divMenuItemBlock.addEventListener('click', function(event) {
+                        //console.log(document.getElementById('param_m_'+i).name, ' / ', document.getElementById('param_m_'+i).value);
+                        for (let i = 0; i < document.getElementsByClassName('group_variant').length; i++) {
+                            document.getElementsByClassName('group_variant')[i].classList.remove('back_color_select_row');
+                        }
+                        document.getElementsByClassName('group_variant')[i].classList.add('back_color_select_row');
+                        document.getElementById('person_id').innerText = document.getElementById('param_m_' + i).value;
+                        document.getElementById('person_name').innerText = document.getElementById('param_m_' + i).name;
+                        // console.log(document.getElementById('person_id').innerText);
+                        let message = {
+                            name: 'showUserData',
+                            package: {
+                                type: Number(document.getElementById('person_id').innerText),
+                                type2: Number(document.getElementById('place_id').innerText)
+                            }
+                        };
+                        this.messageService.publish(message);
+                    }.bind(this), false);
+                }
+            }
+        },
+        search_place_data: function(data, context) {
+            if (document.getElementsByClassName('place_variant')) {
+                let paras = document.getElementsByClassName('place_variant');
+                while(paras[0]) {
+                    paras[0].parentNode.removeChild(paras[0]);
+                }
+            }
+            if (data) {
+                for (let i = 0; i < data.rows.length; i++) {
+                    if (data.rows[i].values[0] == 0) {
+                        var iDiv = document.getElementById('place_table_id');
+                        var iDiv2 = document.createElement('li');
+                        iDiv2.style = `
                                 font-size: 1em;
                                 color: red;
                                 border-bottom: 1px dotted #c3c3c3;
@@ -646,17 +613,15 @@ search_place_data: function(data, context) {
                                 cursor: pointer;
                                 list-style-type: none;
                                 outline: none;`;
-                    iDiv2.innerHTML = '<li id="place_label_m_'+i+'" value="'+data.rows[i].values[0]+'" style="cursor: pointer;" >'+data.rows[i].values[1] + '<param name="'+data.rows[i].values[1]+'" value="'+data.rows[i].values[0]+'" id="place_param_m_'+i+'"/></li>'; 
-                // debugger;
-                iDiv2.id = 'p_group'+ i;
-                iDiv2.className = 'place_variant back_color_select_row';
-                iDiv.appendChild(iDiv2);
-             }
-             else 
-             {
-                var iDiv = document.getElementById('place_table_id');
-                var iDiv2 = document.createElement('li');
-                    iDiv2.style = `
+                        iDiv2.innerHTML = '<li id="place_label_m_' + i + '" value="' + data.rows[i].values[0] + '" style="cursor: pointer;" >' + data.rows[i].values[1] + '<param name="' + data.rows[i].values[1] + '" value="' + data.rows[i].values[0] + '" id="place_param_m_' + i + '"/></li>';
+                        // debugger;
+                        iDiv2.id = 'p_group' + i;
+                        iDiv2.className = 'place_variant back_color_select_row';
+                        iDiv.appendChild(iDiv2);
+                    } else {
+                        var iDiv = document.getElementById('place_table_id');
+                        var iDiv2 = document.createElement('li');
+                        iDiv2.style = `
                                 font-size: 1em;
                                 color: rgb(90, 96, 101);
                                 border-bottom: 1px dotted #c3c3c3;
@@ -668,43 +633,34 @@ search_place_data: function(data, context) {
                                 cursor: pointer;
                                 list-style-type: none;
                                 outline: none;`;
-                    iDiv2.innerHTML = '<li id="place_label_m_'+i+'" value="'+data.rows[i].values[0]+'" style="cursor: pointer;" >'+data.rows[i].values[1] + '<param name="'+data.rows[i].values[1]+'" value="'+data.rows[i].values[0]+'" id="place_param_m_'+i+'"/></li>'; 
-                // debugger;
-                iDiv2.id = 'p_group'+ i;
-                iDiv2.className = 'place_variant';
-                iDiv.appendChild(iDiv2);
-             };
-                
-                
-            };  
-            
-            for (let i = 0; i < document.getElementsByClassName('place_variant').length; i++) {
-                var divMenuItemBlock = "";
-                var divMenuItemBlock = document.getElementsByClassName('place_variant')[i];
-                
-                divMenuItemBlock.addEventListener('click', function(event) {
-                    
-                            //console.log(document.getElementById('place_param_m_'+i).name, ' / ', document.getElementById('place_param_m_'+i).value);
-                                                
-                            for (let i = 0; i < document.getElementsByClassName('place_variant').length; i++) {
-                                document.getElementsByClassName('place_variant')[i].classList.remove("back_color_select_row");
-                            };
-                            document.getElementsByClassName('place_variant')[i].classList.add("back_color_select_row");
-                            document.getElementById('place_id').innerText = document.getElementById('place_param_m_'+i).value;       
-                            document.getElementById('place_name').innerText = document.getElementById('place_param_m_'+i).name;     
-                            let message = {
-                                    name: 'showPlaceData',
-                                    package: {
-                                        type: Number(document.getElementById('place_id').innerText)
-                                    }
-                                };
-                            this.messageService.publish(message);
-
-                }.bind(this), false);         
-            };
- 
+                        iDiv2.innerHTML = '<li id="place_label_m_' + i + '" value="' + data.rows[i].values[0] + '" style="cursor: pointer;" >' + data.rows[i].values[1] + '<param name="' + data.rows[i].values[1] + '" value="' + data.rows[i].values[0] + '" id="place_param_m_' + i + '"/></li>';
+                        // debugger;
+                        iDiv2.id = 'p_group' + i;
+                        iDiv2.className = 'place_variant';
+                        iDiv.appendChild(iDiv2);
+                    }
+                }
+                for (let i = 0; i < document.getElementsByClassName('place_variant').length; i++) {
+                    var divMenuItemBlock = '';
+                    var divMenuItemBlock = document.getElementsByClassName('place_variant')[i];
+                    divMenuItemBlock.addEventListener('click', function(event) {
+                        //console.log(document.getElementById('place_param_m_'+i).name, ' / ', document.getElementById('place_param_m_'+i).value);
+                        for (let i = 0; i < document.getElementsByClassName('place_variant').length; i++) {
+                            document.getElementsByClassName('place_variant')[i].classList.remove('back_color_select_row');
+                        }
+                        document.getElementsByClassName('place_variant')[i].classList.add('back_color_select_row');
+                        document.getElementById('place_id').innerText = document.getElementById('place_param_m_' + i).value;
+                        document.getElementById('place_name').innerText = document.getElementById('place_param_m_' + i).name;
+                        let message = {
+                            name: 'showPlaceData',
+                            package: {
+                                type: Number(document.getElementById('place_id').innerText)
+                            }
+                        };
+                        this.messageService.publish(message);
+                    }.bind(this), false);
+                }
+            }
+        }
     };
-     },
-
-};
 }());

@@ -1,9 +1,9 @@
-(function () {
-  return {
-    title: ' ',
-    hint: '',
-    formatTitle: function() {},
-    customConfig: `
+(function() {
+    return {
+        title: ' ',
+        hint: '',
+        formatTitle: function() {},
+        customConfig: `
             <style>
                         ::-webkit-scrollbar-track {
                         box-shadow: none;
@@ -386,204 +386,168 @@
                 
        
             `,
-    JsonItem1: null,
-    JsonItem2: null,
-
-    init: function() {
-
-        let executeQuery2 = {
-            queryCode: 'select_message_group',
-            parameterValues: []
-        };
-        this.queryExecutor(executeQuery2, this.load2, this);
-     
-    },
-    onLoad: function() {
-    
-     let executeQuery = {
-            queryCode: 'select_notification',
-            parameterValues: []
+        JsonItem1: null,
+        JsonItem2: null,
+        init: function() {
+            let executeQuery2 = {
+                queryCode: 'select_message_group',
+                parameterValues: []
             };
-        this.queryExecutor(executeQuery, this.load, this);
-    },
-    
-
-    afterViewInit: function() {
-        this.handleButtonClick("showMenu", menuBtn, notificationBtn, messagesBtn);
-        menuBtn_Icon.style = 'color:red;';
-        notificationBtn_Icon.style = 'color:#cecece;';
-        messagesBtn_Icon.style = 'color:#cecece;';
-
-
-        menuBtn.addEventListener("click", function() {
-            this.handleButtonClick("showMenu", menuBtn, notificationBtn, messagesBtn);
+            this.queryExecutor(executeQuery2, this.load2, this);
+        },
+        onLoad: function() {
+            let executeQuery = {
+                queryCode: 'select_notification',
+                parameterValues: []
+            };
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        afterViewInit: function() {
+            this.handleButtonClick('showMenu', menuBtn, notificationBtn, messagesBtn);
             menuBtn_Icon.style = 'color:red;';
             notificationBtn_Icon.style = 'color:#cecece;';
             messagesBtn_Icon.style = 'color:#cecece;';
-        }.bind(this), true);
-
-    },
-    handleButtonClick: function(message, activateBtn, unactivateBtn, unactivateBtn2) {
-        this.messageService.publish({
-            name: message
-        });
-        activateBtn.classList.add('active');
-        unactivateBtn.classList.remove('active');
-        unactivateBtn2.classList.remove('active');
-    },
-    load: function(data) {
-
-
-    if (data) {
-      //  debugger;
-            document.getElementById('unreadCountMessages').innerText = JSON.parse(this.JsonItem1).rows[0].values[2];
-            
-            document.getElementById('unreadCount').innerText = data.rows[0].values[1];
-    
-    // debugger;
-            const unreadCount = document.getElementById('unreadCount');
-            const unreadCountMessages = document.getElementById('unreadCountMessages');
-    
-            if (unreadCountMessages.innerText == 0) {
-                unreadCountMessages.style.display = 'none';
+            menuBtn.addEventListener('click', function() {
+                this.handleButtonClick('showMenu', menuBtn, notificationBtn, messagesBtn);
+                menuBtn_Icon.style = 'color:red;';
+                notificationBtn_Icon.style = 'color:#cecece;';
+                messagesBtn_Icon.style = 'color:#cecece;';
+            }.bind(this), true);
+        },
+        handleButtonClick: function(message, activateBtn, unactivateBtn, unactivateBtn2) {
+            this.messageService.publish({
+                name: message
+            });
+            activateBtn.classList.add('active');
+            unactivateBtn.classList.remove('active');
+            unactivateBtn2.classList.remove('active');
+        },
+        load: function(data) {
+            if (data) {
+                //  debugger;
+                document.getElementById('unreadCountMessages').innerText = JSON.parse(this.JsonItem1).rows[0].values[2];
+                document.getElementById('unreadCount').innerText = data.rows[0].values[1];
+                // debugger;
+                const unreadCount = document.getElementById('unreadCount');
+                const unreadCountMessages = document.getElementById('unreadCountMessages');
+                if (unreadCountMessages.innerText == 0) {
+                    unreadCountMessages.style.display = 'none';
+                } else {
+                    unreadCountMessages.innerText = JSON.parse(this.JsonItem1).rows[0].values[2];
+                    unreadCountMessages.style.display = 'inline-block';
+                    unreadCountMessages.style.width = '15px';
+                    unreadCountMessages.style.height = '15px';
+                }
+                if (unreadCount.innerText == 0) {
+                    unreadCount.style.display = 'none';
+                } else {
+                    unreadCount.innerText = data.rows[0].values[1];
+                    unreadCount.style.display = 'inline-block';
+                    unreadCount.style.width = '15px';
+                    unreadCount.style.height = '15px';
+                }
+                document.getElementById('notificationBtn').addEventListener('click', this.notificationBtnClickFunction.bind(this, data), false);
             } else {
-                unreadCountMessages.innerText = JSON.parse(this.JsonItem1).rows[0].values[2];
-                unreadCountMessages.style.display = 'inline-block';
-                unreadCountMessages.style.width = '15px';
-                unreadCountMessages.style.height = '15px';
-            }
-    
-    
-            if (unreadCount.innerText == 0) {
                 unreadCount.style.display = 'none';
-            } else {
-                unreadCount.innerText = data.rows[0].values[1];
-                unreadCount.style.display = 'inline-block';
-                unreadCount.style.width = '15px';
-                unreadCount.style.height = '15px';
             }
-            
-             document.getElementById('notificationBtn').addEventListener('click', this.notificationBtnClickFunction.bind(this, data), false);
-             
-         }
-        else
-        {
-             unreadCount.style.display = 'none';
-        };
-
-        document.getElementById('messagesBtn').addEventListener('click', this.createMessagesMenuFunction.bind(this), false);
-
-
-       
-
-
-
-    },
-
-    createMessagesMenuFunction: function(event) {
-        this.handleButtonClick("showMenu", messagesBtn, notificationBtn, menuBtn);
-        messagesBtn_Icon.style = 'color:red;';
-        notificationBtn_Icon.style = 'color:#cecece;';
-        menuBtn_Icon.style = 'color:#cecece;';
-
-
-        let createBackground = document.createElement('div');
-        createBackground.id = 'hiddenDiv'
-        let createMenu = document.createElement('div');
-        createMenu.className = 'messagesMenuItem';
-        createMenu.id = 'messagesMenuItems';
-        let element = document.getElementById('messagesBtn');
-        let position = element.getBoundingClientRect();
-        let x = position.left;
-        let y = position.top;
-        createMenu.style.top = `${y+50}px`;
-        createMenu.style.left = `${x}px`;
-        let headerWrapper = document.createElement('div');
-        let divHeader = document.createElement('div');
-        divHeader.className = 'divHeader';
-        let textHeader = document.createElement('div');
-        textHeader.id = 'textDivHeader';
-        textHeader.appendChild(document.createTextNode("Повідомлення"));
-        divHeader.appendChild(textHeader);
-        const backLogo = document.createElement('i');
-        backLogo.className = 'material-icons mat_btn';
-        backLogo.id = 'backLogoItem';
-        backLogo.appendChild(document.createTextNode('arrow_back'));
-
-        let logoHeader = document.createElement('div');
-        logoHeader.id = 'logoDivHeader';
-        logoHeader.appendChild(backLogo);
-
-        divHeader.appendChild(logoHeader);
-        headerWrapper.appendChild(divHeader);
-        headerWrapper.className = 'headerCont';
-        createMenu.appendChild(headerWrapper);
-        let contentWrapper = document.createElement('div');
-        contentWrapper.className = 'contentCont';
-        contentWrapper.id = 'contentContain';
-        for (let i = 0; i < JSON.parse(this.JsonItem1).rows.length; i++) {
-            let divMenuItemBlock = document.createElement('div');
-            divMenuItemBlock.id = 'menutItemDivBlock';
-            // Функция клика на группу ( Скрытие групп и отоборажение подгрупп)
-            divMenuItemBlock.addEventListener('click', function(event) {
-                let executeQuery3 = {
-                    queryCode: 'select_message',
-                    parameterValues: [{
-                        key: '@GroupId',
-                        value: JSON.parse(this.JsonItem1).rows[i].values[0]
-                    }]
-                };
-                this.queryExecutor(executeQuery3, this.openGroupItems, this);
-
-            }.bind(this), false);
-            // Конец функуции клика на группу
-            let parag = document.createElement('ul');
-            parag.id = 'menutItemParagBlock';
-            let parText = document.createElement('span');
-            parText.appendChild(document.createTextNode(`${JSON.parse(this.JsonItem1).rows[i].values[1]}`));
-            parag.appendChild(parText);
-            let paragSpan = document.createElement("span");
-            paragSpan.id = 'paragSpan';
-            paragSpan.appendChild(document.createTextNode(`${JSON.parse(this.JsonItem1).rows[i].values[3]}`));
-            let divInfo = document.createElement('div');
-            let iconOpenItems = document.createElement("i");
-            iconOpenItems.className = 'material-icons  mat_btn';
-            iconOpenItems.id = 'iconOpenItems';
-            iconOpenItems.appendChild(document.createTextNode('arrow_forward'));
-            divInfo.appendChild(paragSpan);
-            divInfo.appendChild(iconOpenItems);
-            divMenuItemBlock.appendChild(parag);
-            divMenuItemBlock.appendChild(divInfo);
-            contentWrapper.appendChild(divMenuItemBlock);
-            if (JSON.parse(this.JsonItem1).rows[i].values[3] == '0') {
-                paragSpan.style.display = 'none';
+            document.getElementById('messagesBtn').addEventListener('click', this.createMessagesMenuFunction.bind(this), false);
+        },
+        createMessagesMenuFunction: function(event) {
+            this.handleButtonClick('showMenu', messagesBtn, notificationBtn, menuBtn);
+            messagesBtn_Icon.style = 'color:red;';
+            notificationBtn_Icon.style = 'color:#cecece;';
+            menuBtn_Icon.style = 'color:#cecece;';
+            let createBackground = document.createElement('div');
+            createBackground.id = 'hiddenDiv'
+            let createMenu = document.createElement('div');
+            createMenu.className = 'messagesMenuItem';
+            createMenu.id = 'messagesMenuItems';
+            let element = document.getElementById('messagesBtn');
+            let position = element.getBoundingClientRect();
+            let x = position.left;
+            let y = position.top;
+            createMenu.style.top = `${y + 50}px`;
+            createMenu.style.left = `${x}px`;
+            let headerWrapper = document.createElement('div');
+            let divHeader = document.createElement('div');
+            divHeader.className = 'divHeader';
+            let textHeader = document.createElement('div');
+            textHeader.id = 'textDivHeader';
+            textHeader.appendChild(document.createTextNode('Повідомлення'));
+            divHeader.appendChild(textHeader);
+            const backLogo = document.createElement('i');
+            backLogo.className = 'material-icons mat_btn';
+            backLogo.id = 'backLogoItem';
+            backLogo.appendChild(document.createTextNode('arrow_back'));
+            let logoHeader = document.createElement('div');
+            logoHeader.id = 'logoDivHeader';
+            logoHeader.appendChild(backLogo);
+            divHeader.appendChild(logoHeader);
+            headerWrapper.appendChild(divHeader);
+            headerWrapper.className = 'headerCont';
+            createMenu.appendChild(headerWrapper);
+            let contentWrapper = document.createElement('div');
+            contentWrapper.className = 'contentCont';
+            contentWrapper.id = 'contentContain';
+            for (let i = 0; i < JSON.parse(this.JsonItem1).rows.length; i++) {
+                let divMenuItemBlock = document.createElement('div');
+                divMenuItemBlock.id = 'menutItemDivBlock';
+                // Функция клика на группу ( Скрытие групп и отоборажение подгрупп)
+                divMenuItemBlock.addEventListener('click', function(event) {
+                    let executeQuery3 = {
+                        queryCode: 'select_message',
+                        parameterValues: [{
+                            key: '@GroupId',
+                            value: JSON.parse(this.JsonItem1).rows[i].values[0]
+                        }]
+                    };
+                    this.queryExecutor(executeQuery3, this.openGroupItems, this);
+                }.bind(this), false);
+                // Конец функуции клика на группу
+                let parag = document.createElement('ul');
+                parag.id = 'menutItemParagBlock';
+                let parText = document.createElement('span');
+                parText.appendChild(document.createTextNode(`${JSON.parse(this.JsonItem1).rows[i].values[1]}`));
+                parag.appendChild(parText);
+                let paragSpan = document.createElement('span');
+                paragSpan.id = 'paragSpan';
+                paragSpan.appendChild(document.createTextNode(`${JSON.parse(this.JsonItem1).rows[i].values[3]}`));
+                let divInfo = document.createElement('div');
+                let iconOpenItems = document.createElement('i');
+                iconOpenItems.className = 'material-icons  mat_btn';
+                iconOpenItems.id = 'iconOpenItems';
+                iconOpenItems.appendChild(document.createTextNode('arrow_forward'));
+                divInfo.appendChild(paragSpan);
+                divInfo.appendChild(iconOpenItems);
+                divMenuItemBlock.appendChild(parag);
+                divMenuItemBlock.appendChild(divInfo);
+                contentWrapper.appendChild(divMenuItemBlock);
+                if (JSON.parse(this.JsonItem1).rows[i].values[3] == '0') {
+                    paragSpan.style.display = 'none';
+                }
             }
-        };
-        createMenu.appendChild(contentWrapper);
-        const menuElementClassName = 'messagesMenuItem';
-        createBackground.addEventListener('click', this.closeBackgroundFunction.bind(this, menuElementClassName), false);
-        createMenu.addEventListener('click', this.stopPropagationFunction.bind(this), false);
-        createBackground.appendChild(createMenu);
-        document.getElementsByTagName('body')[0].appendChild(createBackground);
-    },
-    closeBackgroundFunction: function(data) {
-        messagesBtn_Icon.style = 'color:#cecece;';
-        notificationBtn_Icon.style = 'color:#cecece;';
-        menuBtn_Icon.style = 'color:red;';
-
-
-        this.handleButtonClick("showMenu", menuBtn, notificationBtn, messagesBtn);
-        const backgroundItem = document.getElementById('hiddenDiv');
-        const mainMenuItem = document.getElementsByClassName(data)[0];
-        backgroundItem.style.display = 'none';
-        mainMenuItem.style.display = 'none';
-        document.getElementsByTagName('body')[0].removeChild(backgroundItem);
-    },
-
-    getMinutesEnding: function(time) {
-        let getLastNumber = String(Math.floor(time)).split('');
-        getResult = '';
-        switch (getLastNumber[getLastNumber.length - 1]) {
+            createMenu.appendChild(contentWrapper);
+            const menuElementClassName = 'messagesMenuItem';
+            createBackground.addEventListener('click', this.closeBackgroundFunction.bind(this, menuElementClassName), false);
+            createMenu.addEventListener('click', this.stopPropagationFunction.bind(this), false);
+            createBackground.appendChild(createMenu);
+            document.getElementsByTagName('body')[0].appendChild(createBackground);
+        },
+        closeBackgroundFunction: function(data) {
+            messagesBtn_Icon.style = 'color:#cecece;';
+            notificationBtn_Icon.style = 'color:#cecece;';
+            menuBtn_Icon.style = 'color:red;';
+            this.handleButtonClick('showMenu', menuBtn, notificationBtn, messagesBtn);
+            const backgroundItem = document.getElementById('hiddenDiv');
+            const mainMenuItem = document.getElementsByClassName(data)[0];
+            backgroundItem.style.display = 'none';
+            mainMenuItem.style.display = 'none';
+            document.getElementsByTagName('body')[0].removeChild(backgroundItem);
+        },
+        getMinutesEnding: function(time) {
+            let getLastNumber = String(Math.floor(time)).split('');
+            getResult = '';
+            switch (getLastNumber[getLastNumber.length - 1]) {
             case '1':
                 getResult = `${Math.floor(time)} хвилину тому`;
                 break;
@@ -600,13 +564,13 @@
             case '0':
                 getResult = `${Math.floor(time)} хвилин тому`;
                 break;
-        }
-        return getResult;
-    },
-    getHoursEnding: function(time) {
-        let getLastNumber = String(Math.floor(time)).split('');
-        getResult = '';
-        switch (getLastNumber[getLastNumber.length - 1]) {
+            }
+            return getResult;
+        },
+        getHoursEnding: function(time) {
+            let getLastNumber = String(Math.floor(time)).split('');
+            getResult = '';
+            switch (getLastNumber[getLastNumber.length - 1]) {
             case '1':
                 getResult = `${Math.floor(time)} годину тому`;
                 break;
@@ -623,13 +587,13 @@
             case '0':
                 getResult = `${Math.floor(time)} годин тому`;
                 break;
-        }
-        return getResult;
-    },
-    getSecondsEnding: function(time) {
-        let getLastNumber = String(Math.floor(time)).split('');
-        getResult = '';
-        switch (getLastNumber[getLastNumber.length - 1]) {
+            }
+            return getResult;
+        },
+        getSecondsEnding: function(time) {
+            let getLastNumber = String(Math.floor(time)).split('');
+            getResult = '';
+            switch (getLastNumber[getLastNumber.length - 1]) {
             case '1':
                 getResult = `${Math.floor(time)} секунду тому`;
                 break;
@@ -646,18 +610,17 @@
             case '0':
                 getResult = `${Math.floor(time)} секунд тому`;
                 break;
-        }
-        return getResult;
-    },
-    getDaysEnding: function(time) {
-        const getTime = Math.floor(time);
-        if (getTime == '11' || getTime == '12' || getTime == '13' || getTime == '14' || getTime == '15' || getTime == '16' || getTime == '17' || getTime == '18' || getTime == '19') {
-            return `${getTime} днів тому`;
-        }
-
-        let getLastNumber = String(Math.floor(time)).split('');
-        getResult = '';
-        switch (getLastNumber[getLastNumber.length - 1]) {
+            }
+            return getResult;
+        },
+        getDaysEnding: function(time) {
+            const getTime = Math.floor(time);
+            if (getTime == '11' || getTime == '12' || getTime == '13' || getTime == '14' || getTime == '15' || getTime == '16' || getTime == '17' || getTime == '18' || getTime == '19') {
+                return `${getTime} днів тому`;
+            }
+            let getLastNumber = String(Math.floor(time)).split('');
+            getResult = '';
+            switch (getLastNumber[getLastNumber.length - 1]) {
             case '1':
                 getResult = `${Math.floor(time)} день тому`;
                 break;
@@ -674,85 +637,61 @@
             case '0':
                 getResult = `${Math.floor(time)} днів тому`;
                 break;
-        }
-        return getResult;
-    },
-    load2: function(data) {
-        
-   
-
-
-
-        
-        
-        if (data) {
+            }
+            return getResult;
+        },
+        load2: function(data) {
+            if (data) {
             // console.log(JSON.stringify(data));
-             this.JsonItem1 = JSON.stringify(data);
-        }
-        else {
-            this.JsonItem1   = {"columns":[{"code":"GroupId","name":"GroupId","isVisible":true,"isFileContent":false,"dataType":"Integer"},
-            {"code":"GroupName","name":"GroupName","isVisible":true,"isFileContent":false,"dataType":"Text"},
-            {"code":"CountAll","name":"CountAll","isVisible":true,"isFileContent":false,"dataType":"Integer"},
-            {"code":"CountActivity","name":"CountActivity","isVisible":true,"isFileContent":false,"dataType":"Integer"}],
-            "rows":[{"values":[1,"",0,0]}]};
-        };
-               setTimeout(this.onLoad(), 1500);   
-
-    },
-    notificationBtnClickFunction: function(data, event) {
-
-        messagesBtn_Icon.style = 'color:#cecece;';
-        notificationBtn_Icon.style = 'color:red;';
-        menuBtn_Icon.style = 'color:#cecece;';
-
-        this.handleButtonClick("showMenu", notificationBtn, menuBtn, messagesBtn);
-        let createBackgroundForNotify = document.createElement('div');
-        createBackgroundForNotify.id = 'hiddenDiv'
-
-        let createMenuForNotify = document.createElement('div');
-        createMenuForNotify.className = 'notifyMenuItem';
-        createMenuForNotify.id = 'notifyMenuItems';
-        var element = document.getElementById('notificationBtn');
-        var position = element.getBoundingClientRect();
-        var x = position.left;
-        var y = position.top;
-        createMenuForNotify.style.top = `${y+50}px`;
-        createMenuForNotify.style.left = `${x}px`;
-
-
-        const currentDate = new Date();
-
-        let headerWrapper = document.createElement('div');
-
-        let divHeader = document.createElement('div');
-        divHeader.className = 'divHeader';
-        divHeader.appendChild(document.createTextNode("Оповіщення"));
-        headerWrapper.className = 'headerNotifyCont';
-        createMenuForNotify.appendChild(headerWrapper);
-        let contentWrapper = document.createElement('div');
-        contentWrapper.className = 'contentNotifyCont';
-        contentWrapper.id = 'contentNotifyContant';
-
-        headerWrapper.appendChild(divHeader);
-        headerWrapper.appendChild(contentWrapper);
-
-
-        for (var i = 0; i < data.rows.length; i++) {
-            const date = new Date(data.rows[i].values[5]);
-            const calcDate = currentDate - date;
-
-            let itemLink = document.createElement("a");
-            itemLink.className = 'content';
-            itemLink.href = `${location.origin}${localStorage.getItem('VirtualPath')}${data.rows[i].values[6]}`;
-
-            let divItem = document.createElement("div");
-            divItem.className = 'notification-item';
-
-
-            let iconFirstItem = document.createElement("i");
-            iconFirstItem.className = 'material-icons';
-
-            switch (data.rows[i].values[2]) {
+                this.JsonItem1 = JSON.stringify(data);
+            } else {
+                this.JsonItem1 = {'columns':[{'code':'GroupId','name':'GroupId','isVisible':true,'isFileContent':false,'dataType':'Integer'},
+                    {'code':'GroupName','name':'GroupName','isVisible':true,'isFileContent':false,'dataType':'Text'},
+                    {'code':'CountAll','name':'CountAll','isVisible':true,'isFileContent':false,'dataType':'Integer'},
+                    {'code':'CountActivity','name':'CountActivity','isVisible':true,'isFileContent':false,'dataType':'Integer'}],
+                'rows':[{'values':[1,'',0,0]}]};
+            }
+            setTimeout(this.onLoad(), 1500);
+        },
+        notificationBtnClickFunction: function(data, event) {
+            messagesBtn_Icon.style = 'color:#cecece;';
+            notificationBtn_Icon.style = 'color:red;';
+            menuBtn_Icon.style = 'color:#cecece;';
+            this.handleButtonClick('showMenu', notificationBtn, menuBtn, messagesBtn);
+            let createBackgroundForNotify = document.createElement('div');
+            createBackgroundForNotify.id = 'hiddenDiv'
+            let createMenuForNotify = document.createElement('div');
+            createMenuForNotify.className = 'notifyMenuItem';
+            createMenuForNotify.id = 'notifyMenuItems';
+            let element = document.getElementById('notificationBtn');
+            let position = element.getBoundingClientRect();
+            let x = position.left;
+            let y = position.top;
+            createMenuForNotify.style.top = `${y + 50}px`;
+            createMenuForNotify.style.left = `${x}px`;
+            const currentDate = new Date();
+            let headerWrapper = document.createElement('div');
+            let divHeader = document.createElement('div');
+            divHeader.className = 'divHeader';
+            divHeader.appendChild(document.createTextNode('Оповіщення'));
+            headerWrapper.className = 'headerNotifyCont';
+            createMenuForNotify.appendChild(headerWrapper);
+            let contentWrapper = document.createElement('div');
+            contentWrapper.className = 'contentNotifyCont';
+            contentWrapper.id = 'contentNotifyContant';
+            headerWrapper.appendChild(divHeader);
+            headerWrapper.appendChild(contentWrapper);
+            for (let i = 0; i < data.rows.length; i++) {
+                const date = new Date(data.rows[i].values[5]);
+                const calcDate = currentDate - date;
+                let itemLink = document.createElement('a');
+                itemLink.className = 'content';
+                itemLink.href = `${location.origin}${localStorage.getItem('VirtualPath')}${data.rows[i].values[6]}`;
+                let divItem = document.createElement('div');
+                divItem.className = 'notification-item';
+                let iconFirstItem = document.createElement('i');
+                iconFirstItem.className = 'material-icons';
+                switch (data.rows[i].values[2]) {
                 case 'Add':
                     iconFirstItem.appendChild(document.createTextNode('add'));
                     iconFirstItem.style.color = 'green'
@@ -761,16 +700,13 @@
                     iconFirstItem.appendChild(document.createTextNode('edit'));
                     iconFirstItem.style.color = 'red'
                     break;
-            }
-
-
-            let paragItem = document.createElement("p");
-            paragItem.className = 'item-info';
-            paragItem.appendChild(document.createTextNode(data.rows[i].values[4]))
-
-            let iconSecondItem = document.createElement("i");
-            iconSecondItem.className = 'material-icons';
-            switch (data.rows[i].values[3]) {
+                }
+                let paragItem = document.createElement('p');
+                paragItem.className = 'item-info';
+                paragItem.appendChild(document.createTextNode(data.rows[i].values[4]))
+                let iconSecondItem = document.createElement('i');
+                iconSecondItem.className = 'material-icons';
+                switch (data.rows[i].values[3]) {
                 case 'Work':
                     iconSecondItem.appendChild(document.createTextNode('assignment'));
                     break;
@@ -780,158 +716,131 @@
                 case 'Project':
                     iconSecondItem.appendChild(document.createTextNode('open_with'));
                     break;
-            }
-
-
-            let spanBlock = document.createElement("span");
-            spanBlock.id = 'spanBlock';
-            let spanDate = document.createElement("span");
-            spanDate.id = 'spanDate';
-            if ((calcDate / 1000 / 60 / 60 / 24) < 1) {
-                if ((calcDate / 1000 / 60 / 60) < 1) {
-                    if ((calcDate / 1000 / 60) < 1) {
-                        spanDate.appendChild(document.createTextNode(`${this.getSecondsEnding(calcDate/1000)}`));
+                }
+                let spanBlock = document.createElement('span');
+                spanBlock.id = 'spanBlock';
+                let spanDate = document.createElement('span');
+                spanDate.id = 'spanDate';
+                if ((calcDate / 1000 / 60 / 60 / 24) < 1) {
+                    if ((calcDate / 1000 / 60 / 60) < 1) {
+                        if ((calcDate / 1000 / 60) < 1) {
+                            spanDate.appendChild(document.createTextNode(`${this.getSecondsEnding(calcDate / 1000)}`));
+                        } else {
+                            spanDate.appendChild(document.createTextNode(`${this.getMinutesEnding(calcDate / 1000 / 60)}`));
+                        }
                     } else {
-                        spanDate.appendChild(document.createTextNode(`${this.getMinutesEnding(calcDate/1000/60)}`));
+                        spanDate.appendChild(document.createTextNode(`${this.getHoursEnding(calcDate / 1000 / 60 / 60)}`));
                     }
                 } else {
-                    spanDate.appendChild(document.createTextNode(`${this.getHoursEnding(calcDate/1000/60/60)}`));
+                    spanDate.appendChild(document.createTextNode(`${this.getDaysEnding(calcDate / 1000 / 60 / 60 / 24)}`));
                 }
-            } else {
-                spanDate.appendChild(document.createTextNode(`${this.getDaysEnding(calcDate/1000/60/60/24)}`));
+                spanBlock.appendChild(spanDate);
+                spanBlock.appendChild(iconSecondItem);
+                divItem.appendChild(iconFirstItem);
+                divItem.appendChild(paragItem);
+                divItem.appendChild(spanBlock);
+                itemLink.appendChild(divItem);
+                contentWrapper.appendChild(itemLink);
             }
-
-            spanBlock.appendChild(spanDate);
-            spanBlock.appendChild(iconSecondItem);
-
-
-            divItem.appendChild(iconFirstItem);
-            divItem.appendChild(paragItem);
-            divItem.appendChild(spanBlock);
-
-            itemLink.appendChild(divItem);
-            contentWrapper.appendChild(itemLink);
-        }
-
-
-        const backgroundParam = 'notifyMenuItem';
-        createBackgroundForNotify.addEventListener('click', this.closeBackgroundFunction.bind(this, backgroundParam), false);
-        createMenuForNotify.addEventListener('click', this.stopPropagationFunction.bind(this), false);
-        createBackgroundForNotify.appendChild(createMenuForNotify);
-        document.getElementsByTagName('body')[0].appendChild(createBackgroundForNotify);
-    },
-
-    stopPropagationFunction: function(event) {
-        event.stopPropagation();
-    },
-    openGroupItems: function(data) {
-        let backLogo = document.getElementById('backLogoItem');
-        let divBackLogo = document.getElementById('logoDivHeader');
-        let createMenu = document.getElementById('messagesMenuItems');
-        let contentWrapper = document.getElementById('contentContain');
-        let divGroupWrapper = document.createElement('div');
-        divGroupWrapper.className = 'divGroupWrapper';
-        const currentDate = new Date();
-
-
-        logoDivHeader.style.display = 'inline';
-        document.getElementById('textDivHeader').style.textAlign = 'left';
-
-        backLogo.addEventListener('click', function(event) {
-            if(createMenu.contains(divGroupWrapper)){
-                createMenu.removeChild(divGroupWrapper);
-            }
+            const backgroundParam = 'notifyMenuItem';
+            createBackgroundForNotify.addEventListener('click', this.closeBackgroundFunction.bind(this, backgroundParam), false);
+            createMenuForNotify.addEventListener('click', this.stopPropagationFunction.bind(this), false);
+            createBackgroundForNotify.appendChild(createMenuForNotify);
+            document.getElementsByTagName('body')[0].appendChild(createBackgroundForNotify);
+        },
+        stopPropagationFunction: function(event) {
+            event.stopPropagation();
+        },
+        openGroupItems: function(data) {
+            let backLogo = document.getElementById('backLogoItem');
+            let divBackLogo = document.getElementById('logoDivHeader');
+            let createMenu = document.getElementById('messagesMenuItems');
+            let contentWrapper = document.getElementById('contentContain');
+            let divGroupWrapper = document.createElement('div');
+            divGroupWrapper.className = 'divGroupWrapper';
+            const currentDate = new Date();
+            logoDivHeader.style.display = 'inline';
+            document.getElementById('textDivHeader').style.textAlign = 'left';
+            backLogo.addEventListener('click', function(event) {
+                if(createMenu.contains(divGroupWrapper)) {
+                    createMenu.removeChild(divGroupWrapper);
+                }
+                for (let i = 1; i < createMenu.childNodes.length; i++) {
+                    createMenu.childNodes[i].style.display = 'block';
+                    document.getElementById('textDivHeader').style.textAlign = 'center';
+                }
+                logoDivHeader.style.display = 'none';
+            }, false);
             for (let i = 1; i < createMenu.childNodes.length; i++) {
-                createMenu.childNodes[i].style.display = 'block';
-                document.getElementById('textDivHeader').style.textAlign = 'center';
+                createMenu.childNodes[i].style.display = 'none';
             }
-            logoDivHeader.style.display = 'none';
-        }, false);
-
-        for (let i = 1; i < createMenu.childNodes.length; i++) {
-            createMenu.childNodes[i].style.display = 'none';
-        }
-        if (data.rows[0]) {
-
-            for (let i = 0; i < data.rows.length; i++) {
-                const date = new Date(data.rows[i].values[3]);
-                const calcDate = currentDate - date;
-                let containerForImgAndName = document.createElement('div');
-                containerForImgAndName.id = 'containerForImgAndName';
-                let spanForName = document.createElement('span');
-                spanForName.appendChild(document.createTextNode(data.rows[i].values[0]));
-                let divGroupItems = document.createElement('div');
-                divGroupItems.id = 'messageContainer';
-                let spanGroupLogo = document.createElement('span');
-                spanGroupLogo.id = 'spanGroupLogo';
-
-                let logoPic = data.rows[i].values[1];
-                if (logoPic == null) {
-
-                    let someLogo = document.createElement('i');
-                    someLogo.className = 'material-icons';
-                    someLogo.id = 'avatarLogo';
-                    someLogo.appendChild(document.createTextNode('account_circle'));
-                    someLogo.style.color = '#adaaaf';
-                    someLogo.title = data.rows[i].values[0];
-                    containerForImgAndName.appendChild(spanForName);
-                    containerForImgAndName.appendChild(someLogo);
-
-                    spanGroupLogo.appendChild(containerForImgAndName);
-                } else {
+            if (data.rows[0]) {
+                for (let i = 0; i < data.rows.length; i++) {
+                    const date = new Date(data.rows[i].values[3]);
+                    const calcDate = currentDate - date;
                     let containerForImgAndName = document.createElement('div');
                     containerForImgAndName.id = 'containerForImgAndName';
                     let spanForName = document.createElement('span');
                     spanForName.appendChild(document.createTextNode(data.rows[i].values[0]));
-                    let imgLogo = document.createElement('img');
-                    imgLogo.id = 'avatarLogo';
-                    imgLogo.alt = 'avatar';
-                    imgLogo.src = logoPic;
-
-                    imgLogo.title = data.rows[i].values[0];
-                    containerForImgAndName.appendChild(spanForName);
-                    containerForImgAndName.appendChild(imgLogo);
-
-                    spanGroupLogo.appendChild(containerForImgAndName);
-                }
-                let spanGroupMessage = document.createElement('span');
-                spanGroupMessage.id = 'spanGroupMessage';
-
-                spanGroupMessage.appendChild(document.createTextNode(data.rows[i].values[2]));
-                let spanGroupDate = document.createElement('span');
-                spanGroupDate.id = 'spanGroupDate';
-                if ((calcDate / 1000 / 60 / 60 / 24) < 1) {
-                    if ((calcDate / 1000 / 60 / 60) < 1) {
-                        if ((calcDate / 1000 / 60) < 1) {
-                            spanGroupDate.appendChild(document.createTextNode(`${this.getSecondsEnding(calcDate/1000)}`));
+                    let divGroupItems = document.createElement('div');
+                    divGroupItems.id = 'messageContainer';
+                    let spanGroupLogo = document.createElement('span');
+                    spanGroupLogo.id = 'spanGroupLogo';
+                    let logoPic = data.rows[i].values[1];
+                    if (logoPic == null) {
+                        let someLogo = document.createElement('i');
+                        someLogo.className = 'material-icons';
+                        someLogo.id = 'avatarLogo';
+                        someLogo.appendChild(document.createTextNode('account_circle'));
+                        someLogo.style.color = '#adaaaf';
+                        someLogo.title = data.rows[i].values[0];
+                        containerForImgAndName.appendChild(spanForName);
+                        containerForImgAndName.appendChild(someLogo);
+                        spanGroupLogo.appendChild(containerForImgAndName);
+                    } else {
+                        let containerForImgAndName = document.createElement('div');
+                        containerForImgAndName.id = 'containerForImgAndName';
+                        let spanForName = document.createElement('span');
+                        spanForName.appendChild(document.createTextNode(data.rows[i].values[0]));
+                        let imgLogo = document.createElement('img');
+                        imgLogo.id = 'avatarLogo';
+                        imgLogo.alt = 'avatar';
+                        imgLogo.src = logoPic;
+                        imgLogo.title = data.rows[i].values[0];
+                        containerForImgAndName.appendChild(spanForName);
+                        containerForImgAndName.appendChild(imgLogo);
+                        spanGroupLogo.appendChild(containerForImgAndName);
+                    }
+                    let spanGroupMessage = document.createElement('span');
+                    spanGroupMessage.id = 'spanGroupMessage';
+                    spanGroupMessage.appendChild(document.createTextNode(data.rows[i].values[2]));
+                    let spanGroupDate = document.createElement('span');
+                    spanGroupDate.id = 'spanGroupDate';
+                    if ((calcDate / 1000 / 60 / 60 / 24) < 1) {
+                        if ((calcDate / 1000 / 60 / 60) < 1) {
+                            if ((calcDate / 1000 / 60) < 1) {
+                                spanGroupDate.appendChild(document.createTextNode(`${this.getSecondsEnding(calcDate / 1000)}`));
+                            } else {
+                                spanGroupDate.appendChild(document.createTextNode(`${this.getMinutesEnding(calcDate / 1000 / 60)}`));
+                            }
                         } else {
-                            spanGroupDate.appendChild(document.createTextNode(`${this.getMinutesEnding(calcDate/1000/60)}`));
+                            spanGroupDate.appendChild(document.createTextNode(`${this.getHoursEnding(calcDate / 1000 / 60 / 60)}`));
                         }
                     } else {
-                        spanGroupDate.appendChild(document.createTextNode(`${this.getHoursEnding(calcDate/1000/60/60)}`));
+                        spanGroupDate.appendChild(document.createTextNode(`${this.getDaysEnding(calcDate / 1000 / 60 / 60 / 24)}`));
                     }
-                } else {
-                    spanGroupDate.appendChild(document.createTextNode(`${this.getDaysEnding(calcDate/1000/60/60/24)}`));
+                    divGroupItems.appendChild(spanGroupLogo);
+                    divGroupItems.appendChild(spanGroupMessage);
+                    divGroupItems.appendChild(spanGroupDate);
+                    divGroupWrapper.appendChild(divGroupItems);
                 }
-
-                divGroupItems.appendChild(spanGroupLogo);
-
-                divGroupItems.appendChild(spanGroupMessage);
-
-                divGroupItems.appendChild(spanGroupDate);
-
-                divGroupWrapper.appendChild(divGroupItems);
-
-
+            } else {
+                const noMessagesDiv = document.createElement('div');
+                noMessagesDiv.className = 'noMessagesDiv';
+                noMessagesDiv.appendChild(document.createTextNode('У даному блоці немає повідомлень'));
+                divGroupWrapper.appendChild(noMessagesDiv);
             }
-        } else {
-            const noMessagesDiv = document.createElement('div');
-            noMessagesDiv.className = 'noMessagesDiv';
-            noMessagesDiv.appendChild(document.createTextNode('У даному блоці немає повідомлень'));
-            divGroupWrapper.appendChild(noMessagesDiv);
+            createMenu.appendChild(divGroupWrapper);
         }
-
-        createMenu.appendChild(divGroupWrapper);
-    }
-};
+    };
 }());
