@@ -51,8 +51,11 @@
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             this.form.onControlValueChanged('Question_TypeId', this.onChanged_Question_TypeId.bind(this));
             this.form.onControlValueChanged('Question_Building', this.onChanged_Question_Building_Input.bind(this));
+            this.form.onControlValueChanged('Question_Building', this.checkQuestionRegistrationAvailable.bind(this));
             this.form.onControlValueChanged('Question_Organization',
                 this.onChanged_Question_Organization_Input.bind(this));
+            this.form.onControlValueChanged('Question_Organization',
+                this.checkQuestionRegistrationAvailable.bind(this));
             this.form.onControlValueChanged('Applicant_Id', this.onChangedApplicant_Id.bind(this));
             this.form.disableControl('Question_ControlDate');
             this.details.setVisibility('Site_Applicant', true);
