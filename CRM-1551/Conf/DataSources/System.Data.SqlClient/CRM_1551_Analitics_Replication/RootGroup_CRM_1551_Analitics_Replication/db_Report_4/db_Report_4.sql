@@ -1,22 +1,20 @@
-  -- DECLARE @org INT = 3;
-  -- DECLARE @dateFrom DATE = '2020-01-01';
-  -- DECLARE @dateTo DATE = getdate();
-  -- DECLARE @question_type_id INT = 1;
-
+-- DECLARE @org INT = 3;
+-- DECLARE @dateFrom DATE = '2020-01-01';
+-- DECLARE @dateTo DATE = getdate();
+-- DECLARE @question_type_id INT = 1;
 IF object_id('tempdb..##temp_QuestionTypes4monitoring') IS NOT NULL 
-BEGIN
+BEGIN 
 DROP TABLE ##temp_QuestionTypes4monitoring ;
-END
+END CREATE TABLE ##temp_QuestionTypes4monitoring (id INT) 
+WITH (DATA_COMPRESSION = PAGE);
 
-CREATE TABLE ##temp_QuestionTypes4monitoring (id INT) 
-WITH (DATA_COMPRESSION = PAGE); 
 DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO ##temp_QuestionTypes4monitoring (id) select [QuestionTypes].Id from [CRM_1551_Analitics].[dbo].[QuestionTypes] where Id in (' + rtrim(
   stuff(
     (
       SELECT
         N',' + QuestionTypes
       FROM
-        dbo.QuestionTypesAndParent 
+        dbo.QuestionTypesAndParent
       WHERE
         ParentId = @question_type_id
         /*#filter_columns# ParentId*/
@@ -26,8 +24,10 @@ DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO ##temp_QuestionTypes4monitoring (id) 
     1,
     N''
   )
-) + N')' ;
-EXEC sp_executesql @sql ;
+) + N')';
+
+EXEC sp_executesql @sql;
+
 /* SELECT * FROM ##temp_QuestionTypes4monitoring */
 /*
  if object_id('tempdb..##temp_Organizations4monitoring') is not null drop table ##temp_Organizations4monitoring
@@ -44,15 +44,15 @@ EXEC sp_executesql @sql ;
  SELECT * FROM ##temp_Organizations4monitoring
  */
 IF object_id('tempdb..#temp_Organizations1') IS NOT NULL 
-BEGIN
-DROP TABLE #temp_Organizations1 ;
+BEGIN DROP 
+TABLE #temp_Organizations1 ;
 END
-CREATE TABLE #temp_Organizations1 (
-main_org_id INT, 
-main_org_name NVARCHAR(500), 
+ CREATE TABLE #temp_Organizations1 (
+main_org_id INT,
+main_org_name NVARCHAR(500),
 main_org_parent_id INT,
- L1_id INT, 
- L1_org_name NVARCHAR(500),
+L1_id INT,
+L1_org_name NVARCHAR(500),
 L2_id INT,
 L2_org_name NVARCHAR(500),
 L3_id INT,
@@ -61,7 +61,7 @@ L4_id INT,
 L4_org_name NVARCHAR(500),
 L5_id INT,
 L5_org_name NVARCHAR(500)
-) WITH (DATA_COMPRESSION = PAGE); 
+) WITH (DATA_COMPRESSION = PAGE);
 
 INSERT INTO
   #temp_Organizations1 (main_org_id, main_org_name, main_org_parent_id
@@ -141,7 +141,7 @@ FROM
       [parent_organization_id]
     FROM
       [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
-  ) L5 ON L5.[parent_organization_id] = L4.id ;
+  ) L5 ON L5.[parent_organization_id] = L4.id;
 
 INSERT INTO
   #temp_Organizations1 (main_org_id, main_org_name, main_org_parent_id
@@ -174,20 +174,20 @@ SELECT
 FROM
   [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
 WHERE
-  id = @org ; 
-  -- SELECT * FROM #temp_Organizations1
-  IF object_id('tempdb..#temp_Organizations2') IS NOT NULL 
-  BEGIN 
-    DROP TABLE #temp_Organizations2 ;
-  END
+  id = @org;
 
-  CREATE TABLE #temp_Organizations2 (
-    main_org_id INT, 
-    main_org_parent_organization_id INT, 
-    main_org_name NVARCHAR(500), 
-    sub_id INT, 
-    sub_org_name NVARCHAR(500)
-    ) WITH (DATA_COMPRESSION = PAGE);
+-- SELECT * FROM #temp_Organizations1
+IF object_id('tempdb..#temp_Organizations2') IS NOT NULL 
+BEGIN 
+DROP TABLE #temp_Organizations2 ;
+END
+CREATE TABLE #temp_Organizations2 (
+main_org_id INT,
+main_org_parent_organization_id INT,
+main_org_name NVARCHAR(500),
+sub_id INT,
+sub_org_name NVARCHAR(500)
+) WITH (DATA_COMPRESSION = PAGE);
 
 INSERT INTO
   #temp_Organizations2 (main_org_id, main_org_parent_organization_id, main_org_name, sub_id, sub_org_name)
@@ -200,7 +200,7 @@ SELECT
 FROM
   #temp_Organizations1
 WHERE
-  main_org_id IS NOT NULL ;
+  main_org_id IS NOT NULL;
 
 INSERT INTO
   #temp_Organizations2 (main_org_id, main_org_parent_organization_id, main_org_name, sub_id, sub_org_name)
@@ -213,7 +213,7 @@ SELECT
 FROM
   #temp_Organizations1
 WHERE
-  L1_id IS NOT NULL ;
+  L1_id IS NOT NULL;
 
 INSERT INTO
   #temp_Organizations2 (main_org_id, main_org_parent_organization_id, main_org_name, sub_id, sub_org_name)
@@ -226,7 +226,7 @@ SELECT
 FROM
   #temp_Organizations1
 WHERE
-  L2_id IS NOT NULL ;
+  L2_id IS NOT NULL;
 
 INSERT INTO
   #temp_Organizations2 (main_org_id, main_org_parent_organization_id, main_org_name, sub_id, sub_org_name)
@@ -239,7 +239,7 @@ SELECT
 FROM
   #temp_Organizations1
 WHERE
-  L3_id IS NOT NULL ;
+  L3_id IS NOT NULL;
 
 INSERT INTO
   #temp_Organizations2 (main_org_id, main_org_parent_organization_id, main_org_name, sub_id, sub_org_name)
@@ -252,7 +252,7 @@ SELECT
 FROM
   #temp_Organizations1
 WHERE
-  L4_id IS NOT NULL ;
+  L4_id IS NOT NULL;
 
 INSERT INTO
   #temp_Organizations2 (main_org_id, main_org_parent_organization_id, main_org_name, sub_id, sub_org_name)
@@ -265,13 +265,13 @@ SELECT
 FROM
   #temp_Organizations1
 WHERE
-  L5_id IS NOT NULL ;
-  -- SELECT * FROM #temp_Organizations2
-  IF object_id('tempdb..#temp_Main') IS NOT NULL 
-  BEGIN
-  DROP TABLE #temp_Main ;
-  END
+  L5_id IS NOT NULL;
 
+-- SELECT * FROM #temp_Organizations2
+IF object_id('tempdb..#temp_Main') IS NOT NULL 
+BEGIN 
+DROP TABLE #temp_Main ;
+END
 SELECT
   [Assignments].Id,
   [Organizations].main_org_id orgId,
@@ -344,13 +344,13 @@ FROM
       ah.edit_date AS plan_prog
     FROM
       [dbo].[Assignments] a
-	  INNER JOIN [dbo].Questions q ON q.Id = a.question_id
+      INNER JOIN [dbo].Questions q ON q.Id = a.question_id
       LEFT JOIN (
         SELECT
           [assignment_id],
           Max(id) AS max_history_id
         FROM
-          dbo.Assignment_History Assignment_History WITH (nolock) 
+          dbo.Assignment_History Assignment_History WITH (nolock)
         WHERE
           [assignment_state_id] <> 5
         GROUP BY
@@ -362,7 +362,7 @@ FROM
       AND a.AssignmentResultsId = 7
       AND ah.assignment_state_id = 3
       AND ah.AssignmentResultsId = 8
-	  AND q.event_id IS NULL
+      AND q.event_id IS NULL
     UNION
     ALL
     SELECT
@@ -370,22 +370,16 @@ FROM
       a.edit_date
     FROM
       [dbo].[Assignments] a
-	  INNER JOIN [dbo].Questions q ON q.Id = a.question_id
+      INNER JOIN [dbo].Questions q ON q.Id = a.question_id
     WHERE
       [assignment_state_id] = 3
       AND [AssignmentResultsId] = 8
-	  AND q.event_id IS NULL
+      AND q.event_id IS NULL
   ) plan_prog ON [Assignments].id = plan_prog.[assignment_id]
-	
 WHERE
-  CONVERT(DATE, Assignments.registration_date) 
-  BETWEEN @dateFrom AND @dateTo 
-
-  IF object_id('tempdb..#temp_MainMain') IS NOT NULL
-  BEGIN
-   DROP TABLE #temp_MainMain ;
-  END
-
+  CONVERT(DATE, Assignments.registration_date) BETWEEN @dateFrom
+  AND @dateTo IF object_id('tempdb..#temp_MainMain') IS NOT NULL BEGIN DROP TABLE #temp_MainMain ;
+END
 SELECT
   orgId Id,
   orgName,
@@ -402,7 +396,7 @@ FROM
   #temp_Main
 GROUP BY
   orgId,
-  orgName ;
+  orgName;
 
 SELECT
   *,
@@ -500,4 +494,4 @@ FROM
       #temp_MainMain 
   ) z
 ORDER BY
-  AllCount DESC ;
+  AllCount DESC;

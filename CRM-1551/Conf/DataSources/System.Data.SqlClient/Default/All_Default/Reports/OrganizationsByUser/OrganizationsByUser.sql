@@ -81,7 +81,7 @@ WITH RecursiveOrg (Id, parentID, orgName) AS (
     FROM
         Organizations o
     WHERE
-        o.Id > 1
+        o.Id = 1
     UNION
     ALL
     SELECT
