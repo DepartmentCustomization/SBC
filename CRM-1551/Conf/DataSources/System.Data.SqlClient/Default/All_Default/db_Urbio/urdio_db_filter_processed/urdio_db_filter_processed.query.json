@@ -1,0 +1,27 @@
+{
+  "ModelType": "Query",
+  "Code": "urdio_db_filter_processed",
+  "Name": "urdio_db_filter_processed",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Row",
+      "Name": "Row",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2,
+      "IsPrintable": false
+    }
+  ]
+}
