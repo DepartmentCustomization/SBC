@@ -23,6 +23,7 @@
             const filters = message.package.value.values;
             const filterHelper = new this.filterHelperModule.FilterHelper();
             this.filterParams = filterHelper.getFiltersProps(filters);
+
         }
     };
 }());
