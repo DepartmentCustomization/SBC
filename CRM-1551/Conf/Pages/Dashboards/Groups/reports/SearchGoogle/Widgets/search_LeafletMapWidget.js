@@ -3,8 +3,8 @@
         title: 'Goole Maps',
         hint: '',
         mapOptions: {
-            zoom: 13,
-            maxZoom: 23
+            zoom: 18,
+            maxZoom: 19
         },
         formatTitle: function() {},
         init: function() {
