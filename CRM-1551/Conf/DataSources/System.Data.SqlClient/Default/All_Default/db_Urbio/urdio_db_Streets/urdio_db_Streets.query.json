@@ -1,0 +1,71 @@
+{
+  "ModelType": "Query",
+  "Code": "urdio_db_Streets",
+  "Name": "urdio_db_Streets",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "operations",
+      "Name": "operations",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "UrbioName",
+      "Name": "UrbioName",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "1551Name",
+      "Name": "1551Name",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "is_done",
+      "Name": "is_done",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "comment",
+      "Name": "comment",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "is_done_filter",
+      "Name": "is_done_filter",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "UrbioName_filter",
+      "Name": "UrbioName_filter",
+      "Position": 7,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}
