@@ -1,0 +1,22 @@
+{
+  "ModelType": "Query",
+  "Code": "urdio_db_Button_skip_build",
+  "Name": "urdio_db_Button_skip_build",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Parameters": [
+    {
+      "Code": "@Ids",
+      "Name": "Ids"
+    },
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
+    },
+    {
+      "Code": "@comment",
+      "Name": "comment"
+    }
+  ]
+}

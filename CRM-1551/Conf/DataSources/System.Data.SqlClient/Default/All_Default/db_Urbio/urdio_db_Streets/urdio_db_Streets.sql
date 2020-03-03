@@ -12,8 +12,7 @@
   ISNULL(sta.shortname,N'')+ISNULL(sa.name,N'') [1551Name],
   su.is_done, su.comment
   ,su.is_done is_done_filter
-  ,ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
-  ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'') [UrbioName_filter]
+  ,su.id [UrbioName_filter]
   FROM [CRM_1551_URBIO_Integrartion].[dbo].[streets] su
   LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] sa ON su.id=sa.urbio_id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id
