@@ -9,8 +9,7 @@
                 `
         ,
         init: async function() {
-            const foopath = '../modules/dist/Filters/FilterHelper.js';
-            this.filterHelperModule = await import(foopath);
+            this.filterHelperModule = await import('../modules/dist/Filters/FilterHelper.js');
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
