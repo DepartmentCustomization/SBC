@@ -18,7 +18,7 @@ module.exports = {
     },
     "rules": {
         "strict": 0,
-        "indent": ["error", 4],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "quotes": ["error", "single"],
         "no-var": "error",
         "no-multiple-empty-lines": ["error", { max: 1 }],

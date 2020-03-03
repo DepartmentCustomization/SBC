@@ -1,6 +1,6 @@
-import { BaseFilter } from '/Modules/Filters/BaseFilter.js';
+import { SelectFilter } from '/Modules/Filters/SelectFilter.js';
 
-export class MultiSelectFilter extends BaseFilter {
+export class MultiSelectFilter extends SelectFilter {
     constructor(name, placeholder, values) {
         super(name, placeholder);
         this.value = this.setMultipleValues(values, 'value');
