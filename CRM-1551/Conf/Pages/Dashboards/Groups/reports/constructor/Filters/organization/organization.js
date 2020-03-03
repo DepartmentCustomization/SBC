@@ -2,7 +2,7 @@
     return {
         placeholder: 'Організація',
         keyValue: 'Id',
-        displayValue: 'Name',
+        displayValue: 'orgName',
         baseQueryOptions: {
             queryCode: 'OrganizationsByUser',
             filterColumns: null,
