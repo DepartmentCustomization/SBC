@@ -9,7 +9,7 @@
                 `
         ,
         init: async function() {
-            this.filterHelperModule = await import('../modules/dist/Filters/FilterHelper.js');
+            this.filterHelperModule = await import('../modules/Filters/FilterHelper.js');
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -21,8 +21,8 @@
         },
         getFiltersParam: function(message) {
             const filters = message.package.value.values;
-            const filterHelper = new this.filterHelperModule.FilterHelper(filters);
-            this.filterParams = filterHelper.getFiltersParams();
+            const filterHelper = new this.filterHelperModule.FilterHelper();
+            this.filterParams = filterHelper.getFiltersProps(filters);
         }
     };
 }());
