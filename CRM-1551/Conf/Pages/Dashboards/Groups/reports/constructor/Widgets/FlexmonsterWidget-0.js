@@ -50,6 +50,7 @@
             let indexQuestionResolution = values[0].findIndex(el => el.code.toLowerCase() === 'resolution');
             let indexQuestionResult = values[0].findIndex(el => el.code.toLowerCase() === 'result');
             const columns = values.shift();
+            columns.index;
             const reportData = values.map((row, index) => ({
                 'Батькiвська 1 рiвень': values[index][indexOrgatization_Level_1],
                 'Батькiвська 2 рiвень': values[index][indexOrgatization_Level_2],
