@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'db_Report_4',
+                code: 'urbio_db_Builds',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -11,19 +11,22 @@
             },
             columns: [
                 {
-                    dataField: 'Column',
+                    dataField: 'operations',
                     caption: 'Операція'
                 }, {
-                    dataField: 'Column',
-                    caption: 'Urbio'
+                    dataField: 'Urbio_District',
+                    caption: 'Район'
                 }, {
-                    dataField: 'Column',
-                    caption: '1551'
+                    dataField: '1551_District',
+                    caption: 'Район в 1551'
                 }, {
-                    dataField: 'Column',
+                    dataField: '1551_Build',
+                    caption: 'Будинок в 1551'
+                }, {
+                    dataField: 'is_done',
                     caption: 'Стан'
                 }, {
-                    dataField: 'Column',
+                    dataField: 'comment',
                     caption: 'Коментар'
                 }
             ],
@@ -51,7 +54,7 @@
         firstLoad: true,
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyGlobalFilters, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.loadData(this.afterLoadDataHandler);
         },
@@ -75,6 +78,7 @@
                     },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
+                        this.applyChangesWithRows();
                     }.bind(this)
                 }
             });
@@ -109,7 +113,10 @@
                 }
             });
         },
-        applyChanges: function() {
+        applyChangesWithRows: function() {
+            
+        },
+        applyGlobalFilters: function() {
             this.sendMessageFilterPanelState(false);
             this.loadData(this.afterLoadDataHandler);
         },

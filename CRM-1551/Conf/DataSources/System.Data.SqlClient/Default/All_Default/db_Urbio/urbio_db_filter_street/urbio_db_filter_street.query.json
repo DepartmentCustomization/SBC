@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "urdio_db_filter_street",
-  "Name": "urdio_db_filter_street",
+  "Code": "urbio_db_filter_street",
+  "Name": "urbio_db_filter_street",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [

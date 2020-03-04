@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "urdio_db_filter_processed",
-  "Name": "urdio_db_filter_processed",
+  "Code": "urbio_db_filter_processed",
+  "Name": "urbio_db_filter_processed",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [
