@@ -17,13 +17,28 @@
             this.queryExecutor(executeQuery, this.showUserInfo, this);
         },
         showUserInfo: function(data) {
-            indexFirstName = data.columns.findIndex(el => el.code.toLowerCase() === 'firstname');
-            indexLastName = data.columns.findIndex(el => el.code.toLowerCase() === 'lastname');
-            indexIcon = data.columns.findIndex(el => el.code.toLowerCase() === 'avatar');
+            const indexFirstName = data.columns.findIndex(el => el.code.toLowerCase() === 'firstname');
+            const indexLastName = data.columns.findIndex(el => el.code.toLowerCase() === 'lastname');
+            const indexIcon = data.columns.findIndex(el => el.code.toLowerCase() === 'avatar');
             const infoContainer = document.getElementById('infoContainer');
-            userInfo__icon = this.createElement('img', { className: 'userInfo__icon', src:  String(String(data.rows[0].values[indexIcon])) });
-            userInfo__firstName = this.createElement('div', { className: 'userInfo__firstName caption', innerText: String(String(data.rows[0].values[indexFirstName])) });
-            userInfo__lastName = this.createElement('div', { className: 'userInfo__lastName caption', innerText: String(String(data.rows[0].values[indexLastName])) });
+            const userInfo__icon = this.createElement('img',
+                {
+                    className: 'userInfo__icon',
+                    src: String(String(data.rows[0].values[indexIcon]))
+                }
+            );
+            const userInfo__firstName = this.createElement('div',
+                {
+                    className: 'userInfo__firstName caption',
+                    innerText: String(String(data.rows[0].values[indexFirstName]))
+                }
+            );
+            const userInfo__lastName = this.createElement('div',
+                {
+                    className: 'userInfo__lastName caption',
+                    innerText: String(String(data.rows[0].values[indexLastName]))
+                }
+            );
             const userInfo = this.createElement('div', { id: 'userInfo' }, userInfo__icon, userInfo__lastName, userInfo__firstName);
             infoContainer.appendChild(userInfo);
         },

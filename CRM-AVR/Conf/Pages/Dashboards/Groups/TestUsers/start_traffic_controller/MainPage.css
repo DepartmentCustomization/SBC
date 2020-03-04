@@ -1,0 +1,13 @@
+#container1{
+    display: flex;
+    justify-content: space-around;
+}
+.btn{
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 14px;
+    padding: 0 10px;
+    height: 32px;
+}

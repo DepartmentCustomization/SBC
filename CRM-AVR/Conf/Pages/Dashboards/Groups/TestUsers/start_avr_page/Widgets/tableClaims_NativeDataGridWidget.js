@@ -18,7 +18,6 @@
                     width: 70,
                     alignment: null,
                     groupIndex: null,
-                    // sortOrder: 'asc',
                     allowSorting: true,
                     subColumns: []
                 }, {
@@ -90,10 +89,6 @@
             headerFilter: {
                 visible: false
             },
-            filterRow: {
-                visible: true,
-                applyFilter: 'auto'
-            },
             keyExpr: 'Id',
             showBorders: true,
             showColumnLines: true,
@@ -117,15 +112,23 @@
             this.loadData(this.afterLoadDataHandler);
             this.sub = this.messageService.subscribe('clearSelectedRows', this.clearSelectedRows, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
-                if(e.column.dataField == 'Claim_Number' && e.row != undefined) {
+                if(e.column.dataField === 'Claim_Number' && e.row !== undefined) {
                     if(e.data.DisplayID === 1) {
-                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Claims/edit/' + e.row.data.Id));
+                        window.open(
+                            String(location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/sections/Claims/edit/' + e.row.data.Id)
+                        );
                     } else if (e.data.DisplayID === 2) {
-                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/AreaClaims/edit/' + e.row.data.Id));
+                        window.open(
+                            String(location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/sections/AreaClaims/edit/' + e.row.data.Id)
+                        );
                     }
                 }
                 if(e.column) {
-                    if(e.row != undefined) {
+                    if(e.row !== undefined) {
                         e.row.cells.forEach(cell => {
                             cell.cellElement.style.backgroundColor = 'yellow'
                         });
@@ -136,7 +139,7 @@
         clearSelectedRows: function() {
             this.dataGridInstance.instance.refresh();
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         }
     }
