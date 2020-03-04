@@ -1,9 +1,9 @@
---  declare @RegistrationDateFrom datetime = '2020-02-01 06:00';
---  declare @RegistrationDateTo datetime = '2020-02-24 14:25';
---  declare @OrganizationExecId int = 1;
---  declare @OrganizationExecGroupId int;
---  declare @ReceiptSourcesId int = null;
---  declare @QuestionGroupId int;
+  --declare @RegistrationDateFrom datetime = '2020-01-01 06:00';
+  --declare @RegistrationDateTo datetime = '2020-02-24 14:25';
+  --declare @OrganizationExecId int = 1;
+  --declare @OrganizationExecGroupId int;
+  --declare @ReceiptSourcesId int = null;
+  --declare @QuestionGroupId int;
 
 IF object_id('tempdb..#temp_OUT') IS NOT NULL 
 BEGIN
@@ -266,9 +266,9 @@ FROM
           n = 1
       ) Closed ON [Ass].Id = Closed.assignment_id
     WHERE 
-      CAST([Que].Registration_date AS DATE) 
-      BETWEEN CAST(@RegistrationDateFrom AS DATE)
-      AND CAST(@RegistrationDateTo AS DATE)
+      [Que].Registration_date  
+      BETWEEN @RegistrationDateFrom
+      AND @RegistrationDateTo
       AND (
         [Ass].[executor_organization_id] IN (
           SELECT
@@ -284,4 +284,4 @@ FROM
                 QueTypeId
               FROM
                 #temp_OUT_QuestionGroup)
-            AND #filter_columns# 
+            AND #filter_columns# ;

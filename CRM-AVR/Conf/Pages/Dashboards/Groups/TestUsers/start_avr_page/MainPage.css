@@ -1,15 +1,96 @@
 .userInfo__icon{
     height: 100px;
     width: 100px;
-    border-radius: 50%;    
+    border-radius: 50%;
 }
-
 #userInfo{
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    align-items: center;
 }
 .caption{
     font-size: 20px;
-    font-weight: 600;    
+    font-weight: 600;
 }
+
+/* Widget 1 */
+.btn{
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 14px;
+    padding: 0 10px;
+    height: 32px;
+}
+#container1{
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Widget 0 */
+.menuCategory{
+    border-top: 1px solid #eff2f5;
+    padding: 6px 0px;
+    text-decoration: none;
+    color: #000;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none; 
+}
+.menuCategoryContainer{
+    display: none;
+}
+.menuCategoryItem, .arrow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    justify-content: space-between;
+}
+.menuCategoryItem_title{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+}
+.menuItem, .menuForm{
+    margin: 5px 3px;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 5px;
+    font-size: 14px;
+    background-color: #c8c8c8;
+}   
+.childrensContainer {
+    display: none;
+    margin: 5px 5px;
+}
+.childrensContainerWrapper{
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.menuFormInput{
+    width: 90%;
+    height: 30px;
+    margin: 3px 0;
+}
+.menuFormButton{
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    width: 90%;
+}
+
+/* Widget 2 */

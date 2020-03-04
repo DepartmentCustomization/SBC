@@ -84,7 +84,6 @@
             let container = [];
             container.push(value1);
             container.push(value2);
-            // this.chartConfig.title.text = data.rows[0].values[1];
             this.chartConfig.series = container;
             this.render();
         }
