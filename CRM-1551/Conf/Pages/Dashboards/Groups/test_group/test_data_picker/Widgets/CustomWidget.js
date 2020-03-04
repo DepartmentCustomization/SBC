@@ -1,7 +1,7 @@
 (function() {
     return {
         title: ' ',
-        hint: '',
+        hint: ' ',
         formatTitle: function() {},
         customConfig:
                 `

@@ -15,55 +15,55 @@ export class FilterHelper {
                 const placeholder = filter.placeholder;
                 const value = filter.value;
                 switch (type) {
-                case 'Select': {
-                    let valueSelect = value.value;
-                    let viewValueSelect = value.viewValue;
-                    let filterSelect = new SelectFilter(name, placeholder, valueSelect, viewValueSelect);
-                    filterParams.push(filterSelect);
-                    break;
-                }
-                case 'MultiSelect': {
-                    let filterMultiSelect = new MultiSelectFilter(name, placeholder, value);
-                    filterParams.push(filterMultiSelect);
-                    break;
-                }
-                case 'Date':
-                case 'DateTime':
-                case 'Time': {
-                    const dateFrom = value.dateFrom;
-                    const dateTo = value.dateTo;
-                    if(dateFrom === undefined || dateTo === undefined) {
-                        const date = value;
-                        const filterCalendar = new CalendarFilter(
-                            name,
-                            placeholder,
-                            date
-                        );
-                        filterParams.push(filterCalendar);
-                    } else {
-                        const filterDateTime = new DateTimeFilter(
-                            name,
-                            placeholder,
-                            dateFrom,
-                            dateTo
-                        );
-                        filterParams.push(filterDateTime);
+                    case 'Select': {
+                        const valueSelect = value.value;
+                        const viewValueSelect = value.viewValue;
+                        const filterSelect = new SelectFilter(name, placeholder, valueSelect, viewValueSelect);
+                        filterParams.push(filterSelect);
+                        break;
                     }
-                    break;
-                }
-                case 'CheckBox':
-                case 'Input': {
-                    let valueInput = value;
-                    let simpleFilter = new Filter(
-                        name,
-                        placeholder,
-                        valueInput
-                    );
-                    filterParams.push(simpleFilter);
-                }
-                    break;
-                default:
-                    break;
+                    case 'MultiSelect': {
+                        const filterMultiSelect = new MultiSelectFilter(name, placeholder, value);
+                        filterParams.push(filterMultiSelect);
+                        break;
+                    }
+                    case 'Date':
+                    case 'DateTime':
+                    case 'Time': {
+                        const dateFrom = value.dateFrom;
+                        const dateTo = value.dateTo;
+                        if(dateFrom === undefined || dateTo === undefined) {
+                            const date = value;
+                            const filterCalendar = new CalendarFilter(
+                                name,
+                                placeholder,
+                                date
+                            );
+                            filterParams.push(filterCalendar);
+                        } else {
+                            const filterDateTime = new DateTimeFilter(
+                                name,
+                                placeholder,
+                                dateFrom,
+                                dateTo
+                            );
+                            filterParams.push(filterDateTime);
+                        }
+                        break;
+                    }
+                    case 'CheckBox':
+                    case 'Input': {
+                        const valueInput = value;
+                        const simpleFilter = new Filter(
+                            name,
+                            placeholder,
+                            valueInput
+                        );
+                        filterParams.push(simpleFilter);
+                    }
+                        break;
+                    default:
+                        break;
                 }
             }
         });
