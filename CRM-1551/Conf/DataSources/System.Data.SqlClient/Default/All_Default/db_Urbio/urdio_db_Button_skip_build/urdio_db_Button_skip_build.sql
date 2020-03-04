@@ -5,7 +5,7 @@
 
   select value
   into #Ids
-  from string_split(@Ids,N',')
+  from string_split(@BuildUrbioIds,N',')
 
 
 update [CRM_1551_URBIO_Integrartion].[dbo].[addressObject]

@@ -5,7 +5,7 @@
 
   select value
   into #Ids
-  from string_split(@Ids,N',')
+  from string_split(@StreetUrbioIds,N',')
   
   update [CRM_1551_URBIO_Integrartion].[dbo].[streets]
   SET [is_done]='true'

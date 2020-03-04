@@ -6,8 +6,8 @@
   "IsUsedForRightsFilter": false,
   "Parameters": [
     {
-      "Code": "@Ids",
-      "Name": "Ids"
+      "Code": "@StreetUrbioIds",
+      "Name": "StreetUrbioIds"
     },
     {
       "Code": "@user_id",

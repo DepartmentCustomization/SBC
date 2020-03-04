@@ -12,46 +12,72 @@
       "IsPrintable": false
     },
     {
-      "Code": "operations",
-      "Name": "operations",
+      "Code": "Analitics_Id",
+      "Name": "Analitics_Id",
       "Position": 1,
       "IsPrintable": false
     },
     {
-      "Code": "UrbioName",
-      "Name": "UrbioName",
+      "Code": "Urbio_Id",
+      "Name": "Urbio_Id",
       "Position": 2,
       "IsPrintable": false
     },
     {
+      "Code": "operations",
+      "Name": "operations",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "operations",
+      "FilterParameterCode": "@operations"
+    },
+    {
+      "Code": "UrbioName",
+      "Name": "UrbioName",
+      "Position": 4,
+      "IsPrintable": false,
+      "SqlName": "UrbioName",
+      "FilterParameterCode": "@UrbioName"
+    },
+    {
       "Code": "1551Name",
       "Name": "1551Name",
-      "Position": 3,
-      "IsPrintable": false
+      "Position": 5,
+      "IsPrintable": false,
+      "SqlName": "1551Name",
+      "FilterParameterCode": "@1551Name"
     },
     {
       "Code": "is_done",
       "Name": "is_done",
-      "Position": 4,
-      "IsPrintable": false
+      "Position": 6,
+      "IsPrintable": false,
+      "SqlName": "is_done",
+      "FilterParameterCode": "@is_done"
     },
     {
       "Code": "comment",
       "Name": "comment",
-      "Position": 5,
-      "IsPrintable": false
+      "Position": 7,
+      "IsPrintable": false,
+      "SqlName": "comment",
+      "FilterParameterCode": "@comment"
     },
     {
       "Code": "is_done_filter",
       "Name": "is_done_filter",
-      "Position": 6,
-      "IsPrintable": false
+      "Position": 8,
+      "IsPrintable": false,
+      "SqlName": "is_done_filter",
+      "FilterParameterCode": "@is_done_filter"
     },
     {
-      "Code": "UrbioName_filter",
-      "Name": "UrbioName_filter",
-      "Position": 7,
-      "IsPrintable": false
+      "Code": "StreetName_filter",
+      "Name": "StreetName_filter",
+      "Position": 9,
+      "IsPrintable": false,
+      "SqlName": "StreetName_filter",
+      "FilterParameterCode": "@UrbioName_filter"
     }
   ],
   "Parameters": [
