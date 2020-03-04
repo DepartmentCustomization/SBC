@@ -103,14 +103,20 @@ SELECT
 FROM
   dbo.[QuestionTypes];
 END 
--- select group_question_id,type_question_id from [QGroupIncludeQTypes]
---select * from #temp_OUT
---select * from [OrganizationGroups]
+
+DECLARE @targettimezone AS sysname = 'E. Europe Standard Time';
 SELECT
-  [Que].Id AS QuestionId,
-  CONVERT(VARCHAR(16),[Que].Registration_date, 120) AS Registration_date,
-  CONVERT(VARCHAR(16),[Vykon].Log_Date, 120) AS Vykon_date,
-  CONVERT(VARCHAR(16),[Closed].Log_Date, 120) Close_date,
+  CONVERT(VARCHAR(16),dateadd(MINUTE,datepart(tz, [Que].registration_date 
+  AT TIME ZONE @targettimezone), [Que].registration_date), 120)
+  AS Registration_date,
+
+  CONVERT(VARCHAR(16),dateadd(MINUTE,datepart(tz, [Vykon].Log_Date
+  AT TIME ZONE @targettimezone), [Vykon].Log_Date), 120) 
+  AS Vykon_date,
+
+  CONVERT(VARCHAR(16),dateadd(MINUTE,datepart(tz, [Closed].Log_Date
+  AT TIME ZONE @targettimezone), [Closed].Log_Date), 120)  
+  AS Close_date,
   [QuestionStates].name [QuestionState],
   [AssState].[name] [AssignmentState],
   1 Count_,
@@ -284,4 +290,5 @@ FROM
                 QueTypeId
               FROM
                 #temp_OUT_QuestionGroup)
-            AND #filter_columns# ;
+            AND #filter_columns# 
+	;
