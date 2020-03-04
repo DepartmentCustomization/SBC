@@ -113,9 +113,6 @@
                 }
             });
         },
-        applyChangesWithRows: function() {
-            
-        },
         applyGlobalFilters: function() {
             this.sendMessageFilterPanelState(false);
             this.loadData(this.afterLoadDataHandler);
