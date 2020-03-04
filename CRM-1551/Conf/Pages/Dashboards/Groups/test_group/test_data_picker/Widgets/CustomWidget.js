@@ -9,7 +9,7 @@
                 `
         ,
         init: async function() {
-            this.filterHelperModule = await import('../modules/Filters/FilterHelper.js');
+            this.filterHelperModule = await import('/modules/Filters/FilterHelper.js');
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
