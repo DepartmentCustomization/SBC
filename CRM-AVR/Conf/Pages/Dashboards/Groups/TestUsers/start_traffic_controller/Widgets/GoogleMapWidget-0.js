@@ -95,8 +95,8 @@
                 let Lattitude = data.rows[i].values[7];
                 let Longitude = data.rows[i].values[8];
                 let title = String(String(data.rows[i].values[4]) + '\n' + data.rows[i].values[2] + '\n' + data.rows[i].values[1]);
-                this.marker02.push(new google.maps.Marker({
-                    position: new google.maps.LatLng(Lattitude, Longitude),
+                this.marker02.push(new window.google.maps.Marker({
+                    position: new window.google.maps.LatLng(Lattitude, Longitude),
                     map: this.map,
                     title: title,
                     icon: 'https://unpkg.com/leaflet@1.3.4/dist/images/marker-icon.png'
@@ -123,7 +123,7 @@
                     data.rows[i].values[claimNumber] + '"> Детальніше </a>' +
                      '</div>' +
                      '</div>';
-                infowindow_marker02.push(new google.maps.InfoWindow({
+                infowindow_marker02.push(new window.google.maps.InfoWindow({
                     content: contentString1
                 }));
             }
@@ -159,8 +159,8 @@
                         lng: data.rows[i].values[8]
                     }
                 ];
-                this.marker01.push(new google.maps.Marker({
-                    position: new google.maps.LatLng(data.rows[i].values[indexOfLatitude], data.rows[i].values[indexOfLongitude]),
+                this.marker01.push(new window.google.maps.Marker({
+                    position: new window.google.maps.LatLng(data.rows[i].values[indexOfLatitude], data.rows[i].values[indexOfLongitude]),
                     icon: 'assets/img/red-point.png',
                     map: this.map,
                     draggable: false,
@@ -196,7 +196,7 @@
                     + data.rows[i].values[claimNumber] + '"> Детальніше </a>' +
                      '</div>' +
                      '</div>';
-                infowindow_marker01.push(new google.maps.InfoWindow({
+                infowindow_marker01.push(new window.google.maps.InfoWindow({
                     content: contentString1
                 }));
             }
