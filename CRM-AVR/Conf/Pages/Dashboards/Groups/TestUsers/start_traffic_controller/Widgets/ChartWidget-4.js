@@ -33,7 +33,6 @@
             series: []
         },
         init: function() {
-            // this.sub = this.messageService.subscribe('showThisTeamMembers', this.showColumnsGraphics);
             let loadPie = {
                 queryCode: 'pie_OrgName_CentralControlRoom'
             };
@@ -41,26 +40,20 @@
             document.getElementById('chart_schedule_current_status').style.display = 'none';
             this.render();
             this.sub = this.messageService.subscribe('showPie', this.foo, this);
-            let executeQuery = {
-                queryCode: 'chart_Shift_count_people',
-                limit: -1,
-                parameterValues: []
-            };
-            // this.queryExecutor(executeQuery, this.load, this);
             this.sub1 = this.messageService.subscribe('tabsClick', this.showTable);
         },
         showTable: function(message) {
-            if(message.value != 'btn_schedule') {
+            if(message.value !== 'btn_schedule') {
                 document.getElementById('chart_schedule_current_status').style.display = 'none';
             }else{
                 document.getElementById('chart_schedule_current_status').style.display = 'block';
             }
         },
-        foo: function(message) {
+        foo: function() {
             document.getElementById('result_brigad').style.display = 'none';
             document.getElementById('pei_brigad').style.display = 'block';
         },
-        load: function(data, options) {
+        load: function(data) {
             this.title = ' ';
             let series = this.chartConfig.series;
             this.seriesData = [];

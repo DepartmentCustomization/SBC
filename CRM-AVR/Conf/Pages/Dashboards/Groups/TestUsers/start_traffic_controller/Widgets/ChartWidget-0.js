@@ -60,8 +60,8 @@
             this.queryExecutor(executeQuery, this.load, this);
         },
         load: function(data) {
-            is_on = data.columns.findIndex(el => el.code.toLowerCase() === 'is_on');
-            is_off = data.columns.findIndex(el => el.code.toLowerCase() === 'is_off');
+            const is_on = data.columns.findIndex(el => el.code.toLowerCase() === 'is_on');
+            const is_off = data.columns.findIndex(el => el.code.toLowerCase() === 'is_off');
             this.chartConfig.series = [];
             let value1 = {
                 name: 'Без вiдключень',

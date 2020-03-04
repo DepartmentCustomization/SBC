@@ -11,12 +11,6 @@
             },
             columns: [
                 {
-                // dataField: 'Claim_Number',
-                // caption: '№ заявки',
-                // width: 80,
-                // fixed: true,
-                // // sortOrder: 'asc',
-                // allowSorting: true,
                     dataField: 'Claim_Number',
                     caption: '№ заявки',
                     dataType: null,
@@ -24,7 +18,6 @@
                     width: 70,
                     alignment: null,
                     groupIndex: null,
-                    // sortOrder: 'asc',
                     allowSorting: true,
                     subColumns: []
                 },{
@@ -99,10 +92,6 @@
             headerFilter: {
                 visible: true
             },
-            filterRow: {
-                visible: true,
-                applyFilter: 'auto'
-            },
             keyExpr: 'Id',
             showBorders: true,
             showColumnLines: true,
@@ -126,15 +115,23 @@
             this.sub = this.messageService.subscribe('tabsClick', this.showTable);
             this.loadData(this.afterLoadDataHandler);
             this.dataGridInstance.onCellClick.subscribe(e => {
-                if(e.column.dataField == 'Claim_Number' && e.row != undefined) {
+                if(e.column.dataField === 'Claim_Number' && e.row !== undefined) {
                     if(e.data.DisplayID === 1) {
-                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Claims/edit/' + e.row.data.Id));
+                        window.open(
+                            String(location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/sections/Claims/edit/' + e.row.data.Id)
+                        );
                     } else if (e.data.DisplayID === 2) {
-                        window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/AreaClaims/edit/' + e.row.data.Id));
+                        window.open(
+                            String(location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/sections/AreaClaims/edit/' + e.row.data.Id)
+                        );
                     }
                 }
                 if(e.column) {
-                    if(e.row != undefined) {
+                    if(e.row !== undefined) {
                         e.row.cells.forEach(cell => {
                             cell.cellElement.style.backgroundColor = 'yellow'
                         });
@@ -143,13 +140,13 @@
             });
         },
         showTable: function(message) {
-            if(message.value != 'btn_table') {
+            if(message.value !== 'btn_table') {
                 document.getElementById('table_applications').style.display = 'none';
             }else{
                 document.getElementById('table_applications').style.display = 'block';
             }
         },
-        afterLoadDataHandler: function(data) {
+        afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
