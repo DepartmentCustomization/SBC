@@ -107,8 +107,8 @@ END
 DECLARE @targettimezone AS sysname = 'E. Europe Standard Time';
 SELECT
   Ass.Id AS AssignmentId,
-  CONVERT(VARCHAR(16),dateadd(MINUTE,datepart(tz, [Que].registration_date 
-  AT TIME ZONE @targettimezone), [Que].registration_date), 120)
+  CONVERT(VARCHAR(16),dateadd(MINUTE,datepart(tz, [Ass].registration_date 
+  AT TIME ZONE @targettimezone), [Ass].registration_date), 120)
   AS Registration_date,
 
   CONVERT(VARCHAR(16),dateadd(MINUTE,datepart(tz, [Vykon].Log_Date
