@@ -6,13 +6,22 @@
   "IsUsedForRightsFilter": false,
   "Parameters": [
     {
-      "Code": "@StreetUrbioIds",
-      "Name": "StreetUrbioIds"
+      "Code": "@Analitics_Id",
+      "Name": "Analitics_Id",
+      "ParameterType": "Integer"
     },
     {
       "Code": "@user_id",
       "Name": "user_id",
       "ParameterType": "CurrentUserId"
+    },
+    {
+      "Code": "@Urbio_Id",
+      "Name": "Urbio_Id"
+    },
+    {
+      "Code": "@Operation",
+      "Name": "Operation"
     },
     {
       "Code": "@comment",
