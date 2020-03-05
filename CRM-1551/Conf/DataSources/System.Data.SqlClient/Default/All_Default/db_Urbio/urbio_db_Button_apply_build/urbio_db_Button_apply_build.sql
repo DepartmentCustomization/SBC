@@ -22,6 +22,7 @@
 	  update [CRM_1551_Analitics].[dbo].[Objects]
 	  set is_active='false'
 	  where builbing_id=@Analitics_Id--[urbio_id] in (select [value] from #Ids)
+
   END
 
   --добавление
@@ -176,3 +177,20 @@
     where Id=@Urbio_Id
 
   END
+
+  DECLARE @table NVARCHAR(200)= N'addressObject'; 
+
+  DECLARE @operation_code NVARCHAR(50)=CASE 
+      WHEN @Operation=N'Додавання' THEN N'add'
+      WHEN @Operation=N'Редагування' THEN N'change'
+      WHEN @Operation=N'Видалення' THEN N'del'
+      END;
+
+  --declare @user_id nvarchar(123)=N'Вася';
+  --DECLARE @urbio_id NVARCHAR(128)=@Urbio_Id;
+  --declare @id_1551 int=13;
+  --declare @comment nvarchar(123)=N'sdgss';
+  --declare @operation_code nvarchar(23)=N'add'
+
+exec add_Urbio_Objects_History @table, @user_id, @Urbio_Id, @Analitics_Id, @comment, @operation_code
+

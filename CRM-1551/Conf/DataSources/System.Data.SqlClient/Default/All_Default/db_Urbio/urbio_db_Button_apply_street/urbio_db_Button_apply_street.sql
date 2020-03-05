@@ -17,6 +17,7 @@ IF @Operation=N'Видалення'
 	  , [comment]=@comment
 	  , [user_id]=@user_id
 	  WHERE Id=@Urbio_Id --in (select value from #Ids)
+
   END
   
   IF @Operation=N'Додавання'
@@ -52,6 +53,7 @@ IF @Operation=N'Видалення'
 	  , [comment]=@comment
 	  , [user_id]=@user_id
 	  WHERE Id=@Urbio_Id--Id in (select value from #Ids)	
+
   END
 
   IF @Operation=N'Редагування'
@@ -77,4 +79,19 @@ IF @Operation=N'Видалення'
 	  , [comment]=@comment
 	  , [user_id]=@user_id
 	  WHERE Id=@Urbio_Id --in (select value from #Ids)
+
   END
+
+  DECLARE @table NVARCHAR(200)= N'streets'; 
+  --declare @user_id nvarchar(123)=N'Вася';
+  --DECLARE @urbio_id NVARCHAR(128)=@Urbio_Id;
+  --declare @id_1551 int=13;
+  --declare @comment nvarchar(123)=N'sdgss';
+  --declare @operation_code nvarchar(23)=N'add'
+  DECLARE @operation_code NVARCHAR(50)=CASE 
+      WHEN @Operation=N'Додавання' THEN N'add'
+      WHEN @Operation=N'Редагування' THEN N'change'
+      WHEN @Operation=N'Видалення' THEN N'del'
+      END;
+
+EXEC add_Urbio_Objects_History @table, @user_id, @Urbio_Id, @Analitics_Id, @comment, @operation_code;

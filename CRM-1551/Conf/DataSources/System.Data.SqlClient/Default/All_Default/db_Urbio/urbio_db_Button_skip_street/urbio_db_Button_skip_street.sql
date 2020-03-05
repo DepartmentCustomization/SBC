@@ -13,3 +13,5 @@
     ,[user_id]=@user_id
 	  ,[comment]=@comment
   where Id in (select [value] from #Ids)
+
+  
