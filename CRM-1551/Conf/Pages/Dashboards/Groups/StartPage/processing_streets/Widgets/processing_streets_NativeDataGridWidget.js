@@ -17,14 +17,11 @@
                     dataField: 'operations',
                     caption: 'Операція'
                 }, {
-                    dataField: 'Urbio_District',
-                    caption: 'Район'
+                    dataField: 'UrbioName',
+                    caption: 'Urbio'
                 }, {
-                    dataField: '1551_District',
-                    caption: 'Район в 1551'
-                }, {
-                    dataField: '1551_Build',
-                    caption: 'Будинок в 1551'
+                    dataField: '1551Name',
+                    caption: '1551'
                 }, {
                     dataField: 'is_done',
                     caption: 'Стан'
@@ -134,8 +131,8 @@
                             { key: '@comment', value: row.comment }
                         ]
                     };
-                    // this.queryExecutor(executeApplyRowsChanges);
-                    // this.showPreloader = false;
+                    this.queryExecutor(executeApplyRowsChanges);
+                    this.showPreloader = false;
                 });
             }
         },
