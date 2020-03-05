@@ -3,7 +3,10 @@
         config: {
             query: {
                 code: 'urbio_db_Builds',
-                parameterValues: [],
+                parameterValues: [
+                    { key: '@pageOffsetRows', value: 0 },
+                    { key: '@pageLimitRows', value: 10 }
+                ],
                 filterColumns: [],
                 sortColumns: [],
                 skipNotVisibleColumns: true,
@@ -78,7 +81,8 @@
                     },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
-                        this.applyChangesWithRows();
+                        const queryCode = 'urbio_db_Button_apply_build';
+                        this.applyRowsChanges(queryCode);
                     }.bind(this)
                 }
             });
@@ -94,6 +98,8 @@
                     },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
+                        const queryCode = 'urbio_db_Button_skip_build';
+                        this.applyRowsChanges(queryCode);
                     }.bind(this)
                 }
             });
@@ -112,6 +118,26 @@
                     }.bind(this)
                 }
             });
+        },
+        applyRowsChanges: function(code) {
+            const rows = this.dataGridInstance.instance.getSelectedRowsData();
+            if(rows) {
+                this.showPagePreloader('Зачекайте, дані обробляються');
+                rows.forEach(row => {
+                    let executeApplyRowsChanges = {
+                        queryCode: code,
+                        limit: -1,
+                        parameterValues: [
+                            { key: '@Analitics_Id', value: row.Analitics_Id },
+                            { key: '@Urbio_Id', value: row.Urbio_Id },
+                            { key: '@Operation', value: row.operations },
+                            { key: '@comment', value: row.comment }
+                        ]
+                    };
+                    this.queryExecutor(executeApplyRowsChanges);
+                    this.showPreloader = false;
+                });
+            }
         },
         applyGlobalFilters: function() {
             this.sendMessageFilterPanelState(false);

@@ -1,10 +1,10 @@
 (function() {
     return {
-        placeholder: 'Не опрацьованнi',
-        keyValue: 'Row',
+        placeholder: 'Опрацювання',
+        keyValue: 'Id',
         displayValue: 'Name',
         baseQueryOptions: {
-            queryCode: 'urbio_db_filter_processed',
+            queryCode: 'Filters_import_UGL',
             filterColumns: null,
             limit: -1,
             parameterValues: [],
@@ -20,6 +20,9 @@
             this.yourFunctionName(item);
         },
         onClearFilter: function() {
+        },
+        initValue: function() {
+            this.setDefaultValue('first');
         },
         yourFunctionName: function(item) {
             let message = {

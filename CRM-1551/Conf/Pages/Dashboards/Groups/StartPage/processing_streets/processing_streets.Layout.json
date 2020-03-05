@@ -21,7 +21,7 @@
         "border": "none",
         "children": [
           {
-            "code": "processing_building_NativeDataGridWidget",
+            "code": "processing_streets_NativeDataGridWidget",
             "type": "NativeDataGridWidgetComponent",
             "name": "processing_building"
           }

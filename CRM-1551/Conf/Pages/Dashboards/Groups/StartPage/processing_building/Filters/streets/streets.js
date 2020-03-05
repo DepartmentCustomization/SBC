@@ -1,10 +1,10 @@
 (function() {
     return {
-        placeholder: 'Не опрацьованнi',
-        keyValue: 'Row',
+        placeholder: 'Вулиця',
+        keyValue: 'UrdioId',
         displayValue: 'Name',
         baseQueryOptions: {
-            queryCode: 'urbio_db_filter_processed',
+            queryCode: 'urbio_db_filter_street',
             filterColumns: null,
             limit: -1,
             parameterValues: [],
