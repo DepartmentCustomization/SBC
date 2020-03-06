@@ -59,9 +59,29 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyGlobalFilters, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
-            this.loadData(this.afterLoadDataHandler);
         },
-        getFiltersParams: function() {
+        getFiltersParams: function(message) {
+            this.config.query.filterColumns = [];
+            const processed = message.package.value.values.find(f => f.name === 'processed').value;
+            const builds = message.package.value.values.find(f => f.name === 'builds').value;
+            this.setFiltersColumns(processed.value, 'is_done_filter');
+            this.setFiltersColumns(builds.value, 'name_fullName_filter');
+            this.firstLoadCheck();
+        },
+        setFiltersColumns: function(value, key) {
+            if (value !== null) {
+                const filter = {
+                    key: key,
+                    value: {
+                        operation: 0,
+                        not: false,
+                        values: [value]
+                    }
+                };
+                this.config.query.filterColumns.push(filter);
+            }
+        },
+        firstLoadCheck: function() {
             if(this.firstLoad) {
                 this.firstLoad = false;
                 this.loadData(this.afterLoadDataHandler);

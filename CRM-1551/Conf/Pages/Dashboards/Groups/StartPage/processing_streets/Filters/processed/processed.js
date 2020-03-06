@@ -1,10 +1,10 @@
 (function() {
     return {
         placeholder: 'Опрацювання',
-        keyValue: 'Id',
+        keyValue: 'Row',
         displayValue: 'Name',
         baseQueryOptions: {
-            queryCode: 'Filters_import_UGL',
+            queryCode: 'urbio_db_filter_processed',
             filterColumns: null,
             limit: -1,
             parameterValues: [],

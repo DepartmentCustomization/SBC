@@ -77,7 +77,7 @@
       "Position": 9,
       "IsPrintable": false,
       "SqlName": "StreetName_filter",
-      "FilterParameterCode": "@UrbioName_filter"
+      "FilterParameterCode": "@StreetName_filter"
     }
   ],
   "Parameters": [

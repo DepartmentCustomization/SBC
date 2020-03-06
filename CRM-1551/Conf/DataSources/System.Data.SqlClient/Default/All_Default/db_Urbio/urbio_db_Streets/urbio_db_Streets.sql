@@ -1,7 +1,7 @@
 --declare @treatment_is bit='false';
  -- declare @street_name nvarchar(500)=N'Теремковская';
   --Додавання
-SELECT Id, Analitics_Id, Urbio_Id, [operations], [UrbioName], [1551Name], is_done, comment, [is_done_filter], [UrbioName_filter] [StreetName_filter]
+SELECT Id, Analitics_Id, Urbio_Id, [operations], [UrbioName], [1551Name], is_done, comment, [is_done_filter], [StreetName_filter]
 FROM
   (
   SELECT ISNULL(LTRIM(sa.Id),N'')+ISNULL(LTRIM(su.Id),N'') Id, sa.Id Analitics_Id, su.Id Urbio_Id,
@@ -11,7 +11,7 @@ FROM
   ISNULL(sta.shortname,N'')+ISNULL(sa.name,N'') [1551Name],
   su.is_done, su.comment
   ,su.is_done is_done_filter
-  ,su.id [UrbioName_filter]
+  ,su.id [StreetName_filter]
   FROM [CRM_1551_URBIO_Integrartion].[dbo].[streets] su
   LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] sa ON su.id=sa.urbio_id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id

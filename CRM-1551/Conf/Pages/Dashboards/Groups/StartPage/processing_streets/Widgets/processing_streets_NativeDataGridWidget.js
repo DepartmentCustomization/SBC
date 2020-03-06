@@ -53,12 +53,32 @@
         },
         firstLoad: true,
         init: function() {
+            this.dataGridInstance.height = window.innerHeight - 100;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyGlobalFilters, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
-            this.loadData(this.afterLoadDataHandler);
         },
-        getFiltersParams: function() {
+        getFiltersParams: function(message) {
+            this.config.query.filterColumns = [];
+            const processed = message.package.value.values.find(f => f.name === 'processed').value;
+            const streets = message.package.value.values.find(f => f.name === 'streets').value;
+            this.setFiltersColumns(processed.value, 'is_done_filter');
+            this.setFiltersColumns(streets.value, 'StreetName_filter');
+            this.firstLoadCheck();
+        },
+        setFiltersColumns: function(value, key) {
+            const filterValue = value === undefined ? null : value;
+            const filter = {
+                key: key,
+                value: {
+                    operation: 0,
+                    not: false,
+                    values: [filterValue]
+                }
+            };
+            this.config.query.filterColumns.push(filter);
+        },
+        firstLoadCheck: function() {
             if(this.firstLoad) {
                 this.firstLoad = false;
                 this.loadData(this.afterLoadDataHandler);
