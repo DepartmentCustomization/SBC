@@ -10,46 +10,47 @@
       "QueryCode": "list_place_type_in_claim",
       "KeyColumnCode": "Id",
       "DisplayColumnCode": "Name",
-      "QueryParameters": []
+      "QueryParameters": [],
+      "Width": "70%",
+      "Position": 1
     },
     {
-      "Code": "coordinates",
-      "Name": "Координати місця",
-      "FieldType": "text"
+      "Code": "district_id",
+      "Name": "Район",
+      "FieldType": "select",
+      "QueryCode": "dir_DistrictsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
+      "Position": 2,
+      "Width": "30%"
     },
     {
       "Code": "places_id",
       "Name": "Місце (Адреса)",
       "FieldType": "lookup",
       "IsRequired": true,
-      "Position": 1,
+      "Position": 3,
       "Icon": "location_city",
       "IconHint": "",
       "QueryCode": "dir_Places_claims",
       "KeyColumnCode": "Id",
       "DisplayColumnCode": "places",
-      "QueryParameters": []
+      "QueryParameters": [],
+      "Width": "70%"
     },
     {
       "Code": "flat_number",
       "Name": "№ квартири",
       "FieldType": "select",
-      "Position": 2,
+      "Position": 4,
       "QueryCode": "list_Flats_for_Claim",
       "KeyColumnCode": "Id",
       "DisplayColumnCode": "number",
-      "QueryParameters": []
+      "QueryParameters": [],
+      "Width": "30%"
     },
-    {
-      "Code": "district_id",
-      "Name": "Район",
-      "FieldType": "select",
-      "Position": 3,
-      "QueryCode": "dir_DistrictsSelectRows",
-      "KeyColumnCode": "Id",
-      "DisplayColumnCode": "Name",
-      "QueryParameters": []
-    },
+
     {
       "Code": "Types_id",
       "Name": "Тип заявки",
@@ -65,14 +66,16 @@
       "PathColumnCode": "Full_Name",
       "SearchQueryCode": "List_Claim_types_Search",
       "SearchKeyColumnCode": "Id",
-      "SearchDisplayColumnCode": "Name"
+      "SearchDisplayColumnCode": "Name",
+      "Width": "100%"
     },
     {
       "Code": "classes_id",
       "Name": "Клас",
       "FieldType": "text",
       "IsRequired": true,
-      "Position": 6
+      "Position": 6,
+      "Width": "100%"
     },
     {
       "Code": "Diameters_ID",
@@ -132,7 +135,8 @@
       "Name": "Додаткова інформація",
       "FieldType": "textarea",
       "Position": 41,
-      "Rows": 2
+      "Rows": 3,
+      "Width": "100%"
     },
     {
       "Code": "Priority",
@@ -152,7 +156,8 @@
           "Code": "3",
           "Name": "Планування"
         }
-      ]
+      ],
+      "Width": "100%"
     },
     {
       "Code": "not_balans",
