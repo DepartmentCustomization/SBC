@@ -9,7 +9,7 @@ select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id 
   N'Додавання' [operations]
   ,ao.ofDistrict_name_fullName Urbio_District
   ,d.name [1551_District], ISNULL(st.shortname+N' ',N'')+ISNULL(s.name+N' ', N'')+ISNULL(b.name,N'') [1551_Build], ao.comment
-  , ISNULL(ao.ofStreet_name_shortName+N' ', N'')+ISNULL(ao.[name_ofFirstLevel_fullName],N'') Urbio_build
+  ,ISNULL(ao.[ofStreet_name_shortToponym]+N' ',N'')+ISNULL(ao.ofStreet_name_shortName+N' ', N'')+ISNULL(ao.[name_ofFirstLevel_fullName],N'') Urbio_build
   , ao.is_done is_done_filter
   , ao.Id name_fullName_filter
   from [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao
@@ -20,12 +20,12 @@ select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id 
   where b.urbio_id is null
 
  -- редагування
- UNION ALL
+ UNION
  select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id addressObject_Id,
   N'Редагування' [operations]
   ,ao.ofDistrict_name_fullName Urbio_District
   ,d.name [1551_District], ISNULL(st.shortname+N' ',N'')+ISNULL(s.name+N' ', N'')+ISNULL(b.name,N'') [1551_Build], ao.comment
-  , ISNULL(ao.ofStreet_name_shortName+N' ', N'')+ISNULL(ao.[name_ofFirstLevel_fullName],N'') Urbio_build
+  ,ISNULL(ao.[ofStreet_name_shortToponym]+N' ',N'')+ISNULL(ao.ofStreet_name_shortName+N' ', N'')+ISNULL(ao.[name_ofFirstLevel_fullName],N'') Urbio_build
   , ao.is_done is_done_filter
   , ao.Id name_fullName_filter
   from [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao
@@ -37,12 +37,12 @@ select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id 
   where b.urbio_id is null
 
   --удаление
-  UNION ALL
+  UNION
   select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id addressObject_Id, 
   N'Видалення' [operations]
   ,ao.ofDistrict_name_fullName Urbio_District
   ,d.name [1551_District], ISNULL(st.shortname+N' ',N'')+ISNULL(s.name+N' ', N'')+ISNULL(b.name,N'') [1551_Build], ao.comment
-  , ISNULL(ao.ofStreet_name_shortName+N' ', N'')+ISNULL(ao.[name_ofFirstLevel_fullName],N'') Urbio_build
+  ,ISNULL(ao.[ofStreet_name_shortToponym]+N' ',N'')+ISNULL(ao.ofStreet_name_shortName+N' ', N'')+ISNULL(ao.[name_ofFirstLevel_fullName],N'') Urbio_build
   , ao.is_done is_done_filter
   , ao.Id name_fullName_filter
   from [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao
