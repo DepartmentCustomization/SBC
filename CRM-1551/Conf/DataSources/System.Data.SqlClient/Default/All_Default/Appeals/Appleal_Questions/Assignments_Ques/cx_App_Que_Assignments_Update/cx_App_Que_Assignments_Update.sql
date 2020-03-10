@@ -1269,20 +1269,8 @@ BEGIN
 			   ,[edit_date] = GETUTCDATE()
 			   ,[user_edit_id] = @user_edit_id
 			   ,[LogUpdated_Query] = N'cx_App_Que_Assignments_Update_Row1000'
-			--  ,close_date = GETUTCDATE()
 			WHERE Id = @Id;
-
-
-		END --(F11)
+		END 
 	END
-END
-/*
-IF (SELECT ar.code
-  FROM [dbo].[AssignmentResults] ar 
-  WHERE ar.Id=@result_id)=N'Actually' --фактично
-	BEGIN
-		UPDATE [dbo].[AssignmentRevisions]
-		SET [rework_counter]=ISNULL([rework_counter],0)+1
-		WHERE [assignment_consideration_іd]=@current_consid;
-	END*/
+  END
 END
