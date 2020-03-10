@@ -1,9 +1,9 @@
 
--- declare @Urbio_Id nvarchar(300)=N'53F7BCE4-371B-11E7-8000-000C29FF5864';
---   declare @Analitics_Id int=1;
---   declare @Operation nvarchar(200)=N'Видалення';
---   declare @comment nvarchar(100)=N'коммент';
---   declare @user_id nvarchar(128)=N'Вася';
+ --declare @Urbio_Id nvarchar(300)=N'53F7BCE4-371B-11E7-8000-000C29FF5864';
+ --  declare @Analitics_Id int=1;
+ --  declare @Operation nvarchar(200)=N'Видалення';
+ --  declare @comment nvarchar(100)=N'коммент';
+ --  declare @user_id nvarchar(128)=N'Вася';
 
   --удаление
   IF @Operation=N'Видалення'
@@ -17,7 +17,7 @@
 	  , done_date=getutcdate()
 	  , [comment]=@comment
 	  , [user_id]=@user_id
-	  where Id=@Urbio_Id --in (SELECT value FROM #Ids)
+	  where convert(nvarchar(128),Id)=@Urbio_Id --in (SELECT value FROM #Ids)
 
 	  update [CRM_1551_Analitics].[dbo].[Objects]
 	  set is_active='false'
@@ -63,16 +63,16 @@
 	  ,[name_ofSecondLevel_fullToponym]+ISNULL(N' '+[name_ofSecondLevel_fullName],N'') [bsecondname]
       ,[name_ofFirstLevel_fullName] [name]
       ,[zip] [index]
-      ,[Id] [urbio_id]
+      ,convert(nvarchar(128),ao.[Id]) [urbio_id]
       ,null [is_active]
       ,null [is_urbio_new]
       ,@user_id [user_id]
       ,getutcdate() [edit_date]
       ,@user_id [user_edit_id]
   from [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON ao.ofDistrict_id=d.urbio_id 
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] s ON ao.ofStreet_id=s.urbio_id
-  where ao.Id=@Urbio_Id--INNER JOIN #Ids i ON [addressObject].id=i.[value]
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),ao.ofDistrict_id)=d.urbio_id 
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] s ON convert(nvarchar(128),ao.ofStreet_id)=s.urbio_id
+  where convert(nvarchar(128),ao.Id)=@Urbio_Id--INNER JOIN #Ids i ON [addressObject].id=i.[value]
 
   INSERT INTO [CRM_1551_Analitics].[dbo].[Objects]
   (
@@ -95,7 +95,7 @@
       ,ao.[name_ofFirstLevel_fullName] [name] -- хз, по ходу
       ,o.[builbing_id]
       ,d.Id [district_id]
-      ,ao.Id [urbio_id]
+      ,convert(nvarchar(128),ao.Id) [urbio_id]
       ,'true' [is_active]
       ,'true' [is_urbio_new]
       ,ao.[geolocation_lat]
@@ -105,9 +105,9 @@
       ,@user_id [user_edit_id]
   FROM [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao
   --INNER JOIN #Ids i ON ao.id=i.[value]
-  INNER JOIN @output o ON ao.id=o.[urdio_id]
+  INNER JOIN @output o ON convert(nvarchar(128),ao.id)=o.[urdio_id]
   LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on ao.TypeId_1551=ut.urbio_type_id
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON ao.ofDistrict_id=d.urbio_id
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),ao.ofDistrict_id)=d.urbio_id
   END
 
 
@@ -116,7 +116,7 @@
 	  , done_date=getutcdate()
 	  , [comment]=@comment
 	  , [user_id]=@user_id
-  where Id=@Urbio_Id --in (SELECT value FROM #Ids)
+  where convert(nvarchar(128),Id)=@Urbio_Id --in (SELECT value FROM #Ids)
 
   -- обновление
   IF @Operation=N'Редагування'
@@ -135,16 +135,16 @@
 		  ,[bsecondname]= ao.[name_ofSecondLevel_fullToponym]+ISNULL(N' '+ao.[name_ofSecondLevel_fullName],N'') 
 		  ,[name]=ao.[name_ofFirstLevel_fullName] 
 		  ,[index]=ao.[zip] 
-		  ,[urbio_id]=ao.[Id] 
+		  ,[urbio_id]=convert(nvarchar(128),ao.[Id]) 
 		  ,[is_active]='true'
 		  ,[is_urbio_new]='true'
 		  ,[user_id]= @user_id --[user_id]
 		  ,[edit_date]=getutcdate()
 		  ,[user_edit_id]=@user_id 
 	  from [CRM_1551_Analitics].[dbo].[Buildings] b
-	  inner join [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao on b.urbio_id=ao.id
-	  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON ao.ofDistrict_id=d.urbio_id 
-	  LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] s ON ao.ofStreet_id=s.urbio_id
+	  inner join [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao on b.urbio_id=convert(nvarchar(128),ao.id)
+	  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),ao.ofDistrict_id)=d.urbio_id 
+	  LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] s ON convert(nvarchar(128),ao.ofStreet_id)=s.urbio_id
 	  WHERE b.Id=@Analitics_Id--urbio_id IN (select value from #Ids)
 
 
@@ -153,7 +153,7 @@
 		  ,[name]=ao.[name_ofFirstLevel_fullName]
 		  ,[builbing_id]=o.[builbing_id]
 		  ,[district_id]=d.Id--ao.ofDistrict_id
-		  ,[urbio_id]=ao.Id
+		  ,[urbio_id]=convert(nvarchar(128),ao.Id)
 		  ,[is_active]='true'
 		  ,[is_urbio_new]='true'
 		  ,[geolocation_lat]=ao.[geolocation_lat]
@@ -164,9 +164,9 @@
 
 	  FROM [CRM_1551_Analitics].[dbo].[Objects] o
 	  INNER JOIN [CRM_1551_Analitics].[dbo].[Buildings] b ON b.Id=o.builbing_id
-	  INNER JOIN [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao ON b.urbio_id=ao.id
+	  INNER JOIN [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao ON b.urbio_id=convert(nvarchar(128),ao.id)
 	  LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on ao.TypeId_1551=ut.urbio_type_id
-	  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON ao.ofDistrict_id=d.urbio_id
+	  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),ao.ofDistrict_id)=d.urbio_id
 	  WHERE b.Id=@Analitics_Id
 
     update [CRM_1551_URBIO_Integrartion].[dbo].[addressObject]
@@ -174,7 +174,7 @@
 	  , done_date=getutcdate()
 	  , [comment]=@comment
 	  , [user_id]=@user_id
-    where Id=@Urbio_Id
+    where convert(nvarchar(128),Id)=@Urbio_Id
 
   END
 
@@ -192,5 +192,7 @@
   --declare @comment nvarchar(123)=N'sdgss';
   --declare @operation_code nvarchar(23)=N'add'
 
-exec add_Urbio_Objects_History @table, @user_id, @Urbio_Id, @Analitics_Id, @comment, @operation_code
+USE [CRM_1551_URBIO_Integrartion]
+
+EXEC [dbo].[add_Urbio_Objects_History] @table, @user_id, @Urbio_Id, @Analitics_Id, @comment, @operation_code
 

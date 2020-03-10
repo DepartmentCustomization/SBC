@@ -96,4 +96,6 @@ IF @Operation=N'Видалення'
       WHEN @Operation=N'Видалення' THEN N'del'
       END;
 
-EXEC add_Urbio_Objects_History @table, @user_id, @Urbio_Id, @Analitics_Id, @comment, @operation_code;
+USE [CRM_1551_URBIO_Integrartion]
+
+EXEC [dbo].[add_Urbio_Objects_History] @table, @user_id, @Urbio_Id, @Analitics_Id, @comment, @operation_code;
