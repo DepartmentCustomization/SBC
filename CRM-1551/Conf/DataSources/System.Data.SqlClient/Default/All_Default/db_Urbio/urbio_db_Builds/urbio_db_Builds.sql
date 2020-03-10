@@ -1,6 +1,5 @@
 --declare @treatment_is bit='false';
 --declare @build_name nvarchar(500)=N'Теремковская';
-   
 
 SELECT Id, buid_Id Analitics_Id, addressObject_Id Urbio_Id, [operations], Urbio_build, Urbio_District, [1551_District], [1551_Build], is_done_filter is_done, comment,
 is_done_filter, name_fullName_filter [BuildName_filter]

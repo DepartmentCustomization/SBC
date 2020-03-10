@@ -34,6 +34,11 @@
             selection: {
                 mode: 'multiple'
             },
+            editing: {
+                mode: 'batch',
+                allowUpdating: true,
+                useIcons: true
+            },
             showBorders: false,
             showColumnLines: true,
             showRowLines: true,
@@ -81,6 +86,7 @@
         firstLoadCheck: function() {
             if(this.firstLoad) {
                 this.firstLoad = false;
+                debugger;
                 this.loadData(this.afterLoadDataHandler);
             }
         },
