@@ -1,5 +1,5 @@
 -- DECLARE @user_edit_id NVARCHAR(128)=N'bc1b17e2-ffee-41b1-860a-41e1bae57ffd';
-
+SET @executor_person_id = IIF(IIF(@executor_person_id = '',NULL,@executor_person_id) = 0,NULL,IIF(@executor_person_id = '',NULL,@executor_person_id));
 DECLARE @org1761 TABLE (Id INT);
 WITH
      cte1 -- все подчиненные 3 и 3 1761
@@ -21,7 +21,6 @@ WHERE programuser_id=@user_edit_id
 INSERT INTO @org1761 (Id)
 SELECT Id 
 FROM cte1 INNER JOIN org_user ON cte1.Id=org_user.organizations_id;
-
 
 IF 
 (
@@ -53,48 +52,7 @@ SET	@ass_cons_id = (SELECT
 		WHERE Id = @current_consid);
 DECLARE @result_of_checking INT;
 DECLARE @is_main_exec BIT;
-SET @executor_person_id = IIF(@executor_person_id = '',NULL,@executor_person_id);
----> Проверка изменений state, result, resolution, executor_organization_id
-DECLARE @currentState INT = (SELECT assignment_state_id FROM dbo.Assignments WHERE Id = @Id);
-DECLARE @currentResult INT = (SELECT AssignmentResultsId FROM dbo.Assignments WHERE Id = @Id);
-DECLARE @currentResolution INT = (SELECT AssignmentResolutionsId FROM dbo.Assignments WHERE Id = @Id);
-DECLARE @currentOrgExecutor INT = (SELECT executor_organization_id FROM dbo.Assignments WHERE Id = @Id);
-	
-DECLARE @IsStateChange BIT = (SELECT IIF(@currentState = @ass_state_id, 0, 1));
-DECLARE @IsResultChange BIT = (SELECT IIF(@currentResult = @result_id, 0, 1));
-DECLARE @IsResolutionChange BIT = (SELECT IIF(@currentResolution = @resolution_id, 0, 1));
-DECLARE @IsOrgExecutorChange BIT = (SELECT IIF(@currentOrgExecutor = @performer_id, 0, 1));
----> Если стан, результат, резолюция и орг.исполнителя остались прежними, то
--- процедуру проверки переходов пропускаем, а только апдейтим поля executor_person_id и short_answer (если они изменились) 
-IF (@IsStateChange = 0 AND @IsResultChange = 0 AND @IsResolutionChange = 0 AND @IsOrgExecutorChange = 0)
-BEGIN
-	DECLARE @currentPersonExecutor INT = (SELECT executor_person_id FROM dbo.Assignments  WHERE Id = @Id);
-	DECLARE @currentShortAnswer NVARCHAR(500) = (SELECT short_answer FROM dbo.AssignmentConsiderations WHERE Id = @ass_cons_id);
 
-	IF(@executor_person_id IS NOT NULL)
-	  BEGIN
-		UPDATE [dbo].[Assignments]
-					SET [edit_date] = GETUTCDATE()
-					   ,[user_edit_id] = @user_edit_id
-					   ,[executor_person_id] = @executor_person_id
-					   ,[LogUpdated_Query] = N'cx_App_Que_Assignments_Update_Row82'
-					WHERE Id = @Id;
-	  END
-
-	 IF(@short_answer IS NOT NULL)
-	 BEGIN
-	 UPDATE AssignmentConsiderations
-				SET short_answer = @short_answer
-				   ,[edit_date] = GETUTCDATE()
-				   ,[user_edit_id] = @user_edit_id
-				WHERE Id = @current_consid;
-	 END	
-	RETURN;
-END
----> иначе - го дальше
-ELSE 
-
-BEGIN
 EXEC [dbo].pr_check_right_choice_result_resolution @Id
 												  ,@result_id
 												  ,@resolution_id
@@ -134,12 +92,6 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-
-	IF(@executor_person_id = '')
-	BEGIN
-	SET @executor_person_id = NULL;
-	END
-
 		--если результат, резолюция не изменились и...
 		IF @result_id = (SELECT
 					AssignmentResultsId
@@ -1333,5 +1285,4 @@ IF (SELECT ar.code
 		SET [rework_counter]=ISNULL([rework_counter],0)+1
 		WHERE [assignment_consideration_іd]=@current_consid;
 	END*/
-END
 END
