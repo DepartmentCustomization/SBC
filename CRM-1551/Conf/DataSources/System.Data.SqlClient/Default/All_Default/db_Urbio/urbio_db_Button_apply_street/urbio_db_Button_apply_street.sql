@@ -1,8 +1,10 @@
--- declare @Urbio_Id nvarchar(300)=N'53F7BCE4-371B-11E7-8000-000C29FF5864';
---   declare @Analitics_Id int=1;
---   declare @Operation nvarchar(200)=N'Видалення';
---   declare @comment nvarchar(100)=N'коммент';
---   declare @user_id nvarchar(128)=N'Вася';
+ --declare @Urbio_Id nvarchar(300)=N'3226ad98-370f-11e7-95e9-000c29ff5864';
+ --  declare @Analitics_Id int=1000;
+ --  declare @Operation nvarchar(200)=N'Редагування';
+ --  declare @comment nvarchar(100);--=N'коммент';
+ --  declare @user_id nvarchar(128)=N'test';
+
+--SET @Urbio_Id=CONVERT(NVARCHAR(128), @Urbio_Id);
 
 IF @Operation=N'Видалення'
   BEGIN
@@ -16,7 +18,7 @@ IF @Operation=N'Видалення'
 	  , done_date=getutcdate()
 	  , [comment]=@comment
 	  , [user_id]=@user_id
-	  WHERE Id=@Urbio_Id --in (select value from #Ids)
+	  WHERE convert(nvarchar(128),Id)=@Urbio_Id --in (select value from #Ids)
 
   END
   
@@ -38,13 +40,13 @@ IF @Operation=N'Видалення'
 		  ,ISNULL(name_fullName+N' ', N'')+ISNULL(uniqueMarker_fullText+N' ',N'')+
 		   ISNULL(history_fullName+N' ', N'')+ISNULL(history_shortToponym+N' ',N'') [name]
 		  ,null [street_name_new_id]
-		  ,s.Id [urbio_id]
+		  ,convert(nvarchar(128),s.Id) [urbio_id]
 		  ,'true' [is_active]
 		  ,'true' [is_urbio_new]
 	  FROM [CRM_1551_URBIO_Integrartion].[dbo].[streets] s
-	  left join [CRM_1551_Analitics].[dbo].[Districts] d ON s.ofDistrict_id=d.urbio_id
+	  left join [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),s.ofDistrict_id)=d.urbio_id
 	  LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on s.TypeId_1551=ut.urbio_type_id
-	  where s.Id=@Urbio_Id 
+	  where convert(nvarchar(128),s.Id)=@Urbio_Id 
 	  --inner join #Ids i ON [streets].Id=i.value
 
 	  UPDATE [CRM_1551_URBIO_Integrartion].[dbo].[streets]
@@ -52,7 +54,7 @@ IF @Operation=N'Видалення'
 	  , done_date=getutcdate()
 	  , [comment]=@comment
 	  , [user_id]=@user_id
-	  WHERE Id=@Urbio_Id--Id in (select value from #Ids)	
+	  WHERE convert(nvarchar(128),Id)=@Urbio_Id--Id in (select value from #Ids)	
 
   END
 
@@ -60,7 +62,7 @@ IF @Operation=N'Видалення'
   BEGIN
 			UPDATE [CRM_1551_Analitics].[dbo].[Streets]
 	  SET [district_id]=d.Id
-		  ,[street_type_id]=us.Id
+		  ,[street_type_id]=ut.Id
 		  ,[name]=ISNULL(us.name_fullName+N' ', N'')+ISNULL(us.uniqueMarker_fullText+N' ',N'')+
 			ISNULL(us.history_fullName+N' ', N'')+ISNULL(us.history_shortToponym+N' ',N'')
 		  --,[street_name_new_id]
@@ -68,8 +70,8 @@ IF @Operation=N'Видалення'
 		  ,[is_active]='true'
 		  --,[is_urbio_new]
 	  FROM [CRM_1551_Analitics].[dbo].[Streets] ans
-	  INNER JOIN [CRM_1551_URBIO_Integrartion].[dbo].[streets] us ON ans.urbio_id=us.Id
-	  left join [CRM_1551_Analitics].[dbo].[Districts] d ON us.ofDistrict_id=d.urbio_id
+	  INNER JOIN [CRM_1551_URBIO_Integrartion].[dbo].[streets] us ON ans.urbio_id=convert(nvarchar(128),us.Id)
+	  left join [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),us.ofDistrict_id)=d.urbio_id
 	  LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on us.TypeId_1551=ut.urbio_type_id
 	  WHERE ans.Id=@Analitics_Id;--urbio_id IN (select value from #Ids)
 
@@ -78,7 +80,7 @@ IF @Operation=N'Видалення'
 	  , done_date=getutcdate()
 	  , [comment]=@comment
 	  , [user_id]=@user_id
-	  WHERE Id=@Urbio_Id --in (select value from #Ids)
+	  WHERE convert(nvarchar(128),Id)=@Urbio_Id --in (select value from #Ids)
 
   END
 
