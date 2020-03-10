@@ -18,7 +18,7 @@ FROM
   WHERE sa.urbio_id IS null
 
   --редагування
-  union all
+  union
   SELECT ISNULL(LTRIM(sa.Id),N'')+ISNULL(LTRIM(su.Id),N'') Id, sa.Id Analitics_Id, su.Id Urbio_Id,
   N'Редагування' [operations],
   ISNULL(su.[name_shortToponym],N'')+ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
@@ -42,7 +42,7 @@ FROM
   OR ISNULL(d.name,N'')<>ISNULL(su.ofDistrict_name_fullName,N'')
 
   --видалення
-  union all
+  union
   SELECT ISNULL(LTRIM(sa.Id),N'')+ISNULL(LTRIM(su.Id),N'') Id, sa.Id Analitics_Id, su.Id Urbio_Id,
   N'Видалення' [operations],
   ISNULL(su.[name_shortToponym],N'')+ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+

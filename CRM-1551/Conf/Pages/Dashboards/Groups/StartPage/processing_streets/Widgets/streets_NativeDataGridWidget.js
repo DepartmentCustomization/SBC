@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'urbio_db_Builds',
+                code: 'urbio_db_Streets',
                 parameterValues: [
                     { key: '@pageOffsetRows', value: 0 },
                     { key: '@pageLimitRows', value: 10 }
@@ -17,14 +17,11 @@
                     dataField: 'operations',
                     caption: 'Операція'
                 }, {
-                    dataField: 'Urbio_District',
-                    caption: 'Район'
+                    dataField: 'UrbioName',
+                    caption: 'Urbio'
                 }, {
-                    dataField: '1551_District',
-                    caption: 'Район в 1551'
-                }, {
-                    dataField: '1551_Build',
-                    caption: 'Будинок в 1551'
+                    dataField: '1551Name',
+                    caption: '1551'
                 }, {
                     dataField: 'is_done',
                     caption: 'Стан'
@@ -36,6 +33,11 @@
             keyExpr: 'Id',
             selection: {
                 mode: 'multiple'
+            },
+            editing: {
+                mode: 'batch',
+                allowUpdating: true,
+                useIcons: true
             },
             showBorders: false,
             showColumnLines: true,
@@ -56,30 +58,32 @@
         },
         firstLoad: true,
         init: function() {
+            this.dataGridInstance.height = window.innerHeight - 100;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyGlobalFilters, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
+            //delete this -> 
+            this.loadData(this.afterLoadDataHandler);
         },
         getFiltersParams: function(message) {
             this.config.query.filterColumns = [];
             const processed = message.package.value.values.find(f => f.name === 'processed').value;
-            const builds = message.package.value.values.find(f => f.name === 'builds').value;
+            const streets = message.package.value.values.find(f => f.name === 'streets').value;
             this.setFiltersColumns(processed.value, 'is_done_filter');
-            this.setFiltersColumns(builds.value, 'name_fullName_filter');
+            this.setFiltersColumns(streets.value, 'StreetName_filter');
             this.firstLoadCheck();
         },
         setFiltersColumns: function(value, key) {
-            if (value !== null) {
-                const filter = {
-                    key: key,
-                    value: {
-                        operation: 0,
-                        not: false,
-                        values: [value]
-                    }
-                };
-                this.config.query.filterColumns.push(filter);
-            }
+            const filterValue = value === undefined ? null : value;
+            const filter = {
+                key: key,
+                value: {
+                    operation: 0,
+                    not: false,
+                    values: [filterValue]
+                }
+            };
+            this.config.query.filterColumns.push(filter);
         },
         firstLoadCheck: function() {
             if(this.firstLoad) {
@@ -101,7 +105,7 @@
                     },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
-                        const queryCode = 'urbio_db_Button_apply_build';
+                        const queryCode = 'urbio_db_Button_apply_street';
                         this.applyRowsChanges(queryCode);
                     }.bind(this)
                 }
@@ -118,7 +122,7 @@
                     },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
-                        const queryCode = 'urbio_db_Button_skip_build';
+                        const queryCode = 'urbio_db_Button_skip_street';
                         this.applyRowsChanges(queryCode);
                     }.bind(this)
                 }
@@ -141,7 +145,7 @@
         },
         applyRowsChanges: function(code) {
             const rows = this.dataGridInstance.instance.getSelectedRowsData();
-            if(rows) {
+            if(rows.length) {
                 this.showPagePreloader('Зачекайте, дані обробляються');
                 rows.forEach(row => {
                     let executeApplyRowsChanges = {
@@ -174,6 +178,10 @@
         },
         afterLoadDataHandler: function() {
             this.render();
+        },
+        destroy: function() {
+            this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         }
     };
 }());

@@ -26,7 +26,7 @@
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     const dataField = this.config.columns[0].dataField;
-                    if(e.column.dataField == dataField && e.row != undefined) {
+                    if(e.column.dataField === dataField && e.row !== undefined) {
                         this.messageService.publish({ name: 'showApplicants', id: e.data.Id});
                     }
                 }
@@ -36,7 +36,6 @@
             this.render();
         },
         destroy: function() {
-            this.sub.unsubscribe();
         }
     };
 }());
