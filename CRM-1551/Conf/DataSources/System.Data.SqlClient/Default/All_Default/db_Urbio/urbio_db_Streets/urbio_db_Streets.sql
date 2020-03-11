@@ -30,7 +30,7 @@ FROM
   FROM [CRM_1551_URBIO_Integrartion].[dbo].[streets] su
   INNER JOIN [CRM_1551_Analitics].[dbo].[Streets] sa ON CONVERT(nvarchar(128),su.id)=sa.urbio_id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d on sa.district_id=d.urbio_id
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d on sa.district_id=d.id
   WHERE 
   -- ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
   -- ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'')<>ISNULL(sa.name,N'')

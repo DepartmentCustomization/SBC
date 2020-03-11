@@ -16,12 +16,12 @@ select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id 
   left join [CRM_1551_Analitics].[dbo].[Buildings] b on ao.id=b.urbio_id
   left join [CRM_1551_Analitics].[dbo].[Streets] s on b.street_id=s.Id
   left join [CRM_1551_Analitics].[dbo].[StreetTypes] st on s.street_type_id=st.Id
-  left join [CRM_1551_Analitics].[dbo].[Districts] d on ao.[ofDistrict_id]=d.[urbio_id]
+  left join [CRM_1551_Analitics].[dbo].[Districts] d on b.district_id=d.Id
   where b.urbio_id is null
 
  -- редагування
  UNION
- select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id addressObject_Id,
+select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id addressObject_Id,
   N'Редагування' [operations]
   ,ao.ofDistrict_name_fullName Urbio_District
   ,d.name [1551_District], ISNULL(st.shortname+N' ',N'')+ISNULL(s.name+N' ', N'')+ISNULL(b.name,N'') [1551_Build], ao.comment
@@ -33,8 +33,14 @@ select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id 
   LEFT JOIN [CRM_1551_Analitics].[dbo].[Objects] o ON b.Id=o.builbing_id
   left join [CRM_1551_Analitics].[dbo].[Streets] s on b.street_id=s.Id
   left join [CRM_1551_Analitics].[dbo].[StreetTypes] st on s.street_type_id=st.Id
-  left join [CRM_1551_Analitics].[dbo].[Districts] d on ao.[ofDistrict_id]=d.[urbio_id]
-  where b.urbio_id is null
+  left join [CRM_1551_Analitics].[dbo].[Districts] d on b.district_id=d.Id
+  --where b.urbio_id is null
+  where ISNULL(convert(nvarchar(128),ao.ofDistrict_id), N'')<>ISNULL(d.urbio_id, N'')
+  OR ISNULL(convert(nvarchar(128),ao.ofStreet_id), N'')<>ISNULL(s.urbio_id, N'')
+  OR ISNULL(ao.name_ofFirstLevel_fullName, N'')<>ISNULL(b.name, N'')
+  OR ISNULL(ao.name_ofSecondLevel_fullName+N' ', N'')+ISNULL(ao.name_ofThirdLevel_fullName, N'')<>ISNULL(b.bsecondname, N'')
+  --1551 name
+  OR ISNULL(ao.zip, N'')<>ISNULL(b.[index], N'')
 
   --удаление
   UNION
@@ -50,7 +56,7 @@ select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id 
   LEFT JOIN [CRM_1551_Analitics].[dbo].[Objects] o ON b.Id=o.builbing_id
   left join [CRM_1551_Analitics].[dbo].[Streets] s on b.street_id=s.Id
   left join [CRM_1551_Analitics].[dbo].[StreetTypes] st on s.street_type_id=st.Id
-  left join [CRM_1551_Analitics].[dbo].[Districts] d on ao.[ofDistrict_id]=d.[urbio_id]--ao.DistrictId_1551=d.Id
+  left join [CRM_1551_Analitics].[dbo].[Districts] d on b.district_id=d.Id--ao.DistrictId_1551=d.Id
   where ao.id is null
   ) t
   where #filter_columns#
