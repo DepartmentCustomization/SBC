@@ -3,10 +3,7 @@
         config: {
             query: {
                 code: 'urbio_db_Streets',
-                parameterValues: [
-                    { key: '@pageOffsetRows', value: 0 },
-                    { key: '@pageLimitRows', value: 10 }
-                ],
+                parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
                 skipNotVisibleColumns: true,

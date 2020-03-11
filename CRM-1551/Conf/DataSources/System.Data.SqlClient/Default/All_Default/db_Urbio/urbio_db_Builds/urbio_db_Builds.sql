@@ -60,5 +60,5 @@ select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id 
   where ao.id is null
   ) t
   where #filter_columns#
-  #sort_columns#
-  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+--  #sort_columns#
+--  offset @pageOffsetRows rows fetch next @pageLimitRows rows only

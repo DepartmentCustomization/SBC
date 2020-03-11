@@ -3,10 +3,7 @@
         config: {
             query: {
                 code: 'urbio_db_Builds',
-                parameterValues: [
-                    { key: '@pageOffsetRows', value: 0 },
-                    { key: '@pageLimitRows', value: 10 }
-                ],
+                parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
                 skipNotVisibleColumns: true,
@@ -71,6 +68,7 @@
         },
         firstLoad: true,
         init: function() {
+            this.dataGridInstance.height = window.innerHeight - 100;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyGlobalFilters, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
