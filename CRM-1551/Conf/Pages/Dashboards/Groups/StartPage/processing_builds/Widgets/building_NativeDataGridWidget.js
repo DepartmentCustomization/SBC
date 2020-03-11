@@ -14,21 +14,31 @@
             },
             columns: [
                 {
+                    allowEditing: false,
                     dataField: 'operations',
                     caption: 'Операція'
                 }, {
+                    allowEditing: false,
                     dataField: 'Urbio_District',
                     caption: 'Район'
                 }, {
+                    allowEditing: false,
+                    dataField: 'Urbio_build',
+                    caption: 'Будинок'
+                }, {
+                    allowEditing: false,
                     dataField: '1551_District',
                     caption: 'Район в 1551'
                 }, {
+                    allowEditing: false,
                     dataField: '1551_Build',
                     caption: 'Будинок в 1551'
                 }, {
+                    allowEditing: true,
                     dataField: 'is_done',
                     caption: 'Стан'
                 }, {
+                    allowEditing: true,
                     dataField: 'comment',
                     caption: 'Коментар'
                 }
@@ -36,6 +46,11 @@
             keyExpr: 'Id',
             selection: {
                 mode: 'multiple'
+            },
+            editing: {
+                mode: 'cell',
+                allowUpdating: true,
+                useIcons: true
             },
             showBorders: false,
             showColumnLines: true,
@@ -59,6 +74,15 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyGlobalFilters, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
+            this.dataGridInstance.onCellClick.subscribe(e => {
+                if(e.column) {
+                    if(e.column.dataField === '1551_Build' && e.row !== undefined) {
+                        window.open(location.origin +
+                        localStorage.getItem('VirtualPath') +
+                        '/sections/Buildings/edit/' + e.data.Analitics_Id);
+                    }
+                }
+            });
         },
         getFiltersParams: function(message) {
             this.config.query.filterColumns = [];
@@ -143,21 +167,40 @@
             const rows = this.dataGridInstance.instance.getSelectedRowsData();
             if(rows.length) {
                 this.showPagePreloader('Зачекайте, дані обробляються');
+                this.promiseAll = [];
                 rows.forEach(row => {
-                    let executeApplyRowsChanges = {
-                        queryCode: code,
-                        limit: -1,
-                        parameterValues: [
-                            { key: '@Analitics_Id', value: row.Analitics_Id },
-                            { key: '@Urbio_Id', value: row.Urbio_Id },
-                            { key: '@Operation', value: row.operations },
-                            { key: '@comment', value: row.comment }
-                        ]
-                    };
-                    this.queryExecutor(executeApplyRowsChanges);
-                    this.showPreloader = false;
+                    const promise = new Promise((resolve) => {
+                        const executeApplyRowsChanges = this.createExecuteApplyRowsChanges(row, code);
+                        this.queryExecutor(executeApplyRowsChanges, this.applyRequest.bind(this, resolve), this);
+                        this.showPreloader = false;
+                    });
+                    this.promiseAll.push(promise);
                 });
+                this.afterApplyAllRequests();
             }
+        },
+        createExecuteApplyRowsChanges: function(row, code) {
+            return {
+                queryCode: code,
+                limit: -1,
+                parameterValues: [
+                    { key: '@Analitics_Id', value: row.Analitics_Id },
+                    { key: '@Urbio_Id', value: row.Urbio_Id },
+                    { key: '@Operation', value: row.operations },
+                    { key: '@comment', value: row.comment }
+                ]
+            };
+        },
+        applyRequest: function(resolve, data) {
+            resolve(data);
+        },
+        afterApplyAllRequests: function() {
+            Promise.all(this.promiseAll).then(() => {
+                this.promiseAll = [];
+                this.dataGridInstance.instance.deselectAll();
+                this.loadData(this.afterLoadDataHandler);
+                this.hidePagePreloader();
+            });
         },
         applyGlobalFilters: function() {
             this.sendMessageFilterPanelState(false);
