@@ -91,7 +91,7 @@
             this.firstLoadCheck();
         },
         setFiltersColumns: function(value, key) {
-            if (value !== null) {
+            if(value !== undefined) {
                 const filter = {
                     key: key,
                     value: {

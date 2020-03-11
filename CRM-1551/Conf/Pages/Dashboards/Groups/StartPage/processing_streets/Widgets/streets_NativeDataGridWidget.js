@@ -82,16 +82,17 @@
             this.firstLoadCheck();
         },
         setFiltersColumns: function(value, key) {
-            const filterValue = value === undefined ? null : value;
-            const filter = {
-                key: key,
-                value: {
-                    operation: 0,
-                    not: false,
-                    values: [filterValue]
-                }
-            };
-            this.config.query.filterColumns.push(filter);
+            if(value !== undefined) {
+                const filter = {
+                    key: key,
+                    value: {
+                        operation: 0,
+                        not: false,
+                        values: [value]
+                    }
+                };
+                this.config.query.filterColumns.push(filter);
+            }
         },
         firstLoadCheck: function() {
             if(this.firstLoad) {
