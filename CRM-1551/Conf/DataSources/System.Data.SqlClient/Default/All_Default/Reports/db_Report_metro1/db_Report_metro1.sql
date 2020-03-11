@@ -1,12 +1,12 @@
---    DECLARE @dateFrom DATETIME = '2020-03-10 00:00';
---    DECLARE @dateTo DATETIME = '2020-03-11 00:00';
+    -- DECLARE @dateFrom DATETIME = '2020-03-10 00:00';
+    -- DECLARE @dateTo DATETIME = '2020-03-11 00:00';
 
   DECLARE @targettimezone AS sysname = 'E. Europe Standard Time';
   ---> преобразование параметров дата-время из UTC в локальные значения
   SET @dateFrom = Dateadd(hh, Datediff(hh, Getutcdate(), Getdate()), @dateFrom);
   SET @dateTo = Dateadd(hh, Datediff(hh, Getutcdate(), Getdate()), @dateTo);
 
-  DECLARE @rsNames TABLE (sourceID INT, souceName NVARCHAR(100));
+  DECLARE @rsNames TABLE (sourceID INT, souceName NVARCHAR(100), pos TINYINT);
   INSERT INTO @rsNames (sourceID, souceName)
   SELECT 
 		Id,
@@ -23,6 +23,16 @@
 
  UNION ALL 
  SELECT 5, N'Отримано дзвінків на лінію з питань метрополітену';
+
+ UPDATE @rsNames
+ SET pos = CASE
+ WHEN sourceID = 5 THEN 1
+ WHEN sourceID = 4 THEN 2
+ WHEN sourceID = 3 THEN 4
+ WHEN sourceID = 2 THEN 3
+ WHEN sourceID = 1 THEN 5 
+ END
+ FROM @rsNames ;
 
 DROP TABLE IF EXISTS ##tempData;
 
@@ -70,4 +80,4 @@ DROP TABLE IF EXISTS ##tempData;
 		ISNULL(td.qty, 0) AS val 
 	FROM @rsNames rs
 	LEFT JOIN ##tempData td ON td.receipt_source_id = rs.sourceID
-	ORDER BY val ;
+	ORDER BY pos ;

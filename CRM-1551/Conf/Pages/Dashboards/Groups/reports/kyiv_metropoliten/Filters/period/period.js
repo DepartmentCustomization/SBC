@@ -3,6 +3,7 @@
         placeholder: 'Період',
         showTime: true,
         type: 'DateTime',
+        stepMinute: 1,
         onItemSelect: function(date) {
             this.datePeriod(date);
         },
@@ -28,8 +29,6 @@
                 dateTo: new Date(year, monthFrom , dayTo, hh, mm)
             }
             this.setDefaultValue(defaultValue);
-        },
-        destroy() {
         }
     };
 }());
