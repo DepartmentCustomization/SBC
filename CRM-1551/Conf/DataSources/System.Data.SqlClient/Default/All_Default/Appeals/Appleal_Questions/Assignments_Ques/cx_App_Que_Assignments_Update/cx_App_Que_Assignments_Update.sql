@@ -1,4 +1,5 @@
 -- DECLARE @user_edit_id NVARCHAR(128)=N'bc1b17e2-ffee-41b1-860a-41e1bae57ffd';
+SET @executor_person_id = IIF(IIF(@executor_person_id = '',NULL,@executor_person_id) = 0,NULL,IIF(@executor_person_id = '',NULL,@executor_person_id));
 
 DECLARE @org1761 TABLE (Id INT);
 WITH
@@ -53,7 +54,6 @@ SET	@ass_cons_id = (SELECT
 		WHERE Id = @current_consid);
 DECLARE @result_of_checking INT;
 DECLARE @is_main_exec BIT;
-SET @executor_person_id = IIF(@executor_person_id = '',NULL,@executor_person_id);
 ---> Проверка изменений state, result, resolution, executor_organization_id
 DECLARE @currentState INT = (SELECT assignment_state_id FROM dbo.Assignments WHERE Id = @Id);
 DECLARE @currentResult INT = (SELECT AssignmentResultsId FROM dbo.Assignments WHERE Id = @Id);
@@ -134,11 +134,6 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-
-	IF(@executor_person_id = '')
-	BEGIN
-	SET @executor_person_id = NULL;
-	END
 
 		--если результат, резолюция не изменились и...
 		IF @result_id = (SELECT
