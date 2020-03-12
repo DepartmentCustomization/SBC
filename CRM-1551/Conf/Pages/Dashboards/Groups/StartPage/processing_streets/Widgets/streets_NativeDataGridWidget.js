@@ -40,6 +40,10 @@
                 allowUpdating: true,
                 useIcons: true
             },
+            export: {
+                enabled: true,
+                fileName: 'Excel'
+            },
             showBorders: false,
             showColumnLines: true,
             showRowLines: true,
@@ -133,21 +137,6 @@
                         e.event.stopImmediatePropagation();
                         const queryCode = 'urbio_db_Button_skip_street';
                         this.applyRowsChanges(queryCode);
-                    }.bind(this)
-                }
-            });
-            toolbarItems.push({
-                widget: 'dxButton',
-                location: 'after',
-                options: {
-                    icon: 'exportxlsx',
-                    type: 'default',
-                    text: 'Excel',
-                    elementAttr: {
-                        class: 'defaultButton'
-                    },
-                    onClick: function(e) {
-                        e.event.stopImmediatePropagation();
                     }.bind(this)
                 }
             });
