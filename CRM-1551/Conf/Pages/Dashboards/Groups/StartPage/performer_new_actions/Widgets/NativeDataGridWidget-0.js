@@ -45,7 +45,8 @@
             }, {
                 dataField: 'CountQuestions',
                 caption: 'К-ть питань пов`язаних з заходом',
-                fixed: true
+                fixed: true,
+                alignment: 'center'
             }],
             filterRow: {
                 visible: true,
