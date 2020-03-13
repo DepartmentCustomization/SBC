@@ -91,7 +91,7 @@
   )
   
   select
-  ut.object_type_id [object_type_id]
+  aot.Id [object_type_id]
       ,ao.[name_ofFirstLevel_fullName] [name] -- хз, по ходу
       ,o.[builbing_id]
       ,d.Id [district_id]
@@ -108,6 +108,7 @@
   INNER JOIN @output o ON convert(nvarchar(128),ao.id)=o.[urdio_id]
   LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on ao.TypeId_1551=ut.urbio_type_id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),ao.ofDistrict_id)=d.urbio_id
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[ObjectTypes] aot ON ao.[name_ofFirstLevel_fullToponym]=aot.[name]
   END
 
 
@@ -149,7 +150,7 @@
 
 
 	  UPDATE [CRM_1551_Analitics].[dbo].[Objects]
-	  set [object_type_id]=ut.object_type_id
+	  set [object_type_id]=aot.Id
 		  ,[name]=ao.[name_ofFirstLevel_fullName]
 		  ,[builbing_id]=o.[builbing_id]
 		  ,[district_id]=d.Id--ao.ofDistrict_id
@@ -167,6 +168,7 @@
 	  INNER JOIN [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao ON b.urbio_id=convert(nvarchar(128),ao.id)
 	  LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on ao.TypeId_1551=ut.urbio_type_id
 	  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),ao.ofDistrict_id)=d.urbio_id
+    LEFT JOIN [CRM_1551_Analitics].[dbo].[ObjectTypes] aot ON ao.[name_ofFirstLevel_fullToponym]=aot.[name]
 	  WHERE b.Id=@Analitics_Id
 
     update [CRM_1551_URBIO_Integrartion].[dbo].[addressObject]

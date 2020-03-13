@@ -34,7 +34,8 @@ FROM
   WHERE 
   -- ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
   -- ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'')<>ISNULL(sa.name,N'')
-  ISNULL(su.[name_shortToponym],N'')+ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
+  --ISNULL(su.[name_shortToponym],N'')+
+  ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
   ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'')<>ISNULL(sta.shortname,N'')+ISNULL(sa.name,N'')
 
 
