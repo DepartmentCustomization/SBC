@@ -15,7 +15,11 @@ FROM
   FROM [CRM_1551_URBIO_Integrartion].[dbo].[streets] su
   LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] sa ON su.id=sa.urbio_id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id
-  WHERE sa.urbio_id IS null
+  WHERE 
+  su.is_add= 'true' and
+  su.is_change='false' and
+  su.is_delete='false' and
+  su.[is_done]='false' 
 
   --редагування
   union
@@ -35,12 +39,17 @@ FROM
   -- ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
   -- ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'')<>ISNULL(sa.name,N'')
   --ISNULL(su.[name_shortToponym],N'')+
-  ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
-  ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'')<>ISNULL(sta.shortname,N'')+ISNULL(sa.name,N'')
+  --ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
+  --ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'')<>ISNULL(sta.shortname,N'')+ISNULL(sa.name,N'')
 
 
-  OR d.urbio_id<>su.ofDistrict_id
-  OR ISNULL(d.name,N'')<>ISNULL(su.ofDistrict_name_fullName,N'')
+  --OR d.urbio_id<>su.ofDistrict_id
+  --OR ISNULL(d.name,N'')<>ISNULL(su.ofDistrict_name_fullName,N'')
+  su.is_add='false' and --is_add
+su.is_change='true' and --is_change
+su.is_delete='false' and --is_delete
+su.[is_done]='false' --[is_done]
+
 
   --видалення
   union
@@ -53,10 +62,14 @@ FROM
   ,su.is_done is_done_filter
   ,su.id [UrbioName_filter]
   FROM [CRM_1551_Analitics].[dbo].[Streets] sa 
-  LEFT JOIN [CRM_1551_URBIO_Integrartion].[dbo].[streets] su ON CONVERT(nvarchar(128),su.id)=sa.urbio_id
+  INNER JOIN [CRM_1551_URBIO_Integrartion].[dbo].[streets] su ON CONVERT(nvarchar(128),su.id)=sa.urbio_id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d on sa.district_id=d.Id 
-  WHERE sa.urbio_id IS NULL
+  WHERE --sa.urbio_id IS NULL
+  su.is_add='false' and
+su.is_change='false' and
+su.is_delete='true' and
+su.[is_done]='false' 
   ) t
   WHERE #filter_columns#
    #sort_columns#
