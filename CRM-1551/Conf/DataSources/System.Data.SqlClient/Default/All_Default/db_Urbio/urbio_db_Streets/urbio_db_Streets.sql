@@ -6,9 +6,9 @@ FROM
   (
   SELECT ISNULL(LTRIM(sa.Id),N'')+ISNULL(LTRIM(su.Id),N'') Id, sa.Id Analitics_Id, su.Id Urbio_Id,
   N'Додавання' [operations],
-  ISNULL(su.[name_shortToponym],N'')+ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
+  ISNULL(su.[name_shortToponym]+N' ',N'')+ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
   ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'') [UrbioName],
-  ISNULL(sta.shortname,N'')+ISNULL(sa.name,N'') [1551Name],
+  ISNULL(sta.shortname+N' ',N'')+ISNULL(sa.name,N'') [1551Name],
   su.is_done, su.comment
   ,su.is_done is_done_filter
   ,su.id [StreetName_filter]
@@ -25,9 +25,9 @@ FROM
   union
   SELECT ISNULL(LTRIM(sa.Id),N'')+ISNULL(LTRIM(su.Id),N'') Id, sa.Id Analitics_Id, su.Id Urbio_Id,
   N'Редагування' [operations],
-  ISNULL(su.[name_shortToponym],N'')+ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
+  ISNULL(su.[name_shortToponym]+N' ',N'')+ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
   ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'') [UrbioName],
-  ISNULL(sta.shortname,N'')+ISNULL(sa.name,N'') [1551Name],
+  ISNULL(sta.shortname+N' ',N'')+ISNULL(sa.name,N'') [1551Name],
   su.is_done, su.comment
   ,su.is_done is_done_filter
   ,su.id [UrbioName_filter]
@@ -55,9 +55,9 @@ su.[is_done]='false' --[is_done]
   union
   SELECT ISNULL(LTRIM(sa.Id),N'')+ISNULL(LTRIM(su.Id),N'') Id, sa.Id Analitics_Id, su.Id Urbio_Id,
   N'Видалення' [operations],
-  ISNULL(su.[name_shortToponym],N'')+ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
+  ISNULL(su.[name_shortToponym]+N' ',N'')+ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
   ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'') [UrbioName],
-  ISNULL(sta.shortname,N'')+ISNULL(sa.name,N'') [1551Name],
+  ISNULL(sta.shortname+N' ',N'')+ISNULL(sa.name,N'') [1551Name],
   su.is_done, su.comment
   ,su.is_done is_done_filter
   ,su.id [UrbioName_filter]

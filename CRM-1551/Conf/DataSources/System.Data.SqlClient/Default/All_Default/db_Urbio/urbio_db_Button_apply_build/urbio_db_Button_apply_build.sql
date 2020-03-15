@@ -106,9 +106,13 @@
   FROM [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao
   --INNER JOIN #Ids i ON ao.id=i.[value]
   INNER JOIN @output o ON convert(nvarchar(128),ao.id)=o.[urdio_id]
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on ao.TypeId_1551=ut.urbio_type_id
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),ao.ofDistrict_id)=d.urbio_id
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[ObjectTypes] aot ON ao.[name_ofFirstLevel_fullToponym]=aot.[name]
+  -- LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on ao.TypeId_1551=ut.urbio_type_id
+   LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),ao.ofDistrict_id)=d.urbio_id
+  -- LEFT JOIN [CRM_1551_Analitics].[dbo].[ObjectTypes] aot ON ao.[name_ofFirstLevel_fullToponym]=aot.[name]
+  LEFT JOIN (select uaot.name, aot.Id
+  from [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] aetut
+  inner join [CRM_1551_Analitics].[dbo].[ObjectTypes] aot on aetut.object_type_id=aot.id
+  inner join[CRM_1551_Analitics].[dbo].[ObjectTypes] uaot on aetut.urbio_type_id=uaot.id) aot on ao.[name_ofFirstLevel_fullToponym]=aot.[name]
   END
 
 
@@ -166,10 +170,14 @@
 	  FROM [CRM_1551_Analitics].[dbo].[Objects] o
 	  INNER JOIN [CRM_1551_Analitics].[dbo].[Buildings] b ON b.Id=o.builbing_id
 	  INNER JOIN [CRM_1551_URBIO_Integrartion].[dbo].[addressObject] ao ON b.urbio_id=convert(nvarchar(128),ao.id)
-	  LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on ao.TypeId_1551=ut.urbio_type_id
+	  --LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on ao.TypeId_1551=ut.urbio_type_id
 	  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),ao.ofDistrict_id)=d.urbio_id
-    LEFT JOIN [CRM_1551_Analitics].[dbo].[ObjectTypes] aot ON ao.[name_ofFirstLevel_fullToponym]=aot.[name]
-	  WHERE b.Id=@Analitics_Id
+    --LEFT JOIN [CRM_1551_Analitics].[dbo].[ObjectTypes] aot ON ao.[name_ofFirstLevel_fullToponym]=aot.[name]
+    LEFT JOIN (select uaot.name, aot.Id
+    from [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] aetut
+    inner join [CRM_1551_Analitics].[dbo].[ObjectTypes] aot on aetut.object_type_id=aot.id
+    inner join[CRM_1551_Analitics].[dbo].[ObjectTypes] uaot on aetut.urbio_type_id=uaot.id) aot on ao.[name_ofFirstLevel_fullToponym]=aot.[name]
+    WHERE b.Id=@Analitics_Id
 
     update [CRM_1551_URBIO_Integrartion].[dbo].[addressObject]
 	  SET is_done='true'
