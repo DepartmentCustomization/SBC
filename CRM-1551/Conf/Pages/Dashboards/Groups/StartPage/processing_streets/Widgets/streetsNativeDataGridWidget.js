@@ -64,8 +64,8 @@
         firstLoad: true,
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 100;
-            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyGlobalFilters, this);
+            this.subGlobalFilterChanged = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
+            this.subApplyGlobalFilters = this.messageService.subscribe('ApplyGlobalFilters', this.applyGlobalFilters, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
@@ -105,41 +105,51 @@
             }
         },
         createTableButton: function(e) {
-            let toolbarItems = e.toolbarOptions.items;
-            toolbarItems.push({
-                widget: 'dxButton',
+            const self = this;
+            const buttonApplyProps = {
+                text: 'Застосувати',
+                queryCode: 'urbio_db_Button_apply_street',
+                type: 'default',
+                icon: 'check',
                 location: 'after',
+                class: 'defaultButton',
+                method: function() {
+                    self.applyRowsChanges(this.queryCode);
+                }
+            }
+            const buttonSkipProps = {
+                text: 'Пропустити',
+                queryCode: 'urbio_db_Button_skip_street',
+                type: 'default',
+                icon: 'arrowdown',
+                location: 'after',
+                class: 'defaultButton',
+                method: function() {
+                    self.applyRowsChanges(this.queryCode);
+                }
+            }
+            const buttonApply = this.createToolbarButton(buttonApplyProps);
+            const buttonSkip = this.createToolbarButton(buttonSkipProps);
+            e.toolbarOptions.items.push(buttonApply);
+            e.toolbarOptions.items.push(buttonSkip);
+        },
+        createToolbarButton: function(button) {
+            return {
+                widget: 'dxButton',
+                location: button.location,
                 options: {
-                    icon: 'check',
-                    type: 'default',
-                    text: 'Застосувати',
+                    icon: button.icon,
+                    type: button.type,
+                    text: button.text,
                     elementAttr: {
-                        class: 'defaultButton'
+                        class: button.class
                     },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
-                        const queryCode = 'urbio_db_Button_apply_street';
-                        this.applyRowsChanges(queryCode);
+                        button.method();
                     }.bind(this)
                 }
-            });
-            toolbarItems.push({
-                widget: 'dxButton',
-                location: 'after',
-                options: {
-                    icon: 'arrowdown',
-                    type: 'default',
-                    text: 'Пропустити',
-                    elementAttr: {
-                        class: 'defaultButton'
-                    },
-                    onClick: function(e) {
-                        e.event.stopImmediatePropagation();
-                        const queryCode = 'urbio_db_Button_skip_street';
-                        this.applyRowsChanges(queryCode);
-                    }.bind(this)
-                }
-            });
+            }
         },
         applyRowsChanges: function(code) {
             const rows = this.dataGridInstance.instance.getSelectedRowsData();
@@ -197,8 +207,8 @@
             this.render();
         },
         destroy: function() {
-            this.sub.unsubscribe();
-            this.sub1.unsubscribe();
+            this.subGlobalFilterChanged.unsubscribe();
+            this.subApplyGlobalFilters.unsubscribe();
         }
     };
 }());
