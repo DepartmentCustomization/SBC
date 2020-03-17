@@ -133,6 +133,8 @@
             this.dateValues = {
                 registration_date_from: null,
                 registration_date_to: null,
+                registration_date_question_from: null,
+                registration_date_question_to: null,
                 transfer_date_from: null,
                 transfer_date_to: null,
                 state_changed_date_from: null,
@@ -251,10 +253,13 @@
                 let macrosValue = str.slice(0, -4);
                 this.macrosValue = macrosValue === '' ? '1=1' : macrosValue;
                 this.sendMsgForSetFilterPanelState(false);
+                debugger;
                 this.config.query.parameterValues = [
                     { key: '@param1', value: this.macrosValue },
                     { key: '@registration_date_from', value: this.dateValues.registration_date_from },
                     { key: '@registration_date_to', value: this.dateValues.registration_date_to },
+                    { key: '@registration_date_question_from', value: this.dateValues.registration_date_question_from },
+                    { key: '@registration_date_question_to', value: this.dateValues.registration_date_question_to },
                     { key: '@transfer_date_from', value: this.dateValues.transfer_date_from },
                     { key: '@transfer_date_to', value: this.dateValues.transfer_date_to },
                     { key: '@state_changed_date_from', value: this.dateValues.state_changed_date_from },
