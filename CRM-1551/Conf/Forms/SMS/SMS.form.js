@@ -14,6 +14,7 @@
           this.form.disableControl('HouseId');
           this.form.disableControl('FlatId');
           this.form.disableControl('SendClaims');
+          this.openPopUpInfoDialog('Користувач сайту 1557.kyiv.ua. Інформацію по поточному контакту змінити не можливо (налаштування СМС користувач редагує самостійно). Для зміни інформації потрібно перейти на сайт 1557.');
         };
         debugger;
         let dependParams = [{ parameterCode: '@street_id', parameterValue: this.form.getControlValue('StreetId')}];
