@@ -701,7 +701,7 @@ when [Applicants].[birth_date] is null then year(getdate())-[Applicants].birth_y
   ,[Assignments].registration_date  as  [registration_date] -- good
   ,[AssignmentConsiderations].transfer_date [transfer_date] -- good
 
-  ,[Questions].[registration_number] as [registration_date_question]
+  ,[Questions].[registration_date] as [registration_date_question]
 
   --,case when [Assignments].assignment_state_id=3
   --then [AssignmentConsiderations].consideration_date end [state_changed_date] -- good
