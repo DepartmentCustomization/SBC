@@ -40,7 +40,7 @@
     "Code": "Created_at",
     "Name": "Створена",
     "Position": 6,
-    "SqlName": "Created_at",
+    "SqlName": "[Claims].Created_at",
     "FilterParameterCode": "@Created_at"
   },
   {
