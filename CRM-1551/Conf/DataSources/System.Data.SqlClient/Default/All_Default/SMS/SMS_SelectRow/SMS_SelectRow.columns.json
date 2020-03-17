@@ -96,5 +96,18 @@
     "Position": 13,
     "IsPrintable": false,
     "ReferenceKeyCode": "HouseId"
+  },
+  {
+    "Code": "StreetId",
+    "Name": "StreetId",
+    "Position": 14,
+    "IsPrintable": false
+  },
+  {
+    "Code": "StreetName",
+    "Name": "StreetName",
+    "Position": 14,
+    "IsPrintable": false,
+    "ReferenceKeyCode": "StreetId"
   }
 ]

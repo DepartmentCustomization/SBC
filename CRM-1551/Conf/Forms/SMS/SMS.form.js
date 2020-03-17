@@ -15,7 +15,11 @@
           this.form.disableControl('FlatId');
           this.form.disableControl('SendClaims');
         };
-
+        debugger;
+        let dependParams = [{ parameterCode: '@street_id', parameterValue: this.form.getControlValue('StreetId')}];
+        this.form.setControlParameterValues('HouseId', dependParams);
+        let dependParams2 = [{ parameterCode: '@house_id', parameterValue: this.form.getControlValue('HouseId') }];
+        this.form.setControlParameterValues('FlatId', dependParams2);
 
         this.form.onControlValueChanged('StreetId', this.onStreetChanged);
         this.form.onControlValueChanged('HouseId', this.onHouseChanged);

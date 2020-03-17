@@ -1,8 +1,9 @@
 
---declare @house_id int = 37
+--declare @house_id int = 9820
 
 if object_id('tempdb..#addressObject') is not null drop table #addressObject
 create table #addressObject(
+[RowNumb] int identity(1,1),
 [Id]   int,
 [Name] nvarchar(2000)
 )
@@ -17,9 +18,9 @@ declare @sql nvarchar(max)
 insert into #addressObject ([Id], [Name])
 exec sp_executesql @sql
 
-select * 
+select Id, Name 
 from #addressObject
 where #filter_columns#
 --#sort_columns#
-order by 2
+order by RowNumb
 offset @pageOffsetRows rows fetch next @pageLimitRows rows only
