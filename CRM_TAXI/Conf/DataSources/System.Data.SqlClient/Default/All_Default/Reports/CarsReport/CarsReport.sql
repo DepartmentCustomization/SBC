@@ -1,5 +1,6 @@
---   declare @dateFrom datetime = '2019-11-02 00:00:00';
---   declare @dateTo datetime = '2019-11-30 00:00:00';
+--    declare @dateFrom datetime = '2020-02-11 00:00:00';
+--    declare @dateTo datetime = '2020-03-13 00:00:00';
+
 DECLARE @cars TABLE (
     Id INT,
     [number] NVARCHAR(50),
@@ -87,13 +88,13 @@ SELECT
     car.[name],
     car.mark,
     car.create_year,
-    start_run.start_period_run,
-    end_run.end_period_run,
-    period_run.pediod_run,
-    isnull(parts.change_price, 0) AS change_price
+    isnull(start_run.start_period_run,0) AS start_period_run,
+    isnull(end_run.end_period_run,0) AS end_period_run,
+    isnull(period_run.pediod_run,0) AS pediod_run,
+    isnull(ROUND(parts.change_price,3), 0) AS change_price
 FROM
     @cars car
-    INNER JOIN @cars_start_run start_run ON start_run.car_id = car.Id
-    INNER JOIN @cars_end_run end_run ON end_run.car_id = car.Id
-    INNER JOIN @cars_period_run period_run ON period_run.car_id = car.Id
+    LEFT JOIN @cars_start_run start_run ON start_run.car_id = car.Id
+    LEFT JOIN @cars_end_run end_run ON end_run.car_id = car.Id
+    LEFT JOIN @cars_period_run period_run ON period_run.car_id = car.Id
     LEFT JOIN @car_parts_price parts ON parts.car_id = car.Id ;
