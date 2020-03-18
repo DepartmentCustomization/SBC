@@ -87,21 +87,25 @@
                     return p;
                 }, {}
                 );
-            this.sphereId = Number(getUrlParams.id);
+            const sphereId = Number(getUrlParams.id);
+            const organization = Number(getUrlParams.organization);
+            const organizationGroup = Number(getUrlParams.organizationGroup);
             this.sphereName = getUrlParams.name;
             this.dateFromViewValues = this.changeDateTimeValues(getUrlParams.dateFrom);
             this.dateToViewValues = this.changeDateTimeValues(getUrlParams.dateTo);
-            const dateFrom = getUrlParams.dateFrom;
-            const dateTo = getUrlParams.dateTo;
-            this.dateFrom = new Date(dateFrom);
-            this.dateTo = new Date(dateTo);
+            const dateFromUrl = getUrlParams.dateFrom;
+            const dateToUrl = getUrlParams.dateTo;
+            const dateFrom = new Date(dateFromUrl);
+            const dateTo = new Date(dateToUrl);
             const queryLoadPie = {
                 queryCode: 'db_Report_8_2',
                 limit: -1,
                 parameterValues: [
-                    { key: '@dateFrom', value: this.dateFrom},
-                    { key: '@dateTo', value: this.dateTo},
-                    { key: '@typeId', value: this.sphereId}
+                    { key: '@dateFrom', value: dateFrom},
+                    { key: '@dateTo', value: dateTo},
+                    { key: '@typeId', value: sphereId},
+                    { key: '@organization', value: organization},
+                    { key: '@organizationGroup', value: organizationGroup}
                 ]
             };
             this.queryExecutor(queryLoadPie, this.load, this);
