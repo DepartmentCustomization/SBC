@@ -78,20 +78,15 @@
                     icon: 'exportxlsx',
                     type: 'default',
                     text: 'Excel',
-                    onClick: function(e) {
+                    onClick: (e) => {
                         e.event.stopImmediatePropagation();
                         let exportQuery = {
-                            queryCode: 'db_Report_2',
+                            queryCode: this.config.query.code,
                             limit: -1,
-                            parameterValues: [
-                                {key: '@dateFrom' , value: this.dateFrom },
-                                {key: '@dateTo', value: this.dateTo },
-                                {key: '@questionType', value: this.questionType },
-                                {key: '@questionGroup', value: this.questionGroup }
-                            ]
+                            parameterValues: this.config.query.parameterValues
                         };
                         this.queryExecutor(exportQuery, this.myCreateExcel, this);
-                    }.bind(this)
+                    }
                 }
             });
             toolbarItems.push({
@@ -101,10 +96,10 @@
                     icon: 'arrowright',
                     type: 'default',
                     text: 'До класифікатору питань',
-                    onClick: function(e) {
+                    onClick: (e) => {
                         e.event.stopImmediatePropagation();
                         this.messageService.publish({ name: 'showClassifierQuestions'});
-                    }.bind(this)
+                    }
                 }
             });
         },
@@ -136,7 +131,9 @@
                 let cellInfo = worksheet.getCell('A2');
                 cellInfo.value = ' що надійшли через КБУ "Контактний центр міста Києва.';
                 let cellPeriod = worksheet.getCell('A3');
-                cellPeriod.value = 'Період вводу з (включно) : дата з ' + this.changeDateTimeValues(this.dateFrom) + ' дата по ' + this.changeDateTimeValues(this.dateTo);
+                cellPeriod.value = 'Період вводу з (включно) : дата з ' +
+                    this.changeDateTimeValues(this.dateFrom) + ' дата по ' +
+                    this.changeDateTimeValues(this.dateTo);
                 worksheet.mergeCells('A1:C1');
                 worksheet.mergeCells('A2:C2');
                 worksheet.mergeCells('A3:C3');
@@ -270,18 +267,24 @@
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let questionType = message.package.value.values.find(f => f.name === 'questionTypes').value;
             let questionGroup = message.package.value.values.find(f => f.name === 'questionGroup').value;
+            let organization = message.package.value.values.find(f => f.name === 'organization').value;
+            let organizationGroup = message.package.value.values.find(f => f.name === 'organizationGroup').value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.questionType = questionType === null ? 0 : questionType === '' ? 0 : questionType.value;
                     this.questionGroup = questionGroup === null ? 0 : questionGroup === '' ? 0 : questionGroup.value;
+                    this.organization = organization === null ? 0 : organization === '' ? 0 : organization.value;
+                    this.organizationGroup = organizationGroup === null ? 0 : organizationGroup === '' ? 0 : organizationGroup.value;
                     if(this.questionType !== 0) {
                         this.config.query.parameterValues = [
                             {key: '@dateFrom' , value: this.dateFrom },
                             {key: '@dateTo', value: this.dateTo },
                             {key: '@questionType', value: this.questionType },
-                            {key: '@questionGroup', value: this.questionGroup }
+                            {key: '@questionGroup', value: this.questionGroup },
+                            {key: '@organization', value: this.organization },
+                            {key: '@organizationGroup', value: this.organizationGroup }
                         ];
                         this.loadData(this.afterLoadDataHandler);
                     }
