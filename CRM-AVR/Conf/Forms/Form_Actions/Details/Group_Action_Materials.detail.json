@@ -1,0 +1,22 @@
+{
+  "ModelType": "Detail",
+  "Code": "Group_Action_Materials",
+  "Name": "Матеріали для роботи",
+  "FormCode": "Form_Actions_Materials",
+  "SelectRowsQueryCode": "avr_Action_Materials_SelectRows",
+  "SelectRowQueryCode": "avr_Action_Materials_SelectRow",
+  "UpdateQueryCode": "avr_Action_Materials_Update",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Action_Materials_DeleteRow",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Action_Materials_InsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

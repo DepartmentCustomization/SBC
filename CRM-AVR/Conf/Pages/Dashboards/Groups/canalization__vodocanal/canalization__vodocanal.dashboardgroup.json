@@ -1,0 +1,8 @@
+{
+  "Icon": "build",
+  "Position": 1,
+  "IconColor": "#53d12a",
+  "ModelType": "DashboardGroup",
+  "Code": "canalization__vodocanal",
+  "Name": "Поточний стан ВІДКРИТИХ ЗАЯВОК за період"
+}

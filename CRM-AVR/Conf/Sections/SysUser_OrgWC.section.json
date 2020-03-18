@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "sys_SysUser_OrgWC_InsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "SysUser_OrgWC",
+  "Name": "SysUser_OrgWC",
+  "FormCode": "Form_SysUser_OrgWC",
+  "SelectRowsQueryCode": "sys_SysUser_OrgWC_SelectRows",
+  "SelectRowQueryCode": "sys_SysUser_OrgWC_SelectRow",
+  "UpdateQueryCode": "sys_SysUser_OrgWC_UpdateRow",
+  "IsVisible": false
+}

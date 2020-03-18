@@ -1,0 +1,13 @@
+{
+  "Code": "Group_Telefon",
+  "Name": "Телефони",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "number_name",
+      "Name": "Телефони",
+      "FieldType": "text",
+      "Position": 1
+    }
+  ]
+}

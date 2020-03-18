@@ -1,0 +1,9 @@
+{
+  "ModelType": "Query",
+  "Code": "Q1",
+  "Name": "Q1",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Sql": "select 1 as Id"
+}

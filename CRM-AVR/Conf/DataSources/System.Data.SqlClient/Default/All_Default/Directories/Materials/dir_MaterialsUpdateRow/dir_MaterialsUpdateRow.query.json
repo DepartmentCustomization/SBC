@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_MaterialsUpdateRow",
+  "Name": "dir_MaterialsUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@With_diameter",
+      "Name": "With_diameter",
+      "ParameterType": "Boolean"
+    },
+    {
+      "Code": "@Name",
+      "Name": "Name"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@units_id",
+      "Name": "units_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

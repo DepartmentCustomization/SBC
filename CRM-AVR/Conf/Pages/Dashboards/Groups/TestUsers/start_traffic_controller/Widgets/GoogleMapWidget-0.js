@@ -1,0 +1,219 @@
+(function() {
+    return {
+        title: ' ',
+        hint: '',
+        formatTitle: function() {},
+        googleMapConfig: {
+            latitude: 50.431782,
+            longitude: 30.516382,
+            zoom: 10,
+            type: 'roadmap',
+            disableDefaultUI: true,
+            zoomControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            rotateControl: false,
+            fullscreenControl: false
+        },
+        global_Adress_Map: '%',
+        init: function() {
+            document.getElementById('maps_applications').style.display = 'none';
+            this.sub = this.messageService.subscribe('showAddress', this.load_map_search_data, this);
+            this.sub1 = this.messageService.subscribe('tabsClick', this.showTable);
+        },
+        showTable: function(message) {
+            if(message.value !== 'btn_maps') {
+                document.getElementById('maps_applications').style.display = 'none';
+            }else{
+                document.getElementById('maps_applications').style.display = 'block';
+            }
+        },
+        afterViewInit: function() {
+            let executeQuery = {
+                queryCode: 'Map_Claim_SwitchOff_Address_SelectRows',
+                limit: -1,
+                parameterValues: [{
+                    key: '@Adress',
+                    value: this.global_Adress_Map
+                }]
+            };
+            this.queryExecutor(executeQuery, this.closedOgject, this);
+            let executeQuery1 = {
+                queryCode: 'avr_mainPage',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQuery1, this.claimsOnMaps, this);
+        },
+        load_map_search_data: function(message) {
+            (function clearMarkers() {
+                this.setMapOnAll(null);
+            }.bind(this)());
+            (function deleteLines() {
+                this.deleteAllPolylines(null);
+            }.bind(this)());
+            this.global_Adress_Map = message.value;
+            if (document.getElementById('map_adress_value').value === '') {
+                this.global_Adress_Map = '%'
+            } else {
+                this.global_Adress_Map = document.getElementById('map_adress_value').value
+            }
+            let executeQuery = {
+                queryCode: 'Map_Claim_SwitchOff_Address_SelectRows',
+                limit: -1,
+                parameterValues: [{
+                    key: '@Adress',
+                    value: this.global_Adress_Map
+                }]
+            };
+            this.queryExecutor(executeQuery, this.load, this);
+        },
+        setMapOnAll: function(map) {
+            for (let i = 0; i < this.marker01.length; i++) {
+                this.marker01[i].setMap(map);
+            }
+        },
+        deleteAllPolylines: function(map) {
+            for (let i = 0; i < this.line.length; i++) {
+                if (this.line[i] !== null) {
+                    this.line[i].setMap(map);
+                }
+            }
+        },
+        claimsOnMaps: function(data) {
+            let marker02 = [];
+            this.marker02 = marker02;
+            let infowindow_marker02 = [];
+            const claimAddress = data.columns.findIndex(el => el.code.toLowerCase() === 'name');
+            const claimNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'claim_number');
+            const District = data.columns.findIndex(el => el.code.toLowerCase() === 'district');
+            const unit = data.columns.findIndex(el => el.code.toLowerCase() === 'organizations');
+            const claimType = data.columns.findIndex(el => el.code.toLowerCase() === 'full_name');
+            const claimDate = data.columns.findIndex(el => el.code.toLowerCase() === 'created_at');
+            for (let i = 0; i < data.rows.length; i++) {
+                let Lattitude = data.rows[i].values[7];
+                let Longitude = data.rows[i].values[8];
+                let title = String(String(data.rows[i].values[4]) + '\n' + data.rows[i].values[2] + '\n' + data.rows[i].values[1]);
+                this.marker02.push(new window.google.maps.Marker({
+                    position: new window.google.maps.LatLng(Lattitude, Longitude),
+                    map: this.map,
+                    title: title,
+                    icon: 'https://unpkg.com/leaflet@1.3.4/dist/images/marker-icon.png'
+                }));
+                if(data.rows[i].values[District] === null) {
+                    data.rows[i].values[District] = '';
+                }
+                let contentString1 = '<div id="infowindow_marker02' + i.toString() +
+                    '" style="display: flex; max-height: 255px; width:100%;">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div style="display: inline-block; height: 100%; padding-left: 7px;">' +
+                    '<p style="font-weight: bold; color: black; font-size: 16px; margin: 10px auto 5px;">'
+                    + data.rows[i].values[claimAddress] + '</p>' +
+                    '<p style="margin: 5px 0 0;"> <span style="width: 90px; height: 20px; line-height: 20px;' +
+                    ' background-color: #3f7ab7; color: #fff; text-align: center; display: inline-block;"> Заявка </span></p>' +
+                    '<p style="margin: 3px 0 0;">Номер заявки: <b>' + data.rows[i].values[claimNumber] + '</b></p>' +
+                    '<p style="margin: 5px 0;">Район: <b>' + data.rows[i].values[District] + '</b></p>' +
+                    '<p style="margin: 3px 0 0;">Пiдроздiл: <b>' + data.rows[i].values[unit] + '</b></p>' +
+                    '<p style="margin: 3px 0 0;">Тип заявки: <b>' + data.rows[i].values[claimType] + '</b></p>' +
+                    '<p style="margin: 3px 0 0;">Дата реєстрації: <b>' + data.rows[i].values[claimDate] + '</b></p>' +
+                    `<a style="color: #3f7ab7; font-weight: bold;" href=" +
+                    ${location.origin}${localStorage.getItem('VirtualPath')}/sections/Claims/edit/` +
+                    data.rows[i].values[claimNumber] + '"> Детальніше </a>' +
+                     '</div>' +
+                     '</div>';
+                infowindow_marker02.push(new window.google.maps.InfoWindow({
+                    content: contentString1
+                }));
+            }
+            for (let i = 0; i < marker02.length; i++) {
+                (function() {
+                    let k = i;
+                    marker02[k].addListener('click', function() {
+                        my_infowindow(k);
+                    });
+                }.bind(this)());
+            }
+            function my_infowindow(val) {
+                for (let i = 0; i < marker02.length; i++) {
+                    infowindow_marker02[i].close();
+                }
+                infowindow_marker02[val].open(this.map, marker02[val]);
+            }
+        },
+        showAddress: function() {
+        },
+        closedOgject: function(data) {
+            let indexOfLatitude = 7;
+            let indexOfLongitude = 8;
+            this.line = [];
+            let marker01 = [];
+            this.marker01 = marker01;
+            this.flightPlanCoordinates = [];
+            let infowindow_marker01 = [];
+            for (let i = 0; i < data.rows.length; i++) {
+                this.flightPlanCoordinatess = [
+                    {
+                        lat: data.rows[i].values[7],
+                        lng: data.rows[i].values[8]
+                    }
+                ];
+                this.marker01.push(new window.google.maps.Marker({
+                    position: new window.google.maps.LatLng(data.rows[i].values[indexOfLatitude], data.rows[i].values[indexOfLongitude]),
+                    icon: 'assets/img/red-point.png',
+                    map: this.map,
+                    draggable: false,
+                    /* animation: google.maps.Animation.DROP,*/
+                    title: 'Відключено аварійно',
+                    label: ''
+                }));
+                const claimAddress = data.columns.findIndex(el => el.code.toLowerCase() === 'place');
+                const claimNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'claim');
+                const District = data.columns.findIndex(el => el.code.toLowerCase() === 'district');
+                const unit = data.columns.findIndex(el => el.code.toLowerCase() === 'org_short_name');
+                const claimType = data.columns.findIndex(el => el.code.toLowerCase() === 'claim_type_name');
+                const claimDate = data.columns.findIndex(el => el.code.toLowerCase() === 'create_date');
+                if(data.rows[i].values[District] === null) {
+                    data.rows[i].values[District] = '';
+                }
+                let contentString1 = '<div id="infowindow_marker02' + i.toString() +
+                    '" style="display: flex; max-height: 255px; width:100%;">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div style="display: inline-block; height: 100%; padding-left: 7px;">' +
+                    '<p style="font-weight: bold; color: black; font-size: 16px; margin: 10px auto 5px;">'
+                    + data.rows[i].values[claimAddress] + '</p>' +
+                    '<p style="margin: 5px 0 0;"> <span style="width: 90px; height: 20px; line-height: 20px;' +
+                    'background-color: #3f7ab7; color: #fff; text-align: center; display: inline-block;"> Заявка </span></p>' +
+                    '<p style="margin: 3px 0 0;">Номер заявки: <b>' + data.rows[i].values[claimNumber] + '</b></p>' +
+                    '<p style="margin: 5px 0;">Район: <b>' + data.rows[i].values[District] + '</b></p>' +
+                    '<p style="margin: 3px 0 0;">Пiдроздiл: <b>' + data.rows[i].values[unit] + '</b></p>' +
+                    '<p style="margin: 3px 0 0;">Тип заявки: <b>' + data.rows[i].values[claimType] + '</b></p>' +
+                    '<p style="margin: 3px 0 0;">Дата реєстрації: <b>' + data.rows[i].values[claimDate] + '</b></p>' +
+                    `<a style="color: #3f7ab7; font-weight: bold;" href=" + 
+                    ${location.origin}${localStorage.getItem('VirtualPath')}/sections/Claims/edit/`
+                    + data.rows[i].values[claimNumber] + '"> Детальніше </a>' +
+                     '</div>' +
+                     '</div>';
+                infowindow_marker01.push(new window.google.maps.InfoWindow({
+                    content: contentString1
+                }));
+            }
+            for (let i = 0; i < marker01.length; i++) {
+                (function() {
+                    let k = i;
+                    marker01[k].addListener('click', function() {
+                        my_infowindow(k);
+                    });
+                }.bind(this)());
+            }
+            function my_infowindow(val) {
+                for (let i = 0; i < marker01.length; i++) {
+                    infowindow_marker01[i].close();
+                }
+                infowindow_marker01[val].open(this.map, marker01[val]);
+            }
+        }
+    };
+}());

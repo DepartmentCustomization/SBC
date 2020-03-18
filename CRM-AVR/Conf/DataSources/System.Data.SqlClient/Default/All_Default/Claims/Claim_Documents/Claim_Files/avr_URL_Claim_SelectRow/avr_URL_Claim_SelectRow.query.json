@@ -1,0 +1,44 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_URL_Claim_SelectRow",
+  "Name": "avr_URL_Claim_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "Doc_Claim_Id",
+      "Name": "Doc_Claim_Id",
+      "Position": 2
+    },
+    {
+      "Code": "URL",
+      "Name": "URL",
+      "Position": 3
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Created_at",
+      "Position": 4
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 5
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

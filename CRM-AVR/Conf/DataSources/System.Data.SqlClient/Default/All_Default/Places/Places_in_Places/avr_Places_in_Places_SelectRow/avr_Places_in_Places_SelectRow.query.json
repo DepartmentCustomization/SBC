@@ -1,0 +1,52 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Places_in_Places_SelectRow",
+  "Name": "avr_Places_in_Places_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "places2_id",
+      "Name": "places2_id",
+      "Position": 2
+    },
+    {
+      "Code": "type_pp_link_id",
+      "Name": "type_pp_link_id",
+      "Position": 3
+    },
+    {
+      "Code": "@places2_name",
+      "Name": "places2_name",
+      "Position": 4,
+      "ReferenceKeyCode": "places2_id"
+    },
+    {
+      "Code": "@type_pp_link_name",
+      "Name": "type_pp_link_name",
+      "Position": 5,
+      "ReferenceKeyCode": "type_pp_link_id"
+    },
+    {
+      "Code": "places_id",
+      "Name": "places_id",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "ModelType": "Detail",
+  "Code": "dummy",
+  "Name": "dummy",
+  "SelectRowsQueryCode": "dummy",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": []
+}

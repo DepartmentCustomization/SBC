@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "schedule_avr",
+  "Name": "Розклад АВР",
+  "ConnectionCode": "Default"
+}

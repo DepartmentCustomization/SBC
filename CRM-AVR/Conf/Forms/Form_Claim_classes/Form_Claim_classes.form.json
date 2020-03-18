@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Claim_classes",
+  "Name": "Довідник: Класи заявок",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claim_classes.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

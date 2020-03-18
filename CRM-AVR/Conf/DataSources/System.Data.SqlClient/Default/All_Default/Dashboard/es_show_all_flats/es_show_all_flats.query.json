@@ -1,0 +1,16 @@
+{
+  "ModelType": "Query",
+  "Code": "es_show_all_flats",
+  "Name": "es_show_all_flats",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Org_Id",
+      "Name": "Org_Id",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

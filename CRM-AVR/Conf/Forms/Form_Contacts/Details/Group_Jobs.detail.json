@@ -1,0 +1,21 @@
+{
+  "ModelType": "Detail",
+  "Code": "Group_Jobs",
+  "Name": "Посада співробітників",
+  "FormCode": "Form_Jobs",
+  "SelectRowsQueryCode": "avr_JobsSelectRows",
+  "SelectRowQueryCode": "avr_JobsSelectRow",
+  "UpdateQueryCode": "avr_JobsUpdateRow",
+  "SectionCode": "",
+  "Position": 3,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_JobsInsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "external_Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

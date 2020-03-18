@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "Add_manyAreaPlaces",
+  "Name": "Add_manyAreaPlaces",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

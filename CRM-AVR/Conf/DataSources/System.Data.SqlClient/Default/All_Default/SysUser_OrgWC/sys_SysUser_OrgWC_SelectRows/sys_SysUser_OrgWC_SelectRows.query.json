@@ -1,0 +1,44 @@
+{
+  "ModelType": "Query",
+  "Code": "sys_SysUser_OrgWC_SelectRows",
+  "Name": "sys_SysUser_OrgWC_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "OrganizationWC_name",
+      "Name": "Організація \"Водоканала\"",
+      "Position": 2,
+      "SqlName": "Organizations.Name",
+      "FilterParameterCode": "@organizations_name"
+    },
+    {
+      "Code": "SystemUser_name",
+      "Name": "Користувач",
+      "Position": 3,
+      "SqlName": "concat(  \t\tcase when [User].[FirstName] is null then null else [User].[FirstName]+ ' ' end, \t\tcase when [User].[LastName] is null then null else [User].[LastName] end, \t\tcase when [User].UserName is null then null else ' ('+[User].UserName+')' end \t\t)",
+      "FilterParameterCode": "@name"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

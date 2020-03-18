@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_manyAddPlaces_switchOff_Insert",
+  "Name": "avr_manyAddPlaces_switchOff_Insert",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

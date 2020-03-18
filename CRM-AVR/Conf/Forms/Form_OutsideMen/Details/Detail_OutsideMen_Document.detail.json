@@ -1,0 +1,16 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Detail_OutsideMen_Document",
+  "Name": "Документи",
+  "SelectRowsQueryCode": "avr_OutsideMen_Doc_SelectRows",
+  "SectionCode": "OutsideMen_Documents",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

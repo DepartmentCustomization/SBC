@@ -1,0 +1,21 @@
+{
+  "ModelType": "Detail",
+  "Code": "Claim_URL",
+  "Name": "URL",
+  "FormCode": "Form_Claim_URL",
+  "SelectRowsQueryCode": "avr_URL_Claim_SelectRows",
+  "SelectRowQueryCode": "avr_URL_Claim_SelectRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Files_Claim_Delete",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_URL_Claim_Insert"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

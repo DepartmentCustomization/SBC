@@ -1,0 +1,40 @@
+{
+  "ModelType": "Detail",
+  "Code": "ActionClaims_Detail",
+  "Name": "Прив'язати створені в заявці роботи до виїзду",
+  "FormCode": "ActionTypeSelectClaim_Detail",
+  "SelectRowsQueryCode": "List_ActionClaim_ActionTypeSelectRows",
+  "SelectRowQueryCode": "SelectRow",
+  "SectionCode": "",
+  "Position": 366,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryParameterCode": "@Actions_Id",
+    "QueryCode": "List_ActionClaim_ActionTypeSelectRows",
+    "ColumnCode": "Id",
+    "AddType": "Lookup",
+    "InsertQueryCode": "AddList_ActionClaim_ActionTypeUpdateRow",
+    "QueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Order_ID"
+      },
+      {
+        "FormFieldName": "claims_id",
+        "ParameterCode": "@Claim_Id"
+      }
+    ],
+    "InsertQueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Order_ID"
+      }
+    ]
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "claims_id",
+      "ParameterCode": "@Claim_Id"
+    }
+  ]
+}

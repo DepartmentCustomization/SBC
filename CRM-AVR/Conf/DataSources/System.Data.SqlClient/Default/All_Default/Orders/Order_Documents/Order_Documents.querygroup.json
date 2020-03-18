@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Order_Documents",
+  "Name": "Документи нарядов",
+  "ConnectionCode": "Default"
+}

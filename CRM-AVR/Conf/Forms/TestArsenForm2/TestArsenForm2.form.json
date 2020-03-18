@@ -1,0 +1,13 @@
+{
+  "ModelType": "Form",
+  "Code": "TestArsenForm2",
+  "Name": "TestArsenForm2",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\group1.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:TestArsenForm2.form.js"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_countOff_if_action_On",
+  "Name": "avr_countOff_if_action_On",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Sql": " select count(Id) as offClaim from Claim_SwitchOff_Address where Claim_ID = @Claim_id",
+  "Columns": [
+    {
+      "Code": "offClaim",
+      "Name": "offClaim",
+      "Position": 1
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Claim_id",
+      "Name": "Claim_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Action_type_Place_type",
+  "Name": "Місця на яких можуть бути застосовані роботи",
+  "FormCode": "Form_Action_type_Place_type",
+  "SelectRowsQueryCode": "avr_Action_Place_type_SelectRows",
+  "SelectRowQueryCode": "avr_Action_Place_type_SelectRow",
+  "UpdateQueryCode": "avr_Action_Place_type_Update",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryParameterCode": "@places_type_id",
+    "QueryCode": "list_Place_type",
+    "ColumnCode": "Id",
+    "AddType": "Lookup",
+    "InsertQueryCode": "avr_Action_Place_type_Insert",
+    "QueryParameters": [],
+    "InsertQueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@action_type_id"
+      }
+    ]
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

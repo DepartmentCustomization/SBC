@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_Sequela_Claim_Insert_ROW"
+  },
+  "ModelType": "Section",
+  "Code": "Sequela",
+  "Name": "Ускладнення",
+  "FormCode": "Form_Sequela",
+  "SelectRowsQueryCode": "avr_Sequela_Claim_Select_ROWS",
+  "SelectRowQueryCode": "avr_Sequela_Claim_Select_ROW",
+  "UpdateQueryCode": "avr_Sequela_Claim_Update_ROW",
+  "IsVisible": false
+}

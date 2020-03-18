@@ -1,0 +1,14 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Action_types",
+  "Name": "Довідник- Типи робіт",
+  "Details": [
+    "string:Details\\Detail_Action_type_Place_type.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Action_types.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "ModelType": "Query",
+  "Code": "check_for_Admin_tabel",
+  "Name": "check_for_Admin_tabel",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "check",
+      "Name": "check",
+      "Position": 0
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claim_Links_SelectRows",
+  "Name": "avr_Claim_Links_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "pole",
+      "Name": "Пов'язана заявка",
+      "Position": 2,
+      "ReferenceKeyCode": "claim_Id",
+      "ReferenceSectionCode": "Claims"
+    },
+    {
+      "Code": "claim_link_types_name",
+      "Name": "Тип зв'язку",
+      "Position": 3
+    },
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "Position": 4,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "claim_Id",
+      "Name": "claim_Id",
+      "Position": 5,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

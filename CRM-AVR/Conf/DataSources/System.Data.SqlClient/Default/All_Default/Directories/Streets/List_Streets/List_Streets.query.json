@@ -1,0 +1,39 @@
+{
+  "ModelType": "Query",
+  "Code": "List_Streets",
+  "Name": "List_Streets",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "streetName",
+      "Name": "streetName",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "ISNULL(st.UkrName + N' ','') + s.[Name]",
+      "FilterParameterCode": "@streetName"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

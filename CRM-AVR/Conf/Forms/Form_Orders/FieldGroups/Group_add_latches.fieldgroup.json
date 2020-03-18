@@ -1,0 +1,32 @@
+{
+  "Code": "Group_add_latches",
+  "Name": "Вибір запірної арматури",
+  "Position": 8,
+  "Fields": [
+    {
+      "Code": "action_type_id",
+      "Name": "Тип роботи",
+      "FieldType": "select",
+      "Position": 1,
+      "Width": "40%",
+      "QueryCode": "list_Action_types_for_Orders",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "count",
+      "Name": "Кількість запірної арматури різного діаметру",
+      "FieldType": "number",
+      "Position": 1,
+      "Width": "30%"
+    },
+    {
+      "Code": "finish_at",
+      "Name": "Дата та час початку",
+      "FieldType": "date-time",
+      "Position": 1,
+      "Width": "85%"
+    }
+  ]
+}

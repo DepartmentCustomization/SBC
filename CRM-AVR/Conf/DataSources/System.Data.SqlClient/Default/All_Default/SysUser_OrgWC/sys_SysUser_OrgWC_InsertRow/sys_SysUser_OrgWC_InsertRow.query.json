@@ -1,0 +1,25 @@
+{
+  "ModelType": "Query",
+  "Code": "sys_SysUser_OrgWC_InsertRow",
+  "Name": "sys_SysUser_OrgWC_InsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@OrganizationWC_Id",
+      "Name": "OrganizationWC_Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@SystemUser_Id",
+      "Name": "SystemUser_Id"
+    }
+  ]
+}

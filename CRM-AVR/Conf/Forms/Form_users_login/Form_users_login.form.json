@@ -1,0 +1,15 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_users_login",
+  "Name": "Панель адміністратора",
+  "Details": [
+    "string:Details\\Detail_Granting_authority.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_login.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:Form_users_login.form.js"
+  }
+}

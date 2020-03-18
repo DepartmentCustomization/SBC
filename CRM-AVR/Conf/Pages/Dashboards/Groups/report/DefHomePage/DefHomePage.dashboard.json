@@ -1,0 +1,10 @@
+{
+  "IsVisible": false,
+  "DashboardGroupCode": "report",
+  "Position": 53,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "DefHomePage",
+  "Name": "Сторінка управління користувача"
+}

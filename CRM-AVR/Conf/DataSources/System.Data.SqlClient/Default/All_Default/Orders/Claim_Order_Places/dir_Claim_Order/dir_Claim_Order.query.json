@@ -1,0 +1,46 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Claim_Order",
+  "Name": "dir_Claim_Order",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "Position": 2
+    },
+    {
+      "Code": "order_number",
+      "Name": "order_number",
+      "Position": 3
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@claim_id",
+      "Name": "claim_id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

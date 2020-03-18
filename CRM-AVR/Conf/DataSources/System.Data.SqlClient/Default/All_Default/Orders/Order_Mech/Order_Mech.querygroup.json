@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Order_Mech",
+  "Name": "Техніка по наряду",
+  "ConnectionCode": "Default"
+}

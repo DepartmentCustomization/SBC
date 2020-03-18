@@ -1,0 +1,8 @@
+{
+  "IsVisible": false,
+  "IsDraft": true,
+  "DashboardGroupCode": "report",
+  "ModelType": "Dashboard",
+  "Code": "AVR_unclosedClaims_copy",
+  "Name": "Довідка по НЕзакритих заявках_(для воспроизведения ошибки)"
+}

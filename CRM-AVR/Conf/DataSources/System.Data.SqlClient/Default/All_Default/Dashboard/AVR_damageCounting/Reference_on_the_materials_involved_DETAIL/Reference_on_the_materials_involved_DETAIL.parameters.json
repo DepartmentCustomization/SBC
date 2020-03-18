@@ -1,0 +1,32 @@
+[
+  {
+    "Code": "@start_date",
+    "Name": "start_date",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@distr",
+    "Name": "distr",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@mater",
+    "Name": "mater",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@size",
+    "Name": "size",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@end_date",
+    "Name": "end_date",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@org_id",
+    "Name": "org_id",
+    "ParameterType": "Integer"
+  }
+]

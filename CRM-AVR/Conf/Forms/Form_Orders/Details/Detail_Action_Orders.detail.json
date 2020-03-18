@@ -1,0 +1,20 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Detail_Action_Orders",
+  "Name": "Роботи які прив'язані до виїзду",
+  "FormCode": "Form_Actions",
+  "SelectRowsQueryCode": "avr_Actions_Orders_SelectRows",
+  "SelectRowQueryCode": "avr_Actions_Order_SelectRow",
+  "SectionCode": "Actions",
+  "Position": 2,
+  "Add": {
+    "InsertQueryCode": "avr_Actions_Order_InsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

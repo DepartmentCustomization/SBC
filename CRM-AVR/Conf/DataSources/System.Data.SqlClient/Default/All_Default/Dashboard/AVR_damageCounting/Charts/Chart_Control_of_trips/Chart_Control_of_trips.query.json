@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "Chart_Control_of_trips",
+  "Name": "Chart_Control_of_trips",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "type_swich_off",
+      "Name": "Тип відключення",
+      "Position": 1
+    },
+    {
+      "Code": "quantity_total",
+      "Name": "Загальна кількість відключень",
+      "Position": 2
+    },
+    {
+      "Code": "quantity",
+      "Name": "Відключення",
+      "Position": 3
+    },
+    {
+      "Code": "quantity_red",
+      "Name": "Прострочено",
+      "Position": 4
+    }
+  ]
+}

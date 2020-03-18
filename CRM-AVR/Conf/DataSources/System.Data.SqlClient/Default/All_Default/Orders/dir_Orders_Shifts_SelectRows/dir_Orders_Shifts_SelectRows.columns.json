@@ -1,0 +1,59 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "Name",
+    "Name": "Назва бригади",
+    "Position": 2
+  },
+  {
+    "Code": "Team_ID",
+    "Name": "Team_ID",
+    "Position": 3,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "Mechanism_ID",
+    "Name": "Mechanism_ID",
+    "Position": 4,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "Shift_date",
+    "Name": "Дата зміни",
+    "Position": 5
+  },
+  {
+    "Code": "Plan_start_time",
+    "Name": "З :",
+    "Position": 6
+  },
+  {
+    "Code": "Plan_end_time",
+    "Name": "до: ",
+    "Position": 7
+  },
+  {
+    "Code": "Fact_start_time",
+    "Name": "Fact_start_time",
+    "Position": 8,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "Fact_end_time",
+    "Name": "Fact_end_time",
+    "Position": 9,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "shift",
+    "Name": "Назва",
+    "Position": 10,
+    "SqlName": ""
+  }
+]

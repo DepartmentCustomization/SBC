@@ -1,0 +1,82 @@
+[
+  {
+    "Code": "@Status_id",
+    "Name": "Status_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@claim_link_types_id",
+    "Name": "claim_link_types_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@User",
+    "Name": "User",
+    "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@Report_action_id",
+    "Name": "Report_action_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Claim_Number",
+    "Name": "Claim_Number",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Description",
+    "Name": "Description"
+  },
+  {
+    "Code": "@Organization_id",
+    "Name": "Organization_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Plan_finish_at",
+    "Name": "Plan_finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Classes_id",
+    "Name": "Classes_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Priority",
+    "Name": "Priority",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Plan_start_date",
+    "Name": "Plan_start_date",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Fact_finish_at",
+    "Name": "Fact_finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Types_id",
+    "Name": "Types_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Diameters_ID",
+    "Name": "Diameters_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@places_id",
+    "Name": "places_id",
+    "ParameterType": "Integer"
+  }
+]

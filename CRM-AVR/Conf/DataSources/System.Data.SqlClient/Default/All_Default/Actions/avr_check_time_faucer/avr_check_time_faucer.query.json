@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_check_time_faucer",
+  "Name": "avr_check_time_faucer",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@time",
+      "Name": "time",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@claim_id",
+      "Name": "claim_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@flag",
+      "Name": "flag",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@faucet_id",
+      "Name": "faucet_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

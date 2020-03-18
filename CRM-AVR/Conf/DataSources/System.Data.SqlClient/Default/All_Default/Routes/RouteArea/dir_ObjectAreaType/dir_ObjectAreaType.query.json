@@ -1,0 +1,24 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_ObjectAreaType",
+  "Name": "dir_ObjectAreaType",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "id",
+      "Name": "id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "type_a",
+      "Name": "type_a",
+      "Position": 1,
+      "IsPrintable": false
+    }
+  ]
+}

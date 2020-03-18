@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_OutsideMen_Doc_Update",
+  "Name": "avr_OutsideMen_Doc_Update",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@Name",
+      "Name": "Name",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Type_Id",
+      "Name": "Type_Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Comments",
+      "Name": "Comments"
+    }
+  ]
+}

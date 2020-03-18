@@ -1,0 +1,27 @@
+{
+  "Code": "URL_Action",
+  "Name": "URL",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Doc_Action_Id",
+      "Name": "Doc_Action_Id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "URL",
+      "Name": "URL",
+      "FieldType": "text",
+      "Position": 1
+    }
+  ]
+}

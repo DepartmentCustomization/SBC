@@ -1,0 +1,103 @@
+{
+  "Code": "Group_Contact",
+  "Name": "Контакт",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Surname",
+      "Name": "Прізвище",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "First_name",
+      "Name": "Ім'я",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 2,
+      "Icon": "face"
+    },
+    {
+      "Code": "Middle_name",
+      "Name": "По-батькові",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
+      "Code": "contact_types_id",
+      "Name": "Тип контакту",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 4,
+      "QueryCode": "dir_contactType_fiz",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "PatternDescription": "7 симфолів (код ххх хх хх)",
+      "Code": "number_name",
+      "Name": "Номер телефону  (код xxx xx xx)",
+      "FieldType": "number",
+      "Position": 5,
+      "Icon": "local_phone"
+    },
+    {
+      "Code": "comment_phone",
+      "Name": "Тип телефону (коментарій)",
+      "FieldType": "text",
+      "Position": 6
+    },
+    {
+      "Code": "houses_id",
+      "Name": "Адреса",
+      "FieldType": "lookup",
+      "Position": 7,
+      "Icon": "home",
+      "IconHint": "Адреса",
+      "QueryCode": "dir_adress_SelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "houses",
+      "QueryParameters": []
+    },
+    {
+      "Code": "flats_id",
+      "Name": "Квартира",
+      "FieldType": "select",
+      "Position": 8,
+      "QueryCode": "filtr_select_flats",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Number",
+      "QueryParameters": []
+    },
+    {
+      "Code": "organizations_id",
+      "Name": "Огранізація / департамент",
+      "FieldType": "lookup",
+      "Position": 9,
+      "IsHidden": true,
+      "QueryCode": "dir_organizations_contact",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "job_id",
+      "Name": "Посада",
+      "FieldType": "lookup",
+      "Position": 10,
+      "IsHidden": true,
+      "QueryCode": "avr_Contact_Jobs",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "job_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "external_Id",
+      "Name": "external_Id",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

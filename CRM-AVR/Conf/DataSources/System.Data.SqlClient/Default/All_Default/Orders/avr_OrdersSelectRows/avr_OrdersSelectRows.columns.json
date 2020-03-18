@@ -1,0 +1,76 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Виїзд",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "SqlName": "[Orders].[Id]",
+    "FilterParameterCode": "@Order_ID"
+  },
+  {
+    "Code": "Claim_Number",
+    "Name": "По заявці",
+    "Position": 2,
+    "SqlName": "Claims.Claim_Number",
+    "FilterParameterCode": "@Claim_Number"
+  },
+  {
+    "Code": "claims_id",
+    "Name": "Пов'язана заявка",
+    "Position": 3,
+    "ViewState": "Hidden",
+    "SqlName": "Claims.Id",
+    "FilterParameterCode": "@cl"
+  },
+  {
+    "Code": "shifts_name",
+    "Name": "Бригада",
+    "Position": 4,
+    "SqlName": "isnull(Shifts.Name,'')",
+    "FilterParameterCode": "@shifts_name"
+  },
+  {
+    "Code": "shifts_id",
+    "Name": "shifts_id",
+    "Position": 5,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "status_name",
+    "Name": "Статус",
+    "Position": 6,
+    "ViewState": "Hidden",
+    "SqlName": "Status.Name",
+    "FilterParameterCode": "@status"
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Дата створення ",
+    "Position": 7,
+    "SqlName": "[Orders].[Created_at]",
+    "FilterParameterCode": "@Created"
+  },
+  {
+    "Code": "organization_name",
+    "Name": "Призначено для ",
+    "Position": 8,
+    "SqlName": "Organizations.Name",
+    "FilterParameterCode": "@organizations_name"
+  },
+  {
+    "Code": "organization_id",
+    "Name": "organization_id",
+    "Position": 9,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "Pushed_at",
+    "Name": "Передано в роботу",
+    "Position": 10
+  },
+  {
+    "Code": "Plan_duration",
+    "Name": "Планова тривалість",
+    "Position": 11
+  }
+]

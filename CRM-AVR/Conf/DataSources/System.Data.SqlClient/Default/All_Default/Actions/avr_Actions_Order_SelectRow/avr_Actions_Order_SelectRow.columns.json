@@ -1,0 +1,139 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "Claim_ID",
+    "Name": "Claim_ID",
+    "Position": 2
+  },
+  {
+    "Code": "Order_ID",
+    "Name": "Order_ID",
+    "Position": 3
+  },
+  {
+    "Code": "places_id",
+    "Name": "places_id",
+    "Position": 4
+  },
+  {
+    "Code": "Start_from",
+    "Name": "Start_from",
+    "Position": 5
+  },
+  {
+    "Code": "Finish_at",
+    "Name": "Finish_at",
+    "Position": 6
+  },
+  {
+    "Code": "Plan_duration",
+    "Name": "Plan_duration",
+    "Position": 7
+  },
+  {
+    "Code": "Fact_duration",
+    "Name": "Fact_duration",
+    "Position": 8
+  },
+  {
+    "Code": "Sort_index",
+    "Name": "Sort_index",
+    "Position": 9
+  },
+  {
+    "Code": "Is_Goal",
+    "Name": "Is_Goal",
+    "Position": 10
+  },
+  {
+    "Code": "places_name",
+    "Name": "places_name",
+    "Position": 11,
+    "ReferenceKeyCode": "places_id"
+  },
+  {
+    "Code": "Plan_start_date",
+    "Name": "Plan_start_date",
+    "Position": 12
+  },
+  {
+    "Code": "ac_pl_types_id",
+    "Name": "ac_pl_types_id",
+    "Position": 13
+  },
+  {
+    "Code": "action_types_name",
+    "Name": "action_types_name",
+    "Position": 14,
+    "ReferenceKeyCode": "ac_pl_types_id"
+  },
+  {
+    "Code": "Diameters_ID",
+    "Name": "Diameters_ID",
+    "Position": 15
+  },
+  {
+    "Code": "Value",
+    "Name": "Value",
+    "Position": 16
+  },
+  {
+    "Code": "Comment",
+    "Name": "Comment",
+    "Position": 17
+  },
+  {
+    "Code": "Size",
+    "Name": "Size",
+    "Position": 18,
+    "ReferenceKeyCode": "Diameters_ID"
+  },
+  {
+    "Code": "claim_stat_id",
+    "Name": "claim_stat_id",
+    "Position": 19
+  },
+  {
+    "Code": "order_stat_id",
+    "Name": "order_stat_id",
+    "Position": 20
+  },
+  {
+    "Code": "Do_not",
+    "Name": "Do_not",
+    "Position": 21
+  },
+  {
+    "Code": "Street_id",
+    "Name": "Street_id",
+    "Position": 22
+  },
+  {
+    "Code": "place_type_id",
+    "Name": "place_type_id",
+    "Position": 23
+  },
+  {
+    "Code": "place_type_name",
+    "Name": "place_type_name",
+    "Position": 24,
+    "FilterParameterCode": "@name_param",
+    "ReferenceKeyCode": "place_type_id"
+  },
+  {
+    "Code": "Units_Id",
+    "Name": "Units_Id",
+    "Position": 25
+  },
+  {
+    "Code": "UnitsShortName",
+    "Name": "UnitsShortName",
+    "Position": 26,
+    "ReferenceKeyCode": "Units_Id"
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "ModelType": "Query",
+  "Code": "Select_ClaimAreaParams",
+  "Name": "Select_ClaimAreaParams",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "area",
+      "Name": "№",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "a.sort",
+      "FilterParameterCode": "@sort"
+    },
+    {
+      "Code": "Diameter",
+      "Name": "Діаметер",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "d.Size",
+      "FilterParameterCode": "@Size"
+    },
+    {
+      "Code": "Lenght",
+      "Name": "Довжина",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "ap.Lenght",
+      "FilterParameterCode": "@Lenght"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@ClaimId",
+      "Name": "ClaimId",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

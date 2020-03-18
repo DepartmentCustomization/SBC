@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Service_mechnismsInsertRow",
+  "Name": "avr_Service_mechnismsInsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

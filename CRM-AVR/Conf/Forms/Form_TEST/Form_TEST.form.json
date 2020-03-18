@@ -1,0 +1,24 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_TEST",
+  "Name": "Form_TEST",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\test.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "order_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      },
+      {
+        "Code": "claim_id",
+        "ParentFormFieldCodeForKeyValue": "claims_id",
+        "ParentFormFieldCodeForDisplayValue": "claims_id"
+      }
+    ],
+    "Script": "string:Form_TEST.form.js"
+  }
+}

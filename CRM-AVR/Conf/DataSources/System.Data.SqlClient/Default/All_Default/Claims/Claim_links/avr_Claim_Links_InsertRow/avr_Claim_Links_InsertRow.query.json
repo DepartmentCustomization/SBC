@@ -1,0 +1,31 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claim_Links_InsertRow",
+  "Name": "avr_Claim_Links_InsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@claims_Id",
+      "Name": "claims_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@claim_link_types_id",
+      "Name": "claim_link_types_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@claims_number2",
+      "Name": "claims_number2",
+      "ParameterType": "Integer"
+    }
+  ]
+}

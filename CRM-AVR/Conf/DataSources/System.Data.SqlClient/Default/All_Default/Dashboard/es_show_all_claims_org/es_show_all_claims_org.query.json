@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "es_show_all_claims_org",
+  "Name": "es_show_all_claims_org",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "is_on",
+      "Name": "is_on",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "is_off",
+      "Name": "is_off",
+      "Position": 1,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Org_Id",
+      "Name": "Org_Id",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

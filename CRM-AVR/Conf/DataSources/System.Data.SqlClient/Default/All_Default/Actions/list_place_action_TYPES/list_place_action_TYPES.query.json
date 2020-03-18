@@ -1,0 +1,50 @@
+{
+  "ModelType": "Query",
+  "Code": "list_place_action_TYPES",
+  "Name": "list_place_action_TYPES",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "action_place_type_name",
+      "Name": "action_place_type_name",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "a.Name",
+      "FilterParameterCode": "@name"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@place_type",
+      "Name": "place_type",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@TypeAccess",
+      "Name": "TypeAccess",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlobalFilter_ClaimTypes"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

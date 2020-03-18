@@ -1,0 +1,18 @@
+{
+  "ModelType": "Form",
+  "Code": "Group_Order_URL",
+  "Name": "Посилання на файл",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Detail_Order_URL.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Doc_Order_Id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ]
+  }
+}

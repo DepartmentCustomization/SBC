@@ -1,0 +1,21 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Group_People_Shifts",
+  "Name": "ЛЮДИ НА ЗМІНАХ >>> Табель  >>> Створення та наповнення бригад",
+  "FormCode": "Form_Shifts",
+  "SelectRowsQueryCode": "avr_People_Shifts_GetdateSelectRows",
+  "SelectRowQueryCode": "avr_ShiftsSelectRow",
+  "SectionCode": "Shifts",
+  "Position": 2,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_ShiftsInsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

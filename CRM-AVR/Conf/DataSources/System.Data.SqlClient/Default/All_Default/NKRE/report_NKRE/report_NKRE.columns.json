@@ -1,0 +1,110 @@
+[
+  {
+    "Code": "row_num",
+    "Name": "row_num",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_ID",
+    "Name": "Claim_ID",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Adress",
+    "Name": "Adress",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "switch_places_name",
+    "Name": "switch_places_name",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "action_name",
+    "Name": "action_name",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "6",
+    "Name": "6",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "7",
+    "Name": "7",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "8",
+    "Name": "8",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "9",
+    "Name": "9",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "10",
+    "Name": "10",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "SwitchOff_start",
+    "Name": "SwitchOff_start",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "SwitchOff_finish",
+    "Name": "SwitchOff_finish",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "13",
+    "Name": "13",
+    "Position": 12,
+    "IsPrintable": false
+  },
+  {
+    "Code": "14",
+    "Name": "14",
+    "Position": 13,
+    "IsPrintable": false
+  },
+  {
+    "Code": "flat_count",
+    "Name": "flat_count",
+    "Position": 14,
+    "IsPrintable": false
+  },
+  {
+    "Code": "ur_count",
+    "Name": "ur_count",
+    "Position": 15,
+    "IsPrintable": false
+  },
+  {
+    "Code": "17",
+    "Name": "17",
+    "Position": 16,
+    "IsPrintable": false
+  },
+  {
+    "Code": "18",
+    "Name": "18",
+    "Position": 17,
+    "IsPrintable": false
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_Schedule_dir_Insert"
+  },
+  "ModelType": "Section",
+  "Code": "Schedule_dir",
+  "Name": "Довідник: табельних позначень",
+  "FormCode": "Form_Schedule_dir",
+  "SelectRowsQueryCode": "avr_Schedule_dir_SelectRows",
+  "SelectRowQueryCode": "avr_Schedule_dir_SelectRow",
+  "UpdateQueryCode": "avr_Schedule_dir_Update"
+}

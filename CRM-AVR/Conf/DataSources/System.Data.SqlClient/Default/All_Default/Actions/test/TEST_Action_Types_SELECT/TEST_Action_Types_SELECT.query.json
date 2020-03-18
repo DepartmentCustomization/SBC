@@ -1,0 +1,59 @@
+{
+  "ModelType": "Query",
+  "Code": "TEST_Action_Types_SELECT",
+  "Name": "TEST_Action_Types_SELECT",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Order_ID",
+      "Name": "Order_ID",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Action_type_ID",
+      "Name": "Action_type_ID",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Sort_index",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Is_Goal",
+      "Name": "Is_Goal",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Diameters_ID",
+      "Name": "Diameters_ID",
+      "Position": 7,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Value",
+      "Name": "Value",
+      "Position": 8,
+      "IsPrintable": false
+    }
+  ]
+}

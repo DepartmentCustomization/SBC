@@ -1,0 +1,16 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_mainPage",
+  "Name": "avr_mainPage",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Org_Id",
+      "Name": "Org_Id",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

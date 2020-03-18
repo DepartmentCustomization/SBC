@@ -1,0 +1,88 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "ViewState": "Hidden",
+    "IsPrintable": false
+  },
+  {
+    "Code": "org_name",
+    "Name": "Організація",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Створено",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_Number",
+    "Name": "Заявка",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "place_name",
+    "Name": "Місце",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "district",
+    "Name": "Район",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Full_Name",
+    "Name": "Тип заявки",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Size",
+    "Name": "D",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "orders",
+    "Name": "Виїзди",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Description",
+    "Name": "Опис",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "actions",
+    "Name": "Роботи",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_class_ID",
+    "Name": "Claim_class_ID",
+    "Position": 12,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Claims.Claim_class_ID",
+    "FilterParameterCode": "@classes_name"
+  },
+  {
+    "Code": "Status_ID",
+    "Name": "Status_ID",
+    "Position": 13,
+    "ViewState": "Hidden",
+    "IsPrintable": false,
+    "SqlName": "Claims.Status_ID",
+    "FilterParameterCode": "@status"
+  }
+]

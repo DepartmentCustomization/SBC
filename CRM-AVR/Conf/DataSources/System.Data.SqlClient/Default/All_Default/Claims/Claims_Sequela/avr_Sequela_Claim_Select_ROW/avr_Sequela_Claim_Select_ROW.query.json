@@ -1,0 +1,55 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Sequela_Claim_Select_ROW",
+  "Name": "avr_Sequela_Claim_Select_ROW",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Actions_ID",
+      "Name": "Actions_ID",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Description",
+      "Name": "Description",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Created_at",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Fact_finish_at",
+      "Name": "Fact_finish_at",
+      "Position": 6,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

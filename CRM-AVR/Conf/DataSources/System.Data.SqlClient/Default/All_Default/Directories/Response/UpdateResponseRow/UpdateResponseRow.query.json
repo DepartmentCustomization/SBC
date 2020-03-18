@@ -1,0 +1,31 @@
+{
+  "ModelType": "Query",
+  "Code": "UpdateResponseRow",
+  "Name": "UpdateResponseRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Description",
+      "Name": "Description",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@typeAccessID",
+      "Name": "typeAccessID",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@claimTypeID",
+      "Name": "claimTypeID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

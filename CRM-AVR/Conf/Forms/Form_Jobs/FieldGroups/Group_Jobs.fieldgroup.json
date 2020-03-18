@@ -1,0 +1,50 @@
+{
+  "Code": "Group_Jobs",
+  "Name": "Посади",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "job_name",
+      "Name": "Назва посади",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "positions_id",
+      "Name": "Позиція",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "dir_Positions",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Login",
+      "Name": "Логін у системі",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "Password",
+      "Name": "Пароль",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "organizations_id",
+      "Name": "Організація",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 7
+    },
+    {
+      "Code": "contacts_id",
+      "Name": "contacts_id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 8
+    }
+  ]
+}

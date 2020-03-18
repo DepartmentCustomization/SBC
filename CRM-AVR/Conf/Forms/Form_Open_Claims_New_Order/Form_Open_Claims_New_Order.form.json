@@ -1,0 +1,23 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Open_Claims_New_Order",
+  "Name": "Новый наряд из смены + заявка",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Open_Claims_New_Order.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "shifts_Id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      },
+      {
+        "Code": "org_id",
+        "ParentFormFieldCodeForKeyValue": "organizations_id2",
+        "ParentFormFieldCodeForDisplayValue": "organizations_id2"
+      }
+    ]
+  }
+}

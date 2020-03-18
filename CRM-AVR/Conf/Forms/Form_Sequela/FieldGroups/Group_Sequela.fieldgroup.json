@@ -1,0 +1,43 @@
+{
+  "Code": "Group_Sequela",
+  "Name": "Ускладнення",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Actions_ID",
+      "Name": "Номер роботи",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "list_Sequela_Action",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Description",
+      "Name": "Опис",
+      "FieldType": "textarea",
+      "Position": 1,
+      "Rows": 2
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата та час фіксації ускладнення",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Fact_finish_at",
+      "Name": "Дата та час усуненя ускладнення",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "FieldType": "number",
+      "Position": 122,
+      "IsHidden": true
+    }
+  ]
+}

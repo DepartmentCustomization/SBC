@@ -1,0 +1,28 @@
+[
+  {
+    "Code": "@Plan_duration",
+    "Name": "Plan_duration",
+    "ParameterType": "Varbinary"
+  },
+  {
+    "Code": "@Action_type_id",
+    "Name": "Action_type_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Sort_index",
+    "Name": "Sort_index",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Claim_type_id",
+    "Name": "Claim_type_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  }
+]

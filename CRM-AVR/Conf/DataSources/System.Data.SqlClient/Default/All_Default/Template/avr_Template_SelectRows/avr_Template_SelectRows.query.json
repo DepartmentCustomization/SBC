@@ -1,0 +1,58 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Template_SelectRows",
+  "Name": "avr_Template_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Description",
+      "Name": "Опис",
+      "Position": 1,
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "Template"
+    },
+    {
+      "Code": "Size",
+      "Name": "Діаметр",
+      "Position": 2
+    },
+    {
+      "Code": "classes",
+      "Name": "Клас заявки",
+      "Position": 3
+    },
+    {
+      "Code": "claims_type",
+      "Name": "Тип заявки",
+      "Position": 4
+    },
+    {
+      "Code": "proirity",
+      "Name": "Пріоритет виконання заявки",
+      "Position": 5
+    },
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 6,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

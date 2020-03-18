@@ -1,0 +1,25 @@
+{
+  "ModelType": "Query",
+  "Code": "General_Tech_Reference",
+  "Name": "General_Tech_Reference",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@start_date",
+      "Name": "start_date",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@end_date",
+      "Name": "end_date",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@org_id",
+      "Name": "org_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

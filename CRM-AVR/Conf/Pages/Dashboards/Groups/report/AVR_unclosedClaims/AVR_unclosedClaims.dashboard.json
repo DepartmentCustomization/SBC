@@ -1,0 +1,7 @@
+{
+  "DashboardGroupCode": "report",
+  "Position": 1,
+  "ModelType": "Dashboard",
+  "Code": "AVR_unclosedClaims",
+  "Name": "KPI_Довідка по незакритих заявках"
+}

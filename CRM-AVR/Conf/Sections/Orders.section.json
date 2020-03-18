@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_OrdersInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Orders",
+  "Name": " Виїзди",
+  "FormCode": "Form_Orders",
+  "SelectRowsQueryCode": "avr_OrdersSelectRows",
+  "SelectRowQueryCode": "avr_OrdersSelectRow",
+  "UpdateQueryCode": "avr_OrdersUpdateRow"
+}

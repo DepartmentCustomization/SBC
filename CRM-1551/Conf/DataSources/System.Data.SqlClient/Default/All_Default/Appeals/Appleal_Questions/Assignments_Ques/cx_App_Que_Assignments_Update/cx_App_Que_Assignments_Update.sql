@@ -1,3 +1,28 @@
+-- DECLARE @user_edit_id NVARCHAR(128)=N'bc1b17e2-ffee-41b1-860a-41e1bae57ffd';
+SET @executor_person_id = IIF(IIF(@executor_person_id = '',NULL,@executor_person_id) = 0,NULL,IIF(@executor_person_id = '',NULL,@executor_person_id));
+
+DECLARE @org1761 TABLE (Id INT);
+WITH
+     cte1 -- все подчиненные 3 и 3 1761
+   AS ( SELECT Id,
+         [parent_organization_id] ParentId
+         FROM [dbo].[Organizations] t
+         WHERE Id = 1761
+         UNION ALL
+         SELECT tp.Id,
+         tp.[parent_organization_id] ParentId
+         FROM [dbo].[Organizations] tp 
+         INNER JOIN cte1 curr ON tp.[parent_organization_id] = curr.Id ),
+org_user AS
+(
+SELECT organizations_id FROM [dbo].[Positions]
+WHERE programuser_id=@user_edit_id
+)
+
+INSERT INTO @org1761 (Id)
+SELECT Id 
+FROM cte1 INNER JOIN org_user ON cte1.Id=org_user.organizations_id;
+
 
 IF 
 (
@@ -6,6 +31,7 @@ FROM [dbo].[Assignments] a INNER JOIN
 [dbo].[OrganizationInResponsibilityRights] oirr ON a.[executor_organization_id]=oirr.organization_id
 INNER JOIN [dbo].[Positions] p ON oirr.position_id=p.Id
 WHERE a.Id=@Id AND P.programuser_id=@user_edit_id)='true'
+OR EXISTS(SELECT TOP 1 id FROM @org1761)
 
 BEGIN
 
@@ -28,7 +54,47 @@ SET	@ass_cons_id = (SELECT
 		WHERE Id = @current_consid);
 DECLARE @result_of_checking INT;
 DECLARE @is_main_exec BIT;
+---> Проверка изменений state, result, resolution, executor_organization_id
+DECLARE @currentState INT = (SELECT assignment_state_id FROM dbo.Assignments WHERE Id = @Id);
+DECLARE @currentResult INT = (SELECT AssignmentResultsId FROM dbo.Assignments WHERE Id = @Id);
+DECLARE @currentResolution INT = (SELECT AssignmentResolutionsId FROM dbo.Assignments WHERE Id = @Id);
+DECLARE @currentOrgExecutor INT = (SELECT executor_organization_id FROM dbo.Assignments WHERE Id = @Id);
+	
+DECLARE @IsStateChange BIT = (SELECT IIF(@currentState = @ass_state_id, 0, 1));
+DECLARE @IsResultChange BIT = (SELECT IIF(@currentResult = @result_id, 0, 1));
+DECLARE @IsResolutionChange BIT = (SELECT IIF(@currentResolution = @resolution_id, 0, 1));
+DECLARE @IsOrgExecutorChange BIT = (SELECT IIF(@currentOrgExecutor = @performer_id, 0, 1));
+---> Если стан, результат, резолюция и орг.исполнителя остались прежними, то
+-- процедуру проверки переходов пропускаем, а только апдейтим поля executor_person_id и short_answer (если они изменились) 
+IF (@IsStateChange = 0 AND @IsResultChange = 0 AND @IsResolutionChange = 0 AND @IsOrgExecutorChange = 0)
+BEGIN
+	DECLARE @currentPersonExecutor INT = (SELECT executor_person_id FROM dbo.Assignments  WHERE Id = @Id);
+	DECLARE @currentShortAnswer NVARCHAR(500) = (SELECT short_answer FROM dbo.AssignmentConsiderations WHERE Id = @ass_cons_id);
 
+	IF(@executor_person_id IS NOT NULL)
+	  BEGIN
+		UPDATE [dbo].[Assignments]
+					SET [edit_date] = GETUTCDATE()
+					   ,[user_edit_id] = @user_edit_id
+					   ,[executor_person_id] = @executor_person_id
+					   ,[LogUpdated_Query] = N'cx_App_Que_Assignments_Update_Row82'
+					WHERE Id = @Id;
+	  END
+
+	 IF(@short_answer IS NOT NULL)
+	 BEGIN
+	 UPDATE AssignmentConsiderations
+				SET short_answer = @short_answer
+				   ,[edit_date] = GETUTCDATE()
+				   ,[user_edit_id] = @user_edit_id
+				WHERE Id = @current_consid;
+	 END	
+	RETURN;
+END
+---> иначе - го дальше
+ELSE 
+
+BEGIN
 EXEC [dbo].pr_check_right_choice_result_resolution @Id
 												  ,@result_id
 												  ,@resolution_id
@@ -68,6 +134,7 @@ BEGIN
 	END
 	ELSE
 	BEGIN
+
 		--если результат, резолюция не изменились и...
 		IF @result_id = (SELECT
 					AssignmentResultsId
@@ -365,8 +432,8 @@ BEGIN
 				END
 
 				ELSE
-
-				BEGIN
+				BEGIN TRY
+				BEGIN TRANSACTION;
 					SET @result_id = 3; -- Не в компетенції
 					SET @resolution_id = 1; -- Повернуто в 1551
 					SET @ass_state_id = 3; -- На перевірці
@@ -408,17 +475,24 @@ BEGIN
 						-- ,@rework_counter_count
 						, @rework_counter, GETUTCDATE() --@edit_date
 						, @user_edit_id);
-				END
-				-- exec pr_chech_in_status_assignment @Id, @result_id, @resolution_id
-				RETURN;
-			END
+				COMMIT;
+			RETURN;
+			END TRY
 
-
+			BEGIN CATCH
+				ROLLBACK;
+				RAISERROR (N'Произошла ошибка! Данные не изменены.', 15, 1);
+			END CATCH;
+			END 
+			
 			-- 3 Не в компетенції	NotInTheCompetence  
 			-- 1 Повернуто в 1551	returnedIn1551
-			IF @result_id = 3
-				AND @resolution_id = 1
+			IF (@result_id = 3
+				AND @resolution_id = 1)
 			BEGIN
+			BEGIN TRY
+				BEGIN TRANSACTION; 
+
 				UPDATE AssignmentConsiderations
 				SET consideration_date = GETUTCDATE()
 				   ,short_answer = @short_answer
@@ -458,9 +532,15 @@ BEGIN
 					, @user_edit_id);
 				-- 			execute define_status_Question @question_id
 				-- exec pr_chech_in_status_assignment @Id, @result_id, @resolution_id
-				RETURN;
-			END
+			COMMIT;
+			RETURN;
+			END TRY
 
+			BEGIN CATCH
+				ROLLBACK;
+				RAISERROR (N'Произошла ошибка! Данные не изменены.', 15, 1);
+			END CATCH;
+			END
 
 			-- Если перенаправлено за належністю из 1551
 			IF (SELECT
@@ -483,7 +563,8 @@ BEGIN
 							first_executor_organization_id
 						FROM AssignmentConsiderations
 						WHERE Id = @current_consid);
-
+					-- Стан = зареєстровано	
+                    SET @ass_state_id = 1;
 					-- закрываем Ревижн, + новый AssignmentConsiderations на того же самого исполнителя.
 					UPDATE [dbo].[AssignmentRevisions]
 					SET [assignment_resolution_id] = @resolution_id
@@ -499,7 +580,7 @@ BEGIN
 					UPDATE Assignments
 					SET AssignmentResultsId = @result_id -- Какие результат и резолучия должны быть????
 					   ,AssignmentResolutionsId = @resolution_id
-					   ,assignment_state_id = @ass_state_id -- 04_04
+					   ,assignment_state_id = @ass_state_id
 					   ,edit_date = GETUTCDATE()
 					   ,user_edit_id = @user_edit_id
 					   ,[LogUpdated_Query] = N'cx_App_Que_Assignments_Update_Row404'
@@ -836,7 +917,9 @@ BEGIN
 						executor_organization_id
 					FROM Assignments
 					WHERE Id = @Id);
-
+			-- Стан = зареєстровано	
+                SET @ass_state_id = 1;
+				
 				UPDATE Assignments
 				SET AssignmentResultsId = @result_id
 				   ,AssignmentResolutionsId = @resolution_id
@@ -1172,7 +1255,6 @@ BEGIN
 				RETURN;
 			END
 
-
 			IF @ass_state_id = 5
 			BEGIN
 
@@ -1246,5 +1328,5 @@ IF (SELECT ar.code
 		SET [rework_counter]=ISNULL([rework_counter],0)+1
 		WHERE [assignment_consideration_іd]=@current_consid;
 	END*/
-
-END;
+END
+END

@@ -1,0 +1,16 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Area",
+  "Name": "Ділянка",
+  "SelectRowsQueryCode": "avr_AreaRoute_Select_Rows",
+  "SectionCode": "",
+  "DeleteQueryCode": "Destroy_RouteArea",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@route_id"
+    }
+  ]
+}

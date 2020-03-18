@@ -1,0 +1,25 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Schedule_dir_Insert",
+  "Name": "avr_Schedule_dir_Insert",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Name",
+      "Name": "Name"
+    },
+    {
+      "Code": "@ShortName",
+      "Name": "ShortName",
+      "ParameterType": "Decimal"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

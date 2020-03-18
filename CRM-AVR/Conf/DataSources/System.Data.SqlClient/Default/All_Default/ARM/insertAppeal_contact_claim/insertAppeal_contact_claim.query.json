@@ -1,0 +1,26 @@
+{
+  "ModelType": "Query",
+  "Code": "insertAppeal_contact_claim",
+  "Name": "insertAppeal_contact_claim",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@claims_Id",
+      "Name": "claims_Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@contacts_Id",
+      "Name": "contacts_Id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

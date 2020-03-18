@@ -1,0 +1,79 @@
+{
+  "Code": "Group_Organizations_Mechanisms",
+  "Name": "Техніка",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "mechanisms_name",
+      "Name": "Техніка",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "mechanisms_number",
+      "Name": "Державний номер",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "mechanism_type_id",
+      "Name": "Тип техніки",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "dir_Mechanism_typesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "ParamW",
+      "Name": "Можливе навантаження",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "ParamL",
+      "Name": "Довжина Техніки",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "ParamH",
+      "Name": "Висота",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "ParamK",
+      "Name": "Розмір ковша",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "ParamD",
+      "Name": "Довжина стріли",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "organizations_id",
+      "Name": "Огранізація",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "avr_OrganizationsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "organization_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "organizations_id2",
+      "Name": "organizations_id2",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

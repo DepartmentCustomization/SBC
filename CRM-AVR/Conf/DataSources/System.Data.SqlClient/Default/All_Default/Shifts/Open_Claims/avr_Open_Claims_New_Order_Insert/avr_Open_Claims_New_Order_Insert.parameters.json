@@ -1,0 +1,48 @@
+[
+  {
+    "Code": "@status_id",
+    "Name": "status_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Start_at",
+    "Name": "Start_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Finished_at",
+    "Name": "Finished_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Pushed_at",
+    "Name": "Pushed_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Closed_at",
+    "Name": "Closed_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@claims_id",
+    "Name": "claims_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Plan_duration",
+    "Name": "Plan_duration",
+    "ParameterType": "Decimal"
+  },
+  {
+    "Code": "@shifts_Id",
+    "Name": "shifts_id",
+    "ParameterType": "Integer"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_SwitchOff_types",
+  "Name": "Довідник- Типи відключень",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Пкщгз_SwitchOff_types.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

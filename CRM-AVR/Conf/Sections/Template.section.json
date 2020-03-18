@@ -1,0 +1,11 @@
+{
+  "Add": {},
+  "ModelType": "Section",
+  "Code": "Template",
+  "Name": " Шаблони",
+  "FormCode": "Form_Template",
+  "SelectRowsQueryCode": "avr_Template_SelectRows",
+  "SelectRowQueryCode": "avr_Template_SelectRow",
+  "UpdateQueryCode": "avr_Template_SelectRow",
+  "DeleteQueryCode": "avr_Template_Delete"
+}

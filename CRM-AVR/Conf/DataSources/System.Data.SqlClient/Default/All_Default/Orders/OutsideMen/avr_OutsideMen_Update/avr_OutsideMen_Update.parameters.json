@@ -1,0 +1,36 @@
+[
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@company_id",
+    "Name": "company_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Call_from",
+    "Name": "Call_from",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Finish_at",
+    "Name": "Finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Plan_date",
+    "Name": "Plan_date",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@fiz_name",
+    "Name": "fiz_name"
+  },
+  {
+    "Code": "@Comment",
+    "Name": "Comment"
+  }
+]

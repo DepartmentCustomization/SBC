@@ -1,0 +1,8 @@
+{
+  "Add": {},
+  "ModelType": "Section",
+  "Code": "Shifts_Inform",
+  "Name": "Зміни (інформативно)",
+  "FormCode": "Form_Shifts",
+  "SelectRowsQueryCode": "avr_Shifts_Inform_Section"
+}

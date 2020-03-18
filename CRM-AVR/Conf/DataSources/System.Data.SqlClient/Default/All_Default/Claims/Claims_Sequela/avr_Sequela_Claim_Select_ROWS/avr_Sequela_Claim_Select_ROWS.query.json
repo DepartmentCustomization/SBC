@@ -1,0 +1,74 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Sequela_Claim_Select_ROWS",
+  "Name": "avr_Sequela_Claim_Select_ROWS",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "Position": 2,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "action_name",
+      "Name": "№ роботи",
+      "Position": 3,
+      "FilterParameterCode": "@name",
+      "ReferenceKeyCode": "Actions_ID",
+      "ReferenceSectionCode": "Actions"
+    },
+    {
+      "Code": "Description",
+      "Name": "Опис",
+      "Position": 4
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата фіксації",
+      "Position": 5
+    },
+    {
+      "Code": "Fact_finish_at",
+      "Name": "Дата усунення",
+      "Position": 6
+    },
+    {
+      "Code": "Actions_ID",
+      "Name": "Actions_ID",
+      "Position": 7,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Claim_id",
+      "Name": "Claim_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

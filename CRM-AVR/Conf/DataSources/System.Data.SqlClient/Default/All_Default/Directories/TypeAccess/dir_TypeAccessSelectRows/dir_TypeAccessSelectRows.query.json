@@ -1,0 +1,44 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_TypeAccessSelectRows",
+  "Name": "dir_TypeAccessSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "Position": 2,
+      "SqlName": "Name",
+      "FilterParameterCode": "@Name"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@typeAcc",
+      "Name": "typeAcc",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlobalFilter_ClaimTypes"
+    }
+  ]
+}

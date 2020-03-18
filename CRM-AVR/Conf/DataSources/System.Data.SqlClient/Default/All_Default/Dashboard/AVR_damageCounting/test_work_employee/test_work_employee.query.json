@@ -1,0 +1,71 @@
+{
+  "ModelType": "Query",
+  "Code": "test_work_employee",
+  "Name": "test_work_employee",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "num",
+      "Name": "num",
+      "Position": 1
+    },
+    {
+      "Code": "organization_name",
+      "Name": "organization_name",
+      "Position": 2
+    },
+    {
+      "Code": "contact_name",
+      "Name": "contact_name",
+      "Position": 3
+    },
+    {
+      "Code": "hours_work",
+      "Name": "hours_work",
+      "Position": 4
+    },
+    {
+      "Code": "effective_hour",
+      "Name": "effective_hour",
+      "Position": 5
+    },
+    {
+      "Code": "count_orders",
+      "Name": "count_orders",
+      "Position": 6
+    },
+    {
+      "Code": "distans",
+      "Name": "distans",
+      "Position": 7
+    },
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 8
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@start_date",
+      "Name": "start_date",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@name",
+      "Name": "name"
+    },
+    {
+      "Code": "@organizations_id",
+      "Name": "organizations_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@finish_date",
+      "Name": "finish_date",
+      "ParameterType": "DateTime"
+    }
+  ]
+}

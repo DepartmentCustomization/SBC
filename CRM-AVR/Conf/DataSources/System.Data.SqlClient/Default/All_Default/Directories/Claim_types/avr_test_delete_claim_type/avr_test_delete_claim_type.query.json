@@ -1,0 +1,29 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_test_delete_claim_type",
+  "Name": "avr_test_delete_claim_type",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Claim_Number",
+      "Position": 1
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

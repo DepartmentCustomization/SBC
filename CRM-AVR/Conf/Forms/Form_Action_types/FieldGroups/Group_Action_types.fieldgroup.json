@@ -1,0 +1,50 @@
+{
+  "Code": "Group_Action_types",
+  "Name": "Типи робіт",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "TypeAccess_ID",
+      "Name": "Господарство",
+      "FieldType": "select",
+      "Width": "30%",
+      "QueryCode": "list_TypeAccess",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "100%"
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Номінальний час",
+      "FieldType": "time",
+      "Position": 2,
+      "Width": "30%"
+    },
+    {
+      "Code": "Units_Id",
+      "Name": "Одиниці вимірювання",
+      "FieldType": "select",
+      "Position": 4,
+      "Width": "30%",
+      "QueryCode": "dir_Units_SelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "ShortName",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Is_move",
+      "Name": "Дана робота є переміщенням",
+      "FieldType": "checkbox",
+      "Position": 5,
+      "Width": "100%"
+    }
+  ]
+}

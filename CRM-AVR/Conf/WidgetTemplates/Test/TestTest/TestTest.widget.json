@@ -1,0 +1,9 @@
+{
+  "Description": "Создано на основе виджета на дашбоарде : DefHomePage_dp",
+  "Type": "ChartWidgetComponent",
+  "Position": 1,
+  "GroupCode": "Test",
+  "ModelType": "Widget",
+  "Code": "TestTest",
+  "Name": "leftChart"
+}

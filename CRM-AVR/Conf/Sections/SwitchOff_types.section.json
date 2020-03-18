@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_SwitchOff_typesInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "SwitchOff_types",
+  "Name": "Довідник: Типи відключень",
+  "FormCode": "Form_SwitchOff_types",
+  "SelectRowsQueryCode": "dir_SwitchOff_typesSelectRows",
+  "SelectRowQueryCode": "dir_SwitchOff_typesSelectRow",
+  "UpdateQueryCode": "dir_SwitchOff_typesUpdateRow"
+}

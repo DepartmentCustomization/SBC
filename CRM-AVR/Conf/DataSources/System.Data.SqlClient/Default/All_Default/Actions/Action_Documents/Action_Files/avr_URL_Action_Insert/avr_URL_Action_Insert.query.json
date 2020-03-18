@@ -1,0 +1,29 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_URL_Action_Insert",
+  "Name": "avr_URL_Action_Insert",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Doc_Action_Id",
+      "Name": "Doc_Action_Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Name",
+      "Name": "Name"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@URL",
+      "Name": "URL"
+    }
+  ]
+}

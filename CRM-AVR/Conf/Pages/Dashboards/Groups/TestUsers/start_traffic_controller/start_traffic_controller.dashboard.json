@@ -1,0 +1,8 @@
+{
+  "DashboardGroupCode": "TestUsers",
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "start_traffic_controller",
+  "Name": "Стартова сторінка АВР оператора ЦД"
+}

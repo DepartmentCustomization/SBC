@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Teams_OrganizationsInsertRow",
+  "Name": "avr_Teams_OrganizationsInsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

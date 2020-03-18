@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Faucet_Orders_Update",
+  "Name": "avr_Faucet_Orders_Update",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

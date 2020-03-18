@@ -1,0 +1,154 @@
+{
+  "Code": "Group_Link_New_Claim",
+  "Name": "Створити нову пов'язану заявку",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "claim_link_types_id",
+      "Name": "Тип зв'язку",
+      "FieldType": "select",
+      "IsRequired": true,
+      "QueryCode": "dir_Claim_link_typesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Diameters_ID",
+      "Name": "Діаметр",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "dir_DiametersSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Size",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Status_id",
+      "Name": "Статус",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 2,
+      "QueryCode": "dir_Status_Claim",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Types_id",
+      "Name": "Тип заявки",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 3,
+      "QueryCode": "list_Claims_types",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
+      "LookupType": "tree",
+      "ParentColumnCode": "Parent_сlaim_types_ID"
+    },
+    {
+      "Code": "places_id",
+      "Name": "Місце",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 4,
+      "QueryCode": "dir_Places_claims",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "places",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Organization_id",
+      "Name": "Відповідальний підрозділ",
+      "FieldType": "select",
+      "Position": 5,
+      "QueryCode": "avr_ListOrg_Is_select",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Plan_start_date",
+      "Name": "Плановий початок",
+      "FieldType": "date-time",
+      "Position": 6
+    },
+    {
+      "Code": "Plan_finish_at",
+      "Name": "Плановое завершения",
+      "FieldType": "date-time",
+      "Position": 7
+    },
+    {
+      "Code": "Priority",
+      "Name": "Пріоритет виконання заявки",
+      "FieldType": "radio",
+      "Position": 8,
+      "Items": [
+        {
+          "Code": "1",
+          "Name": "Важливо"
+        },
+        {
+          "Code": "2",
+          "Name": "Загально"
+        },
+        {
+          "Code": "3",
+          "Name": "Планування"
+        }
+      ]
+    },
+    {
+      "Code": "Description",
+      "Name": "Опис проблеми",
+      "FieldType": "textarea",
+      "IsRequired": true,
+      "Position": 9
+    },
+    {
+      "Code": "Fact_finish_at",
+      "Name": "Фактичне завершення",
+      "FieldType": "date-time",
+      "Position": 10,
+      "IsHidden": true
+    },
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 30,
+      "IsHidden": true
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Claim_Number",
+      "FieldType": "text",
+      "Position": 31,
+      "IsHidden": true
+    },
+    {
+      "Code": "First_Types_name",
+      "Name": "Тип заявки (первинний)",
+      "FieldType": "text",
+      "Position": 32,
+      "IsHidden": true
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата створення",
+      "FieldType": "date-time",
+      "Position": 33,
+      "IsHidden": true
+    },
+    {
+      "Code": "First_description",
+      "Name": "Опис проблеми (первинний)",
+      "FieldType": "textarea",
+      "Position": 36,
+      "IsHidden": true
+    }
+  ]
+}

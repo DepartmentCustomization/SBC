@@ -1,0 +1,41 @@
+{
+  "Code": "Group_Shifts_jobs",
+  "Name": "Члени бригади",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "contacts_id",
+      "Name": "Співробітник",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "dir_shifts_jobs_contact",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "contacts_name",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Shifts.organizations_id2",
+          "ParameterCode": "@sh_id"
+        }
+      ]
+    },
+    {
+      "Code": "Is_main",
+      "Name": "Бригадир",
+      "FieldType": "checkbox",
+      "Position": 1
+    },
+    {
+      "Code": "Is_driver",
+      "Name": "Водій",
+      "FieldType": "checkbox",
+      "Position": 1
+    },
+    {
+      "Code": "Shift_ID",
+      "Name": "Shift_ID",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

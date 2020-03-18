@@ -1,0 +1,67 @@
+[
+  {
+    "Code": "@Plan_duration",
+    "Name": "Plan_duration",
+    "ParameterType": "Decimal"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Finish_at_actions",
+    "Name": "Finish_at_actions",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@status_id",
+    "Name": "status_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@User",
+    "Name": "User",
+    "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@Comment_result",
+    "Name": "Comment_result"
+  },
+  {
+    "Code": "@place_id",
+    "Name": "place_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@claims_id",
+    "Name": "claims_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Finished_at",
+    "Name": "Finished_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@shifts_Id",
+    "Name": "shifts_Id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Closed_at",
+    "Name": "Closed_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Pushed_at",
+    "Name": "Pushed_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Start_at",
+    "Name": "Start_at",
+    "ParameterType": "DateTime"
+  }
+]

@@ -79,7 +79,7 @@ where Id = @AppealsFromSite_Id
 			NULL as [category_type_id],
 			@ApplicantFromSite_SocialState as [social_state_id],
 			(select top 1 Mail from [CRM_1551_Site_Integration].[dbo].[ApplicantFromSiteMoreContacts] where ApplicantFromSiteId = (select top 1 ApplicantFromSiteId from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] where Id = @AppealsFromSite_Id) and Mail is not null) as [mail],
-			case when @ApplicantFromSite_Sex = N'ч' then 1
+			case when @ApplicantFromSite_Sex = N'ж' then 1
 				 when @ApplicantFromSite_Sex = N'ч' then 2
 				 else NULL end as [sex],
 			@ApplicantFromSite_Birthdate as [birth_date],
@@ -164,10 +164,10 @@ where Id = @AppealsFromSite_Id
             										 ,[CreatedAt])
             	select @Applicant_Id as [applicant_id]
             		   ,1 as [phone_type_id]
-            		   ,PhoneNumber as [phone_number]
+            		   ,PhoneNumber collate Ukrainian_CI_AS as [phone_number] 
             		   ,0 as [IsMain]
             		   ,getutcdate() as [CreatedAt]
-            	from #temp_OUT where PhoneNumber not in (select [phone_number] from [dbo].[ApplicantPhones] where [applicant_id] = @Applicant_Id)
+            	from #temp_OUT where PhoneNumber collate Ukrainian_CI_AS not in (select [phone_number] from [dbo].[ApplicantPhones] where [applicant_id] = @Applicant_Id)
             end
  	
 	 
@@ -208,7 +208,9 @@ declare @getdate datetime = getutcdate();
       ,[user_edit_id]
       ,[last_assignment_for_execution_id]
 	  ,[entrance] -- art
-	  ,[flat]) -- art
+	  ,[flat]
+    ,[geolocation_lat]
+    ,[geolocation_lon]) -- art
 output [inserted].[Id] into @output (Id)	
 select @AppealId
       ,(concat( SUBSTRING ( rtrim(YEAR(getdate())),4,1),'-',(select count(Id) from Appeals where year(Appeals.registration_date) = year(getutcdate())) ))+N'/'+rtrim((select count(1) from [dbo].[Questions] where appeal_id = @AppealId)+1) /*[registration_number]*/
@@ -233,10 +235,38 @@ select @AppealId
       ,NULL /*last_assignment_for_execution_id*/
 	  ,@entrance -- art
 	  ,@flat -- art
+    ,@AppealFromSite_geolocation_lat
+    ,@AppealFromSite_geolocation_lon
 	set @app_id = (select top 1 Id from @output)
 	
 	
 	
+  INSERT INTO [dbo].[QuestionDocFiles]
+  (
+  --[link]
+      [create_date]
+      ,[user_id]
+      ,[edit_date]
+      ,[edit_user_id]
+      ,[name]
+      ,[File]
+      ,[question_id]
+      --,[GUID]
+  )
+
+  SELECT --N'test' [link]
+      GETUTCDATE() [create_date]
+      ,@CreatedByUserId [user_id]
+      ,GETUTCDATE() [edit_date]
+      ,@CreatedByUserId [edit_user_id]
+      ,[AppealFromSiteFiles].[Name]
+      ,[AppealFromSiteFiles].[File]
+      ,@app_id [question_id]
+      --,[GUID]
+  from [CRM_1551_Site_Integration].[dbo].[AppealFromSiteFiles]
+  where 
+  [AppealFromSiteId]=@AppealsFromSite_Id
+
 	
   update [dbo].[Appeals] set [applicant_id] = @applicant_id
 			  where [Id] = @AppealId	

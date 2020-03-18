@@ -1,0 +1,18 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Open_Claims",
+  "Name": "Відкриті заявки",
+  "FormCode": "Form_Open_Claims_New_Order",
+  "SelectRowsQueryCode": "avr_Open_Claims_SelectRows",
+  "SelectRowQueryCode": "avr_Open_Claims_New_Order_SelectRow",
+  "UpdateQueryCode": "avr_Open_Claims_New_Order_Insert",
+  "SectionCode": "Orders",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "organizations_id2",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

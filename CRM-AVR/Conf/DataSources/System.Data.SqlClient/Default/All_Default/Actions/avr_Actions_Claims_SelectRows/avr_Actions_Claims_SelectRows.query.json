@@ -1,0 +1,94 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Actions_Claims_SelectRows",
+  "Name": "avr_Actions_Claims_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "ranks",
+      "Name": "№ виїзду",
+      "Position": 2,
+      "SqlName": "ranks",
+      "FilterParameterCode": "@ranks"
+    },
+    {
+      "Code": "Order_ID",
+      "Name": "№ виїзда",
+      "Position": 3,
+      "ViewState": "Hidden",
+      "SqlName": "Order_ID",
+      "FilterParameterCode": "@Number_ord"
+    },
+    {
+      "Code": "orders_id",
+      "Name": "orders_id",
+      "Position": 4,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "action_types_name",
+      "Name": "Повний опис необхідних робіт ",
+      "Position": 5,
+      "SqlName": "action_types_name",
+      "FilterParameterCode": "@Name",
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "Actions"
+    },
+    {
+      "Code": "Is_Goal",
+      "Name": "Головна",
+      "Position": 6,
+      "SqlName": "[Is_Goal]",
+      "FilterParameterCode": "@goal"
+    },
+    {
+      "Code": "Diameters_ID",
+      "Name": "Діаметр",
+      "Position": 7,
+      "SqlName": "Diameters_ID",
+      "FilterParameterCode": "@Diameters"
+    },
+    {
+      "Code": "Value",
+      "Name": "Кількість",
+      "Position": 8,
+      "SqlName": "Value",
+      "FilterParameterCode": "@Value"
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "Position": 9,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

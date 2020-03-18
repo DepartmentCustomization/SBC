@@ -1,0 +1,18 @@
+{
+  "ModelType": "Detail",
+  "Code": "Group_Order_SwitchOff_view",
+  "Name": "Відключення",
+  "FormCode": "Form_Claim_SwitchOff",
+  "SelectRowsQueryCode": "avr_Claim_SwitchOff_SelectRows",
+  "SelectRowQueryCode": "avr_Claim_SwitchOff_SelectRow",
+  "UpdateQueryCode": "avr_Claim_SwitchOff_UpdateRow",
+  "SectionCode": "",
+  "Position": 4,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "claims_id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

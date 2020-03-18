@@ -1,0 +1,7 @@
+{
+  "DashboardGroupCode": "report",
+  "Position": 2,
+  "ModelType": "Dashboard",
+  "Code": "AVR_requestsClosing",
+  "Name": "KPI_Порівняльна довідка по закриттю заявок"
+}

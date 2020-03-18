@@ -1,0 +1,14 @@
+{
+  "Code": "Group_Place_types",
+  "Name": "Тип місця",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

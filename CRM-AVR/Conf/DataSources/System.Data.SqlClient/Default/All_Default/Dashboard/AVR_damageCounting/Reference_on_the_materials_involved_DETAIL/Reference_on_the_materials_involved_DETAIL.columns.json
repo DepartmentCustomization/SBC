@@ -1,0 +1,87 @@
+[
+  {
+    "Code": "num",
+    "Name": "№№",
+    "Position": 1
+  },
+  {
+    "Code": "material",
+    "Name": "Матеріал",
+    "Position": 2
+  },
+  {
+    "Code": "Size",
+    "Name": "Діаметр",
+    "Position": 3
+  },
+  {
+    "Code": "districts",
+    "Name": "Район",
+    "Position": 4
+  },
+  {
+    "Code": "organizations",
+    "Name": "Підрозділ",
+    "Position": 5
+  },
+  {
+    "Code": "materials_id",
+    "Name": "materials_id",
+    "Position": 6
+  },
+  {
+    "Code": "diameters_id",
+    "Name": "diameters_id",
+    "Position": 7
+  },
+  {
+    "Code": "districts_id",
+    "Name": "districts_id",
+    "Position": 8
+  },
+  {
+    "Code": "org_id",
+    "Name": "org_id",
+    "Position": 9
+  },
+  {
+    "Code": "is_out",
+    "Name": "Використано/видобуто",
+    "Position": 10
+  },
+  {
+    "Code": "count_claims",
+    "Name": "Заявка",
+    "Position": 11
+  },
+  {
+    "Code": "orders_id",
+    "Name": "Наряд",
+    "Position": 12
+  },
+  {
+    "Code": "Start_from",
+    "Name": "Дата роботи",
+    "Position": 13
+  },
+  {
+    "Code": "places_name",
+    "Name": "Місце",
+    "Position": 14
+  },
+  {
+    "Code": "volume",
+    "Name": "Кількісь / Вага",
+    "Position": 15
+  },
+  {
+    "Code": "Name",
+    "Name": "Робота",
+    "Position": 16
+  },
+  {
+    "Code": "claims_id",
+    "Name": "claims_id",
+    "Position": 17
+  }
+]

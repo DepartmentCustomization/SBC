@@ -1,0 +1,35 @@
+[
+  {
+    "Code": "@Order_ID",
+    "Name": "Order_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@ac_pl_types_id",
+    "Name": "ac_pl_types_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@TypeAccess",
+    "Name": "TypeAccess",
+    "ParameterType": "Integer",
+    "RightsFilterQueryCode": "GlobalFilter_ClaimTypes"
+  },
+  {
+    "Code": "@pageLimitRows",
+    "Name": "pageLimitRows",
+    "ParameterType": "Integer",
+    "IsPageLimitRows": true
+  },
+  {
+    "Code": "@pageOffsetRows",
+    "Name": "pageOffsetRows",
+    "ParameterType": "Integer",
+    "IsPageOffsetRows": true
+  },
+  {
+    "Code": "@Claim_ID",
+    "Name": "Claim_ID",
+    "ParameterType": "Integer"
+  }
+]

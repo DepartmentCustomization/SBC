@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Claim_types_Action_types",
+  "Name": "Тип робіт",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Form1.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Claim_type_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Claim_types_Action_types.form.js"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "ModelType": "Detail",
+  "Code": "Action_URL",
+  "Name": "URL",
+  "FormCode": "Form_URL_Action",
+  "SelectRowsQueryCode": "avr_URL_Action_SelectRows",
+  "SelectRowQueryCode": "avr_URL_Action_SelectRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Files_Action_Delete",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_URL_Action_Insert"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

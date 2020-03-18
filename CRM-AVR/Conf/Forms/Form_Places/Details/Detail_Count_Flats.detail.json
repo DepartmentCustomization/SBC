@@ -1,0 +1,20 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Count_Flats",
+  "Name": "Додати квартири",
+  "FormCode": "Form_Count_Flats",
+  "SelectRowsQueryCode": "avr_Count_Flats_SelectRows",
+  "SelectRowQueryCode": "avr_Count_Flats_SelectRow",
+  "SectionCode": "",
+  "Position": 4,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Count_Flats_InsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "streets_id",
+      "ParameterCode": "@Id_place"
+    }
+  ]
+}

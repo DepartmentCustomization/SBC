@@ -1,0 +1,71 @@
+{
+  "Code": "Group_Claims",
+  "Name": " ",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Size",
+      "Name": "Діаметр",
+      "FieldType": "number"
+    },
+    {
+      "Code": "classes_name",
+      "Name": "Клас заявки",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "Types_name",
+      "Name": "Тип заявки",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 2
+    },
+    {
+      "Code": "place_type_name",
+      "Name": "Тип місця",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
+      "Code": "places_name",
+      "Name": "Місце",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 4
+    },
+    {
+      "Code": "organization_name",
+      "Name": "Відповідальний підрозділ",
+      "FieldType": "text",
+      "Position": 6
+    },
+    {
+      "Code": "contact_name",
+      "Name": "Замовник",
+      "FieldType": "text",
+      "Position": 7
+    },
+    {
+      "Code": "Description",
+      "Name": "Опис проблеми",
+      "FieldType": "textarea",
+      "IsRequired": true,
+      "Position": 9
+    },
+    {
+      "Code": "temp_id",
+      "Name": "temp_id",
+      "FieldType": "number",
+      "Position": 22,
+      "IsHidden": true
+    },
+    {
+      "Code": "btn_applyTemplate",
+      "Name": "Застосувати шаблон",
+      "FieldType": "button",
+      "Position": 122,
+      "Width": "30%"
+    }
+  ]
+}

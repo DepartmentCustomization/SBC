@@ -1,0 +1,67 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "adress_id",
+    "Name": "adress_id",
+    "Position": 2
+  },
+  {
+    "Code": "Number",
+    "Name": "Number",
+    "Position": 3
+  },
+  {
+    "Code": "phone_comment",
+    "Name": "phone_comment",
+    "Position": 4
+  },
+  {
+    "Code": "adress_name",
+    "Name": "adress_name",
+    "Position": 5,
+    "ReferenceKeyCode": "adress_id"
+  },
+  {
+    "Code": "parent_organization_id",
+    "Name": "parent_organization_id",
+    "Position": 6
+  },
+  {
+    "Code": "parent_organization",
+    "Name": "parent_organization",
+    "Position": 7,
+    "ReferenceKeyCode": "parent_organization_id"
+  },
+  {
+    "Code": "organizations_name",
+    "Name": "organizations_name",
+    "Position": 8
+  },
+  {
+    "Code": "Is_WC",
+    "Name": "Is_WC",
+    "Position": 9,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "organization_id2",
+    "Name": "organization_id2",
+    "Position": 10
+  },
+  {
+    "Code": "Is_selected",
+    "Name": "Is_selected",
+    "Position": 11
+  },
+  {
+    "Code": "Short_name",
+    "Name": "Short_name",
+    "Position": 12
+  }
+]

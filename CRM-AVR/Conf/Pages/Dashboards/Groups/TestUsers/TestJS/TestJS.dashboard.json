@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "TestUsers",
+  "Position": 1,
+  "Description": "Страница для тестирования базововых знанияй JavaScript",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "TestJS",
+  "Name": "TestJS"
+}

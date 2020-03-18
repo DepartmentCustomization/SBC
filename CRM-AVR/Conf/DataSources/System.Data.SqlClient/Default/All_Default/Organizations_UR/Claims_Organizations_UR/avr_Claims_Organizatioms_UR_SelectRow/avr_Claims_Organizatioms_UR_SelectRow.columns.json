@@ -1,0 +1,108 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "Claim_Number",
+    "Name": "Claim_Number",
+    "Position": 2
+  },
+  {
+    "Code": "classes_name",
+    "Name": "classes_name",
+    "Position": 3
+  },
+  {
+    "Code": "classes_id",
+    "Name": "classes_id",
+    "Position": 4
+  },
+  {
+    "Code": "status_name",
+    "Name": "status_name",
+    "Position": 5
+  },
+  {
+    "Code": "status_id",
+    "Name": "status_id",
+    "Position": 6
+  },
+  {
+    "Code": "first_types_name",
+    "Name": "first_types_name",
+    "Position": 7
+  },
+  {
+    "Code": "first_types_id",
+    "Name": "first_types_id",
+    "Position": 8
+  },
+  {
+    "Code": "types_name",
+    "Name": "types_name",
+    "Position": 9
+  },
+  {
+    "Code": "types_id",
+    "Name": "types_id",
+    "Position": 10
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Created_at",
+    "Position": 11
+  },
+  {
+    "Code": "organization_name",
+    "Name": "organization_name",
+    "Position": 12
+  },
+  {
+    "Code": "organization_id",
+    "Name": "organization_id",
+    "Position": 13
+  },
+  {
+    "Code": "Plan_start_date",
+    "Name": "Plan_start_date",
+    "Position": 14
+  },
+  {
+    "Code": "Plan_finish_at",
+    "Name": "Plan_finish_at",
+    "Position": 15
+  },
+  {
+    "Code": "First_description",
+    "Name": "First_description",
+    "Position": 16
+  },
+  {
+    "Code": "Description",
+    "Name": "Description",
+    "Position": 17
+  },
+  {
+    "Code": "Priority",
+    "Name": "Priority",
+    "Position": 18
+  },
+  {
+    "Code": "Report_action_id",
+    "Name": "Report_action_id",
+    "Position": 19
+  },
+  {
+    "Code": "Fact_finish_at",
+    "Name": "Fact_finish_at",
+    "Position": 20
+  },
+  {
+    "Code": "contact_id",
+    "Name": "contact_id",
+    "Position": 21
+  }
+]

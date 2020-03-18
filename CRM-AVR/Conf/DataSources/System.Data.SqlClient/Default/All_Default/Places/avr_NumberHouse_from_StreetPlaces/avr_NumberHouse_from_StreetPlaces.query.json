@@ -1,0 +1,43 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_NumberHouse_from_StreetPlaces",
+  "Name": "avr_NumberHouse_from_StreetPlaces",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "number_let",
+      "Name": "number_let",
+      "Position": 2,
+      "SqlName": "concat(number,Letter) ",
+      "FilterParameterCode": "@name_param"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@str_id",
+      "Name": "str_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

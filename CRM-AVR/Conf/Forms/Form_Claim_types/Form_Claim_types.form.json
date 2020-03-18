@@ -1,0 +1,15 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Claim_types",
+  "Name": "Довідник- Типи заявок",
+  "Details": [
+    "string:Details\\Detail_TypeAction.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claim_types.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:Form_Claim_types.form.js"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "ModelType": "Query",
+  "Code": "es_show_all_houses",
+  "Name": "es_show_all_houses",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "count_houses",
+      "Name": "count_houses",
+      "Position": 0,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Org_Id",
+      "Name": "Org_Id",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

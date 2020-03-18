@@ -1,0 +1,52 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Test_Claims",
+  "Name": " Заявка за шаблоном",
+  "Details": [
+    "string:Details\\Detail_Places_Claims_Temp.detail.json",
+    "string:Details\\Detail_Action_Temp.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claims.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Description",
+        "ParentFormFieldCodeForKeyValue": "Description",
+        "ParentFormFieldCodeForDisplayValue": "Description"
+      },
+      {
+        "Code": "Diameters_ID",
+        "ParentFormFieldCodeForKeyValue": "Diameters_ID",
+        "ParentFormFieldCodeForDisplayValue": "Size"
+      },
+      {
+        "Code": "Types_id",
+        "ParentFormFieldCodeForKeyValue": "Types_id",
+        "ParentFormFieldCodeForDisplayValue": "Types_name"
+      },
+      {
+        "Code": "places_id",
+        "ParentFormFieldCodeForKeyValue": "places_id",
+        "ParentFormFieldCodeForDisplayValue": "places_name"
+      },
+      {
+        "Code": "Organization_id",
+        "ParentFormFieldCodeForKeyValue": "Organization_id",
+        "ParentFormFieldCodeForDisplayValue": "organization_name"
+      },
+      {
+        "Code": "temp_id",
+        "ParentFormFieldCodeForKeyValue": "temp_id",
+        "ParentFormFieldCodeForDisplayValue": "temp_id"
+      },
+      {
+        "Code": "Priority",
+        "ParentFormFieldCodeForKeyValue": "Priority",
+        "ParentFormFieldCodeForDisplayValue": "Priority"
+      }
+    ],
+    "Script": "string:Form_Test_Claims.form.js"
+  }
+}

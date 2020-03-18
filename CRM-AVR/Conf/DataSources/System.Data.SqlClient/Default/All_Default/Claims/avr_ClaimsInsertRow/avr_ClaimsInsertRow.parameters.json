@@ -1,0 +1,161 @@
+[
+  {
+    "Code": "@places_id",
+    "Name": "places_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Letter",
+    "Name": "Letter"
+  },
+  {
+    "Code": "@Report_action_id",
+    "Name": "Report_action_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Diameters_ID",
+    "Name": "Diameters_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@TU",
+    "Name": "TU"
+  },
+  {
+    "Code": "@EM_org_id",
+    "Name": "EM_org_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Status_id",
+    "Name": "Status_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@L_Contacts_Id",
+    "Name": "L_Contacts_Id"
+  },
+  {
+    "Code": "@Gravamen",
+    "Name": "Gravamen"
+  },
+  {
+    "Code": "@not_balans",
+    "Name": "not_balans",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@TU_Id",
+    "Name": "TU_Id"
+  },
+  {
+    "Code": "@G_Left",
+    "Name": "G_Left"
+  },
+  {
+    "Code": "@x_phone_inspector",
+    "Name": "x_phone_inspector"
+  },
+  {
+    "Code": "@Sked",
+    "Name": "Sked"
+  },
+  {
+    "Code": "@Fact_finish_at",
+    "Name": "Fact_finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@UR_organization_id",
+    "Name": "UR_organization_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@type_employee_2",
+    "Name": "type_employee_2",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Description",
+    "Name": "Description"
+  },
+  {
+    "Code": "@Is_Template",
+    "Name": "Is_Template",
+    "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@Types_id",
+    "Name": "Types_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@date_check",
+    "Name": "date_check",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Priority",
+    "Name": "Priority"
+  },
+  {
+    "Code": "@User",
+    "Name": "User",
+    "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@Plan_finish_at",
+    "Name": "Plan_finish_at",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@EM_contact_fio",
+    "Name": "EM_contact_fio",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@FIZ_concact_id",
+    "Name": "FIZ_concact_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Organization_id",
+    "Name": "Organization_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@contact_type",
+    "Name": "contact_type",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@x_pib_inspector",
+    "Name": "x_pib_inspector"
+  },
+  {
+    "Code": "@Plan_start_date",
+    "Name": "Plan_start_date",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@UR_contact_fio",
+    "Name": "UR_contact_fio",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@flat_number",
+    "Name": "flat_number",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@G_PIB",
+    "Name": "G_PIB"
+  }
+]

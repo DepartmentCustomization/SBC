@@ -1,0 +1,22 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Order_File",
+  "Name": "Документи до нарядів",
+  "Details": [
+    "string:Details\\Order_URL.detail.json",
+    "string:Details\\Order_Files.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Order_Documents.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Orders_Id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Order_File.form.js"
+  }
+}

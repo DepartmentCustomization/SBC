@@ -1,0 +1,77 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "place_type_id",
+    "Name": "place_type_id",
+    "Position": 2
+  },
+  {
+    "Code": "districts_id",
+    "Name": "districts_id",
+    "Position": 3
+  },
+  {
+    "Code": "flats_id",
+    "Name": "flats_id",
+    "Position": 4
+  },
+  {
+    "Code": "place_type_name",
+    "Name": "place_type_name",
+    "Position": 5,
+    "ReferenceKeyCode": "place_type_id"
+  },
+  {
+    "Code": "districts_name",
+    "Name": "districts_name",
+    "Position": 6,
+    "ReferenceKeyCode": "districts_id"
+  },
+  {
+    "Code": "flats",
+    "Name": "flats",
+    "Position": 7,
+    "ReferenceKeyCode": "flats_id"
+  },
+  {
+    "Code": "places_id",
+    "Name": "places_id",
+    "Position": 8
+  },
+  {
+    "Code": "places_name",
+    "Name": "places_name",
+    "Position": 9,
+    "ReferenceKeyCode": "places_id"
+  },
+  {
+    "Code": "Is_first_place",
+    "Name": "Is_first_place",
+    "Position": 10
+  },
+  {
+    "Code": "Is_demage_place",
+    "Name": "Is_demage_place",
+    "Position": 11
+  },
+  {
+    "Code": "Demage_place_description",
+    "Name": "Demage_place_description",
+    "Position": 12
+  },
+  {
+    "Code": "Lattitude",
+    "Name": "Lattitude",
+    "Position": 13
+  },
+  {
+    "Code": "Longitude",
+    "Name": "Longitude",
+    "Position": 14
+  }
+]

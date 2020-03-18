@@ -1,0 +1,8 @@
+{
+  "Icon": "autorenew",
+  "Position": 1,
+  "IconColor": "green",
+  "ModelType": "DashboardGroup",
+  "Code": "report",
+  "Name": "Аварійне обслуговування"
+}

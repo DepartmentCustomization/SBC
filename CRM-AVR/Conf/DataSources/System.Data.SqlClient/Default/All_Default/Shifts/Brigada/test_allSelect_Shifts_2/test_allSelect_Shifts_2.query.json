@@ -1,0 +1,71 @@
+{
+  "ModelType": "Query",
+  "Code": "test_allSelect_Shifts_2",
+  "Name": "test_allSelect_Shifts_2",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "contacts_name",
+      "Name": "ПІБ працівника",
+      "Position": 2,
+      "SqlName": "Contacts.Name",
+      "FilterParameterCode": "@name"
+    },
+    {
+      "Code": "job_name",
+      "Name": "Позіція",
+      "Position": 3,
+      "ViewState": "Hidden",
+      "SqlName": "[Jobs].[Job_name]",
+      "FilterParameterCode": "@name"
+    },
+    {
+      "Code": "positions_name",
+      "Name": "Посада",
+      "Position": 4,
+      "SqlName": "Positions.Name",
+      "FilterParameterCode": "@Position_ame"
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "Організація",
+      "Position": 5,
+      "SqlName": "Organizations.Name",
+      "FilterParameterCode": "@Name"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@OrgID",
+      "Name": "OrgID",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Shift_ID",
+      "Name": "Shift_ID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

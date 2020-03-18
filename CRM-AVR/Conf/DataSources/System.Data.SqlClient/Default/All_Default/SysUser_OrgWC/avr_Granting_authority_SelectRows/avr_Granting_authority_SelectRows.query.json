@@ -1,0 +1,48 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Granting_authority_SelectRows",
+  "Name": "avr_Granting_authority_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Надані повноваження",
+      "Position": 1,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "full_name",
+      "Name": "Надані повноваження",
+      "Position": 2
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@user",
+      "Name": "user"
+    }
+  ]
+}

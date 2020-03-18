@@ -1,0 +1,127 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1
+  },
+  {
+    "Code": "Org_Id",
+    "Name": "Org_Id",
+    "Position": 2
+  },
+  {
+    "Code": "Org_Name",
+    "Name": "Org_Name",
+    "Position": 3
+  },
+  {
+    "Code": "TypeName",
+    "Name": "TypeName",
+    "Position": 4
+  },
+  {
+    "Code": "TypeKolvo",
+    "Name": "Загалом заявок",
+    "Position": 5
+  },
+  {
+    "Code": "Type1_Par1",
+    "Name": "Магістраль",
+    "Position": 6
+  },
+  {
+    "Code": "Type1_Par2",
+    "Name": "Підводні",
+    "Position": 7
+  },
+  {
+    "Code": "Type1_Par3",
+    "Name": "Колодязі",
+    "Position": 8
+  },
+  {
+    "Code": "Type1_Par4",
+    "Name": "ПГ",
+    "Position": 9
+  },
+  {
+    "Code": "Type1_Par5",
+    "Name": "ВРК",
+    "Position": 10
+  },
+  {
+    "Code": "Type1_Par6",
+    "Name": "Колектор",
+    "Position": 11
+  },
+  {
+    "Code": "Type1_Par7",
+    "Name": "Інше",
+    "Position": 12
+  },
+  {
+    "Code": "Type1_Zagal",
+    "Name": "Течія Загально",
+    "Position": 13
+  },
+  {
+    "Code": "Type2_Par1",
+    "Name": "Магістраль",
+    "Position": 14
+  },
+  {
+    "Code": "Type2_Par2",
+    "Name": "Підводні",
+    "Position": 15
+  },
+  {
+    "Code": "Type2_Par3",
+    "Name": "Колодязі",
+    "Position": 16
+  },
+  {
+    "Code": "Type2_Par4",
+    "Name": "ПГ",
+    "Position": 17
+  },
+  {
+    "Code": "Type2_Par5",
+    "Name": "ВРК",
+    "Position": 18
+  },
+  {
+    "Code": "Type2_Par6",
+    "Name": "Колектор",
+    "Position": 19
+  },
+  {
+    "Code": "Type2_Par7",
+    "Name": "Інше",
+    "Position": 20
+  },
+  {
+    "Code": "Type2_Par8",
+    "Name": "Арматура",
+    "Position": 21
+  },
+  {
+    "Code": "Type2_Zagal",
+    "Name": "Ремонт Загально",
+    "Position": 22
+  },
+  {
+    "Code": "Type3_Par1",
+    "Name": "Колодязі",
+    "Position": 23
+  },
+  {
+    "Code": "Type3_Par2",
+    "Name": "Інше",
+    "Position": 24
+  },
+  {
+    "Code": "Type3_Zagal",
+    "Name": "Інше Загально",
+    "Position": 25
+  }
+]

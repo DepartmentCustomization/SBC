@@ -1,0 +1,32 @@
+{
+  "Code": "Group_Action_type_Place_type",
+  "Name": "Тип місця",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "action_type",
+      "Name": "Тип роботи",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "places_type_id",
+      "Name": "Тип місця",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 2,
+      "Width": "51%",
+      "QueryCode": "dir_Place_typesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "action_type_id",
+      "Name": "action_type_id",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

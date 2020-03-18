@@ -1,0 +1,43 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Mechanism_typesSelectRows",
+  "Name": "dir_Mechanism_typesSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "Position": 2,
+      "SqlName": "Name",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "Description",
+      "Name": "Опис",
+      "Position": 3
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

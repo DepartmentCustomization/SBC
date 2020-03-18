@@ -1,0 +1,70 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_ContactsPhoneSelectRows",
+  "Name": "avr_ContactsPhoneSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "contacts_name",
+      "Name": "Ім'я контакта",
+      "Position": 2,
+      "SqlName": "Contacts.Name",
+      "FilterParameterCode": "@Contacts_Name",
+      "ReferenceKeyCode": "contacts_id",
+      "ReferenceSectionCode": "Contact"
+    },
+    {
+      "Code": "jobs_name",
+      "Name": "Посада в організації",
+      "Position": 3,
+      "SqlName": "Jobs.Job_name",
+      "FilterParameterCode": "@Job_name"
+    },
+    {
+      "Code": "number_name",
+      "Name": "Номер телефона",
+      "Position": 4
+    },
+    {
+      "Code": "phone_comment",
+      "Name": "Коментарій до телефону",
+      "Position": 5,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "contacts_id",
+      "Name": "contacts_id",
+      "Position": 6,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

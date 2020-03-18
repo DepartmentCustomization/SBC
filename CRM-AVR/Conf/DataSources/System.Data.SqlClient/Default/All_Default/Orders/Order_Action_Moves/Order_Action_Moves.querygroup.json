@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Order_Action_Moves",
+  "Name": "Виїзд техніки по наряду",
+  "ConnectionCode": "Default"
+}

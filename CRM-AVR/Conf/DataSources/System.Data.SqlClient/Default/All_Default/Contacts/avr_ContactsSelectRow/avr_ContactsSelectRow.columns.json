@@ -1,0 +1,94 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "ViewState": "Hidden"
+  },
+  {
+    "Code": "First_name",
+    "Name": "First_name",
+    "Position": 2
+  },
+  {
+    "Code": "Middle_name",
+    "Name": "Middle_name",
+    "Position": 3
+  },
+  {
+    "Code": "Surname",
+    "Name": "Surname",
+    "Position": 4
+  },
+  {
+    "Code": "houses_id",
+    "Name": "houses_id",
+    "Position": 5
+  },
+  {
+    "Code": "flats_id",
+    "Name": "flats_id",
+    "Position": 6
+  },
+  {
+    "Code": "organizations_id",
+    "Name": "organizations_id",
+    "Position": 7
+  },
+  {
+    "Code": "job_id",
+    "Name": "job_id",
+    "Position": 8
+  },
+  {
+    "Code": "house_name",
+    "Name": "house_name",
+    "Position": 9,
+    "ReferenceKeyCode": "houses_id"
+  },
+  {
+    "Code": "flats_name",
+    "Name": "flats_name",
+    "Position": 10,
+    "ReferenceKeyCode": "flats_id"
+  },
+  {
+    "Code": "number_name",
+    "Name": "number_name",
+    "Position": 11
+  },
+  {
+    "Code": "organizations_name",
+    "Name": "organizations_name",
+    "Position": 12,
+    "ReferenceKeyCode": "organizations_id"
+  },
+  {
+    "Code": "job_name",
+    "Name": "job_name",
+    "Position": 13,
+    "ReferenceKeyCode": "job_id"
+  },
+  {
+    "Code": "comment_phone",
+    "Name": "comment_phone",
+    "Position": 14
+  },
+  {
+    "Code": "contact_types_id",
+    "Name": "contact_types_id",
+    "Position": 15
+  },
+  {
+    "Code": "contact_types_name",
+    "Name": "contact_types_name",
+    "Position": 16,
+    "ReferenceKeyCode": "contact_types_id"
+  },
+  {
+    "Code": "external_Id",
+    "Name": "external_Id",
+    "Position": 17
+  }
+]

@@ -1,0 +1,62 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_ActionTypeSelectRow",
+  "Name": "dir_ActionTypeSelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 2
+    },
+    {
+      "Code": "Is_move",
+      "Name": "Is_move",
+      "Position": 3
+    },
+    {
+      "Code": "TypeAccess_ID",
+      "Name": "TypeAccess_ID",
+      "Position": 4
+    },
+    {
+      "Code": "type_name",
+      "Name": "type_name",
+      "Position": 5,
+      "ReferenceKeyCode": "TypeAccess_ID"
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Plan_duration",
+      "Position": 6
+    },
+    {
+      "Code": "Units_Id",
+      "Name": "Units_Id",
+      "Position": 8
+    },
+    {
+      "Code": "ShortName",
+      "Name": "ShortName",
+      "Position": 9,
+      "ReferenceKeyCode": "Units_Id"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

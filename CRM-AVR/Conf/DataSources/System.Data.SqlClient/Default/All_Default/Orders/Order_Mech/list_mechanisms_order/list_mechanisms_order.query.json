@@ -1,0 +1,56 @@
+{
+  "ModelType": "Query",
+  "Code": "list_mechanisms_order",
+  "Name": "list_mechanisms_order",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "mechanism_types_name",
+      "Name": "mechanism_types_name",
+      "Position": 2
+    },
+    {
+      "Code": "mechanisms_name",
+      "Name": "mechanisms_name",
+      "Position": 3
+    },
+    {
+      "Code": "mechanisms_number",
+      "Name": "mechanisms_number",
+      "Position": 4
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "organizations_name",
+      "Position": 5
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@org_id",
+      "Name": "org_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

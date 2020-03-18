@@ -1,0 +1,85 @@
+{
+  "ModelType": "Query",
+  "Code": "List_ActionClaim_ActionTypeSelectRows",
+  "Name": "List_ActionClaim_ActionTypeSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Идентифікатор роботи",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "Position": 2,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Order_ID",
+      "Name": "Order_ID",
+      "Position": 3,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "orders_id",
+      "Name": "orders_id",
+      "Position": 4,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Is_Goal",
+      "Name": "Головна робота в Заявці",
+      "Position": 5
+    },
+    {
+      "Code": "action_types_name",
+      "Name": "Робота",
+      "Position": 6
+    },
+    {
+      "Code": "Is_move",
+      "Name": "Потрібен виїзд",
+      "Position": 7
+    },
+    {
+      "Code": "Plan_duration",
+      "Name": "Планова тривалість роботи",
+      "Position": 8
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Сортування",
+      "Position": 9
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Claim_Id",
+      "Name": "Claim_Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@Order_ID",
+      "Name": "Order_ID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

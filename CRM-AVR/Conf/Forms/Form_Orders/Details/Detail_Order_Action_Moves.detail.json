@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Order_Action_Moves",
+  "Name": "Пересування техніки",
+  "SelectRowsQueryCode": "avr_Order_Action_Moves_SelectRows",
+  "SectionCode": "",
+  "Position": 8,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

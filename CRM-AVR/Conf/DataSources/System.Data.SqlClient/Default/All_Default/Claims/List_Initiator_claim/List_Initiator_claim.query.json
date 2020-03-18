@@ -1,0 +1,56 @@
+{
+  "ModelType": "Query",
+  "Code": "List_Initiator_claim",
+  "Name": "List_Initiator_claim",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "type_name",
+      "Name": "Тип контакту",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "Contact_types.Name",
+      "FilterParameterCode": "@name_param"
+    },
+    {
+      "Code": "Name",
+      "Name": "ПІБ / Назва організації",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "[Contacts].[Name]",
+      "FilterParameterCode": "@name"
+    },
+    {
+      "Code": "Number",
+      "Name": "Телефон",
+      "Position": 4,
+      "IsPrintable": false,
+      "SqlName": "Contact_phones.Number",
+      "FilterParameterCode": "@phone"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

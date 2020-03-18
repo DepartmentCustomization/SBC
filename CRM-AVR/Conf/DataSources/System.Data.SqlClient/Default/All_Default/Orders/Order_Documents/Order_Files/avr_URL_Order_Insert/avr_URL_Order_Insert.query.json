@@ -1,0 +1,29 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_URL_Order_Insert",
+  "Name": "avr_URL_Order_Insert",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Doc_Order_Id",
+      "Name": "Doc_Order_Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Name",
+      "Name": "Name"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@URL",
+      "Name": "URL"
+    }
+  ]
+}

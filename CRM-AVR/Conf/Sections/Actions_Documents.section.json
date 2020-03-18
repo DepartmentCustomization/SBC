@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_Action_Doc_Insert"
+  },
+  "ModelType": "Section",
+  "Code": "Actions_Documents",
+  "Name": "Документи (работа)",
+  "FormCode": "Form_Action_File",
+  "SelectRowsQueryCode": "avr_Action_Doc_SelectRows",
+  "SelectRowQueryCode": "avr_Action_Doc_SelectRow",
+  "UpdateQueryCode": "avr_Action_Doc_Update",
+  "IsVisible": false
+}

@@ -89,7 +89,7 @@
                 }
             }
             function extractOrgValues(val) {
-                if(val != null) {
+                if(val !== null) {
                     let valuesList = [];
                     if (val.length > 0) {
                         for (let i = 0; i < val.length; i++) {

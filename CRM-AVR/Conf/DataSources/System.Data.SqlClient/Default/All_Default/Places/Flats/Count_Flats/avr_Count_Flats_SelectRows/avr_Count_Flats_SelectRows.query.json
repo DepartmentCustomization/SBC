@@ -1,0 +1,37 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Count_Flats_SelectRows",
+  "Name": "avr_Count_Flats_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "flats",
+      "Name": "Кількість квартир в домі",
+      "Position": 1,
+      "SqlName": "count(Flats.Number)",
+      "FilterParameterCode": "@flats"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@Id_place",
+      "Name": "Id_place",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

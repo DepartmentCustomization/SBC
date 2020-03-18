@@ -1,0 +1,40 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Shift_MechanSelectRow",
+  "Name": "avr_Shift_MechanSelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "mechanism_type_name",
+      "Name": "mechanism_type_name",
+      "Position": 2
+    },
+    {
+      "Code": "mechanisms_name",
+      "Name": "mechanisms_name",
+      "Position": 3
+    },
+    {
+      "Code": "mechanisms_number",
+      "Name": "mechanisms_number",
+      "Position": 4
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

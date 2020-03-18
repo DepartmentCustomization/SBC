@@ -1,0 +1,68 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Flats_in_Places_SelectRows",
+  "Name": "avr_Flats_in_Places_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "houses_name",
+      "Name": "Будинок",
+      "Position": 2
+    },
+    {
+      "Code": "Number",
+      "Name": "Квартира",
+      "Position": 3,
+      "SqlName": "Flats.Number",
+      "FilterParameterCode": "@Flats_Number"
+    },
+    {
+      "Code": "Letter",
+      "Name": "Літера кв.",
+      "Position": 4
+    },
+    {
+      "Code": "Porch",
+      "Name": "Під'їзд",
+      "Position": 5,
+      "SqlName": "Flats.Porch",
+      "FilterParameterCode": "@Flats_Porch"
+    },
+    {
+      "Code": "Floor",
+      "Name": "Поверх",
+      "Position": 6,
+      "SqlName": "Flats.Floor",
+      "FilterParameterCode": "@Flats_Floor"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id_place",
+      "Name": "Id_place",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

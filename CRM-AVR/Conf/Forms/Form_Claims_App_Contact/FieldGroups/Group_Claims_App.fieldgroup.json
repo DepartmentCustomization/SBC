@@ -1,0 +1,32 @@
+{
+  "Code": "Group_Claims_App",
+  "Name": "Заявники",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "contacts_Id",
+      "Name": "Заявник фізична особа / юридична особа",
+      "FieldType": "lookup",
+      "Position": 1,
+      "QueryCode": "dir_AppealsContacts",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "appeals_date",
+      "Name": "appeals_date",
+      "FieldType": "date-time",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

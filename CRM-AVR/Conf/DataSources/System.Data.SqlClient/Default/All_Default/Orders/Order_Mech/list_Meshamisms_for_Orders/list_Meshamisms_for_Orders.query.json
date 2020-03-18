@@ -1,0 +1,9 @@
+{
+  "ModelType": "Query",
+  "Code": "list_Meshamisms_for_Orders",
+  "Name": "list_Meshamisms_for_Orders",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Sql": "s"
+}
