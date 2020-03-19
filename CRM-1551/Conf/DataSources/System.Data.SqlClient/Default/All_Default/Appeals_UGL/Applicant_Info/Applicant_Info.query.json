@@ -42,12 +42,6 @@
       "IsPrintable": false
     },
     {
-      "Code": "Applicant_District",
-      "Name": "Applicant_District",
-      "Position": 6,
-      "IsPrintable": false
-    },
-    {
       "Code": "privilegeId",
       "Name": "privilegeId",
       "Position": 7,
