@@ -10,6 +10,7 @@
         ,
         init: async function() {
             this.filterHelperModule = await import('/modules/Filters/FilterHelper.js');
+            this.queryHelper = await import('/modules/Filters/QueryHelper.js');
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -23,7 +24,9 @@
             const filters = message.package.value.values;
             const filterHelper = new this.filterHelperModule.FilterHelper();
             const activeFilters = filterHelper.getActiveFilters(filters);
-            this.queryParameters = filterHelper.getQueryParameters(activeFilters);
+
+            const queryHelper = new this.queryHelper.QueryHelper();
+            this.queryParameters = queryHelper.getQueryParameters(filters, activeFilters);
         }
     };
 }());
