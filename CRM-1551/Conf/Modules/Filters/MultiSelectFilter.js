@@ -1,8 +1,8 @@
 import { SelectFilter } from '/Modules/Filters/SelectFilter.js';
 
 export class MultiSelectFilter extends SelectFilter {
-    constructor(name, placeholder, values) {
-        super(name, placeholder);
+    constructor(name, placeholder, type, values) {
+        super(name, placeholder, type);
         this.value = this.setMultipleValues(values, 'value');
         this.viewValue = this.setMultipleValues(values, 'viewValue');
     }
