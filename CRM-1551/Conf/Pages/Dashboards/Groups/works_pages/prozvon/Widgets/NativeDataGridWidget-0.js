@@ -139,10 +139,10 @@
                 if(e.column) {
                     if(e.column.dataField === 'full_name' && e.row !== undefined) {
                         window.open(String(location.origin + localStorage.getItem('VirtualPath') +
-                        '/dashboard/page/prozvonApplicant_v2?id=' + e.data.ApplicantsId));
+                        '/dashboard/page/prozvonApplicant?id=' + e.data.ApplicantsId));
                     }else if(e.column.dataField === 'house' && e.row !== undefined) {
                         window.open(String(location.origin + localStorage.getItem('VirtualPath') +
-                        '/dashboard/page/prozvonHouse_v2?id=' + e.data.BuildingId));
+                        '/dashboard/page/prozvonHouse?id=' + e.data.BuildingId));
                     }else if(e.column.dataField === 'registration_number' && e.row !== undefined) {
                         window.open(String(location.origin + localStorage.getItem('VirtualPath') +
                         '/sections/Assignments/edit/' + e.data.Id));

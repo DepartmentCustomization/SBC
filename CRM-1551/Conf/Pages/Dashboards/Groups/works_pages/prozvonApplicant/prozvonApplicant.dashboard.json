@@ -1,5 +1,6 @@
+
 {
-  "DashboardGroupCode": "test_group",
+  "DashboardGroupCode": "works_pages",
   "ModelType": "Dashboard",
   "Code": "prozvonApplicant",
   "Name": "Фiльтрацiя по заявнику"
