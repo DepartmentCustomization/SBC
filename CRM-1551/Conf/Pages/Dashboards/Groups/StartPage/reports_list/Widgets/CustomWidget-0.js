@@ -1,6 +1,6 @@
 (function() {
     return {
-        title: 'Список звiтiв',
+        title: 'Список звітів',
         hint: '',
         formatTitle: function() {
             return {

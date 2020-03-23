@@ -1,8 +1,8 @@
 {
-  "DashboardGroupCode": "StartPage",
+  "DashboardGroupCode": "works_pages",
   "Description": "",
   "DescriptionUrl": "",
   "ModelType": "Dashboard",
   "Code": "reports_list",
-  "Name": "Список звiтiв"
+  "Name": "Список звітів"
 }
