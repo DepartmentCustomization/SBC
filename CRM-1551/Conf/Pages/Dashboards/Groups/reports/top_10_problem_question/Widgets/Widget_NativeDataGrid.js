@@ -156,6 +156,7 @@
         },
         init: function() {
             this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
+            this.sub2 = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
             this.arrayColor = [
                 '63be7b',
                 '85c87d',
@@ -525,10 +526,19 @@
                             {key: '@organization', value: this.organization },
                             {key: '@organizationGroup', value: this.organizationGroup }
                         ];
-                        this.loadData(this.afterLoadDataHandler);
                     }
                 }
             }
+        },
+        applyChanges: function() {
+            const msg = {
+                name: 'SetFilterPanelState',
+                package: {
+                    value: false
+                }
+            };
+            this.messageService.publish(msg);
+            this.loadData(this.afterLoadDataHandler);
         },
         afterLoadDataHandler: function(data) {
             this.data = data;
@@ -536,6 +546,7 @@
         },
         destroy: function() {
             this.sub1.unsubscribe();
+            this.sub2.unsubscribe();
         }
     };
 }());

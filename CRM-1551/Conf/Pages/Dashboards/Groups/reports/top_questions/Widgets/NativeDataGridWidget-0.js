@@ -63,6 +63,7 @@
             this.dataGridInstance.height = window.innerHeight - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe('showTopQuestions', this.showTopQuestionsTable, this);
+            this.sub2 = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
         showTopQuestionsTable: function() {
@@ -263,6 +264,16 @@
             }
             return trueDate;
         },
+        applyChanges: function() {
+            const msg = {
+                name: 'SetFilterPanelState',
+                package: {
+                    value: false
+                }
+            };
+            this.messageService.publish(msg);
+            this.loadData(this.afterLoadDataHandler);
+        },
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let questionType = message.package.value.values.find(f => f.name === 'questionTypes').value;
@@ -286,7 +297,6 @@
                             {key: '@organization', value: this.organization },
                             {key: '@organizationGroup', value: this.organizationGroup }
                         ];
-                        this.loadData(this.afterLoadDataHandler);
                     }
                 }
             }
@@ -305,6 +315,7 @@
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
+            this.sub2.unsubscribe();
         }
     };
 }());

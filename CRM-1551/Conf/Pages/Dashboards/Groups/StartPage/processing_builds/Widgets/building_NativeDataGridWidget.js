@@ -74,7 +74,7 @@
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 100;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyGlobalFilters, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
@@ -189,7 +189,7 @@
                 this.hidePagePreloader();
             });
         },
-        applyGlobalFilters: function() {
+        applyChanges: function() {
             this.sendMessageFilterPanelState(false);
             this.loadData(this.afterLoadDataHandler);
         },

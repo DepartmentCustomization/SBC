@@ -52,8 +52,10 @@
         groupQuestionId: undefined,
         groupQuestionName: undefined,
         qty: undefined,
+        firstLoad: true,
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
             this.chartConfig.plotOptions.pie.point.events.click = this.clickOnPie.bind(this);
         },
         clickOnPie: function(e) {
@@ -75,8 +77,18 @@
                 '&organizationGroup=' + organizationGroup
             );
         },
+        applyChanges: function() {
+            const msg = {
+                name: 'SetFilterPanelState',
+                package: {
+                    value: false
+                }
+            };
+            this.messageService.publish(msg);
+            this.queryExecutor(this.query, this.load, this);
+        },
         executeQuery: function() {
-            const query = {
+            this.query = {
                 'queryCode': 'db_Report_8_1',
                 'limit': -1,
                 'parameterValues': [
@@ -86,7 +98,10 @@
                     { 'key': '@organizationGroup', 'value': this.organizationGroup }
                 ]
             };
-            this.queryExecutor(query, this.load, this);
+            if (this.firstLoad) {
+                this.queryExecutor(this.query, this.load, this);
+                this.firstLoad = false;
+            }
         },
         load: function(data) {
             this.fillIndexes(data);
@@ -155,6 +170,7 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         }
     };
 }());
