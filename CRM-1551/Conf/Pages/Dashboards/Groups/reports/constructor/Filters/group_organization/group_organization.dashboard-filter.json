@@ -1,5 +1,4 @@
 {
   "Type": "SelectFilterComponent",
-  "Owner": "group_organization",
-  "Position": 5
+  "Owner": "group_organization"
 }

@@ -1,5 +1,4 @@
 {
   "Type": "CheckboxFilterComponent",
-  "Owner": "questions",
-  "Position": 7
+  "Owner": "questions"
 }

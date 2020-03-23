@@ -1,5 +1,5 @@
-(function() {
-    return {
+(function () {
+  return {
         placeholder: 'Дата надходження',
         showTime: true,
         type: 'DateTime',

@@ -1,4 +1,5 @@
 {
+  "IsMain": true,
   "Type": "DatepickerFilterComponent",
-  "Owner": "date_receipt"
+  "Owner": "period"
 }

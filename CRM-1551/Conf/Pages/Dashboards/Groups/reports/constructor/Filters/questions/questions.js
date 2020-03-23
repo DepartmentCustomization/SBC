@@ -1,5 +1,5 @@
-(function() {
-    return {
+(function () {
+  return {
         placeholder: 'Питання',
         onItemSelect: function(value) {
             this.yourFunctionName(value);

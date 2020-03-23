@@ -128,13 +128,11 @@
                 }
             }
         },
-        extractOrgValues: function(users) {
-            if(users !== null && users.length > 0) {
-                const usersList = [];
-                for (let i = 0; i < users.length; i++) {
-                    usersList.push(users[i].value);
-                }
-                return usersList;
+        extractOrgValues: function(items) {
+            if(items.length && items !== '') {
+                const valuesList = [];
+                items.forEach(item => valuesList.push(item.value));
+                return valuesList;
             }
             return [];
         },
