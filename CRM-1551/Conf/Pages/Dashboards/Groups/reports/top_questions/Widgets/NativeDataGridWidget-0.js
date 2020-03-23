@@ -291,11 +291,11 @@
                 }
             }
         },
-        extractOrgValues: function(val) {
-            if(val !== '') {
-                let valuesList = [];
-                valuesList.push(val.value);
-                return valuesList.length > 0 ? valuesList : [];
+        extractOrgValues: function(items) {
+            if(items.length && items !== '') {
+                const valuesList = [];
+                items.forEach(item => valuesList.push(item.value));
+                return valuesList;
             }
             return [];
         },

@@ -85,28 +85,53 @@
                 let wednesday = this.createElement('div', { className: 'calenDay', innerText: 'СР'});
                 let thursday = this.createElement('div', { className: 'calenDay', innerText: 'ЧТ'});
                 let friday = this.createElement('div', { className: 'calenDay', innerText: 'ПТ'});
-                let saterday = this.createElement('div', { className: 'calenDay', innerText: 'СБ'});
+                let saturday = this.createElement('div', { className: 'calenDay', innerText: 'СБ'});
                 let sunday = this.createElement('div', { className: 'calenDay', innerText: 'ВС'});
-                let monthBox = this.createElement('div', { id: String('monthBox_' + month.year + '_' + month.month), className: 'month'}, monday, tuesday, wednesday, thursday, friday, saterday, sunday);
-                for(let i = 0; i < month.day - 1; i++) {
-                    dayBox = this.createElement('div', { id: 'day_' + month.year + '_' + month.month + '_00', className: 'calenDay emptyDay'});
+                let monthBox = this.createElement('div',
+                    {
+                        id: 'monthBox_' + month.year + '_' + month.month, className: 'month'
+                    },
+                    monday, tuesday, wednesday, thursday, friday, saturday, sunday
+                );
+                for (let i = 0; i < month.day - 1; i++) {
+                    dayBox = this.createElement('div',
+                        {
+                            id: 'day_' + month.year + '_' + month.month + '_00', className: 'calenDay emptyDay'
+                        }
+                    );
                     monthBox.appendChild(dayBox);
                 }
                 for(let i = 0; i < month.monthLength; i++) {
-                    dayBox = this.createElement('div', { dayId: month.arr[i], id: 'day_' + month.year + '_' + month.month + '_' + (i + 1), innerText: i + 1, className: 'calenDay day', isWork: true });
+                    dayBox = this.createElement('div',
+                        {
+                            dayId: month.arr[i],
+                            id: 'day_' + month.year + '_' + month.month + '_' + (i + 1),
+                            innerText: i + 1,
+                            className: 'calenDay day',
+                            isWork: true
+                        }
+                    );
                     monthBox.appendChild(dayBox);
                 }
                 let ml = monthBox.childNodes.length;
                 if(ml < 42 && ml > 36) {
                     let c = 42 - ml;
                     for(let i = 0; i < c; i++) {
-                        let dayBox = this.createElement('div', { id: 'day_' + month.year + '_' + month.month + '_00', className: 'calenDay emptyDay'});
+                        let dayBox = this.createElement('div',
+                            {
+                                id: 'day_' + month.year + '_' + month.month + '_00', className: 'calenDay emptyDay'
+                            }
+                        );
                         monthBox.appendChild(dayBox);
                     }
                 }else if(ml < 49 && ml > 42) {
                     let c = 49 - ml;
                     for(let i = 0; i < c; i++) {
-                        let dayBox = this.createElement('div', { id: 'day_' + month.year + '_' + month.month + '_00', className: 'calenDay emptyDay'});
+                        let dayBox = this.createElement('div',
+                            {
+                                id: 'day_' + month.year + '_' + month.month + '_00', className: 'calenDay emptyDay'
+                            }
+                        );
                         monthBox.appendChild(dayBox);
                     }
                 }
@@ -147,6 +172,8 @@
                     break
                 case 12:
                     title = 'Грудень'
+                    break
+                default:
                     break
                 }
                 let monthTitle = this.createElement('div', { className: 'monthTitle', innerText: title});

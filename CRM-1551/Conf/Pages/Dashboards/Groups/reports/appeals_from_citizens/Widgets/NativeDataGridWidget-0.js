@@ -125,15 +125,11 @@
                 }
             }
         },
-        extractOrgValues: function(val) {
-            if(val != null) {
-                let valuesList = [];
-                if (val.length > 0) {
-                    for (let i = 0; i < val.length; i++) {
-                        valuesList.push(val[i].value);
-                    }
-                }
-                return valuesList.length > 0 ? valuesList : [];
+        extractOrgValues: function(items) {
+            if(items.length && items !== '') {
+                const valuesList = [];
+                items.forEach(item => valuesList.push(item.value));
+                return valuesList;
             }
             return [];
         },

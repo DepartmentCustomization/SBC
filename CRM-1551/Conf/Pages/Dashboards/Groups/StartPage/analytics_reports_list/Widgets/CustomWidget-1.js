@@ -19,7 +19,10 @@
                 { title: 'ТОП-10 найпроблемніших питань в розрізі районів', url: 'top_10_problem_question'},
                 { title: 'Моніторинг та реагування на звернення громадян', url: 'monitoring_and_responding'},
                 { title: 'Щотижневий дайджест', url: 'weekly_digest'},
-                { title: 'Звіт щодо кількості відключених будинків по комунальним послугам', url: 'report_on_the_number_of_detached_houses'},
+                {
+                    title: 'Звіт щодо кількості відключених будинків по комунальним послугам',
+                    url: 'report_on_the_number_of_detached_houses'
+                },
                 { title: 'ТОП-10 найпроблемніших сфер життєдіяльності міста', url: 'most_problematic_spheres_of_city_life'},
                 { title: 'Статистичний звіт за рік чи півріччя', url: 'statistical_report_for_the_year_or_half_year'}
             ];
