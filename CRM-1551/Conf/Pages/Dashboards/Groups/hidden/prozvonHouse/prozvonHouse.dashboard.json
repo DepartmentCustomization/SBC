@@ -1,5 +1,6 @@
 {
-  "DashboardGroupCode": "works_pages",
+  "IsVisible": true,
+  "DashboardGroupCode": "hidden",
   "ModelType": "Dashboard",
   "Code": "prozvonHouse",
   "Name": "Фiльтрацiя по будинку"
