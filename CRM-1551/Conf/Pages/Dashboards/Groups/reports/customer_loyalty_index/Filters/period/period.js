@@ -1,5 +1,5 @@
-(function () {
-  return {
+(function() {
+    return {
         placeholder: '',
         type: 'Date',
         stepMinute: 1,

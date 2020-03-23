@@ -1,5 +1,5 @@
-(function () {
-  return {
+(function() {
+    return {
         placeholder: 'Джерело надходження',
         keyValue: 'Id',
         displayValue: 'Name',

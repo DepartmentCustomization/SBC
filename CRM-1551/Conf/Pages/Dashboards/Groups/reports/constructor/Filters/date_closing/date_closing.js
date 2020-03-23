@@ -1,5 +1,5 @@
-(function () {
-  return {
+(function() {
+    return {
         placeholder: 'Дата закриття',
         type: 'Date',
         onItemSelect: function(date) {

@@ -1,5 +1,5 @@
-(function () {
-  return {
+(function() {
+    return {
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },

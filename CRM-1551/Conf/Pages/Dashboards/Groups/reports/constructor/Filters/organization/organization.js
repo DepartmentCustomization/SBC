@@ -1,5 +1,5 @@
-(function () {
-  return {
+(function() {
+    return {
         placeholder: 'Організація',
         keyValue: 'Id',
         displayValue: 'orgName',
