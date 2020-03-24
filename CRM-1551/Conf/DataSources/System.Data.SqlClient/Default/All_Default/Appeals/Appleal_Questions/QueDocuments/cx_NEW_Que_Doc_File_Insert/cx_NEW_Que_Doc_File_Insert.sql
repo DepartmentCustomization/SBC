@@ -3,7 +3,7 @@ DECLARE @FilesVal TINYINT = (SELECT COUNT(1) FROM [dbo].[QuestionDocFiles] WHERE
 
 IF(@FilesVal = 6)
 BEGIN
-	RAISERROR(N'Неможливо додати! Кількість файлів максимальна.',16,1);
+	RAISERROR(N'Кількість файлів максимальна.',16,1);
 	RETURN;
 END
 
