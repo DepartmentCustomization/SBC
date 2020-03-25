@@ -8,7 +8,7 @@
             this.details.setVisibility('EventHistory_Details', true);
         },
         init: function() {
-            if (this.form.getControlValue('real_end_date') != null) {
+            if (this.form.getControlValue('real_end_date') !== null) {
                 this.navigateTo('/sections/Events/view/' + this.id);
             }
             this.details.setVisibility('EventHistory_Details', false);

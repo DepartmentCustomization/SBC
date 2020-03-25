@@ -66,7 +66,7 @@
             },
             pager: {
                 showPageSizeSelector: true,
-                allowedPageSizes: [10, 15, 30],
+                allowedPageSizes: [this.minPageSize, this.mediumPageSize, this.largePageSize],
                 showInfo: true,
                 pageSize: 10
             },
@@ -103,8 +103,13 @@
         },
         sub: [],
         sub1: [],
+        minPageSize: 10,
+        mediumPageSize: 15,
+        largePageSize: 30,
+        one: 1,
+        windowHeigh: 270,
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 270;
+            this.dataGridInstance.height = window.innerHeight - this.windowHeigh;
             document.getElementById('table_events').style.display = 'none';
             this.sub = this.messageService.subscribe('showEventTable', this.changeOnTable, this);
             this.sub1 = this.messageService.subscribe('search', this.searchRelust, this);
@@ -113,7 +118,7 @@
                     if (e.column.dataField === 'EventId' && e.row !== undefined) {
                         if (e.data.gorodok_id === 0) {
                             window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Events/edit/' + e.key));
-                        } else if (e.data.gorodok_id === 1) {
+                        } else if (e.data.gorodok_id === this.one) {
                             window.open(String(location.origin +
                                 localStorage.getItem('VirtualPath') +
                                 '/sections/Gorodok_global/view/' + e.key
