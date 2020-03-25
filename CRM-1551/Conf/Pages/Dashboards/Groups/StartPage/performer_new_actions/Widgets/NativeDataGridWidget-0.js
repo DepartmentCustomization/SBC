@@ -29,6 +29,10 @@
                 dataField: 'EventName',
                 caption: 'Назва',
                 fixed: true
+            },{
+                dataField: 'objectName',
+                caption: 'Об`єкт',
+                fixed: true
             }, {
                 dataField: 'start_date',
                 caption: 'Дата початку',
@@ -45,7 +49,8 @@
             }, {
                 dataField: 'CountQuestions',
                 caption: 'К-ть питань пов`язаних з заходом',
-                fixed: true
+                fixed: true,
+                alignment: 'center'
             }],
             filterRow: {
                 visible: true,
@@ -104,7 +109,7 @@
             this.sub = this.messageService.subscribe('showEventTable', this.changeOnTable, this);
             this.sub1 = this.messageService.subscribe('search', this.searchRelust, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
-                if(e.column) {
+                if (e.column) {
                     if (e.column.dataField === 'EventId' && e.row !== undefined) {
                         if (e.data.gorodok_id === 0) {
                             window.open(String(location.origin + localStorage.getItem('VirtualPath') + '/sections/Events/edit/' + e.key));
@@ -183,11 +188,13 @@
             );
             let elementComment = this.createElement('div',
                 {
-                    className: 'elementСontent element' }, elementComment__caption, elementComment__content
+                    className: 'elementСontent element'
+                }, elementComment__caption, elementComment__content
             );
             let elementsWrapper = this.createElement('div',
                 {
-                    className: 'elementsWrapper' }, elementAdress, elementСontent, elementComment
+                    className: 'elementsWrapper'
+                }, elementAdress, elementСontent, elementComment
             );
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');
