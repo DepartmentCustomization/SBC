@@ -79,13 +79,16 @@ export class QueryHelper {
 
     setDateTimeQueryParametersValues(filter) {
         if (filter.dateFrom) {
-            const index = this.getIndex(`@${filter.name}DateFrom`);
-            this.setQueryParameterValue(filter.dateFrom, index);
+            this.getQueryParameterProps(filter.name, filter.dateFrom, 'DateFrom');
         }
         if (filter.dateTo) {
-            const index = this.getIndex(`@${filter.name}DateTo`);
-            this.setQueryParameterValue(filter.dateTo, index);
+            this.getQueryParameterProps(filter.name, filter.dateTo, 'DateTo');
         }
+    }
+
+    getQueryParameterProps(name, value, text) {
+        const index = this.getIndex(`@${name}${text}`);
+        this.setQueryParameterValue(value, index);
     }
 
     getIndex(key) {
