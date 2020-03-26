@@ -26,6 +26,9 @@
             const activeFilters = filterHelper.getActiveFilters(filters);
             const queryHelper = new this.queryHelper.QueryHelper();
             this.queryParameters = queryHelper.getQueryParameters(filters, activeFilters);
+        },
+        destroy: function() {
+            this.sub.unsubscribe();
         }
     };
 }());

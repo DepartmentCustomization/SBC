@@ -51,8 +51,7 @@ export class QueryHelper {
             switch (filter.type) {
                 case 'Date':
                     if (filter.value || filter.value === '') {
-                        const index = this.getIndex(`@${filter.name}`);
-                        this.setQueryParameterValue(filter.value, index);
+                        this.setQueryParameterValue(filter.value, filter.name, null);
                     } else {
                         this.setDateTimeQueryParametersValues(filter);
                     }
@@ -66,8 +65,7 @@ export class QueryHelper {
                 case 'MultiSelect':
                 case 'CheckBox':
                 case 'Input': {
-                    const index = this.getIndex(`@${filter.name}`);
-                    this.setQueryParameterValue(filter.value, index);
+                    this.setQueryParameterValue(filter.value, filter.name, null);
                     break;
                 }
                 default:
@@ -79,23 +77,19 @@ export class QueryHelper {
 
     setDateTimeQueryParametersValues(filter) {
         if (filter.dateFrom) {
-            this.getQueryParameterProps(filter.name, filter.dateFrom, 'DateFrom');
+            this.setQueryParameterValue(filter.dateFrom, filter.name, 'DateFrom');
         }
         if (filter.dateTo) {
-            this.getQueryParameterProps(filter.name, filter.dateTo, 'DateTo');
+            this.getQueryParameterProps(filter.dateTo, filter.name, 'DateTo');
         }
-    }
-
-    setQueryParameterProps(name, value, text) {
-        const index = this.getIndex(`@${name}${text}`);
-        this.setQueryParameterValue(value, index);
     }
 
     getIndex(key) {
         return this.queryParameters.findIndex(p => p.key === key);
     }
 
-    setQueryParameterValue(value, index) {
+    setQueryParameterValue(value, name, suffix) {
+        const index = suffix === null ? this.getIndex(`@${name}`) : this.getIndex(`@${name}${suffix}`);
         this.queryParameters[index].value = value;
     }
 }
