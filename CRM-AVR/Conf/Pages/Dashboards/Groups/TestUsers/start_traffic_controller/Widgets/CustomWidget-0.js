@@ -288,32 +288,32 @@
                     event.stopImmediatePropagation();
                     let target = event.currentTarget;
                     let obj = {
-                        "sortColumns": [{
-                            "key": "Created_at",
-                            "value": 1
+                        'sortColumns': [{
+                            'key': 'Created_at',
+                            'value': 1
                         }],
-                        "filterColumns": []
+                        'filterColumns': []
                     };
                     let children = target.parentElement.childNodes;
                     for (let i = 0; i < children.length - 1; i++) {
                         let el = children[i];
                         if(el.value !== '') {
                             let column = {
-                                "key": el.key,
-                                "value": {
-                                    "operation": 6,
-                                    "values": [el.value]
+                                'key': el.key,
+                                'value': {
+                                    'operation': 6,
+                                    'values': [el.value]
                                 }
                             }
                             obj.filterColumns.push(column)
                         }
                     }
                     let str = JSON.stringify(obj);
-                    // let base64Str = str.encodeBase64();
                     let base64Str = btoa(str);
-
                     if(obj.filterColumns.length > 0) {
-                       window.location = String(location.origin + localStorage.getItem('VirtualPath') + '/sections/' + el.url + '' +  base64Str);
+                        window.location = String(
+                            String(location.origin + localStorage.getItem('VirtualPath') + '/sections/' + el.url) + base64Str
+                        );
                     }
                 });
             });
