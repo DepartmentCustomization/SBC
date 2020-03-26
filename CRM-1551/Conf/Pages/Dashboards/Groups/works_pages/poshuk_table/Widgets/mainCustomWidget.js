@@ -8,6 +8,8 @@
                     <div id='container' ></div>
                     `
         ,
+        displayNone: 'none',
+        displayBlock: 'block',
         init: function() {
             const msg = {
                 name: 'SetFilterPanelState',
@@ -17,27 +19,48 @@
             };
             this.messageService.publish(msg);
             this.sub = this.messageService.subscribe('filters', this.showApplyFiltersValue, this);
-            this.sub1 = this.messageService.subscribe('clickOnFiltersBtn', this.clickOnGear, this);
+            this.sub1 = this.messageService.subscribe('showModalWIndow', this.showModalWIndow, this);
             this.filterColumns = [];
             this.defaultCheckedItem = [];
         },
-        clickOnGear: function() {
-            if(document.getElementById('modalWindowWrapper').style.display === 'none') {
-                document.getElementById('modalWindowWrapper').style.display = 'block'
+        showModalWIndow: function(message) {
+            if (this.modalWindowWrapper.style.display === this.displayNone) {
+                this.modalWindowWrapper.style.display = this.displayBlock;
+                const button = message.button;
+                switch (button) {
+                case 'gear':
+                    this.createButtons(this.gearSaveMethod, this.hideModalWindow);
+                    this.appendModalWindow();
+                    this.createFilterElements();
+                    break;
+                case 'saveFilters':
+                    this.createButtons(this.gearSaveMethod, this.hideModalWindow);
+                    this.appendModalWindow();
+                    break;
+                case 'showFilters':
+                    this.createButtons(this.gearSaveMethod, this.hideModalWindow);
+                    this.appendModalWindow();
+                    break;
+                default:
+                    break;
+                }
             }
         },
+        appendModalWindow() {
+            this.container.appendChild(this.modalWindowWrapper);
+        },
         afterViewInit: function() {
-            const container = document.getElementById('container');
-            const filtersContainer = this.createElement('div', { id:'filtersContainer', className: 'filtersContainer'});
-            const modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'});
-            const modalWindowWrapper = this.createElement('div', {
+            this.container = document.getElementById('container');
+            this.createModalWindow();
+            this.createSelectedFiltersContainer();
+        },
+        createModalWindow() {
+            this.modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'});
+            this.modalWindowWrapper = this.createElement('div', {
                 id:'modalWindowWrapper',
                 className: 'modalWindowWrapper'
-            }, modalWindow);
-            modalWindowWrapper.style.display = 'none';
-            container.appendChild(filtersContainer);
-            container.appendChild(modalWindowWrapper);
-            this.createFilterElements(modalWindow);
+            }, this.modalWindow);
+            this.modalWindowWrapper.style.display = this.displayNone;
         },
         checkItems: function() {
             let elements = this.filterColumns;
@@ -54,13 +77,62 @@
                 });
             } return element;
         },
+        createButtons(saveMethod, exitMethod) {
+            const modalBtnSave = this.createElement('button', {
+                id:'modalBtnSave',
+                className: 'btn',
+                innerText: 'Зберегти'
+            });
+            const modalBtnExit = this.createElement('button', {
+                id:'modalBtnExit',
+                className: 'btn',
+                innerText: 'Вийти'
+            });
+            const modalBtnWrapper = this.createElement('div',
+                {
+                    id:'modalBtnWrapper',
+                    className: 'modalBtnWrapper'
+                },
+                modalBtnSave, modalBtnExit
+            );
+            modalBtnExit.addEventListener('click', () =>{
+                const self = this;
+                exitMethod(self);
+            });
+            modalBtnSave.addEventListener('click', () => {
+                const self = this;
+                saveMethod(self);
+            });
+            this.modalWindow.appendChild(modalBtnWrapper);
+        },
+        hideModalWindow(self) {
+            self.clearContainer(self.modalWindow);
+            self.modalWindowWrapper.style.display = self.displayNone;
+        },
+        gearSaveMethod(self) {
+            self.defaultCheckedItem = [];
+            self.filterColumns = [];
+            const checkedElements = Array.from(document.querySelectorAll('.group__element'));
+            checkedElements.forEach(el => {
+                if(el.firstElementChild.checked) {
+                    const width = Number(el.firstElementChild.columnWidth);
+                    const displayValue = el.firstElementChild.value;
+                    const caption = el.lastElementChild.innerText;
+                    const obj = { displayValue, caption, width }
+                    self.filterColumns.push(obj);
+                }
+            });
+            self.messageService.publish({
+                name: 'findFilterColumns',
+                value: self.filterColumns
+            });
+            self.hideModalWindow(self);
+        },
         showApplyFiltersValue: function(message) {
-            let container = document.getElementById('filtersContainer');
-            while(container.hasChildNodes()) {
-                container.removeChild(container.lastElementChild);
-            }
+            this.clearContainer(this.selectedFiltersContainer);
             const filtersBox = [];
-            message.value.forEach(filter => {
+            const filters = message.value;
+            filters.forEach(filter => {
                 let value = filter.operation;
                 let obj = {};
                 switch(value) {
@@ -89,27 +161,14 @@
             });
             this.createFilterBox(filtersBox);
         },
-        operation: function(operation, title) {
-            let result = title;
-            switch(operation) {
-            case '>=':
-                result = title + ' з'
-                break;
-            case '<=':
-                result = title + ' по'
-                break;
-            default:
-                break;
-            }
-            return result;
-        },
-        changeDateValue: function(date) {
-            let dd = date.getDate().toString();
-            let mm = (date.getMonth() + 1).toString();
-            let yyyy = date.getFullYear().toString();
-            dd = dd.length === 1 ? '0' + dd : dd;
-            mm = mm.length === 1 ? '0' + mm : mm;
-            return dd + '-' + mm + '-' + yyyy;
+        createSelectedFiltersContainer() {
+            this.selectedFiltersContainer = this.createElement('div',
+                {
+                    id:'selectedFiltersContainer',
+                    className: 'selectedFiltersContainer'
+                }
+            );
+            this.container.appendChild(this.selectedFiltersContainer);
         },
         createFilterBox: function(filtersBox) {
             for(let i = 0; i < filtersBox.length; i++) {
@@ -126,10 +185,10 @@
                 let filterBox = this.createElement('div', {
                     className: 'filterBox'
                 }, filterBox__title, filterBox__value);
-                document.getElementById('filtersContainer').appendChild(filterBox);
+                this.selectedFiltersContainer.appendChild(filterBox);
             }
         },
-        createFilterElements: function(modalWindow) {
+        createFilterElements: function() {
             const group1__title = this.createElement('div', {
                 className: 'group1__title groupTitle material-icons',
                 innerText: 'view_stream Звернення'
@@ -642,47 +701,7 @@
                 id:'groupsContainer',
                 className: 'groupsContainer'
             }, group1, group2, group3, group4, group5);
-            const modalBtnSave = this.createElement('button', {
-                id:'modalBtnSave',
-                className: 'btn',
-                innerText: 'Зберегти'
-            });
-            const modalBtnExit = this.createElement('button', {
-                id:'modalBtnExit',
-                className: 'btn',
-                innerText: 'Вийти'
-            });
-            const modalBtnWrapper = this.createElement('div', {
-                id:'modalBtnWrapper',
-                className: 'modalBtnWrapper'
-            }, modalBtnSave, modalBtnExit);
-            modalBtnExit.addEventListener('click', event =>{
-                event.stopImmediatePropagation();
-                document.getElementById('modalWindowWrapper').style.display = 'none';
-            });
-            modalBtnSave.addEventListener('click', event => {
-                event.stopImmediatePropagation();
-                this.defaultCheckedItem = [];
-                this.filterColumns = [];
-                let checkedElements = document.querySelectorAll('.group__element');
-                checkedElements = Array.from(checkedElements);
-                checkedElements.forEach(el => {
-                    if(el.firstElementChild.checked === true) {
-                        let width = Number(el.firstElementChild.columnWidth);
-                        let displayValue = el.firstElementChild.value;
-                        let caption = el.lastElementChild.innerText;
-                        let obj = { displayValue, caption, width }
-                        this.filterColumns.push(obj);
-                    }
-                });
-                let columns = this.filterColumns;
-                this.messageService.publish({
-                    name: 'findFilterColumns', value: columns
-                });
-                document.getElementById('modalWindowWrapper').style.display = 'none';
-            });
-            modalWindow.appendChild(modalBtnWrapper);
-            modalWindow.appendChild(groupsContainer);
+            this.modalWindow.appendChild(groupsContainer);
             if(this.defaultCheckedItem.length > 0) {
                 let arr = this.defaultCheckedItem;
                 arr.forEach(e => {
@@ -690,6 +709,33 @@
                 });
             }
             this.checkItems();
+        },
+        operation: function(operation, title) {
+            let result = title;
+            switch(operation) {
+            case '>=':
+                result = title + ' з'
+                break;
+            case '<=':
+                result = title + ' по'
+                break;
+            default:
+                break;
+            }
+            return result;
+        },
+        changeDateValue: function(date) {
+            let dd = date.getDate().toString();
+            let mm = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return dd + '-' + mm + '-' + yyyy;
+        },
+        clearContainer(container) {
+            while(container.hasChildNodes()) {
+                container.removeChild(container.lastElementChild);
+            }
         },
         destroy: function() {
             this.sub.unsubscribe();

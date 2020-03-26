@@ -41,7 +41,7 @@
                 "border": "none",
                 "children": [
                   {
-                    "code": "filtersName_CustomWidget",
+                    "code": "mainCustomWidget",
                     "type": "CustomWidgetComponent",
                     "name": "filters_place"
                   }

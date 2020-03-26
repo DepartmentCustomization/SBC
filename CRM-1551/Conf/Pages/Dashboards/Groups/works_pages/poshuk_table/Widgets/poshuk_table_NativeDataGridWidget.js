@@ -76,7 +76,7 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
             this.sub2 = this.messageService.subscribe('findFilterColumns', this.reloadTable, this);
-            this.config.onToolbarPreparing = this.createButtons.bind(this);
+            this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
                     if(e.column.dataField === 'question_registration_number' && e.row !== undefined) {
@@ -91,34 +91,72 @@
             }.bind(this));
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-        createButtons: function(e) {
-            let toolbarItems = e.toolbarOptions.items;
-            toolbarItems.push({
+        createTableButton: function(e) {
+            const modalWindowMessageName = 'showModalWIndow';
+            const self = this;
+            const buttonSaveFilters = {
+                text: 'Зберегти',
+                type: 'default',
+                icon: 'save',
+                location: 'before',
+                method: function() {
+                    self.messageService.publish({ name: modalWindowMessageName, button: 'saveFilters'});
+                }
+            }
+            const buttonSetFilters = {
+                text: 'Список',
+                type: 'default',
+                icon: 'detailslayout',
+                location: 'before',
+                method: function() {
+                    self.messageService.publish({ name: modalWindowMessageName, button: 'showFilters'});
+                }
+            }
+            const buttonApplyProps = {
+                text: 'Excel',
+                type: 'default',
+                icon: 'exportxlsx',
+                location: 'after',
+                method: function() {
+                    self.exportToExcel();
+                }
+            }
+            const buttonSkipProps = {
+                text: 'Налаштування фiльтрiв',
+                type: 'default',
+                icon: 'preferences',
+                location: 'after',
+                class: 'defaultButton',
+                method: function() {
+                    self.messageService.publish({ name: modalWindowMessageName, button: 'gear'});
+                }
+            }
+            const buttonApply = this.createToolbarButton(buttonApplyProps);
+            const buttonSkip = this.createToolbarButton(buttonSkipProps);
+            const buttonSave = this.createToolbarButton(buttonSaveFilters);
+            const buttonSet = this.createToolbarButton(buttonSetFilters);
+            e.toolbarOptions.items.push(buttonApply);
+            e.toolbarOptions.items.push(buttonSkip);
+            e.toolbarOptions.items.push(buttonSave);
+            e.toolbarOptions.items.push(buttonSet);
+        },
+        createToolbarButton: function(button) {
+            return {
                 widget: 'dxButton',
+                location: button.location,
                 options: {
-                    icon: 'exportxlsx',
-                    type: 'default',
-                    text: 'Excel',
+                    icon: button.icon,
+                    type: button.type,
+                    text: button.text,
+                    elementAttr: {
+                        class: button.class
+                    },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
-                        this.exportToExcel();
+                        button.method();
                     }.bind(this)
-                },
-                location: 'after'
-            });
-            toolbarItems.push({
-                widget: 'dxButton',
-                options: {
-                    icon: 'preferences',
-                    type: 'default',
-                    text: 'Налаштування фiльтрiв',
-                    onClick: function(e) {
-                        e.event.stopImmediatePropagation();
-                        this.messageService.publish({ name: 'clickOnFiltersBtn'});
-                    }.bind(this)
-                },
-                location: 'after'
-            });
+                }
+            }
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
@@ -623,45 +661,45 @@
                     const field = this.excelFields[i];
                     const prop = this.excelFields[i].name;
                     switch(prop) {
-                        case 'appeals_user':
-                        case 'appeals_receipt_source':
-                        case 'appeals_district':
-                        case 'zayavnyk_phone_number':
-                        case 'zayavnyk_entrance':
-                        case 'zayavnyk_applicant_privilage':
-                        case 'zayavnyk_social_state':
-                        case 'zayavnyk_sex':
-                        case 'zayavnyk_applicant_type':
-                        case 'zayavnyk_age':
-                        case 'zayavnyk_email':
-                        case 'question_ObjectTypes':
-                        case 'question_organization':
-                        case 'question_question_state':
-                        case 'question_list_state':
-                        case 'assigm_main_executor':
-                        case 'assigm_accountable':
-                        case 'assigm_assignment_state':
-                        case 'assigm_assignment_result':
-                        case 'assigm_assignment_resolution':
-                        case 'assigm_user_reviewed':
-                        case 'assigm_user_checked':
-                        case 'appeals_enter_number':
-                        case 'control_comment':
-                        case 'ConsDocumentContent':
-                            rowItem[prop] = row.values[field.index];
-                            break
-                        case 'transfer_date':
-                        case 'state_changed_date':
-                        case 'state_changed_date_done':
-                        case 'execution_term':
-                        case 'control_date':
-                            rowItem[prop] = this.changeDateTimeValues(row.values[field.index], false);
-                            break
-                        case 'appeals_files_check':
-                            rowItem[prop] = this.setAppealsFilesCheckValue(row.values[field.index]);
-                            break
-                        default:
-                            break
+                    case 'appeals_user':
+                    case 'appeals_receipt_source':
+                    case 'appeals_district':
+                    case 'zayavnyk_phone_number':
+                    case 'zayavnyk_entrance':
+                    case 'zayavnyk_applicant_privilage':
+                    case 'zayavnyk_social_state':
+                    case 'zayavnyk_sex':
+                    case 'zayavnyk_applicant_type':
+                    case 'zayavnyk_age':
+                    case 'zayavnyk_email':
+                    case 'question_ObjectTypes':
+                    case 'question_organization':
+                    case 'question_question_state':
+                    case 'question_list_state':
+                    case 'assigm_main_executor':
+                    case 'assigm_accountable':
+                    case 'assigm_assignment_state':
+                    case 'assigm_assignment_result':
+                    case 'assigm_assignment_resolution':
+                    case 'assigm_user_reviewed':
+                    case 'assigm_user_checked':
+                    case 'appeals_enter_number':
+                    case 'control_comment':
+                    case 'ConsDocumentContent':
+                        rowItem[prop] = row.values[field.index];
+                        break
+                    case 'transfer_date':
+                    case 'state_changed_date':
+                    case 'state_changed_date_done':
+                    case 'execution_term':
+                    case 'control_date':
+                        rowItem[prop] = this.changeDateTimeValues(row.values[field.index], false);
+                        break
+                    case 'appeals_files_check':
+                        rowItem[prop] = this.setAppealsFilesCheckValue(row.values[field.index]);
+                        break
+                    default:
+                        break
                     }
                 }
                 rows.push(rowItem);

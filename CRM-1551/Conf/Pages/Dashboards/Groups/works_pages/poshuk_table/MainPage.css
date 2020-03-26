@@ -136,7 +136,7 @@
     border: 0;
     font-weight: 600;
 }
-#filtersContainer{
+#selectedFiltersContainer{
     justify-content: space-around;
     display: flex;
     margin-top: 15px;
