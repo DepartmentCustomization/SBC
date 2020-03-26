@@ -86,7 +86,7 @@ export class QueryHelper {
         }
     }
 
-    getQueryParameterProps(name, value, text) {
+    setQueryParameterProps(name, value, text) {
         const index = this.getIndex(`@${name}${text}`);
         this.setQueryParameterValue(value, index);
     }
