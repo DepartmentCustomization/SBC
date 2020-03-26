@@ -7,7 +7,7 @@
         },
         sampleFiz: function(org_id) {
             let orgParam = [{ parameterCode: '@OrgID', parameterValue: org_id }];
-            this.form.setControlParameterValues('fiz_name', orgParam);
+            this.form.setControlParameterValues('fiz_id', orgParam);
             const org_id_n = {
                 queryCode: 'phone_number_outsideMan',
                 parameterValues:[{key: '@org_id',value: org_id}]
