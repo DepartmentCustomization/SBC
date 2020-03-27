@@ -63,7 +63,7 @@
                 "border": "none",
                 "children": [
                   {
-                    "code": "poshuk_table_NativeDataGridWidget",
+                    "code": "poshukTableNativeDataGridWidget",
                     "type": "NativeDataGridWidgetComponent",
                     "name": "poshuk_table_main"
                   }
@@ -86,7 +86,7 @@
                 "border": "none",
                 "children": [
                   {
-                    "code": "counter_CustomWidget",
+                    "code": "counterCustomWidget",
                     "type": "CustomWidgetComponent",
                     "name": "counter"
                   }
@@ -109,7 +109,7 @@
                 "border": "none",
                 "children": [
                   {
-                    "code": "notification_CustomWidget",
+                    "code": "notificationCustomWidget",
                     "type": "CustomWidgetComponent",
                     "name": "notification"
                   }
