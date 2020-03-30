@@ -203,3 +203,7 @@
     text-transform: uppercase;
     font-weight: 600;
 }
+
+#newFilterNameInput{
+    width: 100%;
+}

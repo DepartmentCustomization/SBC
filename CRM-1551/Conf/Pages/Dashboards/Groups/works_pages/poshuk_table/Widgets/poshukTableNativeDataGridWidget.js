@@ -71,8 +71,9 @@
             CheckBox: 'CheckBox'
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 230;
-            document.getElementById('poshuk_table_main').style.display = 'none';
+            this.dataGridInstance.height = window.innerHeight - 300;
+            this.table = document.getElementById('poshuk_table_main');
+            this.table.style.display = 'none';
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
             this.sub2 = this.messageService.subscribe('findFilterColumns', this.reloadTable, this);
@@ -190,7 +191,7 @@
             this.filtersLength = filters.length;
             this.filtersWithOutValues = 0;
             filters.forEach(filter => {
-                if(filter.active === true) {
+                if (filter.active === true) {
                     const type = filter.type;
                     const value = filter.value;
                     const name = filter.name;
@@ -200,22 +201,22 @@
                         if(name === 'zayavnyk_phone_number') {
                             this.applicantPhoneNumber = value;
                         }
-                        this.createObjMacros(name, 'like', value, placeholder, value.viewValue);
+                        this.createObjMacros(name, 'like', value, placeholder, value.viewValue, name);
                         break;
                     case this.filterValueTypes.CheckBox:
-                        this.createObjMacros(filter.name, '=', value, filter.placeholder);
+                        this.createObjMacros(name, '=', value, filter.placeholder, name);
                         break;
                     case this.filterValueTypes.DateTime:
                     case this.filterValueTypes.Date:
                         if(value.dateFrom !== '') {
                             const property = name + '_from';
                             this.setFilterDateValues(property, value.dateFrom);
-                            this.setMacrosProps(name, '>=', value.dateFrom, placeholder, value.viewValue);
+                            this.setMacrosProps(name, '>=', value.dateFrom, placeholder, value.viewValue, 'dateFrom');
                         }
                         if(value.dateTo !== '') {
                             const property = name + '_to';
                             this.setFilterDateValues(property, value.dateTo);
-                            this.setMacrosProps(name, '<=', value.dateTo, placeholder, value.viewValue);
+                            this.setMacrosProps(name, '<=', value.dateTo, placeholder, value.viewValue, 'dateTo');
                         }
                         break;
                     case this.filterValueTypes.MultiSelect:
@@ -230,7 +231,7 @@
                             });
                             ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
                             const ageSendValue = '(' + age.join(' or ') + ')';
-                            this.createObjMacros(name, '===', ageSendValue, placeholder, ageSendViewValue);
+                            this.createObjMacros(name, '===', ageSendValue, placeholder, ageSendViewValue, name);
                         }else{
                             let sumValue = '';
                             let sumViewValue = '';
@@ -242,13 +243,13 @@
                             }
                             let numberSendValue = sumValue.slice(2, [sumValue.length]);
                             let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
-                            this.createObjMacros(name, 'in', numberSendValue, placeholder, numberSendViewValue);
+                            this.createObjMacros(name, 'in', numberSendValue, placeholder, numberSendViewValue, name);
                         }
                         break;
                     default:
                         break;
                     }
-                }else if(filter.active === false) {
+                } else if (filter.active === false) {
                     this.filtersWithOutValues += 1;
                 }
             });
@@ -257,38 +258,35 @@
         setFilterDateValues: function(property, value) {
             this.dateValues[property] = value;
         },
-        setMacrosProps: function(name, type, value, placeholder, viewValue) {
+        setMacrosProps: function(name, type, value, placeholder, viewValue, timePosition) {
             this.createObjMacros(
                 'cast(' + name + ' as datetime)',
                 type,
                 value,
                 placeholder,
-                viewValue
+                viewValue,
+                name,
+                timePosition
             );
         },
-        createObjMacros: function(name, operation, value, placeholder, viewValue) {
+        createObjMacros: function(code, operation, value, placeholder, viewValue, name, timePosition) {
             let obj = {
-                code: name,
+                code: code,
                 operation: operation,
                 value: value,
                 placeholder: placeholder,
-                viewValue: viewValue
+                viewValue: viewValue,
+                name: name,
+                timePosition: timePosition
             }
             this.filtersValuesMacros.push(obj);
         },
         findAllCheckedFilter: function() {
-            this.isSelected === true ?
-                document.getElementById('poshuk_table_main').style.display = 'block' :
-                document.getElementById('poshuk_table_main').style.display = 'none';
-            let filters = this.filtersValuesMacros;
-            if(filters.length > 0 || this.applicantPhoneNumber !== null) {
+            this.isSelected === true ? this.table.style.display = 'block' : this.table.style.display = 'none';
+            if(this.filtersValuesMacros.length > 0 || this.applicantPhoneNumber !== null) {
                 this.textFilterMacros = [];
-                filters.forEach(el => {
-                    this.createFilterMacros(el.code, el.operation, el.value);
-                });
-                let arr = this.textFilterMacros;
-                let str = arr.join(' ');
-                let macrosValue = str.slice(0, -4);
+                this.filtersValuesMacros.forEach(el => this.createFilterMacros(el.code, el.operation, el.value));
+                let macrosValue = this.textFilterMacros.join(' ').slice(0, -4);
                 this.macrosValue = macrosValue === '' ? '1=1' : macrosValue;
                 this.sendMsgForSetFilterPanelState(false);
                 this.config.query.parameterValues = [
@@ -312,12 +310,12 @@
                 this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish({
                     name: 'filters',
-                    value: this.filtersValuesMacros
+                    filters: this.filtersValuesMacros
                 });
             } else{
                 this.messageService.publish({
                     name: 'filters',
-                    value: this.filtersValuesMacros
+                    filters: this.filtersValuesMacros
                 });
             }
         },

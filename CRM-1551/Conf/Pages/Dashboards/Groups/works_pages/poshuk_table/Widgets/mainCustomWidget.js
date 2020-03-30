@@ -29,17 +29,20 @@
                 const button = message.button;
                 switch (button) {
                 case 'gear':
-                    this.createButtons(this.gearSaveMethod, this.hideModalWindow);
+                    this.createButtons(this.gearSaveMethod.bind(this), this.hideModalWindow.bind(this));
                     this.appendModalWindow();
                     this.createFilterElements();
                     break;
                 case 'saveFilters':
-                    this.createButtons(this.gearSaveMethod, this.hideModalWindow);
+                    this.createButtons(this.saveNewFiltersGroup.bind(this), this.hideModalWindow.bind(this));
                     this.appendModalWindow();
+                    this.createFiltersGroupName();
                     break;
                 case 'showFilters':
-                    this.createButtons(this.gearSaveMethod, this.hideModalWindow);
+                    this.createButtons(this.saveMyFilters.bind(this), this.hideModalWindow.bind(this));
                     this.appendModalWindow();
+                    /*this.executeQuerySavedFilers();*/
+                    this.showSavedFiltersGroup();
                     break;
                 default:
                     break;
@@ -53,6 +56,37 @@
             this.container = document.getElementById('container');
             this.createModalWindow();
             this.createSelectedFiltersContainer();
+        },
+        createFiltersGroupName: function() {
+            const newFilterNameInput = this.createElement('input', { id: 'newFilterNameInput', placeholder: 'Внеесіть назву'});
+            this.modalWindow.appendChild(newFilterNameInput);
+        },
+        fillSelectedFiltersValues: function(name) {
+            const package = [];
+            this.selectedFilters.forEach(filter => {
+                package.push({
+                    value: filter.value,
+                    placeholder: filter.placeholder,
+                    viewValue: filter.viewValue,
+                    name: filter.name,
+                    timePosition: filter.timePosition
+                })
+            })
+            return { name, package }
+        },
+        saveNewFiltersGroup: function() {
+            const name = document.getElementById('newFilterNameInput').value;
+            if (name !== '') {
+                const savedFilterSet = this.fillSelectedFiltersValues(name);
+                this.savedFilterSet = savedFilterSet;
+                this.hideModalWindow();
+            }
+        },
+        saveMyFilters: function() {
+        },
+        executeQuerySavedFilers: function() {
+        },
+        showSavedFiltersGroup: function() {
         },
         createModalWindow() {
             this.modalWindow = this.createElement('div', { id:'modalWindow', className: 'modalWindow'});
@@ -100,18 +134,18 @@
                 exitMethod(self);
             });
             modalBtnSave.addEventListener('click', () => {
-                const self = this;
-                saveMethod(self);
+                // const self = this;
+                saveMethod();
             });
             this.modalWindow.appendChild(modalBtnWrapper);
         },
-        hideModalWindow(self) {
-            self.clearContainer(self.modalWindow);
-            self.modalWindowWrapper.style.display = self.displayNone;
+        hideModalWindow() {
+            this.clearContainer(this.modalWindow);
+            this.modalWindowWrapper.style.display = this.displayNone;
         },
-        gearSaveMethod(self) {
-            self.defaultCheckedItem = [];
-            self.filterColumns = [];
+        gearSaveMethod() {
+            this.defaultCheckedItem = [];
+            this.filterColumns = [];
             const checkedElements = Array.from(document.querySelectorAll('.group__element'));
             checkedElements.forEach(el => {
                 if(el.firstElementChild.checked) {
@@ -119,19 +153,20 @@
                     const displayValue = el.firstElementChild.value;
                     const caption = el.lastElementChild.innerText;
                     const obj = { displayValue, caption, width }
-                    self.filterColumns.push(obj);
+                    this.filterColumns.push(obj);
                 }
             });
-            self.messageService.publish({
+            this.messageService.publish({
                 name: 'findFilterColumns',
-                value: self.filterColumns
+                value: this.filterColumns
             });
-            self.hideModalWindow(self);
+            this.hideModalWindow(this);
         },
         showApplyFiltersValue: function(message) {
+            this.selectedFilters = message.filters;
             this.clearContainer(this.selectedFiltersContainer);
             const filtersBox = [];
-            const filters = message.value;
+            const filters = message.filters;
             filters.forEach(filter => {
                 let value = filter.operation;
                 let obj = {};
