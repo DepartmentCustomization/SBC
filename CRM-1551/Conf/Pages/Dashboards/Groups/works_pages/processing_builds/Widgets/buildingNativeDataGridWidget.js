@@ -91,7 +91,7 @@
             const processed = message.package.value.values.find(f => f.name === 'processed').value;
             const builds = message.package.value.values.find(f => f.name === 'builds').value;
             this.setFiltersColumns(processed.value, 'is_done_filter');
-            this.setFiltersColumns(builds.value, 'name_fullName_filter');
+            this.setFiltersColumns(builds.value, 'BuildName_filter');
             this.firstLoadCheck();
         },
         setFiltersColumns: function(value, key) {
