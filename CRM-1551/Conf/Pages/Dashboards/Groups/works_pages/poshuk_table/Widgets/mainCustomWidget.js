@@ -130,11 +130,9 @@
                 modalBtnSave, modalBtnExit
             );
             modalBtnExit.addEventListener('click', () =>{
-                const self = this;
-                exitMethod(self);
+                exitMethod();
             });
             modalBtnSave.addEventListener('click', () => {
-                // const self = this;
                 saveMethod();
             });
             this.modalWindow.appendChild(modalBtnWrapper);
