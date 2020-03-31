@@ -618,9 +618,7 @@
                     });
                     this.form.setControlValue('AppealNumber', data.rows[0].values[3]);
                     this.form.setControlValue('Phone', data.rows[0].values[5]);
-
                     this.details.setVisibility('Detail_SMS',false);
-
                     const queryForSMS_number = {
                         queryCode: 'SMS_SelectRows',
                         parameterValues: [
@@ -635,19 +633,14 @@
                             document.getElementById('Btn_SMS').disabled = false;
                             let t = data.rows[0].values[0];
                             document.getElementById('Btn_SMS').addEventListener('click', function() {
-
-                                // this.details.update('Detail_SMS', false);
+                                /*this.details.update('Detail_SMS', false);*/
                                 window.open(location.origin + localStorage.getItem('VirtualPath')
                                 + '/sections/CreateAppeal/edit/' + this.id + '/simple/Detail_SMS/SMS/' + t, '_blank');
                             }.bind(this));
                         } else {
                             document.getElementById('Btn_SMS').disabled = true;
                         };
-
-
                     });
-
-
                     this.form.setControlValue('DateStart', new Date());
                     this.form.setControlValue('CardPhone', this.form.getControlValue('Phone'));
                     const parameters = [
@@ -1364,7 +1357,6 @@
                 this.details.onCellClick('Detail_QuestionNumberAppeal', this.Detail_Question_Prev.bind(this));
                 this.details.onCellClick('Detail_GorodokClaim', this.onCellClick_Detail_GorodokClaim.bind(this));
                 this.details.onCellClick('Detail_Event', this.onCellClick_Detail_Event.bind(this));
-                
             }
             this.form.onControlValueChanged('Applicant_District', this.onDistricChanged);
             this.form.onControlValueChanged('Application_BirthDate', this.validateDate);
