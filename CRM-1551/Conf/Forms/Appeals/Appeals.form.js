@@ -1671,7 +1671,7 @@
                     this.Question_Building_ResultState = 'OK';
                 }
                 if (this.Question_Organization_IsVisible == 1) {
-                    if (this.Question_Organization_Input == undefined || this.Question_Organization_Input === null) {
+                    if (this.Question_Organization_Input === undefined || this.Question_Organization_Input === null) {
                         this.Question_Organization_ResultState = 'Error';
                     } else {
                         this.Question_Organization_ResultState = 'OK';
@@ -1757,7 +1757,7 @@
             this.onChanged_Work_with_a_question_Btn_save_Input();
         },
         onChanged_Work_with_a_question_Btn_save_Input: function() {
-            if(this.Work_with_a_question_notes == '' || this.Work_with_a_question_notes == undefined) {
+            if(this.Work_with_a_question_notes === '' || this.Work_with_a_question_notes === undefined) {
                 document.getElementById('Work_with_a_question_Btn_save').disabled = true;
             } else {
                 document.getElementById('Work_with_a_question_Btn_save').disabled = false;
