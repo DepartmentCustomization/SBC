@@ -1,9 +1,12 @@
-  -- declare @RegistrationDateFrom datetime = '2020-01-01 06:00';
-  -- declare @RegistrationDateTo datetime = '2020-02-24 14:25';
-  -- declare @OrganizationExecId int = 1;
-  -- declare @OrganizationExecGroupId int;
-  -- declare @ReceiptSourcesId int = null;
-  -- declare @QuestionGroupId int;
+  --  DECLARE @RegistrationDateFrom DATETIME = '2020-03-10 00:00';
+  --  DECLARE @RegistrationDateTo DATETIME = '2020-03-11 00:00';
+  --  DECLARE @OrganizationExecId INT = NULL;
+  --  DECLARE @OrganizationExecGroupId INT = NULL;
+  --  DECLARE @ReceiptSourcesId INT = NULL;
+  --  DECLARE @QuestionGroupId INT = NULL;
+
+ SET @RegistrationDateFrom = Dateadd(hh, Datediff(hh, Getutcdate(), Getdate()), @RegistrationDateFrom);
+ SET @RegistrationDateTo = Dateadd(hh, Datediff(hh, Getutcdate(), Getdate()), @RegistrationDateTo);
 
 IF object_id('tempdb..#temp_OUT') IS NOT NULL 
 BEGIN
@@ -103,14 +106,21 @@ SELECT
 FROM
   dbo.[QuestionTypes];
 END 
--- select group_question_id,type_question_id from [QGroupIncludeQTypes]
---select * from #temp_OUT
---select * from [OrganizationGroups]
+
+DECLARE @targettimezone AS sysname = 'E. Europe Standard Time';
 SELECT
   Ass.Id AS AssignmentId,
-  CONVERT(VARCHAR(16),[Que].Registration_date, 120) AS Registration_date,
-  CONVERT(VARCHAR(16),[Vykon].Log_Date, 120) AS Vykon_date,
-  CONVERT(VARCHAR(16),[Closed].Log_Date, 120) Close_date,
+  CONVERT(VARCHAR(16),dateadd(MINUTE,datepart(tz, [Ass].registration_date 
+  AT TIME ZONE @targettimezone), [Ass].registration_date), 120)
+  AS Registration_date,
+
+  CONVERT(VARCHAR(16),dateadd(MINUTE,datepart(tz, [Vykon].Log_Date
+  AT TIME ZONE @targettimezone), [Vykon].Log_Date), 120) 
+  AS Vykon_date,
+
+  CONVERT(VARCHAR(16),dateadd(MINUTE,datepart(tz, [Closed].Log_Date
+  AT TIME ZONE @targettimezone), [Closed].Log_Date), 120)  
+  AS Close_date,
   [AssState].[name] [AssignmentState],
   1 Count_,
   CASE
@@ -267,7 +277,7 @@ FROM
           n = 1
       ) Closed ON [Ass].Id = Closed.assignment_id
     WHERE 
-      [Que].Registration_date  
+      DATEADD(hh, DATEDIFF(hh, GETUTCDATE(), GETDATE()), [Ass].Registration_date ) 
       BETWEEN @RegistrationDateFrom
       AND @RegistrationDateTo
       AND (
@@ -285,4 +295,5 @@ FROM
                 QueTypeId
               FROM
                 #temp_OUT_QuestionGroup)
-             AND  #filter_columns# ;
+             AND  #filter_columns#
+			  ;

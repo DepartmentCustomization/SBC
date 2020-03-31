@@ -19,7 +19,7 @@
                         fieldGroups: []
                     };
                     for (let j = 0; j < data.rows.length; j++) {
-                        if(data.rows[j].values[5] == 1) {
+                        if (data.rows[j].values[5] === 1) {
                             let p = {
                                 code: 'GroupPhone' + j,
                                 name: 'Створення телефону',
@@ -224,6 +224,7 @@
             return value;
         },
         mask: function(event) {
+            debugger;
             function setCursorPosition(pos, elem) {
                 elem.focus();
                 if (elem.setSelectionRange) {
@@ -356,7 +357,7 @@
                         ]
                     };
                     this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function(data) {
-                        if (data.rows[0].values[0] == 'OK') {
+                        if (data.rows[0].values[0] === 'OK') {
                             this.setControlValue('modal_phone_NEW', null);
                             let event = new Event('click');
                             let ngStarInsertedSelector = this.getNgStarInsertedSelector();
@@ -472,6 +473,7 @@
             this.form.setControlVisibility('flat', false);
             this.form.setControlVisibility('Event_Prew_Name', false);
             document.getElementsByClassName('float_r')[0].style.display = 'none';
+            debugger;
             if (this.state == 'create') {
                 let getDataFromLink = window
                     .location
@@ -532,9 +534,9 @@
                 this.queryExecutor.getValues(queryForGetValue_enter_number).subscribe(data => {
                     if (data) {
                         if (data.rows.length > 0) {
-                            if (data.rows[0].values[0] == 'UGL' ||
-                                data.rows[0].values[0] == 'Mail' ||
-                                data.rows[0].values[0] == 'Letter') {
+                            if (data.rows[0].values[0] === 'UGL' ||
+                                data.rows[0].values[0] === 'Mail' ||
+                                data.rows[0].values[0] === 'Letter') {
                                 this.form.setControlVisibility('Appeal_enter_number', true);
                             } else {
                                 this.form.setControlVisibility('Appeal_enter_number', false);
@@ -587,15 +589,15 @@
                     parameterValues: []
                 };
                 this.queryExecutor.getValues(queryForGetValueStateServer).subscribe(data => {
-                    if (data.rows[0].values[3] == 'Simple load') {
+                    if (data.rows[0].values[3] === 'Simple load') {
                         this.StateServerId = 1;
-                    } else if (data.rows[0].values[3] == 'Standart load') {
+                    } else if (data.rows[0].values[3] === 'Standart load') {
                         this.StateServerId = 2;
-                    } else if (data.rows[0].values[3] == 'Hard load') {
+                    } else if (data.rows[0].values[3] === 'Hard load') {
                         this.StateServerId = 3;
                         this.form.setGroupVisibility('Group_WIKI', false);
                     }
-                    if (this.StateServerId == 1) {
+                    if (this.StateServerId === 1) {
                         this.form.setControlVisibility('Question_OrganizationId', true);
                     } else {
                         this.form.setControlVisibility('Question_OrganizationId', false);
@@ -618,6 +620,29 @@
                     });
                     this.form.setControlValue('AppealNumber', data.rows[0].values[3]);
                     this.form.setControlValue('Phone', data.rows[0].values[5]);
+                    this.details.setVisibility('Detail_SMS',false);
+                    const queryForSMS_number = {
+                        queryCode: 'SMS_SelectRows',
+                        parameterValues: [
+                            {
+                                key: '@phone_number',
+                                value: data.rows[0].values[5]
+                            }
+                        ]
+                    };
+                    this.queryExecutor.getValues(queryForSMS_number).subscribe((data) => {
+                        if (data.rows.length > 0) {
+                            document.getElementById('Btn_SMS').disabled = false;
+                            let t = data.rows[0].values[0];
+                            document.getElementById('Btn_SMS').addEventListener('click', function() {
+                                /*this.details.update('Detail_SMS', false);*/
+                                window.open(location.origin + localStorage.getItem('VirtualPath')
+                                + '/sections/CreateAppeal/edit/' + this.id + '/simple/Detail_SMS/SMS/' + t, '_blank');
+                            }.bind(this));
+                        } else {
+                            document.getElementById('Btn_SMS').disabled = true;
+                        };
+                    });
                     this.form.setControlValue('DateStart', new Date());
                     this.form.setControlValue('CardPhone', this.form.getControlValue('Phone'));
                     const parameters = [
@@ -1508,6 +1533,7 @@
         },
         onChangedQuestion_AnswerType: function(value) {
             this.form.setControlValue('Question_AnswerPhoneOrPost', null);
+            debugger;
             if(value == 2) {
                 this.form.setControlValue(
                     'Question_AnswerPhoneOrPost',
@@ -1656,6 +1682,7 @@
                 } else {
                     this.Question_Organization_ResultState = 'OK';
                 }
+                debugger;
                 if(this.form.getControlValue('Applicant_Id') == '' ||
                     this.form.getControlValue('Applicant_Id') == null ||
                     this.Question_Content_Input == '' ||
@@ -1841,7 +1868,7 @@
             this.onChanged_Question_Aplicant_Btn_Add_Input();
         },
         onChanged_Applicant_Privilege_Input: function(value) {
-            if (value == null || value == undefined) {
+            if (value === null || value === undefined) {
                 const objNameApplicantPrivilegeRow = {
                     queryCode: 'ak_SelectApplicantPrivilegeRow',
                     parameterValues: [
@@ -1858,7 +1885,7 @@
                     });
                 });
             }
-            if (this.InitialState_Applicant_Privilege == this.onChanged_Input(
+            if (this.InitialState_Applicant_Privilege === this.onChanged_Input(
                 this.form.getControlValue('Applicant_Privilege')
             )) {
                 this.CheckParamForApplicant_Privilege = 0
@@ -1936,14 +1963,14 @@
                     this.CheckParamForApplicant_Building = 1
                 }
                 this.onChanged_Question_Aplicant_Btn_Add_Input();
-                if (value == null || value == undefined) {
+                if (value === null || value === undefined) {
                     this.details.setVisibility('Detail_Event', false);
                 } else {
                     const parameters1 = [
                         { key: '@object_id', value: value}
                     ];
                     this.details.loadData('Detail_Event', parameters1);
-                    if (this.StateServerId == 1 || this.StateServerId == 2) {
+                    if (this.StateServerId === 1 || this.StateServerId === 2) {
                         this.details.setVisibility('Detail_Event', true);
                     }
                 }
@@ -1970,13 +1997,13 @@
                     document.getElementById('Question_Aplicant_Btn_Add').disabled = false;
                 }
             }
-            if (this.Applicant_PIB_Input == '' ||
-                this.Applicant_Building_Input == '' ||
-                this.Applicant_Building_Input == undefined ||
-                this.Applicant_Building_Input == null ||
-                this.Applicant_Flat_Input == undefined ||
-                this.Applicant_Flat_Input == null ||
-                this.Applicant_Flat_Input == '') {
+            if (this.Applicant_PIB_Input === '' ||
+                this.Applicant_Building_Input === '' ||
+                this.Applicant_Building_Input === undefined ||
+                this.Applicant_Building_Input === null ||
+                this.Applicant_Flat_Input === undefined ||
+                this.Applicant_Flat_Input === null ||
+                this.Applicant_Flat_Input === '') {
                 document.getElementById('Applicant_Btn_Add').disabled = true;
             } else {
                 if(this.CheckParamForApplicant_PIB == 0 &&
@@ -2002,6 +2029,7 @@
         },
         TargetElement_Detail_Consultation_Prev: '',
         OnCellClikc_Detail_Consultation: function(column, row, value, event) {
+            debugger;
             if (this.StateServerId == 1 || this.StateServerId == 2) {
                 if (this.TargetElement_Detail_Consultation_Prev != '') {
                     this.TargetElement_Detail_Consultation_Prev.style.removeProperty('color');

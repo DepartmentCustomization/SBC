@@ -1,11 +1,22 @@
--- DECLARE @Id INT = 137;
+-- DECLARE @Id INT = 168;
+
+DECLARE @isUsed BIT = (SELECT CASE 
+								WHEN COUNT(1) > 0 THEN 1
+								ELSE 0 END  
+						FROM dbo.Claim_Area WHERE AreaID = @Id) ;
+
+IF(@isUsed = 1)
+BEGIN
+	RAISERROR(N'Неможливо видалити Ділянку, бо по ній вже зареєстрована ЗАЯВКА обхідника',16,1);
+	RETURN;
+END
 
 BEGIN TRY 
 
-  BEGIN TRANSACTION
+  BEGIN TRANSACTION;
   
 ---> Получить Route удаляемого участка, в конце пересчет значений  
-DECLARE @RouteID INT = (SELECT RouteID FROM Area WHERE Id = @Id);
+DECLARE @RouteID INT = (SELECT RouteID FROM dbo.Area WHERE Id = @Id) ;
 
 ---> Удалить данные Area по цепочке
   DELETE 
@@ -15,7 +26,6 @@ DECLARE @RouteID INT = (SELECT RouteID FROM Area WHERE Id = @Id);
   DELETE 
   FROM dbo.AreaObject 
   WHERE AreaID = @Id ;
-
 
   DELETE 
   FROM dbo.Area
@@ -35,11 +45,11 @@ SET GroupLenght = (
     
 	WHERE Id = @RouteID;
 
-    COMMIT
+    COMMIT ;
 END TRY
 
 BEGIN CATCH 
-
-  PRINT 'ERROR ' + ERROR_MESSAGE();
-
-END CATCH
+DECLARE @msg NVARCHAR(MAX) = ERROR_MESSAGE();
+  THROW 70000, @msg, 1; 
+  ROLLBACK;
+END CATCH ;

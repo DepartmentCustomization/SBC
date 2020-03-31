@@ -1,7 +1,7 @@
 {
   "css": "string:MainPage.css",
   "rootContainer": {
-    "width": "auto",
+    "width": "calc(100% - 10px)",
     "margin": "0 5px 10px",
     "flexWrap": "wrap",
     "flexDirection": "row",
@@ -43,7 +43,7 @@
         "border": "none",
         "children": [
           {
-            "width": "auto",
+            "width": "calc(100% - 10px)",
             "margin": "0",
             "flexWrap": "wrap",
             "flexDirection": "row",
@@ -65,7 +65,7 @@
             "backgroundColor": "white"
           },
           {
-            "width": "auto",
+            "width": "calc(100% - 10px)",
             "margin": "0 10px ",
             "flexWrap": "wrap",
             "flexDirection": "column",
@@ -75,7 +75,7 @@
             "border": "none",
             "children": [
               {
-                "width": "auto",
+                "width": "calc(100% - 10px)",
                 "margin": "0  5px 0 5px",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
@@ -98,7 +98,7 @@
                 "containerId": "table_applications"
               },
               {
-                "width": "auto",
+                "width": "calc(100% - 10px)",
                 "margin": "0  5px 0 5px",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
@@ -121,7 +121,7 @@
                 "containerId": "maps_applications"
               },
               {
-                "width": "auto",
+                "width": "calc(100% - 10px)",
                 "margin": "0  5px 0 5px",
                 "flexWrap": "wrap",
                 "flexDirection": "column",
@@ -131,7 +131,7 @@
                 "border": "none",
                 "children": [
                   {
-                    "width": "auto",
+                    "width": "calc(100% - 10px)",
                     "margin": "0",
                     "flexWrap": "wrap",
                     "flexDirection": "row",
@@ -214,7 +214,7 @@
                     "backgroundColor": "white"
                   },
                   {
-                    "width": "auto",
+                    "width": "calc(100% - 10px)",
                     "margin": "0",
                     "flexWrap": "wrap",
                     "flexDirection": "row",
@@ -224,7 +224,7 @@
                     "border": "none",
                     "children": [
                       {
-                        "width": "calc( 50% - 10px)",
+                        "width": "calc(50% - 10px)",
                         "margin": "0",
                         "flexWrap": "wrap",
                         "flexDirection": "row",

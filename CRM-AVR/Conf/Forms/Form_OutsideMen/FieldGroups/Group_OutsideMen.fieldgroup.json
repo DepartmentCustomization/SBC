@@ -14,9 +14,13 @@
       "QueryParameters": []
     },
     {
-      "Code": "fiz_name",
+      "Code": "fiz_id",
       "Name": "Представник",
-      "FieldType": "text",
+      "FieldType": "select",
+      "QueryCode": "ContactsByOrg",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
       "Position": 1
     },
     {

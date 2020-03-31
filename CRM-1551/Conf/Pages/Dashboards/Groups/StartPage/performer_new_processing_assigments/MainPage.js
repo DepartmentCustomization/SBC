@@ -9,7 +9,11 @@
             this.showPagePreloader('Зачекайте, сторінка завантажується');
         },
         hideMyPreloader: function() {
-            this.hidePagePreloader('Зачекайте, сторінка завантажується');
+            this.hidePagePreloader();
+        },
+        destroy: function() {
+            this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         }
     };
 }());

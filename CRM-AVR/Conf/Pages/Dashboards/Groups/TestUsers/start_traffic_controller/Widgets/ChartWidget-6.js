@@ -65,18 +65,12 @@
         },
         load: function(data) {
             this.chartConfig.series = [];
-            // let value1 = {
-            //     name: 'Без вiдключень',
-            //     data: [  data.rows[0].values[2] ]
-            // }
             let value2 = {
                 name: 'Вiдключено',
                 data: [data.rows[0].values[0] ]
             }
             let container = [];
-            // container.push(value1);
             container.push(value2);
-            // this.chartConfig.title.text = data.rows[0].values[1];
             this.chartConfig.series = container;
             this.render();
         }

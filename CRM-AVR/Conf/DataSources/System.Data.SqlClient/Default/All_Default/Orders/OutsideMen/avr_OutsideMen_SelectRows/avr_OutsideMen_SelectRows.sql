@@ -1,17 +1,22 @@
-SELECT [OutsideMen].[Id]
-      ,c_c1.Name as company_name
-      ,OutsideMen.Contact_ID as fiz_name
-      ,[OutsideMen].[Call_from]
-      ,[OutsideMen].[Plan_date]
-      ,[OutsideMen].[Finish_at]
-      ,[OutsideMen].[Comment]
-      ,[OutsideMen].[Claims_ID]
-  FROM [dbo].[OutsideMen]
-	left join Claims on Claims.Id = OutsideMen.Claims_ID
-	left join [Organizations] as c_c1 on c_c1.Id = OutsideMen.Company_Contact_ID
-	left join Contact_types on Contact_types.Id = OutsideMen.Contact_type_ID
-where [OutsideMen].[Claims_ID] = @Id
-and 
-	 #filter_columns#
-	 #sort_columns#
-offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+-- DECLARE @Id INT = 9132;
+
+SELECT
+  om.[Id],
+  o.[Name] AS company_name,
+  cont.[Name] AS fiz_name,
+  om.[Call_from],
+  om.[Plan_date],
+  om.[Finish_at],
+  om.[Comment],
+  om.[Claims_ID]
+FROM
+  dbo.[OutsideMen] om
+  LEFT JOIN dbo.[Contacts] cont ON cont.Id = om.Contact_ID
+  LEFT JOIN dbo.[Claims] claim ON claim.Id = om.Claims_ID
+  LEFT JOIN dbo.[Organizations] o ON o.Id = om.Company_Contact_ID
+  LEFT JOIN dbo.[Contact_types] ct ON ct.Id = om.Contact_type_ID
+WHERE
+  om.[Claims_ID] = @Id
+  AND #filter_columns#
+      #sort_columns#
+  OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ;
