@@ -49,18 +49,24 @@
     "ReferenceKeyCode": "company_id"
   },
   {
+    "Code": "fiz_id",
+    "Name": "fiz_id",
+    "Position": 10
+  },
+  {
     "Code": "fiz_name",
     "Name": "fiz_name",
-    "Position": 10
+    "Position": 11,
+    "ReferenceKeyCode": "fiz_id"
   },
   {
     "Code": "claim_stat_id",
     "Name": "claim_stat_id",
-    "Position": 11
+    "Position": 12
   },
   {
     "Code": "contact_number",
     "Name": "contact_number",
-    "Position": 12
+    "Position": 13
   }
 ]

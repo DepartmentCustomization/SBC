@@ -209,7 +209,7 @@
                 {
                     className: 'group',
                     tabindex: '0',
-                    url: 'dashboard/page/prozvon_v2'
+                    url: 'dashboard/page/prozvon'
                 },
                 groupCall__icon, groupCall__description, groupCall__borderBottom, groupCall__borderRight
             );

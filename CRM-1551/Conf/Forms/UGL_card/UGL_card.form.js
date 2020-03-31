@@ -399,8 +399,6 @@
                 this.form.onControlValueChanged('Question_AnswerType', this.onChangedQuestion_AnswerType.bind(this));
                 this.form.onControlValueChanged('Question_Building', this.checkQuestionRegistrationAvailable);
                 this.form.onControlValueChanged('Question_Organization', this.checkQuestionRegistrationAvailable);
-                this.form.onControlValueChanged('Question_Organization', this.getOrgExecut);
-                this.form.onControlValueChanged('Question_Building', this.getOrgExecut);
                 const AppealUGL = {
                     queryCode: 'AppealUGL_Info',
                     parameterValues: [
@@ -899,37 +897,36 @@
             this.queryExecutor.getValues(Applicant).subscribe(data => {
                 if (data) {
                     let BirthDate = null;
-                    if (data.rows[0].values[14] === null) {
+                    if (data.rows[0].values[13] === null) {
                         BirthDate = null;
                     } else {
-                        BirthDate = new Date(data.rows[0].values[14]);
+                        BirthDate = new Date(data.rows[0].values[13]);
                     }
                     let sex = null;
-                    if (data.rows[0].values[13] === null) {
+                    if (data.rows[0].values[12] === null) {
                         sex = null;
                     } else {
-                        sex = (data.rows[0].values[13]).toString();
+                        sex = (data.rows[0].values[12]).toString();
                     }
                     this.form.setControlValue('Applicant_Building',
                         { key: data.rows[0].values[1], value: data.rows[0].values[2] });
                     this.form.setControlValue('Applicant_Entrance', data.rows[0].values[4])
                     this.form.setControlValue('Applicant_Flat', data.rows[0].values[5])
-                    this.form.setControlValue('Applicant_District', data.rows[0].values[6])
                     this.form.setControlValue('Applicant_Privilege',
-                        { key: data.rows[0].values[7], value: data.rows[0].values[8] });
+                        { key: data.rows[0].values[6], value: data.rows[0].values[7] });
                     this.form.setControlValue('Applicant_SocialStates',
-                        { key: data.rows[0].values[9], value: data.rows[0].values[10] });
+                        { key: data.rows[0].values[8], value: data.rows[0].values[9] });
                     this.form.setControlValue('Applicant_Type',
-                        { key: data.rows[0].values[11], value: data.rows[0].values[12] });
+                        { key: data.rows[0].values[10], value: data.rows[0].values[11] });
                     this.form.setControlValue('Applicant_Sex', sex);
                     this.form.setControlValue('Applicant_BirthDate', BirthDate);
-                    this.form.setControlValue('Applicant_Email', data.rows[0].values[15]);
-                    this.form.setControlValue('Applicant_Comment', data.rows[0].values[16]);
+                    this.form.setControlValue('Applicant_Email', data.rows[0].values[14]);
+                    this.form.setControlValue('Applicant_Comment', data.rows[0].values[15]);
                     this.form.setControlValue('Applicant_PIB', data.rows[0].values[0]);
-                    this.form.setControlValue('Applicant_Id', data.rows[0].values[17]);
-                    this.form.setControlValue('Applicant_Age', data.rows[0].values[18]);
-                    this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[19]);
-                    this.form.setControlValue('CardPhone', data.rows[0].values[20]);
+                    this.form.setControlValue('Applicant_Id', data.rows[0].values[16]);
+                    this.form.setControlValue('Applicant_Age', data.rows[0].values[17]);
+                    this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[18]);
+                    this.form.setControlValue('CardPhone', data.rows[0].values[19]);
                 }
             });
             document.getElementById('Applicant_Btn_Add').disabled = true;
@@ -946,7 +943,6 @@
                 this.form.setControlVisibility('Question_Organization', false);
                 document.getElementById('Question_Btn_Add').disabled = true;
             } else {
-                this.getOrgExecut();
                 this.onQuestionControlDate(questionType);
                 this.questionObjectOrg();
             }
@@ -972,8 +968,12 @@
                     ]
                 };
                 this.queryExecutor.getValues(objAndOrg).subscribe(data => {
-                    this.form.setControlValue('Question_OrganizationId',
-                        { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                    if(data) {
+                        this.form.setControlValue('Question_OrganizationId',
+                            { key: data.rows[0].values[0],
+                                value: data.rows[0].values[1] });
+                        document.getElementById('Question_Btn_Add').disabled = false;
+                    }
                 });
             }
         },
@@ -1028,6 +1028,7 @@
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);
                     } else {
+                        this.getOrgExecut();
                         document.getElementById('Question_Btn_Add').disabled = false;
                     }
                 }
@@ -1041,7 +1042,7 @@
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);
                     } else {
-                        document.getElementById('Question_Btn_Add').disabled = false;
+                        this.getOrgExecut();
                     }
                 }
                 if (this.is_obj === false && this.is_org === true) {
@@ -1054,11 +1055,11 @@
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);
                     } else {
-                        document.getElementById('Question_Btn_Add').disabled = false;
+                        this.getOrgExecut();
                     }
                 }
                 if (this.is_obj === false && this.is_org === false) {
-                    document.getElementById('Question_Btn_Add').disabled = false;
+                    this.getOrgExecut();
                 }
             }
         },
@@ -1101,14 +1102,11 @@
                     }]
                 };
                 this.queryExecutor.getValues(query).subscribe(function(data) {
-                    if (data.rows[0] !== undefined) {
-                        this.form.setControlValue('Applicant_District', data.rows[0].values[1]);
-                        this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[2]);
+                    if (data) {
+                        this.form.setControlValue('Applicant_District', data.rows[0].values[0]);
+                        this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[1]);
                     }
                 }.bind(this));
-            } else {
-                this.form.setControlValue('Applicant_District', null);
-                this.form.setControlValue('ExecutorInRoleForObject', null);
             }
         }
     };

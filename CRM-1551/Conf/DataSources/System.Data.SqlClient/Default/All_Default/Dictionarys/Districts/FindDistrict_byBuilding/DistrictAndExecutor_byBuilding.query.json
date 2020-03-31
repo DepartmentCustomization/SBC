@@ -6,14 +6,8 @@
     "IsUsedForRightsFilter": false,
     "Columns": [
       {
-        "Code": "Id",
-        "Name": "Id",
-        "Position": 0,
-        "IsPrintable": false
-      },
-      {
-        "Code": "name",
-        "Name": "name",
+        "Code": "district",
+        "Name": "district",
         "Position": 1,
         "IsPrintable": false
       },
