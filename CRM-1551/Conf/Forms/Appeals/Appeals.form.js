@@ -19,7 +19,7 @@
                         fieldGroups: []
                     };
                     for (let j = 0; j < data.rows.length; j++) {
-                        if(data.rows[j].values[5] == 1) {
+                        if (data.rows[j].values[5] === 1) {
                             let p = {
                                 code: 'GroupPhone' + j,
                                 name: 'Створення телефону',
@@ -247,7 +247,7 @@
                 return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a
             });
             if (event.type == 'blur') {
-                if (this.value.length == 2) {
+                if (this.value.length === 2) {
                     this.value = ''
                 }
             } else {
@@ -258,7 +258,7 @@
             if (!phone) {
                 document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
             } else {
-                if (phone.replace('(','').replace(')','').replace(/-/g,'').replace(/\D/g,'').length == 10) {
+                if (phone.replace('(','').replace(')','').replace(/-/g,'').replace(/\D/g,'').length === 10) {
                     document.getElementById('modal_phone_NEW_phoneDelete').disabled = false;
                 } else {
                     document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
@@ -356,7 +356,7 @@
                         ]
                     };
                     this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function(data) {
-                        if (data.rows[0].values[0] == 'OK') {
+                        if (data.rows[0].values[0] === 'OK') {
                             this.setControlValue('modal_phone_NEW', null);
                             let event = new Event('click');
                             let ngStarInsertedSelector = this.getNgStarInsertedSelector();
@@ -472,7 +472,7 @@
             this.form.setControlVisibility('flat', false);
             this.form.setControlVisibility('Event_Prew_Name', false);
             document.getElementsByClassName('float_r')[0].style.display = 'none';
-            if (this.state == 'create') {
+            if (this.state === 'create') {
                 let getDataFromLink = window
                     .location
                     .search
@@ -488,7 +488,7 @@
                 this.TypeFormId = Number(getDataFromLink['type']);
                 if (Number(getDataFromLink['type']) >= 1 && Number(getDataFromLink['type']) <= 8) {
                     let val_phone = '';
-                    if (getDataFromLink['phone'] == undefined) {
+                    if (getDataFromLink['phone'] === undefined) {
                         val_phone = '«не визначений»';
                     } else {
                         val_phone = getDataFromLink['phone']
@@ -532,9 +532,9 @@
                 this.queryExecutor.getValues(queryForGetValue_enter_number).subscribe(data => {
                     if (data) {
                         if (data.rows.length > 0) {
-                            if (data.rows[0].values[0] == 'UGL' ||
-                                data.rows[0].values[0] == 'Mail' ||
-                                data.rows[0].values[0] == 'Letter') {
+                            if (data.rows[0].values[0] === 'UGL' ||
+                                data.rows[0].values[0] === 'Mail' ||
+                                data.rows[0].values[0] === 'Letter') {
                                 this.form.setControlVisibility('Appeal_enter_number', true);
                             } else {
                                 this.form.setControlVisibility('Appeal_enter_number', false);
@@ -587,15 +587,15 @@
                     parameterValues: []
                 };
                 this.queryExecutor.getValues(queryForGetValueStateServer).subscribe(data => {
-                    if (data.rows[0].values[3] == 'Simple load') {
+                    if (data.rows[0].values[3] === 'Simple load') {
                         this.StateServerId = 1;
-                    } else if (data.rows[0].values[3] == 'Standart load') {
+                    } else if (data.rows[0].values[3] === 'Standart load') {
                         this.StateServerId = 2;
-                    } else if (data.rows[0].values[3] == 'Hard load') {
+                    } else if (data.rows[0].values[3] === 'Hard load') {
                         this.StateServerId = 3;
                         this.form.setGroupVisibility('Group_WIKI', false);
                     }
-                    if (this.StateServerId == 1) {
+                    if (this.StateServerId === 1) {
                         this.form.setControlVisibility('Question_OrganizationId', true);
                     } else {
                         this.form.setControlVisibility('Question_OrganizationId', false);
@@ -639,7 +639,7 @@
                             }.bind(this));
                         } else {
                             document.getElementById('Btn_SMS').disabled = true;
-                        };
+                        }
                     });
                     this.form.setControlValue('DateStart', new Date());
                     this.form.setControlValue('CardPhone', this.form.getControlValue('Phone'));
@@ -692,9 +692,6 @@
                         this.details.loadData('Detail_Consultation', parameters1);
                     });
                 }.bind(this));
-                
-
-
                 document.getElementById('WIKI_Btn_Consultation').addEventListener('click', function() {
                     const queryForGetValue3 = {
                         queryCode: 'WIKI_Btn_Search_InsertRow',
@@ -1427,7 +1424,7 @@
             }
         },
         onQuestionControlDate:function(ques_type_id) {
-            if (ques_type_id == null) {
+            if (ques_type_id === null) {
                 this.form.setControlValue('Question_ControlDate',null)
             }else{
                 const execute = {
@@ -1507,7 +1504,7 @@
             this.scrollTopMainForm();
         },
         onCellClick_Detail_Event: function(column, row) {
-            if (row.values[8] == 'GORODOK') {
+            if (row.values[8] === 'GORODOK') {
                 document.getElementById('Event_Prew_Btn_Consultation').disabled = true;
                 document.getElementById('Event_Prew_Btn_Add').disabled = true;
             } else {
@@ -1525,7 +1522,7 @@
             this.scrollTopMainForm();
         },
         onChangedApplicant_Id: function(value) {
-            if (!value || value == '') {
+            if (!value || value === '') {
                 this.form.disableControl('CardPhone');
                 this.form.setControlValue('CardPhone', this.form.getControlValue('Phone'));
             } else {
@@ -1534,21 +1531,21 @@
         },
         onChangedQuestion_AnswerType: function(value) {
             this.form.setControlValue('Question_AnswerPhoneOrPost', null);
-            if(value == 2) {
+            if(value === 2) {
                 this.form.setControlValue(
                     'Question_AnswerPhoneOrPost',
                     this.form.getControlValue('Applicant_Phone_Hide')
                 );
             }
-            if(value == 4 || value == 5) {
+            if(value === 4 || value === 5) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('Adress_for_answer'));
             }
-            if(value == 3) {
+            if(value === 3) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('Applicant_Email'));
             }
         },
         onChanged_Search_Appeals_Input: function(value) {
-            if(value == '') {
+            if(value === '') {
                 document.getElementById('Search_Appeals_Search').disabled = true;
             } else {
                 document.getElementById('Search_Appeals_Search').disabled = false;
@@ -1560,7 +1557,7 @@
         Question_Content_Input: '',
         Question_AnswerType_Input: undefined,
         getOrgExecut: function() {
-            if (this.StateServerId == 1) {
+            if (this.StateServerId === 1) {
                 const objAndOrg = {
                     queryCode: 'getOrganizationExecutor',
                     parameterValues: [
@@ -1628,7 +1625,7 @@
                         };
                         this.queryExecutor.getValues(objAndFlat).subscribe(data => {
                             if (data.rows.length > 0) {
-                                if (this.form.getControlValue('Question_TypeId') == null) {
+                                if (this.form.getControlValue('Question_TypeId') === null) {
                                     this.form.setControlVisibility('entrance', false);
                                     this.form.setControlVisibility('flat', false);
                                 }else {
@@ -1665,7 +1662,7 @@
                     this.form.setControlVisibility('flat', false);
                 }
                 if (this.Question_Building_IsVisible == 1) {
-                    if (this.Question_Building_Input == undefined || this.Question_Building_Input == null) {
+                    if (this.Question_Building_Input === undefined || this.Question_Building_Input === null) {
                         this.Question_Building_ResultState = 'Error';
                     } else {
                         this.Question_Building_ResultState = 'OK';
@@ -1674,7 +1671,7 @@
                     this.Question_Building_ResultState = 'OK';
                 }
                 if (this.Question_Organization_IsVisible == 1) {
-                    if (this.Question_Organization_Input == undefined || this.Question_Organization_Input == null) {
+                    if (this.Question_Organization_Input == undefined || this.Question_Organization_Input === null) {
                         this.Question_Organization_ResultState = 'Error';
                     } else {
                         this.Question_Organization_ResultState = 'OK';
@@ -1682,15 +1679,15 @@
                 } else {
                     this.Question_Organization_ResultState = 'OK';
                 }
-                if(this.form.getControlValue('Applicant_Id') == '' ||
-                    this.form.getControlValue('Applicant_Id') == null ||
-                    this.Question_Content_Input == '' ||
-                    this.Question_AnswerType_Input == null ||
-                    this.Question_AnswerType_Input == undefined ||
-                    this.Question_TypeId_Input == null ||
-                    this.Question_TypeId_Input == undefined ||
-                    ((this.Question_Building_ResultState == 'OK') &&
-                    (this.Question_Organization_ResultState == 'OK')) != true
+                if(this.form.getControlValue('Applicant_Id') === '' ||
+                    this.form.getControlValue('Applicant_Id') === null ||
+                    this.Question_Content_Input === '' ||
+                    this.Question_AnswerType_Input === null ||
+                    this.Question_AnswerType_Input === undefined ||
+                    this.Question_TypeId_Input === null ||
+                    this.Question_TypeId_Input === undefined ||
+                    ((this.Question_Building_ResultState === 'OK') &&
+                    (this.Question_Organization_ResultState === 'OK')) !== true
                 ) {
                     document.getElementById('Question_Btn_Add').disabled = true;
                 } else {
@@ -1706,7 +1703,7 @@
                 this.Question_Building_Input = value;
                 this.onChanged_Question_Btn_Add_Input();
                 this.getOrgExecut();
-                if (this.form.getControlValue('Question_TypeId') == null) {
+                if (this.form.getControlValue('Question_TypeId') === null) {
                     this.form.setControlVisibility('entrance', false);
                     this.form.setControlVisibility('flat', false);
                 } else {
@@ -1822,7 +1819,7 @@
                 }
                 if (typeof (value) === 'string') {
                     if (value.length >= 0) {
-                        if (value.substr(0,1) === '-' || value.substr(0,1) == '0') {
+                        if (value.substr(0,1) === '-' || value.substr(0,1) === '0') {
                             value = '';
                             this.form.setControlValue('Applicant_Entrance', value);
                         }
@@ -1830,7 +1827,7 @@
                 }
             }
             this.Applicant_Entrance_Input = value;
-            if(this.InitialState_Applicant_Entrance == this.onChanged_Input(
+            if(this.InitialState_Applicant_Entrance === this.onChanged_Input(
                 this.form.getControlValue('Applicant_Entrance')
             )) {
                 this.CheckParamForApplicant_Entrance = 0
@@ -1840,7 +1837,7 @@
             this.onChanged_Question_Aplicant_Btn_Add_Input();
         },
         onChanged_Applicant_SocialStates_Input: function(value) {
-            if (value == null || value == undefined) {
+            if (value === null || value === undefined) {
                 const objNameSocialState_Select = {
                     queryCode: 'dir_SocialState_SelectRow',
                     parameterValues: [
@@ -1857,7 +1854,7 @@
                     });
                 });
             }
-            if(this.InitialState_Applicant_SocialStates == this.onChanged_Input(
+            if(this.InitialState_Applicant_SocialStates === this.onChanged_Input(
                 this.form.getControlValue('Applicant_SocialStates')
             )) {
                 this.CheckParamForApplicant_SocialStates = 0
@@ -1867,7 +1864,7 @@
             this.onChanged_Question_Aplicant_Btn_Add_Input();
         },
         onChanged_Applicant_Privilege_Input: function(value) {
-            if (value == null || value == undefined) {
+            if (value === null || value === undefined) {
                 const objNameApplicantPrivilegeRow = {
                     queryCode: 'ak_SelectApplicantPrivilegeRow',
                     parameterValues: [
@@ -1884,7 +1881,7 @@
                     });
                 });
             }
-            if (this.InitialState_Applicant_Privilege == this.onChanged_Input(
+            if (this.InitialState_Applicant_Privilege === this.onChanged_Input(
                 this.form.getControlValue('Applicant_Privilege')
             )) {
                 this.CheckParamForApplicant_Privilege = 0
@@ -1962,14 +1959,14 @@
                     this.CheckParamForApplicant_Building = 1
                 }
                 this.onChanged_Question_Aplicant_Btn_Add_Input();
-                if (value == null || value == undefined) {
+                if (value === null || value === undefined) {
                     this.details.setVisibility('Detail_Event', false);
                 } else {
                     const parameters1 = [
                         { key: '@object_id', value: value}
                     ];
                     this.details.loadData('Detail_Event', parameters1);
-                    if (this.StateServerId == 1 || this.StateServerId == 2) {
+                    if (this.StateServerId === 1 || this.StateServerId === 2) {
                         this.details.setVisibility('Detail_Event', true);
                     }
                 }
@@ -1979,30 +1976,30 @@
             }
         },
         onChanged_Question_Aplicant_Btn_Add_Input: function() {
-            if (this.Applicant_Entrance_Input == '' ||
-                this.Applicant_PIB_Input == '' ||
-                this.Applicant_Phone_Input == '' ||
-                this.Applicant_Building_Input == null ||
-                this.Applicant_Building_Input == undefined) {
-                if (this.form.getControlValue('Applicant_Id') != null ||
-                    this.form.getControlValue('Applicant_Id') != '') {
+            if (this.Applicant_Entrance_Input === '' ||
+                this.Applicant_PIB_Input === '' ||
+                this.Applicant_Phone_Input === '' ||
+                this.Applicant_Building_Input === null ||
+                this.Applicant_Building_Input === undefined) {
+                if (this.form.getControlValue('Applicant_Id') !== null ||
+                    this.form.getControlValue('Applicant_Id') !== '') {
                     document.getElementById('Question_Aplicant_Btn_Add').disabled = true;
                 }
             } else {
-                if (this.form.getControlValue('Applicant_Id') == null ||
-                    this.form.getControlValue('Applicant_Id') == '') {
+                if (this.form.getControlValue('Applicant_Id') === null ||
+                    this.form.getControlValue('Applicant_Id') === '') {
                     document.getElementById('Question_Aplicant_Btn_Add').disabled = true;
                 } else {
                     document.getElementById('Question_Aplicant_Btn_Add').disabled = false;
                 }
             }
-            if (this.Applicant_PIB_Input == '' ||
-                this.Applicant_Building_Input == '' ||
-                this.Applicant_Building_Input == undefined ||
-                this.Applicant_Building_Input == null ||
-                this.Applicant_Flat_Input == undefined ||
-                this.Applicant_Flat_Input == null ||
-                this.Applicant_Flat_Input == '') {
+            if (this.Applicant_PIB_Input === '' ||
+                this.Applicant_Building_Input === '' ||
+                this.Applicant_Building_Input === undefined ||
+                this.Applicant_Building_Input === null ||
+                this.Applicant_Flat_Input === undefined ||
+                this.Applicant_Flat_Input === null ||
+                this.Applicant_Flat_Input === '') {
                 document.getElementById('Applicant_Btn_Add').disabled = true;
             } else {
                 if(this.CheckParamForApplicant_PIB == 0 &&
@@ -2028,8 +2025,8 @@
         },
         TargetElement_Detail_Consultation_Prev: '',
         OnCellClikc_Detail_Consultation: function(column, row, value, event) {
-            if (this.StateServerId == 1 || this.StateServerId == 2) {
-                if (this.TargetElement_Detail_Consultation_Prev != '') {
+            if (this.StateServerId === 1 || this.StateServerId === 2) {
+                if (this.TargetElement_Detail_Consultation_Prev !== '') {
                     this.TargetElement_Detail_Consultation_Prev.style.removeProperty('color');
                     this.TargetElement_Detail_Consultation_Prev.style.removeProperty('background');
                 }
@@ -2398,13 +2395,13 @@
         Detail_Aplicant: function(column, row) {
             this.details.setExpanding('Detail_Aplicant',false);
             let sex = null;
-            if(row.values[19] == null) {
+            if(row.values[19] === null) {
                 sex = null;
             } else {
                 sex = (row.values[19]).toString();
             }
             let BirthDate = null;
-            if(row.values[20] == null) {
+            if(row.values[20] === null) {
                 BirthDate = null;
             } else {
                 BirthDate = new Date(row.values[20]);
@@ -2432,7 +2429,7 @@
             this.form.setControlValue('Applicant_Phone_Hide', row.values[32]);
             this.form.setControlValue('Adress', row.values[4]);
             this.form.setControlValue('Adress_for_answer', row.values[4]);
-            if (this.StateServerId == 1 || this.StateServerId == 2) {
+            if (this.StateServerId === 1 || this.StateServerId === 2) {
                 const parameters1 = [
                     { key: '@applicant_id', value: row.values[0]},
                     { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
@@ -2515,7 +2512,7 @@
             this.onChanged_Question_Btn_Add_Input();
         },
         onChanged_Applicant_HouseBlock_Input: function() {
-            if(this.InitialState_Applicant_HouseBlock == this.onChanged_Input(
+            if(this.InitialState_Applicant_HouseBlock === this.onChanged_Input(
                 this.form.getControlValue('Applicant_HouseBlock')
             )) {
                 this.CheckParamForApplicant_HouseBlock = 0
@@ -2534,7 +2531,7 @@
             this.Applicant_Flat_Input = value;
         },
         onChanged_Applicant_Type_Input: function(value) {
-            if (value == null || value == undefined) {
+            if (value === null || value === undefined) {
                 const objNameApplicantGetApplicantTypes = {
                     queryCode: 'GetApplicantTypes',
                     parameterValues: [
@@ -2597,10 +2594,10 @@
             this.onChanged_Question_Aplicant_Btn_Add_Input();
         },
         Group_Preview_Question_Close: function() {
-            if (this.Applicant_PIB_Input == '' ||
-                this.Applicant_Phone_Input == '' ||
-                this.Applicant_Building_Input == null ||
-                this.Applicant_Building_Input == undefined) {
+            if (this.Applicant_PIB_Input === '' ||
+                this.Applicant_Phone_Input === '' ||
+                this.Applicant_Building_Input === null ||
+                this.Applicant_Building_Input === undefined) {
                 this.form.setGroupVisibility('Group_CreateQuestion', false);
             } else {
                 this.form.setGroupVisibility('Group_CreateQuestion', false);
@@ -2652,7 +2649,7 @@
                 this.form.setControlValue('Question_Prew_AssignmentResolution', data.rows[0].values[19]);
                 this.form.setControlValue('Question_Prew_ApplicantPIB', data.rows[0].values[20]);
                 this.form.setControlValue('Question_Prew_ApplicantAdress', data.rows[0].values[21]);
-                if(data.rows[0].values[15] == 5) {
+                if(data.rows[0].values[15] === 5) {
                     document.getElementById('Question_Prew_Btn_Close').disabled = true;
                 }else{
                     document.getElementById('Question_Prew_Btn_Close').disabled = false;
