@@ -93,7 +93,7 @@
   select
   aot.Id [object_type_id]
       --,ao.[name_ofFirstLevel_fullName] [name] -- хз, по ходу
-      ,ISNULL(ao.[name_ofFirstLevel_shortToponym]+N' ', N'')+ISNULL(ao.[ofStreet_name_shortName]+N', ',N'')+ISNULL(ao.[name_ofFirstLevel_fullName],N'') [name]
+      ,ISNULL(ao.[ofStreet_name_shortToponym]+N' ', N'')+ISNULL(ao.[ofStreet_name_shortName]+N', ',N'')+ISNULL(ao.[name_ofFirstLevel_fullName],N'') [name]
       ,o.[builbing_id]
       ,d.Id [district_id]
       ,convert(nvarchar(128),ao.Id) [urbio_id]
@@ -157,7 +157,7 @@
 	  UPDATE [CRM_1551_Analitics].[dbo].[Objects]
 	  set [object_type_id]=aot.Id
 		  --,[name]=ao.[name_ofFirstLevel_fullName]
-      ,[name]=ISNULL(ao.[name_ofFirstLevel_shortToponym]+N' ', N'')+ISNULL(ao.[ofStreet_name_shortName]+N', ',N'')+ISNULL(ao.[name_ofFirstLevel_fullName],N'')
+      ,[name]=ISNULL(ao.[ofStreet_name_shortToponym]+N' ', N'')+ISNULL(ao.[ofStreet_name_shortName]+N', ',N'')+ISNULL(ao.[name_ofFirstLevel_fullName],N'')
 		  ,[builbing_id]=o.[builbing_id]
 		  ,[district_id]=d.Id--ao.ofDistrict_id
 		  ,[urbio_id]=convert(nvarchar(128),ao.Id)
