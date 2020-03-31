@@ -1,16 +1,23 @@
-SELECT [OutsideMen].[Id]
-      ,[OutsideMen].[Call_from]
-      ,[OutsideMen].[Plan_date]
-      ,[OutsideMen].[Finish_at]
-      ,[OutsideMen].[Comment]
-      ,c_c1.Name as company_name
-		,c_c1.Id as company_id
-      ,OutsideMen.Contact_ID as fiz_name
-      ,[OutsideMen].[Claims_ID]
-      ,Claims.Status_ID as claim_stat_id
-      ,dbo.f_phone_number_outsideMan(OutsideMen.Company_Contact_ID) as contact_number
-  FROM [dbo].[OutsideMen]
-	left join Claims on Claims.Id = OutsideMen.Claims_ID
-	left join Organizations as c_c1 on c_c1.Id = OutsideMen.Company_Contact_ID
-	left join Contact_types on Contact_types.Id = OutsideMen.Contact_type_ID
-	where [OutsideMen].[Id] = @Id
+-- DECLARE @Id INT = 55;
+
+SELECT
+   om.[Id],
+   om.[Call_from],
+   om.[Plan_date],
+   om.[Finish_at],
+   om.[Comment],
+   o.[Name] AS company_name,
+   o.Id AS company_id,
+   c.Id AS fiz_id,
+   c.[Name] AS fiz_name,
+   om.[Claims_ID],
+   cl.Status_ID AS claim_stat_id,
+   dbo.f_phone_number_outsideMan(om.Company_Contact_ID) AS contact_number
+FROM
+   dbo.[OutsideMen] om
+   LEFT JOIN dbo.Contacts c ON c.Id = om.Contact_ID
+   LEFT JOIN dbo.Claims cl ON cl.Id = om.Claims_ID
+   LEFT JOIN dbo.Organizations o ON o.Id = om.Company_Contact_ID
+   LEFT JOIN dbo.Contact_types ct ON ct.Id = om.Contact_type_ID
+WHERE
+   om.[Id] = @Id ;
