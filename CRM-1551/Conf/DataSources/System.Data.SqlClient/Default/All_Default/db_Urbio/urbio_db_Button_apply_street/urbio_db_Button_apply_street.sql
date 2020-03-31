@@ -36,7 +36,7 @@ IF @Operation=N'Видалення'
 	  )
 	  
 	  select d.Id [district_id] --в довідники Analitics.Districts  додати поле urbio_id?
-		  ,ut.Id --в довідник  Analitics.Street_types додати name_shortToponym?
+		  ,ast.Id --в довідник  Analitics.Street_types додати name_shortToponym?
 		  ,ISNULL(name_fullName+N' ', N'')+ISNULL(uniqueMarker_fullText+N' ',N'')+
 		   ISNULL(history_fullName+N' ', N'')+ISNULL(history_shortToponym+N' ',N'') [name]
 		  ,null [street_name_new_id]
@@ -44,8 +44,8 @@ IF @Operation=N'Видалення'
 		  ,'true' [is_active]
 		  ,'true' [is_urbio_new]
 	  FROM [CRM_1551_URBIO_Integrartion].[dbo].[streets] s
+	  left join [CRM_1551_Analitics].[dbo].[StreetTypes] ast on s.[name_shortToponym]=ast.name_shortToponym
 	  left join [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),s.ofDistrict_id)=d.urbio_id
-	  LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on s.TypeId_1551=ut.urbio_type_id
 	  where convert(nvarchar(128),s.Id)=@Urbio_Id 
 	  --inner join #Ids i ON [streets].Id=i.value
 
@@ -62,7 +62,7 @@ IF @Operation=N'Видалення'
   BEGIN
 			UPDATE [CRM_1551_Analitics].[dbo].[Streets]
 	  SET [district_id]=d.Id
-		  ,[street_type_id]=ut.Id
+		  ,[street_type_id]=ast.Id
 		  ,[name]=ISNULL(us.name_fullName+N' ', N'')+ISNULL(us.uniqueMarker_fullText+N' ',N'')+
 			ISNULL(us.history_fullName+N' ', N'')+ISNULL(us.history_shortToponym+N' ',N'')
 		  --,[street_name_new_id]
@@ -71,8 +71,8 @@ IF @Operation=N'Видалення'
 		  --,[is_urbio_new]
 	  FROM [CRM_1551_Analitics].[dbo].[Streets] ans
 	  INNER JOIN [CRM_1551_URBIO_Integrartion].[dbo].[streets] us ON ans.urbio_id=convert(nvarchar(128),us.Id)
+	  left join [CRM_1551_Analitics].[dbo].[StreetTypes] ast on us.[name_shortToponym]=ast.name_shortToponym
 	  left join [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),us.ofDistrict_id)=d.urbio_id
-	  LEFT JOIN [CRM_1551_Analitics].[dbo].[EventTypes_UrbioTypes] ut on us.TypeId_1551=ut.urbio_type_id
 	  WHERE ans.Id=@Analitics_Id;--urbio_id IN (select value from #Ids)
 
 	   UPDATE [CRM_1551_URBIO_Integrartion].[dbo].[streets]

@@ -309,9 +309,11 @@
                         }
                     }
                     let str = JSON.stringify(obj);
-                    let base64Str = str.encodeBase64();
+                    let base64Str = btoa(str);
                     if(obj.filterColumns.length > 0) {
-                        window.location = String(location.origin + localStorage.getItem('VirtualPath') + '/sections/' + el.url + base64Str);
+                        window.location = String(
+                            String(location.origin + localStorage.getItem('VirtualPath') + '/sections/' + el.url) + base64Str
+                        );
                     }
                 });
             });

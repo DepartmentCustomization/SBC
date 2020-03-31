@@ -1,14 +1,15 @@
-
-
- SELECT 
-  Id,	
-  create_date,		
-  [name] as [Name],	
+SELECT
+  Id,
+  create_date,
+  [name] AS [Name],
   [File]
-  FROM [dbo].[QuestionDocFiles]
-  where question_id =@Id
-  and [File] is not null
-  and #filter_columns#
-	--	#sort_columns#
-	order by 1
-	offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+FROM
+  [dbo].[QuestionDocFiles]
+WHERE
+  question_id = @Id
+  AND [File] IS NOT NULL
+  AND #filter_columns#
+  --	#sort_columns#
+ORDER BY 1 
+OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY
+;
