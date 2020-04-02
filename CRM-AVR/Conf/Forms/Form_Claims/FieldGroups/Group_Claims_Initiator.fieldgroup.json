@@ -56,14 +56,28 @@
     },
     {
       "Code": "UR_organization_id",
-      "Name": "Назва організації ",
-      "FieldType": "select",
-      "Position": 1,
-      "Width": "100%",
-      "QueryCode": "list_organization_ur",
+      "Name": "Організація",
+      "FieldType": "lookup",
+      "IsRequired": false,
+      "Position": 2,
+      "QueryCode": "List_JuridicalOrgs",
       "KeyColumnCode": "Id",
       "DisplayColumnCode": "Name",
-      "QueryParameters": []
+      "QueryParameters": [],
+      "LookupType": "tree",
+      "ParentColumnCode": "Parent_Organization_ID",
+      "PathColumnCode": "Path",
+      "SearchQueryCode": "List_JuridicalOrgs_Search",
+      "SearchKeyColumnCode": "Id",
+      "SearchDisplayColumnCode": "Name",
+      "Width": "100%"
+    },
+    {
+      "Code": "UR_organization",
+      "Name": "Назва організації",
+      "FieldType": "text",
+      "Position": 2,
+      "Width": "100%"
     },
     {
       "Code": "EM_org_id",
@@ -97,13 +111,9 @@
     {
       "Code": "UR_contact_fio",
       "Name": "ПІБ",
-      "FieldType": "select",
+      "FieldType": "text",
       "Position": 2,
-      "Width": "70%",
-      "QueryCode": "list_UR_contact_fio",
-      "KeyColumnCode": "Id",
-      "DisplayColumnCode": "pib",
-      "QueryParameters": []
+      "Width": "70%"
     },
     {
       "Code": "FIZ_number",
@@ -126,13 +136,9 @@
     {
       "Code": "UR_number",
       "Name": "Номер телефону",
-      "FieldType": "select",
+      "FieldType": "text",
       "Position": 3,
-      "Width": "30%",
-      "QueryCode": "list_phone_number",
-      "KeyColumnCode": "Id",
-      "DisplayColumnCode": "Number",
-      "QueryParameters": []
+      "Width": "30%"
     },
     {
       "Code": "x_pib_inspector",
