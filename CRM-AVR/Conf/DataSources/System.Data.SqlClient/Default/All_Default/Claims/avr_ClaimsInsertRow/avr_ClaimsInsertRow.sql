@@ -10,21 +10,8 @@ SET
 SET
 	@contact_id_fiz = @EM_org_id ;
 END 
-IF @contact_type = 2 
-BEGIN
-SET
-	@contact_id = (
-		SELECT
-			Contacts_ID
-		FROM
-			dbo.Organizations 
-		WHERE
-			Id = @UR_organization_id
-	);
 
-SET
-	@contact_id_fiz = @UR_contact_fio ;
-END IF @contact_type = 1 
+IF @contact_type = 1 
 BEGIN
 SET
 	@contact_id = @FIZ_concact_id ;
@@ -55,8 +42,10 @@ INSERT INTO
 		Contact_ID_Fiz,
 		date_check,
 		not_balans,
-		DisplayID
-	) output [inserted].[Id] INTO @output([Id])
+		DisplayID,
+		UR_organization_ID
+	) 
+OUTPUT [inserted].[Id] INTO @output([Id])
 VALUES
 	(
 		@Types_id,
@@ -65,8 +54,7 @@ VALUES
 		@Description,
 		@Status_id,
 		isnull(@Organization_id, 28),
-		getutcdate() --@Created_at
-,
+		getutcdate(),
 		@Plan_start_date,
 		isnull(
 			@Plan_finish_at,
@@ -78,11 +66,16 @@ VALUES
 		@Diameters_ID,
 		@Is_Template,
 		@User,
-		@contact_id,
-		@contact_id_fiz,
+		IIF(@contact_type = 2, 
+			NULL,
+			@contact_id),
+		IIF(@contact_type = 2,
+			NULL,
+			@contact_id_fiz),
 		@date_check,
 		@not_balans,
-		1
+		1,
+		@UR_organization_id
 	) ;
 DECLARE @Claim_Number INT;
 
@@ -139,6 +132,20 @@ VALUES
 		1,
 		getutcdate()
 	) ;
+
+IF(@contact_type = 2)
+BEGIN
+	INSERT INTO dbo.Claim_content 
+			(Claim_Id,
+			G_PIB,
+			UR_organization,
+			Phone)
+	VALUES (@Claim_Number,
+			@UR_contact_fio,
+			@UR_organization,
+			@UR_number) ;
+END					
+
 IF @type_employee_2 = 5
 	OR @type_employee_2 = 6
 	OR @type_employee_2 = 8
