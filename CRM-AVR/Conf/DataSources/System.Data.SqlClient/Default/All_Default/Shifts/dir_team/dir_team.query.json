@@ -1,0 +1,66 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_team",
+  "Name": "dir_team",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "Організація",
+      "Position": 2,
+      "SqlName": "Organizations.Name",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва бригади",
+      "Position": 3,
+      "SqlName": "[Teams].[Name]",
+      "FilterParameterCode": "@teams"
+    },
+    {
+      "Code": "Plan_start_time",
+      "Name": "Планова дата початку зміни",
+      "Position": 4
+    },
+    {
+      "Code": "Plan_end_time",
+      "Name": "Планова дата закінчення зміни",
+      "Position": 5
+    },
+    {
+      "Code": "team",
+      "Name": "Для виводу",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@organ",
+      "Name": "organ",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

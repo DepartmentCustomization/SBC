@@ -1,0 +1,35 @@
+{
+  "ModelType": "Query",
+  "Code": "es_users_day_position_pie",
+  "Name": "es_users_day_position_pie",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Position_ID",
+      "Name": "Position_ID",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Counter",
+      "Name": "Counter",
+      "Position": 2
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Org_Id",
+      "Name": "Org_Id",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

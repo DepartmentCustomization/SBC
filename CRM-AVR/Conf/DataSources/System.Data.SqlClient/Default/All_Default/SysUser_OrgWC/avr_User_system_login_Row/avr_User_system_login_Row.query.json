@@ -1,0 +1,70 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_User_system_login_Row",
+  "Name": "avr_User_system_login_Row",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "organizations_id",
+      "Name": "organizations_id",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Job_name",
+      "Name": "Job_name",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Login",
+      "Name": "Login",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "organizations_name",
+      "Position": 5,
+      "ReferenceKeyCode": "organizations_id"
+    },
+    {
+      "Code": "contact_id",
+      "Name": "contact_id",
+      "Position": 6
+    },
+    {
+      "Code": "contact_name",
+      "Name": "contact_name",
+      "Position": 7,
+      "ReferenceKeyCode": "contact_id"
+    },
+    {
+      "Code": "SystemUser_Id",
+      "Name": "SystemUser_Id",
+      "Position": 8
+    },
+    {
+      "Code": "Login2",
+      "Name": "Login2",
+      "Position": 9
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

@@ -4,7 +4,7 @@ SELECT
     p.articul,
     pc.install_date,
     x.partQty,
-    p.part_price
+    ROUND(pc.part_price,3) AS part_price
 FROM
     PartChange pc
     JOIN Parts p ON p.Id = pc.part_id

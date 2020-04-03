@@ -1,0 +1,24 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Shift_Order",
+  "Name": "Прив'язати зміну до виїзду",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Shift_Order.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "shift_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      },
+      {
+        "Code": "shifts_name",
+        "ParentFormFieldCodeForKeyValue": "shifts_name",
+        "ParentFormFieldCodeForDisplayValue": "shifts_name"
+      }
+    ],
+    "Script": "string:Form_Shift_Order.form.js"
+  }
+}

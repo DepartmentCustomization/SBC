@@ -50,7 +50,7 @@
 
 
 
-	    SET @Applicant_Id ApplicantId;  
+	    SELECT @Applicant_Id ApplicantId;  
 	END
 	ELSE 
 	BEGIN
@@ -104,7 +104,7 @@
 			  ,[edit_date]=getutcdate()
 			  WHERE [Id] = @AppealId;
 			  
-			SET @app_id AS ApplicantId;  
+			SELECT @app_id ApplicantId;  
 	
   END;
   

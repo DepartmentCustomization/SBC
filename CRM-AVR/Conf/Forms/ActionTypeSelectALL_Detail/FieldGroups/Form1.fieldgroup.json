@@ -1,0 +1,30 @@
+{
+  "Code": "Form1",
+  "Name": "Основна інформація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Actions_Id",
+      "Name": "Робота",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "List_ActionClaim_ActionTypeSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "action_types_name",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Orders.claims_id",
+          "ParameterCode": "@Claim_Id"
+        }
+      ]
+    },
+    {
+      "Code": "Order_ID",
+      "Name": "Order_ID",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1
+    }
+  ]
+}

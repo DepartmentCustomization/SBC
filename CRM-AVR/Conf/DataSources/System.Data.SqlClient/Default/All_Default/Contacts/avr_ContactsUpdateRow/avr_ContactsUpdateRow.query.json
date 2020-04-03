@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_ContactsUpdateRow",
+  "Name": "avr_ContactsUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

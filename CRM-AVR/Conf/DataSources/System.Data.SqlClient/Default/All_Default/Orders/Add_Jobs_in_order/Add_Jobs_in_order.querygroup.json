@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Add_Jobs_in_order",
+  "Name": "Призначити людей у Виїзд",
+  "ConnectionCode": "Default"
+}

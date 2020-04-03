@@ -1,0 +1,22 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_SelectUserOrganization",
+  "Name": "dir_SelectUserOrganization",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Organization_ID",
+      "Name": "Organization_ID",
+      "Position": 0
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@user",
+      "Name": "user",
+      "ParameterType": "CurrentUserId"
+    }
+  ]
+}

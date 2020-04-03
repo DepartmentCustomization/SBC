@@ -1,0 +1,48 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Place_Action",
+  "Name": "avr_Place_Action",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "place_type_name",
+      "Name": "Тип місця",
+      "Position": 2
+    },
+    {
+      "Code": "distinct_name",
+      "Name": "Район",
+      "Position": 3
+    },
+    {
+      "Code": "Name",
+      "Name": "Місце",
+      "Position": 4,
+      "SqlName": "[Places].[Name]",
+      "FilterParameterCode": "@name"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

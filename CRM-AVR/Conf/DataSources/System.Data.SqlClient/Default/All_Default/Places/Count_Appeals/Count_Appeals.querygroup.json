@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Count_Appeals",
+  "Name": "Кількість звернень",
+  "ConnectionCode": "Default"
+}

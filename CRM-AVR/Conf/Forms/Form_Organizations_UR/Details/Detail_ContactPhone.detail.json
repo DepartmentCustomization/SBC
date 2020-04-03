@@ -1,0 +1,20 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_ContactPhone",
+  "Name": "Інші контакти",
+  "FormCode": "Form_Contacts",
+  "SelectRowsQueryCode": "avr_Contacts_UR_PhoneSelectRows",
+  "SelectRowQueryCode": "avr_ContactsSelectRow",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_ContactsInsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

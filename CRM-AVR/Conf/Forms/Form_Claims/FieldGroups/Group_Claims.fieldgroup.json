@@ -1,0 +1,114 @@
+{
+  "Code": "Group_Claims",
+  "Name": "Заявка",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Status_id",
+      "Name": "Статус",
+      "FieldType": "select",
+      "Width": "76%",
+      "QueryCode": "dir_Status_Claim",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата реєстрації",
+      "FieldType": "date-time",
+      "Position": 1,
+      "Width": "25%"
+    },
+    {
+      "Code": "date_check",
+      "Name": "Дата прийнятя заявки",
+      "FieldType": "date-time",
+      "Position": 3,
+      "IsHidden": true,
+      "Width": "25%"
+    },
+    {
+      "Code": "User",
+      "Name": "Зареєстрував",
+      "FieldType": "text",
+      "Position": 4,
+      "Width": "25%"
+    },
+    {
+      "Code": "position_reg",
+      "Name": "Посада",
+      "FieldType": "text",
+      "Position": 4
+    },
+    {
+      "Code": "date_close",
+      "Name": "Дата закриття",
+      "FieldType": "date-time",
+      "Position": 5,
+      "Width": "25%"
+    },
+    {
+      "Code": "user_close",
+      "Name": "Закрив",
+      "FieldType": "text",
+      "Position": 6,
+      "Width": "25%"
+    },
+    {
+      "Code": "position_close",
+      "Name": "Посада",
+      "FieldType": "text",
+      "Position": 7
+    },
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "FieldType": "number",
+      "Position": 121,
+      "IsHidden": true
+    },
+    {
+      "Code": "First_Types_name",
+      "Name": "Тип заявки (первинний)",
+      "FieldType": "text",
+      "Position": 123,
+      "IsHidden": true
+    },
+    {
+      "Code": "is_Delve",
+      "Name": "is_Delve",
+      "FieldType": "number",
+      "Position": 125,
+      "IsHidden": true
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Claim_Number",
+      "FieldType": "text",
+      "Position": 131,
+      "IsHidden": true
+    },
+    {
+      "Code": "is_closeZasuv",
+      "Name": "is_closeZasuv",
+      "FieldType": "number",
+      "Position": 134,
+      "IsHidden": true
+    },
+    {
+      "Code": "count_orders",
+      "Name": "count_orders",
+      "FieldType": "number",
+      "Position": 252,
+      "IsHidden": true
+    },
+    {
+      "Code": "First_description",
+      "Name": "Опис проблеми (первинний)",
+      "FieldType": "textarea",
+      "Position": 1012,
+      "IsHidden": true
+    }
+  ]
+}

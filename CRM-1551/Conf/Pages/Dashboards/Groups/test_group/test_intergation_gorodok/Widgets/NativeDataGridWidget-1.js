@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -33,8 +33,8 @@
                         dataSource:  {
                             store: this.elements
                         },
-                        displayExpr: "streets",
-                        valueExpr: "Id"
+                        displayExpr: 'streets',
+                        valueExpr: 'Id'
                     }
                 }
             ],
@@ -59,7 +59,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             height: '550',
             keyExpr: 'Id',
@@ -80,27 +80,27 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null,
             selection: {
-                mode: "multiple"
+                mode: 'multiple'
             }
         },
         elements: [],
         init: function() {
             this.loadData(this.afterLoadDataHandler);
             let executeQuery = {
-                    queryCode: 'int_list_streets_1551',
-                    parameterValues: [],
-                    limit: -1
-                };
-                this.queryExecutor(executeQuery, this.lookupFoo, this);
+                queryCode: 'int_list_streets_1551',
+                parameterValues: [],
+                limit: -1
+            };
+            this.queryExecutor(executeQuery, this.lookupFoo, this);
         },
         lookupFoo: function(data) {
             this.elements = [];
-            for(let i = 0; i < data.rows.length; i++){
+            for(let i = 0; i < data.rows.length; i++) {
                 let el = data.rows[i];
                 let obj = {
-                    "Id": el.values[0],
-                    "streets": el.values[1],
-                } 
+                    'Id': el.values[0],
+                    'streets': el.values[1]
+                }
                 this.elements.push(obj);
             }
             this.config.columns[5].lookup.dataSource.store = this.elements;

@@ -1,6 +1,6 @@
-(function () {
-  return {
-    customConfig:
+(function() {
+    return {
+        customConfig:
                 `
                     <style>
                     
@@ -68,7 +68,7 @@
                       <!-- -->
                       
                       
-                      <div ="" class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/dashboard/page/int_streetsPageTable'">
+                      <div ="" class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/dashboard/page/int_streetsPageTable'">
                         <div ="" class="icon">
                           <i ="" class="material-icons" style="color:#ff7961;"> location_city </i>
                         </div>
@@ -77,7 +77,7 @@
                         <div ="" class="border-right"></div>
                       </div>
                       
-                      <div ="" class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/dashboard/page/int_housesPageTable'">
+                      <div ="" class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/dashboard/page/int_housesPageTable'">
                         <div ="" class="icon">
                           <i ="" class="material-icons" style="color: #2196F3;"> home </i>
                         </div>
@@ -86,7 +86,7 @@
                         <div ="" class="border-right"></div>
                       </div>
                       
-                       <div ="" class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/dashboard/page/int_organizationPageTable'">
+                       <div ="" class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/dashboard/page/int_organizationPageTable'">
                         <div ="" class="icon">
                           <i ="" class="material-icons" style="color: #2196F3;"> person_pin_circle </i>
                         </div>
@@ -95,7 +95,7 @@
                         <div ="" class="border-right"></div>
                       </div>
                       
-                     <div ="" class="group" tabindex="0"  onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/dashboard/page/int_claimsTypePageTable'">
+                     <div ="" class="group" tabindex="0"  onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/dashboard/page/int_claimsTypePageTable'">
                         <div ="" class="icon">
                           <i ="" class="material-icons" style="color:#FBC02D;"> event_note </i>
                         </div>
@@ -104,7 +104,7 @@
                         <div ="" class="border-right"></div>
                       </div>
                       
-                     <!--<div ="" class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/dashboard/home/CityPublicTransport'">
+                     <!--<div ="" class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/dashboard/home/CityPublicTransport'">
                         <div ="" class="icon">
                           <i ="" class="material-icons" style="color: #FFB300;">directions_bus </i>
                         </div>
@@ -116,10 +116,10 @@
                     </section>
                 
                 `
-    ,
-    init: function() {
-    },
-    load: function() {
-    }
-};
+        ,
+        init: function() {
+        },
+        load: function() {
+        }
+    };
 }());

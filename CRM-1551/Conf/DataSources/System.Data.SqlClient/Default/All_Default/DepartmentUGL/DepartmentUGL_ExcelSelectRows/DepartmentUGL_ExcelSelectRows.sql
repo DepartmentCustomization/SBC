@@ -1,26 +1,26 @@
-/*declare @dateFrom date;
-declare @dateTo date;
-declare @user_id nvarchar(128);
-declare @is_worked bit;
-*/
-if @is_worked is not null
-begin
+-- declare @dateFrom DATETIME='2019-05-31T21:00:00.000Z';
+-- declare @dateTo DATE='2020-02-20T12:03:00.000Z';
+-- declare @user_id nvarchar(128)=N'Вася';
+-- declare @is_worked BIT='true';
+--declare @uploaded NVARCHAR(MAX)=N'N''Вася'',N''Степа''';
+--DECLARE @processed NVARCHAR(MAX)=N'N''Вася'',N''Степа''';
 
-select Id, [№ звернення] [EnterNumber], [Створено] [RegistrationDate], [Заявник] [Applicant], [Адреса] [Address], [Зміст] [Content], [Питання] QuestionNumber
-from [Звернення УГЛ]
-where convert(date, [Створено]) between @dateFrom and @dateTo
-and #filter_columns# /*[Опрацював]=@user_id*/
-and [Опрацьовано]= @is_worked 
 
--- #sort_columns#
---  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
-
-end
-
-if @is_worked is null
-begin
-select Id, [№ звернення] [EnterNumber], [Створено] [RegistrationDate], [Заявник] [Applicant], [Адреса] [Address], [Зміст] [Content], [Питання] QuestionNumber
-from [Звернення УГЛ]
-where convert(date, [Створено]) between @dateFrom and @dateTo
-and #filter_columns# /*[Опрацював]=@user_id*/
-end
+SELECT
+		Z.Id
+	   ,Z.[№ звернення] [EnterNumber]
+	   ,Z.[Створено] [RegistrationDate]
+	   ,Z.[Заявник] [Applicant]
+	   ,Z.[Адреса] [Address]
+	   ,Z.[Зміст] [Content]
+	   --,Z.[Питання] QuestionNumber
+	   ,q.registration_number QuestionNumber
+	   ,Z.[Завантажив] [Uploaded]
+	   ,Z.[Опрацював] [Processed]
+	FROM [dbo].[Звернення УГЛ] z
+	LEFT JOIN [dbo].[Questions] q ON Z.Appeals_id=q.appeal_id
+WHERE Z.[Створено] BETWEEN @dateFrom AND @dateTo
+AND CASE WHEN @is_worked IS NULL THEN 'true' ELSE Z.[Опрацьовано] END=ISNULL(@is_worked,'true')
+AND #filter_columns#
+    #sort_columns#
+    offset @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only;

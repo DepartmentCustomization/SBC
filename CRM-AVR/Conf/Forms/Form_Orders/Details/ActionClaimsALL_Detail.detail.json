@@ -1,0 +1,47 @@
+{
+  "ModelType": "Detail",
+  "Code": "ActionClaimsALL_Detail",
+  "Name": "Всі доступні роботи",
+  "FormCode": "Form_Actions",
+  "SelectRowsQueryCode": "avr_Actions_Orders_SelectRows",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryParameterCode": "@ac_pl_types_id",
+    "QueryCode": "list_TEST_action_place_type",
+    "ColumnCode": "Id",
+    "AddType": "Lookup",
+    "InsertQueryCode": "test_ac_pl_INSERT",
+    "QueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Order_ID"
+      },
+      {
+        "FormFieldName": "claims_id",
+        "ParameterCode": "@Claim_ID"
+      }
+    ],
+    "InsertQueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Order_ID"
+      },
+      {
+        "FormFieldName": "claims_id",
+        "ParameterCode": "@Claim_ID"
+      },
+      {
+        "FormFieldName": "place_id",
+        "ParameterCode": "@places_id"
+      }
+    ]
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

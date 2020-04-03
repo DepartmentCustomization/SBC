@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -12,13 +12,13 @@
             columns: [
                 {
                     dataField: 'articul',
-                    caption: 'Артикул',
+                    caption: 'Артикул'
                 }, {
                     dataField: 'manufacturer',
-                    caption: 'Производитель',
+                    caption: 'Производитель'
                 }, {
                     dataField: 'provider',
-                    caption: 'Поставщик',
+                    caption: 'Поставщик'
                 }, {
                     dataField: 'cars_number',
                     caption: 'Госномер',
@@ -44,7 +44,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: false,
@@ -61,38 +61,37 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
-        init: function () {
+        init: function() {
             this.dataGridInstance.height = window.innerHeight - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
-        showTopQuestionsTable: function () {
+        showTopQuestionsTable: function() {
             document.getElementById('part_qty_report').style.display = 'block';
         },
-        getFiltersParams: function (message) {
+        getFiltersParams: function(message) {
             let category = message.package.value.values.find(f => f.name === 'category').value;
-            if (category !== null && category !== "") {
+            if (category !== null && category !== '') {
                 this.config.query.parameterValues = [
-                    { key: '@category', value: category.value },
+                    { key: '@category', value: category.value }
                 ];
                 this.loadData(this.afterLoadDataHandler);
             }
         },
-        extractOrgValues: function (val) {
+        extractOrgValues: function(val) {
             if (val !== '') {
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
-        afterLoadDataHandler: function () {
+        afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

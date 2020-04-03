@@ -16,13 +16,17 @@
         "Code": "dollar_date",
         "Name": "Дата",
         "Position": 2,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "dollar_date",
+        "FilterParameterCode": "@dollar_date"
       },
       {
         "Code": "dollar_rate",
         "Name": "Курс",
         "Position": 3,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "dollar_rate",
+        "FilterParameterCode": "@dollar_rate"
       }
     ],
     "Parameters": [

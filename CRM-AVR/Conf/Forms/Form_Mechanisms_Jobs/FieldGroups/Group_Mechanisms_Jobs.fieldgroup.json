@@ -1,0 +1,31 @@
+{
+  "Code": "Group_Mechanisms_Jobs",
+  "Name": "Техніка - водії",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "mechanisms_id",
+      "Name": "mechanisms_id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "jobs_id",
+      "Name": "ПІБ",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "dir_Mechanisms_Jobs",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "contact_name",
+      "QueryParameters": [
+        {
+          "ParentFormFieldCode": "Form_Mechanisms.organizations_id2",
+          "ParameterCode": "@organization"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "Code": "Group_Contact_Claim",
+  "Name": "Заявки контакта",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Claim_Number",
+      "Name": "№ Заявки",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "classes_id",
+      "Name": "Клас заявки",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "dir_ClaimClassesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "types_id",
+      "Name": "Тип заявки",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "dir_Claim_typesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "claim_types_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "First_Types_name",
+      "Name": "Тип заявки (первинний)",
+      "FieldType": "text",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "status_id",
+      "Name": "Статус",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "dir_Status_Claim",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата створення",
+      "FieldType": "text",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "organization_id",
+      "Name": "Призначено для",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "avr_OrganizationsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "organization_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Plan_start_date",
+      "Name": "Плановий початок",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Plan_finish_at",
+      "Name": "Плановое завершения",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Priority",
+      "Name": "Пріоритет виконання заявки",
+      "FieldType": "radio",
+      "IsRequired": true,
+      "Position": 1,
+      "Items": [
+        {
+          "Code": "1",
+          "Name": "Найкретично"
+        },
+        {
+          "Code": "2",
+          "Name": "Кретично"
+        },
+        {
+          "Code": "3",
+          "Name": "Важливо"
+        },
+        {
+          "Code": "4",
+          "Name": "Загально"
+        },
+        {
+          "Code": "5",
+          "Name": "Планування"
+        }
+      ]
+    },
+    {
+      "Code": "Description",
+      "Name": "Додаткова інформація",
+      "FieldType": "textarea",
+      "Position": 1
+    },
+    {
+      "Code": "First_description",
+      "Name": "Опис проблеми (первинний)",
+      "FieldType": "textarea",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": " Fact_finish_at",
+      "Name": "Фактичне завершення",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "contact_id",
+      "Name": "contact_id",
+      "FieldType": "number",
+      "Position": 1
+    }
+  ]
+}

@@ -1,6 +1,7 @@
-Select 
-part_name,
-manufacturer
- 
-from Parts
-where Id =  @partId
+SELECT
+    part_name,
+    manufacturer
+FROM
+    dbo.Parts
+WHERE
+    Id = @partId ;

@@ -1,0 +1,21 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Claim_Sequela",
+  "Name": "Ускладнення",
+  "FormCode": "Form_Sequela",
+  "SelectRowsQueryCode": "avr_Sequela_Claim_Select_ROWS",
+  "SelectRowQueryCode": "avr_Sequela_Claim_Select_ROW",
+  "UpdateQueryCode": "avr_Sequela_Claim_Update_ROW",
+  "SectionCode": "Sequela",
+  "Position": 4,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Sequela_Claim_Insert_ROW"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Claim_id"
+    }
+  ]
+}

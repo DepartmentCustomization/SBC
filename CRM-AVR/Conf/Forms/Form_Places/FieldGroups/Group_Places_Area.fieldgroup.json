@@ -1,0 +1,33 @@
+{
+  "Code": "Group_Places_Area",
+  "Name": "Ділянка",
+  "Position": 4,
+  "Fields": [
+    {
+      "Code": "from_house",
+      "Name": "Від будівлі",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "list_Houses_for_places",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "to_house",
+      "Name": "До будівлі",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "list_Houses_for_places",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "area_name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "Position": 3
+    }
+  ]
+}

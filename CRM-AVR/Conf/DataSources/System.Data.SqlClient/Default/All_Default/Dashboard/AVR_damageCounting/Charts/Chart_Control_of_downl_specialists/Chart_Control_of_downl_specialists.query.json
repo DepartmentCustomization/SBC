@@ -1,0 +1,30 @@
+{
+  "ModelType": "Query",
+  "Code": "Chart_Control_of_downl_specialists",
+  "Name": "Chart_Control_of_downl_specialists",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "organizations_name",
+      "Name": "Назва організації (або бригад)",
+      "Position": 1
+    },
+    {
+      "Code": "Involved",
+      "Name": "Залучені в наряд",
+      "Position": 2
+    },
+    {
+      "Code": "Distributed",
+      "Name": "Розподілені але не працують",
+      "Position": 3
+    },
+    {
+      "Code": "Free",
+      "Name": "Вільні",
+      "Position": 4
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Mechanisms_Jobs",
+  "Name": "Водії на техніку",
+  "FormCode": "Form_Mechanisms_Jobs",
+  "SelectRowsQueryCode": "avr_Mechanisms_Jobs_SelectRows",
+  "SelectRowQueryCode": "avr_Mechanisms_Jobs_SelectRow",
+  "UpdateQueryCode": "avr_Mechanisms_Jobs_UpdateRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Mechanisms_Jobs_DeleteRow",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Mechanisms_Jobs_InsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

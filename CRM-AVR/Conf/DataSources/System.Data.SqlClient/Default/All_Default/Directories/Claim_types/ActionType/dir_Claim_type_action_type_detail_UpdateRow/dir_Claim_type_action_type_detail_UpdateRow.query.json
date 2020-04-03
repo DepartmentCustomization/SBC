@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Claim_type_action_type_detail_UpdateRow",
+  "Name": "dir_Claim_type_action_type_detail_UpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

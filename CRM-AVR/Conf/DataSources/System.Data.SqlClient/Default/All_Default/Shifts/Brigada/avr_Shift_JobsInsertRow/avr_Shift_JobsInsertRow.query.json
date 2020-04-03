@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Shift_JobsInsertRow",
+  "Name": "avr_Shift_JobsInsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Shift_ID",
+      "Name": "Shift_ID",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@jobs_id",
+      "Name": "jobs_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

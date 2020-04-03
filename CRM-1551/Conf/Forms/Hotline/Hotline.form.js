@@ -5,8 +5,8 @@
             this.form.disableControl('registration_date');
             this.form.disableControl('phone_number');
         },
-        afterSave: function(data){
-             this.navigateTo('/sections/Hotline/edit/' + data.rows[0].values[0]);
-         } 
+        afterSave: function(data) {
+            this.navigateTo('/sections/Hotline/edit/' + data.rows[0].values[0]);
+        }
     }
-    }());
+}());

@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_AreaClaimLinks",
+  "Name": "Пов'язані обхідні заявки",
+  "SelectRowsQueryCode": "AreaClaimLinks_SelectRows",
+  "SectionCode": "",
+  "Position": 8,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

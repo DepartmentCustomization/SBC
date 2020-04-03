@@ -1,0 +1,61 @@
+{
+  "ModelType": "Query",
+  "Code": "chart_Shift_people",
+  "Name": "chart_Shift_people",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "shifts_name",
+      "Name": "shifts_name",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Shift_date",
+      "Name": "Shift_date",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "fio",
+      "Name": "fio",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Job_name",
+      "Name": "Job_name",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Is_main",
+      "Name": "Is_main",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Is_driver",
+      "Name": "Is_driver",
+      "Position": 6,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

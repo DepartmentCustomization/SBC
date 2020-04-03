@@ -1,6 +1,6 @@
 (function () {
   return {
-    customConfig:
+        customConfig:
                 `
                     <style>
                         .header-label {
@@ -68,7 +68,7 @@
                     <section class="group-btns">
                       <!-- -->
                       
-                      <div class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/admin/users'">
+                      <div class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/admin/users'">
                         <div class="icon">
                           <i class="material-icons elementIcon" style="color:#f44336;"> settings </i>
                         </div>
@@ -77,7 +77,7 @@
                         <div class="border-right"></div>
                       </div>
                       
-                      <div class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/dashboard/page/admin__workCalendar'">
+                      <div class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/dashboard/page/admin__workCalendar'">
                         <div class="icon">
                           <i class="material-icons elementIcon" style="color:#f44336;"> view_module </i>
                         </div>
@@ -86,7 +86,7 @@
                         <div class="border-right"></div>
                       </div>
                       
-                      <div class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/sections'">
+                      <div class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/sections'">
                         <div class="icon">
                           <i class="material-icons elementIcon" style="color:#ff7961;"> view_list </i>
                         </div>
@@ -95,7 +95,7 @@
                         <div class="border-right"></div>
                       </div>
                       
-                       <div class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/dashboard/page/analytics_reports_list'">
+                       <div class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/dashboard/page/analytics_reports_list'">
                         <div class="icon">
                           <i class="material-icons elementIcon" style="color:#ff7961;"> list </i>
                         </div>
@@ -104,7 +104,7 @@
                         <div class="border-right"></div>
                       </div>
                       
-                      <div class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/dashboard/page/constructor'">
+                      <div class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/dashboard/page/constructor'">
                         <div class="icon">
                           <i class="material-icons elementIcon" style="color:#ff7961;"> build </i>
                         </div>
@@ -114,7 +114,7 @@
                       </div>                      
                       
                       <!--
-                      <div class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/sections/CreateAppeal/add?phone=0000000000&type=2'">
+                      <div class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/sections/CreateAppeal/add?phone=0000000000&type=2'">
                         <div class="icon">
                           <i class="material-icons elementIcon" style="color: #2196F3;"> desktop_windows </i>
                         </div>
@@ -123,7 +123,7 @@
                         <div class="border-right"></div>
                       </div>
                       
-                      <div class="group" tabindex="0"  onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/sections/CreateAppeal/add?phone=0000000000&type=5'">
+                      <div class="group" tabindex="0"  onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/sections/CreateAppeal/add?phone=0000000000&type=5'">
                         <div class="icon">
                           <i class="material-icons elementIcon" style="color: #6ec6ff;"> mail </i>
                         </div>
@@ -132,7 +132,7 @@
                         <div class="border-right"></div>
                       </div>
                       
-                        <div class="group" tabindex="0"  onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/sections/Polls/add'">
+                        <div class="group" tabindex="0"  onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/sections/Polls/add'">
                         <div class="icon">
                           <i class="material-icons elementIcon" style="color:#FBC02D;"> event_note </i>
                         </div>
@@ -141,7 +141,7 @@
                         <div class="border-right"></div>
                       </div>
                       
-                  <div class="group" tabindex="0" onclick="javascript:window.location='`+location.origin + localStorage.getItem('VirtualPath')+ `/dashboard/home/CityPublicTransport'">
+                  <div class="group" tabindex="0" onclick="javascript:window.location='` + location.origin + localStorage.getItem('VirtualPath') + `/dashboard/home/CityPublicTransport'">
                         <div class="icon">
                           <i class="material-icons elementIcon" style="color: #FFB300;">directions_bus </i>
                         </div>
@@ -153,15 +153,14 @@
                     </section>
                 
                 `
-    ,
-    init: function() {
-    },
-    initValue: function(){
-    },
-    load: function() {
-    },
-    afterViewInit:function(){
-    }
-}
-;
+        ,
+        init: function() {
+        },
+        initValue: function() {
+        },
+        load: function() {
+        },
+        afterViewInit:function() {
+        }
+    };
 }());

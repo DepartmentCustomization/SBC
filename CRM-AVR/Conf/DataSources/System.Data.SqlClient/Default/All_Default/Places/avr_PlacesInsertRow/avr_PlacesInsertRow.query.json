@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_PlacesInsertRow",
+  "Name": "avr_PlacesInsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

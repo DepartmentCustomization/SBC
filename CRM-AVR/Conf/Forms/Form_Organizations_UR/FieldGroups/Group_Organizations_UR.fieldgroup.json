@@ -1,0 +1,83 @@
+{
+  "Code": "Group_Organizations_UR",
+  "Name": "Організація / юридична особа",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "organizations_name",
+      "Name": "Назва організації",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "adress_id",
+      "Name": "Юридична адреса",
+      "FieldType": "lookup",
+      "Position": 15,
+      "QueryCode": "dir_houses_organization",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "houses",
+      "QueryParameters": []
+    },
+    {
+      "PatternDescription": "код + телефон без пробелов и дефисов",
+      "Code": "Number",
+      "Name": "Номер телефону",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 20
+    },
+    {
+      "Code": "phone_comment",
+      "Name": "Коментар до телефону",
+      "FieldType": "text",
+      "Position": 30
+    },
+    {
+      "Code": "Contacts_ID",
+      "Name": "Contacts_ID",
+      "FieldType": "number",
+      "Position": 100,
+      "IsHidden": true
+    },
+    {
+      "Code": "Contact_type_ID",
+      "Name": " Тип юридичної особи:",
+      "FieldType": "radio",
+      "Position": 90,
+      "IsHidden": true,
+      "Items": [
+        {
+          "Code": "5",
+          "Name": "Зовнішня служба"
+        },
+        {
+          "Code": "2",
+          "Name": "Юридична особо заявник або інше"
+        }
+      ]
+    },
+    {
+      "Code": "is_External_service",
+      "Name": "Зовнішня служба",
+      "FieldType": "checkbox",
+      "Position": 40,
+      "Width": "20%"
+    },
+    {
+      "Code": "is_Contract_organization",
+      "Name": "Підрядна організація",
+      "FieldType": "checkbox",
+      "Position": 41,
+      "Width": "20%"
+    },
+    {
+      "Code": "is_Special_service",
+      "Name": "Спецслужба",
+      "FieldType": "checkbox",
+      "Position": 42,
+      "Width": "25%"
+    }
+  ]
+}

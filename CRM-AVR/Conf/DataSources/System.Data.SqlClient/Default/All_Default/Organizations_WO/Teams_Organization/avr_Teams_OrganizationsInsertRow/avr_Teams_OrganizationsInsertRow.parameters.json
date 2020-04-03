@@ -1,0 +1,27 @@
+[
+  {
+    "Code": "@teams_name",
+    "Name": "teams_name"
+  },
+  {
+    "Code": "@Plan_start_time",
+    "Name": "Plan_start_time",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@organizations_id",
+    "Name": "organizations_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Plan_end_time",
+    "Name": "Plan_end_time",
+    "ParameterType": "DateTime"
+  }
+]

@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         chartConfig:{
             chart: {
@@ -44,8 +44,8 @@
                 ]
             }]
         },
-        init: function(){
+        init: function() {
             this.render();
-        },
+        }
     };
 }());

@@ -1,0 +1,24 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Mechanisms",
+  "Name": " Техніка",
+  "Details": [
+    "string:Details\\Detail_Moves_Mechanisms.detail.json",
+    "string:Details\\Detail_Orders_Mechanism.detail.json",
+    "string:Details\\Detail_service.detail.json",
+    "string:Details\\Detail_Mechanisms_Jobs.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Organizations_Mechanisms.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "organizations_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Mechanisms.form.js"
+  }
+}

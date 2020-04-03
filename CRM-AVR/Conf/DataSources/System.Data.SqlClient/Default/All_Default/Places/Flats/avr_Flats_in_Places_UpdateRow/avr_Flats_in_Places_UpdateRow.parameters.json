@@ -1,0 +1,26 @@
+[
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@Floor",
+    "Name": "Floor",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Letter",
+    "Name": "Letter"
+  },
+  {
+    "Code": "@Comment",
+    "Name": "Comment"
+  },
+  {
+    "Code": "@Porch",
+    "Name": "Porch",
+    "ParameterType": "Integer"
+  }
+]

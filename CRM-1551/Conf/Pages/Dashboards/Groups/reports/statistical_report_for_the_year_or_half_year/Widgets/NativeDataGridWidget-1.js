@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -18,15 +18,15 @@
                             dataFields: 'qtyRepeated_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
-                        },  {
+                        }, {
                             caption: 'currentYear',
                             dataFields: 'qtyRepeated_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -39,7 +39,7 @@
                             dataFields: 'qtyСollective_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -47,7 +47,7 @@
                             dataFields: 'qtyСollective_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -60,7 +60,7 @@
                             dataFields: 'qtyWarsParticipants_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -68,7 +68,7 @@
                             dataFields: 'qtyWarsParticipants_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -81,7 +81,7 @@
                             dataFields: 'qtyInvalids_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -89,7 +89,7 @@
                             dataFields: 'qtyInvalids_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -102,7 +102,7 @@
                             dataFields: 'qtyWorkVeterans_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -110,7 +110,7 @@
                             dataFields: 'qtyWorkVeterans_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -123,7 +123,7 @@
                             dataFields: 'qtyWarKids_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -131,7 +131,7 @@
                             dataFields: 'qtyWarKids_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -144,7 +144,7 @@
                             dataFields: 'qtyFamily_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -152,7 +152,7 @@
                             dataFields: 'qtyFamily_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
@@ -165,7 +165,7 @@
                             dataFields: 'qtyChernobyl_prev',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }, {
@@ -173,34 +173,44 @@
                             dataFields: 'qtyChernobyl_curr',
                             alignment: 'center',
                             customizeText: function(cellInfo) {
-                                let value = cellInfo.value === null ? ' - ' :  cellInfo.value ;
+                                let value = cellInfo.value === null ? ' - ' : cellInfo.value;
                                 return value;
                             }
                         }
                     ]
-                }, 
+                }
             ],
             keyExpr: 'qtyRepeated_prev'
         },
+        firstLoad: true,
         init: function() {
-            this.sub =  this.messageService.subscribe( 'FiltersParams', this.setFilterParams, this );
+            this.sub = this.messageService.subscribe('FiltersParams', this.setFilterParams, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-        setFilterParams: function (message) {
+        setFilterParams: function(message) {
             this.config.query.parameterValues = [
-                {key: '@dateFrom' , value:  message.dateFrom },  
-                {key: '@dateTo', value: message.dateTo } 
+                {key: '@dateFrom' , value:  message.dateFrom },
+                {key: '@dateTo', value: message.dateTo }
             ];
-            this.loadData(this.afterLoadDataHandler);
-        }, 
+            if (this.firstLoad) {
+                this.firstLoad = false;
+                this.loadData(this.afterLoadDataHandler);
+            }
+        },
         afterLoadDataHandler: function(data) {
             const name = 'setData';
             const columns = this.config.columns;
             const position = 1;
-            this.messageService.publish( {name, data, columns, position} );
+            this.messageService.publish({name, data, columns, position});
             this.render(this.afterRenderTable());
-        },   
-        afterRenderTable: function () {
+        },
+        applyChanges: function() {
+            const self = this;
+            const name = 'applyTableChanges';
+            this.messageService.publish({ name, self });
+        },
+        afterRenderTable: function() {
             this.messageService.publish({ name: 'setStyles'});
             this.messageService.publish({
                 name: 'setYears',
@@ -209,6 +219,7 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
-        }, 
+            this.sub1.unsubscribe();
+        }
     };
 }());

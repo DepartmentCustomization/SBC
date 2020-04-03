@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Place_types",
+  "Name": "Довідник- Тип місця",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Place_types.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

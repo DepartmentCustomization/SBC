@@ -1,0 +1,54 @@
+{
+  "ModelType": "Query",
+  "Code": "list_search_number_EM",
+  "Name": "list_search_number_EM",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "Name",
+      "Name": "ПІБ",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Number",
+      "Name": "Номер телефона",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "phone_type",
+      "Name": "Тип телефона",
+      "Position": 3,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@number",
+      "Name": "number"
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

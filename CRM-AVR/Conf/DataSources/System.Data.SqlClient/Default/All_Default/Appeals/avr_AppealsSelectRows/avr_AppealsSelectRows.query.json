@@ -1,0 +1,74 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_AppealsSelectRows",
+  "Name": "avr_AppealsSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "app_Id",
+      "Name": "№ звернення",
+      "Position": 1,
+      "SqlName": "[Appeals].[Id]",
+      "FilterParameterCode": "@Ids"
+    },
+    {
+      "Code": "Date",
+      "Name": "Дата звернення",
+      "Position": 2,
+      "SqlName": "convert(nvarchar(16), [Appeals].[Date], 121)",
+      "FilterParameterCode": "@Date"
+    },
+    {
+      "Code": "Name",
+      "Name": "Контакт",
+      "Position": 3,
+      "SqlName": "Contacts.Name",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "Number",
+      "Name": "Контактний номер",
+      "Position": 4,
+      "SqlName": "cast (tabl_phone.phone_number as nvarchar)",
+      "FilterParameterCode": "@phone"
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Прив'язанно до заявки",
+      "Position": 5,
+      "SqlName": "Claims.Claim_Number",
+      "FilterParameterCode": "@name_param",
+      "ReferenceKeyCode": "claims_id",
+      "ReferenceSectionCode": "Claims"
+    },
+    {
+      "Code": "claims_id",
+      "Name": "claims_id",
+      "Position": 6,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 7,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

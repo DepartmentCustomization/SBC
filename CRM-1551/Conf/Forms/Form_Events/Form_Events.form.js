@@ -8,29 +8,29 @@
             this.details.setVisibility('EventHistory_Details', true);
         },
         init: function() {
-            if (this.form.getControlValue('real_end_date') != null) {
+            if (this.form.getControlValue('real_end_date') !== null) {
                 this.navigateTo('/sections/Events/view/' + this.id);
             }
             this.details.setVisibility('EventHistory_Details', false);
             this.details.onCellClick('EventHistory', this.Detail_History.bind(this));
-            if (this.state == 'create') {
+            if (this.state === 'create') {
                 this.details.setVisibility('Detail_EventQuestionsTypes', false);
                 this.details.setVisibility('Detail_EventQuestionsTypes_create', true);
-            } else if (this.state == 'update') {
+            } else if (this.state === 'update') {
                 this.details.setVisibility('Detail_EventQuestionsTypes', true);
                 this.details.setVisibility('Detail_EventQuestionsTypes_create', false);
             }
             this.form.disableControl('event_id');
-            this.form.disableControl("object_id");
-            this.form.disableControl("active");
-            if (this.form.getControlValue('real_end_date') == null) {
+            this.form.disableControl('object_id');
+            this.form.disableControl('active');
+            if (this.form.getControlValue('real_end_date') === null) {
                 document.getElementById('active_button').disabled = true;
             }
             this.form.onControlValueChanged('real_end_date', this.changeOndateFact.bind(this));
             const formNewContact = {
                 title: 'Аудіофайл',
-                acceptBtnText: "save",
-                cancelBtnText: "cancel",
+                acceptBtnText: 'save',
+                cancelBtnText: 'cancel',
                 fieldGroups: [{
                     code: 'file',
                     expand: true,
@@ -47,7 +47,7 @@
                     ]
                 }]
             }
-            document.getElementById('active_button').addEventListener("click", function(event) {
+            document.getElementById('active_button').addEventListener('click', function(event) {
                 event.stopImmediatePropagation();
                 const Question_Close_callback = (response) => {
                     if (!response) {
@@ -56,17 +56,17 @@
                         const objName = {
                             queryCode: 'ak_CloseEvent',
                             parameterValues: [{
-                                    key: '@Id',
-                                    value: this.id
-                                },
-                                {
-                                    key: '@real_end_date',
-                                    value: this.form.getControlValue('real_end_date')
-                                },
-                                {
-                                    key: '@coment_executor',
-                                    value: this.form.getControlValue('coment_executor')
-                                }
+                                key: '@Id',
+                                value: this.id
+                            },
+                            {
+                                key: '@real_end_date',
+                                value: this.form.getControlValue('real_end_date')
+                            },
+                            {
+                                key: '@coment_executor',
+                                value: this.form.getControlValue('coment_executor')
+                            }
                             ]
                         };
                         this.queryExecutor.getValues(objName).subscribe(() => {
@@ -78,7 +78,7 @@
                     title: ' ',
                     text: 'Підтвердити закриття заходу?',
                     acceptBtnText: 'yes',
-                    cancelBtnText: 'no',
+                    cancelBtnText: 'no'
                 };
                 this.openModalForm(fieldsForm, Question_Close_callback.bind(this));
             }.bind(this));
@@ -86,19 +86,19 @@
             const addContactCallBack = (param) => {
                 if (param === true) {
                     const body = {
-                            parameterValues: param
-                        }
+                        parameterValues: param
+                    }
                     this.queryExecutor.getValues(body).subscribe(() => {
                     });
                 }
             }
             let icon = document.getElementById('fileIcon');
-            icon.addEventListener("click", (e) => {
+            icon.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.openModalForm(formNewContact, addContactCallBack);
             });
-            icon.style.fontSize = "20px";
-            if (this.state != 'create') {
+            icon.style.fontSize = '20px';
+            if (this.state !== 'create') {
                 this.form.disableControl('event_id');
                 this.form.disableControl('event_class_id');
                 this.form.disableControl('event_type_id');
@@ -108,7 +108,7 @@
                 this.form.disableControl('comment');
                 this.form.disableControl('start_date');
                 this.form.disableControl('active');
-                if (this.form.getControlValue('real_end_date') != null) {
+                if (this.form.getControlValue('real_end_date') !== null) {
                     this.form.disableControl('plan_end_date');
                     this.form.disableControl('real_end_date');
                     document.getElementById('active_button').disabled = true;
@@ -122,17 +122,18 @@
             this.details.loadData('Detail_Event_Questions', param2);
             this.details.loadData('P_Question', param2);
         },
-        onEventQueType: function(type_id) {
-            if (typeof type_id === "string") {
+        onEventQueType: function(class_id) {
+            if (typeof class_id === 'string') {
                 return
-            } else {
-                const param = [{ key: '@Id', value: type_id }];
-                this.details.loadData('Detail_EventQuestionsTypes_create', param);
             }
+            let typeParam = [{ parameterCode: '@classId', parameterValue: class_id }];
+            this.form.setControlParameterValues('event_type_id', typeParam);
+            const param = [{ key: '@Id', value: class_id }];
+            this.details.loadData('Detail_EventQuestionsTypes_create', param);
         },
         changeOndateFact: function(value) {
             const start_date = this.form.getControlValue('start_date');
-            if (value == null) {
+            if (value === null) {
                 document.getElementById('active_button').disabled = true;
             } else {
                 if (value < start_date) {
@@ -146,7 +147,7 @@
         onStreetsChanged: function(dis_id) {
             if (typeof dis_id === 'string') {
                 return
-            } else if (dis_id == null) {
+            } else if (dis_id === null) {
                 this.form.setControlValue('object_id', null);
                 let dependParams = [{ parameterCode: '@ObjectTypesId', parameterValue: dis_id }];
                 this.form.setControlParameterValues('object_id', dependParams);
@@ -158,7 +159,7 @@
             }
         },
         afterSave: function(data) {
-            if (this.state == 'create') {
+            if (this.state === 'create') {
                 this.navigateTo('sections/Events/edit/' + data.rows[0].values[0])
             }
         }

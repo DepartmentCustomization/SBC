@@ -1,0 +1,13 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_JuridicalStructure",
+  "Name": "Структура юридичних осіб",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Organization.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:Form_JuridicalStructure.form.js"
+  }
+}

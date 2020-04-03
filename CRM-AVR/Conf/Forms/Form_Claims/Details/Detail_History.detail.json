@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_History",
+  "Name": "Історія змін",
+  "SelectRowsQueryCode": "avr_History_Claims",
+  "SectionCode": "",
+  "Position": 11,
+  "PrintType": "None",
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

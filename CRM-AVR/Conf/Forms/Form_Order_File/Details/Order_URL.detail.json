@@ -1,0 +1,21 @@
+{
+  "ModelType": "Detail",
+  "Code": "Order_URL",
+  "Name": "URL",
+  "FormCode": "Group_Order_URL",
+  "SelectRowsQueryCode": "avr_URL_Order_SelectRows",
+  "SelectRowQueryCode": "avr_URL_Order_SelectRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Files_Order_Delete",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_URL_Order_Insert"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

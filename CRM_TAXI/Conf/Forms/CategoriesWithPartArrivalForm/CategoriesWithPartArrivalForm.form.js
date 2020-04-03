@@ -1,6 +1,6 @@
-(function () {
+(function() {
     return {
-        init: function () {
+        init: function() {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             document.getElementById('clear_arrival').disabled = true;
             document.getElementById('add_arrival').disabled = true;
@@ -30,10 +30,10 @@
             this.form.disableControl('sum_price');
             this.form.onControlValueChanged('part_price', this.calculateArrivalSum);
             this.form.onControlValueChanged('part_quantity', this.calculateArrivalSum);
-            document.getElementById('clear_arrival').addEventListener("click", function () {
+            document.getElementById('clear_arrival').addEventListener('click', function() {
                 this.clearArrivalValues();
             }.bind(this));
-            document.getElementById('new_article').addEventListener("click", function () {
+            document.getElementById('new_article').addEventListener('click', function() {
                 const CreateArticul_callback = (response) => {
                     if (response) {
                         const newPart = {
@@ -81,31 +81,31 @@
                             position: 1,
                             fields: [
                                 {
-                                    code: "articul",
+                                    code: 'articul',
                                     fullScreen: true,
                                     hidden: false,
-                                    placeholder: "Актикул",
+                                    placeholder: 'Актикул',
                                     position: 1,
                                     required: true,
-                                    type: "text"
+                                    type: 'text'
                                 },
                                 {
-                                    code: "part_name",
+                                    code: 'part_name',
                                     fullScreen: true,
                                     hidden: false,
-                                    placeholder: "Название",
+                                    placeholder: 'Название',
                                     position: 2,
                                     required: true,
-                                    type: "text"
+                                    type: 'text'
                                 },
                                 {
-                                    code: "manufacturer",
+                                    code: 'manufacturer',
                                     fullScreen: true,
                                     hidden: false,
-                                    placeholder: "Производитель",
+                                    placeholder: 'Производитель',
                                     position: 3,
                                     required: true,
-                                    type: "text"
+                                    type: 'text'
                                 }
                             ]
                         }
@@ -113,7 +113,7 @@
                 };
                 this.openModalForm(formFields, CreateArticul_callback.bind(this));
             }.bind(this));
-            document.getElementById('add_arrival').addEventListener("click", function () {
+            document.getElementById('add_arrival').addEventListener('click', function() {
                 const queryForAddPartsArrival = {
                     queryCode: 'InsertPartsArrival',
                     parameterValues: [
@@ -144,7 +144,7 @@
                     ]
                 };
                 this.queryExecutor.getValues(queryForAddPartsArrival).subscribe(data => {
-                    if (data != undefined) {
+                    if (data !== undefined) {
                         this.form.markAsSaved();
                         this.openPopUpInfoDialog(data.rows[0].values[0]);
                         this.clearArrivalValues();
@@ -154,9 +154,9 @@
                 });
             }.bind(this));
         },
-        getPartName: function () {
-            if (this.form.getControlValue('articul') != null &&
-                this.form.getControlValue('articul') != "") {
+        getPartName: function() {
+            if (this.form.getControlValue('articul') !== null &&
+                this.form.getControlValue('articul') !== '') {
                 const queryForGetPartInfo = {
                     queryCode: 'getPartInfoByArticul',
                     parameterValues: [
@@ -167,19 +167,19 @@
                     ]
                 };
                 this.queryExecutor.getValues(queryForGetPartInfo).subscribe(data => {
-                    if (data != undefined) {
+                    if (data !== undefined) {
                         this.form.setControlValue('part_name', data.rows[0].values[0]);
                         this.form.setControlValue('manufacturer', data.rows[0].values[1]);
                     }
                 });
             }
         },
-        calculateArrivalSum: function () {
+        calculateArrivalSum: function() {
             if (
-                this.form.getControlValue('part_quantity') != null
-                && this.form.getControlValue('part_quantity') != ""
-                && this.form.getControlValue('part_price') != null
-                && this.form.getControlValue('part_price') != ""
+                this.form.getControlValue('part_quantity') !== null
+                && this.form.getControlValue('part_quantity') !== ''
+                && this.form.getControlValue('part_price') !== null
+                && this.form.getControlValue('part_price') !== ''
             ) {
                 let qty = this.form.getControlValue('part_quantity');
                 let price = this.form.getControlValue('part_price');
@@ -187,8 +187,8 @@
                 this.form.setControlValue('sum_price', sumPrice);
             }
         },
-        checkArticulPresents: function () {
-            if (this.form.getControlValue('articul') == null || this.form.getControlValue('articul') == "") {
+        checkArticulPresents: function() {
+            if (this.form.getControlValue('articul') === null || this.form.getControlValue('articul') === '') {
                 this.form.setControlValue('part_name', null);
                 this.form.setControlValue('manufacturer', null);
                 document.getElementById('new_article').disabled = false;
@@ -196,48 +196,48 @@
                 document.getElementById('new_article').disabled = true;
             }
         },
-        checkClearAvailable: function () {
+        checkClearAvailable: function() {
             if (
-                (this.form.getControlValue('articul') != null && this.form.getControlValue('articul') != "")
+                (this.form.getControlValue('articul') !== null && this.form.getControlValue('articul') !== '')
                 ||
-                (this.form.getControlValue('provider') != null && this.form.getControlValue('provider') != "")
+                (this.form.getControlValue('provider') !== null && this.form.getControlValue('provider') !== '')
                 ||
-                (this.form.getControlValue('part_quantity') != null && this.form.getControlValue('part_quantity') != "")
+                (this.form.getControlValue('part_quantity') !== null && this.form.getControlValue('part_quantity') !== '')
                 ||
-                (this.form.getControlValue('part_price') != null && this.form.getControlValue('part_price') != "")
+                (this.form.getControlValue('part_price') !== null && this.form.getControlValue('part_price') !== '')
                 ||
-                (this.form.getControlValue('invoice_number') != null && this.form.getControlValue('invoice_number') != "")
+                (this.form.getControlValue('invoice_number') !== null && this.form.getControlValue('invoice_number') !== '')
             ) {
                 document.getElementById('clear_arrival').disabled = false;
             } else {
                 document.getElementById('clear_arrival').disabled = true;
             }
         },
-        checkSaveArrivalAvailable: function () {
+        checkSaveArrivalAvailable: function() {
             if (
-                (this.form.getControlValue('articul') != null && this.form.getControlValue('articul') != "")
+                (this.form.getControlValue('articul') !== null && this.form.getControlValue('articul') !== '')
                 &&
-                (this.form.getControlValue('provider') != null && this.form.getControlValue('provider') != "")
+                (this.form.getControlValue('provider') !== null && this.form.getControlValue('provider') !== '')
                 &&
-                (this.form.getControlValue('part_quantity') != null && this.form.getControlValue('part_quantity') != "")
+                (this.form.getControlValue('part_quantity') !== null && this.form.getControlValue('part_quantity') !== '')
                 &&
-                (this.form.getControlValue('part_price') != null && this.form.getControlValue('part_price') != "")
+                (this.form.getControlValue('part_price') !== null && this.form.getControlValue('part_price') !== '')
                 &&
-                (this.form.getControlValue('invoice_number') != null && this.form.getControlValue('invoice_number') != "")
+                (this.form.getControlValue('invoice_number') !== null && this.form.getControlValue('invoice_number') !== '')
             ) {
                 document.getElementById('add_arrival').disabled = false;
             } else {
                 document.getElementById('add_arrival').disabled = true;
             }
         },
-        clearArrivalValues: function () {
+        clearArrivalValues: function() {
             this.form.setControlValue('articul', { key: null, value: null });
             this.form.setControlValue('provider', { key: null, value: null });
             this.form.setControlValue('part_quantity', null);
             this.form.setControlValue('part_price', null);
             this.form.setControlValue('invoice_number', null);
         },
-        clearArrivalSum: function () {
+        clearArrivalSum: function() {
             this.form.setControlValue('sum_price', null);
         }
     };

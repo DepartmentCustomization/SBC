@@ -1,0 +1,78 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Actions_Orders_SelectRows",
+  "Name": "avr_Actions_Orders_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Sort_index",
+      "Name": "Порядок",
+      "Position": 2
+    },
+    {
+      "Code": "action_types_name",
+      "Name": "Роботи у виїзді",
+      "Position": 3,
+      "SqlName": "Action_types.Name",
+      "FilterParameterCode": "@name",
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "Actions"
+    },
+    {
+      "Code": "Is_move",
+      "Name": "Виїзд техніки",
+      "Position": 4,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "places_name",
+      "Name": "Назва місця",
+      "Position": 5
+    },
+    {
+      "Code": "Diameters_ID",
+      "Name": "Діаметр",
+      "Position": 6
+    },
+    {
+      "Code": "Value",
+      "Name": "Кількість",
+      "Position": 7
+    },
+    {
+      "Code": "Do_not",
+      "Name": "Актуальна",
+      "Position": 8,
+      "ViewState": "Hidden"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

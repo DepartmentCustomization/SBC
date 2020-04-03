@@ -1,0 +1,63 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_StreetsSelectRows",
+  "Name": "dir_StreetsSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "type_name",
+      "Name": "Тип",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "Street_Type.UkrName",
+      "FilterParameterCode": "@typo"
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва вулиці",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "[Streets].[Name]",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "Old_name",
+      "Name": "Стара назва вулиці",
+      "Position": 4,
+      "IsPrintable": false,
+      "SqlName": "[Streets].[Old_name]",
+      "FilterParameterCode": "@old_name"
+    },
+    {
+      "Code": "Territory",
+      "Name": "Примітка",
+      "Position": 5,
+      "SqlName": "Streets.Territory",
+      "FilterParameterCode": "@note"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

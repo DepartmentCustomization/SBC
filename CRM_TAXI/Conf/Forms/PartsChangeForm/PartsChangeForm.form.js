@@ -1,17 +1,17 @@
-(function () {
+(function() {
     return {
         openCar: undefined,
-        init: function () {
+        init: function() {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             this.openCar = this.form.getControlValue('cars_id');
             let url = window.location.href;
-            if (this.form.getControlValue('invoice_consumption') == null) {
+            if (this.form.getControlValue('invoice_consumption') === null) {
                 this.navigateTo('sections/PartsChange');
             }
-            if (url.includes('view') == true) {
+            if (url.includes('view') === true) {
                 this.form.setControlVisibility('update_part_change', false);
             }
-            if (this.state == "update") {
+            if (this.state === 'update') {
                 this.checkUserRole();
                 let changeParam = [
                     { parameterCode: '@car', parameterValue: this.form.getControlValue('cars_id') },
@@ -22,10 +22,10 @@
                 this.form.disableControl('part_price');
                 this.form.disableControl('part_name');
                 this.form.disableControl('manufacturer');
-                if (document.getElementById('new_part_id').disabled == true) {
-                    document.getElementById("update_part_change").style.display = "none";
+                if (document.getElementById('new_part_id').disabled === true) {
+                    document.getElementById('update_part_change').style.display = 'none';
                 }
-                document.getElementById('update_part_change').addEventListener("click", function () {
+                document.getElementById('update_part_change').addEventListener('click', function() {
                     const queryForUpdatePartsChange = {
                         queryCode: 'Remake_PartChange',
                         parameterValues: [
@@ -52,16 +52,18 @@
                         ]
                     };
                     this.queryExecutor.getValues(queryForUpdatePartsChange).subscribe(data => {
-                        if (data != undefined) {
-                            this.form.markAsSaved();
-                            this.openPopUpInfoDialog(data.rows[0].values[0]);
-                            this.navigateTo('sections/PartsChange/edit/' + data.rows[0].values[1]);
-                            if (data.rows[0].values[2] !== undefined) {
-                                let notifyText = data.rows[0].values[2];
-                                this.sendBadChangeNotify(notifyText);
+                        if (data !== undefined) {
+                            if (data.rows[0].values[2] !== 'Fail' && data.rows[0].values[2] !== 'OK') {
+                                this.form.markAsSaved();
+                                this.openPopUpInfoDialog(data.rows[0].values[0]);
+                                this.navigateTo('sections/PartsChange/edit/' + data.rows[0].values[1]);
+                            } else if (data.rows[0].values[2] === 'Fail') {
+                                this.openPopUpInfoDialog(data.rows[0].values[0]);
+                            } else if (data.rows[0].values[2] === 'OK') {
+                                this.form.markAsSaved();
+                                this.openPopUpInfoDialog(data.rows[0].values[0]);
+                                this.navigateTo('sections/PartsChange/edit/' + data.rows[0].values[1]);
                             }
-                        } else {
-                            this.openPopUpInfoDialog('Ошибка изменения данных');
                         }
                     });
                 }.bind(this));
@@ -73,17 +75,18 @@
             this.form.onControlValueChanged('new_part_id', this.checkArticulPresents);
             this.form.onControlValueChanged('new_part_id', this.getPartName);
         },
-        sendBadChangeNotify: function (title) {
+        sendBadChangeNotify: function(title) {
+            let operators = 4;
             this.createOrganisationsNotification({
                 text: title,
-                url: "notifications/unread",
-                notificationTypeCode: "WEB",
-                notificationPriorityCode: "Middle",
-                organisationIds: [4],
+                url: 'notifications/unread',
+                notificationTypeCode: 'WEB',
+                notificationPriorityCode: 'Middle',
+                organisationIds: [operators],
                 hasAudio: true
             });
         },
-        checkUserRole: function () {
+        checkUserRole: function() {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
                 parameterValues: [
@@ -94,18 +97,18 @@
                 ]
             };
             this.queryExecutor.getValues(queryForCheckUserRole).subscribe(data => {
-                if (data.rows[0].values[0] != 'Администраторы') {
+                if (data.rows[0].values[0] !== 'Администраторы') {
                     this.navigateTo('sections/PartsChange/view/' + this.id)
                 }
             });
         },
-        checkCarAvailable: function () {
+        checkCarAvailable: function() {
             let car = this.form.getControlValue('cars_id');
-            if (this.openCar != car) {
+            if (this.openCar !== car) {
                 this.form.setControlValue('old_part_id', { key: null, value: null });
             }
-            if (this.form.getControlValue('cars_id') != null &&
-                this.form.getControlValue('cars_id') != "") {
+            if (this.form.getControlValue('cars_id') !== null &&
+                this.form.getControlValue('cars_id') !== '') {
                 let changeParam = [
                     { parameterCode: '@car', parameterValue: car },
                     { parameterCode: '@changeId', parameterValue: this.id }];
@@ -115,19 +118,19 @@
                 this.form.setControlParameterValues('old_part_id', null);
             }
         },
-        checkSaveAvailable: function () {
-            if (this.form.getControlValue('cars_id') != null &&
-                this.form.getControlValue('new_part_id') != null &&
-                this.form.getControlValue('cars_id') != "" &&
-                this.form.getControlValue('new_part_id') != ""
+        checkSaveAvailable: function() {
+            if (this.form.getControlValue('cars_id') !== null &&
+                this.form.getControlValue('new_part_id') !== null &&
+                this.form.getControlValue('cars_id') !== '' &&
+                this.form.getControlValue('new_part_id') !== ''
             ) {
                 document.getElementById('update_part_change').disabled = false;
             } else {
                 document.getElementById('update_part_change').disabled = true;
             }
         },
-        checkArticulPresents: function () {
-            if (this.form.getControlValue('new_part_id') == null || this.form.getControlValue('new_part_id') == "") {
+        checkArticulPresents: function() {
+            if (this.form.getControlValue('new_part_id') === null || this.form.getControlValue('new_part_id') === '') {
                 this.form.setControlValue('part_name', null);
                 this.form.setControlValue('manufacturer', null);
                 this.form.setControlValue('part_price', null);
@@ -135,9 +138,9 @@
                 this.getPartPrice();
             }
         },
-        getPartName: function () {
-            if (this.form.getControlValue('new_part_id') != null &&
-                this.form.getControlValue('new_part_id') != "") {
+        getPartName: function() {
+            if (this.form.getControlValue('new_part_id') !== null &&
+                this.form.getControlValue('new_part_id') !== '') {
                 const queryForGetPartInfo = {
                     queryCode: 'getPartInfoByArticul',
                     parameterValues: [
@@ -148,15 +151,15 @@
                     ]
                 };
                 this.queryExecutor.getValues(queryForGetPartInfo).subscribe(data => {
-                    if (data != undefined) {
+                    if (data !== undefined) {
                         this.form.setControlValue('part_name', data.rows[0].values[0]);
                         this.form.setControlValue('manufacturer', data.rows[0].values[1]);
                     }
                 });
             }
         },
-        getPartPrice: function () {
-            if (this.form.getControlValue('new_part_id') != null) {
+        getPartPrice: function() {
+            if (this.form.getControlValue('new_part_id') !== null) {
                 const queryForCheckUserRole = {
                     queryCode: 'SelectPartPrice',
                     parameterValues: [
@@ -167,7 +170,7 @@
                     ]
                 };
                 this.queryExecutor.getValues(queryForCheckUserRole).subscribe(data => {
-                    if (data != undefined) {
+                    if (data !== undefined) {
                         this.form.setControlValue('part_price', data.rows[0].values[0]);
                     }
                 });

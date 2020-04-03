@@ -1,0 +1,45 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Claim_Links_SelectRow",
+  "Name": "avr_Claim_Links_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "claim_link_types_id",
+      "Name": "claim_link_types_id",
+      "Position": 2
+    },
+    {
+      "Code": "claims_number2",
+      "Name": "claims_number2",
+      "Position": 3
+    },
+    {
+      "Code": "claim_link_types_name",
+      "Name": "claim_link_types_name",
+      "Position": 4,
+      "ReferenceKeyCode": "claim_link_types_id"
+    },
+    {
+      "Code": "claims_Id",
+      "Name": "claims_Id",
+      "Position": 5
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

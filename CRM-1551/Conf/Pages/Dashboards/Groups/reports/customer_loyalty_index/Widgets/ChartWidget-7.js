@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         chartConfig: {
             chart: {
@@ -29,19 +29,19 @@
             series: []
         },
         init: function() {
-            const query = this.query("ak_NPS_Index1_4");
+            const query = this.query('ak_NPS_Index1_4');
             this.queryExecutor(query, this.getYesterdayIndex, this);
             this.showPreloader = false;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
         },
-        getYesterdayIndex: function (data) {
+        getYesterdayIndex: function(data) {
             let value = 0;
             if (data.rows.length) {
                 value = data.rows[0].values[0];
             }
-            this.chartConfig.subtitle.text =  value;
+            this.chartConfig.subtitle.text = value;
         },
-        getFiltersParams: function (message) {
+        getFiltersParams: function(message) {
             let period = message.package.value.values.find((el) => {
                 return el.name.toLowerCase() === 'period';
             });
@@ -54,37 +54,37 @@
                 }
             }
         },
-        executeQuery: function () {
-            const query = this.query("ak_NPS_Graf1_4");
+        executeQuery: function() {
+            const query = this.query('ak_NPS_Graf1_4');
             this.queryExecutor(query, this.load, this);
             this.showPreloader = false;
         },
-        query: function (queryCode) {
+        query: function(queryCode) {
             return {
-                "queryCode": queryCode,
-                "limit": -1,
-                "parameterValues": [
-                    { "key": "@date_from", "value": this.dateFrom },
-                    { "key": "@date_to", "value": this.dateTo }
-                ],
+                'queryCode': queryCode,
+                'limit': -1,
+                'parameterValues': [
+                    { 'key': '@date_from', 'value': this.dateFrom },
+                    { 'key': '@date_to', 'value': this.dateTo }
+                ]
             };
         },
-        load: function (data) {
+        load: function(data) {
             this.fillIndexes(data);
             this.setChartSeries(data);
             this.render();
         },
-        fillIndexes: function (data) {
+        fillIndexes: function(data) {
             this.id = this.getIndex(data, 'id');
             this.grade = this.getIndex(data, 'grade');
             this.countPeople = this.getIndex(data, 'count_people');
         },
-        getIndex: function (data, name) {
+        getIndex: function(data, name) {
             return data.columns.findIndex(el => {
                 return el.code.toLowerCase() === name;
             })
         },
-        setChartSeries: function (data) {
+        setChartSeries: function(data) {
             const chartData = {
                 name: 'Оцінка',
                 data: this.getSeriesData(data)
@@ -95,7 +95,7 @@
             this.chartConfig.xAxis.categories = [];
             this.chartConfig.xAxis.categories = categories;
         },
-        getSeriesData: function (data) {
+        getSeriesData: function(data) {
             let result = [];
             for (let i = 0; i < data.rows.length; i++) {
                 let value = data.rows[i].values[this.countPeople];
@@ -104,7 +104,7 @@
             }
             return result;
         },
-        getCategories: function (data) {
+        getCategories: function(data) {
             let result = [];
             for (let i = 0; i < data.rows.length; i++) {
                 let value = data.rows[i].values[this.grade];
@@ -112,16 +112,16 @@
             }
             return result;
         },
-        setDete: function (value) {
+        setDete: function(value) {
             let date = new Date(value);
             let dd = date.getDate().toString();
             let mm = (date.getMonth() + 1).toString();
             let yy = date.getFullYear().toString().slice(-2);
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
-            return  dd + '-' + mm + '-' + yy;  
+            return dd + '-' + mm + '-' + yy;
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
         }
     };

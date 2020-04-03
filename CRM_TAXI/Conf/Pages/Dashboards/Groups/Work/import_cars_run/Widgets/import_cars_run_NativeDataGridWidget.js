@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -12,42 +12,42 @@
             columns: [
                 {
                     dataField: 'cars_name',
-                    caption: 'Позывной',
+                    caption: 'Позывной'
                 },
                 {
                     dataField: 'run_km',
-                    caption: 'Пробег',
+                    caption: 'Пробег'
                 },
                 {
                     dataField: 'import_month_qty',
-                    caption: 'Было заливок в этом месяце',
+                    caption: 'Было заливок в этом месяце'
                 },
                 {
                     dataField: 'run_km_more',
-                    caption: 'Сопоставление пробега',
+                    caption: 'Сопоставление пробега'
                 }
             ],
             pager: {
                 showPageSizeSelector: true,
                 allowedPageSizes: [50, 100, 500],
-                showInfo: true,
+                showInfo: true
             },
             paging: {
                 pageSize: 50
             },
             keyExpr: 'Id'
         },
-        init: function () {
+        init: function() {
             this.dataGridInstance.height = window.innerHeight - 200;
             this.sub2 = this.messageService.subscribe('showTable', this.showTable, this);
         },
-        showTable: function () {
+        showTable: function() {
             this.loadData(this.afterLoadDataHandler);
         },
-        afterLoadDataHandler: function () {
+        afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub2.unsubscribe();
         }
     };

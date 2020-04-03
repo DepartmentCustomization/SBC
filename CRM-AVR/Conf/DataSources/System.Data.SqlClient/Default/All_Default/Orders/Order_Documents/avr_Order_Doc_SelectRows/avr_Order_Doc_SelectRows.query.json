@@ -1,0 +1,58 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Order_Doc_SelectRows",
+  "Name": "avr_Order_Doc_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "Position": 2
+    },
+    {
+      "Code": "Type_Id",
+      "Name": "Тип документа",
+      "Position": 3
+    },
+    {
+      "Code": "Orders_Id",
+      "Name": "Orders_Id",
+      "Position": 4,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Comments",
+      "Name": "Коментар",
+      "Position": 5
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

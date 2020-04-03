@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -12,14 +12,14 @@
             columns: [
                 {
                     dataField: 'number',
-                    caption: 'Госномер автомобиля',
+                    caption: 'Госномер автомобиля'
                 }, {
                     dataField: 'name',
                     caption: 'Позывной',
-                    alignment: 'center' 
+                    alignment: 'center'
                 }, {
                     dataField: 'mark',
-                    caption: 'Марка автомобиля',
+                    caption: 'Марка автомобиля'
                 }, {
                     dataField: 'create_year',
                     caption: 'Год выпуска',
@@ -48,7 +48,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: false,
@@ -65,30 +65,30 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
-        init: function () {
+        init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.sub1  =  this.messageService.subscribe( 'sendCarId', this.getCarId, this);
+            this.sub1 = this.messageService.subscribe('sendCarId', this.getCarId, this);
             this.dataGridInstance.onCellClick.subscribe(e => {
-                if(e.column.dataField === "name" && e.row !== undefined){
-                    this.goToDashboard('CarChangeReport', 
-                    {queryParams: 
+                if(e.column.dataField === 'name' && e.row !== undefined) {
+                    this.goToDashboard('CarChangeReport',
+                        {queryParams:
                         {car_id: e.data.Id,
-                        dateTo: this.dateTo,
-                        dateFrom: this.dateFrom}
-                    });
+                            dateTo: this.dateTo,
+                            dateFrom: this.dateFrom}
+                        });
                 }
             });
             this.dataGridInstance.height = window.innerHeight - 150;
         },
-        showTopQuestionsTable: function () {
+        showTopQuestionsTable: function() {
             document.getElementById('cars_report').style.display = 'block';
         },
-        getOrganizationId: function(message){
+        getOrganizationId: function(message) {
             this.car_id = message.car_id;
         },
-        changeDateTimeValues: function (value) {
+        changeDateTimeValues: function(value) {
             let trueDate;
             if (value !== null) {
                 let date = new Date(value);
@@ -99,24 +99,24 @@
                 let mm = date.getMinutes();
                 MM += 1;
                 if ((dd.toString()).length === 1) {
- dd = '0' + dd; 
-}
+                    dd = '0' + dd;
+                }
                 if ((MM.toString()).length === 1) {
- MM = '0' + MM; 
-}
+                    MM = '0' + MM;
+                }
                 if ((HH.toString()).length === 1) {
- HH = '0' + HH; 
-}
+                    HH = '0' + HH;
+                }
                 if ((mm.toString()).length === 1) {
- mm = '0' + mm; 
-}
+                    mm = '0' + mm;
+                }
                 trueDate = dd + '.' + MM + '.' + yyyy;
             } else {
                 trueDate = ' ';
             }
             return trueDate;
         },
-        getFiltersParams: function (message) {
+        getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             if (period !== null) {
                 if (period.dateFrom !== '' && period.dateTo !== '') {
@@ -124,26 +124,25 @@
                     this.dateTo = period.dateTo;
                     this.config.query.parameterValues = [
                         { key: '@dateFrom', value: this.dateFrom },
-                        { key: '@dateTo', value: this.dateTo },
+                        { key: '@dateTo', value: this.dateTo }
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }
             }
         },
-        extractOrgValues: function (val) {
+        extractOrgValues: function(val) {
             if (val !== '') {
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
-        afterLoadDataHandler: function () {
+        afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Claims_Off_Places",
+  "Name": "Інші заявки по адресам відключенням",
+  "SelectRowsQueryCode": "avr_Claims_Off_Places_SelectRows",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "claims_Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

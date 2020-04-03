@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_ShiftsInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Shifts",
+  "Name": "5. Зміна",
+  "FormCode": "Form_Shifts",
+  "SelectRowsQueryCode": "avr_ShiftsSelectRows",
+  "SelectRowQueryCode": "avr_ShiftsSelectRow",
+  "UpdateQueryCode": "avr_ShiftsUpdateRow",
+  "IsVisible": false
+}

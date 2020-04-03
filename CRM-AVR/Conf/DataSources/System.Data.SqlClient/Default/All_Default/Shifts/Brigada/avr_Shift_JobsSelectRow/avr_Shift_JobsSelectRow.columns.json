@@ -1,0 +1,55 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "contacts_id",
+    "Name": "contacts_id",
+    "Position": 2
+  },
+  {
+    "Code": "jobs_name",
+    "Name": "jobs_name",
+    "Position": 3,
+    "ReferenceKeyCode": "jobs_id"
+  },
+  {
+    "Code": "jobs_id",
+    "Name": "jobs_id",
+    "Position": 4
+  },
+  {
+    "Code": "Is_main",
+    "Name": "Is_main",
+    "Position": 5
+  },
+  {
+    "Code": "Is_driver",
+    "Name": "Is_driver",
+    "Position": 6
+  },
+  {
+    "Code": "number_name",
+    "Name": "number_name",
+    "Position": 7
+  },
+  {
+    "Code": "number_id",
+    "Name": "number_id",
+    "Position": 8
+  },
+  {
+    "Code": "Shift_ID",
+    "Name": "Shift_ID",
+    "Position": 9
+  },
+  {
+    "Code": "contacts_name",
+    "Name": "contacts_name",
+    "Position": 10,
+    "ReferenceKeyCode": "contacts_id"
+  }
+]

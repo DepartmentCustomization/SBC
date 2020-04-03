@@ -1,0 +1,160 @@
+{
+  "css": "string:MainPage.css",
+  "rootContainer": {
+    "width": "calc(100% - 10px)",
+    "margin": "0 5px 10px",
+    "flexWrap": "wrap",
+    "flexDirection": "row",
+    "order": 1,
+    "flexGrow": 1,
+    "alignSelf": "auto",
+    "border": "none",
+    "children": [
+      {
+        "width": "calc(20% - 20px)",
+        "margin": "0 10px 5px",
+        "flexWrap": "wrap",
+        "flexDirection": "column",
+        "order": 1,
+        "flexGrow": 1,
+        "alignSelf": "auto",
+        "border": "none",
+        "children": [
+          {
+            "width": "calc(100% - 10px)",
+            "margin": "0",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "userInfo_CustomWidget",
+                "type": "CustomWidgetComponent",
+                "name": "user_info"
+              }
+            ],
+            "id": "Container-2",
+            "height": "160px",
+            "minHeight": "160px",
+            "minWidth": "calc(100% - 10px)",
+            "backgroundColor": "white"
+          },
+          {
+            "width": "calc(100% - 10px)",
+            "margin": "0",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "leftMenu_CustomWidget",
+                "type": "CustomWidgetComponent",
+                "name": "left_menu"
+              }
+            ],
+            "id": "Container-2",
+            "height": "calc(100% - 170px)",
+            "minHeight": "170px",
+            "minWidth": "calc(100% - 10px)",
+            "backgroundColor": "white"
+          }
+        ],
+        "id": "Container-0",
+        "height": "calc(100% - 10px)",
+        "minHeight": "100px",
+        "minWidth": "100px",
+        "backgroundColor": "white"
+      },
+      {
+        "width": "calc(80% - 20px)",
+        "margin": "0 5px 10px",
+        "flexWrap": "wrap",
+        "flexDirection": "column",
+        "order": 1,
+        "flexGrow": 1,
+        "alignSelf": "auto",
+        "border": "none",
+        "children": [
+          {
+            "width": "calc(100% - 10px)",
+            "margin": "0",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "tabs_CustomWidget",
+                "type": "CustomWidgetComponent",
+                "name": "tabs"
+              }
+            ],
+            "id": "Container-2",
+            "height": "50px",
+            "minHeight": "50px",
+            "minWidth": "calc(100% - 10px)",
+            "backgroundColor": "white"
+          },
+          {
+            "width": "calc(100% - 10px)",
+            "margin": "0 10px ",
+            "flexWrap": "wrap",
+            "flexDirection": "column",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "width": "calc(100% - 10px)",
+                "margin": "0  5px 0 5px",
+                "flexWrap": "wrap",
+                "flexDirection": "row",
+                "order": 1,
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "code": "tableClaims_NativeDataGridWidget",
+                    "type": "NativeDataGridWidgetComponent",
+                    "name": "table_claims"
+                  }
+                ],
+                "id": "Container-2",
+                "height": "calc(100% - 10px)",
+                "minHeight": "calc(100% - 10px)",
+                "minWidth": "calc(100% - 10px)",
+                "backgroundColor": "white",
+                "containerId": "table_applications"
+              }
+            ],
+            "id": "Container-2",
+            "height": "calc(100% - 50px)",
+            "minHeight": "100px",
+            "minWidth": "calc(100% - 10px)",
+            "backgroundColor": "white"
+          }
+        ],
+        "id": "Container-1",
+        "height": "calc(100% - 10px)",
+        "minHeight": "100px",
+        "minWidth": "100px",
+        "backgroundColor": "white"
+      }
+    ],
+    "id": "Container-0",
+    "height": "100%",
+    "minHeight": "100%",
+    "minWidth": "100%",
+    "backgroundColor": "white"
+  }
+}

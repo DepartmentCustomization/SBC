@@ -1,0 +1,45 @@
+{
+  "Code": "Group_Claims_Date",
+  "Name": "Дати",
+  "Position": 5,
+  "Fields": [
+    {
+      "Code": "Plan_start_date",
+      "Name": "Плановий початок",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "temp_id",
+      "Name": "temp_id",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "Plan_finish_at",
+      "Name": "Планове завершення",
+      "FieldType": "date-time",
+      "Position": 2
+    },
+    {
+      "Code": "Fact_finish_at",
+      "Name": "Фактичне завершення",
+      "FieldType": "date-time",
+      "Position": 4
+    },
+    {
+      "Code": "Is_Template",
+      "Name": "Зробити шаблоном",
+      "FieldType": "checkbox",
+      "Position": 6
+    },
+    {
+      "Code": "organization_name",
+      "Name": "organization_name",
+      "FieldType": "text",
+      "Position": 1222,
+      "IsHidden": true
+    }
+  ]
+}

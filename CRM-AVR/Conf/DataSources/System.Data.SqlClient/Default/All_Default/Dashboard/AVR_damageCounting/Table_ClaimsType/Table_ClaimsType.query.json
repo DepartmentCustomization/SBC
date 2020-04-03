@@ -1,0 +1,24 @@
+{
+  "ModelType": "Query",
+  "Code": "Table_ClaimsType",
+  "Name": "Table_ClaimsType",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Sql": "exec avr_Report_1 @dateStart, @dateFinish, @OrganizationsId",
+  "Parameters": [
+    {
+      "Code": "@OrganizationsId",
+      "Name": "OrganizationsId",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@dateStart",
+      "Name": "dateStart"
+    },
+    {
+      "Code": "@dateFinish",
+      "Name": "dateFinish"
+    }
+  ]
+}

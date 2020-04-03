@@ -1,0 +1,13 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_SysUser_OrgWC",
+  "Name": "SysUser_OrgWC",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_SysUser_OrgWC.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:Form_SysUser_OrgWC.form.js"
+  }
+}

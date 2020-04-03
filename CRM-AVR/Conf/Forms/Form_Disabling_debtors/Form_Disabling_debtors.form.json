@@ -1,0 +1,34 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Disabling_debtors",
+  "Name": "Відключення по не виконанню договору",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Disabling_debtors.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Claim_Id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      },
+      {
+        "Code": "org_id",
+        "ParentFormFieldCodeForKeyValue": "Organization_id",
+        "ParentFormFieldCodeForDisplayValue": "organization_name"
+      },
+      {
+        "Code": "placeDebt_id",
+        "ParentFormFieldCodeForKeyValue": "places_id",
+        "ParentFormFieldCodeForDisplayValue": "places_name"
+      },
+      {
+        "Code": "placeDis_id",
+        "ParentFormFieldCodeForKeyValue": "places_id",
+        "ParentFormFieldCodeForDisplayValue": "places_name"
+      }
+    ],
+    "Script": "string:Form_Disabling_debtors.form.js"
+  }
+}

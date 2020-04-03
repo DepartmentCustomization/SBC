@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_savePushedSDate_Orders",
+  "Name": "avr_savePushedSDate_Orders",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@order_id",
+      "Name": "order_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pushed",
+      "Name": "pushed",
+      "ParameterType": "DateTime"
+    }
+  ]
+}

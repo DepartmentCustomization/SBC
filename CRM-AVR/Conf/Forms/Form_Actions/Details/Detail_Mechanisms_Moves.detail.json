@@ -1,0 +1,31 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Mechanisms_Moves",
+  "Name": "Техніка під роботу",
+  "FormCode": "Form_Action_Mechsnisms_Moves",
+  "SelectRowsQueryCode": "avr_Action_MechsnismsSelectRows",
+  "SelectRowQueryCode": "avr_Order_Action_MechsnismsSelectRow",
+  "SectionCode": "",
+  "Position": 122,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryParameterCode": "@mechanisms_id",
+    "QueryCode": "list_Meshamisms_for_Action",
+    "ColumnCode": "Id",
+    "AddType": "Lookup",
+    "InsertQueryCode": "avr_Order_Action_MechsnismsInsertRow",
+    "QueryParameters": [],
+    "InsertQueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@Action_ID"
+      }
+    ]
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

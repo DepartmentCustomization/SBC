@@ -10,7 +10,7 @@
         "keyword-capitalization": "error",
         "linked-server": "error",
         "multi-table-alias": "error",
-        "named-constraint": "error",
+        "named-constraint": "warning",
         "non-sargable": "error",
         "object-property": "error",
         "print-statement": "error",

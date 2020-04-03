@@ -12,6 +12,15 @@ if (@Question_TypeId is null or @Question_TypeId = '') OR
   declare @assign int;
 declare @getdate datetime = getutcdate();
  
+
+ DECLARE @event_id INT=
+  (SELECT TOP 1 e.Id
+  FROM [dbo].[Events] e
+  INNER JOIN [dbo].[EventQuestionsTypes] eqt ON e.Id=eqt.event_id
+  INNER JOIN [dbo].[EventObjects] eo ON e.Id=eo.event_id
+  WHERE eo.object_id=@Question_Building AND eqt.question_type_id=@Question_TypeId AND e.registration_date<GETUTCDATE()
+  AND e.active='true'
+  ORDER BY e.registration_date DESC);
  
  insert into [dbo].[Questions] ([appeal_id]
       ,[registration_number]
@@ -59,7 +68,8 @@ select @AppealId
       ,NULL /*[object_comment]*/
       ,@Question_Organization /*[organization_id]*/
       ,NULL /*[application_town_id]*/
-      ,@Question_EventId /*[event_id]*/
+      --,@Question_EventId /*[event_id]*/
+      ,@event_id /*[event_id]*/
       ,@Question_TypeId /*[question_type_id]*/
       ,@Question_Content /*[question_content]*/
       ,@Question_AnswerType /*[answer_form_id]*/

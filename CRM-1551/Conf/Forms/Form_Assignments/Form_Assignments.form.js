@@ -10,6 +10,20 @@
         date_in_form: '',
         previous_result: '',
         init: function() {
+            this.form.disableControl('geolocation_lat');
+            this.form.disableControl('geolocation_lon');
+            if (this.form.getControlValue('geolocation_lat')) {
+                this.form.enableControl('geolocation_map');
+                document.getElementById('geolocation_map').disabled = false;
+            } else {
+                this.form.disableControl('geolocation_map');
+                document.getElementById('geolocation_map').disabled = true;
+            }
+            document.getElementById('geolocation_map').addEventListener('click', function() {
+                window.open(String(location.origin + localStorage.getItem('VirtualPath')
+                    + '/dashboard/page/SearchGoogle?lat=' + this.form.getControlValue('geolocation_lat')
+                    + '&lon=' + this.form.getControlValue('geolocation_lon')));
+            }.bind(this));
             if (this.form.getControlValue('editable') === 2) {
                 this.navigateTo('/sections/Assignments/view/' + this.id);
             }
@@ -17,6 +31,7 @@
                 { parameterCode: '@ass_id', parameterValue: this.id }
             ];
             this.form.setControlParameterValues('performer_id', param_ass_id);
+            this.form.setControlParameterValues('executor_person_id', param_ass_id);
             this.date_in_form = this.form.getControlValue('date_in_form')
             this.previous_result = this.form.getControlValue('result_id')
             this.details.setVisibility('detal_history', false);
@@ -34,10 +49,10 @@
             this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
                 if (data.rows.length > 0) {
                     for (let i = 0; i < data.rows.length; i++) {
-                        if (data.rows[i].values[1] == 'disable') {
+                        if (data.rows[i].values[1] === 'disable') {
                             this.form.disableControl(data.rows[i].values[0]);
                         }
-                        if (data.rows[i].values[1] == 'hide') {
+                        if (data.rows[i].values[1] === 'hide') {
                             this.form.setControlVisibility(data.rows[i].values[0], false);
                         }
                     }
@@ -78,7 +93,7 @@
             let ass_state_id = this.form.getControlValue('ass_state_id');
             let result_id = this.form.getControlValue('result_id');
             let resolution_id = this.form.getControlValue('resolution_id');
-            const noChoose1 = [{ parameterCode: '@AssignmentId', parameterValue: this.id }, { parameterCode: '@res_id', parameterValue: 0 }];
+            const noChoose1 = [{ parameterCode: '@AssignmentId', parameterValue: this.id },{ parameterCode: '@res_id', parameterValue: 0 }];
             this.form.setControlParameterValues('result_id', noChoose1);
             const execute = {
                 queryCode: 'dir_tree_day_assigments',
@@ -92,42 +107,52 @@
                 let control = new Date(dateC) - new Date();
                 let ChoiseResult = [];
                 if (control < 0) {
-                    const noChoose = [{ parameterCode: '@AssignmentId', parameterValue: this.id }, { parameterCode: '@res_id', parameterValue: 3 }];
+                    const noChoose = [{ parameterCode: '@AssignmentId', parameterValue: this.id },
+                        { parameterCode: '@res_id', parameterValue: 3 }];
                     this.form.setControlParameterValues('result_id', noChoose);
                 }
-                if (result_id == 4 || result_id == 7 || result_id == 8) {
+                if (result_id === 4 || result_id === 7 || result_id === 8) {
                     if (rework_count < 2) {
                         this.form.setControlVisibility('rework_counter', true);
-                        ChoiseResult = [{ parameterCode: '@AssignmentId', parameterValue: this.id }, { parameterCode: '@res_id', parameterValue: 12 }];
+                        ChoiseResult = [{ parameterCode: '@AssignmentId', parameterValue: this.id },
+                            { parameterCode: '@res_id', parameterValue: 12 }];
                         this.form.setControlParameterValues('result_id', ChoiseResult);
                     } else {
                         this.form.setControlVisibility('rework_counter', false);
-                        ChoiseResult = [{ parameterCode: '@AssignmentId', parameterValue: this.id }, { parameterCode: '@res_id', parameterValue: 5 }];
+                        ChoiseResult = [{ parameterCode: '@AssignmentId', parameterValue: this.id },
+                            { parameterCode: '@res_id', parameterValue: 5 }];
                         this.form.setControlParameterValues('result_id', ChoiseResult);
                     }
                 }
             });
-            if (result_id == 3 || resolution_id == 1 && resolution_id == 14) {
+            if (result_id === 3 || resolution_id === 1 && resolution_id === 14) {
                 const onCountRows3 = {
                     queryCode: 'RightsFilter_AssignmentResolution',
-                    parameterValues: [{ key: '@pageOffsetRows', value: 0 }, { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id }, { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
+                    parameterValues: [{ key: '@pageOffsetRows', value: 0 }, { key: '@pageLimitRows', value: 5 },
+                        { key: '@AssignmentId', value: this.id },
+                        { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
                 };
                 this.queryExecutor.getValues(onCountRows3).subscribe(() => {
                 });
-                let params = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') }, { parameterCode: '@AssignmentId', parameterValue: this.id }];
+                let params = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') },
+                    { parameterCode: '@AssignmentId', parameterValue: this.id }];
                 this.form.setControlParameterValues('resolution_id', params);
             }
-            if (result_id == 5 || ass_state_id == 3 || ass_state_id == 4 || ass_state_id == 5) {
+            if (result_id === 5 || ass_state_id === 3 || ass_state_id === 4 || ass_state_id === 5) {
                 this.form.setControlVisibility('rework_counter', true);
                 this.form.setControlVisibility('control_comment', true);
                 this.form.enableControl('control_comment');
                 this.form.disableControl('performer_id');
             }
-            if (result_id == 3) {
+            if(ass_state_id !== 1) {
+                this.form.disableControl('performer_id');
+                this.form.disableControl('executor_person_id');
+            }
+            if (result_id === 3) {
                 this.form.setControlVisibility('transfer_to_organization_id', true);
                 this.form.disableControl('performer_id');
             }
-            if (ass_state_id == 5) {
+            if (ass_state_id === 5) {
                 this.form.disableControl('resolution_id');
                 this.form.disableControl('result_id');
                 this.form.disableControl('performer_id');
@@ -141,24 +166,25 @@
             }
             let main = this.form.getControlValue('is_aktiv_true');
             let check = this.form.getControlValue('main_executor');
-            if (main == 0) {
+            if (main === 0) {
                 this.form.enableControl('main_executor');
-            } else if (main > 0 && check == true) {
+            } else if (main > 0 && check === true) {
                 this.form.enableControl('main_executor');
             }
-            if (this.form.getControlValue('registration_date') == null) {
+            if (this.form.getControlValue('registration_date') === null) {
                 this.form.setControlValue('ass_state_id', { key: 1, value: 'Зареєстровано' });
                 this.form.setControlValue('result_id', { key: 1, value: 'Очікує прийому в роботу' });
             }
-            if (result_id != 5 && result_id != 3) {
+            if (result_id !== 5 && result_id !== 3) {
                 const compareExecutor = {
                     queryCode: 'list_is_check_executor',
                     parameterValues: [{ key: '@Id', value: this.id }]
                 };
                 this.queryExecutor.getValue(compareExecutor).subscribe(data => {
                     this.form.setControlValue('is_exe', data);
-                    if (data == 1) {
-                        this.form.enableControl('performer_id');
+                    if (data === 1) {
+                        // eslint-disable-next-line line-comment-position
+                        // this.form.enableControl('performer_id');
                     } else {
                         this.form.disableControl('performer_id');
                     }
@@ -176,10 +202,10 @@
             this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
                 if (data.rows.length > 0) {
                     for (let i = 0; i < data.rows.length; i++) {
-                        if (data.rows[i].values[1] == 'disable') {
+                        if (data.rows[i].values[1] === 'disable') {
                             this.form.disableControl(data.rows[i].values[0]);
                         }
-                        if (data.rows[i].values[1] == 'hide') {
+                        if (data.rows[i].values[1] === 'hide') {
                             this.form.setControlVisibility(data.rows[i].values[0], false);
                         }
                     }
@@ -187,7 +213,7 @@
             });
         },
         chooseExecutorPerson: function(executor_id) {
-            if (executor_id == null) {
+            if (executor_id === null) {
                 this.form.setControlValue('executor_person_id', {});
             }
             let param = [{ parameterCode: '@org_id', parameterValue: executor_id }];
@@ -202,34 +228,39 @@
             this.form.setControlVisibility('rework_counter', false);
             this.form.setControlVisibility('control_comment', false);
             this.form.setControlValue('resolution_id', {});
-            if (result_id == 9) {
+            if (result_id === 9) {
                 const onCountRows1 = {
                     queryCode: 'RightsFilter_AssignmentResolution',
-                    parameterValues: [{ key: '@pageOffsetRows', value: 0 }, { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id }, { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
+                    parameterValues: [{ key: '@pageOffsetRows', value: 0 },
+                        { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id },
+                        { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
                 };
                 this.queryExecutor.getValues(onCountRows1).subscribe(data => {
-                    if (data.rows.length == 1) {
+                    if (data.rows.length === 1) {
                         this.form.setControlValue('resolution_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
                     }
                 });
-                let newParams2 = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') }, { parameterCode: '@AssignmentId', parameterValue: this.id }];
+                let newParams2 = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') },
+                    { parameterCode: '@AssignmentId', parameterValue: this.id }];
                 this.form.setControlParameterValues('resolution_id', newParams2);
                 this.onChangeStatus();
-            } else if (this.form.getControlValue('result_id') == null) {
+            } else if (this.form.getControlValue('result_id') === null) {
                 this.form.setControlValue('ass_state_id', {});
                 this.form.setControlValue('resolution_id', {});
                 this.form.disableControl('resolution_id');
             } else {
                 this.form.enableControl('resolution_id');
-                if (result_id == 3 && this.previous_result != 3) {
+                if (result_id === 3 && this.previous_result !== 3) {
                     this.form.setControlVisibility('transfer_to_organization_id', true);
                     this.form.disableControl('resolution_id');
                     const onCountRows2_3 = {
                         queryCode: 'RightsFilter_AssignmentResolution',
-                        parameterValues: [{ key: '@pageOffsetRows', value: 0 }, { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id }, { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
+                        parameterValues: [{ key: '@pageOffsetRows', value: 0 },
+                            { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id },
+                            { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
                     };
                     this.queryExecutor.getValues(onCountRows2_3).subscribe(() => {
-                        if (this.form.getControlValue('is_exe') != 0) {
+                        if (this.form.getControlValue('is_exe') !== 0) {
                             this.form.setControlValue('resolution_id', { key: 1, value: 'Повернуто в 1551' });
                             this.form.disableControl('resolution_id');
                         } else {
@@ -237,22 +268,25 @@
                             this.form.disableControl('resolution_id');
                         }
                     });
-                    let newParams = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') }, { parameterCode: '@AssignmentId', parameterValue: this.id }];
+                    let newParams = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') },
+                        { parameterCode: '@AssignmentId', parameterValue: this.id }];
                     this.form.setControlParameterValues('resolution_id', newParams);
                     return
                 }
-                if (result_id == 5) {
+                if (result_id === 5) {
                     this.form.setControlVisibility('rework_counter', true);
                     this.form.setControlVisibility('control_comment', true);
                     this.form.disableControl('rework_counter');
                 }
-                if (result_id == 1) {
+                if (result_id === 1) {
                     this.form.setControlVisibility('transfer_to_organization_id', true);
                     this.form.setControlRequirement('transfer_to_organization_id', true);
                 }
                 const onCountRows2 = {
                     queryCode: 'RightsFilter_AssignmentResolution',
-                    parameterValues: [{ key: '@pageOffsetRows', value: 0 }, { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id }, { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
+                    parameterValues: [{ key: '@pageOffsetRows', value: 0 },
+                        { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id },
+                        { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
                 };
                 this.queryExecutor.getValues(onCountRows2).subscribe(data => {
                     if (data.rows.length === 1) {
@@ -263,13 +297,15 @@
                         this.form.enableControl('resolution_id');
                     }
                 });
-                let newParams = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') }, { parameterCode: '@AssignmentId', parameterValue: this.id }, { parameterCode: '@programuser_id', parameterValue: this.user.userId }];
+                let newParams = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') },
+                    { parameterCode: '@AssignmentId', parameterValue: this.id },
+                    { parameterCode: '@programuser_id', parameterValue: this.user.userId }];
                 this.form.setControlParameterValues('resolution_id', newParams);
             }
         },
         onChangeStatus: function(resol_id) {
             let result = this.form.getControlValue('result_id');
-            if (resol_id != null || result != 9) {
+            if (resol_id !== null || result !== 9) {
                 const onChangeStatus = {
                     queryCode: 'dir_change_newStatus_from_Result',
                     parameterValues: [{ key: '@new_result', value: result }, { key: '@new_resolution', value: resol_id }]
@@ -279,7 +315,7 @@
                         this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
                     }
                 });
-            } else if (result == 9) {
+            } else if (result === 9) {
                 const onChangeStatus = {
                     queryCode: 'dir_change_newStatus_from_Result_only',
                     parameterValues: [{ key: '@new_result', value: result }]
@@ -292,13 +328,12 @@
             }
         },
         validate: function() {
-            if (this.form.getControlValue('result_id') == 5 && this.form.getControlValue('rework_counter') == 2) {
+            if (this.form.getControlValue('result_id') === 5 && this.form.getControlValue('rework_counter') === 2) {
                 return 'Доопрацювання не доступне  (не більше двох)';
             } else if (!this.form.getControlValue('result_id')) {
                 return 'Результат розгляду не може бути порожнім';
-            } else {
-                return true;
             }
+            return true;
         }
     };
 }());

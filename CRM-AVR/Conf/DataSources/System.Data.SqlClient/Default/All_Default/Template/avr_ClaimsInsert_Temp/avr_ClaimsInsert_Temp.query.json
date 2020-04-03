@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_ClaimsInsert_Temp",
+  "Name": "avr_ClaimsInsert_Temp",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

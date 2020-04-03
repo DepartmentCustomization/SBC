@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Order_Actions_Places",
+  "Name": "Місця в нарядах",
+  "ConnectionCode": "Default"
+}

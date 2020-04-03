@@ -1,0 +1,111 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true,
+    "IsPrintable": false
+  },
+  {
+    "Code": "types_id",
+    "Name": "types_id",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "classes_id",
+    "Name": "classes_id",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "organization_id",
+    "Name": "organization_id",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Description",
+    "Name": "Description",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "place_type_id",
+    "Name": "place_type_id",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "places_id",
+    "Name": "places_id",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Diameters_ID",
+    "Name": "Diameters_ID",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Is_Template",
+    "Name": "Is_Template",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "temp_id",
+    "Name": "temp_id",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "contact_id",
+    "Name": "contact_id",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "types_name",
+    "Name": "types_name",
+    "Position": 12,
+    "ReferenceKeyCode": "types_id"
+  },
+  {
+    "Code": "classes_name",
+    "Name": "classes_name",
+    "Position": 13,
+    "ReferenceKeyCode": "classes_id"
+  },
+  {
+    "Code": "organization_name",
+    "Name": "organization_name",
+    "Position": 14,
+    "ReferenceKeyCode": "organization_id"
+  },
+  {
+    "Code": "place_type_name",
+    "Name": "place_type_name",
+    "Position": 15,
+    "ReferenceKeyCode": "place_type_id"
+  },
+  {
+    "Code": "places_name",
+    "Name": "places_name",
+    "Position": 16,
+    "ReferenceKeyCode": "places_id"
+  },
+  {
+    "Code": "Size",
+    "Name": "Size",
+    "Position": 17,
+    "ReferenceKeyCode": "Diameters_ID"
+  },
+  {
+    "Code": "contact_name",
+    "Name": "contact_name",
+    "Position": 18,
+    "ReferenceKeyCode": "contact_id"
+  }
+]

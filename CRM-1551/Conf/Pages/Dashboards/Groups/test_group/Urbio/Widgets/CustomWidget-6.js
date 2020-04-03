@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         title: [],
         hint: '',
@@ -30,8 +30,8 @@
             this.sub6 = this.messageService.subscribe('Data_PremisesByAO', this.Data_PremisesByAO, this);
         },
         afterViewInit: function() {
-            document.getElementById('btn_GetData').addEventListener("click", function() {
-            }.bind(this) );
+            document.getElementById('btn_GetData').addEventListener('click', function() {
+            }.bind(this));
         },
         load: function() {
         },

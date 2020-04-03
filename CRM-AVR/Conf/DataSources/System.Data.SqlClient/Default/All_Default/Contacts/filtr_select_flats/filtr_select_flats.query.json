@@ -1,0 +1,47 @@
+{
+  "ModelType": "Query",
+  "Code": "filtr_select_flats",
+  "Name": "filtr_select_flats",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "Number",
+      "Name": "Number",
+      "Position": 2,
+      "SqlName": "Number",
+      "FilterParameterCode": "@Number"
+    },
+    {
+      "Code": "Houses_ID",
+      "Name": "Houses_ID",
+      "Position": 3
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@house_id",
+      "Name": "house_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

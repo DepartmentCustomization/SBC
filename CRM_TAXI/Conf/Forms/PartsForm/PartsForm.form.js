@@ -1,10 +1,10 @@
-(function () {
+(function() {
     return {
-        init: function () {
+        init: function() {
             document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
-            if (this.state == "create") {
+            if (this.state == 'create') {
                 this.checkUserRole();
-                document.getElementById('save_part').addEventListener("click", function () {
+                document.getElementById('save_part').addEventListener('click', function() {
                     const queryForSavePart = {
                         queryCode: 'InsertParts',
                         parameterValues: [
@@ -40,13 +40,13 @@
                         }
                     });
                 }.bind(this));
-            } else if (this.state == "update") {
+            } else if (this.state == 'update') {
                 this.checkUserRole();
                 if (document.getElementById('part_name').disabled == true) {
-                    document.getElementById("save_part").style.display = "none";
-                    document.getElementById("clear_part").style.display = "none";
+                    document.getElementById('save_part').style.display = 'none';
+                    document.getElementById('clear_part').style.display = 'none';
                 }
-                document.getElementById('save_part').addEventListener("click", function () {
+                document.getElementById('save_part').addEventListener('click', function() {
                     const queryForUpdatePart = {
                         queryCode: 'UpdateParts',
                         parameterValues: [
@@ -96,11 +96,11 @@
             this.form.onControlValueChanged('articul', this.checkClearAvailable);
             this.form.onControlValueChanged('manufacturer', this.checkClearAvailable);
             this.form.onControlValueChanged('category', this.checkClearAvailable);
-            document.getElementById('clear_part').addEventListener("click", function () {
+            document.getElementById('clear_part').addEventListener('click', function() {
                 this.clearFields();
             }.bind(this));
         },
-        checkUserRole: function () {
+        checkUserRole: function() {
             const queryForCheckUserRole = {
                 queryCode: 'CheckUserRole',
                 parameterValues: [
@@ -116,28 +116,28 @@
                 }
             });
         },
-        clearFields: function () {
+        clearFields: function() {
             this.form.setControlValue('part_name', null)
             this.form.setControlValue('articul', null)
             this.form.setControlValue('manufacturer', null)
             this.form.setControlValue('category', null)
         },
-        checkSaveAvailable: function () {
+        checkSaveAvailable: function() {
             if (this.form.getControlValue('part_name') != null &&
                 this.form.getControlValue('articul') != null &&
                 this.form.getControlValue('manufacturer') != null &&
                 this.form.getControlValue('category') != null &&
-                this.form.getControlValue('part_name') != "" &&
-                this.form.getControlValue('articul') != "" &&
-                this.form.getControlValue('manufacturer') != "" &&
-                this.form.getControlValue('category') != ""
+                this.form.getControlValue('part_name') != '' &&
+                this.form.getControlValue('articul') != '' &&
+                this.form.getControlValue('manufacturer') != '' &&
+                this.form.getControlValue('category') != ''
             ) {
                 document.getElementById('save_part').disabled = false;
             } else {
                 document.getElementById('save_part').disabled = true;
             }
         },
-        checkClearAvailable: function () {
+        checkClearAvailable: function() {
             if (this.form.getControlValue('part_name') != null ||
                 this.form.getControlValue('articul') != null ||
                 this.form.getControlValue('manufacturer') != null ||

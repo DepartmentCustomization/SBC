@@ -1,0 +1,31 @@
+[
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@m_houses_id",
+    "Name": "m_houses_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@latitude",
+    "Name": "latitude"
+  },
+  {
+    "Code": "@longitude",
+    "Name": "longitude"
+  },
+  {
+    "Code": "@m_district",
+    "Name": "m_district",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@m_houses2_id",
+    "Name": "m_houses2_id",
+    "ParameterType": "Integer"
+  }
+]

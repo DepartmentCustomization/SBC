@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "Calendar_Shifts_SelectRows",
+  "Name": "Calendar_Shifts_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

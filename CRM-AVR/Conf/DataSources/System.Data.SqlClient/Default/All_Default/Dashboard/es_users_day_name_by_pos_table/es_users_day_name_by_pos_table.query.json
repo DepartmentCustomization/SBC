@@ -1,0 +1,47 @@
+{
+  "ModelType": "Query",
+  "Code": "es_users_day_name_by_pos_table",
+  "Name": "es_users_day_name_by_pos_table",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "PositionName",
+      "Name": "PositionName",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Shift_date",
+      "Name": "Shift_date",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "ContactsName",
+      "Name": "ContactsName",
+      "Position": 3,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Org_Id",
+      "Name": "Org_Id",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

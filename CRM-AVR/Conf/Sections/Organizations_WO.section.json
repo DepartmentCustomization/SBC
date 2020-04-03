@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_OrganizationsInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Organizations_WO",
+  "Name": " Організації \"Київводоканала\"",
+  "FormCode": "Form_Organizations_WO",
+  "SelectRowsQueryCode": "avr_OrganizationsSelectRows",
+  "SelectRowQueryCode": "avr_OrganizationsSelectRow",
+  "UpdateQueryCode": "avr_OrganizationsUpdateRow"
+}

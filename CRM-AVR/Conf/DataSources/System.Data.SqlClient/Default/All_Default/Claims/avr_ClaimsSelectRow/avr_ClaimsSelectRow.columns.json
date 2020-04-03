@@ -1,0 +1,375 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 1,
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "Claim_Number",
+    "Name": "Claim_Number",
+    "Position": 2
+  },
+  {
+    "Code": "Classes_id",
+    "Name": "Classes_id",
+    "Position": 3
+  },
+  {
+    "Code": "Status_id",
+    "Name": "Status_id",
+    "Position": 4
+  },
+  {
+    "Code": "First_Types_name",
+    "Name": "First_Types_name",
+    "Position": 5,
+    "ReferenceKeyCode": "first_Types_id"
+  },
+  {
+    "Code": "first_Types_id",
+    "Name": "first_Types_id",
+    "Position": 6
+  },
+  {
+    "Code": "Types_id",
+    "Name": "Types_id",
+    "Position": 7
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Created_at",
+    "Position": 8
+  },
+  {
+    "Code": "Organization_id",
+    "Name": "Organization_id",
+    "Position": 9,
+    "SqlName": "",
+    "FilterParameterCode": ""
+  },
+  {
+    "Code": "Plan_start_date",
+    "Name": "Plan_start_date",
+    "Position": 10
+  },
+  {
+    "Code": "Plan_finish_at",
+    "Name": "Plan_finish_at",
+    "Position": 11
+  },
+  {
+    "Code": "First_description",
+    "Name": "First_description",
+    "Position": 12
+  },
+  {
+    "Code": "Description",
+    "Name": "Description",
+    "Position": 13
+  },
+  {
+    "Code": "Priority",
+    "Name": "Priority",
+    "Position": 14
+  },
+  {
+    "Code": "Report_action_id",
+    "Name": "Report_action_id",
+    "Position": 15
+  },
+  {
+    "Code": "Classes_name",
+    "Name": "Classes_name",
+    "Position": 16,
+    "ReferenceKeyCode": "Classes_id"
+  },
+  {
+    "Code": "Status_name",
+    "Name": "Status_name",
+    "Position": 17,
+    "ReferenceKeyCode": "Status_id"
+  },
+  {
+    "Code": "Types_name",
+    "Name": "Types_name",
+    "Position": 18,
+    "ReferenceKeyCode": "Types_id"
+  },
+  {
+    "Code": "Fact_finish_at",
+    "Name": "Fact_finish_at",
+    "Position": 19
+  },
+  {
+    "Code": "claims_id",
+    "Name": "claims_id",
+    "Position": 20
+  },
+  {
+    "Code": "places_id",
+    "Name": "places_id",
+    "Position": 21
+  },
+  {
+    "Code": "places_name",
+    "Name": "places_name",
+    "Position": 22,
+    "ReferenceKeyCode": "places_id"
+  },
+  {
+    "Code": "Diameters_ID",
+    "Name": "Diameters_ID",
+    "Position": 23
+  },
+  {
+    "Code": "Size",
+    "Name": "Size",
+    "Position": 24,
+    "ReferenceKeyCode": "Diameters_ID"
+  },
+  {
+    "Code": "count_orders",
+    "Name": "count_orders",
+    "Position": 25
+  },
+  {
+    "Code": "Is_Template",
+    "Name": "Is_Template",
+    "Position": 26
+  },
+  {
+    "Code": "contact_type",
+    "Name": "contact_type",
+    "Position": 29
+  },
+  {
+    "Code": "User",
+    "Name": "User",
+    "Position": 31
+  },
+  {
+    "Code": "place_type_id",
+    "Name": "place_type_id",
+    "Position": 32
+  },
+  {
+    "Code": "place_type_name",
+    "Name": "place_type_name",
+    "Position": 33,
+    "ReferenceKeyCode": "place_type_id"
+  },
+  {
+    "Code": "flat_number",
+    "Name": "flat_number",
+    "Position": 34
+  },
+  {
+    "Code": "district_id",
+    "Name": "district_id",
+    "Position": 35
+  },
+  {
+    "Code": "district_name",
+    "Name": "district_name",
+    "Position": 36,
+    "ReferenceKeyCode": "district_id"
+  },
+  {
+    "Code": "Job_name",
+    "Name": "Job_name",
+    "Position": 37
+  },
+  {
+    "Code": "is_Zasuv",
+    "Name": "is_Zasuv",
+    "Position": 38
+  },
+  {
+    "Code": "organization_name",
+    "Name": "organization_name",
+    "Position": 39,
+    "SqlName": "[Organizations].[Name]",
+    "FilterParameterCode": "@org_name",
+    "ReferenceKeyCode": "Organization_id"
+  },
+  {
+    "Code": "user_close",
+    "Name": "user_close",
+    "Position": 40
+  },
+  {
+    "Code": "date_close",
+    "Name": "date_close",
+    "Position": 41
+  },
+  {
+    "Code": "Street_id",
+    "Name": "Street_id",
+    "Position": 43
+  },
+  {
+    "Code": "EM_org_id",
+    "Name": "EM_org_id",
+    "Position": 44
+  },
+  {
+    "Code": "EM_contact_fio",
+    "Name": "EM_contact_fio",
+    "Position": 45,
+    "SqlName": "",
+    "FilterParameterCode": "@Name"
+  },
+  {
+    "Code": "EM_contact_fio_name",
+    "Name": "EM_contact_fio_name",
+    "Position": 46,
+    "SqlName": "ct.Name",
+    "FilterParameterCode": "@Name3",
+    "ReferenceKeyCode": "EM_contact_fio"
+  },
+  {
+    "Code": "UR_organization_id",
+    "Name": "UR_organization_id",
+    "Position": 47
+  },
+  {
+    "Code": "date_check",
+    "Name": "date_check",
+    "Position": 49
+  },
+  {
+    "Code": "not_balans",
+    "Name": "not_balans",
+    "Position": 50
+  },
+  {
+    "Code": "FIZ_contact_fio",
+    "Name": "FIZ_contact_fio",
+    "Position": 51,
+    "ReferenceKeyCode": "FIZ_concact_id"
+  },
+  {
+    "Code": "UR_contact_fio",
+    "Name": "UR_contact_fio",
+    "Position": 53
+  },
+  {
+    "Code": "UR_number",
+    "Name": "UR_number",
+    "Position": 54
+  },
+  {
+    "Code": "EM_number",
+    "Name": "EM_number",
+    "Position": 55
+  },
+  {
+    "Code": "FIZ_number",
+    "Name": "FIZ_number",
+    "Position": 56
+  },
+  {
+    "Code": "EM_org_name",
+    "Name": "EM_org_name",
+    "Position": 57,
+    "SqlName": "(select org.Name from Organizations org where Jobs.Organization_ID =  org.Id )",
+    "FilterParameterCode": "@Name",
+    "ReferenceKeyCode": "EM_org_id"
+  },
+  {
+    "Code": "FIZ_concact_id",
+    "Name": "FIZ_concact_id",
+    "Position": 58
+  },
+  {
+    "Code": "UR_organization_name",
+    "Name": "UR_organization_name",
+    "Position": 59,
+    "SqlName": "UR_org.Name",
+    "FilterParameterCode": "@UR_orgName",
+    "ReferenceKeyCode": "UR_organization_id"
+  },
+  {
+    "Code": "position_reg",
+    "Name": "position_reg",
+    "Position": 61
+  },
+  {
+    "Code": "position_close",
+    "Name": "position_close",
+    "Position": 62
+  },
+  {
+    "Code": "type_employee_2",
+    "Name": "type_employee_2",
+    "Position": 63
+  },
+  {
+    "Code": "Sked",
+    "Name": "Sked",
+    "Position": 64
+  },
+  {
+    "Code": "TU",
+    "Name": "TU",
+    "Position": 65
+  },
+  {
+    "Code": "TU_Id",
+    "Name": "TU_Id",
+    "Position": 66
+  },
+  {
+    "Code": "Letter",
+    "Name": "Letter",
+    "Position": 67
+  },
+  {
+    "Code": "L_Contacts_Id",
+    "Name": "L_Contacts_Id",
+    "Position": 68
+  },
+  {
+    "Code": "Gravamen",
+    "Name": "Gravamen",
+    "Position": 69
+  },
+  {
+    "Code": "G_Left",
+    "Name": "G_Left",
+    "Position": 70
+  },
+  {
+    "Code": "G_PIB",
+    "Name": "G_PIB",
+    "Position": 71
+  },
+  {
+    "Code": "x_phone_inspector",
+    "Name": "x_phone_inspector",
+    "Position": 74
+  },
+  {
+    "Code": "x_pib_inspector",
+    "Name": "x_pib_inspector",
+    "Position": 75
+  },
+  {
+    "Code": "x_pib_inspector_name",
+    "Name": "x_pib_inspector_name",
+    "Position": 76,
+    "ReferenceKeyCode": "x_pib_inspector"
+  },
+  {
+    "Code": "PriorityType",
+    "Name": "PriorityType",
+    "Position": 77,
+    "IsPrintable": false
+  },
+  {
+    "Code": "UR_organization",
+    "Name": "UR_organization",
+    "Position": 78
+  }
+]

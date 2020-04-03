@@ -1,0 +1,16 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Order_Actions_Places",
+  "Name": "Місця у виїздах",
+  "SelectRowsQueryCode": "avr_Order_Actions_Places_SelectRows",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Claim_Order_Places_Delete",
+  "Position": 6,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

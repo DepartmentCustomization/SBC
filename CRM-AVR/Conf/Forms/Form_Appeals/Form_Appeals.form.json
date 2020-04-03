@@ -1,0 +1,17 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Appeals",
+  "Name": "Звернення",
+  "Details": [
+    "string:Details\\Detail_Claims_Off_Places.detail.json",
+    "string:Details\\Detail_Claims_Off.detail.json",
+    "string:Details\\Detail_Claims_Contact.detail.json"
+  ],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Appeals_All.fieldgroup.json",
+      "string:FieldGroups\\Group_Telefon.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

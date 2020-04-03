@@ -1,0 +1,50 @@
+{
+  "Code": "Group_Claim_SwitchOff",
+  "Name": "Відключення",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "switchoff_type_id",
+      "Name": "Тип відключення",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "list_SwitchOff_types_of_Select",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "places_id",
+      "Name": "Місце",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "avr_Places_Off",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "places_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "SwitchOff_start",
+      "Name": "Дата та час початку відключення",
+      "FieldType": "date-time",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "finish_at",
+      "Name": "Дата та час закінчення відключення",
+      "FieldType": "date-time",
+      "Position": 1
+    },
+    {
+      "Code": "Claim_ID",
+      "Name": "Claim_ID",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

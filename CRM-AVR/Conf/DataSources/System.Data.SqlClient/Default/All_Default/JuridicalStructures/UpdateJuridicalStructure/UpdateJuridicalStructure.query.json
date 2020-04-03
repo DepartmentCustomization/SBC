@@ -1,0 +1,39 @@
+{
+  "ModelType": "Query",
+  "Code": "UpdateJuridicalStructure",
+  "Name": "UpdateJuridicalStructure",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@organizations_name",
+      "Name": "organizations_name"
+    },
+    {
+      "Code": "@adress_id",
+      "Name": "adress_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@phone_comment",
+      "Name": "phone_comment"
+    },
+    {
+      "Code": "@Number",
+      "Name": "Number",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@parent_organization_id",
+      "Name": "parent_organization_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

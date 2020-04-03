@@ -1,0 +1,44 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_StreeFullNameArea",
+  "Name": "dir_StreeFullNameArea",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "street_full_name",
+      "Name": "street_full_name",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "concat(Street_Type.AbbrU, ' ', [Streets].[Name])",
+      "FilterParameterCode": "@name"
+    },
+    {
+      "Code": "Street_Id",
+      "Name": "Street_Id",
+      "Position": 2,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

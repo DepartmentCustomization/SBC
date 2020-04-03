@@ -1,0 +1,58 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_URL_Action_SelectRows",
+  "Name": "avr_URL_Action_SelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Doc_Action_Id",
+      "Name": "Doc_Action_Id",
+      "Position": 2,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "Position": 3
+    },
+    {
+      "Code": "URL",
+      "Name": "URL",
+      "Position": 4
+    },
+    {
+      "Code": "Created_at",
+      "Name": "Дата збереження",
+      "Position": 5
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

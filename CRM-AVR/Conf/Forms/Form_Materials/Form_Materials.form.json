@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Materials",
+  "Name": "Довідник- Матеріали",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Materials.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "dir_Type_PP_linkInsertRow",
+  "Name": "dir_Type_PP_linkInsertRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@Name",
+      "Name": "Name"
+    }
+  ]
+}

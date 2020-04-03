@@ -1,61 +1,43 @@
---  declare @dateFrom datetime = '2019-11-26 22:00:00';
---  declare @dateTo datetime = '2019-11-26 22:00:00';
+-- DECLARE @dateTo DATETIME = CURRENT_TIMESTAMP;
 
-declare @on_arrival table (articul nvarchar(100), [provider] nvarchar(100), price float, quantity int, sum_price float)
-declare @on_change table (articul nvarchar(100), price float, quantity int, sum_price float)
+SET @dateTo = dateadd(second,59,(dateadd(minute,59,(dateadd(hour,23,cast(cast(dateadd(day,0,@dateTo) as date) as datetime))))));
 
-Insert into @on_arrival
-Select distinct 
-articul,
-prov.[provider],
-arrival.part_price,
-arrival.part_quantity,
-part.part_price * arrival.part_quantity as sum_price
+IF OBJECT_ID('tempdb..##Arrival') IS NOT NULL
+AND OBJECT_ID('tempdb..##Change') IS NOT NULL
+BEGIN
+  DROP TABLE ##Arrival;
+  DROP TABLE ##Change;
+END
+---> Получить запчасть и колво с приходов по дату
+   SELECT 
+        part_id,
+        SUM(part_quantity) AS part_quantity,
+		AVG(part_price) AS part_price
+    INTO ##Arrival 
+    FROM dbo.PartArrival 
+    WHERE create_date <= @dateTo
+	GROUP BY part_id;
 
-from Parts part
-join PartArrival arrival on arrival.part_id = part.Id
-join Providers prov on prov.Id = arrival.provider_id
-where cast(arrival.create_date as date) 
-between cast(dateadd(hour,3,@dateFrom) as date) and cast(dateadd(day,1,@dateTo) as date)
+---> Получить запчасть и колво ее расходов по дату
+   SELECT 
+        part_id,
+        COUNT(Id) AS changeQty
+    INTO ##Change
+    FROM dbo.PartChange 
+    WHERE create_date <= @dateTo
+	GROUP BY part_id;
+    
+---> Защитать остаток по приходам-расходам
+     SELECT 
+	       p.Id,
+		   part_name,
+		   articul,
+		   manufacturer,
+		   ar.part_price,
+		   ar.part_quantity - ISNULL(ch.changeQty,0) AS qty,
+		   ar.part_price * (ar.part_quantity - ISNULL(ch.changeQty,0)) 
+		   AS sum_price
 
--- select * from @on_arrival
-
-Insert into @on_change
-Select distinct 
-articul,
-change.part_price,
-isnull(count(change.part_id),0),
-change.part_price * count(change.part_id)
-
-from Parts part
-left join PartChange change on change.part_id = part.Id 
-where cast(change.create_date as date)
-between cast(dateadd(hour,3,@dateFrom) as date) and cast(dateadd(day,1,@dateTo) as date)
-group by articul, change.part_price
-
--- select * from @on_change
-
-Select 
-Id,
-part_name,
-articul,
-manufacturer,
-[provider],
-part_price,
-qty,
-z.part_price * z.qty as sum_price 
-from (
-Select distinct 
-p.Id,
-p.part_name,
-p.articul,
-p.manufacturer,
-ar.[provider],
-p.part_price,
-isnull(ar.quantity - isnull(ch.quantity,0),0) as qty
- 
-from @on_arrival ar
-left join @on_change ch on ch.articul = ar.articul
-join Parts p on ar.articul = p.articul
-) z
- where qty > 0
+		   FROM dbo.Parts p
+		   INNER JOIN ##Arrival ar ON ar.part_id = p.Id 
+		   LEFT JOIN ##Change ch ON ch.part_id = p.Id ;

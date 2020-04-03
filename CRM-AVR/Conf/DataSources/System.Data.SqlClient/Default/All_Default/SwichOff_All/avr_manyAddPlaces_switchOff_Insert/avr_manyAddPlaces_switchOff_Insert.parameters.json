@@ -1,0 +1,33 @@
+[
+  {
+    "Code": "@Claim_ID",
+    "Name": "Claim_ID",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@str_id",
+    "Name": "str_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@faucet_id",
+    "Name": "faucet_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Id",
+    "Name": "Id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
+    "Code": "@switchOff_type",
+    "Name": "switchOff_type",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Place_ID",
+    "Name": "Place_ID",
+    "ParameterType": "Integer"
+  }
+]

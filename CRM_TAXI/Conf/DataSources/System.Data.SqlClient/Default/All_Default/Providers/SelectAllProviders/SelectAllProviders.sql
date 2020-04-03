@@ -1,11 +1,10 @@
-select 
-Id,
-[provider],
-provider_conditions
-
-from Providers
-where
- #filter_columns#
- #sort_columns#
- 
-offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+    Id,
+    [provider],
+    provider_conditions
+FROM
+    Providers
+WHERE
+    #filter_columns#
+    #sort_columns#
+    OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY

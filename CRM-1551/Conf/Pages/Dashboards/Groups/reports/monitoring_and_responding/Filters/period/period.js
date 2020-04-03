@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         placeholder: 'Дата та час',
         showTime: true,
@@ -25,12 +25,12 @@
             let hh = currentDate.getHours();
             let mm = currentDate.getMinutes();
             let defaultValue = {
-                    dateFrom: new Date(year, monthFrom -2 , dayTo, '00', '00'),
-                    dateTo: new Date( year, monthFrom , dayTo, hh, mm)
-                }
-            this.setDefaultValue(defaultValue); 
+                dateFrom: new Date(year, monthFrom - 2 , dayTo, '00', '00'),
+                dateTo: new Date(year, monthFrom , dayTo, hh, mm)
+            }
+            this.setDefaultValue(defaultValue);
         },
-        destroy(){
+        destroy() {
         }
     };
 }());

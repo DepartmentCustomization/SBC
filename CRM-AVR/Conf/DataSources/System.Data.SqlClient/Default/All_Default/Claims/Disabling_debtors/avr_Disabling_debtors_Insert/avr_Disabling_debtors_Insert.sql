@@ -1,0 +1,27 @@
+INSERT INTO [dbo].[Disabling_debtors]
+           ([Claim_Id]
+           ,[OrganizationWS_ID]
+           ,[EmployeeWS_ID]
+           ,[Contact_debt]
+           ,[Place_debt_Id]
+           ,[Flats_debt_Id]
+           ,[Place_disadle_Id]
+           ,[Number_seal]
+           ,[Amount_due]
+           ,[Payment_departure]
+           ,[Description]
+           ,[Is_fixed])
+     VALUES
+           (@Claim_Id
+           ,@org_id
+           ,@employee_id
+           ,@debt_id
+           ,@placeDebt_id
+           ,@Number
+           ,@placeDis_id
+           ,@Number_seal
+           ,@Amount_due
+           ,@Payment_departure
+           ,@Description
+           ,@Is_fixed
+		   )

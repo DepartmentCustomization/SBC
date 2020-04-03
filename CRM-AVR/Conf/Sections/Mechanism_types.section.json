@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "dir_Mechanism_typesInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Mechanism_types",
+  "Name": "Довідник: Типи техніки",
+  "FormCode": "Form_Mechanism_types",
+  "SelectRowsQueryCode": "dir_Mechanism_typesSelectRows",
+  "SelectRowQueryCode": "dir_Mechanism_typesSelectRow",
+  "UpdateQueryCode": "dir_Mechanism_typesUpdateRow"
+}

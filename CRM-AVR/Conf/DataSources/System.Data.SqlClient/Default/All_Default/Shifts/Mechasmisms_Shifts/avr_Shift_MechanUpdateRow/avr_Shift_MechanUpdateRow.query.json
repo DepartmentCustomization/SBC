@@ -1,0 +1,21 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Shift_MechanUpdateRow",
+  "Name": "avr_Shift_MechanUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@mechanisms_id",
+      "Name": "mechanisms_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

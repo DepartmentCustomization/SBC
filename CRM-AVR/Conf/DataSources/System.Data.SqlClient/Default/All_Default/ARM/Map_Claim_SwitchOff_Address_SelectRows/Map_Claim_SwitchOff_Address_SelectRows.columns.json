@@ -1,0 +1,74 @@
+[
+  {
+    "Code": "District_id",
+    "Name": "District_id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "District",
+    "Name": "District",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Place_Id",
+    "Name": "Place_Id",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Place",
+    "Name": "Place",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim",
+    "Name": "Claim",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Create_Date",
+    "Name": "Create_Date",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Finish_Date",
+    "Name": "Finish_Date",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Lattitude",
+    "Name": "Lattitude",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Longitude",
+    "Name": "Longitude",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_types_Id",
+    "Name": "Claim_types_Id",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_type_Name",
+    "Name": "Claim_type_Name",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Org_Short_name",
+    "Name": "Org_Short_name",
+    "Position": 11,
+    "IsPrintable": false
+  }
+]

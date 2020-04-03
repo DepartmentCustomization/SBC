@@ -1,5 +1,35 @@
---declare @Id int =2231581;
+
+--declare @Id int =2976051;
 --declare @user_Id nvarchar =N'  ';
+--DECLARE @user_id NVARCHAR(MAX)=N'40dd9fa3-7d58-418c-a2a0-38e9e100d3fd';
+DECLARE @org1761 TABLE (Id INT);
+
+
+WITH
+     cte1 -- все подчиненные 3 и 3 1761
+   AS ( SELECT Id,
+         [parent_organization_id] ParentId
+         FROM [dbo].[Organizations] t
+         WHERE Id = 1761
+         UNION ALL
+         SELECT tp.Id,
+         tp.[parent_organization_id] ParentId
+         FROM [dbo].[Organizations] tp 
+         INNER JOIN cte1 curr ON tp.[parent_organization_id] = curr.Id ),
+
+org_user AS
+(
+SELECT organizations_id FROM [dbo].[Positions]
+WHERE programuser_id=@user_id
+)
+
+INSERT INTO @org1761 (Id)
+SELECT Id 
+FROM cte1 INNER JOIN org_user ON cte1.Id=org_user.organizations_id;
+
+--SELECT * FROM @org1761
+
+
 
 SELECT DISTINCT TOP 1
 	[Assignments].[Id]
@@ -8,7 +38,8 @@ SELECT DISTINCT TOP 1
    ,ReceiptSources.name AS receipt_source_name
    ,Questions.registration_date AS que_reg_date
    ,Applicants.full_name
-   ,Applicants.ApplicantAdress LiveAddress
+   --,Applicants.ApplicantAdress LiveAddress
+   ,Appeals.ApplicantAddress LiveAddress
    ,[Objects].Id AS [object_id]
    ,ISNULL(ObjectTypes.name + N' : ', N'') +
 	ISNULL([Objects].name + ' ', N'') [object_name]
@@ -67,15 +98,22 @@ SELECT DISTINCT TOP 1
 		WHERE ac.assignment_id = @Id
 		ORDER BY ar.Id DESC)
 	AS control_comment
-   ,(SELECT
-			COUNT(Id)
-		FROM [dbo].AssignmentRevisions
-		WHERE assignment_consideration_іd IN (SELECT
-				Id
-			FROM [dbo].AssignmentConsiderations
-			WHERE assignment_id = @Id)
-		AND control_result_id = 5)
-	AS rework_counter
+--    ,(SELECT
+-- 			COUNT(Id)
+-- 		FROM [dbo].AssignmentRevisions
+-- 		WHERE assignment_consideration_іd IN (SELECT
+-- 				Id
+-- 			FROM [dbo].AssignmentConsiderations
+-- 			WHERE assignment_id = @Id)
+-- 		AND control_result_id in (5))
+-- 	AS rework_counter
+	,ISNULL((SELECT TOP 1 ar.rework_counter
+	FROM [dbo].[Assignments] a
+	INNER JOIN [dbo].[AssignmentConsiderations] ac ON a.Id=ac.assignment_id
+	INNER JOIN [dbo].[AssignmentRevisions] ar ON ar.assignment_consideration_іd=ac.Id
+	WHERE a.Id=@Id
+	ORDER BY ar.Id DESC),0) rework_counter
+	--,assRev.rework_counter
    ,assC.[transfer_to_organization_id]
 
    ,CASE
@@ -120,9 +158,13 @@ SELECT DISTINCT TOP 1
    ,CONCAT(p.[name], ' (' + p.[position] + ')') AS executor_person_name
 	--,isnull(orr.editable, 'false') editable
    ,CASE
+		WHEN EXISTS(SELECT Id FROM @org1761) THEN 1 --2975208
 		WHEN orr.editable = 'true' THEN 1
 		WHEN orr.editable = 'false' THEN 2
 	END editable
+	--,2 editable
+	,[Questions].[geolocation_lat]
+	,[Questions].[geolocation_lon]
 FROM [dbo].[Assignments]
 LEFT JOIN [dbo].AssignmentTypes aty
 	ON aty.Id = Assignments.assignment_type_id
@@ -202,4 +244,4 @@ LEFT JOIN (SELECT DISTINCT
 ) orr
 	ON perf.Id = orr.organization_id
 WHERE Assignments.Id = @Id
-AND orr.editable IS NOT NULL;
+AND (CASE WHEN EXISTS(SELECT Id FROM @org1761) THEN 1 WHEN orr.editable IS NULL THEN 2 ELSE 1 END)=1;

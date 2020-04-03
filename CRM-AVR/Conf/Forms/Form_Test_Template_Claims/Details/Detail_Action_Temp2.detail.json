@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Action_Temp2",
+  "Name": "Роботи за шаблоном",
+  "SelectRowsQueryCode": "avr_Action_Template_SelectRows",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "temp_id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

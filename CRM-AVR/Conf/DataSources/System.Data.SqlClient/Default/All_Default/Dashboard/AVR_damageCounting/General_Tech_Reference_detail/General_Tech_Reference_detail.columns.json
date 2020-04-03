@@ -1,0 +1,72 @@
+[
+  {
+    "Code": "num",
+    "Name": "num",
+    "Position": 1
+  },
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 2
+  },
+  {
+    "Code": "mechanisms_type_name",
+    "Name": "mechanisms_type_name",
+    "Position": 3
+  },
+  {
+    "Code": "mechanisms_name",
+    "Name": "mechanisms_name",
+    "Position": 4
+  },
+  {
+    "Code": "Number",
+    "Name": "Number",
+    "Position": 5
+  },
+  {
+    "Code": "organizations_name",
+    "Name": "organizations_name",
+    "Position": 6
+  },
+  {
+    "Code": "action_date",
+    "Name": "action_date",
+    "Position": 7
+  },
+  {
+    "Code": "orders_id",
+    "Name": "orders_id",
+    "Position": 8
+  },
+  {
+    "Code": "type_ac_name",
+    "Name": "type_ac_name",
+    "Position": 9
+  },
+  {
+    "Code": "contact_name",
+    "Name": "contact_name",
+    "Position": 10
+  },
+  {
+    "Code": "places_name",
+    "Name": "places_name",
+    "Position": 11
+  },
+  {
+    "Code": "places2_name",
+    "Name": "places2_name",
+    "Position": 12
+  },
+  {
+    "Code": "Distanse",
+    "Name": "Distanse",
+    "Position": 13
+  },
+  {
+    "Code": "Fact_duration",
+    "Name": "Fact_duration",
+    "Position": 14
+  }
+]

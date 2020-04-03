@@ -1,0 +1,32 @@
+{
+  "Code": "Group_Streets",
+  "Name": "Вулиці",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1
+    },
+    {
+      "Code": "type_name",
+      "Name": "Тип",
+      "FieldType": "text"
+    },
+    {
+      "Code": "Old_name",
+      "Name": "Стара назва вулиці",
+      "FieldType": "text",
+      "Position": 2
+    },
+    {
+      "Code": "Territory",
+      "Name": "Примітка",
+      "FieldType": "textarea",
+      "Position": 3,
+      "Rows": 2
+    }
+  ]
+}

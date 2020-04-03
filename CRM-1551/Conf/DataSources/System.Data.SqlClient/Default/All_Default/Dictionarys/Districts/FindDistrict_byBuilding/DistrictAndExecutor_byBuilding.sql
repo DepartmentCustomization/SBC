@@ -1,16 +1,29 @@
--- declare @building_id int = 7702;
+-- DECLARE @building_id INT = 18018;
 
-select top 1
-d.Id,
-d.[name],
-o.[short_name] as execOrg
+DECLARE @Disctict TABLE (objectId INT, Id INT, [name] NVARCHAR(30));
+INSERT INTO @Disctict
+SELECT
+	obj.Id,
+	d.Id,
+    d.[name]
+FROM dbo.[Objects] obj 
+INNER JOIN dbo.[Districts] d ON d.Id = obj.district_id
+WHERE
+   obj.builbing_id = @building_id ;
 
-from Streets s 
-join Buildings b on b.street_id = s.Id 
-join Districts d on d.Id = s.district_id
-left join [Objects] obj on obj.builbing_id = b.Id 
-left join ExecutorInRoleForObject exo on exo.[object_id] = obj.Id 
-left join Organizations o on o.Id = exo.executor_id
-where b.Id = @building_id
-and o.organization_type_id in (3,6,7,11)
-order by organization_type_id desc
+DECLARE @execOrg NVARCHAR(300);
+SET @execOrg = ( 
+SELECT 
+TOP 1 o.short_name
+FROM dbo.ExecutorInRoleForObject AS eo
+LEFT JOIN dbo.Organizations AS o ON o.Id = eo.executor_id
+WHERE [executor_role_id] = 1
+AND eo.[object_id] = @building_id 
+);
+
+SELECT
+TOP 1 
+	d.[name] AS district,
+	@execOrg AS execOrg 
+FROM @Disctict d
+;

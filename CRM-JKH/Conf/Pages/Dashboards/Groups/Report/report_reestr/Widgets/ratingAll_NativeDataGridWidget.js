@@ -1,5 +1,5 @@
-(function () {
-  return {
+(function() {
+    return {
         config: {
             query: {
                 code: 'ClaimsSelect_Table_Report',
@@ -12,55 +12,55 @@
             columns: [
                 {
                     dataField: 'ClaimId',
-                    caption: 'Номер заявки',
+                    caption: 'Номер заявки'
                 },
                 {
                     dataField: 'created_at',
-                    caption: 'Дата заявки',
+                    caption: 'Дата заявки'
                 },
                 {
                     dataField: 'claim_direction',
-                    caption: 'Напрямок заявки',
+                    caption: 'Напрямок заявки'
                 },
                 {
                     dataField: 'claim_type',
-                    caption: 'Тип заявки',
+                    caption: 'Тип заявки'
                 },
                 {
                     dataField: 'Adress',
-                    caption: 'Місце заявки',
+                    caption: 'Місце заявки'
                 },
                 {
                     dataField: 'claim_state',
-                    caption: 'Стан заявки',
+                    caption: 'Стан заявки'
                 },
                 {
                     dataField: 'control_date',
-                    caption: 'Контрольна дата',
+                    caption: 'Контрольна дата'
                 },
                 {
                     dataField: 'executed_at',
-                    caption: 'Дата виконання',
+                    caption: 'Дата виконання'
                 },
                 {
                     dataField: 'executor',
-                    caption: 'Відповідальний працівник',
+                    caption: 'Відповідальний працівник'
                 },
                 {
                     dataField: 'org_executor',
-                    caption: 'Підрозділ (відповідального працівника)',
+                    caption: 'Підрозділ (відповідального працівника)'
                 },
                 {
                     dataField: 'applicantPIB',
-                    caption: 'ПІБ заявника',
+                    caption: 'ПІБ заявника'
                 }
             ],
             columnChooser: {
                 enabled: true
             },
             sorting: {
-                mode: "multiple"
-            },   
+                mode: 'multiple'
+            },
             showBorders: false,
             showColumnLines: true,
             showRowLines: true,
@@ -80,48 +80,48 @@
         },
         init: function() {
             let msg = {
-                name: "SetFilterPanelState",
+                name: 'SetFilterPanelState',
                 package: {
                     value: true
                 }
             };
             this.messageService.publish(msg);
-            this.sub = this.messageService.subscribe( 'FiltersParams', this.setFiltersParams, this );
-            this.sub1 = this.messageService.subscribe( 'ApplyGlobalFilters', this.renderTable, this );
+            this.sub = this.messageService.subscribe('FiltersParams', this.setFiltersParams, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.renderTable, this);
             this.config.onContentReady = this.onMyContentReady.bind(this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
-        setFiltersParams: function (message) {
+        setFiltersParams: function(message) {
             this.dateStart = message.dateStart;
             this.dateEnd = message.dateEnd;
-            this.executor =   message.executor;
-            this.claimType =   message.claimType;
-            this.config.query.parameterValues = [ 
+            this.executor = message.executor;
+            this.claimType = message.claimType;
+            this.config.query.parameterValues = [
                 {key: '@DateStart' , value: this.dateStart },
                 {key: '@DateEnd' , value: this.dateEnd },
                 {key: '@OrgId', value: this.executor },
                 {key: '@TypeId', value: this.claimType }
             ];
         },
-        renderTable: function () {
+        renderTable: function() {
             let msg = {
-                name: "SetFilterPanelState",
+                name: 'SetFilterPanelState',
                 package: {
                     value: false
                 }
             };
             this.messageService.publish(msg);
             this.loadData(this.afterLoadDataHandler);
-        }, 
-        createTableButton: function (e) {
+        },
+        createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
             toolbarItems.push({
-                widget: "dxButton", 
-                location: "after",
-                options: { 
-                    icon: "exportxlsx",
-                    type: "default",
-                    text: "Excel",
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
                         let exportQuery = {
@@ -132,10 +132,10 @@
                         this.queryExecutor(exportQuery, this.myCreateExcel, this);
                         this.showPreloader = false;
                     }.bind(this)
-                },
+                }
             });
         },
-        myCreateExcel: function (data) {
+        myCreateExcel: function(data) {
             this.showPagePreloader('Зачекайте, формується документ');
             let visibleColumns = this.visibleColumns;
             this.columnsWithoutSub = [];
@@ -143,7 +143,7 @@
             let worksheet = workbook.addWorksheet('Заявки', {
                 pageSetup:{
                     orientation: 'landscape',
-                    fitToPage: false,
+                    fitToPage: false
                 }
             });
             worksheet.pageSetup.margins = {
@@ -154,17 +154,17 @@
             let emptyCellInfoCaption = worksheet.getCell('A1');
             emptyCellInfoCaption.value = ' ';
             let captions = [];
-            let columnsHeader = [];      
+            let columnsHeader = [];
             for (let i = 0; i < visibleColumns.length; i++) {
                 let column = visibleColumns[i];
                 let caption = column.caption;
                 captions.push(caption);
-                 let header = "";
-                 let key = "";
+                let header = '';
+                let key = '';
                 let width = 20;
                 let index = 10;
                 let columnProp = { header, key, width, index };
-                columnsHeader.push(columnProp);    
+                columnsHeader.push(columnProp);
             }
             worksheet.columns = columnsHeader;
             worksheet.getRow(5).values = captions;
@@ -181,12 +181,12 @@
             for (let i = 0; i < this.config.columns.length; i++) {
                 let column = this.config.columns[i];
                 let colCaption = column.caption;
-                if( !column.dataField ) {
-                    column.columns.forEach( col => {
+                if(!column.dataField) {
+                    column.columns.forEach(col => {
                         let length = 0;
                         let colIndexTo = 0;
-                        if(this.subColumnCaption.length > 0){
-                            if(this.subColumnCaption[this.subColumnCaption.length - 1].colCaption !== colCaption){
+                        if(this.subColumnCaption.length > 0) {
+                            if(this.subColumnCaption[this.subColumnCaption.length - 1].colCaption !== colCaption) {
                                 let obj = {
                                     colCaption,
                                     length,
@@ -223,35 +223,35 @@
             for (let i = 0; i < visibleColumns.length; i++) {
                 const visCol = visibleColumns[i];
                 let df = visCol.dataField;
-                let index = this.allColumns.findIndex( el => el.dataField === df ); 
+                let index = this.allColumns.findIndex(el => el.dataField === df);
                 resultColumns.push(this.allColumns[index]);
             }
             for (let i = 0; i < resultColumns.length; i++) {
                 const resCol = resultColumns[i];
-                const colIndexTo = i+1;
-                let indexCaptionFrom ;
-                if( resCol.isSub === true ){
+                const colIndexTo = i + 1;
+                let indexCaptionFrom;
+                if(resCol.isSub === true) {
                     if(this.subColumnCaption.length > 0) {
                         let group = this.subColumnCaption[resCol.index];
-                        if(group.colCaption === resCol.caption){
-                            group.length ++;
+                        if(group.colCaption === resCol.caption) {
+                            group.length++;
                             group.colIndexTo = colIndexTo;
                         }
                     }
                     indexCaptionFrom = 5;
                 }else{
-                    let caption = resCol.caption;        
+                    let caption = resCol.caption;
                     let column = { caption, colIndexTo }
                     indexCaptionFrom = 4;
                     this.columnsWithoutSub.push(column);
                 }
-                worksheet.mergeCells(indexCaptionFrom, colIndexTo, 5, colIndexTo );
+                worksheet.mergeCells(indexCaptionFrom, colIndexTo, 5, colIndexTo);
             }
-            this.subColumnCaption.forEach( col => {
+            this.subColumnCaption.forEach(col => {
                 let indexFrom = col.colIndexTo - col.length + 1;
                 let indexTo = col.colIndexTo;
-                if( col.length > 0 ){
-                    worksheet.mergeCells( 4, indexFrom, 4, indexTo );
+                if(col.length > 0) {
+                    worksheet.mergeCells(4, indexFrom, 4, indexTo);
                     let caption = worksheet.getCell(4, indexFrom);
                     caption.value = col.colCaption;
                 }
@@ -266,7 +266,7 @@
                 let rowValues = [];
                 for (let j = 0; j < resultColumns.length; j++) {
                     const element = resultColumns[j];
-                    let index = data.columns.findIndex(el => el.code === element.dataField );
+                    let index = data.columns.findIndex(el => el.code === element.dataField);
                     rowValues[j] = rowData.values[index];
                 }
                 worksheet.addRow(rowValues);
@@ -276,10 +276,10 @@
         afterLoadDataHandler: function() {
             this.render();
         },
-        onMyContentReady: function () {
+        onMyContentReady: function() {
             this.visibleColumns = this.dataGridInstance.instance.getVisibleColumns();
         },
-        destroy: function () {
-        },
+        destroy: function() {
+        }
     };
 }());

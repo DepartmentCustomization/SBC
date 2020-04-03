@@ -1,0 +1,68 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "action_id",
+    "Name": "action_id",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "places_id",
+    "Name": "places_id",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Start_from",
+    "Name": "Start_from",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Finish_at",
+    "Name": "Finish_at",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "size_id",
+    "Name": "size_id",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_Id",
+    "Name": "Claim_Id",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Order_Id",
+    "Name": "Order_Id",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "action_name",
+    "Name": "action_name",
+    "Position": 8,
+    "ReferenceKeyCode": "action_id"
+  },
+  {
+    "Code": "places_name",
+    "Name": "places_name",
+    "Position": 9,
+    "ReferenceKeyCode": "places_id"
+  },
+  {
+    "Code": "Size",
+    "Name": "Size",
+    "Position": 10,
+    "ReferenceKeyCode": "size_id"
+  }
+]

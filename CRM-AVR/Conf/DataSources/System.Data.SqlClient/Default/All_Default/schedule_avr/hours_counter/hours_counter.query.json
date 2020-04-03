@@ -1,0 +1,26 @@
+{
+  "ModelType": "Query",
+  "Code": "hours_counter",
+  "Name": "hours_counter",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@JobId",
+      "Name": "JobId",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@DateEnd",
+      "Name": "DateEnd",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@DateStart",
+      "Name": "DateStart",
+      "ParameterType": "DateTime"
+    }
+  ]
+}

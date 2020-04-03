@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "All_contacts",
+  "Name": "Усі співробітики",
+  "ConnectionCode": "Default"
+}

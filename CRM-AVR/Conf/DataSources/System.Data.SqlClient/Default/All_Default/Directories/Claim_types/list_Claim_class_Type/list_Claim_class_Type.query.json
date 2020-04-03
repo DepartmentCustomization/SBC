@@ -1,0 +1,23 @@
+{
+  "ModelType": "Query",
+  "Code": "list_Claim_class_Type",
+  "Name": "list_Claim_class_Type",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Claim_class_ID",
+      "Name": "Claim_class_ID",
+      "Position": 1,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@par",
+      "Name": "par",
+      "ParameterType": "Integer"
+    }
+  ]
+}

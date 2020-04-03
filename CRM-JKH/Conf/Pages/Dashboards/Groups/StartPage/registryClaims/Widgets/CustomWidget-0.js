@@ -1,9 +1,9 @@
-(function () {
-  return {
-    title: ' ',
-    hint: ' ',
-    formatTitle: function() {},
-    customConfig:
+(function() {
+    return {
+        title: ' ',
+        hint: ' ',
+        formatTitle: function() {},
+        customConfig:
                 `
                 <style>
                 .wrapper {
@@ -62,40 +62,42 @@
                     </div>
                 </div>
                 `
-    ,
-    init: function() {
-        let executeQuery = {
-            queryCode: 'Claims_State_Select',
-            limit: -1,
-            parameterValues: []
-        };
-        this.queryExecutor(executeQuery, this.load);
-    },
-    load: function(data) {
-        let total = 0;
-        let tempArr = [];
-        let numbers  =  [...document.getElementsByClassName('numbers')];
-        let status  =  [...document.getElementsByClassName('status')];
-        function find(array, value) {
-                  if (array.indexOf) {
+        ,
+        init: function() {
+            let executeQuery = {
+                queryCode: 'Claims_State_Select',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQuery, this.load);
+        },
+        load: function(data) {
+            let total = 0;
+            let tempArr = [];
+            let numbers = [...document.getElementsByClassName('numbers')];
+            let status = [...document.getElementsByClassName('status')];
+            function find(array, value) {
+                if (array.indexOf) {
                     return array.indexOf(value);
-                  }
-                  for (let i = 0; i < array.length; i++) {
-                    if (array[i] === value) return i;
-                  }
-                  return -1;
                 }
-            for(let j=0; j<data.rows.length; j++){
+                for (let i = 0; i < array.length; i++) {
+                    if (array[i] === value) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+            for(let j = 0; j < data.rows.length; j++) {
                 tempArr.push(data.rows[j].values[1]);
-                 total += data.rows[j].values[0]
-            }    
-            for(let i=0; i<status.length; i++){
+                total += data.rows[j].values[0]
+            }
+            for(let i = 0; i < status.length; i++) {
                 let search = find(tempArr, status[i].innerText)
-                if(search != -1){
-                  numbers[i].innerText = data.rows[search].values[0]
+                if(search != -1) {
+                    numbers[i].innerText = data.rows[search].values[0]
                 }
             }
-             numbers[0].innerText = total;
-    }
-};
+            numbers[0].innerText = total;
+        }
+    };
 }());

@@ -1,0 +1,18 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Claims_App_Contact",
+  "Name": "Заявники",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claims_App.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "claims_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ]
+  }
+}

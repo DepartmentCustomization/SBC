@@ -1,8 +1,9 @@
-Select 
-Id,
-articul,
-part_name
-
-from Parts
-
--- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+    Id,
+    articul,
+    part_name
+FROM
+    dbo.Parts 
+WHERE #filter_columns#
+      #sort_columns#
+    OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY

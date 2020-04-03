@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_Order_Doc_Insert"
+  },
+  "ModelType": "Section",
+  "Code": "Orders_Documents",
+  "Name": "Документи (наряди)",
+  "FormCode": "Form_Order_File",
+  "SelectRowsQueryCode": "avr_Order_Doc_SelectRows",
+  "SelectRowQueryCode": "avr_Order_Doc_SelectRow",
+  "UpdateQueryCode": "avr_Order_Doc_Update",
+  "IsVisible": false
+}

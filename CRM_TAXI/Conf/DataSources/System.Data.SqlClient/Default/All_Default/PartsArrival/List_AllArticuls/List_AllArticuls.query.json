@@ -15,12 +15,16 @@
           {
             "Code": "articul",
             "Name": "Артикул",
-            "Position": 2
+            "Position": 2,
+            "SqlName": "articul",
+            "FilterParameterCode": "@articul"
           },
           {
             "Code": "part_name",
             "Name": "Название",
-            "Position": 2
+            "Position": 2,
+            "SqlName": "part_name",
+            "FilterParameterCode": "@part_name"
           }
     ],
     "Parameters": [

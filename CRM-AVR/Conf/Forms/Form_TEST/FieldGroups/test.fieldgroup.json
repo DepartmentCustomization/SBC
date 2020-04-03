@@ -1,0 +1,38 @@
+{
+  "Code": "test",
+  "Name": "Вибір засув (не більше 10 діаметрів образу)",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "action_type_id",
+      "Name": "Тип робіти",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "TEST_Action_types",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "PatternDescription": "Не більше 10",
+      "Code": "count",
+      "Name": "Кількість засув різного діаметру",
+      "FieldType": "number",
+      "Position": 1
+    },
+    {
+      "Code": "order_id",
+      "Name": "order_id",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    },
+    {
+      "Code": "claim_id",
+      "Name": "claim_id",
+      "FieldType": "number",
+      "Position": 1,
+      "IsHidden": true
+    }
+  ]
+}

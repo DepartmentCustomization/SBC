@@ -1,0 +1,13 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_MechanismsInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Mechanisms",
+  "Name": " Техніка",
+  "FormCode": "Form_Mechanisms",
+  "SelectRowsQueryCode": "avr_MechanismsSelectRows",
+  "SelectRowQueryCode": "avr_MechanismsSelectRow",
+  "UpdateQueryCode": "avr_MechanismsUpdateRow",
+  "DeleteQueryCode": "avr_MechanismsDeleteRow"
+}

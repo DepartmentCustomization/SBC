@@ -1,0 +1,29 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Free_Orders_SelectRow",
+  "Name": "avr_Free_Orders_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "shift_id",
+      "Name": "shift_id",
+      "Position": 2
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

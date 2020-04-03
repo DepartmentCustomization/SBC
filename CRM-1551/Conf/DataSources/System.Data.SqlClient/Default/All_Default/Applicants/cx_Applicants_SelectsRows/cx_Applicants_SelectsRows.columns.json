@@ -20,7 +20,7 @@
     "Name": "Номер телефона",
     "Position": 3,
     "IsPrintable": false,
-    "SqlName": "#ApplicantPhones.phone_number",
+    "SqlName": "sub_phones.phone_number",
     "FilterParameterCode": "@phone_number"
   },
   {

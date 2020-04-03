@@ -28,13 +28,20 @@
             "Code": "part_name",
             "Name": "Название",
             "Position": 3,
-            "IsPrintable": false
+            "IsPrintable": false         
         },
         {
             "Code": "articul",
-            "Name": "Артикул",
+            "Name": "Артикул(id)",
             "Position": 4,
             "IsPrintable": false
+        },
+        {
+            "Code": "articul_name",
+            "Name": "Артикул",
+            "Position": 4,
+            "IsPrintable": false,
+            "ReferenceKeyCode": "articul"
         },
         {
             "Code": "manufacturer",
@@ -47,6 +54,13 @@
             "Name": "Поставщик",
             "Position": 6,
             "IsPrintable": false
+        },
+        {
+            "Code": "provider_name",
+            "Name": "Поставщик (название)",
+            "Position": 6,
+            "IsPrintable": false,
+            "ReferenceKeyCode": "provider"
         },
         {
             "Code": "part_price",

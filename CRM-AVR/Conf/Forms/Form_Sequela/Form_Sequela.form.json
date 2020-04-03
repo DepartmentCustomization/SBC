@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Sequela",
+  "Name": "Ускладнення",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Sequela.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Claim_ID",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Sequela.form.js"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "ModelType": "Query",
+  "Code": "Faucet_Orders_DeleteRow",
+  "Name": "Faucet_Orders_DeleteRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

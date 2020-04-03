@@ -1,6 +1,9 @@
 
 --declare @phone_number nvarchar(15)=N'911';
 
-  select Id, phone_number, chanel_id, chat_id, chat_is
-  from [CommunicationChannelsForPhone]
-  where phone_number=@phone_number
+  SELECT Id, phone_number, chanel_id, chat_id, chat_is
+  FROM [dbo].[CommunicationChannelsForPhone]
+  WHERE phone_number=@phone_number
+  AND #filter_columns#
+  #sort_columns#
+ offset @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only;

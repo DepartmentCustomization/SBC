@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "AreaClaimParams",
+  "Name": "Параметри ділянки",
+  "SelectRowsQueryCode": "Select_ClaimAreaParams",
+  "SectionCode": "",
+  "Position": 5,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@ClaimId"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "Code": "Group_Route_main",
+  "Name": "Інформація по маршруту",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "Number",
+      "Name": " Маршрут №",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1,
+      "Width": "30%"
+    },
+    {
+      "Code": "OrgId",
+      "Name": "Відділ",
+      "FieldType": "select",
+      "Position": 2,
+      "Width": "100%",
+      "QueryCode": "avr_ListOrg_Is_select",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "GroupLenght",
+      "Name": "Загальна довжина маршруту (м)",
+      "FieldType": "text",
+      "Position": 13,
+      "Width": "40%"
+    },
+    {
+      "Code": "BoreCountAll",
+      "Name": "Загальна кількість люків ",
+      "FieldType": "number",
+      "Position": 13,
+      "Width": "30%"
+    },
+    {
+      "Code": "Author_userID",
+      "Name": "Створив",
+      "FieldType": "text",
+      "Position": 100
+    },
+    {
+      "Code": "ChangeBy_userID",
+      "Name": "Редагував",
+      "FieldType": "text",
+      "Position": 110
+    },
+    {
+      "Code": "btn_Add_Area",
+      "Name": "+ Ділянка",
+      "FieldType": "button",
+      "Position": 1110,
+      "Width": "40%"
+    },
+    {
+      "Code": "btn_Add_AreaPlace",
+      "Name": "Додати будинок ділянки",
+      "FieldType": "button",
+      "Position": 1111,
+      "Width": "40%",
+      "Icon": "home",
+      "IconHint": "Внести новий будинок до переліку по ділянці"
+    },
+    {
+      "Code": "route_id",
+      "Name": "route_id",
+      "FieldType": "number",
+      "Position": 1112,
+      "IsHidden": true,
+      "Width": "20%"
+    }
+  ]
+}

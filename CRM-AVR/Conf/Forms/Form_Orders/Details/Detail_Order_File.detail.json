@@ -1,0 +1,20 @@
+{
+  "DetailType": "Section",
+  "ModelType": "Detail",
+  "Code": "Detail_Order_File",
+  "Name": "Документи",
+  "SelectRowsQueryCode": "avr_Order_Doc_SelectRows",
+  "SelectRowQueryCode": "avr_Order_Doc_SelectRow",
+  "SectionCode": "Orders_Documents",
+  "Position": 10,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Order_Doc_Insert"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

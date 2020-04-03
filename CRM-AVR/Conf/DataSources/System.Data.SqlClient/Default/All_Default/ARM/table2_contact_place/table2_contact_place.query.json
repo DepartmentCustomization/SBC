@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "table2_contact_place",
+  "Name": "table2_contact_place",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@ContactId",
+      "Name": "ContactId",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@PlaceId",
+      "Name": "PlaceId",
+      "ParameterType": "Integer"
+    }
+  ]
+}

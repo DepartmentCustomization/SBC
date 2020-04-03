@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Action_type_Place_type",
+  "Name": "Робота-місце",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Action_type_Place_type.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "action_type_id",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Action_type_Place_type.form.js"
+  }
+}

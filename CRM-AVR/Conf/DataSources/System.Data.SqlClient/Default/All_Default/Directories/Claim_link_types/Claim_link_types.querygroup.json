@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Claim_link_types",
+  "Name": "Типи зв'язків Заявок",
+  "ConnectionCode": "Default"
+}

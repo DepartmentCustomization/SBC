@@ -1,0 +1,62 @@
+{
+  "ModelType": "Query",
+  "Code": "list_contact_WC",
+  "Name": "list_contact_WC",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "Організація  ",
+      "Position": 2
+    },
+    {
+      "Code": "organizations_id",
+      "Name": "organizations_id",
+      "Position": 3,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "contacts_name",
+      "Name": "ПІБ працівника  \t",
+      "Position": 4
+    },
+    {
+      "Code": "Number",
+      "Name": "Контактні номери",
+      "Position": 5
+    },
+    {
+      "Code": "jobs_name",
+      "Name": "Посада ",
+      "Position": 6
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@org_id",
+      "Name": "org_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

@@ -1,11 +1,11 @@
-(function () {
+(function() {
     return {
         placeholder: '',
         type: 'Date',
         stepMinute: 1,
         timeOnly: false,
         onItemSelect: function(date) {
-            this.yourFunctionName(date); 
+            this.yourFunctionName(date);
         },
         yourFunctionName: function(date) {
             let message = {
@@ -30,9 +30,9 @@
             const dayFrom = dateFrom.getDate();
             const defaultValue = {
                 dateFrom: new Date(yearFrom, monthFrom, dayFrom),
-                dateTo: new Date( yearTo, monthTo , dayTo)
+                dateTo: new Date(yearTo, monthTo , dayTo)
             }
-            this.setDefaultValue(defaultValue); 
+            this.setDefaultValue(defaultValue);
         }
     };
 }());

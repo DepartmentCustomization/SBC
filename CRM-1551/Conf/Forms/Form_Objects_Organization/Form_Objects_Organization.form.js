@@ -1,7 +1,7 @@
-(function () {
-  return {
-    init:function(){
-        this.form.disableControl('object_id');
-    }
-};
+(function() {
+    return {
+        init:function() {
+            this.form.disableControl('object_id');
+        }
+    };
 }());

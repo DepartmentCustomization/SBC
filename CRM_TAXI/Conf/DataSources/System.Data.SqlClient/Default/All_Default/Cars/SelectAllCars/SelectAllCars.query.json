@@ -16,25 +16,33 @@
         "Code": "cars_name",
         "Name": "Позывной",
         "Position": 2,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "cars_name",
+        "FilterParameterCode": "@cars_name"
       },
       {
         "Code": "cars_number",
         "Name": "Гос. номер",
         "Position": 3,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "cars_number",
+        "FilterParameterCode": "@cars_number"
       },
       {
         "Code": "cars_mark",
         "Name": "Марка",
         "Position": 4,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "cars_mark",
+        "FilterParameterCode": "@cars_mark"
       },
       {
         "Code": "cars_year",
         "Name": "Год выпуска",
         "Position": 5,
-        "IsPrintable": false
+        "IsPrintable": false,
+        "SqlName": "cars_year",
+        "FilterParameterCode": "@cars_year"
       }
     ],
     "Parameters": [

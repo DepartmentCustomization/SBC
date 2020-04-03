@@ -1,9 +1,13 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
                 code: 'db_second',
-                parameterValues: [{key: '@date_start', value: this.start_date},{key: '@date_end', value: this.finish_date},{key: '@place_id', value: this.place}],
+                parameterValues: [
+                    {key: '@date_start', value: this.start_date},
+                    {key: '@date_end', value: this.finish_date},
+                    {key: '@place_id', value: this.place}
+                ],
                 filterColumns: [],
                 sortColumns: [],
                 skipNotVisibleColumns: true,
@@ -71,10 +75,10 @@
                     allowSorting: true,
                     subColumns: [{
                         caption: 'Вчасно',
-                        dataField: 'VykonVchasno',
+                        dataField: 'VykonVchasno'
                     }, {
                         caption: 'Не вчасно',
-                        dataField: 'VykonNeVchasno',
+                        dataField: 'VykonNeVchasno'
                     }]
                 }, {
                     dataField: 'RozyasnenoVchasno',
@@ -89,12 +93,12 @@
                     allowSorting: true,
                     subColumns: [{
                         caption: 'Вчасно',
-                        dataField: 'RozyasnenoVchasno',
+                        dataField: 'RozyasnenoVchasno'
                     }, {
                         caption: 'Не вчасно',
-                        dataField: 'RozyasnenoNeVchasno',
+                        dataField: 'RozyasnenoNeVchasno'
                     }]
-                },  {
+                }, {
                     dataField: 'VidsVykon',
                     caption: '% виконаних',
                     dataType: null,
@@ -130,7 +134,7 @@
                     sortOrder: 'asc',
                     allowSorting: true,
                     subColumns: []
-                },
+                }
             ],
             export: {
                 enabled: false,
@@ -148,7 +152,7 @@
             },
             editing: {
                 enabled: false,
-                allowAdding: false,
+                allowAdding: false
             },
             scrolling: {
                 mode: 'standart',
@@ -173,7 +177,7 @@
             showColumnChooser: false,
             showColumnFixing: true,
             groupingAutoExpandAll: null,
-            masterDetail: null,
+            masterDetail: null
         },
         sub: {},
         place: '',
@@ -182,22 +186,26 @@
         filter_dataStart: '03.10.2018',
         filter_dataEnd: '10.10.2018',
         init: function() {
-            const weekAgo = 1000*60*60*24*7;
+            const weekAgo = 1000 * 60 * 60 * 24 * 7;
             const currentDate = new Date();
-            let  startDate = new Date(Date.now() - weekAgo);
+            let startDate = new Date(Date.now() - weekAgo);
             this.filter_dataStart = startDate;
             this.filter_dataEnd = currentDate;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.chengeFilters, this);
             this.config.query.queryCode = 'db_second';
-            this.config.query.parameterValues = [{key: '@date_start', value: this.filter_dataStart},{key: '@date_end', value: this.filter_dataEnd},{key: '@place_id', value: this.place}];
+            this.config.query.parameterValues = [
+                {key: '@date_start', value: this.filter_dataStart},
+                {key: '@date_end', value: this.filter_dataEnd},
+                {key: '@place_id', value: this.place}
+            ];
             this.loadData();
         },
         chengeFilters:function(message) {
             this.place = message.package.value.values[1].value.value;
-            function checkDateFrom(val){
+            function checkDateFrom(val) {
                 return val ? val.dateFrom : null;
             }
-            function checkDateTo(val){
+            function checkDateTo(val) {
                 return val ? val.dateTo : null;
             }
             this.start_date = checkDateFrom(message.package.value.values[0].value);

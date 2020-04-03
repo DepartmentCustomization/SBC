@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Claims_Appeals_Contact",
+  "Name": "Додати заявника по заявці",
+  "ConnectionCode": "Default"
+}

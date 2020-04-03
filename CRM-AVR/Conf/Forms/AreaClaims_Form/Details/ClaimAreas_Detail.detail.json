@@ -1,0 +1,43 @@
+{
+  "ModelType": "Detail",
+  "Code": "ClaimAreas_Detail",
+  "Name": "Ділянки",
+  "SelectRowsQueryCode": "SelectAllClaimAreas",
+  "SectionCode": "",
+  "DeleteQueryCode": "DeleteClaimArea",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryParameterCode": "@AreaID",
+    "QueryCode": "List_ClaimRouteAreas",
+    "ColumnCode": "Id",
+    "AddType": "Lookup",
+    "InsertQueryCode": "AddClaimAareas",
+    "QueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@ClaimID"
+      },
+      {
+        "FormFieldName": "RouteID",
+        "ParameterCode": "@RouteID"
+      }
+    ],
+    "InsertQueryParameters": [
+      {
+        "FormFieldName": "Id",
+        "ParameterCode": "@ClaimID"
+      },
+      {
+        "FormFieldName": "RouteID",
+        "ParameterCode": "@RouteID"
+      }
+    ]
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Orders_Shifts_SelectRow",
+  "Name": "avr_Orders_Shifts_SelectRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Sql": "ы"
+}

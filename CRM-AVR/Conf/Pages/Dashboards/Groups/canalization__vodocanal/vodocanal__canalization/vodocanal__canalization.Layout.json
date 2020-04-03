@@ -1,0 +1,581 @@
+{
+  "css": "string:MainPage.css",
+  "rootContainer": {
+    "width": "auto",
+    "margin": "0 5px 10px",
+    "flexWrap": "wrap",
+    "flexDirection": "row",
+    "order": 1,
+    "flexGrow": 1,
+    "alignSelf": "auto",
+    "border": "none",
+    "children": [
+      {
+        "width": "auto",
+        "margin": "0 5px 10px",
+        "flexWrap": "wrap",
+        "flexDirection": "column",
+        "order": 1,
+        "flexGrow": 1,
+        "alignSelf": "auto",
+        "border": "none",
+        "children": [
+          {
+            "width": "auto",
+            "margin": "0 5px 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "width": "auto",
+                "margin": "0 5px 10px",
+                "flexWrap": "wrap",
+                "flexDirection": "column",
+                "order": 1,
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "width": "auto",
+                    "margin": "5px 5px 10px",
+                    "flexWrap": "wrap",
+                    "flexDirection": "column",
+                    "order": "2",
+                    "flexGrow": 1,
+                    "alignSelf": "auto",
+                    "border": "none",
+                    "children": [
+                      {
+                        "width": "auto",
+                        "margin": "0 5px 10px",
+                        "flexWrap": "wrap",
+                        "flexDirection": "row",
+                        "order": "2",
+                        "flexGrow": 1,
+                        "alignSelf": "auto",
+                        "border": "none",
+                        "children": [
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-5",
+                                "type": "ChartWidgetComponent",
+                                "name": "canalization_graphics_1"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          },
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-4",
+                                "type": "ChartWidgetComponent",
+                                "name": "canalization_graphics_2"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          },
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-3",
+                                "type": "ChartWidgetComponent",
+                                "name": "canalization_graphics_3"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          },
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-2",
+                                "type": "ChartWidgetComponent",
+                                "name": "canalization_graphics_4"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          }
+                        ],
+                        "id": "Container-1",
+                        "height": "auto",
+                        "minHeight": "100px",
+                        "minWidth": "calc(100% - 10px)",
+                        "backgroundColor": "white"
+                      },
+                      {
+                        "width": "auto",
+                        "margin": "0 5px 10px",
+                        "flexWrap": "wrap",
+                        "flexDirection": "row",
+                        "order": 1,
+                        "flexGrow": 1,
+                        "alignSelf": "auto",
+                        "border": "none",
+                        "children": [
+                          {
+                            "code": "CustomWidget-1",
+                            "type": "CustomWidgetComponent",
+                            "name": "title_canalization"
+                          }
+                        ],
+                        "id": "Container-1",
+                        "height": "auto",
+                        "minHeight": "30px",
+                        "minWidth": "calc(100% - 10px)",
+                        "backgroundColor": "white"
+                      }
+                    ],
+                    "id": "Container-1",
+                    "height": "auto",
+                    "minHeight": "100px",
+                    "minWidth": "calc(100% - 15px)",
+                    "backgroundColor": "white"
+                  },
+                  {
+                    "width": "auto",
+                    "margin": "0 5px 10px",
+                    "flexWrap": "wrap",
+                    "flexDirection": "column",
+                    "order": "3",
+                    "flexGrow": 1,
+                    "alignSelf": "auto",
+                    "border": "none",
+                    "children": [
+                      {
+                        "width": "auto",
+                        "margin": "5px 5px 10px",
+                        "flexWrap": "wrap",
+                        "flexDirection": "row",
+                        "order": "2",
+                        "flexGrow": 1,
+                        "alignSelf": "auto",
+                        "border": "none",
+                        "children": [
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-8",
+                                "type": "ChartWidgetComponent",
+                                "name": "arrived_1"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          },
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-9",
+                                "type": "ChartWidgetComponent",
+                                "name": "arrived_2"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          },
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-10",
+                                "type": "ChartWidgetComponent",
+                                "name": "arrived_3"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          },
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-11",
+                                "type": "ChartWidgetComponent",
+                                "name": "arrived_4"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          }
+                        ],
+                        "id": "Container-1",
+                        "height": "auto",
+                        "minHeight": "100px",
+                        "minWidth": "calc(100% - 10px)",
+                        "backgroundColor": "white"
+                      },
+                      {
+                        "width": "auto",
+                        "margin": "0 5px 10px",
+                        "flexWrap": "wrap",
+                        "flexDirection": "row",
+                        "order": 1,
+                        "flexGrow": 1,
+                        "alignSelf": "auto",
+                        "border": "none",
+                        "children": [
+                          {
+                            "code": "CustomWidget-2",
+                            "type": "CustomWidgetComponent",
+                            "name": "title_departure"
+                          }
+                        ],
+                        "id": "Container-1",
+                        "height": "auto",
+                        "minHeight": "35px",
+                        "minWidth": "calc(100% - 10px)",
+                        "backgroundColor": "white"
+                      }
+                    ],
+                    "id": "Container-1",
+                    "height": "auto",
+                    "minHeight": "150px",
+                    "minWidth": "calc(100% - 10px)",
+                    "backgroundColor": "white"
+                  },
+                  {
+                    "width": "auto",
+                    "margin": "5px 5px 10px",
+                    "flexWrap": "wrap",
+                    "flexDirection": "column",
+                    "order": 1,
+                    "flexGrow": 1,
+                    "alignSelf": "auto",
+                    "border": "none",
+                    "children": [
+                      {
+                        "width": "auto",
+                        "margin": "5px 5px 10px",
+                        "flexWrap": "wrap",
+                        "flexDirection": "row",
+                        "order": "2",
+                        "flexGrow": 1,
+                        "alignSelf": "auto",
+                        "border": "none",
+                        "children": [
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-12",
+                                "type": "ChartWidgetComponent",
+                                "name": "vdcl_graphics_1"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          },
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-13",
+                                "type": "ChartWidgetComponent",
+                                "name": "vdcl_graphics_2"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          },
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-14",
+                                "type": "ChartWidgetComponent",
+                                "name": "vdcl_graphics_3"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          },
+                          {
+                            "width": "calc(25% - 10px)",
+                            "margin": "0 5px 10px",
+                            "flexWrap": "wrap",
+                            "flexDirection": "row",
+                            "order": 1,
+                            "flexGrow": 1,
+                            "alignSelf": "auto",
+                            "border": "none",
+                            "children": [
+                              {
+                                "code": "ChartWidget-15",
+                                "type": "ChartWidgetComponent",
+                                "name": "vdcl_graphics_4"
+                              }
+                            ],
+                            "id": "Container-1",
+                            "height": "calc(100% - 10px)",
+                            "minHeight": "100px",
+                            "minWidth": "100px",
+                            "backgroundColor": "white"
+                          }
+                        ],
+                        "id": "Container-1",
+                        "height": "auto",
+                        "minHeight": "100px",
+                        "minWidth": "calc(100% - 10px)",
+                        "backgroundColor": "white"
+                      },
+                      {
+                        "width": "auto",
+                        "margin": "0 5px 10px",
+                        "flexWrap": "wrap",
+                        "flexDirection": "row",
+                        "order": 1,
+                        "flexGrow": 1,
+                        "alignSelf": "auto",
+                        "border": "none",
+                        "children": [
+                          {
+                            "code": "CustomWidget-0",
+                            "type": "CustomWidgetComponent",
+                            "name": "title_vodopostachannya"
+                          }
+                        ],
+                        "id": "Container-1",
+                        "height": "auto",
+                        "minHeight": "25px",
+                        "minWidth": "calc(100% - 10px)",
+                        "backgroundColor": "white"
+                      }
+                    ],
+                    "id": "Container-1",
+                    "height": "auto",
+                    "minHeight": "100px",
+                    "minWidth": "100px",
+                    "backgroundColor": "white"
+                  }
+                ],
+                "id": "Container-1",
+                "height": "calc(100% - 15px)",
+                "minHeight": "100px",
+                "minWidth": "100px",
+                "backgroundColor": "#999"
+              }
+            ],
+            "id": "Container-1",
+            "height": "auto",
+            "minHeight": "100px",
+            "minWidth": "calc(100% - 10px)",
+            "backgroundColor": "white"
+          },
+          {
+            "width": "auto",
+            "margin": "0 5px 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "column",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "width": "auto",
+                "margin": "5px 5px 10px",
+                "flexWrap": "wrap",
+                "flexDirection": "row",
+                "order": 1,
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "width": "auto",
+                    "margin": "0 5px 10px",
+                    "flexWrap": "wrap",
+                    "flexDirection": "row",
+                    "order": 1,
+                    "flexGrow": 1,
+                    "alignSelf": "auto",
+                    "border": "none",
+                    "children": [
+                      {
+                        "code": "TableWidget-0",
+                        "type": "TableWidgetComponent",
+                        "name": "table1_result"
+                      }
+                    ],
+                    "id": "Container-1",
+                    "height": "calc(100% - 10px)",
+                    "minHeight": "100px",
+                    "minWidth": "100px",
+                    "backgroundColor": "white"
+                  }
+                ],
+                "id": "Container-1",
+                "height": "auto",
+                "minHeight": "100px",
+                "minWidth": "100px",
+                "backgroundColor": "white"
+              },
+              {
+                "width": "auto",
+                "margin": "0 5px 10px",
+                "flexWrap": "wrap",
+                "flexDirection": "row",
+                "order": 1,
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "code": "TableWidget-1",
+                    "type": "TableWidgetComponent",
+                    "name": "table2__result"
+                  }
+                ],
+                "id": "Container-1",
+                "height": "auto",
+                "minHeight": "100px",
+                "minWidth": "calc(100% - 10px)",
+                "backgroundColor": "white"
+              }
+            ],
+            "id": "Container-1",
+            "height": "auto",
+            "minHeight": "100px",
+            "minWidth": "calc(100% - 10px)",
+            "backgroundColor": "#888"
+          }
+        ],
+        "id": "Container-0",
+        "height": "calc(100% - 10px)",
+        "minHeight": "100px",
+        "minWidth": "100px",
+        "backgroundColor": "white"
+      }
+    ],
+    "id": "Container-0",
+    "height": "100%",
+    "minHeight": "100%",
+    "minWidth": "100%",
+    "backgroundColor": "#eee"
+  }
+}

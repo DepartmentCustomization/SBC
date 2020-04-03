@@ -1,0 +1,36 @@
+{
+  "Code": "Group_P_in_P",
+  "Name": "Пов'язані місця",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "places2_id",
+      "Name": "Пов'язане місце",
+      "FieldType": "lookup",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "avr_PlacesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "places_name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "type_pp_link_id",
+      "Name": "Тип зв'язку",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "dir_Type_PP_linkSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "places_id",
+      "Name": "places_id",
+      "FieldType": "number",
+      "IsRequired": true,
+      "Position": 5
+    }
+  ]
+}

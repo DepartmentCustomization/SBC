@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Appeals_Contacts",
+  "Name": "Заявки контакта",
+  "ConnectionCode": "Default"
+}

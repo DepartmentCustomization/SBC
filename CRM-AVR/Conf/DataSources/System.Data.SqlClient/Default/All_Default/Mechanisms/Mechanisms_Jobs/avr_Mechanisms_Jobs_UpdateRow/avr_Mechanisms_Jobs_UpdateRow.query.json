@@ -1,0 +1,21 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Mechanisms_Jobs_UpdateRow",
+  "Name": "avr_Mechanisms_Jobs_UpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@jobs_id",
+      "Name": "jobs_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "rootContainer": {
+    "width": "auto",
+    "margin": "0 5px 10px",
+    "flexWrap": "wrap",
+    "flexDirection": "row",
+    "order": 1,
+    "flexGrow": 1,
+    "alignSelf": "auto",
+    "border": "none",
+    "children": [
+      {
+        "width": "auto",
+        "margin": "0 5px 10px",
+        "flexWrap": "wrap",
+        "flexDirection": "column",
+        "order": "1",
+        "flexGrow": 1,
+        "alignSelf": "auto",
+        "border": "none",
+        "children": [
+          {
+            "width": "250px",
+            "margin": "0 5px 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "CustomWidget-0",
+                "type": "CustomWidgetComponent",
+                "name": "Kast1"
+              }
+            ],
+            "id": "Container-1",
+            "height": "220px",
+            "minHeight": "220px",
+            "minWidth": "250px",
+            "backgroundColor": "white",
+            "containerId": "search_block_widget"
+          },
+          {
+            "width": "calc(100% - 10px)",
+            "margin": "10px 5px 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": "4",
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "TableWidget-0",
+                "type": "TableWidgetComponent",
+                "name": "table"
+              }
+            ],
+            "id": "Container-1",
+            "height": "180px",
+            "minHeight": "180px",
+            "minWidth": "calc(100% - 10px)",
+            "backgroundColor": "white"
+          },
+          {
+            "width": "400px",
+            "margin": "0 5px 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": "2",
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "CustomWidget-1",
+                "type": "CustomWidgetComponent",
+                "name": "contact_block"
+              }
+            ],
+            "id": "Container-1",
+            "height": "220px",
+            "minHeight": "220px",
+            "minWidth": "400px",
+            "backgroundColor": "white"
+          },
+          {
+            "width": "calc(100% - 680px)",
+            "margin": "0 5px 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": "3",
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "CustomWidget-2",
+                "type": "CustomWidgetComponent",
+                "name": "place_block"
+              }
+            ],
+            "id": "Container-1",
+            "height": "220px",
+            "minHeight": "220px",
+            "minWidth": "calc(90% - 600px)",
+            "backgroundColor": "white"
+          },
+          {
+            "width": "calc(100% - 10px)",
+            "margin": "0 5px 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": "5",
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "TableWidget-1",
+                "type": "TableWidgetComponent",
+                "name": "table2"
+              }
+            ],
+            "id": "Container-1",
+            "height": "180px",
+            "minHeight": "180px",
+            "minWidth": "calc(100% - 10px)",
+            "backgroundColor": "white"
+          },
+          {
+            "width": "calc(100% - 10px)",
+            "margin": "0 5px 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": "6",
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "TableWidget-2",
+                "type": "TableWidgetComponent",
+                "name": "table3"
+              }
+            ],
+            "id": "Container-1",
+            "height": "180px",
+            "minHeight": "180px",
+            "minWidth": "calc(100% - 10px)",
+            "backgroundColor": "white"
+          }
+        ],
+        "id": "Container-0",
+        "height": "calc(100% - 10px)",
+        "minHeight": "100px",
+        "minWidth": "100px",
+        "backgroundColor": "white"
+      }
+    ],
+    "id": "Container-0",
+    "height": "100%",
+    "minHeight": "100%",
+    "minWidth": "100%",
+    "backgroundColor": "#eee"
+  }
+}

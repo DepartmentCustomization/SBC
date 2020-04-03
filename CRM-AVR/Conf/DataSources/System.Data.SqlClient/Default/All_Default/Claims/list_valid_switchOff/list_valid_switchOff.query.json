@@ -1,0 +1,15 @@
+{
+  "ModelType": "Query",
+  "Code": "list_valid_switchOff",
+  "Name": "list_valid_switchOff",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@claim_ID",
+      "Name": "claim_ID",
+      "ParameterType": "Integer"
+    }
+  ]
+}

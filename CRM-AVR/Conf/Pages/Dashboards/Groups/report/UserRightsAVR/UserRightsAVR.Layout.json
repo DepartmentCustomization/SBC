@@ -1,0 +1,136 @@
+{
+  "rootContainer": {
+    "width": "auto",
+    "margin": "0 5px 10px",
+    "flexWrap": "wrap",
+    "flexDirection": "row",
+    "order": 1,
+    "flexGrow": 1,
+    "alignSelf": "auto",
+    "border": "none",
+    "children": [
+      {
+        "width": "auto",
+        "margin": "0 0px 0px",
+        "flexWrap": "wrap",
+        "flexDirection": "row",
+        "order": 1,
+        "flexGrow": 1,
+        "alignSelf": "auto",
+        "border": "none",
+        "children": [
+          {
+            "width": "calc(100% - 650px)",
+            "margin": "0 0px 0px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": "2",
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "width": "100%",
+                "margin": "0 0px 0px",
+                "flexWrap": "wrap",
+                "flexDirection": "row",
+                "order": 1,
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "code": "CustomWidget-1",
+                    "type": "CustomWidgetComponent",
+                    "name": "menuAccess_UsersList"
+                  }
+                ],
+                "id": "Container-1",
+                "height": "calc(100% - 0px)",
+                "minHeight": "10px",
+                "minWidth": "100px",
+                "backgroundColor": "#eff2f5"
+              }
+            ],
+            "id": "Container-1",
+            "height": "calc(100% - 0px)",
+            "minHeight": "100px",
+            "minWidth": "100px",
+            "backgroundColor": "#eff2f5"
+          },
+          {
+            "width": "650px",
+            "margin": "0 0px 0px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": "3",
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "width": "100%",
+                "margin": "0 0px 0px",
+                "flexWrap": "wrap",
+                "flexDirection": "row",
+                "order": "2",
+                "flexGrow": "4",
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "code": "CustomWidget-2",
+                    "type": "CustomWidgetComponent",
+                    "name": "controlPanel"
+                  }
+                ],
+                "id": "Container-1",
+                "height": "40px",
+                "minHeight": "40px",
+                "minWidth": "100px",
+                "backgroundColor": "#eff2f5"
+              },
+              {
+                "width": "100%",
+                "margin": "0 5px 0px",
+                "flexWrap": "wrap",
+                "flexDirection": "row",
+                "order": "5",
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "2px solid black",
+                "children": [
+                  {
+                    "code": "CustomWidget-0",
+                    "type": "CustomWidgetComponent",
+                    "name": "menuAccess_Preview"
+                  }
+                ],
+                "id": "Container-1",
+                "height": "calc(100% - 40px)",
+                "minHeight": "100px",
+                "minWidth": "100px",
+                "backgroundColor": "white"
+              }
+            ],
+            "id": "Container-1",
+            "height": "calc(100% - 0px)",
+            "minHeight": "100px",
+            "minWidth": "100px",
+            "backgroundColor": "#eff2f5"
+          }
+        ],
+        "id": "Container-0",
+        "height": "calc(99% - 10px)",
+        "minHeight": "100px",
+        "minWidth": "100px",
+        "backgroundColor": "#eff2f5"
+      }
+    ],
+    "id": "Container-0",
+    "height": "95%",
+    "minHeight": "95%",
+    "minWidth": "100%",
+    "backgroundColor": "#eff2f5"
+  }
+}

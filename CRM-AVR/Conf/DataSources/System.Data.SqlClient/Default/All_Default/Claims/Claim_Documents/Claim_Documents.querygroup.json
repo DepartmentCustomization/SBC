@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Claim_Documents",
+  "Name": "Документи_заявок",
+  "ConnectionCode": "Default"
+}

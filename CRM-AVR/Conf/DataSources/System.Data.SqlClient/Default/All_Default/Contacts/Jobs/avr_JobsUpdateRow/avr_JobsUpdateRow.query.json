@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_JobsUpdateRow",
+  "Name": "avr_JobsUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "ContactPhone",
+  "Name": "Телефони контактов (орган)",
+  "ConnectionCode": "Default"
+}

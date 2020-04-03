@@ -1,0 +1,7 @@
+{
+  "Add": {},
+  "ModelType": "Section",
+  "Code": "Contacts_WS",
+  "Name": " Співробітники \"Київводоканала\"",
+  "SelectRowsQueryCode": "avr_Contacts_WS_SelectRows"
+}

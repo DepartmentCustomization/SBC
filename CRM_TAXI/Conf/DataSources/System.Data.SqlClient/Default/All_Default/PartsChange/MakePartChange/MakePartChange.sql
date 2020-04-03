@@ -1,21 +1,27 @@
----- QUERY HEADER FOR TSQL LINTER----
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-SET ANSI_NULLS ON;
-SET NOCOUNT ON;
-SET QUOTED_IDENTIFIER OFF;
----- END HEADER ----
-
--- DECLARE @prev_part_id INT = 6;
--- DECLARE @part_id INT;- DECLARE @cars_id INT = 1;
--- DECLARE @invoice_consumption NVARCHAR(100);
--- DECLARE @user_id NVARCHAR(128) = (SELECT TOP 1 UserId FROM CRM_TAXI_System.dbo.[User]);
+--   DECLARE @prev_part_id INT = NULL;
+--   DECLARE @part_id INT = 171;
+--   DECLARE @cars_id INT = 34;
+--   DECLARE @invoice_consumption NVARCHAR(100) ='2020-01-31';
+--   DECLARE @user_id NVARCHAR(128) = (SELECT TOP 1 UserId FROM CRM_TAXI_System.dbo.[User]);
 
 DECLARE @info TABLE (Id INT, part_id INT, car_id INT );
-DECLARE @is_install_first BIT;
-DECLARE @car_maxday_run DATETIME = (SELECT MAX(create_date) FROM dbo.RunCar WHERE car_id = @cars_id);
 DECLARE @part_price FLOAT(25) = (SELECT part_price FROM dbo.Parts WHERE Id = @part_id);
-DECLARE @run_km_install_day INT = (SELECT isnull(run_km,0) FROM dbo.RunCar
-                                   WHERE car_id = @cars_id AND create_date = @car_maxday_run);
+DECLARE @part_name NVARCHAR(100) = (SELECT part_name FROM dbo.Parts WHERE Id = @part_id);
+
+DECLARE @run_km_install_day INT = (SELECT ISNULL(MAX(run_km),0) 
+                                   FROM dbo.RunCar
+                                   WHERE car_id = @cars_id);
+
+DECLARE @IsPartAvailable BIT = (SELECT CASE 
+									       WHEN ISNULL(part_quantity,0) > 0 
+									       THEN 1 
+									       ELSE 0 
+									   END 
+                                         FROM dbo.Parts 
+										 WHERE Id = @part_id);
+
+
+IF(@IsPartAvailable = 1)
 BEGIN
 INSERT INTO [dbo].[PartChange]
            ([part_id]
@@ -35,27 +41,27 @@ INSERT INTO [dbo].[PartChange]
 	        @part_id
            ,@cars_id
            ,@part_price
-           ,getutcdate()
+           ,GETUTCDATE()
            ,@run_km_install_day
            ,@invoice_consumption
            ,IIF(@prev_part_id IS NULL, 1, 0)
            ,NULL
            ,@user_id
-           ,getutcdate()
+           ,GETUTCDATE()
            ,@user_id
-           ,getutcdate()
+           ,GETUTCDATE()
 		   );
 
 		IF(@prev_part_id IS NOT NULL)
 		BEGIN
-		UPDATE dbo.PartChange 
-		SET remove_operation_id = (SELECT TOP 1 Id FROM @info)
-		WHERE cars_id = @cars_id 
-		AND part_id = @prev_part_id
-		AND remove_operation_id IS NULL
-        AND Id < (SELECT TOP 1 Id FROM @info);
+		  UPDATE dbo.PartChange 
+		  SET remove_operation_id = (SELECT TOP 1 Id FROM @info)
+		    WHERE cars_id = @cars_id 
+		    AND part_id = @prev_part_id
+		    AND remove_operation_id IS NULL
+            AND Id < (SELECT TOP 1 Id FROM @info);
 		END		
-END
+
 ---- Данные сколько детали положено было служить в днях и км от категории ----
     DECLARE @category INT = (SELECT category_id FROM dbo.Parts WHERE Id = @part_id);
 	DECLARE @new_changeId INT = (SELECT TOP 1 Id FROM @info);
@@ -78,7 +84,7 @@ END
 		);
 
 	    DECLARE @exploration_day INT = (
-		SELECT datediff(day, pc1.install_date, pc2.install_date)
+		SELECT DATEDIFF(DAY, pc1.install_date, pc2.install_date)
 		FROM dbo.PartChange pc1
 		INNER JOIN dbo.PartChange pc2 ON pc1.remove_operation_id = pc2.Id  
 		WHERE pc1.cars_id = @cars_id
@@ -99,12 +105,13 @@ END
         UPDATE dbo.Parts
 		SET part_quantity -=1
 		WHERE Id = @part_id;
+	END
 		---- Если запчасть прошла эксплуатационный период в днях и киллометрах ----
 		IF(@is_exploration_day_passed = 1 AND @is_exploration_km_passed = 1)
 		BEGIN
     SELECT
 	N'Запчасть "' + p.part_name + N'" установлено в машину "' + CAST(c.cars_name AS NVARCHAR(25)) + N'"'
-	AS result, NULL AS resultNotify
+	AS result, 'OK' AS resultNotify
     FROM @info i
 	INNER JOIN dbo.Parts p ON p.Id = i.part_id
 	INNER JOIN dbo.Cars c ON c.Id = i.car_id ;
@@ -147,6 +154,23 @@ END
     FROM @info i
 	INNER JOIN dbo.Parts p ON p.Id = i.part_id
 	INNER JOIN dbo.Cars c ON c.Id = i.car_id ;
-	   END
+	  END
 
-    END
+	ELSE 
+    BEGIN 
+	   SELECT 
+	   N'Запчасть "' + p.part_name + N'" установлено в машину "' + CAST(c.cars_name AS NVARCHAR(25)) + N'"' 
+	   AS result,
+	   'OK' AS resultNotify
+	   FROM @info i
+	   INNER JOIN dbo.Parts p ON p.Id = i.part_id
+	   INNER JOIN dbo.Cars c ON c.Id = i.car_id ;
+	END
+END
+
+IF(@IsPartAvailable = 0)
+BEGIN
+	DECLARE @Message NVARCHAR(300) = N'Запчасть "' + @part_name + N'" закончилась ! (Нету в наличии)"';
+    SELECT @Message AS result, 
+	N'Fail' AS resultNotify ;
+END

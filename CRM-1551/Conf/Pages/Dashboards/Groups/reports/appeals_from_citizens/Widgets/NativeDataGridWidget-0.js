@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -12,7 +12,7 @@
             columns: [
                 {
                     dataField: 'oper',
-                    caption: 'ПІП користувача',
+                    caption: 'ПІП користувача'
                 }, {
                     dataField: 'questionQ',
                     caption: 'Звернень',
@@ -33,39 +33,39 @@
                     dataField: 'notCallQ',
                     caption: 'Недозвон',
                     alignment: 'center'
-                },
+                }
             ],
             summary: {
                 totalItems: [{
-                    column: "questionQ",
-                    summaryType: "sum",
+                    column: 'questionQ',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                    return "Сума: " + data.value;
-                }
+                        return 'Сума: ' + data.value;
+                    }
                 }, {
-                    column: "assignmentQ",
-                    summaryType: "sum",
+                    column: 'assignmentQ',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                    return "Сума: " + data.value;
-                }
+                        return 'Сума: ' + data.value;
+                    }
                 }, {
-                    column: "doneQ",
-                    summaryType: "sum",
+                    column: 'doneQ',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                    return "Сума: " + data.value;
-                }
+                        return 'Сума: ' + data.value;
+                    }
                 }, {
-                    column: "reworkQ",
-                    summaryType: "sum",
+                    column: 'reworkQ',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                    return "Сума: " + data.value;
-                }
+                        return 'Сума: ' + data.value;
+                    }
                 }, {
-                    column: "notCallQ",
-                    summaryType: "sum",
+                    column: 'notCallQ',
+                    summaryType: 'sum',
                     customizeText: function(data) {
-                    return "Сума: " + data.value;
-                }
+                        return 'Сума: ' + data.value;
+                    }
                 }]
             },
             keyExpr: 'Id',
@@ -74,7 +74,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: false,
@@ -91,28 +91,29 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null, 
+            groupingAutoExpandAll: null
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 200;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
         },
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let citizenName = message.package.value.values.find(f => f.name === 'citizen_name').value;
-            if( period !== null ){
-                if( period.dateFrom !== '' && period.dateTo !== ''){
+            if(period !== null) {
+                if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.citizenName = this.extractOrgValues(citizenName);
-                    this.config.query.parameterValues = [ 
-                        {key: '@dateFrom' , value: this.dateFrom },  
-                        {key: '@dateTo', value: this.dateTo }  
+                    this.config.query.parameterValues = [
+                        {key: '@dateFrom' , value: this.dateFrom },
+                        {key: '@dateTo', value: this.dateTo }
                     ];
                     this.config.query.filterColumns = [];
                     if (this.citizenName.length > 0) {
                         const filter = {
-                            key: "operId",
+                            key: 'operId',
                             value: {
                                 operation: 0,
                                 not: false,
@@ -121,28 +122,32 @@
                         };
                         this.config.query.filterColumns.push(filter);
                     }
-                    this.loadData(this.afterLoadDataHandler);
-                }    
+                }
             }
         },
-        extractOrgValues: function(val) {
-            if(val != null){
-                let valuesList = [];
-                if (val.length > 0) {
-                    for (let i = 0; i < val.length; i++) {
-                        valuesList.push(val[i].value);
-                    }
-                }    
-                    return  valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
+        applyChanges: function() {
+            const msg = {
+                name: 'SetFilterPanelState',
+                package: {
+                    value: false
+                }
+            };
+            this.messageService.publish(msg);
+            this.loadData(this.afterLoadDataHandler);
+        },
+        extractOrgValues: function(items) {
+            if(items.length && items !== '') {
+                const valuesList = [];
+                items.forEach(item => valuesList.push(item.value));
+                return valuesList;
             }
+            return [];
         },
         afterLoadDataHandler: function() {
             this.render();
         },
         destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

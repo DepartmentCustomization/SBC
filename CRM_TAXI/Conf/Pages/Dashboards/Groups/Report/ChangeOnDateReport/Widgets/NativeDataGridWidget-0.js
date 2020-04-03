@@ -1,4 +1,4 @@
-(function () {
+(function() {
     return {
         config: {
             query: {
@@ -12,7 +12,7 @@
             columns: [
                 {
                     dataField: 'part_name',
-                    caption: 'Наименование запчасти',
+                    caption: 'Наименование запчасти'
                 }, {
                     dataField: 'articul',
                     caption: 'Артикул',
@@ -22,13 +22,9 @@
                     caption: 'Производитель',
                     alignment: 'center'
                 }, {
-                    dataField: 'provider',
-                    caption: 'Поставщик',
-                    alignment: 'center'
-                }, {
                     dataField: 'run_km_period',
                     caption: 'Эксплуатационный период (км)',
-                    alignment: 'center',
+                    alignment: 'center'
                 }, {
                     dataField: 'run_day_period',
                     caption: 'Эксплуатационный период (дни)',
@@ -58,7 +54,7 @@
             },
             filterRow: {
                 visible: true,
-                applyFilter: "auto"
+                applyFilter: 'auto'
             },
             showBorders: false,
             showColumnLines: false,
@@ -75,43 +71,43 @@
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
-        init: function () {
+        init: function() {
+            let height = 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.dataGridInstance.height = window.innerHeight - 150;
+            this.dataGridInstance.height = window.innerHeight - height;
         },
-        showTopQuestionsTable: function () {
+        showTopQuestionsTable: function() {
             document.getElementById('cars_report').style.display = 'block';
         },
-        getOrganizationId: function (message) {
+        getOrganizationId: function(message) {
             this.car_id = message.car_id;
         },
-        getFiltersParams: function (message) {
+        getFiltersParams: function(message) {
             let calendar = message.package.value.values.find(f => f.name === 'calendar').value;
             if (calendar !== null) {
                 if (calendar !== '') {
                     this.config.query.parameterValues = [
-                        { key: '@dateTo', value: calendar },
+                        { key: '@dateTo', value: calendar }
                     ];
                     this.loadData(this.afterLoadDataHandler);
                 }
             }
         },
-        extractOrgValues: function (val) {
+        extractOrgValues: function(val) {
             if (val !== '') {
                 let valuesList = [];
                 valuesList.push(val.value);
                 return valuesList.length > 0 ? valuesList : [];
-            } else {
-                return [];
             }
+            return [];
         },
-        afterLoadDataHandler: function () {
+        afterLoadDataHandler: function() {
             this.render();
         },
-        destroy: function () {
+        destroy: function() {
             this.sub.unsubscribe();
-        },
+        }
     };
 }());

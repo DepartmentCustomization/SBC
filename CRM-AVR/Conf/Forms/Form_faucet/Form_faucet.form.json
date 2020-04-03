@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_faucet",
+  "Name": "Запорна Арматура",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Faucet.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "claims_id",
+        "ParentFormFieldCodeForKeyValue": "claims_id",
+        "ParentFormFieldCodeForDisplayValue": "claims_id"
+      }
+    ],
+    "Script": "string:Form_faucet.form.js"
+  }
+}

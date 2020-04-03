@@ -1,0 +1,76 @@
+{
+  "Code": "Informational",
+  "Name": "Загальні дані",
+  "Position": 3,
+  "Fields": [
+    {
+      "Code": "Claim_class_ID",
+      "Name": "Клас обстеження",
+      "FieldType": "select",
+      "Position": 1,
+      "QueryCode": "dir_ClaimClassesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Claim_type_ID",
+      "Name": "Тип",
+      "FieldType": "lookup",
+      "Position": 2,
+      "QueryCode": "list_Claims_types",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Full_Name",
+      "QueryParameters": [],
+      "LookupType": "tree",
+      "ParentColumnCode": "Parent_сlaim_types_ID"
+    },
+    {
+      "Code": "Sked",
+      "Name": "За графіком",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
+      "Code": "Response_organization_ID",
+      "Name": "Відповідальний підрозділ",
+      "FieldType": "select",
+      "Position": 4,
+      "QueryCode": "avr_ListOrg_Is_select",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Description",
+      "Name": "Додаткова інформація",
+      "FieldType": "textarea",
+      "Position": 6,
+      "Width": "100%"
+    },
+    {
+      "Code": "btn_CloseAreaClaim",
+      "Name": "Закрити заявку",
+      "FieldType": "button",
+      "Position": 7,
+      "Width": "40%",
+      "Icon": "block"
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Claim_Number",
+      "FieldType": "number",
+      "Position": 111,
+      "IsHidden": true,
+      "Width": "20%"
+    },
+    {
+      "Code": "havingLink",
+      "Name": "havingLink",
+      "FieldType": "checkbox",
+      "Position": 666,
+      "IsHidden": true,
+      "Width": "20%"
+    }
+  ]
+}

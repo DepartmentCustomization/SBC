@@ -1,0 +1,60 @@
+{
+  "Code": "Group_Claim_Order",
+  "Name": "Заявка",
+  "Position": 13,
+  "Fields": [
+    {
+      "Code": "claims_number",
+      "Name": "Пов'язана заявка №",
+      "FieldType": "text",
+      "Width": "15%"
+    },
+    {
+      "Code": "claim_status_name",
+      "Name": "Статус заявки",
+      "FieldType": "text",
+      "Position": 1,
+      "Width": "25%"
+    },
+    {
+      "Code": "claim_classes_name",
+      "Name": "Клас заявки",
+      "FieldType": "text",
+      "Position": 2,
+      "Width": "25%"
+    },
+    {
+      "Code": "organizations_name",
+      "Name": "Призначено для",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
+      "Code": "places_name",
+      "Name": "Місце",
+      "FieldType": "text",
+      "Position": 4
+    },
+    {
+      "Code": "org_id",
+      "Name": "org_id",
+      "FieldType": "number",
+      "Position": 13,
+      "IsHidden": true
+    },
+    {
+      "Code": "claim_stat_id",
+      "Name": "claim_stat_id",
+      "FieldType": "number",
+      "Position": 100,
+      "IsHidden": true
+    },
+    {
+      "Code": "place_id",
+      "Name": "place_id",
+      "FieldType": "number",
+      "Position": 111,
+      "IsHidden": true
+    }
+  ]
+}

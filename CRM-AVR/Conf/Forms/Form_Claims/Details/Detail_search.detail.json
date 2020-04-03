@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_search",
+  "Name": "Інформація з пошуку",
+  "SelectRowsQueryCode": "list_search_number_EM",
+  "SectionCode": "",
+  "IsExpand": true,
+  "IsWithClosing": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "EM_number",
+      "ParameterCode": "@number"
+    }
+  ]
+}

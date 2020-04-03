@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Positions",
+  "Name": "Класифікатор професій",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Positions.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

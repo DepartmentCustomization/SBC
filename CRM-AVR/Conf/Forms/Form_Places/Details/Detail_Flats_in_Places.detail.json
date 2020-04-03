@@ -1,0 +1,18 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Flats_in_Places",
+  "Name": "Усі квартири",
+  "FormCode": "Form_Flats_in_Place",
+  "SelectRowsQueryCode": "avr_Flats_in_Places_SelectRows",
+  "SelectRowQueryCode": "avr_Flats_in_Places_SelectRow",
+  "UpdateQueryCode": "avr_Flats_in_Places_UpdateRow",
+  "SectionCode": "",
+  "Position": 5,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "streets_id",
+      "ParameterCode": "@Id_place"
+    }
+  ]
+}

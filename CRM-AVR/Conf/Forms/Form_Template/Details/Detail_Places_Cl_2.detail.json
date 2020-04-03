@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Places_Cl_2",
+  "Name": "Місця за шаблоном",
+  "SelectRowsQueryCode": "avr_Claim_Order_Places_SelectRows",
+  "SectionCode": "",
+  "Position": 2,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

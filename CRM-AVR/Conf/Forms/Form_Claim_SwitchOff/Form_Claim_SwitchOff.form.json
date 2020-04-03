@@ -1,0 +1,19 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Claim_SwitchOff",
+  "Name": " Відключення",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_Claim_SwitchOff.fieldgroup.json"
+    ],
+    "DefaultFields": [
+      {
+        "Code": "Claim_ID",
+        "ParentFormFieldCodeForKeyValue": "Id",
+        "ParentFormFieldCodeForDisplayValue": "Id"
+      }
+    ],
+    "Script": "string:Form_Claim_SwitchOff.form.js"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Claims_Contact",
+  "Name": "Інші заявки заявника",
+  "SelectRowsQueryCode": "avr_Appeals_ContactSelectRows",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "contacts_Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

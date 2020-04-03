@@ -1,0 +1,73 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Disabling_debtors_Select_ROWS",
+  "Name": "avr_Disabling_debtors_Select_ROWS",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden",
+      "IsPrintable": false
+    },
+    {
+      "Code": "EmployeeWS_ID",
+      "Name": "Інспектор",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Contact_debt",
+      "Name": "Боржник",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Place_debt_Id",
+      "Name": "Адреса відключення",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Flats_debt_Id",
+      "Name": "Квартира",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Place_disadle_Id",
+      "Name": "Адреса встановлення пломби",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Is_fixed",
+      "Name": "Недоліки усунено",
+      "Position": 7,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@claims_id",
+      "Name": "claims_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

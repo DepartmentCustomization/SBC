@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Count_Flats",
+  "Name": "Кількість квартир",
+  "ConnectionCode": "Default"
+}

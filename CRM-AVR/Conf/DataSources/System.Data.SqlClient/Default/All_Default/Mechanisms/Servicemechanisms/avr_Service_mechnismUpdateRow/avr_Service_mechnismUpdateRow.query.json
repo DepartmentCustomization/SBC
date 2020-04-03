@@ -1,0 +1,8 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Service_mechnismUpdateRow",
+  "Name": "avr_Service_mechnismUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false
+}

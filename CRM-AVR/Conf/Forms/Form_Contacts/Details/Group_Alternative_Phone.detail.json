@@ -1,0 +1,22 @@
+{
+  "ModelType": "Detail",
+  "Code": "Group_Alternative_Phone",
+  "Name": "Альтернативні телефони",
+  "FormCode": "Form_Alternative_Phone",
+  "SelectRowsQueryCode": "avr_Alternative_PhoneSelectRows",
+  "SelectRowQueryCode": "avr_Alternative_PhoneSelectRow",
+  "UpdateQueryCode": "avr_Alternative_PhoneUpdateRow",
+  "SectionCode": "",
+  "DeleteQueryCode": "avr_Alternative_PhoneDeleteRow",
+  "Position": 1,
+  "IsExpand": true,
+  "Add": {
+    "InsertQueryCode": "avr_Alternative_PhoneInsertRow"
+  },
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

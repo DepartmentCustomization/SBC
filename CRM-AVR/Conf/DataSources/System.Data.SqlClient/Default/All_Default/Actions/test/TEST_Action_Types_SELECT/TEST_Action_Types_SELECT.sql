@@ -1,0 +1,10 @@
+SELECT [Id]
+      ,[Claim_ID]
+      ,[Order_ID]
+      ,[Action_type_ID]
+      ,[Sort_index]
+      ,[Is_Goal]
+      ,[Diameters_ID]
+      ,[Value]
+
+  FROM [dbo].[z_test_Actions]

@@ -1,0 +1,26 @@
+{
+  "ModelType": "Query",
+  "Code": "avr_Shift_JobsUpdateRow",
+  "Name": "avr_Shift_JobsUpdateRow",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer",
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "@Is_driver",
+      "Name": "Is_driver",
+      "ParameterType": "Boolean"
+    },
+    {
+      "Code": "@Is_main",
+      "Name": "Is_main",
+      "ParameterType": "Boolean"
+    }
+  ]
+}

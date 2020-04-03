@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Status",
+  "Name": "Стани Заявок",
+  "ConnectionCode": "Default"
+}

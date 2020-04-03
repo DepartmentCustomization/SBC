@@ -1,14 +1,14 @@
-(function () {
+(function() {
     return {
         is_obj: undefined,
         is_org: undefined,
-        onLoadModalPhone: function () {
+        onLoadModalPhone: function() {
             this.modal_phone_NEW = null;
             const queryForGetValue22 = {
                 queryCode: 'GetApplicantPhonesForApplicantId',
                 parameterValues: [{ key: '@applicant_id', value: this.form.getControlValue('Applicant_Id') }]
             };
-            this.queryExecutor.getValues(queryForGetValue22).subscribe(function (data) {
+            this.queryExecutor.getValues(queryForGetValue22).subscribe(function(data) {
                 this.kolvoPhonesForApplicant = data.rows.length - 1;
                 if (data.rows.length > 0) {
                     const fieldsForm = {
@@ -19,7 +19,7 @@
                         fieldGroups: []
                     };
                     for (let j = 0; j < data.rows.length; j++) {
-                        if (data.rows[j].values[5] == 1) {
+                        if (data.rows[j].values[5] === 1) {
                             let p = {
                                 code: 'GroupPhone' + j,
                                 name: 'Створення телефону',
@@ -38,7 +38,7 @@
                                 required: false,
                                 value: data.rows[j].values[3],
                                 disabled: true,
-                                type: "text",
+                                type: 'text',
                                 icon: 'phone_forwarded',
                                 iconHint: 'Скопіювати з вхідного номера телефону',
                                 maxlength: 14,
@@ -52,12 +52,12 @@
                                 placeholder: 'Тип',
                                 position: 2,
                                 required: false,
-                                value: "Мобільний",
+                                value: 'Мобільний',
                                 keyValue: 1,
-                                listKeyColumn: "Id",
-                                listDisplayColumn: "name",
-                                type: "select",
-                                queryListCode: "dir_PhoneTypes_SelectRows",
+                                listKeyColumn: 'Id',
+                                listDisplayColumn: 'name',
+                                type: 'select',
+                                queryListCode: 'dir_PhoneTypes_SelectRows',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_0);
@@ -69,7 +69,7 @@
                                 position: 3,
                                 required: false,
                                 value: false,
-                                type: "checkbox",
+                                type: 'checkbox',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_2);
@@ -81,7 +81,7 @@
                                 position: 4,
                                 icon: 'add',
                                 required: false,
-                                type: "button",
+                                type: 'button',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c].fields.push(t0_1);
@@ -103,7 +103,7 @@
                                 position: 1,
                                 required: false,
                                 value: data.rows[j].values[3],
-                                type: "text",
+                                type: 'text',
                                 maxlength: 14,
                                 width: '50%'
                             };
@@ -117,10 +117,10 @@
                                 required: false,
                                 value: data.rows[j].values[7],
                                 keyValue: data.rows[j].values[6],
-                                listKeyColumn: "Id",
-                                listDisplayColumn: "name",
-                                type: "select",
-                                queryListCode: "dir_PhoneTypes_SelectRows",
+                                listKeyColumn: 'Id',
+                                listDisplayColumn: 'name',
+                                type: 'select',
+                                queryListCode: 'dir_PhoneTypes_SelectRows',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_1);
@@ -132,7 +132,7 @@
                                 position: 3,
                                 required: false,
                                 value: data.rows[j].values[4],
-                                type: "checkbox",
+                                type: 'checkbox',
                                 width: '50%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_2);
@@ -145,7 +145,7 @@
                                     position: 4,
                                     required: false,
                                     icon: 'delete',
-                                    type: "button",
+                                    type: 'button',
                                     width: '50%'
                                 };
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_0);
@@ -158,7 +158,7 @@
                                     position: 4,
                                     required: false,
                                     icon: 'delete',
-                                    type: "button",
+                                    type: 'button',
                                     width: '50%'
                                 };
                                 fieldsForm.fieldGroups[c1].fields.push(t1_3_1);
@@ -171,7 +171,7 @@
                                 position: 5,
                                 value: data.rows[j].values[8],
                                 required: false,
-                                type: "text",
+                                type: 'text',
                                 width: '100%'
                             };
                             fieldsForm.fieldGroups[c1].fields.push(t1_4);
@@ -181,35 +181,36 @@
                 }
             }.bind(this));
         },
-        onChangeCardPhone: function () {
+        onChangeCardPhone: function() {
             for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
                 this.formModalConfig.setControlValue('modal_phone' + (u + 1) + '_phoneIsMain', false);
             }
         },
-        onRecalcCardPhone: function () {
+        onRecalcCardPhone: function() {
             const queryForGetValue_RecalcPhone = {
                 queryCode: 'ApplicantPhonesRecalcCardPhone',
                 parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id') }]
             };
-            this.queryExecutor.getValues(queryForGetValue_RecalcPhone).subscribe(function (data) {
+            this.queryExecutor.getValues(queryForGetValue_RecalcPhone).subscribe(function(data) {
                 this.form.setControlValue('CardPhone', data.rows[0].values[0]);
             }.bind(this));
             const queryForGetValue_GetIsMainPhone = {
                 queryCode: 'GetApplicantPhonesIsMain',
                 parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id') }]
             };
-            this.queryExecutor.getValues(queryForGetValue_GetIsMainPhone).subscribe(function (data) {
+            this.queryExecutor.getValues(queryForGetValue_GetIsMainPhone).subscribe(function(data) {
                 this.form.setControlValue('Applicant_Phone_Hide', data.rows[0].values[0]);
             }.bind(this));
         },
-        onDeleteCardPhone: function (phone) {
+        onDeleteCardPhone: function(phone) {
             const queryForGetValue_DeletePhone = {
                 queryCode: 'ApplicantPhonesDelete',
                 parameterValues: [{ key: '@PhoneId', value: this.formModalConfig.getControlValue('modal_phone' + phone + '_phoneId') }]
             };
-            this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function () {
-                let event = new Event("click");
-                document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
+            this.queryExecutor.getValues(queryForGetValue_DeletePhone).subscribe(function() {
+                let event = new Event('click');
+                document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted')
+                    .dispatchEvent(event);
                 this.onLoadModalPhone();
                 this.onRecalcCardPhone();
                 const parameters = [
@@ -218,43 +219,47 @@
                 this.details.loadData('Detail_UGL_Aplicant', parameters);
             }.bind(this));
         },
-        afterModal_Phone_FormOpen: function (form) {
+        afterModal_Phone_FormOpen: function(form) {
             form.formConfig = this;
             this.formModalConfig = form;
             if (this.kolvoPhonesForApplicant > 0) {
                 for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
-                    document.getElementById('modal_phone' + (u + 1) + '_phoneIsMain').addEventListener("click", function () {
+                    document.getElementById('modal_phone' + (u + 1) + '_phoneIsMain').addEventListener('click', function() {
                         this.formConfig.onChangeCardPhone(true);
                     }.bind(form));
                     if (document.getElementById('modal_phone' + (u + 1) + '_phoneDelete')) {
-                        document.getElementById('modal_phone' + (u + 1) + '_phoneDelete').addEventListener("click", function () {
+                        document.getElementById('modal_phone' + (u + 1) + '_phoneDelete').addEventListener('click', function() {
                             this.formConfig.onDeleteCardPhone(u + 1);
                         }.bind(form));
                     }
-                    let input = document.getElementById("modal_phone" + (u + 1) + "_phoneNumber");
-                    input.addEventListener("input", this.mask, false);
-                    input.addEventListener("focus", this.mask, false);
-                    input.addEventListener("blur", this.mask, false);
-                    input.addEventListener("change", this.mask, false);
+                    let input = document.getElementById('modal_phone' + (u + 1) + '_phoneNumber');
+                    input.addEventListener('input', this.mask, false);
+                    input.addEventListener('focus', this.mask, false);
+                    input.addEventListener('blur', this.mask, false);
+                    input.addEventListener('change', this.mask, false);
                 }
                 document.getElementById('phoneDelete_Disabled').disabled = true;
                 for (let u2 = 0; u2 < this.kolvoPhonesForApplicant; u2++) {
-                    document.getElementById("modal_phone" + (u2 + 1) + "_phoneNumber").focus();
+                    document.getElementById('modal_phone' + (u2 + 1) + '_phoneNumber').focus();
                 }
             }
             form.onControlValueChanged('modal_phone_NEW', this.onModalPhonesChanged);
             document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
             if (this.form.getControlValue('Applicant_Id')) {
-                document.getElementById('modal_phone_NEW_phoneDelete').addEventListener("click", function () {
+                document.getElementById('modal_phone_NEW_phoneDelete').addEventListener('click', function() {
                     const queryForGetValue_AddNewPhone = {
                         queryCode: 'ApplicantPhonesAdd',
-                        parameterValues: [{ key: '@Applicant_id', value: this.formConfig.form.getControlValue('Applicant_Id') }, { key: '@TypePhone', value: this.getControlValue('modal_phone_NEW_phoneType') }, { key: '@Phone', value: this.getControlValue('modal_phone_NEW') }, { key: '@IsMain', value: this.getControlValue('modal_phone_NEW_phoneIsMain') }]
+                        parameterValues: [{ key: '@Applicant_id', value: this.formConfig.form.getControlValue('Applicant_Id') },
+                            { key: '@TypePhone', value: this.getControlValue('modal_phone_NEW_phoneType') },
+                            { key: '@Phone', value: this.getControlValue('modal_phone_NEW') },
+                            { key: '@IsMain', value: this.getControlValue('modal_phone_NEW_phoneIsMain') }]
                     };
-                    this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function (data) {
-                        if (data.rows[0].values[0] == "OK") {
+                    this.formConfig.queryExecutor.getValues(queryForGetValue_AddNewPhone).subscribe(function(data) {
+                        if (data.rows[0].values[0] === 'OK') {
                             this.setControlValue('modal_phone_NEW', null);
-                            let event = new Event("click");
-                            document.querySelector('smart-bi-modal-form > div.btn-center-control > button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
+                            let event = new Event('click');
+                            document.querySelector('smart-bi-modal-form > div.btn-center-control > ' +
+                            'button.smart-btn.btn-back.ng-star-inserted').dispatchEvent(event);
                             this.formConfig.onLoadModalPhone();
                             this.formConfig.onRecalcCardPhone();
                             const parameters = [
@@ -267,44 +272,44 @@
                         }
                     }.bind(this));
                 }.bind(form));
-                let input3 = document.getElementById("modal_phone_NEW");
-                input3.addEventListener("input", this.mask, false);
-                input3.addEventListener("focus", this.mask, false);
-                input3.addEventListener("blur", this.mask, false);
-                input3.addEventListener("change", this.mask, false);
+                let input3 = document.getElementById('modal_phone_NEW');
+                input3.addEventListener('input', this.mask, false);
+                input3.addEventListener('focus', this.mask, false);
+                input3.addEventListener('blur', this.mask, false);
+                input3.addEventListener('change', this.mask, false);
                 document.getElementById('modal_phone_NEW').focus();
                 document.getElementById('modal_phone_NEW_phoneDelete').focus();
-                document.getElementById('modal_phone_NEWIcon').addEventListener("click", function () {
+                document.getElementById('modal_phone_NEWIcon').addEventListener('click', function() {
                     this.setControlValue('modal_phone_NEW', this.formConfig.form.getControlValue('Phone'));
                     document.getElementById('modal_phone_NEW').focus();
                     document.getElementById('modal_phone_NEW_phoneDelete').focus();
                 }.bind(form));
             }
         },
-        onModalPhonesChanged: function (phone) {
+        onModalPhonesChanged: function(phone) {
             if (!phone) {
                 document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
             } else {
-                if (phone.replace('(', '').replace(')', '').replace(/-/g, '').replace(/\D/g, '').length == 10) {
+                if (phone.replace('(', '').replace(')', '').replace(/-/g, '').replace(/\D/g, '').length === 10) {
                     document.getElementById('modal_phone_NEW_phoneDelete').disabled = false;
                 } else {
                     document.getElementById('modal_phone_NEW_phoneDelete').disabled = true;
                 }
             }
         },
-        onModal_Phone: function (value) {
+        onModal_Phone: function(value) {
             if (value) {
                 if (this.kolvoPhonesForApplicant > 0) {
                     for (let u = 0; u < this.kolvoPhonesForApplicant; u++) {
                         const queryForGetValue_UpdatePhone = {
                             queryCode: 'ApplicantPhonesUpdate',
                             parameterValues: [{ key: '@Applicant_id', value: this.form.getControlValue('Applicant_Id') },
-                            { key: '@TypePhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneType').value },
-                            { key: '@Phone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneNumber').value },
-                            { key: '@IsMain', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneIsMain').value },
-                            { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneId').value }]
+                                { key: '@TypePhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneType').value },
+                                { key: '@Phone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneNumber').value },
+                                { key: '@IsMain', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneIsMain').value },
+                                { key: '@IdPhone', value: value.find(f => f.key === '@modal_phone' + (u + 1) + '_phoneId').value }]
                         };
-                        this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function () {
+                        this.queryExecutor.getValues(queryForGetValue_UpdatePhone).subscribe(function() {
                         }.bind(this));
                     }
                     const parameters = [
@@ -315,25 +320,25 @@
                 }
             }
         },
-        init: function () {
-            if (this.state == "create") {
+        init: function() {
+            if (this.state === 'create') {
                 let getDataFromLink = window
                     .location
                     .search
                     .replace('?', '')
                     .split('&')
                     .reduce(
-                        function (p, e) {
+                        function(p, e) {
                             let a = e.split('=');
                             p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                             return p;
                         }, {}
                     );
                 let uglId;
-                if (getDataFromLink["uglId"] == undefined) {
+                if (getDataFromLink['uglId'] === undefined) {
                     uglId = 'невідомо';
                 } else {
-                    uglId = getDataFromLink["uglId"]
+                    uglId = getDataFromLink['uglId']
                 }
                 const queryForGetUGLAppeal = {
                     queryCode: 'CreateAppeal_FromUGL',
@@ -350,7 +355,7 @@
             } else {
                 this.form.setControlValue('AppealId', this.id);
                 this.form.setControlValue('ReceiptSources', { key: 3, value: 'УГЛ' });
-                document.getElementById('CardPhone').addEventListener("click", function () {
+                document.getElementById('CardPhone').addEventListener('click', function() {
                     this.onLoadModalPhone();
                 }.bind(this));
                 document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
@@ -419,9 +424,9 @@
                     this.details.loadData('Detail_UGL_Aplicant', parameters);
                 });
                 this.details.onCellClick('Detail_UGL_Aplicant', this.getApplicantInfo.bind(this));
-                document.getElementById('Applicant_Btn_Add').addEventListener("click", function () {
+                document.getElementById('Applicant_Btn_Add').addEventListener('click', function() {
                     let entrance = this.form.getControlValue('Applicant_Entrance');
-                    if (entrance != null && entrance < 1) {
+                    if (entrance !== null && entrance < 1) {
                         this.openPopUpInfoDialog('Номер під`їзду не може бути менше 1');
                     } else {
                         const queryForGetValue2 = {
@@ -526,7 +531,7 @@
                         });
                     }
                 }.bind(this));
-                document.getElementById('Applicant_Btn_Clear').addEventListener("click", function () {
+                document.getElementById('Applicant_Btn_Clear').addEventListener('click', function() {
                     this.form.setControlValue('Applicant_Id', null);
                     this.form.setControlValue('Applicant_PIB', null);
                     this.form.setControlValue('Applicant_District', null);
@@ -544,9 +549,11 @@
                     this.form.setControlValue('Applicant_Email', null);
                     this.form.setControlValue('Applicant_Comment', null);
                 }.bind(this));
-                document.getElementById('Question_Aplicant_Btn_Add').addEventListener("click", function () {
+                document.getElementById('Question_Aplicant_Btn_Add').addEventListener('click', function() {
                     let build = this.form.getControlValue('Applicant_Building');
-                    this.getBuildingInfo(build);
+                    let flat = this.form.getControlValue('Applicant_Flat');
+                    let entrance = this.form.getControlValue('Applicant_Entrance');
+                    this.getBuildingInfo(build, flat, entrance);
                     this.form.setGroupVisibility('UGL_Group_CreateQuestion', true);
                     this.form.setGroupExpanding('UGL_Group_Aplicant', false);
                     this.form.setGroupExpanding('UGL_Group_Appeal', false);
@@ -564,7 +571,7 @@
                     });
                 }.bind(this));
             }
-            document.getElementById('Question_Btn_Add').addEventListener("click", function () {
+            document.getElementById('Question_Btn_Add').addEventListener('click', function() {
                 const queryForGetValue3 = {
                     queryCode: 'Question_UGL_InsertRow',
                     parameterValues: [
@@ -673,15 +680,16 @@
                     });
                 });
                 this.form.setControlValue('Question_Organization', {});
-                this.form.setControlValue('Question_Content', "");
+                this.form.setControlValue('Question_Content', '');
                 this.form.setControlValue('Question_TypeId', {});
                 this.form.setControlValue('Question_OrganizationId', {});
-                this.form.setControlValue('Question_ControlDate', "");
+                this.form.setControlValue('Question_ControlDate', '');
                 this.form.setControlValue('Question_EventId', null);
+                this.form.markAsSaved();
             }.bind(this));
             this.form.onControlValueChanged('Search_Appeals_Input', this.onChanged_Search_Appeals_Input.bind(this));
             document.getElementById('Search_Appeals_Search').disabled = true;
-            document.getElementById('Search_Appeals_Search').addEventListener("click", function () {
+            document.getElementById('Search_Appeals_Search').addEventListener('click', function() {
                 const parameters = [
                     { key: '@AppealRegistrationNumber', value: this.form.getControlValue('Search_Appeals_Input') }
                 ];
@@ -691,8 +699,8 @@
         },
         input_pib: null,
         input_pib_check: 0,
-        applicantIsPIBChanged: function (value) {
-            if (this.input_pib == value) {
+        applicantIsPIBChanged: function(value) {
+            if (this.input_pib === value) {
                 this.input_pib_check = 0;
             } else {
                 this.input_pib_check = 1;
@@ -702,8 +710,8 @@
         },
         input_building: null,
         input_building_check: 0,
-        applicantIsBuildingChanged: function (value) {
-            if (this.input_building == value) {
+        applicantIsBuildingChanged: function(value) {
+            if (this.input_building === value) {
                 this.input_building_check = 0;
             } else {
                 this.input_building_check = 1;
@@ -713,8 +721,8 @@
         },
         input_entrance: null,
         input_entrance_check: 0,
-        applicantIsEntranceChanged: function (value) {
-            if (this.input_entrance == value) {
+        applicantIsEntranceChanged: function(value) {
+            if (this.input_entrance === value) {
                 this.input_entrance_check = 0;
             } else {
                 this.input_entrance_check = 1;
@@ -724,8 +732,8 @@
         },
         input_flat: null,
         input_flat_check: 0,
-        applicantIsFlatChanged: function (value) {
-            if (this.input_flat == value) {
+        applicantIsFlatChanged: function(value) {
+            if (this.input_flat === value) {
                 this.input_flat_check = 0;
             } else {
                 this.input_flat_check = 1;
@@ -735,8 +743,8 @@
         },
         input_privilege: null,
         input_privilege_check: 0,
-        applicantIsPrivilegeChanged: function (value) {
-            if (this.input_privilege == value) {
+        applicantIsPrivilegeChanged: function(value) {
+            if (this.input_privilege === value) {
                 this.input_privilege_check = 0;
             } else {
                 this.input_privilege_check = 1;
@@ -746,8 +754,8 @@
         },
         input_socialState: null,
         input_socialState_check: 0,
-        applicantIsSocialStateChanged: function (value) {
-            if (this.input_socialState == value) {
+        applicantIsSocialStateChanged: function(value) {
+            if (this.input_socialState === value) {
                 this.input_socialState_check = 0;
             } else {
                 this.input_socialState_check = 1;
@@ -757,8 +765,8 @@
         },
         input_applicantType: null,
         input_applicantType_check: 0,
-        applicantIsApplicantTypeChanged: function (value) {
-            if (this.input_applicantType == value) {
+        applicantIsApplicantTypeChanged: function(value) {
+            if (this.input_applicantType === value) {
                 this.input_applicantType_check = 0;
             } else {
                 this.input_applicantType_check = 1;
@@ -768,8 +776,8 @@
         },
         input_applicantSex: null,
         input_applicantSex_check: 0,
-        applicantIsSexChanged: function (value) {
-            if (this.input_applicantSex == value) {
+        applicantIsSexChanged: function(value) {
+            if (this.input_applicantSex === value) {
                 this.input_applicantSex_check = 0;
             } else {
                 this.input_applicantSex_check = 1;
@@ -779,8 +787,8 @@
         },
         input_birthDate: null,
         input_birthDate_check: 0,
-        applicantIsBirthDateChanged: function (value) {
-            if (this.input_birthDate == value) {
+        applicantIsBirthDateChanged: function(value) {
+            if (this.input_birthDate === value) {
                 this.input_birthDate_check = 0;
             } else {
                 this.input_birthDate_check = 1;
@@ -790,8 +798,8 @@
         },
         input_mail: null,
         input_mail_check: 0,
-        applicantIsMailChanged: function (value) {
-            if (this.input_mail == value) {
+        applicantIsMailChanged: function(value) {
+            if (this.input_mail === value) {
                 this.input_mail_check = 0;
             } else {
                 this.input_mail_check = 1;
@@ -801,8 +809,8 @@
         },
         input_note: null,
         input_note_check: 0,
-        applicantIsNoteChanged: function (value) {
-            if (this.input_note == value) {
+        applicantIsNoteChanged: function(value) {
+            if (this.input_note === value) {
                 this.input_note_check = 0;
             } else {
                 this.input_note_check = 1;
@@ -810,8 +818,8 @@
             this.input_note = value;
             this.applicantSaveButtonManager(this.input_note_check);
         },
-        applicantSaveButtonManager: function (input_check) {
-            if (this.form.getControlValue('Applicant_Id') != null) {
+        applicantSaveButtonManager: function(input_check) {
+            if (this.form.getControlValue('Applicant_Id') !== null) {
                 if (input_check === 1) {
                     document.getElementById('Applicant_Btn_Add').disabled = false;
                 } else if (input_check === 0) {
@@ -819,9 +827,9 @@
                 }
             }
         },
-        questionObjectOrg: function () {
+        questionObjectOrg: function() {
             let q_type_id = this.form.getControlValue('Question_TypeId');
-            if (q_type_id == undefined) {
+            if (q_type_id === undefined) {
                 this.form.setControlVisibility('Question_Building', false);
                 this.form.setControlVisibility('entrance', false);
                 this.form.setControlVisibility('flat', false);
@@ -857,7 +865,7 @@
                 });
             }
         },
-        checkApplicantHere: function () {
+        checkApplicantHere: function() {
             if (this.form.getControlValue('Applicant_Id') !== undefined) {
                 document.getElementById('Question_Aplicant_Btn_Add').disabled = false;
                 this.form.enableControl('CardPhone');
@@ -866,16 +874,16 @@
                 this.form.disableControl('CardPhone');
             }
         },
-        checkApplicantSaveAvailable: function () {
+        checkApplicantSaveAvailable: function() {
             if (
-                (this.form.getControlValue('Applicant_PIB') == null || this.form.getControlValue('Applicant_Building') == null)
+                (this.form.getControlValue('Applicant_PIB') === null || this.form.getControlValue('Applicant_Building') === null)
             ) {
                 document.getElementById('Applicant_Btn_Add').disabled = true;
             } else {
                 document.getElementById('Applicant_Btn_Add').disabled = false;
             }
         },
-        getApplicantInfo: function (column, row) {
+        getApplicantInfo: function(column, row) {
             let applicantId = row.values[4];
             const Applicant = {
                 queryCode: 'Applicant_Info',
@@ -889,44 +897,43 @@
             this.queryExecutor.getValues(Applicant).subscribe(data => {
                 if (data) {
                     let BirthDate = null;
-                    if (data.rows[0].values[14] == null) {
+                    if (data.rows[0].values[13] === null) {
                         BirthDate = null;
                     } else {
-                        BirthDate = new Date(data.rows[0].values[14]);
+                        BirthDate = new Date(data.rows[0].values[13]);
                     }
                     let sex = null;
-                    if (data.rows[0].values[13] == null) {
+                    if (data.rows[0].values[12] === null) {
                         sex = null;
                     } else {
-                        sex = (data.rows[0].values[13]).toString();
+                        sex = (data.rows[0].values[12]).toString();
                     }
                     this.form.setControlValue('Applicant_Building',
                         { key: data.rows[0].values[1], value: data.rows[0].values[2] });
                     this.form.setControlValue('Applicant_Entrance', data.rows[0].values[4])
                     this.form.setControlValue('Applicant_Flat', data.rows[0].values[5])
-                    this.form.setControlValue('Applicant_District', data.rows[0].values[6])
                     this.form.setControlValue('Applicant_Privilege',
-                        { key: data.rows[0].values[7], value: data.rows[0].values[8] });
+                        { key: data.rows[0].values[6], value: data.rows[0].values[7] });
                     this.form.setControlValue('Applicant_SocialStates',
-                        { key: data.rows[0].values[9], value: data.rows[0].values[10] });
+                        { key: data.rows[0].values[8], value: data.rows[0].values[9] });
                     this.form.setControlValue('Applicant_Type',
-                        { key: data.rows[0].values[11], value: data.rows[0].values[12] });
+                        { key: data.rows[0].values[10], value: data.rows[0].values[11] });
                     this.form.setControlValue('Applicant_Sex', sex);
                     this.form.setControlValue('Applicant_BirthDate', BirthDate);
-                    this.form.setControlValue('Applicant_Email', data.rows[0].values[15]);
-                    this.form.setControlValue('Applicant_Comment', data.rows[0].values[16]);
+                    this.form.setControlValue('Applicant_Email', data.rows[0].values[14]);
+                    this.form.setControlValue('Applicant_Comment', data.rows[0].values[15]);
                     this.form.setControlValue('Applicant_PIB', data.rows[0].values[0]);
-                    this.form.setControlValue('Applicant_Id', data.rows[0].values[17]);
-                    this.form.setControlValue('Applicant_Age', data.rows[0].values[18]);
-                    this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[19]);
-                    this.form.setControlValue('CardPhone', data.rows[0].values[20]);
+                    this.form.setControlValue('Applicant_Id', data.rows[0].values[16]);
+                    this.form.setControlValue('Applicant_Age', data.rows[0].values[17]);
+                    this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[18]);
+                    this.form.setControlValue('CardPhone', data.rows[0].values[19]);
                 }
             });
             document.getElementById('Applicant_Btn_Add').disabled = true;
         },
-        onChanged_Question_TypeId: function () {
+        onChanged_Question_TypeId: function() {
             let questionType = this.form.getControlValue('Question_TypeId');
-            if (questionType === "" || questionType === undefined || questionType === null) {
+            if (questionType === '' || questionType === undefined || questionType === null) {
                 this.form.setControlValue('Question_Organization', { key: null, value: null });
                 this.form.setControlValue('flat', null);
                 this.form.setControlValue('entrance', null);
@@ -936,36 +943,42 @@
                 this.form.setControlVisibility('Question_Organization', false);
                 document.getElementById('Question_Btn_Add').disabled = true;
             } else {
-                this.getOrgExecut();
                 this.onQuestionControlDate(questionType);
                 this.questionObjectOrg();
             }
         },
-        getOrgExecut: function () {
-            const objAndOrg = {
-                queryCode: 'getOrganizationExecutor',
-                parameterValues: [
-                    {
-                        key: '@question_type_id',
-                        value: this.form.getControlValue('Question_TypeId')
-                    },
-                    {
-                        key: '@object_id',
-                        value: this.form.getControlValue('Question_Building')
-                    },
-                    {
-                        key: '@organization_id',
-                        value: this.form.getControlValue('Question_Organization')
+        getOrgExecut: function() {
+            if(this.form.getControlValue('Question_Building') === null
+            || typeof (this.form.getControlValue('Question_Building')) === 'number') {
+                const objAndOrg = {
+                    queryCode: 'getOrganizationExecutor',
+                    parameterValues: [
+                        {
+                            key: '@question_type_id',
+                            value: this.form.getControlValue('Question_TypeId')
+                        },
+                        {
+                            key: '@object_id',
+                            value: this.form.getControlValue('Question_Building')
+                        },
+                        {
+                            key: '@organization_id',
+                            value: this.form.getControlValue('Question_Organization')
+                        }
+                    ]
+                };
+                this.queryExecutor.getValues(objAndOrg).subscribe(data => {
+                    if(data) {
+                        this.form.setControlValue('Question_OrganizationId',
+                            { key: data.rows[0].values[0],
+                                value: data.rows[0].values[1] });
+                        document.getElementById('Question_Btn_Add').disabled = false;
                     }
-                ]
-            };
-            this.queryExecutor.getValues(objAndOrg).subscribe(data => {
-                this.form.setControlValue('Question_OrganizationId',
-                    { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-            });
+                });
+            }
         },
-        onQuestionControlDate: function (ques_type_id) {
-            if (ques_type_id == null) {
+        onQuestionControlDate: function(ques_type_id) {
+            if (ques_type_id === null) {
                 this.form.setControlValue('Question_ControlDate', null)
             } else {
                 const execute = {
@@ -982,20 +995,20 @@
                 });
             }
         },
-        onChangedQuestion_AnswerType: function (value) {
+        onChangedQuestion_AnswerType: function(value) {
             this.form.setControlValue('Question_AnswerPhoneOrPost', null);
-            if (value == 2) {
+            if (value === 2) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('CardPhone'));
             }
-            if (value == 4 || value == 5) {
+            if (value === 4 || value === 5) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('applicantAddress'));
             }
-            if (value == 3) {
+            if (value === 3) {
                 this.form.setControlValue('Question_AnswerPhoneOrPost', this.form.getControlValue('Applicant_Email'));
             }
             this.checkQuestionRegistrationAvailable();
         },
-        checkQuestionRegistrationAvailable: function () {
+        checkQuestionRegistrationAvailable: function() {
             let questionBuilding = this.form.getControlValue('Question_Building');
             let questionOrg = this.form.getControlValue('Question_Organization');
             let questionContent = this.form.getControlValue('Question_Content');
@@ -1007,7 +1020,7 @@
                         ||
                         ((questionOrg === undefined) || (questionOrg === null))
                         ||
-                        ((questionContent === "") || (questionContent === null))
+                        ((questionContent === '') || (questionContent === null))
                         ||
                         ((howToAnswer === undefined) || (howToAnswer === null))
                     ) {
@@ -1015,6 +1028,7 @@
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);
                     } else {
+                        this.getOrgExecut();
                         document.getElementById('Question_Btn_Add').disabled = false;
                     }
                 }
@@ -1028,7 +1042,7 @@
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);
                     } else {
-                        document.getElementById('Question_Btn_Add').disabled = false;
+                        this.getOrgExecut();
                     }
                 }
                 if (this.is_obj === false && this.is_org === true) {
@@ -1041,16 +1055,19 @@
                         this.form.setControlValue('flat', null);
                         this.form.setControlValue('entrance', null);
                     } else {
-                        document.getElementById('Question_Btn_Add').disabled = false;
+                        this.getOrgExecut();
                     }
+                }
+                if (this.is_obj === false && this.is_org === false) {
+                    this.getOrgExecut();
                 }
             }
         },
-        getBuildingInfo: function (building) {
+        getBuildingInfo: function(building, flat, entrance) {
             const findBuilding = {
-                queryCode: 'SelectBuildName',
+                queryCode: 'SelectObjName',
                 parameterValues: [{
-                    key: '@Id',
+                    key: '@buildingId',
                     value: building
                 }]
             };
@@ -1058,26 +1075,25 @@
                 this.form.setControlValue('Question_Building',
                     { key: data.rows[0].values[0], value: data.rows[0].values[1] });
             });
-            this.form.setControlValue('flat', this.form.getControlValue('Applicant_Flat'));
-            this.form.setControlValue('entrance', this.form.getControlValue('Applicant_Entrance'));
+            this.form.setControlValue('flat', flat);
+            this.form.setControlValue('entrance', entrance);
         },
-        convertDateNull: function (value) {
+        convertDateNull: function(value) {
             if (!value) {
-                return this.extractStartDate(); 
-            } else {
-                return value; 
+                return this.extractStartDate();
             }
+            return value;
         },
-        onChanged_Search_Appeals_Input: function (value) {
-            if (value == "") {
+        onChanged_Search_Appeals_Input: function(value) {
+            if (value === '') {
                 document.getElementById('Search_Appeals_Search').disabled = true;
             } else {
                 document.getElementById('Search_Appeals_Search').disabled = false;
             }
         },
-        getDistrictAndExecutor: function () {
+        getDistrictAndExecutor: function() {
             let building = this.form.getControlValue('Applicant_Building');
-            if (building != null && typeof (building) == 'number') {
+            if (building !== null && typeof (building) === 'number') {
                 const query = {
                     queryCode: 'DistrictAndExecutor_byBuilding',
                     parameterValues: [{
@@ -1085,15 +1101,12 @@
                         value: building
                     }]
                 };
-                this.queryExecutor.getValues(query).subscribe(function (data) {
-                    if (data.rows[0] != undefined) {
-                        this.form.setControlValue('Applicant_District', data.rows[0].values[1]);
-                        this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[2]);
+                this.queryExecutor.getValues(query).subscribe(function(data) {
+                    if (data) {
+                        this.form.setControlValue('Applicant_District', data.rows[0].values[0]);
+                        this.form.setControlValue('ExecutorInRoleForObject', data.rows[0].values[1]);
                     }
                 }.bind(this));
-            } else {
-                this.form.setControlValue('Applicant_District', null);
-                this.form.setControlValue('ExecutorInRoleForObject', null);
             }
         }
     };

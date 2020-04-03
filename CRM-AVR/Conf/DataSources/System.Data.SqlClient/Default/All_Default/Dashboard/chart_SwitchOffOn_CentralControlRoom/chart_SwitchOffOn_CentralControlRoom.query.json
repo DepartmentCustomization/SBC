@@ -1,0 +1,42 @@
+{
+  "ModelType": "Query",
+  "Code": "chart_SwitchOffOn_CentralControlRoom",
+  "Name": "chart_SwitchOffOn_CentralControlRoom",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrimaryKey": true,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Short_name",
+      "Name": "Short_name",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "SwitchOff",
+      "Name": "SwitchOff",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "SwitchOn",
+      "Name": "SwitchOn",
+      "Position": 3,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer"
+    }
+  ]
+}

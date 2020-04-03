@@ -1,0 +1,6 @@
+{
+  "ModelType": "QueryGroup",
+  "Code": "Claims_Organizations_UR",
+  "Name": "Заявки юр.особи",
+  "ConnectionCode": "Default"
+}
