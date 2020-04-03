@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "list_organization_ur",
-  "Name": "list_organization_ur",
+  "Code": "List_JuridicalOrgs",
+  "Name": "List_JuridicalOrgs",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "IsAnonymousAccess": false,
@@ -18,26 +18,16 @@
       "Name": "Name",
       "Position": 1,
       "IsPrintable": false,
-      "SqlName": "[Organizations].[Name]",
-      "FilterParameterCode": "@new_name"
+      "SqlName": "[Name]",
+      "FilterParameterCode": "@Name"
     },
     {
       "Code": "Parent_Organization_ID",
       "Name": "Parent_Organization_ID",
       "Position": 2,
-      "IsPrintable": false
-    },
-    {
-      "Code": "Short_name",
-      "Name": "Short_name",
-      "Position": 3,
-      "IsPrintable": false
-    },
-    {
-      "Code": "cont_id",
-      "Name": "cont_id",
-      "Position": 4,
-      "IsPrimaryKey": true
+      "IsPrintable": false,
+      "SqlName": "[Parent_Organization_ID]",
+      "FilterParameterCode": "@Parent_Organization_ID"
     }
   ],
   "Parameters": [

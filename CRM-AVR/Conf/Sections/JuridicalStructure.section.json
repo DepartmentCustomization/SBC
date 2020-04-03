@@ -1,0 +1,13 @@
+{
+    "Add": {
+      "InsertQueryCode": "InsertJuridicalStructure"
+    },
+    "ModelType": "Section",
+    "Code": "JuridicalStructure",
+    "Name": "Структура юридичних осіб",
+    "FormCode": "Form_JuridicalStructure",
+    "SelectRowsQueryCode": "JuridicalStructureRows",
+    "SelectRowQueryCode": "JuridicalStructureRow",
+    "UpdateQueryCode": "UpdateJuridicalStructure",
+    "DeleteQueryCode": "DeleteJuridicalStructure"
+  }
