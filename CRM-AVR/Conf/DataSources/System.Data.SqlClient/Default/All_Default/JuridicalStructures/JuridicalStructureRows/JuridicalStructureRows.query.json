@@ -1,0 +1,78 @@
+{
+  "ModelType": "Query",
+  "Code": "JuridicalStructureRows",
+  "Name": "JuridicalStructureRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "organization_name",
+      "Name": "Назва організації / департаменту",
+      "Position": 2,
+      "SqlName": "[Organizations].[Name]",
+      "FilterParameterCode": "@Name",
+      "ReferenceKeyCode": "Id",
+      "ReferenceSectionCode": "JuridicalStructure"
+    },
+    {
+      "Code": "parent_organization",
+      "Name": "Назва головної огранізації",
+      "Position": 3,
+      "SqlName": "dep.Name",
+      "FilterParameterCode": "@Name_dep"
+    },
+    {
+      "Code": "adress",
+      "Name": "Юридична адреса",
+      "Position": 4,
+      "SqlName": "concat(
+        CASE
+            WHEN Districts.Name IS NULL THEN Districts.Name
+            ELSE Districts.Name + ', '
+        END,
+        CASE
+            WHEN Streets.Name IS NULL THEN Streets.Name
+            ELSE Streets.Name + ' '
+        END,
+        CASE
+            WHEN Houses.Number IS NULL THEN Houses.Number
+            ELSE Houses.Number
+        END,
+        CASE
+            WHEN Houses.Letter IS NULL THEN Houses.Letter
+            ELSE ' ' + Houses.Letter
+        END
+    )",
+        "FilterParameterCode": "@adress"
+    },
+    {
+      "Code": "Number",
+      "Name": "Основний номер",
+      "Position": 5,
+      "SqlName": "(SELECT TOP 1 [Number] FROM [dbo].[Organization_phones] WHERE OrganizationID = Organizations.Id)",
+      "FilterParameterCode": "@Number"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}

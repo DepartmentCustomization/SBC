@@ -14,19 +14,19 @@
         },
         checkForAreaClaims: function() {
             const isHaving = {
-    		    queryCode: 'CheckForLinkClaims',
+                queryCode: 'CheckForLinkClaims',
                 parameterValues:[{
                     key: '@Id',
                     value: this.id
                 }]
-    		 };
-    		 this.queryExecutor.getValue(isHaving).subscribe(data=>{
-    		     if(data === Number(1)) {
+            };
+            this.queryExecutor.getValue(isHaving).subscribe(data=>{
+                if(data === Number(1)) {
                     this.details.setVisibility('Detail_AreaClaimLinks', true);
-    		     } else {
-    		        this.details.setVisibility('Detail_AreaClaimLinks', false);
-    		     }
-    		 })
+                } else {
+                    this.details.setVisibility('Detail_AreaClaimLinks', false);
+                }
+            })
         },
         init: function() {
             this.chooseDetail_Claim_Faucet();
@@ -34,13 +34,13 @@
             this.form.disableControl('Fact_finish_at');
             this.form.disableControl('EM_org_id');
             let btn_AddJuridicalContact = document.getElementById('btn_AddJuridicalContact');
+            let btn_copy_claim = document.getElementById('btn_copy_claim');
             this.form.onControlValueChanged('UR_organization_id', this.checkJuridicalOrgAvailable);
             this.state_card = this.state;
-            console.log(this.state_card);
             if(this.state_card == 'create') {
                 btn_copy_claim.style.display = 'none';
             } else {
-                if(this.form.getControlValue('contact_type') != undefined) {
+                if(this.form.getControlValue('contact_type') !== undefined) {
                     btn_AddJuridicalContact.style.display = 'none';
                 }
             }
@@ -56,14 +56,13 @@
             }.bind(this));
             let btn_close_claim = document.getElementById('btn_close_claim');
             btn_close_claim.addEventListener('click', function(event) {
-                this.openPopUpConfirmDialog('Увага!\n\nПісля того як ви закриєте заявку її не можно буде редагувати.\nВи впевнені що бажаєте закрити заявку?', this.answerClose);
+                this.openPopUpConfirmDialog('Увага!\n\nПісля того як ви закриєте заявку її не можно буде редагувати.\n ' +
+                'Ви впевнені що бажаєте закрити заявку?', this.answerClose);
             }.bind(this));
             this.time_close = this.form.getControlValue('Fact_finish_at');
-            console.log('Дата закрыття: ' + this.time_close);
             this.form.onControlValueChanged('Fact_finish_at', this.quesionClose);
             let create = this.form.getControlValue('Created_at');
             let status = this.form.getControlValue('Status_id');
-            console.log(this.user);
             this.form.setControlValue('userID', this.user.userId);
             let organization = this.form.getControlValue('Organization_id');
             if(organization == 28) {
@@ -79,27 +78,24 @@
                         this.form.setControlValue('Organization_id', {key: 28, value: 'невизначено'})
                     }
                 });
-		 }
-		 //answer_claim_type
-    		 const answer_claim_type = {
-    		    queryCode: 'exec_proc_Claim_types',
+            }
+            const answer_claim_type = {
+                queryCode: 'exec_proc_Claim_types',
                 parameterValues:[{
                     key: '@type_id',
                     value: this.form.getControlValue('Types_id')
                 }]
-    		 };
-    		 this.queryExecutor.getValue(answer_claim_type).subscribe(data=>{
-    		     if(data) {
-    		     this.form.setControlValue('answer_claim_type', data);
-    		   //  console.log('Останній тип заявки (1- так, 0 -ні): ' + data);
-    		     }
-    		 });
+            };
+            this.queryExecutor.getValue(answer_claim_type).subscribe(data=>{
+                if(data) {
+                    this.form.setControlValue('answer_claim_type', data);
+                }
+            });
             this.form.setControlVisibility('user_close',false);
             this.form.setControlVisibility('date_close',false);
             this.form.setControlVisibility('position_close',false);
             this.form.disableControl('Status_id');
             this.form.disableControl('User');
-            this.form.disableControl('coordinates');
             this.form.disableControl('classes_id');
             this.form.disableControl('place_type_id');
             this.form.disableControl('district_id');
@@ -108,8 +104,6 @@
             this.form.disableControl('position_close');
             this.form.disableControl('Created_at');
             this.details.setVisibility('Detail_Claim_Likns_new_claim', false);
-            console.log('№ квартири: ' + this.form.getControlValue('flat_number'));
-            console.log('Тип місця: ' + this.form.getControlValue('place_type_id'));
             if(this.form.getControlValue('date_check') != null) {
                 this.form.disableControl('date_check');
             }
@@ -184,6 +178,7 @@
                 this.form.setControlVisibility('btn_AddJuridicalContact', false);
                 this.form.setControlVisibility('UR_organization_id',false);
                 this.form.setControlVisibility('UR_contact_fio',false);
+                this.form.setControlVisibility('UR_organization',false);
                 this.form.setControlVisibility('UR_number',false);
                 this.form.setControlVisibility('FIZ_contact_fio',false);
                 this.form.setControlVisibility('FIZ_number',false);
@@ -237,6 +232,7 @@
                 this.form.setControlVisibility('UR_number',false);
                 this.form.setControlVisibility('UR_organization_id',false);
                 this.form.setControlVisibility('UR_contact_fio',false);
+                this.form.setControlVisibility('UR_organization',false);
                 this.form.setControlVisibility('EM_org_id',false);
                 this.form.setControlVisibility('EM_contact_fio',false);
                 this.form.setControlVisibility('EM_number',false);
@@ -255,8 +251,10 @@
                 this.form.disableControl('UR_number');
                 this.form.disableControl('UR_organization_id');
                 this.form.disableControl('UR_contact_fio');
+                this.form.disableControl('UR_organization');
                 this.form.setControlVisibility('UR_number',true);
                 this.form.setControlVisibility('UR_organization_id',true);
+                this.form.setControlVisibility('UR_organization',true);
                 this.form.setControlVisibility('UR_contact_fio',true);
                 this.form.setControlVisibility('type_employee_2',false);
                 this.form.setControlVisibility('FIZ_contact_fio',false);
@@ -290,6 +288,7 @@
                 // this.form.setControlTitle('EM_contact_fio', 'ПІБ керівника групи');
                 this.form.setControlVisibility('type_employee_2',true);
                 this.form.setControlVisibility('UR_organization_id',false);
+                this.form.setControlVisibility('UR_organization',false);
                 this.form.setControlVisibility('UR_contact_fio',false);
                 this.form.setControlVisibility('FIZ_contact_fio',false);
                 this.form.setControlVisibility('UR_number',false);
@@ -323,7 +322,6 @@
             }
             this.form.onControlValueChanged('contact_type', this.onContact_type); //change type appeal
             let order = this.form.getControlValue('count_orders');
-            console.log('Кількість виїздів: ' + order);
             if(order > 0 && status != 3 && status != 4 && status != 5 && status != 6) {
                 if (status == 2 && order > 0) {
                     this.form.setControlValue('Status_id', {key: 3, value: 'У роботі'});
@@ -339,40 +337,19 @@
                     hour: 'numeric',
                     minute: 'numeric'
                 };
-                let create2 = create.toLocaleString('ru', options);
-                console.log('Дата створення: ' + create2);
-                // this.form.setGroupTitle("Group_Claims", "ЗАЯВКА №  "+this.form.getControlValue("Claim_Number") + ' від '+ create2);
                 this.form.setGroupTitle('Group_Claims', 'ЗАЯВКА №  ' + this.form.getControlValue('Claim_Number'));
             } else {
                 const SelectUserOrg = {
                     queryCode: 'avr_onOrganization_toUser',
                     parameterValues:[]
                 };
-                //     queryCode: 'dir_SelectUserOrganization'
                 this.queryExecutor.getValues(SelectUserOrg).subscribe(data =>{
                     if(data.rows[0].values[1] !== undefined) {
                         this.form.setControlValue('Organization_id', {key: data.rows[0].values[0], value: data.rows[0].values[1]})
                     }
                 })
             }
-            //Houses -- flats
             this.form.onControlValueChanged('places_id', this.onFlats);
-            //Initiator_Claim
-            // this.form.disableControl('Number');
-            // this.form.disableControl('Job_name');
-            // let cont = this.form.getControlValue('UR_contact_fio');
-            // console.log('Инициатор:' + cont);
-            // // console.log('Тип контакту: ' + this.form.getControlValue('contact_type_name'));
-            // this.form.onControlValueChanged('UR_contact_fio', this.onPhoneType);
-            // let org_name = this.form.getControlValue('jobs_contact_org');
-            // if( org_name == null || org_name == '['){
-            //     this.form.setControlVisibility('jobs_contact_org',false);
-            // }else{
-            //     this.form.setControlVisibility('jobs_contact_org',true);
-            // }
-            //end Initiator_Claim
-            //is_noBalans cheked
-            // this.form.onControlValueChanged('is_noBalans', this.onBalans);
             const queClaimLink = {
                 title: 'Пов\'язані заявки',
                 text: 'Створити нову чи додати (приєднати) існуючу? ',
@@ -410,7 +387,6 @@
                                 required: true,
                                 position: 1,
                                 fullScreen: false,
-                                //   queryListCode: "dir_Contact_typesSelectRows",
                                 queryListCode: 'list_Contact_type_for_Modal',
                                 listDisplayColumn: 'Name',
                                 listKeyColumn: 'Id',
@@ -423,7 +399,6 @@
                                 required: false,
                                 position: 2,
                                 fullScreen: false,
-                                // value: this.form.getControlValue('phone_number'),
                                 type: 'text'
                             },
                             {
@@ -481,18 +456,10 @@
                     }
                     this.queryExecutor.getValues(body).subscribe(data => {
                         this.form.setControlValue('UR_contact_fio', {key: data.rows[0].values[0], value: data.rows[0].values[1]});
-                    // this.form.setControlValue('Number',  data.rows[0].values[2]);
+                        this.form.setControlValue('UR_number', data.rows[0].values[2]);
                     });
                 }
             }
-            // var icon = document.getElementById('UR_contact_fioIcon');
-            // icon.addEventListener("click", (e) =>  {
-            //     e.stopPropagation();
-            //     this.openModalForm(formNewContact, addContactCallBack);
-            // });
-            // icon.style.fontSize = "35px";
-            // END modal for new contact
-            // modal for new Place
             const formNewPlace = {
                 title: 'Новє місце',
                 acceptBtnText: 'save',
@@ -514,7 +481,6 @@
                                 listDisplayColumn: 'Name',
                                 listKeyColumn: 'Id',
                                 type: 'select'
-                                // lookupType: 'list'
                             },
                             {
                                 code:'m_house_number',
@@ -605,7 +571,6 @@
                             this.form.setControlValue('places_id', {key: data.rows[0].values[0], value: data.rows[0].values[1]});
                             this.form.setControlValue('place_type_id', {key: data.rows[0].values[2], value: data.rows[0].values[3]});
                             this.form.setControlValue('district_id', {key: data.rows[0].values[4], value: data.rows[0].values[5]});
-                            this.form.setControlValue('coordinates', data.rows[0].values[6]);
                         }
                     })
                 }
@@ -704,7 +669,6 @@
                     this.queryExecutor.getValues(body).subscribe(data => {
                         this.form.setControlValue('places_id', {key: data.rows[0].values[0], value: data.rows[0].values[1]});
                         this.form.setControlValue('place_type_id', {key: data.rows[0].values[2], value: data.rows[0].values[3]});
-                        this.form.setControlValue('coordinates', data.rows[0].values[4]);
                         this.form.setControlValue('district_id', {key: data.rows[0].values[5], value: data.rows[0].values[6]});
                     })
                 }
@@ -803,7 +767,6 @@
                     this.queryExecutor.getValues(body).subscribe(data => {
                         this.form.setControlValue('places_id', {key: data.rows[0].values[0], value: data.rows[0].values[1]});
                         this.form.setControlValue('place_type_id', {key: data.rows[0].values[2], value: data.rows[0].values[3]});
-                        this.form.setControlValue('coordinates', data.rows[0].values[4]);
                         this.form.setControlValue('district_id', {key: data.rows[0].values[5], value: data.rows[0].values[6]});
                     })
                 }
@@ -887,7 +850,6 @@
                     this.queryExecutor.getValues(body).subscribe(data => {
                         this.form.setControlValue('places_id', {key: data.rows[0].values[0], value: data.rows[0].values[1]});
                         this.form.setControlValue('place_type_id', {key: data.rows[0].values[2], value: data.rows[0].values[3]});
-                        this.form.setControlValue('coordinates', data.rows[0].values[4]);
                     })
                 }
             };
@@ -908,7 +870,12 @@
                                 required: false,
                                 position: 1,
                                 fullScreen: true,
-                                radioItems: [{ value: 2, viewValue: 'ПЕРЕХРЕСТЯ' },{ value: 3, viewValue: 'ДІЛЯНКА' },{ value: 1, viewValue: 'ІНШІ МІСЦЯ' },{ value: 4, viewValue: 'КОЛОДЯЗЬ' }],
+                                radioItems: [
+                                    { value: 2, viewValue: 'ПЕРЕХРЕСТЯ' },
+                                    { value: 3, viewValue: 'ДІЛЯНКА' },
+                                    { value: 1, viewValue: 'ІНШІ МІСЦЯ' },
+                                    { value: 4, viewValue: 'КОЛОДЯЗЬ' }
+                                ],
                                 type: 'radio'
                             }
                         ]
@@ -932,7 +899,6 @@
                     console.log('Неіснуючий тип')
                 }
             }
-            //event click create new place
             let iconPl = document.getElementById('places_idIcon');
             iconPl.style.fontSize = '35px';
             // END modal for new Place
@@ -947,8 +913,7 @@
                 }]
             };
             this.queryExecutor.getValue(result).subscribe(data => {
-                //  console.log('Різниця в кількості запорної арматури (0- нема, 1- є):  ' + data)
-        				this.form.setControlValue('is_Zasuv', data)
+                this.form.setControlValue('is_Zasuv', data)
             });
             const delve = {
                 queryCode: 'list_validate_Action_delve',
@@ -958,8 +923,7 @@
                 }]
             };
             this.queryExecutor.getValue(delve).subscribe(data => {
-                //  console.log('На роботи по розриттю чи є робота по засипу (0- все ок, 1- помилка):  ' + data)
-        					this.form.setControlValue('is_Delve', data)
+                this.form.setControlValue('is_Delve', data)
             });
             /*логика отключений домов*/
             const resultOff = {
@@ -967,17 +931,9 @@
                 parameterValues: [{key: '@claim_ID', value: claim_ID}]
             };
             this.queryExecutor.getValue(resultOff).subscribe(data => {
-                //  console.log('Робота по закритюю засув (0- нема, 1- є):  ' + data)
-        			this.form.setControlValue('is_closeZasuv', data);
-                // if(this.form.getControlValue('is_closeZasuv') < 1){
-                // click_Off.style.display = 'none';
-                // }
+                this.form.setControlValue('is_closeZasuv', data);
             });
-            // this.form.onControlValueChanged('EM_org_id', this.onEM_contact_fio);
-            this.form.onControlValueChanged('UR_organization_id', this.onUR_contact_fio);
-            this.form.onControlValueChanged('UR_contact_fio', this.onUR_EM_phone_number);
             this.form.onControlValueChanged('x_pib_inspector', this.onUR_EM_phone_number);
-            // this.form.onControlValueChanged('EM_contact_fio', this.onUR_EM_phone_number);
             this.form.onControlValueChanged('EM_contact_fio', this.onUR_EM_Org_phone);
             this.form.onControlValueChanged('executor_id', this.executor_phone_number);
             this.details.setVisibility('Detail_search', false);
@@ -1028,7 +984,7 @@
                 };
                 this.queryExecutor.getValues(phone).subscribe(data=>{
                     let id_phone = {key: data.rows[0].values[0] , value: data.rows[0].values[1] };
-                    //   this.form.setControlValue('exec_phone', id_phone);
+                    this.form.setControlValue('exec_phone', id_phone);
                 });
             }
         },
@@ -1128,7 +1084,7 @@
                     }
                 ]
             };
-            this.form.setControlValue('UR_contact_fio', {key: null, value: null});
+            this.form.setControlValue('UR_contact_fio', null);
             // показать
             this.openModalForm(newURCont, сreateURContact_callback.bind(this));
         },
@@ -1204,10 +1160,10 @@
             this.form.setControlValue('type_employee_2', null);
             this.form.setControlValue('UR_organization_id', {key: null, value: null});
             this.form.setControlValue('EM_org_id', {key: null, value: null});
-            this.form.setControlValue('UR_contact_fio', {key: null, value: null});
+            this.form.setControlValue('UR_contact_fio', null);
             this.form.setControlValue('FIZ_contact_fio', null);
             this.form.setControlValue('EM_contact_fio', {key: null, value: null});
-            this.form.setControlValue('UR_number', {});
+            this.form.setControlValue('UR_number', null);
             this.form.setControlValue('FIZ_number', null);
             this.form.setControlValue('EM_number', {});
             this.form.setControlValue('x_pib_inspector', null);
@@ -1224,6 +1180,7 @@
             this.form.setControlVisibility('FIZ_number',false);
             this.form.setControlVisibility('UR_number',false);
             this.form.setControlVisibility('UR_organization_id',false);
+            this.form.setControlVisibility('UR_organization',false);
             this.form.setControlVisibility('UR_contact_fio',false);
             this.form.setControlVisibility('Sked',false);
             this.form.setControlVisibility('TU',false);
@@ -1257,6 +1214,7 @@
                 this.form.setControlVisibility('btn_AddJuridicalContact', true);
                 this.form.setControlVisibility('UR_number',true);
                 this.form.setControlVisibility('UR_organization_id',true);
+                this.form.setControlVisibility('UR_organization',true);
                 this.form.setControlVisibility('UR_contact_fio',true);
             }
             if(type_contacts == 3) {
@@ -1289,10 +1247,11 @@
             this.form.setControlValue('Gravamen', null);
             this.form.setControlValue('G_Left', {});
             this.form.setControlValue('G_PIB', null);
-			    this.form.setControlVisibility('FIZ_contact_fio',false);
+            this.form.setControlVisibility('FIZ_contact_fio',false);
             this.form.setControlVisibility('FIZ_number',false);
             this.form.setControlVisibility('UR_number',false);
             this.form.setControlVisibility('UR_organization_id',false);
+            this.form.setControlVisibility('UR_organization',false);
             this.form.setControlVisibility('UR_contact_fio',false);
             this.form.setControlVisibility('EM_org_id',false);
             this.form.setControlVisibility('EM_contact_fio',false);
@@ -1346,21 +1305,13 @@
             let id_using = [{parameterCode: '@org_id' , parameterValue: onType_employee_2 }];
             this.form.setControlParameterValues('EM_org_id', id_using);
             let org = [{parameterCode: '@org_id' , parameterValue: onType_employee_2 }];
-            this.form.setControlParameterValues('EM_contact_fio', org);
+            // this.form.setControlParameterValues('EM_contact_fio', org);
             this.form.setControlParameterValues('x_pib_inspector', org);
-        },
-        onUR_contact_fio:function() {
-            let org_id = this.form.getControlValue('UR_organization_id');
-            if(org_id != null) {
-                let id_using_fio = [{parameterCode: '@org_id' , parameterValue: org_id }];
-                this.form.setControlParameterValues('UR_contact_fio', id_using_fio);
-            }
         },
         onUR_EM_phone_number:function(cont_id) {
             if(typeof (cont_id) === 'number') {
                 let cont = [{parameterCode: '@cont_fiz_id' , parameterValue: cont_id }];
-                // this.form.setControlParameterValues('EM_number', cont);
-                this.form.setControlParameterValues('UR_number', cont);
+                this.form.setControlParameterValues('EM_number', cont);
                 this.form.setControlParameterValues('x_phone_inspector', cont);
             }
         },
@@ -1391,7 +1342,6 @@
             };
             this.queryExecutor.getValues(answer_claim_type).subscribe(data=>{
                 this.form.setControlValue('answer_claim_type', data.rows[0].values[0]);
-                // console.log('Останній тип заявки (1- так, 0 -ні): ' + data.rows[0].values[0]);
                 this.form.setControlValue('classes_id', data.rows[0].values[1]);
                 this.form.setControlValue('disregard_type', data.rows[0].values[2]);
             });
@@ -1401,10 +1351,8 @@
                 this.form.setControlValue('place_type_id', {key: null, value: null});
                 this.form.setControlValue('district_id', {key: null, value: null});
                 this.form.setControlValue('flat_number', {key: null, value: null});
-                this.form.setControlValue('coordinates', null);
             }else{
                 this.form.enableControl('flat_number');
-                console.log('Place Id: ' + place_id);
                 let number = [{parameterCode: '@place_id', parameterValue: place_id}];
                 this.form.setControlParameterValues('flat_number', number);
                 let type = [{parameterCode: '@type_place', parameterValue: place_id}];
@@ -1421,20 +1369,17 @@
                 this.queryExecutor.getValues(type_place).subscribe(data => {
                     this.form.setControlValue('place_type_id', {key: data.rows[0].values[0], value: data.rows[0].values[1]});
                     this.form.setControlValue('district_id', {key: data.rows[0].values[2], value: data.rows[0].values[3]});
-                    this.form.setControlValue('coordinates', data.rows[0].values[4]);
                 });
             }
         },
         onClaimsStatus_2: function(org) {
             let status = this.form.getControlValue('Status_id');
-            console.log('Organization_id ' + org);
-            console.log('Status ' + status);
             if(org == 28 && status == null) {
                 this.form.setControlValue('Status_id', {key: 1, value: 'Нова'})
             }
             if (status == 1 && org != 28 && org != null) {
                 this.form.setControlValue('Status_id', {key: 2, value: 'Розподілена'});
-		    }
+            }
         },
         validate: function() {
             const finishValue = this.form.getControlValue('Fact_finish_at');
@@ -1443,32 +1388,36 @@
             let err_zasuv = this.form.getControlValue('is_Zasuv');
             let err_delve = this.form.getControlValue('is_Delve');
             let disregard_type = this.form.getControlValue('disregard_type');
+            let contact_type = this.form.getControlValue('contact_type');
             if(st == 5) {
                 return 'У ЗАКРИТУ ЗАЯВКУ вносити правки заборонено';
-            }else if(finishValue != null) {
+            } else if(finishValue != null) {
                 if (err_zasuv == 0 && disregard_type == 1) {
                     this.form.setControlValue('Fact_finish_at', null);
-					 return 'Не збігається кількість робіт с запорною арматурою!'
-                }else if(err_delve == 1) {
+                    return 'Не збігається кількість робіт с запорною арматурою!'
+                } else if(err_delve == 1) {
                     this.form.setControlValue('Fact_finish_at', null);
-				    return 'Відсутня робота по запису!'
-                }else if(err_type == 0) {
+                    return 'Відсутня робота по запису!'
+                } else if(err_type == 0) {
                     this.form.setControlValue('Fact_finish_at', null);
-				    return 'Тип заявки не є останнім!'
+                    return 'Тип заявки не є останнім!'
                 }
-				    let five_min = 300000;
-				    let finishDate = finishValue.getTime();
+                let five_min = 300000;
+                let finishDate = finishValue.getTime();
                 let currentDate = new Date().getTime() - five_min;
                 if (finishDate < currentDate) {
-						 return 'Дата закриття некоректна!';
+                    return 'Дата закриття некоректна!';
                 }
-					    return true
-                ;
             }
-			 return true
+            if(contact_type === '2') {
+                let ur_org = this.form.getControlValue('UR_organization_id');
+                if(ur_org === null || ur_org === undefined) {
+                    return 'Потрібно обрати юридичну організацію!';
+                }
+            }
+            return true
         },
         afterSave: function(data) {
-            console.log('Server response : ', data);
             const myForm = {
                 title: 'Створена нова заявка',
                 singleButton: true,
@@ -1478,23 +1427,22 @@
                         expand: true,
                         fields: [
                             {
-						    code:'1',
-						    placeholder:' ',
-						    hidden:false,
-						    required: false,
-						    position: 1,
-						    fullScreen: true,
+                                code:'1',
+                                placeholder:' ',
+                                hidden:false,
+                                required: false,
+                                position: 1,
+                                fullScreen: true,
                                 value: '№ ' + this.getRowValueByCode(data, 'Id'),
                                 type: 'text'
-					    }
-					    ,
+                            },
                             {
-						    code:'2',
-						    placeholder:' ',
-						    hidden:false,
-						    required: false,
-						    position: 2,
-						    fullScreen: true,
+                                code:'2',
+                                placeholder:' ',
+                                hidden:false,
+                                required: false,
+                                position: 2,
+                                fullScreen: true,
                                 value: 'Первинний тип заявки: ' + this.getRowValueByCode(data, 'First_Types_name'),
                                 type: 'text'
                             }
@@ -1502,17 +1450,17 @@
                     }
                 ]
             };
-		 let urlText = 'sections/Claims/edit/' + data.rows[0].values[0]
+            let urlText = 'sections/Claims/edit/' + data.rows[0].values[0]
             let textMess = 'Зареєстрована заявка № ' + data.rows[0].values[0] + ' з типом ' + data.rows[0].values[15];
             let priorityCode;
             let notifType;
-            if (data.rows[0].values[68] == 1) {
+            if (data.rows[0].values[67] == 1) {
                 priorityCode = 'Low';
                 notifType = 'TaskLow';
-            }else if (data.rows[0].values[68] == 3) {
+            }else if (data.rows[0].values[67] == 3) {
                 priorityCode = 'Middle';
                 notifType = 'TaskMiddle';
-            }else if (data.rows[0].values[68] == 5) {
+            }else if (data.rows[0].values[67] == 5) {
                 priorityCode = 'High';
                 notifType = 'TaskHigh';
             }
@@ -1526,7 +1474,7 @@
                 hasAudio: true
             };
             let created_at = this.form.getControlValue('Created_at');
-        	if (created_at == null) {
+            if (created_at == null) {
                 this.createUsersNotification(notification);
                 this.openModalForm(myForm, this.formCallback.bind(this));
             }
@@ -1534,7 +1482,7 @@
                 this.navigateTo(location.pathname.replace(localStorage.getItem('VirtualPath'), '').replace('edit', 'view'));
             }
             this.chooseDetail_Claim_Faucet();
-        }, // end afterSave
+        },
         formCallback: function(response) {
             this.navigateTo(location.pathname.replace(localStorage.getItem('VirtualPath'), ''));
         }

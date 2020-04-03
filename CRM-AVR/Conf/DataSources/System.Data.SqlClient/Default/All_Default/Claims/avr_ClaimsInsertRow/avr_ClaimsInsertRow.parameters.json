@@ -72,6 +72,16 @@
     "ParameterType": "Integer"
   },
   {
+    "Code": "@UR_organization",
+    "Name": "UR_organization",
+    "ParameterType": "text"
+  },
+  {
+    "Code": "@UR_number",
+    "Name": "UR_number",
+    "ParameterType": "text"
+  },
+  {
     "Code": "@type_employee_2",
     "Name": "type_employee_2",
     "ParameterType": "Integer"

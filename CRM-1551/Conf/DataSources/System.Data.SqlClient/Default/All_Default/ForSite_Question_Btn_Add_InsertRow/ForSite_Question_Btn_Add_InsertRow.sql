@@ -323,20 +323,16 @@ INSERT INTO
   output [inserted].[Id] INTO @output (Id)
 SELECT
   @AppealId,
-(
-    concat(
-      SUBSTRING (rtrim(YEAR(getdate())), 4, 1),
-      '-',
+
 (
         SELECT
-          count(Id)
+          registration_number
         FROM
           dbo.Appeals 
         WHERE
-          year(Appeals.registration_date) = year(getutcdate())
+         Id = @AppealId
       )
-    )
-  ) + N'/' + rtrim(
+   + N'/' + rtrim(
     (
       SELECT
         count(1)
