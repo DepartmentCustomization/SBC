@@ -15,29 +15,29 @@
             },
             {
                 description: 'Довідник Будинки',
-                dashboardUrl: 'int_housesPageTable',
-                dashboardLocation: 'page',
+                url: 'int_housesPageTable',
+                location: 'page',
                 icon: 'home',
                 color: '#2196F3'
             },
             {
                 description: 'Довідник організацій',
-                dashboardUrl: 'int_organizationPageTable',
-                dashboardLocation: 'page',
+                url: 'int_organizationPageTable',
+                location: 'page',
                 icon: 'person_pin_circle',
                 color: '#2196F3'
             },
             {
                 description: 'Довідник типов заявок',
-                dashboardUrl: 'int_claimsTypePageTable',
-                dashboardLocation: 'page',
+                url: 'int_claimsTypePageTable',
+                location: 'page',
                 icon: 'event_note',
                 color: '#FBC02D'
             },
             {
                 description: 'Київпастранс',
-                dashboardUrl: 'CityPublicTransport',
-                dashboardLocation: 'home',
+                url: 'CityPublicTransport',
+                location: 'home',
                 icon: 'directions_bus',
                 color: '#FFB300'
             }
@@ -77,8 +77,9 @@
                             location.origin
                             + localStorage.getItem('VirtualPath')
                             + '/dashboard/'
-                            + dashboard.location
-                            + dashboard.url
+                            + `${dashboard.location}`
+                            + '/'
+                            + `${dashboard.url}`
                         )
                     );
                 });
