@@ -327,16 +327,10 @@ SELECT
     concat(
       SUBSTRING (rtrim(YEAR(getdate())), 4, 1),
       '-',
-(
-        SELECT
-          count(Id)
-        FROM
-          dbo.Appeals 
-        WHERE
-          year(Appeals.registration_date) = year(getutcdate())
-      )
-    )
-  ) + N'/' + rtrim(
+(SELECT 
+	registration_number
+ FROM dbo.Appeals 
+ WHERE Id = @AppealId) + N'/' + rtrim(
     (
       SELECT
         count(1)
