@@ -93,7 +93,7 @@
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
         createTableButton: function(e) {
-            const modalWindowMessageName = 'showModalWIndow';
+            const modalWindowMessageName = 'showModalWindow';
             const self = this;
             const buttonSaveFilters = {
                 text: 'Зберегти',
