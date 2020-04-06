@@ -201,22 +201,22 @@
                         if(name === 'zayavnyk_phone_number') {
                             this.applicantPhoneNumber = value;
                         }
-                        this.createObjMacros(name, 'like', value, placeholder, value.viewValue, name);
+                        this.createObjMacros(name, 'like', value, placeholder, value.viewValue, name, filter.type);
                         break;
                     case this.filterValueTypes.CheckBox:
-                        this.createObjMacros(name, '=', value, filter.placeholder, name);
+                        this.createObjMacros(name, '=', value, filter.placeholder, name, filter.type);
                         break;
                     case this.filterValueTypes.DateTime:
                     case this.filterValueTypes.Date:
                         if(value.dateFrom !== '') {
                             const property = name + '_from';
                             this.setFilterDateValues(property, value.dateFrom);
-                            this.setMacrosProps(name, '>=', value.dateFrom, placeholder, value.viewValue, 'dateFrom');
+                            this.setMacrosProps(name, '>=', value.dateFrom, placeholder, value.viewValue, filter.type, 'dateFrom');
                         }
                         if(value.dateTo !== '') {
                             const property = name + '_to';
                             this.setFilterDateValues(property, value.dateTo);
-                            this.setMacrosProps(name, '<=', value.dateTo, placeholder, value.viewValue, 'dateTo');
+                            this.setMacrosProps(name, '<=', value.dateTo, placeholder, value.viewValue, filter.type, 'dateTo');
                         }
                         break;
                     case this.filterValueTypes.MultiSelect:
@@ -231,7 +231,7 @@
                             });
                             ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
                             const ageSendValue = '(' + age.join(' or ') + ')';
-                            this.createObjMacros(name, '===', ageSendValue, placeholder, ageSendViewValue, name);
+                            this.createObjMacros(name, '===', ageSendValue, placeholder, ageSendViewValue, name, filter.type);
                         }else{
                             let sumValue = '';
                             let sumViewValue = '';
@@ -243,7 +243,7 @@
                             }
                             let numberSendValue = sumValue.slice(2, [sumValue.length]);
                             let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
-                            this.createObjMacros(name, 'in', numberSendValue, placeholder, numberSendViewValue, name);
+                            this.createObjMacros(name, 'in', numberSendValue, placeholder, numberSendViewValue, name, filter.type);
                         }
                         break;
                     default:
@@ -258,7 +258,7 @@
         setFilterDateValues: function(property, value) {
             this.dateValues[property] = value;
         },
-        setMacrosProps: function(name, type, value, placeholder, viewValue, timePosition) {
+        setMacrosProps: function(name, type, value, placeholder, viewValue, filterType, timePosition) {
             this.createObjMacros(
                 'cast(' + name + ' as datetime)',
                 type,
@@ -266,20 +266,12 @@
                 placeholder,
                 viewValue,
                 name,
+                filterType,
                 timePosition
             );
         },
-        createObjMacros: function(code, operation, value, placeholder, viewValue, name, timePosition) {
-            let obj = {
-                code: code,
-                operation: operation,
-                value: value,
-                placeholder: placeholder,
-                viewValue: viewValue,
-                name: name,
-                timePosition: timePosition
-            }
-            this.filtersValuesMacros.push(obj);
+        createObjMacros: function(code, operation, value, placeholder, viewValue, name, type, timePosition) {
+            this.filtersValuesMacros.push({code, operation, value, placeholder, viewValue, name, type, timePosition});
         },
         findAllCheckedFilter: function() {
             this.isSelected === true ? this.table.style.display = 'block' : this.table.style.display = 'none';
