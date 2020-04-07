@@ -1,7 +1,9 @@
---  DECLARE @Id INT = 3735037;
---  DECLARE @question INT = (SELECT question_id FROM dbo.Assignments WHERE Id = @Id);
+--   DECLARE @Id INT = 2967587;
+--   DECLARE @question INT = (SELECT question_id FROM dbo.Assignments WHERE Id = @Id);
 
 DECLARE @Archive NVARCHAR(20) = N'10.192.200.182';
+DECLARE @LocalArchive NVARCHAR(20) = N'DB.UKRODS.CF';
+
 DECLARE @IsHere BIT = IIF(
    (
       SELECT
@@ -20,7 +22,7 @@ BEGIN
 SELECT
     [Assignments].[Id],
     [Assignments].[registration_date],
-    at.name AS ass_type_name,
+    [at].name AS ass_type_name,
     Organizations.short_name AS performer,
     [Assignments].[main_executor],
     ast.name AS ass_state_name,
@@ -34,7 +36,7 @@ FROM
 WHERE
     Assignments.question_id = @question
     AND [Assignments].[Id] <> @Id
-    AND #filter_columns#
+ --   AND #filter_columns#
 ORDER BY
     main_executor DESC,
     ass_state_name 
@@ -43,17 +45,50 @@ END
 
 ELSE IF(@IsHere = 0)
 BEGIN
+DECLARE @Query NVARCHAR(MAX);
 ---> Check is connection to Archive db exists
-DECLARE @ServerID SMALLINT = (SELECT server_id FROM sys.servers WHERE [name] = @Archive);
+DECLARE @ProdArchiveServerID SMALLINT = (SELECT server_id FROM sys.servers WHERE [name] = @Archive);
+DECLARE @LocalArchiveServerID SMALLINT = (SELECT server_id FROM sys.servers WHERE [name] = @LocalArchive);
 
-IF(@ServerID IS NULL)
+IF (@ProdArchiveServerID IS NULL)
+AND (@LocalArchiveServerID IS NOT NULL)
 BEGIN
-	RETURN;
+SET @Query = 
+N'SELECT
+    [Assignments].[Id],
+    [Assignments].[registration_date],
+    at.name AS ass_type_name,
+    Organizations.short_name AS performer,
+    [Assignments].[main_executor],
+    ast.name AS ass_state_name,
+    Assignments.execution_date,
+    Assignments.question_id
+FROM
+    [DB.UKRODS.CF].[CRM_1551_Analitics].[dbo].[Assignments] [Assignments] 
+    LEFT JOIN [dbo].[AssignmentTypes] [at] ON [at].Id = Assignments.assignment_type_id
+    LEFT JOIN [dbo].[AssignmentStates] [ast] ON [ast].Id = Assignments.assignment_state_id
+    LEFT JOIN [dbo].[Organizations] [Organizations] ON Organizations.Id = Assignments.executor_organization_id
+WHERE
+    Assignments.question_id = @question
+    AND [Assignments].[Id] <> @Id
+    AND #filter_columns#
+ORDER BY
+    main_executor DESC,
+    ass_state_name 
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY 
+; ' ;
+
+ EXEC sp_executesql @Query, N'@question INT, @Id INT, @pageOffsetRows INT, @pageLimitRows INT  ', 
+							@question = @question,
+							@Id = @Id,
+                            @pageOffsetRows = @pageOffsetRows,
+                            @pageLimitRows = @pageLimitRows;
 END
 
-ELSE 
+ELSE IF(@ProdArchiveServerID IS NOT NULL)
+AND (@LocalArchiveServerID IS NULL)
 BEGIN 
-DECLARE @Query NVARCHAR(MAX) = 
+SET @Query = 
 N'SELECT
     [Assignments].[Id],
     [Assignments].[registration_date],
@@ -77,8 +112,10 @@ ORDER BY
     ass_state_name 
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ; ' ;
 
- EXEC sp_executesql @Query, N'@question INT, @Id INT ', 
+ EXEC sp_executesql @Query, N'@question INT, @Id INT, @pageOffsetRows INT, @pageLimitRows INT  ', 
 							@question = @question,
-							@Id = @Id ;
+							@Id = @Id,
+                            @pageOffsetRows = @pageOffsetRows,
+                            @pageLimitRows = @pageLimitRows;
 END
 END
