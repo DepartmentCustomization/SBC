@@ -17,6 +17,16 @@
     {
       "Code": "@name",
       "Name": "name"
+    },
+    {
+      "Code": "@is_revision",
+      "Name": "is_revision",
+      "ParameterType": "Boolean"
+    },
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
     }
   ]
 }
