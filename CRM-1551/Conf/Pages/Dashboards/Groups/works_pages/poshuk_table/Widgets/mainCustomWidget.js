@@ -11,6 +11,7 @@
         displayNone: 'none',
         displayBlock: 'block',
         init: function() {
+            this.executeQueryShowUserFilterGroups();
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -22,6 +23,34 @@
             this.sub1 = this.messageService.subscribe('showModalWindow', this.showModalWindow, this);
             this.filterColumns = [];
             this.defaultCheckedItem = [];
+        },
+        executeQueryShowUserFilterGroups: function() {
+            let executeQuery = {
+                queryCode: 'SearchTableFilters_SRows',
+                limit: -1,
+                parameterValues: [
+                    { key: '@pageOffsetRows', value: 0 },
+                    { key: '@pageLimitRows', value: 10 }
+                ]
+            };
+            this.queryExecutor(executeQuery, this.setUserFilterGroups, this);
+            this.showPreloader = false;
+        },
+        setUserFilterGroups: function(groups) {
+            this.userFilterGroups = [];
+            groups.rows.forEach(group => {
+                const indexOfId = 0;
+                const indexOfName = 1;
+                const indexOfFilters = 2;
+                this.userFilterGroups.push({
+                    id: group.values[indexOfId],
+                    name: group.values[indexOfName],
+                    filters: JSON.parse(group.values[indexOfFilters])
+                });
+            });
+        },
+        clearUserFilterGroups: function() {
+            this.userFilterGroups = [];
         },
         afterViewInit: function() {
             this.container = document.getElementById('container');
@@ -63,7 +92,7 @@
                 case 'showFilters':
                     this.createButtons(this.changeUserFilterGroup.bind(this));
                     this.appendModalWindow();
-                    this.executeQueryShowUserFilterGroups();
+                    this.showUserFilterGroups();
                     break;
                 default:
                     break;
@@ -111,6 +140,22 @@
                 this.hideModalWindow();
             }
         },
+        executeSaveFilterGroup: function(name, filterJson) {
+            let executeQuery = {
+                queryCode: 'SearchTableFilters_IRow',
+                limit: -1,
+                parameterValues: [
+                    { key: '@filter_name', value: name },
+                    { key: '@filters', value: filterJson }
+                ]
+            };
+            this.queryExecutor(executeQuery, this.afterAddFilterGroup, this);
+            this.showPreloader = false;
+        },
+        afterAddFilterGroup: function() {
+            this.executeQueryShowUserFilterGroups();
+            this.hideModalWindow();
+        },
         getFiltersGroupPackage: function() {
             const package = [];
             this.selectedFilters.forEach(filter => {
@@ -125,31 +170,73 @@
             })
             return package
         },
-        executeSaveFilterGroup: function(name, filterJson) {
-            let executeQuery = {
-                queryCode: 'SearchTableFilters_IRow',
-                limit: -1,
-                parameterValues: [
-                    { key: '@filter_name', value: name },
-                    { key: '@filters', value: filterJson }
-                ]
-            };
-            this.queryExecutor(executeQuery, this.hideModalWindow, this);
-            this.showPreloader = false;
-        },
-        executeQueryShowUserFilterGroups: function() {
-            let executeQuery = {
-                queryCode: 'SearchTableFilters_SRows',
-                limit: -1,
-                parameterValues: [
-                    { key: '@pageOffsetRows', value: 0 },
-                    { key: '@pageLimitRows', value: 10 }
-                ]
-            };
-            this.queryExecutor(executeQuery, this.showUserFilterGroups, this);
-            this.showPreloader = false;
-        },
         showUserFilterGroups: function() {
+            const userFiltersGroupContainer = this.createUserFilterGroupsContainer();
+            this.modalWindow.appendChild(userFiltersGroupContainer);
+        },
+        createUserFilterGroupsContainer: function() {
+            const userFilterGroupsWrapper = this.createElement('div',
+                {
+                    className: 'userFilterGroupsWrapper'
+                }
+            );
+            this.userFilterGroups.forEach(userFilterGroup => {
+                const groupFiltersList = this.createGroupFiltersList(userFilterGroup.filters, userFilterGroup.id);
+                const groupName = this.createElement('input',
+                    {value: userFilterGroup.name, className: 'userFilterGroupName', disabled: true}
+                );
+                const displayBtn = this.createElement('div',
+                    {className: 'displayBtn groupBtn fa fa-arrow-down', groupId: userFilterGroup.id, status: 'none'}
+                );
+                displayBtn.addEventListener('click', event => {
+                    const target = event.currentTarget;
+                    target.status = target.status === 'none' ? 'block' : 'none';
+                    target.classList.remove(target.classList[3]);
+                    target.classList.add(this.changeDisplayBtnIcon(target.status));
+                    document.getElementById(`userFiltersListWrapper${target.groupId}`).style.display = target.status;
+                });
+                const groupEditBtn = this.createElement('div', {className: 'groupEditBtn groupBtn fa fa-edit'});
+                const groupDeleteBtn = this.createElement('div',
+                    {className: 'groupDeleteBtn groupBtn fa fa-trash', groupId: userFilterGroup.id}
+                );
+                const groupHeader = this.createElement('div',
+                    {className: 'groupHeader'},
+                    displayBtn, groupName, groupEditBtn, groupDeleteBtn
+                );
+                const group = this.createElement('div',
+                    {id: userFilterGroup.id, className: 'userFilterGroup'},
+                    groupHeader, groupFiltersList
+                );
+                userFilterGroupsWrapper.appendChild(group);
+            });
+            return userFilterGroupsWrapper;
+        },
+        changeDisplayBtnIcon: function(status) {
+            return status === 'none' ? 'fa-arrow-down' : 'fa-arrow-up';
+        },
+        createGroupFiltersList: function(filtersList, id) {
+            const userFiltersListWrapper = this.createElement('div',
+                {
+                    id: `userFiltersListWrapper${id}`,
+                    className: 'userFiltersListWrapper',
+                    style: 'display: none'
+                }
+            );
+            filtersList.forEach(listItem => {
+                const filter = this.createElement('div',
+                    {
+                        className: 'userFilter',
+                        innerText: listItem.viewValue,
+                        value: listItem.value,
+                        type: listItem.type,
+                        placeholder: listItem.placeholder,
+                        name: listItem.name,
+                        timePosition: listItem.timePosition
+                    }
+                );
+                userFiltersListWrapper.appendChild(filter);
+            });
+            return userFiltersListWrapper;
         },
         changeUserFilterGroup: function() {
         },
