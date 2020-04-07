@@ -48,6 +48,7 @@
                     filters: JSON.parse(group.values[indexOfFilters])
                 });
             });
+            this.hidePagePreloader();
         },
         clearUserFilterGroups: function() {
             this.userFilterGroups = [];
@@ -79,50 +80,59 @@
                 this.modalWindowWrapper.style.display = this.displayBlock;
                 const button = message.button;
                 switch (button) {
-                case 'gear':
-                    this.createButtons(this.gearSaveMethod.bind(this));
+                case 'gear': {
+                    const createSAveBtn = true;
+                    this.createButtons(createSAveBtn, this.gearSaveMethod.bind(this));
                     this.appendModalWindow();
                     this.createFilterElements();
                     break;
-                case 'saveFilters':
-                    this.createButtons(this.saveNewFiltersGroup.bind(this));
+                }
+                case 'saveFilters': {
+                    const createSAveBtn = true;
+                    this.createButtons(createSAveBtn, this.saveNewFiltersGroup.bind(this));
                     this.appendModalWindow();
                     this.createFiltersGroupNameInput();
                     break;
-                case 'showFilters':
-                    this.createButtons(this.changeUserFilterGroup.bind(this));
+                }
+                case 'showFilters': {
+                    const createSAveBtn = false;
+                    this.createButtons(createSAveBtn);
                     this.appendModalWindow();
                     this.showUserFilterGroups();
                     break;
+                }
                 default:
                     break;
                 }
             }
         },
-        createButtons(saveMethod) {
-            const modalBtnSave = this.createElement('button', {
-                id:'modalBtnSave',
-                className: 'btn',
-                innerText: 'Зберегти'
-            });
+        createButtons(createSAveBtn, saveMethod) {
+            const modalBtnWrapper = this.createElement('div',
+                {
+                    id:'modalBtnWrapper',
+                    className: 'modalBtnWrapper'
+                }
+            );
+            if (createSAveBtn) {
+                const modalBtnSave = this.createElement('button', {
+                    id:'modalBtnSave',
+                    className: 'btn',
+                    innerText: 'Зберегти'
+                });
+                modalBtnSave.addEventListener('click', () => {
+                    saveMethod();
+                });
+                modalBtnWrapper.appendChild(modalBtnSave);
+            }
             const modalBtnExit = this.createElement('button', {
                 id:'modalBtnExit',
                 className: 'btn',
                 innerText: 'Вийти'
             });
-            const modalBtnWrapper = this.createElement('div',
-                {
-                    id:'modalBtnWrapper',
-                    className: 'modalBtnWrapper'
-                },
-                modalBtnSave, modalBtnExit
-            );
             modalBtnExit.addEventListener('click', () =>{
                 this.hideModalWindow();
             });
-            modalBtnSave.addEventListener('click', () => {
-                saveMethod();
-            });
+            modalBtnWrapper.appendChild(modalBtnExit);
             this.modalWindow.appendChild(modalBtnWrapper);
         },
         appendModalWindow() {
@@ -135,9 +145,10 @@
         saveNewFiltersGroup: function() {
             const name = document.getElementById('newFilterNameInput').value;
             if (name !== '') {
+                this.showMyPagePreloader();
                 const filterJson = JSON.stringify(this.getFiltersGroupPackage());
-                this.executeSaveFilterGroup(name, filterJson);
                 this.hideModalWindow();
+                this.executeSaveFilterGroup(name, filterJson);
             }
         },
         executeSaveFilterGroup: function(name, filterJson) {
@@ -154,7 +165,6 @@
         },
         afterAddFilterGroup: function() {
             this.executeQueryShowUserFilterGroups();
-            this.hideModalWindow();
         },
         getFiltersGroupPackage: function() {
             const package = [];
@@ -183,8 +193,20 @@
             this.userFilterGroups.forEach(userFilterGroup => {
                 const groupFiltersList = this.createGroupFiltersList(userFilterGroup.filters, userFilterGroup.id);
                 const groupName = this.createElement('input',
-                    {value: userFilterGroup.name, className: 'userFilterGroupName', disabled: true}
+                    {value: userFilterGroup.name, className: 'userFilterGroupName', disabled: true, groupId: userFilterGroup.id}
                 );
+                groupName.addEventListener('keypress', event => {
+                    const key = event.which || event.keyCode;
+                    const target = event.currentTarget;
+                    const groupId = target.groupId;
+                    const name = target.value;
+                    if (key === 13) {
+                        target.disabled = !target.disabled;
+                        groupEditBtn.edit = !groupEditBtn.edit;
+                        this.showMyPagePreloader();
+                        this.executeQueryChangeName(groupId, name);
+                    }
+                });
                 const displayBtn = this.createElement('div',
                     {className: 'displayBtn groupBtn fa fa-arrow-down', groupId: userFilterGroup.id, status: 'none'}
                 );
@@ -195,16 +217,32 @@
                     target.classList.add(this.changeDisplayBtnIcon(target.status));
                     document.getElementById(`userFiltersListWrapper${target.groupId}`).style.display = target.status;
                 });
-                const groupEditBtn = this.createElement('div', {className: 'groupEditBtn groupBtn fa fa-edit'});
+                const groupEditBtn = this.createElement('div', {className: 'groupEditBtn groupBtn fa fa-edit', edit: false});
+                groupEditBtn.addEventListener('click', event => {
+                    const target = event.currentTarget;
+                    target.edit = !target.edit;
+                    groupName.disabled = !groupName.disabled;
+                });
                 const groupDeleteBtn = this.createElement('div',
                     {className: 'groupDeleteBtn groupBtn fa fa-trash', groupId: userFilterGroup.id}
                 );
+                groupDeleteBtn.addEventListener('click', event => {
+                    const target = event.currentTarget;
+                    // eslint-disable-next-line no-alert
+                    const result = confirm(`Бажаєте видалити фільтр ${groupName.value}?`);
+                    if (result) {
+                        const groupId = target.groupId;
+                        userFilterGroupsWrapper.removeChild(document.getElementById(`groupId${groupId}`));
+                        this.showMyPagePreloader();
+                        this.executeQueryDeleteFilterGroup(groupId);
+                    }
+                });
                 const groupHeader = this.createElement('div',
                     {className: 'groupHeader'},
                     displayBtn, groupName, groupEditBtn, groupDeleteBtn
                 );
                 const group = this.createElement('div',
-                    {id: userFilterGroup.id, className: 'userFilterGroup'},
+                    {id: `groupId${userFilterGroup.id}`, className: 'userFilterGroup'},
                     groupHeader, groupFiltersList
                 );
                 userFilterGroupsWrapper.appendChild(group);
@@ -238,7 +276,28 @@
             });
             return userFiltersListWrapper;
         },
-        changeUserFilterGroup: function() {
+        executeQueryChangeName: function(id, name) {
+            let executeQuery = {
+                queryCode: 'SearchTableFilters_UName',
+                limit: -1,
+                parameterValues: [
+                    { key: '@Id', value: id },
+                    { key: '@filter_name', value: name }
+                ]
+            };
+            this.queryExecutor(executeQuery, this.executeQueryShowUserFilterGroups, this);
+            this.showPreloader = false;
+        },
+        executeQueryDeleteFilterGroup: function(id) {
+            let executeQuery = {
+                queryCode: 'SearchTableFilters_DRow',
+                limit: -1,
+                parameterValues: [
+                    { key: '@Id', value: id }
+                ]
+            };
+            this.queryExecutor(executeQuery, this.executeQueryShowUserFilterGroups, this);
+            this.showPreloader = false;
         },
         setFilterViewValues: function(filter) {
             const viewValue = this.getSelectFilterViewValuesObject(filter);
@@ -882,6 +941,9 @@
                     element.appendChild(child);
                 });
             } return element;
+        },
+        showMyPagePreloader: function() {
+            this.showPagePreloader('Зачекайте, застосовуються зміни');
         },
         destroy: function() {
             this.sub.unsubscribe();
