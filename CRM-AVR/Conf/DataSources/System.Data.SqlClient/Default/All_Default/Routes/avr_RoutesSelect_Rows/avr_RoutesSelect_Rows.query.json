@@ -65,10 +65,9 @@
       "IsPageLimitRows": true
     },
     {
-      "Code": "@UserDepartment",
-      "Name": "UserDepartment",
-      "ParameterType": "Integer",
-      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
     }
   ]
 }
