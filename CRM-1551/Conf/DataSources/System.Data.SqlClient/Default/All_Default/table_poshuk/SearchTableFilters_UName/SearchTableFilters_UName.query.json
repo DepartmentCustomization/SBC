@@ -15,6 +15,10 @@
       "Code": "@user_id",
       "Name": "user_id",
       "ParameterType": "CurrentUserId"
+    },
+    {
+      "Code": "@filter_name",
+      "Name": "filter_name"
     }
   ]
 }
