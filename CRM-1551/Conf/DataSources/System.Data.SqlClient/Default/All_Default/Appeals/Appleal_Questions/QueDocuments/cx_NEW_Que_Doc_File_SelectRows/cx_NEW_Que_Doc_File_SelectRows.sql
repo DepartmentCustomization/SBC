@@ -160,7 +160,6 @@ FROM
 WHERE
   question_id = @Id
   AND [File] IS NOT NULL
-  AND IsArchive = 1
   ;
 SELECT 
 	[Id],
