@@ -195,6 +195,12 @@
                 const groupName = this.createElement('input',
                     {value: userFilterGroup.name, className: 'userFilterGroupName', disabled: true, groupId: userFilterGroup.id}
                 );
+                groupName.addEventListener('click', event => {
+                    const target = event.currentTarget;
+                    const groupId = target.groupId;
+                    this.showMyPagePreloader();
+                    this.getRestoreFilters(groupId);
+                });
                 groupName.addEventListener('keypress', event => {
                     const key = event.which || event.keyCode;
                     const target = event.currentTarget;
@@ -298,6 +304,22 @@
             };
             this.queryExecutor(executeQuery, this.executeQueryShowUserFilterGroups, this);
             this.showPreloader = false;
+        },
+        getRestoreFilters: function(id) {
+            const filters = this.userFilterGroups.find(f => f.id === id).filters;
+            const msg = {
+                name: 'SetFilterPanelState',
+                package: {
+                    value: true
+                }
+            };
+            this.messageService.publish(msg);
+            this.messageService.publish({
+                name: 'setFilterValue',
+                filters: filters
+            });
+            this.hideModalWindow();
+            this.hidePagePreloader();
         },
         setFilterViewValues: function(filter) {
             const viewValue = this.getSelectFilterViewValuesObject(filter);
