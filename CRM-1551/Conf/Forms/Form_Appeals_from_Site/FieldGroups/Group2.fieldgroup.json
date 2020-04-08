@@ -19,13 +19,13 @@
     },
     {
       "Code": "ApplicantFromSite_Address_Building",
-      "Name": "Об'єкт",
+      "Name": "Будинок",
       "FieldType": "select",
       "Position": 3,
       "Width": "75%",
-      "QueryCode": "list_fullName_Object2",
+      "QueryCode": "list_fullName_Build",
       "KeyColumnCode": "Id",
-      "DisplayColumnCode": "object_name",
+      "DisplayColumnCode": "build_name",
       "QueryParameters": []
     },
     {
