@@ -15,14 +15,21 @@
  declare @Question_Content nvarchar(128)
  declare @entrance nvarchar(128)
  declare @flat nvarchar(128)
+ declare @ApplicantFromSite_Address_Building INT
  */
-IF(SELECT
-    Appeal_Id
-  FROM
-    CRM_1551_Site_Integration.dbo.AppealsFromSite
-  WHERE
-    Id = @AppealsFromSite_Id
-) IS NOT NULL 
+
+DECLARE @AppealForSiteAppeal INT = (SELECT
+                                         Appeal_Id
+                                     FROM
+                                       CRM_1551_Site_Integration.dbo.AppealsFromSite
+                                     WHERE Id = @AppealsFromSite_Id);
+DECLARE @QuestionForSiteAppeal INT = (SELECT 
+											Id
+									  FROM dbo.Questions 
+									  WHERE appeal_id = @AppealForSiteAppeal);
+
+IF(@AppealForSiteAppeal IS NOT NULL)
+AND (@QuestionForSiteAppeal IS NOT NULL) 
 BEGIN 
   RAISERROR(
   N'У зверненні відбулися зміни, необхідно перезавантажити сторінку',
@@ -32,7 +39,10 @@ BEGIN
 END 
 
 DECLARE @output_Appeal TABLE (Id INT);
+DECLARE @AppealId INT;
 
+IF(@AppealForSiteAppeal IS NULL)
+BEGIN
 INSERT INTO
   [dbo].[Appeals] (
     [registration_date],
@@ -59,9 +69,7 @@ VALUES
     @CreatedByUserId
   );
 
-DECLARE @AppealId INT;
-
-SET
+  SET
   @AppealId = (
     SELECT
       TOP 1 Id
@@ -69,7 +77,7 @@ SET
       @output_Appeal
   );
 
-UPDATE
+  UPDATE
   [dbo].[Appeals]
 SET
   registration_number = concat(
@@ -90,15 +98,19 @@ WHERE
 UPDATE
   [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
 SET
-  Appeal_Id = @AppealId,
-  AppealFromSiteResultId = 3
-  /*Зареєстровано*/
+  Appeal_Id = @AppealId
 WHERE
   Id = @AppealsFromSite_Id;
+END
+ELSE IF(@AppealForSiteAppeal IS NOT NULL)
+BEGIN 
+	SET @AppealId = @AppealForSiteAppeal;
+END
 
 DECLARE @output_Applicant_Id TABLE (Id INT);
 
-IF (@Applicant_Id IS NULL) BEGIN
+IF (@Applicant_Id IS NULL) 
+BEGIN
 INSERT INTO
   [dbo].[Applicants] (
     [registration_date],
@@ -164,7 +176,7 @@ SET
   );
 
 IF (
-  @1551_ApplicantFromSite_Address_Building IS NOT NULL
+  @ApplicantFromSite_Address_Building IS NOT NULL
 ) 
 BEGIN
 INSERT INTO
@@ -180,7 +192,7 @@ INSERT INTO
 VALUES
   (
     @Applicant_Id,
-    @1551_ApplicantFromSite_Address_Building,
+    @ApplicantFromSite_Address_Building,
     NULL,
     @1551_ApplicantFromSite_Address_Entrance,
     @1551_ApplicantFromSite_Address_Flat,
@@ -189,7 +201,9 @@ VALUES
   );
 
 END 
-IF object_id('tempdb..#temp_OUT') IS NOT NULL BEGIN DROP TABLE #temp_OUT ;
+IF object_id('tempdb..#temp_OUT') IS NOT NULL 
+BEGIN 
+  DROP TABLE #temp_OUT ;
 END 
 CREATE TABLE #temp_OUT(
 [ApplicantFromSiteId] INT,
@@ -221,7 +235,8 @@ IF (
     count(1)
   FROM
     #temp_OUT) > 0
-    BEGIN IF (
+    BEGIN 
+    IF (
       SELECT
         count(1)
       FROM
@@ -247,7 +262,8 @@ IF (
         MoreContactTypeId = 1;
 
 END
-ELSE BEGIN
+ELSE 
+BEGIN
 INSERT INTO
   [dbo].[ApplicantPhones] (
     [applicant_id],
@@ -302,14 +318,14 @@ WHERE
 
 DECLARE @output TABLE (Id INT);
 
-DECLARE @output2 TABLE (Id INT);
-
-DECLARE @app_id INT;
+DECLARE @question_id INT;
 
 DECLARE @assign INT;
 
 DECLARE @getdate DATETIME = getutcdate();
 
+IF(@QuestionForSiteAppeal IS NULL)
+BEGIN
 INSERT INTO
   [dbo].[Questions] (
     [appeal_id],
@@ -424,12 +440,13 @@ SELECT
   @AppealFromSite_geolocation_lon;
 
 SET
-  @app_id = (
+  @question_id = (
     SELECT
       TOP 1 Id
     FROM
       @output
   );
+
 
 INSERT INTO
   [dbo].[QuestionDocFiles] (
@@ -450,11 +467,12 @@ SELECT
   @CreatedByUserId [edit_user_id],
   [AppealFromSiteFiles].[Name],
   [AppealFromSiteFiles].[File],
-  @app_id [question_id] --,[GUID]
+  @question_id [question_id] --,[GUID]
 FROM
   [CRM_1551_Site_Integration].[dbo].[AppealFromSiteFiles]
 WHERE
   [AppealFromSiteId] = @AppealsFromSite_Id;
+END
 
 UPDATE
   [dbo].[Appeals]
@@ -463,7 +481,15 @@ SET
 WHERE
   [Id] = @AppealId;
 
-EXEC [dbo].[sp_CreateAssignment] @app_id,
+UPDATE
+  [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
+SET
+  Appeal_Id = @AppealId,
+  AppealFromSiteResultId = 3
+WHERE
+  Id = @AppealsFromSite_Id;
+
+EXEC [dbo].[sp_CreateAssignment] @question_id,
 @Question_TypeId,
 @Question_Building,
 @Question_Organization,
