@@ -74,6 +74,8 @@ BEGIN
 					Id
 				FROM @assigments_table);
 
+				IF @state_id<>5
+					BEGIN
 			UPDATE [dbo].[AssignmentConsiderations]
 			SET [assignment_result_id] = @control_result_id
 			   ,[assignment_resolution_id] = @assignment_resolution_id
@@ -82,6 +84,7 @@ BEGIN
 			WHERE Id IN (SELECT
 					curent_consid_id
 				FROM @assigments_table);
+					END
 
 
 			IF NOT EXISTS (SELECT
@@ -262,6 +265,8 @@ BEGIN
 	END
 	ELSE
 	BEGIN
+			IF @state_id<>5
+				BEGIN
 		UPDATE [dbo].[AssignmentConsiderations]
 		SET [assignment_result_id] = (CASE
 				WHEN ast.rework_counter < 2 THEN 5
@@ -275,6 +280,7 @@ BEGIN
 		WHERE [AssignmentConsiderations].Id IN (SELECT
 				curent_consid_id
 			FROM @assigments_table);
+				END
 	END
 END
 
