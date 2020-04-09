@@ -1,9 +1,11 @@
 /*
-declare @AppealFromSite_Id_Search int =11;
+declare @AppealFromSite_Id_Search int =5;
 declare @AppealFromSite_Id int; -- = 39
 declare @BuildingId int;-- = 5986
 declare @Flat int;-- = 4
 */
+--DECLARE @mail nvarchar(150)
+
 /*
 --Жилянська (Жаданівського) 47
 select * from Buildings where id = 5986
@@ -11,45 +13,59 @@ select * from Streets where id = 792
 */ 
 
 DECLARE @phone_table TABLE (phone nvarchar(40));
-DECLARE @mail nvarchar(150)
+DECLARE @mail_table TABLE (mail nvarchar(150));
 
 
 IF @AppealFromSite_Id IS NULL AND @BuildingId IS NULL AND @Flat IS NULL
 	 BEGIN
 			INSERT INTO @phone_table (phone)
-		  SELECT ApplicantPhones.phone_number
-		  FROM [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
-		  INNER JOIN [CRM_1551_Analitics].[dbo].[Appeals] ON [AppealsFromSite].Appeal_Id=[Appeals].Id
-		  INNER JOIN [CRM_1551_Analitics].[dbo].Applicants ON [Appeals].applicant_id=Applicants.Id
-		  INNER JOIN [CRM_1551_Analitics].[dbo].ApplicantPhones ON Applicants.Id=ApplicantPhones.applicant_id
-		  WHERE [AppealsFromSite].Id=@AppealFromSite_Id_Search
+		  SELECT [ApplicantFromSiteMoreContacts].PhoneNumber
+		  FROM [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite]
+		  INNER JOIN [CRM_1551_Site_Integration].[dbo].[ApplicantFromSiteMoreContacts] ON [ApplicantsFromSite].Id=[ApplicantFromSiteMoreContacts].ApplicantFromSiteId
+		  INNER JOIN [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] ON [AppealsFromSite].ApplicantFromSiteId=[ApplicantsFromSite].Id
+		  WHERE [AppealsFromSite].Id=@AppealFromSite_Id_Search AND [ApplicantFromSiteMoreContacts].PhoneNumber IS NOT NULL
 
 		  
+		  --SELECT phone FROM @phone_table
+		  --SELECT * FROM @mail_table
 
-		IF NOT EXISTS (SELECT TOP 1 phone FROM @phone_table)
+		IF NOT EXISTS (SELECT DISTINCT [Applicants].Id
+						  FROM [CRM_1551_Analitics].[dbo].[Applicants]
+						  INNER JOIN [CRM_1551_Analitics].[dbo].[ApplicantPhones] ON [Applicants].Id=[ApplicantPhones].applicant_id
+						  INNER JOIN @phone_table pt ON [ApplicantPhones].phone_number=pt.phone)
+
 			BEGIN
-				SET @mail=(
-					  SELECT Applicants.mail
-					  FROM [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
-					  INNER JOIN [CRM_1551_Analitics].[dbo].[Appeals] ON [AppealsFromSite].Appeal_Id=[Appeals].Id
-					  INNER JOIN [CRM_1551_Analitics].[dbo].Applicants ON [Appeals].applicant_id=Applicants.Id
-					  --LEFT JOIN [CRM_1551_Analitics].[dbo].ApplicantPhones ON Applicants.Id=ApplicantPhones.applicant_id
-					  WHERE [AppealsFromSite].Id=@AppealFromSite_Id_Search)
+					  INSERT INTO @mail_table (mail)
+					  SELECT [ApplicantFromSiteMoreContacts].Mail
+					  FROM [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite]
+					  INNER JOIN [CRM_1551_Site_Integration].[dbo].[ApplicantFromSiteMoreContacts] ON [ApplicantsFromSite].Id=[ApplicantFromSiteMoreContacts].ApplicantFromSiteId
+					  INNER JOIN [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] ON [AppealsFromSite].ApplicantFromSiteId=[ApplicantsFromSite].Id
+					  WHERE [AppealsFromSite].Id=@AppealFromSite_Id_Search
 
-					  SELECT DISTINCT Id, N'E' as [TypeSearch], [full_name] [PIB]
+					 
+
+					  SELECT Id, [TypeSearch], [PIB]
+					  FROM
+					  (SELECT DISTINCT Id, N'E' as [TypeSearch], [full_name] [PIB]
 					  FROM [CRM_1551_Analitics].[dbo].Applicants
-					  WHERE mail=@mail
-					  AND #filter_columns#
+					  WHERE mail IN (SELECT mail FROM @mail_table)) t
+					  WHERE #filter_columns#
 					  #sort_columns#
 			--order by 1
 					  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
 			END
 		ELSE
 			BEGIN
-				SELECT DISTINCT [Applicants].Id, N'T' as [TypeSearch], [Applicants].full_name [PIB]
-		  FROM [CRM_1551_Analitics].[dbo].[Applicants]
-		  INNER JOIN [CRM_1551_Analitics].[dbo].[ApplicantPhones] ON [Applicants].Id=[ApplicantPhones].applicant_id
-		  INNER JOIN @phone_table pt ON [ApplicantPhones].phone_number=pt.phone
+
+			
+
+				SELECT Id, [TypeSearch], [PIB]
+				FROM
+				(SELECT DISTINCT [Applicants].Id, N'T' AS [TypeSearch], [Applicants].full_name [PIB]
+				FROM [CRM_1551_Analitics].[dbo].[Applicants]
+				INNER JOIN [CRM_1551_Analitics].[dbo].[ApplicantPhones] ON [Applicants].Id=[ApplicantPhones].applicant_id
+				INNER JOIN @phone_table pt ON [ApplicantPhones].phone_number=pt.phone
+				) t
 		  WHERE #filter_columns#
 		  #sort_columns#
 			--order by 1
@@ -83,7 +99,7 @@ IF @AppealFromSite_Id IS NULL AND @BuildingId IS NULL AND @Flat IS NULL
 				where  #filter_columns#
 				group by [Id], [TypeSearch], [PIB]
 				#sort_columns#
-				--order by 1
+			--	--order by 1
 			offset @pageOffsetRows rows fetch next @pageLimitRows rows only
 
 	END
