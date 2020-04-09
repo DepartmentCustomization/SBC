@@ -237,6 +237,48 @@
             if (this.form.getControlValue('AppealFromSite_SiteAppealsResult') === 2) {
                 this.IsFormReturnModerated();
             }
+            const menuDetail_Aplicant = [{
+                'title': 'Додати до списку дублікатів',
+                'icon': 'fa fa-random',
+                'functionName': 'Dublicate_Aplicant'
+            }];
+            this.details.setActionMenu('Site_Applicant', menuDetail_Aplicant);
+        },
+        Dublicate_Aplicant: function() {
+            const queryForGetValueDublicate = {
+                queryCode: 'ApplicantDublicateInsertRow',
+                parameterValues: [
+                    {
+                        key: '@PhoneNumber',
+                        value: this.form.getControlValue('1551_Applicant_Phone')
+                    }
+                ]
+            };
+            this.queryExecutor.getValue(queryForGetValueDublicate).subscribe(data => {
+                if (data) {
+                    if (typeof data === 'string') {
+                        const fieldsForm_Error = {
+                            title: ' ',
+                            text: data,
+                            singleButton: true,
+                            acceptBtnText: 'ok'
+                        };
+                        this.openModalForm(fieldsForm_Error, this.afterModalFormClose.bind(this),
+                            this.afterModalFormClose.bind(this));
+                    } else {
+                        const fieldsForm_Ok = {
+                            title: ' ',
+                            text: 'Поточний номер додано до списку дублікатів',
+                            singleButton: true,
+                            acceptBtnText: 'ok'
+                        };
+                        this.openModalForm(fieldsForm_Ok, this.afterModalFormClose.bind(this),
+                            this.afterModalFormClose.bind(this));
+                    }
+                }
+            });
+        },
+        afterModalFormClose: function() {
         },
         checkQuestionRegistrationAvailable: function() {
             let questionBuilding = this.form.getControlValue('Question_Building');

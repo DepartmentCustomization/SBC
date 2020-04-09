@@ -8,14 +8,14 @@
       "Name": "Дата та час виїзду",
       "FieldType": "date-time",
       "IsRequired": true,
-      "Width": "40%"
+      "Width": "30%"
     },
     {
       "Code": "Plan_duration",
       "Name": "Планова тривалість",
       "FieldType": "text",
       "Position": 1,
-      "Width": "20%"
+      "Width": "30%"
     },
     {
       "Code": "Start_at",
@@ -246,20 +246,6 @@
       "Width": "33%"
     },
     {
-      "Code": "Comment_result",
-      "Name": "Результат виїзду",
-      "FieldType": "textarea",
-      "Position": 129,
-      "Rows": 5
-    },
-    {
-      "Code": "add_action",
-      "Name": "Додати роботи с запірною арматурою",
-      "FieldType": "checkbox",
-      "Position": 130,
-      "Width": "30%"
-    },
-    {
       "Code": "btn_addActions",
       "Name": "роботи",
       "FieldType": "button",
@@ -283,6 +269,21 @@
       "Width": "30%",
       "Icon": "add",
       "IconHint": "Додати відключення"
+    },
+    {
+      "Code": "Comment_result",
+      "Name": "Результат виїзду",
+      "FieldType": "textarea",
+      "Position": 135,
+      "Rows": 5,
+      "Width": "100%"
+    },
+    {
+      "Code": "add_action",
+      "Name": "Додати роботи с запірною арматурою",
+      "FieldType": "checkbox",
+      "Position": 131,
+      "Width": "30%"
     },
     {
       "Code": "is_closeZasuv",
