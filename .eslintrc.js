@@ -10,14 +10,19 @@ module.exports = {
         "SharedArrayBuffer": "readonly",
         "L": true
     },
+    "parser": "babel-eslint",
     "parserOptions": {
-        "ecmaVersion": 2018
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "allowImportExportEverywhere": false,
+        "codeFrame": true
     },
     "rules": {
-        "indent": ["error", 4],
+        "strict": 0,
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "quotes": ["error", "single"],
         "no-var": "error",
-        "no-multiple-empty-lines": ["error", { max: 0 }],
+        "no-multiple-empty-lines": ["error", { max: 1 }],
         "line-comment-position": ["error", { "position": "beside" }],
         "no-inline-comments": "error",
         "no-console": "error",

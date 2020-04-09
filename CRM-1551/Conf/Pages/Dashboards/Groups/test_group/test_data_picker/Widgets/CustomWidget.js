@@ -1,14 +1,16 @@
 (function() {
     return {
         title: ' ',
-        hint: '',
+        hint: ' ',
         formatTitle: function() {},
         customConfig:
                 `
                     <div id='modalContainer'></div>
                 `
         ,
-        init: function() {
+        init: async function() {
+            this.filterHelperModule = await import('/modules/Filters/FilterHelper.js');
+            this.queryHelper = await import('/modules/Filters/QueryHelper.js');
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -40,13 +42,14 @@
             })
         },
         getFiltersParam: function(message) {
-            this.d1 = message.package.value.values.find(f => f.name === 'd1').value;
-            this.d2 = message.package.value.values.find(f => f.name === 'd2_calendar').value;
-            this.d3 = message.package.value.values.find(f => f.name === 'd3_time').value;
-            this.d4 = message.package.value.values.find(f => f.name === 'd4_date').value;
-            this.appeals_district = message.package.value.values.find(f => f.name === 'appeals_district').value;
-            this.appeals_enter_number = message.package.value.values.find(f => f.name === 'appeals_enter_number').value;
-            this.overdue = message.package.value.values.find(f => f.name === 'overdue').value;
+            const filters = message.package.value.values;
+            const filterHelper = new this.filterHelperModule.FilterHelper();
+            const activeFilters = filterHelper.getActiveFilters(filters);
+            const queryHelper = new this.queryHelper.QueryHelper();
+            this.queryParameters = queryHelper.getQueryParameters(filters, activeFilters);
+        },
+        destroy: function() {
+            this.sub.unsubscribe();
         }
     };
 }());
