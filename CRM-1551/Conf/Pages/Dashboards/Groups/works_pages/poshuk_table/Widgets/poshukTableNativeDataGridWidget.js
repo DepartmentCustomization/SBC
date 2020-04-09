@@ -71,12 +71,13 @@
             CheckBox: 'CheckBox'
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 230;
-            document.getElementById('poshuk_table_main').style.display = 'none';
+            this.dataGridInstance.height = window.innerHeight - 300;
+            this.table = document.getElementById('poshuk_table_main');
+            this.table.style.display = 'none';
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
             this.sub2 = this.messageService.subscribe('findFilterColumns', this.reloadTable, this);
-            this.config.onToolbarPreparing = this.createButtons.bind(this);
+            this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
                     if(e.column.dataField === 'question_registration_number' && e.row !== undefined) {
@@ -91,34 +92,72 @@
             }.bind(this));
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-        createButtons: function(e) {
-            let toolbarItems = e.toolbarOptions.items;
-            toolbarItems.push({
+        createTableButton: function(e) {
+            const modalWindowMessageName = 'showModalWindow';
+            const self = this;
+            const buttonSaveFilters = {
+                text: 'Зберегти',
+                type: 'default',
+                icon: 'save',
+                location: 'before',
+                method: function() {
+                    self.messageService.publish({ name: modalWindowMessageName, button: 'saveFilters'});
+                }
+            }
+            const buttonSetFilters = {
+                text: 'Список',
+                type: 'default',
+                icon: 'detailslayout',
+                location: 'before',
+                method: function() {
+                    self.messageService.publish({ name: modalWindowMessageName, button: 'showFilters'});
+                }
+            }
+            const buttonApplyProps = {
+                text: 'Excel',
+                type: 'default',
+                icon: 'exportxlsx',
+                location: 'after',
+                method: function() {
+                    self.exportToExcel();
+                }
+            }
+            const buttonSkipProps = {
+                text: 'Налаштування фiльтрiв',
+                type: 'default',
+                icon: 'preferences',
+                location: 'after',
+                class: 'defaultButton',
+                method: function() {
+                    self.messageService.publish({ name: modalWindowMessageName, button: 'gear'});
+                }
+            }
+            const buttonApply = this.createToolbarButton(buttonApplyProps);
+            const buttonSkip = this.createToolbarButton(buttonSkipProps);
+            const buttonSave = this.createToolbarButton(buttonSaveFilters);
+            const buttonSet = this.createToolbarButton(buttonSetFilters);
+            e.toolbarOptions.items.push(buttonApply);
+            e.toolbarOptions.items.push(buttonSkip);
+            e.toolbarOptions.items.push(buttonSave);
+            e.toolbarOptions.items.push(buttonSet);
+        },
+        createToolbarButton: function(button) {
+            return {
                 widget: 'dxButton',
+                location: button.location,
                 options: {
-                    icon: 'exportxlsx',
-                    type: 'default',
-                    text: 'Excel',
+                    icon: button.icon,
+                    type: button.type,
+                    text: button.text,
+                    elementAttr: {
+                        class: button.class
+                    },
                     onClick: function(e) {
                         e.event.stopImmediatePropagation();
-                        this.exportToExcel();
+                        button.method();
                     }.bind(this)
-                },
-                location: 'after'
-            });
-            toolbarItems.push({
-                widget: 'dxButton',
-                options: {
-                    icon: 'preferences',
-                    type: 'default',
-                    text: 'Налаштування фiльтрiв',
-                    onClick: function(e) {
-                        e.event.stopImmediatePropagation();
-                        this.messageService.publish({ name: 'clickOnFiltersBtn'});
-                    }.bind(this)
-                },
-                location: 'after'
-            });
+                }
+            }
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
@@ -152,7 +191,7 @@
             this.filtersLength = filters.length;
             this.filtersWithOutValues = 0;
             filters.forEach(filter => {
-                if(filter.active === true) {
+                if (filter.active === true) {
                     const type = filter.type;
                     const value = filter.value;
                     const name = filter.name;
@@ -162,22 +201,22 @@
                         if(name === 'zayavnyk_phone_number') {
                             this.applicantPhoneNumber = value;
                         }
-                        this.createObjMacros(name, 'like', value, placeholder, value.viewValue);
+                        this.createObjMacros(name, 'like', value, placeholder, value.viewValue, name, filter.type);
                         break;
                     case this.filterValueTypes.CheckBox:
-                        this.createObjMacros(filter.name, '=', value, filter.placeholder);
+                        this.createObjMacros(name, '=', value, filter.placeholder, name, filter.type);
                         break;
                     case this.filterValueTypes.DateTime:
                     case this.filterValueTypes.Date:
                         if(value.dateFrom !== '') {
                             const property = name + '_from';
                             this.setFilterDateValues(property, value.dateFrom);
-                            this.setMacrosProps(name, '>=', value.dateFrom, placeholder, value.viewValue);
+                            this.setMacrosProps(name, '>=', value.dateFrom, placeholder, value.viewValue, filter.type, 'dateFrom');
                         }
                         if(value.dateTo !== '') {
                             const property = name + '_to';
                             this.setFilterDateValues(property, value.dateTo);
-                            this.setMacrosProps(name, '<=', value.dateTo, placeholder, value.viewValue);
+                            this.setMacrosProps(name, '<=', value.dateTo, placeholder, value.viewValue, filter.type, 'dateTo');
                         }
                         break;
                     case this.filterValueTypes.MultiSelect:
@@ -192,7 +231,7 @@
                             });
                             ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
                             const ageSendValue = '(' + age.join(' or ') + ')';
-                            this.createObjMacros(name, '===', ageSendValue, placeholder, ageSendViewValue);
+                            this.createObjMacros(name, '===', ageSendValue, placeholder, ageSendViewValue, name, filter.type);
                         }else{
                             let sumValue = '';
                             let sumViewValue = '';
@@ -204,13 +243,13 @@
                             }
                             let numberSendValue = sumValue.slice(2, [sumValue.length]);
                             let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
-                            this.createObjMacros(name, 'in', numberSendValue, placeholder, numberSendViewValue);
+                            this.createObjMacros(name, 'in', numberSendValue, placeholder, numberSendViewValue, name, filter.type);
                         }
                         break;
                     default:
                         break;
                     }
-                }else if(filter.active === false) {
+                } else if (filter.active === false) {
                     this.filtersWithOutValues += 1;
                 }
             });
@@ -219,38 +258,27 @@
         setFilterDateValues: function(property, value) {
             this.dateValues[property] = value;
         },
-        setMacrosProps: function(name, type, value, placeholder, viewValue) {
+        setMacrosProps: function(name, type, value, placeholder, viewValue, filterType, timePosition) {
             this.createObjMacros(
                 'cast(' + name + ' as datetime)',
                 type,
                 value,
                 placeholder,
-                viewValue
+                viewValue,
+                name,
+                filterType,
+                timePosition
             );
         },
-        createObjMacros: function(name, operation, value, placeholder, viewValue) {
-            let obj = {
-                code: name,
-                operation: operation,
-                value: value,
-                placeholder: placeholder,
-                viewValue: viewValue
-            }
-            this.filtersValuesMacros.push(obj);
+        createObjMacros: function(code, operation, value, placeholder, viewValue, name, type, timePosition) {
+            this.filtersValuesMacros.push({code, operation, value, placeholder, viewValue, name, type, timePosition});
         },
         findAllCheckedFilter: function() {
-            this.isSelected === true ?
-                document.getElementById('poshuk_table_main').style.display = 'block' :
-                document.getElementById('poshuk_table_main').style.display = 'none';
-            let filters = this.filtersValuesMacros;
-            if(filters.length > 0 || this.applicantPhoneNumber !== null) {
+            this.isSelected === true ? this.table.style.display = 'block' : this.table.style.display = 'none';
+            if(this.filtersValuesMacros.length > 0 || this.applicantPhoneNumber !== null) {
                 this.textFilterMacros = [];
-                filters.forEach(el => {
-                    this.createFilterMacros(el.code, el.operation, el.value);
-                });
-                let arr = this.textFilterMacros;
-                let str = arr.join(' ');
-                let macrosValue = str.slice(0, -4);
+                this.filtersValuesMacros.forEach(el => this.createFilterMacros(el.code, el.operation, el.value));
+                let macrosValue = this.textFilterMacros.join(' ').slice(0, -4);
                 this.macrosValue = macrosValue === '' ? '1=1' : macrosValue;
                 this.sendMsgForSetFilterPanelState(false);
                 this.config.query.parameterValues = [
@@ -274,12 +302,12 @@
                 this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish({
                     name: 'filters',
-                    value: this.filtersValuesMacros
+                    filters: this.filtersValuesMacros
                 });
             } else{
                 this.messageService.publish({
                     name: 'filters',
-                    value: this.filtersValuesMacros
+                    filters: this.filtersValuesMacros
                 });
             }
         },
@@ -623,45 +651,45 @@
                     const field = this.excelFields[i];
                     const prop = this.excelFields[i].name;
                     switch(prop) {
-                        case 'appeals_user':
-                        case 'appeals_receipt_source':
-                        case 'appeals_district':
-                        case 'zayavnyk_phone_number':
-                        case 'zayavnyk_entrance':
-                        case 'zayavnyk_applicant_privilage':
-                        case 'zayavnyk_social_state':
-                        case 'zayavnyk_sex':
-                        case 'zayavnyk_applicant_type':
-                        case 'zayavnyk_age':
-                        case 'zayavnyk_email':
-                        case 'question_ObjectTypes':
-                        case 'question_organization':
-                        case 'question_question_state':
-                        case 'question_list_state':
-                        case 'assigm_main_executor':
-                        case 'assigm_accountable':
-                        case 'assigm_assignment_state':
-                        case 'assigm_assignment_result':
-                        case 'assigm_assignment_resolution':
-                        case 'assigm_user_reviewed':
-                        case 'assigm_user_checked':
-                        case 'appeals_enter_number':
-                        case 'control_comment':
-                        case 'ConsDocumentContent':
-                            rowItem[prop] = row.values[field.index];
-                            break
-                        case 'transfer_date':
-                        case 'state_changed_date':
-                        case 'state_changed_date_done':
-                        case 'execution_term':
-                        case 'control_date':
-                            rowItem[prop] = this.changeDateTimeValues(row.values[field.index], false);
-                            break
-                        case 'appeals_files_check':
-                            rowItem[prop] = this.setAppealsFilesCheckValue(row.values[field.index]);
-                            break
-                        default:
-                            break
+                    case 'appeals_user':
+                    case 'appeals_receipt_source':
+                    case 'appeals_district':
+                    case 'zayavnyk_phone_number':
+                    case 'zayavnyk_entrance':
+                    case 'zayavnyk_applicant_privilage':
+                    case 'zayavnyk_social_state':
+                    case 'zayavnyk_sex':
+                    case 'zayavnyk_applicant_type':
+                    case 'zayavnyk_age':
+                    case 'zayavnyk_email':
+                    case 'question_ObjectTypes':
+                    case 'question_organization':
+                    case 'question_question_state':
+                    case 'question_list_state':
+                    case 'assigm_main_executor':
+                    case 'assigm_accountable':
+                    case 'assigm_assignment_state':
+                    case 'assigm_assignment_result':
+                    case 'assigm_assignment_resolution':
+                    case 'assigm_user_reviewed':
+                    case 'assigm_user_checked':
+                    case 'appeals_enter_number':
+                    case 'control_comment':
+                    case 'ConsDocumentContent':
+                        rowItem[prop] = row.values[field.index];
+                        break
+                    case 'transfer_date':
+                    case 'state_changed_date':
+                    case 'state_changed_date_done':
+                    case 'execution_term':
+                    case 'control_date':
+                        rowItem[prop] = this.changeDateTimeValues(row.values[field.index], false);
+                        break
+                    case 'appeals_files_check':
+                        rowItem[prop] = this.setAppealsFilesCheckValue(row.values[field.index]);
+                        break
+                    default:
+                        break
                     }
                 }
                 rows.push(rowItem);

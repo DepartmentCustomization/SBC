@@ -30,7 +30,7 @@
         },
         setDataLength: function(message) {
             let dataLength = message.value;
-            document.getElementById('counterWrap').innerText = 'Вcього: ' + dataLength;
+            document.getElementById('counterWrap').innerText = `Вcього: ${dataLength}`;
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
