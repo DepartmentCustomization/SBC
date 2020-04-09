@@ -250,7 +250,7 @@
                 parameterValues: [
                     {
                         key: '@PhoneNumber',
-                        value: this.form.getControlValue('Phone')
+                        value: this.form.getControlValue('1551_Applicant_Phone')
                     }
                 ]
             };
