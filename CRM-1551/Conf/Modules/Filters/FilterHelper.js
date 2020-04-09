@@ -2,6 +2,7 @@ import { Filter } from '/Modules/Filters/Filter.js';
 import { DateTimeFilter } from '/Modules/Filters/DateTimeFilter.js';
 import { SelectFilter } from '/Modules/Filters/SelectFilter.js';
 import { MultiSelectFilter } from '/Modules/Filters/MultiSelectFilter.js';
+import { FilterType } from '/Modules/enums/FilterType.js';
 
 export class FilterHelper {
     getActiveFilters(filters) {
@@ -14,7 +15,7 @@ export class FilterHelper {
                 const placeholder = filter.placeholder;
                 const value = filter.value;
                 switch (type) {
-                    case 'Select': {
+                    case FilterType.Select: {
                         const valueSelect = value.value;
                         const viewValueSelect = value.viewValue;
                         const filterSelect = new SelectFilter(name, placeholder, type, valueSelect, viewValueSelect);

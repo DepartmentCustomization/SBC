@@ -10,7 +10,8 @@
         ,
         displayNone: 'none',
         displayBlock: 'block',
-        init: function() {
+        init: async function() {
+            this.FiltersPackageHelper = await import('/modules/Filters/FiltersPackageHelper.js');
             this.executeQueryShowUserFilterGroups();
             const msg = {
                 name: 'SetFilterPanelState',
@@ -80,29 +81,29 @@
                 this.modalWindowWrapper.style.display = this.displayBlock;
                 const button = message.button;
                 switch (button) {
-                case 'gear': {
-                    const createSAveBtn = true;
-                    this.createButtons(createSAveBtn, this.gearSaveMethod.bind(this));
-                    this.appendModalWindow();
-                    this.createFilterElements();
-                    break;
-                }
-                case 'saveFilters': {
-                    const createSAveBtn = true;
-                    this.createButtons(createSAveBtn, this.saveNewFiltersGroup.bind(this));
-                    this.appendModalWindow();
-                    this.createFiltersGroupNameInput();
-                    break;
-                }
-                case 'showFilters': {
-                    const createSAveBtn = false;
-                    this.createButtons(createSAveBtn);
-                    this.appendModalWindow();
-                    this.showUserFilterGroups();
-                    break;
-                }
-                default:
-                    break;
+                    case 'gear': {
+                        const createSAveBtn = true;
+                        this.createButtons(createSAveBtn, this.gearSaveMethod.bind(this));
+                        this.appendModalWindow();
+                        this.createFilterElements();
+                        break;
+                    }
+                    case 'saveFilters': {
+                        const createSAveBtn = true;
+                        this.createButtons(createSAveBtn, this.saveNewFiltersGroup.bind(this));
+                        this.appendModalWindow();
+                        this.createFiltersGroupNameInput();
+                        break;
+                    }
+                    case 'showFilters': {
+                        const createSAveBtn = false;
+                        this.createButtons(createSAveBtn);
+                        this.appendModalWindow();
+                        this.showUserFilterGroups();
+                        break;
+                    }
+                    default:
+                        break;
                 }
             }
         },
@@ -167,9 +168,9 @@
             this.executeQueryShowUserFilterGroups();
         },
         getFiltersGroupPackage: function() {
-            const package = [];
+            const filterPackage = [];
             this.selectedFilters.forEach(filter => {
-                package.push({
+                filterPackage.push({
                     value: filter.value,
                     type: filter.type,
                     placeholder: filter.placeholder,
@@ -178,7 +179,7 @@
                     timePosition: filter.timePosition
                 })
             })
-            return package
+            return filterPackage;
         },
         showUserFilterGroups: function() {
             const userFiltersGroupContainer = this.createUserFilterGroupsContainer();
@@ -313,11 +314,9 @@
                     value: true
                 }
             };
+            const FiltersPackageHelper = new this.FiltersPackageHelper.FiltersPackageHelper();
+            this.filtersPackage = FiltersPackageHelper.getFiltersPackage(filters);
             this.messageService.publish(msg);
-            this.messageService.publish({
-                name: 'setFilterValue',
-                filters: filters
-            });
             this.hideModalWindow();
             this.hidePagePreloader();
         },
@@ -883,26 +882,26 @@
         getSelectFilterViewValuesObject(filter) {
             const obj = {}
             switch(filter.operation) {
-            case true:
-            case '=':
-                obj.title = filter.placeholder;
-                obj.value = 'Наявнiсть'
-                break;
-            case 'like':
-                obj.title = filter.placeholder;
-                obj.value = filter.value
-                break;
-            case '===':
-            case '==':
-            case 'in':
-            case '+""+':
-                obj.title = filter.placeholder;
-                obj.value = filter.viewValue
-                break
-            default:
-                obj.title = this.operation(filter.operation, filter.placeholder);
-                obj.value = this.changeDateValue(filter.value);
-                break;
+                case true:
+                case '=':
+                    obj.title = filter.placeholder;
+                    obj.value = 'Наявнiсть'
+                    break;
+                case 'like':
+                    obj.title = filter.placeholder;
+                    obj.value = filter.value
+                    break;
+                case '===':
+                case '==':
+                case 'in':
+                case '+""+':
+                    obj.title = filter.placeholder;
+                    obj.value = filter.viewValue
+                    break
+                default:
+                    obj.title = this.operation(filter.operation, filter.placeholder);
+                    obj.value = this.changeDateValue(filter.value);
+                    break;
             }
             return obj;
         },
@@ -927,14 +926,14 @@
         operation: function(operation, title) {
             let result = title;
             switch(operation) {
-            case '>=':
-                result = title + ' з'
-                break;
-            case '<=':
-                result = title + ' по'
-                break;
-            default:
-                break;
+                case '>=':
+                    result = title + ' з'
+                    break;
+                case '<=':
+                    result = title + ' по'
+                    break;
+                default:
+                    break;
             }
             return result;
         },
