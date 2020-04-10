@@ -308,16 +308,18 @@
             this.showPreloader = false;
         },
         getRestoreFilters: function(id) {
-            const filters = this.userFilterGroups.find(f => f.id === id).filters;
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
                     value: true
                 }
             };
-            const FiltersPackageHelper = new this.FiltersPackageHelper.FiltersPackageHelper();
-            this.filtersPackage = FiltersPackageHelper.getFiltersPackage(filters);
             this.messageService.publish(msg);
+            const filters = this.userFilterGroups.find(f => f.id === id).filters;
+            const FiltersPackageHelper = new this.FiltersPackageHelper.FiltersPackageHelper();
+            const filtersPackage = FiltersPackageHelper.getFiltersPackage(filters);
+            this.clearAllFilter();
+            this.applyFilters(filtersPackage);
             this.hideModalWindow();
             this.hidePagePreloader();
         },
@@ -944,7 +946,7 @@
             let yyyy = date.getFullYear().toString();
             dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
-            return dd + '-' + mm + '-' + yyyy;
+            return `${dd}-${mm}-${yyyy}`;
         },
         hideModalWindow() {
             this.clearContainer(this.modalWindow);

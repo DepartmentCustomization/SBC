@@ -31,8 +31,8 @@ export class FiltersPackageHelper {
                         const index = filtersPackage.findIndex(f => f.name === filter.name);
                         const value = new Date(filter.value);
                         properties.value = {
-                            dateFrom: undefined,
-                            dateTo: undefined
+                            dateFrom: '',
+                            dateTo: ''
                         }
                         if (index === -1) {
                             this.setDoubleDateValue(filter, properties.value, value);
