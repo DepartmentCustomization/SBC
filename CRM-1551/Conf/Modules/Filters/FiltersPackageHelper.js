@@ -6,20 +6,26 @@ export class FiltersPackageHelper {
                 name: filter.name,
                 placeholder: filter.placeholder,
                 type: filter.type,
-                active: true
+                active: true,
+                value: undefined
             }
             switch (filter.type) {
                 case 'Select': {
+                    properties.value.value = filter.value;
+                    properties.value.viewValue = filter.viewValue;
+                    filtersPackage.push(properties);
                     break;
                 }
                 case 'MultiSelect': {
+                    properties.value = this.getMultiSelectPackage(filter);
+                    filtersPackage.push(properties);
                     break;
                 }
                 case 'Date':
                 case 'DateTime':
                 case 'Time': {
                     if (filter.timePosition === undefined) {
-                        properties.value = filter.value;
+                        properties.value = new Date(filter.value);
                         filtersPackage.push(properties);
                     } else {
                         const index = filtersPackage.findIndex(f => f.name === filter.name);
@@ -37,11 +43,7 @@ export class FiltersPackageHelper {
                     }
                     break;
                 }
-                case 'CheckBox': {
-                    properties.value = true;
-                    filtersPackage.push(properties);
-                    break;
-                }
+                case 'CheckBox':
                 case 'Input': {
                     properties.value = filter.value;
                     filtersPackage.push(properties);
@@ -51,6 +53,7 @@ export class FiltersPackageHelper {
                     break;
             }
         });
+        debugger;
         return filtersPackage;
     }
 
@@ -61,5 +64,19 @@ export class FiltersPackageHelper {
         if (filter.timePosition === 'dateTo') {
             object.dateTo = value;
         }
+    }
+
+    getMultiSelectPackage(filter) {
+        const multiSelectPackage = [];
+        const values = filter.value.split(', ');
+        const viewValues = filter.viewValue.split(', ');
+        values.forEach((value, index) => {
+            multiSelectPackage.push({
+                value: Number(value),
+                viewValue: viewValues[index],
+                checked: true
+            });
+        });
+        return multiSelectPackage;
     }
 }

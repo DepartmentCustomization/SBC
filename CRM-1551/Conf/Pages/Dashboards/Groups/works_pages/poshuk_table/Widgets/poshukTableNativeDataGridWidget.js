@@ -197,57 +197,57 @@
                     const name = filter.name;
                     const placeholder = filter.placeholder;
                     switch (type) {
-                    case this.filterValueTypes.Input:
-                        if(name === 'zayavnyk_phone_number') {
-                            this.applicantPhoneNumber = value;
-                        }
-                        this.createObjMacros(name, 'like', value, placeholder, value.viewValue, name, filter.type);
-                        break;
-                    case this.filterValueTypes.CheckBox:
-                        this.createObjMacros(name, '=', value, filter.placeholder, name, filter.type);
-                        break;
-                    case this.filterValueTypes.DateTime:
-                    case this.filterValueTypes.Date:
-                        if(value.dateFrom !== '') {
-                            const property = name + '_from';
-                            this.setFilterDateValues(property, value.dateFrom);
-                            this.setMacrosProps(name, '>=', value.dateFrom, placeholder, value.viewValue, filter.type, 'dateFrom');
-                        }
-                        if(value.dateTo !== '') {
-                            const property = name + '_to';
-                            this.setFilterDateValues(property, value.dateTo);
-                            this.setMacrosProps(name, '<=', value.dateTo, placeholder, value.viewValue, filter.type, 'dateTo');
-                        }
-                        break;
-                    case this.filterValueTypes.MultiSelect:
-                        if(name === 'zayavnyk_age') {
-                            const age = [];
-                            let ageSendViewValue = '';
-                            value.forEach(filter => {
-                                let values = filter.viewValue.split('-');
-                                let ageValue = '(zayavnyk_age>=' + values[0] + ' and zayavnyk_age<=' + values[1] + ')';
-                                age.push(ageValue);
-                                ageSendViewValue = ageSendViewValue + ', ' + filter.viewValue;
-                            });
-                            ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
-                            const ageSendValue = '(' + age.join(' or ') + ')';
-                            this.createObjMacros(name, '===', ageSendValue, placeholder, ageSendViewValue, name, filter.type);
-                        }else{
-                            let sumValue = '';
-                            let sumViewValue = '';
-                            if(value.length > 0) {
-                                value.forEach(filter => {
-                                    sumValue = sumValue + ', ' + filter.value;
-                                    sumViewValue = sumViewValue + ', ' + filter.viewValue;
-                                });
+                        case this.filterValueTypes.Input:
+                            if(name === 'zayavnyk_phone_number') {
+                                this.applicantPhoneNumber = value;
                             }
-                            let numberSendValue = sumValue.slice(2, [sumValue.length]);
-                            let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
-                            this.createObjMacros(name, 'in', numberSendValue, placeholder, numberSendViewValue, name, filter.type);
-                        }
-                        break;
-                    default:
-                        break;
+                            this.createObjMacros(name, 'like', value, placeholder, value.viewValue, name, filter.type);
+                            break;
+                        case this.filterValueTypes.CheckBox:
+                            this.createObjMacros(name, '=', value, filter.placeholder, name, filter.type);
+                            break;
+                        case this.filterValueTypes.DateTime:
+                        case this.filterValueTypes.Date:
+                            if(value.dateFrom !== '') {
+                                const property = name + '_from';
+                                this.setFilterDateValues(property, value.dateFrom);
+                                this.setMacrosProps(name, '>=', value.dateFrom, placeholder, value.viewValue, filter.type, 'dateFrom');
+                            }
+                            if(value.dateTo !== '') {
+                                const property = name + '_to';
+                                this.setFilterDateValues(property, value.dateTo);
+                                this.setMacrosProps(name, '<=', value.dateTo, placeholder, value.viewValue, filter.type, 'dateTo');
+                            }
+                            break;
+                        case this.filterValueTypes.MultiSelect:
+                            if(name === 'zayavnyk_age') {
+                                const age = [];
+                                let ageSendViewValue = '';
+                                value.forEach(filter => {
+                                    let values = filter.viewValue.split('-');
+                                    let ageValue = '(zayavnyk_age>=' + values[0] + ' and zayavnyk_age<=' + values[1] + ')';
+                                    age.push(ageValue);
+                                    ageSendViewValue = ageSendViewValue + ', ' + filter.viewValue;
+                                });
+                                ageSendViewValue = ageSendViewValue.slice(2, [ageSendViewValue.length]);
+                                const ageSendValue = '(' + age.join(' or ') + ')';
+                                this.createObjMacros(name, '===', ageSendValue, placeholder, ageSendViewValue, name, filter.type);
+                            }else{
+                                let sumValue = '';
+                                let sumViewValue = '';
+                                if(value.length > 0) {
+                                    value.forEach(filter => {
+                                        sumValue = sumValue + ', ' + filter.value;
+                                        sumViewValue = sumViewValue + ', ' + filter.viewValue;
+                                    });
+                                }
+                                let numberSendValue = sumValue.slice(2, [sumValue.length]);
+                                let numberSendViewValue = sumViewValue.slice(2, [sumViewValue.length]);
+                                this.createObjMacros(name, 'in', numberSendValue, placeholder, numberSendViewValue, name, filter.type);
+                            }
+                            break;
+                        default:
+                            break;
                     }
                 } else if (filter.active === false) {
                     this.filtersWithOutValues += 1;
@@ -348,34 +348,34 @@
             message.value.forEach(function(el) {
                 let column;
                 switch(el.displayValue) {
-                case 'transfer_date':
-                case 'state_changed_date':
-                case 'state_changed_date_done':
-                    column = {
-                        dataField: el.displayValue,
-                        caption: el.caption,
-                        width: 130,
-                        dateType: 'datetime',
-                        format: 'dd.MM.yyy HH.mm'
-                    }
-                    break;
-                case 'appeals_files_check':
-                    column = {
-                        dataField: el.displayValue,
-                        caption: el.caption,
-                        width: el.width,
-                        customizeText: function(cellInfo) {
-                            return this.setAppealsFilesCheckValue(cellInfo.value);
-                        }.bind(this)
-                    }
-                    break;
-                default:
-                    column = {
-                        dataField: el.displayValue,
-                        caption: el.caption,
-                        width: el.width
-                    }
-                    break;
+                    case 'transfer_date':
+                    case 'state_changed_date':
+                    case 'state_changed_date_done':
+                        column = {
+                            dataField: el.displayValue,
+                            caption: el.caption,
+                            width: 130,
+                            dateType: 'datetime',
+                            format: 'dd.MM.yyy HH.mm'
+                        }
+                        break;
+                    case 'appeals_files_check':
+                        column = {
+                            dataField: el.displayValue,
+                            caption: el.caption,
+                            width: el.width,
+                            customizeText: function(cellInfo) {
+                                return this.setAppealsFilesCheckValue(cellInfo.value);
+                            }.bind(this)
+                        }
+                        break;
+                    default:
+                        column = {
+                            dataField: el.displayValue,
+                            caption: el.caption,
+                            width: el.width
+                        }
+                        break;
                 }
                 this.config.columns.push(column);
             }.bind(this));
@@ -651,45 +651,45 @@
                     const field = this.excelFields[i];
                     const prop = this.excelFields[i].name;
                     switch(prop) {
-                    case 'appeals_user':
-                    case 'appeals_receipt_source':
-                    case 'appeals_district':
-                    case 'zayavnyk_phone_number':
-                    case 'zayavnyk_entrance':
-                    case 'zayavnyk_applicant_privilage':
-                    case 'zayavnyk_social_state':
-                    case 'zayavnyk_sex':
-                    case 'zayavnyk_applicant_type':
-                    case 'zayavnyk_age':
-                    case 'zayavnyk_email':
-                    case 'question_ObjectTypes':
-                    case 'question_organization':
-                    case 'question_question_state':
-                    case 'question_list_state':
-                    case 'assigm_main_executor':
-                    case 'assigm_accountable':
-                    case 'assigm_assignment_state':
-                    case 'assigm_assignment_result':
-                    case 'assigm_assignment_resolution':
-                    case 'assigm_user_reviewed':
-                    case 'assigm_user_checked':
-                    case 'appeals_enter_number':
-                    case 'control_comment':
-                    case 'ConsDocumentContent':
-                        rowItem[prop] = row.values[field.index];
-                        break
-                    case 'transfer_date':
-                    case 'state_changed_date':
-                    case 'state_changed_date_done':
-                    case 'execution_term':
-                    case 'control_date':
-                        rowItem[prop] = this.changeDateTimeValues(row.values[field.index], false);
-                        break
-                    case 'appeals_files_check':
-                        rowItem[prop] = this.setAppealsFilesCheckValue(row.values[field.index]);
-                        break
-                    default:
-                        break
+                        case 'appeals_user':
+                        case 'appeals_receipt_source':
+                        case 'appeals_district':
+                        case 'zayavnyk_phone_number':
+                        case 'zayavnyk_entrance':
+                        case 'zayavnyk_applicant_privilage':
+                        case 'zayavnyk_social_state':
+                        case 'zayavnyk_sex':
+                        case 'zayavnyk_applicant_type':
+                        case 'zayavnyk_age':
+                        case 'zayavnyk_email':
+                        case 'question_ObjectTypes':
+                        case 'question_organization':
+                        case 'question_question_state':
+                        case 'question_list_state':
+                        case 'assigm_main_executor':
+                        case 'assigm_accountable':
+                        case 'assigm_assignment_state':
+                        case 'assigm_assignment_result':
+                        case 'assigm_assignment_resolution':
+                        case 'assigm_user_reviewed':
+                        case 'assigm_user_checked':
+                        case 'appeals_enter_number':
+                        case 'control_comment':
+                        case 'ConsDocumentContent':
+                            rowItem[prop] = row.values[field.index];
+                            break
+                        case 'transfer_date':
+                        case 'state_changed_date':
+                        case 'state_changed_date_done':
+                        case 'execution_term':
+                        case 'control_date':
+                            rowItem[prop] = this.changeDateTimeValues(row.values[field.index], false);
+                            break
+                        case 'appeals_files_check':
+                            rowItem[prop] = this.setAppealsFilesCheckValue(row.values[field.index]);
+                            break
+                        default:
+                            break
                     }
                 }
                 rows.push(rowItem);

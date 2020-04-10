@@ -174,11 +174,12 @@
                     value: filter.value,
                     type: filter.type,
                     placeholder: filter.placeholder,
-                    viewValue: this.setFilterViewValues(filter),
+                    viewValue: this.getSelectFilterViewValuesObject(filter).value,
+                    displayValue: this.setFilterViewValues(filter),
                     name: filter.name,
                     timePosition: filter.timePosition
-                })
-            })
+                });
+            });
             return filterPackage;
         },
         showUserFilterGroups: function() {
@@ -271,7 +272,7 @@
                 const filter = this.createElement('div',
                     {
                         className: 'userFilter',
-                        innerText: listItem.viewValue,
+                        innerText: listItem.displayValue,
                         value: listItem.value,
                         type: listItem.type,
                         placeholder: listItem.placeholder,
