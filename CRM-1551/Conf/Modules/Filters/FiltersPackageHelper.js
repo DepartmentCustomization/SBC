@@ -53,7 +53,6 @@ export class FiltersPackageHelper {
                     break;
             }
         });
-        debugger;
         return filtersPackage;
     }
 
