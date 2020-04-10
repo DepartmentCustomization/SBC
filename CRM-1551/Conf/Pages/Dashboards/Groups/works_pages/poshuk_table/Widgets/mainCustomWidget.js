@@ -20,8 +20,8 @@
                 }
             };
             this.messageService.publish(msg);
-            this.sub = this.messageService.subscribe('filters', this.showApplyFiltersValue, this);
-            this.sub1 = this.messageService.subscribe('showModalWindow', this.showModalWindow, this);
+            this.subscribers.push(this.messageService.subscribe('filters', this.showApplyFiltersValue, this));
+            this.subscribers.push(this.messageService.subscribe('showModalWindow', this.showModalWindow, this));
             this.filterColumns = [];
             this.defaultCheckedItem = [];
         },
@@ -968,10 +968,6 @@
         },
         showMyPagePreloader: function() {
             this.showPagePreloader('Зачекайте, застосовуються зміни');
-        },
-        destroy: function() {
-            this.sub.unsubscribe();
-            this.sub1.unsubscribe();
         }
     };
 }());

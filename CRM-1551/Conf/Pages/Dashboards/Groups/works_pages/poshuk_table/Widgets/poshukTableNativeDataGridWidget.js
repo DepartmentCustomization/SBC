@@ -74,9 +74,9 @@
             this.dataGridInstance.height = window.innerHeight - 300;
             this.table = document.getElementById('poshuk_table_main');
             this.table.style.display = 'none';
-            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
-            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
-            this.sub2 = this.messageService.subscribe('findFilterColumns', this.reloadTable, this);
+            this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this));
+            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this));
+            this.subscribers.push(this.messageService.subscribe('findFilterColumns', this.reloadTable, this));
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
@@ -204,7 +204,7 @@
                             this.createObjMacros(name, 'like', value, placeholder, value.viewValue, name, filter.type);
                             break;
                         case this.filterValueTypes.CheckBox:
-                            this.createObjMacros(name, '=', value, filter.placeholder, name, filter.type);
+                            this.createObjMacros(name, '=', value, filter.placeholder, undefined, name, filter.type);
                             break;
                         case this.filterValueTypes.DateTime:
                         case this.filterValueTypes.Date:
@@ -304,7 +304,7 @@
                     name: 'filters',
                     filters: this.filtersValuesMacros
                 });
-            } else{
+            } else {
                 this.messageService.publish({
                     name: 'filters',
                     filters: this.filtersValuesMacros
@@ -748,11 +748,6 @@
             HH = HH.length === 1 ? '0' + HH : HH;
             MM = MM.length === 1 ? '0' + MM : MM;
             return dd + '.' + mm + '.' + yyyy + ' ' + HH + ':' + MM;
-        },
-        destroy: function() {
-            this.sub.unsubscribe();
-            this.sub1.unsubscribe();
-            this.sub2.unsubscribe();
         }
     };
 }());

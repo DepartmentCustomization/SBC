@@ -10,9 +10,9 @@
         init: function() {
             document.getElementById('counter').style.display = 'none';
             this.isSelected = false;
-            this.sub = this.messageService.subscribe('dataLength', this.setDataLength, this);
-            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
-            this.sub2 = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
+            this.subscribers.push(this.messageService.subscribe('dataLength', this.setDataLength, this));
+            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this));
+            this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this));
         },
         setFiltersValue: function(message) {
             let elem = message.package.value.values;
@@ -46,11 +46,6 @@
             const container = document.getElementById('counterContainer');
             const counterWrap = this.createElement('div', { id: 'counterWrap' });
             container.appendChild(counterWrap);
-        },
-        destroy: function() {
-            this.sub.unsubscribe();
-            this.sub1.unsubscribe();
-            this.sub2.unsubscribe();
         }
     };
 }());
