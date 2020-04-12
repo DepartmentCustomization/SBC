@@ -286,17 +286,9 @@
     "Code": "UR_organization_name",
     "Name": "UR_organization_name",
     "Position": 59,
-    "SqlName": "ct.Name",
-    "FilterParameterCode": "@Name",
+    "SqlName": "UR_org.Name",
+    "FilterParameterCode": "@UR_orgName",
     "ReferenceKeyCode": "UR_organization_id"
-  },
-  {
-    "Code": "UR_contact_fio_name",
-    "Name": "UR_contact_fio_name",
-    "Position": 60,
-    "SqlName": "ct.Name",
-    "FilterParameterCode": "@name",
-    "ReferenceKeyCode": "UR_contact_fio"
   },
   {
     "Code": "position_reg",
@@ -376,12 +368,8 @@
     "IsPrintable": false
   },
   {
-    "Code": "UR_number_phone",
-    "Name": "UR_number_phone",
-    "Position": 78,
-    "IsPrintable": false,
-    "SqlName": "UR_phone.Number",
-    "FilterParameterCode": "@UR_phone_num",
-    "ReferenceKeyCode": "UR_number"
+    "Code": "UR_organization",
+    "Name": "UR_organization",
+    "Position": 78
   }
 ]

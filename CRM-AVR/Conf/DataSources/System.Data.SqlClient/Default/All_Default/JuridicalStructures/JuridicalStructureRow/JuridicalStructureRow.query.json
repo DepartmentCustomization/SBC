@@ -1,0 +1,62 @@
+{
+    "ModelType": "Query",
+    "Code": "JuridicalStructureRow",
+    "Name": "JuridicalStructureRow",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "IsAnonymousAccess": false,
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      }
+    ],
+    "Columns": [
+            {
+              "Code": "Id",
+              "Name": "Id",
+              "Position": 1,
+              "IsPrimaryKey": true,
+              "ViewState": "Hidden"
+            },
+            {
+              "Code": "adress_id",
+              "Name": "adress_id",
+              "Position": 2
+            },
+            {
+              "Code": "Number",
+              "Name": "Number",
+              "Position": 3
+            },
+            {
+              "Code": "phone_comment",
+              "Name": "phone_comment",
+              "Position": 4
+            },
+            {
+              "Code": "adress_name",
+              "Name": "adress_name",
+              "Position": 5,
+              "ReferenceKeyCode": "adress_id"
+            },
+            {
+              "Code": "parent_organization_id",
+              "Name": "parent_organization_id",
+              "Position": 6
+            },
+            {
+              "Code": "parent_organization",
+              "Name": "parent_organization",
+              "Position": 7,
+              "ReferenceKeyCode": "parent_organization_id"
+            },
+            {
+              "Code": "organizations_name",
+              "Name": "organizations_name",
+              "Position": 8
+            }
+          ]
+  }

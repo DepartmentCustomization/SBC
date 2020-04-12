@@ -123,12 +123,7 @@
             let exportQuery = {
                 queryCode: this.config.query.code,
                 limit: -1,
-                parameterValues: [
-                    { key: '@organization_id', value: this.orgId},
-                    { key: '@organizationName', value: this.orgName},
-                    { key: '@column', value: this.column},
-                    { key: '@navigation', value: this.navigation}
-                ]
+                parameterValues: this.config.query.parameterValues
             };
             this.queryExecutor(exportQuery, this.myCreateExcel, this);
         },
@@ -323,25 +318,12 @@
         },
         changeDateTimeValues: function(value) {
             let date = new Date(value);
-            let dd = date.getDate();
-            let MM = date.getMonth();
-            let yyyy = date.getFullYear();
-            let HH = date.getUTCHours()
-            let mm = date.getMinutes();
-            MM += 1;
-            if((dd.toString()).length === 1) {
-                dd = '0' + dd;
-            }
-            if((MM.toString()).length === 1) {
-                MM = '0' + MM;
-            }
-            if((HH.toString()).length === 1) {
-                HH = '0' + HH;
-            }
-            if((mm.toString()).length === 1) {
-                mm = '0' + mm;
-            }
-            return dd + '.' + MM + '.' + yyyy;
+            let dd = date.getDate().toString();
+            let mm = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return dd + '.' + mm + '.' + yyyy;
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
@@ -424,7 +406,8 @@
                 this.column = message.column;
                 this.navigation = message.navigation;
                 document.getElementById('table6__ProstrocheniUvagaVRoboti').style.display = 'block';
-                this.config.query.parameterValues = [{ key: '@organization_id', value: message.orgId},
+                this.config.query.parameterValues = [
+                    { key: '@organization_id', value: message.orgId},
                     { key: '@organizationName', value: message.orgName},
                     { key: '@column', value: message.column},
                     { key: '@navigation', value: message.navigation}];

@@ -13,6 +13,7 @@ INSERT INTO [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
       ,[geolocation_lat]
       ,[geolocation_lon]
       ,[SystemIP]
+      ,[external_data_sources_id]
   )
 OUTPUT [inserted].[Id] INTO @output (Id)
 
@@ -27,6 +28,7 @@ OUTPUT [inserted].[Id] INTO @output (Id)
       ,GETUTCDATE()
       ,@geolocation_lat
       ,@geolocation_lon
-      ,@SystemIP;
+      ,@SystemIP
+      ,@external_data_sources_id;
       
 SELECT Id FROM @output;

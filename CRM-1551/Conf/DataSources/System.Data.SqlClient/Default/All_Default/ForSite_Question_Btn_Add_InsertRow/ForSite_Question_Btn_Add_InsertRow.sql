@@ -15,10 +15,34 @@
  declare @Question_Content nvarchar(128)
  declare @entrance nvarchar(128)
  declare @flat nvarchar(128)
-*/ 
+ declare @ApplicantFromSite_Address_Building INT
+ */
 
-DECLARE @output_Appeal TABLE (Id INT) ;
+DECLARE @AppealForSiteAppeal INT = (SELECT
+                                         Appeal_Id
+                                     FROM
+                                       CRM_1551_Site_Integration.dbo.AppealsFromSite
+                                     WHERE Id = @AppealsFromSite_Id);
+DECLARE @QuestionForSiteAppeal INT = (SELECT 
+											Id
+									  FROM dbo.Questions 
+									  WHERE appeal_id = @AppealForSiteAppeal);
 
+IF(@AppealForSiteAppeal IS NOT NULL)
+AND (@QuestionForSiteAppeal IS NOT NULL) 
+BEGIN 
+  RAISERROR(
+  N'У зверненні відбулися зміни, необхідно перезавантажити сторінку',
+  16,
+  1);
+  RETURN; 
+END 
+
+DECLARE @output_Appeal TABLE (Id INT);
+DECLARE @AppealId INT;
+
+IF(@AppealForSiteAppeal IS NULL)
+BEGIN
 INSERT INTO
   [dbo].[Appeals] (
     [registration_date],
@@ -35,52 +59,57 @@ VALUES
     getutcdate(),
     2,
     NULL,
-    getutcdate(), -- @receipt_date
-    getutcdate(), -- @start_date
+    getutcdate(),
+    -- @receipt_date
+    getutcdate(),
+    -- @start_date
     @CreatedByUserId,
-    getutcdate(), -- @edit_date
+    getutcdate(),
+    -- @edit_date
     @CreatedByUserId
-  ) ;
-DECLARE @AppealId INT ;
+  );
 
-SET
+  SET
   @AppealId = (
     SELECT
       TOP 1 Id
     FROM
       @output_Appeal
-  ) ;
+  );
 
-UPDATE
+  UPDATE
   [dbo].[Appeals]
 SET
   registration_number = concat(
     SUBSTRING (rtrim(YEAR(getdate())), 4, 1),
     '-',
-(
+    (
       SELECT
         count(Id)
       FROM
-        dbo.Appeals 
+        dbo.Appeals
       WHERE
         year(Appeals.registration_date) = year(getutcdate())
     )
   )
 WHERE
-  Id = @AppealId ;
+  Id = @AppealId;
 
 UPDATE
   [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
 SET
-  Appeal_Id = @AppealId,
-  AppealFromSiteResultId = 3
-  /*Зареєстровано*/
+  Appeal_Id = @AppealId
 WHERE
-  Id = @AppealsFromSite_Id ;
+  Id = @AppealsFromSite_Id;
+END
+ELSE IF(@AppealForSiteAppeal IS NOT NULL)
+BEGIN 
+	SET @AppealId = @AppealForSiteAppeal;
+END
 
 DECLARE @output_Applicant_Id TABLE (Id INT);
 
-IF (@Applicant_Id IS NULL)
+IF (@Applicant_Id IS NULL) 
 BEGIN
 INSERT INTO
   [dbo].[Applicants] (
@@ -136,7 +165,7 @@ SELECT
   @Applicant_Privilege AS [applicant_privilage_id],
   @ApplicantFromSite_Age AS [birth_year],
   NULL AS [ApplicantAdress],
-  NULL AS [ApplicantFromSiteId] ;
+  NULL AS [ApplicantFromSiteId];
 
 SET
   @Applicant_Id = (
@@ -144,9 +173,11 @@ SET
       TOP 1 Id
     FROM
       @output_Applicant_Id
-  ) ;
+  );
 
-IF (@1551_ApplicantFromSite_Address_Building IS NOT NULL)
+IF (
+  @ApplicantFromSite_Address_Building IS NOT NULL
+) 
 BEGIN
 INSERT INTO
   [dbo].[LiveAddress] (
@@ -161,31 +192,29 @@ INSERT INTO
 VALUES
   (
     @Applicant_Id,
-    @1551_ApplicantFromSite_Address_Building,
+    @ApplicantFromSite_Address_Building,
     NULL,
     @1551_ApplicantFromSite_Address_Entrance,
     @1551_ApplicantFromSite_Address_Flat,
     1,
     1
-  ) ;
+  );
+
 END 
-
 IF object_id('tempdb..#temp_OUT') IS NOT NULL 
-BEGIN
-DROP TABLE #temp_OUT ;
-END
-
+BEGIN 
+  DROP TABLE #temp_OUT ;
+END 
 CREATE TABLE #temp_OUT(
 [ApplicantFromSiteId] INT,
 [MoreContactTypeId] INT,
 [PhoneNumber] NVARCHAR(10)
-) ;
+) WITH (DATA_COMPRESSION = PAGE);
 
 INSERT INTO
   #temp_OUT ([ApplicantFromSiteId], [MoreContactTypeId], [PhoneNumber])
 SELECT
-  DISTINCT 
-  ApplicantFromSiteId,
+  DISTINCT ApplicantFromSiteId,
   MoreContactTypeId,
   RIGHT(PhoneNumber, 10)
 FROM
@@ -199,60 +228,62 @@ WHERE
     WHERE
       Id = @AppealsFromSite_Id
   )
-  AND PhoneNumber IS NOT NULL ;
+  AND PhoneNumber IS NOT NULL;
 
-  IF (
-    SELECT
-      count(1)
-    FROM
-      #temp_OUT) > 0
-      BEGIN 
-	  IF (
-        SELECT
-          count(1)
-        FROM
-          #temp_OUT WHERE MoreContactTypeId = 1) > 0
-          BEGIN
-        INSERT INTO
-          [dbo].[ApplicantPhones] (
-            [applicant_id],
-            [phone_type_id],
-            [phone_number],
-            [IsMain],
-            [CreatedAt]
-          )
-        SELECT
-          @Applicant_Id AS [applicant_id],
-          1 AS [phone_type_id],
-          PhoneNumber AS [phone_number],
-          1 AS [IsMain],
-          getutcdate() AS [CreatedAt]
-        FROM
-          #temp_OUT 
-        WHERE
-          MoreContactTypeId = 1 ;
-      END
-      ELSE 
-    BEGIN
-    INSERT INTO
-      [dbo].[ApplicantPhones] (
-        [applicant_id],
-        [phone_type_id],
-        [phone_number],
-        [IsMain],
-        [CreatedAt]
-      )
-    SELECT
-      @Applicant_Id AS [applicant_id],
-      1 AS [phone_type_id],
-      PhoneNumber AS [phone_number],
-      1 AS [IsMain],
-      getutcdate() AS [CreatedAt]
-    FROM
-      #temp_OUT 
-    WHERE
-      MoreContactTypeId != 1 ;
-  END
+IF (
+  SELECT
+    count(1)
+  FROM
+    #temp_OUT) > 0
+    BEGIN 
+    IF (
+      SELECT
+        count(1)
+      FROM
+        #temp_OUT WHERE MoreContactTypeId = 1) > 0
+        BEGIN
+      INSERT INTO
+        [dbo].[ApplicantPhones] (
+          [applicant_id],
+          [phone_type_id],
+          [phone_number],
+          [IsMain],
+          [CreatedAt]
+        )
+      SELECT
+        @Applicant_Id AS [applicant_id],
+        1 AS [phone_type_id],
+        PhoneNumber AS [phone_number],
+        1 AS [IsMain],
+        getutcdate() AS [CreatedAt]
+      FROM
+        #temp_OUT 
+      WHERE
+        MoreContactTypeId = 1;
+
+END
+ELSE 
+BEGIN
+INSERT INTO
+  [dbo].[ApplicantPhones] (
+    [applicant_id],
+    [phone_type_id],
+    [phone_number],
+    [IsMain],
+    [CreatedAt]
+  )
+SELECT
+  @Applicant_Id AS [applicant_id],
+  1 AS [phone_type_id],
+  PhoneNumber AS [phone_number],
+  1 AS [IsMain],
+  getutcdate() AS [CreatedAt]
+FROM
+  #temp_OUT 
+WHERE
+  MoreContactTypeId != 1;
+
+END
 INSERT INTO
   [dbo].[ApplicantPhones] (
     [applicant_id],
@@ -283,14 +314,18 @@ WHERE
       [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
     WHERE
       Id = @AppealsFromSite_Id
-  ) ;
+  );
 
 DECLARE @output TABLE (Id INT);
-DECLARE @output2 TABLE (Id INT);
-DECLARE @app_id INT;
+
+DECLARE @question_id INT;
+
 DECLARE @assign INT;
+
 DECLARE @getdate DATETIME = getutcdate();
 
+IF(@QuestionForSiteAppeal IS NULL)
+BEGIN
 INSERT INTO
   [dbo].[Questions] (
     [appeal_id],
@@ -323,19 +358,13 @@ INSERT INTO
   output [inserted].[Id] INTO @output (Id)
 SELECT
   @AppealId,
-(
-    concat(
-      SUBSTRING (rtrim(YEAR(getdate())), 4, 1),
-      '-',
-(
-        SELECT
-          count(Id)
-        FROM
-          dbo.Appeals 
-        WHERE
-          year(Appeals.registration_date) = year(getutcdate())
-      )
-    )
+  (
+    SELECT
+      registration_number
+    FROM
+      dbo.Appeals
+    WHERE
+      Id = @AppealId
   ) + N'/' + rtrim(
     (
       SELECT
@@ -408,15 +437,16 @@ SELECT
   @flat -- art
 ,
   @AppealFromSite_geolocation_lat,
-  @AppealFromSite_geolocation_lon ;
+  @AppealFromSite_geolocation_lon;
 
 SET
-  @app_id = (
+  @question_id = (
     SELECT
       TOP 1 Id
     FROM
       @output
-  ) ;
+  );
+
 
 INSERT INTO
   [dbo].[QuestionDocFiles] (
@@ -437,28 +467,37 @@ SELECT
   @CreatedByUserId [edit_user_id],
   [AppealFromSiteFiles].[Name],
   [AppealFromSiteFiles].[File],
-  @app_id [question_id] --,[GUID]
+  @question_id [question_id] --,[GUID]
 FROM
   [CRM_1551_Site_Integration].[dbo].[AppealFromSiteFiles]
 WHERE
-  [AppealFromSiteId] = @AppealsFromSite_Id ;
+  [AppealFromSiteId] = @AppealsFromSite_Id;
+END
 
 UPDATE
   [dbo].[Appeals]
 SET
   [applicant_id] = @applicant_id
 WHERE
-  [Id] = @AppealId ;
-  
-  EXEC [dbo].[sp_CreateAssignment] @app_id,
-  @Question_TypeId,
-  @Question_Building,
-  @Question_Organization,
-  @CreatedByUserId,
-  @Question_ControlDate 
-  ;
+  [Id] = @AppealId;
+
+UPDATE
+  [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
+SET
+  Appeal_Id = @AppealId,
+  AppealFromSiteResultId = 3
+WHERE
+  Id = @AppealsFromSite_Id;
+
+EXEC [dbo].[sp_CreateAssignment] @question_id,
+@Question_TypeId,
+@Question_Building,
+@Question_Organization,
+@CreatedByUserId,
+@Question_ControlDate;
+
 SELECT
   3 AS AppealFromSiteResultId,
   N'Зареєстровано' AS AppealFromSiteResultName,
   @Applicant_Id AS Applicant_Id,
-  @AppealId AS AppealId ;
+  @AppealId AS AppealId;

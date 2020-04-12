@@ -30,9 +30,9 @@ END
 
 IF @contact_type = N'2' 
 BEGIN 
-SET  @contact_id = (SELECT Contacts_ID FROM  dbo.Organizations WHERE Id = @UR_organization_id ) ;  
+SET  @contact_id = NULL ;  
 SET
-	@contact_id_fiz = @UR_contact_fio ;
+	@contact_id_fiz = NULL ;
 END
 
 IF @contact_type = N'1' 
