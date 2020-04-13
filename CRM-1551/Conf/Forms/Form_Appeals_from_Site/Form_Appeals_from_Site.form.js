@@ -199,7 +199,7 @@
                             value: this.form.getControlValue('1551_ApplicantFromSite_Address_Flat')
                         },
                         {
-                            key: '@1551_ApplicantFromSite_Address_Building',
+                            key: '@ApplicantFromSite_Address_Building',
                             value: this.form.getControlValue('ApplicantFromSite_Address_Building')
                         },
                         {
@@ -504,7 +504,7 @@
         SerchApplicant1551:function() {
             const parameters = [
                 { key: '@AppealFromSite_Id', value: this.id },
-                { key: '@BuildingId', value: this.form.getControlValue('ApplicantFromSite_Address_Building') },
+                { key: '@BuildingId', value: this.form.getControlValue('1551_ApplicantFromSite_Address_Building') },
                 { key: '@Flat', value: this.form.getControlValue('1551_ApplicantFromSite_Address_Flat') }
             ];
             const filters = [
