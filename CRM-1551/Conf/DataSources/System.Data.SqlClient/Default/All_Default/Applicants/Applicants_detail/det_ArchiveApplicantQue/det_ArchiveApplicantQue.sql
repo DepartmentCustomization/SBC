@@ -1,4 +1,4 @@
--- DECLARE @ApplicantsId INT = 1692744;
+--  DECLARE @ApplicantsId INT = 27;
 
 DECLARE @Archive NVARCHAR(20) = N'10.192.200.182';
 DECLARE @LocalArchive NVARCHAR(20) = N'DB.UKRODS.CF';
@@ -30,12 +30,18 @@ FROM
   LEFT JOIN Organizations ON Organizations.Id = Assignments.executor_organization_id
 WHERE
   [Applicants].Id = @ApplicantsId
+  AND [Questions].Id NOT IN (SELECT
+								q.Id
+							 FROM dbo.Questions q
+							 INNER JOIN dbo.Appeals a ON a.Id = q.appeal_id
+							 WHERE a.applicant_id = @ApplicantsId)
   AND #filter_columns#
 ORDER BY
   [Questions].[registration_date] 
 OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY ; ' ;
 
- EXEC sp_executesql @Query, N'@ApplicantsId INT, @pageOffsetRows INT, @pageLimitRows INT', 
+ EXEC sp_executesql @Query, N'@ApplicantsId INT, @pageOffsetRows INT, @pageLimitRows INT
+ ', 
 							 @ApplicantsId = @ApplicantsId,
 							 @pageOffsetRows = @pageOffsetRows,
 							 @pageLimitRows = @pageLimitRows;
@@ -63,6 +69,11 @@ FROM
   LEFT JOIN Organizations ON Organizations.Id = Assignments.executor_organization_id
 WHERE
   [Applicants].Id = @ApplicantsId
+  AND [Questions].Id NOT IN (SELECT
+								q.Id
+							 FROM dbo.Questions q
+							 INNER JOIN dbo.Appeals a ON a.Id = q.appeal_id
+							 WHERE a.applicant_id = @ApplicantsId)
   AND #filter_columns#
 ORDER BY
   [Questions].[registration_date] 
