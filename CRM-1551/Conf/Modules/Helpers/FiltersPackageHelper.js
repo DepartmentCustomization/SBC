@@ -11,8 +11,10 @@ export class FiltersPackageHelper {
             }
             switch (filter.type) {
                 case 'Select': {
-                    properties.value.value = filter.value;
-                    properties.value.viewValue = filter.viewValue;
+                    properties.value = {
+                        value: filter.value,
+                        viewValue: filter.viewValue
+                    }
                     filtersPackage.push(properties);
                     break;
                 }
@@ -59,9 +61,11 @@ export class FiltersPackageHelper {
     setDoubleDateValue(filter, object, value) {
         if (filter.timePosition === 'dateFrom') {
             object.dateFrom = value;
+            return;
         }
         if (filter.timePosition === 'dateTo') {
             object.dateTo = value;
+            return;
         }
     }
 

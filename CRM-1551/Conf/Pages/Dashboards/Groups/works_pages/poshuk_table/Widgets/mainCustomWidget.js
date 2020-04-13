@@ -11,7 +11,7 @@
         displayNone: 'none',
         displayBlock: 'block',
         init: async function() {
-            this.FiltersPackageHelper = await import('/modules/Filters/FiltersPackageHelper.js');
+            this.FiltersPackageHelper = await import('/modules/Helpers/FiltersPackageHelper.js');
             this.executeQueryShowUserFilterGroups();
             const msg = {
                 name: 'SetFilterPanelState',

@@ -9,8 +9,9 @@
                 `
         ,
         init: async function() {
-            this.filterHelperModule = await import('/modules/Filters/FilterHelper.js');
-            this.queryHelper = await import('/modules/Filters/QueryHelper.js');
+            this.filterHelperModule = await import('/modules/Helpers/FilterHelper.js');
+            this.queryHelper = await import('/modules/Helpers/QueryHelper.js');
+            this.FiltersPackageHelper = await import('/modules/Helpers/FiltersPackageHelper.js');
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -39,7 +40,25 @@
             modalContainer.appendChild(btn);
             btn.addEventListener('click', () => {
                 this.goToDashboard('StartPage_operator');
-            })
+            });
+            const btnSetFilters = this.createElement('button', {
+                innerText: 'btn Set Filters'
+            });
+            modalContainer.appendChild(btnSetFilters);
+            btnSetFilters.addEventListener('click', () => {
+                const filters = [
+                    {
+                        name: 'rating',
+                        placeholder: 'Рейтинг',
+                        type: 'Select',
+                        value: '2',
+                        viewValue: 'Благоустрій'
+                    }
+                ];
+                const FiltersPackageHelper = new this.FiltersPackageHelper.FiltersPackageHelper();
+                const filtersPackage = FiltersPackageHelper.getFiltersPackage(filters);
+                this.applyFilters(filtersPackage);
+            });
         },
         getFiltersParam: function(message) {
             const filters = message.package.value.values;
@@ -47,9 +66,6 @@
             const activeFilters = filterHelper.getActiveFilters(filters);
             const queryHelper = new this.queryHelper.QueryHelper();
             this.queryParameters = queryHelper.getQueryParameters(filters, activeFilters);
-        },
-        destroy: function() {
-            this.sub.unsubscribe();
         }
     };
 }());
