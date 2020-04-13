@@ -1,4 +1,4 @@
---  DECLARE @Id INT = 1967567;
+  -- DECLARE @Id INT = 2974375;
 
 DECLARE @Archive NVARCHAR(20) = N'10.192.200.182';
 DECLARE @LocalArchive NVARCHAR(20) = N'DB.UKRODS.CF';
@@ -8,9 +8,9 @@ DECLARE @IsHere BIT = IIF(
       SELECT
          COUNT(1)
       FROM
-         dbo.Assignment_History
+         dbo.Assignments
       WHERE
-        assignment_id = @Id
+        Id = @Id
    ) = 0,
    0,
    1
@@ -102,10 +102,10 @@ CASE
           OR t1.short_answer != t2.short_answer
           OR t1.AssignmentResolutionsId != t2.AssignmentResolutionsId
       )
-     AND #filter_columns#
+ --    AND #filter_columns#
     ORDER BY
       [Assignment_History].[Log_Date] DESC 
-  OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
+--  OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
  END
 
 ELSE IF(@IsHere = 0)
@@ -134,7 +134,7 @@ INSERT INTO
 SELECT
   t1.Id
 FROM
-  [dbo].[Assignment_History] AS t1
+  [DB.UKRODS.CF].[CRM_1551_Analitics].[dbo].[Assignment_History] AS t1
 WHERE
   t1.assignment_id = @Id
 ORDER BY
@@ -174,7 +174,7 @@ CASE
       [DB.UKRODS.CF].[CRM_1551_Analitics].[dbo].[Assignment_History]
       LEFT JOIN [DB.UKRODS.CF].[CRM_1551_Analitics].[dbo].Assignments ON Assignments.Id = [Assignment_History].assignment_id
       LEFT JOIN [#system_database_name#].[dbo].[User] AS [User] ON [User].UserId = [Assignment_History].[Log_User]
-	--  LEFT JOIN CRM_1551_System.[dbo].[User] AS [User] ON [User].UserId = [Assignment_History].[Log_User]
+	  --LEFT JOIN CRM_1551_System.[dbo].[User] AS [User] ON [User].UserId = [Assignment_History].[Log_User]
     WHERE
       [Assignment_History].[assignment_id] = @Id
       AND [Assignment_History].Id IN (
@@ -233,7 +233,7 @@ INSERT INTO
 SELECT
   t1.Id
 FROM
-  [dbo].[Assignment_History] AS t1
+  [10.192.200.182].[CRM_1551_Analitics].[dbo].[Assignment_History] AS t1
 WHERE
   t1.assignment_id = @Id
 ORDER BY
@@ -273,7 +273,7 @@ CASE
       [10.192.200.182].[CRM_1551_Analitics].[dbo].[Assignment_History]
       LEFT JOIN [10.192.200.182].[CRM_1551_Analitics].[dbo].Assignments ON Assignments.Id = [Assignment_History].assignment_id
       LEFT JOIN [#system_database_name#].[dbo].[User] AS [User] ON [User].UserId = [Assignment_History].[Log_User]
-	--  LEFT JOIN CRM_1551_System.[dbo].[User] AS [User] ON [User].UserId = [Assignment_History].[Log_User]
+	  --LEFT JOIN CRM_1551_System.[dbo].[User] AS [User] ON [User].UserId = [Assignment_History].[Log_User]
     WHERE
       [Assignment_History].[assignment_id] = @Id
       AND [Assignment_History].Id IN (
