@@ -65,7 +65,6 @@ export class FiltersPackageHelper {
         }
         if (filter.timePosition === 'dateTo') {
             object.dateTo = value;
-            return;
         }
     }
 

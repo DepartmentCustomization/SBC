@@ -1,4 +1,4 @@
-import { SelectFilter } from '/Modules/Filters/SelectFilter.js';
+import { SelectFilter } from '/Modules/Models/Filters/SelectFilter.js';
 
 export class MultiSelectFilter extends SelectFilter {
     constructor(name, placeholder, type, values) {

@@ -1,4 +1,4 @@
-import { Filter } from '/modules/Filters/Filter.js';
+import { Filter } from '/modules/Models/Filters/Filter.js';
 
 export class SelectFilter extends Filter {
     constructor(name, placeholder, type, value, viewValue) {

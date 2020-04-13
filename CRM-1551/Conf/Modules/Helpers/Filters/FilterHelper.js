@@ -1,7 +1,7 @@
-import { Filter } from '/Modules/Filters/Filter.js';
-import { DateTimeFilter } from '/Modules/Filters/DateTimeFilter.js';
-import { SelectFilter } from '/Modules/Filters/SelectFilter.js';
-import { MultiSelectFilter } from '/Modules/Filters/MultiSelectFilter.js';
+import { Filter } from '/Modules/Models/Filters/Filter.js';
+import { DateTimeFilter } from '/Modules/Models/Filters/DateTimeFilter.js';
+import { SelectFilter } from '/Modules/Models/Filters/SelectFilter.js';
+import { MultiSelectFilter } from '/Modules/Models/Filters/MultiSelectFilter.js';
 
 export class FilterHelper {
     getActiveFilters(filters) {
