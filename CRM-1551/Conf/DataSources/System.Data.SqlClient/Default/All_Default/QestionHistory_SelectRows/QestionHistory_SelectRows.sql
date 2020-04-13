@@ -8,9 +8,9 @@ DECLARE @IsHere BIT = IIF(
       SELECT
          COUNT(1)
       FROM
-         dbo.Question_History
+         dbo.Questions
       WHERE
-        question_id = @question_id
+        Id = @question_id
    ) = 0,
    0,
    1
