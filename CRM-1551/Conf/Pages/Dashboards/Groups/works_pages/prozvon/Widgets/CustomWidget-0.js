@@ -46,9 +46,7 @@
                 this.comment = '';
                 this.checkBoxChecked = '';
                 this.selectedRows = [];
-                message.value.forEach(el => {
-                    this.selectedRows.push(el);
-                });
+                message.value.forEach(el => this.selectedRows.push(el));
                 const button_close = this.createElement('button', { id: 'button_close', className: 'modalBtn', innerText: 'Закрити' });
                 const button_save = this.createElement('button', { id: 'button_save', className: 'modalBtn', innerText: 'Зберегти' });
                 const buttonWrapper = this.createElement('div', { id: 'buttonWrapper' }, button_close, button_save);
@@ -138,33 +136,31 @@
         },
         showHiddenElements: function(resultId, button_save) {
             let resolutionInnerText;
-            let resolutionId;
             button_save.disabled = false;
             switch (resultId) {
             case 4:
-                resolutionId = 9;
+                this.resolutionId = 9;
                 resolutionInnerText = 'Підтверджено заявником';
                 break;
             case 5:
             case 10:
             case 12:
-                resolutionId = 8;
+                this.resolutionId = 8;
                 resolutionInnerText = 'Виконання не підтверджено заявником ';
                 break;
             case 7:
-                resolutionId = 6;
+                this.resolutionId = 6;
                 resolutionInnerText = 'Перевірено куратором';
                 break;
             case 11:
-                resolutionId = 10;
+                this.resolutionId = 10;
                 resolutionInnerText = 'Заявник усунув проблему власними силами';
                 break;
             default:
                 break;
             }
-            this.resolutionId = resolutionId;
             document.getElementById('resolution__value').innerText = resolutionInnerText;
-            document.getElementById('resolution__value').resolutionId = resolutionId;
+            document.getElementById('resolution__value').resolutionId = this.resolutionId;
             switch (resultId) {
             case 4:
                 document.getElementById('assigmComment').classList.remove('displayNone');
@@ -239,20 +235,7 @@
                 case 11:
                 case 12:
                     if (this.resolutionId !== '' && this.resolutionId !== undefined) {
-                        let executeQuery = {
-                            queryCode: 'Prozvon_Close_v2',
-                            limit: -1,
-                            parameterValues: [
-                                { key: '@Id', value: row.id },
-                                { key: '@organization_id', value: row.organization_id },
-                                { key: '@assignment_resolution_id', value: this.resolutionId },
-                                { key: '@control_result_id', value: this.resultId },
-                                { key: '@control_comment', value: this.comment },
-                                { key: '@grade', value: this.checkBoxChecked }
-                            ]
-                        };
-                        this.queryExecutor(executeQuery, this.changeRowsCounter.bind(this, modalContainer), this);
-                        this.showPreloader = false;
+                        this.executeProzvonClose(row.id, row.organization_id, this.resolutionId, modalContainer);
                     }
                     break
                 case '':
@@ -260,24 +243,27 @@
                 case 13:
                 default:
                     if (this.resultId !== '' && this.resultId !== undefined) {
-                        let executeQuery = {
-                            queryCode: 'Prozvon_Close_v2',
-                            limit: -1,
-                            parameterValues: [
-                                { key: '@Id', value: row.id },
-                                { key: '@organization_id', value: null },
-                                { key: '@assignment_resolution_id', value: null },
-                                { key: '@control_result_id', value: this.resultId },
-                                { key: '@control_comment', value: this.comment },
-                                { key: '@grade', value: this.checkBoxChecked }
-                            ]
-                        };
-                        this.queryExecutor(executeQuery, this.changeRowsCounter.bind(this, modalContainer), this);
-                        this.showPreloader = false;
+                        this.executeProzvonClose(row.id, null, null, modalContainer);
                     }
                     break
                 }
             });
+        },
+        executeProzvonClose: function(id, organization_id, assignment_resolution_id, modalContainer) {
+            let executeQuery = {
+                queryCode: 'Prozvon_Close_v2',
+                limit: -1,
+                parameterValues: [
+                    { key: '@Id', value: id },
+                    { key: '@organization_id', value: organization_id },
+                    { key: '@assignment_resolution_id', value: assignment_resolution_id },
+                    { key: '@control_result_id', value: this.resultId },
+                    { key: '@control_comment', value: this.comment },
+                    { key: '@grade', value: this.checkBoxChecked }
+                ]
+            };
+            this.queryExecutor(executeQuery, this.changeRowsCounter.bind(this, modalContainer), this);
+            this.showPreloader = false;
         },
         changeRowsCounter: function(modalContainer, result) {
             if(result.rows.length) {
