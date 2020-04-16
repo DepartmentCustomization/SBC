@@ -904,16 +904,16 @@
         },
         setDateTimeValues: function() {
             let date = new Date();
-            let DD = date.getDate().toString();
-            let MM = (date.getMonth() + 1).toString();
-            let YYYY = date.getFullYear().toString();
-            let hh = date.getHours().toString();
-            let mm = date.getMinutes().toString();
-            DD = DD.length === 1 ? '0' + DD : DD;
-            MM = MM.length === 1 ? '0' + MM : MM;
-            hh = hh.length === 1 ? '0' + hh : hh;
+            let dd = date.getDate().toString();
+            let mm = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            let HH = date.getHours().toString();
+            let MM = date.getMinutes().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
             mm = mm.length === 1 ? '0' + mm : mm;
-            return YYYY + '-' + MM + '-' + DD + 'T' + hh + ':' + mm;
+            HH = HH.length === 1 ? '0' + HH : HH;
+            MM = MM.length === 1 ? '0' + MM : MM;
+            return `${yyyy}-${mm}-${dd}T${HH}:${MM}`;
         },
         setDateTimeDefaultValue: function() {
             this.accidentDateTimeValue = this.setDateTimeValues();

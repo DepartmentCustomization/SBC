@@ -747,7 +747,7 @@
             mm = mm.length === 1 ? '0' + mm : mm;
             HH = HH.length === 1 ? '0' + HH : HH;
             MM = MM.length === 1 ? '0' + MM : MM;
-            return dd + '.' + mm + '.' + yyyy + ' ' + HH + ':' + MM;
+            return `${dd}.${mm}.${yyyy} ${HH}:${MM}`;
         }
     };
 }());
