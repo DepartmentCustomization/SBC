@@ -164,54 +164,54 @@
         },
         getResolutionId: function(resultId) {
             switch (resultId) {
-            case 4:
-                this.resolutionId = 9;
-                return 'Підтверджено заявником';
-            case 5:
-            case 10:
-            case 12:
-                this.resolutionId = 8;
-                return 'Виконання не підтверджено заявником ';
-            case 7:
-                this.resolutionId = 6;
-                return 'Перевірено куратором';
-            case 11:
-                this.resolutionId = 10;
-                return 'Заявник усунув проблему власними силами';
-            default:
-                return undefined
+                case 4:
+                    this.resolutionId = 9;
+                    return 'Підтверджено заявником';
+                case 5:
+                case 10:
+                case 12:
+                    this.resolutionId = 8;
+                    return 'Виконання не підтверджено заявником ';
+                case 7:
+                    this.resolutionId = 6;
+                    return 'Перевірено куратором';
+                case 11:
+                    this.resolutionId = 10;
+                    return 'Заявник усунув проблему власними силами';
+                default:
+                    return undefined
             }
         },
         showHideModalElements: function(resultId) {
             switch (resultId) {
-            case 4:
-                this.showElement('templateResultWrapper');
-                this.showElement('assigmComment');
-                this.showElement('assigmResolution');
-                this.showElement('assigmRating');
-                break;
-            case 5:
-            case 7:
-            case 10:
-            case 11:
-            case 12:
-                this.showElement('templateResultWrapper');
-                this.showElement('assigmComment');
-                this.showElement('assigmResolution');
-                this.hideElement('assigmRating');
-                break;
-            case 13:
-                this.showElement('templateResultWrapper');
-                this.showElement('assigmComment');
-                this.hideElement('assigmResolution');
-                this.hideElement('assigmRating');
-                break;
-            default:
-                this.hideElement('templateResultWrapper');
-                this.hideElement('assigmComment');
-                this.hideElement('assigmResolution');
-                this.hideElement('assigmRating');
-                break;
+                case 4:
+                    this.showElement('templateResultWrapper');
+                    this.showElement('assigmComment');
+                    this.showElement('assigmResolution');
+                    this.showElement('assigmRating');
+                    break;
+                case 5:
+                case 7:
+                case 10:
+                case 11:
+                case 12:
+                    this.showElement('templateResultWrapper');
+                    this.showElement('assigmComment');
+                    this.showElement('assigmResolution');
+                    this.hideElement('assigmRating');
+                    break;
+                case 13:
+                    this.showElement('templateResultWrapper');
+                    this.showElement('assigmComment');
+                    this.hideElement('assigmResolution');
+                    this.hideElement('assigmRating');
+                    break;
+                default:
+                    this.hideElement('templateResultWrapper');
+                    this.hideElement('assigmComment');
+                    this.hideElement('assigmResolution');
+                    this.hideElement('assigmRating');
+                    break;
             }
         },
         hideElement: function(id) {
@@ -253,24 +253,24 @@
                 });
                 this.comment = document.getElementById('assigmComment').value;
                 switch (this.resultId) {
-                case 4:
-                case 5:
-                case 7:
-                case 10:
-                case 11:
-                case 12:
-                    if (this.resolutionId !== '' && this.resolutionId !== undefined) {
-                        this.executeProzvonClose(row.id, row.organization_id, this.resolutionId, modalContainer);
-                    }
-                    break
-                case '':
-                    break
-                case 13:
-                default:
-                    if (this.resultId !== '' && this.resultId !== undefined) {
-                        this.executeProzvonClose(row.id, null, null, modalContainer);
-                    }
-                    break
+                    case 4:
+                    case 5:
+                    case 7:
+                    case 10:
+                    case 11:
+                    case 12:
+                        if (this.resolutionId !== '' && this.resolutionId !== undefined) {
+                            this.executeProzvonClose(row.id, row.organization_id, this.resolutionId, modalContainer);
+                        }
+                        break
+                    case '':
+                        break
+                    case 13:
+                    default:
+                        if (this.resultId !== '' && this.resultId !== undefined) {
+                            this.executeProzvonClose(row.id, null, null, modalContainer);
+                        }
+                        break
                 }
             });
         },
