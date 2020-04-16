@@ -11,6 +11,7 @@
             this.sessionTime = 'Session_' + initTime;
             this.closingResult = [];
             this.resultsValues = [];
+            this.templateSelectValues = [];
             this.rowsId = '';
             this.resolutionId = '';
             this.resultId = '';
@@ -18,24 +19,27 @@
             this.checkBoxChecked = '';
             this.sub = this.messageService.subscribe('openModalForm', this.openModalForm, this);
             this.sub1 = this.messageService.subscribe('sortingArr', this.showSortingArr, this);
-            let executeQueryAssigmResult = {
-                queryCode: 'Prozvon_ResultSelect_Pr_v2',
+            this.executeSelectResultQuery('Prozvon_ResultSelect_Pr_v2', this.resultsValues);
+            this.executeSelectResultQuery('Prozvon_ControlComments_SRows', this.templateSelectValues);
+        },
+        executeSelectResultQuery: function(code, array) {
+            let executeQuery = {
+                queryCode: code,
                 limit: -1,
                 parameterValues: [
                     { key: '@pageOffsetRows', value: 1 },
                     { key: '@pageLimitRows', value: 10 }
                 ]
             };
-            this.queryExecutor(executeQueryAssigmResult, this.setResultsId, this);
+            this.queryExecutor(executeQuery, this.setResultsId.bind(this, array), this);
             this.showPreloader = false;
         },
-        setResultsId: function(data) {
+        setResultsId: function(array, data) {
             data.rows.forEach(el => {
-                let obj = {
+                array.push({
                     innerText: el.values[1],
                     value: el.values[0]
-                }
-                this.resultsValues.push(obj);
+                });
             });
         },
         openModalForm: function(message) {
@@ -48,9 +52,10 @@
                 this.selectedRows = [];
                 message.value.forEach(el => this.selectedRows.push(el));
                 const button_close = this.createElement('button', { id: 'button_close', className: 'modalBtn', innerText: 'Закрити' });
-                const button_save = this.createElement('button', { id: 'button_save', className: 'modalBtn', innerText: 'Зберегти' });
+                const button_save = this.createElement('button',
+                    { id: 'button_save', className: 'modalBtn', innerText: 'Зберегти', disabled: true }
+                );
                 const buttonWrapper = this.createElement('div', { id: 'buttonWrapper' }, button_close, button_save);
-                button_save.disabled = true;
                 const resultSelectOption = this.createElement('option', { innerText: '', value: 0 });
                 const resultSelect = this.createElement('select',
                     { id: 'resultSelect', className: 'resultSelect selectItem js-example-basic-single' },
@@ -98,11 +103,25 @@
                     { id: 'assigmResolution', className: 'displayNone assigmResultWrapper' },
                     assigmResolutionTitle, assigmResolution
                 );
+                const templateSelectOption = this.createElement('option', { innerText: '', value: 0 });
+                const templateSelect = this.createElement('select',
+                    { id: 'templateSelect', className: 'resultSelect selectItem js-example-basic-single' },
+                    templateSelectOption
+                );
+                const templateResult = this.createElement('div',
+                    { id: 'templateResult', className: 'modalItem' },
+                    templateSelect
+                );
+                const templateResultTitle = this.createElement('span', { className: 'caption', innerText: 'Шаблон' });
+                const templateResultWrapper = this.createElement('div',
+                    { id: 'templateResultWrapper', className: 'displayNone assigmResultWrapper' },
+                    templateResultTitle, templateResult
+                );
                 const assigmComment = this.createElement('input',
                     { type: 'text', id: 'assigmComment', className: 'displayNone modalItem', placeholder: 'Коментар перевіряючого' }
                 );
                 const modalWindow = this.createElement('div', { id: 'modalWindow' },
-                    assigmResultWrapper, assigmResolutionWrapper, assigmRating, assigmComment, buttonWrapper
+                    assigmResultWrapper, assigmResolutionWrapper, assigmRating, templateResultWrapper, assigmComment, buttonWrapper
                 );
                 const modalWrapper = this.createElement('div', { id: 'modalWrapper' }, modalWindow);
                 modalContainer.appendChild(modalWrapper);
@@ -117,98 +136,104 @@
                     target.style.backgroundColor = '#cfcbcb';
                     this.sendResult(modalContainer);
                 });
-                this.showAssigmResult(resultSelect, button_save, this.resultsValues, this);
-                this.showPreloader = false;
+                this.setOptions(resultSelect, this.resultsValues, this);
+                this.setOptions(templateSelect, this.templateSelectValues, this);
+                $('#resultSelect').on('select2:select', e => {
+                    e.stopImmediatePropagation();
+                    this.resultId = Number(e.params.data.id);
+                    this.showHiddenElements(this.resultId, button_save);
+                });
+                $('#templateSelect').on('select2:select', e => {
+                    e.stopImmediatePropagation();
+                    assigmComment.value = e.params.data.text;
+                });
             }
         },
-        showAssigmResult: function(select, button_save, data) {
+        setOptions: function(select, data) {
             data.forEach(el => {
                 let option = this.createElement('option', { innerText: el.innerText, value: el.value, className: 'option' });
                 select.appendChild(option);
             });
             this.createOptions();
-            $('#resultSelect').on('select2:select', function(e) {
-                e.stopImmediatePropagation();
-                let resultId = Number(e.params.data.id);
-                this.resultId = resultId;
-                this.showHiddenElements(resultId, button_save);
-            }.bind(this));
         },
         showHiddenElements: function(resultId, button_save) {
-            let resolutionInnerText;
             button_save.disabled = false;
+            this.showHideModalElements(resultId);
+            document.getElementById('resolution__value').innerText = this.getResolutionId(resultId);
+            document.getElementById('resolution__value').resolutionId = this.resolutionId;
+        },
+        getResolutionId: function(resultId) {
             switch (resultId) {
             case 4:
                 this.resolutionId = 9;
-                resolutionInnerText = 'Підтверджено заявником';
-                break;
+                return 'Підтверджено заявником';
             case 5:
             case 10:
             case 12:
                 this.resolutionId = 8;
-                resolutionInnerText = 'Виконання не підтверджено заявником ';
-                break;
+                return 'Виконання не підтверджено заявником ';
             case 7:
                 this.resolutionId = 6;
-                resolutionInnerText = 'Перевірено куратором';
-                break;
+                return 'Перевірено куратором';
             case 11:
                 this.resolutionId = 10;
-                resolutionInnerText = 'Заявник усунув проблему власними силами';
-                break;
+                return 'Заявник усунув проблему власними силами';
             default:
-                break;
+                return undefined
             }
-            document.getElementById('resolution__value').innerText = resolutionInnerText;
-            document.getElementById('resolution__value').resolutionId = this.resolutionId;
+        },
+        showHideModalElements: function(resultId) {
             switch (resultId) {
             case 4:
-                document.getElementById('assigmComment').classList.remove('displayNone');
-                document.getElementById('assigmResolution').classList.remove('displayNone');
-                document.getElementById('assigmRating').classList.remove('displayNone');
+                this.showElement('templateResultWrapper');
+                this.showElement('assigmComment');
+                this.showElement('assigmResolution');
+                this.showElement('assigmRating');
                 break;
             case 5:
             case 7:
             case 10:
             case 11:
             case 12:
-                document.getElementById('assigmComment').classList.remove('displayNone');
-                document.getElementById('assigmResolution').classList.remove('displayNone');
-                document.getElementById('assigmRating').classList.add('displayNone');
+                this.showElement('templateResultWrapper');
+                this.showElement('assigmComment');
+                this.showElement('assigmResolution');
+                this.hideElement('assigmRating');
                 break;
             case 13:
-                document.getElementById('assigmComment').classList.remove('displayNone');
-                document.getElementById('assigmResolution').classList.add('displayNone');
-                document.getElementById('assigmRating').classList.add('displayNone');
+                this.showElement('templateResultWrapper');
+                this.showElement('assigmComment');
+                this.hideElement('assigmResolution');
+                this.hideElement('assigmRating');
                 break;
             default:
-                document.getElementById('assigmComment').classList.add('displayNone');
-                document.getElementById('assigmResolution').classList.add('displayNone');
-                document.getElementById('assigmRating').classList.add('displayNone');
+                this.hideElement('templateResultWrapper');
+                this.hideElement('assigmComment');
+                this.hideElement('assigmResolution');
+                this.hideElement('assigmRating');
                 break;
             }
+        },
+        hideElement: function(id) {
+            document.getElementById(id).classList.add('displayNone');
+        },
+        showElement: function(id) {
+            document.getElementById(id).classList.remove('displayNone');
         },
         showSortingArr: function(message) {
             this.sortingArr = message.arr;
         },
         sendResult: function(modalContainer) {
-            let sortArr = this.sortingArr;
-            let sendString;
-            if (sortArr) {
-                let sortingString = '';
-                sortArr.forEach(el => {
-                    let string = el.name + ' ' + el.value + ', ';
-                    sortingString = sortingString + string;
-                });
-                sendString = sortingString.slice(0, -2);
+            if (this.sortingArr) {
+                const a = [];
+                this.sortingArr.forEach(el => a.push(`${el.name} ${el.value}`));
+                this.sendSortValue = a.join(', ');
             } else {
-                sendString = '1=1';
+                this.sendSortValue = '1=1';
             }
-            this.sendString = sendString;
-            let selectedRows = this.selectedRows;
-            this.selectedRowsLength = selectedRows.length;
             this.rowsCounter = 0;
-            selectedRows.forEach(row => {
+            this.selectedRowsLength = this.selectedRows.length;
+            this.selectedRows.forEach(row => {
                 let executeQuerySessionTime = {
                     queryCode: 'ak_CallLogging_v2',
                     limit: -1,
@@ -267,11 +292,10 @@
         },
         changeRowsCounter: function(modalContainer, result) {
             if(result.rows.length) {
-                let obj = {
+                this.closingResult.push({
                     number: result.rows[0].values[0],
                     result: result.rows[0].values[1]
-                }
-                this.closingResult.push(obj);
+                });
                 this.rowsCounter++;
                 if (this.rowsCounter === this.selectedRowsLength) {
                     modalContainer.removeChild(modalContainer.firstElementChild);
@@ -279,7 +303,7 @@
                         this.showResultWrapper(this.closingResult, modalContainer);
                     } else {
                         this.closingResult = [];
-                        this.messageService.publish({ name: 'reloadMainTable', sortingString: this.sendString });
+                        this.messageService.publish({ name: 'reloadMainTable', sortingString: this.sendSortValue });
                     }
                 }
             }
@@ -325,7 +349,7 @@
                 event.stopImmediatePropagation();
                 this.closingResult = [];
                 modalContainer.removeChild(modalContainer.firstElementChild);
-                this.messageService.publish({ name: 'reloadMainTable', sortingString: this.sendString });
+                this.messageService.publish({ name: 'reloadMainTable', sortingString: this.sendSortValue });
             });
         },
         createOptions: function() {

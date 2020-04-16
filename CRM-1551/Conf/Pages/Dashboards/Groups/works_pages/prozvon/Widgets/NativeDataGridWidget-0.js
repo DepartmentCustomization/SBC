@@ -126,7 +126,7 @@
                 limit: -1,
                 parameterValues: []
             };
-            this.queryExecutor(executeQuery, this.showUser, this);
+            this.queryExecutor(executeQuery, this.setUserPhoneNumber, this);
             this.showPreloader = false;
             this.sortingArr = [];
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
@@ -156,8 +156,10 @@
                     }
                 }
             }.bind(this));
-            this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
-                { key: '@sort', value: this.sort }];
+            this.config.query.parameterValues = [
+                { key: '@filter', value: this.macrosValue },
+                { key: '@sort', value: this.sort }
+            ];
             this.loadData(this.afterLoadDataHandler);
         },
         onOptionChanged: function(args) {
@@ -219,9 +221,9 @@
                 }
             }
         },
-        showUser: function(data) {
+        setUserPhoneNumber: function(data) {
             const indexPhoneNumber = data.columns.findIndex(el => el.code.toLowerCase() === 'phonenumber');
-            this.userPhoneNumber = data.rows[0].values[indexPhoneNumber]
+            this.userPhoneNumber = data.rows[0].values[indexPhoneNumber];
         },
         openModalCloserForm: function() {
             let rowsMessage = [];
@@ -234,7 +236,7 @@
                 }
                 rowsMessage.push(obj);
             });
-            if(selectedRows.length > 0) {
+            if (selectedRows.length) {
                 this.messageService.publish({ name: 'openModalForm', value: rowsMessage });
             }
         },
@@ -496,65 +498,46 @@
         createFilterMacros: function(code, operation, currentDate) {
             let textMacros = '';
             if(operation === 'like') {
-                textMacros = String(code) + ' ' + operation + ' \'%' + currentDate + '%\' and';
+                textMacros = `${String(code)} ${operation} '%${currentDate}%'`;
             }else if(operation === '===') {
-                textMacros = String(currentDate) + ' and';
+                textMacros = `${String(currentDate)}`;
             }else if(operation === '==') {
-                textMacros = String(code) + ' ' + '=' + ' ' + currentDate + ' and';
+                textMacros = `${String(code)} = ${currentDate}`;
             }else if(operation === '+""+') {
-                textMacros = String(code) + ' in  (N\'' + currentDate + '\' and';
+                textMacros = `${String(code)} in  (N'${currentDate}'`;
             }else if(operation === 'in') {
-                textMacros = String(code) + ' in (' + currentDate + ') and';
+                textMacros = `${String(code)} in (${currentDate})`;
             }else if(operation === '=') {
-                textMacros = String(code) + ' ' + operation + ' N\'' + currentDate + '\' and';
+                textMacros = `${String(code)} ${operation} N'${currentDate}'`;
             }else if(operation === '>=' || operation === '<=') {
-                let year = currentDate.getFullYear();
-                let month = currentDate.getMonth() + 1;
-                let date = currentDate.getDate();
-                let hours = currentDate.getHours();
-                let minutes = currentDate.getMinutes();
-                date = String(date);
-                month = String(month);
-                hours = String(hours);
-                minutes = String(minutes);
-                month = month.length === 1 ? '0' + month : month;
-                date = date.length === 1 ? '0' + date : date;
-                hours = hours.length === 1 ? '0' + hours : hours;
-                minutes = minutes.length === 1 ? '0' + minutes : minutes;
-                let value = String(String(year) + '-' + month + '-' + date + ' ' + hours + ':' + minutes);
-                textMacros = String(code) + ' ' + operation + ' N\'' + value + '\' and';
+                let dd = currentDate.getDate().toString();
+                let mm = (currentDate.getMonth() + 1).toString();
+                let yyyy = currentDate.getFullYear().toString();
+                let HH = currentDate.getHours().toString();
+                let MM = currentDate.getMinutes().toString();
+                dd = dd.length === 1 ? '0' + dd : dd;
+                mm = mm.length === 1 ? '0' + mm : mm;
+                HH = HH.length === 1 ? '0' + HH : HH;
+                MM = MM.length === 1 ? '0' + MM : MM;
+                const time = `${yyyy}-${mm}-${dd} ${HH}:${MM}`;
+                textMacros = `${String(code)} ${operation} N'${time}'`;
             }
             this.textFilterMacros.push(textMacros);
         },
         findAllCheckedFilter: function() {
-            let filters = this.filtersValuesMacros;
-            if(filters.length > 0) {
+            this.sendMsgForSetFilterPanelState(false);
+            if(this.filtersValuesMacros.length) {
                 this.textFilterMacros = [];
-                filters.forEach(function(el) {
-                    this.createFilterMacros(el.code, el.operation, el.value);
-                }.bind(this));
-                let arr = this.textFilterMacros;
-                let str = arr.join(' ');
-                let macrosValue = str.slice(0, -4);
-                this.macrosValue = macrosValue;
-                this.messageService.publish({
-                    name: 'filters',
-                    value: this.filtersValuesMacros
-                });
-                this.sendMsgForSetFilterPanelState(false);
-                this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
-                    { key: '@sort', value: this.sort }];
-                this.loadData(this.afterLoadDataHandler);
+                this.filtersValuesMacros.forEach(filter => this.createFilterMacros(filter.code, filter.operation, filter.value));
+                this.macrosValue = this.textFilterMacros.join(' and ');
             }else{
                 this.macrosValue = '1=1';
-                this.config.query.parameterValues = [ { key: '@filter', value: this.macrosValue },
-                    { key: '@sort', value: this.sort }];
-                this.loadData(this.afterLoadDataHandler);
-                this.messageService.publish({
-                    name: 'filters',
-                    value: this.filtersValuesMacros
-                });
             }
+            this.config.query.parameterValues = [
+                { key: '@filter', value: this.macrosValue },
+                { key: '@sort', value: this.sort }
+            ];
+            this.loadData(this.afterLoadDataHandler);
         },
         sendMsgForSetFilterPanelState: function(state) {
             const msg = {
