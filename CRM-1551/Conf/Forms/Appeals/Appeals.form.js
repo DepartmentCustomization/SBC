@@ -1679,7 +1679,7 @@
                 } else {
                     this.Question_Organization_ResultState = 'OK';
                 }
-                if(this.form.getControlValue('Applicant_Id') === '' ||
+                if (this.form.getControlValue('Applicant_Id') === '' ||
                     this.form.getControlValue('Applicant_Id') === null ||
                     this.Question_Content_Input === '' ||
                     this.Question_AnswerType_Input === null ||
