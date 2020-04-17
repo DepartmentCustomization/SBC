@@ -136,7 +136,7 @@
     border: 0;
     font-weight: 600;
 }
-#filtersContainer{
+#selectedFiltersContainer{
     justify-content: space-around;
     display: flex;
     margin-top: 15px;
@@ -202,4 +202,39 @@
     font-size: 40px;
     text-transform: uppercase;
     font-weight: 600;
+}
+
+#newFilterNameInput{
+    width: 100%;
+}
+
+
+.userFilterGroupsWrapper{
+    margin: 30px 10%;
+    overflow-y: scroll;
+    max-height: 600px;
+}
+.groupHeader {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.groupBtn{
+    font-size: 20px;
+}
+
+.userFilterGroup{
+    margin: 15px 0;
+}
+.userFilterGroupName{
+    width: 75%;
+    background-color: transparent;
+    padding: 5px;
+}
+
+.userFiltersListWrapper{
+    display: block;
+    margin: 20px 10%;
+    font-size: 14px;
 }

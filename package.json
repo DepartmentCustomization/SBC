@@ -32,8 +32,15 @@
   "homepage": "https://github.com/DepartmentCustomization/SBC#readme",
   "dependencies": {},
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-teamcity": "^2.2.0",
-    "tsqllint": "^1.11.0"
+    "ts-loader": "^6.2.1",
+    "tsconfig-paths": "^3.9.0",
+    "tsqllint": "^1.11.0",
+    "typescript": "^3.7.5"
+  },
+  "resolutions": {
+    "terser": "3.14.1"
   }
 }

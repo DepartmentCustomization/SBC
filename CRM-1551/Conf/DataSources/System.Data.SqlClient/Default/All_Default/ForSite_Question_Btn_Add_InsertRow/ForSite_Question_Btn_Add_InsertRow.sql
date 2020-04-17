@@ -18,6 +18,12 @@
  declare @ApplicantFromSite_Address_Building INT
  */
 
+DECLARE @zoneVal SMALLINT = DATEPART(TZOffset, SYSDATETIMEOFFSET());
+IF(CAST(@Question_ControlDate AS TIME) = '23:59:59')
+BEGIN
+	SET @Question_ControlDate = DATEADD(MINUTE,-@zoneVal,@Question_ControlDate);
+END
+
 DECLARE @AppealForSiteAppeal INT = (SELECT
                                          Appeal_Id
                                      FROM
