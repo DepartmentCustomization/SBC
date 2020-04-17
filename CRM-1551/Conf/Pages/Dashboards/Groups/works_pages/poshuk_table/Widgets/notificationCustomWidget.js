@@ -10,9 +10,9 @@
         ,
         init: function() {
             this.isSelected = false;
-            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
-            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
-            this.sub2 = this.messageService.subscribe('findFilterColumns', this.reloadTable, this);
+            this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this));
+            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this));
+            this.subscribers.push(this.messageService.subscribe('findFilterColumns', this.reloadTable, this));
         },
         setFiltersValue: function(message) {
             let elem = message.package.value.values;
@@ -41,11 +41,6 @@
             const container = document.getElementById('notificationContainer');
             const captionWarning = this.createElement('div',{ className: 'captionWarning', innerText: 'Оберiть фiльтри!' });
             container.appendChild(captionWarning);
-        },
-        destroy: function() {
-            this.sub.unsubscribe();
-            this.sub1.unsubscribe();
-            this.sub2.unsubscribe();
         }
     };
 }());
