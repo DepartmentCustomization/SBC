@@ -1,7 +1,6 @@
 -- DECLARE @Id INT = 2196;
 
-DECLARE @Archive NVARCHAR(20) = N'10.192.200.182';
-DECLARE @LocalArchive NVARCHAR(20) = N'DB.UKRODS.CF';
+DECLARE @Archive NVARCHAR(400) = '['+(SELECT TOP 1 [IP]+'].['+[DatabaseName]+'].' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
 
 DECLARE @IsHere BIT = IIF(
    (
@@ -18,30 +17,9 @@ DECLARE @IsHere BIT = IIF(
 
 IF(@IsHere = 1)
 BEGIN
-SELECT
-  [AssignmentConsDocuments].[Id],
-  dt.id AS doc_type_id,
-  dt.name AS doc_type_name,
-  [AssignmentConsDocuments].[add_date],
-  [AssignmentConsDocuments].[name],
-  [AssignmentConsDocuments].content
-FROM
-  [dbo].[AssignmentConsDocuments]
-  LEFT JOIN [dbo].DocumentTypes dt ON dt.Id = [AssignmentConsDocuments].doc_type_id
-WHERE 
-  [AssignmentConsDocuments].[Id] = @Id ;
+	SET @Archive = SPACE(0);
 END
-ELSE IF(@IsHere = 0)
-BEGIN
-DECLARE @Query NVARCHAR(MAX);
----> Check is connection to Archive db exists
-DECLARE @ProdArchiveServerID SMALLINT = (SELECT server_id FROM sys.servers WHERE [name] = @Archive);
-DECLARE @LocalArchiveServerID SMALLINT = (SELECT server_id FROM sys.servers WHERE [name] = @LocalArchive);
-
-IF (@ProdArchiveServerID IS NULL)
-AND (@LocalArchiveServerID IS NOT NULL)
-BEGIN
-SET @Query = 
+DECLARE @Query NVARCHAR(MAX) = 
 N'SELECT
   [AssignmentConsDocuments].[Id],
   dt.id AS doc_type_id,
@@ -50,33 +28,10 @@ N'SELECT
   [AssignmentConsDocuments].[name],
   [AssignmentConsDocuments].content
 FROM
-  [DB.UKRODS.CF].[CRM_1551_Analitics].[dbo].[AssignmentConsDocuments]
+  '+@Archive+N'[dbo].[AssignmentConsDocuments]
   LEFT JOIN [dbo].DocumentTypes dt ON dt.Id = [AssignmentConsDocuments].doc_type_id
 WHERE 
   [AssignmentConsDocuments].[Id] = @Id ; ' ; 
 
 	EXEC sp_executesql @Query, N'@Id INT', 
 								@Id = @Id;
-END
-
-ELSE IF(@ProdArchiveServerID IS NOT NULL)
-AND (@LocalArchiveServerID IS NULL)
-BEGIN 
-SET @Query = 
-N'SELECT
-  [AssignmentConsDocuments].[Id],
-  dt.id AS doc_type_id,
-  dt.name AS doc_type_name,
-  [AssignmentConsDocuments].[add_date],
-  [AssignmentConsDocuments].[name],
-  [AssignmentConsDocuments].content
-FROM
-  [10.192.200.182].[CRM_1551_Analitics].[dbo].[AssignmentConsDocuments]
-  LEFT JOIN [dbo].DocumentTypes dt ON dt.Id = [AssignmentConsDocuments].doc_type_id
-WHERE 
-  [AssignmentConsDocuments].[Id] = @Id ; ' ;
-
-	EXEC sp_executesql @Query, N'@Id INT', 
-								@Id = @Id;
-END
-END
