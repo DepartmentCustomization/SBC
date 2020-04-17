@@ -1,4 +1,4 @@
---   DECLARE @history_id INT = 275;
+--    DECLARE @history_id INT = 53921;
 
 DECLARE @Archive NVARCHAR(400) = '['+(SELECT TOP 1 [IP]+'].['+[DatabaseName]+'].' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
 
@@ -17,8 +17,9 @@ DECLARE @IsHere BIT = IIF(
 
 IF(@IsHere = 1)
 BEGIN
-	SET @IsHere = SPACE(1);
+	SET @Archive = SPACE(1);
 END
+
 DECLARE @Part1 NVARCHAR(MAX) = 
 N'DECLARE @history_id_old INT = (
 	SELECT
@@ -81,7 +82,7 @@ SELECT
 	isnull([ObjectTypes1].[name] + N'': '', N'''') + isnull([StreetTypes1].[shortname] + '' '', N'''') + isnull([Streets1].[name] + N'' '', N'''') + isnull([Buildings1].[name], N'''') AS [history_value_new]
 FROM
 	'+@Archive+ N'[dbo].[Question_History] AS t1
-	LEFT JOIN [DB.UKRODS.CF].[CRM_1551_Analitics].[dbo].[Question_History] AS t2 ON t2.Id = @history_id_old
+	LEFT JOIN '+@Archive+ N'[dbo].[Question_History] AS t2 ON t2.Id = @history_id_old
 	LEFT JOIN [dbo].[Objects] AS [Objects1] ON [Objects1].Id = t1.[object_id]
 	LEFT JOIN [dbo].[Buildings] AS [Buildings1] ON [Buildings1].Id = [Objects1].Id
 	LEFT JOIN [dbo].[Streets] AS [Streets1] ON [Streets1].Id = [Buildings1].street_id
@@ -103,7 +104,7 @@ SELECT
 	qt1.[name] AS [history_value_new]
 FROM
 	'+@Archive+ N'[dbo].[Question_History] AS t1
-	LEFT JOIN [DB.UKRODS.CF].[CRM_1551_Analitics].[dbo].[Question_History] AS t2 ON t2.Id = @history_id_old
+	LEFT JOIN '+@Archive+ N'[dbo].[Question_History] AS t2 ON t2.Id = @history_id_old
 	LEFT JOIN [dbo].[Organizations] AS qt1 ON qt1.Id = t1.organization_id
 	LEFT JOIN [dbo].[Organizations] AS qt2 ON qt2.Id = t2.organization_id
 WHERE
@@ -196,7 +197,7 @@ ORDER BY 1
 OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY ; ' ;
 	
 DECLARE @ResultQuery NVARCHAR(MAX) = (SELECT @Part1 + @Part2);
- EXEC sp_executesql @ResultQuery, N'@history_id INT, @pageOffsetRows INT, @pageLimitRows INT', 
+EXEC sp_executesql @ResultQuery, N'@history_id INT, @pageOffsetRows INT, @pageLimitRows INT', 
  							@history_id = @history_id,
 							@pageOffsetRows = @pageOffsetRows,
 							@pageLimitRows = @pageLimitRows;
