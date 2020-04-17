@@ -19,7 +19,7 @@ IF(@IsHere = 1)
 BEGIN
 	SET @Archive = SPACE(0);
 END
-DECLARE @Query NVARCHAR(MAX) = 
+DECLARE @Part1 NVARCHAR(MAX) = 
 N'SELECT
 	[Questions].[Id],
 	[Questions].[registration_number],
@@ -87,8 +87,9 @@ N'SELECT
 	NULL AS geolocation_lat,
 	NULL AS geolocation_lon,
 	Appeals.receipt_source_id 
-FROM
-	'+@Archive+N'[dbo].[Questions] Questions
+FROM ';
+DECLARE @Part2 NVARCHAR(MAX) =
+	N''+@Archive+N'[dbo].[Questions] Questions
 	LEFT JOIN '+@Archive+N'[dbo].[Appeals] Appeals ON Appeals.Id = Questions.appeal_id
 	LEFT JOIN [dbo].[Applicants] Applicants ON Applicants.Id = Appeals.applicant_id
 	LEFT JOIN [dbo].[QuestionStates]  QuestionStates ON QuestionStates.Id = Questions.question_state_id 
@@ -112,4 +113,5 @@ FROM
 WHERE
 	[Questions].[Id] = @Id ; ';
 
-	EXEC sp_executesql @Query, N'@Id INT', @Id = @Id;
+DECLARE @Query NVARCHAR(MAX) = (SELECT @Part1 + @Part2);
+EXEC sp_executesql @Query, N'@Id INT', @Id = @Id;
