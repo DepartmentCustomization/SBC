@@ -149,7 +149,7 @@ INSERT INTO
 SELECT
   Id
 FROM
-  [CRM_1551_Analitics].[dbo].[Organizations]
+  [dbo].[Organizations]
 WHERE
   [parent_organization_id] IN (
     SELECT
@@ -248,7 +248,7 @@ WITH main AS (
     [AssignmentStates].name AssignmentStates,
     [Questions].control_date
   FROM
-    '+@Archive+N'[Assignments] [Assignments] 
+    '+@Archive+N'[dbo].[Assignments] [Assignments] 
     LEFT JOIN '+@Archive+N'[dbo].[Questions] [Questions] ON [Assignments].question_id = [Questions].Id
     LEFT JOIN '+@Archive+N'[dbo].[Appeals] [Appeals] ON [Questions].appeal_id = [Appeals].Id
     LEFT JOIN [dbo].[ReceiptSources] [ReceiptSources] ON [Appeals].receipt_source_id = [ReceiptSources].Id 
