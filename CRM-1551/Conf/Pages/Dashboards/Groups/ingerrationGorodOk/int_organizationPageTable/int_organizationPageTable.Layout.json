@@ -1,5 +1,5 @@
 {
-  "css": ".dx-icon-export-excel-button{\n    color: #fff!important;\n    margin-right: 9px!important;\n}\n.dx-header-row>td>.dx-datagrid-text-content, .dx-datagrid-headers .dx-datagrid-table .dx-row>td  {\n    text-transform: uppercase;\n    text-align: center!important;\n}\n.dx-datagrid-content .dx-datagrid-table .dx-row>td, .dx-datagrid-content>.dx-datagrid-table>.dx-row>tr>td {\n    font-size: 17px!important;\n}\n\n.dx-datagrid-text-content {\n    white-space: wrap!important; \n}\n.dx-datagrid-wrap{\n    white-space: wrap!important;     \n}\n\n.dx-datagrid-export-button{\n    background-color: rgba(21, 189, 244, 1)!important;\n    color: #fff!important;\n    padding: 0 8px!important;\n}\n.dx-icon-export-excel-button{\n    color: #fff!important;\n    margin-right: 9px!important;\n}\n.dx-header-row>td>.dx-datagrid-text-content {\n    text-transform: uppercase;\n    text-align: center;\n\n}\n",
+  "css": "",
   "rootContainer": {
     "width": "auto",
     "margin": "0 5px 10px",
@@ -54,6 +54,6 @@
     "height": "100%",
     "minHeight": "100%",
     "minWidth": "100%",
-    "backgroundColor": "#eee"
+    "backgroundColor": "#fff"
   }
 }
