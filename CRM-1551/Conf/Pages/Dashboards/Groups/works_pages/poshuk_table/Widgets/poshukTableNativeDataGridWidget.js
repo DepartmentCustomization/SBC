@@ -347,7 +347,7 @@
             this.setConfigColumns();
             message.value.forEach(function(el) {
                 let column;
-                switch(el.displayValue) {
+                switch (el.displayValue) {
                     case 'transfer_date':
                     case 'state_changed_date':
                     case 'state_changed_date_done':
@@ -650,7 +650,7 @@
                 for(let i = 0; i < this.excelFields.length; i++) {
                     const field = this.excelFields[i];
                     const prop = this.excelFields[i].name;
-                    switch(prop) {
+                    switch (prop) {
                         case 'appeals_user':
                         case 'appeals_receipt_source':
                         case 'appeals_district':
