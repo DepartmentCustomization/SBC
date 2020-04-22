@@ -71,6 +71,7 @@ set assignment_resolution_id  = 9
 ,[user_edit_id]=@user_id
 ,[grade]=@grade
 ,[grade_comment]=@grade_comment
+,[control_comment]=@grade_comment
 where assignment_consideration_іd in 
 (select [AssignmentConsiderations].Id
   from [Assignments]
@@ -110,7 +111,7 @@ where assignment_consideration_іd in
       ,getutcdate() --[control_date]
       ,@user_id --[user_id]
       ,@grade--[grade] 
-      ,null--[grade_comment]
+      ,@grade_comment--[grade_comment]
       ,null--[rework_counter]
       ,null--[missed_call_counter]
       ,getutcdate() --[edit_date]
@@ -138,6 +139,7 @@ set assignment_resolution_id  = 8
 ,[user_edit_id]=@user_id
 ,[grade]=@grade
 ,[grade_comment]=@grade_comment
+,[control_comment]=@grade_comment
 where assignment_consideration_іd in 
 (select [AssignmentConsiderations].Id
   from [Assignments]
@@ -192,36 +194,3 @@ where [Assignments].main_executor='true'
 
 
 select N'Ok' as [Result]
-
---  if (select count(1) from [CRM_1551_Analitics].[dbo].[AssignmentRevisions]
---    where [assignment_consideration_іd] in (select [AssignmentConsiderations].Id
---  										 from [CRM_1551_Analitics].[dbo].[Questions]
---  										 inner join [CRM_1551_Analitics].[dbo].[Assignments] on [Questions].last_assignment_for_execution_id=[Assignments].Id
---  										 inner join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [AssignmentConsiderations].assignment_id=[Assignments].Id
---  										 where [Questions].appeal_id=@appeal_id
---  										 and [Assignments].assignment_state_id = 3)
---  	) > 0
---  begin
---  	update [CRM_1551_Analitics].[dbo].[AssignmentRevisions]
---  	  set [edit_date]=GETUTCDATE()
---  	  ,[grade]=@grade
---  	  ,[grade_comment]=@grade_comment
---  	  ,[control_result_id]=@result
--- 	  ,[control_date] = GETUTCDATE()
---  	  ,[assignment_resolution_id]=case when @result=4 then 9 when @result=5 then 8 when @result=11 then 10 end
---  	  where [assignment_consideration_іd] in (select [AssignmentConsiderations].Id
---  											 from [CRM_1551_Analitics].[dbo].[Questions]
---  											 inner join [CRM_1551_Analitics].[dbo].[Assignments] on [Questions].last_assignment_for_execution_id=[Assignments].Id
---  											 inner join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [AssignmentConsiderations].assignment_id=[Assignments].Id
---  											 where [Questions].appeal_id=@appeal_id
---  											 and [Assignments].assignment_state_id = 3)
-	
---  	select N'Ok' as [Result]
-
---  end
---  else
---  begin
--- 	select N'Error' as [Result]
---  end
-
--- --offset @pageOffsetRows rows fetch next @pageLimitRows rows only
