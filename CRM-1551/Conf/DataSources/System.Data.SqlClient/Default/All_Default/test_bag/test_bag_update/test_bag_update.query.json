@@ -8,6 +8,10 @@
         {
           "Code": "@SystemUserId",
           "Name": "SystemUserId"
+        },
+        {
+          "Code": "@Id",
+          "Name": "Id"
         }
       ]
   }
