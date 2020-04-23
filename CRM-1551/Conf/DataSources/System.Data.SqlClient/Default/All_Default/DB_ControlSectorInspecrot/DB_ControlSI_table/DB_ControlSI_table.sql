@@ -2,7 +2,7 @@
 
   IF @column=N'count_arrived' --2
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -35,7 +35,7 @@
 
 	IF @column=N'count_in_work' --3
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -68,7 +68,7 @@
 
 	IF @column=N'count_overdue' --4
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -101,7 +101,7 @@
 
 	IF @column=N'count_clarified' --5
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -135,7 +135,7 @@
 
 	IF @column=N'count_done' --6
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -168,7 +168,7 @@
 
 	IF @column=N'count_for_revision' --7
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -201,7 +201,7 @@
 
 	IF @column=N'count_plan_program' --8
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
