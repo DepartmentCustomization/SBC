@@ -77,12 +77,18 @@
             header1.firstElementChild.style.overflow = 'visible';
             header1.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
             this.subscribers.push(this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this));
+            this.executeMainTableQuery(false, null);
+        },
+        executeMainTableQuery: function(isReload, targetId) {
             let executeQueryOrganizations = {
-                queryCode: 'table3',
+                queryCode: 'DB_ControlSI_main',
                 limit: -1,
-                parameterValues: [ { key: '@organization_id', value: 1 } ]
+                parameterValues: [
+                    { key: '@pageOffsetRows', value: 0 },
+                    { key: '@pageLimitRows', value: 10 }
+                ]
             };
-            this.queryExecutor(executeQueryOrganizations, this.createInfoTable.bind(this, false, null), this);
+            this.queryExecutor(executeQueryOrganizations, this.createInfoTable.bind(this, isReload, targetId), this);
             this.showPreloader = false;
         },
         createElement: function(tag, props, ...children) {
@@ -123,53 +129,9 @@
         },
         createFilters: function() {
             this.organizationName = this.createElement('div', {id: 'organizationName', innerText: this.emptyString});
-            this.organizationChildCat = this.createElement('div',{id:'organizationChildCat', innerText: this.emptyString});
-            const searchContainer__input = this.createElement('input',
-                {
-                    id: 'searchContainer__input',
-                    type: 'search',
-                    placeholder: 'Пошук доручення за номером',
-                    className: 'searchContainer__input'
-                }
-            );
-            const searchContainer = this.createElement('div',
-                {
-                    id: 'searchContainer',
-                    className: 'searchContainer'
-                },
-                searchContainer__input
-            );
-            searchContainer__input.addEventListener('input', () => {
-                if(searchContainer__input.value.length === 0) {
-                    this.resultSearch('clearInput', 0);
-                    this.setInfoTableVisibility(searchContainer__input);
-                }
-            });
-            searchContainer__input.addEventListener('keypress', function(e) {
-                let key = e.which || e.keyCode;
-                if (key === 13) {
-                    let orgContainer = document.getElementById('orgContainer');
-                    orgContainer.style.display = 'none';
-                    this.resultSearch('resultSearch', searchContainer__input.value);
-                    this.resultSearch('clickOnInfoTable', 'none');
-                    let headerItems = document.querySelectorAll('.headerItem');
-                    headerItems = Array.from(headerItems);
-                    headerItems.forEach(el => {
-                        el.classList.add('check');
-                    });
-                }
-            }.bind(this));
             let filtersWrapper = document.getElementById('filtersWrapper');
             filtersWrapper.appendChild(this.organizationName);
-            filtersWrapper.appendChild(this.organizationChildCat);
-            filtersWrapper.appendChild(searchContainer);
-            this.setOrganizationName('defaultOrganizationName');
-        },
-        setOrganizationChildCat: function(value) {
-            this.organizationChildCat.innerText = value;
-        },
-        clearOrganizationChildCat: function() {
-            this.organizationChildCat.innerText = this.emptyString;
+            this.setOrganizationName(this.emptyString);
         },
         setOrganizationName: function(value) {
             this.organizationName.innerText = value;
@@ -183,13 +145,7 @@
             this.column = message.column;
             this.navigator = message.navigator;
             let targetId = message.targetId;
-            let executeQueryOrganizations = {
-                queryCode: 'table3',
-                limit: -1,
-                parameterValues: [ { key: '@organization_id', value: 1 } ]
-            };
-            this.queryExecutor(executeQueryOrganizations, this.createInfoTable.bind(this, true, targetId), this);
-            this.showPreloader = false;
+            this.executeMainTableQuery(true, targetId);
         },
         createInfoTable: function(isReload, targetId, data) {
             this.createInspectorOrganizationsHeaders();
@@ -269,22 +225,13 @@
             });
         },
         appendItemsToOrgContainer: function(data) {
-            /* data.rows.length */
-            for (let index = 0; index < 5; index++) {
+            for (let index = 0; index < data.rows.length; index++) {
                 const row = data.rows[index];
                 const organizationId = row.values[0];
-                const referralWrapper = this.createElement('div',{className: 'orgElementsReferral displayNone'});
-                this.headers.forEach(() => referralWrapper.appendChild(this.createElement('div', { className: 'referralColumn'})));
                 const orgElementsCounter = this.createElement('div', { className: 'orgElementsСounter displayFlex' });
-                const orgElements = this.createElement('div',{className: 'orgElements displayFlex'},orgElementsCounter, referralWrapper);
-                const orgTitle__icon = this.createElement('div',
-                    {
-                        className: 'orgTitle__icon material-icons',value: 0 , innerText: 'add_circle_outline'
-                    }
-                );
-                orgTitle__icon.addEventListener('click', event => this.changeOrgTitleIconVisibility(event.currentTarget));
+                const orgElements = this.createElement('div',{className: 'orgElements displayFlex'},orgElementsCounter);
                 const orgTitle__name = this.createElement('div',{className: 'orgTitle__name', innerText: row.values[1]});
-                const orgTitle = this.createElement('div',{className: 'orgTitle displayFlex'},orgTitle__icon, orgTitle__name);
+                const orgTitle = this.createElement('div',{className: 'orgTitle displayFlex'}, orgTitle__name);
                 const organization = this.createElement('div',
                     {
                         className: 'organization displayFlex', id: String(organizationId)
@@ -292,27 +239,10 @@
                     orgTitle, orgElements
                 );
                 this.orgContainer.appendChild(organization);
-                this.appendItemsToOrgElementsReferralWrapper(row, referralWrapper, orgElementsCounter, organizationId);
+                this.appendItemsToOrgElementsReferralWrapper(row, orgElementsCounter, organizationId);
             }
         },
-        changeOrgTitleIconVisibility: function(target) {
-            if(target.value === 0) {
-                target.parentElement.nextElementSibling.firstElementChild.classList.remove('displayFlex');
-                target.parentElement.nextElementSibling.firstElementChild.classList.add('displayNone');
-                target.parentElement.nextElementSibling.lastElementChild.classList.remove('displayNone');
-                target.parentElement.nextElementSibling.lastElementChild.classList.add('displayFlex');
-                target.value = 1;
-                target.innerText = 'remove_circle_outline';
-            }else if(target.value === 1) {
-                target.value = 0;
-                target.innerText = 'add_circle_outline';
-                target.parentElement.nextElementSibling.lastElementChild.classList.remove('displayFlex');
-                target.parentElement.nextElementSibling.lastElementChild.classList.add('displayNone');
-                target.parentElement.nextElementSibling.firstElementChild.classList.remove('displayNone');
-                target.parentElement.nextElementSibling.firstElementChild.classList.add('displayFlex');
-            }
-        },
-        appendItemsToOrgElementsReferralWrapper: function(row, orgElementsReferralWrapper, orgElementsCounter, organizationId) {
+        appendItemsToOrgElementsReferralWrapper: function(row, orgElementsCounter, organizationId) {
             const organizationName = row.values[1];
             for(let i = 2; i < row.values.length; i++) {
                 if(row.values[i] !== 0) {
@@ -343,60 +273,12 @@
                     orgElementsCounter.appendChild(this.createElement('div', { className: 'counter counterHeader'}));
                 }
             }
-            this.executeQueryCreateCounters(organizationId, orgElementsReferralWrapper, organizationName);
-        },
-        executeQueryCreateCounters: function(organizationId, orgElementsReferralWrapper, organizationName) {
-            let executeQuery = {
-                queryCode: 'table2',
-                parameterValues: [
-                    { key: '@organization_id', value: organizationId }
-                ],
-                limit: -1
-            };
-            this.queryExecutor(
-                executeQuery,
-                this.createOrganizationsSubElements.bind(this, orgElementsReferralWrapper, organizationId, organizationName),
-                this
-            );
-            this.showPreloader = false;
-        },
-        createOrganizationsSubElements: function(orgElementsReferralWrapper, organizationId, organizationName, data) {
-            data.rows.forEach(row => {
-                for (let i = 2; i < row.values.length; i++) {
-                    const value = row.values[i];
-                    const title = row.values[1];
-                    if(value !== 0) {
-                        const referralNumber = this.createElement('div', { className: 'refItem__value', innerText: `(${value})`});
-                        const referralTitle = this.createElement('div', { className: 'refItem__value', innerText: `${title} `});
-                        const referralValue = this.createElement('div', { className: 'refItem__value' }, referralTitle, referralNumber);
-                        const referralItem = this.createElement('div',
-                            {
-                                orgId: organizationId,
-                                headerId: this.headers[i - 2].id,
-                                headerName:  this.headers[i - 2].name,
-                                navigator: row.values[1],
-                                orgName: organizationName,
-                                className: 'counter referralItem counterBorder'
-                            },
-                            referralValue
-                        );
-                        referralItem.addEventListener('click', event => {
-                            event.stopImmediatePropagation();
-                            const target = event.currentTarget;
-                            this.targetOrgId = target.orgId;
-                            const columnHeader = document.getElementById(target.headerId);
-                            this.setInfoTableVisibility(columnHeader, target.headerName, target.navigator, target.orgName, 'item');
-                        });
-                        orgElementsReferralWrapper.childNodes[i - 2].appendChild(referralItem);
-                    }
-                }
-            });
         },
         setVisibilityOrganizationContainer: function(status) {
             this.orgContainer.style.display = status;
         },
         setInfoTableVisibility: function(target, columnName, navigator, orgName, position) {
-            if(target.classList.contains('check') || target.classList.contains('hover') || target.id === 'searchContainer__input') {
+            if(target.classList.contains('check') || target.classList.contains('hover')) {
                 this.headerItems.forEach((header, index) => {
                     header.firstElementChild.classList.remove('triangle');
                     header.firstElementChild.classList.add(`${header.name}_triangle`);
@@ -404,21 +286,12 @@
                     header.classList.remove('check');
                     header.style.backgroundColor = this.headers[index].backgroundColor;
                 });
-                this.setOrganizationName('defaultOrganizationName');
-                this.clearOrganizationChildCat();
+                this.clearOrganizationName();
                 this.setVisibilityOrganizationContainer('block');
-                this.sendMesOnBtnClick('clickOnInfoTable', 'none', 'none');
-                this.resultSearch('clearInput', 0);
-                document.getElementById('searchContainer__input').value = '';
+                this.sendMesOnBtnClick('clickOnInfoTable', undefined, undefined);
             } else {
-                if(orgName === undefined) {
-                    this.setOrganizationName('defaultOrganizationName');
-                    this.clearOrganizationChildCat();
-                }else{
-                    this.setOrganizationName(orgName);
-                    this.setOrganizationChildCat(navigator);
-                }
                 if (position === 'item') {
+                    this.setOrganizationName(orgName);
                     target.classList.add('hover');
                     this.setVisibilityOrganizationContainer('none');
                     this.headerItems.forEach(header => {
@@ -434,18 +307,15 @@
                 }
             }
         },
-        sendMesOnBtnClick: function(message, column, navigator, thisName, organizationId, targetId) {
+        sendMesOnBtnClick: function(message, columnName, navigator, orgName, organizationId, targetId) {
             this.messageService.publish({
                 name: message,
-                column: column,
+                columnName: columnName,
                 navigation: navigator,
                 orgId: organizationId,
-                orgName: thisName,
+                orgName: orgName,
                 targetId: targetId
             });
-        },
-        resultSearch: function(message, value) {
-            this.messageService.publish({name: message, value: value, orgId: this.organizationId});
         }
     };
 }());
