@@ -165,42 +165,42 @@
         onOptionChanged: function(args) {
             let columnCode;
             if(args.fullName !== undefined) {
-                switch(args.fullName) {
-                case('columns[0].sortOrder'):
-                    columnCode = 'registration_number'
-                    break;
-                case('columns[1].sortOrder'):
-                    columnCode = 'QuestionType'
-                    break;
-                case('columns[2].sortOrder'):
-                    columnCode = 'full_name'
-                    break;
-                case('columns[3].sortOrder'):
-                    columnCode = 'phone_number'
-                    break;
-                case('columns[4].sortOrder'):
-                    columnCode = 'cc_nedozvon'
-                    break;
-                case('columns[5].sortOrder'):
-                    columnCode = 'District'
-                    break;
-                case('columns[6].sortOrder'):
-                    columnCode = 'house'
-                    break;
-                case('columns[7].sortOrder'):
-                    columnCode = 'entrance'
-                    break;
-                case('columns[8].sortOrder'):
-                    columnCode = 'place_problem'
-                    break;
-                case('columns[9].sortOrder'):
-                    columnCode = 'vykon'
-                    break;
-                case('dataSource'):
-                    columnCode = 'dataSource'
-                    break;
-                default:
-                    break;
+                switch (args.fullName) {
+                    case('columns[0].sortOrder'):
+                        columnCode = 'registration_number'
+                        break;
+                    case('columns[1].sortOrder'):
+                        columnCode = 'QuestionType'
+                        break;
+                    case('columns[2].sortOrder'):
+                        columnCode = 'full_name'
+                        break;
+                    case('columns[3].sortOrder'):
+                        columnCode = 'phone_number'
+                        break;
+                    case('columns[4].sortOrder'):
+                        columnCode = 'cc_nedozvon'
+                        break;
+                    case('columns[5].sortOrder'):
+                        columnCode = 'District'
+                        break;
+                    case('columns[6].sortOrder'):
+                        columnCode = 'house'
+                        break;
+                    case('columns[7].sortOrder'):
+                        columnCode = 'entrance'
+                        break;
+                    case('columns[8].sortOrder'):
+                        columnCode = 'place_problem'
+                        break;
+                    case('columns[9].sortOrder'):
+                        columnCode = 'vykon'
+                        break;
+                    case('dataSource'):
+                        columnCode = 'dataSource'
+                        break;
+                    default:
+                        break;
                 }
                 if(columnCode !== undefined) {
                     if(columnCode !== 'dataSource') {
@@ -414,25 +414,25 @@
                                     elem.placeholder,
                                     elem.value.viewValue
                                 );
-                                switch(elem.name) {
-                                case 'registration_date':
-                                    this.registrationDate__from = checkDateFrom(elem.value);
-                                    this.registrationDateFrom = checkDateFrom(elem.value);
-                                    break;
-                                case 'transfer_date':
-                                    this.transferDateFrom = checkDateFrom(elem.value);
-                                    break;
-                                case 'state_changed_date':
-                                    this.stateChangedDateFrom = checkDateFrom(elem.value);
-                                    break;
-                                case 'state_changed_date_done':
-                                    this.stateChangedDateDoneFrom = checkDateFrom(elem.value);
-                                    break;
-                                case 'execution_term':
-                                    this.executionTermFrom = checkDateFrom(elem.value);
-                                    break;
-                                default:
-                                    break;
+                                switch (elem.name) {
+                                    case 'registration_date':
+                                        this.registrationDate__from = checkDateFrom(elem.value);
+                                        this.registrationDateFrom = checkDateFrom(elem.value);
+                                        break;
+                                    case 'transfer_date':
+                                        this.transferDateFrom = checkDateFrom(elem.value);
+                                        break;
+                                    case 'state_changed_date':
+                                        this.stateChangedDateFrom = checkDateFrom(elem.value);
+                                        break;
+                                    case 'state_changed_date_done':
+                                        this.stateChangedDateDoneFrom = checkDateFrom(elem.value);
+                                        break;
+                                    case 'execution_term':
+                                        this.executionTermFrom = checkDateFrom(elem.value);
+                                        break;
+                                    default:
+                                        break;
                                 }
                             }
                             if(data.dateTo !== '') {
@@ -443,24 +443,24 @@
                                     elem.placeholder,
                                     elem.value.viewValue
                                 );
-                                switch(elem.name) {
-                                case 'registration_date':
-                                    this.registrationDateTo = checkDateTo(elem.value);
-                                    break;
-                                case 'transfer_date':
-                                    this.transferDateTo = checkDateTo(elem.value);
-                                    break;
-                                case 'state_changed_date':
-                                    this.stateChangedDateTo = checkDateTo(elem.value);
-                                    break;
-                                case 'state_changed_date_done':
-                                    this.stateChangedDateDoneTo = checkDateTo(elem.value);
-                                    break;
-                                case 'execution_term':
-                                    this.executionTermTo = checkDateTo(elem.value);
-                                    break;
-                                default:
-                                    break;
+                                switch (elem.name) {
+                                    case 'registration_date':
+                                        this.registrationDateTo = checkDateTo(elem.value);
+                                        break;
+                                    case 'transfer_date':
+                                        this.transferDateTo = checkDateTo(elem.value);
+                                        break;
+                                    case 'state_changed_date':
+                                        this.stateChangedDateTo = checkDateTo(elem.value);
+                                        break;
+                                    case 'state_changed_date_done':
+                                        this.stateChangedDateDoneTo = checkDateTo(elem.value);
+                                        break;
+                                    case 'execution_term':
+                                        this.executionTermTo = checkDateTo(elem.value);
+                                        break;
+                                    default:
+                                        break;
                                 }
                             }
                         }

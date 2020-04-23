@@ -884,7 +884,7 @@
         },
         getSelectFilterViewValuesObject(filter) {
             const obj = {}
-            switch(filter.operation) {
+            switch (filter.operation) {
                 case true:
                 case '=':
                     obj.title = filter.placeholder;
@@ -928,7 +928,7 @@
         },
         operation: function(operation, title) {
             let result = title;
-            switch(operation) {
+            switch (operation) {
                 case '>=':
                     result = title + ' з'
                     break;
