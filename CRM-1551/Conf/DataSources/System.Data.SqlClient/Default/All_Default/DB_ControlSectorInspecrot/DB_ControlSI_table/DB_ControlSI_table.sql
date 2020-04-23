@@ -26,7 +26,7 @@
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
-		WHERE [Assignments].assignment_state_id=1 /*зареєстровано*/ AND [Questions].control_date>GETUTCDATE()
+		WHERE [Assignments].assignment_state_id=1 /*зареєстровано*/ AND [Questions].control_date>=GETUTCDATE()
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -59,7 +59,7 @@
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
-		WHERE [Assignments].assignment_state_id=2 /*в роботі*/ AND [Questions].control_date>GETUTCDATE()
+		WHERE [Assignments].assignment_state_id=2 /*в роботі*/ AND [Questions].control_date>=GETUTCDATE()
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -192,7 +192,7 @@
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
-		WHERE [Assignments].assignment_state_id=4 /*не виконано*/
+		WHERE [Assignments].assignment_state_id=4 /*не виконано*/ AND [Assignments].AssignmentResultsId=5 /*на доопрацюванні*/
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1

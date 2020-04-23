@@ -10,12 +10,12 @@ SELECT Organization_id Id, organization_name,
   FROM
   (
   SELECT [Assignments].Id, [Organizations].Id Organization_id, [Organizations].short_name Organization_name,
-  CASE WHEN [Assignments].assignment_state_id=1 /*зареєстровано*/ AND [Questions].control_date>GETUTCDATE() THEN 1 ELSE 0 END [count_arrived], --2
-  CASE WHEN [Assignments].assignment_state_id=2 /*в роботі*/ AND [Questions].control_date>GETUTCDATE() THEN 1 ELSE 0 END [count_in_work], --3
+  CASE WHEN [Assignments].assignment_state_id=1 /*зареєстровано*/ AND [Questions].control_date>=GETUTCDATE() THEN 1 ELSE 0 END [count_arrived], --2
+  CASE WHEN [Assignments].assignment_state_id=2 /*в роботі*/ AND [Questions].control_date>=GETUTCDATE() THEN 1 ELSE 0 END [count_in_work], --3
   CASE WHEN [Assignments].assignment_state_id IN (1,2) /*зареєстровано в роботі*/ AND [Questions].control_date<GETUTCDATE() THEN 1 ELSE 0 END [count_overdue], --4
   CASE WHEN [Assignments].assignment_state_id=3 /*на перевірці*/ AND [Assignments].AssignmentResultsId=7 /*роз.яснено*/ THEN 1 ELSE 0 END [count_clarified], --5
   CASE WHEN [Assignments].assignment_state_id=3 /*на перевірці*/ AND [Assignments].AssignmentResultsId=4 /*виконано*/ THEN 1 ELSE 0 END [count_done], --6
-  CASE WHEN [Assignments].assignment_state_id=4 /*не виконано*/ THEN 1 ELSE 0 END [count_for_revision], --7
+  CASE WHEN [Assignments].assignment_state_id=4 /*не виконано*/ AND [Assignments].AssignmentResultsId=5 /*на доопрацюванні*/ THEN 1 ELSE 0 END [count_for_revision], --7
   CASE WHEN [Assignments].assignment_state_id=5 /*закрито*/ AND [Assignments].AssignmentResultsId=7 /*роз.яснено*/ 
   AND last_state_tab.last_state_id=3/*на перевірці*/ AND last_result_tab.last_result_id=8 /*неможливо виконати в даний період*/
   THEN 1 ELSE 0 END [count_plan_program] --8
