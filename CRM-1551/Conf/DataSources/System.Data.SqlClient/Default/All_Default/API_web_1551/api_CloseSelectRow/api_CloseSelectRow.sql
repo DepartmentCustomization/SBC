@@ -1,25 +1,33 @@
 -- DECLARE @ApplicantFromSiteId INT = 22;
 -- DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380632701143';
-
-SET @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0));
+SET
+  @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0));
 
 ---> Получить заявителя в системе по Id с сайта и по номеру телефона (если передан)
-DECLARE @ApplicantIn1551 INT = (SELECT 
-									ApplicantId 
-								 FROM [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite]
-								 WHERE Id = @ApplicantFromSiteId);
+DECLARE @ApplicantIn1551 INT = (
+  SELECT
+    ApplicantId
+  FROM
+    [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite]
+  WHERE
+    Id = @ApplicantFromSiteId
+);
 
 DECLARE @ApplicantForPhone TABLE (Id INT);
-IF(@ApplicantFromSitePhone IS NOT NULL)
-BEGIN
-INSERT INTO @ApplicantForPhone(Id)
-	SELECT 
-		applicant_id
-	FROM dbo.ApplicantPhones ap
-	WHERE phone_number = @ApplicantFromSitePhone
-	AND IsMain = 1;
-END
 
+IF(@ApplicantFromSitePhone IS NOT NULL) 
+BEGIN
+INSERT INTO
+  @ApplicantForPhone(Id)
+SELECT
+  applicant_id
+FROM
+  dbo.ApplicantPhones ap
+WHERE
+  phone_number = @ApplicantFromSitePhone
+  AND IsMain = 1;
+
+END
 SELECT
   [Appeals].Id AS [AppealId],
   [Appeals].registration_date,
@@ -60,9 +68,7 @@ GROUP BY
   [Applicants].full_name,
   [Questions].control_date,
   [AssignmentConsDocuments].content
-
-UNION 
-
+UNION
 SELECT
   [Appeals].Id AS [AppealId],
   [Appeals].registration_date,
@@ -89,9 +95,12 @@ FROM
   LEFT JOIN [CRM_1551_Analitics].[dbo].[AssignmentConsDocuments] ON [AssignmentConsDocuments].assignment_сons_id = [AssignmentConsiderations].Id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[AssignmentConsDocFiles] ON [AssignmentConsDocuments].Id = [AssignmentConsDocFiles].assignment_cons_doc_id
 WHERE
-  [Appeals].applicant_id IN (SELECT 
-								Id
-							 FROM @ApplicantForPhone)
+  [Appeals].applicant_id IN (
+    SELECT
+      Id
+    FROM
+      @ApplicantForPhone
+  )
   AND [AssignmentStates].code = N'Closed'
 GROUP BY
   [Appeals].Id,
@@ -105,5 +114,5 @@ GROUP BY
   [Applicants].full_name,
   [Questions].control_date,
   [AssignmentConsDocuments].content
-	#sort_columns#
-OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ;
+ORDER BY 1 
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;

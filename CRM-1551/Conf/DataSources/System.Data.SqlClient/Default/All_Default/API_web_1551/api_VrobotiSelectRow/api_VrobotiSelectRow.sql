@@ -139,6 +139,5 @@ WHERE
 		)
 		/*END CRM1551-395*/
 	)
-AND #filter_columns#
-	#sort_columns#
+ ORDER BY 1
   OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ;
