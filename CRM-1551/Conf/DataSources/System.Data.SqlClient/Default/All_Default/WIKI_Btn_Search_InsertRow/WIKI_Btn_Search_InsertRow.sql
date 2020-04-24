@@ -1,3 +1,5 @@
+DECLARE @info TABLE (Id INT);
+
 INSERT INTO
 	[dbo].[Consultations] (
 		[registration_date],
@@ -6,7 +8,8 @@ INSERT INTO
 		[consultation_type_id],
 		[object_id],
 		[user_id]
-	)
+	) 
+OUTPUT inserted.Id INTO @Info(Id)
 VALUES
 	(
 		getutcdate(),
@@ -17,6 +20,7 @@ VALUES
 		@Applicant_Building,
 		@CreatedUser
 	);
+
 IF(@applicant_id IS NOT NULL) 
 BEGIN 
 ----- add Artem
@@ -26,5 +30,9 @@ SET
 	applicant_id = @applicant_id
 WHERE
 	id = @AppealId;
+END
 
+IF(SELECT TOP 1 Id FROM @info) IS NOT NULL
+BEGIN 
+SELECT N'OK' AS result;
 END

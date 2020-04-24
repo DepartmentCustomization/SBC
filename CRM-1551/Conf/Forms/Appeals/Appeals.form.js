@@ -714,7 +714,10 @@
                             }
                         ]
                     };
-                    this.queryExecutor.getValues(queryForGetValue3).subscribe(() => {
+                    this.queryExecutor.getValues(queryForGetValue3).subscribe((data) => {
+                        if(data.rows[0].values[0] === 'OK') {
+                            this.openPopUpInfoDialog('Консультацію зареєстровано');
+                        }
                         const parameters1 = [
                             { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
                             { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
