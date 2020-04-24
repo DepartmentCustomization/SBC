@@ -22,14 +22,14 @@ WHERE [Positions].programuser_id=@user_id;
 		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
-		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
-		FROM [dbo].[LiveAddress] 
-		 LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
-		 LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
-		 LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
-		 LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
-		 WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
-		 [Questions].question_content content,
+		-- (SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
+		-- FROM [dbo].[LiveAddress] 
+		--  LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
+		--  LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
+		--  LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
+		--  LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
+		--  WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
+		 [Applicants].ApplicantAdress applicantAdress, [Questions].question_content content,
 
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
@@ -45,6 +45,7 @@ WHERE [Positions].programuser_id=@user_id;
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id=1 /*зареєстровано*/ AND [Questions].control_date>=GETUTCDATE()
+		AND [Assignments].[executor_organization_id]=@organization_id
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -56,14 +57,14 @@ WHERE [Positions].programuser_id=@user_id;
 		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
-		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
-		FROM [dbo].[LiveAddress] 
-		 LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
-		 LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
-		 LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
-		 LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
-		 WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
-		 [Questions].question_content content,
+		-- (SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
+		-- FROM [dbo].[LiveAddress] 
+		--  LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
+		--  LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
+		--  LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
+		--  LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
+		--  WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
+		[Applicants].ApplicantAdress applicantAdress, [Questions].question_content content,
 
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
@@ -79,6 +80,7 @@ WHERE [Positions].programuser_id=@user_id;
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id=2 /*в роботі*/ AND [Questions].control_date>=GETUTCDATE()
+		AND [Assignments].[executor_organization_id]=@organization_id
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -90,14 +92,14 @@ WHERE [Positions].programuser_id=@user_id;
 		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
-		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
-		FROM [dbo].[LiveAddress] 
-		 LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
-		 LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
-		 LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
-		 LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
-		 WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
-		 [Questions].question_content content,
+		-- (SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
+		-- FROM [dbo].[LiveAddress] 
+		--  LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
+		--  LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
+		--  LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
+		--  LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
+		--  WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
+		 [Applicants].ApplicantAdress applicantAdress, [Questions].question_content content,
 
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
@@ -113,6 +115,7 @@ WHERE [Positions].programuser_id=@user_id;
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id IN (1,2) /*зареєстровано в роботі*/ AND [Questions].control_date<GETUTCDATE()
+		AND [Assignments].[executor_organization_id]=@organization_id
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -124,14 +127,14 @@ WHERE [Positions].programuser_id=@user_id;
 		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
-		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
-		FROM [dbo].[LiveAddress] 
-		 LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
-		 LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
-		 LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
-		 LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
-		 WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
-		 [Questions].question_content content,
+		-- (SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
+		-- FROM [dbo].[LiveAddress] 
+		--  LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
+		--  LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
+		--  LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
+		--  LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
+		--  WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
+		 [Applicants].ApplicantAdress applicantAdress, [Questions].question_content content,
 
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
@@ -147,6 +150,7 @@ WHERE [Positions].programuser_id=@user_id;
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id=3 /*на перевірці*/ AND [Assignments].AssignmentResultsId=7 /*роз.яснено*/
+		AND [Assignments].[executor_organization_id]=@organization_id
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -159,14 +163,14 @@ WHERE [Positions].programuser_id=@user_id;
 		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
-		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
-		FROM [dbo].[LiveAddress] 
-		 LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
-		 LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
-		 LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
-		 LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
-		 WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
-		 [Questions].question_content content,
+		-- (SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
+		-- FROM [dbo].[LiveAddress] 
+		--  LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
+		--  LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
+		--  LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
+		--  LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
+		--  WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
+		 [Applicants].ApplicantAdress applicantAdress, [Questions].question_content content,
 
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
@@ -182,6 +186,7 @@ WHERE [Positions].programuser_id=@user_id;
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id=3 /*на перевірці*/ AND [Assignments].AssignmentResultsId=4 /*виконано*/
+		AND [Assignments].[executor_organization_id]=@organization_id
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -193,14 +198,14 @@ WHERE [Positions].programuser_id=@user_id;
 		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
-		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
-		FROM [dbo].[LiveAddress] 
-		 LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
-		 LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
-		 LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
-		 LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
-		 WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
-		 [Questions].question_content content,
+		-- (SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
+		-- FROM [dbo].[LiveAddress] 
+		--  LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
+		--  LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
+		--  LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
+		--  LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
+		--  WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
+		 [Applicants].ApplicantAdress applicantAdress, [Questions].question_content content,
 
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
@@ -216,6 +221,7 @@ WHERE [Positions].programuser_id=@user_id;
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id=4 /*не виконано*/ AND [Assignments].AssignmentResultsId=5 /*на доопрацюванні*/
+		AND [Assignments].[executor_organization_id]=@organization_id
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -227,14 +233,14 @@ WHERE [Positions].programuser_id=@user_id;
 		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
-		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
-		FROM [dbo].[LiveAddress] 
-		 LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
-		 LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
-		 LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
-		 LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
-		 WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
-		 [Questions].question_content content,
+		-- (SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
+		-- FROM [dbo].[LiveAddress] 
+		--  LEFT JOIN [dbo].[Buildings] ON [LiveAddress].building_id=[Buildings].Id
+		--  LEFT JOIN [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
+		--  LEFT JOIN [dbo].[Streets] ON [Buildings].street_id=[Streets].Id
+		--  LEFT JOIN [dbo].[StreetTypes] ON [Streets].street_type_id=[StreetTypes].Id
+		--  WHERE [LiveAddress].applicant_id=[Applicants].Id) applicantAdress,
+		 [Applicants].ApplicantAdress applicantAdress, [Questions].question_content content,
 
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
@@ -276,6 +282,7 @@ WHERE [Positions].programuser_id=@user_id;
 
 		WHERE [Assignments].assignment_state_id=5 /*закрито*/ AND [Assignments].AssignmentResultsId=7 /*роз.яснено*/ 
 				AND last_state_tab.last_state_id=3/*на перевірці*/ AND last_result_tab.last_result_id=8 /*неможливо виконати в даний період*/
+		AND [Assignments].[executor_organization_id]=@organization_id
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
