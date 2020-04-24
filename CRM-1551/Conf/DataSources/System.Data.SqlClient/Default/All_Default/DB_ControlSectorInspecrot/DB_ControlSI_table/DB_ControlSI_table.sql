@@ -1,8 +1,25 @@
  --DECLARE @column nvarchar(200)=N'count_plan_program';
 
+DECLARE @person_executor_choose_table TABLE (Id INT);
+
+  INSERT INTO @person_executor_choose_table (Id)
+
+/*
+  SELECT DISTINCT [PersonExecutorChooseObjects].person_executor_choose_id
+  FROM [dbo].[PersonExecutorChoose]
+  INNER JOIN [dbo].[Positions] ON [PersonExecutorChoose].position_id=[Positions].Id
+  INNER JOIN [dbo].[PersonExecutorChooseObjects] ON [PersonExecutorChoose].Id=[PersonExecutorChooseObjects].person_executor_choose_id
+  WHERE [Positions].programuser_id=@user_id;
+*/
+
+SELECT Id 
+FROM [dbo].[Positions]
+WHERE [Positions].programuser_id=@user_id;
+
+
   IF @column=N'count_arrived' --2
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -21,6 +38,7 @@
 		FROM [dbo].[QuestionsInTerritory]
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
+		INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
@@ -35,7 +53,7 @@
 
 	IF @column=N'count_in_work' --3
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -54,6 +72,7 @@
 		FROM [dbo].[QuestionsInTerritory]
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
+		INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
@@ -68,7 +87,7 @@
 
 	IF @column=N'count_overdue' --4
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -87,6 +106,7 @@
 		FROM [dbo].[QuestionsInTerritory]
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
+		INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
@@ -101,7 +121,7 @@
 
 	IF @column=N'count_clarified' --5
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -120,6 +140,7 @@
 		FROM [dbo].[QuestionsInTerritory]
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
+		INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
@@ -135,7 +156,7 @@
 
 	IF @column=N'count_done' --6
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -154,6 +175,7 @@
 		FROM [dbo].[QuestionsInTerritory]
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
+		INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
@@ -168,7 +190,7 @@
 
 	IF @column=N'count_for_revision' --7
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -187,6 +209,7 @@
 		FROM [dbo].[QuestionsInTerritory]
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
+		INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
@@ -201,7 +224,7 @@
 
 	IF @column=N'count_plan_program' --8
 	BEGIN
-		SELECT [Assignments].Id, [Assignments].registration_date, [QuestionTypes].name questionType, 
+		SELECT [Assignments].Id, [Questions].[registration_number], [Assignments].registration_date, [QuestionTypes].name questionType, 
 		[Applicants].full_name applicant, [Objects].name [place_problem], [Questions].control_date,
 
 		(SELECT TOP 1 ISNULL([Districts].name+N' р-н, ',N' ')+ISNULL([StreetTypes].shortname+N' ', N'')+ ISNULL([Streets].name, N'')+ISNULL(N', '+[Buildings].name, N'')+ISNULL(N', кв '+[LiveAddress].flat,N'')
@@ -220,6 +243,7 @@
 		FROM [dbo].[QuestionsInTerritory]
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
+		INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
 
 		--
 		INNER JOIN (SELECT [Assignment_History].assignment_id, [Assignment_History].assignment_state_id last_state_id

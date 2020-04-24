@@ -13,51 +13,57 @@
       "IsPrintable": false
     },
     {
+      "Code": "registration_number",
+      "Name": "registration_number",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
       "Code": "registration_date",
       "Name": "registration_date",
-      "Position": 1,
+      "Position": 2,
       "IsPrintable": false
     },
     {
       "Code": "questionType",
       "Name": "questionType",
-      "Position": 2,
+      "Position": 3,
       "IsPrintable": false
     },
     {
       "Code": "applicant",
       "Name": "applicant",
-      "Position": 3,
+      "Position": 4,
       "IsPrintable": false
     },
     {
       "Code": "place_problem",
       "Name": "place_problem",
-      "Position": 4,
+      "Position": 5,
       "IsPrintable": false
     },
     {
       "Code": "control_date",
       "Name": "control_date",
-      "Position": 5,
+      "Position": 6,
       "IsPrintable": false
     },
     {
       "Code": "applicantAdress",
       "Name": "applicantAdress",
-      "Position": 6,
+      "Position": 7,
       "IsPrintable": false
     },
     {
       "Code": "content",
       "Name": "content",
-      "Position": 7,
+      "Position": 8,
       "IsPrintable": false
     },
     {
       "Code": "balancer",
       "Name": "balancer",
-      "Position": 8,
+      "Position": 9,
       "IsPrintable": false
     }
   ],
@@ -77,6 +83,11 @@
       "Name": "pageOffsetRows",
       "ParameterType": "Integer",
       "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
     }
   ]
 }
