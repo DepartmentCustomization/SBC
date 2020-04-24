@@ -1,3 +1,19 @@
+DECLARE @person_executor_choose_table TABLE (Id INT);
+
+  INSERT INTO @person_executor_choose_table (Id)
+
+/*
+  SELECT DISTINCT [PersonExecutorChooseObjects].person_executor_choose_id
+  FROM [dbo].[PersonExecutorChoose]
+  INNER JOIN [dbo].[Positions] ON [PersonExecutorChoose].position_id=[Positions].Id
+  INNER JOIN [dbo].[PersonExecutorChooseObjects] ON [PersonExecutorChoose].Id=[PersonExecutorChooseObjects].person_executor_choose_id
+  WHERE [Positions].programuser_id=@user_id;
+*/
+
+SELECT Id 
+FROM [dbo].[Positions]
+WHERE [Positions].programuser_id=@user_id;
+
 SELECT Organization_id Id, organization_name, 
   SUM([count_arrived]) [count_arrived], --2
   SUM([count_in_work]) [count_in_work], --3
@@ -22,6 +38,7 @@ SELECT Organization_id Id, organization_name,
   FROM [dbo].[QuestionsInTerritory]
   INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
   INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
+  INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
   LEFT JOIN [dbo].[Organizations] ON [Assignments].executor_organization_id=[Organizations].Id
 
   LEFT JOIN (SELECT [Assignment_History].assignment_id, [Assignment_History].assignment_state_id last_state_id
