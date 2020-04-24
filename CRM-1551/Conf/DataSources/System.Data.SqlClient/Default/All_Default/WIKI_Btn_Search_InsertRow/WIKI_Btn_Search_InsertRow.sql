@@ -16,7 +16,7 @@ VALUES
 		/*За Базою Знань (БЗ)*/
 		@Applicant_Building,
 		@CreatedUser
-	) 
+	);
 IF(@applicant_id IS NOT NULL) 
 BEGIN 
 ----- add Artem
