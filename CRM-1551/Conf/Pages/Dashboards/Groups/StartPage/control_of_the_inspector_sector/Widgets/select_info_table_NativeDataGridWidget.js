@@ -96,7 +96,8 @@
                 document.getElementById('selectInfoTable').style.display = 'block';
                 this.config.query.queryCode = 'DB_ControlSI_table';
                 this.config.query.parameterValues = [
-                    { key: '@column', value: `count_${message.columnName}`}
+                    { key: '@column', value: `count_${message.columnName}`},
+                    { key: '@organization_id', value: message.organizationId}
                 ];
                 this.loadData(this.afterLoadDataHandler);
             }

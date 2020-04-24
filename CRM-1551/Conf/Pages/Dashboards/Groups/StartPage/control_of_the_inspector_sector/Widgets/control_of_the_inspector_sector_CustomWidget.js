@@ -312,7 +312,7 @@
                 name: message,
                 columnName: columnName,
                 navigation: navigator,
-                orgId: organizationId,
+                organizationId: organizationId,
                 orgName: orgName,
                 targetId: targetId
             });
