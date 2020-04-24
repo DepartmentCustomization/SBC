@@ -16,7 +16,13 @@
             {
                 id: 'control_of_the_inspector_sector',
                 url: 'control_of_the_inspector_sector',
-                titleText: 'Контроль сектору інспектора'
+                titleText: 'Контроль сектору інспектора',
+                hover: true
+            },
+            {
+                id: 'performer_new_processing_assigments',
+                url: 'performer_new_processing_assigments',
+                titleText: 'ОБРОБКА ДОРУЧЕНЬ'
             }
         ],
         headers: [
@@ -78,6 +84,22 @@
             header1.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
             this.subscribers.push(this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this));
             this.executeMainTableQuery(false, null);
+            this.executeOrganizationQuery();
+        },
+        executeOrganizationQuery: function() {
+            let executeQuery = {
+                queryCode: 'organization_name',
+                parameterValues: [],
+                limit: -1
+            };
+            this.queryExecutor(executeQuery, this.setUserOrganizationId, this);
+            this.showPreloader = false;
+        },
+        setUserOrganizationId: function(data) {
+            const indexOfTypeId = data.columns.findIndex(el => el.code.toLowerCase() === 'organizationid');
+            if(data.rows[0]) {
+                this.organizationId = (data.rows[0].values[indexOfTypeId]);
+            }
         },
         executeMainTableQuery: function(isReload, targetId) {
             let executeQueryOrganizations = {
@@ -117,11 +139,19 @@
             );
             tabsWrapper.appendChild(tabsContainer);
             this.tabs.forEach(tab => {
-                let itemTitle = this.createElement('div', { className: 'tabAction tab_title', innerText: tab.titleText });
+                let itemTitle = this.createElement('div', { className: 'tab_title', innerText: tab.titleText });
                 const item = this.createElement('div',
-                    { id: 'tabAction', url: 'performer_new_actions', className: 'tabAction tab tabTo tabHover' },
+                    { id: tab.id, url: tab.url, className: 'tab' },
                     itemTitle
                 );
+                if (tab.hover) {
+                    item.classList.add('tabHover');
+                } else {
+                    item.addEventListener('click', event => {
+                        const target = event.currentTarget;
+                        this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
+                    });
+                }
                 item.addEventListener('click', () => {
                 });
                 tabsContainer.appendChild(item);
