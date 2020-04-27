@@ -41,7 +41,7 @@ WHERE
       #sort_columns#
   OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ;';
 
-	EXEC sp_executesql @Query, N'@Id INT, @pageOffsetRows INT, @pageLimitRows INT', 
+	EXEC sp_executesql @Query, N'@Id INT, @pageOffsetRows BIGINT, @pageLimitRows BIGINT', 
 								@Id = @Id,
 								@pageOffsetRows = @pageOffsetRows,
 								@pageLimitRows = @pageLimitRows;
