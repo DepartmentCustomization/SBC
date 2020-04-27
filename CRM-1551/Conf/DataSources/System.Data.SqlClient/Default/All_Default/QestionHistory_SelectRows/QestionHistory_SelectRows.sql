@@ -113,7 +113,7 @@ WHERE
       [Question_History].[Log_Date] DESC 
    OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY ; ' ;
 
-  EXEC sp_executesql @Query, N'@question_id INT, @pageOffsetRows INT, @pageLimitRows INT', 
+  EXEC sp_executesql @Query, N'@question_id INT, @pageOffsetRows BIGINT, @pageLimitRows BIGINT', 
                               @question_id = @question_id,
 							  @pageOffsetRows = @pageOffsetRows,
 							  @pageLimitRows = @pageLimitRows;
