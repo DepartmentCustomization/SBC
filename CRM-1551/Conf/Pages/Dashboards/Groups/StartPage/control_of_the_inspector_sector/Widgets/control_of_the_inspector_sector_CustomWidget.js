@@ -189,7 +189,7 @@
                     className: 'displayFlex'
                 }
             );
-            const headerTitle = this.createElement('div', { id: 'headerTitle', innerText: 'Підлеглі організації'});
+            const headerTitle = this.createElement('div', { id: 'headerTitle', innerText: 'Організації'});
             const orgHeader = this.createElement('div',
                 {
                     id: 'orgHeader',

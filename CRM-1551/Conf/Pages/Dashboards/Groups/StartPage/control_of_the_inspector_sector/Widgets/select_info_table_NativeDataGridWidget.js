@@ -37,8 +37,8 @@
                 applyFilter: 'auto'
             },
             export: {
-                enabled: false,
-                fileName: 'Пошук__'
+                enabled: true,
+                fileName: 'Організації'
             },
             searchPanel: {
                 visible: false,
