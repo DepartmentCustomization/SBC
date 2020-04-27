@@ -30,5 +30,18 @@ OUTPUT [inserted].[Id] INTO @output (Id)
       ,@geolocation_lon
       ,@SystemIP
       ,@external_data_sources_id;
-      
-SELECT Id FROM @output;
+
+DECLARE @AppealsFromSite_Id INT = (SELECT TOP 1 Id FROM @output);
+
+EXEC [dbo].[AutomaticQuestionFromSite] @applicant_from_site_id,
+@work_direction_type_id,
+@object_id,
+@appeal_content,
+@geolocation_lat, 
+@geolocation_lon,
+@SystemIP,
+@external_data_sources_id,
+@AppealsFromSite_Id,
+@user_id;
+
+SELECT @AppealsFromSite_Id Id;

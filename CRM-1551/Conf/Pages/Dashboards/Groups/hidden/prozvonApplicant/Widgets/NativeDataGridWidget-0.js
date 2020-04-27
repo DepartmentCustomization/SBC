@@ -148,42 +148,42 @@
             let sortingArr = this.sortingArr;
             if(args.fullName !== undefined) {
                 let columnCode;
-                switch(args.fullName) {
-                case('columns[0].sortOrder'):
-                    columnCode = 'registration_number'
-                    break;
-                case('columns[1].sortOrder'):
-                    columnCode = 'QuestionType'
-                    break;
-                case('columns[2].sortOrder'):
-                    columnCode = 'full_name'
-                    break;
-                case('columns[3].sortOrder'):
-                    columnCode = 'phone_number'
-                    break;
-                case('columns[4].sortOrder'):
-                    columnCode = 'cc_nedozvon'
-                    break;
-                case('columns[5].sortOrder'):
-                    columnCode = 'District'
-                    break;
-                case('columns[6].sortOrder'):
-                    columnCode = 'house'
-                    break;
-                case('columns[7].sortOrder'):
-                    columnCode = 'entrance'
-                    break;
-                case('columns[8].sortOrder'):
-                    columnCode = 'place_problem'
-                    break;
-                case('columns[9].sortOrder'):
-                    columnCode = 'vykon'
-                    break;
-                case('dataSource'):
-                    columnCode = 'dataSource'
-                    break;
-                default:
-                    break;
+                switch (args.fullName) {
+                    case('columns[0].sortOrder'):
+                        columnCode = 'registration_number'
+                        break;
+                    case('columns[1].sortOrder'):
+                        columnCode = 'QuestionType'
+                        break;
+                    case('columns[2].sortOrder'):
+                        columnCode = 'full_name'
+                        break;
+                    case('columns[3].sortOrder'):
+                        columnCode = 'phone_number'
+                        break;
+                    case('columns[4].sortOrder'):
+                        columnCode = 'cc_nedozvon'
+                        break;
+                    case('columns[5].sortOrder'):
+                        columnCode = 'District'
+                        break;
+                    case('columns[6].sortOrder'):
+                        columnCode = 'house'
+                        break;
+                    case('columns[7].sortOrder'):
+                        columnCode = 'entrance'
+                        break;
+                    case('columns[8].sortOrder'):
+                        columnCode = 'place_problem'
+                        break;
+                    case('columns[9].sortOrder'):
+                        columnCode = 'vykon'
+                        break;
+                    case('dataSource'):
+                        columnCode = 'dataSource'
+                        break;
+                    default:
+                        break;
                 }
                 if(columnCode !== undefined) {
                     if(columnCode !== 'dataSource') {

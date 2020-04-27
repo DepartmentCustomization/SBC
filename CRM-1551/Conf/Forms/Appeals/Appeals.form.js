@@ -670,7 +670,7 @@
                         parameterValues: [
                             {
                                 key: '@Applicant_Phone',
-                                value: this.form.getControlValue('Applicant_Phone_Hide')
+                                value: this.form.getControlValue('Phone')
                             },
                             {
                                 key: '@AppealId',
@@ -698,7 +698,7 @@
                         parameterValues: [
                             {
                                 key: '@Applicant_Phone',
-                                value: this.form.getControlValue('Applicant_Phone_Hide')
+                                value: this.form.getControlValue('Phone')
                             },
                             {
                                 key: '@AppealId',
@@ -714,11 +714,14 @@
                             }
                         ]
                     };
-                    this.queryExecutor.getValues(queryForGetValue3).subscribe(() => {
+                    this.queryExecutor.getValues(queryForGetValue3).subscribe((data) => {
+                        if(data.rows[0].values[0] === 'OK') {
+                            this.openPopUpInfoDialog('Консультацію зареєстровано');
+                        }
                         const parameters1 = [
                             { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
                             { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
-                            { key: '@phone_number', value: this.form.getControlValue('Applicant_Phone_Hide')}
+                            { key: '@phone_number', value: this.form.getControlValue('Phone')}
                         ];
                         this.details.loadData('Detail_Consultation', parameters1);
                     });
