@@ -88,6 +88,13 @@
             document.getElementById('selectInfoTable').style.display = 'none';
             this.subscribers.push(this.messageService.subscribe('clickOnInfoTable', this.changeOnTable, this));
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
+            this.dataGridInstance.onCellClick.subscribe(e => {
+                if(e.column) {
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
+                        window.open(`${location.origin}${localStorage.getItem('VirtualPath')}/sections/Assignments/edit/${e.key}`);
+                    }
+                }
+            });
         },
         changeOnTable: function(message) {
             if (!message.columnName) {
