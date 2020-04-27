@@ -57,10 +57,7 @@
             this.form.disableControl('ass_result_id');
             this.form.disableControl('ass_resolution_id');
             this.form.disableControl('address_problem');
-            this.form.disableControl('object_id');
             this.form.disableControl('districts_id');
-            this.form.disableControl('question_type_id');
-            this.form.disableControl('perfom_id');
             this.onQuestionFromSiteAppeal();
             let flag_is_state = this.form.getControlValue('flag_is_state');
             if (flag_is_state === 1) {
