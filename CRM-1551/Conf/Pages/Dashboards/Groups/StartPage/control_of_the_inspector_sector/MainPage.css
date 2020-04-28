@@ -355,6 +355,10 @@
     flex-direction: column;
     width: 100%;
 }
+.orgElementsCounter{
+    height: 100%;
+    align-items: center;
+}
 .orgTitle{
     max-width: 200px;
     min-width: 200px;

@@ -60,7 +60,7 @@
                 backgroundColor: 'rgb(74, 193, 197)'
             },
             {
-                name: 'inWork',
+                name: 'in_work',
                 id: 'headerItem__inWork',
                 innerText: 'В роботі',
                 colorIndex: 1,
@@ -88,14 +88,14 @@
                 backgroundColor: 'rgb(86 162 78)'
             },
             {
-                name: 'onRefinement',
+                name: 'for_revision',
                 id: 'headerItem__onRefinement',
                 innerText: 'На доопрацювання',
                 colorIndex: 5,
                 backgroundColor: 'rgb(94, 202, 162)'
             },
             {
-                name: 'planOrProgram',
+                name: 'plan_program',
                 id: 'headerItem__planOrProgram',
                 innerText: 'План\\Програма',
                 colorIndex: 6,
