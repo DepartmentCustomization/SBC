@@ -42,7 +42,7 @@ ORDER BY
   t1.Id ;
 
 UPDATE
-  #temp_OUT SET history_id_old = (SELECT TOP 1 Id FROM [DB.UKRODS.CF].[CRM_1551_Analitics].[dbo].[Question_History] 
+  #temp_OUT SET history_id_old = (SELECT TOP 1 Id FROM '+@Archive+ N'[dbo].[Question_History] 
 WHERE
   [Log_Date] < (
     SELECT
