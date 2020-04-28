@@ -1,9 +1,21 @@
 
 /*
-DECLARE @column nvarchar(200)=N'count_arrived';
+DECLARE @column nvarchar(200)=N'count_plan_program';
 DECLARE @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
-DECLARE @organization_id int=2467;
-*/
+DECLARE @organization_id int=2185;*/
+
+DECLARE @sertor_table TABLE (Id int);
+
+  INSERT INTO @sertor_table (Id)--2976544
+
+  select [Territories].Id
+  from [dbo].[Positions]
+  inner join [dbo].[PersonExecutorChoose] on [PersonExecutorChoose].position_id=[Positions].id
+  inner join [dbo].[PersonExecutorChooseObjects] on [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
+  inner join [dbo].[Territories] on [PersonExecutorChooseObjects].object_id=[Territories].object_id
+  where [Positions].programuser_id=@user_id
+
+
 
   IF @column=N'count_arrived' --2
 	BEGIN
@@ -24,6 +36,7 @@ DECLARE @organization_id int=2467;
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
 
 		FROM [dbo].[QuestionsInTerritory]
+		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
 		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
@@ -59,6 +72,7 @@ DECLARE @organization_id int=2467;
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
 
 		FROM [dbo].[QuestionsInTerritory]
+		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
 		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
@@ -94,6 +108,7 @@ DECLARE @organization_id int=2467;
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
 
 		FROM [dbo].[QuestionsInTerritory]
+		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
 		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
@@ -129,6 +144,7 @@ DECLARE @organization_id int=2467;
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
 
 		FROM [dbo].[QuestionsInTerritory]
+		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
 		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
@@ -165,6 +181,7 @@ DECLARE @organization_id int=2467;
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
 
 		FROM [dbo].[QuestionsInTerritory]
+		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
 		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
@@ -200,6 +217,7 @@ DECLARE @organization_id int=2467;
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
 
 		FROM [dbo].[QuestionsInTerritory]
+		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
 		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
@@ -235,6 +253,7 @@ DECLARE @organization_id int=2467;
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
 
 		FROM [dbo].[QuestionsInTerritory]
+		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
 		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
