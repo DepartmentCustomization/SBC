@@ -79,7 +79,7 @@ N'SELECT
 				ELSE 0
 			END
 		FROM
-			[DB.UKRODS.CF].[CRM_1551_Analitics].dbo.Assignments
+			'+@Archive+N'dbo.Assignments
 		WHERE
 			question_id = @Id
 			AND main_executor = 1
