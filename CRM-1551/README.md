@@ -10,7 +10,8 @@
 7. Добавить конфигурацию.
 8. Изменить лицензию в папке  bin.
 9. изменить следующие файлы: config.json, web.config.json.
-9.1 web.config.json -> изменить значение maxAllowedCOntentLength (для максимального размера файлов);
+
+	9.1 web.config.json -> изменить значение maxAllowedCOntentLength (для максимального размера файлов);
 10. Проверить Index.html
 11. Проверить папку assets/img на наличие нужных иконок.
 
