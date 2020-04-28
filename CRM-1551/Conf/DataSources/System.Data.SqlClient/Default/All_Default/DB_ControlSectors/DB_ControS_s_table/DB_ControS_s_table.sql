@@ -1,21 +1,40 @@
+ --DECLARE @column nvarchar(200)=N'count_arrived';
+ --DECLARE @sector_id INT=2;
+ --DECLARE @user_id nvarchar(200)=N'Вася';
+
+DECLARE @person_executor_choose_table TABLE (Id INT);
+
+  INSERT INTO @person_executor_choose_table (Id)
 
 /*
-DECLARE @column nvarchar(200)=N'count_plan_program';
-DECLARE @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
-DECLARE @organization_id int=2185;*/
-
-DECLARE @sertor_table TABLE (Id int);
-
-  INSERT INTO @sertor_table (Id)--2976544
-
-  select [Territories].Id
-  from [dbo].[Positions]
-  inner join [dbo].[PersonExecutorChoose] on [PersonExecutorChoose].position_id=[Positions].id
-  inner join [dbo].[PersonExecutorChooseObjects] on [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
-  inner join [dbo].[Territories] on [PersonExecutorChooseObjects].object_id=[Territories].object_id
-  where [Positions].programuser_id=@user_id
+  SELECT DISTINCT [PersonExecutorChooseObjects].person_executor_choose_id
+  FROM [dbo].[PersonExecutorChoose]
+  INNER JOIN [dbo].[Positions] ON [PersonExecutorChoose].position_id=[Positions].Id
+  INNER JOIN [dbo].[PersonExecutorChooseObjects] ON [PersonExecutorChoose].Id=[PersonExecutorChooseObjects].person_executor_choose_id
+  WHERE [Positions].programuser_id=@user_id;
+*/
 
 
+SELECT Id 
+FROM [dbo].[Positions]
+WHERE [Positions].programuser_id=@user_id;
+
+
+--найти организации данного сектора
+
+ DECLARE @sector_org_table TABLE (organization_id INT, short_name nvarchar(500));
+
+ INSERT INTO @sector_org_table (organization_id, short_name)
+
+  SELECT DISTINCT [PersonExecutorChoose].organization_id, [Organizations].short_name
+  --[PersonExecutorChooseObjects].object_id, [PersonExecutorChooseObjects].person_executor_choose_id,
+  FROM [dbo].[Territories]
+  INNER JOIN [dbo].[PersonExecutorChooseObjects] ON [Territories].object_id=[PersonExecutorChooseObjects].object_id
+  INNER JOIN [dbo].[PersonExecutorChoose] ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
+  INNER JOIN [dbo].[Organizations] ON [PersonExecutorChoose].organization_id=[Organizations].Id
+  WHERE [Territories].Id=@sector_id
+
+  --SELECT * FROM @sector_org_table
 
   IF @column=N'count_arrived' --2
 	BEGIN
@@ -34,19 +53,19 @@ DECLARE @sertor_table TABLE (Id int);
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
-
+		 ,st.short_name executor
 		FROM [dbo].[QuestionsInTerritory]
-		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
-		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
+		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id
+		INNER JOIN @sector_org_table st ON [Assignments].executor_organization_id=st.organization_id
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
+
 		WHERE [Assignments].assignment_state_id=1 /*зареєстровано*/ AND [Questions].control_date>=GETUTCDATE()
-		AND [Assignments].[executor_organization_id]=@organization_id
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -70,19 +89,19 @@ DECLARE @sertor_table TABLE (Id int);
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
-
+		 ,st.short_name executor
 		FROM [dbo].[QuestionsInTerritory]
-		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
-		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
+		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id
+		INNER JOIN @sector_org_table st ON [Assignments].executor_organization_id=st.organization_id
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id=2 /*в роботі*/ AND [Questions].control_date>=GETUTCDATE()
-		AND [Assignments].[executor_organization_id]=@organization_id
+		
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -106,19 +125,19 @@ DECLARE @sertor_table TABLE (Id int);
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
-
+		 ,st.short_name executor
 		FROM [dbo].[QuestionsInTerritory]
-		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
-		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
+		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id
+		INNER JOIN @sector_org_table st ON [Assignments].executor_organization_id=st.organization_id
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id IN (1,2) /*зареєстровано в роботі*/ AND [Questions].control_date<GETUTCDATE()
-		AND [Assignments].[executor_organization_id]=@organization_id
+		
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -142,19 +161,19 @@ DECLARE @sertor_table TABLE (Id int);
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
-
+		 ,st.short_name executor
 		FROM [dbo].[QuestionsInTerritory]
-		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
-		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
+		INNER JOIN @sector_org_table st ON [Assignments].executor_organization_id=st.organization_id
+		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id=3 /*на перевірці*/ AND [Assignments].AssignmentResultsId=7 /*роз.яснено*/
-		AND [Assignments].[executor_organization_id]=@organization_id
+		
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -179,19 +198,19 @@ DECLARE @sertor_table TABLE (Id int);
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
-
+		 ,st.short_name executor
 		FROM [dbo].[QuestionsInTerritory]
-		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
-		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
+		INNER JOIN @sector_org_table st ON [Assignments].executor_organization_id=st.organization_id
+		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id=3 /*на перевірці*/ AND [Assignments].AssignmentResultsId=4 /*виконано*/
-		AND [Assignments].[executor_organization_id]=@organization_id
+		
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -215,19 +234,19 @@ DECLARE @sertor_table TABLE (Id int);
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
-
+		 ,st.short_name executor
 		FROM [dbo].[QuestionsInTerritory]
-		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
-		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
+		INNER JOIN @sector_org_table st ON [Assignments].executor_organization_id=st.organization_id
+		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id
 		INNER JOIN [dbo].[Appeals] ON [Questions].appeal_id=[Appeals].Id
 		LEFT JOIN [dbo].[Applicants] ON [Appeals].applicant_id=[Applicants].Id
 		LEFT JOIN [dbo].[QuestionTypes] ON [Questions].question_type_id=[QuestionTypes].Id
 		LEFT JOIN [dbo].[Objects] ON [Questions].object_id=[Objects].Id
 
 		WHERE [Assignments].assignment_state_id=4 /*не виконано*/ AND [Assignments].AssignmentResultsId=5 /*на доопрацюванні*/
-		AND [Assignments].[executor_organization_id]=@organization_id
+		
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
@@ -251,12 +270,12 @@ DECLARE @sertor_table TABLE (Id int);
 		 (SELECT TOP 1 [Organizations].short_name FROM [dbo].[ExecutorInRoleForObject]
 		 INNER JOIN [dbo].[Organizations] ON [ExecutorInRoleForObject].executor_id=[Organizations].Id
 		 WHERE [executor_role_id]=1 AND [ExecutorInRoleForObject].object_id=[Questions].object_id) balancer
-
+		 ,st.short_name executor
 		FROM [dbo].[QuestionsInTerritory]
-		INNER JOIN @sertor_table st ON [QuestionsInTerritory].territory_id=st.Id
 	    INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
 	    INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
-		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
+		INNER JOIN @sector_org_table st ON [Assignments].executor_organization_id=st.organization_id
+		--INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id
 
 		--
 		INNER JOIN (SELECT [Assignment_History].assignment_id, [Assignment_History].assignment_state_id last_state_id
@@ -289,7 +308,7 @@ DECLARE @sertor_table TABLE (Id int);
 
 		WHERE [Assignments].assignment_state_id=5 /*закрито*/ AND [Assignments].AssignmentResultsId=7 /*роз.яснено*/ 
 				AND last_state_tab.last_state_id=3/*на перевірці*/ AND last_result_tab.last_result_id=8 /*неможливо виконати в даний період*/
-		AND [Assignments].[executor_organization_id]=@organization_id
+		
 		AND #filter_columns#
 		--#sort_columns#
 		ORDER BY 1
