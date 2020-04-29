@@ -45,7 +45,7 @@ FROM
 	[dbo].[Appeals] [Appeals]
 	LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
 	LEFT JOIN [dbo].[Assignments] [Assignments] ON [Questions].Id = [Assignments].question_id
-	LEFT JOIN [dbo].[AssignmentStates] [Assignments] ON [Assignments].assignment_state_id = [AssignmentStates].Id
+	LEFT JOIN [dbo].[AssignmentStates] [AssignmentStates] ON [Assignments].assignment_state_id = [AssignmentStates].Id
 	LEFT JOIN [dbo].[AssignmentResults] [AssignmentResults] ON [Assignments].AssignmentResultsId = [AssignmentResults].Id
 	LEFT JOIN [dbo].[Objects] [Objects] ON [Questions].[object_id] = [Objects].Id
 	LEFT JOIN [dbo].[QuestionTypes] [QuestionTypes] ON [Questions].question_type_id = [QuestionTypes].Id
@@ -87,7 +87,7 @@ FROM
 	[dbo].[Appeals] [Appeals]
 	LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
 	LEFT JOIN [dbo].[Assignments] [Assignments] ON [Questions].Id = [Assignments].question_id
-	LEFT JOIN [dbo].[AssignmentStates] [Assignments] ON [Assignments].assignment_state_id = [AssignmentStates].Id
+	LEFT JOIN [dbo].[AssignmentStates] [AssignmentStates] ON [Assignments].assignment_state_id = [AssignmentStates].Id
 	LEFT JOIN [dbo].[AssignmentResults] [AssignmentResults] ON [Assignments].AssignmentResultsId = [AssignmentResults].Id
 	LEFT JOIN [dbo].[Objects] [Objects] ON [Questions].[object_id] = [Objects].Id
 	LEFT JOIN [dbo].[QuestionTypes] [QuestionTypes] ON [Questions].question_type_id = [QuestionTypes].Id
