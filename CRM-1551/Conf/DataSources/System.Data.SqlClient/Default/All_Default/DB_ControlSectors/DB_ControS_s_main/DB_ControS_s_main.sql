@@ -1,25 +1,25 @@
 
   /*под одну организацию попадают несколько разных секторов, значит обращения будут лететь под разные сектора*/
 
+ -- DECLARE @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
+
   IF object_id('tempdb..#temp_sector') is not null 
 	BEGIN
 		DROP TABLE #temp_sector
 	END
 
-    SELECT [Territories].Id sector_id, [Territories].name+ISNULL(N' ('+[Positions].name+N')', N'') sector_name, [PersonExecutorChoose].organization_id
-  --[PersonExecutorChooseObjects].object_id, [PersonExecutorChooseObjects].person_executor_choose_id,
+  SELECT DISTINCT t.Id sector_id, t.name+ISNULL(N' ('+p2.name+N')', N'') sector_name
   INTO #temp_sector
-  FROM [dbo].[Territories]
-  INNER JOIN [dbo].[PersonExecutorChooseObjects] ON [Territories].object_id=[PersonExecutorChooseObjects].object_id
-  INNER JOIN [dbo].[PersonExecutorChoose] ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
-  LEFT JOIN [dbo].[Positions] ON [PersonExecutorChoose].position_id=[Positions].Id
+  FROM [dbo].[Positions] p1
+  INNER JOIN [dbo].[Positions] p2 ON p1.organizations_id=p2.organizations_id
+  INNER JOIN [dbo].[PersonExecutorChoose] pec ON p2.Id=pec.position_id
+  INNER JOIN [dbo].[PersonExecutorChooseObjects] peco ON pec.Id=peco.person_executor_choose_id
+  INNER JOIN [dbo].[Territories] t ON peco.object_id=t.object_id
+  WHERE p1.programuser_id=@user_id
 
-  IF object_id('tempdb..#temp_ass') is not null 
-	BEGIN
-		DROP TABLE #temp_ass
-	END
+
   
-  SELECT Organization_id, 
+  SELECT sector_id Id, sector_name,
   SUM([count_arrived]) [count_arrived], --2
   SUM([count_in_work]) [count_in_work], --3
   SUM([count_overdue]) [count_overdue], --4
@@ -27,10 +27,10 @@
   SUM([count_done]) [count_done], --6
   SUM([count_for_revision]) [count_for_revision], --7
   SUM([count_plan_program]) [count_plan_program] --8
-  INTO #temp_ass
+  --INTO #temp_ass
   FROM
   (
-  SELECT [Assignments].Id, [Assignments].executor_organization_id Organization_id,
+  SELECT [Assignments].Id, ts.sector_id, ts.sector_name,
   CASE WHEN [Assignments].assignment_state_id=1 /*зареєстровано*/ AND [Questions].control_date>=GETUTCDATE() THEN 1 ELSE 0 END [count_arrived], --2
   CASE WHEN [Assignments].assignment_state_id=2 /*в роботі*/ AND [Questions].control_date>=GETUTCDATE() THEN 1 ELSE 0 END [count_in_work], --3
   CASE WHEN [Assignments].assignment_state_id IN (1,2) /*зареєстровано в роботі*/ AND [Questions].control_date<GETUTCDATE() THEN 1 ELSE 0 END [count_overdue], --4
@@ -41,10 +41,9 @@
   AND last_state_tab.last_state_id=3/*на перевірці*/ AND last_result_tab.last_result_id=8 /*неможливо виконати в даний період*/
   THEN 1 ELSE 0 END [count_plan_program] --8
   FROM [dbo].[QuestionsInTerritory]
+  INNER JOIN #temp_sector ts ON [QuestionsInTerritory].territory_id=ts.sector_id
   INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
   INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
-  --INNER JOIN @person_executor_choose_table p_tab ON [Assignments].[executor_person_id]=p_tab.Id --раскомментировать
-  INNER JOIN (SELECT DISTINCT organization_id FROM #temp_sector) [Organizations] ON [Assignments].executor_organization_id=[Organizations].organization_id
   LEFT JOIN (SELECT [Assignment_History].assignment_id, [Assignment_History].assignment_state_id last_state_id
   FROM [dbo].[Assignment_History]
   INNER JOIN 
@@ -67,20 +66,8 @@
   WHERE [Assignments].assignment_state_id=5 AND [Assignments].AssignmentResultsId=7
   GROUP BY [Assignment_History].assignment_id) tab_last_result ON [Assignment_History].Id=tab_last_result.Id_result) last_result_tab ON [Assignments].Id=last_result_tab.assignment_id
   ) ass
-  GROUP BY Organization_id
-
-
-  SELECT s.sector_id Id, s.sector_name, [count_arrived], --2
-  [count_in_work], --3
-  [count_overdue], --4
-  [count_clarified], --5
-  [count_done], --6
-  [count_for_revision], --7
-  [count_plan_program] --8
-  FROM #temp_ass a 
-  INNER JOIN #temp_sector s ON a.Organization_id=s.organization_id
-
   WHERE #filter_columns#
+  GROUP BY sector_id, sector_name
   --#sort_columns#
   ORDER BY 1
   offset @pageOffsetRows rows fetch next @pageLimitRows rows only
