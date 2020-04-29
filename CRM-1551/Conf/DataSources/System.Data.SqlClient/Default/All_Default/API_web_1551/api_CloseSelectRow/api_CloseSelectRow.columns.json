@@ -70,5 +70,29 @@
     "Name": "CountFiles",
     "Position": 11,
     "IsPrintable": false
+  },
+  {
+    "Code": "Assignment_executor_organization_name",
+    "Name": "Assignment_executor_organization_name",
+    "Position": 12,
+    "IsPrintable": false
+  },
+  {
+    "Code": "object_id",
+    "Name": "object_id",
+    "Position": 13,
+    "IsPrintable": false
+  },
+  {
+    "Code": "geolocation_lat",
+    "Name": "geolocation_lat",
+    "Position": 14,
+    "IsPrintable": false
+  },
+  {
+    "Code": "geolocation_lon",
+    "Name": "geolocation_lon",
+    "Position": 15,
+    "IsPrintable": false
   }
 ]

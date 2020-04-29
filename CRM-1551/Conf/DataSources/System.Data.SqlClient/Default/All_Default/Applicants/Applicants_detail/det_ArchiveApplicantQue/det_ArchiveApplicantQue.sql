@@ -31,7 +31,7 @@ ORDER BY
   [Questions].[registration_date] 
 OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY ; ' ;
 
- EXEC sp_executesql @Query, N'@ApplicantsId INT, @pageOffsetRows INT, @pageLimitRows INT', 
+ EXEC sp_executesql @Query, N'@ApplicantsId INT, @pageOffsetRows BIGINT, @pageLimitRows BIGINT', 
 							 @ApplicantsId = @ApplicantsId,
 							 @pageOffsetRows = @pageOffsetRows,
 							 @pageLimitRows = @pageLimitRows;

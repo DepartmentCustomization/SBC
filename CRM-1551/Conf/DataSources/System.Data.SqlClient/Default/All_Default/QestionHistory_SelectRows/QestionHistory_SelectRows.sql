@@ -42,7 +42,7 @@ ORDER BY
   t1.Id ;
 
 UPDATE
-  #temp_OUT SET history_id_old = (SELECT TOP 1 Id FROM [DB.UKRODS.CF].[CRM_1551_Analitics].[dbo].[Question_History] 
+  #temp_OUT SET history_id_old = (SELECT TOP 1 Id FROM '+@Archive+ N'[dbo].[Question_History] 
 WHERE
   [Log_Date] < (
     SELECT
@@ -113,7 +113,7 @@ WHERE
       [Question_History].[Log_Date] DESC 
    OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY ; ' ;
 
-  EXEC sp_executesql @Query, N'@question_id INT, @pageOffsetRows INT, @pageLimitRows INT', 
+  EXEC sp_executesql @Query, N'@question_id INT, @pageOffsetRows BIGINT, @pageLimitRows BIGINT', 
                               @question_id = @question_id,
 							  @pageOffsetRows = @pageOffsetRows,
 							  @pageLimitRows = @pageLimitRows;

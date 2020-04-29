@@ -45,7 +45,7 @@ ORDER BY
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY 
 ; ' ;
 
- EXEC sp_executesql @Query, N'@question INT, @Id INT, @pageOffsetRows INT, @pageLimitRows INT  ', 
+ EXEC sp_executesql @Query, N'@question INT, @Id INT, @pageOffsetRows BIGINT, @pageLimitRows BIGINT  ', 
 							@question = @question,
 							@Id = @Id,
                             @pageOffsetRows = @pageOffsetRows,

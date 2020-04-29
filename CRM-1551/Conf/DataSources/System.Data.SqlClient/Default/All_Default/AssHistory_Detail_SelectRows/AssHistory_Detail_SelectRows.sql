@@ -177,7 +177,7 @@ ORDER BY
 	1 
 OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY ; ' ;
 DECLARE @Query NVARCHAR(MAX) = (SELECT @Part1 + @Part2);
- EXEC sp_executesql @Query, N'@history_id INT, @pageOffsetRows INT, @pageLimitRows INT', 
+ EXEC sp_executesql @Query, N'@history_id INT, @pageOffsetRows BIGINT, @pageLimitRows BIGINT', 
 							@history_id = @history_id,
 							@pageOffsetRows = @pageOffsetRows,
 							@pageLimitRows = @pageLimitRows;

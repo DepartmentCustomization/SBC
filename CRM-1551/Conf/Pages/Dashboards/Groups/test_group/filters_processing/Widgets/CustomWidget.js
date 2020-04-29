@@ -9,7 +9,7 @@
                 `
         ,
         init: async function() {
-            this.filterHelperModule = await import('/modules/Helpers/Filters/FilterHelper.js');
+            this.activeFilterHelper = await import('/modules/Helpers/Filters/ActiveFilterHelper.js');
             this.queryHelper = await import('/modules/Helpers/Filters/QueryHelper.js');
             this.FiltersPackageHelper = await import('/modules/Helpers/Filters/FiltersPackageHelper.js');
             const msg = {
@@ -62,8 +62,8 @@
         },
         getFiltersParam: function(message) {
             const filters = message.package.value.values;
-            const filterHelper = new this.filterHelperModule.FilterHelper();
-            const activeFilters = filterHelper.getActiveFilters(filters);
+            const activeFilterHelper = new this.activeFilterHelper.ActiveFilterHelper();
+            const activeFilters = activeFilterHelper.getActiveFilters(filters);
             const queryHelper = new this.queryHelper.QueryHelper();
             this.queryParameters = queryHelper.getQueryParameters(filters, activeFilters);
         }

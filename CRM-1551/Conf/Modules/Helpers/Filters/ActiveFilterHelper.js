@@ -3,7 +3,7 @@ import { DateTimeFilter } from '/Modules/Models/Filters/DateTimeFilter.js';
 import { SelectFilter } from '/Modules/Models/Filters/SelectFilter.js';
 import { MultiSelectFilter } from '/Modules/Models/Filters/MultiSelectFilter.js';
 
-export class FilterHelper {
+export class ActiveFilterHelper {
     getActiveFilters(filters) {
         const activeFilters = [];
         filters.forEach(filter => {

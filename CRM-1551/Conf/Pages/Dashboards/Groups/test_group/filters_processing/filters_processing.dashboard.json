@@ -3,6 +3,6 @@
   "Description": "",
   "DescriptionUrl": "",
   "ModelType": "Dashboard",
-  "Code": "test_data_picker",
-  "Name": "test_data_picker"
+  "Code": "filters_processing",
+  "Name": "Работа с фильтрами"
 }
