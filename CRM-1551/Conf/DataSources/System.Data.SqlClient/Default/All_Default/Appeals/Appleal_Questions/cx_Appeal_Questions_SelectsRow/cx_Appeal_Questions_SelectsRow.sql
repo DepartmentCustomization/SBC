@@ -1,4 +1,4 @@
---  DECLARE @Id INT = 6689135;
+--   DECLARE @Id INT = 6696053;
 
 DECLARE @Archive NVARCHAR(400) = '['+(SELECT TOP 1 [IP]+'].['+[DatabaseName]+'].' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
 
@@ -84,8 +84,8 @@ N'SELECT
 			question_id = @Id
 			AND main_executor = 1
 	) AS flag_is_state,
-	NULL AS geolocation_lat,
-	NULL AS geolocation_lon,
+	Questions.geolocation_lat,
+	Questions.geolocation_lon,
 	Appeals.receipt_source_id 
 FROM ';
 DECLARE @Part2 NVARCHAR(MAX) =
@@ -108,8 +108,8 @@ DECLARE @Part2 NVARCHAR(MAX) =
 	LEFT JOIN [dbo].[AssignmentResults] assR ON assR.Id = Assignments.AssignmentResultsId
 	LEFT JOIN '+@Archive+N'[dbo].[AssignmentResolutions] assRn ON assRn.Id = Assignments.AssignmentResolutionsId
 	LEFT JOIN [dbo].[Organizations] perfom ON perfom.Id = Assignments.[executor_organization_id]
---	LEFT JOIN [#system_database_name#].[dbo].[User]  [User] ON [Questions].[user_id] = [User].UserId
-	LEFT JOIN [CRM_1551_System].dbo.[User] [User] ON [Questions].[user_id] = [User].UserId
+	LEFT JOIN [#system_database_name#].[dbo].[User]  [User] ON [Questions].[user_id] = [User].UserId
+--	LEFT JOIN [CRM_1551_System].dbo.[User] [User] ON [Questions].[user_id] = [User].UserId
 WHERE
 	[Questions].[Id] = @Id ; ';
 
