@@ -86,7 +86,11 @@
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 300;
             document.getElementById('selectInfoTable').style.display = 'none';
+            /*
+            Version 2.2
             this.subscribers.push(this.messageService.subscribe('clickOnInfoTable', this.changeOnTable, this));
+            */
+            this.sub = this.messageService.subscribe('clickOnInfoTable', this.changeOnTable, this);
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
@@ -95,6 +99,9 @@
                     }
                 }
             });
+        },
+        destroy: function() {
+            this.sub.unsubscribe();
         },
         changeOnTable: function(message) {
             if (!message.columnName) {

@@ -74,9 +74,15 @@
             this.dataGridInstance.height = window.innerHeight - 300;
             this.table = document.getElementById('poshuk_table_main');
             this.table.style.display = 'none';
+            /*
+            Version 2.2
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this));
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this));
             this.subscribers.push(this.messageService.subscribe('findFilterColumns', this.reloadTable, this));
+            */
+            this.sub = this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this);
+            this.sub2 = this.messageService.subscribe('findFilterColumns', this.reloadTable, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
@@ -92,10 +98,15 @@
             }.bind(this));
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
+        destroy: function() {
+            this.sub.unsubscribe();
+            this.sub1.unsubscribe();
+            this.sub2.unsubscribe();
+        },
         createTableButton: function(e) {
             const modalWindowMessageName = 'showModalWindow';
             const self = this;
-            const buttonSaveFilters = {
+            /* const buttonSaveFilters = {
                 text: 'Зберегти',
                 type: 'default',
                 icon: 'save',
@@ -112,7 +123,7 @@
                 method: function() {
                     self.messageService.publish({ name: modalWindowMessageName, button: 'showFilters'});
                 }
-            }
+            } */
             const buttonApplyProps = {
                 text: 'Excel',
                 type: 'default',
@@ -134,12 +145,12 @@
             }
             const buttonApply = this.createToolbarButton(buttonApplyProps);
             const buttonSkip = this.createToolbarButton(buttonSkipProps);
-            const buttonSave = this.createToolbarButton(buttonSaveFilters);
-            const buttonSet = this.createToolbarButton(buttonSetFilters);
+            /*const buttonSave = this.createToolbarButton(buttonSaveFilters);
+            const buttonSet = this.createToolbarButton(buttonSetFilters); */
             e.toolbarOptions.items.push(buttonApply);
             e.toolbarOptions.items.push(buttonSkip);
-            e.toolbarOptions.items.push(buttonSave);
-            e.toolbarOptions.items.push(buttonSet);
+            /*e.toolbarOptions.items.push(buttonSave);
+            e.toolbarOptions.items.push(buttonSet); */
         },
         createToolbarButton: function(button) {
             return {
