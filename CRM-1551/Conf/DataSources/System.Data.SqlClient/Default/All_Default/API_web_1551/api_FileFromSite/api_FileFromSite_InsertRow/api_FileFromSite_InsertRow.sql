@@ -12,8 +12,7 @@ SELECT
     @name ;
 
 IF(@appeal_id) IS NULL
-BEGIN 
-IF @is_revision = 'true' 
+AND @is_revision = 'true'
 BEGIN
 INSERT INTO
     [CRM_1551_Analitics].[dbo].[QuestionDocFiles] (
@@ -51,10 +50,8 @@ SELECT
     NULL [IsArchive],
     NULL [PathToArchive] ;
 END
-END 
 ELSE IF(@appeal_id) IS NOT NULL
-BEGIN
-IF @is_revision = 'true' 
+AND @is_revision = 'true'
 BEGIN
 INSERT INTO
     [CRM_1551_Analitics].[dbo].[QuestionDocFiles] (
@@ -88,5 +85,4 @@ SELECT
     --,[GUID]
     NULL [IsArchive],
     NULL [PathToArchive] ;
-END
 END
