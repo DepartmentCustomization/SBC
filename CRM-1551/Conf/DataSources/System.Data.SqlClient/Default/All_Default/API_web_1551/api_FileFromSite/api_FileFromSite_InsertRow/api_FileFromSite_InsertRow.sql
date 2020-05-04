@@ -1,4 +1,5 @@
-
+IF(@appeal_from_site_id) IS NOT NULL 
+BEGIN
 INSERT INTO
     [CRM_1551_Site_Integration].[dbo].[AppealFromSiteFiles] (
         [AppealFromSiteId],
@@ -10,8 +11,10 @@ SELECT
     @appeal_from_site_id,
     @file,
     @name ;
+END
 
 IF(@appeal_id) IS NULL
+AND (@appeal_from_site_id) IS NOT NULL
 AND @is_revision = 'true'
 BEGIN
 INSERT INTO
