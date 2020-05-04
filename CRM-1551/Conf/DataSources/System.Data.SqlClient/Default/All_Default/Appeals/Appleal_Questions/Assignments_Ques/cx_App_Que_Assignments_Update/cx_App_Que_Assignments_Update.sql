@@ -1,6 +1,20 @@
 -- DECLARE @user_edit_id NVARCHAR(128)=N'bc1b17e2-ffee-41b1-860a-41e1bae57ffd';
 SET @executor_person_id = IIF(IIF(@executor_person_id = '',NULL,@executor_person_id) = 0,NULL,IIF(@executor_person_id = '',NULL,@executor_person_id));
 
+DECLARE @sertors TABLE (Id INT);
+
+INSERT INTO @sertors (Id)
+
+SELECT [Assignments].Id
+  from [dbo].[Positions]
+  INNER JOIN [dbo].[PersonExecutorChoose] ON [PersonExecutorChoose].position_id=[Positions].id
+  INNER JOIN [dbo].[PersonExecutorChooseObjects] ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
+  INNER JOIN [dbo].[Territories] ON [PersonExecutorChooseObjects].object_id=[Territories].object_id
+  INNER JOIN [dbo].[QuestionsInTerritory] ON [Territories].Id=[QuestionsInTerritory].territory_id
+  INNER JOIN [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
+  INNER JOIN [dbo].[Assignments] ON [Questions].Id=[Assignments].question_id
+  WHERE [Positions].programuser_id=@user_edit_id  AND [Positions].role_id=8 AND [Assignments].Id=@Id;
+
 DECLARE @org1761 TABLE (Id INT);
 WITH
      cte1 -- все подчиненные 3 и 3 1761
@@ -31,7 +45,7 @@ FROM [dbo].[Assignments] a INNER JOIN
 [dbo].[OrganizationInResponsibilityRights] oirr ON a.[executor_organization_id]=oirr.organization_id
 INNER JOIN [dbo].[Positions] p ON oirr.position_id=p.Id
 WHERE a.Id=@Id AND P.programuser_id=@user_edit_id)='true'
-OR EXISTS(SELECT TOP 1 id FROM @org1761)
+OR EXISTS(SELECT TOP 1 id FROM @org1761) OR EXISTS(SELECT TOP 1 Id FROM @sertors)
 
 BEGIN
 
