@@ -798,7 +798,7 @@
                         parameterValues: [
                             {
                                 key: '@Applicant_Phone',
-                                value: this.form.getControlValue('Applicant_Phone_Hide')
+                                value: this.form.getControlValue('Phone')
                             },
                             {
                                 key: '@AppealId',
@@ -814,7 +814,11 @@
                             }
                         ]
                     };
-                    this.queryExecutor.getValues(queryForGetValue3).subscribe(() => {
+                    this.queryExecutor.getValues(queryForGetValue3).subscribe((data) => {
+                        if(data.rows[0].values[0]==="OK") {
+                            let message = 'Консультацію зареєстровано';
+                            this.openPopUpInfoDialog(message);
+                        }
                         const parameters1 = [
                             { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
                             { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
@@ -1508,10 +1512,8 @@
         },
         onCellClick_Detail_Event: function(column, row) {
             if (row.values[8] === 'GORODOK') {
-                document.getElementById('Event_Prew_Btn_Consultation').disabled = true;
                 document.getElementById('Event_Prew_Btn_Add').disabled = true;
             } else {
-                document.getElementById('Event_Prew_Btn_Consultation').disabled = false;
                 document.getElementById('Event_Prew_Btn_Add').disabled = false;
             }
             this.form.setGroupVisibility('Group_Events', true);

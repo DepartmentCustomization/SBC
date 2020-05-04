@@ -48,7 +48,7 @@
                 backgroundColor: 'rgb(240, 114, 93)'
             },
             {
-                name: 'checked',
+                name: 'clarified',
                 id: 'headerItem__checked',
                 innerText: 'Роз\'яснено',
                 colorIndex: 3,
