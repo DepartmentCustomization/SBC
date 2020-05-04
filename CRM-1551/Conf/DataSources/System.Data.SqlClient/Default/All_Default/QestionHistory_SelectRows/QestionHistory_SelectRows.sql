@@ -74,7 +74,6 @@ WHERE
     FROM
        '+@Archive+ N'[dbo].[Question_History] [Question_History]
        LEFT JOIN [#system_database_name#].[dbo].[User] [User] ON [User].UserId = [Question_History].[Log_User]
-	 --  LEFT JOIN CRM_1551_System.[dbo].[User] [User] ON [User].UserId = [Question_History].[Log_User]
     WHERE
       [Question_History].question_id = @question_id
       AND [Question_History].Id IN (

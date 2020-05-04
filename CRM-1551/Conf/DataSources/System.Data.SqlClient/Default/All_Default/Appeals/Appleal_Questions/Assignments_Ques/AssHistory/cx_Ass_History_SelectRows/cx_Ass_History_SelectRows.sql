@@ -75,7 +75,6 @@ CASE
       '+@Archive+N'[dbo].[Assignment_History]
       LEFT JOIN '+@Archive+N'[dbo].Assignments ON Assignments.Id = [Assignment_History].assignment_id
       LEFT JOIN [#system_database_name#].[dbo].[User] AS [User] ON [User].UserId = [Assignment_History].[Log_User]
-	  --LEFT JOIN CRM_1551_System.[dbo].[User] AS [User] ON [User].UserId = [Assignment_History].[Log_User]
     WHERE
       [Assignment_History].[assignment_id] = @Id
       AND [Assignment_History].Id IN (

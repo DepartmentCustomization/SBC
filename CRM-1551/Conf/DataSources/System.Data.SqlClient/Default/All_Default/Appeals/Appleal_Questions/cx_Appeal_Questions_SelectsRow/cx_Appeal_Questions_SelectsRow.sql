@@ -109,7 +109,6 @@ DECLARE @Part2 NVARCHAR(MAX) =
 	LEFT JOIN '+@Archive+N'[dbo].[AssignmentResolutions] assRn ON assRn.Id = Assignments.AssignmentResolutionsId
 	LEFT JOIN [dbo].[Organizations] perfom ON perfom.Id = Assignments.[executor_organization_id]
 	LEFT JOIN [#system_database_name#].[dbo].[User]  [User] ON [Questions].[user_id] = [User].UserId
---	LEFT JOIN [CRM_1551_System].dbo.[User] [User] ON [Questions].[user_id] = [User].UserId
 WHERE
 	[Questions].[Id] = @Id ; ';
 
