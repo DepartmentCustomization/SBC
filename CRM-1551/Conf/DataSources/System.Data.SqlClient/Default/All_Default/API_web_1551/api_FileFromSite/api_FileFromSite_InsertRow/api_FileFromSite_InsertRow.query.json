@@ -15,6 +15,11 @@
       "ParameterType": "Integer"
     },
     {
+      "Code": "@appeal_id",
+      "Name": "appeal_id",
+      "ParameterType": "Integer"
+    },
+    {
       "Code": "@name",
       "Name": "name"
     },
