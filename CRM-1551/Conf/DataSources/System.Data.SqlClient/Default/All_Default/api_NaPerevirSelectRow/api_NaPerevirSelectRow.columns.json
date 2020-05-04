@@ -91,5 +91,17 @@
     "Name": "geolocation_lon",
     "Position": 14,
     "IsPrintable": false
+  },
+  {
+    "Code": "Assignment_state_change_date",
+    "Name": "Assignment_state_change_date",
+    "Position": 15,
+    "IsPrintable": false
+  },
+  {
+    "Code": "has_files",
+    "Name": "has_files",
+    "Position": 16,
+    "IsPrintable": false
   }
 ]
