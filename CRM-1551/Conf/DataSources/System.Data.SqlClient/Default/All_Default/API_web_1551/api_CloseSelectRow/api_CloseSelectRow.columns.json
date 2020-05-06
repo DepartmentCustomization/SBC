@@ -112,5 +112,11 @@
     "Name": "grade",
     "Position": 16,
     "IsPrintable": false
+  },
+  {
+    "Code": "main_content",
+    "Name": "main_content",
+    "Position": 17,
+    "IsPrintable": false
   }
 ]

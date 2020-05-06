@@ -83,7 +83,7 @@ SELECT
             TOP 1 [Questions].Id
         FROM dbo.[Questions]
         WHERE
-            [Appeal_Id].Id = @appeal_id
+            appeal_id = @appeal_id
     ) [question_id],
     --,[GUID]
     NULL [IsArchive],
