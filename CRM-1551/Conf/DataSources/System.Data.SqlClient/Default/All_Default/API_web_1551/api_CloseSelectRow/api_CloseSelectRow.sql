@@ -1,5 +1,5 @@
---  DECLARE @ApplicantFromSiteId INT = 22;
---  DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380632701143';
+  -- DECLARE @ApplicantFromSiteId INT = 22;
+  -- DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380632701143';
 
 SET @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0));
 
@@ -50,13 +50,12 @@ SELECT
 		WHEN COUNT([AssignmentConsDocFiles].Id) > 0 
 		THEN 1 ELSE 0 
 	END AS has_files,
-  [MainAssConsRevision].grade
+  [MainAssConsRevision].grade,
+  [MainAssConsDoc].content AS main_content
 FROM
   [dbo].[Appeals] [Appeals]
   LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
   LEFT JOIN [dbo].[Assignments] [Assignments] ON [Questions].Id = [Assignments].question_id
-  LEFT JOIN [dbo].[AssignmentStates] [AssignmentStates] ON [Assignments].assignment_state_id = [AssignmentStates].Id
-  LEFT JOIN [dbo].[AssignmentResults] [AssignmentResults] ON [Assignments].AssignmentResultsId = [AssignmentResults].Id
   LEFT JOIN [dbo].[Objects] [Objects] ON [Questions].[object_id] = [Objects].Id
   LEFT JOIN [dbo].[QuestionTypes] [QuestionTypes] ON [Questions].question_type_id = [QuestionTypes].Id
   LEFT JOIN [dbo].[Applicants] [Applicants] ON [Appeals].applicant_id = [Applicants].Id
@@ -69,6 +68,8 @@ FROM
   LEFT JOIN [dbo].[AssignmentConsDocuments] AS [MainAssConsDoc] ON [MainAssConsDoc].assignment_сons_id = [MainAssCons].Id
   LEFT JOIN [dbo].[AssignmentConsDocFiles] AS [MainAssConsDocFiles] ON [MainAssConsDoc].Id = [MainAssConsDocFiles].assignment_cons_doc_id
   LEFT JOIN [dbo].[AssignmentRevisions] AS [MainAssConsRevision] ON [MainAssConsRevision].assignment_consideration_іd = [MainAssCons].Id 
+  LEFT JOIN [dbo].[AssignmentStates] [AssignmentStates] ON [MainAss].assignment_state_id = [AssignmentStates].Id
+  LEFT JOIN [dbo].[AssignmentResults] [AssignmentResults] ON [MainAss].AssignmentResultsId = [AssignmentResults].Id
 WHERE
   [Appeals].applicant_id = @ApplicantIn1551
   AND [AssignmentStates].code = N'Closed'
@@ -89,7 +90,8 @@ GROUP BY
   [Questions].[geolocation_lat],
   [Questions].[geolocation_lon],
   [MainAss].state_change_date,
-  [MainAssConsRevision].grade
+  [MainAssConsRevision].grade,
+  [MainAssConsDoc].content 
 
 UNION
 
@@ -115,13 +117,12 @@ SELECT
 		WHEN COUNT([AssignmentConsDocFiles].Id) > 0 
 		THEN 1 ELSE 0 
 	END AS has_files,
-	[MainAssConsRevision].grade
+  [MainAssConsRevision].grade,
+  [MainAssConsDoc].content AS main_content
 FROM
   [dbo].[Appeals] [Appeals]
   LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
   LEFT JOIN [dbo].[Assignments] [Assignments] ON [Questions].Id = [Assignments].question_id
-  LEFT JOIN [dbo].[AssignmentStates] [AssignmentStates] ON [Assignments].assignment_state_id = [AssignmentStates].Id
-  LEFT JOIN [dbo].[AssignmentResults] [AssignmentResults] ON [Assignments].AssignmentResultsId = [AssignmentResults].Id
   LEFT JOIN [dbo].[Objects] [Objects] ON [Questions].[object_id] = [Objects].Id
   LEFT JOIN [dbo].[QuestionTypes] [QuestionTypes] ON [Questions].question_type_id = [QuestionTypes].Id
   LEFT JOIN [dbo].[Applicants] [Applicants] ON [Appeals].applicant_id = [Applicants].Id
@@ -133,7 +134,9 @@ FROM
   LEFT JOIN [dbo].[AssignmentConsiderations] AS [MainAssCons] ON [MainAss].Id = [MainAssCons].assignment_id
   LEFT JOIN [dbo].[AssignmentConsDocuments] AS [MainAssConsDoc] ON [MainAssConsDoc].assignment_сons_id = [MainAssCons].Id
   LEFT JOIN [dbo].[AssignmentConsDocFiles] AS [MainAssConsDocFiles] ON [MainAssConsDoc].Id = [MainAssConsDocFiles].assignment_cons_doc_id
-  LEFT JOIN [dbo].[AssignmentRevisions] AS [MainAssConsRevision] ON [MainAssConsRevision].assignment_consideration_іd = [MainAssCons].Id 
+  LEFT JOIN [dbo].[AssignmentRevisions] AS [MainAssConsRevision] ON [MainAssConsRevision].assignment_consideration_іd = [MainAssCons].Id
+  LEFT JOIN [dbo].[AssignmentStates] [AssignmentStates] ON [MainAss].assignment_state_id = [AssignmentStates].Id
+  LEFT JOIN [dbo].[AssignmentResults] [AssignmentResults] ON [MainAss].AssignmentResultsId = [AssignmentResults].Id 
 WHERE
   [Appeals].applicant_id IN (
     SELECT
@@ -159,7 +162,8 @@ GROUP BY
   [Questions].[geolocation_lat],
   [Questions].[geolocation_lon],
   [MainAss].state_change_date,
-  [MainAssConsRevision].grade
+  [MainAssConsRevision].grade,
+  [MainAssConsDoc].content
 ORDER BY 1 
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
 ;
