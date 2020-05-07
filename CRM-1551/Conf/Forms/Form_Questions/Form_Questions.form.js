@@ -134,6 +134,7 @@
                 })
             }.bind(this));
             document.getElementById('add_Complain').addEventListener('click', function() {
+                let currentUserName = (this.user.lastName + ' ' + this.user.firstName); 
                 const formAddComplain = {
                     title: 'Створити скаргу',
                     acceptBtnText: 'save',
@@ -163,7 +164,7 @@
                                     required: true,
                                     position: 2,
                                     fullScreen: true,
-                                    value: this.form.getControlValue('user_name'),
+                                    value: currentUserName,
                                     type: 'text'
                                 },
                                 {
@@ -185,6 +186,7 @@
                                     required: false,
                                     position: 4,
                                     fullScreen: true,
+                                    value: this.form.getControlValue('registration_number'),
                                     type: 'textarea'
                                 }
                             ]
@@ -197,7 +199,11 @@
                             queryCode: 'cx_Complains_Insert',
                             parameterValues: param
                         }
-                        this.queryExecutor.getValues(body).subscribe(() => {
+                        this.queryExecutor.getValues(body).subscribe((data) => {
+                            if(data.rows[0].values[0]==='OK') {
+                                let message = 'Скаргу зареєстровано';
+                                this.openPopUpInfoDialog(message);
+                            }
                         });
                     }
                 };

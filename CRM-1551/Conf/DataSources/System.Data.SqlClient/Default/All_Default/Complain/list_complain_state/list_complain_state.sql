@@ -2,7 +2,7 @@ SELECT
 	Id,
 	[name]
 FROM
-	ComplainTypes
+	ComplainStates
 WHERE
 	#filter_columns#
 	#sort_columns#
