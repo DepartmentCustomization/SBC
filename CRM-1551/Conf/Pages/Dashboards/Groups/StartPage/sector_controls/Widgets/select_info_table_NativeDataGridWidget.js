@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'DB_ControlSI_table',
+                code: 'DB_ControS_s_table',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -30,6 +30,9 @@
                 }, {
                     dataField: 'control_date',
                     caption: 'Дата контролю'
+                }, {
+                    dataField: 'executor',
+                    caption: 'Виконавець'
                 }
             ],
             filterRow: {
@@ -108,10 +111,11 @@
                 document.getElementById('selectInfoTable').style.display = 'none';
             } else {
                 document.getElementById('selectInfoTable').style.display = 'block';
-                this.config.query.queryCode = 'DB_ControlSI_table';
                 this.config.query.parameterValues = [
                     { key: '@column', value: `count_${message.columnName}`},
-                    { key: '@organization_id', value: message.organizationId}
+                    { key: '@sector_id', value: message.organizationId},
+                    { key: '@pageOffsetRows', value: 0 },
+                    { key: '@pageLimitRows', value: 10 }
                 ];
                 this.loadData(this.afterLoadDataHandler);
             }

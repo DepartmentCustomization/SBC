@@ -14,15 +14,41 @@
         emptyString: '',
         tabs: [
             {
-                id: 'control_of_the_inspector_sector',
-                url: 'control_of_the_inspector_sector',
-                titleText: 'Контроль сектору інспектора',
-                hover: true
+                id: 'monitoring_and_responding',
+                url: 'monitoring_and_responding',
+                titleText: 'Загальна інформація',
+                location: 'dashboard'
             },
             {
                 id: 'performer_new_processing_assigments',
                 url: 'performer_new_processing_assigments',
-                titleText: 'ОБРОБКА ДОРУЧЕНЬ'
+                titleText: 'ОБРОБКА ДОРУЧЕНЬ',
+                location: 'dashboard'
+            },
+            {
+                id: 'performer_new_organizations',
+                url: 'performer_new_organizations',
+                titleText: 'Організації',
+                location: 'dashboard'
+            },
+            {
+                id: 'performers',
+                url: 'performers',
+                titleText: 'Виконавці',
+                location: 'dashboard'
+            },
+            {
+                id: 'sector_controls',
+                url: 'sector_controls',
+                titleText: 'Контроль сектору інспектора',
+                location: 'dashboard',
+                hover: true
+            },
+            {
+                id: 'PersonExecutorChoose',
+                url: 'PersonExecutorChoose',
+                titleText: 'Вибір посади-виконавця',
+                location: 'section'
             }
         ],
         headers: [
@@ -110,7 +136,7 @@
         },
         executeMainTableQuery: function(isReload, targetId) {
             let executeQueryOrganizations = {
-                queryCode: 'DB_ControlSI_main',
+                queryCode: 'DB_ControS_s_main',
                 limit: -1,
                 parameterValues: [
                     { key: '@pageOffsetRows', value: 0 },
@@ -148,7 +174,7 @@
             this.tabs.forEach(tab => {
                 let itemTitle = this.createElement('div', { className: 'tab_title', innerText: tab.titleText });
                 const item = this.createElement('div',
-                    { id: tab.id, url: tab.url, className: 'tab' },
+                    { id: tab.id, url: tab.url, className: 'tab', location: tab.location },
                     itemTitle
                 );
                 if (tab.hover) {
@@ -156,7 +182,11 @@
                 } else {
                     item.addEventListener('click', event => {
                         const target = event.currentTarget;
-                        this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
+                        if (target.location === 'dashboard') {
+                            this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
+                        } else {
+                            this.goToSection(target.url);
+                        }
                     });
                 }
                 item.addEventListener('click', () => {
@@ -196,7 +226,7 @@
                     className: 'displayFlex'
                 }
             );
-            const headerTitle = this.createElement('div', { id: 'headerTitle', innerText: 'Організації'});
+            const headerTitle = this.createElement('div', { id: 'headerTitle', innerText: 'Сектор'});
             const orgHeader = this.createElement('div',
                 {
                     id: 'orgHeader',

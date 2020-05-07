@@ -1,5 +1,17 @@
-    -- DECLARE @Id INT = 2809550; 
-    -- DECLARE @user_Id NVARCHAR(128) = '40dd9fa3-7d58-418c-a2a0-38e9e100d3fd';
+     --DECLARE @Id INT = 2976530; 
+    -- DECLARE @user_Id NVARCHAR(128) =N'0e3825fc-8a24-4fb2-97a9-28e1ed53b279'--'dc61a839-2cbc-4822-bfb5-5ca157487ced'; --'0e3825fc-8a24-4fb2-97a9-28e1ed53b279';
+
+DECLARE @sertors NVARCHAR(max)=ISNULL((
+SELECT stuff((SELECT N', '+LTRIM([Territories].Id)
+  from [dbo].[Positions]
+  INNER JOIN [dbo].[PersonExecutorChoose] ON [PersonExecutorChoose].position_id=[Positions].id
+  INNER JOIN [dbo].[PersonExecutorChooseObjects] ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
+  INNER JOIN [dbo].[Territories] ON [PersonExecutorChooseObjects].object_id=[Territories].object_id
+  where [Positions].programuser_id=@user_id  AND [Positions].role_id=8
+  FOR XML PATH('')),1,2,N'')
+  ),N'0')
+
+  --SELECT @sertors
 
 DECLARE @Archive NVARCHAR(400) = '['+(SELECT TOP 1 [IP]+'].['+[DatabaseName]+'].' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
 
@@ -23,6 +35,7 @@ END
 
 DECLARE @Part1 NVARCHAR(MAX) =
 N'DECLARE @org1761 TABLE (Id INT);
+
 WITH
 cte1
    AS ( SELECT Id,
@@ -162,21 +175,24 @@ DECLARE @Part2 NVARCHAR(MAX) =
    ,CASE
 		WHEN EXISTS(SELECT Id FROM @org1761) THEN 1 
 		WHEN orr.editable = N''true'' THEN 1
+		WHEN [QuestionsInTerritory].[territory_id] IN ('+@sertors+N') THEN 1
 		WHEN orr.editable = N''false'' THEN 2
 	END editable
 	,[Questions].[geolocation_lat]
 	,[Questions].[geolocation_lon]
 FROM '+@Archive+'[dbo].[Assignments] Assignments
+INNER JOIN [dbo].AssignmentStates ast
+	ON ast.Id = Assignments.assignment_state_id
+INNER JOIN '+@Archive+'[dbo].Questions Questions
+	ON Questions.Id = Assignments.question_id
+INNER JOIN '+@Archive+'[dbo].Appeals Appeals
+	ON Appeals.Id = Questions.appeal_id
 LEFT JOIN [dbo].AssignmentTypes aty
 	ON aty.Id = Assignments.assignment_type_id
-LEFT JOIN [dbo].AssignmentStates ast
-	ON ast.Id = Assignments.assignment_state_id
-LEFT JOIN '+@Archive+'[dbo].Questions Questions
-	ON Questions.Id = Assignments.question_id
+LEFT JOIN [dbo].[QuestionsInTerritory] QuestionsInTerritory
+	ON Questions.Id=QuestionsInTerritory.question_id
 LEFT JOIN [dbo].QuestionTypes QuestionTypes
 	ON QuestionTypes.Id = Questions.question_type_id
-LEFT JOIN '+@Archive+'[dbo].Appeals Appeals
-	ON Appeals.Id = Questions.appeal_id
 LEFT JOIN [dbo].ReceiptSources ReceiptSources
 	ON ReceiptSources.Id = Appeals.receipt_source_id
 LEFT JOIN [dbo].Applicants Applicants
@@ -241,7 +257,13 @@ WHERE p.[programuser_id] = @user_Id
 ) orr
 	ON perf.Id = orr.organization_id
 WHERE Assignments.Id = @Id
-AND (CASE WHEN EXISTS(SELECT Id FROM @org1761) THEN 1 WHEN orr.editable IS NULL THEN 2 ELSE 1 END)=1; ' ;
+AND (CASE WHEN EXISTS(SELECT Id FROM @org1761) THEN 1 
+
+WHEN [QuestionsInTerritory].[territory_id] IN ('+@sertors+N') THEN 1
+
+WHEN orr.editable IS NULL THEN 2 
+
+ELSE 1 END)=1; ' ;
 
 DECLARE @Query NVARCHAR(MAX) = (SELECT @Part1 + @Part2 + @Part3)
 EXEC sp_executesql @Query, N'@Id INT, @user_Id NVARCHAR(128)',

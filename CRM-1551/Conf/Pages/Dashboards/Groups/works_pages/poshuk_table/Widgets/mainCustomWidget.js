@@ -11,7 +11,7 @@
         displayNone: 'none',
         displayBlock: 'block',
         init: async function() {
-            this.FiltersPackageHelper = await import('/modules/Helpers/Filters/FiltersPackageHelper.js');
+            /* this.FiltersPackageHelper = await import('/modules/Helpers/Filters/FiltersPackageHelper.js'); */
             this.executeQueryShowUserFilterGroups();
             const msg = {
                 name: 'SetFilterPanelState',
@@ -20,10 +20,19 @@
                 }
             };
             this.messageService.publish(msg);
+            /*
+            Version 2.2
             this.subscribers.push(this.messageService.subscribe('filters', this.showApplyFiltersValue, this));
             this.subscribers.push(this.messageService.subscribe('showModalWindow', this.showModalWindow, this));
+            */
+            this.sub = this.messageService.subscribe('filters', this.showApplyFiltersValue, this);
+            this.sub1 = this.messageService.subscribe('showModalWindow', this.showModalWindow, this);
             this.filterColumns = [];
             this.defaultCheckedItem = [];
+        },
+        destroy: function() {
+            this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         },
         executeQueryShowUserFilterGroups: function() {
             let executeQuery = {
@@ -88,6 +97,7 @@
                         this.createFilterElements();
                         break;
                     }
+                    /*
                     case 'saveFilters': {
                         const createSAveBtn = true;
                         this.createButtons(createSAveBtn, this.saveNewFiltersGroup.bind(this));
@@ -102,6 +112,7 @@
                         this.showUserFilterGroups();
                         break;
                     }
+                    */
                     default:
                         break;
                 }

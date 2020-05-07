@@ -767,7 +767,7 @@
                         parameterValues: [
                             {
                                 key: '@Applicant_Phone',
-                                value: this.form.getControlValue('Applicant_Phone_Hide')
+                                value: this.form.getControlValue('Phone')
                             },
                             {
                                 key: '@AppealId',
@@ -783,7 +783,11 @@
                             }
                         ]
                     };
-                    this.queryExecutor.getValues(queryForGetValue3).subscribe(() => {
+                    this.queryExecutor.getValues(queryForGetValue3).subscribe((data) => {
+                        if(data.rows[0].values[0]==="OK") {
+                            let message = 'Консультацію зареєстровано';
+                            this.openPopUpInfoDialog(message);
+                        }
                         const parameters1 = [
                             { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
                             { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
@@ -798,7 +802,7 @@
                         parameterValues: [
                             {
                                 key: '@Applicant_Phone',
-                                value: this.form.getControlValue('Applicant_Phone_Hide')
+                                value: this.form.getControlValue('Phone')
                             },
                             {
                                 key: '@AppealId',
@@ -814,7 +818,11 @@
                             }
                         ]
                     };
-                    this.queryExecutor.getValues(queryForGetValue3).subscribe(() => {
+                    this.queryExecutor.getValues(queryForGetValue3).subscribe((data) => {
+                        if(data.rows[0].values[0]==="OK") {
+                            let message = 'Консультацію зареєстровано';
+                            this.openPopUpInfoDialog(message);
+                        }
                         const parameters1 = [
                             { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
                             { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
@@ -1508,10 +1516,8 @@
         },
         onCellClick_Detail_Event: function(column, row) {
             if (row.values[8] === 'GORODOK') {
-                document.getElementById('Event_Prew_Btn_Consultation').disabled = true;
                 document.getElementById('Event_Prew_Btn_Add').disabled = true;
             } else {
-                document.getElementById('Event_Prew_Btn_Consultation').disabled = false;
                 document.getElementById('Event_Prew_Btn_Add').disabled = false;
             }
             this.form.setGroupVisibility('Group_Events', true);
@@ -1965,12 +1971,14 @@
                 if (value === null || value === undefined) {
                     this.details.setVisibility('Detail_Event', false);
                 } else {
-                    const parameters1 = [
+                    const objectParam = [
                         { key: '@object_id', value: value}
                     ];
-                    this.details.loadData('Detail_Event', parameters1);
+                    this.details.loadData('Detail_Event', objectParam);
+                    this.details.loadData('Detail_Consultation', objectParam);
                     if (this.StateServerId === 1 || this.StateServerId === 2) {
                         this.details.setVisibility('Detail_Event', true);
+                        this.details.setVisibility('Detail_Consultation', true);
                     }
                 }
             } else {
@@ -2347,7 +2355,8 @@
                 if (value == 'заявки за Городком') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: 'Усі'}
+                        { key: '@type', value: 'Усі'},
+                        { key: '@object_id', value: this.form.getControlValue('Applicant_Building')}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
@@ -2355,7 +2364,8 @@
                 if (row.values[1] == 'заявки за Городком' && column.code == 'Зареєстровано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: 'Зареєстровано'}
+                        { key: '@type', value: 'Зареєстровано'},
+                        { key: '@object_id', value: this.form.getControlValue('Applicant_Building')}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
@@ -2363,7 +2373,8 @@
                 if (row.values[1] == 'заявки за Городком' && column.code == 'В роботі') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: 'В роботі'}
+                        { key: '@type', value: 'В роботі'},
+                        { key: '@object_id', value: this.form.getControlValue('Applicant_Building')}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
@@ -2371,7 +2382,8 @@
                 if (row.values[1] == 'заявки за Городком' && column.code == 'Просрочено') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: 'Просрочено'}
+                        { key: '@type', value: 'Просрочено'},
+                        { key: '@object_id', value: this.form.getControlValue('Applicant_Building')}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
@@ -2379,7 +2391,8 @@
                 if (row.values[1] == 'заявки за Городком' && column.code == 'Виконано') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: 'Виконано'}
+                        { key: '@type', value: 'Виконано'},
+                        { key: '@object_id', value: this.form.getControlValue('Applicant_Building')}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
@@ -2387,7 +2400,8 @@
                 if (row.values[1] == 'заявки за Городком' && column.code == 'Доопрацювання') {
                     const parameters = [
                         { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
-                        { key: '@type', value: 'Доопрацювання'}
+                        { key: '@type', value: 'Доопрацювання'},
+                        { key: '@object_id', value: this.form.getControlValue('Applicant_Building')}
                     ];
                     this.details.loadData('Detail_GorodokClaim', parameters);
                     this.details.setVisibility('Detail_GorodokClaim', true);
