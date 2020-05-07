@@ -4,7 +4,7 @@ DECLARE @user_org_str TABLE (Id INT);
 INSERT INTO @user_org_str
 SELECT 
 	OrganisationStructureId 
-FROM CRM_1551_System.dbo.[UserInOrganisation] 
+FROM [#system_database_name#].dbo.[UserInOrganisation] 
 WHERE UserId = @user_id;
 IF OBJECT_ID('tempdb..#Complains') IS NOT NULL
 BEGIN
