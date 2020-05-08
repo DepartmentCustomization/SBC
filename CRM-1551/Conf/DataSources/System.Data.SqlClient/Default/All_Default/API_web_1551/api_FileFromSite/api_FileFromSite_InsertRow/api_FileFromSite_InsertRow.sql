@@ -1,3 +1,5 @@
+
+
 IF(@appeal_from_site_id) IS NOT NULL 
 BEGIN
 INSERT INTO
@@ -13,9 +15,11 @@ SELECT
     @name ;
 END
 
-IF(@appeal_id) IS NULL
-AND (@appeal_from_site_id) IS NOT NULL
-AND @is_revision = 'true'
+IF (@appeal_id IS NULL
+AND @appeal_from_site_id IS NOT NULL
+AND @is_revision = 'true') OR (select WorkDirectionTypeId
+from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
+where id=@appeal_from_site_id)=20
 BEGIN
 INSERT INTO
     [CRM_1551_Analitics].[dbo].[QuestionDocFiles] (
@@ -53,8 +57,12 @@ SELECT
     NULL [IsArchive],
     NULL [PathToArchive] ;
 END
-ELSE IF(@appeal_id) IS NOT NULL
-AND @is_revision = 'true'
+ELSE 
+
+IF (@appeal_id IS NOT NULL
+AND @is_revision = 'true') OR (select WorkDirectionTypeId
+from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
+where id=@appeal_from_site_id)=20
 BEGIN
 INSERT INTO
     [CRM_1551_Analitics].[dbo].[QuestionDocFiles] (
