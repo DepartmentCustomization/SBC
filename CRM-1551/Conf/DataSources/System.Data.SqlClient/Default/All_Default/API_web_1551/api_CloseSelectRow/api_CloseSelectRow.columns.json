@@ -60,12 +60,6 @@
     "IsPrintable": false
   },
   {
-    "Code": "content",
-    "Name": "content",
-    "Position": 10,
-    "IsPrintable": false
-  },
-  {
     "Code": "CountFiles",
     "Name": "CountFiles",
     "Position": 11,
