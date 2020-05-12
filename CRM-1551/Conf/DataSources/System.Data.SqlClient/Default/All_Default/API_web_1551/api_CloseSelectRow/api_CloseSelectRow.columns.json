@@ -60,12 +60,6 @@
     "IsPrintable": false
   },
   {
-    "Code": "content",
-    "Name": "content",
-    "Position": 10,
-    "IsPrintable": false
-  },
-  {
     "Code": "CountFiles",
     "Name": "CountFiles",
     "Position": 11,
@@ -111,6 +105,12 @@
     "Code": "grade",
     "Name": "grade",
     "Position": 16,
+    "IsPrintable": false
+  },
+  {
+    "Code": "main_content",
+    "Name": "main_content",
+    "Position": 17,
     "IsPrintable": false
   }
 ]
