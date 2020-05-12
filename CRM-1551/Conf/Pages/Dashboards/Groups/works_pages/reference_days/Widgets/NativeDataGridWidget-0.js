@@ -52,8 +52,7 @@
             },
             export: {
                 enabled: true,
-                fileName: 'Referene_days',
-                text: 'Застосувати'
+                fileName: 'Еталонні дні'
             },
             selection: {
                 mode: 'multiple'
