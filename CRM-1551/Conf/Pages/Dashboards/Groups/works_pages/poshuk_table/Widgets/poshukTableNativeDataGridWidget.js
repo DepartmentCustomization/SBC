@@ -106,7 +106,8 @@
         createTableButton: function(e) {
             const modalWindowMessageName = 'showModalWindow';
             const self = this;
-            /* const buttonSaveFilters = {
+            /*
+            const buttonSaveFilters = {
                 text: 'Зберегти',
                 type: 'default',
                 icon: 'save',
@@ -123,7 +124,8 @@
                 method: function() {
                     self.messageService.publish({ name: modalWindowMessageName, button: 'showFilters'});
                 }
-            } */
+            }
+            */
             const buttonApplyProps = {
                 text: 'Excel',
                 type: 'default',
@@ -145,12 +147,16 @@
             }
             const buttonApply = this.createToolbarButton(buttonApplyProps);
             const buttonSkip = this.createToolbarButton(buttonSkipProps);
-            /*const buttonSave = this.createToolbarButton(buttonSaveFilters);
-            const buttonSet = this.createToolbarButton(buttonSetFilters); */
+            /*
+            const buttonSave = this.createToolbarButton(buttonSaveFilters);
+            const buttonSet = this.createToolbarButton(buttonSetFilters);
+            */
             e.toolbarOptions.items.push(buttonApply);
             e.toolbarOptions.items.push(buttonSkip);
-            /*e.toolbarOptions.items.push(buttonSave);
-            e.toolbarOptions.items.push(buttonSet); */
+            /*
+            e.toolbarOptions.items.push(buttonSave);
+            e.toolbarOptions.items.push(buttonSet);
+            */
         },
         createToolbarButton: function(button) {
             return {
