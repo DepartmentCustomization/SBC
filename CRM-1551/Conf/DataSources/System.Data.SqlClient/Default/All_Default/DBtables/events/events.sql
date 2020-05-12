@@ -1,7 +1,7 @@
-
- --declare @organization_id int =1;
- --declare @user_id nvarchar(300)=N'02ece542-2d75-479d-adad-fd333d09604d';
-
+/*
+ declare @organization_id int =1;
+ declare @user_id nvarchar(300)=N'02ece542-2d75-479d-adad-fd333d09604d';
+ */
 
  if OBJECT_ID('tempdb..#temp_orgs') is not null drop table #temp_orgs
 
@@ -69,10 +69,9 @@ CREATE INDEX in_object_id ON #temp_ob_in_org (object_id); -- создание и
 --select * from #temp_ob_in_org
 --тут
 
-
 if OBJECT_ID('tempdb..#temp_questions') is not null drop table #temp_questions
 
-select distinct
+select distinct 
 q.Id
 ,q.question_type_id
 ,q.object_id
@@ -290,3 +289,8 @@ if OBJECT_ID('tempdb..#temp_Events_gorodok') is not null drop table #temp_Events
   ltrim(count_events.[В роботі])+N' ('+ltrim(count_questions.[В роботі])+N')' [В роботі]
  from #temp_count_questions count_questions 
  inner join #temp_count_events count_events on count_questions.Id=count_events.Id
+
+
+ --select * from #temp_Events_1 where plan_end_date<=getutcdate() and active=1
+
+-- select * from #temp_main
