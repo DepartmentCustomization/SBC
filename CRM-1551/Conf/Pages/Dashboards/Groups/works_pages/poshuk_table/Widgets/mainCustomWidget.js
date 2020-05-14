@@ -11,15 +11,11 @@
         displayNone: 'none',
         displayBlock: 'block',
         init: async function() {
-            /* this.FiltersPackageHelper = await import('/modules/Helpers/Filters/FiltersPackageHelper.js'); */
+            /*
+            this.FiltersPackageHelper = await import('/modules/Helpers/Filters/FiltersPackageHelper.js');
+            */
             this.executeQueryShowUserFilterGroups();
-            const msg = {
-                name: 'SetFilterPanelState',
-                package: {
-                    value: true
-                }
-            };
-            this.messageService.publish(msg);
+            this.setGlobalFilterPanelVisibility(true);
             /*
             Version 2.2
             this.subscribers.push(this.messageService.subscribe('filters', this.showApplyFiltersValue, this));
@@ -208,12 +204,6 @@
                 const groupName = this.createElement('input',
                     {value: userFilterGroup.name, className: 'userFilterGroupName', disabled: true, groupId: userFilterGroup.id}
                 );
-                groupName.addEventListener('click', event => {
-                    const target = event.currentTarget;
-                    const groupId = target.groupId;
-                    this.showMyPagePreloader();
-                    this.getRestoreFilters(groupId);
-                });
                 groupName.addEventListener('keypress', event => {
                     const key = event.which || event.keyCode;
                     const target = event.currentTarget;
@@ -235,6 +225,17 @@
                     target.classList.remove(target.classList[3]);
                     target.classList.add(this.changeDisplayBtnIcon(target.status));
                     document.getElementById(`userFiltersListWrapper${target.groupId}`).style.display = target.status;
+                });
+                const groupSetFiltersBtn = this.createElement('div',
+                    {
+                        className: 'groupEditBtn groupBtn fa fa-arrow-right', groupId: userFilterGroup.id
+                    }
+                );
+                groupSetFiltersBtn.addEventListener('click', event => {
+                    const target = event.currentTarget;
+                    const groupId = target.groupId;
+                    this.showMyPagePreloader();
+                    this.restoreFilters(groupId);
                 });
                 const groupEditBtn = this.createElement('div', {className: 'groupEditBtn groupBtn fa fa-edit', edit: false});
                 groupEditBtn.addEventListener('click', event => {
@@ -258,7 +259,7 @@
                 });
                 const groupHeader = this.createElement('div',
                     {className: 'groupHeader'},
-                    displayBtn, groupName, groupEditBtn, groupDeleteBtn
+                    displayBtn, groupName, groupSetFiltersBtn, groupEditBtn, groupDeleteBtn
                 );
                 const group = this.createElement('div',
                     {id: `groupId${userFilterGroup.id}`, className: 'userFilterGroup'},
@@ -318,14 +319,8 @@
             this.queryExecutor(executeQuery, this.executeQueryShowUserFilterGroups, this);
             this.showPreloader = false;
         },
-        getRestoreFilters: function(id) {
-            const msg = {
-                name: 'SetFilterPanelState',
-                package: {
-                    value: true
-                }
-            };
-            this.messageService.publish(msg);
+        restoreFilters: function(id) {
+            this.setGlobalFilterPanelVisibility(true);
             const filters = this.userFilterGroups.find(f => f.id === id).filters;
             const FiltersPackageHelper = new this.FiltersPackageHelper.FiltersPackageHelper();
             const filtersPackage = FiltersPackageHelper.getFiltersPackage(filters);
@@ -333,6 +328,15 @@
             this.applyFilters(filtersPackage);
             this.hideModalWindow();
             this.hidePagePreloader();
+        },
+        setGlobalFilterPanelVisibility: function(state) {
+            const msg = {
+                name: 'SetFilterPanelState',
+                package: {
+                    value: state
+                }
+            };
+            this.messageService.publish(msg);
         },
         setFilterViewValues: function(filter) {
             const viewValue = this.getSelectFilterViewValuesObject(filter);
