@@ -1,8 +1,8 @@
 /*
 DECLARE @organization_id INT = 1;
 DECLARE @user_id NVARCHAR(300) = N'02ece542-2d75-479d-adad-fd333d09604d';
-DECLARE @OtKuda NVARCHAR(20) = N'Городок';
-DECLARE @TypeEvent NVARCHAR(20) = N'В роботі';-- N'Усі'
+DECLARE @OtKuda NVARCHAR(20) = N'Система';
+DECLARE @TypeEvent NVARCHAR(20) = N'Не активні';-- N'Усі'
 */
 DECLARE @TypeEvent_table TABLE (name NVARCHAR(20));
 DECLARE @OtKuda_table TABLE (name NVARCHAR(20));
@@ -48,41 +48,6 @@ where eo.object_id is not null
 
 CREATE INDEX in_object_id ON #temp_ob_in_org (object_id); -- создание индекса
 
-
-if OBJECT_ID('tempdb..#temp_questions') is not null drop table #temp_questions
-
-select distinct
-q.Id
-,q.question_type_id
-,q.object_id
-,e.id as event_id
-into #temp_questions
-FROM [Events] as e with (nolock)
-inner join EventQuestionsTypes as eqt with (nolock) on eqt.event_id = e.Id 
-inner join [EventObjects] as eo with (nolock) on eo.event_id = e.Id
-inner join Questions as q with (nolock) on q.question_type_id = eqt.question_type_id and q.[object_id] = eo.[object_id]
-inner join Assignments with (nolock) on Assignments.Id = q.last_assignment_for_execution_id
-where  q.registration_date >= e.registration_date
-and eqt.[is_hard_connection] = 1
-AND Assignments.main_executor = 1
-AND Assignments.assignment_state_id <> 5
-and q.question_state_id <> 5
-
-AND CASE WHEN @OtKuda=N'Усі' THEN 5 
-	WHEN @OtKuda=N'Городок' THEN e.gorodok_id 
-	WHEN @OtKuda=N'Система' AND ISNULL(e.gorodok_id, 2)<>1 THEN 2
-	END
-	= CASE WHEN @OtKuda=N'Усі' THEN 5 
-	WHEN @OtKuda=N'Городок' THEN 1
-	WHEN @OtKuda=N'Система' THEN 2
-	END
-
-	AND 
-
-	CASE WHEN @TypeEvent=N'В роботі' AND e.active =1 and e.[plan_end_date]>getutcdate() then 4
-        WHEN @TypeEvent=N'Прострочені' AND e.active =1 and e.[plan_end_date]<=getutcdate() then 4
-        when @TypeEvent=N'Не активні' AND e.active =0 then 4
-    END =4
 
 --SELECT * FROM #temp_questions
 
@@ -169,6 +134,15 @@ if OBJECT_ID('tempdb..#temp_Events_1') is not null drop table #temp_Events_1
 
   CREATE INDEX in_id ON #temp_Events_1 (Id); -- создание индекса
 
+
+    if OBJECT_ID('tempdb..#temp_questions') is not null drop table #temp_questions
+
+select  
+q.Id
+,q.event_id
+into #temp_questions
+FROM [Questions] as q with (nolock)
+inner join #temp_Events_1 as e on q.event_id = e.Id
   
 
   if OBJECT_ID('tempdb..#temp_Events_gorodok') is not null drop table #temp_Events_gorodok
@@ -257,9 +231,9 @@ if OBJECT_ID('tempdb..#temp_Events_1') is not null drop table #temp_Events_1
     case when [Events_1].gorodok_id=1 then N'Городок' else N'Система' 
     end OtKuda
   from #temp_Events_1 [Events_1]
-    left join EventQuestionsTypes with (nolock) on EventQuestionsTypes.event_id = [Events_1].Id 
-    left join [EventObjects] with (nolock) on [EventObjects].event_id = [Events_1].Id
-	left join #temp_questions as Questions on Questions.event_id =[Events_1].Id and  Questions.question_type_id = EventQuestionsTypes.question_type_id and [Questions].[object_id] = [EventObjects].[object_id]
+    --left join EventQuestionsTypes with (nolock) on EventQuestionsTypes.event_id = [Events_1].Id 
+    --left join [EventObjects] with (nolock) on [EventObjects].event_id = [Events_1].Id
+	left join #temp_questions as Questions on Questions.event_id =[Events_1].Id 
     left join [EventTypes] on [Events_1].event_type_id=[EventTypes].Id
 
     UNION   

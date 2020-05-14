@@ -69,25 +69,6 @@ CREATE INDEX in_object_id ON #temp_ob_in_org (object_id); -- создание и
 --select * from #temp_ob_in_org
 --тут
 
-if OBJECT_ID('tempdb..#temp_questions') is not null drop table #temp_questions
-
-select distinct 
-q.Id
-,q.question_type_id
-,q.object_id
-,e.id as event_id
-into #temp_questions
-FROM [Events] as e with (nolock)
-inner join EventQuestionsTypes as eqt with (nolock) on eqt.event_id = e.Id 
-inner join [EventObjects] as eo with (nolock) on eo.event_id = e.Id
-inner join Questions as q with (nolock) on q.question_type_id = eqt.question_type_id and q.[object_id] = eo.[object_id]
-inner join Assignments with (nolock) on Assignments.Id = q.last_assignment_for_execution_id
-where  q.registration_date >= e.registration_date
-and eqt.[is_hard_connection] = 1
-AND Assignments.main_executor = 1
-AND Assignments.assignment_state_id <> 5
-and q.question_state_id <> 5
-
 
 
 if OBJECT_ID('tempdb..#temp_Events_1') is not null drop table #temp_Events_1
@@ -138,6 +119,16 @@ if OBJECT_ID('tempdb..#temp_Events_1') is not null drop table #temp_Events_1
   ) t;
 
   CREATE INDEX in_id ON #temp_Events_1 (Id); -- создание индекса
+
+  if OBJECT_ID('tempdb..#temp_questions') is not null drop table #temp_questions
+
+select  
+q.Id
+,q.event_id
+into #temp_questions
+FROM [Questions] as q with (nolock)
+inner join #temp_Events_1 as e on q.event_id = e.Id
+
 
 if OBJECT_ID('tempdb..#temp_Events_gorodok') is not null drop table #temp_Events_gorodok
 
@@ -192,10 +183,11 @@ if OBJECT_ID('tempdb..#temp_Events_gorodok') is not null drop table #temp_Events
     case when [Events_1].gorodok_id=1 then N'Городок' else N'Система' 
     end OtKuda
   from #temp_Events_1 [Events_1]
-    left join EventQuestionsTypes with (nolock) on EventQuestionsTypes.event_id = [Events_1].Id 
-    left join [EventObjects] with (nolock) on [EventObjects].event_id = [Events_1].Id
+  --left join Questions ON [Events_1].Id=Questions.Id
+    --left join EventQuestionsTypes with (nolock) on EventQuestionsTypes.event_id = [Events_1].Id 
+    --left join [EventObjects] with (nolock) on [EventObjects].event_id = [Events_1].Id
     --left join Questions on Questions.question_type_id = EventQuestionsTypes.question_type_id and [Questions].[object_id] = [EventObjects].[object_id]
-	left join #temp_questions as Questions on Questions.event_id =[Events_1].Id and  Questions.question_type_id = EventQuestionsTypes.question_type_id and [Questions].[object_id] = [EventObjects].[object_id]
+	left join #temp_questions as Questions on Questions.event_id =[Events_1].Id 
     --left join [EventTypes] on [Events_1].event_type_id=[EventTypes].Id
 
     UNION   
