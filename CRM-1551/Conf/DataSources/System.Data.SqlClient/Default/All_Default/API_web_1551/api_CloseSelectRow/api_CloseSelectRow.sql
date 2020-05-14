@@ -119,7 +119,9 @@ DISTINCT
 		THEN 1 ELSE 0 
 	END AS has_files,
   [MainAssConsRevision].grade,
-  [AppealLastContent].content AS main_content
+  [AppealLastContent].content AS main_content,
+	[Questions].Id AS Question_id,
+	[Questions].[registration_number] AS Question_number
 FROM
   [dbo].[Appeals] [Appeals]
   INNER JOIN @LastContent [AppealLastContent] ON [AppealLastContent].Id = [Appeals].Id 

@@ -52,7 +52,9 @@ SELECT
 	CASE 
 		WHEN COUNT([AssignmentConsDocFiles].Id) > 0 
 		THEN 1 ELSE 0 
-	END AS has_files
+	END AS has_files,
+	[Questions].Id AS Question_id,
+	[Questions].[registration_number] AS Question_number
 FROM
 	[dbo].[Appeals] [Appeals]
 	LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
