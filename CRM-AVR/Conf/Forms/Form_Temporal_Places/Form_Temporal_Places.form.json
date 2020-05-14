@@ -1,0 +1,13 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_Temporal_Places",
+  "Name": "Тимчасове місце",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\T_Place_Info.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:Form_Temporal_Places.form.js"
+  }
+}

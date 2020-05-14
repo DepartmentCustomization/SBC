@@ -1,0 +1,101 @@
+{
+  "Code": "T_Place_Info",
+  "Name": "Інформація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "place_type_id",
+      "Name": "Тип місця",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 1,
+      "QueryCode": "Temporal_PlaceTypes",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "place_district_id",
+      "Name": "Район",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 2,
+      "QueryCode": "dir_DistrictsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
+    },
+    {
+      "Code": "place_name",
+      "Name": "Адреса",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
+      "Code": "Lattitude",
+      "Name": "Координат широти",
+      "FieldType": "text",
+      "Position": 4,
+      "Width": "50%"
+    },
+    {
+      "Code": "Longitude",
+      "Name": "Координат довготи",
+      "FieldType": "text",
+      "Position": 6,
+      "Width": "50%"
+    },
+    {
+      "Code": "place_street1_id",
+      "Name": "Вулиця",
+      "FieldType": "select",
+      "IsRequired": true,
+      "Position": 5,
+      "QueryCode": "List_Streets",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "streetName",
+      "QueryParameters": []
+    },
+    {
+      "Code": "place_street2_id",
+      "Name": "Вулиця 2",
+      "FieldType": "select",
+      "IsRequired": false,
+      "Position": 7,
+      "QueryCode": "List_Streets",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "streetName",
+      "QueryParameters": []
+    },
+    {
+      "Code": "Number",
+      "Name": "Номер",
+      "FieldType": "text",
+      "Position": 8,
+      "Width": "25%"
+    },
+    {
+      "Code": "Letter",
+      "Name": "Літера",
+      "FieldType": "text",
+      "Position": 9,
+      "Width": "25%"
+    },
+    {
+      "Code": "DeleteWronTempPlace",
+      "Name": "Видалити",
+      "FieldType": "button",
+      "Position": 10,
+      "Width": "50%",
+      "Icon": "remove_circle_outline"
+    },
+    {
+      "Code": "AddFromTempPlace",
+      "Name": "Зареєструвати",
+      "FieldType": "button",
+      "Position": 11,
+      "Width": "50%",
+      "Icon": "save"
+    }
+  ]
+}

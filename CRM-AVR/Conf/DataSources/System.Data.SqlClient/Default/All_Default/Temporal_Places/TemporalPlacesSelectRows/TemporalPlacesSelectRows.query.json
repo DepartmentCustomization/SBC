@@ -1,0 +1,52 @@
+{
+  "ModelType": "Query",
+  "Code": "TemporalPlacesSelectRows",
+  "Name": "TemporalPlacesSelectRows",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true,
+      "ViewState": "Hidden"
+    },
+    {
+      "Code": "place_name",
+      "Name": "Адреса",
+      "Position": 2,
+      "SqlName": "t_place.[Name]",
+      "FilterParameterCode": "@place_name"
+    },
+    {
+      "Code": "place_type",
+      "Name": "Тип місця",
+      "Position": 3,
+      "SqlName": "p_type.[Name]",
+      "FilterParameterCode": "@place_type"
+    },
+    {
+      "Code": "place_district",
+      "Name": "Район",
+      "Position": 4,
+      "SqlName": "district.[Name]",
+      "FilterParameterCode": "@place_district"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    }
+  ]
+}
