@@ -4,6 +4,7 @@ DECLARE @user_id NVARCHAR(300) = N'02ece542-2d75-479d-adad-fd333d09604d';
 DECLARE @OtKuda NVARCHAR(20) = N'Система';
 DECLARE @TypeEvent NVARCHAR(20) = N'Не активні';-- N'Усі'
 */
+
 DECLARE @TypeEvent_table TABLE (name NVARCHAR(20));
 DECLARE @OtKuda_table TABLE (name NVARCHAR(20));
 
@@ -149,7 +150,7 @@ inner join #temp_Events_1 as e on q.event_id = e.Id
 
 
     SELECT distinct
-	     gl.[id] as Id
+	     gl.[claim_number] as Id
       ,case when gl.fact_finish_date is null then 1
 		    else 0 end as active 
       ,gl.[plan_finish_date] as plan_end_date
@@ -197,6 +198,8 @@ inner join #temp_Events_1 as e on q.event_id = e.Id
  INNER JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[AllObjectInClaim] AS oc with (nolock) ON oc.claims_number_id = teg.id
  INNER JOIN [dbo].[Objects] o ON o.Id = oc.object_id
   --добавление объетков #temp_Events_gorodok конец
+
+  --select * from #temp_Events_gorodok
 
   CREATE INDEX in_event_id ON #temp_ObjectsEvent (event_id); -- создание индекса
 
