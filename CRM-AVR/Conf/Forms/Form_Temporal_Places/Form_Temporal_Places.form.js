@@ -21,8 +21,12 @@
             this.form.onControlValueChanged('Longitude', this.checkRegisterAvailable);
             this.addBtn.addEventListener('click', function() {
                 const queryForAddPlace = {
-                    queryCode: 'Temporal_PlaceRegistering',
+                    queryCode: 'Temporal_PlaceRegister',
                     parameterValues: [
+                        {
+                            key: '@Id',
+                            value: this.id
+                        },
                         {
                             key: '@type',
                             value: this.form.getControlValue('place_type_id')

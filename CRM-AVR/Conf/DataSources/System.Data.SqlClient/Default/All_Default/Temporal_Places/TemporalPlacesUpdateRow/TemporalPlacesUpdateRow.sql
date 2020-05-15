@@ -14,12 +14,17 @@ UPDATE dbo.[T_Places]
 		SET [Name] = s1.[Name] + N' ' + st1.UkrName +
 		IIF(s2.[Name] IS NOT NULL, 
 		N'/' + s2.[Name] + N' ' + st2.UkrName,
-		SPACE(0) ) + N', ' + 
+		SPACE(0) ) + 
+		IIF(t.Place_type_ID <> 19,
+		--- yes
+		 N', ' + 
 		ISNULL(t.Number,N'') + 
-		ISNULL(t.Letter,N'') 
+		ISNULL(t.Letter,N''),
+		--- no
+		SPACE(0) )
 	FROM dbo.[T_Places] t 
-	INNER JOIN Streets s1 ON s1.Id = t.Streets_1_ID
-	INNER JOIN Street_Type st1 ON st1.TypeId = s1.Street_type_id 
-	LEFT JOIN Streets s2 ON s2.Id = t.Streets_2_ID
-	LEFT JOIN Street_Type st2 ON st2.TypeId = s2.Street_type_id 
+	INNER JOIN dbo.[Streets] s1 ON s1.Id = t.Streets_1_ID
+	INNER JOIN dbo.[Street_Type] st1 ON st1.TypeId = s1.Street_type_id 
+	LEFT JOIN dbo.[Streets] s2 ON s2.Id = t.Streets_2_ID
+	LEFT JOIN dbo.[Street_Type] st2 ON st2.TypeId = s2.Street_type_id 
 	WHERE t.Id = @Id ;

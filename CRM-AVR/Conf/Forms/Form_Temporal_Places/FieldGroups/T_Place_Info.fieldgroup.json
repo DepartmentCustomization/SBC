@@ -95,7 +95,7 @@
       "FieldType": "button",
       "Position": 11,
       "Width": "50%",
-      "Icon": "save"
+      "Icon": "add_circle_outline"
     }
   ]
 }
