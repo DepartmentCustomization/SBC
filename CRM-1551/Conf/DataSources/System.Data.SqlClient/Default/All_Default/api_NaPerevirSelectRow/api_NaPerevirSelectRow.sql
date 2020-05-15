@@ -1,5 +1,5 @@
-    --  DECLARE @ApplicantFromSiteId INT = 2521;
-    --  DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380636227665';
+    --   DECLARE @ApplicantFromSiteId INT = 2521;
+    --   DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380636227665';
 
 IF(@ApplicantFromSitePhone IS NOT NULL)
 BEGIN
@@ -149,7 +149,9 @@ GROUP BY
 	[Questions].[geolocation_lat],
 	[Questions].[geolocation_lon],
 	[MainAss].state_change_date,
-	[AppealLastContent].content
+	[AppealLastContent].content,
+	[Questions].Id,
+	[Questions].[registration_number]
 ORDER BY 1
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY 
 ;
