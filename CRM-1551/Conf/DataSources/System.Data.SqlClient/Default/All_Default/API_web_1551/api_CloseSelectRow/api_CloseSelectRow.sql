@@ -1,5 +1,5 @@
-  --  DECLARE @ApplicantFromSiteId INT = 2423;
-  --  DECLARE @ApplicantFromSitePhone NVARCHAR(13) = NULL;
+    -- DECLARE @ApplicantFromSiteId INT = 2423;
+    -- DECLARE @ApplicantFromSitePhone NVARCHAR(13) = NULL;
 
 SET @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0));
 
@@ -155,6 +155,8 @@ GROUP BY
   [Questions].[geolocation_lon],
   [MainAss].state_change_date,
   [MainAssConsRevision].grade,
-  [AppealLastContent].content
+  [AppealLastContent].content,
+  [Questions].Id,
+  [Questions].[registration_number]
 ORDER BY 1 
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ;
