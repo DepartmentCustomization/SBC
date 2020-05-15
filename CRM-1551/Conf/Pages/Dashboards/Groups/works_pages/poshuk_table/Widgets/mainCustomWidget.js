@@ -134,7 +134,7 @@
             this.container.appendChild(this.modalWindowWrapper);
         },
         createFiltersGroupNameInput: function() {
-            const newFilterNameInput = this.createElement('input', { id: 'newFilterNameInput', placeholder: 'Внеесіть назву'});
+            const newFilterNameInput = this.createElement('input', { id: 'newFilterNameInput', placeholder: 'Внесіть назву'});
             this.modalWindow.appendChild(newFilterNameInput);
         },
         saveNewFiltersGroup: function() {
