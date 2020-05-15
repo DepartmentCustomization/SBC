@@ -1,5 +1,5 @@
---   DECLARE @ApplicantFromSiteId INT = 22;
---   DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380632701143';
+   --DECLARE @ApplicantFromSiteId INT = 22;
+   --DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380632701143';
 
 SET @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0)); 
 
@@ -52,7 +52,9 @@ SELECT
 	CASE 
 		WHEN COUNT([AssignmentConsDocFiles].Id) > 0 
 		THEN 1 ELSE 0 
-	END AS has_files
+	END AS has_files,
+	[Questions].Id AS Question_id,
+	[Questions].[registration_number] AS Question_number
 FROM
 	[dbo].[Appeals] [Appeals]
 	LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
@@ -116,7 +118,9 @@ GROUP BY
 	[Questions].[object_id],
 	[Questions].[geolocation_lat],
 	[Questions].[geolocation_lon],
-	[MainAss].state_change_date
+	[MainAss].state_change_date,
+	[Questions].Id,
+	[Questions].[registration_number]
 
 UNION
 
@@ -144,7 +148,9 @@ SELECT
 	CASE 
 		WHEN COUNT([AssignmentConsDocFiles].Id) > 0 
 		THEN 1 ELSE 0 
-	END AS has_files
+	END AS has_files,
+	[Questions].Id AS Question_id,
+	[Questions].[registration_number] AS Question_number
 FROM
 	[dbo].[Appeals] [Appeals]
 	LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
@@ -213,7 +219,9 @@ GROUP BY
 	[Questions].[object_id],
 	[Questions].[geolocation_lat],
 	[Questions].[geolocation_lon],
-	[MainAss].state_change_date
+	[MainAss].state_change_date,
+	[Questions].Id,
+	[Questions].[registration_number]
 ORDER BY 1
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
 ;

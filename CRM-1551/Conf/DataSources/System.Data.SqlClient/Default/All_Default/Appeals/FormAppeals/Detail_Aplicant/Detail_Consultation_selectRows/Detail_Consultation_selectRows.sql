@@ -1,7 +1,7 @@
-  --DECLARE @applicant_id INT = 3677;
-  --DECLARE @appeal_id INT = 5389980;
-  --DECLARE @phone_number NVARCHAR(25) = N'0993896537';
-  --DECLARE @object_id INT = 8593;
+--   DECLARE @applicant_id INT = 1515907;
+--   DECLARE @appeal_id INT = 5389980;
+--   DECLARE @phone_number NVARCHAR(25) = N'0993896537';
+--   DECLARE @object_id INT = 8593;
 
 DECLARE @LoadServerState INT;
 SET
@@ -31,7 +31,7 @@ CREATE TABLE #tempTypeQuestion
 ) WITH (DATA_COMPRESSION = PAGE);
 
 
-IF(@object_id IS NULL)
+IF(@applicant_id IS NOT NULL)
 BEGIN
 IF @LoadServerState = 1 
 BEGIN
@@ -800,7 +800,7 @@ WHERE
 END
 END
 ---> Для отбора только заявок из городка при выборе объекта (дом заявителя)
-ELSE IF(@object_id IS NOT NULL)
+ELSE IF(@applicant_id IS NULL)
 BEGIN
 DECLARE @building_id INT = (SELECT builbing_id FROM [dbo].[Objects] WHERE Id = @object_id); 
 INSERT INTO

@@ -109,5 +109,17 @@
     "Name": "main_content",
     "Position": 17,
     "IsPrintable": false
+  },
+  {
+    "Code": "Question_id",
+    "Name": "Question_id",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Question_number",
+    "Name": "Question_number",
+    "Position": 19,
+    "IsPrintable": false
   }
 ]

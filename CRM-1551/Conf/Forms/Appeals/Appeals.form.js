@@ -1972,7 +1972,8 @@
                     this.details.setVisibility('Detail_Event', false);
                 } else {
                     const objectParam = [
-                        { key: '@object_id', value: value}
+                        { key: '@object_id', value: value},
+                        { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')}
                     ];
                     this.details.loadData('Detail_Event', objectParam);
                     this.details.loadData('Detail_Consultation', objectParam);

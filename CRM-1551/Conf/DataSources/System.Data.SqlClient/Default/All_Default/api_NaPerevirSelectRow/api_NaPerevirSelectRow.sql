@@ -1,5 +1,5 @@
-    -- DECLARE @ApplicantFromSiteId INT = 2521;
-    -- DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380636227665';
+    --   DECLARE @ApplicantFromSiteId INT = 2521;
+    --   DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380636227665';
 
 IF(@ApplicantFromSitePhone IS NOT NULL)
 BEGIN
@@ -112,7 +112,9 @@ SELECT
 		WHEN COUNT([MainAssConsDocsFiles].Id) > 0 
 		THEN 1 ELSE 0 
 	END AS has_files,
-	[AppealLastContent].content
+	[AppealLastContent].content AS main_content,
+	[Questions].Id AS Question_id,
+	[Questions].[registration_number] AS Question_number
 FROM
 	[dbo].[Appeals] [Appeals]
 	INNER JOIN @LastContent [AppealLastContent] ON [AppealLastContent].Id = [Appeals].Id 
@@ -147,7 +149,9 @@ GROUP BY
 	[Questions].[geolocation_lat],
 	[Questions].[geolocation_lon],
 	[MainAss].state_change_date,
-	[AppealLastContent].content
+	[AppealLastContent].content,
+	[Questions].Id,
+	[Questions].[registration_number]
 ORDER BY 1
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY 
 ;
