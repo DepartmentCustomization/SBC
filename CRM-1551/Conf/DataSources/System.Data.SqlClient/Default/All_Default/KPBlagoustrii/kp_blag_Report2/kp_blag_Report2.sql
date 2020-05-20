@@ -1,7 +1,9 @@
-
-  --declare @sector_id int =1;
-  --declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941'
-
+ /*
+  declare @sector_id int =1;
+  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
+  declare @date_from datetime='2020-05-01 12:10';
+  declare @date_to datetime='2020-06-01 12:10';
+*/
   
 
   if OBJECT_ID('tempdb..#temp_que_state3') is not null drop table #temp_que_state3
@@ -59,7 +61,8 @@
 
   if OBJECT_ID('tempdb..#temp_count_que') is not null drop table #temp_count_que
 
-  select executor_person_id, 
+  select [executor_organization_id], 
+  SUM(count_all) count_all,
   SUM(count_registered) count_registered,
   SUM(count_in_work) count_in_work,
   SUM(count_on_inspection) count_on_inspection,
@@ -74,8 +77,9 @@
   into #temp_count_que
   from
   (
-  select [Assignments_ok].executor_person_id,--[Territories].Id territories_id, --[Territories].name,
-  case when [Questions].question_state_id=1 --and [Questions].registration_date between @date_from and @date_to--зареєстровано СТОП
+  select [Assignments_ok].[executor_organization_id],--[Territories].Id territories_id, --[Territories].name,
+  1 count_all,
+  case when [Questions].question_state_id=1 and [Questions].registration_date between @date_from and @date_to--зареєстровано СТОП
   then 1 else 0 end count_registered,
   case when [Questions].question_state_id=2 --в роботі
   then 1 else 0 end count_in_work,
@@ -117,10 +121,11 @@
   left join #temp_ass_nevkom on [Questions].last_assignment_for_execution_id=#temp_ass_nevkom.assignment_id
   where [Territories].Id=@sector_id
   ) t
-  group by executor_person_id
+  group by [executor_organization_id]
 
 
-  select temp_count_que.executor_person_id Id, [Positions].name person_name,--s.Id, s.name territories_name,
+  select temp_count_que.executor_organization_id Id, [Organizations].short_name exec_name,--s.Id, s.name territories_name,
+  count_all,
   count_registered,
   count_in_work,
   count_on_inspection,
@@ -131,7 +136,12 @@
   count_not_processed_in_time,
 
   case when count_registered=0 then null 
-  else convert(numeric(8,2),convert(float, (count_days_speed1+count_days_speed2))/convert(float,count_registered)) end speed_of_employment, --11
+  else convert(numeric(8,2),convert(float, (
+  case
+  when count_days_speed1 is null then count_days_speed2 --count_days_speed1+count_days_speed2
+  when count_days_speed2 is null then count_days_speed1 end
+  
+  ))/convert(float,count_registered)) end speed_of_employment, --11
 
   case when count_on_inspection+count_close+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_not_processed_in_time)/convert(float,(count_on_inspection+count_close+count_for_completion))))*100.00) end timely_processed, --12
@@ -144,8 +154,8 @@
    
   --select temp_count_que.executor_person_id, [PersonExecutorChoose].name
   from #temp_count_que temp_count_que
-  left join [dbo].[Positions] on temp_count_que.executor_person_id=[Positions].Id
-  
+  left join [dbo].[Organizations] on temp_count_que.executor_organization_id=[Organizations].Id
+  where
   --[dbo].[Territories]
   --inner join [dbo].[Objects] on [Territories].object_id=[Objects].Id
   --inner join @district_table d on [Objects].district_id=d.Id
@@ -153,5 +163,8 @@
   --left join [dbo].[PersonExecutorChoose] ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
   --left join [dbo].[Positions] ON [PersonExecutorChoose].position_id=[Positions].id) s
   --left join #temp_count_que temp_count_que ON s.id=temp_count_que.territories_id
-
- -- order by id
+  #filter_columns#
+  --#sort_columns#
+  order by 1
+  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+  --order by id

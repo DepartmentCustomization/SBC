@@ -7,14 +7,36 @@
   "IsAnonymousAccess": false,
   "Parameters": [
     {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
+    },
+    {
       "Code": "@sector_id",
       "Name": "sector_id",
       "ParameterType": "Integer"
     },
     {
-      "Code": "@user_id",
-      "Name": "user_id",
-      "ParameterType": "CurrentUserId"
+      "Code": "@date_to",
+      "Name": "date_to",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@date_from",
+      "Name": "date_from",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
     }
   ]
 }

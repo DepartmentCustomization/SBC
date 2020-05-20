@@ -1,8 +1,8 @@
 
   /*
   declare @districts nvarchar(max)=N'1,2,3,4,5,6,7,8,9,10,11';
-  declare @date_from datetime='2020-05-01 12:10';
-  declare @date_to datetime='2020-06-01 12:10';
+  declare @date_from datetime='2020-05-12 00:01';
+  declare @date_to datetime='2020-05-19 23:59';
   declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941'
 */
   DECLARE @district_table TABLE (Id int);
@@ -91,6 +91,7 @@
   if OBJECT_ID('tempdb..#temp_count_que') is not null drop table #temp_count_que
 
   select territories_id, 
+  SUM(count_all) count_all,
   SUM(count_registered) count_registered,
   SUM(count_in_work) count_in_work,
   SUM(count_on_inspection) count_on_inspection,
@@ -106,6 +107,7 @@
   from
   (
   select [Territories].Id territories_id, --[Territories].name,
+  1 count_all,
   case when [Questions].question_state_id=1 and [Questions].registration_date between @date_from and @date_to--зареєстровано
   then 1 else 0 end count_registered,
   case when [Questions].question_state_id=2 --в роботі
@@ -150,6 +152,7 @@
 
 
   select s.Id, s.name territories_name,
+  count_all,
   count_registered,
   count_in_work,
   count_on_inspection,
@@ -159,8 +162,16 @@
   count_built,
   count_not_processed_in_time,
 
+  --count_days_speed1, count_days_speed2,
+
   case when count_registered=0 then null 
-  else convert(numeric(8,2),convert(float, (count_days_speed1+count_days_speed2))/convert(float,count_registered)) end speed_of_employment, --11
+  else convert(numeric(8,2),convert(float, (case 
+  --when count_days_speed1 is not null and count_days_speed2 is not null then count_days_speed1+count_days_speed2
+
+  when count_days_speed1 is null then count_days_speed2 --count_days_speed1+count_days_speed2
+  when count_days_speed2 is null then count_days_speed1 end
+
+  ))/convert(float,count_registered)) end speed_of_employment, --11
 
   case when count_on_inspection+count_close+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_not_processed_in_time)/convert(float,(count_on_inspection+count_close+count_for_completion))))*100.00) end timely_processed, --12
@@ -179,5 +190,10 @@
   left join [dbo].[PersonExecutorChoose] ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
   left join [dbo].[Positions] ON [PersonExecutorChoose].position_id=[Positions].id) s
   left join #temp_count_que temp_count_que ON s.id=temp_count_que.territories_id
+  where
+  #filter_columns#
+  --#sort_columns#
+  order by 1
+  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
 
   --order by id
