@@ -7,10 +7,23 @@
 */
   DECLARE @district_table TABLE (Id int);
   
-  insert into @district_table (Id)
 
-  select value*1 n
-  from string_split((select @districts n), N',')
+  if charindex(N'0,',@districts, 1)=1
+   or charindex(N',0,',@districts, 1)>0
+   or charindex(N',0',@districts, 1)>0
+  
+	    begin
+			insert into @district_table (Id)
+			select Id from [dbo].[Districts]   
+	    end
+
+  else
+		begin
+			insert into @district_table (Id)
+
+			select value*1 n
+			from string_split((select @districts n), N',')
+		end
   --where value*1 IN --условие на человека
   --(select DISTINCT [Objects].district_id--[Territories].Id
   --from [dbo].[Positions]
