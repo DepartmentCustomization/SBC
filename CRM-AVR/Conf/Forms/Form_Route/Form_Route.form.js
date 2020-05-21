@@ -28,17 +28,54 @@
             form.addControl('areaParams', diameter);
             form.addControl('areaParams', length);
         },
+        onTempBuildingChange() {
+            let area = this.form.getControlValue('temp_place_area');
+            let district = this.form.getControlValue('place_district_id');
+            let street = this.form.getControlValue('place_street1_id');
+            let building = this.form.getControlValue('place_building');
+            if((area !== null && typeof (area) === 'number') &&
+                (district !== null && typeof (district) === 'number') &&
+                (street !== null && typeof (street) === 'number') &&
+                (building !== null && building.trim())) {
+                const makeBuildingName = {
+                    queryCode: 'makeBuildingName',
+                    parameterValues: [
+                        {
+                            key: '@street',
+                            value: street
+                        },
+                        {
+                            key: '@building_name',
+                            value: building
+                        }
+                    ]
+                };
+                this.queryExecutor.getValue(makeBuildingName).subscribe(data => {
+                    if(data) {
+                        this.form.setControlValue('place_building_name', data);
+                        document.getElementById('new_temp_placeAdd').disabled = false;
+                    }
+                });
+            } else {
+                document.getElementById('new_temp_placeAdd').disabled = true;
+            }
+        },
         init:function() {
+            this.form.setGroupVisibility('Group_Route_TempPlace', false);
             this.form.setControlValue('GUIDPack', this.GenerateUUID());
             this.details.onCellClick('Detail_Area', this.sortAreas.bind(this));
+            let btn_addTempPlace = document.getElementById('btn_Add_AreaTempPlace');
+            let new_temp_placeAdd = document.getElementById('new_temp_placeAdd');
+            let new_temp_placeReturn = document.getElementById('new_temp_placeReturn');
             let btn_add_area = document.getElementById('btn_Add_Area');
             let btn_AddAreaHouses = document.getElementById('btn_AddAreaHouses');
             let btn_Add_AreaPlace = document.getElementById('btn_Add_AreaPlace');
             btn_add_area.disabled = false;
+            new_temp_placeAdd.disabled = true;
             this.form.setGroupVisibility('Group_Route_Area', false);
             this.form.setControlVisibility('btn_AddAreaHouses', false);
             document.querySelector('#Detail_RoutePlaces .add-btn').style.display = 'none';
-            if(this.state == 'create') {
+            if(this.state === 'create') {
                 btn_add_area.disabled = true;
                 btn_Add_AreaPlace.disabled = true;
                 const userOrg = {
@@ -46,7 +83,7 @@
                     parameterValues:[]
                 };
                 this.queryExecutor.getValues(userOrg).subscribe(data =>{
-                    if (data.rows[0] != undefined) {
+                    if (data.rows[0] !== undefined) {
                         this.form.setControlValue('OrgId', {key: data.rows[0].values[0], value: data.rows[0].values[1]})
                     }
                 });
@@ -61,7 +98,84 @@
             this.form.disableControl('ChangeBy_userID');
             this.form.disableControl('GroupLenght');
             this.form.disableControl('BoreCountAll');
+            this.form.disableControl('place_building_name');
             this.form.onControlValueChanged('Type_area', this.chooseTypeArea);
+            this.form.onControlValueChanged('temp_place_area', this.onTempBuildingChange);
+            this.form.onControlValueChanged('place_district_id', this.onTempBuildingChange);
+            this.form.onControlValueChanged('place_street1_id', this.onTempBuildingChange);
+            this.form.onControlValueChanged('place_building', this.onTempBuildingChange);
+            new_temp_placeAdd.addEventListener('click', function() {
+                let place_type = this.form.getControlValue('temp_place_type');
+                const addTempPlace = {
+                    queryCode: 'Temporal_PlacesInsert',
+                    parameterValues:[
+                        {
+                            key: '@area',
+                            value: this.form.getControlValue('temp_place_area')
+                        },
+                        {
+                            key: '@type',
+                            value: place_type
+                        },
+                        {
+                            key: '@district',
+                            value: this.form.getControlValue('place_district_id')
+                        },
+                        {
+                            key: '@street',
+                            value: this.form.getControlValue('place_street1_id')
+                        },
+                        {
+                            key: '@Name',
+                            value: this.form.getControlValue('place_building_name')
+                        },
+                        {
+                            key: '@entity',
+                            value: 'Маршрут'
+                        }
+                    ]
+                };
+                this.queryExecutor.getValues(addTempPlace).subscribe(data =>{
+                    if(data) {
+                        document.getElementById('new_temp_placeReturn').click();
+                        const adminVDKorg = 10;
+                        const notifyTempPlaceCreated = {
+                            url: 'sections/Temporal_Places/edit/' + data.rows[0].values[0],
+                            notificationTypeCode: 'NewTemporaryPlace',
+                            text: data.rows[0].values[2],
+                            notificationPriorityCode: 'Middle',
+                            organisationIds: [adminVDKorg],
+                            hasAudio: true
+                        };
+                        this.createOrganisationsNotification(notifyTempPlaceCreated);
+                        document.getElementById('new_temp_placeReturn').click();
+                        const parameter = [
+                            { key: '@route_id', value: this.id }
+                        ];
+                        this.details.loadData('Detail_RoutePlaces', parameter);
+                    }
+                })
+            }.bind(this));
+            new_temp_placeReturn.addEventListener('click', function() {
+                this.form.setControlValue('temp_place_type', null)
+                this.form.setControlValue('place_street1_id', null)
+                this.form.setControlValue('place_district_id', null)
+                this.form.setControlValue('place_building', null)
+                this.form.setControlValue('place_building_name', null)
+                this.form.setControlValue('temp_place_area', null)
+                new_temp_placeAdd.disabled = true;
+                this.form.setControlVisibility('btn_Add_AreaTempPlace', true)
+                this.form.setGroupVisibility('Group_Route_TempPlace', false);
+            }.bind(this));
+            btn_addTempPlace.addEventListener('click', function() {
+                let route_id = this.form.getControlValue('route_id');
+                this.form.setControlVisibility('btn_Add_AreaTempPlace', false)
+                let routeParam = [{ parameterCode: '@route_id', parameterValue: route_id }];
+                this.form.setControlParameterValues('temp_place_area', routeParam);
+                let crossParam = [{ parameterCode: '@notCross', parameterValue: true }];
+                this.form.setControlParameterValues('temp_place_type', crossParam);
+                this.form.setGroupVisibility('Group_Route_TempPlace', true);
+            }.bind(this));
             document.getElementById('btn_AddAreaHouses').addEventListener('click', function() {
                 this.form.setControlValue('GUIDPack', this.GenerateUUID());
                 let areaType = this.form.getControlValue('Type_area');
@@ -374,17 +488,15 @@
         },
         modalCallbackClose: function(data) {
             if(data) {
-                console.log();
                 if (data.length > 0) {
                     for(let j = 0; j < data.length; j += 3) {
                         const queryParam = {
-    			queryCode: 'Update_Area_Sort_Modal',
-    			parameterValues:[{key: '@Id', value: data[j + 2].value},
-    			                 {key: '@sort', value: data[j + 1].value }
-    			]
+                            queryCode: 'Update_Area_Sort_Modal',
+                            parameterValues:[{key: '@Id', value: data[j + 2].value},
+                                {key: '@sort', value: data[j + 1].value }
+                            ]
                         };
                         this.queryExecutor.getValues(queryParam).subscribe(data => {
-                            console.log('up');
                         });
                     }
                 }
@@ -406,7 +518,7 @@
                 let place = this.formModalConfig.getControlValue('place');
                 let area = this.formModalConfig.getControlValue('area');
                 const areaQuery = {
-    	      	    queryCode: 'InsertAreaPlace',
+                    queryCode: 'InsertAreaPlace',
                     parameterValues:[
                         {
                             key: '@AreaID',
@@ -421,12 +533,12 @@
                             value: this.userId
                         }
                     ]
-    	            	 };
-    	            	 this.queryExecutor.getValue(areaQuery).subscribe(data=>{
-    	            	     if(data) {
-    	            	      const parameters = [ { key: '@route_id', value: this.id }];
+                };
+                this.queryExecutor.getValue(areaQuery).subscribe(data=>{
+                    if(data) {
+                        const parameters = [ { key: '@route_id', value: this.id }];
                         this.details.loadData('Detail_RoutePlaces', parameters);
-    	            	     }
+                    }
                 });
             }
         },
@@ -454,7 +566,7 @@
                     let boreQty = this.formModalConfig.getControlValue('BoreQty')
                     // Insert данных по участку типа улица
                     const areaQuery = {
-    	            	    queryCode: 'avr_Route_CreateStreetArea',
+                        queryCode: 'avr_Route_CreateStreetArea',
                         parameterValues:[
                             {
                                 key: '@RouteID',
@@ -473,9 +585,9 @@
                                 value: paramData
                             }
                         ]
-    	            	 };
-    	            	 this.queryExecutor.getValue(areaQuery).subscribe(data=>{
-    	            	      window.location.reload();
+                    };
+                    this.queryExecutor.getValue(areaQuery).subscribe(data=>{
+                        window.location.reload();
                     });
                 } else {
                     this.openPopUpInfoDialog('Помилка. Некоректні параметри!');

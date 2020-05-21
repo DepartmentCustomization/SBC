@@ -154,6 +154,12 @@ END
 IF @Fact_finish_at IS NOT NULL
 AND @Status_id NOT IN (4, 5, 6) 
 BEGIN
+DECLARE @placeActivity TINYINT = (SELECT Is_Active FROM dbo.[Places] WHERE Id = @places_id);
+IF(@placeActivity <> 1)
+BEGIN
+	RAISERROR(N'Адреса в заявці НЕ ПІДТВЕРДЖЕНА, будь ласка зв`яжіться з адміністратором ДІЗ', 16, 1);
+	RETURN;
+END
 UPDATE
 	[dbo].[Claims]
 SET

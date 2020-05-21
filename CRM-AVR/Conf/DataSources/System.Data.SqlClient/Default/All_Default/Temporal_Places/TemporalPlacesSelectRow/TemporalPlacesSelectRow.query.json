@@ -60,27 +60,6 @@
             "Name": "place_street1_name",
             "Position": 10,
             "ReferenceKeyCode": "place_street1_id"
-        },
-        {
-            "Code": "place_street2_id",
-            "Name": "place_street2_id",
-            "Position": 11
-        },
-        {
-            "Code": "place_street2_name",
-            "Name": "place_street2_name",
-            "Position": 12,
-            "ReferenceKeyCode": "place_street2_id"
-        },
-        {
-            "Code": "Number",
-            "Name": "Number",
-            "Position": 13
-        },
-        {
-            "Code": "Letter",
-            "Name": "Letter",
-            "Position": 14
         }
     ],
     "Parameters": [

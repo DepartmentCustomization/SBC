@@ -1,0 +1,85 @@
+{
+  "Code": "Group_Route_TempPlace",
+  "Name": "Додання місця",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "temp_place_area",
+      "Name": "Ділянка",
+      "FieldType": "select",
+      "IsRequired": false,
+      "Position": 1,
+      "QueryCode": "List_RouteHouseAreas",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
+      "Width": "100%"
+    },
+    {
+      "Code": "temp_place_type",
+      "Name": "Тип місця",
+      "FieldType": "select",
+      "IsRequired": false,
+      "Position": 2,
+      "QueryCode": "Temporal_PlaceTypes",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
+      "Width": "100%"
+    },
+    {
+      "Code": "place_district_id",
+      "Name": "Район",
+      "FieldType": "select",
+      "IsRequired": false,
+      "Position": 3,
+      "QueryCode": "dir_DistrictsSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
+      "Width": "100%"
+    },
+    {
+      "Code": "place_street1_id",
+      "Name": "Вулиця",
+      "FieldType": "select",
+      "IsRequired": false,
+      "Position": 4,
+      "QueryCode": "List_Streets",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "streetName",
+      "QueryParameters": [],
+      "Width": "70%"
+    },
+    {
+      "Code": "place_building",
+      "Name": "Будівля",
+      "FieldType": "text",
+      "IsRequired": false,
+      "Position": 5,
+      "Width": "30%"
+    },
+    {
+      "Code": "place_building_name",
+      "Name": "Назва місця",
+      "FieldType": "text",
+      "IsRequired": false,
+      "Position": 6,
+      "Width": "100%"
+    },
+    {
+      "Code": "new_temp_placeAdd",
+      "Name": "Запросити місце у адміністратора",
+      "FieldType": "button",
+      "Position": 7,
+      "Width": "70%"
+    },
+    {
+      "Code": "new_temp_placeReturn",
+      "Name": "Пошукаю ще",
+      "FieldType": "button",
+      "Position": 8,
+      "Width": "30%"
+    }
+  ]
+}

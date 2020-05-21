@@ -33,6 +33,12 @@
         "Name": "pageLimitRows",
         "ParameterType": "Integer",
         "IsPageLimitRows": true
+      },
+      {
+        "Code": "@notCross",
+        "Name": "notCross",
+        "ParameterType": "Boolean",
+        "IsPageOffsetRows": true
       }
     ]
   }

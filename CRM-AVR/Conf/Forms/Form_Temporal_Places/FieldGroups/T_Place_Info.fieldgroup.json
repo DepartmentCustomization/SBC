@@ -1,7 +1,7 @@
 {
   "Code": "T_Place_Info",
   "Name": "Інформація",
-  "Position": 1,
+  "Position": 2,
   "Fields": [
     {
       "Code": "place_type_id",
@@ -82,7 +82,7 @@
       "Width": "25%"
     },
     {
-      "Code": "DeleteWronTempPlace",
+      "Code": "DeleteWrongPlace",
       "Name": "Видалити",
       "FieldType": "button",
       "Position": 10,

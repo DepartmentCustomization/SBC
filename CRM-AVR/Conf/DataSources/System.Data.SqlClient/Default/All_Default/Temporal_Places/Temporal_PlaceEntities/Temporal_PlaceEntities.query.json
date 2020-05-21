@@ -1,0 +1,46 @@
+{
+    "ModelType": "Query",
+    "Code": "Temporal_PlaceEntities",
+    "Name": "Temporal_PlaceEntities",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "IsAnonymousAccess": false,
+    "Columns": [
+        {
+            "Code": "entityType",
+            "Name": "Тип",
+            "Position": 1
+        },
+        {
+            "Code": "entityRowNum",
+            "Name": " №",
+            "Position": 2
+        },
+        {
+            "Code": "entityRowId",
+            "Name": "Ідентифікатор",
+            "Position": 3,
+            "ViewState": "Hidden"
+        }
+    ],
+    "Parameters": [
+        {
+            "Code": "@pageLimitRows",
+            "Name": "pageLimitRows",
+            "ParameterType": "Integer",
+            "IsPageLimitRows": true
+        },
+        {
+            "Code": "@pageOffsetRows",
+            "Name": "pageOffsetRows",
+            "ParameterType": "Integer",
+            "IsPageOffsetRows": true
+        },
+        {
+            "Code": "@Id",
+            "Name": "Id",
+            "ParameterType": "Integer",
+            "IsPrimaryKey": true
+        }
+    ]
+}

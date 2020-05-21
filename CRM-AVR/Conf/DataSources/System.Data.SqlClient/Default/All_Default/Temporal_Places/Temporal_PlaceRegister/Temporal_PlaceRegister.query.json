@@ -51,6 +51,16 @@
             "Code": "@Letter",
             "Name": "Letter",
             "ParameterType": "text"
+        },
+        {
+            "Code": "@Name",
+            "Name": "Name",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@userId",
+            "Name": "userId",
+            "ParameterType": "CurrentUserId"
         }
     ]
 }

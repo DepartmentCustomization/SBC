@@ -33,6 +33,13 @@
       "Position": 4,
       "SqlName": "district.[Name]",
       "FilterParameterCode": "@place_district"
+    },
+    {
+      "Code": "activity",
+      "Name": "Активність",
+      "Position": 5,
+      "SqlName": "t_place.[Is_Active]",
+      "FilterParameterCode": "@Is_Active"
     }
   ],
   "Parameters": [

@@ -1,15 +1,18 @@
-SELECT [Places].[Id]
-	  ,Districts.Name as distincts_name
-	  ,Place_types.Name as place_types_name
-	  ,[Places].[Name] as places_name
-      ,concat(Street_Type.UkrName,' ', Streets.Name) as streets_name
-  FROM [dbo].[Places]
-	left join Place_types on Place_types.Id = Places.Place_type_ID
-	left join Districts on Districts.Id = Places.District_ID
-	left join Houses on Houses.Id = Places.Street_id
-	left join Streets on Streets.Street_id = Houses.Street_id
-	left join Street_Type on Street_Type.TypeId = Streets.Street_type_id
-	where 
+SELECT
+	[Places].[Id],
+	Districts.Name AS distincts_name,
+	Place_types.Name AS place_types_name,
+	[Places].[Name] AS places_name,
+	concat(Street_Type.UkrName, ' ', Streets.Name) AS streets_name
+FROM
+	[dbo].[Places] Places
+	LEFT JOIN [dbo].[Place_types] Place_types ON Place_types.Id = Places.Place_type_ID
+	LEFT JOIN [dbo].[Districts] Districts ON Districts.Id = Places.District_ID
+	LEFT JOIN [dbo].[Houses] Houses ON Houses.Id = Places.Street_id
+	LEFT JOIN [dbo].[Streets] Streets ON Streets.Street_id = Houses.Street_id
+	LEFT JOIN [dbo].[Street_Type] Street_Type ON Street_Type.TypeId = Streets.Street_type_id
+WHERE Places.Is_Active = 1
+AND
 	#filter_columns#
-     #sort_columns#
- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+	#sort_columns#
+	OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY

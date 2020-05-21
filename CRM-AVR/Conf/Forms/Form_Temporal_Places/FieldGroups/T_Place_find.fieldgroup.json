@@ -1,0 +1,27 @@
+{
+    "Code": "T_Place_find",
+    "Name": "Пошук місця",
+    "Position": 1,
+    "Fields": [
+      {
+        "Code": "place_find",
+        "Name": "Обрати",
+        "FieldType": "lookup",
+        "IsRequired": false,
+        "Position": 1,
+        "Width": "60%",
+        "QueryCode": "dir_Places_claims",
+        "KeyColumnCode": "Id",
+        "DisplayColumnCode": "places",
+        "QueryParameters": []
+      },
+      {
+        "Code": "UseChoosenPlace",
+        "Name": "Застосувати обране",
+        "FieldType": "button",
+        "Position": 2,
+        "Width": "40%",
+        "Icon": "beenhere"
+      }
+    ]
+  }

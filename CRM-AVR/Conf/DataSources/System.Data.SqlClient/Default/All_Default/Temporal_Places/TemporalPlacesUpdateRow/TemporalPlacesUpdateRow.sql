@@ -1,30 +1,48 @@
-UPDATE dbo.[T_Places] 
+UPDATE dbo.[Places] 
 	SET [Place_type_ID] = @place_type_id,
 		[District_ID] = @place_district_id,
 		[Lattitude] = @Lattitude,
 		[Longitude] = @Longitude,
-		[Streets_1_ID] = @place_street1_id,
-		[Streets_2_ID] = @place_street2_id,
-		[Number] = @Number,
-		[Letter] = @Letter 
+		[Street_id] = @place_street1_id
 	WHERE Id = @Id ;
 
-	---> Name
-	UPDATE t
-		SET [Name] = s1.[Name] + N' ' + st1.UkrName +
-		IIF(s2.[Name] IS NOT NULL, 
-		N'/' + s2.[Name] + N' ' + st2.UkrName,
-		SPACE(0) ) + 
-		IIF(t.Place_type_ID <> 19,
-		--- yes
-		 N', ' + 
-		ISNULL(t.Number,N'') + 
-		ISNULL(t.Letter,N''),
-		--- no
-		SPACE(0) )
-	FROM dbo.[T_Places] t 
-	INNER JOIN dbo.[Streets] s1 ON s1.Id = t.Streets_1_ID
-	INNER JOIN dbo.[Street_Type] st1 ON st1.TypeId = s1.Street_type_id 
-	LEFT JOIN dbo.[Streets] s2 ON s2.Id = t.Streets_2_ID
-	LEFT JOIN dbo.[Street_Type] st2 ON st2.TypeId = s2.Street_type_id 
-	WHERE t.Id = @Id ;
+	---> собрать поле Name
+DECLARE @placeName NVARCHAR(200);
+IF(@place_type_id = 19)
+BEGIN
+SET @placeName = (SELECT TOP 1
+						s.[Name] + N' ' + st.AbbrU + N'/' 
+				  FROM dbo.[Places] t 
+				  INNER JOIN dbo.[Streets] s ON s.Id = t.Street_id
+				  INNER JOIN dbo.[Street_Type] st ON st.TypeId = s.Street_type_id
+				  WHERE s.Id = @place_street1_id )  
+				  + IIF(
+				  (@place_street2_id IS NOT NULL), 
+				  (SELECT TOP 1
+						s.[Name] + N' ' + st.AbbrU
+				  FROM dbo.[Places] t 
+				  INNER JOIN dbo.[Streets] s ON s.Id = t.Street_id
+				  INNER JOIN dbo.[Street_Type] st ON st.TypeId = s.Street_type_id
+				  WHERE s.Id = @place_street2_id ), 
+				  SPACE(0)) ;
+
+		UPDATE dbo.Places 
+			SET [Name] = @placeName 
+		WHERE Id = @Id ;
+END
+
+ELSE IF(@place_type_id <> 19)
+BEGIN
+SET @placeName = (SELECT TOP 1
+						s.[Name] + N' ' + st.UkrName  
+						+ ISNULL( N', ' + @Number,N'') 
+						+ ISNULL(@Letter,N'') 
+				  FROM dbo.[Places] t 
+				  INNER JOIN dbo.[Streets] s ON s.Id = t.Street_id
+				  INNER JOIN dbo.[Street_Type] st ON st.TypeId = s.Street_type_id
+				  WHERE s.Id = @place_street1_id ) ;
+
+		UPDATE dbo.Places 
+			SET [Name] = @placeName 
+		WHERE Id = @Id ;
+END
