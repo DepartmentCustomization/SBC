@@ -24,18 +24,6 @@
       "Code": "@user_id",
       "Name": "user_id",
       "ParameterType": "CurrentUserId"
-    },
-    {
-      "Code": "@pageOffsetRows",
-      "Name": "pageOffsetRows",
-      "ParameterType": "Integer",
-      "IsPageOffsetRows": true
-    },
-    {
-      "Code": "@pageLimitRows",
-      "Name": "pageLimitRows",
-      "ParameterType": "Integer",
-      "IsPageLimitRows": true
     }
   ]
 }

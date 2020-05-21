@@ -4,6 +4,6 @@
   "Description": "",
   "DescriptionUrl": "",
   "ModelType": "Dashboard",
-  "Code": "landscaping",
-  "Name": "Благоустрій"
+  "Code": "landscaping_report",
+  "Name": "Звіт для КП Благоустрій"
 }

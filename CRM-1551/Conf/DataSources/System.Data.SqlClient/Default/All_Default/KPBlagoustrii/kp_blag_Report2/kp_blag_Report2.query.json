@@ -25,18 +25,6 @@
       "Code": "@date_from",
       "Name": "date_from",
       "ParameterType": "DateTime"
-    },
-    {
-      "Code": "@pageOffsetRows",
-      "Name": "pageOffsetRows",
-      "ParameterType": "Integer",
-      "IsPageOffsetRows": true
-    },
-    {
-      "Code": "@pageLimitRows",
-      "Name": "pageLimitRows",
-      "ParameterType": "Integer",
-      "IsPageLimitRows": true
     }
   ]
 }
