@@ -1,12 +1,21 @@
-SELECT [Places].[Id]
-     -- ,Place_types.Name as place_type_name
-      ,Districts.Name as distinct_name
-      ,concat(Place_types.Name, ': ', [Places].[Name],
-		case when Districts.Name is null then Districts.Name else ' (' + SUBSTRING(Districts.Name, 1,3) + '.р-н.)' end) as Name
-  FROM [dbo].[Places]
-	left join Place_types on Place_types.Id = Places.Place_type_ID
-	left join Districts on Districts.Id = Places.District_ID
-	WHERE 
-	 #filter_columns#
-     #sort_columns#
- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+  [Places].[Id],
+  Districts.Name AS distinct_name,
+  concat(
+    Place_types.Name,
+    ': ',
+    [Places].[Name],
+    CASE
+      WHEN Districts.Name IS NULL THEN Districts.Name
+      ELSE ' (' + SUBSTRING(Districts.Name, 1, 3) + '.р-н.)'
+    END
+  ) AS Name
+FROM
+  [dbo].[Places] Places
+  LEFT JOIN [dbo].[Place_types] Place_types ON Place_types.Id = Places.Place_type_ID
+  LEFT JOIN [dbo].[Districts] Districts ON Districts.Id = Places.District_ID
+WHERE Places.Is_Active = 1
+AND 
+  #filter_columns#
+  #sort_columns#
+  OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY ;

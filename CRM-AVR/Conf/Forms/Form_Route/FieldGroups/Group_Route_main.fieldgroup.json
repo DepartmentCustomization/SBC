@@ -53,22 +53,29 @@
       "Name": "+ Ділянка",
       "FieldType": "button",
       "Position": 1110,
-      "Width": "40%"
+      "Width": "50%"
     },
     {
       "Code": "btn_Add_AreaPlace",
       "Name": "Додати будинок ділянки",
       "FieldType": "button",
       "Position": 1111,
-      "Width": "40%",
+      "Width": "50%",
       "Icon": "home",
       "IconHint": "Внести новий будинок до переліку по ділянці"
+    },
+    {
+      "Code": "btn_Add_AreaTempPlace",
+      "Name": "Я не знайшов адресу, хочу створити нову та додати ЇЇ до ділянки",
+      "FieldType": "button",
+      "Position": 1112,
+      "Width": "100%"
     },
     {
       "Code": "route_id",
       "Name": "route_id",
       "FieldType": "number",
-      "Position": 1112,
+      "Position": 1113,
       "IsHidden": true,
       "Width": "20%"
     }

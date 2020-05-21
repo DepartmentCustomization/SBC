@@ -1,0 +1,56 @@
+{
+    "ModelType": "Query",
+    "Code": "TemporalPlacesUpdateRow",
+    "Name": "TemporalPlacesUpdateRow",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "IsAnonymousAccess": false,
+    "Parameters": [
+        {
+            "Code": "@Id",
+            "Name": "Id",
+            "ParameterType": "Integer",
+            "IsPrimaryKey": true
+        },
+        {
+            "Code": "@place_type_id",
+            "Name": "place_type_id",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@place_district_id",
+            "Name": "place_district_id",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@Lattitude",
+            "Name": "Lattitude",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@Longitude",
+            "Name": "Longitude",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@place_street1_id",
+            "Name": "place_street1_id",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@place_street2_id",
+            "Name": "place_street2_id",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@Number",
+            "Name": "Number",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@Letter",
+            "Name": "Letter",
+            "ParameterType": "text"
+        }
+    ]
+}

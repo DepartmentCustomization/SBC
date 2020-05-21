@@ -1,0 +1,66 @@
+{
+    "ModelType": "Query",
+    "Code": "Temporal_PlaceRegister",
+    "Name": "Temporal_PlaceRegister",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "IsAnonymousAccess": false,
+    "Parameters": [
+        {
+            "Code": "@Id",
+            "Name": "Id",
+            "ParameterType": "Integer",
+            "IsPrimaryKey": true
+        },
+        {
+            "Code": "@type",
+            "Name": "type",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@district",
+            "Name": "district",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@Lattitude",
+            "Name": "Lattitude",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@Longitude",
+            "Name": "Longitude",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@street1",
+            "Name": "street1",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@street2",
+            "Name": "street2",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@Number",
+            "Name": "Number",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@Letter",
+            "Name": "Letter",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@Name",
+            "Name": "Name",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@userId",
+            "Name": "userId",
+            "ParameterType": "CurrentUserId"
+        }
+    ]
+}
