@@ -8,7 +8,7 @@
   DECLARE @district_table TABLE (Id int);
   
 
-  if charindex(N'0,',@districts, 1)=1
+  if charindex(N'0',@districts, 1)=1
    or charindex(N',0,',@districts, 1)>0
    or charindex(N',0',@districts, 1)>0
   
