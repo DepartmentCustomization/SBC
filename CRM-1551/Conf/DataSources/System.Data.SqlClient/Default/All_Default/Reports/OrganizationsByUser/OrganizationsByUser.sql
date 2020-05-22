@@ -1,5 +1,5 @@
---DECLARE @user_id NVARCHAR(128) = 'deae23d5-b957-48de-b2c6-63960db3622c';
---DECLARE @user_org TABLE (Id INT);
+-- DECLARE @user_id NVARCHAR(128) = 'deae23d5-b957-48de-b2c6-63960db3622c';
+DECLARE @user_org TABLE (Id INT);
 
 ---> Получить организации юзера
 INSERT INTO
@@ -7,7 +7,7 @@ INSERT INTO
 SELECT
     OrganisationStructureId
 FROM
-    [#system_database_name#].[dbo].[UserInOrganisation]
+    [#system_database_name#].[dbo].[UserInOrganisation] 
 WHERE
     UserId = @user_id --- Получить организации дочерние от КБУ
 ;
@@ -21,7 +21,8 @@ SELECT 4
 UNION 
 SELECT 
 	Id 
-FROM [#system_database_name#].[dbo].[UserInOrganisation]
+FROM 
+    [#system_database_name#].[dbo].[OrganisationStructure]
 WHERE ParentId IN (2, 4);
 
 DECLARE @isRoot BIT = IIF(
@@ -96,6 +97,6 @@ SELECT
 FROM
     #orgList
 WHERE
-    #filter_columns#
+   #filter_columns#
 ORDER BY Id 
 OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY ;
