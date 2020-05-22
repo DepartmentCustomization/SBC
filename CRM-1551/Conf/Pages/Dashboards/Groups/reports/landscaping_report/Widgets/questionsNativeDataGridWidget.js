@@ -17,7 +17,8 @@
                 },
                 {
                     dataField: 'count_all',
-                    caption: 'Надійшло'
+                    caption: 'Надійшло',
+                    alignment: 'center'
                 },
                 {
                     caption: 'По статусах',
@@ -25,38 +26,46 @@
                     columns: [
                         {
                             dataField: 'count_registered',
-                            caption: 'Зареєстровано'
+                            caption: 'Зареєстровано',
+                            alignment: 'center'
                         },
                         {
                             dataField: 'count_in_work',
-                            caption: 'В роботі'
+                            caption: 'В роботі',
+                            alignment: 'center'
                         },
                         {
                             dataField: 'count_on_inspection',
-                            caption: 'На перевірці'
+                            caption: 'На перевірці',
+                            alignment: 'center'
                         },
                         {
                             dataField: 'count_closed_performed',
-                            caption: 'Закрито/Виконано '
+                            caption: 'Закрито/Виконано ',
+                            alignment: 'center'
                         },
                         {
                             dataField: 'count_closed_clear',
-                            caption: 'Закрито/Роз\'яснено'
+                            caption: 'Закрито/Роз\'яснено',
+                            alignment: 'center'
                         },
                         {
                             dataField: 'count_for_completion',
-                            caption: 'На доопрацювання'
+                            caption: 'На доопрацювання',
+                            alignment: 'center'
                         }
                     ]
                 },
                 {
                     dataField: 'count_built',
                     caption: 'Прострочено',
-                    width: 150
+                    width: 150,
+                    alignment: 'center'
                 },
                 {
                     dataField: 'count_not_processed_in_time',
-                    caption: 'Не вчасно опрацьовано'
+                    caption: 'Не вчасно опрацьовано',
+                    alignment: 'center'
                 },
                 {
                     caption: 'Показники',
@@ -64,11 +73,13 @@
                     columns: [
                         {
                             dataField: 'speed_of_employment',
-                            caption: 'Бистрота прийняття в роботу'
+                            caption: 'Бистрота прийняття в роботу',
+                            alignment: 'center'
                         },
                         {
                             dataField: 'timely_processed',
                             caption: '% вчасно опрацьованих',
+                            alignment: 'center',
                             customizeText: function(data) {
                                 if(data.value) {
                                     return `${data.value}%`;
@@ -79,6 +90,7 @@
                         {
                             dataField: 'implementation',
                             caption: '% виконання',
+                            alignment: 'center',
                             customizeText: function(data) {
                                 if(data.value) {
                                     return `${data.value}%`;
@@ -89,6 +101,7 @@
                         {
                             dataField: 'reliability',
                             caption: '% достовірності',
+                            alignment: 'center',
                             customizeText: function(data) {
                                 if(data.value) {
                                     return `${data.value}%`;
@@ -99,6 +112,10 @@
                     ]
                 }
             ],
+            export: {
+                enabled: true,
+                fileName: 'Благоустрій питання'
+            },
             focusedRowEnabled: true,
             showRowLines: true,
             wordWrapEnabled: true,
