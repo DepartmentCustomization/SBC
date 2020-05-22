@@ -1,4 +1,9 @@
--- declare @Question_ControlDate datetime = @control_date
+DECLARE @zoneVal SMALLINT = DATEPART(TZOffset, SYSDATETIMEOFFSET());
+IF(CAST(@control_date AS TIME) = '23:59:59')
+BEGIN
+	SET @control_date = DATEADD(MINUTE,-@zoneVal,@control_date);
+END
+
 DECLARE @ass_for_check INT = (
 	SELECT
 		last_assignment_for_execution_id
