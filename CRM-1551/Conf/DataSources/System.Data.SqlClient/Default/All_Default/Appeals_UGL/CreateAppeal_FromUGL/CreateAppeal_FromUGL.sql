@@ -39,6 +39,7 @@ SET
 INSERT INTO
     dbo.Appeals (
         registration_date,
+		registration_number,
         receipt_source_id,
         phone_number,
         receipt_date,
@@ -51,6 +52,21 @@ output inserted.Id INTO @outId (Id)
 VALUES
     (
         getutcdate(),
+		(
+			SELECT 
+			case when not exists(
+				select top 1 LTRIM(RIGHT(YEAR(getutcdate()),1))+N'-'+ltrim(substring(registration_number, 3, len(registration_number)-2)*1+1)
+				from [dbo].[Appeals]
+				where left(registration_number, 1) in (right(ltrim(year(getutcdate())),1))
+				order by id desc
+				)
+			then LTRIM(RIGHT(YEAR(getutcdate()),1))+N'-1'
+			else (select top 1 LTRIM(RIGHT(YEAR(getutcdate()),1))+N'-'+ltrim(substring(registration_number, 3, len(registration_number)-2)*1+1)
+				from [dbo].[Appeals]
+				where left(registration_number, 1) in (right(ltrim(year(getutcdate())),1))
+				order by id desc)
+			end
+		),
         3,
         @phone,
         getutcdate(),
@@ -69,18 +85,18 @@ VALUES
 UPDATE
     [dbo].[Appeals]
 SET
-    registration_number = concat(
-        SUBSTRING (rtrim(YEAR(getutcdate())), 4, 1),
-        '-',
-        (
-            SELECT
-                count(Id)
-            FROM
-                 dbo.Appeals
-            WHERE
-                year(Appeals.registration_date) = year(getutcdate())
-        )
-    ),
+    --registration_number = concat(
+    --    SUBSTRING (rtrim(YEAR(getutcdate())), 4, 1),
+    --    '-',
+    --    (
+    --        SELECT
+    --            count(Id)
+    --        FROM
+    --             dbo.Appeals
+    --        WHERE
+    --            year(Appeals.registration_date) = year(getutcdate())
+    --    )
+    --),
     enter_number = (SELECT [№ звернення] FROM dbo.[Звернення УГЛ] WHERE Id = @uglId)
 WHERE
     Id = @newId ;
