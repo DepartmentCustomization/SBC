@@ -32,11 +32,13 @@
             let cross = 19;
             let temp_place_type = this.form.getControlValue('temp_place_type');
             if(temp_place_type === cross) {
+                this.form.setControlVisibility('place_district_id', true);
                 this.form.setControlVisibility('place_street1_id', true);
                 this.form.setControlVisibility('place_street2_id', true);
                 this.form.setControlVisibility('cross_name', true);
                 this.form.setControlVisibility('new_temp_placeAdd', true);
                 this.form.setControlVisibility('new_temp_placeReturn', true);
+                this.form.setControlVisibility('place_building', false);
             } else if(temp_place_type !== null && temp_place_type !== cross) {
                 this.form.setControlVisibility('place_district_id', true);
                 this.form.setControlVisibility('place_street1_id', true);
@@ -47,9 +49,12 @@
             }
         },
         onTempCrossStreetChange() {
+            let district = this.form.getControlValue('place_district_id');
             let street1 = this.form.getControlValue('place_street1_id');
             let street2 = this.form.getControlValue('place_street2_id');
-            if((street1 !== null && typeof (street1) === 'number')
+            if((district !== null && typeof (district) === 'number')
+                &&
+                (street1 !== null && typeof (street1) === 'number')
                 &&
                 (street2 !== null && typeof (street2) === 'number')) {
                 const makeCrossName = {
@@ -185,6 +190,10 @@
                             {
                                 key: '@type',
                                 value: place_type
+                            },
+                            {
+                                key: '@district',
+                                value: this.form.getControlValue('place_district_id')
                             },
                             {
                                 key: '@street',

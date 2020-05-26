@@ -42,6 +42,9 @@ SET
 SET
 	@contact_id_fiz = NULL ;
 END
+
+DECLARE @currentPlaceID INT = (SELECT Place_ID FROM dbo.[Claim_Order_Places] WHERE Claim_ID = @Id AND Is_first_place = 1);
+
 UPDATE
 	[dbo].[Claims]
 SET
@@ -52,7 +55,7 @@ SET
 			dbo.Claim_types 
 		WHERE
 			Id = @Types_id
-	) --	@Classes_id		
+	)
 ,
 	[Claim_type_ID] = @Types_id,
 	[Description] = @Description,
@@ -110,6 +113,42 @@ VALUES
 		1,
 		getutcdate()
 	) ;
+---> Замена временного места
+DECLARE @IsClaimPlaceTemporary BIT = IIF(
+	(
+		SELECT
+			Is_Active
+		FROM
+			dbo.[Places]
+		WHERE
+			Id = @places_id
+	) <> 1,
+	1,
+	0
+);
+IF(SELECT Is_Active FROM dbo.[Places] WHERE Id = @currentPlaceID) <> 1
+BEGIN
+DELETE FROM dbo.[Claim_Order_Places]
+WHERE Claim_ID = @Id 
+AND Place_ID = @currentPlaceID;
+
+DELETE FROM dbo.[Places_LOG]
+WHERE Place_ID = @currentPlaceID;
+
+DELETE FROM dbo.[Places] 
+WHERE Id = @currentPlaceID;
+
+IF(@IsClaimPlaceTemporary = 1) 
+BEGIN
+UPDATE
+	dbo.Places_LOG
+SET
+	[Object] += N' ' + CAST(@Id AS NVARCHAR(20))
+WHERE
+	Place_ID = @places_id;
+END 
+END
+
 END 
 IF @Status_id IN (5, 6) 
 BEGIN
@@ -145,11 +184,11 @@ BEGIN
 UPDATE
 	[dbo].[Claim_SwitchOff_Address]
 SET
-	[SwitchOff_finish] = @Fact_finish_at --(select Fact_finish_at from Claims where Id = @Id)
+	[SwitchOff_finish] = @Fact_finish_at
 WHERE
 	Claim_ID = @Id
 	AND SwitchOff_finish > @Fact_finish_at ;
-END 
+END
 
 IF @Fact_finish_at IS NOT NULL
 AND @Status_id NOT IN (4, 5, 6) 
