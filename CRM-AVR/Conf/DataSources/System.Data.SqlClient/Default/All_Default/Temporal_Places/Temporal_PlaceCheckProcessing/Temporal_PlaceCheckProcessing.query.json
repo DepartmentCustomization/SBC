@@ -1,0 +1,23 @@
+{
+    "ModelType": "Query",
+    "Code": "Temporal_PlaceCheckProcessing",
+    "Name": "Temporal_PlaceCheckProcessing",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "IsAnonymousAccess": false,
+    "Columns": [
+        {
+            "Code": "activity",
+            "Name": "activity",
+            "Position": 1
+        }
+    ],
+    "Parameters": [
+        {
+            "Code": "@Id",
+            "Name": "Id",
+            "ParameterType": "Integer",
+            "IsPrimaryKey": true
+        }
+    ]
+}

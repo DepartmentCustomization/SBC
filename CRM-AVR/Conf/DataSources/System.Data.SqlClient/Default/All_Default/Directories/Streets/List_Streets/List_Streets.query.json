@@ -18,7 +18,22 @@
       "Name": "streetName",
       "Position": 1,
       "IsPrintable": false,
-      "SqlName": "ISNULL(st.UkrName + N' ','') + s.[Name]",
+      "SqlName": "ISNULL(st.UkrName + N' ','') + s.[Name]
+      +
+     CASE 
+       WHEN s.Old_name IS NOT NULL OR s.Territory IS NOT NULL 
+       THEN N' (' ELSE SPACE(0) 
+       END
+        +
+     CASE 
+       WHEN s.Old_name IS NOT NULL AND s.Territory IS NOT NULL 
+       THEN s.Old_name + N' || ' + s.Territory + N')'
+       WHEN s.Old_name IS NOT NULL AND s.Territory IS NULL 
+       THEN s.Old_name + N')' 
+       WHEN s.Old_name IS NULL AND s.Territory IS NOT NULL 
+       THEN s.Territory + N')'
+       ELSE SPACE(0) 
+       END",
       "FilterParameterCode": "@streetName"
     }
   ],
