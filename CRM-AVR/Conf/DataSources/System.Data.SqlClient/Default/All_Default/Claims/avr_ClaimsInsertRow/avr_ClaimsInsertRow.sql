@@ -128,7 +128,7 @@ VALUES
 	(
 		@Claim_Number,
 		@places_id,
-		@flat_number,
+		@flat_id,
 		1,
 		getutcdate()
 	);
