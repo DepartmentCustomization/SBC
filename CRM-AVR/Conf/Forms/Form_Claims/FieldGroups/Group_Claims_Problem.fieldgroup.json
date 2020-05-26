@@ -40,7 +40,7 @@
       "Width": "70%"
     },
     {
-      "Code": "flat_number",
+      "Code": "flat_id",
       "Name": "№ квартири",
       "FieldType": "select",
       "Position": 3,

@@ -109,7 +109,7 @@ VALUES
 	(
 		@Id,
 		@places_id,
-		@flat_number,
+		@flat_id,
 		1,
 		getutcdate()
 	) ;

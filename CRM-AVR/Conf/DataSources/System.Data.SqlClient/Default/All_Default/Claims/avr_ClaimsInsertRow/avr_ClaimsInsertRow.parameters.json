@@ -160,8 +160,8 @@
     "ParameterType": "Integer"
   },
   {
-    "Code": "@flat_number",
-    "Name": "flat_number",
+    "Code": "@flat_id",
+    "Name": "flat_id",
     "ParameterType": "Integer"
   },
   {
