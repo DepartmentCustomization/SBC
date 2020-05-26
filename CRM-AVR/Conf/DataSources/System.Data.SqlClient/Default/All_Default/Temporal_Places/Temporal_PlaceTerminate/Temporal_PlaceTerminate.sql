@@ -12,6 +12,12 @@ DECLARE @placeLogID INT = (
         Place_ID = @Id
 );
 
+SET
+	XACT_ABORT ON;
+
+BEGIN TRY 
+BEGIN TRANSACTION;
+
 UPDATE
     dbo.[Places]
 SET
@@ -61,6 +67,15 @@ DECLARE @entityID INT = (
         ) OFFSET 1 ROWS FETCH NEXT 1 ROW ONLY
 );
 
+DECLARE @userCreator NVARCHAR(128) = (
+    SELECT
+        [Created_by]
+    FROM
+        dbo.[Places_LOG]
+    WHERE
+        Id = @placeLogID
+);
+
 ---> Когда выбрано место из существующих
 IF(@place_find_id IS NOT NULL) 
 BEGIN 
@@ -81,6 +96,13 @@ UPDATE
 SET [PlacesID] = @place_find_id
 WHERE [PlacesID] = @Id;
 END 
+DELETE 
+FROM dbo.[Places_LOG]
+WHERE Id = @placeLogID ; 
+
+DELETE 
+FROM dbo.[Places]
+WHERE Id = @Id ;
 END 
 ---> Выбрать создателя и отдел, отвечающий за исполнение сущности
 IF OBJECT_ID('tempdb..#notifyRecipients') IS NOT NULL 
@@ -90,14 +112,6 @@ END
 CREATE TABLE #notifyRecipients (UserID NVARCHAR(128)) 
                                 WITH (DATA_COMPRESSION = PAGE);
 
-DECLARE @userCreator NVARCHAR(128) = (
-    SELECT
-        [Created_by]
-    FROM
-        dbo.[Places_LOG]
-    WHERE
-        Id = @placeLogID
-);
 DECLARE @executorOrg INT;
 IF(@entity = N'Заявка')
 BEGIN
@@ -160,7 +174,22 @@ SELECT
         UserID,
         0,
         1
-  FROM #notifyRecipients ;
+  FROM #notifyRecipients 
+  WHERE UserID IN (SELECT 
+						UserId 
+				   FROM CRM_AVR_System.dbo.[User]);
+  ;
 
+COMMIT TRANSACTION;
 SELECT
     N'OK' AS result;
+END TRY 
+BEGIN CATCH 
+IF (XACT_STATE()) = -1 
+BEGIN 
+	DECLARE @Message NVARCHAR(MAX) = ERROR_MESSAGE();
+	RAISERROR(@Message, 16, 1);
+	ROLLBACK TRANSACTION;
+
+END;
+END CATCH;

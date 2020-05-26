@@ -28,7 +28,27 @@
                 }
             ]
         },
+        checkPlaceProcessVal() {
+            const queryForAddPlace = {
+                queryCode: 'Temporal_PlaceCheckProcessing',
+                parameterValues: [
+                    {
+                        key: '@Id',
+                        value: this.id
+                    }
+                ]
+            };
+            this.queryExecutor.getValue(queryForAddPlace).subscribe(data => {
+                let wait = 2;
+                if (data !== wait) {
+                    let message = 'Дане місце вже було опрацьовано';
+                    this.openPopUpInfoDialog(message);
+                    this.navigateTo('/sections/Temporal_Places');
+                }
+            });
+        },
         init: function() {
+            this.checkPlaceProcessVal();
             const cross = 19;
             let place_type = this.form.getControlValue('place_type_id');
             if (place_type === cross) {
