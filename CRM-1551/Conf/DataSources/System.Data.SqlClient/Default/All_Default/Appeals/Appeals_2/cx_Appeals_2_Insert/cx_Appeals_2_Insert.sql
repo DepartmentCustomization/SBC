@@ -70,7 +70,7 @@ INSERT INTO [dbo].[LiveAddress]
 INSERT INTO [dbo].[Appeals]
            ([applicant_id]
            ,[registration_date]
-           --,[registration_number]
+           ,[registration_number]
            ,[receipt_source_id]
            ,[phone_number]
            ,[mail]
@@ -90,6 +90,21 @@ OUTPUT [inserted].[Id] INTO @outputAppeals (Id)
      VALUES
            (@applicant_id
            ,getutcdate() --@registration_date
+           ,(
+select 
+case when not exists(
+				select top 1 LTRIM(RIGHT(YEAR(getutcdate()),1))+N'-'+ltrim(substring(registration_number, 3, len(registration_number)-2)*1+1)
+				from [dbo].[Appeals]
+				where left(registration_number, 1) in (right(ltrim(year(getutcdate())),1))
+				order by id desc
+				)
+			then LTRIM(RIGHT(YEAR(getutcdate()),1))+N'-1'
+			else (select top 1 LTRIM(RIGHT(YEAR(getutcdate()),1))+N'-'+ltrim(substring(registration_number, 3, len(registration_number)-2)*1+1)
+				from [dbo].[Appeals]
+				where left(registration_number, 1) in (right(ltrim(year(getutcdate())),1))
+				order by id desc)
+			end
+)
            --,@registration_number
            ,@receipt_source_id
            ,@phone_number
@@ -110,10 +125,10 @@ OUTPUT [inserted].[Id] INTO @outputAppeals (Id)
 DECLARE @appeal_id INT;
 SET @appeal_id = (SELECT TOP 1 Id FROM @outputAppeals);
 
-UPDATE [dbo].[Appeals] 
-SET registration_number =  CONCAT( YEAR(GETDATE()),'-',MONTH(GETDATE()),'/',@appeal_id  ) 
-,edit_date=GETUTCDATE()
-WHERE Id =  @appeal_id;
+-- UPDATE [dbo].[Appeals] 
+-- SET registration_number =  CONCAT( YEAR(GETDATE()),'-',MONTH(GETDATE()),'/',@appeal_id  ) 
+-- ,edit_date=GETUTCDATE()
+-- WHERE Id =  @appeal_id;
 
 INSERT INTO [dbo].[Questions]
            ([appeal_id]
