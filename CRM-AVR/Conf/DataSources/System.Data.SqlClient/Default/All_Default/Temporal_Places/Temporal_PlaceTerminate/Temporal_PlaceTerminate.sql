@@ -171,14 +171,11 @@ SELECT
         @userId,
         @notifyText,
         2,
-        UserID,
+        n.UserID,
         0,
         1
-  FROM #notifyRecipients 
-  WHERE UserID IN (SELECT 
-						UserId 
-				   FROM CRM_AVR_System.dbo.[User]);
-  ;
+  FROM #notifyRecipients n
+  INNER JOIN CRM_AVR_System.dbo.[User] u ON n.UserID = u.UserId COLLATE Ukrainian_CI_AS;
 
 COMMIT TRANSACTION;
 SELECT
