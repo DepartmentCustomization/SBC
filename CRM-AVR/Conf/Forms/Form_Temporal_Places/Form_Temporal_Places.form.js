@@ -29,6 +29,11 @@
             ]
         },
         checkPlaceProcessVal() {
+            const formConfig = {
+                title: 'Дане місце вже було опрацьовано',
+                singleButton: true,
+                acceptBtnText: 'ok'
+            };
             const queryForAddPlace = {
                 queryCode: 'Temporal_PlaceCheckProcessing',
                 parameterValues: [
@@ -41,11 +46,14 @@
             this.queryExecutor.getValue(queryForAddPlace).subscribe(data => {
                 let wait = 2;
                 if (data !== wait) {
-                    let message = 'Дане місце вже було опрацьовано';
-                    this.openPopUpInfoDialog(message);
-                    this.navigateTo('/sections/Temporal_Places');
+                    this.openModalForm(formConfig, this.infoCallback.bind(this))
                 }
             });
+        },
+        infoCallback(data) {
+            if(data) {
+                this.navigateTo('/dashboard/page/start_avr_page');
+            }
         },
         init: function() {
             this.checkPlaceProcessVal();
