@@ -900,6 +900,12 @@ BEGIN
 							   ,user_edit_id = @user_edit_id
 							WHERE question_id = @question_id
 							AND Id <> @New_Ass;
+
+							---> last_assignment_for_execution_id под новый Assignment
+							UPDATE dbo.[Questions]
+							SET last_assignment_for_execution_id = @New_Ass
+							WHERE Id = (SELECT question_id FROM Assignments WHERE Id = @New_Ass);
+							
 						END
 					END
 					RETURN;
@@ -1303,7 +1309,6 @@ BEGIN
 			   ,[LogUpdated_Query] = N'cx_App_Que_Assignments_Update_Row1000'
 			--  ,close_date = GETUTCDATE()
 			WHERE Id = @Id;
-
 
 		END --(F11)
 	END
