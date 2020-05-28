@@ -1,9 +1,9 @@
 
 
   /*
-  declare @districts nvarchar(max)=N'1,2,3,4,5,6,7,8,9,10,11';
-  declare @date_from datetime='2010-05-12 00:01';
-  declare @date_to datetime='2020-05-29 23:59';
+  declare @districts nvarchar(max)=N'0';
+  declare @date_from datetime='2020-04-01 00:01';
+  declare @date_to datetime='2020-06-01 23:59';
   declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941'
 */
   DECLARE @district_table TABLE (Id int);
@@ -108,8 +108,13 @@ into #temp_ass_nevkom
   SUM(count_built) count_built,
   SUM(count_not_processed_in_time) count_not_processed_in_time,
   --SUM(count_close) count_close,
-  SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
-  SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
+  --SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
+  --SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
+
+  --count_days_speed если 1 случая нету, то второй, если второго нету, то 1, если есть оба, то, что раньше
+  --делить на то, что попало в данный расчет
+  AVG(count_days_speed) count_days_speed
+
   into #temp_count_que
   from
   (
@@ -132,10 +137,17 @@ into #temp_ass_nevkom
   case when [Questions].question_state_id =3 and temp_que_state3.Log_Date<[Questions].control_date--Не вчасно опрацьовано 
   then 1 else 0 end count_not_processed_in_time,
 
-  [Questions].registration_date,
-  temp_que_state2.[Log_Date] que_state2_log_date,
+  --[Questions].registration_date,
+  --temp_que_state2.[Log_Date] que_state2_log_date,
 
-  temp_ass_nevkom.[Log_Date] ass_nevkom_log_date
+  --temp_ass_nevkom.[Log_Date] ass_nevkom_log_date,
+
+  case 
+		when temp_que_state2.[Log_Date] is not null and temp_ass_nevkom.[Log_Date] is null then DATEDIFF(mi, [Questions].registration_date, temp_que_state2.[Log_Date])
+		when temp_que_state2.[Log_Date] is null and temp_ass_nevkom.[Log_Date] is not null then DATEDIFF(mi, [Questions].registration_date, temp_ass_nevkom.[Log_Date])
+		when temp_que_state2.[Log_Date] is not null and temp_ass_nevkom.[Log_Date] is not null and temp_que_state2.[Log_Date]>=temp_ass_nevkom.[Log_Date]
+			then DATEDIFF(mi, [Questions].registration_date, temp_que_state2.[Log_Date])
+				else DATEDIFF(mi, [Questions].registration_date, temp_ass_nevkom.[Log_Date]) end count_days_speed
 
   --case when [Questions].question_state_id=5 --закрито
   --then 1 else 0 end count_close
@@ -150,7 +162,7 @@ into #temp_ass_nevkom
   inner join @district_table d on [Objects].district_id=d.Id
   inner join [dbo].[QuestionsInTerritory] on [Territories].Id=[QuestionsInTerritory].territory_id
   inner join [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
-  left join [dbo].[Assignments] on [Assignments].Id=[Questions].last_assignment_for_execution_id--[Questions].Id=[Assignments].question_id and [Assignments].main_executor='true'
+  left join [dbo].[Assignments] on [Assignments].Id=[Questions].last_assignment_for_execution_id--[Questions].Id=question_id and [Assignments].main_executor='true'
   --left join #temp_ass_nevkom temp_ass_nevkom on 
   left join #temp_que_state3 temp_que_state3 on [Questions].Id=temp_que_state3.question_id
   left join #temp_que_state2 temp_que_state2 on [Questions].Id=temp_que_state2.question_id
@@ -171,17 +183,19 @@ into #temp_ass_nevkom
   count_for_completion,
   count_built,
   count_not_processed_in_time,
-
+  convert(numeric(8,2),count_days_speed/3600.00) speed_of_employment,
   --count_days_speed1, count_days_speed2,
 
-  case when count_registered=0 then null 
-  else convert(numeric(8,2),convert(float, (case 
-  --when count_days_speed1 is not null and count_days_speed2 is not null then count_days_speed1+count_days_speed2
+  --начало
+  --case when count_registered=0 then null 
+  --else convert(numeric(8,2),convert(float, (case 
+  ----when count_days_speed1 is not null and count_days_speed2 is not null then count_days_speed1+count_days_speed2
 
-  when count_days_speed1 is null then count_days_speed2 --count_days_speed1+count_days_speed2
-  when count_days_speed2 is null then count_days_speed1 end
+  --when count_days_speed1 is null then count_days_speed2 --count_days_speed1+count_days_speed2
+  --when count_days_speed2 is null then count_days_speed1 end
 
-  ))/convert(float,count_registered)) end speed_of_employment, --11
+  --))/convert(float,count_registered)) end speed_of_employment, --11
+  ---КОНЕЦ
 
   case when count_on_inspection+count_closed_performed+count_closed_clear+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_not_processed_in_time)/convert(float,(count_on_inspection+count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end timely_processed, --12

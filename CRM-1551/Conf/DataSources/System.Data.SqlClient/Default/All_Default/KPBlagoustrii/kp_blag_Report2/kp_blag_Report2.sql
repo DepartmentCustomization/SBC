@@ -1,7 +1,7 @@
 /*
 declare @sector_id int =2;
   declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
-  declare @date_from datetime='2020-05-01 12:10';
+  declare @date_from datetime='2020-04-01 12:10';
   declare @date_to datetime='2020-06-01 12:10';
   */
 
@@ -51,8 +51,9 @@ into #temp_ass_nevkom
   SUM(count_built) count_built,
   SUM(count_not_processed_in_time) count_not_processed_in_time,
   --SUM(count_close) count_close,
-  SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
-  SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
+  --SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
+  --SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
+  AVG(count_days_speed) count_days_speed
   into #temp_count_que
   from
   (
@@ -75,10 +76,12 @@ into #temp_ass_nevkom
   case when [Questions].question_state_id =3 and temp_que_state3.Log_Date<[Questions].control_date--Не вчасно опрацьовано 
   then 1 else 0 end count_not_processed_in_time,
 
-  [Questions].registration_date,
-  temp_que_state2.[Log_Date] que_state2_log_date,
-
-  temp_ass_nevkom.[Log_Date] ass_nevkom_log_date
+  case 
+		when temp_que_state2.[Log_Date] is not null and temp_ass_nevkom.[Log_Date] is null then DATEDIFF(mi, [Questions].registration_date, temp_que_state2.[Log_Date])
+		when temp_que_state2.[Log_Date] is null and temp_ass_nevkom.[Log_Date] is not null then DATEDIFF(mi, [Questions].registration_date, temp_ass_nevkom.[Log_Date])
+		when temp_que_state2.[Log_Date] is not null and temp_ass_nevkom.[Log_Date] is not null and temp_que_state2.[Log_Date]>=temp_ass_nevkom.[Log_Date]
+			then DATEDIFF(mi, [Questions].registration_date, temp_que_state2.[Log_Date])
+				else DATEDIFF(mi, [Questions].registration_date, temp_ass_nevkom.[Log_Date]) end count_days_speed
 
   --case when [Questions].question_state_id=5 --закрито
   --then 1 else 0 end count_close
@@ -118,14 +121,15 @@ into #temp_ass_nevkom
 
   --count_days_speed1, count_days_speed2,
 
-  case when count_registered=0 then null 
-  else convert(numeric(8,2),convert(float, (case 
-  --when count_days_speed1 is not null and count_days_speed2 is not null then count_days_speed1+count_days_speed2
+  --case when count_registered=0 then null 
+  --else convert(numeric(8,2),convert(float, (case 
+  ----when count_days_speed1 is not null and count_days_speed2 is not null then count_days_speed1+count_days_speed2
 
-  when count_days_speed1 is null then count_days_speed2 --count_days_speed1+count_days_speed2
-  when count_days_speed2 is null then count_days_speed1 end
+  --when count_days_speed1 is null then count_days_speed2 --count_days_speed1+count_days_speed2
+  --when count_days_speed2 is null then count_days_speed1 end
 
-  ))/convert(float,count_registered)) end speed_of_employment, --11
+  --))/convert(float,count_registered)) end speed_of_employment, --11
+  convert(numeric(8,2),count_days_speed/3600.00) speed_of_employment,
 
   case when count_on_inspection+count_closed_performed+count_closed_clear+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_not_processed_in_time)/convert(float,(count_on_inspection+count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end timely_processed, --12
