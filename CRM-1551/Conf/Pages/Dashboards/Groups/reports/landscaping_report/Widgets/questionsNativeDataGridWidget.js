@@ -177,7 +177,7 @@
                     this.districts = this.extractOrgValues(districts);
                     this.config.query.parameterValues = [
                         {key: '@date_from' , value: this.dateFrom },
-                        {key: '@date_to' , value: this.dateFrom },
+                        {key: '@date_to' , value: this.dateTo },
                         {key: '@districts' , value: this.districts }
                     ];
                     if (this.firstLoad) {
