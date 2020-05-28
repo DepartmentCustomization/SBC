@@ -1,6 +1,6 @@
-DECLARE @executor_organization_id INT, 
-		@Id INT, 
-		@user_edit_id NVARCHAR(128);
+-- DECLARE @executor_organization_id INT, 
+-- 		@Id INT, 
+-- 		@user_edit_id NVARCHAR(128);
 
 DECLARE @output TABLE (Id INT);
 DECLARE @output_con TABLE (Id INT);
