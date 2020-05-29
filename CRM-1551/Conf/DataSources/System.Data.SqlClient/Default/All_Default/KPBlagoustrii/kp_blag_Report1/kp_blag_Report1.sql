@@ -120,7 +120,7 @@ into #temp_ass_nevkom
   (
   select [Territories].Id territories_id, --[Territories].name,
   1 count_all,
-  case when [Questions].question_state_id=1 and [Questions].registration_date between @date_from and @date_to--зареєстровано
+  case when [Questions].question_state_id=1 --зареєстровано
   then 1 else 0 end count_registered,
   case when [Questions].question_state_id=2 --в роботі
   then 1 else 0 end count_in_work,
