@@ -1,5 +1,5 @@
-    --   DECLARE @ApplicantFromSiteId INT = 2521;
-    --   DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380636227665';
+    --    DECLARE @ApplicantFromSiteId INT = NULL;
+    --    DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380672170307';
 
 IF(@ApplicantFromSitePhone IS NOT NULL)
 BEGIN
@@ -131,6 +131,9 @@ FROM
 	LEFT JOIN [dbo].[AssignmentConsiderations] [MainAssCons] ON [MainAssCons].assignment_id = [MainAss].Id
 	LEFT JOIN [dbo].[AssignmentConsDocuments] [MainAssConsDocs] ON [MainAssConsDocs].assignment_сons_id = [MainAssCons].Id 
 	LEFT JOIN [dbo].[AssignmentConsDocFiles] [MainAssConsDocsFiles] ON [MainAssConsDocsFiles].assignment_cons_doc_id = [MainAssConsDocs].Id
+WHERE
+	[Questions].[question_state_id] = 3
+	AND [Assignments].AssignmentResultsId = 4
 GROUP BY 
 	[Appeals].Id,
 	[Appeals].registration_date,
