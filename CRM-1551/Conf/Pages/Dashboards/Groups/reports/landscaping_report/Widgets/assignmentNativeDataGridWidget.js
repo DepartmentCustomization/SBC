@@ -145,7 +145,7 @@
         },
         containerId: 'assignments',
         init: function() {
-            this.dataGridInstance.height = (window.innerHeight - 100) / 2;
+            this.dataGridInstance.height = window.innerHeight - 80;
             this.setContainerVisibility('none');
             this.sub = this.messageService.subscribe('showSubTable', this.showSubTable, this);
         },
@@ -166,6 +166,10 @@
         },
         showSubTable: function(message) {
             this.setContainerVisibility('block');
+            const cssText = document.getElementById(this.containerId).parentElement.parentElement.parentElement.style.cssText;
+            document.getElementById(this.containerId)
+                .parentElement.parentElement.parentElement.style.cssText = cssText + ' height: auto!important;';
+            document.getElementById(this.containerId).scrollIntoView();
             this.config.columns[0].caption = message.sectorName;
             this.config.query.parameterValues = [
                 {key: '@sector_id', value: message.sectorId},
