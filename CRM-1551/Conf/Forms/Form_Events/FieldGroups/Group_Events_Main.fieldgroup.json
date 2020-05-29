@@ -123,6 +123,21 @@
       "Position": 16
     },
     {
+      "Code": "btn_Attention",
+      "Name": "Контроль",
+      "FieldType": "button",
+      "Position": 17,
+      "Width": "40%"
+    },
+    {
+      "Code": "attention_val",
+      "Name": "attention_val",
+      "FieldType": "number",
+      "Position": 344,
+      "Width": "15%",
+      "IsHidden": true
+    },
+    {
       "Code": "registration_date",
       "Name": "registration_date",
       "FieldType": "date-time",
