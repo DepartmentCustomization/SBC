@@ -1,5 +1,5 @@
-    -- DECLARE @ApplicantFromSiteId INT = 2423;
-    -- DECLARE @ApplicantFromSitePhone NVARCHAR(13) = NULL;
+    --  DECLARE @ApplicantFromSiteId INT = NULL;
+    --  DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '0672170307';
 
 SET @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0));
 
@@ -138,6 +138,7 @@ FROM
   LEFT JOIN [dbo].[AssignmentRevisions] [MainAssConsRevision] ON [MainAssConsRevision].assignment_consideration_іd = [MainAssCons].Id 
   LEFT JOIN [dbo].[AssignmentConsDocuments] [MainAssConsDocs] ON [MainAssConsDocs].assignment_сons_id = [MainAssCons].Id 
   LEFT JOIN [dbo].[AssignmentConsDocFiles] [MainAssConsDocsFiles] ON [MainAssConsDocsFiles].assignment_cons_doc_id = [MainAssConsDocs].Id
+  WHERE [AssignmentStates].code = N'Closed'
 GROUP BY
   [Appeals].Id,
   [Appeals].registration_date,
@@ -159,4 +160,5 @@ GROUP BY
   [Questions].Id,
   [Questions].[registration_number]
 ORDER BY 1 
-OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ;
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY 
+;
