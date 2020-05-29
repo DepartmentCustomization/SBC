@@ -71,7 +71,6 @@
             this.form.disableControl('control_date');
             this.form.disableControl('question_content');
             this.form.disableControl('bal_name');
-            this.form.disableControl('main_executor');
             this.form.disableControl('registration_date');
             this.form.disableControl('resolution_id');
             this.form.disableControl('ass_state_id');
@@ -169,7 +168,7 @@
             if (main === 0) {
                 this.form.enableControl('main_executor');
             } else if (main > 0 && check === true) {
-                this.form.enableControl('main_executor');
+                this.form.disableControl('main_executor');
             }
             if (this.form.getControlValue('registration_date') === null) {
                 this.form.setControlValue('ass_state_id', { key: 1, value: 'Зареєстровано' });
