@@ -7,10 +7,11 @@ declare @sector_id int =2;
 
   if OBJECT_ID('tempdb..#temp_ass_state3') is not null drop table #temp_ass_state3
 
-  select assignment_id, MAX([Log_Date]) [Log_Date]
+  select assignment_id, MIN([Log_Date]) [Log_Date]
   into #temp_ass_state3
-  from [dbo].[Assignment_History]
-  where assignment_state_id=3
+  from [dbo].[QuestionsInTerritory] with (nolock)
+  inner join [dbo].[Assignment_History] with (nolock) on [QuestionsInTerritory].question_id=[Assignment_History].question_id
+  where [QuestionsInTerritory].territory_id=@sector_id and assignment_state_id=3
   and [registration_date] between @date_from and @date_to
   group by assignment_id
 
@@ -20,8 +21,9 @@ declare @sector_id int =2;
 
   select assignment_id, MIN([Log_Date]) [Log_Date]
   into #temp_ass_state2
-  from [dbo].[Assignment_History]
-  where assignment_state_id=2 --в роботі
+  from [dbo].[QuestionsInTerritory] with (nolock)
+  inner join [dbo].[Assignment_History] with (nolock) on [QuestionsInTerritory].question_id=[Assignment_History].question_id
+  where [QuestionsInTerritory].territory_id=@sector_id and assignment_state_id=2 --в роботі
   and [registration_date] between @date_from and @date_to
   group by assignment_id
 
@@ -31,8 +33,10 @@ if OBJECT_ID('tempdb..#temp_ass_nevkom') is not null drop table #temp_ass_nevkom
 
 select [assignment_id], min([Log_Date]) [Log_Date]
 into #temp_ass_nevkom
-  from [dbo].[Assignment_History]
-  where [registration_date] between @date_from and @date_to
+  from [dbo].[QuestionsInTerritory] with (nolock)
+  inner join [dbo].[Assignment_History] with (nolock) on [QuestionsInTerritory].question_id=[Assignment_History].question_id
+  where [QuestionsInTerritory].territory_id=@sector_id and
+  [registration_date] between @date_from and @date_to
   and [assignment_state_id]=3 and /*На перевірці*/ [AssignmentResultsId]=3 /*Не в компетенції*/
   group by [assignment_id]
 
@@ -91,12 +95,12 @@ into #temp_ass_nevkom
   --inner join [dbo].[PersonExecutorChoose] on [PersonExecutorChoose].position_id=[Positions].id
   --inner join [dbo].[PersonExecutorChooseObjects] on [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
   --inner join 
-  [dbo].[Territories] --on [PersonExecutorChooseObjects].object_id=[Territories].object_id
+  [dbo].[Territories] with (nolock) --on [PersonExecutorChooseObjects].object_id=[Territories].object_id
   --inner join [dbo].[Objects] on [Territories].object_id=[Objects].Id
   --inner join @district_table d on [Objects].district_id=d.Id
-  inner join [dbo].[QuestionsInTerritory] on [Territories].Id=[QuestionsInTerritory].territory_id
-  inner join [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
-  inner join [Assignments] [Assignments_ok] on [Assignments_ok].question_id=[Questions].Id
+  inner join [dbo].[QuestionsInTerritory] with (nolock) on [Territories].Id=[QuestionsInTerritory].territory_id
+  inner join [dbo].[Questions] with (nolock) ON [QuestionsInTerritory].question_id=[Questions].Id
+  inner join [Assignments]  [Assignments_ok] with (nolock) on [Assignments_ok].question_id=[Questions].Id
   --left join [dbo].[Assignments] on [Assignments].Id=[Questions].last_assignment_for_execution_id--[Questions].Id=[Assignments].question_id and [Assignments].main_executor='true'
   --left join #temp_ass_nevkom temp_ass_nevkom on 
   left join #temp_ass_state3 temp_ass_state3 on [Assignments_ok].Id=temp_ass_state3.assignment_id
@@ -141,9 +145,9 @@ into #temp_ass_nevkom
   else convert(numeric(8,2),(1.00-(convert(float,count_for_completion)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end reliability --14
   from 
   #temp_count_ass temp_count_que
-  left join [dbo].[Organizations] on temp_count_que.executor_organization_id=[Organizations].Id
-  where
-  #filter_columns#
+  left join [dbo].[Organizations] with (nolock) on temp_count_que.executor_organization_id=[Organizations].Id
+  --where
+  --#filter_columns#
   ----#sort_columns#
   order by 1
   --offset @pageOffsetRows rows fetch next @pageLimitRows rows only

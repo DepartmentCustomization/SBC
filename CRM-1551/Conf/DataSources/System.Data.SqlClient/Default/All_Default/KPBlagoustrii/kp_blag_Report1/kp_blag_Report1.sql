@@ -1,8 +1,8 @@
 
 
-  /*
+  /*0 2020-05-01 2020-06-01 46 сек
   declare @districts nvarchar(max)=N'0';
-  declare @date_from datetime='2020-04-01 00:01';
+  declare @date_from datetime='2020-04-01 00:01'; 
   declare @date_to datetime='2020-06-01 23:59';
   declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941'
 */
@@ -26,74 +26,46 @@
 			from string_split((select @districts n), N',')
 		end
 
+-- норм select * from @district_table
 
-  if OBJECT_ID('tempdb..#temp_que_state3') is not null drop table #temp_que_state3
 
-  select [question_id], MAX([Log_Date]) [Log_Date]
+  if OBJECT_ID('tempdb..#temp_que_state3') is not null drop table #temp_que_state3 
+
+  select [Question_History].[question_id], MIN([Question_History].[Log_Date]) [Log_Date]
   into #temp_que_state3
-  from [dbo].[Question_History]
-  where [question_state_id]=3
-  and [registration_date] between @date_from and @date_to
-  group by [question_id]
+  from [dbo].[QuestionsInTerritory] with (nolock)
+  inner join [dbo].[Question_History] with (nolock) on [QuestionsInTerritory].question_id=[Question_History].question_id
+  where [Question_History].[question_state_id]=3
+  and [Question_History].[registration_date] between @date_from and @date_to
+  group by [Question_History].[question_id]
 
+  CREATE INDEX i1 ON #temp_que_state3 ([question_id]);
 
   --перехід в стан "в роботі" по ходу - не нужно
   if OBJECT_ID('tempdb..#temp_que_state2') is not null drop table #temp_que_state2
 
-  select [question_id], MIN([Log_Date]) [Log_Date]
+  select [Question_History].[question_id], MIN([Question_History].[Log_Date]) [Log_Date]
   into #temp_que_state2
-  from [dbo].[Question_History]
+  from [dbo].[QuestionsInTerritory] with (nolock)
+  inner join [dbo].[Question_History] with (nolock) on [QuestionsInTerritory].question_id=[Question_History].question_id
   where [question_state_id]=2 --в роботі
   and [registration_date] between @date_from and @date_to
-  group by [question_id]
+  group by [Question_History].[question_id]
 
+  CREATE INDEX i1 ON #temp_que_state2 ([question_id]);
 
 --в "не в компетенції"
 if OBJECT_ID('tempdb..#temp_ass_nevkom') is not null drop table #temp_ass_nevkom
 
 select [assignment_id], min([Log_Date]) [Log_Date]
 into #temp_ass_nevkom
-  from [dbo].[Assignment_History]
-  where [registration_date] between @date_from and @date_to
+  from [dbo].[QuestionsInTerritory] with (nolock)
+  inner join [dbo].[Assignment_History] with (nolock) on [QuestionsInTerritory].question_id=[Assignment_History].question_id
+  where [Assignment_History].[registration_date] between @date_from and @date_to
   and [assignment_state_id]=3 and /*На перевірці*/ [AssignmentResultsId]=3 /*Не в компетенції*/
   group by [assignment_id]
 
-  --тут стоп
-
-  --перехід в "не в компетенції" по ходу- не нужно
- -- if OBJECT_ID('tempdb..#temp_ass_nevkom') is not null drop table #temp_ass_nevkom
-
- -- select [Assignment_History].assignment_id, min([Assignment_History].[Log_Date]) [Log_Date]
- -- into #temp_ass_nevkom
- -- from [dbo].[Territories]
- -- inner join [dbo].[Objects] on [Territories].object_id=[Objects].Id
- -- inner join @district_table d on [Objects].district_id=d.Id
- -- inner join [dbo].[QuestionsInTerritory] on [Territories].Id=[QuestionsInTerritory].territory_id
- -- inner join [dbo].[Questions] on [QuestionsInTerritory].question_id=[Questions].Id
- -- inner join [dbo].[Assignments] on [Questions].last_assignment_for_execution_id=[Assignments].Id
- -- inner join [dbo].[Assignment_History] on [Assignments].Id=[Assignment_History].assignment_id
- -- inner join [dbo].[AssignmentTypes] on [Assignments].assignment_type_id=[AssignmentTypes].Id
- -- inner join [dbo].[AssignmentStates] on [Assignments].assignment_state_id=[AssignmentStates].Id
- -- inner join [dbo].[AssignmentResults] on [Assignments].AssignmentResultsId=[AssignmentResults].Id
- -- inner join [dbo].[AssignmentResolutions] on [Assignments].AssignmentResolutionsId=[AssignmentResolutions].Id
- -- where --[Objects].district_id=9
-
- --  [AssignmentTypes].code <> N'ToAttention'
-	--AND [AssignmentStates].code <> N'Closed'
-	--AND [AssignmentResults].code = N'NotInTheCompetence'
-	--AND [AssignmentResolutions].name IN (N'Повернуто в 1551', N'Повернуто в батьківську організацію')
-	----AND (CASE
-	----	WHEN @role = N'Конролер' AND
-	----		[AssignmentResolutions].name = N'Повернуто в 1551' THEN 1
-	----	WHEN @role <> N'Конролер' AND
-	----		[AssignmentResolutions].name = N'Повернуто в батьківську організацію' THEN 1
-	----END) = 1
-	--group by [Assignment_History].assignment_id
- -- --колонка 11
-
-
-
-
+  CREATE INDEX i1 ON #temp_ass_nevkom ([assignment_id]);
 
   if OBJECT_ID('tempdb..#temp_count_que') is not null drop table #temp_count_que
 
@@ -158,11 +130,11 @@ into #temp_ass_nevkom
   --inner join [dbo].[PersonExecutorChooseObjects] on [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
   --inner join 
   [dbo].[Territories] --on [PersonExecutorChooseObjects].object_id=[Territories].object_id
-  inner join [dbo].[Objects] on [Territories].object_id=[Objects].Id
+  inner join [dbo].[Objects] with (nolock) on [Territories].object_id=[Objects].Id
   inner join @district_table d on [Objects].district_id=d.Id
-  inner join [dbo].[QuestionsInTerritory] on [Territories].Id=[QuestionsInTerritory].territory_id
-  inner join [dbo].[Questions] ON [QuestionsInTerritory].question_id=[Questions].Id
-  left join [dbo].[Assignments] on [Assignments].Id=[Questions].last_assignment_for_execution_id--[Questions].Id=question_id and [Assignments].main_executor='true'
+  inner join [dbo].[QuestionsInTerritory] with (nolock) on [Territories].Id=[QuestionsInTerritory].territory_id
+  inner join [dbo].[Questions] with (nolock) ON [QuestionsInTerritory].question_id=[Questions].Id
+  left join [dbo].[Assignments] with (nolock) on [Assignments].Id=[Questions].last_assignment_for_execution_id--[Questions].Id=question_id and [Assignments].main_executor='true'
   --left join #temp_ass_nevkom temp_ass_nevkom on 
   left join #temp_que_state3 temp_que_state3 on [Questions].Id=temp_que_state3.question_id
   left join #temp_que_state2 temp_que_state2 on [Questions].Id=temp_que_state2.question_id
@@ -207,15 +179,15 @@ into #temp_ass_nevkom
   else convert(numeric(8,2),(1.00-(convert(float,count_for_completion)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end reliability --14
   from 
   (select [Territories].Id, [Territories].name+ISNULL(N' ('+[Positions].name+N')',N'') name
-  from [dbo].[Territories]
-  inner join [dbo].[Objects] on [Territories].object_id=[Objects].Id
+  from [dbo].[Territories] with (nolock)
+  inner join [dbo].[Objects] with (nolock) on [Territories].object_id=[Objects].Id
   inner join @district_table d on [Objects].district_id=d.Id
-  left join [dbo].[PersonExecutorChooseObjects] ON [PersonExecutorChooseObjects].object_id=[Territories].object_id
-  left join [dbo].[PersonExecutorChoose] ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
-  left join [dbo].[Positions] ON [PersonExecutorChoose].position_id=[Positions].id) s
+  left join [dbo].[PersonExecutorChooseObjects] with (nolock) ON [PersonExecutorChooseObjects].object_id=[Territories].object_id
+  left join [dbo].[PersonExecutorChoose] with (nolock) ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
+  left join [dbo].[Positions] with (nolock) ON [PersonExecutorChoose].position_id=[Positions].id) s
   left join #temp_count_que temp_count_que ON s.id=temp_count_que.territories_id
-  where
-  #filter_columns#
+  --where
+  --#filter_columns#
   ----#sort_columns#
   order by 1
   --offset @pageOffsetRows rows fetch next @pageLimitRows rows only
