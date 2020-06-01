@@ -37,7 +37,7 @@
               }
             ],
             "id": "Container-1",
-            "height": "auto",
+            "height": "calc(100% - 10px)!important",
             "minHeight": "10px",
             "minWidth": "calc(100% - 10px)",
             "backgroundColor": "white",
@@ -75,7 +75,7 @@
       }
     ],
     "id": "Container-0",
-    "height": "100%",
+    "height": "auto!important",
     "minHeight": "100%",
     "minWidth": "100%",
     "backgroundColor": "#fff"

@@ -137,7 +137,7 @@
         },
         firstLoad: true,
         init: function() {
-            this.dataGridInstance.height = (window.innerHeight - 100) / 2;
+            this.dataGridInstance.height = window.innerHeight - 80;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
             this.dataGridInstance.onCellClick.subscribe(e => {

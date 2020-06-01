@@ -180,6 +180,7 @@ DECLARE @Part2 NVARCHAR(MAX) =
 	END editable
 	,[Questions].[geolocation_lat]
 	,[Questions].[geolocation_lon]
+	,IIF(att.Id IS NOT NULL, 1, 0) AS attention_val
 FROM '+@Archive+'[dbo].[Assignments] Assignments
 INNER JOIN [dbo].AssignmentStates ast
 	ON ast.Id = Assignments.assignment_state_id
@@ -235,7 +236,9 @@ LEFT JOIN [dbo].Organizations AS responsible
 LEFT JOIN [dbo].Organizations AS org_tr
 	ON org_tr.Id = assC.transfer_to_organization_id
 LEFT JOIN [dbo].[ApplicantPhones] [ApplicantPhones] 
-	ON Applicants.Id = [ApplicantPhones].applicant_id ';
+	ON Applicants.Id = [ApplicantPhones].applicant_id 
+LEFT JOIN [dbo].[AttentionQuestionAndEvent] att 
+		ON att.assignment_id = Assignments.Id ';
 DECLARE @Part3 NVARCHAR(MAX) =
 N'LEFT JOIN (SELECT
 		[building_id]
