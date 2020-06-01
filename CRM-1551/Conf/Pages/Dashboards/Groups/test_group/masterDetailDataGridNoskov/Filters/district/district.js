@@ -18,6 +18,10 @@
         },
         initValue: function() {
             this.setDefaultValue('first');
+        },
+        onItemSelect: function() {
+        },
+        onClearFilter: function() {
         }
     };
 }());
