@@ -15,6 +15,18 @@
             }
             return 'Дата контролю менша за поточну';
         },
+        checkAttentionVal() {
+            let attentionVal = this.form.getControlValue('attention_val');
+            if(attentionVal === 1) {
+                document.getElementById('btn_Attention').style.background = '#3498DB';
+                document.getElementById('btn_Attention').style.color = 'white';
+                document.getElementById('btn_Attention').innerHTML = 'Зняти з контролю';
+            } else if(attentionVal === 0) {
+                document.getElementById('btn_Attention').style.background = 'white';
+                document.getElementById('btn_Attention').style.color = 'black';
+                document.getElementById('btn_Attention').innerHTML = 'Взяти на контроль';
+            }
+        },
         init:function() {
             this.form.disableControl('geolocation_lat');
             this.form.disableControl('geolocation_lon');
@@ -59,6 +71,8 @@
             this.form.disableControl('address_problem');
             this.form.disableControl('districts_id');
             this.onQuestionFromSiteAppeal();
+            this.checkAttentionVal();
+            let btn_Attention = document.getElementById('btn_Attention');
             let flag_is_state = this.form.getControlValue('flag_is_state');
             if (flag_is_state === 1) {
                 this.form.enableControl('object_id');
@@ -100,6 +114,32 @@
                 this.form.setControlVisibility('answer_phone',false);
                 this.form.setControlVisibility('answer_mail', false);
             }
+            btn_Attention.addEventListener('click', function() {
+                let attention_val = this.form.getControlValue('attention_val');
+                let queryCode;
+                if(attention_val === 0) {
+                    queryCode = 'InsertAttentionRow';
+                } else if(attention_val === 1) {
+                    queryCode = 'DeleteAttentionRow';
+                }
+                const queryForAttention = {
+                    queryCode: queryCode,
+                    parameterValues: [
+                        {
+                            key: '@question_id',
+                            value: this.form.getControlValue('question_id')
+                        }
+                    ]
+                };
+                this.queryExecutor.getValue(queryForAttention).subscribe((val) => {
+                    if(val === 1) {
+                        this.form.setControlValue('attention_val', 1);
+                    } else if(val === 0) {
+                        this.form.setControlValue('attention_val', 0);
+                    }
+                    this.checkAttentionVal();
+                })
+            }.bind(this));
             document.getElementById('add_Assignment').addEventListener('click', function() {
                 const queryForInsert = {
                     queryCode: 'cx_test_Procedur_Insert',
@@ -134,7 +174,7 @@
                 })
             }.bind(this));
             document.getElementById('add_Complain').addEventListener('click', function() {
-                let currentUserName = (this.user.lastName + ' ' + this.user.firstName); 
+                let currentUserName = (this.user.lastName + ' ' + this.user.firstName);
                 const formAddComplain = {
                     title: 'Створити скаргу',
                     acceptBtnText: 'save',
@@ -200,7 +240,7 @@
                             parameterValues: param
                         }
                         this.queryExecutor.getValues(body).subscribe((data) => {
-                            if(data.rows[0].values[0]==='OK') {
+                            if(data.rows[0].values[0] === 'OK') {
                                 let message = 'Скаргу зареєстровано';
                                 this.openPopUpInfoDialog(message);
                             }

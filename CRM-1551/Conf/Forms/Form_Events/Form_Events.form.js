@@ -7,7 +7,21 @@
             this.details.loadData('EventHistory_Details', parameters);
             this.details.setVisibility('EventHistory_Details', true);
         },
+        checkAttentionVal() {
+            let attentionVal = this.form.getControlValue('attention_val');
+            if(attentionVal === 1) {
+                document.getElementById('btn_Attention').style.background = '#3498DB';
+                document.getElementById('btn_Attention').style.color = 'white';
+                document.getElementById('btn_Attention').innerHTML = 'Зняти з контролю';
+            } else if(attentionVal === 0) {
+                document.getElementById('btn_Attention').style.background = 'white';
+                document.getElementById('btn_Attention').style.color = 'black';
+                document.getElementById('btn_Attention').innerHTML = 'Взяти на контроль';
+            }
+        },
         init: function() {
+            this.checkAttentionVal();
+            let btn_Attention = document.getElementById('btn_Attention');
             if (this.form.getControlValue('real_end_date') !== null) {
                 this.navigateTo('/sections/Events/view/' + this.id);
             }
@@ -47,6 +61,32 @@
                     ]
                 }]
             }
+            btn_Attention.addEventListener('click', function() {
+                let attention_val = this.form.getControlValue('attention_val');
+                let queryCode;
+                if(attention_val === 0) {
+                    queryCode = 'InsertAttentionRow';
+                } else if(attention_val === 1) {
+                    queryCode = 'DeleteAttentionRow';
+                }
+                const queryForAttention = {
+                    queryCode: queryCode,
+                    parameterValues: [
+                        {
+                            key: '@event_id',
+                            value: this.form.getControlValue('event_id')
+                        }
+                    ]
+                };
+                this.queryExecutor.getValue(queryForAttention).subscribe((val) => {
+                    if(val === 1) {
+                        this.form.setControlValue('attention_val', 1);
+                    } else if(val === 0) {
+                        this.form.setControlValue('attention_val', 0);
+                    }
+                    this.checkAttentionVal();
+                })
+            }.bind(this));
             document.getElementById('active_button').addEventListener('click', function(event) {
                 event.stopImmediatePropagation();
                 const Question_Close_callback = (response) => {

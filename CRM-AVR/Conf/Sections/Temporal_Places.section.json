@@ -1,0 +1,10 @@
+{
+
+  "ModelType": "Section",
+  "Code": "Temporal_Places",
+  "Name": "Тимчасові місця",
+  "FormCode": "Form_Temporal_Places",
+  "SelectRowsQueryCode": "TemporalPlacesSelectRows",
+  "SelectRowQueryCode": "TemporalPlacesSelectRow",
+  "UpdateQueryCode": "TemporalPlacesUpdateRow"
+}

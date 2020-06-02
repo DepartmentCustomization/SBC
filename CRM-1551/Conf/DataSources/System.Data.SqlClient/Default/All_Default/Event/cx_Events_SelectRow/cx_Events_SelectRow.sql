@@ -72,6 +72,7 @@
        ,[Events].[File]
  	  ,[ObjectTypes].Id ObjectTypesId
  	  ,[ObjectTypes].name ObjectTypesName
+      ,IIF([AttentionQuestionAndEvent].Id IS NOT NULL, 1, 0) AS attention_val
    FROM [dbo].[Events]
  	left join EventTypes on EventTypes.Id = [Events].event_type_id
 --  	left join QuestionTypes on QuestionTypes.Id = [Events].question_type_id
@@ -86,6 +87,7 @@
  	left join Executors on Executors.Id = EventOrganizers.organization_id
  	left join Organizations on Organizations.Id = EventOrganizers.organization_id
  	left join [StreetTypes] on Streets.street_type_id=StreetTypes.Id
+    left join [AttentionQuestionAndEvent] on [AttentionQuestionAndEvent].event_id = [Events].Id 
  	where [Events].Id= @Id and [EventObjects].[in_form]='true'
 
 

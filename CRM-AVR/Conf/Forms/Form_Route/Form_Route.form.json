@@ -10,7 +10,8 @@
   "Config": {
     "FieldGroups": [
       "string:FieldGroups\\Group_Route_main.fieldgroup.json",
-      "string:FieldGroups\\Group_Route_Area.fieldgroup.json"
+      "string:FieldGroups\\Group_Route_Area.fieldgroup.json",
+      "string:FieldGroups\\Group_Route_TempPlace.fieldgroup.json"
     ],
     "DefaultFields": [
       {

@@ -1,25 +1,29 @@
 DECLARE @output TABLE ([Id] INT);
 
 DECLARE @contact_id INT;
-DECLARE @contact_id_fiz INT; 
+
+DECLARE @contact_id_fiz INT;
 
 IF @contact_type = 3 
 BEGIN
 SET
-	@contact_id = @EM_contact_fio ;
+	@contact_id = @EM_contact_fio;
+
 SET
-	@contact_id_fiz = @EM_org_id ;
+	@contact_id_fiz = @EM_org_id;
 END 
 
 IF @contact_type = 1 
 BEGIN
 SET
-	@contact_id = @FIZ_concact_id ;
+	@contact_id = @FIZ_concact_id;
+
 SET
-	@contact_id_fiz = NULL ;
-END
- BEGIN TRY
-  BEGIN TRANSACTION;
+	@contact_id_fiz = NULL;
+END 
+
+BEGIN TRY 
+BEGIN TRANSACTION;
 
 INSERT INTO
 	[dbo].[Claims] (
@@ -44,8 +48,7 @@ INSERT INTO
 		not_balans,
 		DisplayID,
 		UR_organization_ID
-	) 
-OUTPUT [inserted].[Id] INTO @output([Id])
+	) OUTPUT [inserted].[Id] INTO @output([Id])
 VALUES
 	(
 		@Types_id,
@@ -66,17 +69,14 @@ VALUES
 		@Diameters_ID,
 		@Is_Template,
 		@User,
-		IIF(@contact_type = 2, 
-			NULL,
-			@contact_id),
-		IIF(@contact_type = 2,
-			NULL,
-			@contact_id_fiz),
+		IIF(@contact_type = 2, NULL, @contact_id),
+		IIF(@contact_type = 2, NULL, @contact_id_fiz),
 		@date_check,
 		@not_balans,
 		1,
 		@UR_organization_id
-	) ;
+	);
+
 DECLARE @Claim_Number INT;
 
 SET
@@ -128,28 +128,56 @@ VALUES
 	(
 		@Claim_Number,
 		@places_id,
-		@flat_number,
+		@flat_id,
 		1,
 		getutcdate()
-	) ;
+	);
 
-IF(@contact_type = 2)
+DECLARE @IsClaimPlaceTemporary BIT = IIF(
+	(
+		SELECT
+			Is_Active
+		FROM
+			dbo.[Places]
+		WHERE
+			Id = @places_id
+	) <> 1,
+	1,
+	0
+);
+
+IF(@IsClaimPlaceTemporary = 1) 
 BEGIN
-	INSERT INTO dbo.Claim_content 
-			(Claim_Id,
-			G_PIB,
-			UR_organization,
-			Phone)
-	VALUES (@Claim_Number,
-			@UR_contact_fio,
-			@UR_organization,
-			@UR_number) ;
-END					
+UPDATE
+	dbo.Places_LOG
+SET
+	[Object] += N' ' + CAST(@Claim_Number AS NVARCHAR(20))
+WHERE
+	Place_ID = @places_id;
+END 
+IF(@contact_type = 2) 
+BEGIN
+INSERT INTO
+	dbo.Claim_content (
+		Claim_Id,
+		G_PIB,
+		UR_organization,
+		Phone
+	)
+VALUES
+	(
+		@Claim_Number,
+		@UR_contact_fio,
+		@UR_organization,
+		@UR_number
+	);
+
+END 
 
 IF @type_employee_2 = 5
-	OR @type_employee_2 = 6
-	OR @type_employee_2 = 8
-	OR @type_employee_2 = 15 
+OR @type_employee_2 = 6
+OR @type_employee_2 = 8
+OR @type_employee_2 = 15 
 BEGIN
 INSERT INTO
 	[dbo].[Claim_content] (
@@ -179,9 +207,9 @@ VALUES
 		@x_pib_inspector,
 		@x_phone_inspector
 	);
+
 END 
 COMMIT TRANSACTION;
-
 SELECT
 	@Claim_Number AS [Id];
 
@@ -194,8 +222,6 @@ BEGIN
 ROLLBACK TRANSACTION;
 END
 DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
-
 SELECT
-	N'Помилка заповнення: ' + @ErrorMessage ;
-END CATCH 
-; 
+	N'Помилка заповнення: ' + @ErrorMessage;
+END CATCH;

@@ -1,0 +1,62 @@
+{
+    "ModelType": "Query",
+    "Code": "Temporal_PlacesInsert",
+    "Name": "Temporal_PlacesInsert",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "IsAnonymousAccess": false,
+    "Parameters": [
+        {
+            "Code": "@area",
+            "Name": "area",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@type",
+            "Name": "type",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@district",
+            "Name": "district",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@street",
+            "Name": "street",
+            "ParameterType": "Integer"
+        },
+        {
+            "Code": "@Name",
+            "Name": "Name",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@entity",
+            "Name": "entity",
+            "ParameterType": "text"
+        },
+        {
+            "Code": "@userId",
+            "Name": "userId",
+            "ParameterType": "CurrentUserId"
+        }
+    ],
+    "Columns": [
+        {
+            "Code": "Id",
+            "Name": "Id",
+            "Position": 1
+        },
+        {
+            "Code": "Name",
+            "Name": "Name",
+            "Position": 2
+        },
+        {
+            "Code": "Title",
+            "Name": "Title",
+            "Position": 3
+        }
+    ]
+}

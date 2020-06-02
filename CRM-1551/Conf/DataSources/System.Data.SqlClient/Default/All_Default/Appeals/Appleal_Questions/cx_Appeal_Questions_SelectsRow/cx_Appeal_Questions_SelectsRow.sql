@@ -86,7 +86,8 @@ N'SELECT
 	) AS flag_is_state,
 	Questions.geolocation_lat,
 	Questions.geolocation_lon,
-	Appeals.receipt_source_id 
+	Appeals.receipt_source_id,
+	IIF(att.Id IS NOT NULL, 1, 0) AS attention_val
 FROM ';
 DECLARE @Part2 NVARCHAR(MAX) =
 	N''+@Archive+N'[dbo].[Questions] Questions
@@ -108,6 +109,7 @@ DECLARE @Part2 NVARCHAR(MAX) =
 	LEFT JOIN [dbo].[AssignmentResults] assR ON assR.Id = Assignments.AssignmentResultsId
 	LEFT JOIN '+@Archive+N'[dbo].[AssignmentResolutions] assRn ON assRn.Id = Assignments.AssignmentResolutionsId
 	LEFT JOIN [dbo].[Organizations] perfom ON perfom.Id = Assignments.[executor_organization_id]
+	LEFT JOIN [dbo].[AttentionQuestionAndEvent] att ON att.question_id = Questions.Id 
 	LEFT JOIN [#system_database_name#].[dbo].[User]  [User] ON [Questions].[user_id] = [User].UserId
 WHERE
 	[Questions].[Id] = @Id ; ';

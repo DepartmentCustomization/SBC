@@ -160,8 +160,8 @@
     "ReferenceKeyCode": "place_type_id"
   },
   {
-    "Code": "flat_number",
-    "Name": "flat_number",
+    "Code": "flat_id",
+    "Name": "flat_id",
     "Position": 34
   },
   {
@@ -371,5 +371,11 @@
     "Code": "UR_organization",
     "Name": "UR_organization",
     "Position": 78
+  },
+  {
+    "Code": "flat_number",
+    "Name": "flat_number",
+    "Position": 79,
+    "ReferenceKeyCode": "flat_id"
   }
 ]

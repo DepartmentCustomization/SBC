@@ -1,4 +1,4 @@
--- DECLARE @Id INT = 9135;
+--   DECLARE @Id INT = 9162;
 
 DECLARE @FirstId INT = (SELECT	
 								TOP 1 Id
@@ -132,6 +132,7 @@ CASE
 		0
 	) AS count_orders,
 	Claims.Is_Template,
+	Flats.Id AS flat_id,
 	Flats.[Number] AS flat_number,
 	Districts.Name AS district_name,
 	Districts.Id AS district_id,

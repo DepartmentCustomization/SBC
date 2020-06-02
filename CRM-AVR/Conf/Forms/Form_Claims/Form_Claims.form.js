@@ -28,14 +28,149 @@
                 }
             })
         },
+        onTempPlaceTypeChange() {
+            let cross = 19;
+            let temp_place_type = this.form.getControlValue('temp_place_type');
+            if(temp_place_type === cross) {
+                this.form.setControlVisibility('place_district_id', true);
+                this.form.setControlVisibility('place_street1_id', true);
+                this.form.setControlVisibility('place_street2_id', true);
+                this.form.setControlVisibility('cross_name', true);
+                this.form.setControlVisibility('new_temp_placeAdd', true);
+                this.form.setControlVisibility('new_temp_placeReturn', true);
+                this.form.setControlVisibility('place_building', false);
+            } else if(temp_place_type !== null && temp_place_type !== cross) {
+                this.form.setControlVisibility('place_district_id', true);
+                this.form.setControlVisibility('place_street1_id', true);
+                this.form.setControlVisibility('place_building', true);
+                this.form.setControlVisibility('place_building_name', true);
+                this.form.setControlVisibility('new_temp_placeAdd', true);
+                this.form.setControlVisibility('new_temp_placeReturn', true);
+            }
+        },
+        onTempCrossStreetChange() {
+            let district = this.form.getControlValue('place_district_id');
+            let street1 = this.form.getControlValue('place_street1_id');
+            let street2 = this.form.getControlValue('place_street2_id');
+            if((district !== null && typeof (district) === 'number')
+                &&
+                (street1 !== null && typeof (street1) === 'number')
+                &&
+                (street2 !== null && typeof (street2) === 'number')) {
+                const makeCrossName = {
+                    queryCode: 'makeCrossName',
+                    parameterValues: [
+                        {
+                            key: '@street1',
+                            value: street1
+                        },
+                        {
+                            key: '@street2',
+                            value: street2
+                        }
+                    ]
+                };
+                this.queryExecutor.getValue(makeCrossName).subscribe(data => {
+                    if(data) {
+                        this.form.setControlValue('cross_name', data);
+                        document.getElementById('new_temp_placeAdd').disabled = false;
+                    }
+                });
+            } else {
+                document.getElementById('new_temp_placeAdd').disabled = true;
+            }
+        },
+        onTempBuildingChange() {
+            let district = this.form.getControlValue('place_district_id');
+            let street = this.form.getControlValue('place_street1_id');
+            let building = this.form.getControlValue('place_building');
+            if(district !== null &&
+                street !== null &&
+                building !== null) {
+                const makeBuildingName = {
+                    queryCode: 'makeBuildingName',
+                    parameterValues: [
+                        {
+                            key: '@street',
+                            value: street
+                        },
+                        {
+                            key: '@building_name',
+                            value: building
+                        }
+                    ]
+                };
+                this.queryExecutor.getValue(makeBuildingName).subscribe(data => {
+                    if(data) {
+                        this.form.setControlValue('place_building_name', data);
+                        document.getElementById('new_temp_placeAdd').disabled = false;
+                    }
+                });
+            } else {
+                document.getElementById('new_temp_placeAdd').disabled = true;
+            }
+        },
+        checkPlaceActivity() {
+            let place_activity;
+            let current_place = this.form.getControlValue('places_id');
+            let waitCheck = 2;
+            let deleted = 3;
+            const getPlaceActivity = {
+                queryCode: 'getPlaceActivity',
+                parameterValues: [
+                    {
+                        key: '@Id',
+                        value: current_place
+                    }
+                ]
+            };
+            this.queryExecutor.getValue(getPlaceActivity).subscribe(data => {
+                if(data) {
+                    place_activity = data;
+                    switch (place_activity) {
+                        case waitCheck:
+                            document.getElementById('places_id').style.color = 'darkblue'
+                            break;
+                        case deleted:
+                            document.getElementById('places_id').style.color = 'red'
+                            break;
+                        default:
+                            document.getElementById('places_id').style.color = 'black'
+                    }
+                }
+            });
+        },
         init: function() {
+            this.checkPlaceActivity();
             this.chooseDetail_Claim_Faucet();
             this.checkForAreaClaims();
             this.form.disableControl('Fact_finish_at');
             this.form.disableControl('EM_org_id');
+            this.form.disableControl('cross_name');
+            this.form.disableControl('place_building_name');
+            this.form.setControlVisibility('temp_place_type', false);
+            this.form.setControlVisibility('place_street1_id', false);
+            this.form.setControlVisibility('place_street2_id', false);
+            this.form.setControlVisibility('cross_name', false);
+            this.form.setControlVisibility('place_district_id', false);
+            this.form.setControlVisibility('place_building', false);
+            this.form.setControlVisibility('place_building_name', false);
+            this.form.setControlVisibility('new_temp_placeAdd', false);
+            this.form.setControlVisibility('new_temp_placeReturn', false);
             let btn_AddJuridicalContact = document.getElementById('btn_AddJuridicalContact');
+            let btn_newTempPlace = document.getElementById('new_temp_place');
+            let new_temp_placeAdd = document.getElementById('new_temp_placeAdd');
+            let new_temp_placeReturn = document.getElementById('new_temp_placeReturn');
+            new_temp_placeAdd.disabled = true;
             let btn_copy_claim = document.getElementById('btn_copy_claim');
             this.form.onControlValueChanged('UR_organization_id', this.checkJuridicalOrgAvailable);
+            this.form.onControlValueChanged('temp_place_type', this.onTempPlaceTypeChange);
+            this.form.onControlValueChanged('place_street1_id', this.onTempCrossStreetChange);
+            this.form.onControlValueChanged('place_street2_id', this.onTempCrossStreetChange);
+            this.form.onControlValueChanged('place_district_id', this.onTempBuildingChange);
+            this.form.onControlValueChanged('place_street1_id', this.onTempBuildingChange);
+            this.form.onControlValueChanged('place_building', this.onTempBuildingChange);
+            this.form.onControlValueChanged('places_id', this.checkPlaceActivity);
             this.state_card = this.state;
             if(this.state_card == 'create') {
                 btn_copy_claim.style.display = 'none';
@@ -44,6 +179,105 @@
                     btn_AddJuridicalContact.style.display = 'none';
                 }
             }
+            new_temp_placeAdd.addEventListener('click', function() {
+                let addTempPlace;
+                let cross = 19;
+                let place_type = this.form.getControlValue('temp_place_type');
+                if(place_type === cross) {
+                    addTempPlace = {
+                        queryCode: 'Temporal_PlacesInsert',
+                        parameterValues:[
+                            {
+                                key: '@type',
+                                value: place_type
+                            },
+                            {
+                                key: '@district',
+                                value: this.form.getControlValue('place_district_id')
+                            },
+                            {
+                                key: '@street',
+                                value: this.form.getControlValue('place_street1_id')
+                            },
+                            {
+                                key: '@Name',
+                                value: this.form.getControlValue('cross_name')
+                            },
+                            {
+                                key: '@entity',
+                                value: 'Заявка'
+                            }
+                        ]
+                    };
+                } else if (place_type !== cross) {
+                    addTempPlace = {
+                        queryCode: 'Temporal_PlacesInsert',
+                        parameterValues:[
+                            {
+                                key: '@type',
+                                value: place_type
+                            },
+                            {
+                                key: '@district',
+                                value: this.form.getControlValue('place_district_id')
+                            },
+                            {
+                                key: '@street',
+                                value: this.form.getControlValue('place_street1_id')
+                            },
+                            {
+                                key: '@Name',
+                                value: this.form.getControlValue('place_building_name')
+                            },
+                            {
+                                key: '@entity',
+                                value: 'Заявка'
+                            }
+                        ]
+                    };
+                }
+                this.queryExecutor.getValues(addTempPlace).subscribe(data =>{
+                    if(data) {
+                        this.form.setControlValue('places_id',
+                            {key: data.rows[0].values[0], value: data.rows[0].values[1]});
+                        document.getElementById('new_temp_placeReturn').click();
+                        const adminVDKorg = 10;
+                        const notifyTempPlaceCreated = {
+                            url: 'sections/Temporal_Places/edit/' + data.rows[0].values[0],
+                            notificationTypeCode: 'NewTemporaryPlace',
+                            text: data.rows[0].values[2],
+                            notificationPriorityCode: 'Middle',
+                            organisationIds: [adminVDKorg],
+                            hasAudio: true
+                        };
+                        this.createOrganisationsNotification(notifyTempPlaceCreated);
+                    }
+                })
+            }.bind(this));
+            new_temp_placeReturn.addEventListener('click', function() {
+                this.form.setControlVisibility('place_street1_id', false);
+                this.form.setControlVisibility('place_street2_id', false);
+                this.form.setControlVisibility('cross_name', false);
+                this.form.setControlVisibility('new_temp_placeAdd', false);
+                this.form.setControlVisibility('new_temp_placeReturn', false);
+                this.form.setControlVisibility('temp_place_type', false);
+                this.form.setControlVisibility('place_district_id', false);
+                this.form.setControlVisibility('place_building', false);
+                this.form.setControlVisibility('place_building_name', false);
+                this.form.setControlValue('temp_place_type', null)
+                this.form.setControlValue('cross_name', null)
+                this.form.setControlValue('place_street1_id', null)
+                this.form.setControlValue('place_street2_id', null)
+                this.form.setControlValue('place_district_id', null)
+                this.form.setControlValue('place_building', null)
+                this.form.setControlValue('place_building_name', null)
+                document.getElementById('new_temp_placeAdd').disabled = true;
+                this.form.setControlVisibility('new_temp_place', true)
+            }.bind(this));
+            btn_newTempPlace.addEventListener('click', function() {
+                this.form.setControlVisibility('temp_place_type', true);
+                this.form.setControlVisibility('new_temp_place', false)
+            }.bind(this));
             btn_copy_claim.addEventListener('click', function(event) {
                 const param = {
                     queryCode: 'avr_Claim_Insert_copy',
@@ -99,7 +333,7 @@
             this.form.disableControl('classes_id');
             this.form.disableControl('place_type_id');
             this.form.disableControl('district_id');
-            this.form.disableControl('flat_number');
+            this.form.disableControl('flat_id');
             this.form.disableControl('position_reg');
             this.form.disableControl('position_close');
             this.form.disableControl('Created_at');
@@ -141,7 +375,6 @@
                 };
                 this.queryExecutor.getValues(addContact).subscribe(data =>{
                     this.form.setControlValue('FIZ_concact_id', data.rows[0].values[2]);
-                    console.log(data);
                 })
             }.bind(this));
             //действие кнопки Обновить контакт физ.лицо
@@ -1350,11 +1583,11 @@
             if(place_id == null) {
                 this.form.setControlValue('place_type_id', {key: null, value: null});
                 this.form.setControlValue('district_id', {key: null, value: null});
-                this.form.setControlValue('flat_number', {key: null, value: null});
+                this.form.setControlValue('flat_id', {key: null, value: null});
             }else{
-                this.form.enableControl('flat_number');
+                this.form.enableControl('flat_id');
                 let number = [{parameterCode: '@place_id', parameterValue: place_id}];
-                this.form.setControlParameterValues('flat_number', number);
+                this.form.setControlParameterValues('flat_id', number);
                 let type = [{parameterCode: '@type_place', parameterValue: place_id}];
                 this.form.setControlParameterValues('place_type_id', type);
                 const type_place = {
