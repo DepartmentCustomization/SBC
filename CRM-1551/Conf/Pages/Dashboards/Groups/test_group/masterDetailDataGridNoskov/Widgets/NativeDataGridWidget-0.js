@@ -162,7 +162,6 @@
         },
         masterDetailInitialized: function(row) {
             this.config.masterDetail.dataSource = [];
-            debugger;
             const masterDetailQuery = {
                 queryCode: 'kp_blag_Report2',
                 limit: -1,

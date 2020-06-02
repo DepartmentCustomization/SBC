@@ -39,8 +39,24 @@
         },
         afterViewInit: function() {
             const container = document.getElementById('notificationContainer');
-            const captionWarning = this.createElement('div',{ className: 'captionWarning', innerText: 'Оберiть фiльтри!' });
+            const captionWarning = this.createElement('div',{ className: 'captionWarning', innerText: 'Оберiть фiльтри!'});
+            const button = this.createElement('button',
+                {
+                    className: 'filtersListBtn dx-button dx-widget', innerText: 'Перелік збережених фільтрів'
+                }
+            );
+            button.addEventListener('click', () => {
+                const msg = {
+                    name: 'SetFilterPanelState',
+                    package: {
+                        value: false
+                    }
+                };
+                this.messageService.publish(msg);
+                this.messageService.publish({name: 'showModalWindow', button: 'showFilters'});
+            });
             container.appendChild(captionWarning);
+            container.appendChild(button);
         }
     };
 }());
