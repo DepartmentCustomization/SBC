@@ -115,8 +115,8 @@
             masterDetail: {
                 enabled: true,
                 template: 'masterDetailInstance',
-                showBorders: true,
-                columnAutoWidth: true,
+                showBorders: false,
+                columnAutoWidth: false,
                 columns: [
                     {
                         dataField: 'exec_name',
@@ -160,29 +160,30 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
         },
-        masterDetailInitialized: function() {
+        masterDetailInitialized: function(row) {
             this.config.masterDetail.dataSource = [];
+            debugger;
             const masterDetailQuery = {
                 queryCode: 'kp_blag_Report2',
                 limit: -1,
                 parameterValues: [
                     {
                         'key': '@sector_id',
-                        'value': 2
+                        'value': row.data.Id
                     },
                     {
                         'key': '@date_to',
-                        'value': '2020-06-01T06:51:00.000Z'
+                        'value': this.dateTo
                     },
                     {
                         'key': '@date_from',
-                        'value': '2020-05-31T21:00:00.000Z'
+                        'value': this.dateFrom
                     }
                 ]
             };
-            this.queryExecutor(masterDetailQuery, this.setMasterDetailDatasiurce, this);
+            this.queryExecutor(masterDetailQuery, this.setMasterDetailDataSource, this);
         },
-        setMasterDetailDatasiurce: function(data) {
+        setMasterDetailDataSource: function(data) {
             let dataSource = [];
             data.rows.forEach(row => {
                 const item = {

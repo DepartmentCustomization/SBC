@@ -32,7 +32,6 @@
   "homepage": "https://github.com/DepartmentCustomization/SBC#readme",
   "dependencies": {},
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
     "eslint": "^7.1.0",
     "eslint-teamcity": "^3.0.1",
     "ts-loader": "^7.0.5",
