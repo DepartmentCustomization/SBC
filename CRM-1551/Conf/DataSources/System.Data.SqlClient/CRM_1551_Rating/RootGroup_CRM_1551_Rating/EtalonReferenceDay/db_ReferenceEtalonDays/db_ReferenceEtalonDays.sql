@@ -6,10 +6,28 @@
   (SELECT TOP 1 [DateStart]
   FROM (
   select DISTINCT [DateStart], DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE())) diff, ABS(DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE()))) abs_diff
-  from [dbo].[Rating_EtalonDaysToExecution]
+  from [dbo].[Rating_EtalonDaysToExecution] with (nolock)
   --order by ABS(DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE()))), DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE())) DESC
   ) t
   order by abs_diff, diff DESC)
+
+  --знаходимо всі РДА та їх підлеглих начало
+  IF OBJECT_ID('tempdb..#temp_RDAorg') IS NOT NULL	DROP TABLE #temp_RDAorg;
+  ;with
+it as --дети @id
+(select [Id], [parent_organization_id] ParentId
+from [CRM_1551_Analitics].[dbo].[Organizations] with (nolock)
+where [organization_type_id]=5 /*Районні державні адміністрації*/
+union all
+select t.Id, [parent_organization_id] ParentId
+from [CRM_1551_Analitics].[dbo].[Organizations] t with (nolock) inner join it on t.[parent_organization_id]=it.Id)
+
+select Id into #temp_RDAorg from it-- pit it
+  --знаходимо всі РДА та їх підлеглих конец
+
+  create index i1 ON #temp_RDAorg (Id)
+  --select * from #temp_RDAorg
+
 
 
   /*Стан - На перевірці, результат - Виконано. K 3*/
@@ -17,33 +35,59 @@
   IF OBJECT_ID('tempdb..#temp_column3') IS NOT NULL	DROP TABLE #temp_column3;
 
 
-  select [Questions].question_type_id, convert(numeric(8,2), avg(convert(float,datediff(dd, [Assignments].registration_date, l.Log_Date)))) count_day
+  select [Questions].question_type_id, convert(numeric(8,2), avg(convert(float,datediff(MINUTE, [Assignments].registration_date, l.Log_Date)/3600.00))) count_day
   into #temp_column3
-  from [CRM_1551_Analitics].[dbo].[Assignments]
+  from [CRM_1551_Analitics].[dbo].[Assignments] with (nolock)
+
+  INNER JOIN #temp_RDAorg temp_RDAorg ON [Assignments].executor_organization_id=temp_RDAorg.Id
+
   INNER JOIN
+
   (select [assignment_id], MIN([Log_Date]) [Log_Date]
-  from [CRM_1551_Analitics].[dbo].[Assignment_History]
+  from [CRM_1551_Analitics].[dbo].[Assignment_History] with (nolock)
   where [assignment_state_id]=3 /*На перевірці*/ and [AssignmentResultsId]=4 /*Виконано*/
-  group by [assignment_id]) l on [Assignments].Id=l.[assignment_id]
-  INNER JOIN [CRM_1551_Analitics].[dbo].[Questions] ON [Assignments].question_id=[Questions].Id
+  and registration_date between @dateFrom and @dateTo
+  group by [assignment_id]) l 
+  
+  on [Assignments].Id=l.[assignment_id]
+  INNER JOIN [CRM_1551_Analitics].[dbo].[Questions] with (nolock) ON [Assignments].question_id=[Questions].Id
+  where [Assignments].main_executor='true'
   group by [Questions].question_type_id
+
+
+  create index i1 ON #temp_column3 (question_type_id)
+  --select * from #temp_column3
 
 
   /*Стан - На перевірці, результат - Роз'яснено K6*/
   IF OBJECT_ID('tempdb..#temp_column6') IS NOT NULL	DROP TABLE #temp_column6;
 
-  select [Questions].question_type_id, convert(numeric(8,2), avg(convert(float,datediff(dd, [Assignments].registration_date, l.Log_Date)))) count_day
+
+  select [Questions].question_type_id, convert(numeric(8,2), avg(convert(float,datediff(MINUTE, [Assignments].registration_date, l.Log_Date)/3600.00))) count_day
   into #temp_column6
-  from [CRM_1551_Analitics].[dbo].[Assignments]
+  from [CRM_1551_Analitics].[dbo].[Assignments] with (nolock)
+
+  INNER JOIN #temp_RDAorg temp_RDAorg ON [Assignments].executor_organization_id=temp_RDAorg.Id
+
   INNER JOIN
+
   (select [assignment_id], MIN([Log_Date]) [Log_Date]
-  from [CRM_1551_Analitics].[dbo].[Assignment_History]
+  from [CRM_1551_Analitics].[dbo].[Assignment_History] with (nolock)
   where [assignment_state_id]=3 /*На перевірці*/ and [AssignmentResultsId]=7 /*Роз`яснено*/
-  group by [assignment_id]) l on [Assignments].Id=l.[assignment_id]
-  INNER JOIN [CRM_1551_Analitics].[dbo].[Questions] ON [Assignments].question_id=[Questions].Id
+  and registration_date between @dateFrom and @dateTo
+  group by [assignment_id]) l 
+  
+  on [Assignments].Id=l.[assignment_id]
+  INNER JOIN [CRM_1551_Analitics].[dbo].[Questions] with (nolock) ON [Assignments].question_id=[Questions].Id
+  where [Assignments].main_executor='true'
   group by [Questions].question_type_id
 
+ -- select * from #temp_column6
+ create index i1 ON #temp_column6 (question_type_id)
 
+
+
+  --where [assignment_state_id]=3 /*На перевірці*/ and [AssignmentResultsId]=7 /*Роз`яснено*/
 
   SELECT [QuestionTypes].Id,
   [QuestionTypes].Id QuestionTypes_Id, 
@@ -59,8 +103,8 @@
   --CONVERT(NUMERIC(8,2),avg_EtalonDaysToExplain.avg_EtalonDaysToExplain) avg_EtalonDaysToExplain_change, --7 МОЖЛИВІСТЬ ЗМІНИ
   temp_column6.count_day avg_EtalonDaysToExplain_change, --7 МОЖЛИВІСТЬ ЗМІНИ
   [Rating_EtalonDaysToExecution].DateStart --8
-  FROM [dbo].[Rating_EtalonDaysToExecution]
-  INNER JOIN [CRM_1551_Analitics].[dbo].[QuestionTypes] ON [Rating_EtalonDaysToExecution].QuestionTypeId=[QuestionTypes].Id
+  FROM [dbo].[Rating_EtalonDaysToExecution] with (nolock)
+  INNER JOIN [CRM_1551_Analitics].[dbo].[QuestionTypes] with (nolock) ON [Rating_EtalonDaysToExecution].QuestionTypeId=[QuestionTypes].Id
 
 
   --LEFT JOIN 
@@ -72,7 +116,7 @@
 
   LEFT JOIN 
   (SELECT QuestionTypeId, AVG(CONVERT(FLOAT,EtalonDaysToExplain)) avg_EtalonDaysToExplain
-  FROM [dbo].[Rating_EtalonDaysToExecution]
+  FROM [dbo].[Rating_EtalonDaysToExecution] with (nolock)
   WHERE EtalonDaysToExplain IS NOT NULL AND [Rating_EtalonDaysToExecution].[DateStart] 
   BETWEEN CONVERT(DATE,@dateFrom) AND CONVERT(DATE,@dateTo)
   GROUP BY QuestionTypeId) avg_EtalonDaysToExplain ON [Rating_EtalonDaysToExecution].QuestionTypeId=avg_EtalonDaysToExplain.QuestionTypeId
