@@ -141,6 +141,7 @@
             });
         },
         init: function() {
+            let flatIcon = document.getElementById('flat_idIcon');
             this.checkPlaceActivity();
             this.chooseDetail_Claim_Faucet();
             this.checkForAreaClaims();
@@ -179,6 +180,12 @@
                     btn_AddJuridicalContact.style.display = 'none';
                 }
             }
+            flatIcon.addEventListener('click', function() {
+                let place = this.form.getControlValue('places_id');
+                if(place) {
+                    console.log('icon click')
+                }
+            }.bind(this));
             new_temp_placeAdd.addEventListener('click', function() {
                 let addTempPlace;
                 let cross = 19;

@@ -48,7 +48,9 @@
       "KeyColumnCode": "Id",
       "DisplayColumnCode": "number",
       "QueryParameters": [],
-      "Width": "30%"
+      "Width": "30%",
+      "Icon": "control_point",
+      "IconHint": "Додати квартири будинку"
     },
     {
       "Code": "new_temp_place",
