@@ -160,95 +160,15 @@
                         alignment: 'center'
                     },
                     {
-                        caption: 'По статусах',
+                        dataField: 'timely_processed',
+                        caption: '% вчасно опрацьованих',
                         alignment: 'center',
-                        columns: [
-                            {
-                                dataField: 'count_registered',
-                                caption: 'Зареєстровано',
-                                alignment: 'center'
-                            },
-                            {
-                                dataField: 'count_in_work',
-                                caption: 'В роботі',
-                                alignment: 'center'
-                            },
-                            {
-                                dataField: 'count_on_inspection',
-                                caption: 'На перевірці',
-                                alignment: 'center'
-                            },
-                            {
-                                dataField: 'count_closed_performed',
-                                caption: 'Закрито/Виконано ',
-                                alignment: 'center'
-                            },
-                            {
-                                dataField: 'count_closed_clear',
-                                caption: 'Закрито/Роз\'яснено',
-                                alignment: 'center'
-                            },
-                            {
-                                dataField: 'count_for_completion',
-                                caption: 'На доопрацювання',
-                                alignment: 'center'
+                        customizeText: function(data) {
+                            if(data.value) {
+                                return `${data.value}%`;
                             }
-                        ]
-                    },
-                    {
-                        dataField: 'count_built',
-                        caption: 'Прострочено',
-                        width: 150,
-                        alignment: 'center'
-                    },
-                    {
-                        dataField: 'count_not_processed_in_time',
-                        caption: 'Не вчасно опрацьовано',
-                        alignment: 'center'
-                    },
-                    {
-                        caption: 'Показники',
-                        alignment: 'center',
-                        columns: [
-                            {
-                                dataField: 'speed_of_employment',
-                                caption: 'Бистрота прийняття в роботу',
-                                alignment: 'center'
-                            },
-                            {
-                                dataField: 'timely_processed',
-                                caption: '% вчасно опрацьованих',
-                                alignment: 'center',
-                                customizeText: function(data) {
-                                    if(data.value) {
-                                        return `${data.value}%`;
-                                    }
-                                    return ''
-                                }
-                            },
-                            {
-                                dataField: 'implementation',
-                                caption: '% виконання',
-                                alignment: 'center',
-                                customizeText: function(data) {
-                                    if(data.value) {
-                                        return `${data.value}%`;
-                                    }
-                                    return ''
-                                }
-                            },
-                            {
-                                dataField: 'reliability',
-                                caption: '% достовірності',
-                                alignment: 'center',
-                                customizeText: function(data) {
-                                    if(data.value) {
-                                        return `${data.value}%`;
-                                    }
-                                    return ''
-                                }
-                            }
-                        ]
+                            return ''
+                        }
                     }
                 ]
             }
@@ -258,19 +178,6 @@
             this.dataGridInstance.height = window.innerHeight - 80;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
-            /* this.dataGridInstance.onCellClick.subscribe(e => {
-                if(e.column) {
-                    if(e.column.dataField === 'territories_name' && e.row !== undefined) {
-                        this.messageService.publish({
-                            name: 'showSubTable',
-                            sectorId: e.data.Id,
-                            sectorName: e.data.territories_name,
-                            dateTo: this.dateTo,
-                            dateFrom: this.dateFrom
-                        });
-                    }
-                }
-            }); */
         },
         masterDetailInitialized: function(row) {
             this.config.masterDetail.dataSource = [];
@@ -281,9 +188,6 @@
                     {key: '@sector_id', value: row.data.Id},
                     {key: '@date_to', value: this.dateTo},
                     {key: '@date_from', value: this.dateFrom}
-                    /* {key: '@date_from' , value: this.dateFrom },
-                    {key: '@date_to' , value: this.dateTo },
-                    {key: '@districts' , value: this.districts } */
                 ]
             };
             this.queryExecutor(masterDetailQuery, this.setMasterDetailDataSource, this);
@@ -291,12 +195,12 @@
         setMasterDetailDataSource: function(data) {
             let dataSource = [];
             data.rows.forEach(row => {
-                const item = {
+                const masterDetailColumns = {
                     'exec_name': row.values[1],
                     'count_all': row.values[2],
                     'timely_processed': row.values[12]
                 }
-                dataSource.push(item);
+                dataSource.push(masterDetailColumns);
             })
             this.config.masterDetail.dataSource = dataSource;
         },
