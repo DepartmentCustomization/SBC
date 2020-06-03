@@ -204,7 +204,6 @@
             })
             this.config.masterDetail.dataSource = dataSource;
         },
-        masterDetailOnRowClick: function() {},
         destroy: function() {
             this.sub.unsubscribe();
         },
