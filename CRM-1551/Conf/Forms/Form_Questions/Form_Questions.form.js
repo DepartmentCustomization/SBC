@@ -28,8 +28,14 @@
             }
         },
         init:function() {
+
             this.form.disableControl('geolocation_lat');
             this.form.disableControl('geolocation_lon');
+
+            if (this.form.getControlValue('question_state_id') === 5) {
+                this.navigateTo('/sections/Questions/view/' + this.id);
+            }
+
             if (this.form.getControlValue('geolocation_lat')) {
                 this.form.enableControl('geolocation_map');
                 document.getElementById('geolocation_map').disabled = false;
