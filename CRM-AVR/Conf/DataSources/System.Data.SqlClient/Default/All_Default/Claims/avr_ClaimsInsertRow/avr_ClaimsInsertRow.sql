@@ -4,6 +4,47 @@ DECLARE @contact_id INT;
 
 DECLARE @contact_id_fiz INT;
 
+DECLARE @IsClaimPlaceTemporary BIT = IIF(
+	(
+		SELECT
+			Is_Active
+		FROM
+			dbo.[Places]
+		WHERE
+			Id = @places_id
+	) <> 1,
+	1,
+	0
+);
+
+--> Id квартиры по номеру и месту
+DECLARE @flat_id INT = IIF(
+						@flat_number IS NOT NULL,
+						(SELECT
+							flat.Id
+						FROM dbo.[Places] place
+						INNER JOIN dbo.[Houses] house ON house.Id = place.Street_id
+						INNER JOIN dbo.[Flats] flat ON flat.Houses_ID = house.Id 
+						WHERE place.Id = @places_id
+						AND flat.Number = @flat_number),
+						NULL);
+
+--> Если нужной нету то добавить значения
+IF(@flat_id IS NULL) 
+AND 
+(@flat_number IS NOT NULL) 
+AND 
+(@IsClaimPlaceTemporary <> 1)
+BEGIN
+DECLARE @count INT;
+
+EXEC PlaceNewApartments
+    @places_id = @places_id,
+	@flat_number = @flat_number,
+    @new_flat_id = @flat_id OUTPUT;
+
+END
+
 IF @contact_type = 3 
 BEGIN
 SET
@@ -133,18 +174,6 @@ VALUES
 		getutcdate()
 	);
 
-DECLARE @IsClaimPlaceTemporary BIT = IIF(
-	(
-		SELECT
-			Is_Active
-		FROM
-			dbo.[Places]
-		WHERE
-			Id = @places_id
-	) <> 1,
-	1,
-	0
-);
 
 IF(@IsClaimPlaceTemporary = 1) 
 BEGIN
