@@ -40,17 +40,11 @@
       "Width": "70%"
     },
     {
-      "Code": "flat_id",
+      "Code": "flat_number",
       "Name": "№ квартири",
-      "FieldType": "select",
+      "FieldType": "number",
       "Position": 3,
-      "QueryCode": "list_Flats_for_Claim",
-      "KeyColumnCode": "Id",
-      "DisplayColumnCode": "number",
-      "QueryParameters": [],
-      "Width": "30%",
-      "Icon": "control_point",
-      "IconHint": "Додати квартири будинку"
+      "Width": "30%"
     },
     {
       "Code": "new_temp_place",

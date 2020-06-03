@@ -141,7 +141,6 @@
             });
         },
         init: function() {
-            let flatIcon = document.getElementById('flat_idIcon');
             this.checkPlaceActivity();
             this.chooseDetail_Claim_Faucet();
             this.checkForAreaClaims();
@@ -180,12 +179,6 @@
                     btn_AddJuridicalContact.style.display = 'none';
                 }
             }
-            flatIcon.addEventListener('click', function() {
-                let place = this.form.getControlValue('places_id');
-                if(place) {
-                    console.log('icon click')
-                }
-            }.bind(this));
             new_temp_placeAdd.addEventListener('click', function() {
                 let addTempPlace;
                 let cross = 19;
@@ -340,7 +333,7 @@
             this.form.disableControl('classes_id');
             this.form.disableControl('place_type_id');
             this.form.disableControl('district_id');
-            this.form.disableControl('flat_id');
+            this.form.disableControl('flat_number');
             this.form.disableControl('position_reg');
             this.form.disableControl('position_close');
             this.form.disableControl('Created_at');
@@ -1590,11 +1583,9 @@
             if(place_id == null) {
                 this.form.setControlValue('place_type_id', {key: null, value: null});
                 this.form.setControlValue('district_id', {key: null, value: null});
-                this.form.setControlValue('flat_id', {key: null, value: null});
+                this.form.setControlValue('flat_number', null);
             }else{
-                this.form.enableControl('flat_id');
-                let number = [{parameterCode: '@place_id', parameterValue: place_id}];
-                this.form.setControlParameterValues('flat_id', number);
+                this.form.enableControl('flat_number');
                 let type = [{parameterCode: '@type_place', parameterValue: place_id}];
                 this.form.setControlParameterValues('place_type_id', type);
                 const type_place = {
