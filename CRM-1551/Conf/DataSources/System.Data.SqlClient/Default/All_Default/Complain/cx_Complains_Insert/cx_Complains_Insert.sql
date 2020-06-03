@@ -1,7 +1,7 @@
 DECLARE @info TABLE (
-                  guiltyId NVARCHAR(128),
-                  complainId INT,
-                  comment NVARCHAR(2000)
+      guiltyId NVARCHAR(128),
+      complainId INT,
+      COMMENT NVARCHAR(2000)
 );
 
 INSERT INTO
@@ -12,9 +12,10 @@ INSERT INTO
             [guilty],
             [text],
             [user_id]
-      ) OUTPUT inserted.[guilty],
+      ) OUTPUT 
+      inserted.[guilty],
       inserted.[Id],
-      inserted.[text] INTO @info(guiltyId, complainId, comment)
+      inserted.[text] INTO @info(guiltyId, complainId, COMMENT)
 VALUES
       (
             GETUTCDATE(),
@@ -74,8 +75,39 @@ WHERE
                   Id
             FROM
                   @ParentOfGuiltyPositionID
-      );
+      )
+      AND programuser_id IS NOT NULL;
 
+IF(
+      SELECT
+            COUNT(1)
+      FROM
+            @ParentOfGuiltyUserID
+) = 0 
+BEGIN
+INSERT INTO
+      @ParentOfGuiltyUserID
+SELECT
+      programuser_id
+FROM
+      [dbo].[Positions]
+WHERE
+      Id IN (
+            SELECT
+                  helper_position_id
+            FROM
+                  dbo.[PositionsHelpers]
+            WHERE
+                  main_position_id IN (
+                        SELECT
+                              Id
+                        FROM
+                              @ParentOfGuiltyPositionID
+                  )
+      )
+      AND programuser_id <> @guiltyUser;
+
+END 
 IF(
       SELECT
             COUNT(1)
@@ -94,7 +126,7 @@ DECLARE @Sender NVARCHAR(128) = (
 
 DECLARE @Comment NVARCHAR(2000) = (
       SELECT
-            TOP 1 comment
+            TOP 1 COMMENT
       FROM
             @info
 );
@@ -131,7 +163,14 @@ SELECT
       0,
       1
 FROM
-      @ParentOfGuiltyUserID parent;
+      @ParentOfGuiltyUserID parent
+WHERE
+      parent.Id IN (
+            SELECT
+                  UserId
+            FROM
+                  [#system_database_name#].[dbo].[User]
+      );
 
 END -- check @ParentOfGuiltyUserID
 END -- check @ParentOfGuiltyPositionID
@@ -140,4 +179,5 @@ IF(@ComplainID IS NOT NULL)
 BEGIN
 SELECT
       N'OK' AS result;
+
 END

@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "test_group",
+  "Position": 200,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "landscaping_report_datagrid",
+  "Name": "Звіт для КП Благоустрій"
+}

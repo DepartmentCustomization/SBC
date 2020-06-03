@@ -333,7 +333,7 @@
             this.form.disableControl('classes_id');
             this.form.disableControl('place_type_id');
             this.form.disableControl('district_id');
-            this.form.disableControl('flat_id');
+            this.form.disableControl('flat_number');
             this.form.disableControl('position_reg');
             this.form.disableControl('position_close');
             this.form.disableControl('Created_at');
@@ -1583,11 +1583,9 @@
             if(place_id == null) {
                 this.form.setControlValue('place_type_id', {key: null, value: null});
                 this.form.setControlValue('district_id', {key: null, value: null});
-                this.form.setControlValue('flat_id', {key: null, value: null});
+                this.form.setControlValue('flat_number', null);
             }else{
-                this.form.enableControl('flat_id');
-                let number = [{parameterCode: '@place_id', parameterValue: place_id}];
-                this.form.setControlParameterValues('flat_id', number);
+                this.form.enableControl('flat_number');
                 let type = [{parameterCode: '@type_place', parameterValue: place_id}];
                 this.form.setControlParameterValues('place_type_id', type);
                 const type_place = {
