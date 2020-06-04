@@ -142,7 +142,7 @@
                 wordWrapEnabled: true,
                 pager: {
                     showPageSizeSelector: true,
-                    allowedPageSizes: [5, 10 , 30],
+                    allowedPageSizes: [5, 10 , 50],
                     showInfo: true
                 },
                 paging: {
