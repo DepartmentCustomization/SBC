@@ -4,7 +4,7 @@
   declare @districts nvarchar(max)=N'0';
   declare @date_from datetime='2020-04-01 00:01'; 
   declare @date_to datetime='2020-06-01 23:59';
-  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941'
+  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
 */
   DECLARE @district_table TABLE (Id int);
   
@@ -155,7 +155,7 @@ into #temp_ass_nevkom
   count_for_completion,
   count_built,
   count_not_processed_in_time,
-  convert(numeric(8,2),count_days_speed/3600.00) speed_of_employment,
+  convert(numeric(8,2),count_days_speed/60.00) speed_of_employment,
   --count_days_speed1, count_days_speed2,
 
   --начало
@@ -173,7 +173,7 @@ into #temp_ass_nevkom
   else convert(numeric(8,2),(1.00-(convert(float,count_not_processed_in_time)/convert(float,(count_on_inspection+count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end timely_processed, --12
 
   case when count_closed_performed+count_closed_clear+count_for_completion=0 then null 
-  else convert(numeric(8,2),(1.00-(convert(float,count_closed_performed)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end implementation, --13
+  else convert(numeric(8,2),(convert(float,count_closed_performed)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion)))*100.00) end implementation, --13
 
   case when count_closed_performed+count_closed_clear+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_for_completion)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end reliability --14
