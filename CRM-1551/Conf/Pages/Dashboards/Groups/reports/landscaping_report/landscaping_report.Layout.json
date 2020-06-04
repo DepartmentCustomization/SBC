@@ -31,7 +31,7 @@
             "border": "none",
             "children": [
               {
-                "code": "questionsNativeDataGridWidget",
+                "code": "NativeDataGridWidget",
                 "type": "NativeDataGridWidgetComponent",
                 "name": "questions"
               }
@@ -42,29 +42,6 @@
             "minWidth": "calc(100% - 10px)",
             "backgroundColor": "white",
             "containerId": "questions"
-          },
-          {
-            "width": "auto",
-            "margin": "0 5px 10px",
-            "flexWrap": "nowrap",
-            "flexDirection": "row",
-            "order": 1,
-            "flexGrow": 1,
-            "alignSelf": "auto",
-            "border": "none",
-            "children": [
-              {
-                "code": "assignmentNativeDataGridWidget",
-                "type": "NativeDataGridWidgetComponent",
-                "name": "assignments"
-              }
-            ],
-            "id": "Container-1",
-            "height": "auto",
-            "minHeight": "10px",
-            "minWidth": "calc(100% - 10px)",
-            "backgroundColor": "white",
-            "containerId": "assignments"
           }
         ],
         "id": "Container-0",
