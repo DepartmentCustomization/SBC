@@ -557,9 +557,10 @@ WHERE
 SET
 	@new_con = (
 		SELECT
-			TOP(1) Id
+			max(Id)
 		FROM
-			@output_con
+			dbo.[AssignmentConsiderations] 
+		WHERE assignment_id = @ass_id
 	);
 UPDATE
 	[Assignments]

@@ -619,9 +619,11 @@ BEGIN
 					OUTPUT INSERTED.Id INTO @output_con ([Id])
 						VALUES (@Id, GETUTCDATE(), @result_id, @resolution_id, @user_edit_id, GETUTCDATE(), @user_edit_id, @transfer_to_organization_id, GETUTCDATE(), GETUTCDATE(), @short_answer);
 
-					SET @new_con = (SELECT TOP (1)
-							Id
-						FROM @output_con);
+					SET @new_con = (SELECT
+										max(Id)
+									FROM
+										dbo.[AssignmentConsiderations] 
+									WHERE assignment_id = @Id);
 					UPDATE [Assignments]
 					SET current_assignment_consideration_id = @new_con
 					   ,[edit_date] = GETUTCDATE()
@@ -1045,9 +1047,11 @@ BEGIN
 					FROM AssignmentConsiderations
 					WHERE Id = @current_consid;
 
-				SET @new_con = (SELECT TOP (1)
-						Id
-					FROM @output_con);
+				SET @new_con = (SELECT
+									max(Id)
+								FROM
+									dbo.[AssignmentConsiderations] 
+								WHERE assignment_id = @Id);
 				UPDATE [Assignments]
 				SET current_assignment_consideration_id = @new_con
 				   ,[edit_date] = GETUTCDATE()
@@ -1185,9 +1189,11 @@ BEGIN
 					FROM AssignmentConsiderations
 					WHERE Id = @current_consid;
 
-				SET @new_con = (SELECT TOP (1)
-						Id
-					FROM @output_con);
+				SET @new_con = (SELECT
+									max(Id)
+								FROM
+									dbo.[AssignmentConsiderations] 
+								WHERE assignment_id = @Id);
 				UPDATE [Assignments]
 				SET current_assignment_consideration_id = @new_con
 				   ,[edit_date] = GETUTCDATE()
