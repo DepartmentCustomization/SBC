@@ -24,6 +24,20 @@ DECLARE @userId NVARCHAR(128) = N'0022a2aa-facd-4b2b-bade-f4ddcc7a0c53';
 
 IF(@type = 19) 
 BEGIN 
+SET @Name = (SELECT TOP 1
+						s.[Name] + N' ' + st.AbbrU + N'/' 
+				  FROM dbo.[Places] t 
+				  INNER JOIN dbo.[Streets] s ON s.Id = t.Street_id
+				  INNER JOIN dbo.[Street_Type] st ON st.TypeId = s.Street_type_id
+				  WHERE s.Id = @street1 )  
+				  + 
+				  (SELECT TOP 1
+						s.[Name] + N' ' + st.AbbrU 
+				  FROM dbo.[Places] t 
+				  INNER JOIN dbo.[Streets] s ON s.Id = t.Street_id
+				  INNER JOIN dbo.[Street_Type] st ON st.TypeId = s.Street_type_id
+				  WHERE s.Id = @street2 ) ;
+
 DECLARE @crossInfo TABLE (Id INT);
 
 INSERT INTO
@@ -47,7 +61,11 @@ DECLARE @placeInfo TABLE (Id INT);
 UPDATE
 	dbo.[Places]
 SET
+	[Name] = @Name,
+	[Longitude] = @Longitude,
+	[Lattitude] = @Lattitude,
 	[Cross_id] = @newCrossID,
+	[Street_id] = NULL,
 	[Is_Active] = 1
 WHERE
 	[Id] = @Id;
@@ -55,35 +73,43 @@ WHERE
 END
 ELSE IF (@type <> 19) 
 BEGIN
-INSERT INTO
-	dbo.[Houses] (
-		[Street_id],
-		[Number],
-		[Letter],
-		[Name],
-		[District_id],
-		[Longitude],
-		[Latitude]
-	)
-VALUES
-(
-		@street1,
-		@Number,
-		@Letter,
-		@Name,
-		@district,
-		@Longitude,
-		@Lattitude
-	);
+SET @Name = (SELECT TOP 1
+						s.[Name] + N' ' + st.UkrName  
+						+ ISNULL( N', ' + @Number,N'')
+						+ ISNULL(@Letter,N'')
+				  FROM dbo.[Places] t 
+				  INNER JOIN dbo.[Streets] s ON s.Id = t.Street_id
+				  INNER JOIN dbo.[Street_Type] st ON st.TypeId = s.Street_type_id
+				  WHERE s.Id = @street1 );
+
+DECLARE @Street1_Street_Id INT = (SELECT Street_Id FROM dbo.Streets WHERE Id = @street1);
+
+UPDATE
+	dbo.[Houses]
+SET
+		[Street_id] = @Street1_Street_Id,
+		[Number] = @Number,
+		[Letter] = @Letter,
+		[Name] = @Name,
+		[District_id] = @district,
+		[Longitude] = @Longitude,
+		[Latitude] = @Lattitude,
+		[Is_Active] = 1
+WHERE Id = (SELECT Street_id FROM dbo.Places WHERE Id = @Id);  
 
 UPDATE
 	dbo.[Places]
 SET
+	[District_ID] = @district,
+	[Name] = @Name,
+	[Lattitude] = @Lattitude,
+	[Longitude] = @Longitude,
 	[Is_Active] = 1
 WHERE
 	[Id] = @Id;
 
 END
+
 UPDATE
 	dbo.[Places_LOG]
 SET

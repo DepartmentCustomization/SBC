@@ -56,6 +56,7 @@
             }
         },
         init: function() {
+            document.getElementsByClassName('float_r')[0].children[1].style.display = 'none';
             this.checkPlaceProcessVal();
             const cross = 19;
             let place_type = this.form.getControlValue('place_type_id');
@@ -165,43 +166,6 @@
                 });
             }.bind(this));
             this.details.onCellClick('Detail_Entities', this.detailEntityClick.bind(this))
-        },
-        afterSave(data) {
-            if (data) {
-                let type = this.form.getControlValue('place_type_id');
-                let cross = 19;
-                let makeName;
-                if (type === cross) {
-                    makeName = {
-                        queryCode: 'makeCrossName',
-                        parameterValues: [
-                            {
-                                key: '@street1',
-                                value: this.form.getControlValue('place_street1_id')
-                            },
-                            {
-                                key: '@street2',
-                                value: this.form.getControlValue('place_street2_id')
-                            }
-                        ]
-                    };
-                } else if (type !== cross) {
-                    makeName = {
-                        queryCode: 'makeBuildingName',
-                        parameterValues: [
-                            {
-                                key: '@street',
-                                value: this.form.getControlValue('place_street1_id')
-                            }
-                        ]
-                    };
-                }
-                this.queryExecutor.getValue(makeName).subscribe(data => {
-                    if (data) {
-                        this.form.setControlValue('place_name', data);
-                    }
-                });
-            }
         },
         detailEntityClick(column, row) {
             let rowEntity = row.values[0];

@@ -3,12 +3,16 @@
  DECLARE @type INT = 11;
  DECLARE @district INT = 10;
  DECLARE @street INT = 4829;
- DECLARE @Name NVARCHAR(200) = N'Праці бульвар, 55';
+ DECLARE @Name NVARCHAR(200) = N'Праці бульвар, 555Ф';
  DECLARE @entity NVARCHAR(20) = N'Маршрут';
  DECLARE @userId NVARCHAR(128) = N'0022a2aa-facd-4b2b-bade-f4ddcc7a0c53';
  DECLARE @area INT = 169;
  */
-DECLARE @placeOut TABLE (Id INT);
+ 
+ DECLARE @HouseNum NVARCHAR(200) = @Name;
+ DECLARE @NumCharIndex SMALLINT;
+ DECLARE @HouseLetter NVARCHAR(2);
+
 
 DECLARE @UserFIO NVARCHAR(300) = (
 	SELECT
@@ -22,8 +26,46 @@ DECLARE @UserFIO NVARCHAR(300) = (
 SET
 	XACT_ABORT ON;
 
-BEGIN TRY BEGIN TRANSACTION;
+BEGIN TRY 
+BEGIN TRANSACTION;
+DECLARE @Street_StreetId INT = (SELECT Street_Id FROM dbo.Streets WHERE Id = @street);
+DECLARE @newCross TABLE (Id INT);
+DECLARE @newHouse TABLE (Id INT);
 
+IF(@type <> 19)
+BEGIN
+--> Get number
+WHILE Patindex('%[^0-9]%', @HouseNum) <> 0 
+BEGIN 
+SET @HouseNum = Stuff(@HouseNum, Patindex('%[^0-9]%',@HouseNum),1, '');
+END 
+--> Get letter
+SET @NumCharIndex = CHARINDEX(@HouseNum, @Name) + LEN(@HouseNum)-1;
+SET @HouseLetter = SUBSTRING(@Name, @NumCharIndex + LEN(@NumCharIndex)-1, LEN(@Name));
+
+INSERT INTO 
+	dbo.[Houses] (
+		[Street_id],
+		[Number], 
+		[Letter],
+		[Name],
+		[District_id],
+		[Is_Active]
+		) OUTPUT inserted.Id INTO @newHouse(Id)
+VALUES
+	(
+		@Street_StreetId,
+		@HouseNum,
+		@HouseLetter,
+		@Name,
+		@district,
+		2);
+
+END 
+
+DECLARE @newHouseID INT = (SELECT TOP 1 Id FROM @newHouse);
+
+DECLARE @placeOut TABLE (Id INT);
 INSERT INTO
 	dbo.[Places] (
 		[Place_type_ID],
@@ -38,7 +80,7 @@ VALUES
 		@type,
 		@district,
 		@Name,
-		@street,
+		IIF(@type = 19,@street,@newHouseID),
 		@userId,
 		2
 	);
