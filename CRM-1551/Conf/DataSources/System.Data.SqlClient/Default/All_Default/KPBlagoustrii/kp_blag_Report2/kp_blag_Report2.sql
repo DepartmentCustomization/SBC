@@ -77,7 +77,7 @@ into #temp_ass_nevkom
   then 1 else 0 end count_for_completion,
   case when [Assignments_ok].assignment_state_id in (1,2) and [Assignments_ok].execution_date<getutcdate() --Простроено 
   then 1 else 0 end count_built,
-  case when [Assignments_ok].assignment_state_id =3 and temp_ass_state3.Log_Date<[Assignments_ok].execution_date--Не вчасно опрацьовано 
+  case when [Assignments_ok].assignment_state_id =3 and temp_ass_state3.Log_Date>[Assignments_ok].execution_date--Не вчасно опрацьовано 
   then 1 else 0 end count_not_processed_in_time,
 
   case 

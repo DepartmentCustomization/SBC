@@ -106,7 +106,7 @@ into #temp_ass_nevkom
   then 1 else 0 end count_for_completion,
   case when [Questions].question_state_id in (1,2) and [Questions].control_date<getutcdate() --Простроено 
   then 1 else 0 end count_built,
-  case when [Questions].question_state_id =3 and temp_que_state3.Log_Date<[Questions].control_date--Не вчасно опрацьовано 
+  case when [Questions].question_state_id =3 and temp_que_state3.Log_Date>[Questions].control_date--Не вчасно опрацьовано 
   then 1 else 0 end count_not_processed_in_time,
 
   --[Questions].registration_date,
