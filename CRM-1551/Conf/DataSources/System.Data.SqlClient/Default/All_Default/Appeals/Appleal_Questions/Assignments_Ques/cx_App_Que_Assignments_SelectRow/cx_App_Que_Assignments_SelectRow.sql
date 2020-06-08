@@ -238,7 +238,8 @@ LEFT JOIN [dbo].Organizations AS org_tr
 LEFT JOIN [dbo].[ApplicantPhones] [ApplicantPhones] 
 	ON Applicants.Id = [ApplicantPhones].applicant_id 
 LEFT JOIN [dbo].[AttentionQuestionAndEvent] att 
-		ON att.assignment_id = Assignments.Id ';
+	ON att.assignment_id = Assignments.Id 
+	AND att.user_id = @user_Id ';
 DECLARE @Part3 NVARCHAR(MAX) =
 N'LEFT JOIN (SELECT
 		[building_id]
@@ -268,7 +269,7 @@ WHEN orr.editable IS NULL THEN 2
 
 ELSE 1 END)=1; ' ;
 
-DECLARE @Query NVARCHAR(MAX) = (SELECT @Part1 + @Part2 + @Part3)
+DECLARE @Query NVARCHAR(MAX) = (SELECT @Part1 + @Part2 + @Part3);
 EXEC sp_executesql @Query, N'@Id INT, @user_Id NVARCHAR(128)',
 							@Id = @Id,
 							@user_Id = @user_Id ;
