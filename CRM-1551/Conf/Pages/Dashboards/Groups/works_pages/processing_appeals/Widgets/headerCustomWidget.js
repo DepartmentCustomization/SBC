@@ -24,49 +24,49 @@
                 name: 'arrived',
                 id: 'headerItem__arrived',
                 innerText: 'Надійшло',
-                colorIndex: 0,
+                index: 0,
                 backgroundColor: 'rgb(74, 193, 197)'
             },
             {
                 name: 'in_work',
                 id: 'headerItem__inWork',
                 innerText: 'В роботі',
-                colorIndex: 1,
+                index: 1,
                 backgroundColor: 'rgb(132, 199, 96)'
             },
             {
                 name: 'attention',
                 id: 'headerItem__attention',
                 innerText: 'Увага',
-                colorIndex: 2,
+                index: 2,
                 backgroundColor: 'rgb(211, 214, 13)'
             },
             {
                 name: 'overdue',
                 id: 'headerItem__overdue',
                 innerText: 'Прострочені',
-                colorIndex: 3,
+                index: 3,
                 backgroundColor: 'rgb(240, 114, 93)'
             },
             {
                 name: 'for_revision',
                 id: 'headerItem__onRefinement',
                 innerText: 'На доопрацювання',
-                colorIndex: 4,
+                index: 4,
                 backgroundColor: 'rgb(23, 202, 162)'
             },
             {
                 name: 'future',
                 id: 'headerItem__future',
                 innerText: 'Майбутні',
-                colorIndex: 5,
+                index: 5,
                 backgroundColor: 'rgb(173, 118, 205)'
             },
             {
                 name: 'without_executor',
                 id: 'headerItem__withoutExecutor',
                 innerText: 'Без виконавця',
-                colorIndex: 6,
+                index: 6,
                 backgroundColor:  'rgb(200, 97, 74)'
             }
         ],
@@ -103,22 +103,26 @@
             this.showPreloader = false;
         },
         executeFilterDistrict: function() {
+            /*
             let executeQueryDistinct = {
                 queryCode: 'cc_FilterDistrict',
                 limit: -1,
                 parameterValues: []
             };
-            /* this.queryExecutor(executeQueryDistinct, this.setDistrictCategories, this); */
+            this.queryExecutor(executeQueryDistinct, this.setDistrictCategories, this);
             this.showPreloader = false;
+            */
         },
         executeFilterQuestionTypes: function() {
+            /*
             let executeQueryCategories = {
                 queryCode: 'cc_FilterQuestionTypes',
                 limit: -1,
                 parameterValues: []
             };
-            /* this.queryExecutor(executeQueryCategories, this.setQuestionTypesCategories, this); */
+            this.queryExecutor(executeQueryCategories, this.setQuestionTypesCategories, this); 
             this.showPreloader = false;
+            */
         },
         /* executeFilterPriority: function() {
             let executeQueryPriority = {
@@ -451,7 +455,7 @@
             const filter_closer_district = Array.from(document.querySelectorAll('.filter_closer_district'));
             filter_closer_district.forEach(filter => {
                 filter.addEventListener('click', event => {
-                    this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none');
+                    this.sendMesOnBtnClick('none', 'none');
                     let target = event.currentTarget;
                     let executeQueryDeleteFilter = {
                         queryCode: 'cc_FilterDelete',
@@ -543,97 +547,133 @@
             this.queryExecutor(executeQueryTable, this.createInfoTable.bind(this, isReload, targetId), this);
             this.showPreloader = false;
         },
-        createInfoTable: function() {
-            const headerItems = this.createHeaderItems();
-            this.tableContainer.appendChild(headerItems);
+        createInfoTable: function(isReload, targetId, data) {
+            const headerItemsWrapper = this.createHeaderItemsWrapper(data.rows[5]);
+            this.tableContainer.appendChild(headerItemsWrapper);
+            const subHeaderItemsWrapper = this.createSubHeaderItemsWrapper(data);
+            this.tableContainer.appendChild(subHeaderItemsWrapper);
             this.messageService.publish({ name: 'hidePagePreloader' });
         },
-        createHeaderItems: function() {
-            const headerItems = this.createElement('div',
+        createHeaderItemsWrapper: function(data) {
+            const index = 2;
+            const headerItemsWrapper = this.createElement('div',
                 {
                     id: 'headerItems',
                     className: 'displayFlex'
                 }
             );
             this.headerItems = [];
-            this.headers.forEach(headerStatus => {
-                const triangle = this.createElement('div', { className: `${headerStatus.name}_triangle` });
+            this.headers.forEach(header => {
+                const triangle = this.createElement('div', { className: `${header.name}_triangle` });
                 const headerItem = this.createElement('div',
                     {
-                        id: `${headerStatus.id}`,
-                        name: `${headerStatus.name}`,
+                        id: `${header.id}`,
+                        code: `${header.name}`,
                         className: 'headerItem displayFlex',
-                        innerText: `${headerStatus.innerText}`,
-                        style: `background-color: ${headerStatus.backgroundColor}`,
-                        colorIndex: `${headerStatus.colorIndex}`
+                        innerText: `${header.innerText} (${data.values[header.index + index]})`,
+                        style: `background-color: ${header.backgroundColor}`,
+                        colorIndex: `${header.index}`
                     },
                     triangle
                 );
                 headerItem.addEventListener('click', event => {
                     let target = event.currentTarget;
                     let navigator = 'Усі';
-                    let column = target.innerText;
-                    this.setInfoTableVisibility(target, column, navigator, undefined,'headers');
+                    let code = target.code;
+                    this.setInfoTableVisibility(target, code, navigator);
                 });
                 this.headerItems.push(headerItem);
-                headerItems.appendChild(headerItem);
+                headerItemsWrapper.appendChild(headerItem);
             });
-            return headerItems;
+            return headerItemsWrapper;
         },
-        setVisibilityOrganizationContainer: function(status) {
-            this.orgContainer.style.display = status;
+        createSubHeaderItemsWrapper: function(data) {
+            this.subHeaderWrapper = this.createElement('div',
+                {
+                    id: 'subHeaderWrapper',
+                    className: 'displayFlex'
+                }
+            );
+            this.createSubHeaderItemsColumns(this.subHeaderWrapper, data);
+            return this.subHeaderWrapper;
         },
-        setInfoTableVisibility: function(target, columnName, navigator, orgName, position) {
+        createSubHeaderItemsColumns: function(subHeaderWrapper, data) {
+            this.headers.forEach((header, index) => {
+                const column = this.createElement('div', {
+                    className: 'subHeaderColumn counterHeader'
+                });
+                for (let i = 1; i < data.rows.length - 1; i++) {
+                    const count = data.rows[i].values[index + 2];
+                    if (count) {
+                        const textIndex = 1;
+                        const text = data.rows[i].values[textIndex];
+                        const columnItem = this.createElement('div', {
+                            innerText: `${text} (${count})`,
+                            navigator: text,
+                            className: 'columnCategory',
+                            code: header.name
+                        });
+                        columnItem.addEventListener('click', event => {
+                            const target = event.currentTarget;
+                            const navigator = target.navigator;
+                            const code = target.code;
+                            const columnHeader = document.getElementById(this.headers.find(h => h.name === code).id);
+                            this.setInfoTableVisibility(columnHeader, code, navigator);
+                        });
+                        column.appendChild(columnItem);
+                    }
+                }
+                subHeaderWrapper.appendChild(column);
+            })
+        },
+        reloadMainTable: function(message) {
+            this.messageService.publish({name: 'showPagePreloader'});
+            this.removeContainerChildren(this.tableContainer);
+            const reloadTable = message ? true : false;
+            if (message) {
+                this.column = message.column;
+                this.navigation = message.navigation;
+                this.targetId = message.targetId;
+            }
+            this.executeMainTableQuery(reloadTable);
+        },
+        setInfoTableVisibility: function(target, code, navigator) {
             if (target.classList.contains('check') || target.classList.contains('hover')) {
                 this.headerItems.forEach((header, index) => {
                     header.firstElementChild.classList.remove('triangle');
-                    header.firstElementChild.classList.add(`${header.name}_triangle`);
+                    header.firstElementChild.classList.add(`${header.code}_triangle`);
                     header.classList.remove('hover');
                     header.classList.remove('check');
                     header.style.backgroundColor = this.headers[index].backgroundColor;
                 });
-                this.clearOrganizationName();
-                this.setVisibilityOrganizationContainer('block');
-                this.sendMesOnBtnClick('clickOnInfoTable', undefined, undefined);
+                this.setVisibilityOrganizationContainer('flex');
+                this.sendMesOnBtnClick(undefined, undefined);
             } else {
-                if (position === 'item') {
-                    this.setOrganizationName(orgName);
-                    target.classList.add('hover');
-                    this.setVisibilityOrganizationContainer('none');
-                    this.headerItems.forEach(header => {
-                        if(target.id !== header.id) {
-                            header.style.backgroundColor = '#d3d3d3';
-                            header.classList.add('check');
-                            header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
-                            header.firstElementChild.classList.add('triangle');
-                        }
-                        this.headerItems[6].firstElementChild.classList.remove('triangle');
-                    });
-                    this.sendMesOnBtnClick('clickOnInfoTable', columnName, navigator, orgName, this.targetOrgId, target.id);
-                }
+                target.classList.add('hover');
+                this.setVisibilityOrganizationContainer('none');
+                this.headerItems.forEach(header => {
+                    if(target.id !== header.id) {
+                        header.style.backgroundColor = '#d3d3d3';
+                        header.classList.add('check');
+                        header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
+                        header.firstElementChild.classList.add('triangle');
+                    }
+                    this.headerItems[6].firstElementChild.classList.remove('triangle');
+                });
+                this.sendMesOnBtnClick(code, navigator, target.id);
             }
         },
-        reloadMainTable: function(message) {
-            this.messageService.publish({ name: 'showPagePreloader'});
-            this.removeContainerChildren(this.tableContainer);
-            let reloadTable = false;
-            if(message) {
-                this.column = message.column;
-                this.navigation = message.navigation;
-                this.targetId = message.targetId;
-                reloadTable = true;
-            }
-            this.executeMainTableQuery(reloadTable);
+        setVisibilityOrganizationContainer: function(status) {
+            this.subHeaderWrapper.style.display = status;
         },
-        sendMesOnBtnClick: function(message, columnName, navigator, orgName, organizationId, targetId) {
-            this.messageService.publish({
-                name: message,
-                columnName: columnName,
-                navigation: navigator,
-                organizationId: organizationId,
-                orgName: orgName,
+        sendMesOnBtnClick: function(code, navigator, targetId) {
+            console.table(code, navigator);
+            /* this.messageService.publish({
+                name: 'clickOnHeaderTable',
+                code: code,
+                navigator: navigator,
                 targetId: targetId
-            });
+            }); */
         },
         removeContainerChildren: function(container) {
             while (container.hasChildNodes()) {

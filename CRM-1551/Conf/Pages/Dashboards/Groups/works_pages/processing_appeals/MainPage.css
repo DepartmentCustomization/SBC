@@ -7,7 +7,6 @@
     padding: 0;
     text-align: center;
     color: #959595;
-    
     background-image: url('assets/img/1551/crm1551_arrow_open.png');
     background-repeat: no-repeat;
 }
@@ -70,17 +69,6 @@
 
 /*  start*/
 /*   TRIANGLE  */
-.orgLinksWrapper__triangle {
-    width: 13px;
-    height: 19px;
-    border-bottom: solid 8px #e2e2e2;
-    border-left: solid 8px transparent;
-    border-right: solid 8px transparent;
-    position: absolute;
-    top: -18px;
-    right: 4px;
-}
-
 .triangle, .arrived_triangle, .in_work_triangle, .attention_triangle, .overdue_triangle, .for_revision_triangle, .future_triangle, .without_executor_triangle{
     width: 0;
     height: 0;
@@ -185,20 +173,12 @@
     margin: 30px auto 10px auto;
 
 }
-#orgContainer{
-    overflow-y: scroll;
-    height: calc(100vh - 260px)!important;    
-}
-.tableContainer{
+#tableContainer{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 .columnWrapper{
     position: relative;
-}
-#organizationChildCat, #organizationName{
-    font-size: 18px;
-    font-weight: 600;
 }
 #filtersWrapper{
     display: flex;
@@ -222,7 +202,7 @@
     background-size: 100%;
     cursor: pointer;
 }
-.columnCategorie{
+.columnCategory{
     border-width: 0px;
     height: 46px;
     background: inherit;
@@ -241,6 +221,7 @@
     justify-content: center;  
     margin: 10px 10px 0 16px;
     cursor: pointer;
+    width: 100%!important;
 }
 .columnCategory__title{
     margin-right: 5px;
@@ -408,11 +389,14 @@
 }                
 .counterHeader{
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: row;
     margin: 5px 10px 5px 3px;
     width: 14.5%!Important;
+    flex-direction: column;
+}
+.counterHeaderItem{
+    display: flex;
 }
 #orgHeader{
     display: flex;
@@ -438,3 +422,8 @@
 }
 
                 
+
+.subHeaderWrapper{
+    display: flex;
+    width: 100%;
+}

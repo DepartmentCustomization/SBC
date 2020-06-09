@@ -42,7 +42,7 @@
             this.sub2 = this.messageService.subscribe('afterRenderTable', this.createCustomStyle, this);
         },
         showMyPreloader: function() {
-            this.showPagePreloader();
+            this.showPagePreloader('Зачекайте, данні завантажуються');
         },
         hideMyPreloader: function() {
             this.hidePagePreloader();
@@ -68,6 +68,7 @@
         destroy: function() {
             this.sub.unsubscribe;
             this.sub1.unsubscribe;
+            this.sub2.unsubscribe;
         }
     };
 }());

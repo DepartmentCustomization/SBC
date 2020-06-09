@@ -96,10 +96,10 @@
         },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 305;
-            this.showPreloader = false;
-            document.getElementById('subTable').style.display = 'none';
-            this.sub = this.messageService.subscribe('clickOnСoordinator_table', this.changeOnTable, this);
-            this.config.masterDetail.template = this.createMasterDetails.bind(this);
+            this.tableContainer = document.getElementById('subTable');
+            this.setVisibilityTableContainer('none');
+            this.subscribers.push(this.messageService.subscribe('clickOnHeaderTable', this.changeOnTable, this));
+            /* this.config.masterDetail.template = this.createMasterDetails.bind(this); */
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
@@ -114,103 +114,29 @@
                 }
             });
         },
-        createElement: function(tag, props, ...children) {
-            const element = document.createElement(tag);
-            Object.keys(props).forEach(key => element[key] = props[key]);
-            if(children.length > 0) {
-                children.forEach(child =>{
-                    element.appendChild(child);
-                });
-            } return element;
-        },
-        createMasterDetails: function(container, options) {
-            let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer === null) {
-                currentEmployeeData.short_answer = '';
-            }
-            if(currentEmployeeData.adressZ === null) {
-                currentEmployeeData.adressZ = '';
-            }
-            if(currentEmployeeData.question_content === null) {
-                currentEmployeeData.question_content = '';
-            }
-            let elementAdress__content = this.createElement('div', {
-                className: 'elementAdress__content content',
-                innerText: String(String(currentEmployeeData.adressZ))
-            });
-            let elementAdress__caption = this.createElement('div', {
-                className: 'elementAdress__caption caption',
-                innerText: 'Адреса заявника'
-            });
-            let elementAdress = this.createElement('div', {
-                className: 'elementAdress element'
-            }, elementAdress__caption, elementAdress__content);
-            let elementСontent__content = this.createElement('div', {
-                className: 'elementСontent__content content',
-                innerText: String(String(currentEmployeeData.question_content))
-            });
-            let elementСontent__caption = this.createElement('div', {
-                className: 'elementСontent__caption caption',
-                innerText: 'Зміст'
-            });
-            let elementСontent = this.createElement('div', {
-                className: 'elementСontent element'
-            }, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', {
-                className: 'elementComment__content content',
-                innerText: String(String(currentEmployeeData.short_answer))
-            });
-            let elementComment__caption = this.createElement('div', {
-                className: 'elementComment__caption caption',
-                innerText: 'Коментар виконавця'
-            });
-            let elementComment = this.createElement('div', {
-                className: 'elementСontent element'
-            }, elementComment__caption, elementComment__content);
-            let elementsWrapper = this.createElement('div', {
-                className: 'elementsWrapper'
-            }, elementAdress, elementСontent, elementComment);
-            container.appendChild(elementsWrapper);
-            let elementsAll = document.querySelectorAll('.element');
-            elementsAll = Array.from(elementsAll);
-            elementsAll.forEach(el => {
-                el.style.display = 'flex';
-                el.style.margin = '15px 10px';
-            })
-            let elementsCaptionAll = document.querySelectorAll('.caption');
-            elementsCaptionAll = Array.from(elementsCaptionAll);
-            elementsCaptionAll.forEach(el => {
-                el.style.minWidth = '200px';
-            })
+        setVisibilityTableContainer: function(status) {
+            this.tableContainer.style.display = status;
         },
         changeOnTable: function(message) {
-            if(message.column !== 'Доопрацьовані') {
-                document.getElementById('table7__dooproc').style.display = 'none';
-            }else{
-                document.getElementById('table7__dooproc').style.display = 'block';
+            if(message.code) {
+                this.setVisibilityTableContainer('block');
                 this.config.query.parameterValues = [
-                    { key: '@navigation', value: message.value},
-                    { key: '@column', value: message.column}
+                    { key: '@navigation', value: message.navigator},
+                    { key: '@column', value: message.code}
                 ];
                 this.loadData(this.afterLoadDataHandler);
+            }else{
+                this.setVisibilityTableContainer('none');
             }
         },
         afterLoadDataHandler: function() {
             this.render();
         },
+        /* createMasterDetails: function(container, data) {
+
+        }, */
         afterRenderTable: function() {
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
-        },
-        createCustomStyle: function() {
-            let elements = document.querySelectorAll('.dx-datagrid-export-button');
-            elements = Array.from(elements);
-            elements.forEach(function(element) {
-                let spanElement = this.createElement('span', { className: 'dx-button-text', innerText: 'Excel'});
-                element.firstElementChild.appendChild(spanElement);
-            }.bind(this));
-        },
-        destroy: function() {
-            this.sub.unsubscribe();
         }
     };
 }());
