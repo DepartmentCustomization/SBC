@@ -84,12 +84,44 @@ SET @Name = (SELECT TOP 1
 
 DECLARE @Street1_Street_Id INT = (SELECT Street_Id FROM dbo.Streets WHERE Id = @street1);
 
+DECLARE @HouseNum NVARCHAR(200);
+DECLARE @HouseLetter NVARCHAR(10);
+
+DECLARE @SlashIndex SMALLINT = CHARINDEX(N'/', @Name);
+DECLARE @PointerIndex SMALLINT = CHARINDEX(N',', @Name);
+DECLARE @DiffVal SMALLINT = @SlashIndex - (@PointerIndex + 1);
+
+ IF(@SlashIndex <> 0)
+ BEGIN
+	SET @HouseNum = SUBSTRING(@Name, @PointerIndex+2, @DiffVal-1)
+	SET @HouseLetter = SUBSTRING(@Name, @SlashIndex, LEN(@Name));
+ END
+
+ ELSE IF (@SlashIndex = 0)
+ BEGIN
+ DECLARE @NumCharIndex SMALLINT;
+ SET @HouseNum = @Name;
+ WHILE Patindex('%[^0-9]%', @HouseNum) <> 0 
+ BEGIN 
+	SET @HouseNum = Stuff(@HouseNum, Patindex('%[^0-9]%',@HouseNum),1, '');
+ END 
+	SET @NumCharIndex = CHARINDEX(@HouseNum, @Name) + LEN(@HouseNum)-1;
+	SET @HouseLetter = IIF(
+						-- if empty
+						SUBSTRING(@Name, @NumCharIndex + LEN(@NumCharIndex)-1, LEN(@Name)) = SPACE(0), 
+						NULL, 
+						-- else 
+						SUBSTRING(@Name, @NumCharIndex + LEN(@NumCharIndex)-1, LEN(@Name)));
+END
+
+SET @Number = @HouseNum;
+
 UPDATE
 	dbo.[Houses]
 SET
 		[Street_id] = @Street1_Street_Id,
 		[Number] = @Number,
-		[Letter] = @Letter,
+		[Letter] = @HouseLetter,
 		[Name] = @Name,
 		[District_id] = @district,
 		[Longitude] = @Longitude,
