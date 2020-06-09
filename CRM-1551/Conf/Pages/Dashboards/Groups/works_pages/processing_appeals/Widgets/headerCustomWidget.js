@@ -35,55 +35,111 @@
                 backgroundColor: 'rgb(132, 199, 96)'
             },
             {
+                name: 'attention',
+                id: 'headerItem__attention',
+                innerText: 'Увага',
+                colorIndex: 2,
+                backgroundColor: 'rgb(211, 214, 13)'
+            },
+            {
                 name: 'overdue',
                 id: 'headerItem__overdue',
-                innerText: 'Прострочено',
-                colorIndex: 2,
-                backgroundColor: 'rgb(240, 114, 93)'
-            },
-            {
-                name: 'clarified',
-                id: 'headerItem__checked',
-                innerText: 'Роз\'яснено',
+                innerText: 'Прострочені',
                 colorIndex: 3,
-                backgroundColor: 'rgb(248, 195, 47)'
-            },
-            {
-                name: 'done',
-                id: 'headerItem__done',
-                innerText: 'Виконано',
-                colorIndex: 4,
-                backgroundColor: 'rgb(86 162 78)'
+                backgroundColor: 'rgb(240, 114, 93)'
             },
             {
                 name: 'for_revision',
                 id: 'headerItem__onRefinement',
                 innerText: 'На доопрацювання',
-                colorIndex: 5,
-                backgroundColor: 'rgb(94, 202, 162)'
+                colorIndex: 4,
+                backgroundColor: 'rgb(23, 202, 162)'
             },
             {
-                name: 'plan_program',
-                id: 'headerItem__planOrProgram',
-                innerText: 'План\\Програма',
+                name: 'future',
+                id: 'headerItem__future',
+                innerText: 'Майбутні',
+                colorIndex: 5,
+                backgroundColor: 'rgb(173, 118, 205)'
+            },
+            {
+                name: 'without_executor',
+                id: 'headerItem__withoutExecutor',
+                innerText: 'Без виконавця',
                 colorIndex: 6,
-                backgroundColor:  'rgb(73, 155, 199)'
+                backgroundColor:  'rgb(200, 97, 74)'
             }
         ],
         init: function() {
             this.subscribers.push(this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this));
+            this.messageService.publish({ name: 'showPagePreloader' });
             this.executeQueries();
         },
+        executeQueries: function() {
+            const status = 'new';
+            const location = undefined;
+            this.executeFilterName(status, location);
+            this.executeFilterNamePriority(status, location);
+            this.executeFilterDistrict();
+            this.executeFilterQuestionTypes();
+            /* this.executeFilterPriority(); */
+        },
+        executeFilterName: function(status, location) {
+            const executeQueryFiltersDist = {
+                queryCode: 'cc_FilterName',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQueryFiltersDist, this.setDistrictData.bind(this, status, location), this);
+            this.showPreloader = false;
+        },
+        executeFilterNamePriority: function(status, location) {
+            const executeQueryFiltersPriority = {
+                queryCode: 'cc_FilterNameDepartment',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQueryFiltersPriority, this.setPriorityData.bind(this, status, location), this);
+            this.showPreloader = false;
+        },
+        executeFilterDistrict: function() {
+            let executeQueryDistinct = {
+                queryCode: 'cc_FilterDistrict',
+                limit: -1,
+                parameterValues: []
+            };
+            /* this.queryExecutor(executeQueryDistinct, this.setDistrictCategories, this); */
+            this.showPreloader = false;
+        },
+        executeFilterQuestionTypes: function() {
+            let executeQueryCategories = {
+                queryCode: 'cc_FilterQuestionTypes',
+                limit: -1,
+                parameterValues: []
+            };
+            /* this.queryExecutor(executeQueryCategories, this.setQuestionTypesCategories, this); */
+            this.showPreloader = false;
+        },
+        /* executeFilterPriority: function() {
+            let executeQueryPriority = {
+                queryCode: 'cc_FilterPriority',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQueryPriority, this.setPriorityCategories, this);
+            this.showPreloader = false;
+        },
+        */
         afterViewInit: function() {
-            /*
-            this.createSearchInput(filtersWrapper); */
             this.container = document.getElementById('container');
             const tabsWrapper = this.createTabs();
             const filtersWrapper = this.createFiltersWrapper();
             const tableWrapper = this.createTableWrapper();
+            const modalWindowContainer = this.createModalWindowContainer();
             this.container.appendChild(tabsWrapper);
             this.container.appendChild(filtersWrapper);
             this.container.appendChild(tableWrapper);
+            this.container.appendChild(modalWindowContainer);
 
         },
         createTabs: function() {
@@ -111,11 +167,11 @@
         },
         createFiltersWrapper: function() {
             const filtersInfo = this.createFiltersInfo();
-            const modalWindowContainer = this.createModalWindowContainer();
             const buttonWrapper = this.createFilterButtonWrapper();
+            const searchInput = this.createSearchInput();
             const filtersWrapper = this.createElement('div',
                 { id: 'filtersWrapper', className: 'filtersWrapper'},
-                filtersInfo, buttonWrapper, modalWindowContainer
+                filtersInfo, buttonWrapper, searchInput
             );
             return filtersWrapper;
         },
@@ -135,45 +191,65 @@
             return filtersInfo;
         },
         createFilterButtonWrapper: function() {
-            const filterEditDistrict__title = this.createElement('div', {
-                className: 'filterEditDistrict__title',
-                innerText: 'Район'
-            });
-            const filterEditDistrict__icon = this.createElement('div', {
-                className: 'material-icons filterEditDistrict__icon',
-                innerText: 'add_circle_outline'
-            });
-            const filterDistrictAddWrap = this.createElement('div', {
-                className: 'filterDistrictAddWrap filterWrap'
-            }, filterEditDistrict__icon, filterEditDistrict__title);
-            const filterEdiPriority__title = this.createElement('div', {
-                className: 'filterEditDistrict__title',
-                innerText: 'Пріоритет'
-            });
-            const filterEditPriority__icon = this.createElement('div', {
-                className: 'material-icons filterEditDistrict__icon',
-                innerText: 'add_circle_outline'
-            });
-            const filterEditPriorityAddWrap = this.createElement('div', {
-                className: 'filterEditPriorityAddWrap filterWrap'
-            }, filterEditPriority__icon, filterEdiPriority__title);
-            filterDistrictAddWrap.addEventListener('click', () => {
-                if(!this.modalWindowContainer.classList.contains('modalWindowShowClass')) {
-                    let location = 'district';
-                    this.createModalForm(this.modalWindowContainer, location, this.districtData);
-                }
-            });
-            filterEditPriorityAddWrap.addEventListener('click', () => {
-                if(!this.modalWindowContainer.classList.contains('modalWindowShowClass')) {
-                    let location = 'priority';
-                    this.createModalForm(this.modalWindowContainer, location, this.priorityData);
-                }
-            });
+            const district = this.createFilterEditItem('Район', 'district', this.districtData);
+            const priority = this.createFilterEditItem('Пріоритет', 'priority', this.priorityData);
             const filterButtonWrapper = this.createElement('div',
                 { id: 'filtersCaptionBox' },
-                filterDistrictAddWrap, filterEditPriorityAddWrap
+                district, priority
             );
             return filterButtonWrapper;
+        },
+        createFilterEditItem: function(title, location, data) {
+            const filterEdit__title = this.createElement('div', {
+                className: 'filterEdi__title',
+                innerText: title
+            });
+            const filterEdit__icon = this.createElement('div', {
+                className: 'material-icons filterEdit__icon',
+                innerText: 'add_circle_outline'
+            });
+            const filterAddWrap = this.createElement('div',
+                {
+                    className: 'filterWrap displayFlex'
+                }, filterEdit__icon, filterEdit__title
+            );
+            filterAddWrap.addEventListener('click', () => {
+                if(!this.modalWindowContainer.classList.contains('modalWindowShowClass')) {
+                    this.createModalForm(this.modalWindowContainer, location, data);
+                }
+            });
+            return filterAddWrap;
+        },
+        createSearchInput: function() {
+            const searchContainer__input = this.createElement('input',
+                {
+                    id: 'searchContainer__input',
+                    type: 'search',
+                    placeholder: 'Пошук доручення за номером'
+                });
+            const searchContainer = this.createElement('div', 
+                {
+                    id: 'searchContainer'
+                },
+                searchContainer__input
+            );
+            searchContainer__input.addEventListener('input', () => {
+                if(searchContainer__input.value.length === 0) {
+                    this.resultSearch('clearInput', 0);
+                    this.showTable(searchContainer__input);
+                }
+            });
+            searchContainer__input.addEventListener('keypress', e => {
+                let key = e.which || e.keyCode;
+                if (key === 13) {
+                    this.resultSearch('resultSearch', searchContainer__input.value);
+                    this.hideAllItems(0);
+                }
+            });
+            return searchContainer;
+        },
+        resultSearch: function(name, value) {
+            this.messageService.publish({name, value});
         },
         createModalWindowContainer: function() {
             this.modalWindowContainer = this.createElement('div', { id: 'modalWindowContainer' });
@@ -190,7 +266,7 @@
             if (location === 'district') {
                 const modalFiltersHeader__category = this.createElement('div', {
                     className: 'filHeadCategorie headerSelectFilter',
-                    id: 'modalFiltersHeader__categorie',
+                    id: 'modalFiltersHeader__category',
                     innerText: 'НАПРЯМОК РОБIТ'
                 });
                 const modalFiltersHeader__district = this.createElement('div', {
@@ -239,11 +315,6 @@
                 this.reloadMainTable();
             });
         },
-        removeContainerChildren: function(container) {
-            while (container.hasChildNodes()) {
-                container.removeChild(container.lastElementChild);
-            }
-        },
         createModalFiltersContainerItems: function(data, modalFiltersContainer, location) {
             if(location === 'district') {
                 data.forEach(el => {
@@ -258,7 +329,7 @@
                     });
                     let districtItem = this.createElement('div', { className: 'districtItem'}, districtItemSelect);
                     const modalFiltersContainerItem__category = this.createElement('div', {
-                        className: 'modalFiltersContainer__categorie'
+                        className: 'modalFiltersContainer__category'
                     }, categoryItem);
                     const modalFiltersContainerItem__district = this.createElement('div', {
                         className: 'modalFiltersContainer__district'
@@ -273,30 +344,30 @@
                     this.createFilterDistrict(districtId, districtItemSelect, this.districtNameCategories);
                     this.createFilterCategories(categoryId, categoryItemSelect, this.questionTypeCategories);
                 });
-                let categorieNewItemSelect = this.createElement('select', {
-                    id: 'categorieNewItemSelect',
-                    className: 'categorieItemSelect selectItem js-example-basic-single js-example-placeholder-categorie'
+                let categoryNewItemSelect = this.createElement('select', {
+                    id: 'categoryNewItemSelect',
+                    className: 'categoryItemSelect selectItem js-example-basic-single js-example-placeholder-category'
                 });
-                let categorieNewItem = this.createElement('div', { className: 'districtItem'}, categorieNewItemSelect);
+                let categoryNewItem = this.createElement('div', { className: 'districtItem'}, categoryNewItemSelect);
                 let districtNewItemSelect = this.createElement('select', {
                     id: 'districtNewItemSelect',
                     className: 'districtItemSelect selectItem  js-example-basic-single js-example-placeholder-district'
                 });
                 let districtNewItem = this.createElement('div', { className: 'districtItem'}, districtNewItemSelect);
-                const modalFiltersContainerItemNew__categorie = this.createElement('div', {
-                    className: 'modalFiltersContainer__categorie'
-                }, categorieNewItem);
+                const modalFiltersContainerItemNew__category = this.createElement('div', {
+                    className: 'modalFiltersContainer__category'
+                }, categoryNewItem);
                 const modalFiltersContainerItemNew__district = this.createElement('div', {
                     className: 'modalFiltersContainer__district'
                 }, districtNewItem);
                 const modalFiltersContainerItemNew = this.createElement('div', {
                     className: 'modalFiltersContainerItem'
-                }, modalFiltersContainerItemNew__district, modalFiltersContainerItemNew__categorie);
+                }, modalFiltersContainerItemNew__district, modalFiltersContainerItemNew__category);
                 modalFiltersContainer.appendChild(modalFiltersContainerItemNew);
                 this.createNewFilterDistrict(districtNewItemSelect, location, this.districtNameCategories);
-                this.createNewFilterCategories(categorieNewItemSelect, location, this.questionTypeCategories);
+                this.createNewFilterCategories(categoryNewItemSelect, location, this.questionTypeCategories);
             }else if(location === 'priority') {
-                data.forEach(function(el) {
+                data.forEach(el => {
                     let priorityId = el.organizationId;
                     let priorityItemSelect = this.createElement('select', {
                         className: 'priorityItemSelect selectItem js-example-basic-single'
@@ -314,7 +385,7 @@
                     modalFiltersContainer.appendChild(modalFiltersContainerItem);
                     this.createFilterDepartment(priorityId, priorityItemSelect, this.priorityCategories);
                     this.showPreloader = false;
-                }.bind(this));
+                });
                 let priorityNewItemSelect = this.createElement('select', {
                     id: 'priorityNewItemSelect',
                     className:
@@ -333,7 +404,7 @@
                     className: 'modalFiltersContainerItem'
                 }, modalFiltersContainerItemNew__priority);
                 modalFiltersContainer.appendChild(modalFiltersContainerItemNew);
-                this.createNewFilterDepartament(priorityNewItemSelect, location, this.priorityCategories)
+                /* this.createNewFilterDepartment(priorityNewItemSelect, location, this.priorityCategories); */
             }
         },
         createFilterDistrictElements: function(data) {
@@ -355,11 +426,10 @@
                 }, filter__icon, filter__title, filter_closer);
                 filtersContainerDistrict.appendChild(filterWrapper);
             }
-            this.changeFilterItemDistrict();
+            this.setFiltersEvents();
         },
-        changeFilterItemDistrict: function() {
-            let filters = document.querySelectorAll('.filter_district');
-            filters = Array.from(filters);
+        setFiltersEvents: function() {
+            const filters = Array.from(document.querySelectorAll('.filter_district'));
             filters.forEach(item => {
                 item.addEventListener('mouseover', event => {
                     let target = event.currentTarget;
@@ -378,10 +448,9 @@
                     target.childNodes[2].innerText = '';
                 });
             });
-            let filter_closer_district = document.querySelectorAll('.filter_closer_district');
-            filter_closer_district = Array.from(filter_closer_district);
-            filter_closer_district.forEach(function(el) {
-                el.addEventListener('click', function(event) {
+            const filter_closer_district = Array.from(document.querySelectorAll('.filter_closer_district'));
+            filter_closer_district.forEach(filter => {
+                filter.addEventListener('click', event => {
                     this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none');
                     let target = event.currentTarget;
                     let executeQueryDeleteFilter = {
@@ -395,11 +464,11 @@
                     let location = 'district';
                     this.queryExecutor(executeQueryDeleteFilter, this.reloadFilterAfterDelete(element, location), this);
                     this.showPreloader = false;
-                }.bind(this));
-            }.bind(this));
+                });
+            });
         },
         reloadFilterAfterDelete:  function(element, location) {
-            let status = 'delete';
+            const status = 'delete';
             element.parentElement.removeChild(document.getElementById(element.id));
             if(location === 'district') {
                 this.executeFilterName(status, location);
@@ -413,61 +482,8 @@
                 { id: 'tableWrapper', className: 'tableWrapper'},
                 this.tableContainer
             );
+            this.executeMainTableQuery(false, null);
             return tableWrapper;
-        },
-        executeQueries: function() {
-            const status = 'new';
-            const location = undefined;
-            this.executeFilterName(status, location);
-            this.executeFilterNamePriority(status, location);
-            this.executeFilterDistrict();
-            this.executeFilterQuestionTypes();
-            this.executeFilterPriority();
-        },
-        executeFilterName: function(status, location) {
-            const executeQueryFiltersDist = {
-                queryCode: 'cc_FilterName',
-                limit: -1,
-                parameterValues: []
-            };
-            this.queryExecutor(executeQueryFiltersDist, this.setDistrictData.bind(this, status, location), this);
-            this.showPreloader = false;
-        },
-        executeFilterNamePriority: function(status, location) {
-            const executeQueryFiltersPriority = {
-                queryCode: 'cc_FilterNameDepartment',
-                limit: -1,
-                parameterValues: []
-            };
-            this.queryExecutor(executeQueryFiltersPriority, this.setPriorityData.bind(this, status, location), this);
-            this.showPreloader = false;
-        },
-        executeFilterDistrict: function() {
-            let executeQueryDistinct = {
-                queryCode: 'cc_FilterDistrict',
-                limit: -1,
-                parameterValues: []
-            };
-            /* this.queryExecutor(executeQueryDistinct, this.setDistrictCategories, this); */
-            this.showPreloader = false;
-        },
-        executeFilterQuestionTypes: function() {
-            let executeQueryCategories = {
-                queryCode: 'cc_FilterQuestionTypes',
-                limit: -1,
-                parameterValues: []
-            };
-            /* this.queryExecutor(executeQueryCategories, this.setQuestionTypesCategories, this); */
-            this.showPreloader = false;
-        },
-        executeFilterPriority: function() {
-            let executeQueryPriority = {
-                queryCode: 'cc_FilterPriority',
-                limit: -1,
-                parameterValues: []
-            };
-            /* this.queryExecutor(executeQueryPriority, this.setPriorityCategories, this); */
-            this.showPreloader = false;
         },
         setDistrictData: function(status, location, data) {
             this.districtData = [];
@@ -518,10 +534,88 @@
                 this.reloadMainTable();
             }
         },
+        executeMainTableQuery: function(isReload, targetId) {
+            let executeQueryTable = {
+                queryCode: 'CoordinatorController_table',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQueryTable, this.createInfoTable.bind(this, isReload, targetId), this);
+            this.showPreloader = false;
+        },
+        createInfoTable: function() {
+            const headerItems = this.createHeaderItems();
+            this.tableContainer.appendChild(headerItems);
+            this.messageService.publish({ name: 'hidePagePreloader' });
+        },
+        createHeaderItems: function() {
+            const headerItems = this.createElement('div',
+                {
+                    id: 'headerItems',
+                    className: 'displayFlex'
+                }
+            );
+            this.headerItems = [];
+            this.headers.forEach(headerStatus => {
+                const triangle = this.createElement('div', { className: `${headerStatus.name}_triangle` });
+                const headerItem = this.createElement('div',
+                    {
+                        id: `${headerStatus.id}`,
+                        name: `${headerStatus.name}`,
+                        className: 'headerItem displayFlex',
+                        innerText: `${headerStatus.innerText}`,
+                        style: `background-color: ${headerStatus.backgroundColor}`,
+                        colorIndex: `${headerStatus.colorIndex}`
+                    },
+                    triangle
+                );
+                headerItem.addEventListener('click', event => {
+                    let target = event.currentTarget;
+                    let navigator = 'Усі';
+                    let column = target.innerText;
+                    this.setInfoTableVisibility(target, column, navigator, undefined,'headers');
+                });
+                this.headerItems.push(headerItem);
+                headerItems.appendChild(headerItem);
+            });
+            return headerItems;
+        },
+        setVisibilityOrganizationContainer: function(status) {
+            this.orgContainer.style.display = status;
+        },
+        setInfoTableVisibility: function(target, columnName, navigator, orgName, position) {
+            if (target.classList.contains('check') || target.classList.contains('hover')) {
+                this.headerItems.forEach((header, index) => {
+                    header.firstElementChild.classList.remove('triangle');
+                    header.firstElementChild.classList.add(`${header.name}_triangle`);
+                    header.classList.remove('hover');
+                    header.classList.remove('check');
+                    header.style.backgroundColor = this.headers[index].backgroundColor;
+                });
+                this.clearOrganizationName();
+                this.setVisibilityOrganizationContainer('block');
+                this.sendMesOnBtnClick('clickOnInfoTable', undefined, undefined);
+            } else {
+                if (position === 'item') {
+                    this.setOrganizationName(orgName);
+                    target.classList.add('hover');
+                    this.setVisibilityOrganizationContainer('none');
+                    this.headerItems.forEach(header => {
+                        if(target.id !== header.id) {
+                            header.style.backgroundColor = '#d3d3d3';
+                            header.classList.add('check');
+                            header.firstElementChild.classList.remove(header.firstElementChild.classList[0]);
+                            header.firstElementChild.classList.add('triangle');
+                        }
+                        this.headerItems[6].firstElementChild.classList.remove('triangle');
+                    });
+                    this.sendMesOnBtnClick('clickOnInfoTable', columnName, navigator, orgName, this.targetOrgId, target.id);
+                }
+            }
+        },
         reloadMainTable: function(message) {
             this.messageService.publish({ name: 'showPagePreloader'});
-            let tableContainer = document.getElementById('tableContainer');
-            this.removeContainerChildren(tableContainer);
+            this.removeContainerChildren(this.tableContainer);
             let reloadTable = false;
             if(message) {
                 this.column = message.column;
@@ -529,14 +623,22 @@
                 this.targetId = message.targetId;
                 reloadTable = true;
             }
-            /* let executeQueryTable = {
-                queryCode: 'CoordinatorController_table',
-                limit: -1,
-                parameterValues: []
-            };
-            this.queryExecutor(executeQueryTable, this.createTable.bind(this, reloadTable), this); 
-            this.showPreloader = false;
-            */
+            this.executeMainTableQuery(reloadTable);
+        },
+        sendMesOnBtnClick: function(message, columnName, navigator, orgName, organizationId, targetId) {
+            this.messageService.publish({
+                name: message,
+                columnName: columnName,
+                navigation: navigator,
+                organizationId: organizationId,
+                orgName: orgName,
+                targetId: targetId
+            });
+        },
+        removeContainerChildren: function(container) {
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastElementChild);
+            }
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
