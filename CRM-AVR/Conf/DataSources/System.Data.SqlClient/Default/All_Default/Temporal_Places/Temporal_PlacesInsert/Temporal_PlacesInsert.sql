@@ -8,19 +8,15 @@
  DECLARE @userId NVARCHAR(128) = N'0022a2aa-facd-4b2b-bade-f4ddcc7a0c53';
  DECLARE @area INT = 169;
  */
- 
- DECLARE @HouseNum NVARCHAR(200) = @Name;
- DECLARE @NumCharIndex SMALLINT;
- DECLARE @HouseLetter NVARCHAR(2);
-
 
 DECLARE @UserFIO NVARCHAR(300) = (
 	SELECT
-		ISNULL(LastName, '') + ISNULL(N' ' + FirstName, '') + ISNULL(N' ' + Patronymic, '') + N'.'
+		ISNULL(LastName, '') + ISNULL(N' ' + FirstName, '') + ISNULL(N' ' + Patronymic, '')
 	FROM
 		[#system_database_name#].dbo.[User]
+		-- CRM_AVR_System
 	WHERE
-		UserId = @userId
+		UserId = @userId 
 );
 
 SET
@@ -34,14 +30,35 @@ DECLARE @newHouse TABLE (Id INT);
 
 IF(@type <> 19)
 BEGIN
---> Get number
-WHILE Patindex('%[^0-9]%', @HouseNum) <> 0 
-BEGIN 
-SET @HouseNum = Stuff(@HouseNum, Patindex('%[^0-9]%',@HouseNum),1, '');
-END 
---> Get letter
-SET @NumCharIndex = CHARINDEX(@HouseNum, @Name) + LEN(@HouseNum)-1;
-SET @HouseLetter = SUBSTRING(@Name, @NumCharIndex + LEN(@NumCharIndex)-1, LEN(@Name));
+ DECLARE @HouseNum NVARCHAR(200);
+ DECLARE @HouseLetter NVARCHAR(10);
+
+ DECLARE @SlashIndex SMALLINT = CHARINDEX(N'/', @Name);
+ DECLARE @PointerIndex SMALLINT = CHARINDEX(N',', @Name);
+ DECLARE @DiffVal SMALLINT = @SlashIndex - (@PointerIndex + 1);
+
+ IF(@SlashIndex <> 0)
+ BEGIN
+	SET @HouseNum = SUBSTRING(@Name, @PointerIndex+2, @DiffVal-1);
+	SET @HouseLetter = SUBSTRING(@Name, @SlashIndex, LEN(@Name));
+ END
+
+ ELSE IF (@SlashIndex = 0)
+ BEGIN
+ DECLARE @NumCharIndex SMALLINT;
+ SET @HouseNum = @Name;
+ WHILE Patindex('%[^0-9]%', @HouseNum) <> 0 
+ BEGIN 
+	SET @HouseNum = Stuff(@HouseNum, Patindex('%[^0-9]%',@HouseNum),1, '');
+ END 
+	SET @NumCharIndex = CHARINDEX(@HouseNum, @Name) + LEN(@HouseNum)-1;
+	SET @HouseLetter = IIF(
+						-- if empty
+						SUBSTRING(@Name, @NumCharIndex + LEN(@NumCharIndex)-1, LEN(@Name)) = SPACE(0), 
+						NULL, 
+						-- else 
+						SUBSTRING(@Name, @NumCharIndex + LEN(@NumCharIndex)-1, LEN(@Name)));
+END
 
 INSERT INTO 
 	dbo.[Houses] (
