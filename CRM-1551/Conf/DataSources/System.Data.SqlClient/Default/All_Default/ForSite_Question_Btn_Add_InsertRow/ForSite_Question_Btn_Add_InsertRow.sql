@@ -321,10 +321,13 @@ FROM
   #temp_OUT WHERE PhoneNumber COLLATE Ukrainian_CI_AS NOT IN (SELECT [phone_number] FROM [dbo].[ApplicantPhones] WHERE [applicant_id] = @Applicant_Id);
 END
 END
+DECLARE @SiteApplicant TABLE (Id INT);
+
 UPDATE
   [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite]
 SET
   ApplicantId = @Applicant_Id
+OUTPUT INSERTED.Id INTO @SiteApplicant(Id)
 WHERE
   Id = (
     SELECT
@@ -334,6 +337,11 @@ WHERE
     WHERE
       Id = @AppealsFromSite_Id
   );
+DECLARE @SiteApplicantId INT = (SELECT TOP 1 Id FROM @SiteApplicant);
+
+UPDATE dbo.[Applicants]
+  SET ApplicantFromSiteId = @SiteApplicantId
+WHERE Id = @Applicant_Id;
 
 DECLARE @output TABLE (Id INT);
 
@@ -466,7 +474,6 @@ SET
       @output
   );
 
-
 INSERT INTO
   [dbo].[QuestionDocFiles] (
     --[link]
@@ -496,7 +503,7 @@ END
 UPDATE
   [dbo].[Appeals]
 SET
-  [applicant_id] = @applicant_id
+  [applicant_id] = @Applicant_id
 WHERE
   [Id] = @AppealId;
 
@@ -509,11 +516,11 @@ WHERE
   Id = @AppealsFromSite_Id;
 
 EXEC [dbo].[sp_CreateAssignment] @question_id,
-@Question_TypeId,
-@Question_Building,
-@Question_Organization,
-@CreatedByUserId,
-@Question_ControlDate;
+                                @Question_TypeId,
+                                @Question_Building,
+                                @Question_Organization,
+                                @CreatedByUserId,
+                                @Question_ControlDate;
 
 SELECT
   3 AS AppealFromSiteResultId,
