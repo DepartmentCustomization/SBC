@@ -170,30 +170,33 @@
                         columnCode = 'registration_number'
                         break;
                     case('columns[1].sortOrder'):
-                        columnCode = 'QuestionType'
+                        columnCode = 'registration_date'
                         break;
                     case('columns[2].sortOrder'):
-                        columnCode = 'full_name'
+                        columnCode = 'QuestionType'
                         break;
                     case('columns[3].sortOrder'):
-                        columnCode = 'phone_number'
+                        columnCode = 'full_name'
                         break;
                     case('columns[4].sortOrder'):
-                        columnCode = 'cc_nedozvon'
+                        columnCode = 'phone_number'
                         break;
                     case('columns[5].sortOrder'):
-                        columnCode = 'District'
+                        columnCode = 'cc_nedozvon'
                         break;
                     case('columns[6].sortOrder'):
-                        columnCode = 'house'
+                        columnCode = 'District'
                         break;
                     case('columns[7].sortOrder'):
-                        columnCode = 'entrance'
+                        columnCode = 'house'
                         break;
                     case('columns[8].sortOrder'):
-                        columnCode = 'place_problem'
+                        columnCode = 'entrance'
                         break;
                     case('columns[9].sortOrder'):
+                        columnCode = 'place_problem'
+                        break;
+                    case('columns[10].sortOrder'):
                         columnCode = 'vykon'
                         break;
                     case('dataSource'):
