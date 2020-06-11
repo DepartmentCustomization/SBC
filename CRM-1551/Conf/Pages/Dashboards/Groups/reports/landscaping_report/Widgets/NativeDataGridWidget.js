@@ -81,7 +81,7 @@
                             caption: '% вчасно опрацьованих',
                             alignment: 'center',
                             customizeText: function(data) {
-                                if(data.value) {
+                                if(data.value !== null) {
                                     return `${data.value}%`;
                                 }
                                 return ''
@@ -92,7 +92,7 @@
                             caption: '% виконання',
                             alignment: 'center',
                             customizeText: function(data) {
-                                if(data.value) {
+                                if(data.value !== null) {
                                     return `${data.value}%`;
                                 }
                                 return ''
@@ -103,7 +103,7 @@
                             caption: '% достовірності',
                             alignment: 'center',
                             customizeText: function(data) {
-                                if(data.value) {
+                                if(data.value !== null) {
                                     return `${data.value}%`;
                                 }
                                 return ''
@@ -220,7 +220,7 @@
                                 caption: '% вчасно опрацьованих',
                                 alignment: 'center',
                                 customizeText: function(data) {
-                                    if(data.value) {
+                                    if(data.value !== null) {
                                         return `${data.value}%`;
                                     }
                                     return ''
@@ -231,7 +231,7 @@
                                 caption: '% виконання',
                                 alignment: 'center',
                                 customizeText: function(data) {
-                                    if(data.value) {
+                                    if(data.value !== null) {
                                         return `${data.value}%`;
                                     }
                                     return ''
@@ -242,7 +242,7 @@
                                 caption: '% достовірності',
                                 alignment: 'center',
                                 customizeText: function(data) {
-                                    if(data.value) {
+                                    if(data.value !== null) {
                                         return `${data.value}%`;
                                     }
                                     return ''

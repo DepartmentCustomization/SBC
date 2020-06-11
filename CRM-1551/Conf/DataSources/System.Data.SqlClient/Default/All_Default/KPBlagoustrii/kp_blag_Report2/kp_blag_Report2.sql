@@ -2,8 +2,8 @@
 declare @sector_id int =2;
   declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
   declare @date_from datetime='2020-04-01 12:10';
-  declare @date_to datetime='2020-06-01 12:10';
-  */
+  declare @date_to datetime='2020-06-01 12:10';*/
+  
 
   if OBJECT_ID('tempdb..#temp_ass_state3') is not null drop table #temp_ass_state3
 
@@ -77,7 +77,7 @@ into #temp_ass_nevkom
   then 1 else 0 end count_for_completion,
   case when [Assignments_ok].assignment_state_id in (1,2) and [Assignments_ok].execution_date<getutcdate() --Простроено 
   then 1 else 0 end count_built,
-  case when [Assignments_ok].assignment_state_id =3 and temp_ass_state3.Log_Date<[Assignments_ok].execution_date--Не вчасно опрацьовано 
+  case when [Assignments_ok].assignment_state_id =3 and temp_ass_state3.Log_Date>[Assignments_ok].execution_date--Не вчасно опрацьовано 
   then 1 else 0 end count_not_processed_in_time,
 
   case 
@@ -133,13 +133,13 @@ into #temp_ass_nevkom
   --when count_days_speed2 is null then count_days_speed1 end
 
   --))/convert(float,count_registered)) end speed_of_employment, --11
-  convert(numeric(8,2),count_days_speed/3600.00) speed_of_employment,
+  convert(numeric(8,2),count_days_speed/60.00) speed_of_employment,
 
   case when count_on_inspection+count_closed_performed+count_closed_clear+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_not_processed_in_time)/convert(float,(count_on_inspection+count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end timely_processed, --12
 
   case when count_closed_performed+count_closed_clear+count_for_completion=0 then null 
-  else convert(numeric(8,2),(1.00-(convert(float,count_closed_performed)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end implementation, --13
+  else convert(numeric(8,2),(convert(float,count_closed_performed)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion)))*100.00) end implementation, --13
 
   case when count_closed_performed+count_closed_clear+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_for_completion)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end reliability --14

@@ -109,10 +109,13 @@ DECLARE @Part2 NVARCHAR(MAX) =
 	LEFT JOIN [dbo].[AssignmentResults] assR ON assR.Id = Assignments.AssignmentResultsId
 	LEFT JOIN '+@Archive+N'[dbo].[AssignmentResolutions] assRn ON assRn.Id = Assignments.AssignmentResolutionsId
 	LEFT JOIN [dbo].[Organizations] perfom ON perfom.Id = Assignments.[executor_organization_id]
-	LEFT JOIN [dbo].[AttentionQuestionAndEvent] att ON att.question_id = Questions.Id 
+	LEFT JOIN [dbo].[AttentionQuestionAndEvent] att ON att.question_id = Questions.Id
+	AND att.user_id = @user_id 
 	LEFT JOIN [#system_database_name#].[dbo].[User]  [User] ON [Questions].[user_id] = [User].UserId
 WHERE
 	[Questions].[Id] = @Id ; ';
 
 DECLARE @Query NVARCHAR(MAX) = (SELECT @Part1 + @Part2);
-EXEC sp_executesql @Query, N'@Id INT', @Id = @Id;
+EXEC sp_executesql @Query, N'@Id INT, @user_id NVARCHAR(128)', 
+							@Id = @Id,
+							@user_id = @user_id;
