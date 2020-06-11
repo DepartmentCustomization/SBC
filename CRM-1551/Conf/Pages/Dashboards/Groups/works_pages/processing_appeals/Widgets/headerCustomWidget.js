@@ -239,21 +239,25 @@
             );
             searchContainer__input.addEventListener('input', () => {
                 if(searchContainer__input.value.length === 0) {
-                    this.resultSearch('clearInput', 0);
-                    this.showTable(searchContainer__input);
+                    this.hideSearchTable();
                 }
             });
             searchContainer__input.addEventListener('keypress', e => {
                 let key = e.which || e.keyCode;
                 if (key === 13) {
-                    this.resultSearch('resultSearch', searchContainer__input.value);
-                    this.hideAllItems(0);
+                    if(searchContainer__input.value.length) {
+                        this.setVisibilityOrganizationContainer('none');
+                        this.resultSearch('resultSearch', searchContainer__input.value);
+                    }
                 }
             });
             return searchContainer;
         },
-        resultSearch: function(name, value) {
-            this.messageService.publish({name, value});
+        hideSearchTable() {
+            this.messageService.publish({name: 'hideSearchTable'});
+        },
+        resultSearch: function(name, appealNum) {
+            this.messageService.publish({name, appealNum});
         },
         createModalWindowContainer: function() {
             this.modalWindowContainer = this.createElement('div', { id: 'modalWindowContainer' });
@@ -309,8 +313,8 @@
             const modalHeader = this.createElement('div', {
                 id: 'modalHeader'
             }, modalHeader__caption, modalHeader__buttonWrapper);
-            const modalWindow = this.createElement('div', { id: 'modalWindow'}, modalHeader, modalFilters);
-            modalWindow.style.display = 'block';
+            const modalWindow = this.createElement('div', { id: 'modalWindow', style: 'display: block'}, modalHeader, modalFilters);
+/*             modalWindow.style.display = 'block'; */
             modalWindowContainer.appendChild(modalWindow);
             this.createModalFiltersContainerItems(data, modalFiltersContainer, location);
             modalHeader__button_close.addEventListener('click', () => {
@@ -532,23 +536,34 @@
                 this.createFilterPriorityElements(data);
             }else if(status === 'reload') {
                 this.createFilterPriorityElements(data);
-                let modalWindowContainer = document.getElementById('modalWindowContainer');
-                this.createModalForm(modalWindowContainer, location, data);
+                this.createModalForm(this.modalWindowContainer, location, data);
             }else if(status === 'delete') {
                 this.reloadMainTable();
             }
         },
-        executeMainTableQuery: function(isReload, targetId) {
+        reloadMainTable: function(message) {
+            debugger;
+            this.removeContainerChildren(this.tableContainer);
+            /* const reloadTable = message ? true : false; */
+            if (message) {
+                this.column = message.column;
+                this.navigation = message.navigation;
+                this.targetId = message.targetId;
+            }
+            this.executeMainTableQuery();
+        },
+        executeMainTableQuery: function() {
+            this.removeContainerChildren(this.tableContainer);
             let executeQueryTable = {
-                queryCode: 'CoordinatorController_table',
+                queryCode: 'h_DB_ProApp_MainTable',
                 limit: -1,
                 parameterValues: []
             };
-            this.queryExecutor(executeQueryTable, this.createInfoTable.bind(this, isReload, targetId), this);
+            this.queryExecutor(executeQueryTable, this.createInfoTable, this);
             this.showPreloader = false;
         },
-        createInfoTable: function(isReload, targetId, data) {
-            const headerItemsWrapper = this.createHeaderItemsWrapper(data.rows[5]);
+        createInfoTable: function(data) {
+            const headerItemsWrapper = this.createHeaderItemsWrapper(data.rows[3]);
             this.tableContainer.appendChild(headerItemsWrapper);
             const subHeaderItemsWrapper = this.createSubHeaderItemsWrapper(data);
             this.tableContainer.appendChild(subHeaderItemsWrapper);
@@ -602,7 +617,7 @@
                 const column = this.createElement('div', {
                     className: 'subHeaderColumn counterHeader'
                 });
-                for (let i = 1; i < data.rows.length - 1; i++) {
+                for (let i = 0; i < data.rows.length - 1; i++) {
                     const count = data.rows[i].values[index + 2];
                     if (count) {
                         const textIndex = 1;
@@ -626,17 +641,6 @@
                 subHeaderWrapper.appendChild(column);
             })
         },
-        reloadMainTable: function(message) {
-            this.messageService.publish({name: 'showPagePreloader'});
-            this.removeContainerChildren(this.tableContainer);
-            const reloadTable = message ? true : false;
-            if (message) {
-                this.column = message.column;
-                this.navigation = message.navigation;
-                this.targetId = message.targetId;
-            }
-            this.executeMainTableQuery(reloadTable);
-        },
         setInfoTableVisibility: function(target, code, navigator) {
             if (target.classList.contains('check') || target.classList.contains('hover')) {
                 this.headerItems.forEach((header, index) => {
@@ -648,6 +652,7 @@
                 });
                 this.setVisibilityOrganizationContainer('flex');
                 this.sendMesOnBtnClick(undefined, undefined);
+                this.messageService.publish({name: 'clickOnHeaderTable'});
             } else {
                 target.classList.add('hover');
                 this.setVisibilityOrganizationContainer('none');
@@ -660,20 +665,20 @@
                     }
                     this.headerItems[6].firstElementChild.classList.remove('triangle');
                 });
-                this.sendMesOnBtnClick(code, navigator, target.id);
+                this.sendMesOnBtnClick(code, navigator);
             }
         },
         setVisibilityOrganizationContainer: function(status) {
             this.subHeaderWrapper.style.display = status;
         },
-        sendMesOnBtnClick: function(code, navigator, targetId) {
+        sendMesOnBtnClick: function(code, navigator) {
             console.table(code, navigator);
-            /* this.messageService.publish({
+            this.hideSearchTable();
+            this.messageService.publish({
                 name: 'clickOnHeaderTable',
                 code: code,
-                navigator: navigator,
-                targetId: targetId
-            }); */
+                navigator: navigator
+            });
         },
         removeContainerChildren: function(container) {
             while (container.hasChildNodes()) {

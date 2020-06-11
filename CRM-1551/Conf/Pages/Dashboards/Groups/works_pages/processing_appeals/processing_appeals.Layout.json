@@ -56,7 +56,7 @@
               {
                 "code": "modalCustomWidget",
                 "type": "CustomWidgetComponent",
-                "name": "modal_window"
+                "name": "modalWindow"
               }
             ],
             "id": "Container-2",
@@ -72,7 +72,7 @@
         "minHeight": "220px",
         "minWidth": "calc(100% - 10px)",
         "backgroundColor": "white",
-        "containerId": "header1"
+        "containerId": "modalWindow"
       },
       {
         "width": "auto",

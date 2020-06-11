@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: 'Coordinator_Poshuk',
+                code: 'h_Coordinator_Poshuk',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
@@ -11,35 +11,27 @@
             },
             columns: [
                 {
-                    dataField: 'id',
-                    caption: '',
-                    width: '0',
-                    fixed: true
-                }, {
-                    dataField: 'navigation',
-                    caption: 'Джерело надходження',
-                    fixed: true
-                }, {
                     dataField: 'registration_number',
-                    caption: 'Номер питання',
-                    fixed: true,
+                    caption: 'Номер питання'
+                }, {
+                    dataField: 'registration_date',
+                    caption: 'Дата реєстрації',
                     sortOrder: 'asc'
                 }, {
                     dataField: 'QuestionType',
-                    caption: 'Тип питання',
-                    fixed: true
+                    caption: 'Тип питання'
                 }, {
-                    dataField: 'zayavnyk',
-                    caption: 'Заявник',
-                    fixed: true
+                    dataField: 'place_problem',
+                    caption: 'Місце проблеми'
                 }, {
-                    dataField: 'adress',
-                    caption: 'Місце проблеми',
-                    fixed: true
+                    dataField: 'control_date',
+                    caption: 'Дата контролю'
                 }, {
                     dataField: 'vykonavets',
-                    caption: 'Виконавець',
-                    fixed: true
+                    caption: 'Виконавець'
+                }, {
+                    dataField: 'comment',
+                    caption: 'Коментар'
                 }
             ],
             filterRow: {
@@ -94,17 +86,24 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null
         },
-        sub: [],
-        sub1: [],
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 305;
             this.showPreloader = false;
             document.getElementById('finder').style.display = 'none';
-            this.sub = this.messageService.subscribe('resultSearch', this.changeOnTable, this);
-            this.sub1 = this.messageService.subscribe('clearInput', this.hideAllTable, this);
-            this.sub2 = this.messageService.subscribe('clickOnСoordinator_table', this.hideSearchTable, this);
+            this.subscribers.push(this.messageService.subscribe('resultSearch', this.resultSearch, this));
+            this.subscribers.push(this.messageService.subscribe('hideSearchTable', this.hideSearchTable, this));
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
+            this.dataGridInstance.onCellClick.subscribe(e => {
+                if(e.column.dataField === 'registration_number' && e.row !== undefined) {
+                    window.open(`
+                        ${location.origin}
+                        ${localStorage.getItem('VirtualPath')}
+                        /sections/Assignments/edit/
+                        ${e.key}
+                    `)
+                }
+            });
         },
         afterRenderTable: function() {
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
@@ -119,97 +118,50 @@
             } return element;
         },
         createMasterDetail: function(container, options) {
-            let currentEmployeeData = options.data;
-            if(currentEmployeeData.short_answer === null) {
-                currentEmployeeData.short_answer = '';
-            }
-            if(currentEmployeeData.adressZ === null) {
-                currentEmployeeData.adressZ = '';
-            }
-            if(currentEmployeeData.question_content === null) {
-                currentEmployeeData.question_content = '';
-            }
-            let elementAdress__content = this.createElement('div', {
-                className: 'elementAdress__content content',
-                innerText: String(String(currentEmployeeData.adressZ))
-            });
-            let elementAdress__caption = this.createElement('div', {
-                className: 'elementAdress__caption caption',
-                innerText: 'Адреса заявника'
-            });
-            let elementAdress = this.createElement('div', {
-                className: 'elementAdress element'
-            }, elementAdress__caption, elementAdress__content);
-            let elementСontent__content = this.createElement('div', {
-                className: 'elementСontent__content content',
-                innerText: String(String(currentEmployeeData.question_content))
-            });
-            let elementСontent__caption = this.createElement('div', {
-                className: 'elementСontent__caption caption',
-                innerText: 'Зміст'
-            });
-            let elementСontent = this.createElement('div', {
-                className: 'elementСontent element'
-            }, elementСontent__caption, elementСontent__content);
-            let elementComment__content = this.createElement('div', {
-                className: 'elementComment__content content',
-                innerText: String(String(currentEmployeeData.short_answer))
-            });
-            let elementComment__caption = this.createElement('div', {
-                className: 'elementComment__caption caption',
-                innerText: 'Коментар виконавця'
-            });
-            let elementComment = this.createElement('div', {
-                className: 'elementСontent element'
-            }, elementComment__caption, elementComment__content);
-            let elementsWrapper = this.createElement('div', {
-                className: 'elementsWrapper'
-            }, elementAdress, elementСontent, elementComment);
+            const data = options.data;
+            const fields = {
+                zayavnyk: 'Заявник',
+                ZayavnykAdress: 'Адреса заявника',
+                content: 'Зміст'
+            };
+            const elementsWrapper = this.createElement('div', {className: 'elementsWrapper'});
             container.appendChild(elementsWrapper);
-            let elementsAll = document.querySelectorAll('.element');
-            elementsAll = Array.from(elementsAll);
-            elementsAll.forEach(el => {
-                el.style.display = 'flex';
-                el.style.margin = '15px 10px';
-            });
-            let elementsCaptionAll = document.querySelectorAll('.caption');
-            elementsCaptionAll = Array.from(elementsCaptionAll);
-            elementsCaptionAll.forEach(el => {
-                el.style.minWidth = '200px';
-            });
-        },
-        changeOnTable: function(message) {
-            document.getElementById('allTables').style.display = 'none';
-            if(message.value !== '') {
-                document.getElementById('searchTable').style.display = 'block';
-                this.config.query.parameterValues = [{ key: '@appealNum', value: message.value}];
-                this.loadData(this.afterLoadDataHandler);
-                this.dataGridInstance.onCellClick.subscribe(e => {
-                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
-                        window.open(String(
-                            location.origin +
-                            localStorage.getItem('VirtualPath') +
-                            '/sections/Assignments/edit/' +
-                            e.key));
+            for (const field in fields) {
+                for (const property in data) {
+                    if(property === field) {
+                        if(data[property] === null || data[property] === undefined) {
+                            data[property] = '';
+                        }
+                        const content = this.createElement('div',
+                            {
+                                className: 'content',innerText: data[property]
+                            }
+                        );
+                        const caption = this.createElement('div',
+                            {
+                                className: 'caption',innerText: fields[field], style: 'min-width: 200px'
+                            }
+                        );
+                        const masterDetailItem = this.createElement('div',
+                            {
+                                className: 'element', style: 'display: flex; margin: 15px 10px'
+                            },
+                            caption, content
+                        );
+                        elementsWrapper.appendChild(masterDetailItem);
                     }
-                });
+                }
             }
         },
-        hideAllTable: function() {
-            document.getElementById('allTables').style.display = 'none';
-            document.getElementById('searchTable').style.display = 'none';
+        resultSearch: function(message) {
+            this.config.query.parameterValues = [{ key: '@appealNum', value: message.appealNum}];
+            this.loadData(this.afterLoadDataHandler);
         },
         hideSearchTable: function() {
-            document.getElementById('allTables').style.display = 'block';
-            document.getElementById('searchTable').style.display = 'none';
+            document.getElementById('finder').style.display = 'none';
         },
         afterLoadDataHandler: function() {
             this.render();
-        },
-        destroy: function() {
-            this.sub.unsubscribe();
-            this.sub1.unsubscribe();
-            this.sub2.unsubscribe();
         }
     };
 }());

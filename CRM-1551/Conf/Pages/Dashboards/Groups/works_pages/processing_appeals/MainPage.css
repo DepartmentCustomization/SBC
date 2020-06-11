@@ -121,7 +121,7 @@
     margin-right: 10px;
 }
 .headerItem{
-    width: 14.5%;
+    width:  14%;
     height: 46px;
     align-items: center;
     justify-content: center;
@@ -392,7 +392,7 @@
     align-items: center;
     flex-direction: row;
     margin: 5px 10px 5px 3px;
-    width: 14.5%!Important;
+    width:  14%!Important;
     flex-direction: column;
 }
 .counterHeaderItem{
