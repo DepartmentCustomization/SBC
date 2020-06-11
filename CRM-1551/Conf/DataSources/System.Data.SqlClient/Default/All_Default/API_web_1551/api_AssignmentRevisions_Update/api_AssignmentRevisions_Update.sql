@@ -1,22 +1,12 @@
-/*
- "по якому робили прозвон"- що мається на увазі?
- 2.2 2.3 пункт результат,резолюція така, як і в 2.1?
- 2.4 створюється нове доручення чи оновлюється?
- 2.2 first_executor_organization_id скопіював з доручення таблиці Assignments значення executor_organization_id
- 
- 2975230
- 2975229 main
- 
- 5398713 appel
- 
- declare @appeal_id int = 5398477;
- declare @result int=5;
+ /*
+ declare @appeal_id int = 6404197;
+ declare @result int = 5;
  declare @user_id nvarchar(128)=N'тестт';
- declare @grade int =5;
+ declare @grade int = 5;
+ declare @question_id int = null;
  declare @grade_comment nvarchar(128)=N'тестт';
- */
---declare @Id int =@appeal_id;
--- таблица с нужными ображениями
+*/
+
 DECLARE @assignments_table TABLE (Id INT);
 
 INSERT INTO
@@ -167,13 +157,15 @@ WHERE
 END 
 IF @result IN (5) -- на доопрацюванні
 BEGIN
+DECLARE @lastAssignmentId INT = (SELECT TOP 1 last_assignment_for_execution_id FROM  dbo.[Questions] WHERE Id IN (SELECT Id FROM @questions_table));
+
 UPDATE
   [AssignmentRevisions]
 SET
   assignment_resolution_id = 8,
   [control_result_id] = 5,
   [control_date] = GETUTCDATE(),
-  [rework_counter] =CASE
+  [rework_counter] = CASE
     WHEN [rework_counter] IS NULL THEN 1
     ELSE [rework_counter] + 1
   END,
@@ -183,15 +175,14 @@ SET
   [grade_comment] = @grade_comment,
   [control_comment] = @grade_comment
 WHERE
-  assignment_consideration_іd IN (
+  assignment_consideration_іd = (
     SELECT
-      [AssignmentConsiderations].Id
+      cons.Id
     FROM
-      dbo.[Assignments] [Assignments]
-      INNER JOIN dbo.[AssignmentConsiderations] [AssignmentConsiderations] ON [Assignments].current_assignment_consideration_id = [AssignmentConsiderations].Id
-      INNER JOIN @assignments_table ast ON [Assignments].Id = ast.Id
-      --where [Assignments].Id=@Id
-  ) ; -- тут стоп, возможно цикл
+      dbo.[AssignmentConsiderations] cons
+	  INNER JOIN dbo.[Assignments] ass ON ass.current_assignment_consideration_id = cons.Id
+      WHERE assignment_id = @lastAssignmentId);
+  
 INSERT INTO
   [AssignmentConsiderations] (
     [assignment_id],
@@ -218,14 +209,14 @@ SELECT
   @user_id --[user_edit_id]
 FROM
   dbo.[Assignments] [Assignments]
-  INNER JOIN @assignments_table ast ON [Assignments].Id = ast.Id ;
+  WHERE Id = @lastAssignmentId;
 
 UPDATE
   [Assignments]
 SET
   [AssignmentResolutionsId] = 8,
   [AssignmentResultsId] = 5,
-  [assignment_state_id] =(
+  [assignment_state_id] = (
     SELECT
       DISTINCT new_assignment_state_id
     FROM
@@ -242,13 +233,9 @@ SET
       TOP 1 Id
     FROM
       @output
-  )
-FROM
-  [Assignments] 
-  --inner join @output o on [Assignments].Id=o.Id
-  INNER JOIN @assignments_table ast ON [Assignments].Id = ast.Id
-WHERE
-  dbo.[Assignments].main_executor = N'true' ;
+  ),
+  LogUpdated_Query = N'api_AssignmentRevisions_Update_Row235'
+WHERE Id = @lastAssignmentId;
 END
 SELECT
   N'Ok' AS [Result] ;
