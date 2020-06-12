@@ -182,7 +182,7 @@ SELECT
   getutcdate() AS [edit_date],
   @CreatedByUserId AS [user_edit_id],
   @Applicant_Privilege AS [applicant_privilage_id],
-  @ApplicantFromSite_Age AS [birth_year],
+  NULL AS [birth_year],
   NULL AS [ApplicantAdress],
   NULL AS [ApplicantFromSiteId];
 
