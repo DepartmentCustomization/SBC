@@ -66,6 +66,7 @@
             sorting: {
                 mode: 'multiple'
             },
+            selection: {},
             keyExpr: 'Id',
             focusedRowEnabled: true,
             showBorders: false,
@@ -86,6 +87,8 @@
             groupingAutoExpandAll: null
         },
         arrivedColumn: 'arrived',
+        isEvent: false,
+        event: 'Заходи',
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 305;
             this.tableContainer = document.getElementById('subTable');
@@ -96,12 +99,9 @@
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column.dataField === 'registration_number' && e.row !== undefined) {
-                    window.open(`
-                        ${location.origin}
-                        ${localStorage.getItem('VirtualPath')}
-                        /sections/Assignments/edit/
-                        ${e.key}
-                    `)
+                    const id = this.isEvent ? e.data.registration_number : e.data.Id;
+                    const form = this.Event ? 'Assignments' : 'Assignments';
+                    window.open(`${location.origin}${localStorage.getItem('VirtualPath')}/sections/${form}/edit/${id}`);
                 }
             });
         },
@@ -146,12 +146,15 @@
         },
         changeOnTable: function(message) {
             if (message.code && message.navigator) {
+                this.isEvent = message.navigator === this.event ? true : false;
+                this.config.selection.mode = 'single';
                 if (message.code === this.arrivedColumn) {
-                    this.config.onToolbarPreparing = this.createTableButton.bind(this);
+                    this.config.selection.mode = 'multiple';
                 }
+                this.config.onToolbarPreparing = this.createTableButton.bind(this, message.code);
                 this.setVisibilityTableContainer('block');
                 this.config.query.parameterValues = [
-                    { key: '@navigation', value: message.navigator},
+                    { key: '@navigator', value: message.navigator},
                     { key: '@column', value: message.code}
                 ];
                 this.loadData(this.afterLoadDataHandler);
@@ -160,24 +163,23 @@
             }
 
         },
-        createTableButton: function(e) {
+        createTableButton: function(code, e) {
             let toolbarItems = e.toolbarOptions.items;
-            toolbarItems.push({
-                widget: 'dxButton',
-                options: {
-                    icon: 'upload',
-                    type: 'default',
-                    text: 'Передано',
-                    onClick: function() {
-                        this.findAllSelectedRows();
-                    }.bind(this)
-                },
-                location: 'after'
-            });
-        },
-        removeTableButton: function(e) {
-            let toolbarItems = e.toolbarOptions.items;
-            debugger;
+            if (code === this.arrivedColumn) {
+                toolbarItems.push({
+                    widget: 'dxButton',
+                    name: 'transfer',
+                    options: {
+                        icon: 'upload',
+                        type: 'default',
+                        text: 'Передано',
+                        onClick: function() {
+                            this.findAllSelectedRows();
+                        }.bind(this)
+                    },
+                    location: 'after'
+                });
+            }
         },
         findAllSelectedRows: function() {
             const selectedRows = this.dataGridInstance.instance.getSelectedRowsData();
@@ -221,6 +223,15 @@
         },
         afterRenderTable: function() {
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
+        },
+        createElement: function(tag, props, ...children) {
+            const element = document.createElement(tag);
+            Object.keys(props).forEach(key => element[key] = props[key]);
+            if(children.length > 0) {
+                children.forEach(child =>{
+                    element.appendChild(child);
+                });
+            } return element;
         }
     };
 }());

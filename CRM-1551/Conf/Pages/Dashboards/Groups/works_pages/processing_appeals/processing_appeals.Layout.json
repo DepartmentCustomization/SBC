@@ -72,7 +72,7 @@
         "minHeight": "220px",
         "minWidth": "calc(100% - 10px)",
         "backgroundColor": "white",
-        "containerId": "modalWindow"
+        "containerId": "modalWindowWidget"
       },
       {
         "width": "auto",
