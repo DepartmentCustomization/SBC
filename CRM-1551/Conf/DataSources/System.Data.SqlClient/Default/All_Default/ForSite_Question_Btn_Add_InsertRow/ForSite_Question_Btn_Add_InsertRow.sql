@@ -214,7 +214,7 @@ VALUES
     @ApplicantFromSite_Address_Building,
     NULL,
     @1551_ApplicantFromSite_Address_Entrance,
-    @1551_ApplicantFromSite_Address_Flat,
+    @ApplicantFromSite_Address_Flat,
     1,
     1
   );

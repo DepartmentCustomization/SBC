@@ -25,8 +25,8 @@
     "ParameterType": "Integer"
   },
   {
-    "Code": "@1551_ApplicantFromSite_Address_Flat",
-    "Name": "1551_ApplicantFromSite_Address_Flat"
+    "Code": "@ApplicantFromSite_Address_Flat",
+    "Name": "ApplicantFromSite_Address_Flat"
   },
   {
     "Code": "@ApplicantFromSite_Sex",
