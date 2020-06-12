@@ -213,6 +213,7 @@ CASE
 	afs.[geolocation_lat] AS [AppealFromSite_geolocation_lat],
 	afs.[geolocation_lon] AS [AppealFromSite_geolocation_lon],
 	b.Id AS ApplicantFromSite_Address_Building,
+	aa.Flat AS ApplicantFromSite_Address_Flat,
 	abi.is_verified AS isVerify,
 	afs.Content AS question_content,
 	afs.ObjectId AS Question_Building,

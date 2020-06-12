@@ -190,5 +190,11 @@
     "Position": 32,
     "IsPrintable": false,
     "ReferenceKeyCode": "Question_Building"
+  },
+  {
+    "Code": "ApplicantFromSite_Address_Flat",
+    "Name": "ApplicantFromSite_Address_Flat",
+    "Position": 33,
+    "IsPrintable": false
   }
 ]
