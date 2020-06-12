@@ -195,7 +195,7 @@ SET
   );
 
 IF (
-  @ApplicantFromSite_Address_Building IS NOT NULL
+  @1551_ApplicantFromSite_Address_Building IS NOT NULL
 ) 
 BEGIN
 INSERT INTO
@@ -211,10 +211,10 @@ INSERT INTO
 VALUES
   (
     @Applicant_Id,
-    @ApplicantFromSite_Address_Building,
+    @1551_ApplicantFromSite_Address_Building,
     NULL,
     @1551_ApplicantFromSite_Address_Entrance,
-    @ApplicantFromSite_Address_Flat,
+    @1551_ApplicantFromSite_Address_Flat,
     1,
     1
   );

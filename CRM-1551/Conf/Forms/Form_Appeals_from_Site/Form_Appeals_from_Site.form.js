@@ -38,7 +38,26 @@
             this.form.setGroupVisibility('Appeal', true);
             this.queryFor_Applicant1551(this.form.getControlValue('Applicant_Id'));
         },
+        set1551_building() {
+            let buildId = this.form.getControlValue('ApplicantFromSite_Address_Building');
+            const getBuild = {
+                queryCode: 'SelectBuildName',
+                parameterValues: [
+                    {
+                        key: '@Id',
+                        value: buildId
+                    }
+                ]
+            };
+            this.queryExecutor.getValues(getBuild).subscribe(data => {
+                this.form.setControlValue('1551_ApplicantFromSite_Address_Building',
+                    {key: buildId, value: data.rows[0].values[1]});
+            });
+            this.form.setControlValue('1551_ApplicantFromSite_Address_Flat',
+                this.form.getControlValue('ApplicantFromSite_Address_Flat'));
+        },
         init: function() {
+            this.set1551_building();
             let btn_newQuestion = document.getElementById('Question_Btn_Add');
             btn_newQuestion.disabled = true;
             if (this.form.getControlValue('AppealFromSite_geolocation_lat')) {
@@ -199,16 +218,16 @@
                             value: this.form.getControlValue('flat')
                         },
                         {
-                            key: '@ApplicantFromSite_Address_Building',
-                            value: this.form.getControlValue('ApplicantFromSite_Address_Building')
+                            key: '@1551_ApplicantFromSite_Address_Building',
+                            value: this.form.getControlValue('1551_ApplicantFromSite_Address_Building')
                         },
                         {
                             key: '@1551_ApplicantFromSite_Address_Entrance',
                             value: this.form.getControlValue('1551_ApplicantFromSite_Address_Entrance')
                         },
                         {
-                            key: '@ApplicantFromSite_Address_Flat',
-                            value: this.form.getControlValue('ApplicantFromSite_Address_Flat')
+                            key: '@1551_ApplicantFromSite_Address_Flat',
+                            value: this.form.getControlValue('1551_ApplicantFromSite_Address_Flat')
                         },
                         {
                             key: '@AppealFromSite_geolocation_lat',
