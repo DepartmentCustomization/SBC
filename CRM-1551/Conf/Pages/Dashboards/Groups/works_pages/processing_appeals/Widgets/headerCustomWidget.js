@@ -245,11 +245,10 @@
             const tabsWrapper = this.createTabs();
             const filtersWrapper = this.createFiltersWrapper();
             const tableWrapper = this.createTableWrapper();
-            const modalWindowContainer = this.createModalWindowContainer();
+            this.createModalWindowContainer();
             this.container.appendChild(tabsWrapper);
             this.container.appendChild(filtersWrapper);
             this.container.appendChild(tableWrapper);
-            this.container.appendChild(modalWindowContainer);
         },
         createTabs: function() {
             const tabsContainer = this.createElement('div',
@@ -439,19 +438,19 @@
         },
         createModalWindowContainer: function() {
             this.modalWindowContainer = this.createElement('div', { id: 'modalWindowContainer' });
-            return this.modalWindowContainer;
+            this.container.appendChild(this.modalWindowContainer);
         },
         createModalForm: function(type) {
             if(this.modalWindowContainer.parentElement === null) {
                 this.filtersWrapper.appendChild(this.modalWindowContainer);
             }
             this.modalWindowContainer.classList.add('modalWindowShowClass');
-            const modalHeader = this.createModalHeader();
-            const modalFilters = this.createModalFilters(type);
-            const modalWindow = this.createElement('div', { id: 'modalWindow', style: 'display: block'}, modalHeader, modalFilters);
+            const modalWindow = this.createElement('div', { id: 'modalWindow', style: 'display: block'});
             this.modalWindowContainer.appendChild(modalWindow);
+            this.createModalHeader(modalWindow);
+            this.createModalFilters(type, modalWindow);
         },
-        createModalHeader: function() {
+        createModalHeader: function(modalWindow) {
             const buttonClose = this.createElement('button', {
                 id: 'modalHeader__button_close',
                 className: 'modalBtn',
@@ -465,21 +464,20 @@
             const caption = this.createElement('div',{ id: 'modalHeader__caption', innerText: 'Налаштування фiльтрiв' });
             const buttonWrapper = this.createElement('div', { id: 'modalHeader__buttonWrapper' }, buttonClose);
             const modalHeader = this.createElement('div', { id: 'modalHeader' }, caption, buttonWrapper);
-            return modalHeader;
+            modalWindow.appendChild(modalHeader);
         },
-        createModalFilters: function(type) {
-            const modalFiltersHeader = this.createModalFiltersHeaders(type);
-            const modalFiltersContainer = this.createModalFiltersContainer(type);
-            const modalFilters = this.createElement('div',
-                {
-                    id: 'modalFilters'
-                },
-                modalFiltersHeader, modalFiltersContainer
-            );
-            return modalFilters;
+        createModalFilters: function(type, modalHeader) {
+            const modalFilters = this.createElement('div', { id: 'modalFilters' });
+            modalHeader.appendChild(modalFilters);
+            this.createModalFiltersHeaders(type, modalFilters);
+            const filtersData = this.savedFiltersData.find(m => m.type === type).data;
+            const modalFiltersContainer = this.createElement('div', { id: 'modalFiltersContainer'});
+            modalFilters.appendChild(modalFiltersContainer);
+            this.createModalFiltersContainerItems(filtersData, modalFiltersContainer, type);
         },
-        createModalFiltersHeaders: function(type) {
+        createModalFiltersHeaders: function(type, modalFilters) {
             const modalFiltersHeader = this.createElement('div',{ id: 'modalFiltersHeader'});
+            modalFilters.appendChild(modalFiltersHeader);
             const stateFilters = this.stateFilterOptions.find(m => m.type === type).items;
             stateFilters.forEach(item => {
                 const header = this.createElement('div', {
@@ -488,14 +486,10 @@
                     innerText: item.innerText
                 });
                 modalFiltersHeader.appendChild(header);
-            })
-            return modalFiltersHeader;
+            });
         },
         createModalFiltersContainer: function(type) {
-            const filtersData = this.savedFiltersData.find(m => m.type === type).data;
             const stateFilters = this.stateFilterOptions.find(m => m.type === type).items;
-            const modalFiltersContainer = this.createElement('div', { id: 'modalFiltersContainer'});
-            this.createModalFiltersContainerItems(filtersData, modalFiltersContainer, type);
             return modalFiltersContainer;
         },
         createModalFiltersContainerItems: function(items, modalFiltersContainer, type) {
@@ -671,8 +665,8 @@
             this.isLoadDistrict = true;
             this.closePreload(location);
             this.districtId = 0;
+            debugger;
             $('#districtNewItemSelect').on('select2:select', function(e) {
-                debugger;
                 let districtId = Number(e.params.data.id);
                 this.isDistrictFull = true;
                 let positionFilter = 'district';

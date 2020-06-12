@@ -66,6 +66,11 @@
             sorting: {
                 mode: 'multiple'
             },
+            editing: {
+                mode: 'cell',
+                allowUpdating: true,
+                useIcons: false
+            },
             selection: {},
             keyExpr: 'Id',
             focusedRowEnabled: true,
@@ -183,7 +188,6 @@
         },
         findAllSelectedRows: function() {
             const selectedRows = this.dataGridInstance.instance.getSelectedRowsData();
-            console.log(selectedRows);
             if (selectedRows.length) {
                 this.promiseAll = [];
                 this.messageService.publish({name: 'showPagePreloader'});
@@ -205,7 +209,7 @@
                     this.promiseAll = [];
                     this.dataGridInstance.instance.deselectAll();
                     this.loadData(this.afterLoadDataHandler);
-                    this.config.onToolbarPreparing = this.removeTableButton.bind(this);
+                    this.hideTable();
                     this.messageService.publish({
                         name: 'reloadMainTable'
                     });
