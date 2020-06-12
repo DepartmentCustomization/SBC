@@ -1,8 +1,9 @@
 --на нижние таблички
   --параметры
-  --declare @navigator nvarchar(50)=N'Усі';--Усі
-  --declare @column nvarchar(50)=N'overdue';
-
+  /*
+  declare @navigator nvarchar(50)=N'Усі';--Усі
+  declare @column nvarchar(50)=N'overdue';
+  */
   declare @navigator_q nvarchar(max)=
   case when @navigator=N'Усі' then (select stuff((select N', '+ltrim(Id)--, emergensy_name name
   from [dbo].[Emergensy]
@@ -61,18 +62,18 @@
 [Applicants].[ApplicantAdress] ZayavnykAdress,
 [Questions].question_content content
 FROM
-[dbo].[Assignments] WITH (nolock)
-INNER JOIN [dbo].[Questions] WITH (nolock) ON [Assignments].question_id = [Questions].Id
-INNER JOIN [dbo].[Appeals] WITH (nolock) ON [Questions].appeal_id = [Appeals].Id
-INNER JOIN [ReceiptSources] WITH (nolock) ON [Appeals].receipt_source_id = [ReceiptSources].Id
+[CRM_1551_Analitics].[dbo].[Assignments] WITH (nolock)
+INNER JOIN [CRM_1551_Analitics].[dbo].[Questions] WITH (nolock) ON [Assignments].question_id = [Questions].Id
+INNER JOIN [CRM_1551_Analitics].[dbo].[Appeals] WITH (nolock) ON [Questions].appeal_id = [Appeals].Id
+INNER JOIN [CRM_1551_Analitics].[dbo].[ReceiptSources] WITH (nolock) ON [Appeals].receipt_source_id = [ReceiptSources].Id
 INNER JOIN [QuestionTypes] WITH (nolock) ON [Questions].question_type_id = [QuestionTypes].Id
-LEFT JOIN [Applicants] WITH (nolock) ON [Appeals].applicant_id = [Applicants].Id
-LEFT JOIN [Objects] WITH (nolock) ON [Questions].[object_id] = [Objects].Id
-LEFT JOIN [Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id
-LEFT JOIN [Streets] WITH (nolock) ON [Buildings].street_id = [Streets].Id
-LEFT JOIN [StreetTypes] WITH (nolock) ON [Streets].street_type_id = [StreetTypes].Id
-LEFT JOIN [Organizations] WITH (nolock) ON [Assignments].executor_organization_id = [Organizations].Id
-LEFT JOIN [dbo].[AssignmentConsiderations] WITH (nolock) ON [AssignmentConsiderations].Id = Assignments.current_assignment_consideration_id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[Applicants] WITH (nolock) ON [Appeals].applicant_id = [Applicants].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[Objects] WITH (nolock) ON [Questions].[object_id] = [Objects].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] WITH (nolock) ON [Buildings].street_id = [Streets].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] WITH (nolock) ON [Streets].street_type_id = [StreetTypes].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock) ON [Assignments].executor_organization_id = [Organizations].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] WITH (nolock) ON [AssignmentConsiderations].Id = Assignments.current_assignment_consideration_id
 where [QuestionTypes].emergency in ('+@navigator_q+N') and '+@where
 --union all
 
@@ -89,15 +90,15 @@ select [Events].[Id]*(-1) Id,
   null zayavnyk,
   null ZayavnykAdress,
   null content
-  from [dbo].[Events] WITH (nolock)
-  left join [dbo].[Event_Class] WITH (nolock) on [Events].event_class_id=[Event_Class].Id
-  left join [dbo].[EventObjects] WITH (nolock) on [Events].Id=[EventObjects].event_id and [EventObjects].in_form=''true''
-  left join [dbo].[Objects] WITH (nolock) on [EventObjects].object_id=[Objects].Id
-  LEFT JOIN [dbo].[Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id
-  LEFT JOIN [dbo].[Streets] WITH (nolock) ON [Buildings].street_id = [Streets].Id
-  LEFT JOIN [dbo].[StreetTypes] WITH (nolock) ON [Streets].street_type_id = [StreetTypes].Id
-  left join [dbo].[EventOrganizers] WITH (nolock) on [Events].Id=[EventOrganizers].event_id and [EventOrganizers].main=''true''
-  left join [dbo].[Organizations] WITH (nolock) on [EventOrganizers].organization_id=[Organizations].Id
+  from [CRM_1551_Analitics].[dbo].[Events] WITH (nolock)
+  left join [CRM_1551_Analitics].[dbo].[Event_Class] WITH (nolock) on [Events].event_class_id=[Event_Class].Id
+  left join [CRM_1551_Analitics].[dbo].[EventObjects] WITH (nolock) on [Events].Id=[EventObjects].event_id and [EventObjects].in_form=''true''
+  left join [CRM_1551_Analitics].[dbo].[Objects] WITH (nolock) on [EventObjects].object_id=[Objects].Id
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] WITH (nolock) ON [Buildings].street_id = [Streets].Id
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] WITH (nolock) ON [Streets].street_type_id = [StreetTypes].Id
+  left join [CRM_1551_Analitics].[dbo].[EventOrganizers] WITH (nolock) on [Events].Id=[EventOrganizers].event_id and [EventOrganizers].main=''true''
+  left join [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock) on [EventOrganizers].organization_id=[Organizations].Id
   where '+@where_event
 
   declare @query nvarchar(max)=
