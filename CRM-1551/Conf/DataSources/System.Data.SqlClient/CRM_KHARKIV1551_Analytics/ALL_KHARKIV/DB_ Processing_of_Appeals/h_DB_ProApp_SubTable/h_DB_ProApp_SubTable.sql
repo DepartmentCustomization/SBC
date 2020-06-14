@@ -1,13 +1,90 @@
 --на нижние таблички
   --параметры
   /*
-  declare @navigator nvarchar(50)=N'Усі';--Усі
+  declare @navigator nvarchar(50)=N'Заходи';--Усі
   declare @column nvarchar(50)=N'overdue';
-  */
+  declare @user_id nvarchar(128)=N'29796543-b903-48a6-9399-4840f6eac396';*/
+  --фильтрация начало
+    
+
+  IF object_id('tempdb..#temp_filter_d_qt') IS NOT NULL DROP TABLE #temp_filter_d_qt
+
+  IF object_id('tempdb..#temp_filter_d_qt_all') IS NOT NULL DROP TABLE #temp_filter_d_qt_all
+
+  IF object_id('tempdb..#temp_filter_emergensy_id') IS NOT NULL DROP TABLE #temp_filter_emergensy_id
+
+  --select *
+  --from [dbo].[FiltersForControler]
+  --where user_id=@user_id
+
+  ;with
+it as --дети @id
+(select t.Id, question_type_id ParentId, name, f.district_id
+from [dbo].[QuestionTypes] t
+inner join [dbo].[FiltersForControler] f on t.Id=f.questiondirection_id
+where f.user_id=@user_id and f.questiondirection_id is not null and f.questiondirection_id<>0
+union all
+select t.Id, t.question_type_id, t.name, it.district_id
+from [dbo].[QuestionTypes] t inner join it on t.question_type_id=it.Id)
+
+--выбраный район и его вопросы с подтипами, если не выбранные все типы вопроса
+select distinct 1 Id, Id question_type_id, district_id 
+into #temp_filter_d_qt
+from it
+--order by Id
+
+
+
+select distinct 1 Id, district_id
+into #temp_filter_d_qt_all
+from [dbo].[FiltersForControler] f
+where f.user_id=@user_id and f.questiondirection_id is not null and f.questiondirection_id=0
+
+select distinct 1 Id, emergensy_id
+into #temp_filter_emergensy_id
+from [dbo].[FiltersForControler] f
+where f.user_id=@user_id and f.questiondirection_id is  null and f.emergensy_id is not null
+
+
+
+
+
+declare @filter_d_qt nvarchar(max)=
+N'('+stuff((
+select distinct N') or ( [Objects].district_id='+ltrim(district_id)+N' and [QuestionTypes].Id in ('+stuff(
+(select N', '+ltrim(question_type_id) 
+from #temp_filter_d_qt 
+where district_id=t.district_id
+for xml path('')),1,2,N'')+N')' 
+from #temp_filter_d_qt t
+for xml path ('')
+), 1,6, N'')+N')'
+
+declare @filter_d_qt_all nvarchar(max)=
+stuff((select distinct N', '+ltrim(district_id) from #temp_filter_d_qt_all for xml path('')), 1, 2, N'')
+
+declare @filter_emergensy_id nvarchar(max)=
+stuff((select distinct N', '+ltrim(emergensy_id) from #temp_filter_emergensy_id for xml path('')), 1, 2, N'')
+
+
+--select @filter_d_qt, @filter_d_qt_all, @filter_emergensy_id
+
+--declare @filters_an nvarchar(max)=isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or (1=2)')+isnull(N' and ( [QuestionTypes].emergency in ('+@filter_emergensy_id+N'))',N' or 1=2')
+
+declare @filters_an nvarchar(max)=N'(( '+isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or (1=2)')+N')'+isnull(N' and ( [QuestionTypes].emergency in ('+@filter_emergensy_id+N'))',N' or (1=2)')+N')'
+
+
+--declare @filters_ev nvarchar(max)=isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or 1=2')
+
+declare @filters_ev nvarchar(max)=N'( '+isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or 1=2')+N')'
+
+--select @filters_an, @filters_ev
+  --фильтрация конец
+  
   declare @navigator_q nvarchar(max)=
   case when @navigator=N'Усі' then (select stuff((select N', '+ltrim(Id)--, emergensy_name name
   from [dbo].[Emergensy]
-  for xml path('')), 1, 2, N'')+N',0')
+  for xml path('')), 1, 2, N'')+N', 0')
 	   when @navigator=N'Заходи' then N'0'
 	   when @navigator is not null 
 								  then (select ltrim(Id)--, emergensy_name name
@@ -74,7 +151,7 @@ LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] WITH (nolock) ON [Buildings].stre
 LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] WITH (nolock) ON [Streets].street_type_id = [StreetTypes].Id
 LEFT JOIN [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock) ON [Assignments].executor_organization_id = [Organizations].Id
 LEFT JOIN [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] WITH (nolock) ON [AssignmentConsiderations].Id = Assignments.current_assignment_consideration_id
-where [QuestionTypes].emergency in ('+@navigator_q+N') and '+@where
+where [QuestionTypes].emergency in ('+@navigator_q+N') and '+@where+N' and '+@filters_an
 --union all
 
 declare @query2 nvarchar(max)=N'
@@ -93,13 +170,15 @@ select [Events].[Id]*(-1) Id,
   from [CRM_1551_Analitics].[dbo].[Events] WITH (nolock)
   left join [CRM_1551_Analitics].[dbo].[Event_Class] WITH (nolock) on [Events].event_class_id=[Event_Class].Id
   left join [CRM_1551_Analitics].[dbo].[EventObjects] WITH (nolock) on [Events].Id=[EventObjects].event_id and [EventObjects].in_form=''true''
+  left join [dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+  left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
   left join [CRM_1551_Analitics].[dbo].[Objects] WITH (nolock) on [EventObjects].object_id=[Objects].Id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] WITH (nolock) ON [Buildings].street_id = [Streets].Id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] WITH (nolock) ON [Streets].street_type_id = [StreetTypes].Id
   left join [CRM_1551_Analitics].[dbo].[EventOrganizers] WITH (nolock) on [Events].Id=[EventOrganizers].event_id and [EventOrganizers].main=''true''
   left join [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock) on [EventOrganizers].organization_id=[Organizations].Id
-  where '+@where_event
+  where '+@where_event+N' and '+ @filters_ev
 
   declare @query nvarchar(max)=
   case when charindex(N',',@navigator_q, 1)>0 
@@ -111,4 +190,6 @@ select [Events].[Id]*(-1) Id,
   --select len(@query)
 
   exec (@query)
+
+  --select @filters_an, @filters_ev, @navigator_q, @where
 
