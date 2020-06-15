@@ -1,7 +1,7 @@
 select Id, [Name]
   from
   (
-  select Id, [emergensy_name]
+  select Id, [emergensy_name] [Name]
   from [dbo].[Emergensy]) r
   where #filter_columns#
   #sort_columns#
