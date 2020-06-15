@@ -95,7 +95,7 @@
         isEvent: false,
         event: 'Заходи',
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 305;
+            this.dataGridInstance.height = window.innerHeight - 405;
             this.tableContainer = document.getElementById('subTable');
             this.setVisibilityTableContainer('none');
             this.subscribers.push(this.messageService.subscribe('clickOnHeaderTable', this.changeOnTable, this));
@@ -111,40 +111,16 @@
             });
         },
         createMasterDetail: function(container, options) {
-            const data = options.data;
+            const currentEmployeeData = options.data;
+            const name = 'createMasterDetail';
             const fields = {
                 zayavnyk: 'Заявник',
                 ZayavnykAdress: 'Адреса заявника',
                 content: 'Зміст'
             };
-            const elementsWrapper = this.createElement('div', {className: 'elementsWrapper'});
-            container.appendChild(elementsWrapper);
-            for (const field in fields) {
-                for (const property in data) {
-                    if(property === field) {
-                        if(data[property] === null || data[property] === undefined) {
-                            data[property] = '';
-                        }
-                        const content = this.createElement('div',
-                            {
-                                className: 'content',innerText: data[property]
-                            }
-                        );
-                        const caption = this.createElement('div',
-                            {
-                                className: 'caption',innerText: fields[field], style: 'min-width: 200px'
-                            }
-                        );
-                        const masterDetailItem = this.createElement('div',
-                            {
-                                className: 'element', style: 'display: flex; margin: 15px 10px'
-                            },
-                            caption, content
-                        );
-                        elementsWrapper.appendChild(masterDetailItem);
-                    }
-                }
-            }
+            this.messageService.publish({
+                name, currentEmployeeData, fields, container
+            });
         },
         setVisibilityTableContainer: function(status) {
             this.tableContainer.style.display = status;

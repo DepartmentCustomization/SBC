@@ -139,13 +139,22 @@
         ],
         new: 'new',
         reload: 'reload',
+        type: null,
         districtType: 'district',
         categoryType: 'category',
         priorityType: 'priority',
         init: function() {
             this.subscribers.push(this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this));
-            this.messageService.publish({ name: 'showPagePreloader' });
+            this.showPP();
             this.executeDataQueries();
+        },
+        updateSavedFilters: function(type) {
+            this.type = type;
+            this.executeSavedFiltersDataQuery();
+        },
+        reloadFilters: function(type) {
+            this.type = type;
+            this.executeSavedFiltersDataQuery(this.reload);
         },
         executeDataQueries: function() {
             this.executeSetFilterDataQuery();
@@ -153,6 +162,7 @@
         },
         executeSavedFiltersDataQuery: function(status) {
             this.promiseSavedAll = [];
+            this.savedFiltersData.forEach(filter => filter.data = []);
             this.savedFiltersData.forEach(filter => {
                 const queryPromise = new Promise((resolve) => {
                     let executeQuery = {
@@ -170,7 +180,19 @@
                 if (status === this.new) {
                     this.createTables();
                 } else if (status === this.reload) {
-                    this.reloadMainTable();
+                    this.createModalFilters(this.type, this.modalWindow);
+                    this.type = null;
+                    this.hidePP();
+                } else {
+                    this.removeContainerChildren(this.modalFilters);
+                    this.removeContainerChildren(this.savedFiltersInfo);
+                    this.createModalFilters(this.type, this.modalWindow);
+                    const districtData = this.savedFiltersData.find(d => d.type === this.districtType).data;
+                    this.createSavedFilterContainer(districtData, this.districtType);
+                    const priorityData = this.savedFiltersData.find(d => d.type === this.priorityType).data;
+                    this.createSavedFilterContainer(priorityData, this.priorityType);
+                    this.type = null;
+                    this.hidePP();
                 }
             });
         },
@@ -266,7 +288,7 @@
                 } else {
                     item.addEventListener('click', event => {
                         const target = event.currentTarget;
-                        this.goToDashboard(target.url, { queryParams: { id: this.organizationId } });
+                        this.goToDashboard(target.url);
                     });
                 }
                 tabsContainer.appendChild(item);
@@ -274,25 +296,21 @@
             return tabsWrapper;
         },
         createFiltersWrapper: function() {
-            this.filtersInfo = this.createFiltersInfo();
-            const buttonWrapper = this.createFilterButtonWrapper();
-            const searchInput = this.createSearchInput();
             this.filtersWrapper = this.createElement('div',
-                { id: 'filtersWrapper', className: 'filtersWrapper'},
-                this.filtersInfo, buttonWrapper, searchInput
+                { id: 'filtersWrapper', className: 'filtersWrapper'}
             );
+            this.createSavedFiltersInfo();
+            this.createFilterButtonWrapper(this.filtersWrapper);
+            this.createSearchInput(this.filtersWrapper);
             return this.filtersWrapper;
         },
-        createFiltersInfo: function() {
+        createSavedFiltersInfo: function() {
             const districtData = this.savedFiltersData.find(d => d.type === this.districtType).data;
             const priorityData = this.savedFiltersData.find(d => d.type === this.priorityType).data;
-            const districtSavedFilterContainer = this.createSavedFilterContainer(districtData, this.districtType);
-            const prioritySavedFilterContainer = this.createSavedFilterContainer(priorityData, this.priorityType);
-            const filtersInfo = this.createElement('div',
-                {id: 'filtersInfo'},
-                districtSavedFilterContainer, prioritySavedFilterContainer
-            );
-            return filtersInfo;
+            this.savedFiltersInfo = this.createElement('div', {id: 'filtersInfo'});
+            this.filtersWrapper.appendChild(this.savedFiltersInfo);
+            this.createSavedFilterContainer(districtData, this.districtType);
+            this.createSavedFilterContainer(priorityData, this.priorityType);
         },
         createSavedFilterContainer: function(data, type) {
             const filterContainer = this.createElement('div', {id: `filterContainer__${type}`, className: 'filterContainer'});
@@ -320,7 +338,7 @@
                 this.setSavedFilterWrapperEvents(wrapper, button);
                 filterContainer.appendChild(wrapper);
             }
-            return filterContainer;
+            this.savedFiltersInfo.appendChild(filterContainer);
         },
         setSavedFilterWrapperEvents: function(wrapper, button) {
             wrapper.addEventListener('mouseover', event => {
@@ -338,10 +356,9 @@
                 target.childNodes[2].innerText = '';
             });
             button.addEventListener('click', event => {
-                this.messageService.publish({ name: 'showPagePreloader' });
-                /* this.sendMesOnBtnClick('clickOnСoordinator_table', 'none', 'none'); */
-                let target = event.currentTarget;
-                this.reloadFilterAfterDelete(target);
+                this.showPP();
+                const target = event.currentTarget;
+                this.executeDeleteSavedFilter(target);
             });
         },
         executeDeleteSavedFilter: function(button) {
@@ -357,28 +374,21 @@
         },
         reloadFilterAfterDelete: function(button) {
             this.removeSavedFilter(button);
-            this.clearAllData();
             this.executeSavedFiltersDataQuery(this.reload);
+            this.reloadMainTable();
         },
         removeSavedFilter: function(button) {
             const container = document.getElementById(button.containerId);
             container.removeChild(document.getElementById(button.parentElement.id));
         },
-        clearAllData: function() {
-            this.savedFiltersData.forEach(filter => filter.data = []);
-            this.stateFilterOptions.forEach(type => {
-                type.items.forEach(filter => filter.data = []);
-            });
-        },
-        updateSavedFiltersTable: function() {},
-        createFilterButtonWrapper: function() {
+        createFilterButtonWrapper: function(filtersWrapper) {
             const district = this.createFilterEditItem('Район', this.districtType);
             const priority = this.createFilterEditItem('Пріоритет', this.priorityType);
             const filterButtonWrapper = this.createElement('div',
                 { id: 'filtersCaptionBox' },
                 district, priority
             );
-            return filterButtonWrapper;
+            filtersWrapper.appendChild(filterButtonWrapper);
         },
         createFilterEditItem: function(title, type) {
             const filterEdit__title = this.createElement('div', {
@@ -396,27 +406,31 @@
             );
             filterAddWrap.addEventListener('click', () => {
                 if(!this.modalWindowContainer.classList.contains('modalWindowShowClass')) {
+                    this.showPP();
                     this.createModalForm(type);
                 }
             });
             return filterAddWrap;
         },
-        createSearchInput: function() {
+        createSearchInput: function(filtersWrapper) {
             const searchContainer__input = this.createElement('input',
                 {
                     id: 'searchContainer__input',
                     type: 'search',
+                    className: 'search',
                     placeholder: 'Пошук доручення за номером'
                 });
-            const searchContainer = this.createElement('div', 
+            const searchContainer = this.createElement('div',
                 {
                     id: 'searchContainer'
                 },
                 searchContainer__input
             );
-            searchContainer__input.addEventListener('input', () => {
+            searchContainer__input.addEventListener('input', event => {
+                const target = event.currentTarget;
                 if(searchContainer__input.value.length === 0) {
                     this.hideSearchTable();
+                    this.setInfoTableVisibility(target);
                 }
             });
             searchContainer__input.addEventListener('keypress', e => {
@@ -428,7 +442,7 @@
                     }
                 }
             });
-            return searchContainer;
+            filtersWrapper.appendChild(searchContainer);
         },
         hideSearchTable() {
             this.messageService.publish({name: 'hideSearchTable'});
@@ -445,10 +459,11 @@
                 this.filtersWrapper.appendChild(this.modalWindowContainer);
             }
             this.modalWindowContainer.classList.add('modalWindowShowClass');
-            const modalWindow = this.createElement('div', { id: 'modalWindow', style: 'display: block'});
-            this.modalWindowContainer.appendChild(modalWindow);
-            this.createModalHeader(modalWindow);
-            this.createModalFilters(type, modalWindow);
+            this.modalWindow = this.createElement('div', { id: 'modalWindow', style: 'display: block'});
+            this.modalWindowContainer.appendChild(this.modalWindow);
+            this.createModalHeader(this.modalWindow);
+            this.createModalFilters(type, this.modalWindow);
+
         },
         createModalHeader: function(modalWindow) {
             const buttonClose = this.createElement('button', {
@@ -457,27 +472,29 @@
                 innerText: 'Закрити'
             });
             buttonClose.addEventListener('click', () => {
+                this.showPP();
                 this.modalWindowContainer.classList.remove('modalWindowShowClass');
                 this.removeContainerChildren(this.modalWindowContainer);
-                /* this.reloadMainTable(); */
+                this.reloadMainTable();
             });
             const caption = this.createElement('div',{ id: 'modalHeader__caption', innerText: 'Налаштування фiльтрiв' });
             const buttonWrapper = this.createElement('div', { id: 'modalHeader__buttonWrapper' }, buttonClose);
-            const modalHeader = this.createElement('div', { id: 'modalHeader' }, caption, buttonWrapper);
-            modalWindow.appendChild(modalHeader);
+            this.modalHeader = this.createElement('div', { id: 'modalHeader' }, caption, buttonWrapper);
+            modalWindow.appendChild(this.modalHeader);
         },
-        createModalFilters: function(type, modalHeader) {
-            const modalFilters = this.createElement('div', { id: 'modalFilters' });
-            modalHeader.appendChild(modalFilters);
-            this.createModalFiltersHeaders(type, modalFilters);
-            const filtersData = this.savedFiltersData.find(m => m.type === type).data;
-            const modalFiltersContainer = this.createElement('div', { id: 'modalFiltersContainer'});
-            modalFilters.appendChild(modalFiltersContainer);
-            this.createModalFiltersContainerItems(filtersData, modalFiltersContainer, type);
+        createModalFilters: function(type, modalWindow) {
+            if (modalWindow) {
+                this.modalFilters = this.createElement('div', { id: 'modalFilters' });
+                modalWindow.appendChild(this.modalFilters);
+                this.createModalFiltersHeaders(type);
+                const filtersData = this.savedFiltersData.find(m => m.type === type).data;
+                const modalFiltersContainer = this.createElement('div', { id: 'modalFiltersContainer'});
+                this.createModalFiltersContainerItems(filtersData, modalFiltersContainer, type);
+            }
         },
-        createModalFiltersHeaders: function(type, modalFilters) {
+        createModalFiltersHeaders: function(type) {
             const modalFiltersHeader = this.createElement('div',{ id: 'modalFiltersHeader'});
-            modalFilters.appendChild(modalFiltersHeader);
+            this.modalFilters.appendChild(modalFiltersHeader);
             const stateFilters = this.stateFilterOptions.find(m => m.type === type).items;
             stateFilters.forEach(item => {
                 const header = this.createElement('div', {
@@ -488,15 +505,15 @@
                 modalFiltersHeader.appendChild(header);
             });
         },
-        createModalFiltersContainer: function(type) {
-            const stateFilters = this.stateFilterOptions.find(m => m.type === type).items;
-            return modalFiltersContainer;
-        },
         createModalFiltersContainerItems: function(items, modalFiltersContainer, type) {
+            this.modalFilters.appendChild(modalFiltersContainer);
+            this.districtNameCategories = this.filterCatalog.find(d => d.type === this.districtType).data;
+            this.questionTypeCategories = this.filterCatalog.find(d => d.type === this.categoryType).data;
+            this.priorityCategories = this.filterCatalog.find(d => d.type === this.priorityType).data;
             if(type === this.districtType) {
-                items.forEach(el => {
-                    let districtId = el.districtId;
-                    let categoryId = el.categoryId;
+                items.forEach(item => {
+                    let districtId = item.districtId;
+                    let categoryId = item.categoryId;
                     let categoryItemSelect = this.createElement('select', {
                         className: 'categoryItemSelect selectItem js-example-basic-single'
                     });
@@ -517,8 +534,6 @@
                     this.isLoadDistrict = false;
                     this.isLoadCategory = false;
                     modalFiltersContainer.appendChild(modalFiltersContainerItem);
-                    this.districtNameCategories = this.filterCatalog.find(d => d.type === this.districtType).data;
-                    this.questionTypeCategories = this.filterCatalog.find(d => d.type === this.categoryType).data;
                     this.createFilterDistrict(districtId, districtItemSelect, this.districtNameCategories);
                     this.createFilterCategories(categoryId, categoryItemSelect, this.questionTypeCategories);
                 });
@@ -542,11 +557,11 @@
                     className: 'modalFiltersContainerItem'
                 }, modalFiltersContainerItemNew__district, modalFiltersContainerItemNew__category);
                 modalFiltersContainer.appendChild(modalFiltersContainerItemNew);
-                this.createNewFilterDistrict(districtNewItemSelect, location, this.districtNameCategories);
-                this.createNewFilterCategories(categoryNewItemSelect, location, this.questionTypeCategories);
+                this.createNewFilterDistrict(districtNewItemSelect, type, this.districtNameCategories);
+                this.createNewFilterCategories(categoryNewItemSelect, type, this.questionTypeCategories);
             }else if(type === this.priorityType) {
-                items.forEach(function(el) {
-                    let priorityId = el.organizationId;
+                items.forEach(item => {
+                    const priorityId = item.emergencyId;
                     let priorityItemSelect = this.createElement('select', {
                         className: 'priorityItemSelect selectItem js-example-basic-single'
                     });
@@ -560,10 +575,9 @@
                         className: 'modalFiltersContainerItem'
                     }, modalFiltersContainerItem__priority);
                     modalFiltersContainer.appendChild(modalFiltersContainerItem);
-                    this.priorityCategories = this.filterCatalog.find(d => d.type === type).data;
                     this.createFilterPriority(priorityId, priorityItemSelect, this.priorityCategories);
                     this.showPreloader = false;
-                }.bind(this));
+                });
                 let priorityNewItemSelect = this.createElement('select', {
                     id: 'priorityNewItemSelect',
                     className:
@@ -582,7 +596,7 @@
                     className: 'modalFiltersContainerItem'
                 }, modalFiltersContainerItemNew__priority);
                 modalFiltersContainer.appendChild(modalFiltersContainerItemNew);
-                this.createNewFilterPriority(priorityNewItemSelect, location, this.priorityCategories);
+                this.createNewFilterPriority(priorityNewItemSelect, type, this.priorityCategories);
             }
         },
         createFilterDistrict: function(districtId, districtItemSelect, data) {
@@ -624,31 +638,27 @@
                 priorityItemSelect.appendChild(priorityItemSelect__option);
             });
         },
-        createNewFilterPriority: function(priorityNewItemSelect, location, data) {
-            let districtItemSelect__optionEmpty = this.createElement('option', {
-                className: 'districtItemSelect__option'
-            });
+        createNewFilterPriority: function(priorityNewItemSelect, type, data) {
+            let districtItemSelect__optionEmpty = this.createElement('option', { className: 'districtItemSelect__option'});
             priorityNewItemSelect.appendChild(districtItemSelect__optionEmpty);
-            data.forEach(function(el) {
-                let districtItemSelect__option = this.createElement('option', {
-                    innerText: el.filterName,
-                    value: el.id,
+            data.forEach(filter => {
+                const districtItemSelect__option = this.createElement('option', {
+                    innerText: filter.filterName,
+                    value: filter.id,
                     className: 'districtItemSelect__option'
                 });
                 priorityNewItemSelect.appendChild(districtItemSelect__option);
-            }.bind(this));
+            });
             this.createOptions();
             this.isLoadDistrict = true;
-            this.closePreload(location);
-            this.districtId = 0;
+            this.closePreload(type);
+            this.priorityId = 0;
             $('#priorityNewItemSelect').on('select2:select', function(e) {
-                let districtId = Number(e.params.data.id);
-                this.isDistrictFull = true;
-                let positionFilter = 'district';
-                this.addNewItem(location, positionFilter, districtId);
+                this.priorityId = Number(e.params.data.id);
+                this.addNewItem(type, this.priorityType);
             }.bind(this));
         },
-        createNewFilterDistrict: function(districtNewItemSelect, location, data) {
+        createNewFilterDistrict: function(districtNewItemSelect, type, data) {
             let districtItemSelect__optionEmpty = this.createElement('option', {
                 className: 'districtItemSelect__option'
             });
@@ -663,17 +673,15 @@
             }.bind(this));
             this.createOptions();
             this.isLoadDistrict = true;
-            this.closePreload(location);
+            this.closePreload(type);
             this.districtId = 0;
-            debugger;
             $('#districtNewItemSelect').on('select2:select', function(e) {
-                let districtId = Number(e.params.data.id);
+                this.districtId = Number(e.params.data.id);
                 this.isDistrictFull = true;
-                let positionFilter = 'district';
-                this.addNewItem(location, positionFilter, districtId);
+                this.addNewItem(type, this.districtType);
             }.bind(this));
         },
-        createNewFilterCategories: function(categoryNewItemSelect, location, data) {
+        createNewFilterCategories: function(categoryNewItemSelect, type, data) {
             let categoryItemSelect__optionEmpty = this.createElement('option', {
                 className: 'districtItemSelect__option'
             });
@@ -687,17 +695,15 @@
                 categoryNewItemSelect.appendChild(categoryItemSelect__option);
             }.bind(this));
             this.createOptions();
-            this.isLoadCategorie = true;
-            this.closePreload(location);
+            this.isLoadCategory = true;
+            this.closePreload(type);
             this.categoryId = 0;
             $('#categoryNewItemSelect').on('select2:select', function(e) {
-                let categoryId = Number(e.params.data.id);
-                this.isCategorieFull = true;
-                let positionFilter = 'category';
-                this.addNewItem(location, positionFilter, categoryId);
+                this.categoryId = Number(e.params.data.id);
+                this.isCategoryFull = true;
+                this.addNewItem(type, this.categoryType);
             }.bind(this));
         },
-        /*// this.createNewSelectFiltersItem(items, modalFiltersContainer, type);
         setSavedFiltersIntoContainer: function(itemsData, modalFiltersContainer) {
             const type = itemsData.type;
             for (let i = 0; i < itemsData.data.length; i++) {
@@ -716,7 +722,7 @@
                 modalFiltersContainer.appendChild(modalFiltersContainerItem);
             }
         },
-        createNewSelectFiltersItem: function(items, modalFiltersContainer, type) {
+        createNewSelectFiltersItem: function(items, modalFiltersContainer) {
             const modalFiltersContainerItem = this.createElement('div', { className: 'modalFiltersContainerItem'});
             modalFiltersContainer.appendChild(modalFiltersContainerItem);
             items.forEach(item => {
@@ -765,33 +771,35 @@
                 this.categoryId = Number(e.params.data.id);
                 this.addNewItem(type);
             }.bind(this));
-        }, */
+        },
         addNewItem: function(type) {
-            console.log('AddNewItem :' + type);
             if(type === this.districtType) {
                 if(this.isCategoryFull && this.isDistrictFull) {
                     this.isCategoryFull = false;
                     this.isDistrictFull = false;
-                    const parameters = [
-                        { key: '@district_id', value:  this.districtId },
-                        { key: '@questiondirection_id', value: this.categoryId }
-                    ];
-                    this.executeAddNewFilterQuery(type, parameters);
+                    this.priorityId = null;
+                    this.executeAddNewFilterQuery(type);
                 }
             }else if(type === this.priorityType) {
                 this.isCategoryFull = false;
                 this.isDistrictFull = false;
-                const parameters = [{ key: '@emergensy_id', value:  this.priorityId }];
-                this.executeAddNewFilterQuery(type, parameters);
+                this.districtId = null;
+                this.categoryId = null;
+                this.executeAddNewFilterQuery(type);
             }
         },
-        executeAddNewFilterQuery: function(type, parameters) {
+        executeAddNewFilterQuery: function(type) {
+            this.showPP();
             let executeQueryInsertItem = {
                 queryCode: 'h_FilterInsert',
                 limit: -1,
-                parameterValues: parameters
+                parameterValues: [
+                    { key: '@emergensy_id', value:  this.priorityId },
+                    { key: '@district_id', value:  this.districtId },
+                    { key: '@questiondirection_id', value:  this.categoryId }
+                ]
             };
-            this.queryExecutor(executeQueryInsertItem, this.reloadFilters.bind(this, type), this);
+            this.queryExecutor(executeQueryInsertItem, this.updateSavedFilters.bind(this, type), this);
             this.showPreloader = false;
         },
         closePreload: function(type) {
@@ -825,7 +833,7 @@
             this.executeMainTableQuery();
             return tableWrapper;
         },
-        reloadMainTable: function(message) {
+        reloadMainTable: function() {
             this.removeContainerChildren(this.tableContainer);
             this.executeMainTableQuery(false, null);
         },
@@ -844,7 +852,6 @@
             this.tableContainer.appendChild(headerItemsWrapper);
             const subHeaderItemsWrapper = this.createSubHeaderItemsWrapper(data);
             this.tableContainer.appendChild(subHeaderItemsWrapper);
-            this.messageService.publish({ name: 'hidePagePreloader' });
         },
         createHeaderItemsWrapper: function(data) {
             const index = 2;
@@ -916,10 +923,11 @@
                     }
                 }
                 subHeaderWrapper.appendChild(column);
-            })
+            });
+            this.hidePP();
         },
         setInfoTableVisibility: function(target, code, navigator) {
-            if (target.classList.contains('check') || target.classList.contains('hover')) {
+            if (target.classList.contains('check') || target.classList.contains('hover') || target.classList.contains('search')) {
                 this.headerItems.forEach((header, index) => {
                     header.firstElementChild.classList.remove('triangle');
                     header.firstElementChild.classList.add(`${header.code}_triangle`);
@@ -949,7 +957,6 @@
             this.subHeaderWrapper.style.display = status;
         },
         sendMesOnBtnClick: function(code, navigator) {
-            console.table(code, navigator);
             this.hideSearchTable();
             this.messageService.publish({
                 name: 'clickOnHeaderTable',
@@ -987,6 +994,12 @@
                     allowClear: true
                 });
             });
+        },
+        showPP: function() {
+            this.messageService.publish({ name: 'showPagePreloader' });
+        },
+        hidePP: function() {
+            this.messageService.publish({ name: 'hidePagePreloader' });
         }
     };
 }());

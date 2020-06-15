@@ -87,7 +87,7 @@
             groupingAutoExpandAll: null
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 305;
+            this.dataGridInstance.height = window.innerHeight - 405;
             this.showPreloader = false;
             document.getElementById('finder').style.display = 'none';
             this.subscribers.push(this.messageService.subscribe('resultSearch', this.resultSearch, this));
@@ -105,6 +105,18 @@
                 }
             });
         },
+        createMasterDetail: function(container, options) {
+            const currentEmployeeData = options.data;
+            const name = 'createMasterDetail';
+            const fields = {
+                zayavnyk: 'Заявник',
+                ZayavnykAdress: 'Адреса заявника',
+                content: 'Зміст'
+            };
+            this.messageService.publish({
+                name, currentEmployeeData, fields, container
+            });
+        },
         afterRenderTable: function() {
             this.messageService.publish({ name: 'afterRenderTable', code: this.config.query.code });
         },
@@ -117,43 +129,8 @@
                 });
             } return element;
         },
-        createMasterDetail: function(container, options) {
-            const data = options.data;
-            const fields = {
-                zayavnyk: 'Заявник',
-                ZayavnykAdress: 'Адреса заявника',
-                content: 'Зміст'
-            };
-            const elementsWrapper = this.createElement('div', {className: 'elementsWrapper'});
-            container.appendChild(elementsWrapper);
-            for (const field in fields) {
-                for (const property in data) {
-                    if(property === field) {
-                        if(data[property] === null || data[property] === undefined) {
-                            data[property] = '';
-                        }
-                        const content = this.createElement('div',
-                            {
-                                className: 'content',innerText: data[property]
-                            }
-                        );
-                        const caption = this.createElement('div',
-                            {
-                                className: 'caption',innerText: fields[field], style: 'min-width: 200px'
-                            }
-                        );
-                        const masterDetailItem = this.createElement('div',
-                            {
-                                className: 'element', style: 'display: flex; margin: 15px 10px'
-                            },
-                            caption, content
-                        );
-                        elementsWrapper.appendChild(masterDetailItem);
-                    }
-                }
-            }
-        },
         resultSearch: function(message) {
+            document.getElementById('finder').style.display = 'block';
             this.config.query.parameterValues = [{ key: '@appealNum', value: message.appealNum}];
             this.loadData(this.afterLoadDataHandler);
         },
