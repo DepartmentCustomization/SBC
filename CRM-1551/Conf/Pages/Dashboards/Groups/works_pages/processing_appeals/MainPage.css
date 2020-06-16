@@ -333,7 +333,35 @@
   color: #333333;
   text-align: center;
   line-height: normal;
+  display: inline-block;
+  position: relative;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 70%;
 }
+.filterBox__value {
+  margin-left: 20px;
+  position: relative;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 150px;
+  margin: 10px 0 10px 10px;
+}
+[tooltip]:before {
+  position : absolute;
+  content : attr(tooltip);
+  opacity : 0;
+}
+[tooltip]:hover:before {
+  opacity : 1;
+}
+[tooltip]:not([tooltip-persistent]):before {
+  pointer-events: none;
+}
+
 #searchContainer__input {
   height: 34px;
   width: 220px;
