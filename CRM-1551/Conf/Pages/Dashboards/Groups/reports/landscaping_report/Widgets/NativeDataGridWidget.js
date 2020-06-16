@@ -73,7 +73,7 @@
                     columns: [
                         {
                             dataField: 'speed_of_employment',
-                            caption: 'Бистрота прийняття в роботу',
+                            caption: 'Швидкість прийняття в роботу, год.',
                             alignment: 'center'
                         },
                         {
@@ -212,7 +212,7 @@
                         columns: [
                             {
                                 dataField: 'speed_of_employment',
-                                caption: 'Бистрота прийняття в роботу',
+                                caption: 'Швидкість прийняття в роботу, год.',
                                 alignment: 'center'
                             },
                             {
@@ -255,6 +255,7 @@
         },
         firstLoad: true,
         init: function() {
+            this.dataGridInstance.height = window.innerHeight - 100;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
         },
