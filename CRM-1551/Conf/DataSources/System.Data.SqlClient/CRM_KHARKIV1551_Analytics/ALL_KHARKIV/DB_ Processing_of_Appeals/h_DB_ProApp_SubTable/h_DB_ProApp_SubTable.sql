@@ -170,7 +170,7 @@ select [Events].[Id]*(-1) Id,
   from [CRM_1551_Analitics].[dbo].[Events] WITH (nolock)
   left join [CRM_1551_Analitics].[dbo].[Event_Class] WITH (nolock) on [Events].event_class_id=[Event_Class].Id
   left join [CRM_1551_Analitics].[dbo].[EventObjects] WITH (nolock) on [Events].Id=[EventObjects].event_id and [EventObjects].in_form=''true''
-  left join [dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+  left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
   left join [CRM_1551_Analitics].[dbo].[Objects] WITH (nolock) on [EventObjects].object_id=[Objects].Id
   LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id

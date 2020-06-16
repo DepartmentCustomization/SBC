@@ -48,7 +48,7 @@ begin
 	insert into #temp_filter_emergensy_id (Id, emergensy_id)
 	select distinct 1 Id, Id emergensy_id
 	--into #temp_filter_emergensy_id
-	from [dbo].Emergensy
+	from [CRM_1551_Analitics].[dbo].Emergensy
 end
 
 else
@@ -76,7 +76,7 @@ end
   when [emergensy_name]=N'Термінова' then 2
   when [emergensy_name]=N'Звичайна' then 3 end sort
   into #temp_emergensy
-  from [dbo].[Emergensy] 
+  from [CRM_1551_Analitics].[dbo].[Emergensy] 
   union
   select 0, N'Заходи', 0 sort
 
@@ -122,10 +122,10 @@ end
   group by [QuestionTypes].emergency
   union all
   select N'in_work' name, 0 emergency, count([Events].Id) count_id
-  from [dbo].[Events]
-  left join [dbo].[EventObjects] on [Events].Id=[EventObjects].event_id
+  from [CRM_1551_Analitics].[dbo].[Events]
+  left join [CRM_1551_Analitics].[dbo].[EventObjects] on [Events].Id=[EventObjects].event_id
   left join [CRM_1551_Analitics].[dbo].[Objects] on [EventObjects].object_id=[Objects].Id
-  left join [dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+  left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
 
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
@@ -180,9 +180,9 @@ end
   union all
   select N'overdue' name, 0 emergency, count([Events].Id) count_id
   from [CRM_1551_Analitics].[dbo].[Events]
-  left join [dbo].[EventObjects] on [Events].Id=[EventObjects].event_id
+  left join [CRM_1551_Analitics].[dbo].[EventObjects] on [Events].Id=[EventObjects].event_id
   left join [CRM_1551_Analitics].[dbo].[Objects] on [EventObjects].object_id=[Objects].Id
-  left join [dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+  left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
 
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
@@ -236,9 +236,9 @@ end
   union all
   select N'future' name, 0 emergency, count([Events].Id) count_id
   from [CRM_1551_Analitics].[dbo].[Events]
-  left join [dbo].[EventObjects] on [Events].Id=[EventObjects].event_id
+  left join [CRM_1551_Analitics].[dbo].[EventObjects] on [Events].Id=[EventObjects].event_id
   left join [CRM_1551_Analitics].[dbo].[Objects] on [EventObjects].object_id=[Objects].Id
-  left join [dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+  left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
 
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
