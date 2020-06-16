@@ -1,7 +1,7 @@
---    DECLARE @Id INT = 1;
---    DECLARE @del_text NVARCHAR(MAX) = N'Deletator commento';
---    DECLARE @userId NVARCHAR(128) = N'0022a2aa-facd-4b2b-bade-f4ddcc7a0c53';
---    DECLARE @place_find_id INT = 9797;
+    -- DECLARE @Id INT = 1;
+    -- DECLARE @del_text NVARCHAR(MAX) = N'Deletator commento';
+    -- DECLARE @userId NVARCHAR(128) = N'0022a2aa-facd-4b2b-bade-f4ddcc7a0c53';
+    -- DECLARE @place_find_id INT = 9797;
 
 DECLARE @placeLogID INT = (
     SELECT
@@ -17,6 +17,16 @@ SET
 
 BEGIN TRY 
 BEGIN TRANSACTION;
+
+DECLARE @type INT = (SELECT Place_type_ID FROM dbo.[Places] WHERE Id = @Id);
+
+IF(@type <> 19)
+BEGIN
+UPDATE 
+	dbo.[Houses]
+SET [Is_Active] = 3
+WHERE Id = (SELECT Street_id FROM dbo.[Places] WHERE Id = @Id);
+END
 
 UPDATE
     dbo.[Places]

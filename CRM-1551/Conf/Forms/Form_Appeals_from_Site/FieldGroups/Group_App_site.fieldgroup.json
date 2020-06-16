@@ -108,6 +108,14 @@
       "Position": 13,
       "Width": "30%",
       "IsHidden": true
+    },
+    {
+      "Code": "ApplicantFromSite_Address_Flat",
+      "Name": "Квартира заявника з сайту",
+      "FieldType": "number",
+      "Position": 15,
+      "Width": "30%",
+      "IsHidden": true
     }
   ]
 }

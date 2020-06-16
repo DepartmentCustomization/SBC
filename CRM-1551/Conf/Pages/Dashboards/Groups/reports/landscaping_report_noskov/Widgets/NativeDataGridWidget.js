@@ -73,7 +73,7 @@
                     columns: [
                         {
                             dataField: 'speed_of_employment',
-                            caption: 'Швидкість прийняття в роботу, год.',
+                            caption: 'Бистрота прийняття в роботу',
                             alignment: 'center'
                         },
                         {
@@ -81,7 +81,7 @@
                             caption: '% вчасно опрацьованих',
                             alignment: 'center',
                             customizeText: function(data) {
-                                if(data.value !== null) {
+                                if(data.value) {
                                     return `${data.value}%`;
                                 }
                                 return ''
@@ -92,7 +92,7 @@
                             caption: '% виконання',
                             alignment: 'center',
                             customizeText: function(data) {
-                                if(data.value !== null) {
+                                if(data.value) {
                                     return `${data.value}%`;
                                 }
                                 return ''
@@ -103,7 +103,7 @@
                             caption: '% достовірності',
                             alignment: 'center',
                             customizeText: function(data) {
-                                if(data.value !== null) {
+                                if(data.value) {
                                     return `${data.value}%`;
                                 }
                                 return ''
@@ -212,7 +212,7 @@
                         columns: [
                             {
                                 dataField: 'speed_of_employment',
-                                caption: 'Швидкість прийняття в роботу, год.',
+                                caption: 'Бистрота прийняття в роботу',
                                 alignment: 'center'
                             },
                             {
@@ -220,7 +220,7 @@
                                 caption: '% вчасно опрацьованих',
                                 alignment: 'center',
                                 customizeText: function(data) {
-                                    if(data.value !== null) {
+                                    if(data.value) {
                                         return `${data.value}%`;
                                     }
                                     return ''
@@ -231,7 +231,7 @@
                                 caption: '% виконання',
                                 alignment: 'center',
                                 customizeText: function(data) {
-                                    if(data.value !== null) {
+                                    if(data.value) {
                                         return `${data.value}%`;
                                     }
                                     return ''
@@ -242,7 +242,7 @@
                                 caption: '% достовірності',
                                 alignment: 'center',
                                 customizeText: function(data) {
-                                    if(data.value !== null) {
+                                    if(data.value) {
                                         return `${data.value}%`;
                                     }
                                     return ''
@@ -251,21 +251,22 @@
                         ]
                     }
                 ]
-            }
+            },
+            masterDetailDataStore: []
         },
         firstLoad: true,
+        currentMasterDitailItem: {},
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 100;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
         },
-        masterDetailInitialized: function(row) {
-            this.config.masterDetail.dataSource = [];
+        masterDetailInitialized: function(event, item) {
+            this.currentMasterDitailItem = item;
             const masterDetailQuery = {
                 queryCode: 'kp_blag_Report2',
                 limit: -1,
                 parameterValues: [
-                    {key: '@sector_id', value: row.data.Id},
+                    {key: '@sector_id', value: item.data.Id},
                     {key: '@date_to', value: this.dateTo},
                     {key: '@date_from', value: this.dateFrom}
                 ]
@@ -293,7 +294,7 @@
                 }
                 dataSource.push(masterDetailColumns);
             })
-            this.config.masterDetail.dataSource = dataSource;
+            this.currentMasterDitailItem.dataSource = dataSource;
         },
         destroy: function() {
             this.sub.unsubscribe();

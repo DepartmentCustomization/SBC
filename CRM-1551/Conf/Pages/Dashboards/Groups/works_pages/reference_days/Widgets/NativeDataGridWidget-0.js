@@ -33,7 +33,7 @@
                     caption: 'Новий еталон роз\'яснення'
                 }, {
                     dataField: 'DateStart',
-                    caption: 'Використовуэться з',
+                    caption: 'Використовується з',
                     dataType: 'date',
                     format: 'dd.MM.yyyy'
                 }
