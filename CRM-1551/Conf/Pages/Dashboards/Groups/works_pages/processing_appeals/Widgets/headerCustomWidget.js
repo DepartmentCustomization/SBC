@@ -152,8 +152,11 @@
             this.type = type;
             this.executeSavedFiltersDataQuery();
         },
-        reloadFilters: function(type) {
-            this.type = type;
+        reloadFilterAfterDelete: function(button) {
+            this.removeSavedFilter(button);
+            this.type = button.type;
+            this.hideSubTable();
+            this.hideSearchTable();
             this.executeSavedFiltersDataQuery(this.reload);
         },
         executeDataQueries: function() {
@@ -180,7 +183,7 @@
                 if (status === this.new) {
                     this.createTables();
                 } else if (status === this.reload) {
-                    this.createModalFilters(this.type, this.modalWindow);
+                    this.reloadMainTable();
                     this.type = null;
                 } else {
                     this.removeContainerChildren(this.modalFiltersContainer);
@@ -374,11 +377,6 @@
             this.queryExecutor(executeQueryDeleteFilter, this.reloadFilterAfterDelete.bind(this, button), this);
             this.showPreloader = false;
         },
-        reloadFilterAfterDelete: function(button) {
-            this.removeSavedFilter(button);
-            this.executeSavedFiltersDataQuery(this.reload);
-            this.reloadMainTable();
-        },
         removeSavedFilter: function(button) {
             const container = document.getElementById(button.containerId);
             container.removeChild(document.getElementById(button.parentElement.id));
@@ -432,15 +430,17 @@
                 const target = event.currentTarget;
                 if(searchContainer__input.value.length === 0) {
                     this.hideSearchTable();
+                    this.hideSubTable();
                     this.setInfoTableVisibility(target);
                 }
             });
-            searchContainer__input.addEventListener('keypress', e => {
-                let key = e.which || e.keyCode;
+            searchContainer__input.addEventListener('keypress', event => {
+                let key = event.which || event.keyCode;
                 if (key === 13) {
                     if(searchContainer__input.value.length) {
                         this.setVisibilityOrganizationContainer('none');
                         this.resultSearch('resultSearch', searchContainer__input.value);
+                        this.hideSubTable();
                     }
                 }
             });
@@ -451,6 +451,9 @@
         },
         resultSearch: function(name, appealNum) {
             this.messageService.publish({name, appealNum});
+        },
+        hideSubTable: function() {
+            this.messageService.publish({name: 'hideSubTable'});
         },
         createModalWindowContainer: function() {
             this.modalWindowContainer = this.createElement('div', { id: 'modalWindowContainer' });
@@ -475,6 +478,8 @@
             });
             buttonClose.addEventListener('click', () => {
                 this.showPP();
+                this.hideSubTable();
+                this.hideSearchTable();
                 this.modalWindowContainer.classList.remove('modalWindowShowClass');
                 this.removeContainerChildren(this.modalWindowContainer);
                 this.reloadMainTable();
@@ -495,8 +500,8 @@
         createModalFiltersHeaders: function(type) {
             const modalFiltersHeader = this.createElement('div',{ id: 'modalFiltersHeader'});
             this.modalFilters.appendChild(modalFiltersHeader);
-            const stateFilters = this.stateFilterOptions.find(m => m.type === type).items;
-            stateFilters.forEach(item => {
+            const stateFilters = this.stateFilterOptions.find(m => m.type === type);
+            stateFilters.items.forEach(item => {
                 const header = this.createElement('div', {
                     className: 'modalFiltersHeader',
                     id: item.id,

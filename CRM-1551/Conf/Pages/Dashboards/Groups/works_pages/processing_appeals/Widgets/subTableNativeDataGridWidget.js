@@ -99,7 +99,7 @@
             this.tableContainer = document.getElementById('subTable');
             this.setVisibilityTableContainer('none');
             this.subscribers.push(this.messageService.subscribe('clickOnHeaderTable', this.changeOnTable, this));
-            this.subscribers.push(this.messageService.subscribe('resultSearch', this.hideTable, this));
+            this.subscribers.push(this.messageService.subscribe('hideSubTable', this.hideTable, this));
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
