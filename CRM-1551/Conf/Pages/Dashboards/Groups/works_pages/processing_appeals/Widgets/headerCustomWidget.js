@@ -14,9 +14,24 @@
         isCategoryFull: false,
         tabs: [
             {
+                code: 'StartPage_operator',
+                titleText: 'Вхідний дзвінок',
+                hover: false
+            },
+            {
+                code: 'prozvon',
+                titleText: 'Прозвон',
+                hover: false
+            },
+            {
                 code: 'processing_appeals',
-                titleText: 'ОБРОБКА ДОРУЧЕНЬ',
+                titleText: 'Опрацювання звернень',
                 hover: true
+            },
+            {
+                code: 'poshuk_table',
+                titleText: 'Розширений пошук',
+                hover: false
             }
         ],
         headers: [
