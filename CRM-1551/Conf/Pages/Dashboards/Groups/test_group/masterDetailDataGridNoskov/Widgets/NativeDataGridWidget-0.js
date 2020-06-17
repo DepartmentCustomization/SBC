@@ -160,8 +160,8 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
         },
-        masterDetailInitialized: function(row) {
-            this.config.masterDetail.dataSource = [];
+        masterDetailInitialized: function(event, row) {
+            row.dataSource = [];
             const masterDetailQuery = {
                 queryCode: 'kp_blag_Report2',
                 limit: -1,
@@ -180,9 +180,9 @@
                     }
                 ]
             };
-            this.queryExecutor(masterDetailQuery, this.setMasterDetailDataSource, this);
+            this.queryExecutor(masterDetailQuery, this.setMasterDetailDataSource.bind(this, row), this);
         },
-        setMasterDetailDataSource: function(data) {
+        setMasterDetailDataSource: function(row, data) {
             let dataSource = [];
             data.rows.forEach(row => {
                 const item = {
@@ -191,8 +191,8 @@
                     'timely_processed': row.values[12]
                 }
                 dataSource.push(item);
-            })
-            this.config.masterDetail.dataSource = dataSource;
+            });
+            row.dataSource = dataSource;
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
@@ -204,7 +204,7 @@
                     this.districts = this.extractOrgValues(districts);
                     this.config.query.parameterValues = [
                         {key: '@date_from' , value: this.dateFrom },
-                        {key: '@date_to' , value: this.dateFrom },
+                        {key: '@date_to' , value: this.dateTo },
                         {key: '@districts' , value: this.districts }
                     ];
                     if (this.firstLoad) {
