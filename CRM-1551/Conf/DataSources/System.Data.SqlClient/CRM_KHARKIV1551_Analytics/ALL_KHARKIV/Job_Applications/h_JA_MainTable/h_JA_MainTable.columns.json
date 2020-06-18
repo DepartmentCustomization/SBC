@@ -1,0 +1,68 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Registration_Number",
+    "Name": "Registration_Number",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "AssignmentState",
+    "Name": "AssignmentState",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "QuestionType",
+    "Name": "QuestionType",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Place_Problem",
+    "Name": "Place_Problem",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Positions_Name",
+    "Name": "Positions_Name",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Control_Date",
+    "Name": "Control_Date",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Comment",
+    "Name": "Comment",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Applicant_Name",
+    "Name": "Applicant_Name",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "ApplicantAdress",
+    "Name": "ApplicantAdress",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Content",
+    "Name": "Content",
+    "Position": 10,
+    "IsPrintable": false
+  }
+]
