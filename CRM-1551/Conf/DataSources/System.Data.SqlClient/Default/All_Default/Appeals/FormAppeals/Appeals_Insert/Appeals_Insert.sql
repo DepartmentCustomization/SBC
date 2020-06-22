@@ -10,7 +10,8 @@ INSERT INTO [dbo].[Appeals]
            ,[user_id]
            ,[edit_date]
            ,[user_edit_id]
-           ,[sipcallid])
+           ,[sipcallid]
+           ,[LogUpdated_Query])
 output [inserted].[Id] into @output (Id)
      VALUES
            (getutcdate() --@registration_date
@@ -24,7 +25,7 @@ output [inserted].[Id] into @output (Id)
            ,getutcdate() -- @edit_date
            ,@user_id
            ,@sipcallid
-		   )
+	      ,N'query_Appeals_Insert'   )
 
 declare @app_id int
 set @app_id = (select top 1 Id from @output)
