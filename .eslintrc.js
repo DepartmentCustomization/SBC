@@ -11,13 +11,17 @@ module.exports = {
         "L": true
     },
     "parserOptions": {
-        "ecmaVersion": 2018
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "allowImportExportEverywhere": false,
+        "codeFrame": true
     },
     "rules": {
-        "indent": ["error", 4],
+        "strict": 0,
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "quotes": ["error", "single"],
         "no-var": "error",
-        "no-multiple-empty-lines": ["error", { max: 0 }],
+        "no-multiple-empty-lines": ["error", { max: 1 }],
         "line-comment-position": ["error", { "position": "beside" }],
         "no-inline-comments": "error",
         "no-console": "error",
@@ -55,7 +59,7 @@ module.exports = {
         "no-sequences": "error",
         "no-throw-literal": "error",
         "yoda": "error",
-        "no-magic-numbers": [ "warn", { "ignore": [0], "ignoreArrayIndexes": true }],
+        "no-magic-numbers": [ "warn", { "ignore": [0, -1, 1], "ignoreArrayIndexes": true }],
         "default-case": "warn",
         "no-empty-function": "warn",
         "no-implicit-coercion": "warn"

@@ -11,6 +11,11 @@
       "ParameterType": "DateTime"
     },
     {
+      "Code": "@sourceId",
+      "Name": "sourceId",
+      "ParameterType": "text"
+    },
+    {
       "Code": "@questionType",
       "Name": "questionType",
       "ParameterType": "Integer"
@@ -18,6 +23,16 @@
     {
       "Code": "@questionGroup",
       "Name": "questionGroup",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@organization",
+      "Name": "organization",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@organizationGroup",
+      "Name": "organizationGroup",
       "ParameterType": "Integer"
     },
     {

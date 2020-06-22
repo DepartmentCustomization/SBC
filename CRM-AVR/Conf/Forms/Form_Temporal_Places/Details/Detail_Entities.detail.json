@@ -1,0 +1,15 @@
+{
+  "ModelType": "Detail",
+  "Code": "Detail_Entities",
+  "Name": "Пов'язані сутності",
+  "SelectRowsQueryCode": "Temporal_PlaceEntities",
+  "SectionCode": "",
+  "Position": 1,
+  "IsExpand": true,
+  "QueryParameters": [
+    {
+      "FormFieldName": "Id",
+      "ParameterCode": "@Id"
+    }
+  ]
+}

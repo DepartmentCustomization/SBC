@@ -1,0 +1,25 @@
+{
+    "ModelType": "Query",
+    "Code": "makeBuildingName",
+    "Name": "makeBuildingName",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "IsAnonymousAccess": false,
+    "Parameters": [
+        {
+            "Code": "@street",
+            "Name": "street"
+        },
+        {
+            "Code": "@building_name",
+            "Name": "building_name"
+        }
+    ],
+    "Columns": [
+        {
+            "Code": "result",
+            "Name": "result",
+            "Position": 1
+        }
+    ]
+}

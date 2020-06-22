@@ -1,0 +1,73 @@
+{
+    "ModelType": "Query",
+    "Code": "TemporalPlacesSelectRow",
+    "Name": "TemporalPlacesSelectRow",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "IsAnonymousAccess": false,
+    "Columns": [
+        {
+            "Code": "Id",
+            "Name": "Id",
+            "Position": 1,
+            "IsPrimaryKey": true,
+            "ViewState": "Hidden"
+        },
+        {
+            "Code": "place_name",
+            "Name": "place_name",
+            "Position": 2
+        },
+        {
+            "Code": "place_type_id",
+            "Name": "place_type_id",
+            "Position": 3
+        },
+        {
+            "Code": "place_type_name",
+            "Name": "Тип place_type_name",
+            "Position": 4,
+            "ReferenceKeyCode": "place_type_id"
+        },
+        {
+            "Code": "place_district_id",
+            "Name": "place_district_id",
+            "Position": 5
+        },
+        {
+            "Code": "place_district_name",
+            "Name": "place_district_name",
+            "Position": 6,
+            "ReferenceKeyCode": "place_district_id"
+        },
+        {
+            "Code": "Lattitude",
+            "Name": "Lattitude",
+            "Position": 7
+        },
+        {
+            "Code": "Longitude",
+            "Name": "Longitude",
+            "Position": 8
+        },
+        {
+            "Code": "place_street1_id",
+            "Name": "place_street1_id",
+            "Position": 9
+        },
+        {
+            "Code": "place_street1_name",
+            "Name": "place_street1_name",
+            "Position": 10,
+            "ReferenceKeyCode": "place_street1_id"
+        }
+    ],
+    "Parameters": [
+        {
+            "Code": "@Id",
+            "Name": "Id",
+            "ParameterType": "Integer",
+            "IsPrimaryKey": true
+        }
+    ]
+}

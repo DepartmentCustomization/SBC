@@ -52,8 +52,10 @@
         groupQuestionId: undefined,
         groupQuestionName: undefined,
         qty: undefined,
+        firstLoad: true,
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
             this.chartConfig.plotOptions.pie.point.events.click = this.clickOnPie.bind(this);
         },
         clickOnPie: function(e) {
@@ -61,6 +63,9 @@
             const name = e.point.name;
             const dateFrom = this.dateFrom;
             const dateTo = this.dateTo;
+            const organization = this.organization;
+            const organizationGroup = this.organizationGroup;
+            const sources = this.sources;
             window.open(
                 location.origin +
                 localStorage.getItem('VirtualPath') +
@@ -68,25 +73,38 @@
                 '?id=' + id +
                 '&name=' + name +
                 '&dateFrom=' + dateFrom +
-                '&dateTo=' + dateTo
+                '&dateTo=' + dateTo +
+                '&organization=' + organization +
+                '&organizationGroup=' + organizationGroup +
+                '&sourceId=' + sources
             );
         },
+        applyChanges: function() {
+            const msg = {
+                name: 'SetFilterPanelState',
+                package: {
+                    value: false
+                }
+            };
+            this.messageService.publish(msg);
+            this.queryExecutor(this.query, this.load, this);
+        },
         executeQuery: function() {
-            const query = {
+            this.query = {
                 'queryCode': 'db_Report_8_1',
                 'limit': -1,
                 'parameterValues': [
-                    {
-                        'key': '@dateFrom',
-                        'value': this.dateFrom
-                    },
-                    {
-                        'key': '@dateTo',
-                        'value': this.dateTo
-                    }
+                    { 'key': '@dateFrom','value': this.dateFrom },
+                    { 'key': '@dateTo', 'value': this.dateTo },
+                    { 'key': '@organization', 'value': this.organization },
+                    { 'key': '@organizationGroup', 'value': this.organizationGroup },
+                    { 'key': '@sourceId', 'value': this.sources.toString() }
                 ]
             };
-            this.queryExecutor(query, this.load, this);
+            if (this.firstLoad) {
+                this.queryExecutor(this.query, this.load, this);
+                this.firstLoad = false;
+            }
         },
         load: function(data) {
             this.fillIndexes(data);
@@ -102,23 +120,36 @@
                     groupQuestionId: this.groupQuestionId,
                     groupQuestionName: this.groupQuestionName,
                     qty: this.qty,
+                    sources: this.sources,
                     chartData: data
                 }
             };
             this.messageService.publish(message);
         },
         getFiltersParams: function(message) {
-            let period = message.package.value.values.find((el) => {
-                return el.name.toLowerCase() === 'period';
-            });
-            const value = period.value;
-            if (value !== null) {
-                if (value.dateFrom !== '' && value.dateTo !== '') {
-                    this.dateFrom = value.dateFrom;
-                    this.dateTo = value.dateTo;
+            let period = message.package.value.values.find(f => f.name === 'period').value;
+            let organization = message.package.value.values.find(f => f.name === 'organization').value;
+            let organizationGroup = message.package.value.values.find(f => f.name === 'organizationGroup').value;
+            let sources = message.package.value.values.find(f => f.name === 'sources').value;
+            if (period !== null) {
+                if (period.dateFrom !== '' && period.dateTo !== '') {
+                    this.sources = this.extractValues(sources);
+                    this.dateFrom = period.dateFrom;
+                    this.dateTo = period.dateTo;
+                    this.organization = organization === null ? 0 : organization === '' ? 0 : organization.value;
+                    this.organizationGroup = organizationGroup === null ? 0 : organizationGroup === '' ? 0 : organizationGroup.value;
+                    this.sources = sources.toString() === '' ? '0' : this.sources.toString();
                     this.executeQuery();
                 }
             }
+        },
+        extractValues: function(items) {
+            if (items.length && items !== '') {
+                const valuesList = [];
+                items.forEach(item => valuesList.push(item.value));
+                return valuesList;
+            }
+            return [];
         },
         fillIndexes: function(data) {
             this.groupQuestionId = this.getIndex(data, 'groupquestionid');
@@ -154,6 +185,7 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
+            this.sub1.unsubscribe();
         }
     };
 }());

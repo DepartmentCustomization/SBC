@@ -1,12 +1,32 @@
--- DECLARE @org INT = 3;
--- DECLARE @dateFrom DATE = '2020-01-01';
--- DECLARE @dateTo DATE = getdate();
--- DECLARE @question_type_id INT = 1;
+--  DECLARE @org INT = 3;
+--  DECLARE @dateFrom DATE = '2020-01-01';
+--  DECLARE @dateTo DATE = getdate();
+--  DECLARE @question_type_id INT = 1;
+--  DECLARE @sourceId NVARCHAR(50) = N'1,3';
+
 IF object_id('tempdb..##temp_QuestionTypes4monitoring') IS NOT NULL 
 BEGIN 
-DROP TABLE ##temp_QuestionTypes4monitoring ;
-END CREATE TABLE ##temp_QuestionTypes4monitoring (id INT) 
+  DROP TABLE ##temp_QuestionTypes4monitoring ;
+END 
+CREATE TABLE ##temp_QuestionTypes4monitoring (id INT) 
 WITH (DATA_COMPRESSION = PAGE);
+
+DECLARE @source_t TABLE (Id INT);
+
+IF(@sourceId = N'0')
+BEGIN
+INSERT INTO @source_t(Id)
+SELECT
+	Id
+FROM dbo.[ReceiptSources] ;
+END
+ELSE IF(@sourceId != N'0')
+BEGIN
+INSERT INTO @source_t(Id)
+SELECT 
+	value 
+FROM STRING_SPLIT(@sourceId, ',');
+END
 
 DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO ##temp_QuestionTypes4monitoring (id) select [QuestionTypes].Id from [CRM_1551_Analitics].[dbo].[QuestionTypes] where Id in (' + rtrim(
   stuff(
@@ -28,26 +48,11 @@ DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO ##temp_QuestionTypes4monitoring (id) 
 
 EXEC sp_executesql @sql;
 
-/* SELECT * FROM ##temp_QuestionTypes4monitoring */
-/*
- if object_id('tempdb..##temp_Organizations4monitoring') is not null drop table ##temp_Organizations4monitoring
- begin
- create table ##temp_Organizations4monitoring (id int)
- end
- 
- declare @sql nvarchar(max)  = N'INSERT INTO ##temp_Organizations4monitoring (id) select Organizations.Id from [CRM_1551_Analitics].[dbo].[Organizations] where Id in (' 
- + rtrim(stuff((select N','+[Organizations]
- from [dbo].[OrganizationsAndParent]
- where ParentId = @org
- for xml path('')), 1,1,N''))+N')'
- exec sp_executesql @sql
- SELECT * FROM ##temp_Organizations4monitoring
- */
 IF object_id('tempdb..#temp_Organizations1') IS NOT NULL 
-BEGIN DROP 
-TABLE #temp_Organizations1 ;
-END
- CREATE TABLE #temp_Organizations1 (
+BEGIN 
+	DROP TABLE #temp_Organizations1 ;
+END 
+CREATE TABLE #temp_Organizations1 (
 main_org_id INT,
 main_org_name NVARCHAR(500),
 main_org_parent_id INT,
@@ -98,7 +103,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
+      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
     WHERE
       [parent_organization_id] = @org
   ) main_org
@@ -108,7 +113,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
+      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L1 ON L1.[parent_organization_id] = main_org.id
   LEFT JOIN (
     SELECT
@@ -116,7 +121,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
+      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L2 ON L2.[parent_organization_id] = L1.id
   LEFT JOIN (
     SELECT
@@ -124,7 +129,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
+      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L3 ON L3.[parent_organization_id] = L2.id
   LEFT JOIN (
     SELECT
@@ -132,7 +137,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
+      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L4 ON L4.[parent_organization_id] = L3.id
   LEFT JOIN (
     SELECT
@@ -140,7 +145,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
+      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L5 ON L5.[parent_organization_id] = L4.id;
 
 INSERT INTO
@@ -179,8 +184,8 @@ WHERE
 -- SELECT * FROM #temp_Organizations1
 IF object_id('tempdb..#temp_Organizations2') IS NOT NULL 
 BEGIN 
-DROP TABLE #temp_Organizations2 ;
-END
+  DROP TABLE #temp_Organizations2 ;
+END 
 CREATE TABLE #temp_Organizations2 (
 main_org_id INT,
 main_org_parent_organization_id INT,
@@ -270,8 +275,9 @@ WHERE
 -- SELECT * FROM #temp_Organizations2
 IF object_id('tempdb..#temp_Main') IS NOT NULL 
 BEGIN 
-DROP TABLE #temp_Main ;
+  DROP TABLE #temp_Main ;
 END
+
 SELECT
   [Assignments].Id,
   [Organizations].main_org_id orgId,
@@ -323,8 +329,10 @@ SELECT
   -- План програма
   Questions.control_date INTO #temp_Main
 FROM
-  [Assignments] [Assignments] WITH (nolock) --on [Assignments].executor_organization_id=[Organizations].Id
-  INNER JOIN [Questions] [Questions] WITH (nolock) ON [Assignments].question_id = [Questions].Id
+  [Assignments] [Assignments] WITH (NOLOCK)
+  INNER JOIN [Questions] [Questions] WITH (NOLOCK) ON [Assignments].question_id = [Questions].Id
+  INNER JOIN dbo.[Appeals] [Appeals] ON [Appeals].Id = [Questions].appeal_id
+  INNER JOIN dbo.[ReceiptSources] rs ON rs.Id = [Appeals].receipt_source_id
   INNER JOIN #temp_Organizations2 [Organizations] ON [Assignments].executor_organization_id=[Organizations].sub_id
   INNER JOIN ##temp_QuestionTypes4monitoring qt ON [Questions].question_type_id = qt.id
   LEFT JOIN (
@@ -332,7 +340,7 @@ FROM
       [assignment_id],
       Min([edit_date]) AS first_execution_date
     FROM
-      dbo.Assignment_History Assignment_History WITH (nolock)
+      dbo.Assignment_History Assignment_History WITH (NOLOCK)
     WHERE
       [assignment_state_id] = 3
     GROUP BY
@@ -350,13 +358,13 @@ FROM
           [assignment_id],
           Max(id) AS max_history_id
         FROM
-          dbo.Assignment_History Assignment_History WITH (nolock)
+          dbo.Assignment_History Assignment_History WITH (NOLOCK)
         WHERE
           [assignment_state_id] <> 5
         GROUP BY
           [assignment_id]
       ) s1 ON a.id = s1.assignment_id
-      LEFT JOIN Assignment_History ah WITH (nolock) ON s1.max_history_id = ah.Id
+      LEFT JOIN Assignment_History ah WITH (NOLOCK) ON s1.max_history_id = ah.Id
     WHERE
       a.[assignment_state_id] = 5
       AND a.AssignmentResultsId = 7
@@ -377,9 +385,15 @@ FROM
       AND q.event_id IS NULL
   ) plan_prog ON [Assignments].id = plan_prog.[assignment_id]
 WHERE
-  CONVERT(DATE, Assignments.registration_date) BETWEEN @dateFrom
-  AND @dateTo IF object_id('tempdb..#temp_MainMain') IS NOT NULL BEGIN DROP TABLE #temp_MainMain ;
+  rs.Id IN (SELECT Id FROM @source_t)
+  AND CONVERT(DATE, Assignments.registration_date)
+  BETWEEN @dateFrom AND @dateTo ;
+  
+IF object_id('tempdb..#temp_MainMain') IS NOT NULL
+BEGIN 
+  DROP TABLE #temp_MainMain ;
 END
+
 SELECT
   orgId Id,
   orgName,

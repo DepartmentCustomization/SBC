@@ -18,37 +18,49 @@
       "Code": "Number",
       "Name": "Маршрут №",
       "Position": 1,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "r.Number",
+      "FilterParameterCode": "@number"
     },
     {
       "Code": "Short_name",
       "Name": "Відділ",
       "Position": 2,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "org.Short_name",
+      "FilterParameterCode": "@org"
     },
     {
       "Code": "Author_userID",
       "Name": "Створив",
       "Position": 3,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "concat(u.FirstName, ' ', u.LastName)",
+      "FilterParameterCode": "@author"
     },
     {
       "Code": "ChangeBy_userID",
       "Name": "Редагував",
       "Position": 4,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "concat(u2.FirstName, ' ', u2.LastName)",
+      "FilterParameterCode": "@editor"
     },
     {
       "Code": "GroupLenght",
       "Name": "Загальна довжина маршруту (м)",
       "Position": 5,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "ROUND(GroupLenght, 2)",
+      "FilterParameterCode": "@groupLenght"
     },
     {
       "Code": "BoreCountAll",
       "Name": "Загальна кількість люків",
       "Position": 6,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "BoreCountAll",
+      "FilterParameterCode": "@boreCount"
     }
   ],
   "Parameters": [
@@ -65,10 +77,9 @@
       "IsPageLimitRows": true
     },
     {
-      "Code": "@UserDepartment",
-      "Name": "UserDepartment",
-      "ParameterType": "Integer",
-      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
     }
   ]
 }

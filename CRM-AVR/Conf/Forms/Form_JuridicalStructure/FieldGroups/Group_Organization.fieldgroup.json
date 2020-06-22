@@ -1,0 +1,56 @@
+{
+  "Code": "Group_Organizations",
+  "Name": "Огранізація",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "organizations_name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "IsRequired": true,
+      "Position": 1,
+      "Icon": "bookmark"
+    },
+    {
+      "Code": "adress_id",
+      "Name": "Юридична адреса",
+      "FieldType": "lookup",
+      "Position": 2,
+      "QueryCode": "dir_houses_organization",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "houses",
+      "QueryParameters": []
+    },
+    {
+      "PatternDescription": "код + телефон без пробелов и дефисов",
+      "Code": "Number",
+      "Name": "Номер телефону",
+      "FieldType": "number",
+      "Position": 3
+    },
+    {
+      "Code": "phone_comment",
+      "Name": "Коментар до телефону",
+      "FieldType": "text",
+      "Position": 4
+    },
+    {
+      "Code": "parent_organization_id",
+      "Name": "Назва батьківської огранізації",
+      "FieldType": "lookup",
+      "IsRequired": false,
+      "Position": 5,
+      "QueryCode": "List_JuridicalOrgs",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
+      "LookupType": "tree",
+      "ParentColumnCode": "Parent_Organization_ID",
+      "PathColumnCode": "Path",
+      "SearchQueryCode": "List_JuridicalOrgs_Search",
+      "SearchKeyColumnCode": "Id",
+      "SearchDisplayColumnCode": "Name",
+      "Width": "50%"
+    }
+  ]
+}

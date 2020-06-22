@@ -1,4 +1,4 @@
--- DECLARE @Id INT = 9126;
+--   DECLARE @Id INT = 9162;
 
 DECLARE @FirstId INT = (SELECT	
 								TOP 1 Id
@@ -30,7 +30,10 @@ TOP 1
 		WHERE
 			cp.Contact_ID = ct.Id
 	) AS FIZ_number,
-	isnull(ct.Contact_type_ID, ct2.Contact_type_ID) AS contact_type,
+	CASE WHEN UR_org.Id IS NULL THEN 
+	isnull(ct.Contact_type_ID, ct2.Contact_type_ID) 
+	ELSE 2 END
+	AS contact_type,
 	ct.Id AS EM_contact_fio,
 	ct.Name AS EM_contact_fio_name,
 	isnull(Jobs.Organization_ID, ct2.Id) AS EM_org_id,
@@ -50,11 +53,11 @@ TOP 1
  		WHERE
 			cp.Contact_ID = ct.Id
 	) AS EM_number,
-	ct.Id AS UR_organization_id,
-	ct.Name AS UR_organization_name,
-	ct2.Id AS UR_contact_fio,
-	ct2.Name AS UR_contact_fio_name,
-	UR_phone.Id AS UR_number,
+	UR_org.Id AS UR_organization_id,
+	UR_org.Name AS UR_organization_name,
+	Claim_content.UR_organization AS UR_organization,
+	Claim_content.G_PIB AS UR_contact_fio,
+	Claim_content.Phone AS UR_number,
 	UR_phone.Number AS UR_number_phone,
 CASE
 		WHEN isnull(Jobs.Organization_ID, ct2.Id) BETWEEN 5000
@@ -79,8 +82,8 @@ CASE
 	(SELECT
 		TOP 1
 		JobTitle 
-     FROM [#system_database_name#].[dbo].[UserInOrganisation]
-	  --[CRM_AVR_System].[dbo].[UserInOrganisation]
+     FROM --[#system_database_name#].[dbo].[UserInOrganisation]
+	  [CRM_AVR_System].[dbo].[UserInOrganisation]
 	 WHERE UserId = @regUserID),
 	 (
 		SELECT
@@ -129,6 +132,7 @@ CASE
 		0
 	) AS count_orders,
 	Claims.Is_Template,
+	Flats.Id AS flat_id,
 	Flats.[Number] AS flat_number,
 	Districts.Name AS district_name,
 	Districts.Id AS district_id,
@@ -227,6 +231,7 @@ FROM
 	LEFT JOIN dbo.Contact_types AS Contact_types2 ON Contact_types2.Id = ct2.Contact_type_ID
 	LEFT JOIN dbo.Jobs Jobs ON Jobs.Contacts_ID = ct.external_Id
 	LEFT JOIN dbo.Organizations org_jobs ON org_jobs.Id = jobs.Organization_ID
+	LEFT JOIN dbo.Organizations UR_org ON UR_org.Id = [Claims].UR_organization_ID
 	LEFT JOIN dbo.Contact_phones UR_phone ON UR_phone.Contact_ID = ct2.Id
 	LEFT JOIN dbo.Diameters Diameters ON Diameters.Id = Claims.Diameters_ID
 	LEFT JOIN dbo.Place_types Place_types ON Place_types.Id = Places.Place_type_ID

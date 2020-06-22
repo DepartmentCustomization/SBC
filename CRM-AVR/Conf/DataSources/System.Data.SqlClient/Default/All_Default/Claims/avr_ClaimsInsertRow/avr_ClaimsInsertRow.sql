@@ -1,38 +1,70 @@
 DECLARE @output TABLE ([Id] INT);
 
 DECLARE @contact_id INT;
-DECLARE @contact_id_fiz INT; 
+
+DECLARE @contact_id_fiz INT;
+
+DECLARE @IsClaimPlaceTemporary BIT = IIF(
+	(
+		SELECT
+			Is_Active
+		FROM
+			dbo.[Places]
+		WHERE
+			Id = @places_id
+	) <> 1,
+	1,
+	0
+);
+
+--> Id квартиры по номеру и месту
+DECLARE @flat_id INT = IIF(
+						@flat_number IS NOT NULL,
+						(SELECT
+							flat.Id
+						FROM dbo.[Places] place
+						INNER JOIN dbo.[Houses] house ON house.Id = place.Street_id
+						INNER JOIN dbo.[Flats] flat ON flat.Houses_ID = house.Id 
+						WHERE place.Id = @places_id
+						AND flat.Number = @flat_number),
+						NULL);
+
+--> Если нужной нету то добавить значения
+IF(@flat_id IS NULL) 
+AND 
+(@flat_number IS NOT NULL) 
+AND 
+(@IsClaimPlaceTemporary <> 1)
+BEGIN
+DECLARE @count INT;
+
+EXEC PlaceNewApartments
+    @places_id = @places_id,
+	@flat_number = @flat_number,
+    @new_flat_id = @flat_id OUTPUT;
+
+END
 
 IF @contact_type = 3 
 BEGIN
 SET
-	@contact_id = @EM_contact_fio ;
-SET
-	@contact_id_fiz = @EM_org_id ;
-END 
-IF @contact_type = 2 
-BEGIN
-SET
-	@contact_id = (
-		SELECT
-			Contacts_ID
-		FROM
-			dbo.Organizations 
-		WHERE
-			Id = @UR_organization_id
-	);
+	@contact_id = @EM_contact_fio;
 
 SET
-	@contact_id_fiz = @UR_contact_fio ;
-END IF @contact_type = 1 
+	@contact_id_fiz = @EM_org_id;
+END 
+
+IF @contact_type = 1 
 BEGIN
 SET
-	@contact_id = @FIZ_concact_id ;
+	@contact_id = @FIZ_concact_id;
+
 SET
-	@contact_id_fiz = NULL ;
-END
- BEGIN TRY
-  BEGIN TRANSACTION;
+	@contact_id_fiz = NULL;
+END 
+
+BEGIN TRY 
+BEGIN TRANSACTION;
 
 INSERT INTO
 	[dbo].[Claims] (
@@ -55,8 +87,9 @@ INSERT INTO
 		Contact_ID_Fiz,
 		date_check,
 		not_balans,
-		DisplayID
-	) output [inserted].[Id] INTO @output([Id])
+		DisplayID,
+		UR_organization_ID
+	) OUTPUT [inserted].[Id] INTO @output([Id])
 VALUES
 	(
 		@Types_id,
@@ -65,8 +98,7 @@ VALUES
 		@Description,
 		@Status_id,
 		isnull(@Organization_id, 28),
-		getutcdate() --@Created_at
-,
+		getutcdate(),
 		@Plan_start_date,
 		isnull(
 			@Plan_finish_at,
@@ -78,12 +110,14 @@ VALUES
 		@Diameters_ID,
 		@Is_Template,
 		@User,
-		@contact_id,
-		@contact_id_fiz,
+		IIF(@contact_type = 2, NULL, @contact_id),
+		IIF(@contact_type = 2, NULL, @contact_id_fiz),
 		@date_check,
 		@not_balans,
-		1
-	) ;
+		1,
+		@UR_organization_id
+	);
+
 DECLARE @Claim_Number INT;
 
 SET
@@ -135,14 +169,44 @@ VALUES
 	(
 		@Claim_Number,
 		@places_id,
-		@flat_number,
+		@flat_id,
 		1,
 		getutcdate()
-	) ;
+	);
+
+
+IF(@IsClaimPlaceTemporary = 1) 
+BEGIN
+UPDATE
+	dbo.Places_LOG
+SET
+	[Object] += N' ' + CAST(@Claim_Number AS NVARCHAR(20))
+WHERE
+	Place_ID = @places_id;
+END 
+IF(@contact_type = 2) 
+BEGIN
+INSERT INTO
+	dbo.Claim_content (
+		Claim_Id,
+		G_PIB,
+		UR_organization,
+		Phone
+	)
+VALUES
+	(
+		@Claim_Number,
+		@UR_contact_fio,
+		@UR_organization,
+		@UR_number
+	);
+
+END 
+
 IF @type_employee_2 = 5
-	OR @type_employee_2 = 6
-	OR @type_employee_2 = 8
-	OR @type_employee_2 = 15 
+OR @type_employee_2 = 6
+OR @type_employee_2 = 8
+OR @type_employee_2 = 15 
 BEGIN
 INSERT INTO
 	[dbo].[Claim_content] (
@@ -172,9 +236,9 @@ VALUES
 		@x_pib_inspector,
 		@x_phone_inspector
 	);
+
 END 
 COMMIT TRANSACTION;
-
 SELECT
 	@Claim_Number AS [Id];
 
@@ -187,8 +251,6 @@ BEGIN
 ROLLBACK TRANSACTION;
 END
 DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
-
 SELECT
-	N'Помилка заповнення: ' + @ErrorMessage ;
-END CATCH 
-; 
+	N'Помилка заповнення: ' + @ErrorMessage;
+END CATCH;
