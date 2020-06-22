@@ -54,10 +54,6 @@
                                 {
                                     key: '@category_id',
                                     value: this.id
-                                },
-                                {
-                                    key: '@user_id',
-                                    value: this.user
                                 }
                             ]
                         };
@@ -155,6 +151,7 @@
             }.bind(this));
         },
         getPartName: function() {
+            console.log(this.form.getControlValue('articul'));
             if (this.form.getControlValue('articul') !== null &&
                 this.form.getControlValue('articul') !== '') {
                 const queryForGetPartInfo = {
