@@ -54,10 +54,6 @@
                                 {
                                     key: '@category_id',
                                     value: this.id
-                                },
-                                {
-                                    key: '@user_id',
-                                    value: this.user
                                 }
                             ]
                         };

@@ -1,5 +1,6 @@
 SELECT
-    pa.Id,
+DISTINCT 
+    p.Id,
     c.category_name,
     p.part_name,
     p.articul,
@@ -11,8 +12,7 @@ FROM
     dbo.Parts p
     INNER JOIN Categories c ON c.Id = p.category_id
     INNER JOIN PartArrival pa ON p.Id = pa.part_id
-WHERE 
-   #filter_columns#
-   #sort_columns#
- 
-   OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ;
+WHERE p.part_quantity > 0
+AND #filter_columns#
+    #sort_columns#
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ;
