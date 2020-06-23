@@ -15,7 +15,7 @@ INSERT INTO [dbo].[Appeals]
 output [inserted].[Id] into @output (Id)
      VALUES
            (getutcdate() --@registration_date
-           --,@registration_number
+           --,@registration_number 222
 		   --,concat( SUBSTRING ( rtrim(YEAR(getutcdate())),4,1),'-',(select count(Id)+1 from Appeals where year(Appeals.registration_date) = year(getutcdate())) )
             ,case when not exists(
 				select top 1 LTRIM(RIGHT(YEAR(getutcdate()),1))+N'-'+ltrim(substring(registration_number, 3, len(registration_number)-2)*1+1)
