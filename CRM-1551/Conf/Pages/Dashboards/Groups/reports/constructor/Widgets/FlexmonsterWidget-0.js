@@ -83,7 +83,7 @@
                 'Номер питання': values[index][indexRegistrationNumber],
                 'Текст звернення': values[index][indexQuestionContent]
             }));
-            const report = {
+            let report = {
                 dataSource: {
                     data: reportData
                 }
