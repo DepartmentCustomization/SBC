@@ -46,7 +46,8 @@ INSERT INTO
         [start_date],
         [user_id],
         edit_date,
-        user_edit_id
+        user_edit_id,
+        [LogUpdated_Query]
     ) 
 output inserted.Id INTO @outId (Id)
 VALUES
@@ -73,7 +74,8 @@ VALUES
         getutcdate(),
         @user_id,
         getutcdate(),
-        @user_id
+        @user_id,
+        N'query_CreateAppeal_FromUGL'
     ) ;
     DECLARE @newId INT = (
         SELECT

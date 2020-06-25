@@ -18,7 +18,8 @@ INSERT INTO [dbo].[Appeals]
            ,[city_receipt]
            ,[user_id]
            ,[edit_date]
-           ,[user_edit_id])
+           ,[user_edit_id]
+           ,[LogUpdated_Query])
 output [inserted].[Id] into @output (Id)
      VALUES
            (@applicant_Id
@@ -54,6 +55,7 @@ case when not exists(
            ,@user_id
            ,getutcdate() -- @edit_date
            ,@user_edit_id
+           ,N'query_Appeals_Insert'
 		   )
 
 declare @app_id int

@@ -1,30 +1,47 @@
 {
-    "ModelType": "Query",
-    "Code": "InsertParts",
-    "Name": "InsertParts",
-    "ConnectionCode": "Default",
-    "IsUsedForRightsFilter": false,
-    "Parameters": [
-      {
-        "Code": "@category_id",
-        "Name": "category"
-      },
-      {
-        "Code": "@part_name",
-        "Name": "part_name"
-      },
-      {
-        "Code": "@articul",
-        "Name": "articul"
-      },
-      {
-        "Code": "@manufacturer",
-        "Name": "manufacturer"
-      },
-      {
-        "Code": "@user_id",
-        "Name": "user_id",
-        "ParameterType": "CurrentUserId"
-      }
-    ]
-  }
+  "ModelType": "Query",
+  "Code": "InsertParts",
+  "Name": "InsertParts",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Parameters": [
+    {
+      "Code": "@category_id",
+      "Name": "category"
+    },
+    {
+      "Code": "@part_name",
+      "Name": "part_name"
+    },
+    {
+      "Code": "@articul",
+      "Name": "articul"
+    },
+    {
+      "Code": "@manufacturer",
+      "Name": "manufacturer"
+    },
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
+    }
+  ],
+  "Columns": [
+    {
+      "Code": "info_message",
+      "Name": "info_message",
+      "Position": 1
+    },
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 2
+    },
+    {
+      "Code": "articul",
+      "Name": "Артикул",
+      "Position": 3
+    }
+  ]
+}
