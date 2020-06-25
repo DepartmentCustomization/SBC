@@ -12,10 +12,11 @@ insert into [CRM_1551_Analitics].[dbo].[Positions]
       ,[user_id]
       ,[edit_date]
       ,[user_edit_id]
-	  ,[organizations_id]
+	    ,[organizations_id]
       ,[role_id]
       ,[programuser_id]
       ,[is_main]
+      ,[schedule_id]
   )
 output [inserted].[Id] into @output (Id)
 
@@ -34,6 +35,7 @@ output [inserted].[Id] into @output (Id)
       ,@role_id
       ,@programuser_id
       ,@is_main
+      ,@schedule_id
 
 	  
 declare @org_id int = (select top 1 Id from @output);

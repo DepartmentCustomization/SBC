@@ -1,4 +1,4 @@
--- DECLARE @dateTo DATETIME = CURRENT_TIMESTAMP;
+--  DECLARE @dateTo DATETIME = CURRENT_TIMESTAMP;
 
 SET @dateTo = dateadd(second,59,(dateadd(minute,59,(dateadd(hour,23,cast(cast(dateadd(day,0,@dateTo) as date) as datetime))))));
 
@@ -28,16 +28,17 @@ END
 	GROUP BY part_id;
     
 ---> Защитать остаток по приходам-расходам
-     SELECT 
-	       p.Id,
+    SELECT 
+	     p.Id,
 		   part_name,
 		   articul,
 		   manufacturer,
-		   ar.part_price,
+		   ROUND(ar.part_price, 2) AS part_price,
 		   ar.part_quantity - ISNULL(ch.changeQty,0) AS qty,
-		   ar.part_price * (ar.part_quantity - ISNULL(ch.changeQty,0)) 
+		   ROUND(ar.part_price * (ar.part_quantity - ISNULL(ch.changeQty,0)), 2) 
 		   AS sum_price
-
 		   FROM dbo.Parts p
 		   INNER JOIN ##Arrival ar ON ar.part_id = p.Id 
-		   LEFT JOIN ##Change ch ON ch.part_id = p.Id ;
+		   LEFT JOIN ##Change ch ON ch.part_id = p.Id
+       WHERE ar.part_quantity - ISNULL(ch.changeQty,0) > 0
+        ;

@@ -309,6 +309,7 @@
     {
       "Code": "attention_val",
       "Name": "attention_val",
-      "Position": 54
+      "Position": 54,
+      "IsPrintable": false
     }
 ]
