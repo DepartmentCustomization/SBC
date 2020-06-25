@@ -52,5 +52,10 @@
     "Code": "@user_id",
     "Name": "user_id",
     "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@schedule_id",
+    "Name": "schedule_id",
+    "ParameterType": "Integer"
   }
 ]

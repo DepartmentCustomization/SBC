@@ -108,6 +108,17 @@
       "QueryParameters": []
     },
     {
+      "Code": "schedule_id",
+      "Name": "Графік",
+      "FieldType": "select",
+      "Position": 13.1,
+      "Width": "100%",
+      "QueryCode": "list_SchedulesSelectRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "name",
+      "QueryParameters": []
+    },
+    {
       "Code": "edit_date",
       "Name": "Оновлено Дата",
       "FieldType": "date",

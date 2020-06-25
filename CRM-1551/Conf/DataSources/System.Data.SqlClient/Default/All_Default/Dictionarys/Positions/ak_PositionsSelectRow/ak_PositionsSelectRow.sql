@@ -23,6 +23,8 @@ SELECT [Positions].[Id]
 	  ,isnull([User2].LastName, N'')+N' '+isnull([User2].[FirstName], N'')+N' '+isnull([User2].[Patronymic], N'') [programuser_name]
       ,[Positions].[is_main]
       ,[Positions].[Id] [position_id]
+	  ,[Schedules].Id schedule_id
+	  ,[Schedules].name schedule_name
   FROM [CRM_1551_Analitics].[dbo].[Positions]
   left join [CRM_1551_Analitics].[dbo].[Workers] on [Positions].user_edit_id=[Workers].worker_user_id
   left join [CRM_1551_Analitics].[dbo].[Positions] [Positions2] on [Positions].parent_id=[Positions2].Id
@@ -30,4 +32,5 @@ SELECT [Positions].[Id]
   left join [CRM_1551_Analitics].[dbo].[Roles] on [Positions].[role_id]=[Roles].Id
   left join [#system_database_name#].[dbo].[User] on [Positions].[user_edit_id]=[User].UserId
   left join [#system_database_name#].[dbo].[User] [User2] on [Positions].[programuser_id]=[User2].UserId
+  left join [dbo].[Schedules] on [Positions].schedule_id=[Schedules].Id
   where [Positions].Id=@Id

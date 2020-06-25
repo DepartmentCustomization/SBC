@@ -6,7 +6,8 @@
     "string:Details\\OrganizationIn.detail.json",
     "string:Details\\main_position1.detail.json",
     "string:Details\\add_position1.detail.json",
-    "string:Details\\helper.detail.json"
+    "string:Details\\helper.detail.json",
+    "string:Details\\positions_replace.detail.json"
   ],
   "Config": {
     "FieldGroups": [
