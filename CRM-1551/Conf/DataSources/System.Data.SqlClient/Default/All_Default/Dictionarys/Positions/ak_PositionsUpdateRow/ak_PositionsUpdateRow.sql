@@ -13,6 +13,7 @@ UPDATE [CRM_1551_Analitics].[dbo].[Positions]
       ,[role_id]=@role_id
       ,[programuser_id]=@programuser_id
       ,[is_main] = @is_main
+      ,[schedule_id]=@schedule_id
       
 	  WHERE Id=@Id OR [main_position_id]=@Id;
 
