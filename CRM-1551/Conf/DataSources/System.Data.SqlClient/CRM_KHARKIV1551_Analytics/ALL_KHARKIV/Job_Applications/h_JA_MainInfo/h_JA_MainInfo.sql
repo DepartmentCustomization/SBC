@@ -1,6 +1,7 @@
 
 --declare @phone_nunber nvarchar(50)=N'044-564-96-50'; 
 
+/*
 declare @today_day date= convert(date, getutcdate()); --сегодняшний день
   declare @first_day_week date = --первый день этой недели
   CASE WHEN DATEPART(DW, @today_day)=1 THEN DATEADD(dd, -6, @today_day)
@@ -19,7 +20,7 @@ declare @today_day date= convert(date, getutcdate()); --сегодняшний �
   into #temp_all_day
   from [CRM_1551_Analitics].[dbo].[WorkDaysCalendar]
   where [date] between @first_day_week and @end_day_week and is_work='true'
-
+  */
   --select N'Робочий час: '+stuff((select N', '+[day]
   --from #temp_all_day
   --where [day]<>N'Пт'
@@ -43,6 +44,7 @@ declare @today_day date= convert(date, getutcdate()); --сегодняшний �
   [Organizations].Id organizations_id,  
   [Parent_Organizations].Id parent_organizations_Id, [Parent_Organizations].short_name parent_organizations_name,
   [Parent_Organizations].head_name
+  ,[Schedules].name schedule_name
 
   
   into #temp_main_info
@@ -50,7 +52,10 @@ declare @today_day date= convert(date, getutcdate()); --сегодняшний �
   left join [CRM_1551_Analitics].[dbo].[Positions] [Parent_Positions] on [Positions].parent_id=[Parent_Positions].Id
   inner join [CRM_1551_Analitics].[dbo].[Organizations] on [Positions].organizations_id=[Organizations].Id
   left join [CRM_1551_Analitics].[dbo].[Organizations] [Parent_Organizations] on [Organizations].parent_organization_id=[Parent_Organizations].Id
-  where charindex(@phone_nunber, [Positions].phone_number, 1)>0
+  left join [CRM_1551_Analitics].[dbo].[Schedules] on [Positions].schedule_id=[Schedules].Id
+  where charindex(@phone_nunber, 
+  replace([Positions].[phone_number], N'-', N'')
+  , 1)>0
 
 
   select 1 Id, stuff((select distinct N', '+ltrim(Id) from #temp_main_info for xml path('')),1,2,N'') Ids,
@@ -61,7 +66,11 @@ declare @today_day date= convert(date, getutcdate()); --сегодняшний �
    stuff((select distinct N', '+position_PIB from #temp_main_info for xml path('')),1,2,N'') Position_PIB,
    stuff((select distinct N', '+Parent_Positions_name from #temp_main_info for xml path('')),1,2,N'') Parent_Positions_Name,
    stuff((select distinct N', '+organizations_name from #temp_main_info for xml path('')),1,2,N'') Organizations_Name,
-   (select N'Робочий час: '+stuff((select N', '+[day]
-  from #temp_all_day
-  where [day]<>N'Пт'
-  for xml path ('')),1,2,N'')+N': 9:00-18:00'+ISNULL((select N', '+[day]+N' 9:00-17:00' from #temp_all_day where [day]=N'Пт'),N'')) WorkDays
+  -- (select N'Робочий час: '+stuff((select N', '+[day]
+  --from #temp_all_day
+  --where [day]<>N'Пт'
+  --for xml path ('')),1,2,N'')+N': 9:00-18:00'+ISNULL((select N', '+[day]+N' 9:00-17:00' from #temp_all_day where [day]=N'Пт'),N'')) WorkDays
+  N'Робочий час: '+stuff((select distinct N', '+schedule_name from #temp_main_info for xml path('')),1,2,N'') WorkDays
+
+
+  --select * from #temp_main_info
