@@ -51,8 +51,8 @@
   ],
   "Parameters": [
     {
-      "Code": "@phone_nunber",
-      "Name": "phone_nunber"
+      "Code": "@phone_number",
+      "Name": "phone_number"
     }
   ]
 }

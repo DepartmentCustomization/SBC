@@ -37,9 +37,9 @@ declare @today_day date= convert(date, getutcdate()); --сегодняшний �
 
   [Positions].name+N'- '+[Positions].phone_number position_PIB,
 
-  N'Підпорядковується: '+[Parent_Positions].position+N' ('+[Parent_Positions].name +N')' Parent_Positions_name,
+  [Parent_Positions].position+N' ('+[Parent_Positions].name +N')' Parent_Positions_name,
 
-  N'Організація- '+[Organizations].short_name organizations_name,
+  [Organizations].short_name organizations_name,
 
   [Organizations].Id organizations_id,  
   [Parent_Organizations].Id parent_organizations_Id, [Parent_Organizations].short_name parent_organizations_name,
@@ -53,7 +53,7 @@ declare @today_day date= convert(date, getutcdate()); --сегодняшний �
   inner join [CRM_1551_Analitics].[dbo].[Organizations] on [Positions].organizations_id=[Organizations].Id
   left join [CRM_1551_Analitics].[dbo].[Organizations] [Parent_Organizations] on [Organizations].parent_organization_id=[Parent_Organizations].Id
   left join [CRM_1551_Analitics].[dbo].[Schedules] on [Positions].schedule_id=[Schedules].Id
-  where charindex(@phone_nunber, 
+  where charindex(@phone_number, 
   replace([Positions].[phone_number], N'-', N'')
   , 1)>0
 
