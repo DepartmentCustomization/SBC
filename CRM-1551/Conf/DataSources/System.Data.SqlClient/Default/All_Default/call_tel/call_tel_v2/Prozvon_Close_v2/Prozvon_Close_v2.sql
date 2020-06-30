@@ -3,6 +3,7 @@
   --declare @assignment_resolution_id int = 8;
   --declare @control_result_id int = 5;
   --declare @control_comment nvarchar(300)=N'qweqq';
+  --declare @grade int=5;
 
   
 --якщо дане доручення закрите то нічого не робити - return
@@ -201,7 +202,7 @@ END
 						  ,@control_comment [control_comment]
 						  ,GETUTCDATE() [control_date]
 						  ,@user_id [user_id]
-						  ,@grade [grade]
+						  ,case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else null end [grade]
 						  ,null [grade_comment]
 						  ,null [rework_counter]
 						  ,null [missed_call_counter]
@@ -218,7 +219,8 @@ END
 							,[control_result_id]=@control_result_id
 							,[control_comment]=@control_comment
 							,control_date = GETUTCDATE()
-							,[grade]=@grade
+							--,[grade]=@grade
+							,[grade]=case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else [grade] end
 							,[edit_date]=GETUTCDATE()
 							,[user_edit_id]=@user_id
 						WHERE [assignment_consideration_іd] IN (SELECT curent_consid_id FROM  @assigments_table);

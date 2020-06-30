@@ -38,7 +38,8 @@ BEGIN
 	    			   @NEW_AssignmentResultsId [control_result_id],
 					   @Question_Prew_Comment [control_comment],
 					   getutcdate() [control_date],
-					   @Question_Prew_Rating [grade],
+					   --@Question_Prew_Rating [grade],
+					   case when @AssignmentResultsId not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @Question_Prew_Rating else null end [grade],
 	    			   @Question_Prew_Comment [grade_comment],
 					   getutcdate() [edit_date],
 					   @UserId [user_id],
@@ -70,7 +71,7 @@ BEGIN
 	    			,[control_result_id] = @NEW_AssignmentResultsId
 					,[control_comment] = CASE WHEN LEN(ISNULL(@Question_Prew_Comment,N'')) > 0 THEN  @Question_Prew_Comment  ELSE [control_comment] END
 					,[control_date] = getutcdate()
-					,[grade] = @Question_Prew_Rating
+					,[grade] = case when @AssignmentResultsId not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @Question_Prew_Rating else [grade] end
 	    			,[grade_comment] = CASE WHEN LEN(ISNULL(@Question_Prew_Comment,N'')) > 0 THEN  @Question_Prew_Comment  ELSE [control_comment] END
 					,[edit_date] = getutcdate()
 	    			,[user_edit_id] = @UserId
