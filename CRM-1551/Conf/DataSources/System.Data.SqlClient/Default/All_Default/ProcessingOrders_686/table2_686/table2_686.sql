@@ -370,7 +370,7 @@ AND (CASE
 		[AssignmentResolutions].name = N'Повернуто в батьківську організацію' THEN 1
 END) = 1
 --AND [AssignmentConsiderations].turn_organization_id = @organization_id;
-AND ((tpuo.organizations_id IS NOT NULL AND [Assignments].executor_person_id IS NULL)
+AND ((tpuo.organizations_id IS NOT NULL /*AND [Assignments].executor_person_id IS NULL*/)
 OR (tpuop.position_id IS NOT NULL))
 ---
 
