@@ -7,7 +7,10 @@ IF object_id('tempdb..#temp_main_info') IS NOT NULL DROP TABLE #temp_main_info
   
   into #temp_main_info
   from [CRM_1551_Analitics].[dbo].[Positions]
-  where charindex(@phone_nunber, [Positions].phone_number, 1)>0
+  where --charindex(@phone_nunber, [Positions].phone_number, 1)>0
+  charindex(@phone_nunber, 
+  replace([Positions].[phone_number], N'-', N'')
+  , 1)>0
 
 
 select [Assignments].Id, [Questions].registration_number Registration_Number, [AssignmentStates].name [AssignmentState], [QuestionTypes].name QuestionType,
