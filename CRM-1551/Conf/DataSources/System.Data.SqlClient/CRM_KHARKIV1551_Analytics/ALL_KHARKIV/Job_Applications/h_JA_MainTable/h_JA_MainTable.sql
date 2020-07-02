@@ -18,6 +18,7 @@ select [Assignments].Id, [Questions].registration_number Registration_Number, [A
   temp_main_info.Positions_Name,
   [Assignments].execution_date Control_Date, [AssignmentConsiderations].[short_answer] Comment,
   [Applicants].full_name Applicant_Name, [Applicants].ApplicantAdress, [Questions].question_content Content
+  ,[Assignments].[Registration_date]
   from [CRM_1551_Analitics].[dbo].[Assignments]
   inner join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
   inner join #temp_main_info temp_main_info on [Assignments].executor_person_id=temp_main_info.Id 
