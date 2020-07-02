@@ -17,7 +17,6 @@
         },
         init: function() {
             this.showPagePreloader('Зачекайте, файл завантажується');
-            this.subscribers.push(this.messageService.subscribe('openModalForm', this.openModalForm, this));
         },
         afterViewInit: function() {
             this.container = document.getElementById('container');

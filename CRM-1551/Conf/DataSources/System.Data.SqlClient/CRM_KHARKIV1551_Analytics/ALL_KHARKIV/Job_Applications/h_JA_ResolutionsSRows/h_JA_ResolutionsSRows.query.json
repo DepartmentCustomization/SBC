@@ -27,11 +27,6 @@
       "IsPageOffsetRows": true
     },
     {
-      "Code": "@result_id",
-      "Name": "result_id",
-      "ParameterType": "Integer"
-    },
-    {
       "Code": "@pageLimitRows",
       "Name": "pageLimitRows",
       "ParameterType": "Integer",

@@ -1,3 +1,4 @@
+/* DATAGRID START */
 .dx-datagrid-group-opened{
     margin: 10px;
     font: 18px/18px DXIcons;
@@ -79,3 +80,109 @@
 .value {
     margin-left: 20px;
 }
+/* DATAGRID END */
+
+/* MODAL START */
+
+#modalWrapper, #closingResultWrapper{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,.7);
+    z-index: 900;
+    top: 44px;
+    left: 0;
+}                
+#modalWindow{
+    position: fixed;
+    top: 110px;
+    margin-left: 50%;
+    left: -450px;
+    z-index: 950;
+    background: #fafafa;
+    width: 100%;
+    max-width: 900px;
+    padding: 15px;   
+}
+.selectItem{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #acada8;
+    margin: 10px 0;
+    font-size: 14px;
+    outline: none;
+}
+.select2{
+    width: 100%!important;
+    outline: none;                    
+}
+.select2-selection{
+    border-radius: 0px!important;
+    outline: none; 
+    border: none!important;
+    border-bottom: 1px solid #acada8!important;
+}                
+#assigmComment{
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    border: 0;
+    margin: 7px 0;  
+    outline: none;
+}
+#assigmResult, #assigmResolution{
+    font-size: 16px;
+    margin: 7px 0;
+}
+#assigmResolution, #assigmComment{
+    margin-top: 20px;
+    border-bottom: 1px solid #acada8!important;
+}
+#templateResultWrapper, #assigmComment{
+    margin-top: 20px;
+}
+#assigmResolutionValue, #assigmComment{
+    padding: 5px 20px;    
+}
+#select2-resultSelect-container, #select2-templateSelect-container{
+    padding-left: 20px!important;
+}
+#buttonWrapper{
+    display: flex;
+    justify-content: center;
+    width: 100%;                    
+}
+.modalBtn{
+    text-transform: uppercase;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    margin: 0 5px;                    
+}
+.displayNone{
+    display: none;                    
+}
+#button_save, #closingResultBtn{
+    background-color: rgba(21, 189, 244, 1);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+}
+#closingResultBtn{
+    margin-top: 25px;
+}
+#button_close{
+    background-color: transparent;
+    color: rgba(21, 189, 244, 1);
+    border: none;
+}     
+.caption{
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* MODAL END */

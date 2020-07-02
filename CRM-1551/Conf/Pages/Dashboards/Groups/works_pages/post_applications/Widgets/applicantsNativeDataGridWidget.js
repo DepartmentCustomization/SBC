@@ -43,13 +43,15 @@
                     caption: 'Коментар'
                 }
             ],
-            keyExpr: 'Id',
-            export: {
-                enabled: true,
-                fileName: 'Зияви'
+            masterDetail: {
+                enabled: true
             },
+            selection: {
+                mode: 'multiple'
+            },
+            keyExpr: 'Id',
             allowColumnResizing: true,
-            columnAutoWidth: true,
+            columnAutoWidth: false,
             hoverStateEnabled: true,
             pager: {
                 showPageSizeSelector: true,
@@ -58,9 +60,6 @@
             paging: {
                 pageSize: 10
             },
-            sorting: {
-                mode: 'multiple'
-            },
             showBorders: false,
             showColumnLines: false,
             showRowLines: true
@@ -68,7 +67,9 @@
         init: function() {
             const phoneNumber = this.getUrlParams();
             this.executeExecutorApplicantsQuery(phoneNumber);
+            this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.config.onToolbarPreparing = this.createDGButtons.bind(this);
+            this.subscribers.push(this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this));
         },
         getUrlParams: function() {
             const getUrlParams = window
@@ -94,6 +95,19 @@
             toolbarItems.push({
                 widget: 'dxButton',
                 options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
+                    onClick: function(e) {
+                        e.event.stopImmediatePropagation();
+                        this.exportToExcel();
+                    }.bind(this)
+                },
+                location: 'after'
+            });
+            toolbarItems.push({
+                widget: 'dxButton',
+                options: {
                     icon: 'close',
                     type: 'default',
                     text: 'Опрацьовано',
@@ -106,26 +120,32 @@
             });
         },
         openModalCloserForm: function() {
-            let rowsMessage = [];
+            let rows = [];
             const selectedRows = this.dataGridInstance.instance.getSelectedRowsData();
             if(selectedRows.length > 0) {
-                selectedRows.forEach(row => {
-                    let obj = {
-                        id: row.Id,
-                        organization_id: row.Organizations_Id
-                    }
-                    rowsMessage.push(obj);
-                });
-                this.messageService.publish({ name: 'openModalForm', value: rowsMessage });
+                selectedRows.forEach(row => rows.push(row.Id));
+                const value = rows.join(', ');
+                this.messageService.publish({ name: 'openModalForm', id: value });
             }
+        },
+        createMasterDetail: function(container, options) {
+            const currentEmployeeData = options.data;
+            const name = 'createMasterDetail';
+            const fields = {
+                Applicant_Name: 'Заявник',
+                ApplicantAdress: 'Адреса заявника',
+                Content: 'Зміст'
+            };
+            this.messageService.publish({
+                name, currentEmployeeData, fields, container
+            });
+        },
+        reloadMainTable: function() {
+            this.dataGridInstance.instance.deselectAll();
+            this.loadData(this.afterLoadDataHandler);
         },
         afterLoadDataHandler: function() {
             this.render();
         }
-        /*
-            h_JA_ResultsSRows
-            h_JA_ResolutionsSRows
-            h_JA_Button
-        */
     };
 }());
