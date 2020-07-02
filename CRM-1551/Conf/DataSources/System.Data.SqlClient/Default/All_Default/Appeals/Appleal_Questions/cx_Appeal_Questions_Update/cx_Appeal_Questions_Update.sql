@@ -12,6 +12,35 @@ DECLARE @ass_for_check INT = (
 	WHERE
 		Id = @Id
 ) ;
+
+DECLARE @blago_Id INT = (SELECT 
+								[question_type_id] 
+							FROM [CRM_1551_Site_Integration].[dbo].[WorkDirectionTypes]
+							WHERE Id = 20);
+--> Обновление территории по объекту вопроса
+IF(@question_type_id = @blago_Id)
+BEGIN
+	IF(@object_id <> (SELECT [object_id] FROM dbo.[Questions] WHERE Id = @Id))
+	BEGIN
+	DECLARE @objectTerritoryId INT = (SELECT 
+											[id] 
+									   FROM dbo.[Territories]
+									   WHERE [object_id] = @object_id);
+		IF(@objectTerritoryId IS NOT NULL)
+		BEGIN 
+		UPDATE dbo.[QuestionsInTerritory]
+			SET [territory_id] = @objectTerritoryId
+		WHERE [question_id] = @Id;
+		END
+		ELSE 
+		BEGIN
+		DECLARE @object_lat NVARCHAR(20) = (SELECT [geolocation_lat] FROM dbo.[Objects] WHERE Id = @object_id); 
+		DECLARE @object_lon NVARCHAR(20) = (SELECT [geolocation_lon] FROM dbo.[Objects] WHERE Id = @object_id); 
+		
+		END
+	END
+END
+
 UPDATE
 	[dbo].[Questions]
 SET
