@@ -60,11 +60,15 @@
             paging: {
                 pageSize: 10
             },
+            showFilterRow: true,
+            showHeaderFilter: true,
             showBorders: false,
             showColumnLines: false,
             showRowLines: true
         },
         init: function() {
+            // headerFilter
+            // color circle state
             const phoneNumber = this.getUrlParams();
             this.executeExecutorApplicantsQuery(phoneNumber);
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
