@@ -33,10 +33,84 @@ BEGIN
 		WHERE [question_id] = @Id;
 		END
 		ELSE 
+		--> Если территория объекта не найдена в БД, спрашиваем по API
 		BEGIN
-		DECLARE @object_lat NVARCHAR(20) = (SELECT [geolocation_lat] FROM dbo.[Objects] WHERE Id = @object_id); 
-		DECLARE @object_lon NVARCHAR(20) = (SELECT [geolocation_lon] FROM dbo.[Objects] WHERE Id = @object_id); 
+		DECLARE @object_lat NVARCHAR(MAX) = (SELECT [geolocation_lat] FROM dbo.[Objects] WHERE Id = @object_id); 
+		DECLARE @object_lon NVARCHAR(MAX) = (SELECT [geolocation_lon] FROM dbo.[Objects] WHERE Id = @object_id);
+		DECLARE @json TABLE (json_val NVARCHAR(MAX));
+		DECLARE @request_val INT;
+		DECLARE @response_val NVARCHAR(MAX);
+		DECLARE @token INT;
+		DECLARE @url NVARCHAR(MAX) = 'https://db.blagoustriy.kiev.ua/restapi/sectors/find?lat=' + @object_lat +'&lon=' + @object_lon;
+		DECLARE @result_sector INT;
+		DECLARE @result_nameDistrict NVARCHAR(100);
+		DECLARE @newSector_name NVARCHAR(200);
+		DECLARE @newSector_id INT;
+
+		IF(@object_lat IS NULL) 
+		OR(@object_lon IS NULL)
+		BEGIN
+			RAISERROR('Error! Missing object coordinates', 16, 1);
+			RETURN;
+		END
+		EXEC @request_val = sp_OACreate 'MSXML2.ServerXMLHTTP', @token OUT ;
 		
+		IF(@request_val <> 0)
+		BEGIN
+			RAISERROR('Error! Failed on creating HTTP request', 16, 1);
+			RETURN;
+		END
+		
+		EXEC @request_val = sp_OAMethod @token, 'open', NULL, 'GET', @url, 'false';
+		EXEC @request_val = sp_OAMethod @token, 'send';
+		
+		INSERT INTO @json 
+		EXEC sp_OAGetProperty @token, 'responseText';
+		SET @response_val = (SELECT TOP 1 * FROM @json);
+		IF(@response_val IS NULL)
+		BEGIN
+			RAISERROR('Error! HTTP response not contain data', 16, 1);
+			RETURN;
+		END
+		--> Выбираем данные с json ответа
+		SET @result_sector = (
+		SELECT TOP 1
+			[nSector]
+		FROM OPENJSON(@response_val)
+		WITH
+		([nSector] INT '$.nSector') 
+		);
+		
+		SET @result_nameDistrict = (
+		SELECT TOP 1
+			[nameDistrict]
+		FROM OPENJSON(@response_val)
+		WITH
+		([nameDistrict] NVARCHAR(100) '$.nameDistrict') 
+		);
+		--> Затем создаем новую и подвязываем к вопросу
+		SET @newSector_name = N'Сектор Благоустрою №' + CAST(@result_sector AS NVARCHAR(MAX)) + 
+							  SPACE(1) + REPLACE(@result_nameDistrict, 'кий', 'кого р-ну');
+		DECLARE @ter_info TABLE (Id INT);
+		INSERT INTO dbo.[Territories] ([name],
+									   [object_id],
+									   [create_date],
+									   [user_id],
+									   [edit_date],
+									   [user_edit_id])
+				OUTPUT inserted.id INTO @ter_info(Id)
+				VALUES (@newSector_name,
+						@object_id,
+						GETUTCDATE(),
+						@user_edit_id,
+						GETUTCDATE(),
+						@user_edit_id);
+				
+		SET @newSector_id = (SELECT TOP 1 Id FROM @ter_info);
+
+		UPDATE dbo.[QuestionsInTerritory]
+			SET [territory_id] = @newSector_id
+		WHERE [question_id] = @Id;
 		END
 	END
 END
