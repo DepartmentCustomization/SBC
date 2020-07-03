@@ -20,7 +20,8 @@
                 },
                 {
                     dataField: 'AssignmentState',
-                    caption: 'Стан'
+                    caption: 'Стан',
+                    alignment: 'center'
                 },
                 {
                     dataField: 'QuestionType',
@@ -43,6 +44,10 @@
                     caption: 'Коментар'
                 }
             ],
+            filterRow: {
+                visible: true,
+                applyFilter: 'auto'
+            },
             masterDetail: {
                 enabled: true
             },
@@ -67,12 +72,11 @@
             showRowLines: true
         },
         init: function() {
-            // headerFilter
-            // color circle state
             const phoneNumber = this.getUrlParams();
             this.executeExecutorApplicantsQuery(phoneNumber);
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.config.onToolbarPreparing = this.createDGButtons.bind(this);
+            this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.subscribers.push(this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this));
         },
         getUrlParams: function() {
@@ -143,6 +147,37 @@
             this.messageService.publish({
                 name, currentEmployeeData, fields, container
             });
+        },
+        onCellPrepared: function(options) {
+            if(options.rowType === 'data') {
+                if(options.column.dataField === 'AssignmentState') {
+                    const states = options.data.AssignmentState;
+                    const spanCircle = this.createElement('div',
+                        { classList: 'material-icons', innerText: 'lens', style: 'display: flex; justify-content: center;'}
+                    );
+                    if(states === 'На перевірці') {
+                        spanCircle.classList.add('onCheck');
+                    }else if(states === 'Зареєстровано') {
+                        spanCircle.classList.add('registrated');
+                    }else if(states === 'В роботі') {
+                        spanCircle.classList.add('inWork');
+                    }else if(states === 'Закрито') {
+                        spanCircle.classList.add('closed');
+                    }else if(states === 'Не виконано') {
+                        spanCircle.classList.add('notDone');
+                    }
+                    options.cellElement.appendChild(spanCircle);
+                }
+            }
+        },
+        createElement: function(tag, props, ...children) {
+            const element = document.createElement(tag);
+            Object.keys(props).forEach(key => element[key] = props[key]);
+            if(children.length > 0) {
+                children.forEach(child =>{
+                    element.appendChild(child);
+                });
+            } return element;
         },
         reloadMainTable: function() {
             this.dataGridInstance.instance.deselectAll();

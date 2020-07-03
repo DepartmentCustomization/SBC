@@ -186,3 +186,24 @@
 }
 
 /* MODAL END */
+
+/* STATE CIRCLE COLOR START */
+.registrated{
+    color: #fff;
+}
+.notDone{
+    color: red;
+}
+ .yellow{
+    color: yellow;
+}
+.inWork{
+    color: green;
+}
+.onCheck{
+    color: blue;
+}
+.closed{
+    color: grey;
+}
+/* STATE CIRCLE COLOR END*/
