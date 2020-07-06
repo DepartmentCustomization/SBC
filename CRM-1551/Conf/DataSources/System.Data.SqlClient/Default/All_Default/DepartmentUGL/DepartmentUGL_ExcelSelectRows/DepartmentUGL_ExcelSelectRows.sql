@@ -5,6 +5,8 @@
 -- declare @uploaded NVARCHAR(MAX) = N 'N''Вася'',N''Степа''';
 -- declare @processed NVARCHAR(MAX) = N 'N''Вася'',N''Степа''';
 
+DECLARE @zoneVal SMALLINT = DATEPART(TZOffset, SYSDATETIMEOFFSET());
+SET @dateTo = DATEADD(MINUTE,@zoneVal,@dateTo);
 SELECT
 	Z.[Id],
 	Z.[№ звернення] [EnterNumber],
