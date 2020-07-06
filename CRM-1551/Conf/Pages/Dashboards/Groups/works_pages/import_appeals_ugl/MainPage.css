@@ -182,3 +182,21 @@ input[type="file"] {
 .iconToLink{
     font-size: 25px;
 }
+.registrated{
+    color: #fff;
+}
+.notDone{
+    color: red;
+}
+ .yellow{
+    color: yellow;
+}
+.inWork{
+    color: green;
+}
+.onCheck{
+    color: blue;
+}
+.closed{
+    color: grey;
+}
