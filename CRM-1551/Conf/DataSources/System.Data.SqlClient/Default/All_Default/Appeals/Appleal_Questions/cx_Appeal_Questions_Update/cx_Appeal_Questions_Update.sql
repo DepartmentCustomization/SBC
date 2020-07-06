@@ -50,7 +50,9 @@ BEGIN
 		IF(@object_lat IS NULL) 
 		OR(@object_lon IS NULL)
 		BEGIN
-			RAISERROR('Error! Missing object coordinates', 16, 1);
+			UPDATE dbo.[Questions]
+				SET [object_id] = @object_id 
+			WHERE Id = @Id;
 			RETURN;
 		END
 		EXEC @request_val = sp_OACreate 'MSXML2.ServerXMLHTTP', @token OUT ;
@@ -122,9 +124,9 @@ SET
 	[question_type_id] = @question_type_id,
 	[edit_date] = getutcdate(),
 	[user_edit_id] = @user_edit_id,
-	question_content = @question_content,
-	object_id = @object_id,
-	organization_id = @organization_id,
+	[question_content] = @question_content,
+	[object_id] = @object_id,
+	[organization_id] = @organization_id,
 	[answer_form_id] = @answer_type_id,
 	[answer_phone] = @answer_phone,
 	[answer_post] = @answer_post,
