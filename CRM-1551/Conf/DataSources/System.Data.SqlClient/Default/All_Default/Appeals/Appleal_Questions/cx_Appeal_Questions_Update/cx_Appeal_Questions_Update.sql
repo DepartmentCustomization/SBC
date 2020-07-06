@@ -53,6 +53,7 @@ BEGIN
 			UPDATE dbo.[Questions]
 				SET [object_id] = @object_id 
 			WHERE Id = @Id;
+			RETURN;
 		END
 		EXEC @request_val = sp_OACreate 'MSXML2.ServerXMLHTTP', @token OUT ;
 		
