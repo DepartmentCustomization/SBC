@@ -9,7 +9,8 @@
                     `
         ,
         init: function() {
-            this.messageService.publish({ name: 'showPagePreloader' });
+            // this.messageService.publish({ name: 'showPagePreloader' });
+            debugger;
             const header = document.getElementById('header1');
             header.firstElementChild.style.overflow = 'visible';
             header.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
@@ -35,14 +36,13 @@
                     }, {}
                     );
                 let tabInd = Number(getUrlParams.id);
-                this.organizationId = [];
-                this.organizationId = (tabInd);
+                this.organizationId = tabInd;
                 let executeQueryValues = {
                     queryCode: 'table2_686',
                     limit: -1,
                     parameterValues: [ { key: '@organization_id', value: this.organizationId} ]
                 };
-                this.queryExecutor(executeQueryValues, this.createTable.bind(this, false, null), this);
+                // this.queryExecutor(executeQueryValues, this.createTable.bind(this, false, null), this);
                 this.showPreloader = false;
                 let executeQuery = {
                     queryCode: 'organization_name',
