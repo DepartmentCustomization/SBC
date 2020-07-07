@@ -84,7 +84,11 @@
             groupingAutoExpandAll: null
         },
         init: function() {
-            this.dataGridInstance.height = window.innerHeight - 300;
+            if (window.matchMedia('(min-width: 961px)').matches) {
+                this.dataGridInstance.height = window.innerHeight;
+            } else {
+                this.dataGridInstance.height = window.innerHeight - 300;
+            }
             document.getElementById('selectInfoTable').style.display = 'none';
             this.subscribers.push(this.messageService.subscribe('clickOnInfoTable', this.changeOnTable, this));
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
