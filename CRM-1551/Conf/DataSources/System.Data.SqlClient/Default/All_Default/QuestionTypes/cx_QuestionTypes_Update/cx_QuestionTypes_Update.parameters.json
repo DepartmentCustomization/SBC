@@ -69,7 +69,7 @@
   {
     "Code": "@emergency",
     "Name": "emergency",
-    "ParameterType": "Boolean"
+    "ParameterType": "Integer"
   },
   {
     "Code": "@user_edit_id",
@@ -79,5 +79,10 @@
   {
     "Code": "@index",
     "Name": "index"
+  },
+  {
+    "Code": "@assignment_class_id",
+    "Name": "assignment_class_id",
+    "ParameterType": "Integer"
   }
 ]

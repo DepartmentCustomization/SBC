@@ -119,5 +119,22 @@
     "Code": "parent_organization_is",
     "Name": "parent_organization_is",
     "Position": 23
+  },
+  {
+    "Code": "emergensy_name",
+    "Name": "emergensy_name",
+    "Position": 24,
+    "ReferenceKeyCode": "emergency"
+  },
+  {
+    "Code": "assignment_class_id",
+    "Name": "assignment_class_id",
+    "Position": 25
+  },
+  {
+    "Code": "assignment_class_name",
+    "Name": "assignment_class_name",
+    "Position": 26,
+    "ReferenceKeyCode": "assignment_class_id"
   }
 ]
