@@ -1,4 +1,11 @@
 --  DECLARE @user_edit_id NVARCHAR(128)=N'bc1b17e2-ffee-41b1-860a-41e1bae57ffd';
+
+
+update [dbo].[Assignments]
+  set [assignment_class_id]=@assignment_class_id
+  ,[class_resolution_id]=@class_resolution_id
+  where Id=@Id
+
 SET @executor_person_id = IIF(IIF(@executor_person_id = '',NULL,@executor_person_id) = 0,NULL,IIF(@executor_person_id = '',NULL,@executor_person_id));
 
 DECLARE @sertors TABLE (Id INT);
