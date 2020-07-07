@@ -27,8 +27,16 @@
                     dataField: 'control_date',
                     caption: 'Дата контролю'
                 }, {
-                    dataField: 'vykonavets',
-                    caption: 'Виконавець'
+                    dataField: 'lookup',
+                    caption: 'Виконавець',
+                    lookup: {
+                        dataSource: {
+                            paginate: true,
+                            store: undefined
+                        },
+                        valueExpr: 'ID',
+                        displayExpr: 'Name'
+                    }
                 }, {
                     caption: '',
                     dataField: '',
@@ -95,6 +103,7 @@
         arrivedColumn: 'arrived',
         isEvent: false,
         event: 'Заходи',
+        lookupData: [],
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 405;
             this.tableContainer = document.getElementById('subTable');
@@ -104,6 +113,7 @@
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
+            this.executeQueryLookup();
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     if(e.column.dataField === 'registration_number' && e.row !== undefined) {
@@ -113,6 +123,33 @@
                     }
                 }
             });
+        },
+        executeQueryLookup: function() {
+            let executeQueryStatuses = {
+                queryCode: 'h_ParentPositions_SelectRows',
+                limit: -1,
+                parameterValues: []
+            };
+            this.queryExecutor(executeQueryStatuses, this.setLookupData, this);
+        },
+        setLookupData: function(data) {
+            this.lookupData = [ { 'ID': null, 'Name': ' ' } ];
+            data.rows.forEach(row => {
+                let status = {
+                    'ID': row.values[0],
+                    'Name':  row.values[2],
+                    'vykonavets_Id': row.values[1]
+                }
+                this.lookupData.push(status);
+            });
+            const index = this.config.columns.findIndex(c => c.dataField === 'lookup');
+            this.config.columns[index].lookup.dataSource = this.setLookupDataSource.bind(this);
+        },
+        setLookupDataSource: function(options) {
+            return {
+                store: this.lookupData,
+                filter: options.data ? ['vykonavets_Id', '=', options.data.vykonavets_Id] : null
+            };
         },
         onCellPrepared: function(options) {
             if(options.rowType === 'data') {
