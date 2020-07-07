@@ -69,6 +69,8 @@
         destroy: function() {
             this.sub.unsubscribe();
             this.sub1.unsubscribe();
+            this.sub2.unsubscribe();
+            this.sub3.unsubscribe();
         }
     };
 }());
