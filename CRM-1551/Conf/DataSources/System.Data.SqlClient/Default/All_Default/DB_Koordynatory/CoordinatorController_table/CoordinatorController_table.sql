@@ -74,7 +74,7 @@ insert into #temp_nevkomp
 exec(N'select [Assignments].Id, --[Organizations].Id OrganizationsId, [Organizations].short_name OrganizationsName,
 case when [ReceiptSources].code=N''UGL'' then 1--N''УГЛ''
 when [ReceiptSources].code in (N''Website_mob.addition'', N''Mail'') then 2--N''Електронні джерела надходження''
-when [QuestionTypes].emergency=N''true'' then 3-- N''Пріоритетне''
+when [QuestionTypes].emergency=1 then 3-- N''Пріоритетне''
 when [QuestionTypes].parent_organization_is=N''true'' then 5--N''Зауваження''
 else 4-- N''Інші доручення''
 end navigation
@@ -116,7 +116,7 @@ insert into #temp_doopr
 exec(N'select [Assignments].Id, --[Organizations].Id OrganizationsId, [Organizations].short_name OrganizationsName,
 case when [ReceiptSources].code=N''UGL'' then 1--N''УГЛ''
 when [ReceiptSources].code in (N''Website_mob.addition'', N''Mail'') then 2--N''Електронні джерела надходження''
-when [QuestionTypes].emergency=N''true'' then 3-- N''Пріоритетне''
+when [QuestionTypes].emergency=1 then 3-- N''Пріоритетне''
 when [QuestionTypes].parent_organization_is=N''true'' then 5--N''Зауваження''
 else 4-- N''Інші доручення''
 end navigation
@@ -150,7 +150,7 @@ insert into #temp_rozyasn
 exec(N'select [Assignments].Id, --[Organizations].Id OrganizationsId, [Organizations].short_name OrganizationsName,
 case when [ReceiptSources].code=N''UGL'' then 1--N''УГЛ''
 when [ReceiptSources].code in (N''Website_mob.addition'', N''Mail'') then 2--N''Електронні джерела надходження''
-when [QuestionTypes].emergency=N''true'' then 3-- N''Пріоритетне''
+when [QuestionTypes].emergency=1 then 3-- N''Пріоритетне''
 when [QuestionTypes].parent_organization_is=N''true'' then 5--N''Зауваження''
 else 4-- N''Інші доручення''
 end navigation
@@ -184,7 +184,7 @@ insert into #temp_prostr
 exec(N'select [Assignments].Id, --[Organizations].Id OrganizationsId, [Organizations].short_name OrganizationsName,
 case when [ReceiptSources].code=N''UGL'' then 1--N''УГЛ''
 when [ReceiptSources].code in (N''Website_mob.addition'', N''Mail'') then 2--N''Електронні джерела надходження''
-when [QuestionTypes].emergency=N''true'' then 3-- N''Пріоритетне''
+when [QuestionTypes].emergency=1 then 3-- N''Пріоритетне''
 when [QuestionTypes].parent_organization_is=N''true'' then 5--N''Зауваження''
 else 4-- N''Інші доручення''
 end navigation
@@ -220,7 +220,7 @@ insert into #temp_plan_prog
 exec(N'select [Assignments].Id, --[Organizations].Id OrganizationsId, [Organizations].short_name OrganizationsName,
 case when [ReceiptSources].code=N''UGL'' then 1--N''УГЛ''
 when [ReceiptSources].code in (N''Website_mob.addition'', N''Mail'') then 2--N''Електронні джерела надходження''
-when [QuestionTypes].emergency=N''true'' then 3-- N''Пріоритетне''
+when [QuestionTypes].emergency=1 then 3-- N''Пріоритетне''
 when [QuestionTypes].parent_organization_is=N''true'' then 5--N''Зауваження''
 else 4-- N''Інші доручення''
 end navigation

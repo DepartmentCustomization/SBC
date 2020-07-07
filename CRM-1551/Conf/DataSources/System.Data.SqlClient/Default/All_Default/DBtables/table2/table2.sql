@@ -180,7 +180,7 @@ SELECT
    ,CASE
 		WHEN [ReceiptSources].code = N'UGL' THEN 1
 		WHEN [ReceiptSources].code = N'Website_mob.addition' THEN 2
-		WHEN [QuestionTypes].emergency = N'true' THEN 3
+		WHEN [QuestionTypes].emergency = 1 THEN 3
 		WHEN [QuestionTypes].parent_organization_is = N'true' THEN 5
 		ELSE 4
 	END navigation INTO #temp_nadiishlo
@@ -219,7 +219,7 @@ SELECT
    ,CASE
 		WHEN [ReceiptSources].code = N'UGL' THEN 1
 		WHEN [ReceiptSources].code = N'Website_mob.addition' THEN 2
-		WHEN [QuestionTypes].emergency = N'true' THEN 3
+		WHEN [QuestionTypes].emergency = 1 THEN 3
 		WHEN [QuestionTypes].parent_organization_is = N'true' THEN 5
 		ELSE 4
 	END navigation INTO #temp_nevkomp
@@ -264,7 +264,7 @@ SELECT
    ,CASE
 		WHEN [ReceiptSources].code = N'UGL' THEN 1
 		WHEN [ReceiptSources].code = N'Website_mob.addition' THEN 2
-		WHEN [QuestionTypes].emergency = N'true' THEN 3
+		WHEN [QuestionTypes].emergency = 1 THEN 3
 		WHEN [QuestionTypes].parent_organization_is = N'true' THEN 5
 		ELSE 4
 	END navigation INTO #temp_prostr
@@ -303,7 +303,7 @@ SELECT
    ,CASE
 		WHEN [ReceiptSources].code = N'UGL' THEN 1
 		WHEN [ReceiptSources].code = N'Website_mob.addition' THEN 2
-		WHEN [QuestionTypes].emergency = N'true' THEN 3
+		WHEN [QuestionTypes].emergency = 1 THEN 3
 		WHEN [QuestionTypes].parent_organization_is = N'true' THEN 5
 		ELSE 4
 	END navigation INTO #temp_uvaga
@@ -346,7 +346,7 @@ SELECT
    ,CASE
 		WHEN [ReceiptSources].code = N'UGL' THEN 1
 		WHEN [ReceiptSources].code = N'Website_mob.addition' THEN 2
-		WHEN [QuestionTypes].emergency = N'true' THEN 3
+		WHEN [QuestionTypes].emergency = 1 THEN 3
 		WHEN [QuestionTypes].parent_organization_is = N'true' THEN 5
 		ELSE 4
 	END navigation INTO #temp_vroboti
@@ -389,7 +389,7 @@ SELECT
    ,CASE
 		WHEN [ReceiptSources].code = N'UGL' THEN 1
 		WHEN [ReceiptSources].code = N'Website_mob.addition' THEN 2
-		WHEN [QuestionTypes].emergency = N'true' THEN 3
+		WHEN [QuestionTypes].emergency = 1 THEN 3
 		WHEN [QuestionTypes].parent_organization_is = N'true' THEN 5
 		ELSE 4
 	END navigation INTO #temp_dovidoma
@@ -426,7 +426,7 @@ SELECT
    ,CASE
 		WHEN [ReceiptSources].code = N'UGL' THEN 1
 		WHEN [ReceiptSources].code = N'Website_mob.addition' THEN 2
-		WHEN [QuestionTypes].emergency = N'true' THEN 3
+		WHEN [QuestionTypes].emergency = 1 THEN 3
 		WHEN [QuestionTypes].parent_organization_is = N'true' THEN 5
 		ELSE 4
 	END navigation INTO #temp_nadoopr
@@ -464,7 +464,7 @@ SELECT
    ,CASE
 		WHEN [ReceiptSources].code = N'UGL' THEN 1
 		WHEN [ReceiptSources].code = N'Website_mob.addition' THEN 2
-		WHEN [QuestionTypes].emergency = N'true' THEN 3
+		WHEN [QuestionTypes].emergency = 1 THEN 3
 		WHEN [QuestionTypes].parent_organization_is = N'true' THEN 5
 		ELSE 4
 	END navigation INTO #temp_plan_p

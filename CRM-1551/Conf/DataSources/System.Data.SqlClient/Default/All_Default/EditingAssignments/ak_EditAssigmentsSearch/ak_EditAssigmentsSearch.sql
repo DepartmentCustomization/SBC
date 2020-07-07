@@ -90,7 +90,7 @@ select [Assignments].Id, [Organizations].Id OrganizationsId, [Organizations].nam
 --стало
 case when [ReceiptSources].name=N'УГЛ' then N'УГЛ' 
 when [ReceiptSources].name=N'Сайт/моб. додаток' then N'Електронні джерела'
-when [QuestionTypes].emergency=N'true' then N'Пріоритетне'
+when [QuestionTypes].emergency=1 then N'Пріоритетне'
 when [QuestionTypes].parent_organization_is=N'true' then N'Зауваження'
 else N'Інші доручення'
 end navigation,
