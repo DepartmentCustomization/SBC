@@ -184,7 +184,7 @@ WITH main AS (
     CASE
       WHEN [ReceiptSources].name = N''УГЛ'' THEN N''УГЛ''
       WHEN [ReceiptSources].name = N''Сайт/моб. додаток'' THEN N''Електронні джерела''
-      WHEN [QuestionTypes].emergency = N''true'' THEN N''Пріоритетне''
+      WHEN [QuestionTypes].emergency = 1 THEN N''Пріоритетне''
       WHEN [QuestionTypes].parent_organization_is = N''true'' THEN N''Зауваження''
       ELSE N''Інші доручення''
     END navigation,
