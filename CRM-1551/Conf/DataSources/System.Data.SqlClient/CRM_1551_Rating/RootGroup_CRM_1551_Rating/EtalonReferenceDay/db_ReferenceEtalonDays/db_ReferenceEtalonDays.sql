@@ -1,15 +1,31 @@
    --DECLARE @dateFrom DATE='2018-01-01';
    --DECLARE @dateTo DATE='2020-12-12';
 
-  DECLARE @date DATE = --GETUTCDATE();--CONVERT(DATE,'2019-09-25 17:37:06.090');
---DECLARE @date DATE = CONVERT(DATE,'2019-09-25 17:37:06.090');
-  (SELECT TOP 1 [DateStart]
-  FROM (
-  select DISTINCT [DateStart], DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE())) diff, ABS(DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE()))) abs_diff
-  from [dbo].[Rating_EtalonDaysToExecution] with (nolock)
-  --order by ABS(DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE()))), DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE())) DESC
-  ) t
-  order by abs_diff, diff DESC)
+--  DECLARE @date DATE = --GETUTCDATE();--CONVERT(DATE,'2019-09-25 17:37:06.090');
+----DECLARE @date DATE = CONVERT(DATE,'2019-09-25 17:37:06.090');
+--  (SELECT TOP 1 [DateStart]
+--  FROM (
+--  select DISTINCT [DateStart], DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE())) diff, ABS(DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE()))) abs_diff
+--  from [dbo].[Rating_EtalonDaysToExecution] with (nolock)
+--  --order by ABS(DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE()))), DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE())) DESC
+--  ) t
+--  order by abs_diff, diff DESC)
+
+  --типы вопросов и даты, которые отображать начало
+  IF OBJECT_ID('tempdb..#temp_Rating_EtalonDaysToExecution') IS NOT NULL	DROP TABLE #temp_Rating_EtalonDaysToExecution;
+
+  select r.[Id], [QuestionTypeId], [DateStart], [EtalonDaysToExecution], [EtalonDaysToExplain]
+  into #temp_Rating_EtalonDaysToExecution
+  from [dbo].[Rating_EtalonDaysToExecution] r with (nolock)
+  inner join
+  (
+  select [Id]
+  
+  ,row_number() over (partition by [QuestionTypeId] order by ABS(DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE()))), DATEDIFF(DAY,[DateStart],CONVERT(DATE,GETUTCDATE()))) n
+  from [dbo].[Rating_EtalonDaysToExecution] with (nolock)) t on r.Id=t.Id and t.n=1
+
+  --типы вопросов и даты, которые отображать конец
+
 
   --знаходимо всі РДА та їх підлеглих начало
   IF OBJECT_ID('tempdb..#temp_RDAorg') IS NOT NULL	DROP TABLE #temp_RDAorg;
@@ -103,7 +119,8 @@ select Id into #temp_RDAorg from it-- pit it
   --CONVERT(NUMERIC(8,2),avg_EtalonDaysToExplain.avg_EtalonDaysToExplain) avg_EtalonDaysToExplain_change, --7 МОЖЛИВІСТЬ ЗМІНИ
   temp_column6.count_day avg_EtalonDaysToExplain_change, --7 МОЖЛИВІСТЬ ЗМІНИ
   [Rating_EtalonDaysToExecution].DateStart --8
-  FROM [dbo].[Rating_EtalonDaysToExecution] with (nolock)
+  FROM --[dbo].[Rating_EtalonDaysToExecution] with (nolock)
+  #temp_Rating_EtalonDaysToExecution [Rating_EtalonDaysToExecution]
   INNER JOIN [CRM_1551_Analitics].[dbo].[QuestionTypes] with (nolock) ON [Rating_EtalonDaysToExecution].QuestionTypeId=[QuestionTypes].Id
 
 
@@ -124,8 +141,8 @@ select Id into #temp_RDAorg from it-- pit it
   LEFT JOIN #temp_column3 temp_column3 ON [Rating_EtalonDaysToExecution].QuestionTypeId=temp_column3.question_type_id
   LEFT JOIN #temp_column6 temp_column6 ON [Rating_EtalonDaysToExecution].QuestionTypeId=temp_column6.question_type_id
 
-  WHERE CONVERT(DATE, [Rating_EtalonDaysToExecution].[DateStart])=@date
+  --WHERE CONVERT(DATE, [Rating_EtalonDaysToExecution].[DateStart])=@date
 
-   AND #filter_columns#
+   WHERE #filter_columns#
    order by 1 --#sort_columns#
    offset @pageOffsetRows rows fetch next @pageLimitRows rows only

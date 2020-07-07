@@ -8,6 +8,11 @@ update [dbo].[Assignments]
 
 SET @executor_person_id = IIF(IIF(@executor_person_id = '',NULL,@executor_person_id) = 0,NULL,IIF(@executor_person_id = '',NULL,@executor_person_id));
 
+IF(@result_id = 3) AND (@transfer_to_organization_id IS NULL)
+BEGIN
+	RAISERROR(N'Поле "Можливий виконавець" пусте, заповніть його', 16, 1);
+	RETURN;
+END
 DECLARE @sertors TABLE (Id INT);
 
 INSERT INTO @sertors (Id)

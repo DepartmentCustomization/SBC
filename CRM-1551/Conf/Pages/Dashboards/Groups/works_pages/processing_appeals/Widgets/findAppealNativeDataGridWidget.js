@@ -38,10 +38,6 @@
                 visible: true,
                 applyFilter: 'auto'
             },
-            export: {
-                enabled: true,
-                fileName: 'Excel'
-            },
             searchPanel: {
                 visible: false,
                 highlightCaseSensitive: true
@@ -94,14 +90,12 @@
             this.subscribers.push(this.messageService.subscribe('hideSearchTable', this.hideSearchTable, this));
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
+            this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
-                if(e.column.dataField === 'registration_number' && e.row !== undefined) {
-                    window.open(`
-                        ${location.origin}
-                        ${localStorage.getItem('VirtualPath')}
-                        /sections/Assignments/edit/
-                        ${e.key}
-                    `)
+                if(e.column) {
+                    if(e.column.dataField === 'registration_number' && e.row !== undefined) {
+                        window.open(`${location.origin}${localStorage.getItem('VirtualPath')}/sections/Assignments/edit/${e.data.Id}`)
+                    }
                 }
             });
         },
@@ -139,6 +133,37 @@
         },
         afterLoadDataHandler: function() {
             this.render();
+        },
+        createTableButton: function(e) {
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
+                    onClick: function() {
+                        this.executeExportExcelQuery();
+                    }.bind(this)
+                }
+            });
+        },
+        executeExportExcelQuery: function() {
+            this.showPagePreloader('Зачекайте, формується документ');
+            let exportQuery = {
+                queryCode: this.config.query.code,
+                limit: -1,
+                parameterValues: this.config.query.parameterValues
+            }
+            this.queryExecutor(exportQuery, this.createExcelWorkbook, this);
+            this.showPreloader = false;
+        },
+        createExcelWorkbook: function(data) {
+            const context = this;
+            const name = 'exportExcel';
+            const columns = this.config.columns;
+            this.messageService.publish({ name, data, context, columns });
         }
     };
 }());
