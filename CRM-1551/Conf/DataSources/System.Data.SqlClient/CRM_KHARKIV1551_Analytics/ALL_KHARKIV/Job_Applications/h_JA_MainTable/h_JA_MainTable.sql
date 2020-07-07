@@ -31,3 +31,4 @@ select [Assignments].Id, [Questions].registration_number Registration_Number, [A
   left join [CRM_1551_Analitics].[dbo].[Buildings] on [Objects].builbing_id=[Buildings].Id
   left join [CRM_1551_Analitics].[dbo].[Streets] on [Buildings].street_id=[Streets].Id
   left join [CRM_1551_Analitics].[dbo].[StreetTypes] on [Streets].street_type_id=[StreetTypes].Id
+  where [Assignments].[assignment_state_id] in (1/*Зареєстровано*/, 2/*В роботі*/)
