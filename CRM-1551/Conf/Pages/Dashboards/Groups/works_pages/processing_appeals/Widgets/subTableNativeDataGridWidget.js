@@ -38,6 +38,11 @@
                         displayExpr: 'Name'
                     }
                 }, {
+                    caption: '',
+                    dataField: '',
+                    alignment: 'center',
+                    width: 40
+                }, {
                     dataField: 'comment',
                     caption: 'Коментар'
                 }
@@ -107,6 +112,7 @@
             this.subscribers.push(this.messageService.subscribe('hideSubTable', this.hideTable, this));
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
+            this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.executeQueryLookup();
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
@@ -117,6 +123,15 @@
                     }
                 }
             });
+        },
+        onCellPrepared: function(options) {
+            if(options.rowType === 'data') {
+                if(options.column.dataField === '') {
+                    options.cellElement.innerText = '';
+                    const phoneIcon = this.createElement('span', {className: 'material-icons', innerText: 'phone'});
+                    options.cellElement.appendChild(phoneIcon);
+                }
+            }
         },
         executeQueryLookup: function() {
             let executeQueryStatuses = {
