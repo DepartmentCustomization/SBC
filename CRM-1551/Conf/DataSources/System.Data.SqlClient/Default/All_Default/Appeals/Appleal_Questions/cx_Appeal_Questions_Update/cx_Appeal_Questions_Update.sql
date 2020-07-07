@@ -43,9 +43,9 @@ BEGIN
 		DECLARE @token INT;
 		DECLARE @url NVARCHAR(MAX) = 'https://db.blagoustriy.kiev.ua/restapi/sectors/find?lat=' + @object_lat +'&lon=' + @object_lon;
 		DECLARE @result_sector INT;
-		DECLARE @result_nameDistrict NVARCHAR(100);
-		DECLARE @newSector_name NVARCHAR(200);
-		DECLARE @newSector_id INT;
+		DECLARE @result_district INT;
+		DECLARE @result_territory_id INT;
+		DECLARE @external_data_source_id INT;
 
 		IF(@object_lat IS NULL) 
 		OR(@object_lon IS NULL)
@@ -69,6 +69,7 @@ BEGIN
 		INSERT INTO @json 
 		EXEC sp_OAGetProperty @token, 'responseText';
 		SET @response_val = (SELECT TOP 1 * FROM @json);
+
 		IF(@response_val IS NULL)
 		BEGIN
 			RAISERROR('Error! HTTP response not contain data', 16, 1);
@@ -80,38 +81,21 @@ BEGIN
 			[nSector]
 		FROM OPENJSON(@response_val)
 		WITH
-		([nSector] INT '$.nSector') 
+		([nSector] INT '$.nSector')
 		);
-		
-		SET @result_nameDistrict = (
+
+		SET @result_district = (
 		SELECT TOP 1
-			[nameDistrict]
+			[nDistrict]
 		FROM OPENJSON(@response_val)
 		WITH
-		([nameDistrict] NVARCHAR(100) '$.nameDistrict') 
+		([nDistrict] INT '$.nDistrict') 
 		);
-		--> Затем создаем новую и подвязываем к вопросу
-		SET @newSector_name = N'Сектор Благоустрою №' + CAST(@result_sector AS NVARCHAR(MAX)) + 
-							  SPACE(1) + REPLACE(@result_nameDistrict, 'кий', 'кого р-ну');
-		DECLARE @ter_info TABLE (Id INT);
-		INSERT INTO dbo.[Territories] ([name],
-									   [object_id],
-									   [create_date],
-									   [user_id],
-									   [edit_date],
-									   [user_edit_id])
-				OUTPUT inserted.id INTO @ter_info(Id)
-				VALUES (@newSector_name,
-						@object_id,
-						GETUTCDATE(),
-						@user_edit_id,
-						GETUTCDATE(),
-						@user_edit_id);
-				
-		SET @newSector_id = (SELECT TOP 1 Id FROM @ter_info);
-
+		SET @external_data_source_id = CAST(CAST((@result_district * 10) AS NVARCHAR) + CAST(@result_sector AS NVARCHAR) AS INT);
+		SET @result_territory_id = (SELECT [Id] FROM dbo.[Territories] WHERE [external_data_source_id] = @external_data_source_id);
+		--> апдейт полученой территорией
 		UPDATE dbo.[QuestionsInTerritory]
-			SET [territory_id] = @newSector_id
+			SET [territory_id] = @result_territory_id
 		WHERE [question_id] = @Id;
 		END
 	END
