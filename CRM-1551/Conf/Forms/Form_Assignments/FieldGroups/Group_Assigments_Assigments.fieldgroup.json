@@ -34,6 +34,17 @@
             "QueryParameters": []
         },
         {
+            "Code": "assignment_class_id",
+            "Name": "Клас доручення",
+            "FieldType": "select",
+            "Position": 2,
+            "Width": "100%",
+            "QueryCode": "Assignment_ClassesSRows",
+            "KeyColumnCode": "Id",
+            "DisplayColumnCode": "name",
+            "QueryParameters": []
+        },
+        {
             "Code": "ass_state_id",
             "Name": "Стан доручення",
             "FieldType": "select",
@@ -70,6 +81,17 @@
             "QueryCode": "RightsFilter_AssignmentResolution",
             "KeyColumnCode": "Id",
             "DisplayColumnCode": "Name",
+            "QueryParameters": []
+        },
+        {
+            "Code": "class_resolution_id",
+            "Name": "Резолюція класу",
+            "FieldType": "select",
+            "Position": 7,
+            "Width": "100%",
+            "QueryCode": "Class_ResolutionsSRows",
+            "KeyColumnCode": "Id",
+            "DisplayColumnCode": "name",
             "QueryParameters": []
         },
         {

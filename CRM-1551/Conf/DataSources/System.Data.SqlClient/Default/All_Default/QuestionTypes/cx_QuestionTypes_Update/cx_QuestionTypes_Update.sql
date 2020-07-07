@@ -58,7 +58,8 @@ SET
   [edit_date] = GETUTCDATE(),
   [user_edit_id] = @user_edit_id,
   [Object_is] = @Object_is,
-  [Organization_is] = @Organization_is
+  [Organization_is] = @Organization_is,
+  [assignment_class_id]=@assignment_class_id
 WHERE Id = @Id 
   ---------------------- Проверить необходимость обновления has_child родительского типа ------------------------------
   DECLARE @parent_has_child_value bit = (

@@ -311,5 +311,28 @@
       "Name": "attention_val",
       "Position": 54,
       "IsPrintable": false
+    },
+    {
+        "Code": "assignment_class_id",
+        "Name": "assignment_class_id",
+        "Position": 55,
+        "IsPrintable": false
+    },
+    {
+      "Code": "class_resolution_id",
+      "Name": "class_resolution_id",
+      "Position": 56
+    },
+    {
+      "Code": "assignment_class_name",
+      "Name": "assignment_class_name",
+      "Position": 57,
+      "ReferenceKeyCode": "assignment_class_id"
+    },
+    {
+      "Code": "class_resolution_name",
+      "Name": "class_resolution_name",
+      "Position": 58,
+      "ReferenceKeyCode": "class_resolution_id"
     }
 ]

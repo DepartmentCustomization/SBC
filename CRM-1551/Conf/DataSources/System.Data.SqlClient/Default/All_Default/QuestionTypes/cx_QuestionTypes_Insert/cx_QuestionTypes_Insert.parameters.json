@@ -37,7 +37,7 @@
   {
     "Code": "@emergency",
     "Name": "emergency",
-    "ParameterType": "Boolean"
+    "ParameterType": "Integer"
   },
   {
     "Code": "@blag",
@@ -81,5 +81,10 @@
     "Code": "@zhkg",
     "Name": "zhkg",
     "ParameterType": "Boolean"
+  },
+  {
+    "Code": "@assignment_class_id",
+    "Name": "assignment_class_id",
+    "ParameterType": "Integer"
   }
 ]
