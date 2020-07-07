@@ -1,8 +1,8 @@
--- DECLARE @Id INT = 1058;
+ --DECLARE @Id INT = 1070;
 
-DECLARE @Archive NVARCHAR(400) = '[' +(
+DECLARE @ArchiveServer NVARCHAR(400) = '[' +(
 	SELECT
-		TOP 1 [IP] + '].[' + [DatabaseName] + '].'
+		TOP 1 [IP] + ']'
 	FROM
 		[dbo].[SetingConnetDatabase]
 	WHERE
@@ -21,13 +21,14 @@ DECLARE @IsHere BIT = IIF(
 	0,
 	1
 );
+DECLARE @PathToArchive NVARCHAR(MAX);
+DECLARE @SqlText NVARCHAR(MAX);
 
 IF(@IsHere = 1) 
 BEGIN
 SET
-	@Archive = SPACE(0);
-END 
-DECLARE @SqlText NVARCHAR(MAX);
+	@ArchiveServer = SPACE(0);
+
 IF (
 	SELECT
 		isnull(IsArchive, 0)
@@ -37,7 +38,7 @@ IF (
 		Id = @Id
 ) = 1 
 BEGIN 
-DECLARE @PathToArchive NVARCHAR(MAX) = (
+SET @PathToArchive = (
 	SELECT
 		PathToArchive
 	FROM
@@ -47,17 +48,47 @@ DECLARE @PathToArchive NVARCHAR(MAX) = (
 );
 
 SET
-	@SqlText = N'SELECT TOP 1 Id,
-				     create_date,
+	@SqlText = N'SELECT
+				     [Id],
+				     [create_date],
 				     [name] AS [Name],
 				     [File]
 				 FROM [' + @PathToArchive + '].[dbo].[QuestionDocFiles]
 				 WHERE Id = ' + rtrim(@Id) + '
-				' 
+				' ;
 EXEC sp_executesql @SqlText;
 END
-ELSE 
+ELSE
 BEGIN
+SET
+	@SqlText = N'SELECT
+	[Id],
+	[create_date],
+	[name] AS [Name],
+	[File]
+FROM
+	[dbo].[QuestionDocFiles]
+WHERE
+	Id = @Id ';
+
+EXEC sp_executesql @SqlText, N'@Id INT', @Id = @Id;
+END
+END
+ELSE IF(@IsHere = 0)
+BEGIN 
+DECLARE @PathOnArchiveRow TABLE ([Path] NVARCHAR(MAX));
+
+DECLARE @getRowPath NVARCHAR(MAX) = N'
+SELECT 
+	[PathToArchive]
+FROM ' + @ArchiveServer + '.[CRM_1551_Analitics].[dbo].[QuestionDocFiles]
+WHERE Id = @Id';
+
+INSERT INTO @PathOnArchiveRow
+EXEC sp_executesql @getRowPath, N'@Id INT', @Id = @Id;
+
+SET @PathToArchive = (SELECT [Path] FROM @PathOnArchiveRow);
+ 
 SET
 	@SqlText = N'SELECT
 	Id,
@@ -65,7 +96,7 @@ SET
 	[name] AS [Name],
 	[File]
 FROM
-	' + @Archive + N'[dbo].[QuestionDocFiles]
+	' + @ArchiveServer + '.[' + @PathToArchive + '].[dbo].[QuestionDocFiles]
 WHERE
 	Id = @Id ';
 

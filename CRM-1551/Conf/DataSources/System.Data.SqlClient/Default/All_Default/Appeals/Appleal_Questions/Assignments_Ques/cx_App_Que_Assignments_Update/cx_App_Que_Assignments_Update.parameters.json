@@ -95,5 +95,15 @@
         "Code": "@executor_person_id",
         "Name": "executor_person_id",
         "ParameterType": "Integer"
+    },
+    {
+        "Code": "@assignment_class_id",
+        "Name": "assignment_class_id",
+        "ParameterType": "Integer"
+    },
+    {
+        "Code": "@class_resolution_id",
+        "Name": "class_resolution_id",
+        "ParameterType": "Integer"
     }
 ]

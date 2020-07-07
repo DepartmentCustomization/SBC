@@ -1,6 +1,6 @@
--- DECLARE @Id INT = 1567;
+--  DECLARE @Id INT = 2633;
 
-DECLARE @Archive NVARCHAR(400) = '['+(SELECT TOP 1 [IP]+'].['+[DatabaseName]+'].' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
+DECLARE @ArchiveServer NVARCHAR(400) = '['+(SELECT TOP 1 [IP]+']' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
 DECLARE @SqlText NVARCHAR(MAX);
 
 DECLARE @IsHere BIT = IIF(
@@ -18,8 +18,7 @@ DECLARE @IsHere BIT = IIF(
 
 IF(@IsHere = 1)
 BEGIN
-	SET @Archive = SPACE(0);
-END
+	SET @ArchiveServer = SPACE(0);
 
 IF (
   SELECT
@@ -51,7 +50,8 @@ SET
                             ,[File]
 				 FROM [' + @PathToArchive + '].[dbo].[AssignmentConsDocFiles]
 				 WHERE Id = ' + rtrim(@Id) + '
-				' EXEC sp_executesql @SqlText
+				';
+EXEC sp_executesql @SqlText;
 END
 ELSE 
 BEGIN
@@ -67,8 +67,41 @@ SET
   [name],
   [File]
 FROM
-  '+@Archive+N'[dbo].[AssignmentConsDocFiles]
+  [dbo].[AssignmentConsDocFiles]
 WHERE
   Id = @Id';
 EXEC sp_executesql @SqlText, N' @Id INT', @Id = @Id;
 END 
+END
+ELSE IF(@IsHere = 0)
+BEGIN 
+DECLARE @PathOnArchiveRow TABLE ([Path] NVARCHAR(MAX));
+
+DECLARE @getRowPath NVARCHAR(MAX) = N'
+SELECT 
+	[PathToArchive]
+FROM ' + @ArchiveServer + '.[CRM_1551_Analitics].[dbo].[AssignmentConsDocFiles]
+WHERE Id = @Id';
+
+INSERT INTO @PathOnArchiveRow
+EXEC sp_executesql @getRowPath, N'@Id INT', @Id = @Id;
+
+SET @PathToArchive = (SELECT [Path] FROM @PathOnArchiveRow);
+
+SET
+  @SqlText = N'SELECT
+  [Id],
+  [assignment_cons_doc_id],
+  [link],
+  [create_date],
+  [user_id],
+  [edit_date],
+  [user_edit_id],
+  [name],
+  [File]
+FROM
+  ' + @ArchiveServer + '.[' + @PathToArchive + '].[dbo].[AssignmentConsDocFiles]
+WHERE
+  Id = @Id';
+EXEC sp_executesql @SqlText, N' @Id INT', @Id = @Id;
+END

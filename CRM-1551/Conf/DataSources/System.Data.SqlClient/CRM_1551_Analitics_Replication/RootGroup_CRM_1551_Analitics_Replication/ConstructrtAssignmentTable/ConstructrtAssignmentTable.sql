@@ -191,7 +191,9 @@ SELECT
   END AS stateClose,
   [Obj].[name] AS objectName,
   isnull([Resolution].[name], N'Невідомо') AS resolution,
-  isnull([Result].[name], N'Невідомо') AS result
+  isnull([Result].[name], N'Невідомо') AS result,
+  [Que].question_content,
+  [Que].[registration_number]
 FROM
  dbo.[Assignments] AS [Ass]   
   INNER JOIN dbo.[Questions] AS [Que] ON [Que].Id = [Ass].question_id

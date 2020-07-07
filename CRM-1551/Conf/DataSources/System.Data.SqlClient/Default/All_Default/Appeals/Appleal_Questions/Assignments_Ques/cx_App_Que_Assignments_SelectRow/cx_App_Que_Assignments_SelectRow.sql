@@ -181,6 +181,12 @@ DECLARE @Part2 NVARCHAR(MAX) =
 	,[Questions].[geolocation_lat]
 	,[Questions].[geolocation_lon]
 	,IIF(att.Id IS NOT NULL, 1, 0) AS attention_val
+
+	,Assignments.[assignment_class_id]
+	,Assignments.[class_resolution_id]
+	,[Assignment_Classes].name [assignment_class_name]
+	,[Class_Resolutions].name [class_resolution_name]
+
 FROM '+@Archive+'[dbo].[Assignments] Assignments
 INNER JOIN [dbo].AssignmentStates ast
 	ON ast.Id = Assignments.assignment_state_id
@@ -260,6 +266,10 @@ INNER JOIN [dbo].[OrganizationInResponsibilityRights] o
 WHERE p.[programuser_id] = @user_Id
 ) orr
 	ON perf.Id = orr.organization_id
+LEFT JOIN [dbo].[Assignment_Classes] ON Assignments.[assignment_class_id]=[Assignment_Classes].Id
+LEFT JOIN [dbo].[Class_Resolutions] ON Assignments.[class_resolution_id]=[Class_Resolutions].Id
+
+
 WHERE Assignments.Id = @Id
 AND (CASE WHEN EXISTS(SELECT Id FROM @org1761) THEN 1 
 

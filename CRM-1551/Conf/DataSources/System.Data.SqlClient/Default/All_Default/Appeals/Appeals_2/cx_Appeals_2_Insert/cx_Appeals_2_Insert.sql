@@ -85,7 +85,8 @@ INSERT INTO [dbo].[Appeals]
            ,[city_receipt]
            ,[user_id]
            ,[edit_date]
-           ,[user_edit_id])
+           ,[user_edit_id]
+           ,[LogUpdated_Query])
 OUTPUT [inserted].[Id] INTO @outputAppeals (Id)
      VALUES
            (@applicant_id
@@ -121,6 +122,7 @@ case when not exists(
            ,@user_id
            ,getutcdate() -- @edit_date
            ,@user_edit_id
+           ,N'query_cx_Appeals_2_Insert'
 		   );
 DECLARE @appeal_id INT;
 SET @appeal_id = (SELECT TOP 1 Id FROM @outputAppeals);

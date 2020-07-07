@@ -45,6 +45,25 @@
       "Position": 5,
       "ViewState": "Hidden",
       "IsPrintable": false
+    },
+    {
+      "Code": "assignment_class_id",
+      "Name": "assignment_class_id",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "assignment_class_name",
+      "Name": "assignment_class_name",
+      "Position": 7,
+      "IsPrintable": false,
+      "ReferenceKeyCode": "assignment_class_id"
+    },
+    {
+      "Code": "execution_term",
+      "Name": "execution_term",
+      "Position": 8,
+      "IsPrintable": false
     }
   ],
   "Parameters": [

@@ -1,7 +1,7 @@
---   DECLARE @applicant_id INT = 1515907;
---   DECLARE @appeal_id INT = 5389980;
---   DECLARE @phone_number NVARCHAR(25) = N'0993896537';
---   DECLARE @object_id INT = 8593;
+--    DECLARE @applicant_id INT = null;
+--    DECLARE @appeal_id INT = null;
+--    DECLARE @phone_number NVARCHAR(25) = null;
+--    DECLARE @object_id INT = 15754;
 
 DECLARE @LoadServerState INT;
 SET
@@ -802,7 +802,6 @@ END
 ---> Для отбора только заявок из городка при выборе объекта (дом заявителя)
 ELSE IF(@applicant_id IS NULL)
 BEGIN
-DECLARE @building_id INT = (SELECT builbing_id FROM [dbo].[Objects] WHERE Id = @object_id); 
 INSERT INTO
 	#tempTypeQuestion
 	(
@@ -827,15 +826,7 @@ FROM
 	[CRM_1551_GORODOK_Integrartion].[dbo].[Gorodok_1551_houses] [Gorodok_1551_houses] WITH (nolock)
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_claims] [Lokal_copy_gorodok_claims] WITH (nolock) ON [Lokal_copy_gorodok_claims].[object_id] = [Gorodok_1551_houses].gorodok_houses_id
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].Claims_states Claims_states WITH (nolock) ON Claims_states.[name] = [Lokal_copy_gorodok_claims].[status]
-WHERE
-	[Gorodok_1551_houses].[1551_houses_id] IN (
-		SELECT
-			[LiveAddress].building_id
-		FROM
-			[dbo].[LiveAddress] WITH (nolock)
-		WHERE
-			building_id = @building_id 
-	)
+WHERE [Gorodok_1551_houses].[1551_houses_id] = @object_id
 	AND Claims_states.[1551_state] IN (
 		SELECT
 			[QuestionStates].Id
@@ -852,15 +843,7 @@ WHERE
 		[CRM_1551_GORODOK_Integrartion].[dbo].[Gorodok_1551_houses] [Gorodok_1551_houses] WITH (nolock)
 		LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_claims] [Lokal_copy_gorodok_claims] WITH (nolock) ON [Lokal_copy_gorodok_claims].[object_id] = [Gorodok_1551_houses].gorodok_houses_id
 		LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].Claims_states Claims_states WITH (nolock) ON Claims_states.[name] = [Lokal_copy_gorodok_claims].[status]
-	WHERE
-		[Gorodok_1551_houses].[1551_houses_id] IN (
-			SELECT
-				[LiveAddress].building_id
-			FROM
-				[dbo].[LiveAddress] WITH (nolock)
-			WHERE
-				building_id = @building_id
-		)
+	WHERE [Gorodok_1551_houses].[1551_houses_id] = @object_id
 		AND Claims_states.[1551_state] IN (
 			SELECT
 				[QuestionStates].Id
@@ -877,15 +860,7 @@ WHERE
 		[CRM_1551_GORODOK_Integrartion].[dbo].[Gorodok_1551_houses] [Gorodok_1551_houses] WITH (nolock)
 		LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_claims] [Lokal_copy_gorodok_claims] WITH (nolock) ON [Lokal_copy_gorodok_claims].[object_id] = [Gorodok_1551_houses].gorodok_houses_id
 		LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].Claims_states Claims_states WITH (nolock) ON Claims_states.[name] = [Lokal_copy_gorodok_claims].[status]
-	WHERE
-		[Gorodok_1551_houses].[1551_houses_id] IN (
-			SELECT
-				[LiveAddress].building_id
-			FROM
-				[dbo].[LiveAddress] WITH (nolock)
-			WHERE
-				building_id = @building_id
-		)
+	WHERE [Gorodok_1551_houses].[1551_houses_id] = @object_id
 		AND Claims_states.[1551_state] IN (
 			SELECT
 				[QuestionStates].Id
@@ -903,15 +878,7 @@ WHERE
 		[CRM_1551_GORODOK_Integrartion].[dbo].[Gorodok_1551_houses] [Gorodok_1551_houses] WITH (nolock)
 		LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_claims] [Lokal_copy_gorodok_claims] WITH (nolock) ON [Lokal_copy_gorodok_claims].[object_id] = [Gorodok_1551_houses].gorodok_houses_id
 		LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].Claims_states Claims_states WITH (nolock) ON Claims_states.[name] = [Lokal_copy_gorodok_claims].[status]
-	WHERE
-		[Gorodok_1551_houses].[1551_houses_id] IN (
-			SELECT
-				[LiveAddress].building_id
-			FROM
-				[dbo].[LiveAddress] WITH (nolock)
-			WHERE
-				building_id = @building_id
-		)
+	WHERE [Gorodok_1551_houses].[1551_houses_id] = @object_id
 		AND Claims_states.[1551_state] IN (
 			SELECT
 				[QuestionStates].Id
