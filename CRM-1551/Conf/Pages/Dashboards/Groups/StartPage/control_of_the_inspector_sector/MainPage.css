@@ -442,7 +442,7 @@
 
 /* MEDIA */
 
-@media screen and (device-width: 960px) {
+@media screen and (max-width: 960px) {
     .headerItem {
         font-size: 9px;
     }
@@ -456,6 +456,6 @@
     }
     #orgContainer{
         overflow-y: scroll;
-        height: calc(100vh - 310px)!important;    
+        height: calc(100vh - 320px)!important;    
     }
 }

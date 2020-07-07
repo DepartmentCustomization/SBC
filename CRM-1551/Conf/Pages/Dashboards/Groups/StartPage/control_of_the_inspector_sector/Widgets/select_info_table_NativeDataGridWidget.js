@@ -84,8 +84,11 @@
             groupingAutoExpandAll: null
         },
         init: function() {
-            if (window.matchMedia('(min-width: 961px)').matches) {
-                this.dataGridInstance.height = window.innerHeight;
+            if (window.matchMedia('(max-width: 960px)').matches) {
+                this.dataGridInstance.height = window.innerHeight - 80;
+                const container = document.querySelector('smart-bi-widget-wrapper');
+                const cssText = container.style.cssText;
+                container.style.cssText = cssText + 'flex-flow: column wrap;!important';
             } else {
                 this.dataGridInstance.height = window.innerHeight - 300;
             }
