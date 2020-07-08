@@ -4,7 +4,7 @@
   "Position": 1,
   "Fields": [
     {
-      "Code": "Id",
+      "Code": "assignment_classes_Id",
       "Name": "Id",
       "FieldType": "number",
       "Position": 1,

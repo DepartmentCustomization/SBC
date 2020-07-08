@@ -10,6 +10,7 @@
       "Code": "Id",
       "Name": "Id",
       "Position": 0,
+      "IsPrimaryKey": true,
       "IsPrintable": false
     },
     {
@@ -106,6 +107,12 @@
       "Position": 13,
       "IsPrintable": false,
       "ReferenceKeyCode": "event_class_id"
+    },
+    {
+      "Code": "class_resolutions_Id",
+      "Name": "class_resolutions_Id",
+      "Position": 14,
+      "IsPrintable": false
     }
   ],
   "Parameters": [
