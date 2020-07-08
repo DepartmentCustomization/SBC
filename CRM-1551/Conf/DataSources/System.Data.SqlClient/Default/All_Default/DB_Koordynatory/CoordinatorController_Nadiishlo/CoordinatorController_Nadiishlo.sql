@@ -160,7 +160,7 @@ union all
 select [Assignments].Id, [Organizations].Id OrganizationsId, [Organizations].name OrganizationsName, --[Questions].registration_number,
 [Applicants].full_name zayavnykName, N'Вул.'+Streets.name+N', буд.'+[Buildings].name adress, [Questions].registration_number,
 [QuestionTypes].name QuestionType,
-case when [QuestionTypes].emergency=N'true' then N'Пріоритетне'
+case when [QuestionTypes].emergency=1 then N'Пріоритетне'
 when [QuestionTypes].parent_organization_is=N'true' then N'Зауваження'
 end navigation,
 
@@ -205,7 +205,7 @@ left join [CRM_1551_Analitics].[dbo].[Buildings] on [Objects].builbing_id=[Build
 left join [CRM_1551_Analitics].[dbo].[Streets] on [Buildings].street_id=[Streets].Id
 left join [CRM_1551_Analitics].[dbo].[Applicants] on [Appeals].applicant_id=[Applicants].Id
 
-where case when [QuestionTypes].emergency=N'true' then N'Пріоритетне'
+where case when [QuestionTypes].emergency=1 then N'Пріоритетне'
 when [QuestionTypes].parent_organization_is=N'true' then N'Зауваження'
 end is not null),
 --and [Assignments].[executor_organization_id]=@organization_id),
