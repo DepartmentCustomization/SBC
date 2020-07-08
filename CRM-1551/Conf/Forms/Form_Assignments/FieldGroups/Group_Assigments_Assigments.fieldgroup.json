@@ -23,23 +23,23 @@
             "Width": "20%"
         },
         {
-            "Code": "ass_type_id",
-            "Name": "Тип доручення",
-            "FieldType": "select",
-            "Position": 2,
-            "Width": "35%",
-            "QueryCode": "list_ass_types",
-            "KeyColumnCode": "Id",
-            "DisplayColumnCode": "name",
-            "QueryParameters": []
-        },
-        {
             "Code": "assignment_class_id",
             "Name": "Клас доручення",
             "FieldType": "select",
             "Position": 2,
             "Width": "100%",
             "QueryCode": "Assignment_ClassesSRows",
+            "KeyColumnCode": "Id",
+            "DisplayColumnCode": "name",
+            "QueryParameters": []
+        },
+        {
+            "Code": "ass_type_id",
+            "Name": "Тип доручення",
+            "FieldType": "select",
+            "Position": 2,
+            "Width": "35%",
+            "QueryCode": "list_ass_types",
             "KeyColumnCode": "Id",
             "DisplayColumnCode": "name",
             "QueryParameters": []

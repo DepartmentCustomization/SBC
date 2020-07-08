@@ -10,6 +10,7 @@
       "Code": "Id",
       "Name": "Id",
       "Position": 0,
+      "IsPrimaryKey": true,
       "IsPrintable": false
     },
     {
@@ -46,6 +47,12 @@
       "Code": "user_edit_name",
       "Name": "user_edit_name",
       "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "assignment_classes_Id",
+      "Name": "assignment_classes_Id",
+      "Position": 0,
       "IsPrintable": false
     }
   ],

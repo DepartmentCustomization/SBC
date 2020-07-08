@@ -16,6 +16,7 @@ select cr.Id
  ,[AssignmentResults].name [assignment_result_name]
  ,[AssignmentResolutions].name [assignment_resolution_name]
  ,[Event_Class].name [event_class_name]
+ ,cr.Id class_resolutions_Id
  from [dbo].[Class_Resolutions] cr
  left join [dbo].[Assignment_Classes] ac on cr.assignment_class_id=ac.Id
  left join [CRM_1551_System].[dbo].[User] [User_Edit] on cr.user_edit_id=[User_Edit].[UserId]
