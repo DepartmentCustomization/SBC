@@ -15,7 +15,21 @@
   into #temp_Ids
   from string_split((select replace(@Ids, N' ', N'') n), N',')
 
-  select * from #temp_Ids
+  --select * from #temp_Ids
+
+  if OBJECT_ID('tempdb..#temp_good_Ids') is not null drop table #temp_good_Ids
+
+select temp_Ids.Id--[Assignments].AssignmentResultsId, [Assignments].AssignmentResolutionsId, [Assignments].assignment_state_id
+into #temp_good_Ids
+from #temp_Ids temp_Ids
+inner join [CRM_1551_Analitics].[dbo].[Assignments] on temp_Ids.Id=[Assignments].Id
+inner join [dbo].[TransitionAssignmentStates] 
+on [Assignments].assignment_state_id=[TransitionAssignmentStates].old_assignment_state_id
+and [Assignments].AssignmentResultsId=[TransitionAssignmentStates].old_assignment_result_id
+and [Assignments].AssignmentResolutionsId=[TransitionAssignmentStates].old_assignment_resolution_id
+and [TransitionAssignmentStates].new_assignment_result_id=@result_Id
+and [TransitionAssignmentStates].new_assignment_resolution_id=@resolution_Id
+
 
 
   if @result_Id=9 /*Прийнято в роботу*/
@@ -27,7 +41,7 @@
 	,[user_edit_id]=@user_id
 	,[AssignmentResultsId]=@result_Id
 	from [CRM_1551_Analitics].[dbo].[Assignments]
-	inner join #temp_Ids temp_Ids ON [Assignments].Id=temp_Ids.Id
+	inner join #temp_good_Ids temp_good_Ids on [Assignments].Id=temp_good_Ids.Id
 
 	update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
 	set [transfer_date] =getutcdate()
@@ -35,7 +49,7 @@
 	,[short_answer]=@comment
 	,[edit_date]=getutcdate()
 	,[user_edit_id]=@user_id
-	from #temp_Ids temp_Ids
+	from #temp_good_Ids temp_Ids
 	inner join [CRM_1551_Analitics].[dbo].[Assignments] on [Assignments].Id=temp_Ids.Id
 	inner join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [AssignmentConsiderations].Id=[Assignments].current_assignment_consideration_id
   end
@@ -51,7 +65,7 @@
 	,[AssignmentResultsId]=@result_Id
 	,[AssignmentResolutionsId]=@resolution_Id
 	from [CRM_1551_Analitics].[dbo].[Assignments]
-	inner join #temp_Ids temp_Ids ON [Assignments].Id=temp_Ids.Id
+	inner join #temp_good_Ids temp_Ids ON [Assignments].Id=temp_Ids.Id
 
 	update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
 	set [consideration_date] =getutcdate()
@@ -60,7 +74,7 @@
 	,[assignment_resolution_id]=@resolution_Id
 	,[edit_date]=getutcdate()
 	,[user_edit_id]=@user_id
-	from #temp_Ids temp_Ids
+	from #temp_good_Ids temp_Ids
 	inner join [CRM_1551_Analitics].[dbo].[Assignments] on [Assignments].Id=temp_Ids.Id
 	inner join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [AssignmentConsiderations].Id=[Assignments].current_assignment_consideration_id
 
@@ -85,7 +99,7 @@
 	,@user_Id [user_id]
 	,getutcdate() [edit_date]
     ,@user_Id [user_edit_id]
-	from #temp_Ids temp_Ids
+	from #temp_good_Ids temp_Ids
 	inner join [CRM_1551_Analitics].[dbo].[Assignments] on [Assignments].Id=temp_Ids.Id
 	inner join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [AssignmentConsiderations].Id=[Assignments].current_assignment_consideration_id
   end

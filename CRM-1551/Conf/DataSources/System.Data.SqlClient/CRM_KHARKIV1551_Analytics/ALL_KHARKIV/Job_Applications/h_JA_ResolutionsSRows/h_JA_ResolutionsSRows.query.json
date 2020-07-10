@@ -13,9 +13,15 @@
       "IsPrintable": false
     },
     {
+      "Code": "result_id",
+      "Name": "result_id",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
       "Code": "Name",
       "Name": "Name",
-      "Position": 1,
+      "Position": 2,
       "IsPrintable": false
     }
   ],
