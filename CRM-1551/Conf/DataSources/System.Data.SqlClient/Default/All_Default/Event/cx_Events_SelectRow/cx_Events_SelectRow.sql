@@ -39,17 +39,18 @@ SET
       WHERE
          event_id = @Id
          AND [EventObjects].[in_form] = 'true'
-   )
+   );
 END
 SET
    @object_name =(
       SELECT
          [name]
       FROM
-         [Objects]
+         dbo.[Objects] Objects
       WHERE
          Id = @object_id
-   ) --	select @object_id, @object_name
+   );
+--	select @object_id, @object_name
 SELECT
    DISTINCT [Events].[Id],
    [Events].[registration_date],
@@ -101,4 +102,5 @@ FROM
    AND AttentionQuestionAndEvent.user_id = @user_id 
 WHERE
    [Events].Id = @Id
-   AND [EventObjects].[in_form] = N'true';
+   -- AND [EventObjects].[in_form] = N'true'
+   ;

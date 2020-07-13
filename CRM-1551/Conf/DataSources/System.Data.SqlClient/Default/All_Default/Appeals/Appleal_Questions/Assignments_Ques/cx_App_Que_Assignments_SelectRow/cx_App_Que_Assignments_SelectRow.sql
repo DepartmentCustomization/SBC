@@ -1,15 +1,15 @@
-     --DECLARE @Id INT = 2976530; 
-    -- DECLARE @user_Id NVARCHAR(128) =N'0e3825fc-8a24-4fb2-97a9-28e1ed53b279'--'dc61a839-2cbc-4822-bfb5-5ca157487ced'; --'0e3825fc-8a24-4fb2-97a9-28e1ed53b279';
+--  DECLARE @Id INT = 2977818; 
+--  DECLARE @user_Id NVARCHAR(128) =N'29796543-b903-48a6-9399-4840f6eac396'--'dc61a839-2cbc-4822-bfb5-5ca157487ced'; --'0e3825fc-8a24-4fb2-97a9-28e1ed53b279';
 
 DECLARE @sertors NVARCHAR(max)=ISNULL((
 SELECT stuff((SELECT N', '+LTRIM([Territories].Id)
-  from [dbo].[Positions]
-  INNER JOIN [dbo].[PersonExecutorChoose] ON [PersonExecutorChoose].position_id=[Positions].id
-  INNER JOIN [dbo].[PersonExecutorChooseObjects] ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
-  INNER JOIN [dbo].[Territories] ON [PersonExecutorChooseObjects].object_id=[Territories].object_id
-  where [Positions].programuser_id=@user_id  AND [Positions].role_id=8
+  FROM [dbo].[Positions] Positions
+  INNER JOIN [dbo].[PersonExecutorChoose] PersonExecutorChoose ON [PersonExecutorChoose].position_id=[Positions].id
+  INNER JOIN [dbo].[PersonExecutorChooseObjects] PersonExecutorChooseObjects ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
+  INNER JOIN [dbo].[Territories] Territories ON [PersonExecutorChooseObjects].object_id=[Territories].object_id
+  WHERE [Positions].programuser_id=@user_id  AND [Positions].role_id=8
   FOR XML PATH('')),1,2,N'')
-  ),N'0')
+  ),N'0');
 
   --SELECT @sertors
 
@@ -118,7 +118,7 @@ SELECT TOP 1
    ,(SELECT TOP 1
 			control_comment
 		FROM '+@Archive+'[dbo].AssignmentRevisions AS ar
-		JOIN '+@Archive+'[dbo].AssignmentConsiderations AS ac
+		JOIN '+@Archive+N'[dbo].AssignmentConsiderations AS ac
 			ON ac.Id = ar.assignment_consideration_іd
 		WHERE ac.assignment_id = @Id
 		ORDER BY ar.Id DESC)
@@ -126,7 +126,7 @@ SELECT TOP 1
 	,ISNULL((SELECT TOP 1 ar.rework_counter
 	FROM '+@Archive+'[dbo].[Assignments] a
 	INNER JOIN '+@Archive+'[dbo].[AssignmentConsiderations] ac ON a.Id=ac.assignment_id
-	INNER JOIN '+@Archive+'[dbo].[AssignmentRevisions] ar ON ar.assignment_consideration_іd=ac.Id
+	INNER JOIN '+@Archive+N'[dbo].[AssignmentRevisions] ar ON ar.assignment_consideration_іd=ac.Id
 	WHERE a.Id = @Id
 	ORDER BY ar.Id DESC),0) rework_counter
    ,assC.[transfer_to_organization_id]
@@ -186,7 +186,13 @@ DECLARE @Part2 NVARCHAR(MAX) =
 	,Assignments.[class_resolution_id]
 	,[Assignment_Classes].name [assignment_class_name]
 	,[Class_Resolutions].name [class_resolution_name]
-
+	,[Events].Id AS [event_number]
+	,Event_Class.[name] AS event_class
+	,Event_Object.[name] AS event_object
+	,Events.[comment] AS event_comment
+	,Events.[start_date] AS event_start_date
+	,Events.[plan_end_date] AS event_plan_end
+	,Events.[real_end_date] AS event_real_end
 FROM '+@Archive+'[dbo].[Assignments] Assignments
 INNER JOIN [dbo].AssignmentStates ast
 	ON ast.Id = Assignments.assignment_state_id
@@ -194,6 +200,12 @@ INNER JOIN '+@Archive+'[dbo].Questions Questions
 	ON Questions.Id = Assignments.question_id
 INNER JOIN '+@Archive+'[dbo].Appeals Appeals
 	ON Appeals.Id = Questions.appeal_id
+LEFT JOIN [dbo].[Events] Events 
+	ON Events.Id = Assignments.my_event_id
+LEFT JOIN dbo.[Objects] Event_Object 
+	ON Event_Object.Id = Events.area
+LEFT JOIN dbo.[Event_Class] Event_Class 
+	ON Events.event_class_id = Event_Class.Id
 LEFT JOIN [dbo].AssignmentTypes aty
 	ON aty.Id = Assignments.assignment_type_id
 LEFT JOIN [dbo].[QuestionsInTerritory] QuestionsInTerritory
@@ -233,21 +245,21 @@ LEFT JOIN [dbo].AssignmentResults assR
 	ON assR.Id = Assignments.AssignmentResultsId
 LEFT JOIN [dbo].AssignmentResolutions assRn
 	ON assRn.Id = Assignments.AssignmentResolutionsId
-LEFT JOIN '+@Archive+'[dbo].AssignmentRevisions assRev
+LEFT JOIN '+@Archive+N'[dbo].AssignmentRevisions assRev 
 	ON assRev.assignment_consideration_іd = assC.Id
 LEFT JOIN [dbo].Organizations AS perf
 	ON perf.Id = Assignments.executor_organization_id
 LEFT JOIN [dbo].Organizations AS responsible
-	ON responsible.Id = Assignments.organization_id
+	ON responsible.Id = Assignments.organization_id ';
+DECLARE @Part3 NVARCHAR(MAX) = N'
 LEFT JOIN [dbo].Organizations AS org_tr
 	ON org_tr.Id = assC.transfer_to_organization_id
 LEFT JOIN [dbo].[ApplicantPhones] [ApplicantPhones] 
 	ON Applicants.Id = [ApplicantPhones].applicant_id 
 LEFT JOIN [dbo].[AttentionQuestionAndEvent] att 
 	ON att.assignment_id = Assignments.Id 
-	AND att.user_id = @user_Id ';
-DECLARE @Part3 NVARCHAR(MAX) =
-N'LEFT JOIN (SELECT
+	AND att.user_id = @user_Id 
+LEFT JOIN (SELECT
 		[building_id]
 	   ,[executor_id]
 	FROM [dbo].[ExecutorInRoleForObject] ExecutorInRoleForObject 
