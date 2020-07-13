@@ -28,8 +28,13 @@
                 this.form.setControlVisibility('class_resolution_id', false);
             }
 
+            let class_resolution_id = this.form.getControlValue('class_resolution_id');
+            if(class_resolution_id) {
+                this.form.disableControl('result_id', true);
+            }
+
             let my_event = this.form.getControlValue('event_number');
-            if(my_event === null) {
+            if (my_event === null) {
                 this.form.setGroupVisibility('Group_Assigments_Event', false);
             } else {
                 this.form.disableControl('event_number', true);
