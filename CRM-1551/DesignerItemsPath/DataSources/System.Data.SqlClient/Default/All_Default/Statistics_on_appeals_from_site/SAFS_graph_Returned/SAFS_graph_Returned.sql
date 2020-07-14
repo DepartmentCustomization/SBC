@@ -1,0 +1,16 @@
+declare @date_table table (Id int identity(1,1), date date)
+  declare @date_f date=@date_from
+
+  while @date_f<=@date_to
+  begin 
+  insert into @date_table (date)
+  select @date_f
+
+  set @date_f=dateadd(dd, 1, @date_f)
+
+  end
+
+  select date_table.Id, date_table.date, [indicator_value]
+  from @date_table date_table left join
+  [CRM_1551_Site_Integration].[dbo].[Statistic] on date_table.date=[Statistic].date and [Statistic].diagram=9
+  where date_table.date between @date_from and @date_to
