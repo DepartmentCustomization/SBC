@@ -86,7 +86,7 @@ begin
 				left join (
 							SELECT [QuestionTypeId],
 								   [RDAId],
-								   case when sum([Execution_CountAssignments]) = 0 then NULL else sum(cast([Execution_SumDays] as numeric(18,6)))/sum(cast([Execution_CountAssignments] as numeric(18,6))) end as [AvgDays]
+								   case when sum([Explain_CountAssignments]) = 0 then NULL else sum(cast([Explain_SumDays] as numeric(18,6)))/sum(cast([Explain_CountAssignments] as numeric(18,6))) end as [AvgDays]
 							  FROM [CRM_1551_Rating].[dbo].[Rating_DaysToExecution]
 							  left join [CRM_1551_Analitics].[dbo].[QuestionTypes] on [QuestionTypes].Id = [Rating_DaysToExecution].[QuestionTypeId]
 							  where [RDAId] is not null
