@@ -20,7 +20,7 @@ declare @date_from date='2020-07-29',
 
   (select sum([indicator_value])
   from [CRM_1551_Site_Integration].[dbo].[Statistic]
-  where [indicator_name] in (N'Звернення без телефону та адреси', N'Звернення без адреси, з телефоном')
+  where [indicator_name] in (N'Заяввники без телефону та адреси', N'Заявники без адреси, з телефоном')
   and date between convert(date, @date_from) and convert(date, @date_to)) cell4,
 
   (select count(Id) from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] where convert(date,ReceiptDate) between convert(date, @date_from) and convert(date, @date_to) and [AppealFromSiteResultId]=2) cell5
