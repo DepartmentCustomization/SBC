@@ -163,7 +163,7 @@
                     }
                 }, {
                     dataField: 'IndexOfFactToExecution',
-                    caption: 'Індекс фактичного виконання',
+                    caption: 'Фактичне виконання',
                     format: function(value) {
                         return value.toFixed(2);
                     }
