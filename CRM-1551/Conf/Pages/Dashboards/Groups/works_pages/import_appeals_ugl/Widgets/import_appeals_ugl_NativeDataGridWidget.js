@@ -32,6 +32,14 @@
                     caption: 'Адреса',
                     width: 160
                 },{
+                    dataField: 'Content',
+                    caption: 'Змiст'
+                },{
+                    dataField: 'QuestionNumber',
+                    caption: 'Номер питання',
+                    width: 100
+                },
+                {
                     dataField: 'ControlDate',
                     caption: 'Дата контролю',
                     width: 100
@@ -39,13 +47,6 @@
                     dataField: 'QuestionState',
                     caption: 'Стан питання',
                     width: 120
-                },{
-                    dataField: 'Content',
-                    caption: 'Змiст'
-                },{
-                    dataField: 'QuestionNumber',
-                    caption: 'Номер питання',
-                    width: 100
                 }
             ],
             filterRow: {
