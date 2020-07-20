@@ -59,7 +59,8 @@ INSERT INTO
     [start_date],
     [user_id],
     [edit_date],
-    [user_edit_id]
+    [user_edit_id],
+    [LogUpdated_Query]
   ) output [inserted].[Id] INTO @output_Appeal (Id)
 VALUES
   (
@@ -85,7 +86,8 @@ case when not exists(
     @CreatedByUserId,
     getutcdate(),
     -- @edit_date
-    @CreatedByUserId
+    @CreatedByUserId,
+    N'query_ForSite_Question_Btn_Add_InsertRow'
   );
 
   SET

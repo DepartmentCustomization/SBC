@@ -125,5 +125,16 @@
     "Code": "position_id",
     "Name": "position_id",
     "Position": 21
+  },
+  {
+    "Code": "schedule_id",
+    "Name": "schedule_id",
+    "Position": 22
+  },
+  {
+    "Code": "schedule_name",
+    "Name": "schedule_name",
+    "Position": 23,
+    "ReferenceKeyCode": "schedule_id"
   }
 ]

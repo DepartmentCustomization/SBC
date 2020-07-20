@@ -22,6 +22,12 @@
             }
         },
         init: function() {
+
+            if (this.form.getControlValue('assignment_class_id') === null) {
+                this.form.setControlVisibility('assignment_class_id', false);
+                this.form.setControlVisibility('class_resolution_id', false)
+            }
+
             this.checkAttentionVal();
             let btn_Attention = document.getElementById('btn_Attention');
             this.form.disableControl('geolocation_lat');

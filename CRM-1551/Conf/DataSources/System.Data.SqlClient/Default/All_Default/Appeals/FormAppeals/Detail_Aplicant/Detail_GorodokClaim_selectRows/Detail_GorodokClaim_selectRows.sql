@@ -1,6 +1,6 @@
---  DECLARE @applicant_id INT = 1490872;
---  DECLARE @type NVARCHAR(100) = N'Усі';
---  DECLARE @object_id INT = 8593;
+--   DECLARE @applicant_id INT = null;
+--   DECLARE @type NVARCHAR(100) = N'Усі';
+--   DECLARE @object_id INT = 15754;
 
 IF object_id('tempdb..#ClaimsResult') IS NOT NULL
 BEGIN
@@ -197,15 +197,7 @@ FROM
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_claims] [Lokal_copy_gorodok_claims] ON [Lokal_copy_gorodok_claims].[object_id] = [Gorodok_1551_houses].gorodok_houses_id
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].Claims_states Claims_states ON Claims_states.[name] = [Lokal_copy_gorodok_claims].[status]
 	LEFT JOIN [dbo].[QuestionStates] [QuestionStates] ON [QuestionStates].Id = Claims_states.[1551_state]
-WHERE
-	[Gorodok_1551_houses].[1551_houses_id] IN (
-		SELECT
-			[LiveAddress].building_id
-		FROM
-			[dbo].[LiveAddress]
-		WHERE
-			building_id = @building_id 
-	);
+WHERE [Gorodok_1551_houses].[1551_houses_id] = @object_id
 END 
 ELSE IF @type = N'Зареєстровано' 
 BEGIN
@@ -222,15 +214,7 @@ FROM
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_claims] [Lokal_copy_gorodok_claims] ON [Lokal_copy_gorodok_claims].[object_id] = [Gorodok_1551_houses].gorodok_houses_id
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].Claims_states Claims_states ON Claims_states.[name] = [Lokal_copy_gorodok_claims].[status]
 	LEFT JOIN [dbo].[QuestionStates] [QuestionStates] ON [QuestionStates].Id = Claims_states.[1551_state]
-WHERE
-	[Gorodok_1551_houses].[1551_houses_id] IN (
-		SELECT
-			[LiveAddress].building_id
-		FROM
-			[dbo].[LiveAddress]
-		WHERE
-			building_id = @building_id 
-	)
+WHERE [Gorodok_1551_houses].[1551_houses_id] = @object_id
 	AND Claims_states.[1551_state] IN (
 		SELECT
 			[QuestionStates].Id
@@ -255,15 +239,7 @@ FROM
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_claims] [Lokal_copy_gorodok_claims] ON [Lokal_copy_gorodok_claims].[object_id] = [Gorodok_1551_houses].gorodok_houses_id
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].Claims_states Claims_states ON Claims_states.[name] = [Lokal_copy_gorodok_claims].[status]
 	LEFT JOIN [dbo].[QuestionStates] [QuestionStates] ON [QuestionStates].Id = Claims_states.[1551_state]
-WHERE
-	[Gorodok_1551_houses].[1551_houses_id] IN (
-		SELECT
-			[LiveAddress].building_id
-		FROM
-			[dbo].[LiveAddress]
-		WHERE
-			building_id = @building_id 
-	)
+WHERE [Gorodok_1551_houses].[1551_houses_id] = @object_id
 	AND Claims_states.[1551_state] IN (
 		SELECT
 			[QuestionStates].Id
@@ -288,15 +264,7 @@ FROM
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_claims] [Lokal_copy_gorodok_claims] ON [Lokal_copy_gorodok_claims].[object_id] = [Gorodok_1551_houses].gorodok_houses_id
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].Claims_states Claims_states ON Claims_states.[name] = [Lokal_copy_gorodok_claims].[status]
 	LEFT JOIN [dbo].[QuestionStates] [QuestionStates] ON [QuestionStates].Id = Claims_states.[1551_state]
-WHERE
-	[Gorodok_1551_houses].[1551_houses_id] IN (
-		SELECT
-			[LiveAddress].building_id
-		FROM
-			[dbo].[LiveAddress]
-		WHERE
-			building_id = @building_id 
-	)
+WHERE [Gorodok_1551_houses].[1551_houses_id] = @object_id
 	AND Claims_states.[1551_state] IN (
 		SELECT
 			[QuestionStates].Id
@@ -322,15 +290,7 @@ FROM
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_claims] [Lokal_copy_gorodok_claims] ON [Lokal_copy_gorodok_claims].[object_id] = [Gorodok_1551_houses].gorodok_houses_id
 	LEFT JOIN [CRM_1551_GORODOK_Integrartion].[dbo].Claims_states Claims_states ON Claims_states.[name] = [Lokal_copy_gorodok_claims].[status]
 	LEFT JOIN [dbo].[QuestionStates] [QuestionStates] ON [QuestionStates].Id = Claims_states.[1551_state]
-WHERE
-	[Gorodok_1551_houses].[1551_houses_id] IN (
-		SELECT
-			[LiveAddress].building_id
-		FROM
-			[dbo].[LiveAddress]
-		WHERE
-			building_id = @building_id 
-	)
+WHERE [Gorodok_1551_houses].[1551_houses_id] = @object_id
 	AND Claims_states.[1551_state] IN (
 		SELECT
 			[QuestionStates].Id

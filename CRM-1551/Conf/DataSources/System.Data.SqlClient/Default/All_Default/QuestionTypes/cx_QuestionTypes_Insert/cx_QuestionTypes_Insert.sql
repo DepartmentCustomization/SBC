@@ -83,7 +83,8 @@ INSERT INTO [dbo].[QuestionTypes]
            ,[user_edit_id]
            ,[Object_is]
            ,[Organization_is],
-		     [has_child])
+		     [has_child
+         ,[assignment_class_id]])
  output [inserted].[Id] into @output (Id)           
      VALUES
            (@question_type_id
@@ -107,6 +108,7 @@ INSERT INTO [dbo].[QuestionTypes]
            ,@Object_is
            ,@Organization_is
 		     ,0 -- При создании нового типа у него еще нету потомков 
+         ,@assignment_class_id
 		   )
 
 ---------------------- Проверить необходимость обновления has_child родительского типа ---------------------------------

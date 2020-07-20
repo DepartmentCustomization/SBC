@@ -24,6 +24,9 @@ SELECT distinct [QuestionTypes].[Id]
 	  ,[QuestionTypes].Organization_is
 	  ,ltrim(Rules.Id)+N'-'+Rules.name RuleName
 	  ,[QuestionTypes].[parent_organization_is]
+	  ,[Emergensy].emergensy_name
+	  ,[QuestionTypes].assignment_class_id
+	  ,[Assignment_Classes].name assignment_class_name
   FROM [dbo].[QuestionTypes]
   --left join [QuestionTypeInRating] on [QuestionTypes].Id=[QuestionTypeInRating].QuestionType_id
   left join Rules on Rules.Id = QuestionTypes.rule_id
@@ -38,4 +41,6 @@ SELECT distinct [QuestionTypes].[Id]
   sum(Id) for [Rating_id] in ([1], [2], [3])
   ) pvt) [Rating] on [QuestionTypes].Id=[Rating].QuestionType_id
   --left join [Rating] on [QuestionTypeInRating].Rating_id=[Rating].id
+  left join [dbo].[Emergensy] on [QuestionTypes].emergency=[Emergensy].Id
+  left join [dbo].[Assignment_Classes] on [QuestionTypes].assignment_class_id=[Assignment_Classes].Id
   where QuestionTypes.Id = @id

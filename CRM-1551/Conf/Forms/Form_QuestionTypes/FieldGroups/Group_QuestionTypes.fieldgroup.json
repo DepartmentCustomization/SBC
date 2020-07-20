@@ -28,9 +28,13 @@
     {
       "Code": "emergency",
       "Name": "Аварійне",
-      "FieldType": "checkbox",
+      "FieldType": "select",
       "Position": 5,
-      "Width": "20%"
+      "Width": "20%",
+      "QueryCode": "list_EmergensySRows",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
     },
     {
       "Code": "parent_organization_is",
@@ -158,6 +162,17 @@
       "FieldType": "checkbox",
       "Position": 22,
       "Width": "40%"
+    },
+    {
+      "Code": "assignment_class_id",
+      "Name": "Клас доручення",
+      "FieldType": "select",
+      "Position": 23,
+      "Width": "100%",
+      "QueryCode": "list_Assignment_Classes",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": []
     },
     {
       "Code": "index",

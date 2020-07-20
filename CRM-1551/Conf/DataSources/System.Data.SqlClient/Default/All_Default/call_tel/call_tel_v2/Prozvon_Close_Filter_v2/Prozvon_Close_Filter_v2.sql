@@ -124,7 +124,10 @@ BEGIN
 					VALUES ((SELECT TOP 1 curent_consid_id FROM @assigments_table), 2, @assignment_resolution_id, @control_result_id, @control_comment
 					-- , (select consideration_date from AssignmentConsiderations where Id = (SELECT TOP 1	curent_consid_id FROM @assigments_table))
 					, IIF(@control_result_id IS NULL, NULL, GETUTCDATE()) -- control_date
-					, @user_id, @grade, GETUTCDATE(), @user_id);
+					, @user_id
+					--, @grade
+					, case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else null end
+					, GETUTCDATE(), @user_id);
 			END
 			ELSE
 			BEGIN
@@ -133,7 +136,8 @@ BEGIN
 				   ,[control_result_id] = @control_result_id
 				   ,control_date = GETUTCDATE()
 				   ,[control_comment] = @control_comment
-				   ,[grade] = @grade
+				   --,[grade] = @grade
+				   ,case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else [grade] end
 				   ,[edit_date] = GETUTCDATE()
 				   ,[user_edit_id] = @user_id
 				WHERE [assignment_consideration_іd] IN (SELECT
@@ -168,7 +172,8 @@ BEGIN
 						  ,@control_comment [control_comment]
 						  ,GETUTCDATE() [control_date]
 						  ,@user_id [user_id]
-						  ,@grade [grade]
+						  --,@grade [grade]
+						  ,case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else null end
 						  ,null [grade_comment]
 						  ,null [rework_counter]
 						  ,null [missed_call_counter]
@@ -245,7 +250,8 @@ BEGIN
 		END)
 	   ,control_date = GETUTCDATE()
 	   ,[control_comment] = ISNULL(@control_comment, control_comment)
-	   ,[grade] = @grade
+	   --,[grade] = @grade
+	   ,[grade] = case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else [grade] end
 	   ,[edit_date] = GETUTCDATE()
 	   ,[user_edit_id] = @user_id
 	   ,[missed_call_counter] = (CASE
@@ -390,7 +396,8 @@ BEGIN
 						  ,@control_comment [control_comment]
 						  ,GETUTCDATE() [control_date]
 						  ,@user_id [user_id]
-						  ,@grade [grade]
+						  --,@grade [grade]
+						  ,case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else null end
 						  ,null [grade_comment]
 						  ,null [rework_counter]
 						  ,null [missed_call_counter]
@@ -407,7 +414,8 @@ BEGIN
 	   ,[control_result_id] = @control_result_id
 	   ,control_date = GETUTCDATE()
 	   ,[control_comment] = @control_comment
-	   ,[grade] = @grade
+	   --,[grade] = @grade
+	   ,[grade]=case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else [grade] end
 	   ,[edit_date] = GETUTCDATE()
 	   ,[user_edit_id] = @user_id
 	WHERE [assignment_consideration_іd] IN (SELECT

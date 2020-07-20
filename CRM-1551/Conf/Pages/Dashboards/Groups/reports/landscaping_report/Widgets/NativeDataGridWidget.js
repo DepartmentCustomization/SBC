@@ -259,8 +259,8 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
         },
-        masterDetailInitialized: function(row) {
-            this.config.masterDetail.dataSource = [];
+        masterDetailInitialized: function(event, row) {
+            row.dataSource = [];
             const masterDetailQuery = {
                 queryCode: 'kp_blag_Report2',
                 limit: -1,
@@ -270,10 +270,10 @@
                     {key: '@date_from', value: this.dateFrom}
                 ]
             };
-            this.queryExecutor(masterDetailQuery, this.setMasterDetailDataSource, this);
+            this.queryExecutor(masterDetailQuery, this.setMasterDetailDataSource.bind(this, row), this);
         },
-        setMasterDetailDataSource: function(data) {
-            let dataSource = [];
+        setMasterDetailDataSource: function(row, data) {
+            const dataSource = [];
             data.rows.forEach(row => {
                 const masterDetailColumns = {
                     'exec_name': row.values[1],
@@ -293,7 +293,7 @@
                 }
                 dataSource.push(masterDetailColumns);
             })
-            this.config.masterDetail.dataSource = dataSource;
+            row.dataSource = dataSource;
         },
         destroy: function() {
             this.sub.unsubscribe();

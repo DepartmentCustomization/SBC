@@ -7,7 +7,7 @@ SELECT
    --   ,[old_name]
 FROM
   [dbo].[Streets] s
-  JOIN [dbo].[Districts] d ON s.district_id = d.Id
-  JOIN [dbo].[StreetTypes] st ON st.id = s.street_type_id
+  LEFT JOIN [dbo].[Districts] d ON s.district_id = d.Id
+  LEFT JOIN [dbo].[StreetTypes] st ON st.id = s.street_type_id
 WHERE
   s.Id = @Id ;
