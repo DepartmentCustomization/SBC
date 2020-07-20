@@ -37,9 +37,15 @@ where [Positions].is_main='true'
 
 
 --select * from #org_and_parent
-
-select #position_org.Id, #org_and_parent.Id vykonavets_Id, #position_org.name
+select row_number() over(order by vykonavets_Id, n) Id, vykonavets_Id, name
+from 
+(
+select #position_org.Id, #org_and_parent.Id vykonavets_Id, #position_org.name, 2 n
 from #position_org
 inner join #org_and_parent on #position_org.organizations_id=#org_and_parent.ParentId
+union
+select Id, Id, short_name, 1 n 
+from [dbo].[Organizations]
+) t
 
 

@@ -17,7 +17,7 @@
       "Name": "vykonavets_Id",
       "Position": 2,
       "IsPrintable": false,
-      "SqlName": "[Positions].organizations_id",
+      "SqlName": "vykonavets_Id",
       "FilterParameterCode": "@vykonavets_Id"
     },
     {
@@ -25,7 +25,7 @@
       "Name": "name",
       "Position": 3,
       "IsPrintable": false,
-      "SqlName": "#position_org.name",
+      "SqlName": "name",
       "FilterParameterCode": "@name"
     }
   ]
