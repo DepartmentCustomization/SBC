@@ -10,14 +10,12 @@
       "Name": "Id",
       "Position": 1,
       "IsPrimaryKey": true,
-      "ViewState": "Hidden",
       "IsPrintable": false
     },
     {
       "Code": "vykonavets_Id",
       "Name": "vykonavets_Id",
       "Position": 2,
-      "ViewState": "Hidden",
       "IsPrintable": false,
       "SqlName": "[Positions].organizations_id",
       "FilterParameterCode": "@vykonavets_Id"
@@ -27,15 +25,8 @@
       "Name": "name",
       "Position": 3,
       "IsPrintable": false,
-      "SqlName": "ISNULL([Positions_parent].position, N'')+ ISNULL(N' ('+[Organizations].short_name+N')',N'')",
+      "SqlName": "#position_org.name",
       "FilterParameterCode": "@name"
-    }
-  ],
-  "Parameters": [
-    {
-      "Code": "@vykonavets_Id",
-      "Name": "vykonavets_Id",
-      "ParameterType": "Integer"
     }
   ]
 }
