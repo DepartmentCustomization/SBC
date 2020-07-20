@@ -12,11 +12,13 @@
             columns: [
                 {
                     dataField: 'registration_number',
-                    caption: 'Номер питання'
+                    caption: 'Номер питання',
+                    width: 100
                 }, {
                     dataField: 'registration_date',
                     caption: 'Дата реєстрації',
-                    sortOrder: 'asc'
+                    sortOrder: 'asc',
+                    width: 120
                 }, {
                     dataField: 'QuestionType',
                     caption: 'Тип питання'
@@ -25,10 +27,12 @@
                     caption: 'Місце проблеми'
                 }, {
                     dataField: 'control_date',
-                    caption: 'Дата контролю'
+                    caption: 'Дата контролю',
+                    width: 120
                 }, {
-                    dataField: 'lookup',
+                    dataField: 'vykonavets_Id',
                     caption: 'Виконавець',
+                    width: 300,
                     lookup: {
                         dataSource: {
                             paginate: true,
@@ -142,22 +146,20 @@
             this.queryExecutor(executeQueryStatuses, this.setLookupData, this);
         },
         setLookupData: function(data) {
-            this.lookupData = [ { 'ID': null, 'Name': ' ' } ];
             data.rows.forEach(row => {
                 let status = {
-                    'ID': row.values[0],
-                    'Name':  row.values[2],
-                    'vykonavets_Id': row.values[1]
+                    'ID': row.values[1],
+                    'Name':  row.values[2]
                 }
                 this.lookupData.push(status);
             });
-            const index = this.config.columns.findIndex(c => c.dataField === 'lookup');
+            const index = this.config.columns.findIndex(c => c.dataField === 'vykonavets_Id');
             this.config.columns[index].lookup.dataSource = this.setLookupDataSource.bind(this);
         },
         setLookupDataSource: function(options) {
             return {
                 store: this.lookupData,
-                filter: options.data ? ['vykonavets_Id', '=', options.data.vykonavets_Id] : null
+                filter: options.data ? ['ID', '=', options.data.vykonavets_Id] : null
             };
         },
         createMasterDetail: function(container, options) {
@@ -192,7 +194,6 @@
             } else {
                 this.hideTable();
             }
-
         },
         createTableButton: function(code, e) {
             let toolbarItems = e.toolbarOptions.items;
