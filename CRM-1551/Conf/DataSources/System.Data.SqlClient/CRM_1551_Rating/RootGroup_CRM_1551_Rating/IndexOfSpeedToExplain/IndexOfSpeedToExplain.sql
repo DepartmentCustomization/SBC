@@ -134,10 +134,7 @@ begin
 	 left join #temp_IndexOfSpeedToExplain_Place_All as t_Place on t_Place.QuestionTypeId = t0.QuestionTypeId
 	 left join #temp_IndexOfSpeedToExplain_Percent_All as t_Percent on t_Percent.QuestionTypeId = t0.QuestionTypeId
 	 left join [CRM_1551_Rating].[dbo].[Rating_EtalonDaysToExecution] as t1 on t1.QuestionTypeId = t0.QuestionTypeId
-																		and t1.Id in (select max(Id) 
-																						from [CRM_1551_Rating].[dbo].[Rating_EtalonDaysToExecution]
-																						where DateStart <= @DateCalc
-																						group by QuestionTypeId)
+	 inner join (select max(DateStart) as DateStart, QuestionTypeId from [CRM_1551_Rating].[dbo].[Rating_EtalonDaysToExecution] where cast(DateStart as date) <= cast(getdate() as date) and cast(DateStart as date) <= cast(@DateCalc as date) group by QuestionTypeId)  as t3 on t3.QuestionTypeId = t1.QuestionTypeId and t3.DateStart = t1.DateStart
 
 end
 else 
@@ -187,7 +184,8 @@ begin
 									) as t1 on t1.QuestionTypeId = t0.Id
 							where t1.[AvgDays] is not null
 				) as t_Place on t_Place.QuestionTypeId = t_Percent.QuestionTypeId
-				left join [CRM_1551_Rating].[dbo].[Rating_EtalonDaysToExecution] as t1 on t1.QuestionTypeId = t_Place.QuestionTypeId
+				left join [CRM_1551_Rating].[dbo].[Rating_EtalonDaysToExecution] as t1 on t1.QuestionTypeId = t_Place.QuestionTypeId 
+				inner join (select max(DateStart) as DateStart, QuestionTypeId from [CRM_1551_Rating].[dbo].[Rating_EtalonDaysToExecution] where cast(DateStart as date) <= cast(getdate() as date) and cast(DateStart as date) <= cast('''+rtrim(CONVERT(nvarchar, @DateCalc, 23))+''' as date) group by QuestionTypeId)  as t3 on t3.QuestionTypeId = t1.QuestionTypeId and t3.DateStart = t1.DateStart
 	'
 	exec sp_executesql @sql
 	/*
