@@ -25,7 +25,25 @@
 
             if (this.form.getControlValue('assignment_class_id') === null) {
                 this.form.setControlVisibility('assignment_class_id', false);
-                this.form.setControlVisibility('class_resolution_id', false)
+                this.form.setControlVisibility('class_resolution_id', false);
+            }
+
+            let class_resolution_id = this.form.getControlValue('class_resolution_id');
+            if(class_resolution_id) {
+                this.form.disableControl('result_id', true);
+            }
+
+            let my_event = this.form.getControlValue('event_number');
+            if (my_event === null) {
+                this.form.setGroupVisibility('Group_Assigments_Event', false);
+            } else {
+                this.form.disableControl('event_number', true);
+                this.form.disableControl('event_class', true);
+                this.form.disableControl('event_object', true);
+                this.form.disableControl('event_comment', true);
+                this.form.disableControl('event_start_date', true);
+                this.form.disableControl('event_plan_end', true);
+                this.form.disableControl('event_real_end', true);
             }
 
             this.checkAttentionVal();

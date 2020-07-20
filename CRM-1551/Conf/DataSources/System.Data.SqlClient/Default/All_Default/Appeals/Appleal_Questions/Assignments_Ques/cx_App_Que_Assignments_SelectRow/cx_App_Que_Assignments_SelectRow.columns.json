@@ -1,4 +1,5 @@
-[{
+[
+    {
         "Code": "Id",
         "Name": "Id",
         "Position": 1,
@@ -297,20 +298,20 @@
         "IsPrintable": false
     },
     {
-      "Code": "geolocation_lat",
-      "Name": "geolocation_lat",
-      "Position": 52
+        "Code": "geolocation_lat",
+        "Name": "geolocation_lat",
+        "Position": 52
     },
     {
-      "Code": "geolocation_lon",
-      "Name": "geolocation_lon",
-      "Position": 53
+        "Code": "geolocation_lon",
+        "Name": "geolocation_lon",
+        "Position": 53
     },
     {
-      "Code": "attention_val",
-      "Name": "attention_val",
-      "Position": 54,
-      "IsPrintable": false
+        "Code": "attention_val",
+        "Name": "attention_val",
+        "Position": 54,
+        "IsPrintable": false
     },
     {
         "Code": "assignment_class_id",
@@ -319,20 +320,55 @@
         "IsPrintable": false
     },
     {
-      "Code": "class_resolution_id",
-      "Name": "class_resolution_id",
-      "Position": 56
+        "Code": "class_resolution_id",
+        "Name": "class_resolution_id",
+        "Position": 56
     },
     {
-      "Code": "assignment_class_name",
-      "Name": "assignment_class_name",
-      "Position": 57,
-      "ReferenceKeyCode": "assignment_class_id"
+        "Code": "assignment_class_name",
+        "Name": "assignment_class_name",
+        "Position": 57,
+        "ReferenceKeyCode": "assignment_class_id"
     },
     {
-      "Code": "class_resolution_name",
-      "Name": "class_resolution_name",
-      "Position": 58,
-      "ReferenceKeyCode": "class_resolution_id"
+        "Code": "class_resolution_name",
+        "Name": "class_resolution_name",
+        "Position": 58,
+        "ReferenceKeyCode": "class_resolution_id"
+    },
+    {
+        "Code": "event_number",
+        "Name": "event_number",
+        "Position": 59
+    },
+    {
+        "Code": "event_class",
+        "Name": "event_class",
+        "Position": 60
+    },
+    {
+        "Code": "event_object",
+        "Name": "event_object",
+        "Position": 61
+    },
+    {
+        "Code": "event_comment",
+        "Name": "event_comment",
+        "Position": 62
+    },
+    {
+        "Code": "event_start_date",
+        "Name": "event_start_date",
+        "Position": 63
+    },
+    {
+        "Code": "event_plan_end",
+        "Name": "event_plan_end",
+        "Position": 64
+    },
+    {
+        "Code": "event_real_end",
+        "Name": "event_real_end",
+        "Position": 65
     }
 ]

@@ -13,7 +13,8 @@
   "Config": {
     "FieldGroups": [
       "string:FieldGroups\\Group_Assigments_info.fieldgroup.json",
-      "string:FieldGroups\\Group_Assigments_Assigments.fieldgroup.json"
+      "string:FieldGroups\\Group_Assigments_Assigments.fieldgroup.json",
+      "string:FieldGroups\\Group_Assignments_Event.fieldgroup.json"
     ],
     "DefaultFields": [
       {
