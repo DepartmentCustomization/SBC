@@ -1,5 +1,5 @@
-(function() {
-    return {
+(function () {
+  return {
         chartConfig: {
             chart: {
                 type: 'column'
@@ -29,9 +29,7 @@
             },
             yAxis: {
                 min: 0,
-                title: {
-                    text: 'Rainfall (mm)'
-                }
+                
             },
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -139,6 +137,7 @@
         load: function(data) {
             let rows = data.rows;
             let columns = data.columns;
+
             this.chartConfig.xAxis.categories = rows.map( row => row.values[0] );
             for (let i=0; i <= 1; i++) {
                 this.chartConfig.series[i].name = columns[i+1].name;
@@ -146,5 +145,5 @@
             }
             this.render();
         }
-    }
+    };
 }());

@@ -14,9 +14,7 @@
           categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
       },
       yAxis: {
-          title: {
-              text: 'Temperature (°C)'
-          }
+          
       },
       plotOptions: {
           line: {
@@ -95,5 +93,5 @@
       this.render(); 
   }
     
-    }
+    };
 }());

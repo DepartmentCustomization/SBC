@@ -11,7 +11,7 @@
             text: 'Повернуто заявникові за період'
         },
         subtitle: {
-            text: 'Source: WorldClimate.com'
+           
         },
         xAxis: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -27,7 +27,7 @@
                 }
             },
             title: {
-                text: 'Temperature',
+               
                 style: {
                     color: "red"
                 }

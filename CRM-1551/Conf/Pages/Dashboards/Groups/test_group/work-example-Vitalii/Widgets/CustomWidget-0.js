@@ -1,12 +1,13 @@
-(function() {
-    return {
+(function () {
+  return {
         title: 'Надійшло звернень за період',
         hint: '',
         formatTitle: function() {},
         customConfig:
                     `
                     <div id='container1'>
-                        <div id='date-block1'></div>
+                        <div id='date-block1' class='date-block'></div>
+                        <div id='cell1-info'></div>
                     </div>
                     `
         ,
@@ -28,6 +29,7 @@
             this.queryExecutor(executeQuery, this.load, this); */
         },
         afterViewInit() {
+
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
@@ -55,7 +57,9 @@
             const paragraphTo = this.createElement('span',{ className:'date',id:'pToCon1',name:'date'});
             paragraphFrom.textContent = new Date(dateFrom).toISOString().slice(0,10);
             paragraphTo.textContent = new Date(dateTo).toISOString().slice(0,10);
+            container.insertAdjacentHTML('beforeend',`<span> з </span>`);
             container.append(paragraphFrom);
+            container.insertAdjacentHTML('beforeend',`<span> по </span>`);
             container.append(paragraphTo);
             this.resetParams();
         },
@@ -71,8 +75,13 @@
             this.queryExecutor(executeQuery, this.load, this);
         },
         load: function(data) {
-            debugger;
-            console.log(data)
+            const list = document.querySelectorAll(' #CustomWidget-0,  #CustomWidget-1,  #CustomWidget-2 , #CustomWidget-3 , #CustomWidget-4  ')
+          
+            list.forEach(e=>e.classList.add('cell-item'))
+            const cellInfo = document.getElementById('cell1-info');
+            cellInfo.innerHTML='';
+            const p= `<p class='cell-info'>${data.rows[0].values[1]}</p>`;
+           cellInfo.insertAdjacentHTML('beforeend',p)
         }
     };
 }());

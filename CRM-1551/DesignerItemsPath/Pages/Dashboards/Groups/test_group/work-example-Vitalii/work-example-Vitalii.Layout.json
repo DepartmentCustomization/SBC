@@ -22,7 +22,7 @@
         "children": [
           {
             "width": "auto",
-            "margin": "0 5px 10px",
+            "margin": "",
             "flexWrap": "wrap",
             "flexDirection": "row",
             "order": 1,
@@ -32,7 +32,7 @@
             "children": [
               {
                 "width": "auto",
-                "margin": "0 5px 10px",
+                "margin": "",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
                 "order": 1,
@@ -54,7 +54,7 @@
               },
               {
                 "width": "auto",
-                "margin": "0 5px 10px",
+                "margin": "",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
                 "order": 1,
@@ -76,7 +76,7 @@
               },
               {
                 "width": "auto",
-                "margin": "0 5px 10px",
+                "margin": "",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
                 "order": 1,
@@ -98,7 +98,7 @@
               },
               {
                 "width": "auto",
-                "margin": "0 5px 10px",
+                "margin": "",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
                 "order": 1,
@@ -120,7 +120,7 @@
               },
               {
                 "width": "auto",
-                "margin": "0 5px 10px",
+                "margin": "",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
                 "order": 1,
@@ -149,7 +149,7 @@
           },
           {
             "width": "auto",
-            "margin": "0 5px 10px",
+            "margin": "",
             "flexWrap": "wrap",
             "flexDirection": "row",
             "order": 1,
@@ -159,7 +159,7 @@
             "children": [
               {
                 "width": "40%",
-                "margin": "0 5px 10px",
+                "margin": "",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
                 "order": 1,
@@ -174,14 +174,14 @@
                   }
                 ],
                 "id": "Container-1",
-                "height": "200px",
-                "minHeight": "200px",
+                "height": "50%",
+                "minHeight": "30%",
                 "minWidth": "100px",
                 "backgroundColor": "white"
               },
               {
                 "width": "40%",
-                "margin": "0 5px 10px",
+                "margin": "",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
                 "order": 1,
@@ -196,14 +196,14 @@
                   }
                 ],
                 "id": "Container-1",
-                "height": "200px",
-                "minHeight": "200px",
+                "height": "50%",
+                "minHeight": "50%",
                 "minWidth": "100px",
                 "backgroundColor": "white"
               },
               {
                 "width": "40%",
-                "margin": "0 5px 10px",
+                "margin": "",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
                 "order": 1,
@@ -218,14 +218,14 @@
                   }
                 ],
                 "id": "Container-1",
-                "height": "200px",
-                "minHeight": "200px",
+                "height": "50%",
+                "minHeight": "30%",
                 "minWidth": "100px",
                 "backgroundColor": "white"
               },
               {
                 "width": "40%",
-                "margin": "0 5px 10px",
+                "margin": "",
                 "flexWrap": "wrap",
                 "flexDirection": "row",
                 "order": 1,
@@ -240,15 +240,15 @@
                   }
                 ],
                 "id": "Container-1",
-                "height": "200px",
-                "minHeight": "200px",
+                "height": "50%",
+                "minHeight": "50%",
                 "minWidth": "100px",
                 "backgroundColor": "white"
               }
             ],
             "id": "Container-1",
             "height": "auto",
-            "minHeight": "50%",
+            "minHeight": "80%",
             "minWidth": "calc(100% - 10px)",
             "backgroundColor": "white"
           }

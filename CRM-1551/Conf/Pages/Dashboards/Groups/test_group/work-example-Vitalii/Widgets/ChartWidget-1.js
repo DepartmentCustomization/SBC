@@ -1,5 +1,5 @@
-(function() {
-    return {
+(function () {
+  return {
         chartConfig: {
             chart: {
                 plotBackgroundColor: null,
@@ -107,7 +107,6 @@
             if(rows.length > 0) {
             const newArr = rows.map(elem=>{
                     const num = elem.values[2]
-                    console.log(typeof num)
                     const arr = {
                         name: `${elem.values[1]}`,
                         y: elem.values[2]
@@ -117,7 +116,7 @@
                     
                 })
             this.chartConfig.series[0].data = newArr
-            // console.log(this.chartConfig.series[0].data)
+           
             }
             
                 
@@ -126,5 +125,5 @@
             this.render(); 
         }
 
-    }
+    };
 }());
