@@ -30,17 +30,17 @@
                     caption: 'Дата контролю',
                     width: 120
                 }, {
+                    dataField: 'vykonavets',
+                    caption: 'Виконавець 2'
+                }, {
                     dataField: 'vykonavets_Id',
-                    caption: 'Виконавець',
-                    width: 300,
+                    caption: 'Виконавець'
+                    /* width: 300,
                     lookup: {
-                        dataSource: {
-                            paginate: true,
-                            store: undefined
-                        },
+                        dataSource: undefined,
                         valueExpr: 'ID',
-                        displayExpr: 'Name'
-                    }
+                        displayExpr: 'NAME'
+                    } */
                 }, {
                     caption: '',
                     dataField: '',
@@ -108,8 +108,46 @@
         isEvent: false,
         event: 'Заходи',
         lookupData: [],
+        /* cities: [{
+            "ID": 1,
+            "NAME": "Tuscaloosa",
+            "StateID": 2515
+        }, {
+            "ID": 2,
+            "NAME": "Hoover",
+            "StateID": 2515
+        }, {
+            "ID": 3,
+            "NAME": "Dothan",
+            "StateID": 2515
+        }, {
+            "ID": 4,
+            "NAME": "Decatur",
+            "StateID": 4002
+        }, {
+            "ID": 5,
+            "NAME": "Anchorage",
+            "StateID": 4002
+        }, {
+            "ID": 6,
+            "NAME": "Fairbanks",
+            "StateID": 4002
+        }, {
+            "ID": 7,
+            "NAME": "Juneau",
+            "StateID": 4005
+        }, {
+            "ID": 8,
+            "NAME": "Avondale",
+            "StateID": 4005
+        }, {
+            "ID": 9,
+            "NAME": "Buckeye",
+            "StateID": 4005
+        }], */
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 405;
+            /* this.executeQueryLookup(); */
             this.tableContainer = document.getElementById('subTable');
             this.setVisibilityTableContainer('none');
             this.subscribers.push(this.messageService.subscribe('clickOnHeaderTable', this.changeOnTable, this));
@@ -118,7 +156,6 @@
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
-            this.executeQueryLookup();
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     if(e.column.dataField === 'registration_number' && e.row !== undefined) {
@@ -148,20 +185,26 @@
         },
         setLookupData: function(data) {
             data.rows.forEach(row => {
-                let status = {
-                    'ID': row.values[1],
-                    'Name':  row.values[2]
+                let organization = {
+                    'ID': row.values[0],
+                    'Name':  row.values[2],
+                    'vykonavets_Id': row.values[1]
                 }
-                this.lookupData.push(status);
+                /* if (row.values[1] === 2515) {
+                    console.log(organization);
+                } */
+                this.lookupData.push(organization);
             });
             const index = this.config.columns.findIndex(c => c.dataField === 'vykonavets_Id');
             this.config.columns[index].lookup.dataSource = this.setLookupDataSource.bind(this);
         },
         setLookupDataSource: function(options) {
-            return {
+            const obj = {
                 store: this.lookupData,
-                filter: options.data ? ['ID', '=', options.data.vykonavets_Id] : null
+                filter: options.data ? ['StateID', '=', options.data.vykonavets_Id] : null
             };
+            /* console.log(obj.filter); */
+            return obj
         },
         createMasterDetail: function(container, options) {
             const currentEmployeeData = options.data;
