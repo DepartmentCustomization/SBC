@@ -163,15 +163,6 @@
                 filter: options.data ? ['ID', '=', options.data.vykonavets_Id] : null
             };
         },
-        onCellPrepared: function(options) {
-            if(options.rowType === 'data') {
-                if(options.column.dataField === '') {
-                    options.cellElement.innerText = '';
-                    const phoneIcon = this.createElement('span', {className: 'material-icons', innerText: 'phone'});
-                    options.cellElement.appendChild(phoneIcon);
-                }
-            }
-        },
         createMasterDetail: function(container, options) {
             const currentEmployeeData = options.data;
             const name = 'createMasterDetail';
