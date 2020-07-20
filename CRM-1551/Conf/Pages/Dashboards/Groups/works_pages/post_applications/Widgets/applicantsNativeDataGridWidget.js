@@ -65,6 +65,7 @@
             paging: {
                 pageSize: 10
             },
+            wordWrapEnabled: true,
             showFilterRow: true,
             showHeaderFilter: true,
             showBorders: false,
@@ -72,6 +73,7 @@
             showRowLines: true
         },
         init: function() {
+            this.dataGridInstance.height = window.innerHeight - 350;
             const phoneNumber = this.getUrlParams();
             this.executeExecutorApplicantsQuery(phoneNumber);
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
