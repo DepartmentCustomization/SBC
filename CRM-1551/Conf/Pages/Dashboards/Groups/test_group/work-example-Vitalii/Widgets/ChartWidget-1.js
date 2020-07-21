@@ -1,5 +1,5 @@
-(function () {
-  return {
+(function() {
+    return {
         chartConfig: {
             chart: {
                 plotBackgroundColor: null,
@@ -36,7 +36,7 @@
                 colorByPoint: true,
                 data: [{
                     name: 'Chrome',
-                    y: 61.41,
+                    y: 61.41
                 }, {
                     name: 'Internet Explorer',
                     y: 11.84
@@ -64,65 +64,46 @@
             }
 
             if (message.package.value.values.find(f => f.name === 'DateAndTime').value) {
-                this.start_date = checkDateFrom(message.package.value.values.find(f => f.name === 'DateAndTime').value);
+                this.dateFrom = checkDateFrom(message.package.value.values.find(f => f.name === 'DateAndTime').value);
             }
             if (message.package.value.values.find(f => f.name === 'DateAndTime').value) {
-                this.finish_date = checkDateTo(message.package.value.values.find(f => f.name === 'DateAndTime').value);
+                this.dateTo = checkDateTo(message.package.value.values.find(f => f.name === 'DateAndTime').value);
             }
-            this.chartConfig.subtitle.text = `${this.start_date.toISOString().slice(0,10)} по ${this.finish_date.toISOString().slice(0,10)}`
+            this.chartConfig.subtitle.text = `${this.dateFrom.toISOString().slice(0,10)} по ${this.dateTo.toISOString().slice(0,10)}`;
+            if(this.sendQuery) {
+                this.sendQuery = false;
+                this.RecalcData()
+            }
         },
         init() {
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this));
+            this.sendQuery = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.RecalcData, this));
-            let DateMinusWeek = new Date();
-            DateMinusWeek.setDate(DateMinusWeek.getDate() - 0);
-            this.start_date = DateMinusWeek;
-            this.finish_date = new Date();
-
-            let executeQuery = {
-                queryCode: 'SAFS_graph_Quality',
-                parameterValues: [{key: "@date_from", value: this.start_date},
-                                    {key: "@date_to", value: this.finish_date}
-                                    ],
-                limit: -1
-            };
-            this.queryExecutor(executeQuery, this.load, this);
-
-
         },
         RecalcData: function() {
             let executeQuery = {
                 queryCode: 'SAFS_graph_Quality',
-                parameterValues: [{key: "@date_from", value: this.start_date},
-                                    {key: "@date_to", value: this.finish_date}
-                                ],
+                parameterValues: [{key: '@date_from', value: this.dateFrom},
+                    {key: '@date_to', value: this.dateTo}
+                ],
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.load, this);
         },
         load: function(data) {
             let rows = data.rows;
-            let columns = data.columns;
             this.chartConfig.series[0].data = [];
             if(rows.length > 0) {
-            const newArr = rows.map(elem=>{
-                    const num = elem.values[2]
+                const newArr = rows.map(elem=> {
                     const arr = {
                         name: `${elem.values[1]}`,
                         y: elem.values[2]
                     }
-                
                     return arr
-                    
                 })
-            this.chartConfig.series[0].data = newArr
-           
+                this.chartConfig.series[0].data = newArr;
             }
-            
-                
-
-            
-            this.render(); 
+            this.render()
         }
 
     };

@@ -1,5 +1,5 @@
-(function () {
-  return {
+(function() {
+    return {
         chartConfig: {
             chart: {
                 type: 'column'
@@ -11,26 +11,8 @@
                 text: ''
             },
             xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-                crosshair: true
             },
-            yAxis: {
-                min: 0,
-                
-            },
+            yAxis: {},
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
@@ -98,37 +80,28 @@
                 return val ? val.dateTo : null;
             }
             if (message.package.value.values.find(f => f.name === 'DateAndTime').value) {
-                this.start_date = checkDateFrom(message.package.value.values.find(f => f.name === 'DateAndTime').value);
-            };
-            if (message.package.value.values.find(f => f.name === 'DateAndTime').value) {
-                this.finish_date = checkDateTo(message.package.value.values.find(f => f.name === 'DateAndTime').value);
+                this.dateFrom = checkDateFrom(message.package.value.values.find(f => f.name === 'DateAndTime').value);
             }
-            this.chartConfig.subtitle.text = `${this.start_date.toISOString().slice(0,10)} по ${this.finish_date.toISOString().slice(0,10)}`
+            if (message.package.value.values.find(f => f.name === 'DateAndTime').value) {
+                this.dateTo = checkDateTo(message.package.value.values.find(f => f.name === 'DateAndTime').value);
+            }
+            this.chartConfig.subtitle.text = `${this.dateFrom.toISOString().slice(0,10)} по ${this.dateTo.toISOString().slice(0,10)}`;
+            if(this.sendQuery) {
+                this.sendQuery = false;
+                this.RecalcData();
+            }
         },
         init() {
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this));
+            this.sendQuery = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.RecalcData, this));
-            let DateMinusWeek = new Date();
-            DateMinusWeek.setDate(DateMinusWeek.getDate() - 0);
-            this.start_date = DateMinusWeek;
-            this.finish_date = new Date();
-
-            let executeQuery = {
-                queryCode: 'SAFS_graph_Received',
-                parameterValues: [
-                    {key: "@date_from", value: this.start_date},
-                    {key: "@date_to", value: this.finish_date}
-                ],
-                limit: -1
-            };
-            this.queryExecutor(executeQuery, this.load, this);
         },
         RecalcData: function() {
             let executeQuery = {
                 queryCode: 'SAFS_graph_Received',
                 parameterValues: [
-                    {key: "@date_from", value: this.start_date},
-                    {key: "@date_to", value: this.finish_date}
+                    {key: '@date_from', value: this.dateFrom},
+                    {key: '@date_to', value: this.dateTo}
                 ],
                 limit: -1
             };
@@ -138,10 +111,10 @@
             let rows = data.rows;
             let columns = data.columns;
 
-            this.chartConfig.xAxis.categories = rows.map( row => row.values[0] );
-            for (let i=0; i <= 1; i++) {
-                this.chartConfig.series[i].name = columns[i+1].name;
-                this.chartConfig.series[i].data = rows.map( row => row.values[i+1] );
+            this.chartConfig.xAxis.categories = rows.map(row => row.values[0]);
+            for (let i = 0; i <= 1; i++) {
+                this.chartConfig.series[i].name = columns[i + 1].name;
+                this.chartConfig.series[i].data = rows.map(row => row.values[i + 1]);
             }
             this.render();
         }
