@@ -1,6 +1,32 @@
--- declare @date_from date='2019-01-01'
---   ,@date_to date='2020-12-12'
---   ,@organization_Id int=1761;
+ /*declare @date_from date='2019-01-01'
+   ,@date_to date='2020-12-12'
+   ,@organizations_Id nvarchar(200)--=N'1761, 1760';
+   */
+   IF OBJECT_ID('tempdb..#temp_positions_table') IS NOT NULL DROP TABLE #temp_positions_table;
+
+   create table #temp_positions_table (Id int, organizations_id int, programuser_id nvarchar(128))
+
+
+   IF OBJECT_ID('tempdb..#temp_organizations_table') IS NOT NULL DROP TABLE #temp_organizations_table;
+
+   IF @organizations_Id IS NULL
+   BEGIN
+    insert into #temp_positions_table (Id, [organizations_id], programuser_id)
+	select Id, [organizations_id], programuser_id
+	from [CRM_1551_Analitics].[dbo].[Positions]
+   END
+
+   ELSE
+   BEGIN
+	select value Id
+	into #temp_organizations_table
+	from string_split((select replace(@organizations_Id, N' ', N'')), N',')
+
+	insert into #temp_positions_table (Id, [organizations_id], programuser_id)
+	select [Positions].Id, [Positions].[organizations_id], [Positions].[programuser_id]
+	from [CRM_1551_Analitics].[dbo].[Positions]
+	inner join #temp_organizations_table on [Positions].organizations_id=#temp_organizations_table.Id
+   END
 
   --id_operator - вяжутся все таблички по нем
 
@@ -13,9 +39,9 @@
   inner join [CallWay3].[dbo].[CallOperator] on [CallStatistic].Id=[CallOperator].CallStatisticId
   inner join [CallWay3].[dbo].[OperatorCrm] on [CallOperator].OperatorId=[OperatorCrm].Id
   inner join [CRM_1551_System].[dbo].[User] on [OperatorCrm].Phone=[User].PhoneNumber
-  left join [CRM_1551_Analitics].[dbo].[Positions] on [User].UserId=[Positions].programuser_id
+  inner join #temp_positions_table [Positions] on [User].UserId=[Positions].programuser_id
   where convert(date, [CallStatistic].StartDate) between @date_from and @date_to
-  or [Positions].organizations_id=isnull(@organization_id,0)
+  --or [Positions].organizations_id=isnull(@organization_id,0)
   group by [User].UserId, ISNULL([User].[LastName]+N' ', N'')+ISNULL([User].[FirstName], N'') 
 
 
@@ -32,12 +58,12 @@
   --, null pro_appeal_call -- нужно найти звонки и в итоговой таблице найти процент
   into #temp_count_appeals
   from [CRM_1551_Analitics].[dbo].[Appeals]
+  inner join #temp_positions_table [Positions] on [Appeals].[user_id]=[Positions].programuser_id
   left join [CRM_1551_Analitics].[dbo].[Questions] on [Appeals].Id=[Questions].appeal_id
   left join [CRM_1551_Analitics].[dbo].[Consultations] on [Appeals].Id=[Consultations].appeal_id
-  left join [CRM_1551_Analitics].[dbo].[Positions] on [Appeals].[user_id]=[Positions].programuser_id
   left join [CallWay3].[dbo].[CallSipChannel] on [Appeals].sipcallid=[CallSipChannel].SipCallId
-  where ([receipt_source_id] in (1,8) and ISNULL([Appeals].sipcallid,0)<>0 and convert(date, [Appeals].[registration_date]) between @date_from and @date_to)
-  or [Positions].organizations_id=isnull(@organization_id,0)
+  where ([receipt_source_id] in (1,8) and ISNULL([Appeals].sipcallid,N'0')<>N'0' and convert(date, [Appeals].[registration_date]) between @date_from and @date_to)
+  --or [Positions].organizations_id=isnull(@organization_id,0)
   group by [Appeals].[user_id]
 
 

@@ -17,9 +17,8 @@
       "ParameterType": "DateTime"
     },
     {
-      "Code": "@organization_Id",
-      "Name": "organization_Id",
-      "ParameterType": "Integer"
+      "Code": "@organizations_Id",
+      "Name": "organizations_Id"
     }
   ]
 }
