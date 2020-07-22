@@ -2,7 +2,7 @@
     return {
         chartConfig: {
             chart: {
-                type: 'column'
+                type: 'line'
             },
             title: {
                 text: 'Надійшло звернень з сайту з'
@@ -12,11 +12,15 @@
             },
             xAxis: {
             },
-            yAxis: {},
+            yAxis: {
+                title: {
+                    text: ''
+                }
+            },
             tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                headerFormat: '<span style="font-size:10px"></span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                    '<td style="padding:0"><b>{point.y} </b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
@@ -27,50 +31,7 @@
                     borderWidth: 0
                 }
             },
-            series: [
-                {
-                    type: 'line',
-                    name: 'Кількість',
-                    color: '#b0de35',
-                    enabled: true,
-                    crop: false,
-                    order:2,
-                    yAxis: 0,
-                    justify: 'none',
-                    data: [30, 20, 10, 30, 40],
-                    dataLabels: {
-                        enabled: true,
-                        textOutline: false,
-                        allowOverlap:false,
-                        color: '#000',
-                        style: {
-                            textOutline: false,
-                            fontWeight: '500'
-                        }
-                    }
-                },
-                {
-                    type: 'line',
-                    name: 'Кількість2',
-                    color: 'lightblue',
-                    enabled: true,
-                    crop: false,
-                    order:1,
-                    yAxis: 0,
-                    justify: 'none',
-                    data: [30, 20, 10, 30, 40],
-                    dataLabels: {
-                        enabled: true,
-                        textOutline: false,
-                        allowOverlap:false,
-                        color: '#000',
-                        style: {
-                            textOutline: false,
-                            fontWeight: '500'
-                        }
-                    }
-                }
-            ]
+            series: []
         },
         executeSql: function(message) {
             function checkDateFrom(val) {
@@ -85,18 +46,25 @@
             if (message.package.value.values.find(f => f.name === 'DateAndTime').value) {
                 this.dateTo = checkDateTo(message.package.value.values.find(f => f.name === 'DateAndTime').value);
             }
-            this.chartConfig.subtitle.text = `${this.dateFrom.toISOString().slice(0,10)} по ${this.dateTo.toISOString().slice(0,10)}`;
+            this.chartConfig.subtitle.text = `${this.changeDateTimeValues(this.dateFrom)} по ${this.changeDateTimeValues(this.dateTo)}`;
             if(this.sendQuery) {
                 this.sendQuery = false;
-                this.RecalcData();
+                this.recalcData();
             }
         },
         init() {
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this));
             this.sendQuery = true;
-            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.RecalcData, this));
+            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.recalcData, this));
         },
-        RecalcData: function() {
+        recalcData: function() {
+            const msg = {
+                name: 'SetFilterPanelState',
+                package: {
+                    value: false
+                }
+            };
+            this.messageService.publish(msg);
             let executeQuery = {
                 queryCode: 'SAFS_graph_Received',
                 parameterValues: [
@@ -107,15 +75,25 @@
             };
             this.queryExecutor(executeQuery, this.load, this);
         },
-        load: function(data) {
-            let rows = data.rows;
-            let columns = data.columns;
-
-            this.chartConfig.xAxis.categories = rows.map(row => row.values[0]);
-            for (let i = 0; i <= 1; i++) {
-                this.chartConfig.series[i].name = columns[i + 1].name;
-                this.chartConfig.series[i].data = rows.map(row => row.values[i + 1]);
-            }
+        changeDateTimeValues: function(value) {
+            let date = new Date(value);
+            let dd = date.getDate().toString();
+            let mm = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return `${dd}.${mm}.${yyyy}`;
+        },
+        load: function(params) {
+            let rows = params.rows;
+            let columns = params.columns;
+            this.chartConfig.xAxis.categories = [];
+            const dateIndex = columns.findIndex(c=>c.code === 'date');
+            const valueIndex = columns.findIndex(c=>c.code === 'indicator_value');
+            this.chartConfig.xAxis.categories = rows.map(row => this.changeDateTimeValues(row.values[dateIndex]));
+            const data = rows.map(row => row.values[valueIndex]);
+            const name = 'Кількість звернень';
+            this.chartConfig.series.push({name,data})
             this.render();
         }
     };

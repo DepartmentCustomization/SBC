@@ -32,6 +32,7 @@
             this.createDiv(filter);
         },
         createDiv({dateFrom,dateTo}) {
+            const date = new Date();
             this.dateFrom = dateFrom;
             this.dateTo = dateTo;
             const container = document.getElementById('date-block2');
@@ -39,8 +40,7 @@
                 container.innerHTML = '';
             }
             const paragraphTo = this.createElement('span',{ className:'date',id:'pFromCon1',name:'date'});
-            let yesterday = new Date(dateTo).toISOString().slice(0,10);
-            paragraphTo.textContent = new Date(dateTo).toISOString().slice(0,8) + (yesterday.slice(8) - 1);
+            paragraphTo.textContent = this.changeDateTimeValues(date);
             container.append(paragraphTo);
             if(this.firstLoad) {
                 this.firstLoad = false;
@@ -57,6 +57,15 @@
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.load, this);
+        },
+        changeDateTimeValues: function(value) {
+            let date = new Date(value);
+            let dd = (date.getDate() - 1).toString();
+            let mm = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return `${dd}.${mm}.${yyyy}`;
         },
         load: function(data) {
             const cellInfo = document.getElementById('cell2-info');

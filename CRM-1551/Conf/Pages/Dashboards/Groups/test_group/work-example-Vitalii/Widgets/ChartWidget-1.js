@@ -14,7 +14,12 @@
                 text: ''
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{series.name} <b>{point.percentage:.1f}%</b>'
+            },
+            yAxis: {
+                title: {
+                    text: 'Кількість звернень'
+                }
             },
             accessibility: {
                 point: {
@@ -69,18 +74,18 @@
             if (message.package.value.values.find(f => f.name === 'DateAndTime').value) {
                 this.dateTo = checkDateTo(message.package.value.values.find(f => f.name === 'DateAndTime').value);
             }
-            this.chartConfig.subtitle.text = `${this.dateFrom.toISOString().slice(0,10)} по ${this.dateTo.toISOString().slice(0,10)}`;
+            this.chartConfig.subtitle.text = `${this.changeDateTimeValues(this.dateFrom)} по ${this.changeDateTimeValues(this.dateTo)}`;
             if(this.sendQuery) {
                 this.sendQuery = false;
-                this.RecalcData()
+                this.recalcData()
             }
         },
         init() {
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this));
             this.sendQuery = true;
-            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.RecalcData, this));
+            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.recalcData, this));
         },
-        RecalcData: function() {
+        recalcData: function() {
             let executeQuery = {
                 queryCode: 'SAFS_graph_Quality',
                 parameterValues: [{key: '@date_from', value: this.dateFrom},
@@ -90,9 +95,19 @@
             };
             this.queryExecutor(executeQuery, this.load, this);
         },
+        changeDateTimeValues: function(value) {
+            let date = new Date(value);
+            let dd = date.getDate().toString();
+            let mm = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return `${dd}.${mm}.${yyyy}`;
+        },
         load: function(data) {
             let rows = data.rows;
             this.chartConfig.series[0].data = [];
+            this.chartConfig.series[0].name = '';
             if(rows.length > 0) {
                 const newArr = rows.map(elem=> {
                     const arr = {

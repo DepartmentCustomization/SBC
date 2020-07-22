@@ -2,169 +2,42 @@
     return {
         chartConfig: {
             chart: {
-                type: 'area',
-                zoomType: 'x',
-                panning: true,
-                panKey: 'shift',
-                scrollablePlotArea: {
-                    minWidth: 600
-                }
-            },
-            caption: {
-                text: ''
-            },
-            title: {
-                text: 'Повернуто заявникові за період'
-            },
-
-            subtitle: {
-                text: ''
+                type: 'area'
             },
             accessibility: {
                 description: ''
             },
-            credits: {
-                enabled: false
+            title: {
+                text: 'Повернуто заявникові за період'
             },
-            annotations: [{
-                labelOptions: {
-                    backgroundColor: 'rgba(255,255,255,0.5)',
-                    verticalAlign: 'top',
-                    y: 15
-                },
-                labels: [{
-                    point: {
-                        xAxis: 0,
-                        yAxis: 0,
-                        x: 27.98,
-                        y: 255
-                    },
-                    text: 'Arbois'
-                }, {
-                    point: {
-                        xAxis: 0,
-                        yAxis: 0,
-                        x: 45.5,
-                        y: 611
-                    },
-                    text: 'Montrond'
-                }, {
-                    point: {
-                        xAxis: 0,
-                        yAxis: 0,
-                        x: 63,
-                        y: 651
-                    },
-                    text: 'Mont-sur-Monnet'
-                }, {
-                    point: {
-                        xAxis: 0,
-                        yAxis: 0,
-                        x: 84,
-                        y: 789
-                    },
-                    x: -10,
-                    text: 'Bonlieu'
-                }, {
-                    point: {
-                        xAxis: 0,
-                        yAxis: 0,
-                        x: 129.5,
-                        y: 382
-                    },
-                    text: 'Chassal'
-                }, {
-                    point: {
-                        xAxis: 0,
-                        yAxis: 0,
-                        x: 159,
-                        y: 443
-                    },
-                    text: 'Saint-Claude'
-                }]
-            }, {
-                labels: [{
-                    point: {
-                        xAxis: 0,
-                        yAxis: 0,
-                        x: 101.44,
-                        y: 1026
-                    },
-                    x: -30,
-                    text: 'Col de la Joux'
-                }, {
-                    point: {
-                        xAxis: 0,
-                        yAxis: 0,
-                        x: 138.5,
-                        y: 748
-                    },
-                    text: 'Côte de Viry'
-                }, {
-                    point: {
-                        xAxis: 0,
-                        yAxis: 0,
-                        x: 176.4,
-                        y: 1202
-                    },
-                    text: 'Montée de la Combe<br>de Laisia Les Molunes'
-                }]
-            }, {
-                labelOptions: {
-                    shape: 'connector',
-                    align: 'right',
-                    justify: false,
-                    crop: true,
-                    style: {
-                        fontSize: '0.8em',
-                        textOutline: '1px white'
-                    }
-                }
-            }],
+            subtitle: {
+            },
             xAxis: {
-                labels: {
-                    format: '{value} km'
-                },
-                minRange: 5,
-                title: {
-                    text: 'Distance'
-                },
-                accessibility: {
-                    rangeDescription: 'Range: 0 to 187.8km.'
-                }
             },
             yAxis: {
-                startOnTick: true,
-                endOnTick: false,
-                maxPadding: 0.35,
                 title: {
-                    text: null
-                },
-                labels: {
-                    format: '{value} m'
+                    text: ''
                 }
             },
             tooltip: {
-                headerFormat: 'Distance: {point.x:.1f} km<br>',
-                pointFormat: '{point.y} m a. s. l.',
-                shared: true
+                pointFormat: '{series.name} <b>{point.y}</b><br/>'
             },
-            legend: {
-                enabled: false
-            },
-            series: [{
-                accessibility: {
-                    keyboardNavigation: {
-                        enabled: false
+            plotOptions: {
+                area: {
+                    marker: {
+                        enabled: false,
+                        symbol: 'circle',
+                        radius: 2,
+                        states: {
+                            hover: {
+                                enabled: true
+                            }
+                        }
                     }
-                },
-                fillOpacity: 0.5,
-                name: 'Elevation',
-                marker: {
-                    enabled: false
-                },
-                threshold: null
-            }]
+                }
+            },
+            series: [
+            ]
         },
         executeSql: function(message) {
             function checkDateFrom(val) {
@@ -179,18 +52,18 @@
             if (message.package.value.values.find(f => f.name === 'DateAndTime').value) {
                 this.dateTo = checkDateTo(message.package.value.values.find(f => f.name === 'DateAndTime').value);
             }
-            this.chartConfig.subtitle.text = `${this.dateFrom.toISOString().slice(0,10)} по ${this.dateTo.toISOString().slice(0,10)}`;
+            this.chartConfig.subtitle.text = `${this.changeDateTimeValues(this.dateFrom)} по ${this.changeDateTimeValues(this.dateTo)}`;
             if(this.sendQuery) {
                 this.sendQuery = false;
-                this.RecalcData()
+                this.recalcData()
             }
         },
         init() {
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this));
             this.sendQuery = true;
-            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.RecalcData, this));
+            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.recalcData, this));
         },
-        RecalcData: function() {
+        recalcData: function() {
             let executeQuery = {
                 queryCode: 'SAFS_graph_Returned',
                 parameterValues: [{key: '@date_from', value: this.dateFrom},
@@ -200,15 +73,31 @@
             };
             this.queryExecutor(executeQuery, this.load, this);
         },
-        load: function(data) {
-            let rows = data.rows;
-            let columns = data.columns;
-            this.chartConfig.xAxis.categories = rows.map(row => row.values[0]);
-            for (let i = 0; i <= 1; i++) {
-                this.chartConfig.series[0].name = columns[i + 1].name;
-                this.chartConfig.series[0].data = rows.map(row => row.values[i + 1]);
+        changeDateTimeValues: function(value) {
+            let date = new Date(value);
+            let dd = date.getDate().toString();
+            let mm = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return `${dd}.${mm}.${yyyy}`;
+        },
+        load: function(params) {
+            this.chartConfig.series = [];
+            let rows = params.rows;
+            let columns = params.columns;
+            const dateIndex = columns.findIndex(c=>c.code === 'date');
+            const indicatorValueIndex = columns.findIndex(c=>c.code === 'indicator_value');
+            this.chartConfig.xAxis.categories = rows.map(row => this.changeDateTimeValues(row.values[dateIndex]));
+            const name = 'Кількість звернень';
+            const data = [];
+            for(let i = 0; i < rows.length; i++) {
+                const counter = rows[i].values[indicatorValueIndex];
+                const value = counter === null ? 0 : counter;
+                data.push(value);
             }
-            this.render()
+            this.chartConfig.series.push({name, data});
+            this.render();
         }
     };
 }());

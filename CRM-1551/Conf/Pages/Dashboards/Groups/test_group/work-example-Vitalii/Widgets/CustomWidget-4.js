@@ -40,8 +40,8 @@
             }
             const paragraphFrom = this.createElement('span',{ className:'date',id:'pFromCon1',name:'date'});
             const paragraphTo = this.createElement('span',{ className:'date',id:'pToCon1',name:'date'});
-            paragraphFrom.textContent = new Date(dateFrom).toISOString().slice(0,10);
-            paragraphTo.textContent = new Date(dateTo).toISOString().slice(0,10);
+            paragraphFrom.textContent = this.changeDateTimeValues(dateFrom);
+            paragraphTo.textContent = this.changeDateTimeValues(dateTo);
             container.insertAdjacentHTML('beforeend','<span> з </span>');
             container.append(paragraphFrom);
             container.insertAdjacentHTML('beforeend','<span> по </span>');
@@ -50,6 +50,15 @@
                 this.firstLoad = false;
                 this.resetParams()
             }
+        },
+        changeDateTimeValues: function(value) {
+            let date = new Date(value);
+            let dd = date.getDate().toString();
+            let mm = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return `${dd}.${mm}.${yyyy}`;
         },
         resetParams: function() {
             let executeQuery = {

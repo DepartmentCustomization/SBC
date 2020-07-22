@@ -2,10 +2,10 @@
     return {
         chartConfig: {
             chart: {
-                type: 'line'
+                type: 'spline'
             },
             title: {
-                text: 'Зареєстровано модератором за період'
+                text: 'Кількість звернень зареєстровано модератором за період'
             },
             subtitle: {
                 text: ''
@@ -13,7 +13,11 @@
             xAxis: {
                 categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
             },
-            yAxis: {},
+            yAxis: {
+                title: {
+                    text: ''
+                }
+            },
             plotOptions: {
                 line: {
                     dataLabels: {
@@ -22,13 +26,7 @@
                     enableMouseTracking: false
                 }
             },
-            series: [{
-                name: 'Tokyo',
-                data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-            }, {
-                name: 'London',
-                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-            }]
+            series: []
         },
         executeSql: function(message) {
             function checkDateFrom(val) {
@@ -43,19 +41,19 @@
             if (message.package.value.values.find(f => f.name === 'DateAndTime').value) {
                 this.dateTo = checkDateTo(message.package.value.values.find(f => f.name === 'DateAndTime').value);
             }
-            this.chartConfig.subtitle.text = `${this.dateFrom.toISOString().slice(0,10)} по ${this.dateTo.toISOString().slice(0,10)}`;
+            this.chartConfig.subtitle.text = `${this.changeDateTimeValues(this.dateFrom)} по ${this.changeDateTimeValues(this.dateTo)}`;
             if(this.sendQuery) {
                 this.sendQuery = false;
-                this.RecalcData()
+                this.recalcData()
             }
 
         },
         init() {
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this));
             this.sendQuery = true;
-            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.RecalcData, this));
+            this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.recalcData, this));
         },
-        RecalcData: function() {
+        recalcData: function() {
             let executeQuery = {
                 queryCode: 'SAFS_graph_Registered',
                 parameterValues: [{key: '@date_from', value: this.dateFrom},
@@ -65,14 +63,35 @@
             };
             this.queryExecutor(executeQuery, this.load, this);
         },
-        load: function(data) {
-            let rows = data.rows;
-            let columns = data.columns;
-            this.chartConfig.xAxis.categories = rows.map(row => row.values[0]);
-            for (let i = 0; i <= 1; i++) {
-                this.chartConfig.series[i].name = columns[i + 1].name;
-                this.chartConfig.series[i].data = rows.map(row => row.values[i + 1]);
-            }
+        changeDateTimeValues: function(value) {
+            let date = new Date(value);
+            let dd = date.getDate().toString();
+            let mm = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            return `${dd}.${mm}.${yyyy}`;
+        },
+        load: function(params) {
+            this.chartConfig.series = [];
+            let rows = params.rows;
+            let columns = params.columns;
+            const userNameIndex = columns.findIndex(c=>c.code === 'user_name');
+            const userNameArr = rows.map(e=>e.values[userNameIndex]);
+            const indicatorValueIndex = columns.findIndex(c=>c.code === 'indicator_value');
+            const sortedUsers = [...new Set(userNameArr)];
+            const dateIndex = columns.findIndex(c=>c.code === 'date');
+            this.chartConfig.xAxis.categories = rows.map(row => this.changeDateTimeValues(row.values[dateIndex]));
+            sortedUsers.forEach(name=>{
+                const data = rows.map(elem=>{
+                    let value = 0;
+                    if(elem.values.includes(name)) {
+                        value = elem.values[indicatorValueIndex]
+                    }
+                    return value
+                })
+                this.chartConfig.series.push({name,data});
+            })
             this.render()
         }
     };
