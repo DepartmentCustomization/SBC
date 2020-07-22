@@ -61,6 +61,12 @@
       "Name": "count_plan_program",
       "Position": 8,
       "IsPrintable": false
+    },
+    {
+      "Code": "count_not_competence",
+      "Name": "count_not_competence",
+      "Position": 9,
+      "IsPrintable": false
     }
   ],
   "Parameters": [
