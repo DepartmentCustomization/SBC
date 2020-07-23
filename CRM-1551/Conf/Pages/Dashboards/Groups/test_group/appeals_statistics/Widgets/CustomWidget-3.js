@@ -74,7 +74,8 @@
         load: function(data) {
             const cellInfo = document.getElementById('cell4-info');
             cellInfo.innerHTML = '';
-            const p = `<p class='cell-info'>${data.rows[0].values[5]}</p>`;
+            const val = data.rows[0].values[5] === null ? 0 : data.rows[0].values[5];
+            const p = `<p class='cell-info'>${val}</p>`;
             cellInfo.insertAdjacentHTML('beforeend',p)
         }
     };
