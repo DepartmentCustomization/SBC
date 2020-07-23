@@ -31,16 +31,16 @@
                     width: 120
                 }, {
                     dataField: 'vykonavets',
-                    caption: 'Виконавець 2'
-                }, {
-                    dataField: 'vykonavets_Id',
                     caption: 'Виконавець'
-                    /* width: 300,
+                }, {
+                    dataField: 'lookup',
+                    caption: 'Можливий виконавець',
+                    width: 300,
                     lookup: {
                         dataSource: undefined,
                         valueExpr: 'ID',
-                        displayExpr: 'NAME'
-                    } */
+                        displayExpr: 'Name'
+                    }
                 }, {
                     caption: '',
                     dataField: '',
@@ -108,43 +108,6 @@
         isEvent: false,
         event: 'Заходи',
         lookupData: [],
-        /* cities: [{
-            "ID": 1,
-            "NAME": "Tuscaloosa",
-            "StateID": 2515
-        }, {
-            "ID": 2,
-            "NAME": "Hoover",
-            "StateID": 2515
-        }, {
-            "ID": 3,
-            "NAME": "Dothan",
-            "StateID": 2515
-        }, {
-            "ID": 4,
-            "NAME": "Decatur",
-            "StateID": 4002
-        }, {
-            "ID": 5,
-            "NAME": "Anchorage",
-            "StateID": 4002
-        }, {
-            "ID": 6,
-            "NAME": "Fairbanks",
-            "StateID": 4002
-        }, {
-            "ID": 7,
-            "NAME": "Juneau",
-            "StateID": 4005
-        }, {
-            "ID": 8,
-            "NAME": "Avondale",
-            "StateID": 4005
-        }, {
-            "ID": 9,
-            "NAME": "Buckeye",
-            "StateID": 4005
-        }], */
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 405;
             /* this.executeQueryLookup(); */
@@ -190,20 +153,16 @@
                     'Name':  row.values[2],
                     'vykonavets_Id': row.values[1]
                 }
-                /* if (row.values[1] === 2515) {
-                    console.log(organization);
-                } */
                 this.lookupData.push(organization);
             });
-            const index = this.config.columns.findIndex(c => c.dataField === 'vykonavets_Id');
+            const index = this.config.columns.findIndex(c => c.dataField === 'lookup');
             this.config.columns[index].lookup.dataSource = this.setLookupDataSource.bind(this);
         },
         setLookupDataSource: function(options) {
             const obj = {
                 store: this.lookupData,
-                filter: options.data ? ['StateID', '=', options.data.vykonavets_Id] : null
+                filter: options.data ? ['vykonavets_Id', '=', options.data.vykonavets_Id] : null
             };
-            /* console.log(obj.filter); */
             return obj
         },
         createMasterDetail: function(container, options) {
