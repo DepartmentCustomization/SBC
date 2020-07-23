@@ -83,10 +83,7 @@
                 {
                     caption: 'Кількість звернень без реєстрації питання та консультації',
                     dataField: 'count_appeal_call',
-                    format: {
-                        type: 'percent',
-                        precision: 1
-                    }
+                    width: 130
                 },
                 {
                     caption: '% інформації що залишився не зареєстрованою',
