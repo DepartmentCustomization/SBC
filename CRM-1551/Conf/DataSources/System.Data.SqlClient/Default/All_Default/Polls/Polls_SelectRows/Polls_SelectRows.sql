@@ -7,5 +7,5 @@ inner join ( select poll_id, count(id) as col_IsPollsApplicants from PollsApplic
 inner join ( select poll_id, count(id) as col_IsNotApplicants from PollsApplicants  where reject_poll = 1 group by poll_id) IsNotPollsApplicants on IsNotPollsApplicants.poll_id = Polls.id
 where cast([start_date] as date) >= cast(@DateStart as date)  and cast(end_date as date) <= cast(@DateEnd as date) and
 #filter_columns#
-#sort_columns#
+order by 1
 offset @pageOffsetRows rows fetch next @pageLimitRows rows only
