@@ -7,6 +7,14 @@
   "IsAnonymousAccess": false,
   "Columns": [
     {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false,
+      "SqlName": "[PollDirection].[Id]",
+      "FilterParameterCode": "@Id"
+    },
+    {
       "Code": "name",
       "Name": "name",
       "Position": 0,
