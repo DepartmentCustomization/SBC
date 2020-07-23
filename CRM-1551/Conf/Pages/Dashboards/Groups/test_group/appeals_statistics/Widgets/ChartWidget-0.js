@@ -88,6 +88,7 @@
             let rows = params.rows;
             let columns = params.columns;
             this.chartConfig.xAxis.categories = [];
+            this.chartConfig.series = [];
             const dateIndex = columns.findIndex(c=>c.code === 'date');
             const valueIndex = columns.findIndex(c=>c.code === 'indicator_value');
             this.chartConfig.xAxis.categories = rows.map(row => this.changeDateTimeValues(row.values[dateIndex]));
