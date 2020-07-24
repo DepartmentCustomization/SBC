@@ -8,9 +8,4 @@ left join ( select poll_id, count(id) as col_IsNotApplicants from PollsApplicant
 where cast([start_date] as date) >= cast(@DateStart as date)  and cast(end_date as date) <= cast(@DateEnd as date) and
 (is_active  = @is_active  or isnull(@is_active, 0) = 0) and
 #filter_columns#
-<<<<<<< HEAD
 order by 1
-offset @pageOffsetRows rows fetch next @pageLimitRows rows only
-=======
-order by 1
->>>>>>> 395b2024a115275bb5fd37d207ad8be66ed0e58b

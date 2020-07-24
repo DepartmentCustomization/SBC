@@ -12,6 +12,9 @@
             paging: {
                 pageSize: 10
             },
+            onCellPrepared: function(e) {
+                console.log(e)
+            },
             pager: {
                 showPageSizeSelector: true,
                 allowedPageSizes: [10, 25, 50, 100]
@@ -26,6 +29,9 @@
                 {
                     dataField: 'is_active',
                     caption: ''
+                    // cellTemplate: function(e) {
+                    //     e.className = 'cell-icon'
+                    // }
                 },
                 {
                     dataField: 'start_date',
@@ -58,6 +64,7 @@
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this));
             this.sendQuery = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.applyCallBack, this));
+            this.config.onCellPrepared = this.onCellPrepared.bind(this);
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
@@ -71,6 +78,33 @@
                     if(this.sendQuery) {
                         this.sendQuery = false;
                         this.applyCallBack();
+                    }
+                }
+            }
+        },
+        onCellPrepared: function(options) {
+            if(options.rowType === 'data') {
+                if(options.column.dataField === 'is_active') {
+                    options.cellElement.classList.add('cell-icon');
+                    const states = options.data.QuestionState;
+                    const spanCircle = this.createElement('span', { classList: 'material-icons', innerText: 'lens'});
+                    spanCircle.style.width = '100%';
+                    options.cellElement.style.textAlign = 'center';
+                    if(states === 'На перевірці') {
+                        spanCircle.classList.add('onCheck');
+                        options.cellElement.appendChild(spanCircle);
+                    }else if(states === 'Зареєстровано') {
+                        spanCircle.classList.add('registrated');
+                        options.cellElement.appendChild(spanCircle);
+                    }else if(states === 'В роботі') {
+                        spanCircle.classList.add('inWork');
+                        options.cellElement.appendChild(spanCircle);
+                    }else if(states === 'Закрито') {
+                        spanCircle.classList.add('closed');
+                        options.cellElement.appendChild(spanCircle);
+                    }else if(states === 'Не виконано') {
+                        spanCircle.classList.add('notDone');
+                        options.cellElement.appendChild(spanCircle);
                     }
                 }
             }
