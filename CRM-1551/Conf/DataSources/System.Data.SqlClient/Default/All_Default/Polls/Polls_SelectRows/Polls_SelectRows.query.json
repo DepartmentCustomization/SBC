@@ -73,6 +73,12 @@
       "ParameterType": "DateTime"
     },
     {
+      "Code": "@is_active",
+      "Name": "is_active",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
       "Code": "@pageOffsetRows",
       "Name": "pageOffsetRows",
       "ParameterType": "Integer",
