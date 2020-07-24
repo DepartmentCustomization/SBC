@@ -75,8 +75,7 @@
     {
       "Code": "@is_active",
       "Name": "is_active",
-      "ParameterType": "Integer",
-      "IsPageOffsetRows": true
+      "ParameterType": "Integer"
     }
   ]
 }
