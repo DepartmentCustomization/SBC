@@ -112,7 +112,6 @@
                 {key: '@DateEnd', value: this.dateTo },
                 {key: '@is_active', value: this.activity }
             ];
-         
             this.loadData(this.afterLoadDataHandler);
         },
         hideFilterPanel() {
