@@ -12,8 +12,7 @@
             paging: {
                 pageSize: 10
             },
-            onCellPrepared: function(e) {
-                console.log(e)
+            onCellPrepared: function() {
             },
             pager: {
                 showPageSizeSelector: true,
@@ -29,9 +28,6 @@
                 {
                     dataField: 'is_active',
                     caption: ''
-                    // cellTemplate: function(e) {
-                    //     e.className = 'cell-icon'
-                    // }
                 },
                 {
                     dataField: 'start_date',
