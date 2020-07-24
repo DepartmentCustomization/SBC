@@ -7,8 +7,8 @@
   "IsAnonymousAccess": false,
   "Columns": [
     {
-      "Code": "id",
-      "Name": "id",
+      "Code": "Id",
+      "Name": "Id",
       "Position": 0,
       "IsPrintable": false
     },

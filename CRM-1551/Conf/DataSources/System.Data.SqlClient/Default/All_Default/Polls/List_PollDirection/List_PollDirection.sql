@@ -1,4 +1,4 @@
-select [id], [name] 
+select [Id], [Name] 
 from [dbo].[PollDirection]
 where #filter_columns#
 #sort_columns#

@@ -15,8 +15,8 @@
       "FilterParameterCode": "@Id"
     },
     {
-      "Code": "name",
-      "Name": "name",
+      "Code": "Name",
+      "Name": "Name",
       "Position": 0,
       "IsPrintable": false
     }
