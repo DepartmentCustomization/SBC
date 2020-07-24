@@ -61,8 +61,9 @@
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
-            this.activity = message.package.value.values.find(f => f.name === 'Activity').value;
+            const activity = message.package.value.values.find(f => f.name === 'Activity').value;
             this.direction = message.package.value.values.find(f => f.name === 'Direction').value;
+            this.activity = activity.value === '' ? null : activity.value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
@@ -84,7 +85,8 @@
             this.messageService.publish(msg);
             this.config.query.parameterValues = [
                 {key: '@DateStart' , value: this.dateFrom },
-                {key: '@DateEnd', value: this.dateTo }
+                {key: '@DateEnd', value: this.dateTo },
+                {key: '@is_active', value: this.activity }
             ];
             this.loadData(this.afterLoadDataHandler);
         },
