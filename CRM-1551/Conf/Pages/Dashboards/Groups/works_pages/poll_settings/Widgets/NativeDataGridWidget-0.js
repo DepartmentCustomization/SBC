@@ -61,6 +61,8 @@
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
+            this.activity = message.package.value.values.find(f => f.name === 'Activity').value;
+            this.direction = message.package.value.values.find(f => f.name === 'Direction').value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
@@ -74,7 +76,7 @@
         },
         applyCallBack() {
             const msg = {
-                name: 'Polls_SelectRows',
+                name: '',
                 package: {
                     value: false
                 }
