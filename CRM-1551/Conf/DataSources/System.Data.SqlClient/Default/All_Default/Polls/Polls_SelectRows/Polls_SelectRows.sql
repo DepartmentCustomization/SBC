@@ -9,4 +9,3 @@ where cast([start_date] as date) >= cast(@DateStart as date)  and cast(end_date 
 (is_active  = @is_active  or isnull(@is_active, 0) = 0) and
 #filter_columns#
 order by 1
-offset @pageOffsetRows rows fetch next @pageLimitRows rows only
