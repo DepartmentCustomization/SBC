@@ -2,7 +2,7 @@
     return {
         placeholder: 'Активність',
         keyValue: 'Id',
-        displayValue: 'name',
+        displayValue: 'Name',
         baseQueryOptions: {
             queryCode: 'List_Active',
             filterColumns: null,

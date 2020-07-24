@@ -2,7 +2,7 @@
     return {
         placeholder: 'Напрямок',
         keyValue: 'Id',
-        displayValue: 'name',
+        displayValue: 'Name',
         baseQueryOptions: {
             queryCode: 'List_PollDirection',
             filterColumns: null,
