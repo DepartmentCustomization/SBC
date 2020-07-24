@@ -40,7 +40,9 @@
       "Code": "name",
       "Name": "name",
       "Position": 4,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "[PollDirection.name]",
+      "FilterParameterCode": "@name"
     },
     {
       "Code": "col_Applicants",
