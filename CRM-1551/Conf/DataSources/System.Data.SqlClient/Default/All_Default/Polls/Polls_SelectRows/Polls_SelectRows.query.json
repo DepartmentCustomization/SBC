@@ -45,6 +45,14 @@
       "FilterParameterCode": "@name"
     },
     {
+      "Code": "PollDirId",
+      "Name": "PollDirId",
+      "Position": 4,
+      "IsPrintable": false,
+      "SqlName": "[PollDirection.id]",
+      "FilterParameterCode": "@PollDirId"
+    },
+    {
       "Code": "col_Applicants",
       "Name": "col_Applicants",
       "Position": 5,
