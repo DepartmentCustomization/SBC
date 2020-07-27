@@ -16,9 +16,22 @@
                 showPageSizeSelector: true,
                 allowedPageSizes: [10, 25, 50, 100]
             },
-            editing: {},
-            showBorders: true,
+            editing: {
+                allowAdding: true,
+                allowUpdating: true,
+                useIcons: true,
+                mode: 'form'
+            },
+            focusedRowEnabled: false,
+            remoteOperations: false,
+            allowColumnReordering: true,
             allowColumnResizing: true,
+            wordWrapEnabled: true,
+            rowAlternationEnabled: true,
+            hoverStateEnabled: true,
+            filterRow: { visible: true },
+            keyExpr: '',
+            showBorders: true,
             columns: [
                 {
                     dataField: 'poll_name',
@@ -53,13 +66,13 @@
                     dataField: 'col_IsNotApplicants',
                     caption: 'Відмовились'
                 }
-            ],
-            keyExpr: ''
+            ]
         },
         init: function() {
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this));
             this.sendQuery = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.applyCallBack, this));
+            this.subscribers.push(this.messageService.subscribe('setVisibility', this.setVisibility, this));
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
         },
         getFiltersParams: function(message) {
@@ -112,7 +125,7 @@
             if(options.rowType === 'data') {
                 if(options.column.dataField === 'icon') {
                     options.cellElement.classList.add('cell-icon');
-                    const icon = '<span class="material-icons calendar"> calendar_today </span>';
+                    const icon = '<span class="material-icons calendar"> event </span>';
                     options.cellElement.insertAdjacentHTML('afterbegin',icon);
                 }
             }
@@ -128,12 +141,14 @@
         },
         hideFilterPanel() {
             const msg = {
-                name: '',
+                name: 'SetFilterPanelState',
                 package: {
                     value: false
                 }
             };
             this.messageService.publish(msg);
+        },
+        setVisibility() {
         },
         afterLoadDataHandler: function() {
             this.render();
