@@ -12,22 +12,22 @@
             paging: {
                 pageSize: 10
             },
-            onCellPrepared: function() {
-            },
             pager: {
                 showPageSizeSelector: true,
                 allowedPageSizes: [10, 25, 50, 100]
             },
             editing: {},
             showBorders: true,
+            allowColumnResizing: true,
             columns: [
                 {
                     dataField: 'poll_name',
                     caption: 'Опитування'
                 },
                 {
-                    dataField: 'is_active',
-                    caption: ''
+                    dataField: 'icon',
+                    caption: '',
+                    width:80
                 },
                 {
                     dataField: 'start_date',
@@ -63,14 +63,27 @@
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
         },
         getFiltersParams: function(message) {
+            this.config.query.filterColumns = [];
             const period = message.package.value.values.find(f => f.name === 'period').value;
             const activity = message.package.value.values.find(f => f.name === 'Activity').value;
-            this.direction = message.package.value.values.find(f => f.name === 'Direction').value;
+            const direction = message.package.value.values.find(f => f.name === 'Direction').value;
             this.activity = activity === '' ? null : activity.value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
+                    this.direction = this.extractOrgValues(direction);
+                    if (this.direction.length > 0) {
+                        let filter = {
+                            key: 'PollDirId',
+                            value: {
+                                operation: 0,
+                                not: false,
+                                values: this.direction
+                            }
+                        };
+                        this.config.query.filterColumns.push(filter);
+                    }
                     if(this.sendQuery) {
                         this.sendQuery = false;
                         this.applyCallBack();
@@ -78,30 +91,29 @@
                 }
             }
         },
+        createElement: function(tag, props, ...children) {
+            const element = document.createElement(tag);
+            Object.keys(props).forEach(key => element[key] = props[key]);
+            if(children.length > 0) {
+                children.forEach(child =>{
+                    element.appendChild(child);
+                });
+            } return element;
+        },
+        extractOrgValues: function(items) {
+            if(items.length && items !== '') {
+                const valuesList = [];
+                items.forEach(item => valuesList.push(item.value));
+                return valuesList;
+            }
+            return [];
+        },
         onCellPrepared: function(options) {
             if(options.rowType === 'data') {
-                if(options.column.dataField === 'is_active') {
+                if(options.column.dataField === 'icon') {
                     options.cellElement.classList.add('cell-icon');
-                    const states = options.data.QuestionState;
-                    const spanCircle = this.createElement('span', { classList: 'material-icons', innerText: 'lens'});
-                    spanCircle.style.width = '100%';
-                    options.cellElement.style.textAlign = 'center';
-                    if(states === 'На перевірці') {
-                        spanCircle.classList.add('onCheck');
-                        options.cellElement.appendChild(spanCircle);
-                    }else if(states === 'Зареєстровано') {
-                        spanCircle.classList.add('registrated');
-                        options.cellElement.appendChild(spanCircle);
-                    }else if(states === 'В роботі') {
-                        spanCircle.classList.add('inWork');
-                        options.cellElement.appendChild(spanCircle);
-                    }else if(states === 'Закрито') {
-                        spanCircle.classList.add('closed');
-                        options.cellElement.appendChild(spanCircle);
-                    }else if(states === 'Не виконано') {
-                        spanCircle.classList.add('notDone');
-                        options.cellElement.appendChild(spanCircle);
-                    }
+                    const icon = '<span class="material-icons calendar"> calendar_today </span>';
+                    options.cellElement.insertAdjacentHTML('afterbegin',icon);
                 }
             }
         },
