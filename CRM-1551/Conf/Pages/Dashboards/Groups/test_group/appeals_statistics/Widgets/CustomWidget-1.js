@@ -6,7 +6,7 @@
         customConfig:
                     `<div id='container2'>
                     <div id='date-block2' class='date-block'></div>
-                    <div id='cell2-info'></div>
+                    <div id='cell2-info' class='cell-block'></div>
                     </div>
                     
                     `
@@ -76,7 +76,10 @@
             }else{
                 exam = '<i class="fa fa-arrow-down"></i>'
             }
-            const p = `<p class='cell-info'>${data.rows[0].values[2]}</p>`;
+            const cellValue = data.rows[0].values[2];
+            const shortValue = Number(cellValue);
+            const classForP = shortValue > 0 ? 'cell-info active' : 'cell-info';
+            const p = `<p class='${classForP}'>${cellValue}</p>`;
             const pDelta = `<p class='cell-info num'>${exam} ${data.rows[0].values[3]}</p>`;
             cellInfo.insertAdjacentHTML('beforeend',`${p} ${pDelta}`)
         }

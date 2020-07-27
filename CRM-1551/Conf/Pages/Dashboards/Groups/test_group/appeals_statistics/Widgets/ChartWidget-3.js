@@ -22,6 +22,7 @@
             tooltip: {
                 pointFormat: '{series.name} <b>{point.y}</b><br/>'
             },
+            colors: ['#c9e6e3', '#2CD395', '#A0AFCF','#8F949A'],
             plotOptions: {
                 area: {
                     marker: {

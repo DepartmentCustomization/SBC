@@ -7,7 +7,7 @@
                     `
                     <div id='container1'>
                         <div id='date-block1' class='date-block'></div>
-                        <div id='cell1-info'></div>
+                        <div id='cell1-info' class='cell-block'></div>
                     </div>
                     `
         ,
@@ -76,8 +76,11 @@
             list.forEach(e=>e.classList.add('cell-item'))
             const cellInfo = document.getElementById('cell1-info');
             cellInfo.innerHTML = '';
-            const p = `<p class='cell-info'>${data.rows[0].values[1]}</p>`;
-            cellInfo.insertAdjacentHTML('beforeend',p)
+            const cellValue = data.rows[0].values[1];
+            const shortValue = Number(cellValue.slice(0,1));
+            const classForP = shortValue > 0 ? 'cell-info active' : 'cell-info';
+            const p = `<p class='${classForP}'>${cellValue}</p>`;
+            cellInfo.insertAdjacentHTML('beforeend',p);
         }
     };
 }());
