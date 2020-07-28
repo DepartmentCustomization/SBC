@@ -112,22 +112,6 @@
         },
         createMasterDetails: function(container, options) {
             this.data = options.data;
-            /*
-            эти колонки можно использовать для конфига детали
-                {
-                    dataField: 'doneQ',
-                    caption: 'Виконано',
-                    alignment: 'center'
-                }, {
-                    dataField: 'reworkQ',
-                    caption: 'На доопрацювання',
-                    alignment: 'center'
-                }, {
-                    dataField: 'notCallQ',
-                    caption: 'Недозвон',
-                    alignment: 'center'
-                }
-            */
 
         },
         getFiltersParams: function(message) {
