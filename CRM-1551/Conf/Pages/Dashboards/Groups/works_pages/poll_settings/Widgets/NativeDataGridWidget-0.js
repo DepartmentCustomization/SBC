@@ -72,7 +72,6 @@
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this));
             this.sendQuery = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.applyCallBack, this));
-            this.subscribers.push(this.messageService.subscribe('setVisibility', this.setVisibility, this));
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
         },
         getFiltersParams: function(message) {
@@ -138,6 +137,7 @@
                 {key: '@is_active', value: this.activity }
             ];
             this.loadData(this.afterLoadDataHandler);
+            this.setVisibility();
         },
         hideFilterPanel() {
             const msg = {
@@ -149,6 +149,19 @@
             this.messageService.publish(msg);
         },
         setVisibility() {
+            const con = document.getElementById('NativeDataGridWidget-0')
+            con.addEventListener('click',(e)=> {
+                if(e.target.classList.contains('dx-button-text')) {
+                    const msg = {
+                        name: 'setVisibility',
+                        package: {
+                            display: 'none',
+                            container: con
+                        }
+                    };
+                    this.messageService.publish(msg);
+                }
+            })
         },
         afterLoadDataHandler: function() {
             this.render();

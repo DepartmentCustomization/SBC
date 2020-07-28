@@ -1,11 +1,14 @@
 (function() {
     return {
         init: function() {
-            this.setVisibilityTableContainer('none')
+            this.sub = this.messageService.subscribe('setVisibility', this.setVisibilityTableContainer, this);
         },
-        setVisibilityTableContainer(status) {
-            this.tableContainer.style.display = status;
-            this.messageService.publish({ name: 'setVisibility',value: status })
+        setVisibilityTableContainer(message) {
+            const con = message.package.container
+            con.style.display = message.package.display;
+        },
+        destroy: function() {
+            this.sub.unsubscribe();
         }
     };
 }());
