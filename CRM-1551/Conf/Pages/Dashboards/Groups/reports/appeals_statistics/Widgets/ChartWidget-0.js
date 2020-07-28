@@ -17,6 +17,7 @@
                     text: ''
                 }
             },
+            colors: ['#15BDF4', '#2CD395', '#A0AFCF','#8F949A'],
             tooltip: {
                 headerFormat: '<span style="font-size:10px"></span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +

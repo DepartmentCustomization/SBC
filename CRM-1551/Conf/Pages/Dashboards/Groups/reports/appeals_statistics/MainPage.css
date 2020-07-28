@@ -2,8 +2,6 @@
     border: 1px solid #000;
 }
 
-
-
 .cell-item{
     text-align: center;
     box-sizing: border-box;
@@ -13,6 +11,7 @@
     padding-top: 5px;
     background-color: rgba(235, 235, 235, 1);
     width: 20%;
+    border-radius: 10px ;
 }
 
 .data{
@@ -47,8 +46,17 @@
 
 .cell-info{
     font-size: 32px;
+    color: #CCCCCC;
+}
+
+.cell-info.active{
+    color: #000;
 }
 
 .cell-info.num{
     font-size: 20px;
+}
+
+.widget-parent{
+    border: none;
 }

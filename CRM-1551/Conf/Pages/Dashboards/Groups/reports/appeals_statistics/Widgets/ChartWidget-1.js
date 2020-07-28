@@ -21,6 +21,7 @@
                     text: 'Кількість звернень'
                 }
             },
+            colors: ['#c9e6e3', '#f9cdcc', '#f9f4b6','#8e83bd'],
             accessibility: {
                 point: {
                     valueSuffix: '%'
