@@ -6,7 +6,7 @@
         customConfig:
                     `<div id='container5'>
                     <div id='date-block5' class='date-block'></div>
-                    <div id='cell5-info'></div>
+                    <div id='cell5-info' class='cell-block'></div>
                     </div>
                     
                     `
@@ -74,7 +74,10 @@
         load: function(data) {
             const cellInfo = document.getElementById('cell5-info');
             cellInfo.innerHTML = '';
-            const p = `<p class='cell-info'>${data.rows[0].values[6]}</p>`;
+            const cellValue = data.rows[0].values[6];
+            const shortValue = Number(cellValue);
+            const classForP = shortValue > 0 ? 'cell-info active' : 'cell-info';
+            const p = `<p class='${classForP}'>${cellValue}</p>`;
             cellInfo.insertAdjacentHTML('beforeend',p)
         }
     };
