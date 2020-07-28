@@ -89,7 +89,7 @@
             "FieldType": "select",
             "Position": 7,
             "Width": "100%",
-            "QueryCode": "Class_ResolutionsSRows",
+            "QueryCode": "Class_Resolutions_ByAssClass",
             "KeyColumnCode": "Id",
             "DisplayColumnCode": "name",
             "QueryParameters": []
