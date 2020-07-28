@@ -18,6 +18,7 @@
                     text: ''
                 }
             },
+            colors: ['#c9e6e3', '#f9cdcc', '#f9f4b6','#8e83bd','#f6f3b6','#5fb3aa','#bbb9b6','#484846','#f6b1af','#fff78a'],
             plotOptions: {
                 line: {
                     dataLabels: {
