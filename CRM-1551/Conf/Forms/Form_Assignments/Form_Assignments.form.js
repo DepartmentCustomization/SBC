@@ -22,10 +22,13 @@
             }
         },
         init: function() {
-
-            if (this.form.getControlValue('assignment_class_id') === null) {
+            let class_id = this.form.getControlValue('assignment_class_id');
+            if (class_id === null) {
                 this.form.setControlVisibility('assignment_class_id', false);
                 this.form.setControlVisibility('class_resolution_id', false);
+            } else {
+                let class_param = [{ parameterCode: '@assignment_class_id', parameterValue: class_id }];
+                this.form.setControlParameterValues('class_resolution_id', class_param);
             }
 
             let class_resolution_id = this.form.getControlValue('class_resolution_id');
