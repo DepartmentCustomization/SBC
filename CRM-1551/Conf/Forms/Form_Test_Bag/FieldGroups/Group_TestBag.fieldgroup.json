@@ -21,6 +21,13 @@
       "DisplayColumnCode": "fio",
       "QueryParameters": [],
       "IsRequired": true
+    },
+    {
+      "Pattern": "",
+      "Code": "SystemUser",
+      "Name": "SystemUser",
+      "FieldType": "systemUser",
+      "Position": 1
     }
   ]
 }

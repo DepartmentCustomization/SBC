@@ -18,11 +18,11 @@
       "Position": 1
     },
     {
-      "Code": "showModalWrapper",
-      "Name": "click me to show modal",
-      "FieldType": "button",
-      "Position": 18,
-      "Width": "40%"
-  }
+      "Pattern": "",
+      "Code": "SystemUser",
+      "Name": "SystemUser",
+      "FieldType": "systemUser",
+      "Position": 1
+    }
   ]
 }

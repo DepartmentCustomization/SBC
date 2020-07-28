@@ -1,10 +1,12 @@
 (function() {
     return {
         init:function() {
-            this.showModal();
-            document.getElementById('showModalWrapper').addEventListener('click', () => {
-                this.showModal();
-            });
+            const btn = document.getElementById('showModalWrapper');
+            if(btn) {
+                btn.addEventListener('click', () => {
+                    this.showModal();
+                });
+            }
         },
         showModal: function() {
             const formAddComplain = {

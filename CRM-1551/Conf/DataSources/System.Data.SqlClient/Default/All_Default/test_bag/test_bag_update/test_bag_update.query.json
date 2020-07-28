@@ -6,6 +6,10 @@
     "IsUsedForRightsFilter": false,
     "Parameters": [
         {
+          "Code": "@SystemUser",
+          "Name": "SystemUser"
+        },
+        {
           "Code": "@SystemUserId",
           "Name": "SystemUserId"
         },
