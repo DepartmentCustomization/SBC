@@ -31,7 +31,7 @@ OR (
 ) = 20 
 BEGIN
 INSERT INTO
-    [CRM_1551_Analitics].[dbo].[QuestionDocFiles] (
+      [dbo].[QuestionDocFiles] (
         [link],
         [create_date],
         [user_id],
@@ -57,8 +57,8 @@ SELECT
             TOP 1 [Questions].Id
         FROM
             [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] [AppealsFromSite]
-            INNER JOIN [CRM_1551_Analitics].[dbo].[Appeals] [Appeals] ON [AppealsFromSite].Appeal_Id = [Appeals].Id
-            INNER JOIN [CRM_1551_Analitics].[dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
+            INNER JOIN   [dbo].[Appeals] [Appeals] ON [AppealsFromSite].Appeal_Id = [Appeals].Id
+            INNER JOIN   [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
         WHERE
             [AppealsFromSite].Id = @appeal_from_site_id 
 			OR [Appeals].Id = @appeal_id 

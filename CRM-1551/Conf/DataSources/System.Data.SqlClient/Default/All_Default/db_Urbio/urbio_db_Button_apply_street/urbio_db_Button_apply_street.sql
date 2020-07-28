@@ -8,9 +8,9 @@
 
 IF @Operation=N'Видалення'
   BEGIN
-		UPDATE [CRM_1551_Analitics].[dbo].[Streets]
+		UPDATE   [dbo].[Streets]
 	  SET [is_active]='false'
-	  FROM [CRM_1551_Analitics].[dbo].[Streets] ans
+	  FROM   [dbo].[Streets] ans
 	  WHERE ans.Id=@Analitics_Id--urbio_id IN (select value from #Ids)
 
 	  UPDATE [CRM_1551_URBIO_Integrartion].[dbo].[streets]
@@ -24,7 +24,7 @@ IF @Operation=N'Видалення'
   
   IF @Operation=N'Додавання'
   BEGIN
-		INSERT INTO [CRM_1551_Analitics].[dbo].[Streets]
+		INSERT INTO   [dbo].[Streets]
 	  (
 	  [district_id]
 		  ,[street_type_id]
@@ -44,8 +44,8 @@ IF @Operation=N'Видалення'
 		  ,'true' [is_active]
 		  ,'true' [is_urbio_new]
 	  FROM [CRM_1551_URBIO_Integrartion].[dbo].[streets] s
-	  left join [CRM_1551_Analitics].[dbo].[StreetTypes] ast on s.[name_shortToponym]=ast.name_shortToponym
-	  left join [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),s.ofDistrict_id)=d.urbio_id
+	  left join   [dbo].[StreetTypes] ast on s.[name_shortToponym]=ast.name_shortToponym
+	  left join   [dbo].[Districts] d ON convert(nvarchar(128),s.ofDistrict_id)=d.urbio_id
 	  where convert(nvarchar(128),s.Id)=@Urbio_Id 
 	  --inner join #Ids i ON [streets].Id=i.value
 
@@ -60,7 +60,7 @@ IF @Operation=N'Видалення'
 
   IF @Operation=N'Редагування'
   BEGIN
-			UPDATE [CRM_1551_Analitics].[dbo].[Streets]
+			UPDATE   [dbo].[Streets]
 	  SET [district_id]=d.Id
 		  ,[street_type_id]=ast.Id
 		  ,[name]=ISNULL(us.name_fullName+N' ', N'')+ISNULL(us.uniqueMarker_fullText+N' ',N'')+
@@ -69,10 +69,10 @@ IF @Operation=N'Видалення'
 		  --,[urbio_id]
 		  ,[is_active]='true'
 		  --,[is_urbio_new]
-	  FROM [CRM_1551_Analitics].[dbo].[Streets] ans
+	  FROM   [dbo].[Streets] ans
 	  INNER JOIN [CRM_1551_URBIO_Integrartion].[dbo].[streets] us ON ans.urbio_id=convert(nvarchar(128),us.Id)
-	  left join [CRM_1551_Analitics].[dbo].[StreetTypes] ast on us.[name_shortToponym]=ast.name_shortToponym
-	  left join [CRM_1551_Analitics].[dbo].[Districts] d ON convert(nvarchar(128),us.ofDistrict_id)=d.urbio_id
+	  left join   [dbo].[StreetTypes] ast on us.[name_shortToponym]=ast.name_shortToponym
+	  left join   [dbo].[Districts] d ON convert(nvarchar(128),us.ofDistrict_id)=d.urbio_id
 	  WHERE ans.Id=@Analitics_Id;--urbio_id IN (select value from #Ids)
 
 	   UPDATE [CRM_1551_URBIO_Integrartion].[dbo].[streets]

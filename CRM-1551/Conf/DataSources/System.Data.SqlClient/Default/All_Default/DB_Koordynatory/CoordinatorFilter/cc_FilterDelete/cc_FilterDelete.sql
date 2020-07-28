@@ -1,3 +1,3 @@
 delete
-  from [CRM_1551_Analitics].[dbo].[FiltersForControler]
+  from   [dbo].[FiltersForControler]
   where Id=@id

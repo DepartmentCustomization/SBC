@@ -9,10 +9,10 @@ FROM [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_global] AS gl
 
    JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[AllObjectInClaim] AS oc ON oc.claims_number_id = gl.claim_number
    JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Gorodok_1551_houses] gh ON gh.gorodok_houses_id = oc.object_id
-   JOIN [CRM_1551_Analitics].[dbo].[Objects] AS o ON o.Id = gh.[1551_houses_id]
-   JOIN [CRM_1551_Analitics].[dbo].[ObjectTypes] ON o.object_type_id=[ObjectTypes].Id
-   JOIN [CRM_1551_Analitics].[dbo].[Buildings] ON o.builbing_id=[Buildings].Id
-   JOIN [CRM_1551_Analitics].[dbo].[Districts] ON [Buildings].district_id=[Districts].Id
+   JOIN   [dbo].[Objects] AS o ON o.Id = gh.[1551_houses_id]
+   JOIN   [dbo].[ObjectTypes] ON o.object_type_id=[ObjectTypes].Id
+   JOIN   [dbo].[Buildings] ON o.builbing_id=[Buildings].Id
+   JOIN   [dbo].[Districts] ON [Buildings].district_id=[Districts].Id
 WHERE gl.claim_number = @Id
 
   and #filter_columns#
@@ -26,13 +26,13 @@ WHERE gl.claim_number = @Id
   select [ObjectsInObject].[object_id] Id, [Districts].name [district_name] , [ObjectTypes].name obj_type_name,
   [Objects].name [object_name]
  -- , [Objects].Id, [ObjectsInObject].Id, [ObjectsInObject].main_object_id
-  from [CRM_1551_Analitics].[dbo].[EventObjects]
-  --inner join [CRM_1551_Analitics].[dbo].[Objects] on [EventObjects].[object_id]=[Objects].Id
-  inner join [CRM_1551_Analitics].[dbo].[ObjectsInObject] on [EventObjects].[object_id]=[ObjectsInObject].main_object_id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [ObjectsInObject].[object_id]=[Objects].Id
-  left join [CRM_1551_Analitics].[dbo].[ObjectTypes] on [Objects].object_type_id=[ObjectTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Buildings] on [Objects].builbing_id=[Buildings].Id
-  left join [CRM_1551_Analitics].[dbo].[Districts] on [Buildings].district_id=[Districts].Id
+  from   [dbo].[EventObjects]
+  --inner join   [dbo].[Objects] on [EventObjects].[object_id]=[Objects].Id
+  inner join   [dbo].[ObjectsInObject] on [EventObjects].[object_id]=[ObjectsInObject].main_object_id
+  left join   [dbo].[Objects] on [ObjectsInObject].[object_id]=[Objects].Id
+  left join   [dbo].[ObjectTypes] on [Objects].object_type_id=[ObjectTypes].Id
+  left join   [dbo].[Buildings] on [Objects].builbing_id=[Buildings].Id
+  left join   [dbo].[Districts] on [Buildings].district_id=[Districts].Id
   where [EventObjects].event_id=@event_id
 and #filter_columns#
      #sort_columns#

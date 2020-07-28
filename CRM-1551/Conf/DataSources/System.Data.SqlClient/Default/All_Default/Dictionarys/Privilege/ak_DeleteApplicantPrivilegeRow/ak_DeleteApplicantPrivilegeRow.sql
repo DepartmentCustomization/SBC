@@ -1,3 +1,3 @@
 delete 
-  from [CRM_1551_Analitics].[dbo].[ApplicantPrivilege]
+  from   [dbo].[ApplicantPrivilege]
   where id=@id

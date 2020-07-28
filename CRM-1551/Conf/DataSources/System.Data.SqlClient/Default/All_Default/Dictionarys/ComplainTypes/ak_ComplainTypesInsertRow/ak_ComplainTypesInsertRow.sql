@@ -1,3 +1,3 @@
-insert into [CRM_1551_Analitics].[dbo].[ComplainTypes]
+insert into   [dbo].[ComplainTypes]
   (name)
   select @name

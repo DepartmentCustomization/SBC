@@ -1,6 +1,6 @@
 /*
 delete 
-	  from [CRM_1551_Analitics].[dbo].[Positions]
+	  from   [dbo].[Positions]
 	  where Id=@Id
 */
 
@@ -13,7 +13,7 @@ delete from [dbo].[OrganizationInResponsibilityRights] where [position_id] = @Id
 	SET @CURSOR  = CURSOR SCROLL
 	FOR
 	    SELECT [helper_position_id]
-		FROM [CRM_1551_Analitics].[dbo].[PositionsHelpers]
+		FROM   [dbo].[PositionsHelpers]
 		where [main_position_id] = @Id
 	OPEN @CURSOR
 	FETCH NEXT FROM @CURSOR INTO  @helper_position_id

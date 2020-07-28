@@ -5,7 +5,7 @@ SELECT
     [after],
     [change_datetime]
 FROM
-    [CRM_1551_Analitics].[dbo].[Object_History]
+      [dbo].[Object_History]
 WHERE
     element_id = @Id
     AND #filter_columns#

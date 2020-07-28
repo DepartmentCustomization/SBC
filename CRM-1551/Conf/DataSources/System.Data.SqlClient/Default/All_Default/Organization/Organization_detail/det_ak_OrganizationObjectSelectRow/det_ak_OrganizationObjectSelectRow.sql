@@ -8,10 +8,10 @@
   [ExecutorInRoleForObject].executor_id [organization_id],
   [Objects].name ObjectName,
   [Organizations].short_name
-  from [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject]
-  inner join [CRM_1551_Analitics].[dbo].[Buildings] on [ExecutorInRoleForObject].object_id=[Buildings].Id
-  inner join [CRM_1551_Analitics].[dbo].[Objects] on [Buildings].Id=[Objects].builbing_id
-  left join [CRM_1551_Analitics].[dbo].[ExecutorRole] on [ExecutorInRoleForObject].executor_role_id=[ExecutorRole].Id
-  left join [CRM_1551_Analitics].[dbo].[ObjectTypes] on [Objects].object_type_id=[ObjectTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Organizations] on [ExecutorInRoleForObject].executor_id=[Organizations].Id
+  from   [dbo].[ExecutorInRoleForObject]
+  inner join   [dbo].[Buildings] on [ExecutorInRoleForObject].object_id=[Buildings].Id
+  inner join   [dbo].[Objects] on [Buildings].Id=[Objects].builbing_id
+  left join   [dbo].[ExecutorRole] on [ExecutorInRoleForObject].executor_role_id=[ExecutorRole].Id
+  left join   [dbo].[ObjectTypes] on [Objects].object_type_id=[ObjectTypes].Id
+  left join   [dbo].[Organizations] on [ExecutorInRoleForObject].executor_id=[Organizations].Id
   where [Objects].object_type_id=1 and [ExecutorInRoleForObject].Id=@Id

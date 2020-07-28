@@ -1,6 +1,6 @@
   SELECT [Id]
 		,[name]
-  FROM [CRM_1551_Analitics].[dbo].[QuestionTypes]
+  FROM   [dbo].[QuestionTypes]
   where id != 1
   and #filter_columns#
   #sort_columns#

@@ -1,3 +1,3 @@
-  insert into [CRM_1551_Analitics].[dbo].[ApplicantPrivilege]
+  insert into   [dbo].[ApplicantPrivilege]
   (name)
   select @name

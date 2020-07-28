@@ -2,7 +2,7 @@ declare @parent_orgId int = (select top 1 parent_organization_id from [dbo].[Org
 declare @orgId int = (select top 1 Id from [dbo].[Organizations] where Id=@Id)
 
 
-update [CRM_1551_Analitics].[dbo].[Organizations]
+update   [dbo].[Organizations]
   set parent_organization_id=@organization_id,
   organization_type_id=@organization_type_id,
   organization_code=@organization_code,
@@ -23,17 +23,17 @@ update [CRM_1551_Analitics].[dbo].[Organizations]
   
   
   if exists(select Id
-  from [CRM_1551_Analitics].[dbo].[OrganizationInResponsibility]
+  from   [dbo].[OrganizationInResponsibility]
   where [organization_id]=@Id)
 
   begin
-	  update [CRM_1551_Analitics].[dbo].[OrganizationInResponsibility]
+	  update   [dbo].[OrganizationInResponsibility]
 	  set position_id=@positions_id
 	  where organization_id=@Id
   end
     else
   begin
-  insert into [CRM_1551_Analitics].[dbo].[OrganizationInResponsibility]
+  insert into   [dbo].[OrganizationInResponsibility]
 (
 [position_id]
       ,[organization_id]

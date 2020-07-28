@@ -1,3 +1,3 @@
-insert into [CRM_1551_Analitics].[dbo].[AssignmentTypes]
+insert into   [dbo].[AssignmentTypes]
   (name)
   select @name

@@ -5,7 +5,7 @@ if @GroupQuestionId is null
 begin
 	
 
-	declare @sql nvarchar(max)  = N'select [QuestionTypes].Id, [QuestionTypes].[name] as [Name] from [CRM_1551_Analitics].[dbo].[QuestionTypes] where Id in (' 
+	declare @sql nvarchar(max)  = N'select [QuestionTypes].Id, [QuestionTypes].[name] as [Name] from   [dbo].[QuestionTypes] where Id in (' 
 								  + rtrim(stuff((select N','+QuestionTypes 
 								    from QuestionTypesAndParent
 								    where #filter_columns# /*ParentId*/

@@ -1,3 +1,3 @@
 delete 
-from [CRM_1551_Analitics].[dbo].[StreetTypes] 
+from   [dbo].[StreetTypes] 
 where Id=@Id

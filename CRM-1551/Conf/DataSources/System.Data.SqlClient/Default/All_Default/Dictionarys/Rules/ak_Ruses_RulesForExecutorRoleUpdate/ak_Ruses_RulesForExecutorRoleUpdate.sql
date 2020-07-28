@@ -1,4 +1,4 @@
-update [CRM_1551_Analitics].[dbo].[RulesForExecutorRole]
+update   [dbo].[RulesForExecutorRole]
   set
   executor_role_level_id=@ExecutorRoleLevel_Id--executor_role_level_id
       ,executor_role_id=@ExecutorRole_Id--executor_role_id

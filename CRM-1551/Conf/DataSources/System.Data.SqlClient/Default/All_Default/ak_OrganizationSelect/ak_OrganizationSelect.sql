@@ -12,7 +12,7 @@ DECLARE @IdT TABLE (
 INSERT INTO @IdT (Id)
 	SELECT
 		Id
-	FROM [CRM_1551_Analitics].[dbo].[Organizations]
+	FROM   [dbo].[Organizations]
 	WHERE (Id = @OrganizationId
 	OR [parent_organization_id] = @OrganizationId)
 	AND Id NOT IN (SELECT
@@ -24,7 +24,7 @@ WHILE (SELECT
 		COUNT(Id)
 	FROM (SELECT
 			Id
-		FROM [CRM_1551_Analitics].[dbo].[Organizations]
+		FROM   [dbo].[Organizations]
 		WHERE [parent_organization_id] IN (SELECT
 				Id
 			FROM @IdT) --or Id in (select Id from @IdT)
@@ -37,7 +37,7 @@ BEGIN
 INSERT INTO @IdT
 	SELECT
 		Id
-	FROM [CRM_1551_Analitics].[dbo].[Organizations]
+	FROM   [dbo].[Organizations]
 	WHERE [parent_organization_id] IN (SELECT
 			Id
 		FROM @IdT) --or Id in (select Id from @IdT)
@@ -57,7 +57,7 @@ SELECT
    ,name
 	-- ,short_name
    ,CONCAT([short_name], ' ( ' + address + ')') AS [short_name]
-FROM [CRM_1551_Analitics].[dbo].[Organizations]
+FROM   [dbo].[Organizations]
 WHERE Id NOT IN (SELECT
 		Id
 	FROM @Organization o)
