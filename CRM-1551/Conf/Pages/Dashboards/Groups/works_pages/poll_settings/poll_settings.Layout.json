@@ -51,9 +51,15 @@
             "flexGrow": 1,
             "alignSelf": "auto",
             "border": "none",
-            "children": [],
+            "children": [
+              {
+                "code": "CustomWidget-0",
+                "type": "CustomWidgetComponent",
+                "name": "interview"
+              }
+            ],
             "id": "Container-1",
-            "height": "auto",
+            "height": "60%",
             "minHeight": "100px",
             "minWidth": "calc(100% - 10px)",
             "backgroundColor": "white"

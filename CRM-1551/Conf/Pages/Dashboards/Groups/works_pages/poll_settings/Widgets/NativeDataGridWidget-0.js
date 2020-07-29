@@ -160,7 +160,11 @@
         },
         setVisibility() {
             const con = document.getElementById('NativeDataGridWidget-0')
-            const div = this.createElement('div',{classList:'add-task-block'});
+            let addTaskDiv = document.getElementById('add-task-block');
+            if(addTaskDiv) {
+                addTaskDiv.remove()
+            }
+            const div = this.createElement('div',{classList:'add-task-block',id: 'add-task-block'});
             const btn = this.createElement('button',{classList:'add-task',textContent: 'Додати'});
             document.body.addEventListener('click',(e)=> {
                 if((e.target.classList.contains('add-task')) || (e.target.classList.contains('fix-row'))) {
