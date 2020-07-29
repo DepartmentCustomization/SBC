@@ -4,14 +4,14 @@ AS
 		Id
 	   ,[parent_organization_id] ParentId
 	   ,[short_name]
-	FROM [CRM_1551_Analitics].[dbo].[Organizations] t
+	FROM   [dbo].[Organizations] t
 	WHERE Id = 1761
 	UNION ALL
 	SELECT
 		tp.Id
 	   ,[parent_organization_id] ParentId
 	   ,tp.short_name
-	FROM [CRM_1551_Analitics].[dbo].[Organizations] tp
+	FROM   [dbo].[Organizations] tp
 	INNER JOIN cte1 curr
 		ON tp.[parent_organization_id] = curr.Id)
 

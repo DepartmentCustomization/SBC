@@ -1,3 +1,3 @@
 delete 
-  from [CRM_1551_Analitics].[dbo].[SiteAppealsStates]
+  from   [dbo].[SiteAppealsStates]
   where id=@id

@@ -28,7 +28,7 @@ SELECT
 FROM STRING_SPLIT(@sourceId, ',');
 END
 
-DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO ##temp_QuestionTypes4monitoring (id) select [QuestionTypes].Id from [CRM_1551_Analitics].[dbo].[QuestionTypes] where Id in (' + rtrim(
+DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO ##temp_QuestionTypes4monitoring (id) select [QuestionTypes].Id from [dbo].[QuestionTypes] where Id in (' + rtrim(
   stuff(
     (
       SELECT
@@ -103,7 +103,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
     WHERE
       [parent_organization_id] = @org
   ) main_org
@@ -113,7 +113,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L1 ON L1.[parent_organization_id] = main_org.id
   LEFT JOIN (
     SELECT
@@ -121,7 +121,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L2 ON L2.[parent_organization_id] = L1.id
   LEFT JOIN (
     SELECT
@@ -129,7 +129,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L3 ON L3.[parent_organization_id] = L2.id
   LEFT JOIN (
     SELECT
@@ -137,7 +137,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L4 ON L4.[parent_organization_id] = L3.id
   LEFT JOIN (
     SELECT
@@ -145,7 +145,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L5 ON L5.[parent_organization_id] = L4.id;
 
 INSERT INTO
@@ -177,7 +177,7 @@ SELECT
   NULL,
   NULL
 FROM
-  [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
+  [dbo].[Organizations] WITH (nolock)
 WHERE
   id = @org;
 

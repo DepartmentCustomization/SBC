@@ -31,12 +31,12 @@ set @OrganizationId =  @organization_id;
 
 insert into @IdT(Id) select @OrganizationId
 
-while (select [parent_organization_id] from [CRM_1551_Analitics].[dbo].[Organizations] where Id=(select top 1 Id from @IdT order by Id_n desc)) is not null
+while (select [parent_organization_id] from   [dbo].[Organizations] where Id=(select top 1 Id from @IdT order by Id_n desc)) is not null
 
 begin 
 -- НАХОДИМ ИД ОРГАНИЗАЦИЙ ГДЕ ИД И ПАРЕНТЫ ВЫБРАНОЙ И СРАЗУ ЗАЛИВАЕМ
 insert into @IdT(Id)
-select [parent_organization_id] from [CRM_1551_Analitics].[dbo].[Organizations] 
+select [parent_organization_id] from   [dbo].[Organizations] 
 where Id=(select top 1 Id from @IdT order by Id_n desc) --and Id not in (select Id from @IdT)
 
 
@@ -57,7 +57,7 @@ SELECT distinct [Streets].[Id]
      -- ,[district_id]
       ,[StreetTypes].[shortname] +' '+ [Streets].[name]  as name
     
-    FROM [CRM_1551_Analitics].[dbo].[Streets]
+    FROM   [dbo].[Streets]
     inner join [Buildings] on [Streets].Id=[Buildings].street_id
     left Join [dbo].[StreetTypes]
     ON  [Streets].[street_type_id] =  [StreetTypes].[id]
@@ -87,7 +87,7 @@ begin
 		 -- ,[district_id]
 		  ,[StreetTypes].[shortname] +' '+ [Streets].[name]  as name
     
-		FROM [CRM_1551_Analitics].[dbo].[Streets]
+		FROM   [dbo].[Streets]
 		inner join [Buildings] on [Streets].Id=[Buildings].street_id
 		left Join [dbo].[StreetTypes]
 		ON  [Streets].[street_type_id] =  [StreetTypes].[id]
@@ -123,11 +123,11 @@ begin
   /*
 SELECT TOP (1000) [Id]
       ,[name]
-  FROM [CRM_1551_Analitics].[dbo].[Districts]
+  FROM   [dbo].[Districts]
 
 
   select Id, name, short_name
-  FROM [CRM_1551_Analitics].[dbo].[Organizations]
+  FROM   [dbo].[Organizations]
   where parent_organization_id=3
 */  
 
@@ -135,7 +135,7 @@ SELECT TOP (1000) [Id]
       -- ,[district_id]
        ,[StreetTypes].[shortname] +' '+ [Streets].[name]  as name
     
-     FROM [CRM_1551_Analitics].[dbo].[Streets]
+     FROM   [dbo].[Streets]
     
      left Join [dbo].[StreetTypes]
      ON  [Streets].[street_type_id] =  [StreetTypes].[id]

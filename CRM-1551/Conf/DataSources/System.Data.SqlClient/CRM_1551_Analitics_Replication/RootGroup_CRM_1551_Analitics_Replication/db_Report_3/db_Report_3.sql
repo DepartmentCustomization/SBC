@@ -85,7 +85,7 @@ INSERT INTO
 SELECT
 	Id
 FROM
-	[CRM_1551_Analitics].[dbo].[QuestionTypes]
+	[dbo].[QuestionTypes]
 WHERE
 	(
 		Id = @questionType
@@ -106,7 +106,7 @@ WHERE
 				SELECT
 					Id
 				FROM
-					[CRM_1551_Analitics].[dbo].[QuestionTypes]
+					[dbo].[QuestionTypes]
 				WHERE
 					[question_type_id] IN (
 						SELECT
@@ -128,7 +128,7 @@ INSERT INTO
 SELECT
 	Id
 FROM
-	[CRM_1551_Analitics].[dbo].[QuestionTypes]
+	[dbo].[QuestionTypes]
 WHERE
 	[question_type_id] IN (
 		SELECT

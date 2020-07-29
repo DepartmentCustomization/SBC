@@ -68,7 +68,7 @@ and [Assignments].Id in (select Id from @table t)
   where Id in (select Id from @tabIds)
   
   /*
-  update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+  update   [dbo].[AssignmentConsiderations]
   set 
    [assignment_result_id] = 7 
   ,[assignment_resolution_id] = 6 
@@ -104,7 +104,7 @@ and [Assignments].Id in (select Id from @table t)
   --   ,user_edit_id = N'''+ @user + N'''
   -- where Id in ( '+ @ids+N')'+ N'
   
-  -- update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+  -- update   [dbo].[AssignmentConsiderations]
   -- set 
   --  [assignment_result_id] = 7 
   -- ,[assignment_resolution_id] = 6 

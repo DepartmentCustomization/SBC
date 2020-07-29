@@ -105,8 +105,8 @@ BEGIN
 	INNER JOIN (SELECT DISTINCT
 			[Organizations].Id
 		   ,[Organizations].short_name [name]
-		FROM [CRM_1551_Analitics].[dbo].[Assignments]
-		INNER JOIN [CRM_1551_Analitics].[dbo].[Organizations]
+		FROM   [dbo].[Assignments]
+		INNER JOIN   [dbo].[Organizations]
 			ON [Assignments].organization_id = [Organizations].Id) [Organizations]
 		ON o.Id = [Organizations].Id
 WHERE #filter_columns#

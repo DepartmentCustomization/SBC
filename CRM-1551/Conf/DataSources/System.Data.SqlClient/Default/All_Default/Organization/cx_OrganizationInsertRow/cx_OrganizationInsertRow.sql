@@ -2,7 +2,7 @@
 declare @output table (Id int);
 
 
-insert into [CRM_1551_Analitics].[dbo].[Organizations]
+insert into   [dbo].[Organizations]
   ([parent_organization_id]
       ,[organization_type_id]
       ,[organization_code]
@@ -43,7 +43,7 @@ insert into [CRM_1551_Analitics].[dbo].[Organizations]
 
 declare @org_id int = (select top 1 Id from @output)
 
-insert into [CRM_1551_Analitics].[dbo].[OrganizationInResponsibility]
+insert into   [dbo].[OrganizationInResponsibility]
 (
 [position_id]
       ,[organization_id]

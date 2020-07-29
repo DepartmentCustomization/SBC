@@ -10,9 +10,9 @@
       ,[FiltersForControler].[questiondirection_id]
       ,[Organizations].short_name [district_name]
 	  ,case when [FiltersForControler].[questiondirection_id]=0 then N'Усі' else [QuestionTypes].name end [questiondirection_name]
-  FROM [CRM_1551_Analitics].[dbo].[FiltersForControler]
-  left join [CRM_1551_Analitics].[dbo].[Organizations] on [FiltersForControler].district_id=[Organizations].Id
-  left join [CRM_1551_Analitics].[dbo].[QuestionTypes] on [FiltersForControler].questiondirection_id=[QuestionTypes].Id
+  FROM   [dbo].[FiltersForControler]
+  left join   [dbo].[Organizations] on [FiltersForControler].district_id=[Organizations].Id
+  left join   [dbo].[QuestionTypes] on [FiltersForControler].questiondirection_id=[QuestionTypes].Id
   where [district_id] is not null and [questiondirection_id] is not null and [FiltersForControler].[user_id]=@user_id
   
   /*
@@ -29,9 +29,9 @@ SELECT
       ,case when [FiltersForControler].[district_id]=0 then N'Усі' else [Districts].name end [district_name]
 	  ,case when [FiltersForControler].[questiondirection_id]=0 then N'Усі' else [QuestionTypes].name end [questiondirection_name]
      -- ,case when [FiltersForControler].[organization_id]=0 then N'Усі' else [Organizations].short_name end [department_name]
-  FROM [CRM_1551_Analitics].[dbo].[FiltersForControler]
-  left join [CRM_1551_Analitics].[dbo].[Districts] on [FiltersForControler].district_id=[Districts].Id
-  left join [CRM_1551_Analitics].[dbo].[QuestionTypes] on [FiltersForControler].questiondirection_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Organizations] on [FiltersForControler].organization_id=[Organizations].Id
+  FROM   [dbo].[FiltersForControler]
+  left join   [dbo].[Districts] on [FiltersForControler].district_id=[Districts].Id
+  left join   [dbo].[QuestionTypes] on [FiltersForControler].questiondirection_id=[QuestionTypes].Id
+  left join   [dbo].[Organizations] on [FiltersForControler].organization_id=[Organizations].Id
   where [district_id] is not null and [questiondirection_id] is not null and [FiltersForControler].[user_id]=@user_id
    */

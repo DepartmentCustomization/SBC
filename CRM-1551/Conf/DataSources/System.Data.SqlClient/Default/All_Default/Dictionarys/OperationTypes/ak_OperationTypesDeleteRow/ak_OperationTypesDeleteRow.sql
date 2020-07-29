@@ -1,3 +1,3 @@
 delete 
-  from [CRM_1551_Analitics].[dbo].[OperationTypes]
+  from   [dbo].[OperationTypes]
   where id=@id

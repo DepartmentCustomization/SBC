@@ -19,10 +19,10 @@
 --   , [Organizations].short_name
 --  -- , [Organizations].Id as org_id
 --  -- , [ExecutorInRoleForObject].building_id object_id
---   from [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject]
---   left join [CRM_1551_Analitics].[dbo].[ExecutorRole] on [ExecutorInRoleForObject].executor_role_id=[ExecutorRole].Id
---   left join [CRM_1551_Analitics].[dbo].[Organizations] on [ExecutorInRoleForObject].executor_id=[Organizations].Id
---   inner join [CRM_1551_Analitics].[dbo].[Objects] on [ExecutorInRoleForObject].[building_id]=[Objects].[builbing_id]
+--   from   [dbo].[ExecutorInRoleForObject]
+--   left join   [dbo].[ExecutorRole] on [ExecutorInRoleForObject].executor_role_id=[ExecutorRole].Id
+--   left join   [dbo].[Organizations] on [ExecutorInRoleForObject].executor_id=[Organizations].Id
+--   inner join   [dbo].[Objects] on [ExecutorInRoleForObject].[building_id]=[Objects].[builbing_id]
 
 --   where [Objects].Id=@Id
 --   and  #filter_columns#

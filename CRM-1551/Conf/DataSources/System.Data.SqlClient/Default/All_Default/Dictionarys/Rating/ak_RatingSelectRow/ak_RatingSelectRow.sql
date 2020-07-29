@@ -1,4 +1,4 @@
 select [Id]
       ,[name]
-  from [CRM_1551_Analitics].[dbo].[Rating]
+  from   [dbo].[Rating]
   where id=@id

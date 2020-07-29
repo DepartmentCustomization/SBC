@@ -21,6 +21,20 @@
       "DisplayColumnCode": "fio",
       "QueryParameters": [],
       "IsRequired": true
+    },
+    {
+      "Pattern": "",
+      "Code": "UserName",
+      "Name": "UserName",
+      "FieldType": "text",
+      "Position": 5
+    },
+    {
+      "Pattern": "",
+      "Code": "userLastName",
+      "Name": "UserLastName",
+      "FieldType": "text",
+      "Position": 5
     }
   ]
 }

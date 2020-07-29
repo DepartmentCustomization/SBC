@@ -1,7 +1,7 @@
     SELECT [Streets].[Id]
           ,[StreetTypes].[shortname] + ' '+ [Streets].name as street_name
 
-    FROM [CRM_1551_Analitics].[dbo].[Streets]
+    FROM   [dbo].[Streets]
 
     left join [dbo].[StreetTypes]
     On [Streets].[street_type_id] = [StreetTypes].[Id]

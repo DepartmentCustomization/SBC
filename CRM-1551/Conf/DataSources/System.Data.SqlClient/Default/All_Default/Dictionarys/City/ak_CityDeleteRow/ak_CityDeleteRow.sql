@@ -1,3 +1,3 @@
 delete 
-  from [CRM_1551_Analitics].[dbo].[City]
+  from   [dbo].[City]
   where id=@id

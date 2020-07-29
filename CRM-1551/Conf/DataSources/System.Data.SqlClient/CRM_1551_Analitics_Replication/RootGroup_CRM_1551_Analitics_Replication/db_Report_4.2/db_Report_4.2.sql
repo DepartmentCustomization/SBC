@@ -34,41 +34,41 @@ end
   ,L5.id as L5_id, L5.short_name as L5_org_name
   FROM 
   (SELECT *
-  FROM [CRM_1551_Analitics].[dbo].[Organizations] with (nolock)
+  FROM  [dbo].[Organizations] with (nolock)
   WHERE [parent_organization_id] = @org) main_org
 
   LEFT JOIN 
   
   (SELECT *
-  FROM [CRM_1551_Analitics].[dbo].[Organizations] with (nolock)
+  FROM  [dbo].[Organizations] with (nolock)
   ) L1
   ON L1.[parent_organization_id] = main_org.id
 
   LEFT JOIN 
   
   (SELECT *
-  FROM [CRM_1551_Analitics].[dbo].[Organizations] with (nolock)
+  FROM  [dbo].[Organizations] with (nolock)
   ) L2
   ON L2.[parent_organization_id] = L1.id
 
   LEFT JOIN 
   
   (SELECT *
-  FROM [CRM_1551_Analitics].[dbo].[Organizations] with (nolock)
+  FROM  [dbo].[Organizations] with (nolock)
   ) L3
   ON L3.[parent_organization_id] = L2.id
 
   LEFT JOIN 
   
   (SELECT *
-  FROM [CRM_1551_Analitics].[dbo].[Organizations] with (nolock)
+  FROM  [dbo].[Organizations] with (nolock)
   ) L4
   ON L4.[parent_organization_id] = L3.id
 
   LEFT JOIN 
   
   (SELECT *
-  FROM [CRM_1551_Analitics].[dbo].[Organizations] with (nolock)
+  FROM  [dbo].[Organizations] with (nolock)
   ) L5
   ON L5.[parent_organization_id] = L4.id
 

@@ -116,8 +116,8 @@ SET
             SELECT
               N', ' + lower(SUBSTRING([PhoneTypes].name, 1, 3)) + N'.: ' + [ApplicantPhones].phone_number
             FROM
-              [CRM_1551_Analitics].[dbo].[ApplicantPhones]
-              LEFT JOIN [CRM_1551_Analitics].[dbo].[PhoneTypes] ON [ApplicantPhones].phone_type_id = [PhoneTypes].Id
+                [dbo].[ApplicantPhones]
+              LEFT JOIN   [dbo].[PhoneTypes] ON [ApplicantPhones].phone_type_id = [PhoneTypes].Id
             WHERE
               [ApplicantPhones].applicant_id = la.applicant_id FOR XML PATH('')
           ),
@@ -128,11 +128,11 @@ SET
         N''
       ) phone
     FROM
-      [CRM_1551_Analitics].[dbo].[LiveAddress] la
-      LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] b ON la.building_id = b.Id
-      LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] s ON b.street_id = s.Id
-      LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] st ON s.street_type_id = st.Id
-      LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d ON b.district_id = d.Id
+        [dbo].[LiveAddress] la
+      LEFT JOIN   [dbo].[Buildings] b ON la.building_id = b.Id
+      LEFT JOIN   [dbo].[Streets] s ON b.street_id = s.Id
+      LEFT JOIN   [dbo].[StreetTypes] st ON s.street_type_id = st.Id
+      LEFT JOIN   [dbo].[Districts] d ON b.district_id = d.Id
     WHERE
       applicant_id = @applicant_id
   )

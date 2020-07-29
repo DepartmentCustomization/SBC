@@ -91,8 +91,8 @@ if OBJECT_ID('tempdb..#temp_Events_1') is not null drop table #temp_Events_1
     --[Events].event_type_id, 
     --[Events].start_date, 
     --[Event_Class].name EventName
-  from [CRM_1551_Analitics].[dbo].[Events] with (nolock)
-    inner join [CRM_1551_Analitics].[dbo].[EventOrganizers] with (nolock) on [Events].Id=[EventOrganizers].event_id
+  from   [dbo].[Events] with (nolock)
+    inner join   [dbo].[EventOrganizers] with (nolock) on [Events].Id=[EventOrganizers].event_id
 	inner join #temp_orgs orgs ON [EventOrganizers].organization_id=orgs.Id
     --left join [Event_Class] with (nolock) on [Events].event_class_id=[Event_Class].id
   --where [EventOrganizers].organization_id in (select id from #temp_orgs)
@@ -107,11 +107,11 @@ if OBJECT_ID('tempdb..#temp_Events_1') is not null drop table #temp_Events_1
     --[Events].event_type_id, 
     --[Events].start_date, 
     --[Event_Class].name EventName
-  from [CRM_1551_Analitics].[dbo].[Events] with (nolock)
-    inner join [CRM_1551_Analitics].[dbo].[EventObjects] with (nolock) on [Events].Id=[EventObjects].event_id
-    inner join [CRM_1551_Analitics].[dbo].[Objects] with (nolock) on [EventObjects].object_id=[Objects].Id
-    inner join [CRM_1551_Analitics].[dbo].[Buildings] with (nolock) on [Buildings].Id=[Objects].builbing_id
-    inner join [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject] with (nolock) on [ExecutorInRoleForObject].object_id=[Buildings].Id
+  from   [dbo].[Events] with (nolock)
+    inner join   [dbo].[EventObjects] with (nolock) on [Events].Id=[EventObjects].event_id
+    inner join   [dbo].[Objects] with (nolock) on [EventObjects].object_id=[Objects].Id
+    inner join   [dbo].[Buildings] with (nolock) on [Buildings].Id=[Objects].builbing_id
+    inner join   [dbo].[ExecutorInRoleForObject] with (nolock) on [ExecutorInRoleForObject].object_id=[Buildings].Id
 	inner join #temp_orgs orgs ON [ExecutorInRoleForObject].executor_id=orgs.Id
     --left join [Event_Class] with (nolock) on [Events].event_class_id=[Event_Class].id
   where [ExecutorInRoleForObject].[executor_role_id] in (1, 68) /*балансоутримувач, генпідрядник*/

@@ -25,7 +25,7 @@ DECLARE @OrganizationId INT = CASE
     SELECT
       organization_id
     FROM
-      [CRM_1551_Analitics].[dbo].[Workers]
+        [dbo].[Workers]
     WHERE
       worker_user_id = @user_id
   )
@@ -94,8 +94,8 @@ FROM
       [Events].start_date,
       [Event_Class].name EventName
     FROM
-      [CRM_1551_Analitics].[dbo].[Events] [Events] WITH (nolock)
-      INNER JOIN [CRM_1551_Analitics].[dbo].[EventOrganizers] [EventOrganizers] WITH (nolock) ON [Events].Id = [EventOrganizers].event_id
+        [dbo].[Events] [Events] WITH (nolock)
+      INNER JOIN   [dbo].[EventOrganizers] [EventOrganizers] WITH (nolock) ON [Events].Id = [EventOrganizers].event_id
       INNER JOIN #temp_orgs orgs ON [EventOrganizers].organization_id=orgs.Id
       LEFT JOIN [Event_Class] [Event_Class] WITH (nolock) ON [Events].event_class_id = [Event_Class].id
     WHERE
@@ -129,11 +129,11 @@ FROM
       [Events].start_date,
       [Event_Class].name EventName
     FROM
-      [CRM_1551_Analitics].[dbo].[Events] [Events] WITH (nolock)
-      INNER JOIN [CRM_1551_Analitics].[dbo].[EventObjects] [EventObjects] WITH (nolock) ON [Events].Id = [EventObjects].event_id --AND [EventObjects].in_form = 1
-      INNER JOIN [CRM_1551_Analitics].[dbo].[Objects] [Objects] WITH (nolock) ON [EventObjects].object_id = [Objects].Id
-      INNER JOIN [CRM_1551_Analitics].[dbo].[Buildings] [Buildings] WITH (nolock) ON [Buildings].Id = [Objects].builbing_id
-      INNER JOIN [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject] [ExecutorInRoleForObject] WITH (nolock) ON [ExecutorInRoleForObject].object_id = [Buildings].Id
+        [dbo].[Events] [Events] WITH (nolock)
+      INNER JOIN   [dbo].[EventObjects] [EventObjects] WITH (nolock) ON [Events].Id = [EventObjects].event_id --AND [EventObjects].in_form = 1
+      INNER JOIN   [dbo].[Objects] [Objects] WITH (nolock) ON [EventObjects].object_id = [Objects].Id
+      INNER JOIN   [dbo].[Buildings] [Buildings] WITH (nolock) ON [Buildings].Id = [Objects].builbing_id
+      INNER JOIN   [dbo].[ExecutorInRoleForObject] [ExecutorInRoleForObject] WITH (nolock) ON [ExecutorInRoleForObject].object_id = [Buildings].Id
       INNER JOIN #temp_orgs orgs ON [ExecutorInRoleForObject].executor_id=orgs.Id
       LEFT JOIN [Event_Class] [Event_Class] WITH (nolock) ON [Events].event_class_id = [Event_Class].id
     WHERE
@@ -228,10 +228,10 @@ SELECT
   [Objects].name object_name
 FROM
   #temp_Events_1 e1
-  INNER JOIN [CRM_1551_Analitics].[dbo].[EventObjects] [EventObjects] WITH (nolock) ON e1.Id = [EventObjects].event_id --AND [EventObjects].in_form = 1
-  INNER JOIN [CRM_1551_Analitics].[dbo].[Objects] [Objects] WITH (nolock) ON [EventObjects].object_id = [Objects].Id
-  INNER JOIN [CRM_1551_Analitics].[dbo].[Buildings] [Buildings] WITH (nolock) ON [Buildings].Id = [Objects].builbing_id
-  INNER JOIN [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject] [ExecutorInRoleForObject] WITH (nolock) ON [ExecutorInRoleForObject].object_id = [Buildings].Id
+  INNER JOIN   [dbo].[EventObjects] [EventObjects] WITH (nolock) ON e1.Id = [EventObjects].event_id --AND [EventObjects].in_form = 1
+  INNER JOIN   [dbo].[Objects] [Objects] WITH (nolock) ON [EventObjects].object_id = [Objects].Id
+  INNER JOIN   [dbo].[Buildings] [Buildings] WITH (nolock) ON [Buildings].Id = [Objects].builbing_id
+  INNER JOIN   [dbo].[ExecutorInRoleForObject] [ExecutorInRoleForObject] WITH (nolock) ON [ExecutorInRoleForObject].object_id = [Buildings].Id
 WHERE
   [ExecutorInRoleForObject].[executor_role_id] IN (1, 68)
   /*балансоутримувач, генпідрядник*/

@@ -18,6 +18,12 @@
             "IsPrintable": false
         },
         {
+            "Code": "SystemUser",
+            "Name": "SystemUser",
+            "Position": 1,
+            "IsPrintable": false
+        },
+        {
             "Code": "UserName",
             "Name": "UserName",
             "Position": 1,

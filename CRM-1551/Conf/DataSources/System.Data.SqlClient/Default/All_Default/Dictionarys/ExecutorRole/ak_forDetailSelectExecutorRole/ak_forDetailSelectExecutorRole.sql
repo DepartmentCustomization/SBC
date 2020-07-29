@@ -8,9 +8,9 @@ select [Organizations].Id
 , [Organizations].head_name
 , [Organizations].population
 , [Organizations].active
-  from [CRM_1551_Analitics].[dbo].[Organizations]
-  left join [CRM_1551_Analitics].[dbo].[OrganizationTypes] on [Organizations].organization_type_id=[OrganizationTypes].Id
- left join [CRM_1551_Analitics].[dbo].[Organizations] [Organizations2] on [Organizations].parent_organization_id=[Organizations2].Id
+  from   [dbo].[Organizations]
+  left join   [dbo].[OrganizationTypes] on [Organizations].organization_type_id=[OrganizationTypes].Id
+ left join   [dbo].[Organizations] [Organizations2] on [Organizations].parent_organization_id=[Organizations2].Id
    where #filter_columns#
    #sort_columns#
   offset @pageOffsetRows rows fetch next @pageLimitRows rows only

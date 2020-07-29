@@ -1,3 +1,3 @@
-update [CRM_1551_Analitics].[dbo].[ProcessingKind]
+update   [dbo].[ProcessingKind]
   set name=@name
   where Id=@Id
