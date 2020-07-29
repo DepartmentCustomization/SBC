@@ -1,3 +1,3 @@
-insert into [CRM_1551_Analitics].[dbo].[ProcessingKind]
+insert into   [dbo].[ProcessingKind]
   (name)
   select @name

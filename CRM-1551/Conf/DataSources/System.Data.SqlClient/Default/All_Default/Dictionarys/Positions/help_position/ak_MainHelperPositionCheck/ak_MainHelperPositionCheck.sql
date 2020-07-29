@@ -36,17 +36,17 @@ declare @IdT table (Id int, Id_n int identity(1,1));
 
 -- НАХОДИМ ИД ОРГАНИЗАЦИЙ ГДЕ ИД И ПАРЕНТЫ ВЫБРАНОЙ И СРАЗУ ЗАЛИВАЕМ
 				insert into @IdT(Id)
-				select Id from [CRM_1551_Analitics].[dbo].[Positions] 
+				select Id from   [dbo].[Positions] 
 				where (Id=@PositionId or [parent_id]=@PositionId) and Id not in (select Id from @IdT)
 
 				--  НАХОДИМ ПАРЕНТЫ ОРГ, КОТОРЫХ ЗАЛИЛИ, <-- нужен цыкл
-				while (select count(id) from (select Id from [CRM_1551_Analitics].[dbo].[Positions]
+				while (select count(id) from (select Id from   [dbo].[Positions]
 				where [parent_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 				and Id not in (select Id from @IdT)) q)!=0
 				begin
 
 				insert into @IdT
-				select Id from [CRM_1551_Analitics].[dbo].[Positions]
+				select Id from   [dbo].[Positions]
 				where [parent_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 				and Id not in (select Id from @IdT)
 				end 

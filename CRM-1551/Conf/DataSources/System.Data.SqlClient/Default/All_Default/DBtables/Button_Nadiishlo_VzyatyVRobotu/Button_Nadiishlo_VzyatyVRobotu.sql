@@ -57,7 +57,7 @@ and [Assignments].Id in (select Id from @table t)
 --select Id from @tabIds
 
 
-  update [CRM_1551_Analitics].[dbo].[Assignments]
+  update   [dbo].[Assignments]
   set [user_edit_id]=@user_id,
   edit_date= GETUTCDATE(),
   assignment_state_id=2,
@@ -67,7 +67,7 @@ and [Assignments].Id in (select Id from @table t)
   where id in (select Id from @tabIds)
   
   
-  update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+  update   [dbo].[AssignmentConsiderations]
   set [assignment_result_id]=9,
   [assignment_resolution_id]=null,
   [user_edit_id]=@user_id,
@@ -80,7 +80,7 @@ and [Assignments].Id in (select Id from @table t)
 --   --declare @Ids nvarchar(max) = N'1,2,3';
 
 --   set @exec= N'
---   update [CRM_1551_Analitics].[dbo].[Assignments]
+--   update   [dbo].[Assignments]
 --   set [user_edit_id]=N'''+@user_id+N''',
 --   edit_date= GETUTCDATE(),
 --   assignment_state_id=2,
@@ -90,7 +90,7 @@ and [Assignments].Id in (select Id from @table t)
 --   where id in ('+@Ids+N')
   
   
---   update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+--   update   [dbo].[AssignmentConsiderations]
 --   set [assignment_result_id]=9,
 --   [assignment_resolution_id]=null,
 --   [user_edit_id]=N'''+@user_id+N''',

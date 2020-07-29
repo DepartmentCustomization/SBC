@@ -117,7 +117,7 @@ set @birth_date2=(select
       ,N'true'
   )
   
-    update [CRM_1551_Analitics].[dbo].[Applicants]
+    update   [dbo].[Applicants]
   set [ApplicantAdress]=(select distinct
   isnull([Districts].name+N' р-н., ', N'')+
   isnull([StreetTypes].shortname+N' ',N'')+
@@ -126,15 +126,15 @@ set @birth_date2=(select
   isnull(N'п. '+ltrim([LiveAddress].[entrance])+N', ', N'')+
   isnull(N'кв. '+ltrim([LiveAddress].flat)+N', ', N'')+
   N'телефони: '+isnull(stuff((select N', '+lower(SUBSTRING([PhoneTypes].name, 1, 3))+N'.: '+[ApplicantPhones].phone_number
-  from [CRM_1551_Analitics].[dbo].[ApplicantPhones]
-  left join [CRM_1551_Analitics].[dbo].[PhoneTypes] on [ApplicantPhones].phone_type_id=[PhoneTypes].Id
+  from   [dbo].[ApplicantPhones]
+  left join   [dbo].[PhoneTypes] on [ApplicantPhones].phone_type_id=[PhoneTypes].Id
   where [ApplicantPhones].applicant_id=[LiveAddress].applicant_id
   for xml path('')), 1, 2,N''), N'') phone
-  from [CRM_1551_Analitics].[dbo].[LiveAddress] 
-  left join [CRM_1551_Analitics].[dbo].[Buildings] on [LiveAddress].building_id=[Buildings].Id
-  left join [CRM_1551_Analitics].[dbo].[Streets] on [Buildings].street_id=[Streets].Id
-  left join [CRM_1551_Analitics].[dbo].[StreetTypes] on [Streets].street_type_id=[StreetTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Districts] on [Buildings].district_id=[Districts].Id
+  from   [dbo].[LiveAddress] 
+  left join   [dbo].[Buildings] on [LiveAddress].building_id=[Buildings].Id
+  left join   [dbo].[Streets] on [Buildings].street_id=[Streets].Id
+  left join   [dbo].[StreetTypes] on [Streets].street_type_id=[StreetTypes].Id
+  left join   [dbo].[Districts] on [Buildings].district_id=[Districts].Id
   where applicant_id=@applicant_id)
   where Id=@applicant_id
   

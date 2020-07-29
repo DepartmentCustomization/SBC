@@ -15,17 +15,17 @@ declare @IdT table (Id int, [programworker] int);
 
 -- НАХОДИМ ИД ОРГАНИЗАЦИЙ ГДЕ ИД И ПАРЕНТЫ ВЫБРАНОЙ И СРАЗУ ЗАЛИВАЕМ
 insert into @IdT(Id, [programworker])
-select Id, [programworker] from [CRM_1551_Analitics].[dbo].[Organizations] 
+select Id, [programworker] from   [dbo].[Organizations] 
 where (/*Id=@organization_id or */[parent_organization_id]=@organization_id) /*and programworker=N'true'*/ and Id not in (select Id from @IdT)
 
 --  НАХОДИМ ПАРЕНТЫ ОРГ, КОТОРЫХ ЗАЛИЛИ
-while (select count(id) from (select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+while (select count(id) from (select Id from   [dbo].[Organizations]
 where [parent_organization_id] in (select Id from @IdT) --and programworker=N'true' --or Id in (select Id from @IdT) 
 and Id not in (select Id from @IdT)) q)!=0
 begin
 
 insert into @IdT (Id, [programworker])
-select Id, [programworker] from [CRM_1551_Analitics].[dbo].[Organizations]
+select Id, [programworker] from   [dbo].[Organizations]
 where [parent_organization_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 and Id not in (select Id from @IdT) --and programworker=N'true'
 end 

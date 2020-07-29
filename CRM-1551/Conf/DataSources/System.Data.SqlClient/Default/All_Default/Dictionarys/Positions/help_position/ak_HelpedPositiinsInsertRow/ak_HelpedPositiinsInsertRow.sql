@@ -3,7 +3,7 @@ declare @output1 table(Id int);
 
 if @type_id=1
   begin
-        insert into [CRM_1551_Analitics].[dbo].[PositionsHelpers]
+        insert into   [dbo].[PositionsHelpers]
         (
         [main_position_id]
             ,[helper_position_id]
@@ -20,7 +20,7 @@ if @type_id=1
 
   if @type_id=2
   begin
-        insert into [CRM_1551_Analitics].[dbo].[PositionsHelpers]
+        insert into   [dbo].[PositionsHelpers]
         (
         [main_position_id]
             ,[helper_position_id]

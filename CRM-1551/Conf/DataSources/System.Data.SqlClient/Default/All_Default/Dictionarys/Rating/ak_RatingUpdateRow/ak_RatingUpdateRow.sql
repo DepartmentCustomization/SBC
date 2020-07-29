@@ -1,3 +1,3 @@
-update [CRM_1551_Analitics].[dbo].[Rating]
+update   [dbo].[Rating]
   set [name]=@name
   where id=@id

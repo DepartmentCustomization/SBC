@@ -772,8 +772,8 @@ when [Applicants].[birth_date] is null then year(getdate())-[Applicants].birth_y
   left join [AssignmentConsDocuments] with (nolock) on [AssignmentConsiderations].Id=[AssignmentConsDocuments].assignment_сons_id
 
   --left join (select distinct [AssignmentConsDocuments].assignment_сons_id, [content]
-  --from [10.192.200.82].[CRM_1551_Analitics].[dbo].[AssignmentConsDocuments] with (nolock)
-  --right join [10.192.200.82].[CRM_1551_Analitics].[dbo].[AssignmentConsDocFiles] with (nolock) on [AssignmentConsDocuments].Id=[AssignmentConsDocFiles].assignment_cons_doc_id
+  --from [dbo].[AssignmentConsDocuments] with (nolock)
+  --right join [dbo].[AssignmentConsDocFiles] with (nolock) on [AssignmentConsDocuments].Id=[AssignmentConsDocFiles].assignment_cons_doc_id
   --where [AssignmentConsDocuments].[doc_type_id] in (3,4) or [AssignmentConsDocuments].Id is not null) files_check on [AssignmentConsiderations].Id=files_check.assignment_сons_id
 
   --изменения по фильтрации

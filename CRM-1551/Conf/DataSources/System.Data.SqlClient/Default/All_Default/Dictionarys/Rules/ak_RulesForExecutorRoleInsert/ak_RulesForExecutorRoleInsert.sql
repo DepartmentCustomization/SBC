@@ -1,4 +1,4 @@
-insert into [CRM_1551_Analitics].[dbo].[RulesForExecutorRole]
+insert into   [dbo].[RulesForExecutorRole]
   (
   [executor_role_level_id]
       ,[executor_role_id]

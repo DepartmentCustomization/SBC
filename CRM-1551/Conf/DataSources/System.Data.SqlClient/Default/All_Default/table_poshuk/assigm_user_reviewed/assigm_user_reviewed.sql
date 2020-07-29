@@ -2,9 +2,9 @@ SELECT
 	distinct
 	[Workers].[Id],
 	[Workers].[name] as name_user_reviewed
-  FROM [CRM_1551_Analitics].[dbo].[Workers]
+  FROM   [dbo].[Workers]
   
-  inner Join [CRM_1551_Analitics].[dbo].[Roles]
+  inner Join   [dbo].[Roles]
   ON [Workers].roles_id = [Roles].Id
   where [Roles].id in (3,4 )
   and #filter_columns#

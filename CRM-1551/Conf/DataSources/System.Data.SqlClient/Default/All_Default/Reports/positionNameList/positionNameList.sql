@@ -1,5 +1,5 @@
 SELECT Id, position + '(' + name + ')' as Name
- FROM [CRM_1551_Analitics].[dbo].[Positions] 
+ FROM   [dbo].[Positions] 
  where 
 	 #filter_columns#
      #sort_columns#

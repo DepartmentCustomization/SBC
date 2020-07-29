@@ -86,7 +86,7 @@ DECLARE @navigation NVARCHAR(40) = N'Пріоритетне';
 
 SELECT [Assignments].*
 INTO #temp_Assignments
-FROM [CRM_1551_Analitics].[dbo].[Assignments]
+FROM   [dbo].[Assignments]
 LEFT JOIN #tpu_organization tpuo ON [Assignments].executor_organization_id=tpuo.organizations_id
 LEFT JOIN #tpu_position tpuop ON [Assignments].executor_person_id=tpuop.position_id
 WHERE (tpuo.organizations_id IS NOT NULL AND [Assignments].executor_person_id IS NULL)

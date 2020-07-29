@@ -25,7 +25,7 @@ IF(@applicant_id IS NOT NULL)
 BEGIN 
 ----- add Artem
 UPDATE
-	[CRM_1551_Analitics].[dbo].[Appeals]
+	  [dbo].[Appeals]
 SET
 	applicant_id = @applicant_id
 WHERE

@@ -1,7 +1,5 @@
  --DECLARE @appealNum NVARCHAR(400) = N'0-309, 0-305, 0-307';
 
-USE [CRM_1551_Analitics] -- УБРАТЬ
-
 DECLARE @NumVals NVARCHAR(max) = REPLACE(@appealNum, N', ', N',');
 
 DECLARE @NumsTab TABLE (Num NVARCHAR(50));

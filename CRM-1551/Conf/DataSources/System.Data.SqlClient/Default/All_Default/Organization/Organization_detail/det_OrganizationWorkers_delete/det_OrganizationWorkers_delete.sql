@@ -1,3 +1,3 @@
 delete
-  from [CRM_1551_Analitics].[dbo].[Workers]
+  from   [dbo].[Workers]
   where Id=@Id

@@ -71,12 +71,12 @@ set @OrganizationId =  @organization_id;
 
 insert into @IdT(Id) select @OrganizationId
 
-while (select [parent_organization_id] from [CRM_1551_Analitics].[dbo].[Organizations] where Id=(select top 1 Id from @IdT order by Id_n desc)) is not null
+while (select [parent_organization_id] from   [dbo].[Organizations] where Id=(select top 1 Id from @IdT order by Id_n desc)) is not null
 
 begin 
 -- НАХОДИМ ИД ОРГАНИЗАЦИЙ ГДЕ ИД И ПАРЕНТЫ ВЫБРАНОЙ И СРАЗУ ЗАЛИВАЕМ
 insert into @IdT(Id)
-select [parent_organization_id] from [CRM_1551_Analitics].[dbo].[Organizations] 
+select [parent_organization_id] from   [dbo].[Organizations] 
 where Id=(select top 1 Id from @IdT order by Id_n desc) --and Id not in (select Id from @IdT)
 
 

@@ -18,9 +18,9 @@ Replace(Replace([Elevators].[report_name], N'. Ліфти', ''), N'.Ліфти',
 , [Buildings].[name] as house_name
   from [CRM_1551_GORODOK_Integrartion].[dbo].[Elevators]
   inner join [CRM_1551_GORODOK_Integrartion].[dbo].[Gorodok_1551_houses] on [Elevators].house_id=[Gorodok_1551_houses].gorodok_houses_id
-  inner join CRM_1551_Analitics.[dbo].[Buildings] ON [Gorodok_1551_houses].[1551_houses_id] = [Buildings].id
-  inner join CRM_1551_Analitics.[dbo].[Streets] ON  [Buildings].[street_id] = [Streets].[Id]
-  inner join CRM_1551_Analitics.[dbo].[StreetTypes] ON [Streets].[street_type_id] = [StreetTypes].id
+  inner join [dbo].[Buildings] ON [Gorodok_1551_houses].[1551_houses_id] = [Buildings].id
+  inner join [dbo].[Streets] ON  [Buildings].[street_id] = [Streets].[Id]
+  inner join [dbo].[StreetTypes] ON [Streets].[street_type_id] = [StreetTypes].id
 where [Gorodok_1551_houses].[1551_houses_id]=@house_Id
   and 
   #filter_columns#

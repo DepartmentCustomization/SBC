@@ -14,6 +14,6 @@ SELECT [gg].claim_number AS [Id] -- № заходу +
 	  ,CONVERT(datetime, CONVERT(datetimeoffset(4),gg.fact_finish_date) AT TIME ZONE 'Pacific SA Standard Time') as real_end_date
 FROM [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_global] AS gg
 	JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Claims_states] cs ON cs.name = gg.[status]
-	JOIN CRM_1551_Analitics.dbo.QuestionStates qs ON qs.Id = cs.[1551_state]
+	JOIN dbo.QuestionStates qs ON qs.Id = cs.[1551_state]
 
 WHERE claim_number = @Id

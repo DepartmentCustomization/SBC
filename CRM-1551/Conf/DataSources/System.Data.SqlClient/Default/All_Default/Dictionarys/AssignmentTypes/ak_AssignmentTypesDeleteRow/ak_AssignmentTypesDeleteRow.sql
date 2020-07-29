@@ -1,3 +1,3 @@
 delete 
-  from [CRM_1551_Analitics].[dbo].[AssignmentTypes]
+  from   [dbo].[AssignmentTypes]
   where id=@id
