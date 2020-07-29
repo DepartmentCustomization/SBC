@@ -1,3 +1,3 @@
-insert into [CRM_1551_Analitics].[dbo].[Districts]
+insert into   [dbo].[Districts]
   (name)
   select @name

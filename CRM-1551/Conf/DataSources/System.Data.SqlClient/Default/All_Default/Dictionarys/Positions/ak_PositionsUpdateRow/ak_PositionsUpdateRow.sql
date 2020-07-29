@@ -1,4 +1,4 @@
-UPDATE [CRM_1551_Analitics].[dbo].[Positions]
+UPDATE   [dbo].[Positions]
 	  SET [parent_id]=@parent_id
       ,[position_code]=@position_code
       ,[position]=@position
@@ -29,7 +29,7 @@ BEGIN
         	SET @CURSOR  = CURSOR SCROLL
         	FOR
         	    SELECT [helper_position_id]
-        		FROM [CRM_1551_Analitics].[dbo].[PositionsHelpers]
+        		FROM   [dbo].[PositionsHelpers]
         		WHERE [main_position_id] = @Id
         	OPEN @CURSOR
         	FETCH NEXT FROM @CURSOR INTO  @helper_position_id
@@ -44,7 +44,7 @@ END;
 
 
 
-update [CRM_1551_Analitics].[dbo].[Workers]
+update   [dbo].[Workers]
 set [organization_id]=@organization_id
       ,[roles_id]=@role_id
       ,[name]=@name

@@ -10,5 +10,5 @@
   /*select 0 [Id], N'Усі' [name]
   union all
   SELECT [Id], [name]
-  FROM [CRM_1551_Analitics].[dbo].[Districts]
+  FROM   [dbo].[Districts]
   */

@@ -38,7 +38,7 @@ BEGIN
 
 		if @control_result_id = 4 and @assignment_resolution_id = 9
 		BEGIN
-			UPDATE [CRM_1551_Analitics].[dbo].[Assignments]
+			UPDATE   [dbo].[Assignments]
 				SET  [assignment_state_id]=@state_id
 					,[AssignmentResultsId]=@control_result_id
 					,[AssignmentResolutionsId]=@assignment_resolution_id
@@ -48,7 +48,7 @@ BEGIN
 					,LogUpdated_Query = N'Prozvon_Close_ROW43'											
 				WHERE [Assignments].Id IN (SELECT Id FROM @assigments_table)
 
-			UPDATE [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+			UPDATE   [dbo].[AssignmentConsiderations]
 				SET	   [assignment_result_id] = @control_result_id
 					,[assignment_resolution_id]=@assignment_resolution_id
 					,[edit_date]=GETUTCDATE()
@@ -217,7 +217,7 @@ END
 					if @control_result_id = 4-- виконано
 					begin
 
-						update [CRM_1551_Analitics].[dbo].[AssignmentRevisions]
+						update   [dbo].[AssignmentRevisions]
 						set  [assignment_resolution_id]= @assignment_resolution_id
 							,[control_result_id]=@control_result_id
 							,control_date = GETUTCDATE()
@@ -227,7 +227,7 @@ END
 							,[user_edit_id]=@user_id
 						where [assignment_consideration_іd] in (select curent_consid_id from @assigments_table)
 
-						update [CRM_1551_Analitics].[dbo].[Assignments]
+						update   [dbo].[Assignments]
 						set  [assignment_state_id]=@state_id
 							,[AssignmentResultsId]=@control_result_id
 							,[AssignmentResolutionsId]=@assignment_resolution_id
@@ -237,7 +237,7 @@ END
 							,LogUpdated_Query = N'Prozvon_Close_ROW199'											
 						where [Assignments].Id in (select Id from @assigments_table)
 
-						update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+						update   [dbo].[AssignmentConsiderations]
 						set	   [assignment_result_id] = @control_result_id
 							,[assignment_resolution_id]=@assignment_resolution_id
 							,[edit_date]=GETUTCDATE()

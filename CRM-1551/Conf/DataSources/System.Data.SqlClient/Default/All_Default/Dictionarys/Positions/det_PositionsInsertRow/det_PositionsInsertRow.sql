@@ -1,4 +1,4 @@
-insert [CRM_1551_Analitics].[dbo].[OrganizationInResponsibility]
+insert   [dbo].[OrganizationInResponsibility]
   (
        [position_id]
       ,[organization_id]

@@ -1,5 +1,5 @@
 -- DECLARE @Disk NVARCHAR(MAX) = N'G';
-DECLARE @ArchiveDB NVARCHAR(MAX) = (SELECT TOP 1 [IP] FROM CRM_1551_Analitics.dbo.[SetingConnetDatabase] WHERE [Code] = N'Archive');
+DECLARE @ArchiveDB NVARCHAR(MAX) = (SELECT TOP 1 [IP] FROM dbo.[SetingConnetDatabase] WHERE [Code] = N'Archive');
 
 
 DECLARE @SQL NVARCHAR(MAX) = 

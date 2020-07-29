@@ -1,4 +1,4 @@
-update [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject]
+update   [dbo].[ExecutorInRoleForObject]
   set 
   [object_id]= @building_id
       --,[district_id]

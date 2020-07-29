@@ -12,17 +12,17 @@
 
  -- НАХОДИМ ИД ОРГАНИЗАЦИЙ ГДЕ ИД И ПАРЕНТЫ ВЫБРАНОЙ И СРАЗУ ЗАЛИВАЕМ
  insert into @IdT(Id)
- select Id from [CRM_1551_Analitics].[dbo].[QuestionTypes] 
+ select Id from   [dbo].[QuestionTypes] 
  where (Id=@QuestionTypeId or [question_type_id]=@QuestionTypeId) and Id not in (select Id from @IdT)
 
  --  НАХОДИМ ПАРЕНТЫ ОРГ, КОТОРЫХ ЗАЛИЛИ, <-- нужен цыкл
- while (select count(id) from (select Id from [CRM_1551_Analitics].[dbo].[QuestionTypes]
+ while (select count(id) from (select Id from   [dbo].[QuestionTypes]
  where [question_type_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
  and Id not in (select Id from @IdT)) q)!=0
  begin
 
  insert into @IdT (Id)
- select Id from [CRM_1551_Analitics].[dbo].[QuestionTypes]
+ select Id from   [dbo].[QuestionTypes]
  where [question_type_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
  and Id not in (select Id from @IdT)
  end 

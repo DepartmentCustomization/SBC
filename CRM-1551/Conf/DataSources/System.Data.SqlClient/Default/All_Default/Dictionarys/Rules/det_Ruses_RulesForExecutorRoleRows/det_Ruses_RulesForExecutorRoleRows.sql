@@ -8,11 +8,11 @@
   , [RulesForExecutorRole].main RulesForExecutorRole_main_id, [ProcessingKind].Id ProcessingKind_Id
   */
   , [Rules].Id RulesId, [ExecutorRole].Id ExecutorRoleId
-  from [CRM_1551_Analitics].[dbo].[RulesForExecutorRole]
-  left join [CRM_1551_Analitics].[dbo].[ExecutorRoleLevel] on [RulesForExecutorRole].executor_role_level_id=[ExecutorRoleLevel].Id
-  left join [CRM_1551_Analitics].[dbo].[ExecutorRole] on [RulesForExecutorRole].executor_role_id=[ExecutorRole].Id
-  inner join [CRM_1551_Analitics].[dbo].[Rules] on [RulesForExecutorRole].rule_id=[Rules].Id
-  left join [CRM_1551_Analitics].[dbo].[ProcessingKind] on [RulesForExecutorRole].priocessing_kind_id=[ProcessingKind].Id
+  from   [dbo].[RulesForExecutorRole]
+  left join   [dbo].[ExecutorRoleLevel] on [RulesForExecutorRole].executor_role_level_id=[ExecutorRoleLevel].Id
+  left join   [dbo].[ExecutorRole] on [RulesForExecutorRole].executor_role_id=[ExecutorRole].Id
+  inner join   [dbo].[Rules] on [RulesForExecutorRole].rule_id=[Rules].Id
+  left join   [dbo].[ProcessingKind] on [RulesForExecutorRole].priocessing_kind_id=[ProcessingKind].Id
   where [Rules].Id=@rules_id 
   and #filter_columns#
   #sort_columns#

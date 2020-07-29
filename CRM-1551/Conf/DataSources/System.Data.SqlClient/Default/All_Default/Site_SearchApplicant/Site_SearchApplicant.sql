@@ -30,8 +30,8 @@ IF @AppealFromSite_Id IS NULL AND @BuildingId IS NULL AND @Flat IS NULL
 		  --SELECT * FROM @mail_table
 
 		IF NOT EXISTS (SELECT DISTINCT [Applicants].Id
-						  FROM [CRM_1551_Analitics].[dbo].[Applicants]
-						  INNER JOIN [CRM_1551_Analitics].[dbo].[ApplicantPhones] ON [Applicants].Id=[ApplicantPhones].applicant_id
+						  FROM   [dbo].[Applicants]
+						  INNER JOIN   [dbo].[ApplicantPhones] ON [Applicants].Id=[ApplicantPhones].applicant_id
 						  INNER JOIN @phone_table pt ON [ApplicantPhones].phone_number=pt.phone)
 
 			BEGIN
@@ -47,7 +47,7 @@ IF @AppealFromSite_Id IS NULL AND @BuildingId IS NULL AND @Flat IS NULL
 					  SELECT Id, [TypeSearch], [PIB]
 					  FROM
 					  (SELECT DISTINCT Id, N'E' as [TypeSearch], [full_name] [PIB]
-					  FROM [CRM_1551_Analitics].[dbo].Applicants
+					  FROM   [dbo].Applicants
 					  WHERE mail IN (SELECT mail FROM @mail_table)) t
 					  WHERE #filter_columns#
 					  #sort_columns#
@@ -62,8 +62,8 @@ IF @AppealFromSite_Id IS NULL AND @BuildingId IS NULL AND @Flat IS NULL
 				SELECT Id, [TypeSearch], [PIB]
 				FROM
 				(SELECT DISTINCT [Applicants].Id, N'T' AS [TypeSearch], [Applicants].full_name [PIB]
-				FROM [CRM_1551_Analitics].[dbo].[Applicants]
-				INNER JOIN [CRM_1551_Analitics].[dbo].[ApplicantPhones] ON [Applicants].Id=[ApplicantPhones].applicant_id
+				FROM   [dbo].[Applicants]
+				INNER JOIN   [dbo].[ApplicantPhones] ON [Applicants].Id=[ApplicantPhones].applicant_id
 				INNER JOIN @phone_table pt ON [ApplicantPhones].phone_number=pt.phone
 				) t
 		  WHERE #filter_columns#

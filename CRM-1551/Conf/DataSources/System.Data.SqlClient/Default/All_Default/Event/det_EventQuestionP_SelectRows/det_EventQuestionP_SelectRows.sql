@@ -28,13 +28,13 @@
   select [Questions].Id, [Questions].registration_number, [QuestionTypes].name QuestionType,
   [StreetTypes].shortname+N' '+[Streets].name+N' '+isnull(ltrim([Buildings].number), N'')+isnull([Buildings].letter, N'') place,
   [Questions].registration_date--, [Events].registration_date
-  from [CRM_1551_Analitics].[dbo].[Questions]
-  --inner join [CRM_1551_Analitics].[dbo].[Events] on [Questions].event_id=[Events].Id
-  inner join [CRM_1551_Analitics].[dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].[object_id]=[Objects].Id
-  left join [CRM_1551_Analitics].[dbo].[Buildings] on [Objects].builbing_id=[Buildings].Id
-  left join [CRM_1551_Analitics].[dbo].[Streets] on [Buildings].street_id=[Streets].Id
-  left join [CRM_1551_Analitics].[dbo].[StreetTypes] on [Streets].street_type_id=[StreetTypes].Id
+  from   [dbo].[Questions]
+  --inner join   [dbo].[Events] on [Questions].event_id=[Events].Id
+  inner join   [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
+  left join   [dbo].[Objects] on [Questions].[object_id]=[Objects].Id
+  left join   [dbo].[Buildings] on [Objects].builbing_id=[Buildings].Id
+  left join   [dbo].[Streets] on [Buildings].street_id=[Streets].Id
+  left join   [dbo].[StreetTypes] on [Streets].street_type_id=[StreetTypes].Id
   left join EventQuestionsTypes as eqt on eqt.[question_type_id] = Questions.question_type_id
   where 
 --   [Questions].registration_date between dateadd(minute, -30, @registration_date) and @registration_date
