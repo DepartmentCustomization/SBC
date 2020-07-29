@@ -17,10 +17,7 @@
                 allowedPageSizes: [10, 25, 50, 100]
             },
             editing: {
-                allowAdding: true,
-                allowUpdating: true,
-                useIcons: true,
-                mode: 'form'
+                useIcons: true
             },
             focusedRowEnabled: false,
             remoteOperations: false,
@@ -35,7 +32,8 @@
             columns: [
                 {
                     dataField: 'poll_name',
-                    caption: 'Опитування'
+                    caption: 'Опитування',
+                    width:250
                 },
                 {
                     dataField: 'icon',
@@ -44,15 +42,18 @@
                 },
                 {
                     dataField: 'start_date',
-                    caption: 'Дата старту'
+                    caption: 'Дата старту',
+                    width:100
                 },
                 {
                     dataField: 'end_date',
-                    caption: 'Дата завершення'
+                    caption: 'Дата завершення',
+                    width:100
                 },
                 {
                     dataField: 'name',
-                    caption: 'Напрямок'
+                    caption: 'Напрямок',
+                    width:200
                 },
                 {
                     dataField: 'col_Applicants',
@@ -65,6 +66,11 @@
                 {
                     dataField: 'col_IsNotApplicants',
                     caption: 'Відмовились'
+                },
+                {
+                    dataField: 'fix_row_icon',
+                    caption: '',
+                    width:80
                 }
             ]
         },
@@ -126,6 +132,10 @@
                     options.cellElement.classList.add('cell-icon');
                     const icon = '<span class="material-icons calendar"> event </span>';
                     options.cellElement.insertAdjacentHTML('afterbegin',icon);
+                }else if(options.column.dataField === 'fix_row_icon') {
+                    options.cellElement.classList.add('cell-icon');
+                    const icon = '<span class="material-icons create fix-row"> create </span>';
+                    options.cellElement.insertAdjacentHTML('afterbegin',icon);
                 }
             }
         },
@@ -150,8 +160,10 @@
         },
         setVisibility() {
             const con = document.getElementById('NativeDataGridWidget-0')
-            con.addEventListener('click',(e)=> {
-                if(e.target.classList.contains('dx-button-text')) {
+            const div = this.createElement('div',{classList:'add-task-block'});
+            const btn = this.createElement('button',{classList:'add-task',textContent: 'Додати'});
+            document.body.addEventListener('click',(e)=> {
+                if((e.target.classList.contains('add-task')) || (e.target.classList.contains('fix-row'))) {
                     const msg = {
                         name: 'setVisibility',
                         package: {
@@ -162,6 +174,8 @@
                     this.messageService.publish(msg);
                 }
             })
+            div.insertAdjacentElement('beforeend',btn)
+            con.insertAdjacentElement('beforebegin',div)
         },
         afterLoadDataHandler: function() {
             this.render();
