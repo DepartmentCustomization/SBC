@@ -1,7 +1,7 @@
 (function() {
     return {
         init: function() {
-            this.sub = this.messageService.subscribe('setVisibility', this.setVisibilityTableContainer, this);
+            this.sub = this.messageService.subscribe('setVisibilityNone', this.setVisibilityTableContainer, this);
         },
         setVisibilityTableContainer(message) {
             const con = message.package.container

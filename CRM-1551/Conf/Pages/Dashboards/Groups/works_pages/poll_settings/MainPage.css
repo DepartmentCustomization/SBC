@@ -3,8 +3,12 @@
     border-left:0;
 }
 
-.calendar{
+.red{
   color: red;
+}
+
+.green{
+  color: green;
 }
 
 .dx-datagrid-addrow-button{
@@ -135,5 +139,79 @@ text-align: center!important;
 
 .interview-container{
   border: 1px solid black;
+  border-radius: 10px;
+  background-color: #e5e5e5;
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+
+#second_widget{
+  display: none;
+}
+
+.header-block{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.interview-name{
+   width: 200px;
+   padding: 10px;
+   margin: 10px 0 40px 20px;
+
+}
+
+.interview-direction{
+  padding: 10px;
+  margin: 10px 0 0 0;
+}
+
+.main-button-back{
+  padding: 5px 10px;
+  background-color: rgb(86, 109, 184);
+  color: #fff;
+  font-size: 18px;
+  font-family: Roboto;
+  outline: none;
+  border: none;
+  margin-right: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.main-button-save{
+  padding: 5px 10px;
+  background-color: rgb(153, 86, 184);
+  color: #fff;
+  font-size: 18px;
+  font-family: Roboto;
+  outline: none;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.data-block{
+  display: flex;
+  width: 65%;
+  justify-content: space-between;
+}
+
+.date-block{
+  margin-left: 20px;
+}
+
+.label-data{
+  font-weight: bold;
+  font-family: Roboto;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.date-input{
+  padding: 5px 10px;
+  font-size: 18px;
+  font-family: Roboto;
   
 }
