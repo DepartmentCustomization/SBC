@@ -34,7 +34,7 @@
                 backgroundColor: 'rgb(74, 193, 197)'
             },
             {
-                name: 'not_competent',
+                name: 'not_competence',
                 id: 'headerItem__notCompetent',
                 innerText: 'Не в компетенції',
                 colorIndex: 1,
