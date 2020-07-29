@@ -16,13 +16,6 @@
       "Name": "UserLastName",
       "FieldType": "text",
       "Position": 1
-    },
-    {
-      "Pattern": "",
-      "Code": "SystemUser",
-      "Name": "SystemUser",
-      "FieldType": "systemUser",
-      "Position": 1
     }
   ]
 }
