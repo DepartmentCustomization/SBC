@@ -1,3 +1,4 @@
+
 --на нижние таблички
   --параметры
   /*
@@ -71,12 +72,12 @@ stuff((select distinct N', '+ltrim(emergensy_id) from #temp_filter_emergensy_id 
 
 --declare @filters_an nvarchar(max)=isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or (1=2)')+isnull(N' and ( [QuestionTypes].emergency in ('+@filter_emergensy_id+N'))',N' or 1=2')
 
-declare @filters_an nvarchar(max)=N'(( '+isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or (1=2)')+N')'+isnull(N' and ( [QuestionTypes].emergency in ('+@filter_emergensy_id+N'))',N' or (1=2)')+N')'
+declare @filters_an nvarchar(max)=N'(( '+isnull(@filter_d_qt,N' 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or (1=2)')+N')'+isnull(N' and ( [QuestionTypes].emergency in ('+@filter_emergensy_id+N'))',N' or (1=2)')+N')'
 
 
 --declare @filters_ev nvarchar(max)=isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or 1=2')
 
-declare @filters_ev nvarchar(max)=N'( '+isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or 1=2')+N')'
+declare @filters_ev nvarchar(max)=N'( '+isnull(@filter_d_qt,N' 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or 1=2')+N')'
 
 --select @filters_an, @filters_ev
   --фильтрация конец
