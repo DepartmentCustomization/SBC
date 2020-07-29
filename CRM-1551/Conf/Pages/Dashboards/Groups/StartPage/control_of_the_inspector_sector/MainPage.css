@@ -81,7 +81,7 @@
     right: 4px;
 }
 
-.triangle, .not_competent_triangle, .arrived_triangle, .in_work_triangle, .overdue_triangle, .clarified_triangle, .done_triangle, .for_revision_triangle{
+.triangle, .not_competence_triangle, .arrived_triangle, .in_work_triangle, .overdue_triangle, .clarified_triangle, .done_triangle, .for_revision_triangle{
     width: 0;
     height: 0;
     position: absolute;
@@ -91,7 +91,7 @@
     right: -14px;
     top: -1px;
 }
-.triangle:before, .not_competent_triangle:before, .arrived_triangle:before, .in_work_triangle:before,  .overdue_triangle:before, .clarified_triangle:before, .done_triangle:before, .for_revision_triangle:before{
+.triangle:before, .not_competence_triangle:before, .arrived_triangle:before, .in_work_triangle:before,  .overdue_triangle:before, .clarified_triangle:before, .done_triangle:before, .for_revision_triangle:before{
     content: '';
     width: 0;
     height: 0;
@@ -106,7 +106,7 @@
     border-left: 12px solid rgb(74, 193, 197);
 }
 
-.not_competent_triangle:before{
+.not_competence_triangle:before{
     border-left: 12px solid rgb(173, 118, 205);
 }
 
