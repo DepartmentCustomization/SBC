@@ -24,10 +24,17 @@
     },
     {
       "Pattern": "",
-      "Code": "SystemUser",
-      "Name": "SystemUser",
-      "FieldType": "systemUser",
-      "Position": 1
+      "Code": "UserName",
+      "Name": "UserName",
+      "FieldType": "text",
+      "Position": 5
+    },
+    {
+      "Pattern": "",
+      "Code": "userLastName",
+      "Name": "UserLastName",
+      "FieldType": "text",
+      "Position": 5
     }
   ]
 }
