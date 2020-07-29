@@ -35,6 +35,13 @@
       "Name": "UserLastName",
       "FieldType": "text",
       "Position": 5
+    },
+    {
+      "Pattern": "",
+      "Code": "SystemUser",
+      "Name": "SystemUser",
+      "FieldType": "systemUser",
+      "Position": 6
     }
   ]
 }
