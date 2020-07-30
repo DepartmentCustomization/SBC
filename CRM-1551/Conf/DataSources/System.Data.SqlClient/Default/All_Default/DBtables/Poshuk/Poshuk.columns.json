@@ -42,40 +42,8 @@
     "IsPrintable": false
   },
   {
-    "Code": "zayavnykId",
-    "Name": "zayavnykId",
-    "Position": 8,
-    "IsPrintable": false
-  },
-  {
-    "Code": "QuestionId",
-    "Name": "QuestionId",
-    "Position": 9,
-    "IsPrintable": false
-  },
-  {
-    "Code": "short_answer",
-    "Name": "short_answer",
-    "Position": 10
-  },
-  {
-    "Code": "question_content",
-    "Name": "question_content",
-    "Position": 11
-  },
-  {
-    "Code": "adressZ",
-    "Name": "adressZ",
-    "Position": 12
-  },
-  {
     "Code": "states",
     "Name": "states",
-    "Position": 13
-  },
-  {
-    "Code": "control_date",
-    "Name": "control_date",
-    "Position": 14
+    "Position": 8
   }
 ]
