@@ -110,7 +110,7 @@
         lookupData: [],
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 405;
-            /* this.executeQueryLookup(); */
+            this.executeQueryLookup();
             this.tableContainer = document.getElementById('subTable');
             this.setVisibilityTableContainer('none');
             this.subscribers.push(this.messageService.subscribe('clickOnHeaderTable', this.changeOnTable, this));
