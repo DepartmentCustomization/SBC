@@ -57,9 +57,15 @@
                     ]
                 },
                 {
+                    dataField: 'count_not_competence',
+                    caption: 'Не в компетенції/Спростовано інспектором',
+                    width: 130,
+                    alignment: 'center'
+                },
+                {
                     dataField: 'count_built',
                     caption: 'Прострочено',
-                    width: 150,
+                    width: 130,
                     alignment: 'center'
                 },
                 {
@@ -196,9 +202,15 @@
                         ]
                     },
                     {
+                        dataField: 'count_not_competence',
+                        caption: 'Не в компетенції/Спростовано інспектором',
+                        width: 130,
+                        alignment: 'center'
+                    },
+                    {
                         dataField: 'count_built',
                         caption: 'Прострочено',
-                        width: 150,
+                        width: 130,
                         alignment: 'center'
                     },
                     {
