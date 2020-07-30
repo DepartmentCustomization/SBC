@@ -24,14 +24,14 @@
     },
     {
       "Pattern": "",
-      "Code": "UserName",
+      "Code": "myInput",
       "Name": "UserName",
       "FieldType": "text",
       "Position": 5
     },
     {
       "Pattern": "",
-      "Code": "UserLastName",
+      "Code": "secondInput",
       "Name": "UserLastName",
       "FieldType": "text",
       "Position": 5
@@ -42,8 +42,8 @@
       "Name": "SystemUser",
       "FieldType": "systemUser",
       "Position": 6,
-      "FirstName": "UserName",
-      "LastName": "UserLastName"
+      "FirstName": "myInput",
+      "LastName": "secondInput"
     }
   ]
 }
