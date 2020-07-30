@@ -31,7 +31,7 @@
     },
     {
       "Pattern": "",
-      "Code": "userLastName",
+      "Code": "UserLastName",
       "Name": "UserLastName",
       "FieldType": "text",
       "Position": 5
@@ -41,7 +41,9 @@
       "Code": "SystemUser",
       "Name": "SystemUser",
       "FieldType": "systemUser",
-      "Position": 6
+      "Position": 6,
+      "FirstName": "UserName",
+      "LastName": "UserLastName"
     }
   ]
 }
