@@ -262,3 +262,62 @@ text-align: center!important;
 .add-people-block{
   text-align: center;
 }
+
+/* DYNAMIC BLOCK */
+
+.form-list{
+  display: flex;
+  margin-right: 40px;
+  margin-left: 50px;
+}
+
+.dynamic-header{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.form-list-item{
+  padding: 5px;
+  background-color: rgb(201, 195, 195);
+  font-family: Roboto;
+  font-size: 18px;
+  border: 1px solid rgb(63, 63, 63);
+  border-radius: 2px;
+  list-style: none;
+  margin-right: 10px;
+}
+
+.interview-form-con{
+  border: 1px solid rgb(63, 63, 63); 
+  padding-top: 30px;
+  padding-bottom: 40px;
+}
+
+.dynamic-inputs-con{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 40px;
+}
+
+.dynamic-input{
+  padding: 10px ;
+  font-family: Roboto;
+  font-size: 26px;
+  text-align: center;
+  width: 450px;
+  height: 70px;
+}
+
+.answer-type-con{
+  display: flex;
+  justify-content: center;
+}
+
+.answer-type{
+  padding: 5px;
+  font-family: Roboto;
+  font-size: 28px;
+  outline: none;
+  border: none;
+  
+}

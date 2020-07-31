@@ -7,6 +7,7 @@
                     `
                     <div class='interview-container'>
                         <div class='static' id='static'></div>
+                        <div class='dynamic' id='dynamic'></div>
                     </div>
                     `
         ,
@@ -35,16 +36,75 @@
             const staticInfo = this.createStaticInfo();
             conStatic.append(headerBlock,dataBlock,staticInfo);
         },
+        createDynamic() {
+            const conDynamic = document.getElementById('dynamic');
+            conDynamic.innerHTML = '';
+            const dynamicHeader = this.createElement('div',{className: 'dynamic-header'});
+            const addNewForm = this.createAddNewForm();
+            const formList = this.createFormList();
+            const interviewForm = this.createInterviewForm();
+            dynamicHeader.append(formList,addNewForm);
+            conDynamic.append(dynamicHeader,interviewForm);
+        },
         createHeaderBlock() {
             const headerBlock = this.createElement('div', {className: 'header-block'});
             const interviewName = this.createElement('input',{className:'interview-name',placeholder:'Назва опитування',required:'true'});
             const buttonsBlock = this.createElement('div', {className: 'main-buttons-block'});
             const buttonBack = this.createElement('button', {className: 'main-button-back',textContent: 'Назад', id: 'main-button-back'});
             const buttonSave = this.createElement('button', {className: 'main-button-save',textContent:'Зберегти',id:'main-button-save'});
+            buttonBack.addEventListener('click',this.sendBlockQuery)
+            buttonSave.addEventListener('click',this.sendBlockQuery)
             const interviewDirection = this.createSelect();
             headerBlock.append(interviewName,interviewDirection,buttonsBlock);
             buttonsBlock.append(buttonBack,buttonSave);
             return headerBlock
+        },
+        createInterviewForm() {
+            const con = this.createElement('div',{className:'interview-form-con'});
+            const inputs = this.createDynamicInputs();
+            const select = this.createAnswerType();
+            const quiz = this.createQuiz('radio');
+            con.append(inputs,select,quiz)
+            return con
+        },
+        createQuiz(type) {
+            const con = this.createElement('div',{className:'quiz-con'});
+            const input = this.createElement('input',{className:'quiz-variant',type})
+            con.append(input)
+            return con
+        },
+        createAnswerType() {
+            const con = this.createElement('div',{className:'answer-type-con'});
+            const select = this.createElement('select',{className:'answer-type'});
+            const options = this.createElement('option',{className: 'answer-type-value',textContent:'Тип відповіді'});
+            select.append(options)
+            con.append(select)
+            return con
+        },
+        createDynamicInputs() {
+            const con = this.createElement('div',{className:'dynamic-inputs-con'})
+            const inputUkr = this.createElement('input',{className:'dynamic-input ukr', placeholder:'Внесіть назву питання'})
+            const inputRus = this.createElement('input',{className:'dynamic-input rus',placeholder:'Внесите название вопроса (русский)'})
+            con.append(inputUkr,inputRus);
+            return con;
+        },
+        createFormList() {
+            const arr = [1,2,3];
+            const newArr = arr.map(e=>`<li class='form-list-item'>${e}</li>`).join('');
+            const ul = this.createElement('ul',{classList: 'form-list'});
+            ul.insertAdjacentHTML('beforeend',`${newArr}`);
+            return ul
+        },
+        createAddNewForm() {
+            const className = 'add-new-form material-icons'
+            const button = this.createElement('button',{className:`${className}`,textContent:'add'});
+            return button
+        },
+        sendBlockQuery() {
+            const mainCon = document.getElementById('first_widget')
+            const tab = document.getElementById('second_widget')
+            mainCon.style.display = 'block';
+            tab.style.display = 'none';
         },
         createActivityButton() {
             const con = this.createElement('div',{className:'activity-block'});
@@ -133,6 +193,7 @@
             const con = message.package.container
             con.style.display = message.package.display;
             this.createStatic()
+            this.createDynamic()
         },
         load: function() {
         }
