@@ -13,15 +13,21 @@
       "IsPrintable": false
     },
     {
-      "Code": "result_id",
-      "Name": "result_id",
+      "Code": "resolution_id",
+      "Name": "resolution_id",
       "Position": 2,
       "IsPrintable": false
     },
     {
-      "Code": "Name",
-      "Name": "Name",
-      "Position": 2,
+      "Code": "result_id",
+      "Name": "result_id",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "resolution_name",
+      "Name": "resolution_name",
+      "Position": 4,
       "IsPrintable": false
     }
   ],
