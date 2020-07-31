@@ -25,19 +25,72 @@
         },
         createStatic() {
             const conStatic = document.getElementById('static');
+            conStatic.innerHTML = '';
+            const headerBlock = this.createHeaderBlock();
+            const dateFrom = this.createData('date-from', 'Дата старту');
+            const dateTo = this.createData('date-to', 'Дата завершення');
+            const dataBlock = this.createElement('div', {className: 'data-block'});
+            const activityButton = this.createActivityButton();
+            dataBlock.append(dateFrom,dateTo,activityButton);
+            const staticInfo = this.createStaticInfo();
+            conStatic.append(headerBlock,dataBlock,staticInfo);
+        },
+        createHeaderBlock() {
             const headerBlock = this.createElement('div', {className: 'header-block'});
             const interviewName = this.createElement('input',{className:'interview-name',placeholder:'Назва опитування',required:'true'});
             const buttonsBlock = this.createElement('div', {className: 'main-buttons-block'});
             const buttonBack = this.createElement('button', {className: 'main-button-back',textContent: 'Назад', id: 'main-button-back'});
             const buttonSave = this.createElement('button', {className: 'main-button-save',textContent:'Зберегти',id:'main-button-save'});
-            const dateFrom = this.createData('date-from', 'Дата старту');
-            const dateTo = this.createData('date-to', 'Дата завершення');
-            const dataBlock = this.createElement('div', {className: 'data-block'});
-            buttonsBlock.append(buttonBack,buttonSave);
             const interviewDirection = this.createSelect();
             headerBlock.append(interviewName,interviewDirection,buttonsBlock);
-            dataBlock.append(dateFrom,dateTo);
-            conStatic.append(headerBlock,dataBlock);
+            buttonsBlock.append(buttonBack,buttonSave);
+            return headerBlock
+        },
+        createActivityButton() {
+            const con = this.createElement('div',{className:'activity-block'});
+            const span = this.createElement('span',{className:'material-icons red activity',textContent:'pause_circle_filled'})
+            const span2 = this.createElement('span',{className:'material-icons green activity',textContent:'play_circle_filled'})
+            con.append(span);
+            con.addEventListener('click',(e)=>{
+                if(e.target.classList.contains('red')) {
+                    con.innerHTML = '';
+                    con.append(span2);
+                }else{
+                    con.innerHTML = '';
+                    con.append(span);
+                }
+            })
+            return con
+        },
+        createStaticInfo() {
+            const con = this.createElement('div',{className:'static-info-block'});
+            const chosenPeople = this.createChosenPeople();
+            const addPeople = this.createAddPeople();
+            const limit = this.createLimitPeople();
+            con.append(chosenPeople,addPeople,limit);
+            return con
+        },
+        createChosenPeople() {
+            const chosenPeople = this.createElement('div',{className:'chosen-people-block'});
+            const peopleValue = this.createElement('p',{className: 'people-value',textContent:'2500'});
+            const chosenPeopleLabel = this.createElement('p',{className:'people-label',textContent:'Вибрано людей для опитування'});
+            chosenPeople.append(peopleValue,chosenPeopleLabel);
+            return chosenPeople
+        },
+        createAddPeople() {
+            const con = this.createElement('div',{className:'add-people-block'});
+            const addPeopleLabel = this.createElement('p',{className:'add-people-label',textContent:'Додати людей для опитування'});
+            const className = 'add-people-button material-icons'
+            const button = this.createElement('button',{className:`${className}`,textContent:'add'});
+            con.append(button,addPeopleLabel);
+            return con
+        },
+        createLimitPeople() {
+            const con = this.createElement('div',{className:'limit-people-block'});
+            const limitValue = this.createElement('input',{className:'limit-value',placeholder:'100',type: 'number'});
+            const limitLabel = this.createElement('p',{className:'limit-label',textContent:'Ліміт людей для опитування'});
+            con.append(limitValue,limitLabel);
+            return con
         },
         createSelect() {
             const select = this.createElement('select', {className: 'interview-direction'});

@@ -132,9 +132,10 @@
                 if(options.column.dataField === 'idIcon') {
                     const index = options.cellElement.textContent - 1;
                     options.cellElement.classList.add('cell-icon');
-                    const classRed = index === 0 ? ' green' : ' red';
+                    const classRed = index === 0 ? ' green' : '';
+                    const classGreen = index === 1 ? ' red' : '';
                     options.cellElement.textContent = '';
-                    const icon = `<span class="material-icons ${classRed}"> ${arr[index]} </span>`;
+                    const icon = `<span class="material-icons ${classRed} ${classGreen}"> ${arr[index]} </span>`;
                     options.cellElement.insertAdjacentHTML('afterbegin',icon);
                 }else if(options.column.dataField === 'fix_row_icon') {
                     options.cellElement.classList.add('cell-icon');
