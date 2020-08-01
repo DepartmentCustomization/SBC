@@ -21,12 +21,20 @@
       "FilterParameterCode": "@vykonavets_Id"
     },
     {
-      "Code": "name",
-      "Name": "name",
+      "Code": "possible_Id",
+      "Name": "possible_Id",
       "Position": 3,
       "IsPrintable": false,
-      "SqlName": "name",
-      "FilterParameterCode": "@name"
+      "SqlName": "possible_Id",
+      "FilterParameterCode": "@possible_Id"
+    },
+    {
+      "Code": "possible_name",
+      "Name": "possible_name",
+      "Position": 4,
+      "IsPrintable": false,
+      "SqlName": "possible_name",
+      "FilterParameterCode": "@possible_name"
     }
   ]
 }
