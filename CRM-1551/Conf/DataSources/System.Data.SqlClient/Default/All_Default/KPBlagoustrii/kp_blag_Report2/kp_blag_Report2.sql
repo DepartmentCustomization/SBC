@@ -1,9 +1,9 @@
 /*[execution_date] дата контроля
-declare @sector_id int =2;
+declare @sector_id int =1;
+  declare @date_from datetime='2020-07-01 00:01'; 
+  declare @date_to datetime='2020-08-01 23:59';
   declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
-  declare @date_from datetime='2020-04-01 12:10';
-  declare @date_to datetime='2020-06-01 12:10';*/
-  
+  */
 
   if OBJECT_ID('tempdb..#temp_ass_state3') is not null drop table #temp_ass_state3
 
@@ -27,7 +27,17 @@ declare @sector_id int =2;
   and [registration_date] between @date_from and @date_to
   group by assignment_id
 
+  if OBJECT_ID('tempdb..#temp_ass_nevkom_886') is not null drop table #temp_ass_nevkom_886
 
+  select distinct [Assignment_History].assignment_id--, count(distinct [Assignment_History].assignment_id) count_ass
+  into #temp_ass_nevkom_886
+  from [dbo].[QuestionsInTerritory]
+  left join [dbo].[Assignment_History] on [Assignment_History].question_id=[QuestionsInTerritory].question_id
+  where [Log_Date] between @date_from and @date_to
+  and [Assignment_History].assignment_state_id=1/*Зареєстровано*/ and [Assignment_History].AssignmentResultsId=6 /*Повернуто виконавцю*/
+  --group by [Assignment_History].question_id
+
+  --select * from #temp_ass_nevkom_886
 --в "не в компетенції" 
 if OBJECT_ID('tempdb..#temp_ass_nevkom') is not null drop table #temp_ass_nevkom
 
@@ -41,6 +51,8 @@ into #temp_ass_nevkom
   group by [assignment_id]
 
 --stop
+	--if OBJECT_ID('tempdb..#temp_test') is not null drop table #temp_test
+
 
   if OBJECT_ID('tempdb..#temp_count_ass') is not null drop table #temp_count_ass
 
@@ -57,7 +69,8 @@ into #temp_ass_nevkom
   --SUM(count_close) count_close,
   --SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
   --SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
-  AVG(count_days_speed) count_days_speed
+  AVG(count_days_speed) count_days_speed,
+  SUM(count_nevkom) count_not_competence
   into #temp_count_ass
   from
   (
@@ -89,7 +102,8 @@ into #temp_ass_nevkom
 
   --case when [Questions].question_state_id=5 --закрито
   --then 1 else 0 end count_close
-
+  , case when temp_ass_nevkom_886.assignment_id is not null then 1 else 0 end count_nevkom 
+ -- into #temp_test
   from 
   --[dbo].[Positions]
   --inner join [dbo].[PersonExecutorChoose] on [PersonExecutorChoose].position_id=[Positions].id
@@ -106,6 +120,7 @@ into #temp_ass_nevkom
   left join #temp_ass_state3 temp_ass_state3 on [Assignments_ok].Id=temp_ass_state3.assignment_id
   left join #temp_ass_state2 temp_ass_state2 on [Assignments_ok].Id=temp_ass_state2.assignment_id
   left join #temp_ass_nevkom temp_ass_nevkom on [Assignments_ok].Id=temp_ass_nevkom.assignment_id
+  left join #temp_ass_nevkom_886 temp_ass_nevkom_886 on [Assignments_ok].Id=temp_ass_nevkom_886.assignment_id
   where [Territories].Id=@sector_id and [Assignments_ok].[registration_date] between @date_from and @date_to
   ) t
   group by [executor_organization_id]
@@ -143,6 +158,7 @@ into #temp_ass_nevkom
 
   case when count_closed_performed+count_closed_clear+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_for_completion)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end reliability --14
+  ,count_not_competence
   from 
   #temp_count_ass temp_count_que
   left join [dbo].[Organizations] with (nolock) on temp_count_que.executor_organization_id=[Organizations].Id
