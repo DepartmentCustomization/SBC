@@ -2,8 +2,8 @@
 
   /*0 2020-05-01 2020-06-01 46 сек
   declare @districts nvarchar(max)=N'0';
-  declare @date_from datetime='2020-04-01 00:01'; 
-  declare @date_to datetime='2020-06-01 23:59';
+  declare @date_from datetime='2020-07-01 00:01'; 
+  declare @date_to datetime='2020-08-01 23:59';
   declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
 */
   DECLARE @district_table TABLE (Id int);
@@ -27,6 +27,16 @@
 		end
 
 -- норм select * from @district_table
+
+if OBJECT_ID('tempdb..#temp_ass_nevkom_886') is not null drop table #temp_ass_nevkom_886
+
+  select [Assignment_History].question_id, count(distinct [Assignment_History].assignment_id) count_ass
+  into #temp_ass_nevkom_886
+  from [dbo].[QuestionsInTerritory]
+  left join [dbo].[Assignment_History] on [Assignment_History].question_id=[QuestionsInTerritory].question_id
+  where [Log_Date] between @date_from and @date_to
+  and [Assignment_History].assignment_state_id=1/*Зареєстровано*/ and [Assignment_History].AssignmentResultsId=6 /*Повернуто виконавцю*/
+  group by [Assignment_History].question_id
 
 
   if OBJECT_ID('tempdb..#temp_que_state3') is not null drop table #temp_que_state3 
@@ -85,7 +95,8 @@ into #temp_ass_nevkom
 
   --count_days_speed если 1 случая нету, то второй, если второго нету, то 1, если есть оба, то, что раньше
   --делить на то, что попало в данный расчет
-  AVG(count_days_speed) count_days_speed
+  AVG(count_days_speed) count_days_speed,
+  SUM(nevkom_886_count_ass) count_nevkom_886_ass
 
   into #temp_count_que
   from
@@ -119,11 +130,11 @@ into #temp_ass_nevkom
 		when temp_que_state2.[Log_Date] is null and temp_ass_nevkom.[Log_Date] is not null then DATEDIFF(mi, [Questions].registration_date, temp_ass_nevkom.[Log_Date])
 		when temp_que_state2.[Log_Date] is not null and temp_ass_nevkom.[Log_Date] is not null and temp_que_state2.[Log_Date]>=temp_ass_nevkom.[Log_Date]
 			then DATEDIFF(mi, [Questions].registration_date, temp_que_state2.[Log_Date])
-				else DATEDIFF(mi, [Questions].registration_date, temp_ass_nevkom.[Log_Date]) end count_days_speed
+				else DATEDIFF(mi, [Questions].registration_date, temp_ass_nevkom.[Log_Date]) end count_days_speed,
 
   --case when [Questions].question_state_id=5 --закрито
   --then 1 else 0 end count_close
-
+  temp_ass_nevkom_886.count_ass nevkom_886_count_ass
   from 
   --[dbo].[Positions]
   --inner join [dbo].[PersonExecutorChoose] on [PersonExecutorChoose].position_id=[Positions].id
@@ -139,6 +150,7 @@ into #temp_ass_nevkom
   left join #temp_que_state3 temp_que_state3 on [Questions].Id=temp_que_state3.question_id
   left join #temp_que_state2 temp_que_state2 on [Questions].Id=temp_que_state2.question_id
   left join #temp_ass_nevkom temp_ass_nevkom on [Assignments].Id=temp_ass_nevkom.assignment_id
+  left join #temp_ass_nevkom_886 temp_ass_nevkom_886 on [Questions].Id=temp_ass_nevkom_886.question_id
   where [Questions].[registration_date] between @date_from and @date_to
   ) t
   group by territories_id
@@ -177,7 +189,7 @@ into #temp_ass_nevkom
 
   case when count_closed_performed+count_closed_clear+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_for_completion)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end reliability --14
-  , 10 count_not_competence
+  ,count_nevkom_886_ass count_not_competence
   , case when count_all>1 then 'true' else 'false' end in_color
   from 
   (select [Territories].Id, [Territories].name+ISNULL(N' ('+[Positions].name+N')',N'') name
