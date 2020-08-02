@@ -7,13 +7,13 @@
                     `<div id='modalContainer'></div>
                     `
         ,
+        resultsValues: [],
+        resolutionsValues: [],
         init: function() {
             this.showPagePreloader('Зачекайте, файл завантажується');
-            this.resultsValues = [];
-            this.templateSelectValues = [];
             this.subscribers.push(this.messageService.subscribe('openModalForm', this.openModalForm, this));
             this.executeSelectResultQuery('h_JA_ResultsSRows', this.resultsValues);
-            this.executeSelectResultQuery('h_JA_ResolutionsSRows', this.templateSelectValues);
+            this.executeSelectResultQuery('h_JA_ResolutionsSRows', this.resolutionsValues);
         },
         executeSelectResultQuery: function(code, array) {
             let executeQuery = {
@@ -28,18 +28,28 @@
             this.showPreloader = false;
         },
         setResultsId: function(array, data) {
-            data.rows.forEach(el => {
-                array.push({
-                    innerText: el.values[1],
-                    value: el.values[0]
+            if(data.columns.length > 2) {
+                data.rows.forEach(el => {
+                    array.push({
+                        id: el.values[0],
+                        resolutionId: el.values[1],
+                        resultId: el.values[2],
+                        innerText: el.values[3]
+                    });
                 });
-            });
+            } else {
+                data.rows.forEach(el => {
+                    array.push({
+                        innerText: el.values[1],
+                        value: el.values[0]
+                    });
+                });
+            }
         },
         openModalForm: function(message) {
             this.sendIdValue = message.id;
             const modalContainer = document.getElementById('modalContainer');
             this.createModalWindow(modalContainer);
-
         },
         createModalWindow: function(modalContainer) {
             this.resolutionId = '';
@@ -70,7 +80,7 @@
                 { className: 'assigmResultTitle caption', innerText: 'Резолюцiя' }
             );
             const assigmResolutionWrapper = this.createElement('div',
-                { id: 'assigmResolution', className: 'displayNone assigmResultWrapper' },
+                { id: 'assigmResolution', className: 'assigmResultWrapper' },
                 assigmResolutionTitle, assigmResolution
             );
             const templateSelectOption = this.createElement('option', { innerText: '', value: 0 });
@@ -79,7 +89,7 @@
                 templateSelectOption
             );
             const assigmComment = this.createElement('input',
-                { type: 'text', id: 'assigmComment', className: 'displayNone modalItem', placeholder: 'Коментар' }
+                { type: 'text', id: 'assigmComment', className: 'modalItem', placeholder: 'Коментар' }
             );
             const modalWindow = this.createElement('div', { id: 'modalWindow' },
                 assigmResultWrapper, assigmResolutionWrapper, assigmComment, buttonWrapper
@@ -97,7 +107,7 @@
                 this.executeSendResultQuery(modalContainer);
             });
             this.setOptions(resultSelect, this.resultsValues, this);
-            this.setOptions(templateSelect, this.templateSelectValues, this);
+            this.setOptions(templateSelect, this.resolutionsValues, this);
             $('#resultSelect').on('select2:select', e => {
                 e.stopImmediatePropagation();
                 this.resultId = Number(e.params.data.id);
@@ -137,54 +147,13 @@
         },
         showHiddenElements: function(resultId, button_save) {
             button_save.disabled = false;
-            this.showHideModalElements(resultId);
             document.getElementById('resolution__value').innerText = this.getResolutionId(resultId);
             document.getElementById('resolution__value').resolutionId = this.resolutionId;
         },
         getResolutionId: function(resultId) {
-            switch (resultId) {
-                case 4:
-                    this.resolutionId = 9;
-                    return 'Підтверджено заявником';
-                case 9:
-                    this.resolutionId = null;
-                    return '';
-                case 5:
-                case 10:
-                case 12:
-                    this.resolutionId = 8;
-                    return 'Виконання не підтверджено заявником ';
-                case 7:
-                    this.resolutionId = 6;
-                    return 'Перевірено куратором';
-                case 11:
-                    this.resolutionId = 10;
-                    return 'Заявник усунув проблему власними силами';
-                default:
-                    return undefined
-            }
-        },
-        showHideModalElements: function(resultId) {
-            switch (resultId) {
-                case 4:
-                case 9:
-                case 5:
-                case 7:
-                case 10:
-                case 11:
-                case 12:
-                    this.showElement('assigmComment');
-                    this.showElement('assigmResolution');
-                    break;
-                case 13:
-                    this.showElement('assigmComment');
-                    this.hideElement('assigmResolution');
-                    break;
-                default:
-                    this.hideElement('assigmComment');
-                    this.hideElement('assigmResolution');
-                    break;
-            }
+            const index = this.resolutionsValues.findIndex(a => a.resultId === resultId);
+            this.resolutionId = this.resolutionsValues[index].resolutionId;
+            return this.resolutionsValues[index].innerText;
         },
         hideElement: function(id) {
             document.getElementById(id).classList.add('displayNone');
