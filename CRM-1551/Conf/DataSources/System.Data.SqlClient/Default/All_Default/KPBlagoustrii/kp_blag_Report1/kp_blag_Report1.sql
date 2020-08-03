@@ -2,12 +2,15 @@
 
   /*0 2020-05-01 2020-06-01 46 сек
   declare @districts nvarchar(max)=N'0';
-  declare @date_from datetime='2020-07-01 00:01'; 
+  declare @date_from datetime='2020-06-01 00:01'; 
   declare @date_to datetime='2020-08-01 23:59';
-  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
-  */
+  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';*/
+  
   DECLARE @district_table TABLE (Id int);
   
+  if OBJECT_ID('tempdb..#temp_district') is not null drop table #temp_district
+
+  create table #temp_district(district_id int, name nvarchar(100))
 
   if charindex(N'0',@districts, 1)=1
    or charindex(N',0,',@districts, 1)>0
@@ -16,6 +19,12 @@
 	    begin
 			insert into @district_table (Id)
 			select Id from [dbo].[Districts]   
+
+			insert into #temp_district (district_id, name)
+			select distinct [Districts].Id, [Districts].name
+			 from [dbo].[Territories] 
+			inner join [dbo].[Objects] on [Territories].object_id=[Objects].Id
+			inner join [dbo].[Districts] on [Objects].district_id=[Districts].Id
 	    end
 
   else
@@ -24,6 +33,13 @@
 
 			select value*1 n
 			from string_split((select @districts n), N',')
+
+			insert into #temp_district (district_id, name)
+			select distinct [Districts].Id, [Districts].name
+			 from [dbo].[Territories] 
+			inner join [dbo].[Objects] on [Territories].object_id=[Objects].Id
+			inner join [dbo].[Districts] on [Objects].district_id=[Districts].Id
+			inner join @district_table dt on [Districts].Id=dt.Id
 		end
 
 -- норм select * from @district_table
@@ -233,7 +249,7 @@ into #temp_ass_nevkom
 
   union all
 
-  select district_id, district_id*(-1) Id, [Districts].name,
+  select #temp_district.district_id, #temp_district.district_id*(-1) Id, #temp_district.name,
   SUM(count_all) count_all, --2
   SUM(count_registered) count_registered, --3
   SUM(count_in_work) count_in_work, --4
@@ -266,9 +282,13 @@ into #temp_ass_nevkom
   end reliability, --14
   SUM(nevkom_886_count_ass) count_not_competence,
   'true' in_color
-  from #temp_count_que_down
-  inner join [dbo].[Districts] on #temp_count_que_down.district_id=[Districts].Id
-  group by district_id, [Districts].name
+  from 
+  #temp_district left join
+  #temp_count_que_down on #temp_district.district_id=#temp_count_que_down.district_id
+  --inner join [dbo].[Districts] on #temp_count_que_down.district_id=[Districts].Id
+  group by #temp_district.district_id, #temp_district.name
+
+  --select * from #temp_count_que_down
 
   select --district_id, 
   Id, territories_name,
@@ -289,3 +309,5 @@ into #temp_ass_nevkom
   in_color
   from #temp_count_all_all
   order by district_id, Id
+
+  --select * from #temp_count_all_all
