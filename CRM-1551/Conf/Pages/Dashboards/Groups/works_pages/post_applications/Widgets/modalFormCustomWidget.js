@@ -55,7 +55,6 @@
             this.resolutionId = '';
             this.resultId = '';
             this.comment = '';
-            this.checkBoxChecked = '';
             this.selectedRows = [];
             const button_close = this.createElement('button', { id: 'button_close', className: 'modalBtn', innerText: 'Закрити' });
             const button_save = this.createElement('button',
@@ -129,14 +128,12 @@
                     { key: '@resolution_Id', value: this.resolutionId }
                 ]
             };
-            this.queryExecutor(executeQuery, this.closeModal.bind(this, modalContainer, true), this);
+            this.queryExecutor(executeQuery, this.closeModal.bind(this, modalContainer), this);
             this.showPreloader = false;
         },
-        closeModal: function(modalContainer, reload) {
+        closeModal: function(modalContainer) {
             modalContainer.removeChild(modalContainer.firstElementChild);
-            if (reload) {
-                this.messageService.publish({ name: 'reloadMainTable'});
-            }
+            this.messageService.publish({ name: 'reloadMainTable'});
         },
         setOptions: function(select, data) {
             data.forEach(el => {
@@ -152,8 +149,9 @@
         },
         getResolutionId: function(resultId) {
             const index = this.resolutionsValues.findIndex(a => a.resultId === resultId);
-            this.resolutionId = this.resolutionsValues[index].resolutionId;
-            return this.resolutionsValues[index].innerText;
+            this.resolutionId = index !== -1 ? this.resolutionsValues[index].resolutionId : undefined;
+            const resolutionText = index !== -1 ? this.resolutionsValues[index].innerText : ''
+            return resolutionText;
         },
         hideElement: function(id) {
             document.getElementById(id).classList.add('displayNone');
