@@ -63,14 +63,37 @@
             const con = this.createElement('div',{className:'interview-form-con'});
             const inputs = this.createDynamicInputs();
             const select = this.createAnswerType();
-            const quiz = this.createQuiz('radio');
-            con.append(inputs,select,quiz)
+            const quiz = this.createQuiz();
+            const addVariant = this.createAddVariantBtn();
+            con.append(inputs,select,quiz,addVariant)
             return con
         },
-        createQuiz(type) {
+        createQuiz() {
             const con = this.createElement('div',{className:'quiz-con'});
-            const input = this.createElement('input',{className:'quiz-variant',type})
+            const input = this.createElement('input',{className:'quiz-variant',placeholder:'Варіант1'})
+            input.addEventListener('keypress',function(e) {
+                if(e.keyCode === 13) {
+                    const newInput = input.cloneNode();
+                    input.after(newInput)
+                }
+            })
             con.append(input)
+            return con
+        },
+        createAddVariantBtn() {
+            const con = this.createElement('div',{className:'add-variant-con'});
+            const addVariant = this.createElement('button',{classList:'add-variant',textContent:'Додати варіант'})
+            addVariant.addEventListener('click',()=>{
+                const quizCon = document.querySelector('.quiz-con')
+                quizCon.append(this.createQuiz())
+            })
+            addVariant.addEventListener('keypress',(e)=>{
+                if(e.keyCode === 13) {
+                    const quizCon = document.querySelector('.quiz-con')
+                    quizCon.append(this.createQuiz())
+                }
+            })
+            con.append(addVariant);
             return con
         },
         createAnswerType() {
