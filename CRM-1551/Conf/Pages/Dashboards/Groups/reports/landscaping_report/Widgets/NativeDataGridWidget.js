@@ -74,6 +74,10 @@
                     alignment: 'center'
                 },
                 {
+                    dataField:'in_color',
+                    width:0
+                },
+                {
                     caption: 'Показники',
                     alignment: 'center',
                     columns: [
@@ -271,6 +275,8 @@
             this.dataGridInstance.height = window.innerHeight - 100;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
+            this.config.onCellPrepared = this.onCellPrepared.bind(this);
+            this.config.onRowPrepared = this.onRowPrepared.bind(this);
         },
         masterDetailInitialized: function(event, row) {
             row.dataSource = [];
@@ -284,6 +290,22 @@
                 ]
             };
             this.queryExecutor(masterDetailQuery, this.setMasterDetailDataSource.bind(this, row), this);
+        },
+        onCellPrepared: function(options) {
+            if(options.rowType === 'data') {
+                if(options.column.dataField === 'in_color') {
+                    if (options.cellElement.textContent === '1') {
+                        options.cellElement.classList.add('cell-icon-colored');
+                    }
+                }
+            }
+        },
+        onRowPrepared(options) {
+            if(options.rowType === 'data') {
+                if(options.rowElement.querySelector('.cell-icon-colored')) {
+                    options.rowElement.style.backgroundColor = '#def1ef'
+                }
+            }
         },
         setMasterDetailDataSource: function(row, data) {
             const dataSource = [];
