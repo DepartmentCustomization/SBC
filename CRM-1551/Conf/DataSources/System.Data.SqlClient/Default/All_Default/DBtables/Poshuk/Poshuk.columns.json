@@ -50,5 +50,20 @@
     "Code": "control_date",
     "Name": "control_date",
     "Position": 9
+  },
+  {
+    "Code": "zayavnyk_adress",
+    "Name": "zayavnyk_adress",
+    "Position": 10
+  },
+  {
+    "Code": "zayavnyk_zmist",
+    "Name": "zayavnyk_zmist",
+    "Position": 11
+  },
+  {
+    "Code": "balans_name",
+    "Name": "balans_name",
+    "Position": 12
   }
 ]
