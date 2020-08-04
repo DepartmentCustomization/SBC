@@ -243,7 +243,7 @@ into #temp_ass_nevkom
   implementation, --13
   reliability, --14
   count_not_competence,
-  'false' in_color
+  0 in_color
   into #temp_count_all_all
   from #temp_count_all
 
@@ -281,7 +281,7 @@ into #temp_ass_nevkom
   else convert(numeric(8,2),(1.00-(convert(float,sum(count_for_completion))/convert(float,(sum(count_closed_performed)+sum(count_closed_clear)+sum(count_for_completion)))))*100.00) 
   end reliability, --14
   SUM(nevkom_886_count_ass) count_not_competence,
-  'true' in_color
+  1 in_color
   from 
   #temp_district left join
   #temp_count_que_down on #temp_district.district_id=#temp_count_que_down.district_id
