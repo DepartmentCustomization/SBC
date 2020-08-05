@@ -60,3 +60,7 @@
 .widget-parent{
     border: none;
 }
+
+#colored-row-element{
+    background-color: black!important;
+}
