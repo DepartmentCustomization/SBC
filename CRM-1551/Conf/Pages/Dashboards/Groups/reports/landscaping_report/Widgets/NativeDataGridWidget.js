@@ -57,9 +57,15 @@
                     ]
                 },
                 {
+                    dataField: 'count_not_competence',
+                    caption: 'Не в компетенції/Спростовано інспектором',
+                    width: 130,
+                    alignment: 'center'
+                },
+                {
                     dataField: 'count_built',
                     caption: 'Прострочено',
-                    width: 150,
+                    width: 130,
                     alignment: 'center'
                 },
                 {
@@ -196,9 +202,15 @@
                         ]
                     },
                     {
+                        dataField: 'count_not_competence',
+                        caption: 'Не в компетенції/Спростовано інспектором',
+                        width: 130,
+                        alignment: 'center'
+                    },
+                    {
                         dataField: 'count_built',
                         caption: 'Прострочено',
-                        width: 150,
+                        width: 130,
                         alignment: 'center'
                     },
                     {
@@ -255,9 +267,12 @@
         },
         firstLoad: true,
         init: function() {
+            this.applyChanges(true);
             this.dataGridInstance.height = window.innerHeight - 100;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.applyChanges, this);
+            this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
+            this.config.onCellPrepared = this.onCellPrepared.bind(this);
+            this.config.onRowPrepared = this.onRowPrepared.bind(this);
         },
         masterDetailInitialized: function(event, row) {
             row.dataSource = [];
@@ -271,6 +286,23 @@
                 ]
             };
             this.queryExecutor(masterDetailQuery, this.setMasterDetailDataSource.bind(this, row), this);
+        },
+        onCellPrepared: function(options) {
+            if(options.rowType === 'data') {
+                if(options.data.in_color === 1) {
+                    if(options.cellElement.classList.contains('dx-datagrid-group-space')) {
+                        options.cellElement.innerHTML = ''
+                        options.cellElement.className = 'new-class'
+                    }
+                }
+            }
+        },
+        onRowPrepared(options) {
+            if(options.rowType === 'data') {
+                if(options.data.in_color === 1) {
+                    options.rowElement.style.backgroundColor = '#def1ef'
+                }
+            }
         },
         setMasterDetailDataSource: function(row, data) {
             const dataSource = [];
@@ -298,15 +330,14 @@
         destroy: function() {
             this.sub.unsubscribe();
         },
-        applyChanges: function() {
+        applyChanges: function(state) {
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
-                    value: false
+                    value: state
                 }
             };
             this.messageService.publish(msg);
-            this.loadData(this.afterLoadDataHandler);
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
@@ -321,10 +352,6 @@
                         {key: '@date_to' , value: this.dateTo },
                         {key: '@districts' , value: this.districts }
                     ];
-                    if (this.firstLoad) {
-                        this.loadData(this.afterLoadDataHandler);
-                        this.firstLoad = false;
-                    }
                 }
             }
         },
@@ -335,6 +362,10 @@
                 return valuesList.join(', ');
             }
             return [];
+        },
+        renderTable() {
+            this.loadData(this.afterLoadDataHandler)
+            this.applyChanges(false)
         },
         afterLoadDataHandler: function() {
             this.render();

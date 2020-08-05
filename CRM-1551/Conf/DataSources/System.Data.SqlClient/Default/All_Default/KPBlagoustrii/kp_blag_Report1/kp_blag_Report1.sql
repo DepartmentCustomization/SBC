@@ -2,12 +2,15 @@
 
   /*0 2020-05-01 2020-06-01 46 сек
   declare @districts nvarchar(max)=N'0';
-  declare @date_from datetime='2020-04-01 00:01'; 
-  declare @date_to datetime='2020-06-01 23:59';
-  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
-*/
+  declare @date_from datetime='2020-06-01 00:01'; 
+  declare @date_to datetime='2020-08-01 23:59';
+  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';*/
+  
   DECLARE @district_table TABLE (Id int);
   
+  if OBJECT_ID('tempdb..#temp_district') is not null drop table #temp_district
+
+  create table #temp_district(district_id int, name nvarchar(100))
 
   if charindex(N'0',@districts, 1)=1
    or charindex(N',0,',@districts, 1)>0
@@ -16,6 +19,12 @@
 	    begin
 			insert into @district_table (Id)
 			select Id from [dbo].[Districts]   
+
+			insert into #temp_district (district_id, name)
+			select distinct [Districts].Id, [Districts].name
+			 from [dbo].[Territories] 
+			inner join [dbo].[Objects] on [Territories].object_id=[Objects].Id
+			inner join [dbo].[Districts] on [Objects].district_id=[Districts].Id
 	    end
 
   else
@@ -24,9 +33,26 @@
 
 			select value*1 n
 			from string_split((select @districts n), N',')
+
+			insert into #temp_district (district_id, name)
+			select distinct [Districts].Id, [Districts].name
+			 from [dbo].[Territories] 
+			inner join [dbo].[Objects] on [Territories].object_id=[Objects].Id
+			inner join [dbo].[Districts] on [Objects].district_id=[Districts].Id
+			inner join @district_table dt on [Districts].Id=dt.Id
 		end
 
 -- норм select * from @district_table
+
+if OBJECT_ID('tempdb..#temp_ass_nevkom_886') is not null drop table #temp_ass_nevkom_886
+
+  select [Assignment_History].question_id, count(distinct [Assignment_History].assignment_id) count_ass
+  into #temp_ass_nevkom_886
+  from [dbo].[QuestionsInTerritory]
+  left join [dbo].[Assignment_History] on [Assignment_History].question_id=[QuestionsInTerritory].question_id
+  where [Log_Date] between @date_from and @date_to
+  and [Assignment_History].assignment_state_id=1/*Зареєстровано*/ and [Assignment_History].AssignmentResultsId=6 /*Повернуто виконавцю*/
+  group by [Assignment_History].question_id
 
 
   if OBJECT_ID('tempdb..#temp_que_state3') is not null drop table #temp_que_state3 
@@ -67,30 +93,11 @@ into #temp_ass_nevkom
 
   CREATE INDEX i1 ON #temp_ass_nevkom ([assignment_id]);
 
-  if OBJECT_ID('tempdb..#temp_count_que') is not null drop table #temp_count_que
+  --для районов начало
 
-  select territories_id, --1
-  SUM(count_all) count_all, --2
-  SUM(count_registered) count_registered, --3
-  SUM(count_in_work) count_in_work, --4
-  SUM(count_on_inspection) count_on_inspection,
-  SUM(count_closed_performed) count_closed_performed,
-  SUM(count_closed_clear) count_closed_clear,
-  SUM(count_for_completion) count_for_completion,
-  SUM(count_built) count_built,
-  SUM(count_not_processed_in_time) count_not_processed_in_time,
-  --SUM(count_close) count_close,
-  --SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
-  --SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
+  if OBJECT_ID('tempdb..#temp_count_que_down') is not null drop table #temp_count_que_down
 
-  --count_days_speed если 1 случая нету, то второй, если второго нету, то 1, если есть оба, то, что раньше
-  --делить на то, что попало в данный расчет
-  AVG(count_days_speed) count_days_speed
-
-  into #temp_count_que
-  from
-  (
-  select [Territories].Id territories_id, --[Territories].name,
+  select [Questions].Id, [Objects].district_id, [Territories].Id territories_id, --[Territories].name,
   1 count_all,
   case when [Questions].question_state_id=1 --зареєстровано
   then 1 else 0 end count_registered,
@@ -119,11 +126,12 @@ into #temp_ass_nevkom
 		when temp_que_state2.[Log_Date] is null and temp_ass_nevkom.[Log_Date] is not null then DATEDIFF(mi, [Questions].registration_date, temp_ass_nevkom.[Log_Date])
 		when temp_que_state2.[Log_Date] is not null and temp_ass_nevkom.[Log_Date] is not null and temp_que_state2.[Log_Date]>=temp_ass_nevkom.[Log_Date]
 			then DATEDIFF(mi, [Questions].registration_date, temp_que_state2.[Log_Date])
-				else DATEDIFF(mi, [Questions].registration_date, temp_ass_nevkom.[Log_Date]) end count_days_speed
+				else DATEDIFF(mi, [Questions].registration_date, temp_ass_nevkom.[Log_Date]) end count_days_speed,
 
   --case when [Questions].question_state_id=5 --закрито
   --then 1 else 0 end count_close
-
+  temp_ass_nevkom_886.count_ass nevkom_886_count_ass
+  into #temp_count_que_down
   from 
   --[dbo].[Positions]
   --inner join [dbo].[PersonExecutorChoose] on [PersonExecutorChoose].position_id=[Positions].id
@@ -139,13 +147,41 @@ into #temp_ass_nevkom
   left join #temp_que_state3 temp_que_state3 on [Questions].Id=temp_que_state3.question_id
   left join #temp_que_state2 temp_que_state2 on [Questions].Id=temp_que_state2.question_id
   left join #temp_ass_nevkom temp_ass_nevkom on [Assignments].Id=temp_ass_nevkom.assignment_id
+  left join #temp_ass_nevkom_886 temp_ass_nevkom_886 on [Questions].Id=temp_ass_nevkom_886.question_id
   where [Questions].[registration_date] between @date_from and @date_to
-  ) t
+  --для районов конец
+
+  --select * from #temp_count_que_down
+
+  if OBJECT_ID('tempdb..#temp_count_que') is not null drop table #temp_count_que
+
+  select territories_id, --1
+  SUM(count_all) count_all, --2
+  SUM(count_registered) count_registered, --3
+  SUM(count_in_work) count_in_work, --4
+  SUM(count_on_inspection) count_on_inspection,
+  SUM(count_closed_performed) count_closed_performed,
+  SUM(count_closed_clear) count_closed_clear,
+  SUM(count_for_completion) count_for_completion,
+  SUM(count_built) count_built,
+  SUM(count_not_processed_in_time) count_not_processed_in_time,
+  --SUM(count_close) count_close,
+  --SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
+  --SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
+
+  --count_days_speed если 1 случая нету, то второй, если второго нету, то 1, если есть оба, то, что раньше
+  --делить на то, что попало в данный расчет
+  AVG(count_days_speed) count_days_speed,
+  SUM(nevkom_886_count_ass) count_nevkom_886_ass
+
+  into #temp_count_que
+  from #temp_count_que_down t
   group by territories_id
 
   --тут стоп
+  if OBJECT_ID('tempdb..#temp_count_all') is not null drop table #temp_count_all
 
-  select s.Id, s.name territories_name,
+  select s.district_id, s.Id, s.name territories_name,
   count_all,
   count_registered,
   count_in_work,
@@ -177,8 +213,11 @@ into #temp_ass_nevkom
 
   case when count_closed_performed+count_closed_clear+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_for_completion)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end reliability --14
+  ,count_nevkom_886_ass count_not_competence
+  --, case when count_all>1 then 'true' else 'false' end in_color
+  into #temp_count_all
   from 
-  (select [Territories].Id, [Territories].name+ISNULL(N' ('+[Positions].name+N')',N'') name
+  (select [Objects].district_id, [Territories].Id, [Territories].name+ISNULL(N' ('+[Positions].name+N')',N'') name
   from [dbo].[Territories] with (nolock)
   inner join [dbo].[Objects] with (nolock) on [Territories].object_id=[Objects].Id
   inner join @district_table d on [Objects].district_id=d.Id
@@ -186,10 +225,89 @@ into #temp_ass_nevkom
   left join [dbo].[PersonExecutorChoose] with (nolock) ON [PersonExecutorChooseObjects].person_executor_choose_id=[PersonExecutorChoose].Id
   left join [dbo].[Positions] with (nolock) ON [PersonExecutorChoose].position_id=[Positions].id) s
   left join #temp_count_que temp_count_que ON s.id=temp_count_que.territories_id
-  --where
-  --#filter_columns#
-  ----#sort_columns#
-  order by 1
-  --offset @pageOffsetRows rows fetch next @pageLimitRows rows only
 
-  --order by id
+  if OBJECT_ID('tempdb..#temp_count_all_all') is not null drop table #temp_count_all_all
+
+  select district_id, Id, territories_name,
+  count_all,
+  count_registered,
+  count_in_work,
+  count_on_inspection,
+  count_closed_performed,
+  count_closed_clear,
+  count_for_completion,
+  count_built,
+  count_not_processed_in_time,
+  speed_of_employment,
+  timely_processed, --12
+  implementation, --13
+  reliability, --14
+  count_not_competence,
+  0 in_color
+  into #temp_count_all_all
+  from #temp_count_all
+
+  union all
+
+  select #temp_district.district_id, #temp_district.district_id*(-1) Id, #temp_district.name,
+  SUM(count_all) count_all, --2
+  SUM(count_registered) count_registered, --3
+  SUM(count_in_work) count_in_work, --4
+  SUM(count_on_inspection) count_on_inspection,
+  SUM(count_closed_performed) count_closed_performed,
+  SUM(count_closed_clear) count_closed_clear,
+  SUM(count_for_completion) count_for_completion,
+  SUM(count_built) count_built,
+  SUM(count_not_processed_in_time) count_not_processed_in_time,
+  --SUM(count_close) count_close,
+  --SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
+  --SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
+
+  --count_days_speed если 1 случая нету, то второй, если второго нету, то 1, если есть оба, то, что раньше
+  --делить на то, что попало в данный расчет
+  --AVG(count_days_speed) count_days_speed,
+  --
+  --convert(numeric(8,2),count_days_speed/60.00) speed_of_employment,
+  convert(numeric(8,2),AVG(count_days_speed)/60.00) speed_of_employment,
+  case when sum(count_on_inspection)+sum(count_closed_performed)+sum(count_closed_clear)+sum(count_for_completion)=0 then null
+  else convert(numeric(8,2),(1.00-(convert(float,sum(count_not_processed_in_time))/convert(float,(sum(count_on_inspection)+sum(count_closed_performed)+sum(count_closed_clear)+sum(count_for_completion)))))*100.00) 
+  end timely_processed, --12
+
+  case when sum(count_closed_performed)+sum(count_closed_clear)+sum(count_for_completion)=0 then null 
+  else convert(numeric(8,2),(convert(float,sum(count_closed_performed))/convert(float,(sum(count_closed_performed)+sum(count_closed_clear)+sum(count_for_completion))))*100.00) 
+  end implementation, --13
+
+  case when sum(count_closed_performed)+sum(count_closed_clear)+sum(count_for_completion)=0 then null
+  else convert(numeric(8,2),(1.00-(convert(float,sum(count_for_completion))/convert(float,(sum(count_closed_performed)+sum(count_closed_clear)+sum(count_for_completion)))))*100.00) 
+  end reliability, --14
+  SUM(nevkom_886_count_ass) count_not_competence,
+  1 in_color
+  from 
+  #temp_district left join
+  #temp_count_que_down on #temp_district.district_id=#temp_count_que_down.district_id
+  --inner join [dbo].[Districts] on #temp_count_que_down.district_id=[Districts].Id
+  group by #temp_district.district_id, #temp_district.name
+
+  --select * from #temp_count_que_down
+
+  select --district_id, 
+  Id, territories_name,
+  count_all,
+  count_registered,
+  count_in_work,
+  count_on_inspection,
+  count_closed_performed,
+  count_closed_clear,
+  count_for_completion,
+  count_built,
+  count_not_processed_in_time,
+  speed_of_employment,
+  timely_processed, --12
+  implementation, --13
+  reliability, --14
+  count_not_competence,
+  in_color
+  from #temp_count_all_all
+  order by district_id, Id
+
+  --select * from #temp_count_all_all
