@@ -121,7 +121,7 @@
                         } else if (e.data.gorodok_id === this.one) {
                             window.open(String(location.origin +
                                 localStorage.getItem('VirtualPath') +
-                                '/sections/Gorodok_global/view/' + e.key
+                                '/sections/Gorodok_global/edit/' + e.key
                             ));
                         }
                     }
