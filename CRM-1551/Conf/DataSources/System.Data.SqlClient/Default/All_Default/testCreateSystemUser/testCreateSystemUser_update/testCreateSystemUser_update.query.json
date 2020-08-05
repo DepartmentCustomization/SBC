@@ -1,0 +1,52 @@
+{
+    "ModelType": "Query",
+    "Code": "testCreateSystemUser_update",
+    "Name": "testCreateSystemUser_update",
+    "ConnectionCode": "Default",
+    "Parameters": [
+      {
+        "Code": "@FirstName",
+        "Name": "FirstName"
+      },
+      {
+        "Code": "@LastName",
+        "Name": "LastName"
+      },
+      {
+        "Code": "@Patronymic",
+        "Name": "Patronymic"
+      },
+      {
+        "Code": "@UseEDS",
+        "Name": "UseEDS"
+      },
+      {
+        "Code": "@INN",
+        "Name": "INN"
+      },
+      {
+        "Code": "@Avatar",
+        "Name": "Avatar"
+      },
+      {
+        "Code": "@Active",
+        "Name": "Active"
+      },
+      {
+        "Code": "@PhoneNumber",
+        "Name": "PhoneNumber"
+      },
+      {
+        "Code": "@DashboardPageCode",
+        "Name": "DashboardPageCode"
+      },
+      {
+        "Code": "@SystemUser",
+        "Name": "SystemUser"
+      },
+      {
+        "Code": "@Id",
+        "Name": "Id"
+      }
+  ]
+  }

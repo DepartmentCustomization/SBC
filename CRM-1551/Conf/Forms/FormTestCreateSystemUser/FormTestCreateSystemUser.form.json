@@ -1,0 +1,13 @@
+{
+  "ModelType": "Form",
+  "Code": "FormTestCreateSystemUser",
+  "Name": "Тестирование создания пользователя",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Group_User.fieldgroup.json"
+    ],
+    "DefaultFields": [],
+    "Script": "string:FormTestCreateSystemUser.form.js"
+  }
+}

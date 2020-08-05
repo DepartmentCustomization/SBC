@@ -1,0 +1,15 @@
+{
+    "Add": {
+      "InsertQueryCode": "testCreateSystemUser_insert"
+    },
+    "ModelType": "Section",
+    "Code": "testCreateSystemUser",
+    "Name": "Тестирование создания пользователя на форме",
+    "FormCode": "FormTestCreateSystemUser",
+    "SelectRowsQueryCode": "testCreateSystemUser_rows",
+    "SelectRowQueryCode": "testCreateSystemUser_row",
+    "UpdateQueryCode": "testCreateSystemUser_update",
+    "DeleteQueryCode": "testCreateSystemUser_delete"
+  }
+  
+  

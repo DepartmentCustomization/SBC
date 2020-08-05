@@ -1,0 +1,13 @@
+{
+    "ModelType": "Query",
+    "Code": "testCreateSystemUser_delete",
+    "Name": "testCreateSystemUser_delete",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Parameters": [
+        {
+          "Code": "@Id",
+          "Name": "Id"
+        }
+      ]
+  }
