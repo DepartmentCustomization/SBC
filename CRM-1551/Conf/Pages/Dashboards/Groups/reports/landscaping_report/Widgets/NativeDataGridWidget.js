@@ -74,10 +74,6 @@
                     alignment: 'center'
                 },
                 {
-                    dataField:'in_color',
-                    width:0
-                },
-                {
                     caption: 'Показники',
                     alignment: 'center',
                     columns: [
@@ -293,16 +289,17 @@
         },
         onCellPrepared: function(options) {
             if(options.rowType === 'data') {
-                if(options.column.dataField === 'in_color') {
-                    if (options.cellElement.textContent === '1') {
-                        options.cellElement.classList.add('cell-icon-colored');
+                if(options.data.in_color === 1) {
+                    if(options.cellElement.classList.contains('dx-datagrid-group-space')) {
+                        options.cellElement.innerHTML = ''
+                        options.cellElement.className = 'new-class'
                     }
                 }
             }
         },
         onRowPrepared(options) {
             if(options.rowType === 'data') {
-                if(options.rowElement.querySelector('.cell-icon-colored')) {
+                if(options.data.in_color === 1) {
                     options.rowElement.style.backgroundColor = '#def1ef'
                 }
             }
