@@ -63,38 +63,88 @@
             const con = this.createElement('div',{className:'interview-form-con'});
             const inputs = this.createDynamicInputs();
             const select = this.createAnswerType();
+            const createTestForm = this.createElement('div',{className:'test-form-con'})
             const quiz = this.createQuiz();
             const addVariant = this.createAddVariantBtn();
-            con.append(inputs,select,quiz,addVariant)
+            createTestForm.append(quiz);
+            const footer = this.createInterviewFormFooter();
+            con.append(inputs,select,createTestForm,addVariant,footer)
             return con
         },
         createQuiz() {
             const con = this.createElement('div',{className:'quiz-con'});
-            const input = this.createElement('input',{className:'quiz-variant',placeholder:'Варіант1'})
-            input.addEventListener('keypress',function(e) {
-                if(e.keyCode === 13) {
-                    const newInput = input.cloneNode();
-                    input.after(newInput)
+            const inputUkr = this.createElement('input',{className:'quiz-variant-ukr quiz-variant',placeholder:'Варіант',required: true})
+            const inputRus = this.createElement('input',{className:'quiz-variant-rus quiz-variant',placeholder:'Вариант', required: true})
+            const span = this.deleteVariant()
+            con.append(inputUkr,span,inputRus)
+            return con
+        },
+        deleteVariant() {
+            const span = this.createElement('span',{className:'material-icons delete-variant',textContent:'delete'});
+            span.addEventListener('click',(e)=>{
+                const warn = document.querySelector('.warning');
+                if(warn) {
+                    warn.remove()
                 }
-            })
-            con.append(input)
+                e.target.closest('div').remove();
+            });
+            return span
+        },
+        createInterviewFormFooter() {
+            const con = this.createElement('div',{className:'interview-form-footer'});
+            const arrowLeft = this.createElement('span',{className:'arrow material-icons', textContent:'arrow_back'})
+            const arrowRight = this.createElement('span',{className:'arrow material-icons', textContent:'arrow_forward'})
+            const btnsCon = this.createElement('div',{className:'interview-form-btn-con'});
+            const saveBtn = this.createElement('button',{className:'save-form interview-form-btn', textContent:'Зберегти'})
+            const cancelBtn = this.createElement('button',{className:'delete-form interview-form-btn', textContent:'Видалити'})
+            btnsCon.append(cancelBtn,saveBtn)
+            con.append(arrowLeft,btnsCon,arrowRight)
             return con
         },
         createAddVariantBtn() {
             const con = this.createElement('div',{className:'add-variant-con'});
             const addVariant = this.createElement('button',{classList:'add-variant',textContent:'Додати варіант'})
+            const span = this.createElement('span',{className:'add-variant-span', textContent:'або'})
+            const addYourVariant = this.createElement('button',{classList:'add-your-variant',textContent:'Додати варіант "інше"'})
+            addYourVariant.addEventListener('click',this.addYourVariantFunc.bind(this))
             addVariant.addEventListener('click',()=>{
-                const quizCon = document.querySelector('.quiz-con')
-                quizCon.append(this.createQuiz())
-            })
-            addVariant.addEventListener('keypress',(e)=>{
-                if(e.keyCode === 13) {
-                    const quizCon = document.querySelector('.quiz-con')
-                    quizCon.append(this.createQuiz())
+                const mainCon = document.querySelector('.test-form-con')
+                const inputList = document.querySelectorAll('.quiz-variant')
+                let flag = true;
+                inputList.forEach(e=>{
+                    if(e.value === '') {
+                        flag = false
+                    }
+                })
+                if(flag) {
+                    const warn = document.querySelector('.warning');
+                    if(warn) {
+                        warn.remove()
+                    }
+                    mainCon.append(this.createQuiz())
+                }else {
+                    const warn = document.querySelector('.warning');
+                    if(warn) {
+                        warn.remove()
+                    }
+                    const warning = '<p class="warning">Всі поля повинні бути заповнені</p>';
+                    mainCon.insertAdjacentHTML('beforeend',warning)
                 }
             })
-            con.append(addVariant);
+            con.append(addVariant,span,addYourVariant);
             return con
+        },
+        addYourVariantFunc() {
+            const mainCon = document.querySelector('.test-form-con')
+            const otherVariant = document.querySelector('.other-variant-con')
+            if(otherVariant) {
+                otherVariant.remove()
+            }
+            const con = this.createElement('div',{className:'other-variant-con'});
+            const div = this.createElement('div',{className:'other-variant',textContent: 'Інше'});
+            const deleteDiv = this.deleteVariant();
+            con.append(div,deleteDiv)
+            mainCon.after(con)
         },
         createAnswerType() {
             const con = this.createElement('div',{className:'answer-type-con'});
