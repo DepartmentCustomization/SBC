@@ -28,8 +28,10 @@
             const conStatic = document.getElementById('static');
             conStatic.innerHTML = '';
             const headerBlock = this.createHeaderBlock();
-            const dateFrom = this.createData('date-from', 'Дата старту');
-            const dateTo = this.createData('date-to', 'Дата завершення');
+            const date = new Date().toISOString();
+            const convertDate = date.slice(0,16);
+            const dateFrom = this.createData('date-from', 'Дата старту',convertDate,true);
+            const dateTo = this.createData('date-to', 'Дата завершення',convertDate,false);
             const dataBlock = this.createElement('div', {className: 'data-block'});
             const activityButton = this.createActivityButton();
             dataBlock.append(dateFrom,dateTo,activityButton);
@@ -231,9 +233,11 @@
             select.insertAdjacentHTML('beforeend',options)
             return select
         },
-        createData(id,textContent) {
+        createData(id,textContent,minDate,req = false) {
             const dateBlock = this.createElement('div', {className: 'date-block'});
-            const dateInput = this.createElement('input', { className: 'date-input' , type: 'date' , id: `${id}`})
+            let required = req;
+            let cls = 'date-input';
+            const dateInput = this.createElement('input',{className:cls,required,type:'datetime-local',id:`${id}`,min:`${minDate}`})
             const dateLabel = this.createElement('label', {className: 'label-data', for: `${id}`, textContent:`${textContent}`});
             dateBlock.append(dateLabel,dateInput)
             return dateBlock
