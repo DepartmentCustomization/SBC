@@ -20,13 +20,13 @@ if @organization_id is not null
 		  select organizations_id
 		  from [dbo].[Positions]
 		  where organizations_id=@organization_id
-		  and programuser_id=@user_id
+		  --and programuser_id=@user_id
 		  union
 		  select [Positions2].organizations_id
 		  from [dbo].[Positions]
 		  inner join [dbo].[PositionsHelpers] on [Positions].Id=[PositionsHelpers].helper_position_id
 		  inner join [dbo].[Positions] [Positions2] on [PositionsHelpers].main_position_id=[Positions2].Id
-		  where [Positions].organizations_id=@organization_id and [Positions].programuser_id=@user_id
+		  where [Positions].organizations_id=@organization_id --and [Positions].programuser_id=@user_id
 	end
 else
 	begin
@@ -37,13 +37,13 @@ else
 		  select organizations_id
 		  from [dbo].[Positions]
 		  where organizations_id=@organization_id_temp
-		  and programuser_id=@user_id
+		  --and programuser_id=@user_id
 		  union
 		  select [Positions2].organizations_id
 		  from [dbo].[Positions]
 		  inner join [dbo].[PositionsHelpers] on [Positions].Id=[PositionsHelpers].helper_position_id
 		  inner join [dbo].[Positions] [Positions2] on [PositionsHelpers].main_position_id=[Positions2].Id
-		  where [Positions].organizations_id=@organization_id_temp and [Positions].programuser_id=@user_id
+		  where [Positions].organizations_id=@organization_id_temp --and [Positions].programuser_id=@user_id
 	end
 
 --убрать начало
