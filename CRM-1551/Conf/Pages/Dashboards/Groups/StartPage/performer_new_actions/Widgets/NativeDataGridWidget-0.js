@@ -220,7 +220,8 @@
             } else {
                 document.getElementById('table_events').style.display = 'block';
                 this.config.query.queryCode = 'EventsTable';
-                this.config.query.parameterValues = [{ key: '@organization_id', typeEvent: message.orgId },
+                this.config.query.parameterValues = [
+                    { key: '@organization_id', value: message.orgId },
                     { key: '@OtKuda', value: source },
                     { key: '@TypeEvent', value: typeEvent }
                 ];
