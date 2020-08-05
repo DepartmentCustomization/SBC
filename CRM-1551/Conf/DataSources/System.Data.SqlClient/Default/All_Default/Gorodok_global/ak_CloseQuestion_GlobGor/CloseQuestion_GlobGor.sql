@@ -4,7 +4,7 @@
 DECLARE @table_id TABLE (id INT IDENTITY(1,1),
 	question_id INT,
 	assignment_id INT,
-	consideration_id INT)
+	consideration_id INT);
 
 INSERT INTO @table_id
 	( question_id, assignment_id, consideration_id)
@@ -19,7 +19,7 @@ FROM [CRM_1551_GORODOK_Integrartion].[dbo].[Lokal_copy_gorodok_global] AS gl
 
 	JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[AllObjectInClaim] AS oc ON oc.claims_number_id = gl.claim_number
 	JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Gorodok_1551_houses] gh ON gh.gorodok_houses_id = oc.object_id
-	JOIN   [dbo].[Objects] AS o ON o.Id = gh.[1551_houses_id]
+	JOIN [dbo].[Objects] AS o ON o.builbing_id = gh.[1551_houses_id]
 
 	LEFT JOIN Questions AS q ON q.question_type_id = qt.Id AND q.[object_id] = o.id
 	LEFT JOIN Assignments ON Assignments.Id = q.last_assignment_for_execution_id

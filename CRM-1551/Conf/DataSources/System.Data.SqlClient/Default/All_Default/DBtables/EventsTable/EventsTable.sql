@@ -244,7 +244,7 @@ FROM
   #temp_Events_gorodok teg
   INNER JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[AllObjectInClaim] AS oc WITH (nolock) ON oc.claims_number_id = teg.id
   INNER JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Gorodok_1551_houses] gh WITH (nolock) ON gh.gorodok_houses_id = oc.object_id
-  INNER JOIN [dbo].[Objects] o ON o.Id = gh.[1551_houses_id];
+  INNER JOIN [dbo].[Objects] o ON o.builbing_id = gh.[1551_houses_id];
   --добавление объетков #temp_Events_gorodok конец
   --select * from #temp_Events_gorodok
 
