@@ -292,20 +292,20 @@ into #temp_ass_nevkom
 
   select --district_id, 
   Id, territories_name,
-  count_all,
-  count_registered,
-  count_in_work,
-  count_on_inspection,
-  count_closed_performed,
-  count_closed_clear,
-  count_for_completion,
-  count_built,
-  count_not_processed_in_time,
+  isnull(count_all, 0) count_all,
+  isnull(count_registered, 0) count_registered,
+  isnull(count_in_work, 0) count_in_work,
+  isnull(count_on_inspection, 0) count_on_inspection,
+  isnull(count_closed_performed, 0) count_closed_performed, 
+  isnull(count_closed_clear, 0) count_closed_clear,
+  isnull(count_for_completion, 0) count_for_completion,
+  isnull(count_built, 0) count_built,
+  isnull(count_not_processed_in_time, 0) count_not_processed_in_time,
   speed_of_employment,
   timely_processed, --12
   implementation, --13
   reliability, --14
-  count_not_competence,
+  isnull(count_not_competence,0) count_not_competence,
   in_color
   from #temp_count_all_all
   order by district_id, Id

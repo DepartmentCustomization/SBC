@@ -316,12 +316,13 @@
                     'count_closed_performed': row.values[6],
                     'count_closed_clear': row.values[7],
                     'count_for_completion': row.values[8],
-                    'count_built': row.values[9],
-                    'count_not_processed_in_time': row.values[10],
-                    'speed_of_employment': row.values[11],
-                    'timely_processed': row.values[12],
-                    'implementation': row.values[13],
-                    'reliability': row.values[14]
+                    'count_not_competence': row.values[9],
+                    'count_built': row.values[10],
+                    'count_not_processed_in_time': row.values[11],
+                    'speed_of_employment': row.values[12],
+                    'timely_processed': row.values[13],
+                    'implementation': row.values[14],
+                    'reliability': row.values[15]
                 }
                 dataSource.push(masterDetailColumns);
             })
