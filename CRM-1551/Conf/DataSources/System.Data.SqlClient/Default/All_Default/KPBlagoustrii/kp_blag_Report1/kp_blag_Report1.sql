@@ -305,7 +305,7 @@ into #temp_ass_nevkom
   timely_processed, --12
   implementation, --13
   reliability, --14
-  count_not_competence,
+  isnull(count_not_competence,0) count_not_competence,
   in_color
   from #temp_count_all_all
   order by district_id, Id
