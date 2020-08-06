@@ -67,7 +67,15 @@
       "Position": 100,
       "Width": "100%",
       "FirstName": "FirstName",
-      "LastName": "LastName"
+      "LastName": "LastName",
+      "Patronymic": "Patronymic",
+      "UseEDS": "UseEDS",
+      "INN": "",
+      "Avatar": "",
+      "Active": "Active",
+      "PhoneNumber": "PhoneNumber",
+      "DashboardPageCode": "DashboardPageCode"
+
     }
   ]
 }
