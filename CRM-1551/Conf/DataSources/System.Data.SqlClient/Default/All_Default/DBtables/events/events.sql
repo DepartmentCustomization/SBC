@@ -1,5 +1,5 @@
-/*
- declare @organization_id int=2508;-- =2508;
+/* 
+ declare @organization_id int=250833;-- =2508;
  declare @user_id nvarchar(300)=N'42613f8b-e5fc-4365-83d6-a11126dfc820';--N'02ece542-2d75-479d-adad-fd333d09604d';
  */
 
@@ -14,22 +14,22 @@ if OBJECT_ID('tempdb..#temp_orgs_and_help') is not null drop table #temp_orgs_an
 
 create table #temp_orgs_and_help (organization_id int)
 
-if @organization_id is not null
-	begin
-		  insert into #temp_orgs_and_help (organization_id)
-		  select organizations_id
-		  from [dbo].[Positions]
-		  where organizations_id=@organization_id
-		  --and programuser_id=@user_id
-		  union
-		  select [Positions2].organizations_id
-		  from [dbo].[Positions]
-		  inner join [dbo].[PositionsHelpers] on [Positions].Id=[PositionsHelpers].helper_position_id
-		  inner join [dbo].[Positions] [Positions2] on [PositionsHelpers].main_position_id=[Positions2].Id
-		  where [Positions].organizations_id=@organization_id --and [Positions].programuser_id=@user_id
-	end
-else
-	begin
+--if @organization_id is not null
+--	begin
+--		  insert into #temp_orgs_and_help (organization_id)
+--		  select organizations_id
+--		  from [dbo].[Positions]
+--		  where organizations_id=@organization_id
+--		  --and programuser_id=@user_id
+--		  union
+--		  select [Positions2].organizations_id
+--		  from [dbo].[Positions]
+--		  inner join [dbo].[PositionsHelpers] on [Positions].Id=[PositionsHelpers].helper_position_id
+--		  inner join [dbo].[Positions] [Positions2] on [PositionsHelpers].main_position_id=[Positions2].Id
+--		  where [Positions].organizations_id=@organization_id --and [Positions].programuser_id=@user_id
+--	end
+--else
+	--begin
 			declare @organization_id_temp int=
 		  (select organizations_id from [dbo].[Positions] where programuser_id=@user_id)
 
@@ -37,14 +37,14 @@ else
 		  select organizations_id
 		  from [dbo].[Positions]
 		  where organizations_id=@organization_id_temp
-		  --and programuser_id=@user_id
+		  and programuser_id=@user_id
 		  union
 		  select [Positions2].organizations_id
 		  from [dbo].[Positions]
 		  inner join [dbo].[PositionsHelpers] on [Positions].Id=[PositionsHelpers].helper_position_id
 		  inner join [dbo].[Positions] [Positions2] on [PositionsHelpers].main_position_id=[Positions2].Id
-		  where [Positions].organizations_id=@organization_id_temp --and [Positions].programuser_id=@user_id
-	end
+		  where [Positions].organizations_id=@organization_id_temp and [Positions].programuser_id=@user_id
+	--end
 
 --убрать начало
 --declare @OrganizationId int = 
