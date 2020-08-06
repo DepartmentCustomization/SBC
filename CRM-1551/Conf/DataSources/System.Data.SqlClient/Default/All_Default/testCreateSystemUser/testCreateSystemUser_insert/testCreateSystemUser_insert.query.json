@@ -5,45 +5,50 @@
     "ConnectionCode": "Default",
     "IsUsedForRightsFilter": false,
     "Parameters": [
-        {
-          "Code": "@FirstName",
-          "Name": "FirstName"
-        },
-        {
-          "Code": "@LastName",
-          "Name": "LastName"
-        },
-        {
-          "Code": "@Patronymic",
-          "Name": "Patronymic"
-        },
-        {
-          "Code": "@UseEDS",
-          "Name": "UseEDS"
-        },
-        {
-          "Code": "@INN",
-          "Name": "INN"
-        },
-        {
-          "Code": "@Avatar",
-          "Name": "Avatar"
-        },
-        {
-          "Code": "@Active",
-          "Name": "Active"
-        },
-        {
-          "Code": "@PhoneNumber",
-          "Name": "PhoneNumber"
-        },
-        {
-          "Code": "@DashboardPageCode",
-          "Name": "DashboardPageCode"
-        },
-        {
-          "Code": "@SystemUser",
-          "Name": "SystemUser"
-        }
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "IsPrimaryKey": true
+      },
+      {
+        "Code": "@Avatar",
+        "Name": "Avatar"
+      },
+      {
+        "Code": "@Patronymic",
+        "Name": "Patronymic"
+      },
+      {
+        "Code": "@Active",
+        "Name": "Active"
+      },
+      {
+        "Code": "@PhoneNumber",
+        "Name": "PhoneNumber"
+      },
+      {
+        "Code": "@DashboardPageCode",
+        "Name": "DashboardPageCode"
+      },
+      {
+        "Code": "@INN",
+        "Name": "INN"
+      },
+      {
+        "Code": "@LastName",
+        "Name": "LastName"
+      },
+      {
+        "Code": "@UseEDS",
+        "Name": "UseEDS"
+      },
+      {
+        "Code": "@SystemUser",
+        "Name": "SystemUser"
+      },
+      {
+        "Code": "@FirstName",
+        "Name": "FirstName"
+      }
     ]
   }
