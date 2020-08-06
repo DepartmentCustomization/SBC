@@ -1,8 +1,8 @@
 /*
 DECLARE @organization_id INT = 1;
-DECLARE @user_id NVARCHAR(300) = N'02ece542-2d75-479d-adad-fd333d09604d';
+DECLARE @user_id NVARCHAR(300) = N'29796543-b903-48a6-9399-4840f6eac396'; --29796543-b903-48a6-9399-4840f6eac396 42613f8b-e5fc-4365-83d6-a11126dfc820
 DECLARE @OtKuda NVARCHAR(20) = N'Городок';
-DECLARE @TypeEvent NVARCHAR(20) = N'Не активні';
+DECLARE @TypeEvent NVARCHAR(20) = N'В роботі';
 -- N'Усі'
 */
 
@@ -19,19 +19,36 @@ BEGIN
 	DROP TABLE #temp_ob_in_org;
 END
 
-DECLARE @OrganizationId INT = CASE
-  WHEN @organization_id IS NOT NULL THEN @organization_id
-  ELSE (
-    SELECT
-      organization_id
-    FROM
-        [dbo].[Workers]
-    WHERE
-      worker_user_id = @user_id
-  )
-END;
+if OBJECT_ID('tempdb..#temp_orgs_and_help') is not null drop table #temp_orgs_and_help
+create table #temp_orgs_and_help (organization_id int)
 
-WITH it AS --дети @id
+insert into #temp_orgs_and_help (organization_id)
+		  select organizations_id
+		  from [dbo].[Positions]
+		  where organizations_id=@organization_id
+		  --and programuser_id=@user_id
+		  union
+		  select [Positions2].organizations_id
+		  from [dbo].[Positions]
+		  inner join [dbo].[PositionsHelpers] on [Positions].Id=[PositionsHelpers].helper_position_id
+		  inner join [dbo].[Positions] [Positions2] on [PositionsHelpers].main_position_id=[Positions2].Id
+		  where [Positions].organizations_id=@organization_id --and [Positions].programuser_id=@user_id
+
+--убрать начало
+-- DECLARE @OrganizationId INT = CASE
+--   WHEN @organization_id IS NOT NULL THEN @organization_id
+--   ELSE (
+--     SELECT
+--       organization_id
+--     FROM
+--         [dbo].[Workers]
+--     WHERE
+--       worker_user_id = @user_id
+--   )
+-- END;
+--убрать конец
+
+;WITH it AS --дети @id
 (
   SELECT
     Id,
@@ -39,8 +56,9 @@ WITH it AS --дети @id
     name
   FROM
     [dbo].[Organizations] t WITH (nolock)
-  WHERE
-    id = @OrganizationId
+	inner join #temp_orgs_and_help on t.Id=#temp_orgs_and_help.organization_id
+  --WHERE
+  --  id = @OrganizationId
   UNION
   ALL
   SELECT
@@ -244,7 +262,7 @@ FROM
   #temp_Events_gorodok teg
   INNER JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[AllObjectInClaim] AS oc WITH (nolock) ON oc.claims_number_id = teg.id
   INNER JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Gorodok_1551_houses] gh WITH (nolock) ON gh.gorodok_houses_id = oc.object_id
-  INNER JOIN [dbo].[Objects] o ON o.Id = gh.[1551_houses_id];
+  INNER JOIN [dbo].[Objects] o ON o.builbing_id = gh.[1551_houses_id];
   --добавление объетков #temp_Events_gorodok конец
   --select * from #temp_Events_gorodok
 
@@ -336,7 +354,7 @@ SELECT
         count(question_Id) CountQuestions
       FROM
         #temp_main tm
-      WHERE #filter_columns#
+      --WHERE #filter_columns#
       GROUP BY
         event_Id,
         OtKuda,
@@ -346,4 +364,4 @@ SELECT
         start_date,
         plan_end_date
       ORDER BY 1 
-      OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
+      --OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;

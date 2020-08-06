@@ -150,11 +150,18 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	DECLARE @create_assignment_class_id INT = (SELECT [create_assignment_class_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @event_info TABLE (Id INT);
 	DECLARE @now DATETIME = GETUTCDATE();
+	DECLARE @new_state_id INT = (SELECT 
+								 DISTINCT 
+								 	[new_assignment_state_id]
+								 FROM [dbo].[TransitionAssignmentStates] 
+								 WHERE new_assignment_resolution_id = @new_resolution_id 
+								 AND new_assignment_result_id = @new_result_id);
 	
 	UPDATE [dbo].[Assignments]
 	SET [class_resolution_id] = @class_resolution_id,
 	 	[AssignmentResultsId] = @new_result_id,
 	 	[AssignmentResolutionsId] = @new_resolution_id,
+		[assignment_state_id] = @new_state_id,
 	 	[edit_date] = @now,
 	 	[user_edit_id] = @user_edit_id,
 	 	[LogUpdated_Query] = N'cx_App_Que_Assignments_Update_Row11'
@@ -213,6 +220,12 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	IF(@create_assignment_class_id IS NOT NULL)
 	BEGIN
 	DECLARE @assignment_org INT = (SELECT [executor_organization_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
+		IF(@assignment_org IS NULL)
+		BEGIN
+			RAISERROR(N'Для обраного класу резорюції не вказано відповідальну організацію', 16, 1);
+			ROLLBACK TRANSACTION;
+			RETURN;
+		END
 	DECLARE @question_type_id INT = (SELECT [question_type_id] FROM dbo.[Questions] WHERE Id = @question_id);
 	DECLARE @prev_main BIT = (SELECT [main_executor] FROM dbo.[Assignments] WHERE Id = @Id);
 	DECLARE @my_event_id INT = (SELECT TOP 1 [Id] FROM @event_info);
