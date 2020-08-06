@@ -158,7 +158,7 @@ into #temp_ass_nevkom
 
   case when count_closed_performed+count_closed_clear+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_for_completion)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end reliability --14
-  ,count_not_competence
+  ,isnull(count_not_competence, 0) count_not_competence
   from 
   #temp_count_ass temp_count_que
   left join [dbo].[Organizations] with (nolock) on temp_count_que.executor_organization_id=[Organizations].Id
