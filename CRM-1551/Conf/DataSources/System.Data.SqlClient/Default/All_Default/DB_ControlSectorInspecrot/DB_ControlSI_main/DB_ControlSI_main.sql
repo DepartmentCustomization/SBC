@@ -70,7 +70,8 @@ SELECT Organization_id Id, organization_name,
   --WHERE #filter_columns#
   
   GROUP BY Organization_id, Organization_name
-
+  HAVING SUM([count_arrived])+SUM([count_in_work])+SUM([count_overdue])+SUM([count_clarified])+SUM([count_done])+
+  SUM([count_for_revision])+SUM([count_plan_program])+SUM([count_not_competence])>0
   --#sort_columns#
   ORDER BY 1
   --offset @pageOffsetRows rows fetch next @pageLimitRows rows only
