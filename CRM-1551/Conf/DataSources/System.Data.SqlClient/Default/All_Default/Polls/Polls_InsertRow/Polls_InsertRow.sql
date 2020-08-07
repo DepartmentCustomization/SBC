@@ -26,3 +26,6 @@ set @app_id = (select top 1 Id from @output)
 
 select @app_id as [Id]
 return;
+
+insert into [dbo].Polls_PollDirections (poll_id, direction_id, user_id, edit_date, user_edit_id )
+values (@app_id,  @direction_id, @CreatedUserById, GETUTCDATE(), @CreatedUserById)
