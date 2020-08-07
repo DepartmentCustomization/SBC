@@ -36,7 +36,7 @@
                     width:250
                 },
                 {
-                    dataField: 'icon',
+                    dataField: 'idIcon',
                     caption: '',
                     width:80
                 },
@@ -127,10 +127,15 @@
             return [];
         },
         onCellPrepared: function(options) {
+            const arr = ['event','event','keyboard_arrow_down','keyboard_arrow_right','code']
             if(options.rowType === 'data') {
-                if(options.column.dataField === 'icon') {
+                if(options.column.dataField === 'idIcon') {
+                    const index = options.cellElement.textContent - 1;
                     options.cellElement.classList.add('cell-icon');
-                    const icon = '<span class="material-icons calendar"> event </span>';
+                    const classRed = index === 0 ? ' green' : '';
+                    const classGreen = index === 1 ? ' red' : '';
+                    options.cellElement.textContent = '';
+                    const icon = `<span class="material-icons ${classRed} ${classGreen}"> ${arr[index]} </span>`;
                     options.cellElement.insertAdjacentHTML('afterbegin',icon);
                 }else if(options.column.dataField === 'fix_row_icon') {
                     options.cellElement.classList.add('cell-icon');
@@ -160,6 +165,8 @@
         },
         setVisibility() {
             const con = document.getElementById('NativeDataGridWidget-0')
+            const mainCon = document.getElementById('first_widget')
+            const tab = document.getElementById('second_widget')
             let addTaskDiv = document.getElementById('add-task-block');
             if(addTaskDiv) {
                 addTaskDiv.remove()
@@ -169,13 +176,21 @@
             document.body.addEventListener('click',(e)=> {
                 if((e.target.classList.contains('add-task')) || (e.target.classList.contains('fix-row'))) {
                     const msg = {
-                        name: 'setVisibility',
+                        name: 'setVisibilityNone',
                         package: {
                             display: 'none',
-                            container: con
+                            container: mainCon
                         }
                     };
+                    const msg2 = {
+                        name: 'setVisibilityBlock',
+                        package: {
+                            display: 'block',
+                            container: tab
+                        }
+                    }
                     this.messageService.publish(msg);
+                    this.messageService.publish(msg2);
                 }
             })
             div.insertAdjacentElement('beforeend',btn)
