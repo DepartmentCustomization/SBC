@@ -10,7 +10,7 @@
   
   if OBJECT_ID('tempdb..#temp_district') is not null drop table #temp_district
 
-  create table #temp_district(district_id int, name nvarchar(100))
+  create table #temp_district(district_id int, name nvarchar(100) collate Ukrainian_CI_AS)
 
   if charindex(N'0',@districts, 1)=1
    or charindex(N',0,',@districts, 1)>0
