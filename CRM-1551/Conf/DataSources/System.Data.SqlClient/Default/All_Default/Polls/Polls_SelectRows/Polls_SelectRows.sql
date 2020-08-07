@@ -9,8 +9,8 @@ select poll_name, case when cast([start_date] as date) > cast(GETDATE() as date)
 					  when cast([start_date] as date) <= cast(GETDATE() as date) and cast([end_date] as date) > cast(GETDATE() as date) and is_active = 0 then 5  end as idIcon, 
 is_active, start_date, end_date, PollDirection.id as PollDirId, PollDirection.name,  AllApplicants.col_Applicants, IsPollsApplicants.col_IsPollsApplicants, IsNotPollsApplicants.col_IsNotApplicants
 from Polls
-inner join Polls_PollDirections on Polls_PollDirections.poll_id = Polls.id
-inner join PollDirection on PollDirection.id = Polls_PollDirections.direction_id
+left join Polls_PollDirections on Polls_PollDirections.poll_id = Polls.id
+left join PollDirection on PollDirection.id = Polls_PollDirections.direction_id
 left join ( select poll_id, count(id) as col_Applicants from PollsApplicants  group by poll_id) AllApplicants on AllApplicants.poll_id = Polls.id
 left join ( select poll_id, count(id) as col_IsPollsApplicants from PollsApplicants  where poll_date is not null group by poll_id) IsPollsApplicants on IsPollsApplicants.poll_id = Polls.id
 left join ( select poll_id, count(id) as col_IsNotApplicants from PollsApplicants  where reject_poll = 1 group by poll_id) IsNotPollsApplicants on IsNotPollsApplicants.poll_id = Polls.id
