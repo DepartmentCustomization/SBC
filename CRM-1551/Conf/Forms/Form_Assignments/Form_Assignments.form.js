@@ -57,7 +57,6 @@
             let class_resolution_id = this.form.getControlValue('class_resolution_id');
             this.open_class_resolution = class_resolution_id;
             if(class_resolution_id) {
-                // this.form.disableControl('result_id', true);
                 this.form.disableControl('assignment_class_id', true);
                 this.form.disableControl('class_resolution_id', true);
             }
