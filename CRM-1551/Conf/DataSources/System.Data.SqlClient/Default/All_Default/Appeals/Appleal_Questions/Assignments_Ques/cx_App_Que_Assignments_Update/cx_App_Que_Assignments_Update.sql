@@ -86,13 +86,11 @@ DECLARE @IsResolutionChange BIT = (SELECT IIF(@currentResolution = ISNULL(@resol
 DECLARE @IsOrgExecutorChange BIT = (SELECT IIF(@currentOrgExecutor = @performer_id, 0, 1));
 ---> Если стан, результат, резолюция и орг.исполнителя остались прежними, то
 -- процедуру проверки переходов пропускаем, а только апдейтим поля executor_person_id и short_answer (если они изменились)
--- + проводим обработку по резолюции класа, если проставили
 IF (@IsStateChange = 0 AND @IsResultChange = 0 AND @IsResolutionChange = 0 AND @IsOrgExecutorChange = 0)
 BEGIN
 DECLARE @currentPersonExecutor INT = (SELECT executor_person_id FROM dbo.Assignments  WHERE Id = @Id);
 DECLARE @currentShortAnswer NVARCHAR(500) = (SELECT short_answer FROM dbo.AssignmentConsiderations WHERE Id = @ass_cons_id);
 DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Questions] WHERE Id = @question_id);
-	
 ---> сделать текущий Assignment главным
 	IF(@mainAssId <> @Id) 
 	AND (@main_executor = 1)
@@ -128,21 +126,13 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 				,[user_edit_id] = @user_edit_id
 			WHERE Id = @current_consid;
 	END	
-	---> обработка изменений по "Класс доручення", "Резолюція класу"
+END
+---> обработка изменений по "Резолюція класу"
+ELSE IF(@class_resolution_id IS NOT NULL)
+BEGIN
 	SET XACT_ABORT ON;
 	BEGIN TRY
 	BEGIN TRANSACTION;
-
-	IF(@assignment_class_id IS NOT NULL) 
-	AND (@assignment_class_id <> (SELECT ISNULL([assignment_class_id],0) FROM dbo.[Assignments] WHERE Id = @Id) )
-	BEGIN
-	UPDATE [dbo].[Assignments]
-	SET [assignment_class_id] = @assignment_class_id
-	WHERE Id = @Id;
-	END
-	 
-	IF(@class_resolution_id IS NOT NULL) 
-	AND (@class_resolution_id <> (SELECT ISNULL([class_resolution_id],0) FROM dbo.[Assignments] WHERE Id = @Id) )
 	BEGIN
 	DECLARE @new_result_id INT = (SELECT [assignment_result_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @new_resolution_id INT = (SELECT [assignment_resolution_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
@@ -323,10 +313,7 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	    END;  
 	END CATCH;
 END
-
----> иначе - го дальше
 ELSE 
-
 BEGIN
 EXEC [dbo].pr_check_right_choice_result_resolution @Id
 												,@result_id
