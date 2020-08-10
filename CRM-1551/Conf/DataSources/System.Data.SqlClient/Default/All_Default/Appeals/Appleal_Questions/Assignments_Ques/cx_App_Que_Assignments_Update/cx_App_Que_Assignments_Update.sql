@@ -128,7 +128,8 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	END	
 END
 ---> обработка изменений по "Резолюція класу"
-ELSE IF(@class_resolution_id IS NOT NULL)
+ELSE IF(@class_resolution_id IS NOT NULL) 
+AND (SELECT [class_resolution_id] FROM dbo.Assignments WHERE [Id] = @Id) IS NULL
 BEGIN
 	SET XACT_ABORT ON;
 	BEGIN TRY
