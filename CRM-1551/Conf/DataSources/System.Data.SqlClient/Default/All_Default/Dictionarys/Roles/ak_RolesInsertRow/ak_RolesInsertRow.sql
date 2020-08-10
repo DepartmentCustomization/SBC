@@ -1,3 +1,3 @@
-insert into [CRM_1551_Analitics].[dbo].[Roles]
+insert into   [dbo].[Roles]
   (name)
   select @name

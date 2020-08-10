@@ -57,11 +57,11 @@ select	10003	, N'АТ «Ощадбанк»'
   and convert(date, [Assignments].registration_date) between @date_start and @date_end then 1 else 0 end RozyasnenoNeVchasno
 
   from [Organizations] left join -- left если нужны все
-   [CRM_1551_Analitics].[dbo].[Assignments] on [Organizations].Id=[Assignments].executor_organization_id
-  left join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
-  left join [CRM_1551_Analitics].[dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentStates] on [Assignments].assignment_state_id=[AssignmentStates].Id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentResults] on [Assignments].AssignmentResultsId=[AssignmentResults].Id
+     [dbo].[Assignments] on [Organizations].Id=[Assignments].executor_organization_id
+  left join   [dbo].[Questions] on [Assignments].question_id=[Questions].Id
+  left join   [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
+  left join   [dbo].[AssignmentStates] on [Assignments].assignment_state_id=[AssignmentStates].Id
+  left join   [dbo].[AssignmentResults] on [Assignments].AssignmentResultsId=[AssignmentResults].Id
   --where convert(date, [Assignments].registration_date) between @date_start and @date_end
   )
 

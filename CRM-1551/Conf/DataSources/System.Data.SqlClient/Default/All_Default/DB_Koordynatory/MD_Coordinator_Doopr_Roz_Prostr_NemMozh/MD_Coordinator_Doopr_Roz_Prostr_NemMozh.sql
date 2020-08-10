@@ -7,11 +7,11 @@ declare @questionId int =1034;*/
 declare @comment nvarchar(300)=
 (
 select distinct [AssignmentConsiderations].short_answer
-  from [CRM_1551_Analitics].[dbo].[Assignments]
-  inner join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
---   inner join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [Assignments].Id=[AssignmentConsiderations].assignment_id
-  inner join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [Assignments].current_assignment_consideration_id=[AssignmentConsiderations].Id
-  inner join [CRM_1551_Analitics].[dbo].[Appeals] on [Questions].appeal_id=[Appeals].Id
+  from   [dbo].[Assignments]
+  inner join   [dbo].[Questions] on [Assignments].question_id=[Questions].Id
+--   inner join   [dbo].[AssignmentConsiderations] on [Assignments].Id=[AssignmentConsiderations].assignment_id
+  inner join   [dbo].[AssignmentConsiderations] on [Assignments].current_assignment_consideration_id=[AssignmentConsiderations].Id
+  inner join   [dbo].[Appeals] on [Questions].appeal_id=[Appeals].Id
   --inner join 
   where [Questions].id=@questionId and [Appeals].applicant_id=@zayiavnykId
 );
@@ -20,7 +20,7 @@ select distinct [AssignmentConsiderations].short_answer
 
 declare @question_content nvarchar(500)=
 (select [question_content]
-  FROM [CRM_1551_Analitics].[dbo].[Questions]
+  FROM   [dbo].[Questions]
   where Id=@questionId);
 
 select [LiveAddress].Id, 
@@ -30,7 +30,7 @@ select [LiveAddress].Id,
 --  case when [LiveAddress].entrance is not null then N', парадне '+convert(nvarchar(200),[LiveAddress].entrance) else N'' end+
 --  case when [LiveAddress].flat is not null then N', кв. '+convert(nvarchar(200), [LiveAddress].flat) else N'' end address,
   @question_content content, @comment comment
-  from [CRM_1551_Analitics].[dbo].[LiveAddress]-- left join [CRM_1551_Analitics].[dbo].[Applicants] on [LiveAddress].applicant_id=[Applicants].Id
-  left join [CRM_1551_Analitics].[dbo].[Buildings] on [LiveAddress].building_id=[Buildings].Id
-  left join [CRM_1551_Analitics].[dbo].[Streets] on [Buildings].street_id=[Streets].Id
+  from   [dbo].[LiveAddress]-- left join   [dbo].[Applicants] on [LiveAddress].applicant_id=[Applicants].Id
+  left join   [dbo].[Buildings] on [LiveAddress].building_id=[Buildings].Id
+  left join   [dbo].[Streets] on [Buildings].street_id=[Streets].Id
   where [LiveAddress].applicant_id=@zayiavnykId

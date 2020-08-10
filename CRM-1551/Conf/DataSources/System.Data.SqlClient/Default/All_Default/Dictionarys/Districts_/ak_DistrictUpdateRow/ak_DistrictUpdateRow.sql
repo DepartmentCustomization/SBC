@@ -1,3 +1,3 @@
-update [CRM_1551_Analitics].[dbo].[Districts]
+update   [dbo].[Districts]
   set name=@name
   where Id=@id

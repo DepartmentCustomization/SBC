@@ -81,7 +81,7 @@ DECLARE @PathOnArchiveRow TABLE ([Path] NVARCHAR(MAX));
 DECLARE @getRowPath NVARCHAR(MAX) = N'
 SELECT 
 	[PathToArchive]
-FROM ' + @ArchiveServer + '.[CRM_1551_Analitics].[dbo].[QuestionDocFiles]
+FROM ' + @ArchiveServer + '.  [dbo].[QuestionDocFiles]
 WHERE Id = @Id';
 
 INSERT INTO @PathOnArchiveRow

@@ -1,4 +1,4 @@
-insert into [CRM_1551_Analitics].[dbo].[StreetTypes]
+insert into   [dbo].[StreetTypes]
   (
   shortname
       ,name

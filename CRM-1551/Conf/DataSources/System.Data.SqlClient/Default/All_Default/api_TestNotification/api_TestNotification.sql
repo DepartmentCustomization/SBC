@@ -1,5 +1,5 @@
 
-USE [CRM_1551_Analitics]
+--USE [CRM_1551_Analitics]
 /*
 moderated
 changed_status
@@ -70,16 +70,16 @@ BEGIN
 					  	   [AppealsFromSite_History].[QuestionControlDate] as [control_date],
 					  	   [Organizations].[short_name] as [executor],
 						   (select top 1 [QuestionTypes].[name] 
-						    from [CRM_1551_Analitics].[dbo].[Appeals]
-						    left join [CRM_1551_Analitics].[dbo].[Questions] on [Questions].appeal_id =  [Appeals].Id
-							left join [CRM_1551_Analitics].[dbo].[QuestionTypes] on [QuestionTypes].id =  [Questions].[question_type_id]
+						    from   [dbo].[Appeals]
+						    left join   [dbo].[Questions] on [Questions].appeal_id =  [Appeals].Id
+							left join   [dbo].[QuestionTypes] on [QuestionTypes].id =  [Questions].[question_type_id]
 							where [Appeals].Id in (select [appeal_id] from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite_History] where [id] = @HistoryRowId)
 							) as [question_type]
 					  FROM [CRM_1551_Site_Integration].[dbo].[AppealsFromSite_History]
 					  left join [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] on [AppealsFromSite].[Appeal_Id] = [AppealsFromSite_History].appeal_id
-					  left join [CRM_1551_Analitics].[dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite_History].[appeal_id]
-					  left join [CRM_1551_Analitics].[dbo].[Organizations] on [Organizations].[Id] = [AppealsFromSite_History].[MainExecutorId]
-					  left join [CRM_1551_Analitics].[dbo].[QuestionStates] on [QuestionStates].[Id] = [AppealsFromSite_History].[QuestionStateId]
+					  left join   [dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite_History].[appeal_id]
+					  left join   [dbo].[Organizations] on [Organizations].[Id] = [AppealsFromSite_History].[MainExecutorId]
+					  left join   [dbo].[QuestionStates] on [QuestionStates].[Id] = [AppealsFromSite_History].[QuestionStateId]
 					  where [AppealsFromSite_History].[id] = @HistoryRowId
 					  ) as result
 					  FOR JSON AUTO
@@ -100,8 +100,8 @@ BEGIN
 					  	   [Organizations].[short_name] as [executor]
 					  FROM [CRM_1551_Site_Integration].[dbo].[AppealsFromSite_History]
 					  left join [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] on [AppealsFromSite].[appeal_id] = [AppealsFromSite_History].appeal_id
-					  left join [CRM_1551_Analitics].[dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite_History].[appeal_id]
-					  left join [CRM_1551_Analitics].[dbo].[Organizations] on [Organizations].[Id] = [AppealsFromSite_History].[MainExecutorId]
+					  left join   [dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite_History].[appeal_id]
+					  left join   [dbo].[Organizations] on [Organizations].[Id] = [AppealsFromSite_History].[MainExecutorId]
 					  where [AppealsFromSite_History].[id] = @HistoryRowId
 					  ) as result
 					  FOR JSON AUTO
@@ -121,8 +121,8 @@ BEGIN
 					  	   [AppealsFromSite_History].[QuestionControlDate] as [control_date]
 					  FROM [CRM_1551_Site_Integration].[dbo].[AppealsFromSite_History]
 					  left join [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] on [AppealsFromSite].[appeal_id] = [AppealsFromSite_History].appeal_id
-					  left join [CRM_1551_Analitics].[dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite_History].[appeal_id]
-					  left join [CRM_1551_Analitics].[dbo].[Organizations] on [Organizations].[Id] = [AppealsFromSite_History].[MainExecutorId]
+					  left join   [dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite_History].[appeal_id]
+					  left join   [dbo].[Organizations] on [Organizations].[Id] = [AppealsFromSite_History].[MainExecutorId]
 					  where [AppealsFromSite_History].[id] = @HistoryRowId
 					  ) as result
 					  FOR JSON AUTO
@@ -142,9 +142,9 @@ BEGIN
 						   [QuestionStates].[name] as  [question_state]
 					FROM [CRM_1551_Site_Integration].[dbo].[AppealsFromSite_History]
 					left join [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] on [AppealsFromSite].[appeal_id] = [AppealsFromSite_History].appeal_id
-					left join [CRM_1551_Analitics].[dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite_History].[appeal_id]
-					left join [CRM_1551_Analitics].[dbo].[Organizations] on [Organizations].[Id] = [AppealsFromSite_History].[MainExecutorId]
-					left join [CRM_1551_Analitics].[dbo].[QuestionStates] on [QuestionStates].[Id] = [AppealsFromSite_History].[QuestionStateId]
+					left join   [dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite_History].[appeal_id]
+					left join   [dbo].[Organizations] on [Organizations].[Id] = [AppealsFromSite_History].[MainExecutorId]
+					left join   [dbo].[QuestionStates] on [QuestionStates].[Id] = [AppealsFromSite_History].[QuestionStateId]
 					where [AppealsFromSite_History].[id] = @HistoryRowId
 					) as result
 					FOR JSON AUTO
@@ -164,9 +164,9 @@ BEGIN
 						   [QuestionStates].[name] as  [question_state]
 					FROM [CRM_1551_Site_Integration].[dbo].[AppealsFromSite_History]
 					left join [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] on [AppealsFromSite].[appeal_id] = [AppealsFromSite_History].appeal_id
-					left join [CRM_1551_Analitics].[dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite_History].[appeal_id]
-					left join [CRM_1551_Analitics].[dbo].[Organizations] on [Organizations].[Id] = [AppealsFromSite_History].[MainExecutorId]
-					left join [CRM_1551_Analitics].[dbo].[QuestionStates] on [QuestionStates].[Id] = [AppealsFromSite_History].[QuestionStateId]
+					left join   [dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite_History].[appeal_id]
+					left join   [dbo].[Organizations] on [Organizations].[Id] = [AppealsFromSite_History].[MainExecutorId]
+					left join   [dbo].[QuestionStates] on [QuestionStates].[Id] = [AppealsFromSite_History].[QuestionStateId]
 					where [AppealsFromSite_History].[id] = @HistoryRowId
 					) as result
 					FOR JSON AUTO

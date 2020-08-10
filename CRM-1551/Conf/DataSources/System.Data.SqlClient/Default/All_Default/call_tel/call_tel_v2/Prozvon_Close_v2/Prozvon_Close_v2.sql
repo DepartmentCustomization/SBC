@@ -214,7 +214,7 @@ END
 
 							--добавление в ревижен записей, которых нет конец
 
-						UPDATE [CRM_1551_Analitics].[dbo].[AssignmentRevisions]
+						UPDATE   [dbo].[AssignmentRevisions]
 						SET  [assignment_resolution_id]= @assignment_resolution_id
 							,[control_result_id]=@control_result_id
 							,[control_comment]=@control_comment
@@ -226,12 +226,12 @@ END
 						WHERE [assignment_consideration_іd] IN (SELECT curent_consid_id FROM  @assigments_table);
 
 						-- проставляется комментарий не главным вопросам
-						UPDATE [CRM_1551_Analitics].[dbo].[AssignmentRevisions]
+						UPDATE   [dbo].[AssignmentRevisions]
 						SET [control_comment]=@control_comment
 						WHERE [assignment_consideration_іd] IN (SELECT id FROM  @assigments_consideration_table);
 
 
-						UPDATE [CRM_1551_Analitics].[dbo].[Assignments]
+						UPDATE   [dbo].[Assignments]
 						SET  [assignment_state_id]=@state_id
 							,[AssignmentResultsId]=@control_result_id
 							,[AssignmentResolutionsId]=@assignment_resolution_id

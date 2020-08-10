@@ -6,8 +6,8 @@
 		[AppealsFromSite].[Content] as [appeal_content], 
 		[AppealsFromSite].CommentModerator as [comment_moderator]
   from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
-  left join [CRM_1551_Analitics].[dbo].[SiteAppealsResults] on [AppealsFromSite].ApplicantFromSiteId=[SiteAppealsResults].id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [AppealsFromSite].[ObjectId]=[Objects].Id
+  left join   [dbo].[SiteAppealsResults] on [AppealsFromSite].ApplicantFromSiteId=[SiteAppealsResults].id
+  left join   [dbo].[Objects] on [AppealsFromSite].[ObjectId]=[Objects].Id
   left join [CRM_1551_Site_Integration].[dbo].[WorkDirectionTypes] on [AppealsFromSite].WorkDirectionTypeId=[WorkDirectionTypes].id
   where [AppealsFromSite].[appeal_id] is null 
   and [AppealsFromSite].ApplicantFromSiteId = @ApplicantFromSiteId

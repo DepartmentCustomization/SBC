@@ -10,11 +10,11 @@
   end
 
 
-  from [CRM_1551_Analitics].[dbo].[QuestionTypes]
+  from   [dbo].[QuestionTypes]
   where convert(bigint,(REPLACE([index], N'.', N'')))=
   ((
   select max(convert(bigint,(REPLACE([index], N'.', N''))))
-  from [CRM_1551_Analitics].[dbo].[QuestionTypes]
+  from   [dbo].[QuestionTypes]
   where [question_type_id]=@question_type_id))  
    )
 
@@ -26,11 +26,11 @@
   select left([index], len([index])-2)
 
 
-  from [CRM_1551_Analitics].[dbo].[QuestionTypes]
+  from   [dbo].[QuestionTypes]
   where convert(bigint,(REPLACE([index], N'.', N'')))=
   ((
   select min(convert(bigint,(REPLACE([index], N'.', N''))))
-  from [CRM_1551_Analitics].[dbo].[QuestionTypes]
+  from   [dbo].[QuestionTypes]
   where [question_type_id]=@question_type_id))  
   )
 
@@ -41,19 +41,19 @@
   select case when len(ltrim(MAX([index]*1)+1))<2
   then ltrim(N'0'+ltrim(MAX([index]*1)+1))
   else ltrim(MAX([index]*1)+1) end
-  from [CRM_1551_Analitics].[dbo].[QuestionTypes]
+  from   [dbo].[QuestionTypes]
   where question_type_id is null
   )
 
   declare @count_pid int=
   (
-  select count(id) from [CRM_1551_Analitics].[dbo].[QuestionTypes] where question_type_id=@question_type_id
+  select count(id) from   [dbo].[QuestionTypes] where question_type_id=@question_type_id
   )
 
    declare @new_index3 nvarchar(max)=
   (
   select [index]+N'.01'
-  from [CRM_1551_Analitics].[dbo].[QuestionTypes]
+  from   [dbo].[QuestionTypes]
   where id=@question_type_id
   )
 
@@ -135,7 +135,7 @@ END
    set @id_type=(select top 1 id from @output)		   
    
 
-  insert into [CRM_1551_Analitics].[dbo].[QuestionTypeInRating]
+  insert into   [dbo].[QuestionTypeInRating]
   ([Rating_id],
   [QuestionType_id])
       

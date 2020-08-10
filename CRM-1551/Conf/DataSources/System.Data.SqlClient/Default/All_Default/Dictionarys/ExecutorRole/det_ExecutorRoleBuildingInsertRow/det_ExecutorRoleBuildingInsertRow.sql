@@ -1,6 +1,6 @@
   -- det_ExecutorRoleBuildingInsertRow
 
-  insert into [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject]
+  insert into   [dbo].[ExecutorInRoleForObject]
   (
   [object_id]
       ,[executor_role_id]

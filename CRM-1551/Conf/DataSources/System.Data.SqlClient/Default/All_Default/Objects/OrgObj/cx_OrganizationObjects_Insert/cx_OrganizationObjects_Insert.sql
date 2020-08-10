@@ -1,5 +1,5 @@
 
-INSERT INTO [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject]
+INSERT INTO   [dbo].[ExecutorInRoleForObject]
   (
       [executor_role_id]
       ,[executor_id]

@@ -1,3 +1,3 @@
-insert into [CRM_1551_Analitics].[dbo].[Rules]
+insert into   [dbo].[Rules]
   (name)
   select @name

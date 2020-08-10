@@ -9,8 +9,7 @@
                     `
         ,
         init: function() {
-            // this.messageService.publish({ name: 'showPagePreloader' });
-            debugger;
+            this.messageService.publish({ name: 'showPagePreloader' });
             const header = document.getElementById('header1');
             header.firstElementChild.style.overflow = 'visible';
             header.firstElementChild.firstElementChild.firstElementChild.style.overflow = 'visible';
@@ -42,7 +41,7 @@
                     limit: -1,
                     parameterValues: [ { key: '@organization_id', value: this.organizationId} ]
                 };
-                // this.queryExecutor(executeQueryValues, this.createTable.bind(this, false, null), this);
+                this.queryExecutor(executeQueryValues, this.createTable.bind(this, false, null), this);
                 this.showPreloader = false;
                 let executeQuery = {
                     queryCode: 'organization_name',

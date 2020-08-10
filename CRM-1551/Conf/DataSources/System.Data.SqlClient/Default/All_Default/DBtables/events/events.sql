@@ -1,6 +1,6 @@
-/*
- declare @organization_id int =1;
- declare @user_id nvarchar(300)=N'02ece542-2d75-479d-adad-fd333d09604d';
+/* 
+ declare @organization_id int=250833;-- =2508;
+ declare @user_id nvarchar(300)=N'42613f8b-e5fc-4365-83d6-a11126dfc820';--N'02ece542-2d75-479d-adad-fd333d09604d';
  */
 
  if OBJECT_ID('tempdb..#temp_orgs') is not null drop table #temp_orgs
@@ -10,25 +10,65 @@
 if OBJECT_ID('tempdb..#temp_ob_in_org') is not null drop table #temp_ob_in_org
 --DECLARE @ObjectInOrg TABLE ([object_id] INT)
 
-declare @OrganizationId int = 
-case 
-when @organization_id is not null
-then @organization_id
-else (select organization_id
-  from [dbo].[Workers] with (nolock)
-  --inner join [dbo].[Organizations] with (nolock) ON [Organizations].Id=[Workers].organization_id
-  where worker_user_id=@user_id)
- end;
+if OBJECT_ID('tempdb..#temp_orgs_and_help') is not null drop table #temp_orgs_and_help
+
+create table #temp_orgs_and_help (organization_id int)
+
+--if @organization_id is not null
+--	begin
+--		  insert into #temp_orgs_and_help (organization_id)
+--		  select organizations_id
+--		  from [dbo].[Positions]
+--		  where organizations_id=@organization_id
+--		  --and programuser_id=@user_id
+--		  union
+--		  select [Positions2].organizations_id
+--		  from [dbo].[Positions]
+--		  inner join [dbo].[PositionsHelpers] on [Positions].Id=[PositionsHelpers].helper_position_id
+--		  inner join [dbo].[Positions] [Positions2] on [PositionsHelpers].main_position_id=[Positions2].Id
+--		  where [Positions].organizations_id=@organization_id --and [Positions].programuser_id=@user_id
+--	end
+--else
+	--begin
+			declare @organization_id_temp int=
+		  (select organizations_id from [dbo].[Positions] where programuser_id=@user_id)
+
+		  insert into #temp_orgs_and_help (organization_id)
+		  select organizations_id
+		  from [dbo].[Positions]
+		  where organizations_id=@organization_id_temp
+		  and programuser_id=@user_id
+		  union
+		  select [Positions2].organizations_id
+		  from [dbo].[Positions]
+		  inner join [dbo].[PositionsHelpers] on [Positions].Id=[PositionsHelpers].helper_position_id
+		  inner join [dbo].[Positions] [Positions2] on [PositionsHelpers].main_position_id=[Positions2].Id
+		  where [Positions].organizations_id=@organization_id_temp and [Positions].programuser_id=@user_id
+	--end
+
+--убрать начало
+--declare @OrganizationId int = 
+--case 
+--when @organization_id is not null
+--then @organization_id
+--else (select organization_id
+--  from [dbo].[Workers] with (nolock)
+--  --inner join [dbo].[Organizations] with (nolock) ON [Organizations].Id=[Workers].organization_id
+--  where worker_user_id=@user_id)
+-- end;
+
+ --убрать конец
 
  --select @OrganizationId;
 
 --declare @IdT table (Id int);
 
-		with
+		;with
 		it as --дети @id
 		(select Id, [parent_organization_id] ParentId, name
 		from [dbo].[Organizations] t with (nolock)
-		where id=@OrganizationId
+		inner join #temp_orgs_and_help on t.Id=#temp_orgs_and_help.organization_id
+		--where id=@OrganizationId
 		union all
 		select t.Id, t.[parent_organization_id] ParentId, t.name
 		from [dbo].[Organizations] t with (nolock)
@@ -91,8 +131,8 @@ if OBJECT_ID('tempdb..#temp_Events_1') is not null drop table #temp_Events_1
     --[Events].event_type_id, 
     --[Events].start_date, 
     --[Event_Class].name EventName
-  from [CRM_1551_Analitics].[dbo].[Events] with (nolock)
-    inner join [CRM_1551_Analitics].[dbo].[EventOrganizers] with (nolock) on [Events].Id=[EventOrganizers].event_id
+  from   [dbo].[Events] with (nolock)
+    inner join   [dbo].[EventOrganizers] with (nolock) on [Events].Id=[EventOrganizers].event_id
 	inner join #temp_orgs orgs ON [EventOrganizers].organization_id=orgs.Id
     --left join [Event_Class] with (nolock) on [Events].event_class_id=[Event_Class].id
   --where [EventOrganizers].organization_id in (select id from #temp_orgs)
@@ -107,11 +147,11 @@ if OBJECT_ID('tempdb..#temp_Events_1') is not null drop table #temp_Events_1
     --[Events].event_type_id, 
     --[Events].start_date, 
     --[Event_Class].name EventName
-  from [CRM_1551_Analitics].[dbo].[Events] with (nolock)
-    inner join [CRM_1551_Analitics].[dbo].[EventObjects] with (nolock) on [Events].Id=[EventObjects].event_id
-    inner join [CRM_1551_Analitics].[dbo].[Objects] with (nolock) on [EventObjects].object_id=[Objects].Id
-    inner join [CRM_1551_Analitics].[dbo].[Buildings] with (nolock) on [Buildings].Id=[Objects].builbing_id
-    inner join [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject] with (nolock) on [ExecutorInRoleForObject].object_id=[Buildings].Id
+  from   [dbo].[Events] with (nolock)
+    inner join   [dbo].[EventObjects] with (nolock) on [Events].Id=[EventObjects].event_id
+    inner join   [dbo].[Objects] with (nolock) on [EventObjects].object_id=[Objects].Id
+    inner join   [dbo].[Buildings] with (nolock) on [Buildings].Id=[Objects].builbing_id
+    inner join   [dbo].[ExecutorInRoleForObject] with (nolock) on [ExecutorInRoleForObject].object_id=[Buildings].Id
 	inner join #temp_orgs orgs ON [ExecutorInRoleForObject].executor_id=orgs.Id
     --left join [Event_Class] with (nolock) on [Events].event_class_id=[Event_Class].id
   where [ExecutorInRoleForObject].[executor_role_id] in (1, 68) /*балансоутримувач, генпідрядник*/

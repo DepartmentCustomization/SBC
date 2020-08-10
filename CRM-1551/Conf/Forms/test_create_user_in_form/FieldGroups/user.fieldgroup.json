@@ -16,13 +16,6 @@
       "Name": "UserLastName",
       "FieldType": "text",
       "Position": 1
-    },
-    {
-      "Code": "showModalWrapper",
-      "Name": "click me to show modal",
-      "FieldType": "button",
-      "Position": 18,
-      "Width": "40%"
-  }
+    }
   ]
 }

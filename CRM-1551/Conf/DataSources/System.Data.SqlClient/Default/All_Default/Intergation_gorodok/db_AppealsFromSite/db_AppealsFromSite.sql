@@ -25,7 +25,7 @@ SELECT
 FROM
 	[CRM_1551_Site_Integration].[dbo].[AppealsFromSite] afs
 	LEFT JOIN [CRM_1551_Site_Integration].[dbo].WorkDirectionTypes wdt ON afs.WorkDirectionTypeId = wdt.id
-	LEFT JOIN CRM_1551_Analitics.[dbo].[Objects] obj ON obj.Id = afs.[ObjectId]
+	LEFT JOIN [dbo].[Objects] obj ON obj.Id = afs.[ObjectId]
 	LEFT JOIN SiteAppealsResults sar ON sar.id = afs.AppealFromSiteResultId
 	LEFT JOIN [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite] app ON afs.ApplicantFromSiteId=app.Id
 
@@ -47,7 +47,7 @@ WHERE
 -- FROM
 -- 	[CRM_1551_Site_Integration].[dbo].[AppealsFromSite] afs
 -- 	LEFT JOIN [CRM_1551_Site_Integration].[dbo].WorkDirectionTypes wdt ON afs.WorkDirectionTypeId = wdt.id
--- 	LEFT JOIN CRM_1551_Analitics.[dbo].[Objects] obj ON obj.Id = afs.[ObjectId]
+-- 	LEFT JOIN [dbo].[Objects] obj ON obj.Id = afs.[ObjectId]
 -- 	LEFT JOIN SiteAppealsResults sar ON sar.id = afs.AppealFromSiteResultId
 -- WHERE
 -- 	afs.AppealFromSiteResultId = @result

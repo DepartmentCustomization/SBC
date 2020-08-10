@@ -1,5 +1,5 @@
 select Id, [short_name]
-  from [CRM_1551_Analitics].[dbo].[Organizations]
+  from   [dbo].[Organizations]
   where [programworker]=N'true'
 --   and #filter_columns#
 --   #sort_columns#
