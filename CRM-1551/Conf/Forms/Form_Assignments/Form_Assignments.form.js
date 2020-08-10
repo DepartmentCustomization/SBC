@@ -21,6 +21,28 @@
                 document.getElementById('btn_Attention').innerHTML = 'Взяти на контроль';
             }
         },
+        classResolutionChange(val) {
+            if (val) {
+                const queryForChange = {
+                    queryCode: 'Class_Resolutions_Result',
+                    parameterValues: [
+                        {
+                            key: '@class_resolution_id',
+                            value: val
+                        }
+                    ],
+                    limit: -1
+                };
+                this.queryExecutor.getValues(queryForChange).subscribe(data => {
+                    if(data) {
+                        this.form.setControlValue('result_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                        this.form.setControlValue('resolution_id', { key: data.rows[0].values[2], value: data.rows[0].values[3] });
+                        this.form.setControlValue('ass_state_id', { key: data.rows[0].values[4], value: data.rows[0].values[5] });
+                        this.form.disableControl('result_id');
+                    }
+                });
+            }
+        },
         init: function() {
             let class_id = this.form.getControlValue('assignment_class_id');
             if (class_id === null) {
@@ -259,17 +281,9 @@
                     this.executeQuery2();
                 });
             }
-            this.form.onControlValueChanged('class_resolution_id', this.classResolutionChange);
+            this.form.onControlValueChanged('class_resolution_id', this.classResolutionChange.bind(this));
             this.form.onControlValueChanged('result_id', this.filterResolution.bind(this));
             this.form.onControlValueChanged('performer_id', this.chooseExecutorPerson.bind(this));
-        },
-        classResolutionChange: function() {
-            let val = this.form.getControlValue('class_resolution_id');
-            if(val) {
-                this.form.disableControl('result_id');
-            } else {
-                this.form.enableControl('result_id');
-            }
         },
         executeQuery2: function() {
             const onChangeStatus = {
@@ -300,7 +314,8 @@
             this.navigateTo('/sections/Assignments_for_view/edit/' + row.values[0] + '/Questions/' + row.values[7]);
         },
         filterResolution: function(result_id) {
-            if (this.form.getControlValue('assignment_class_id') === null) {
+            let class_resol = this.form.getControlValue('class_resolution_id');
+            if (!class_resol) {
                 this.form.setControlVisibility('transfer_to_organization_id', false);
                 this.form.setControlRequirement('transfer_to_organization_id', false);
                 this.form.setControlVisibility('rework_counter', false);
@@ -385,29 +400,27 @@
             }
         },
         onChangeStatus: function(resol_id) {
-            if (this.form.getControlValue('class_resolution_id') === null) {
-                let result = this.form.getControlValue('result_id');
-                if (resol_id !== null || result !== 9) {
-                    const onChangeStatus = {
-                        queryCode: 'dir_change_newStatus_from_Result',
-                        parameterValues: [{ key: '@new_result', value: result }, { key: '@new_resolution', value: resol_id }]
-                    };
-                    this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
-                        if (data.rows.length > 0) {
-                            this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                        }
-                    });
-                } else if (result === 9) {
-                    const onChangeStatus = {
-                        queryCode: 'dir_change_newStatus_from_Result_only',
-                        parameterValues: [{ key: '@new_result', value: result }]
-                    };
-                    this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
-                        if (data.rows.length > 0) {
-                            this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                        }
-                    });
-                }
+            let result = this.form.getControlValue('result_id');
+            if (resol_id !== null || result !== 9) {
+                const onChangeStatus = {
+                    queryCode: 'dir_change_newStatus_from_Result',
+                    parameterValues: [{ key: '@new_result', value: result }, { key: '@new_resolution', value: resol_id }]
+                };
+                this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
+                    if (data.rows.length > 0) {
+                        this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                    }
+                });
+            } else if (result === 9) {
+                const onChangeStatus = {
+                    queryCode: 'dir_change_newStatus_from_Result_only',
+                    parameterValues: [{ key: '@new_result', value: result }]
+                };
+                this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
+                    if (data.rows.length > 0) {
+                        this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                    }
+                });
             }
         },
         validate: function() {
