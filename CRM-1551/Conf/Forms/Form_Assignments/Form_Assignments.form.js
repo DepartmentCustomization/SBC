@@ -259,8 +259,17 @@
                     this.executeQuery2();
                 });
             }
+            this.form.onControlValueChanged('class_resolution_id', this.classResolutionChange);
             this.form.onControlValueChanged('result_id', this.filterResolution.bind(this));
             this.form.onControlValueChanged('performer_id', this.chooseExecutorPerson.bind(this));
+        },
+        classResolutionChange: function() {
+            let val = this.form.getControlValue('class_resolution_id');
+            if(val) {
+                this.form.disableControl('result_id');
+            } else {
+                this.form.enableControl('result_id');
+            }
         },
         executeQuery2: function() {
             const onChangeStatus = {
@@ -291,108 +300,114 @@
             this.navigateTo('/sections/Assignments_for_view/edit/' + row.values[0] + '/Questions/' + row.values[7]);
         },
         filterResolution: function(result_id) {
-            this.form.setControlVisibility('transfer_to_organization_id', false);
-            this.form.setControlRequirement('transfer_to_organization_id', false);
-            this.form.setControlVisibility('rework_counter', false);
-            this.form.setControlVisibility('control_comment', false);
-            this.form.setControlValue('resolution_id', {});
-            if (result_id === 9) {
-                const onCountRows1 = {
-                    queryCode: 'RightsFilter_AssignmentResolution',
-                    parameterValues: [{ key: '@pageOffsetRows', value: 0 },
-                        { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id },
-                        { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
-                };
-                this.queryExecutor.getValues(onCountRows1).subscribe(data => {
-                    if (data.rows.length === 1) {
-                        this.form.setControlValue('resolution_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                    }
-                });
-                let newParams2 = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') },
-                    { parameterCode: '@AssignmentId', parameterValue: this.id }];
-                this.form.setControlParameterValues('resolution_id', newParams2);
-                this.onChangeStatus();
-            } else if (this.form.getControlValue('result_id') === null) {
-                this.form.setControlValue('ass_state_id', {});
+            if (this.form.getControlValue('assignment_class_id') === null) {
+                this.form.setControlVisibility('transfer_to_organization_id', false);
+                this.form.setControlRequirement('transfer_to_organization_id', false);
+                this.form.setControlVisibility('rework_counter', false);
+                this.form.setControlVisibility('control_comment', false);
                 this.form.setControlValue('resolution_id', {});
-                this.form.disableControl('resolution_id');
-            } else {
-                this.form.enableControl('resolution_id');
-                if (result_id === 3 && this.previous_result !== 3) {
-                    this.form.setControlVisibility('transfer_to_organization_id', true);
-                    this.form.disableControl('resolution_id');
-                    const onCountRows2_3 = {
+                if (result_id === 9) {
+                    const onCountRows1 = {
                         queryCode: 'RightsFilter_AssignmentResolution',
                         parameterValues: [{ key: '@pageOffsetRows', value: 0 },
                             { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id },
                             { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
                     };
-                    this.queryExecutor.getValues(onCountRows2_3).subscribe(() => {
-                        if (this.form.getControlValue('is_exe') !== 0) {
-                            this.form.setControlValue('resolution_id', { key: 1, value: 'Повернуто в 1551' });
+                    this.queryExecutor.getValues(onCountRows1).subscribe(data => {
+                        if (data.rows.length === 1) {
+                            this.form.setControlValue('resolution_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                        }
+                    });
+                    let newParams2 = [{ parameterCode: '@new_assignment_result_id',
+                        parameterValue: this.form.getControlValue('result_id') },
+                    { parameterCode: '@AssignmentId', parameterValue: this.id }];
+                    this.form.setControlParameterValues('resolution_id', newParams2);
+                    this.onChangeStatus();
+                } else if (this.form.getControlValue('result_id') === null) {
+                    this.form.setControlValue('ass_state_id', {});
+                    this.form.setControlValue('resolution_id', {});
+                    this.form.disableControl('resolution_id');
+                } else {
+                    this.form.enableControl('resolution_id');
+                    if (result_id === 3 && this.previous_result !== 3) {
+                        this.form.setControlVisibility('transfer_to_organization_id', true);
+                        this.form.disableControl('resolution_id');
+                        const onCountRows2_3 = {
+                            queryCode: 'RightsFilter_AssignmentResolution',
+                            parameterValues: [{ key: '@pageOffsetRows', value: 0 },
+                                { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id },
+                                { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
+                        };
+                        this.queryExecutor.getValues(onCountRows2_3).subscribe(() => {
+                            if (this.form.getControlValue('is_exe') !== 0) {
+                                this.form.setControlValue('resolution_id', { key: 1, value: 'Повернуто в 1551' });
+                                this.form.disableControl('resolution_id');
+                            } else {
+                                this.form.setControlValue('resolution_id', { key: 14, value: 'Повернуто в батьківську організацію' });
+                                this.form.disableControl('resolution_id');
+                            }
+                        });
+                        let newParams = [{ parameterCode: '@new_assignment_result_id',
+                            parameterValue: this.form.getControlValue('result_id') },
+                        { parameterCode: '@AssignmentId', parameterValue: this.id }];
+                        this.form.setControlParameterValues('resolution_id', newParams);
+                        return
+                    }
+                    if (result_id === 5) {
+                        this.form.setControlVisibility('rework_counter', true);
+                        this.form.setControlVisibility('control_comment', true);
+                        this.form.disableControl('rework_counter');
+                    }
+                    if (result_id === 1) {
+                        this.form.setControlVisibility('transfer_to_organization_id', true);
+                        this.form.setControlRequirement('transfer_to_organization_id', true);
+                    }
+                    const onCountRows2 = {
+                        queryCode: 'RightsFilter_AssignmentResolution',
+                        parameterValues: [{ key: '@pageOffsetRows', value: 0 },
+                            { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id },
+                            { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
+                    };
+                    this.queryExecutor.getValues(onCountRows2).subscribe(data => {
+                        if (data.rows.length === 1) {
+                            this.form.setControlValue('resolution_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
                             this.form.disableControl('resolution_id');
                         } else {
-                            this.form.setControlValue('resolution_id', { key: 14, value: 'Повернуто в батьківську організацію' });
-                            this.form.disableControl('resolution_id');
+                            this.form.setControlValue('resolution_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                            this.form.enableControl('resolution_id');
                         }
                     });
                     let newParams = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') },
-                        { parameterCode: '@AssignmentId', parameterValue: this.id }];
+                        { parameterCode: '@AssignmentId', parameterValue: this.id },
+                        { parameterCode: '@programuser_id', parameterValue: this.user.userId }];
                     this.form.setControlParameterValues('resolution_id', newParams);
-                    return
                 }
-                if (result_id === 5) {
-                    this.form.setControlVisibility('rework_counter', true);
-                    this.form.setControlVisibility('control_comment', true);
-                    this.form.disableControl('rework_counter');
-                }
-                if (result_id === 1) {
-                    this.form.setControlVisibility('transfer_to_organization_id', true);
-                    this.form.setControlRequirement('transfer_to_organization_id', true);
-                }
-                const onCountRows2 = {
-                    queryCode: 'RightsFilter_AssignmentResolution',
-                    parameterValues: [{ key: '@pageOffsetRows', value: 0 },
-                        { key: '@pageLimitRows', value: 5 }, { key: '@AssignmentId', value: this.id },
-                        { key: '@new_assignment_result_id', value: this.form.getControlValue('result_id') }]
-                };
-                this.queryExecutor.getValues(onCountRows2).subscribe(data => {
-                    if (data.rows.length === 1) {
-                        this.form.setControlValue('resolution_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                        this.form.disableControl('resolution_id');
-                    } else {
-                        this.form.setControlValue('resolution_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                        this.form.enableControl('resolution_id');
-                    }
-                });
-                let newParams = [{ parameterCode: '@new_assignment_result_id', parameterValue: this.form.getControlValue('result_id') },
-                    { parameterCode: '@AssignmentId', parameterValue: this.id },
-                    { parameterCode: '@programuser_id', parameterValue: this.user.userId }];
-                this.form.setControlParameterValues('resolution_id', newParams);
             }
         },
         onChangeStatus: function(resol_id) {
-            let result = this.form.getControlValue('result_id');
-            if (resol_id !== null || result !== 9) {
-                const onChangeStatus = {
-                    queryCode: 'dir_change_newStatus_from_Result',
-                    parameterValues: [{ key: '@new_result', value: result }, { key: '@new_resolution', value: resol_id }]
-                };
-                this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
-                    if (data.rows.length > 0) {
-                        this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                    }
-                });
-            } else if (result === 9) {
-                const onChangeStatus = {
-                    queryCode: 'dir_change_newStatus_from_Result_only',
-                    parameterValues: [{ key: '@new_result', value: result }]
-                };
-                this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
-                    if (data.rows.length > 0) {
-                        this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                    }
-                });
+            if (this.form.getControlValue('class_resolution_id') === null) {
+                let result = this.form.getControlValue('result_id');
+                if (resol_id !== null || result !== 9) {
+                    const onChangeStatus = {
+                        queryCode: 'dir_change_newStatus_from_Result',
+                        parameterValues: [{ key: '@new_result', value: result }, { key: '@new_resolution', value: resol_id }]
+                    };
+                    this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
+                        if (data.rows.length > 0) {
+                            this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                        }
+                    });
+                } else if (result === 9) {
+                    const onChangeStatus = {
+                        queryCode: 'dir_change_newStatus_from_Result_only',
+                        parameterValues: [{ key: '@new_result', value: result }]
+                    };
+                    this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
+                        if (data.rows.length > 0) {
+                            this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                        }
+                    });
+                }
             }
         },
         validate: function() {
