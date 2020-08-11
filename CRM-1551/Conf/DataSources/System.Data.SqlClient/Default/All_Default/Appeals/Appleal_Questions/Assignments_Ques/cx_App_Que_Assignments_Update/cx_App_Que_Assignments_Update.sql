@@ -444,6 +444,27 @@ BEGIN
 	END
 	ELSE
 	BEGIN -- (F11)
+		if @result_id = 13 
+			begin 
+				declare @outputHistory table (Id int);
+				declare @Operation varchar(128);
+				SET @Operation = 'UPDATE';
+				Insert into [dbo].[AssignmentDetailHistory] ([Assignment_id]
+													,[Operation]
+													,[Missed_call_counter]	
+													,[MissedCallComment]
+													,[User_id]
+													,[Edit_date]
+													)
+				output [inserted].[Id] into @outputHistory (Id)
+				values ( @Id, @Operation, 1, @control_comment, @user_edit_id, getutcdate() )
+
+				declare @app_id int
+				set @app_id = (select top 1 Id from @outputHistory)
+
+				--select @app_id as [Id]
+				--return;
+			end;
 
 		-- 	Перерозподіл на підрядну організацію (если поменялся исполнитель)
 		IF @result_id = 1
