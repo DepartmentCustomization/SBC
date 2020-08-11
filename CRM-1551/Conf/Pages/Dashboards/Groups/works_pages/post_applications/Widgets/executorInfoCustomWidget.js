@@ -67,7 +67,7 @@
                 {id: 'positionPIB', className: 'itemWrapper', innerText: this.executorInfo.Position_PIB}
             );
             const parentPositions = this.createItemWrapper('Підпорядковується: ', this.executorInfo.Parent_Positions_Name);
-            const organizationsName = this.createItemWrapper('Організація: ', this.executorInfo.Organizations_Name);
+            const organizationsName = this.createItemWrapper('Організація: ', this.executorInfo.Organizations_Name, 'pointer');
             const workDays = this.createItemWrapper('Робочий час: ', this.executorInfo.WorkDays);
             const wrapper = this.createElement('div', {id: 'wrapper'},
                 positionOrganization, positionPIB, parentPositions, organizationsName, workDays
@@ -75,10 +75,21 @@
             this.container.appendChild(wrapper);
             this.hidePagePreloader();
         },
-        createItemWrapper: function(captionText, valueText) {
+        createItemWrapper: function(captionText, valueText, pointer) {
             const caption = this.createElement('div', {className: 'caption', innerText: captionText});
             const value = this.createElement('div', {className: 'value', innerText: valueText});
             const parentPositions = this.createElement('div', {className: 'itemWrapper'}, caption, value);
+            if (pointer) {
+                parentPositions.classList.add(pointer);
+                parentPositions.addEventListener('click', () => {
+                    window.open(
+                        location.origin +
+                        localStorage.getItem('VirtualPath') +
+                        '/sections/Organizations/view/' +
+                        this.executorInfo.Id
+                    );
+                });
+            }
             return parentPositions;
         },
         createElement: function(tag, props, ...children) {
