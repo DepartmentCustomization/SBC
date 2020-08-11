@@ -1,5 +1,5 @@
 
---declare @phone_nunber nvarchar(50)=N'044-564-96-50'; 
+--declare @phone_number nvarchar(50)=N'044242934'; 
 
 /*
 declare @today_day date= convert(date, getutcdate()); --сегодняшний день
@@ -66,6 +66,7 @@ declare @today_day date= convert(date, getutcdate()); --сегодняшний �
    stuff((select distinct N', '+position_PIB from #temp_main_info for xml path('')),1,2,N'') Position_PIB,
    stuff((select distinct N', '+Parent_Positions_name from #temp_main_info for xml path('')),1,2,N'') Parent_Positions_Name,
    stuff((select distinct N', '+organizations_name from #temp_main_info for xml path('')),1,2,N'') Organizations_Name,
+   stuff((select distinct N', '+ltrim(organizations_id) from #temp_main_info for xml path('')),1,2,N'') Organizations_Id,
   -- (select N'Робочий час: '+stuff((select N', '+[day]
   --from #temp_all_day
   --where [day]<>N'Пт'
