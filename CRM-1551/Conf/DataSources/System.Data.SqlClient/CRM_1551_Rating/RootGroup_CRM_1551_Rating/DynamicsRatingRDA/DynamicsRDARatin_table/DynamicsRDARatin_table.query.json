@@ -1,6 +1,6 @@
 {
   "ModelType": "Query",
-  "Code": " DynamicsRDARatin_table",
+  "Code": "DynamicsRDARatin_table",
   "Name": "DynamicsRDARatin_table",
   "ConnectionCode": "CRM_1551_Rating",
   "IsUsedForRightsFilter": false,
