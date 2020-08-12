@@ -1,10 +1,29 @@
--- declare @date_from datetime='2019-11-09 00:00:00.000'
---   ,@date_to datetime='2019-11-09 00:00:00.000';
+ --declare @date_from datetime='2019-11-09 00:00:00.000'
+ --   ,@date_to datetime='2019-11-09 00:00:00.000'
+	--,@rda_id  int=59;
 
   declare @date_from_d date=@date_from
   declare @date_to_d date=@date_to
   declare @date_first date=datefromparts(year(@date_from_d),month(@date_from_d),1)
   --declare @date_first date=datefromparts(year(getutcdate()),month(getutcdate()),1)
+
+  --таблица для РДА начало
+    IF object_id('tempdb..#temp_rda_table') is not null BEGIN DROP TABLE #temp_rda_table END
+
+  ;with
+it as --дети @id
+(select Id, [parent_organization_id] ParentId, short_name name
+from [CRM_1551_Analitics].[dbo].[Organizations] t
+where id=@rda_id
+union all
+select t.Id, t.[parent_organization_id]  ParentId, t.short_name name
+from [CRM_1551_Analitics].[dbo].[Organizations] t 
+inner join it on t.[parent_organization_id]=it.Id)
+
+select * 
+into #temp_rda_table
+from it-- pit it
+  --таблица для РДА конец
 
   --select @date_first
   --все нужные организации
@@ -14,6 +33,7 @@
   into #temp_org_table
   from [dbo].[Rating_ResultTable_ByOrganization] r
   inner join [CRM_1551_Analitics].[dbo].[Organizations] on r.OrganizationId=[Organizations].Id
+  inner join #temp_rda_table rda on [Organizations].Id=rda.Id
   where r.[DateCalc] between @date_first and @date_to_d
   and
   (
@@ -42,6 +62,7 @@
       ,avg(r.[PercentPleasureOfExecution]) avg_PercentPleasureOfExecution --Відсоток задоволення від виконання
   into #temp_org_filter
   from [dbo].[Rating_ResultTable_ByOrganization] r
+    inner join #temp_rda_table rda on r.[OrganizationId]=rda.Id
   --inner join [CRM_1551_Analitics].[dbo].[Organizations] on r.OrganizationId=[Organizations].Id
   where r.[DateCalc] between @date_from_d and @date_to_d
   group by r.[OrganizationId]--, [Organizations].short_name
@@ -60,6 +81,7 @@
       ,avg(r.[PercentPleasureOfExecution]) avg_PercentPleasureOfExecution --Відсоток задоволення від виконання
   into #temp_org_first
   from [dbo].[Rating_ResultTable_ByOrganization] r
+  inner join #temp_rda_table rda on r.[OrganizationId]=rda.Id
   --inner join [CRM_1551_Analitics].[dbo].[Organizations] on r.OrganizationId=[Organizations].Id
   where r.[DateCalc]>= @date_first and r.[DateCalc]<@date_from_d
   group by r.[OrganizationId]--, [Organizations].short_name

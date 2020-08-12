@@ -15,6 +15,11 @@
       "Code": "@date_to",
       "Name": "date_to",
       "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@rda_id",
+      "Name": "rda_id",
+      "ParameterType": "Integer"
     }
   ]
 }
