@@ -61,7 +61,7 @@
   into #temp_org_first
   from [dbo].[Rating_ResultTable_ByOrganization] r
   --inner join [CRM_1551_Analitics].[dbo].[Organizations] on r.OrganizationId=[Organizations].Id
-  where r.[DateCalc] between @date_first and @date_from_d
+  where r.[DateCalc]>= @date_first and r.[DateCalc]<@date_from_d
   group by r.[OrganizationId]--, [Organizations].short_name
 
   select tab.OrganizationId Id, tab.OrganizationName,
