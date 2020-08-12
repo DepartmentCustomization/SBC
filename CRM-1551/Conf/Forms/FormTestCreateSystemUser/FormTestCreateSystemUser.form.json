@@ -5,7 +5,7 @@
   "Details": [],
   "Config": {
     "FieldGroups": [
-      "string:FieldGroups\\Group_User.fieldgroup.json"
+      "string:FieldGroups\\SystemUser.fieldgroup.json"
     ],
     "DefaultFields": [],
     "Script": "string:FormTestCreateSystemUser.form.js"
