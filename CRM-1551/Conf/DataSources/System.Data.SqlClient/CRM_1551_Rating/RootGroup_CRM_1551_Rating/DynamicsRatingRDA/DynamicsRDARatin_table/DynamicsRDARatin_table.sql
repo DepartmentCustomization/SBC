@@ -64,7 +64,7 @@
   where r.[DateCalc] between @date_first and @date_from_d
   group by r.[OrganizationId]--, [Organizations].short_name
 
-  select tab.OrganizationId, tab.OrganizationName,
+  select tab.OrganizationId Id, tab.OrganizationName,
   convert(numeric(8,2), fir.avg_PercentClosedOnTime) avg_PercentClosedOnTime_with_1, --Процент закритий на час
   convert(numeric(8,2), fil.avg_PercentClosedOnTime) avg_PercentClosedOnTime_with_filter,
   case when fil.avg_PercentClosedOnTime-fir.avg_PercentClosedOnTime>0
