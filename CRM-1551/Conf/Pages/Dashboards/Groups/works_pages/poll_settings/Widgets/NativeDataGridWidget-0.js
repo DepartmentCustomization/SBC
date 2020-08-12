@@ -78,6 +78,7 @@
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this));
             this.sendQuery = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.applyCallBack, this));
+            this.subscribers.push(this.messageService.subscribe('updateDataGrid', this.updateDataGrid, this));
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
         },
         getFiltersParams: function(message) {
@@ -109,6 +110,9 @@
                 }
             }
         },
+        updateDataGrid() {
+            this.loadData(this.afterLoadDataHandler);
+        },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
@@ -139,10 +143,24 @@
                     options.cellElement.insertAdjacentHTML('afterbegin',icon);
                 }else if(options.column.dataField === 'fix_row_icon') {
                     options.cellElement.classList.add('cell-icon');
-                    const icon = '<span class="material-icons create fix-row"> create </span>';
-                    options.cellElement.insertAdjacentHTML('afterbegin',icon);
+                    const icon = this.createElement('span',{className:'material-icons create fix-row',textContent:'create'})
+                    icon.addEventListener('click',()=>this.openFormCon(options))
+                    options.cellElement.append(icon);
                 }
             }
+        },
+        openFormCon(options) {
+            const {PollDirId,end_date,is_active,poll_name,start_date} = options.data;
+            const obj = {
+                dateFrom:start_date,
+                dateTo:end_date,
+                name:poll_name,
+                direction:PollDirId,
+                activity:is_active,
+                rowId:options.row.rowIndex
+            }
+            const fixRow = true;
+            this.setVisibility(fixRow,obj)
         },
         applyCallBack() {
             this.hideFilterPanel();
@@ -152,7 +170,7 @@
                 {key: '@is_active', value: this.activity }
             ];
             this.loadData(this.afterLoadDataHandler);
-            this.setVisibility();
+            this.createSetVisibility();
         },
         hideFilterPanel() {
             const msg = {
@@ -163,38 +181,39 @@
             };
             this.messageService.publish(msg);
         },
-        setVisibility() {
+        createSetVisibility() {
             const con = document.getElementById('NativeDataGridWidget-0')
-            const mainCon = document.getElementById('first_widget')
-            const tab = document.getElementById('second_widget')
             let addTaskDiv = document.getElementById('add-task-block');
             if(addTaskDiv) {
                 addTaskDiv.remove()
             }
             const div = this.createElement('div',{classList:'add-task-block',id: 'add-task-block'});
             const btn = this.createElement('button',{classList:'add-task',textContent: 'Додати'});
-            document.body.addEventListener('click',(e)=> {
-                if((e.target.classList.contains('add-task')) || (e.target.classList.contains('fix-row'))) {
-                    const msg = {
-                        name: 'setVisibilityNone',
-                        package: {
-                            display: 'none',
-                            container: mainCon
-                        }
-                    };
-                    const msg2 = {
-                        name: 'setVisibilityBlock',
-                        package: {
-                            display: 'block',
-                            container: tab
-                        }
-                    }
-                    this.messageService.publish(msg);
-                    this.messageService.publish(msg2);
-                }
-            })
+            btn.addEventListener('click', this.setVisibility.bind(this))
             div.insertAdjacentElement('beforeend',btn)
             con.insertAdjacentElement('beforebegin',div)
+        },
+        setVisibility(fixRow,options = '') {
+            const mainCon = document.getElementById('first_widget')
+            const tab = document.getElementById('second_widget')
+            const msg = {
+                name: 'setVisibilityNone',
+                package: {
+                    display: 'none',
+                    container: mainCon
+                }
+            };
+            const msg2 = {
+                name: 'setVisibilityBlock',
+                package: {
+                    display: 'block',
+                    container: tab,
+                    fixRow,
+                    options
+                }
+            }
+            this.messageService.publish(msg);
+            this.messageService.publish(msg2);
         },
         afterLoadDataHandler: function() {
             this.render();

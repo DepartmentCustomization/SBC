@@ -24,19 +24,53 @@
                 });
             } return element;
         },
-        createStatic() {
+        createStatic(obj = null,fixRow = null) {
             const conStatic = document.getElementById('static');
             conStatic.innerHTML = '';
-            const headerBlock = this.createHeaderBlock();
             const date = new Date().toISOString();
             const convertDate = date.slice(0,16);
-            const dateFrom = this.createData('date-from', 'Дата старту',convertDate,true);
-            const dateTo = this.createData('date-to', 'Дата завершення',convertDate,false);
-            const dataBlock = this.createElement('div', {className: 'data-block'});
-            const activityButton = this.createActivityButton();
-            dataBlock.append(dateFrom,dateTo,activityButton);
-            const staticInfo = this.createStaticInfo();
-            conStatic.append(headerBlock,dataBlock,staticInfo);
+            if(obj) {
+                const headerBlock = this.createHeaderBlock(obj,fixRow);
+                const valueFrom = new Date(obj.dateFrom).toISOString();
+                const valueTo = new Date(obj.dateTo).toISOString();
+                const dateFrom = this.createData('dateFrom', 'Дата старту',convertDate,valueFrom.slice(0,16),true);
+                const dateTo = this.createData('dateTo', 'Дата завершення',convertDate,valueTo.slice(0,16),false);
+                const dataBlock = this.createElement('div', {className: 'data-block'});
+                const activityButton = this.createActivityButton(obj.activity);
+                dataBlock.append(dateFrom,dateTo,activityButton);
+                const staticInfo = this.createStaticInfo();
+                conStatic.append(headerBlock,dataBlock,staticInfo);
+            }else{
+                const headerBlock = this.createHeaderBlock();
+                const dateFrom = this.createData('dateFrom', 'Дата старту',convertDate,convertDate,true);
+                const dateTo = this.createData('dateTo', 'Дата завершення',convertDate,convertDate,false);
+                const dataBlock = this.createElement('div', {className: 'data-block'});
+                const activityButton = this.createActivityButton();
+                dataBlock.append(dateFrom,dateTo,activityButton);
+                const staticInfo = this.createStaticInfo();
+                conStatic.append(headerBlock,dataBlock,staticInfo);
+            }
+            const dateValue = document.getElementById('dateFrom');
+            dateValue.addEventListener('change',(e)=>{
+                const dateTo = document.getElementById('dateTo');
+                dateTo.min = e.target.value
+                dateTo.value = e.target.value
+            })
+            this.checkInputParams()
+        },
+        checkInputParams() {
+            const list = document.querySelectorAll('.req-input')
+            list.forEach(e=>e.addEventListener('change',this.handleChangeInputs.bind(this)))
+        },
+        handleChangeInputs() {
+            const btn = document.getElementById('main-button-save')
+            const listInputs = Array.from(document.querySelectorAll('.req-input'))
+            const emptyString = listInputs.find(elem=>elem.value === '')
+            if(emptyString) {
+                btn.classList.remove('active')
+            }else{
+                btn.classList.add('active')
+            }
         },
         createDynamic() {
             const conDynamic = document.getElementById('dynamic');
@@ -48,16 +82,31 @@
             dynamicHeader.append(formList,addNewForm);
             conDynamic.append(dynamicHeader,interviewForm);
         },
-        createHeaderBlock() {
-            const headerBlock = this.createElement('div', {className: 'header-block'});
-            const interviewName = this.createElement('input',{className:'interview-name',placeholder:'Назва опитування',required:'true'});
+        createHeaderBlock(obj = null,fixRow = null) {
+            const headerBlock = this.createElement('div', {className: 'header-block',dataRowIndex: obj.rowId,id:'header-block'});
+            const inputProps = {className:'interview-name req-input',
+                name:'interviewName',
+                placeholder:obj ? '' : 'Назва опитування',
+                required:'true',
+                maxLength: '200',
+                value: obj ? obj.name : ''
+            }
+            const interviewName = this.createElement('input',inputProps);
             const buttonsBlock = this.createElement('div', {className: 'main-buttons-block'});
             const buttonBack = this.createElement('button', {className: 'main-button-back',textContent: 'Назад', id: 'main-button-back'});
-            const buttonSave = this.createElement('button', {className: 'main-button-save',textContent:'Зберегти',id:'main-button-save'});
-            buttonBack.addEventListener('click',this.sendBlockQuery)
-            buttonSave.addEventListener('click',this.sendBlockQuery)
-            const interviewDirection = this.createSelect();
-            headerBlock.append(interviewName,interviewDirection,buttonsBlock);
+            const buttonSaveProps = {
+                className: obj ? 'main-button-save active' : 'main-button-save',
+                textContent:'Зберегти',
+                dataFix: fixRow ? fixRow : false,
+                id:'main-button-save'
+            }
+            const buttonSave = this.createElement('button', buttonSaveProps);
+            const wrapper = this.createElement('div', {className: 'modal-wrapper',id:'modal-wrapper'});
+            const modal = this.openWarningModal();
+            buttonBack.addEventListener('click',this.sendBlockQuery.bind(this))
+            buttonSave.addEventListener('click',this.sendBlockQuery.bind(this))
+            const interviewDirection = this.createSelect(obj ? obj.direction : '');
+            headerBlock.append(interviewName,interviewDirection,buttonsBlock,modal,wrapper);
             buttonsBlock.append(buttonBack,buttonSave);
             return headerBlock
         },
@@ -175,17 +224,137 @@
             const button = this.createElement('button',{className:`${className}`,textContent:'add'});
             return button
         },
-        sendBlockQuery() {
+        sendBlockQuery(e) {
             const mainCon = document.getElementById('first_widget')
             const tab = document.getElementById('second_widget')
-            mainCon.style.display = 'block';
-            tab.style.display = 'none';
+            const modal = document.getElementById('warning-modal');
+            const wrapper = document.getElementById('modal-wrapper');
+            if(e.target.classList.contains('main-button-back')) {
+                modal.classList.add('active')
+                wrapper.classList.add('active')
+            }else if(e.target.classList.contains('main-button-save')) {
+                const values = this.getInputValues();
+                const findStr = values.find(({value})=>{
+                    return value === '';
+                })
+                if(findStr) {
+                    e.target.classList.remove('active')
+                    const saveWarn = document.querySelector('.save-warn')
+                    saveWarn ? saveWarn.remove() : null;
+                    const warnP = '<p class="red save-warn">Всі поля повинні бути заповнені</p>'
+                    e.target.insertAdjacentHTML('afterend',warnP)
+                }else{
+                    const saveWarn = document.querySelector('.save-warn')
+                    saveWarn ? saveWarn.remove() : null;
+                    e.target.dataFix ? this.sendUpdateRowQuery(values) : this.sendStaticFormQuery(values)
+                    mainCon.style.display = 'block';
+                    tab.style.display = 'none';
+                }
+            }
         },
-        createActivityButton() {
+        sendUpdateRowQuery(arr) {
+            let obj = {}
+            const rowId = document.getElementById('header-block').dataRowIndex + 1;
+            arr.forEach(elem=>{
+                return obj[elem.name] = elem.value
+            })
+            const dateFrom = new Date(obj.dateFrom)
+            const dateTo = new Date(obj.dateTo)
+            const insertRowQuery = {
+                queryCode: 'Polls_UpdateRow',
+                limit: -1,
+                parameterValues: [
+                    {key: '@poll_name', value: obj.interviewName},
+                    {key: '@direction_id', value: obj.intDirection},
+                    {key: '@start_date', value: dateFrom},
+                    {key: '@end_date', value: dateTo},
+                    {key: '@is_active', value: obj.status},
+                    {key: '@id', value: rowId}
+                ]
+            };
+            this.queryExecutor(insertRowQuery,this.updateGrid,this);
+        },
+        sendStaticFormQuery(arr) {
+            let obj = {}
+            arr.forEach(elem=>{
+                return obj[elem.name] = elem.value
+            })
+            const dateFrom = new Date(obj.dateFrom)
+            const dateTo = new Date(obj.dateTo)
+            const insertRowQuery = {
+                queryCode: 'Polls_InsertRow',
+                limit: -1,
+                parameterValues: [
+                    {key: '@poll_name', value: obj.interviewName},
+                    {key: '@direction_id', value: obj.intDirection},
+                    {key: '@start_date', value: dateFrom},
+                    {key: '@end_date', value: dateTo},
+                    {key: '@is_active', value: obj.status}
+                ]
+            };
+            this.queryExecutor(insertRowQuery,this.updateGrid,this);
+        },
+        updateGrid() {
+            const msg = {
+                name: 'updateDataGrid'
+            }
+            this.messageService.publish(msg);
+        },
+        getInputValues() {
+            const inputs = Array.from(document.querySelectorAll('.req-input'));
+            const active = {
+                name:'status',
+                value:document.querySelector('.activity').status
+            };
+            const newArray = inputs.map(({name,value})=>{
+                const obj = {
+                    name, value
+                }
+                return obj
+            })
+            newArray.push(active)
+            return newArray
+        },
+        openWarningModal() {
+            const modal = this.createElement('div',{className:'warning-modal',id:'warning-modal'});
+            const props = {className:'modal-title',textContent:'Ви дійсно хочете вийти з процесу створення опитування?'}
+            const h2 = this.createElement('h2',props);
+            const tab = document.getElementById('second_widget')
+            const mainCon = document.getElementById('first_widget')
+            const buttonAccept = this.createElement('button',{className:'modal-accept modal-btn',textContent:'Так'});
+            const buttonCancel = this.createElement('button',{className:'modal-cancel modal-btn',textContent:'Ні'});
+            modal.addEventListener('click',(e)=>{
+                if(e.target.classList.contains('modal-accept')) {
+                    const wrapper = document.getElementById('modal-wrapper');
+                    e.target.closest('.warning-modal').classList.remove('active');
+                    wrapper.classList.remove('active')
+                    mainCon.style.display = 'block';
+                    tab.style.display = 'none';
+                }else if(e.target.classList.contains('modal-cancel')) {
+                    const wrapper = document.getElementById('modal-wrapper');
+                    e.target.closest('.warning-modal').classList.remove('active');
+                    wrapper.classList.remove('active')
+
+                }
+            })
+            modal.append(h2,buttonAccept,buttonCancel)
+            return modal
+        },
+        createActivityButton(activity = null) {
             const con = this.createElement('div',{className:'activity-block'});
-            const span = this.createElement('span',{className:'material-icons red activity',textContent:'pause_circle_filled'})
-            const span2 = this.createElement('span',{className:'material-icons green activity',textContent:'play_circle_filled'})
-            con.append(span);
+            const spanProps = {
+                className:'material-icons red activity',
+                textContent:'pause_circle_filled',
+                status:'false'
+            }
+            const span2Props = {
+                className:'material-icons green activity',
+                textContent:'play_circle_filled',
+                status:'true'
+            }
+            const span = this.createElement('span',spanProps)
+            const span2 = this.createElement('span',span2Props)
+            con.append(activity ? span : span2);
             con.addEventListener('click',(e)=>{
                 if(e.target.classList.contains('red')) {
                     con.innerHTML = '';
@@ -227,17 +396,28 @@
             con.append(limitValue,limitLabel);
             return con
         },
-        createSelect() {
-            const select = this.createElement('select', {className: 'interview-direction'});
-            const options = this.selectData.map(elem=>`<option class='interview-option' value=${elem.id}>${elem.name}</option>`).join('');
-            select.insertAdjacentHTML('beforeend',options)
+        createSelect(prop) {
+            const select = this.createElement('select', {className: 'interview-direction req-input',name:'intDirection'});
+            const options = this.selectData.map(elem=>`<option class='interview-option' value=${elem.id}>${elem.name}</option>`);
+            const index = options.findIndex(elem=>elem.includes(prop))
+            const item = options.splice(index,1)
+            options.unshift(item)
+            select.insertAdjacentHTML('beforeend',options.join(''))
             return select
         },
-        createData(id,textContent,minDate,req = false) {
+        createData(id,textContent,minDate,valueDate = null,req = false) {
             const dateBlock = this.createElement('div', {className: 'date-block'});
             let required = req;
-            let cls = 'date-input';
-            const dateInput = this.createElement('input',{className:cls,required,type:'datetime-local',id:`${id}`,min:`${minDate}`})
+            let props = {
+                className:'date-input req-input',
+                required,
+                type:'datetime-local',
+                id:`${id}`,
+                min:`${minDate}`,
+                value:valueDate ? valueDate : minDate,
+                name: `${id}`
+            }
+            const dateInput = this.createElement('input',props)
             const dateLabel = this.createElement('label', {className: 'label-data', for: `${id}`, textContent:`${textContent}`});
             dateBlock.append(dateLabel,dateInput)
             return dateBlock
@@ -269,10 +449,14 @@
         setVisibilityTableContainer(message) {
             const con = message.package.container
             con.style.display = message.package.display;
-            this.createStatic()
+            const props = message.package.options;
+            const fixRow = message.package.fixRow;
+            if(props) {
+                this.createStatic(props,fixRow)
+            }else{
+                this.createStatic()
+            }
             this.createDynamic()
-        },
-        load: function() {
         }
     };
 }());

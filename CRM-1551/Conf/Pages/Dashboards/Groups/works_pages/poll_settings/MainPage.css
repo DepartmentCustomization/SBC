@@ -169,7 +169,7 @@ text-align: center!important;
   text-align: center;
   font-size: 30px;
   color: rgb(53, 52, 52);
-  font-family: Roboto;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .main-button-back{
@@ -187,13 +187,18 @@ text-align: center!important;
 
 .main-button-save{
   padding: 5px 10px;
-  background-color: rgb(153, 86, 184);
+  background-color: rgb(110, 110, 110);
   color: #fff;
   font-size: 18px;
   font-family: Roboto;
   outline: none;
   margin-top: 10px;
   border: none;
+  
+}
+
+.main-button-save.active{
+  background-color: rgb(153, 86, 184);
   cursor: pointer;
 }
 
@@ -433,4 +438,63 @@ text-align: center!important;
   cursor: pointer;
   border:1px solid rgb(63, 63, 63);
   border-radius: 5px;
+}
+
+/* MODAL */
+
+.warning-modal{
+  display: none;
+  position: absolute;
+  top: 30%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  background-color: rgb(96, 202, 179);
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border: 1px solid rgb(99, 93, 93);
+  text-align: center;
+  z-index: 11!important;
+}
+
+.warning-modal.active{
+  display: block;
+}
+
+.modal-title{
+  width: 70%;
+  font-family: Roboto;
+  font-size: 36px;
+  color: rgb(61, 60, 60);
+  margin: 0 auto 40px;
+}
+
+.modal-btn{
+  padding: 5px 10px;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-family: Roboto;
+  color: #fff;
+  background-color: rgb(10, 131, 187);
+  border-radius: 5px;
+}
+
+.modal-accept{
+  background-color: rgb(26, 168, 90);
+  margin-right: 40px;
+}
+
+.modal-wrapper{
+  display: none;
+  position: absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  background-color: rgba(0, 0, 0, 0.301);
+  z-index: 10!important;
+}
+
+.modal-wrapper.active{
+  display: block;
 }
