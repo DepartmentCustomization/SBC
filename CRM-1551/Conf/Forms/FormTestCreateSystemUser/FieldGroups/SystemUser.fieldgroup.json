@@ -66,16 +66,17 @@
       "FieldType": "systemUser",
       "Position": 100,
       "Width": "100%",
-      "FirstName": "FirstName",
-      "LastName": "LastName",
-      "Patronymic": "Patronymic",
-      "UseEDS": "UseEDS",
-      "INN": "",
-      "Avatar": "",
-      "Active": "Active",
-      "PhoneNumber": "PhoneNumber",
-      "DashboardPageCode": "DashboardPageCode"
-
+      "MappingFields": {
+        "firstName": "FirstName",
+        "lastName": "LastName",
+        "patronymic": "Patronymic",
+        "useEDS": "UseEDS",
+        "inn": "",
+        "avatar": "",
+        "active": "Active",
+        "phoneNumber": "PhoneNumber",
+        "dashboardPageCode": "DashboardPageCode"
+      } 
     }
   ]
 }
