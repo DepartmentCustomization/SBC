@@ -1,0 +1,32 @@
+.column{
+    color: #000;
+    font-family: Arial;
+}
+
+.column-violet{
+    background-color: #bbb1db;
+}
+
+.column-green{
+    background-color: #C9E6E3;
+}
+
+.column-red{
+    background-color: #f9cdcc;
+}
+
+.column-olive{
+    background-color: #ededed;
+}
+
+.column-orange{
+    background-color: #fcfad4;
+}
+
+.column-blue{
+    background-color: #def1ef;
+}
+
+.column-grey{
+    background-color: #eeeeee;
+}
