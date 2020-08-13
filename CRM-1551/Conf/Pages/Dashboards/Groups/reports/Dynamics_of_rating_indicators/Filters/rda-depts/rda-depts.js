@@ -4,7 +4,7 @@
         keyValue: 'Id',
         displayValue: 'name',
         baseQueryOptions: {
-            queryCode: 'db_so_Department_filter',
+            queryCode: 'RDA_SELECTROWS',
             filterColumns: null,
             limit: -1,
             parameterValues: [ {key:'@pageOffsetRows' , value:0},{key: '@pageLimitRows', value: 50} ],
@@ -18,6 +18,8 @@
         },
         onItemSelect: function(item) {
             this.yourFunctionName(item);
+        },
+        onClearFilter: function() {
         },
         yourFunctionName: function(item) {
             let message = {
