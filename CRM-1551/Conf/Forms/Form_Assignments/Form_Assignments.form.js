@@ -23,7 +23,7 @@
             }
         },
         classResolutionChange(val) {
-            if (val && typeof (val) === Number) {
+            if (val && typeof (val) === 'number') {
                 const queryForChange = {
                     queryCode: 'Class_Resolutions_Result',
                     parameterValues: [
@@ -244,7 +244,6 @@
                 this.form.disableControl('performer_id');
             }
             if (ass_state_id === 5) {
-                this.form.disableControl('assignment_class_id');
                 this.form.disableControl('class_resolution_id');
                 this.form.disableControl('resolution_id');
                 this.form.disableControl('result_id');
@@ -317,8 +316,8 @@
             this.navigateTo('/sections/Assignments_for_view/edit/' + row.values[0] + '/Questions/' + row.values[7]);
         },
         filterResolution: function(result_id) {
-            if(result_id) {
-                this.form.disableControl('class_resolution_id');
+            if (result_id) {
+                this.form.disableControl('class_resolution_id')
             }
             let class_resol = this.form.getControlValue('class_resolution_id');
             if (class_resol === this.open_class_resolution) {
