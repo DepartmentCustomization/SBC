@@ -137,7 +137,7 @@ BEGIN
 				   ,control_date = GETUTCDATE()
 				   ,[control_comment] = @control_comment
 				   --,[grade] = @grade
-				   ,case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else [grade] end
+				   ,[grade] =  case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else [grade] end
 				   ,[edit_date] = GETUTCDATE()
 				   ,[user_edit_id] = @user_id
 				WHERE [assignment_consideration_іd] IN (SELECT
@@ -237,6 +237,28 @@ IF (SELECT main_executor FROM @assigments_table WHERE Id =@Id)='true'
 				where atab.Id=@Id and [Assignments].assignment_state_id<>5;--ограничение на закрытое
 			END
 
+
+if @control_result_id = 13 
+begin 
+declare @output table (Id int);
+declare @Operation varchar(128);
+SET @Operation = 'UPDATE';
+Insert into [dbo].[AssignmentDetailHistory] ([Assignment_id]
+									  ,[Operation]
+									  ,[Missed_call_counter]	
+									  ,[MissedCallComment]
+									  ,[User_id]
+									  ,[Edit_date]
+									  )
+output [inserted].[Id] into @output (Id)
+values ( @Id, @Operation, 1, @control_comment, @user_edit_id, getutcdate() )
+
+declare @app_id int
+set @app_id = (select top 1 Id from @output)
+
+--select @app_id as [Id]
+--return;
+end;
 
 --какие-то мутки, начало
 IF @control_result_id <> 4
