@@ -128,7 +128,8 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	END	
 END
 ---> обработка изменений по "Резолюція класу"
-ELSE IF(@class_resolution_id IS NOT NULL)
+ELSE IF(@class_resolution_id IS NOT NULL) 
+AND (SELECT [class_resolution_id] FROM dbo.Assignments WHERE [Id] = @Id) IS NULL
 BEGIN
 	SET XACT_ABORT ON;
 	BEGIN TRY
@@ -165,6 +166,21 @@ BEGIN
 	 	[user_edit_id] = @user_edit_id,
 	 	[short_answer] = @short_answer
 	WHERE Id = @current_consid;
+
+	INSERT INTO [dbo].[AssignmentRevisions]
+				([assignment_consideration_іd]
+				,[control_type_id]
+				,[assignment_resolution_id]
+				,[user_id]
+				,[edit_date]
+				,[user_edit_id])
+	VALUES (@current_consid
+			,1
+			,@new_resolution_id
+			,@user_edit_id
+			,@now
+			,@user_edit_id
+			);
 	--> Создать проблему (Event) под резолюцию класса, если надо
 	IF(@event_class_id IS NOT NULL)
 	BEGIN
@@ -443,6 +459,24 @@ BEGIN
 	END
 	ELSE
 	BEGIN -- (F11)
+		IF @result_id = 13 
+			BEGIN 
+				DECLARE @outputHistory TABLE (Id INT);
+				DECLARE @Operation VARCHAR(128);
+				SET @Operation = 'UPDATE';
+				INSERT INTO [dbo].[AssignmentDetailHistory] ([Assignment_id]
+													,[Operation]
+													,[Missed_call_counter]	
+													,[MissedCallComment]
+													,[User_id]
+													,[Edit_date]
+													)
+				output [inserted].[Id] INTO @outputHistory (Id)
+				VALUES ( @Id, @Operation, 1, @control_comment, @user_edit_id, GETUTCDATE() );
+
+				DECLARE @app_id INT;
+				SET @app_id = (SELECT TOP 1 Id FROM @outputHistory);
+			END;
 
 		-- 	Перерозподіл на підрядну організацію (если поменялся исполнитель)
 		IF @result_id = 1
@@ -686,15 +720,15 @@ BEGIN
 				, [rework_counter]
 				, [edit_date]
 				, [user_edit_id])
-					VALUES (@current_consid --@ass_cons_id
-					, 1  -- @control_type_id = Контроль, Продзвон, Контроль заявником
-					, @resolution_id -- @assignment_resolution_id
-					, @control_comment
+				VALUES (@current_consid --@ass_cons_id
+						,1  -- @control_type_id = Контроль, Продзвон, Контроль заявником
+						,@resolution_id -- @assignment_resolution_id
+						,@control_comment
 					--    ,getutcdate() 
-					, @user_edit_id --@user_id
+						,@user_edit_id --@user_id
 					-- ,@rework_counter_count
-					, @rework_counter, GETUTCDATE() --@edit_date
-					, @user_edit_id);
+						,@rework_counter, GETUTCDATE() --@edit_date
+						,@user_edit_id);
 			END
 			-- exec pr_chech_in_status_assignment @Id, @result_id, @resolution_id
 			RETURN;

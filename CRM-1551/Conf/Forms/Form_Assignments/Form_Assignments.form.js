@@ -9,6 +9,7 @@
         },
         date_in_form: '',
         previous_result: '',
+        open_class_resolution: null,
         checkAttentionVal() {
             let attentionVal = this.form.getControlValue('attention_val');
             if(attentionVal === 1) {
@@ -22,7 +23,7 @@
             }
         },
         classResolutionChange(val) {
-            if (val) {
+            if (val && typeof (val) === 'number') {
                 const queryForChange = {
                     queryCode: 'Class_Resolutions_Result',
                     parameterValues: [
@@ -54,8 +55,8 @@
             }
 
             let class_resolution_id = this.form.getControlValue('class_resolution_id');
+            this.open_class_resolution = class_resolution_id;
             if(class_resolution_id) {
-                this.form.disableControl('result_id', true);
                 this.form.disableControl('assignment_class_id', true);
                 this.form.disableControl('class_resolution_id', true);
             }
@@ -243,6 +244,7 @@
                 this.form.disableControl('performer_id');
             }
             if (ass_state_id === 5) {
+                this.form.disableControl('class_resolution_id');
                 this.form.disableControl('resolution_id');
                 this.form.disableControl('result_id');
                 this.form.disableControl('performer_id');
@@ -314,8 +316,11 @@
             this.navigateTo('/sections/Assignments_for_view/edit/' + row.values[0] + '/Questions/' + row.values[7]);
         },
         filterResolution: function(result_id) {
+            if (result_id) {
+                this.form.disableControl('class_resolution_id')
+            }
             let class_resol = this.form.getControlValue('class_resolution_id');
-            if (!class_resol) {
+            if (class_resol === this.open_class_resolution) {
                 this.form.setControlVisibility('transfer_to_organization_id', false);
                 this.form.setControlRequirement('transfer_to_organization_id', false);
                 this.form.setControlVisibility('rework_counter', false);

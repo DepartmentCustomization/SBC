@@ -80,6 +80,18 @@
             this.config.onToolbarPreparing = this.createDGButtons.bind(this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.subscribers.push(this.messageService.subscribe('reloadMainTable', this.reloadMainTable, this));
+            this.dataGridInstance.onCellClick.subscribe(function(e) {
+                if (e.column) {
+                    if (e.column.dataField === 'Registration_Number') {
+                        window.open(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/sections/Assignments/edit/' +
+                            e.data.Id
+                        );
+                    }
+                }
+            });
         },
         getUrlParams: function() {
             const getUrlParams = window
