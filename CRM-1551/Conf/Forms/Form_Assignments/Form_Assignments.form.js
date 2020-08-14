@@ -10,6 +10,7 @@
         date_in_form: '',
         previous_result: '',
         open_class_resolution: null,
+        changed_class_resolution: null,
         checkAttentionVal() {
             let attentionVal = this.form.getControlValue('attention_val');
             if(attentionVal === 1) {
@@ -23,25 +24,28 @@
             }
         },
         classResolutionChange(val) {
-            if (val && typeof (val) === 'number') {
-                const queryForChange = {
-                    queryCode: 'Class_Resolutions_Result',
-                    parameterValues: [
-                        {
-                            key: '@class_resolution_id',
-                            value: val
+            if(val !== this.form.getControlValue('class_resolution_id')) {
+                if (val && typeof (val) === 'number') {
+                    const queryForChange = {
+                        queryCode: 'Class_Resolutions_Result',
+                        parameterValues: [
+                            {
+                                key: '@class_resolution_id',
+                                value: val
+                            }
+                        ],
+                        limit: 1
+                    };
+                    this.queryExecutor.getValues(queryForChange).subscribe(data => {
+                        if(data) {
+                            this.form.setControlValue('result_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                            this.form.setControlValue('resolution_id', { key: data.rows[0].values[2], value: data.rows[0].values[3] });
+                            this.form.setControlValue('ass_state_id', { key: data.rows[0].values[4], value: data.rows[0].values[5] });
+                            this.form.disableControl('result_id');
+                            this.changed_class_resolution = val;
                         }
-                    ],
-                    limit: -1
-                };
-                this.queryExecutor.getValues(queryForChange).subscribe(data => {
-                    if(data) {
-                        this.form.setControlValue('result_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                        this.form.setControlValue('resolution_id', { key: data.rows[0].values[2], value: data.rows[0].values[3] });
-                        this.form.setControlValue('ass_state_id', { key: data.rows[0].values[4], value: data.rows[0].values[5] });
-                        this.form.disableControl('result_id');
-                    }
-                });
+                    });
+                }
             }
         },
         init: function() {
@@ -405,27 +409,29 @@
             }
         },
         onChangeStatus: function(resol_id) {
-            let result = this.form.getControlValue('result_id');
-            if (resol_id !== null || result !== 9) {
-                const onChangeStatus = {
-                    queryCode: 'dir_change_newStatus_from_Result',
-                    parameterValues: [{ key: '@new_result', value: result }, { key: '@new_resolution', value: resol_id }]
-                };
-                this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
-                    if (data.rows.length > 0) {
-                        this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                    }
-                });
-            } else if (result === 9) {
-                const onChangeStatus = {
-                    queryCode: 'dir_change_newStatus_from_Result_only',
-                    parameterValues: [{ key: '@new_result', value: result }]
-                };
-                this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
-                    if (data.rows.length > 0) {
-                        this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
-                    }
-                });
+            if (this.changed_class_resolution === null) {
+                let result = this.form.getControlValue('result_id');
+                if (resol_id !== null || result !== 9) {
+                    const onChangeStatus = {
+                        queryCode: 'dir_change_newStatus_from_Result',
+                        parameterValues: [{ key: '@new_result', value: result }, { key: '@new_resolution', value: resol_id }]
+                    };
+                    this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
+                        if (data) {
+                            this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                        }
+                    });
+                } else if (result === 9) {
+                    const onChangeStatus = {
+                        queryCode: 'dir_change_newStatus_from_Result_only',
+                        parameterValues: [{ key: '@new_result', value: result }]
+                    };
+                    this.queryExecutor.getValues(onChangeStatus).subscribe(data => {
+                        if (data.rows.length > 0) {
+                            this.form.setControlValue('ass_state_id', { key: data.rows[0].values[0], value: data.rows[0].values[1] });
+                        }
+                    });
+                }
             }
         },
         validate: function() {
