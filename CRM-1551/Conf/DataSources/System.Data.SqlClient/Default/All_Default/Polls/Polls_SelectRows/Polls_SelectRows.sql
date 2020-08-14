@@ -2,7 +2,7 @@
 --declare @DateStart date = '07-01-2020'
 --declare @DateEnd date = '08-10-2020'
 
-select poll_name, case when cast([start_date] as date) > cast(GETDATE() as date) and is_active = 0 then 1
+select Polls.[id] as Polls_Id, poll_name, case when cast([start_date] as date) > cast(GETDATE() as date) and is_active = 0 then 1
 					  when cast([start_date] as date) > cast(GETDATE() as date) and is_active = 1 then 2
 					  when cast([end_date] as date) <= cast(GETDATE() as date)  then 3
 					  when cast([start_date] as date) <= cast(GETDATE() as date) and cast([end_date] as date) > cast(GETDATE() as date) and is_active = 1 then 4
