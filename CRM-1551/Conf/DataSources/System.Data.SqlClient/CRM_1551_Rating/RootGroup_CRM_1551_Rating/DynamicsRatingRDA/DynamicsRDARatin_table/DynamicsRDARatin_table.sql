@@ -1,11 +1,15 @@
 /*
  declare @date_from datetime='2019-11-09 00:00:00.000'
     ,@date_to datetime='2019-11-09 00:00:00.000'
-	,@rda_id  int=2005;
+	,@rda_id  int=2008;
 	*/
   declare @date_from_d date=@date_from
   declare @date_to_d date=@date_to
-  declare @date_first date=datefromparts(year(@date_from_d),month(@date_from_d),1)
+  declare @date_first date=
+  case when day(@date_from_d)=1
+	then datefromparts(year(dateadd(dd, -1, @date_from_d)),month(dateadd(dd, -1, @date_from_d)),1)
+    else datefromparts(year(@date_from_d),month(@date_from_d),1) 
+	end
   --declare @date_first date=datefromparts(year(getutcdate()),month(getutcdate()),1)
 
   --таблица для РДА начало
@@ -110,10 +114,10 @@ from it-- pit it
 
   convert(numeric(8,2), fir.avg_PercentOnVeracity) avg_PercentOnVeracity_with_1, --Відсоток від правдивості
   convert(numeric(8,2), fil.avg_PercentOnVeracity) avg_PercentOnVeracity_with_filter,
-  case when fil.avg_PercentOnVeracity-fir.avg_PercentOfExecution>0
-  then N'+'+ltrim(convert(numeric(8,2), fil.avg_PercentOnVeracity-fir.avg_PercentOfExecution))
-  when fil.avg_PercentOnVeracity-fir.avg_PercentOfExecution<0
-  then ltrim(convert(numeric(8,2), fil.avg_PercentOnVeracity-fir.avg_PercentOfExecution))
+  case when fil.avg_PercentOnVeracity-fir.avg_PercentOnVeracity>0
+  then N'+'+ltrim(convert(numeric(8,2), fil.avg_PercentOnVeracity-fir.avg_PercentOnVeracity))
+  when fil.avg_PercentOnVeracity-fir.avg_PercentOnVeracity<0
+  then ltrim(convert(numeric(8,2), fil.avg_PercentOnVeracity-fir.avg_PercentOnVeracity))
   end avg_PercentOnVeracity_dyn,
 
   convert(numeric(8,2), fir.avg_IndexOfSpeedToExecution) avg_IndexOfSpeedToExecution_with_1, --Індекс швидкості виконання
@@ -153,3 +157,6 @@ from it-- pit it
   left join #temp_org_filter fil on tab.OrganizationId=fil.OrganizationId
 
   order by tab.OrganizationName
+
+  --select * from #temp_org_first where OrganizationId=2454
+  --select * from #temp_org_filter where OrganizationId=2454
