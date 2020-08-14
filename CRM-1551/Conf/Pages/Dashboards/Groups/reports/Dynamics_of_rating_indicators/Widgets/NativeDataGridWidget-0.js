@@ -218,6 +218,7 @@
             this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this)
             this.applyChanges(true)
+            this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
         onCellPrepared(e) {
             e.cellElement.style.verticalAlign = 'middle'
@@ -246,7 +247,7 @@
             const rdaDepts = message.package.value.values.find(f => f.name === 'rda-depts').value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
-                    if(rdaDepts.length) {
+                    if(rdaDepts) {
                         this.deptsValue = rdaDepts.value
                     }
                     this.dateFrom = period.dateFrom;
@@ -292,12 +293,27 @@
                 elem.BackColor = 'red'
             })
         },
+        createTableButton: function(e) {
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
+                    onClick: function() {
+                        this.dataGridInstance.instance.exportToExcel();
+                    }.bind(this)
+                }
+            });
+        },
         renderTable() {
             this.loadData(this.afterLoadDataHandler)
             this.applyChanges(false)
         },
         afterLoadDataHandler: function() {
-            this.render();
+            this.render()
         }
     };
 }());
