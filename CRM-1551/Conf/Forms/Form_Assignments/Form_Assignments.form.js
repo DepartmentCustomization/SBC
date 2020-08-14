@@ -9,8 +9,8 @@
         },
         date_in_form: '',
         previous_result: '',
-        open_class_resolution: null,
         changed_class_resolution: null,
+        open_class_resolution: null,
         checkAttentionVal() {
             let attentionVal = this.form.getControlValue('attention_val');
             if(attentionVal === 1) {
@@ -24,7 +24,7 @@
             }
         },
         classResolutionChange(val) {
-            if(val !== this.form.getControlValue('class_resolution_id')) {
+            if(val !== this.open_class_resolution && this.changed_class_resolution === null) {
                 if (val && typeof (val) === 'number') {
                     const queryForChange = {
                         queryCode: 'Class_Resolutions_Result',
@@ -49,6 +49,7 @@
             }
         },
         init: function() {
+            this.open_class_resolution = this.form.getControlValue('class_resolution_id');
             let class_id = this.form.getControlValue('assignment_class_id');
             if (class_id === null) {
                 this.form.setControlVisibility('assignment_class_id', false);
