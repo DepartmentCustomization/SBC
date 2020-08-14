@@ -83,7 +83,11 @@
             conDynamic.append(dynamicHeader,interviewForm);
         },
         createHeaderBlock(obj = null,fixRow = null) {
-            const headerBlock = this.createElement('div', {className: 'header-block',dataRowIndex: obj.rowId,id:'header-block'});
+            const headerBlockProps = {
+                className: 'header-block',
+                dataRowIndex:obj ? obj.rowId : '',
+                id:'header-block'}
+            const headerBlock = this.createElement('div', headerBlockProps);
             const inputProps = {className:'interview-name req-input',
                 name:'interviewName',
                 placeholder:obj ? '' : 'Назва опитування',
@@ -254,7 +258,7 @@
         },
         sendUpdateRowQuery(arr) {
             let obj = {}
-            const rowId = document.getElementById('header-block').dataRowIndex + 1;
+            const rowId = document.getElementById('header-block').dataRowIndex;
             arr.forEach(elem=>{
                 return obj[elem.name] = elem.value
             })

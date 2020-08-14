@@ -150,14 +150,14 @@
             }
         },
         openFormCon(options) {
-            const {PollDirId,end_date,is_active,poll_name,start_date} = options.data;
+            const {PollDirId,end_date,is_active,poll_name,start_date,Polls_Id} = options.data;
             const obj = {
                 dateFrom:start_date,
                 dateTo:end_date,
                 name:poll_name,
                 direction:PollDirId,
                 activity:is_active,
-                rowId:options.row.rowIndex
+                rowId:Polls_Id
             }
             const fixRow = true;
             this.setVisibility(fixRow,obj)
