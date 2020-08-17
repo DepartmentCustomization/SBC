@@ -33,7 +33,7 @@ declare @today_day date= convert(date, getutcdate()); --сегодняшний �
 
   select [Positions].Id, [Positions].name Positions_Name,
 
-  [Parent_Positions].position+N'- '+[Organizations].short_name position_Organization,
+  [Positions].position+N'- '+[Organizations].short_name position_Organization,
 
   [Positions].name+N'- '+[Positions].phone_number position_PIB,
 
@@ -49,29 +49,27 @@ declare @today_day date= convert(date, getutcdate()); --сегодняшний �
   
   into #temp_main_info
   from [CRM_1551_Analitics].[dbo].[Positions]
-  left join [CRM_1551_Analitics].[dbo].[Positions] [Parent_Positions] on [Positions].parent_id=[Parent_Positions].Id
   inner join [CRM_1551_Analitics].[dbo].[Organizations] on [Positions].organizations_id=[Organizations].Id
+  left join [CRM_1551_Analitics].[dbo].[Positions] [Parent_Positions] on [Positions].parent_id=[Parent_Positions].Id
   left join [CRM_1551_Analitics].[dbo].[Organizations] [Parent_Organizations] on [Organizations].parent_organization_id=[Parent_Organizations].Id
   left join [CRM_1551_Analitics].[dbo].[Schedules] on [Positions].schedule_id=[Schedules].Id
   where charindex(@phone_number, 
   replace([Positions].[phone_number], N'-', N'')
   , 1)>0
 
-
+  /*
   select 1 Id, stuff((select distinct N', '+ltrim(Id) from #temp_main_info for xml path('')),1,2,N'') Ids,
-  --stuff((select distinct N', '+position_PIB from #temp_main_info for xml path('')),1,2,N'') position_PIB,
-  --stuff((select distinct N', '+position_PIB from #temp_main_info for xml path('')),1,2,N'') position_PI
- -- N'-'+stuff((select distinct N', '+phone_number from #temp_main_info for xml path('')),1,2,N'')
    stuff((select distinct N', '+position_Organization from #temp_main_info for xml path('')),1,2,N'') Position_Organization,
    stuff((select distinct N', '+position_PIB from #temp_main_info for xml path('')),1,2,N'') Position_PIB,
    stuff((select distinct N', '+Parent_Positions_name from #temp_main_info for xml path('')),1,2,N'') Parent_Positions_Name,
    stuff((select distinct N', '+organizations_name from #temp_main_info for xml path('')),1,2,N'') Organizations_Name,
    stuff((select distinct N', '+ltrim(organizations_id) from #temp_main_info for xml path('')),1,2,N'') Organizations_Id,
-  -- (select N'Робочий час: '+stuff((select N', '+[day]
-  --from #temp_all_day
-  --where [day]<>N'Пт'
-  --for xml path ('')),1,2,N'')+N': 9:00-18:00'+ISNULL((select N', '+[day]+N' 9:00-17:00' from #temp_all_day where [day]=N'Пт'),N'')) WorkDays
-  N'Робочий час: '+stuff((select distinct N', '+schedule_name from #temp_main_info for xml path('')),1,2,N'') WorkDays
+  N'Робочий час: '+stuff((select distinct N', '+schedule_name 
+  from #temp_main_info for xml path('')),1,2,N'') WorkDays
+  */
 
+  select null Id, Id Ids, Position_Organization, Position_PIB, Parent_Positions_Name, Organizations_Name, Organizations_Id,
+  N'Робочий час: '+schedule_name  WorkDays
+  from #temp_main_info
 
   --select * from #temp_main_info
