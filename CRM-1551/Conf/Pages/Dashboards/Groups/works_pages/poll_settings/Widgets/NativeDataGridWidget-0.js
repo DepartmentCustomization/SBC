@@ -156,8 +156,8 @@
                 dateTo:end_date,
                 name:poll_name,
                 direction:PollDirId,
-                activity:is_active,
-                rowId:Polls_Id
+                rowId:Polls_Id,
+                activity:is_active
             }
             const fixRow = true;
             this.setVisibility(fixRow,obj)
