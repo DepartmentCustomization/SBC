@@ -1,14 +1,14 @@
-  --  DECLARE @org INT = 3;
-  --  DECLARE @dateFrom DATE = '2020-01-01';
-  --  DECLARE @dateTo DATE = getdate();
-  --  DECLARE @question_type_id INT = 1;
-  --  DECLARE @sourceId NVARCHAR(50) = N'1,2,3';
+    -- DECLARE @org INT = 1;
+    -- DECLARE @dateFrom DATETIME = '2020-08-13 00:00:00';
+    -- DECLARE @dateTo DATETIME = '2020-08-13 23:00:00';
+    -- DECLARE @question_type_id INT = 1;
+    -- DECLARE @sourceId NVARCHAR(50) = N'0';
 
-IF object_id('tempdb..##temp_QuestionTypes4monitoring') IS NOT NULL 
+IF object_id('tempdb..#temp_QuestionTypes4monitoring') IS NOT NULL 
 BEGIN 
-  DROP TABLE ##temp_QuestionTypes4monitoring ;
+  DROP TABLE #temp_QuestionTypes4monitoring ;
 END 
-CREATE TABLE ##temp_QuestionTypes4monitoring (id INT) 
+CREATE TABLE #temp_QuestionTypes4monitoring (id INT) 
 WITH (DATA_COMPRESSION = PAGE);
 
 DECLARE @source_t TABLE (Id INT);
@@ -28,7 +28,7 @@ SELECT
 FROM STRING_SPLIT(@sourceId, ',');
 END
 
-DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO ##temp_QuestionTypes4monitoring (id) select [QuestionTypes].Id from [dbo].[QuestionTypes] where Id in (' + rtrim(
+DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO #temp_QuestionTypes4monitoring (id) select [QuestionTypes].Id from [dbo].[QuestionTypes] where Id in (' + rtrim(
   stuff(
     (
       SELECT
@@ -334,7 +334,7 @@ FROM
   INNER JOIN dbo.[Appeals] [Appeals] ON [Appeals].Id = [Questions].appeal_id
   INNER JOIN dbo.[ReceiptSources] rs ON rs.Id = [Appeals].receipt_source_id
   INNER JOIN #temp_Organizations2 [Organizations] ON [Assignments].executor_organization_id=[Organizations].sub_id
-  INNER JOIN ##temp_QuestionTypes4monitoring qt ON [Questions].question_type_id = qt.id
+  INNER JOIN #temp_QuestionTypes4monitoring qt ON [Questions].question_type_id = qt.id
   LEFT JOIN (
     SELECT
       [assignment_id],
