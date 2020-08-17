@@ -34,9 +34,9 @@ inner join [CRM_1551_Analitics].[dbo].[Assignments] on temp_Ids.Id=[Assignments]
 inner join [CRM_1551_Analitics].[dbo].[TransitionAssignmentStates] 
 on [Assignments].assignment_state_id=[TransitionAssignmentStates].old_assignment_state_id
 and [Assignments].AssignmentResultsId=[TransitionAssignmentStates].old_assignment_result_id
-and [Assignments].AssignmentResolutionsId=[TransitionAssignmentStates].old_assignment_resolution_id
+and isnull([Assignments].AssignmentResolutionsId, 0)=isnull([TransitionAssignmentStates].old_assignment_resolution_id, 0)
 and [TransitionAssignmentStates].new_assignment_result_id=@result_Id
-and [TransitionAssignmentStates].new_assignment_resolution_id=@resolution_Id
+and isnull([TransitionAssignmentStates].new_assignment_resolution_id, 0)=isnull(@resolution_Id, 0)
 
 --select * from #temp_good_Ids
 
