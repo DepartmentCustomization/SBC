@@ -1,10 +1,10 @@
 (function() {
     return {
-        placeholder: 'Відділ',
+        placeholder: 'Напрямок',
         keyValue: 'Id',
-        displayValue: 'name',
+        displayValue: 'Name',
         baseQueryOptions: {
-            queryCode: 'db_so_Department_filter',
+            queryCode: 'List_PollDirection',
             filterColumns: null,
             limit: -1,
             parameterValues: [ {key:'@pageOffsetRows' , value:0},{key: '@pageLimitRows', value: 50} ],

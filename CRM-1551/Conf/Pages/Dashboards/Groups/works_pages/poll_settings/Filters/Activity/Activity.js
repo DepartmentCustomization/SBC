@@ -1,10 +1,10 @@
 (function() {
     return {
-        placeholder: 'Відділ',
+        placeholder: 'Активність',
         keyValue: 'Id',
-        displayValue: 'name',
+        displayValue: 'Name',
         baseQueryOptions: {
-            queryCode: 'db_so_Department_filter',
+            queryCode: 'List_Active',
             filterColumns: null,
             limit: -1,
             parameterValues: [ {key:'@pageOffsetRows' , value:0},{key: '@pageLimitRows', value: 50} ],
@@ -14,8 +14,7 @@
                     key: 'Id',
                     value: 0
                 }
-            ]
-        },
+            ]},
         onItemSelect: function(item) {
             this.yourFunctionName(item);
         },

@@ -257,11 +257,32 @@ END
 							UPDATE [dbo].[AssignmentRevisions]
 							SET [control_comment]= @control_comment
 							WHERE [assignment_consideration_іd] IN (SELECT curent_consid_id FROM @assigments_table);
-						END
+						END					
 			
+
+if @control_result_id = 13 
+begin 
+declare @output table (Id int);
+declare @Operation varchar(128);
+SET @Operation = 'UPDATE';
+Insert into [dbo].[AssignmentDetailHistory] ([Assignment_id]
+									  ,[Operation]
+									  ,[Missed_call_counter]	
+									  ,[MissedCallComment]
+									  ,[User_id]
+									  ,[Edit_date]
+									  )
+output [inserted].[Id] into @output (Id)
+values ( @Id, @Operation, 1, @control_comment, @user_id, getutcdate() )
+
+declare @app_id int
+set @app_id = (select top 1 Id from @output)
+
+--select @app_id as [Id]
+--return;
+end;	
 
 SELECT 
 	(SELECT registration_number FROM [dbo].[Questions] WHERE Id = @question_id ) AS question_id,
 	(SELECT [name] FROM [dbo].[AssignmentResults] WHERE Id = (SELECT AssignmentResultsId FROM [dbo].[Assignments] WHERE Id = @Id  ) ) AS control_result_id;
 RETURN;
-
