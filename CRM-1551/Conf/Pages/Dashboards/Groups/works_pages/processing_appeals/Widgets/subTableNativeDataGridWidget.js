@@ -150,7 +150,7 @@
             data.rows.forEach(row => {
                 let organization = {
                     'ID': row.values[0],
-                    'Name':  row.values[2],
+                    'Name':  row.values[3],
                     'vykonavets_Id': row.values[1]
                 }
                 this.lookupData.push(organization);
