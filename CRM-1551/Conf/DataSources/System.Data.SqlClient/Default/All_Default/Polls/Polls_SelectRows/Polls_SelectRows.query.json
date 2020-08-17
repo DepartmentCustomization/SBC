@@ -15,6 +15,19 @@
       "FilterParameterCode": "@poll_name"
     },
     {
+
+      "Code": "idIcon",
+      "Name": "idIcon",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Polls_Id",
+      "Name": "Polls_Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
       "Code": "is_active",
       "Name": "is_active",
       "Position": 1,
