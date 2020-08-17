@@ -1,8 +1,10 @@
+
 /*
  declare @date_from datetime='2019-11-09 00:00:00.000'
     ,@date_to datetime='2019-11-09 00:00:00.000'
-	,@rda_id  int=2008;
-	*/
+	,@rda_id  int=2008
+	,@rating_id int=1;
+*/	
   declare @date_from_d date=@date_from
   declare @date_to_d date=@date_to
   declare @date_first date=
@@ -41,7 +43,7 @@ from it-- pit it
   inner join [dbo].[Rating_ResultTable_ByOrganization] r on rda.Id=r.OrganizationId
   inner join [CRM_1551_Analitics].[dbo].[Organizations] on r.OrganizationId=[Organizations].Id
   --inner join #temp_rda_table rda on [Organizations].Id=rda.Id
-  where r.[DateCalc] between @date_first and @date_to_d
+  where r.[DateCalc] between @date_first and @date_to_d and r.[RatingId]=@rating_id
   and
   (
   [PercentClosedOnTime] is not null or --Процент закритий на час
@@ -72,7 +74,7 @@ from it-- pit it
   inner join [dbo].[Rating_ResultTable_ByOrganization] r on r.[OrganizationId]=rda.Id
     --inner join #temp_rda_table rda on r.[OrganizationId]=rda.Id
   --inner join [CRM_1551_Analitics].[dbo].[Organizations] on r.OrganizationId=[Organizations].Id
-  where r.[DateCalc] between @date_from_d and @date_to_d
+  where r.[DateCalc] between @date_from_d and @date_to_d and r.[RatingId]=@rating_id
   group by r.[OrganizationId]--, [Organizations].short_name
 
   --для периода с 1го числа
@@ -92,7 +94,7 @@ from it-- pit it
   inner join [dbo].[Rating_ResultTable_ByOrganization] r on r.[OrganizationId]=rda.Id
   --inner join #temp_rda_table rda on r.[OrganizationId]=rda.Id
   --inner join [CRM_1551_Analitics].[dbo].[Organizations] on r.OrganizationId=[Organizations].Id
-  where r.[DateCalc]>= @date_first and r.[DateCalc]<@date_from_d
+  where r.[DateCalc]>= @date_first and r.[DateCalc]<@date_from_d and r.[RatingId]=@rating_id
   group by r.[OrganizationId]--, [Organizations].short_name
 
   select tab.OrganizationId Id, tab.OrganizationName,
