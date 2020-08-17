@@ -72,6 +72,7 @@
             let tabPhone__title = this.createElement('div', { className: 'tabPhone tabTitle', innerText: 'ВХІДНИЙ ДЗВІНОК'});
             let tabReportList__title = this.createElement('div', { className: 'tabProzvon tabTitle', innerText: 'Звіти'});
             let tabFinder__title = this.createElement('div', { className: ' tabTitle', innerText: 'Розширений пошук'});
+            let tabOrder_processings = this.createElement('div', { className: ' Order_processings', innerText: 'ОБРОБКА ДОРУЧЕНЬ'});
             const tabReportList = this.createElement('div',
                 {
                     id: 'tabReportList', location: 'dashboard', url: 'StartPage_operator', className: 'tabPhone tab  tabHover'
@@ -90,11 +91,16 @@
                 },
                 tabFinder__title
             );
+            const OrderProcessings = this.createElement('div',{
+                id:'OrderProcessings',location:'dashboard',url:'performer_new_processing_assigments',className:'OrderProcessings tab tabTo'
+            },
+            tabOrder_processings
+            );
             const tabsContainer = this.createElement('div',
                 {
                     id: 'tabsContainer', className: 'tabsContainer'
                 },
-                tabReportList, tabPhone, tabFinder
+                tabReportList, tabPhone, tabFinder, OrderProcessings
             );
             tabsWrapper.appendChild(tabsContainer);
             let tabs = document.querySelectorAll('.tabTo');
