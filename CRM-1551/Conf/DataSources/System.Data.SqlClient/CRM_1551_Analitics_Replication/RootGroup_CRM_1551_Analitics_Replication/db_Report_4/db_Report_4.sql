@@ -1,8 +1,8 @@
-    -- DECLARE @org INT = 1;
-    -- DECLARE @dateFrom DATETIME = '2020-08-13 00:00:00';
-    -- DECLARE @dateTo DATETIME = '2020-08-13 23:00:00';
-    -- DECLARE @question_type_id INT = 1;
-    -- DECLARE @sourceId NVARCHAR(50) = N'0';
+    --  DECLARE @org INT = 1;
+	  --  DECLARE @dateFrom DATETIME = '2020-08-16 21:00:00';
+    --  DECLARE @dateTo DATETIME = '2020-08-17 20:59:59';
+    --  DECLARE @question_type_id INT = 1;
+    --  DECLARE @sourceId NVARCHAR(50) = N'0';
 
 IF object_id('tempdb..#temp_QuestionTypes4monitoring') IS NOT NULL 
 BEGIN 
@@ -353,7 +353,7 @@ FROM
     FROM
       [dbo].[Assignments] a
       INNER JOIN [dbo].[Questions] q ON q.Id = a.question_id
-	    INNER JOIN [dbo].[Events] e ON e.Id = q.event_id
+	  INNER JOIN [dbo].[Events] e ON e.Id = q.event_id
       LEFT JOIN (
         SELECT
           [assignment_id],
@@ -372,7 +372,7 @@ FROM
       AND ah.assignment_state_id = 3
       AND ah.AssignmentResultsId = 8
       AND e.Id IS NOT NULL
-	    AND e.real_end_date IS NULL
+	  AND e.real_end_date IS NULL
     UNION
     ALL
     SELECT
@@ -387,7 +387,7 @@ FROM
   ) plan_prog ON [Assignments].id = plan_prog.[assignment_id]
 WHERE
   rs.Id IN (SELECT Id FROM @source_t)
-  AND CONVERT(DATE, Assignments.registration_date)
+  AND Assignments.registration_date
   BETWEEN @dateFrom AND @dateTo ;
   
 IF object_id('tempdb..#temp_MainMain') IS NOT NULL
@@ -417,13 +417,16 @@ SELECT
   *,
   CASE
     WHEN PlanProg = 0 THEN donePercent
-    ELSE cast(
+    WHEN PlanProg > 0
+	AND doneClosedQty != 0 
+	THEN
+	 cast(
       (
         cast(doneClosedQty AS NUMERIC(18, 6)) - cast(PlanProg AS NUMERIC(18, 6))
       ) / (
         cast(doneClosedQty AS NUMERIC(18, 6)) + cast(notDoneClosedQty AS NUMERIC(18, 6))
       ) * 100 AS NUMERIC(36, 2)
-    )
+    ) ELSE 0 
   END AS withPlanPercent
 FROM
   (
@@ -483,7 +486,9 @@ FROM
         )
         WHEN inTimeQty != 0
         AND outTimeQty = 0
-        AND waitTimeQty = 0 THEN cast(
+        AND waitTimeQty = 0
+		AND notDoneClosedQty = 0
+		THEN cast(
           (1 - (0 / (cast(inTimeQty AS NUMERIC(18, 6))))) * 100 AS NUMERIC (36, 2)
         )
         ELSE 0
