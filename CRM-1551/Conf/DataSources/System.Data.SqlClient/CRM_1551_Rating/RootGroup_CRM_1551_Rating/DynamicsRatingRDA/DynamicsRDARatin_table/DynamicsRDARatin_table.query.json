@@ -20,6 +20,11 @@
       "Code": "@rda_id",
       "Name": "rda_id",
       "ParameterType": "Integer"
+    },
+    {
+      "Code": "@rating_id",
+      "Name": "rating_id",
+      "ParameterType": "Integer"
     }
   ]
 }

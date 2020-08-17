@@ -245,17 +245,22 @@
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
             const rdaDepts = message.package.value.values.find(f => f.name === 'rda-depts').value;
+            const rating = message.package.value.values.find(f => f.name === 'rating').value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
                     if(rdaDepts) {
                         this.deptsValue = rdaDepts.value
+                    }
+                    if(rating) {
+                        this.rating = rating.value
                     }
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.config.query.parameterValues = [
                         {key: '@date_from' , value: this.dateFrom },
                         {key: '@date_to' , value: this.dateTo },
-                        {key: '@rda_id', value: this.deptsValue}
+                        {key: '@rda_id', value: this.deptsValue},
+                        {key: '@rating_id', value: this.rating}
                     ];
                 }
             }
