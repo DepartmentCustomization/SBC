@@ -1,4 +1,4 @@
   SELECT [Id]
       ,[name]
-  FROM [CRM_1551_Analitics].[dbo].[City]
+  FROM   [dbo].[City]
   where id=@Id

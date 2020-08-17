@@ -285,8 +285,8 @@ WHERE
 UPDATE
 	Assignments
 SET
-	AssignmentResultsId = @new_res -- Какие результат и резолучия должны быть????
-,
+	AssignmentResultsId = @new_res,
+	assignment_state_id = 1,
 	AssignmentResolutionsId = @new_resol,
 	edit_date = GETUTCDATE(),
 	user_edit_id = @user_edit_id,

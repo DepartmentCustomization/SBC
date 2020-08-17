@@ -1,6 +1,6 @@
  -- declare @Id int = 5041083; 
   declare @assignment_id int=
-  (select assignment_id from [CRM_1551_Analitics].[dbo].[Assignment_History] where Id=@Id);
+  (select assignment_id from   [dbo].[Assignment_History] where Id=@Id);
 
 
 
@@ -24,14 +24,14 @@ main as
       ,isnull(convert(nvarchar(500), [AssignmentResolutions].name), N'') [AssignmentResolution]
       ,[Assignment_History].[Log_Activity]
       ,isnull(convert(nvarchar(500), [Assignment_History].[short_answer]), N'') [short_answer]
-  FROM [CRM_1551_Analitics].[dbo].[Assignment_History]
-  left join [CRM_1551_Analitics].[dbo].[AssignmentStates] on [Assignment_History].assignment_state_id=[AssignmentStates].Id
-  left join [CRM_1551_Analitics].[dbo].[Organizations] on [Assignment_History].executor_organization_id=[Organizations].Id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentResults] on [Assignment_History].AssignmentResultsId=[AssignmentResults].Id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentResolutions] on [Assignment_History].AssignmentResolutionsId=[AssignmentResolutions].Id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [Assignment_History].assignment_id=[AssignmentConsiderations].assignment_id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentTypes] on [Assignment_History].assignment_type_id=[AssignmentTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Organizations] [Organizations2] on [Assignment_History].organization_id=[Organizations2].Id
+  FROM   [dbo].[Assignment_History]
+  left join   [dbo].[AssignmentStates] on [Assignment_History].assignment_state_id=[AssignmentStates].Id
+  left join   [dbo].[Organizations] on [Assignment_History].executor_organization_id=[Organizations].Id
+  left join   [dbo].[AssignmentResults] on [Assignment_History].AssignmentResultsId=[AssignmentResults].Id
+  left join   [dbo].[AssignmentResolutions] on [Assignment_History].AssignmentResolutionsId=[AssignmentResolutions].Id
+  left join   [dbo].[AssignmentConsiderations] on [Assignment_History].assignment_id=[AssignmentConsiderations].assignment_id
+  left join   [dbo].[AssignmentTypes] on [Assignment_History].assignment_type_id=[AssignmentTypes].Id
+  left join   [dbo].[Organizations] [Organizations2] on [Assignment_History].organization_id=[Organizations2].Id
   where [Assignment_History].assignment_id=@assignment_id and [Assignment_History].Id<=@Id
   ),
 

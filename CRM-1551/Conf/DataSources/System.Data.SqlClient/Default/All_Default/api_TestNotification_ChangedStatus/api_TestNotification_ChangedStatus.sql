@@ -1,5 +1,5 @@
 
-USE [CRM_1551_Analitics]
+--USE [CRM_1551_Analitics]
 /*
 moderated
 changed_status
@@ -28,7 +28,7 @@ declare @Body as varchar(8000);
 	delete from @Results
 if (select count(1) from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] where Id = @appeal_from_site_id) > 0
 begin
-	if (select count(1) from [CRM_1551_Analitics].[dbo].[QuestionStates] where Id = @QuestionStateId) > 0
+	if (select count(1) from   [dbo].[QuestionStates] where Id = @QuestionStateId) > 0
 	begin
 		select @Body = rtrim((
 			select * 
@@ -38,9 +38,9 @@ begin
 						   [AppealsFromSite].[Id] as [appeal_from_site_id],
 					       [AppealsFromSite].[ApplicantFromSiteId] as [applicant_from_site_id],
 						   [Appeals].[registration_number] as [registration_number],
-						   (select top 1 [QuestionStates].[name] from [CRM_1551_Analitics].[dbo].[QuestionStates] where [QuestionStates].[Id] = @QuestionStateId)  as  [question_state]
+						   (select top 1 [QuestionStates].[name] from   [dbo].[QuestionStates] where [QuestionStates].[Id] = @QuestionStateId)  as  [question_state]
 					FROM [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
-					left join [CRM_1551_Analitics].[dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite].[Appeal_Id]
+					left join   [dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite].[Appeal_Id]
 					where [AppealsFromSite].[id] = @appeal_from_site_id
 					) as result
 					FOR JSON AUTO
@@ -56,9 +56,9 @@ begin
 						   [AppealsFromSite].[Id] as [appeal_from_site_id],
 					       [AppealsFromSite].[ApplicantFromSiteId] as [applicant_from_site_id],
 						   [Appeals].[registration_number] as [registration_number],
-						   (select top 1 [QuestionStates].[name] from [CRM_1551_Analitics].[dbo].[QuestionStates] where [QuestionStates].[Id] = 1)  as  [question_state]
+						   (select top 1 [QuestionStates].[name] from   [dbo].[QuestionStates] where [QuestionStates].[Id] = 1)  as  [question_state]
 					FROM [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
-					left join [CRM_1551_Analitics].[dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite].[appeal_id]
+					left join   [dbo].[Appeals] on [Appeals].[Id] = [AppealsFromSite].[appeal_id]
 					where [AppealsFromSite].[id] = @appeal_from_site_id
 					) as result
 					FOR JSON AUTO
@@ -67,7 +67,7 @@ begin
 end
 else
 begin
-	if (select count(1) from [CRM_1551_Analitics].[dbo].[QuestionStates] where Id = @QuestionStateId) > 0
+	if (select count(1) from   [dbo].[QuestionStates] where Id = @QuestionStateId) > 0
 	begin
 		select @Body = rtrim((
 			select * 
@@ -77,7 +77,7 @@ begin
 						   @appeal_from_site_id as [appeal_from_site_id],
 					       123 as [applicant_from_site_id],
 						   N'Test' as [registration_number],
-						   (select top 1 [QuestionStates].[name] from [CRM_1551_Analitics].[dbo].[QuestionStates] where [QuestionStates].[Id] = @QuestionStateId)  as  [question_state]
+						   (select top 1 [QuestionStates].[name] from   [dbo].[QuestionStates] where [QuestionStates].[Id] = @QuestionStateId)  as  [question_state]
 					) as result
 					FOR JSON AUTO
 					));
@@ -92,7 +92,7 @@ begin
 						   @appeal_from_site_id as [appeal_from_site_id],
 					       123 as [applicant_from_site_id],
 						   N'Test' as [registration_number],
-						   (select top 1 [QuestionStates].[name] from [CRM_1551_Analitics].[dbo].[QuestionStates] where [QuestionStates].[Id] = 1)   as  [question_state]
+						   (select top 1 [QuestionStates].[name] from   [dbo].[QuestionStates] where [QuestionStates].[Id] = 1)   as  [question_state]
 					) as result
 					FOR JSON AUTO
 					));

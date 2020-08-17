@@ -9,10 +9,10 @@
  --                 (select question_type_id from Questions where id = 
  --                     (select question_id FROM Assignments where id = @Id)))/24
  ------------
- if (select [executor_organization_id] from [CRM_1551_Analitics].[dbo].[Assignments] where Id=@Id)=@executor_organization_id
+ if (select [executor_organization_id] from   [dbo].[Assignments] where Id=@Id)=@executor_organization_id
  begin
 
- update [CRM_1551_Analitics].[dbo].[Assignments]
+ update   [dbo].[Assignments]
    set [assignment_state_id]=1 -- Зареєстровано
    ,[AssignmentResultsId]=6 --Повернуто виконавцю
    ,[AssignmentResolutionsId]=3 --Перенаправлено за належністю
@@ -21,7 +21,7 @@
   ,[LogUpdated_Query] = N'Coordinator_Button_NeVKompetentsii_Peredaty_Row21'
    where Id=@Id
 
-   update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+   update   [dbo].[AssignmentConsiderations]
   set [assignment_result_id]=6 --Повернуто виконавцю
   ,[assignment_resolution_id]=3 --Перенаправлено за належністю
   ,edit_date = GETUTCDATE()
@@ -32,7 +32,7 @@ where Id = ( select current_assignment_consideration_id from Assignments where I
  ------------
  else
  begin
-   update [CRM_1551_Analitics].[dbo].[Assignments]
+   update   [dbo].[Assignments]
    set [assignment_state_id]=5
    ,[AssignmentResultsId]=3
    ,[AssignmentResolutionsId]=3
@@ -42,7 +42,7 @@ where Id = ( select current_assignment_consideration_id from Assignments where I
    where Id=@Id
 
 
-   update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+   update   [dbo].[AssignmentConsiderations]
   set [assignment_result_id]=3 
   ,[assignment_resolution_id]=3 
   ,edit_date = GETUTCDATE()
@@ -123,7 +123,7 @@ where Id = ( select current_assignment_consideration_id from Assignments where I
 
 end
 
- -- update [CRM_1551_Analitics].[dbo].[Assignments]
+ -- update   [dbo].[Assignments]
  --   set [executor_organization_id]=@executor_organization_id
  --   where id=@Id
 
@@ -196,6 +196,6 @@ end
 
 
 
--- -- update [CRM_1551_Analitics].[dbo].[Assignments]
+-- -- update   [dbo].[Assignments]
 -- --   set [executor_organization_id]=@executor_organization_id
 -- --   where id=@Id

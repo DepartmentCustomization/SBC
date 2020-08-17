@@ -1,3 +1,3 @@
   delete 
-  from [CRM_1551_Analitics].[dbo].[ExecutorRoleLevel]
+  from   [dbo].[ExecutorRoleLevel]
   where id=@id

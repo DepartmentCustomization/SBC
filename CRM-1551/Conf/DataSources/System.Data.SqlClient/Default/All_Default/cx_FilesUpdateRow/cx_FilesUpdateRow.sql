@@ -1,5 +1,5 @@
 UPDATE
-     [CRM_1551_Analitics].[dbo].[Events]
+       [dbo].[Events]
 SET
      [File] = @File,
      [FileName] = @Name

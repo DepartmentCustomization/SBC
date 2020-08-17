@@ -1,4 +1,4 @@
-insert into [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject]
+insert into   [dbo].[ExecutorInRoleForObject]
   (
   [object_id]
       --,[district_id]

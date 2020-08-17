@@ -1,4 +1,4 @@
-insert into [CRM_1551_Analitics].[dbo].[Workers]
+insert into   [dbo].[Workers]
   (
   [organization_id]
       ,[roles_id]

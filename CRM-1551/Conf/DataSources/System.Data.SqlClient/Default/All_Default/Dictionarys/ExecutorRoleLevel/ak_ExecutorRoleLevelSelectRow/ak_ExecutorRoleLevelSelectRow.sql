@@ -1,4 +1,4 @@
 SELECT [Id]
       ,[name]
-  FROM [CRM_1551_Analitics].[dbo].[ExecutorRoleLevel]
+  FROM   [dbo].[ExecutorRoleLevel]
   where id=@Id

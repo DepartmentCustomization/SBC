@@ -1,8 +1,8 @@
---  DECLARE @org INT = 3;
---  DECLARE @dateFrom DATE = '2020-01-01';
---  DECLARE @dateTo DATE = getdate();
---  DECLARE @question_type_id INT = 1;
---  DECLARE @sourceId NVARCHAR(50) = N'1,3';
+  --  DECLARE @org INT = 3;
+  --  DECLARE @dateFrom DATE = '2020-01-01';
+  --  DECLARE @dateTo DATE = getdate();
+  --  DECLARE @question_type_id INT = 1;
+  --  DECLARE @sourceId NVARCHAR(50) = N'1,2,3';
 
 IF object_id('tempdb..##temp_QuestionTypes4monitoring') IS NOT NULL 
 BEGIN 
@@ -28,7 +28,7 @@ SELECT
 FROM STRING_SPLIT(@sourceId, ',');
 END
 
-DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO ##temp_QuestionTypes4monitoring (id) select [QuestionTypes].Id from [CRM_1551_Analitics].[dbo].[QuestionTypes] where Id in (' + rtrim(
+DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO ##temp_QuestionTypes4monitoring (id) select [QuestionTypes].Id from [dbo].[QuestionTypes] where Id in (' + rtrim(
   stuff(
     (
       SELECT
@@ -103,7 +103,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
     WHERE
       [parent_organization_id] = @org
   ) main_org
@@ -113,7 +113,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L1 ON L1.[parent_organization_id] = main_org.id
   LEFT JOIN (
     SELECT
@@ -121,7 +121,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L2 ON L2.[parent_organization_id] = L1.id
   LEFT JOIN (
     SELECT
@@ -129,7 +129,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L3 ON L3.[parent_organization_id] = L2.id
   LEFT JOIN (
     SELECT
@@ -137,7 +137,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L4 ON L4.[parent_organization_id] = L3.id
   LEFT JOIN (
     SELECT
@@ -145,7 +145,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L5 ON L5.[parent_organization_id] = L4.id;
 
 INSERT INTO
@@ -177,7 +177,7 @@ SELECT
   NULL,
   NULL
 FROM
-  [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
+  [dbo].[Organizations] WITH (nolock)
 WHERE
   id = @org;
 
@@ -338,7 +338,7 @@ FROM
   LEFT JOIN (
     SELECT
       [assignment_id],
-      Min([edit_date]) AS first_execution_date
+      Min([Log_Date]) AS first_execution_date
     FROM
       dbo.Assignment_History Assignment_History WITH (NOLOCK)
     WHERE
@@ -352,7 +352,8 @@ FROM
       ah.edit_date AS plan_prog
     FROM
       [dbo].[Assignments] a
-      INNER JOIN [dbo].Questions q ON q.Id = a.question_id
+      INNER JOIN [dbo].[Questions] q ON q.Id = a.question_id
+	    INNER JOIN [dbo].[Events] e ON e.Id = q.event_id
       LEFT JOIN (
         SELECT
           [assignment_id],
@@ -370,7 +371,8 @@ FROM
       AND a.AssignmentResultsId = 7
       AND ah.assignment_state_id = 3
       AND ah.AssignmentResultsId = 8
-      AND q.event_id IS NULL
+      AND e.Id IS NOT NULL
+	    AND e.real_end_date IS NULL
     UNION
     ALL
     SELECT
@@ -382,7 +384,6 @@ FROM
     WHERE
       [assignment_state_id] = 3
       AND [AssignmentResultsId] = 8
-      AND q.event_id IS NULL
   ) plan_prog ON [Assignments].id = plan_prog.[assignment_id]
 WHERE
   rs.Id IN (SELECT Id FROM @source_t)

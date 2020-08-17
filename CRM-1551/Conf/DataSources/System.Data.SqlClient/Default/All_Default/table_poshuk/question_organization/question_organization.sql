@@ -29,17 +29,17 @@ begin
 
 	 -- НАХОДИМ ИД ОРГАНИЗАЦИЙ ГДЕ ИД И ПАРЕНТЫ ВЫБРАНОЙ И СРАЗУ ЗАЛИВАЕМ
 	 insert into @IdT(Id)
-	 select Id from [CRM_1551_Analitics].[dbo].[Organizations] 
+	 select Id from   [dbo].[Organizations] 
 	 where (Id=@OrganizationId or [parent_organization_id]=@OrganizationId) and Id not in (select Id from @IdT)
 
 	 --  НАХОДИМ ПАРЕНТЫ ОРГ, КОТОРЫХ ЗАЛИЛИ, <-- нужен цыкл
-	 while (select count(id) from (select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+	 while (select count(id) from (select Id from   [dbo].[Organizations]
 	 where [parent_organization_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 	 and Id not in (select Id from @IdT)) q)!=0
 	 begin
 
 	 insert into @IdT
-	 select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+	 select Id from   [dbo].[Organizations]
 	 where [parent_organization_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 	 and Id not in (select Id from @IdT)
 	 end 
@@ -67,17 +67,17 @@ declare @OrganizationId1761 int = @organization_id1761;
 
  -- НАХОДИМ ИД ОРГАНИЗАЦИЙ ГДЕ ИД И ПАРЕНТЫ ВЫБРАНОЙ И СРАЗУ ЗАЛИВАЕМ
  insert into @IdT1761 (Id)
- select Id from [CRM_1551_Analitics].[dbo].[Organizations] 
+ select Id from   [dbo].[Organizations] 
  where (Id=@OrganizationId1761 or [parent_organization_id]=@OrganizationId1761) and Id not in (select Id from @IdT1761)
 
  --  НАХОДИМ ПАРЕНТЫ ОРГ, КОТОРЫХ ЗАЛИЛИ, <-- нужен цыкл
- while (select count(id) from (select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+ while (select count(id) from (select Id from   [dbo].[Organizations]
  where [parent_organization_id] in (select Id from @IdT1761) --or Id in (select Id from @IdT)
  and Id not in (select Id from @IdT1761)) q)!=0
  begin
 
  insert into @IdT1761 (Id)
- select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+ select Id from   [dbo].[Organizations]
  where [parent_organization_id] in (select Id from @IdT1761) --or Id in (select Id from @IdT)
  and Id not in (select Id from @IdT1761)
  end 
@@ -153,17 +153,17 @@ end
 
 -- 	 -- НАХОДИМ ИД ОРГАНИЗАЦИЙ ГДЕ ИД И ПАРЕНТЫ ВЫБРАНОЙ И СРАЗУ ЗАЛИВАЕМ
 -- 	 insert into @IdT(Id)
--- 	 select Id from [CRM_1551_Analitics].[dbo].[Organizations] 
+-- 	 select Id from   [dbo].[Organizations] 
 -- 	 where (Id=@OrganizationId or [parent_organization_id]=@OrganizationId) and Id not in (select Id from @IdT)
 
 -- 	 --  НАХОДИМ ПАРЕНТЫ ОРГ, КОТОРЫХ ЗАЛИЛИ, <-- нужен цыкл
--- 	 while (select count(id) from (select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+-- 	 while (select count(id) from (select Id from   [dbo].[Organizations]
 -- 	 where [parent_organization_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 -- 	 and Id not in (select Id from @IdT)) q)!=0
 -- 	 begin
 
 -- 	 insert into @IdT
--- 	 select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+-- 	 select Id from   [dbo].[Organizations]
 -- 	 where [parent_organization_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 -- 	 and Id not in (select Id from @IdT)
 -- 	 end 
@@ -202,17 +202,17 @@ end
 
 --  -- НАХОДИМ ИД ОРГАНИЗАЦИЙ ГДЕ ИД И ПАРЕНТЫ ВЫБРАНОЙ И СРАЗУ ЗАЛИВАЕМ
 --  insert into @IdT(Id)
---  select Id from [CRM_1551_Analitics].[dbo].[Organizations] 
+--  select Id from   [dbo].[Organizations] 
 --  where (Id=@OrganizationId or [parent_organization_id]=@OrganizationId) and Id not in (select Id from @IdT)
 
 --  --  НАХОДИМ ПАРЕНТЫ ОРГ, КОТОРЫХ ЗАЛИЛИ, <-- нужен цыкл
---  while (select count(id) from (select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+--  while (select count(id) from (select Id from   [dbo].[Organizations]
 --  where [parent_organization_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 --  and Id not in (select Id from @IdT)) q)!=0
 --  begin
 
 --  insert into @IdT
---  select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+--  select Id from   [dbo].[Organizations]
 --  where [parent_organization_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 --  and Id not in (select Id from @IdT)
 --  end 
@@ -229,7 +229,7 @@ end
 
 -- --   SELECT [Id]
 -- --       ,[short_name]
--- --   FROM [CRM_1551_Analitics].[dbo].[Organizations]
+-- --   FROM   [dbo].[Organizations]
   
 -- --     where 
 -- --     #filter_columns#

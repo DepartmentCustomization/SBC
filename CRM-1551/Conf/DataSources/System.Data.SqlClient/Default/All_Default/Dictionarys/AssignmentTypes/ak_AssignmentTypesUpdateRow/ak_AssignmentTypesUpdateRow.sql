@@ -1,3 +1,3 @@
-update [CRM_1551_Analitics].[dbo].[AssignmentTypes]
+update   [dbo].[AssignmentTypes]
   set name=@name
   where Id=@Id

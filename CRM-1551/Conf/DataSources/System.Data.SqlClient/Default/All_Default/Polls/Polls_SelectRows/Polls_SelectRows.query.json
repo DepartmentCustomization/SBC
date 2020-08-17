@@ -15,6 +15,7 @@
       "FilterParameterCode": "@poll_name"
     },
     {
+
       "Code": "idIcon",
       "Name": "idIcon",
       "Position": 0,

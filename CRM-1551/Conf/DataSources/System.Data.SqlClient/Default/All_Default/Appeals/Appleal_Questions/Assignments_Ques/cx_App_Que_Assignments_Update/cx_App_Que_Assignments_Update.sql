@@ -86,13 +86,11 @@ DECLARE @IsResolutionChange BIT = (SELECT IIF(@currentResolution = ISNULL(@resol
 DECLARE @IsOrgExecutorChange BIT = (SELECT IIF(@currentOrgExecutor = @performer_id, 0, 1));
 ---> Если стан, результат, резолюция и орг.исполнителя остались прежними, то
 -- процедуру проверки переходов пропускаем, а только апдейтим поля executor_person_id и short_answer (если они изменились)
--- + проводим обработку по резолюции класа, если проставили
 IF (@IsStateChange = 0 AND @IsResultChange = 0 AND @IsResolutionChange = 0 AND @IsOrgExecutorChange = 0)
 BEGIN
 DECLARE @currentPersonExecutor INT = (SELECT executor_person_id FROM dbo.Assignments  WHERE Id = @Id);
 DECLARE @currentShortAnswer NVARCHAR(500) = (SELECT short_answer FROM dbo.AssignmentConsiderations WHERE Id = @ass_cons_id);
 DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Questions] WHERE Id = @question_id);
-	
 ---> сделать текущий Assignment главным
 	IF(@mainAssId <> @Id) 
 	AND (@main_executor = 1)
@@ -128,21 +126,14 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 				,[user_edit_id] = @user_edit_id
 			WHERE Id = @current_consid;
 	END	
-	---> обработка изменений по "Класс доручення", "Резолюція класу"
+END
+---> обработка изменений по "Резолюція класу"
+ELSE IF(@class_resolution_id IS NOT NULL) 
+AND (SELECT [class_resolution_id] FROM dbo.Assignments WHERE [Id] = @Id) IS NULL
+BEGIN
 	SET XACT_ABORT ON;
 	BEGIN TRY
 	BEGIN TRANSACTION;
-
-	IF(@assignment_class_id IS NOT NULL) 
-	AND (@assignment_class_id <> (SELECT ISNULL([assignment_class_id],0) FROM dbo.[Assignments] WHERE Id = @Id) )
-	BEGIN
-	UPDATE [dbo].[Assignments]
-	SET [assignment_class_id] = @assignment_class_id
-	WHERE Id = @Id;
-	END
-	 
-	IF(@class_resolution_id IS NOT NULL) 
-	AND (@class_resolution_id <> (SELECT ISNULL([class_resolution_id],0) FROM dbo.[Assignments] WHERE Id = @Id) )
 	BEGIN
 	DECLARE @new_result_id INT = (SELECT [assignment_result_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @new_resolution_id INT = (SELECT [assignment_resolution_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
@@ -150,11 +141,18 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	DECLARE @create_assignment_class_id INT = (SELECT [create_assignment_class_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @event_info TABLE (Id INT);
 	DECLARE @now DATETIME = GETUTCDATE();
+	DECLARE @new_state_id INT = (SELECT 
+								 DISTINCT 
+								 	[new_assignment_state_id]
+								 FROM [dbo].[TransitionAssignmentStates] 
+								 WHERE new_assignment_resolution_id = @new_resolution_id 
+								 AND new_assignment_result_id = @new_result_id);
 	
 	UPDATE [dbo].[Assignments]
 	SET [class_resolution_id] = @class_resolution_id,
 	 	[AssignmentResultsId] = @new_result_id,
 	 	[AssignmentResolutionsId] = @new_resolution_id,
+		[assignment_state_id] = @new_state_id,
 	 	[edit_date] = @now,
 	 	[user_edit_id] = @user_edit_id,
 	 	[LogUpdated_Query] = N'cx_App_Que_Assignments_Update_Row11'
@@ -168,6 +166,21 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	 	[user_edit_id] = @user_edit_id,
 	 	[short_answer] = @short_answer
 	WHERE Id = @current_consid;
+
+	INSERT INTO [dbo].[AssignmentRevisions]
+				([assignment_consideration_іd]
+				,[control_type_id]
+				,[assignment_resolution_id]
+				,[user_id]
+				,[edit_date]
+				,[user_edit_id])
+	VALUES (@current_consid
+			,1
+			,@new_resolution_id
+			,@user_edit_id
+			,@now
+			,@user_edit_id
+			);
 	--> Создать проблему (Event) под резолюцию класса, если надо
 	IF(@event_class_id IS NOT NULL)
 	BEGIN
@@ -213,6 +226,12 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	IF(@create_assignment_class_id IS NOT NULL)
 	BEGIN
 	DECLARE @assignment_org INT = (SELECT [executor_organization_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
+		IF(@assignment_org IS NULL)
+		BEGIN
+			RAISERROR(N'Для обраного класу резорюції не вказано відповідальну організацію', 16, 1);
+			ROLLBACK TRANSACTION;
+			RETURN;
+		END
 	DECLARE @question_type_id INT = (SELECT [question_type_id] FROM dbo.[Questions] WHERE Id = @question_id);
 	DECLARE @prev_main BIT = (SELECT [main_executor] FROM dbo.[Assignments] WHERE Id = @Id);
 	DECLARE @my_event_id INT = (SELECT TOP 1 [Id] FROM @event_info);
@@ -310,10 +329,7 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	    END;  
 	END CATCH;
 END
-
----> иначе - го дальше
 ELSE 
-
 BEGIN
 EXEC [dbo].pr_check_right_choice_result_resolution @Id
 												,@result_id
@@ -443,6 +459,24 @@ BEGIN
 	END
 	ELSE
 	BEGIN -- (F11)
+		IF @result_id = 13 
+			BEGIN 
+				DECLARE @outputHistory TABLE (Id INT);
+				DECLARE @Operation VARCHAR(128);
+				SET @Operation = 'UPDATE';
+				INSERT INTO [dbo].[AssignmentDetailHistory] ([Assignment_id]
+													,[Operation]
+													,[Missed_call_counter]	
+													,[MissedCallComment]
+													,[User_id]
+													,[Edit_date]
+													)
+				output [inserted].[Id] INTO @outputHistory (Id)
+				VALUES ( @Id, @Operation, 1, @control_comment, @user_edit_id, GETUTCDATE() );
+
+				DECLARE @app_id INT;
+				SET @app_id = (SELECT TOP 1 Id FROM @outputHistory);
+			END;
 
 		-- 	Перерозподіл на підрядну організацію (если поменялся исполнитель)
 		IF @result_id = 1
@@ -686,15 +720,15 @@ BEGIN
 				, [rework_counter]
 				, [edit_date]
 				, [user_edit_id])
-					VALUES (@current_consid --@ass_cons_id
-					, 1  -- @control_type_id = Контроль, Продзвон, Контроль заявником
-					, @resolution_id -- @assignment_resolution_id
-					, @control_comment
+				VALUES (@current_consid --@ass_cons_id
+						,1  -- @control_type_id = Контроль, Продзвон, Контроль заявником
+						,@resolution_id -- @assignment_resolution_id
+						,@control_comment
 					--    ,getutcdate() 
-					, @user_edit_id --@user_id
+						,@user_edit_id --@user_id
 					-- ,@rework_counter_count
-					, @rework_counter, GETUTCDATE() --@edit_date
-					, @user_edit_id);
+						,@rework_counter, GETUTCDATE() --@edit_date
+						,@user_edit_id);
 			END
 			-- exec pr_chech_in_status_assignment @Id, @result_id, @resolution_id
 			RETURN;

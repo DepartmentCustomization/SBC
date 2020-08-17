@@ -139,53 +139,53 @@ when [Applicants].[birth_date] is null then year(getdate())-[Applicants].birth_y
  , [StreetTypes].[shortname]
   from 
 
-  [CRM_1551_Analitics].[dbo].[Assignments] 
-  left join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
-  left join [CRM_1551_Analitics].[dbo].[Appeals] on [Questions].[appeal_id]=[Appeals].Id
-  left join [CRM_1551_Analitics].[dbo].[Applicants] on [Applicants].Id=[Appeals].applicant_id
+    [dbo].[Assignments] 
+  left join   [dbo].[Questions] on [Assignments].question_id=[Questions].Id
+  left join   [dbo].[Appeals] on [Questions].[appeal_id]=[Appeals].Id
+  left join   [dbo].[Applicants] on [Applicants].Id=[Appeals].applicant_id
 
   
 
 
---   left join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [AssignmentConsiderations].assignment_id=[Assignments].Id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [AssignmentConsiderations].Id = Assignments.current_assignment_consideration_id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentConsDocuments] on [AssignmentConsiderations].Id=[AssignmentConsDocuments].assignment_сons_id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentConsDocFiles] on [AssignmentConsDocuments].Id=[AssignmentConsDocFiles].assignment_cons_doc_id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentStates] on [Assignments].assignment_state_id=[AssignmentStates].Id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentResults] on [AssignmentConsiderations].assignment_result_id=[AssignmentResults].Id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentResolutions] on [AssignmentConsiderations].assignment_resolution_id=[AssignmentResolutions].id
-  left join [CRM_1551_Analitics].[dbo].[AssignmentRevisions] on [AssignmentConsiderations].Id=[AssignmentRevisions].assignment_consideration_іd
-  left join [CRM_1551_Analitics].[dbo].[Organizations] [Organizations2] on [Assignments].executor_organization_id=[Organizations2].Id
-  left join [CRM_1551_Analitics].[dbo].[Workers] [Workers2] on [AssignmentConsiderations].user_id=[Workers2].worker_user_id
-  left join [CRM_1551_Analitics].[dbo].[Workers] [Workers3] on [AssignmentRevisions].user_id=[Workers3].worker_user_id
+--   left join   [dbo].[AssignmentConsiderations] on [AssignmentConsiderations].assignment_id=[Assignments].Id
+  left join   [dbo].[AssignmentConsiderations] on [AssignmentConsiderations].Id = Assignments.current_assignment_consideration_id
+  left join   [dbo].[AssignmentConsDocuments] on [AssignmentConsiderations].Id=[AssignmentConsDocuments].assignment_сons_id
+  left join   [dbo].[AssignmentConsDocFiles] on [AssignmentConsDocuments].Id=[AssignmentConsDocFiles].assignment_cons_doc_id
+  left join   [dbo].[AssignmentStates] on [Assignments].assignment_state_id=[AssignmentStates].Id
+  left join   [dbo].[AssignmentResults] on [AssignmentConsiderations].assignment_result_id=[AssignmentResults].Id
+  left join   [dbo].[AssignmentResolutions] on [AssignmentConsiderations].assignment_resolution_id=[AssignmentResolutions].id
+  left join   [dbo].[AssignmentRevisions] on [AssignmentConsiderations].Id=[AssignmentRevisions].assignment_consideration_іd
+  left join   [dbo].[Organizations] [Organizations2] on [Assignments].executor_organization_id=[Organizations2].Id
+  left join   [dbo].[Workers] [Workers2] on [AssignmentConsiderations].user_id=[Workers2].worker_user_id
+  left join   [dbo].[Workers] [Workers3] on [AssignmentRevisions].user_id=[Workers3].worker_user_id
 
   
 
   
-  left join [CRM_1551_Analitics].[dbo].[ReceiptSources] on [Appeals].receipt_source_id=[ReceiptSources].Id
-  left join [CRM_1551_Analitics].[dbo].[Workers] on [Appeals].user_id=[Workers].worker_user_id
+  left join   [dbo].[ReceiptSources] on [Appeals].receipt_source_id=[ReceiptSources].Id
+  left join   [dbo].[Workers] on [Appeals].user_id=[Workers].worker_user_id
 
   
-  left join [CRM_1551_Analitics].[dbo].[ApplicantPhones] on [ApplicantPhones].applicant_id=[Applicants].id
-  left join [CRM_1551_Analitics].[dbo].[LiveAddress] on [LiveAddress].applicant_id=[Applicants].Id
-  left join [CRM_1551_Analitics].[dbo].[Buildings] on [LiveAddress].building_id=[Buildings].Id
-  left join [CRM_1551_Analitics].[dbo].[Districts] on [Buildings].district_id=[Districts].Id
-  left join [CRM_1551_Analitics].[dbo].[Streets] on [Buildings].street_id=[Streets].Id
+  left join   [dbo].[ApplicantPhones] on [ApplicantPhones].applicant_id=[Applicants].id
+  left join   [dbo].[LiveAddress] on [LiveAddress].applicant_id=[Applicants].Id
+  left join   [dbo].[Buildings] on [LiveAddress].building_id=[Buildings].Id
+  left join   [dbo].[Districts] on [Buildings].district_id=[Districts].Id
+  left join   [dbo].[Streets] on [Buildings].street_id=[Streets].Id
 
-  left join [CRM_1551_Analitics].[dbo].[StreetTypes] on [Streets].[street_type_id]=[StreetTypes].Id
+  left join   [dbo].[StreetTypes] on [Streets].[street_type_id]=[StreetTypes].Id
 
-  left join [CRM_1551_Analitics].[dbo].[ApplicantPrivilege] on [Applicants].applicant_privilage_id=[ApplicantPrivilege].Id
-  left join [CRM_1551_Analitics].[dbo].[SocialStates] on [Applicants].social_state_id=[SocialStates].Id
-  left join [CRM_1551_Analitics].[dbo].[ApplicantTypes] on [Applicants].applicant_type_id=[ApplicantTypes].Id
+  left join   [dbo].[ApplicantPrivilege] on [Applicants].applicant_privilage_id=[ApplicantPrivilege].Id
+  left join   [dbo].[SocialStates] on [Applicants].social_state_id=[SocialStates].Id
+  left join   [dbo].[ApplicantTypes] on [Applicants].applicant_type_id=[ApplicantTypes].Id
 
   
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].object_id=[Objects].Id
-  left join [CRM_1551_Analitics].[dbo].[ObjectTypes] on [Objects].object_type_id=[ObjectTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Organizations] on [Questions].organization_id=[Organizations].Id
-  left join [CRM_1551_Analitics].[dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[QuestionStates] on [Questions].question_state_id=[QuestionStates].Id
-  left join [CRM_1551_Analitics].[dbo].[QuestionTypeInRating] on [QuestionTypeInRating].QuestionType_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Rating] on [QuestionTypeInRating].Rating_id=[Rating].Id
+  left join   [dbo].[Objects] on [Questions].object_id=[Objects].Id
+  left join   [dbo].[ObjectTypes] on [Objects].object_type_id=[ObjectTypes].Id
+  left join   [dbo].[Organizations] on [Questions].organization_id=[Organizations].Id
+  left join   [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
+  left join   [dbo].[QuestionStates] on [Questions].question_state_id=[QuestionStates].Id
+  left join   [dbo].[QuestionTypeInRating] on [QuestionTypeInRating].QuestionType_id=[QuestionTypes].Id
+  left join   [dbo].[Rating] on [QuestionTypeInRating].Rating_id=[Rating].Id
   
 
   

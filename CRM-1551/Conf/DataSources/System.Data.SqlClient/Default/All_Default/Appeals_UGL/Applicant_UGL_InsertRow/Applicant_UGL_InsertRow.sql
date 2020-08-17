@@ -217,7 +217,7 @@ SELECT
     @app_id AS ApplicantId;
 END 
 UPDATE
-    [CRM_1551_Analitics].[dbo].[Applicants]
+      [dbo].[Applicants]
 SET
     [ApplicantAdress] =(
         SELECT
@@ -230,8 +230,8 @@ SET
                         SELECT
                             N', ' + lower(SUBSTRING([PhoneTypes].name, 1, 3)) + N'.: ' + [ApplicantPhones].phone_number
                         FROM
-                            [CRM_1551_Analitics].[dbo].[ApplicantPhones]
-                            LEFT JOIN [CRM_1551_Analitics].[dbo].[PhoneTypes] ON [ApplicantPhones].phone_type_id = [PhoneTypes].Id
+                              [dbo].[ApplicantPhones]
+                            LEFT JOIN   [dbo].[PhoneTypes] ON [ApplicantPhones].phone_type_id = [PhoneTypes].Id
                         WHERE
                             [ApplicantPhones].applicant_id = [LiveAddress].applicant_id FOR XML Path('')
                     ),
@@ -242,14 +242,14 @@ SET
                 N''
             ) phone
         FROM 
-        [CRM_1551_Analitics].[dbo].[LiveAddress] LiveAddress
-            LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] Buildings
+          [dbo].[LiveAddress] LiveAddress
+            LEFT JOIN   [dbo].[Buildings] Buildings
                 ON [LiveAddress].building_id = [Buildings].Id
-            LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] Streets
+            LEFT JOIN   [dbo].[Streets] Streets
                 ON [Buildings].street_id = [Streets].Id
-            LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] StreetTypes
+            LEFT JOIN   [dbo].[StreetTypes] StreetTypes
                 ON [Streets].street_type_id = [StreetTypes].Id
-            LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] Districts
+            LEFT JOIN   [dbo].[Districts] Districts
             ON [Buildings].district_id = [Districts].Id
         WHERE
             applicant_id = @app_id

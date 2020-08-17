@@ -137,7 +137,7 @@ BEGIN
 				   ,control_date = GETUTCDATE()
 				   ,[control_comment] = @control_comment
 				   --,[grade] = @grade
-				   ,case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else [grade] end
+				   ,[grade] =  case when @control_result_id not in (5/*На доопрацювання*/, 10/*Закрито автоматично*/, 11/*Самостійно*/, 12/*Фактично*/) then @grade else [grade] end
 				   ,[edit_date] = GETUTCDATE()
 				   ,[user_edit_id] = @user_id
 				WHERE [assignment_consideration_іd] IN (SELECT
@@ -186,7 +186,7 @@ BEGIN
 							--добавление в ревижен записей, которых нет конец
 
 					 -- проставляется комментарий не главным вопросам
-							UPDATE [CRM_1551_Analitics].[dbo].[AssignmentRevisions]
+							UPDATE   [dbo].[AssignmentRevisions]
 							SET [control_comment]=@control_comment
 							WHERE [assignment_consideration_іd] IN (SELECT id FROM  @assigments_consideration_table);
 
@@ -236,7 +236,6 @@ IF (SELECT main_executor FROM @assigments_table WHERE Id =@Id)='true'
 				INNER JOIN @assigments_table atab ON [Assignments].question_id=atab.question_id
 				where atab.Id=@Id and [Assignments].assignment_state_id<>5;--ограничение на закрытое
 			END
-
 
 --какие-то мутки, начало
 IF @control_result_id <> 4
@@ -409,7 +408,7 @@ BEGIN
 
 							--добавление в ревижен записей, которых нет конец
 
-	UPDATE [CRM_1551_Analitics].[dbo].[AssignmentRevisions]
+	UPDATE   [dbo].[AssignmentRevisions]
 	SET [assignment_resolution_id] = @assignment_resolution_id
 	   ,[control_result_id] = @control_result_id
 	   ,control_date = GETUTCDATE()
@@ -423,12 +422,12 @@ BEGIN
 		FROM @assigments_table);
 
 						-- проставляется комментарий не главным вопросам
-							UPDATE [CRM_1551_Analitics].[dbo].[AssignmentRevisions]
+							UPDATE   [dbo].[AssignmentRevisions]
 							SET [control_comment]=@control_comment
 							WHERE [assignment_consideration_іd] IN (SELECT id FROM  @assigments_consideration_table);
 
 
-	UPDATE [CRM_1551_Analitics].[dbo].[Assignments]
+	UPDATE   [dbo].[Assignments]
 	SET [assignment_state_id] = @state_id
 	   ,[AssignmentResultsId] = @control_result_id
 	   ,[AssignmentResolutionsId] = @assignment_resolution_id
@@ -445,7 +444,7 @@ BEGIN
 			Id
 		FROM @assigments_table);
 	/*
-	UPDATE [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+	UPDATE   [dbo].[AssignmentConsiderations]
 	SET [assignment_result_id] = @control_result_id
 	   ,[assignment_resolution_id] = @assignment_resolution_id
 	   ,[edit_date] = GETUTCDATE()
@@ -464,6 +463,27 @@ BEGIN
 		FROM @assigments_table);
 END
 
+if @control_result_id = 13 
+begin 
+declare @output table (Id int);
+declare @Operation varchar(128);
+SET @Operation = 'UPDATE';
+Insert into [dbo].[AssignmentDetailHistory] ([Assignment_id]
+									  ,[Operation]
+									  ,[Missed_call_counter]	
+									  ,[MissedCallComment]
+									  ,[User_id]
+									  ,[Edit_date]
+									  )
+output [inserted].[Id] into @output (Id)
+values ( @Id, @Operation, 1, @control_comment, @user_id, getutcdate() )
+
+declare @app_id int
+set @app_id = (select top 1 Id from @output)
+
+--select @app_id as [Id]
+--return;
+end;
 
 SELECT
 	(SELECT

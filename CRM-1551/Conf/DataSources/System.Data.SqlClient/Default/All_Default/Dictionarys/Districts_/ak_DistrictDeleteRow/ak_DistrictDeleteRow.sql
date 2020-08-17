@@ -1,2 +1,2 @@
-delete FROM [CRM_1551_Analitics].[dbo].[Districts]
+delete FROM   [dbo].[Districts]
   where id=@Id

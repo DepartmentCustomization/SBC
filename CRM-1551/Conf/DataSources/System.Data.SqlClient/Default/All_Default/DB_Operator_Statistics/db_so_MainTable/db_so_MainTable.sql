@@ -59,7 +59,7 @@ exec (@oqcall_csc)
    BEGIN
     insert into #temp_positions_table (Id, [organizations_id], programuser_id )
 	select Id, [organizations_id], programuser_id COLLATE Ukrainian_CI_AS
-	from [CRM_1551_Analitics].[dbo].[Positions]
+	from   [dbo].[Positions]
    END
 
    ELSE
@@ -70,7 +70,7 @@ exec (@oqcall_csc)
 
 	insert into #temp_positions_table (Id, [organizations_id], programuser_id)
 	select [Positions].Id, [Positions].[organizations_id], [Positions].[programuser_id]
-	from [CRM_1551_Analitics].[dbo].[Positions]
+	from   [dbo].[Positions]
 	inner join #temp_organizations_table on [Positions].organizations_id=#temp_organizations_table.Id
    END
 
@@ -108,10 +108,10 @@ exec (@oqcall_csc)
   ,sum(case when [Questions].Id is null and [Consultations].Id is null and [CallSipChannel].SipCallId is not null and [CallSipChannel].TalkTime>10 then 1 else 0 end) count_appeal_call -- нужно найти звонки
   --, null pro_appeal_call -- нужно найти звонки и в итоговой таблице найти процент
   into #temp_count_appeals
-  from [CRM_1551_Analitics].[dbo].[Appeals]
+  from   [dbo].[Appeals]
   inner join #temp_positions_table [Positions] on [Appeals].[user_id]=[Positions].programuser_id
-  left join [CRM_1551_Analitics].[dbo].[Questions] on [Appeals].Id=[Questions].appeal_id
-  left join [CRM_1551_Analitics].[dbo].[Consultations] on [Appeals].Id=[Consultations].appeal_id
+  left join   [dbo].[Questions] on [Appeals].Id=[Questions].appeal_id
+  left join   [dbo].[Consultations] on [Appeals].Id=[Consultations].appeal_id
   left join #temp_CallSipChannel [CallSipChannel] on [Appeals].sipcallid=[CallSipChannel].SipCallId
   where ([receipt_source_id] in (1,8) and ISNULL([Appeals].sipcallid,N'0') NOT IN (N'0', N'{sipCallId}') and convert(date, [Appeals].[registration_date]) between @date_from and @date_to)
   --or [Positions].organizations_id=isnull(@organization_id,0)

@@ -23,6 +23,17 @@
             "Width": "20%"
         },
         {
+            "Code": "ass_type_id",
+            "Name": "Тип доручення",
+            "FieldType": "select",
+            "Position": 3,
+            "Width": "35%",
+            "QueryCode": "list_ass_types",
+            "KeyColumnCode": "Id",
+            "DisplayColumnCode": "name",
+            "QueryParameters": []
+        },
+        {
             "Code": "assignment_class_id",
             "Name": "Клас доручення",
             "FieldType": "select",
@@ -34,22 +45,11 @@
             "QueryParameters": []
         },
         {
-            "Code": "ass_type_id",
-            "Name": "Тип доручення",
-            "FieldType": "select",
-            "Position": 2,
-            "Width": "35%",
-            "QueryCode": "list_ass_types",
-            "KeyColumnCode": "Id",
-            "DisplayColumnCode": "name",
-            "QueryParameters": []
-        },
-        {
             "Code": "ass_state_id",
             "Name": "Стан доручення",
             "FieldType": "select",
             "IsRequired": true,
-            "Position": 2,
+            "Position": 4,
             "QueryCode": "dir_AssignmentStates_SelectRows",
             "KeyColumnCode": "Id",
             "DisplayColumnCode": "name",
@@ -59,8 +59,8 @@
             "Code": "rework_counter",
             "Name": "Лічильник",
             "FieldType": "text",
-            "Position": 3,
-            "Width": "10%"
+            "Position": 5,
+            "Width": "15%"
         },
         {
             "Code": "result_id",
@@ -89,7 +89,7 @@
             "FieldType": "select",
             "Position": 7,
             "Width": "100%",
-            "QueryCode": "Class_ResolutionsSRows",
+            "QueryCode": "Class_Resolutions_ByAssClass",
             "KeyColumnCode": "Id",
             "DisplayColumnCode": "name",
             "QueryParameters": []

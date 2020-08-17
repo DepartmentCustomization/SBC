@@ -41,4 +41,6 @@ declare @app_id2 int
 set @app_id2 = (select top 1 Id from @output2)
 
 select @app_id2 as [Id]
+
+
 return;

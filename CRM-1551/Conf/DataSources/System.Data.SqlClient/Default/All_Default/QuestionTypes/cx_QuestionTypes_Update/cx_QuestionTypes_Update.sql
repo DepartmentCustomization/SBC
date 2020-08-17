@@ -51,7 +51,7 @@ SET
         WHEN [execution_term] = @execution_term1 THEN @Attention_term_hours1
         ELSE CONVERT(numeric(8, 0), @execution_term1 * 0.75)
       END Attention_term_hours2
-    FROM [CRM_1551_Analitics].[dbo].[QuestionTypes]
+    FROM   [dbo].[QuestionTypes]
     WHERE Id = @Id
   ),
   [execution_term] = @execution_term1,
