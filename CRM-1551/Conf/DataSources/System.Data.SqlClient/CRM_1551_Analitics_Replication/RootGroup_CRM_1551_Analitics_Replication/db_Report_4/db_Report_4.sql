@@ -1,8 +1,8 @@
-    --  DECLARE @org INT = 1;
-	  --  DECLARE @dateFrom DATETIME = '2020-08-16 21:00:00';
-    --  DECLARE @dateTo DATETIME = '2020-08-17 20:59:59';
-    --  DECLARE @question_type_id INT = 1;
-    --  DECLARE @sourceId NVARCHAR(50) = N'0';
+   --   DECLARE @org INT = 1;
+   --	DECLARE @dateFrom DATETIME = '2020-08-16 21:00:00';
+   --   DECLARE @dateTo DATETIME = '2020-08-17 20:59:59';
+   --   DECLARE @question_type_id INT = 1;
+   --   DECLARE @sourceId NVARCHAR(50) = N'0';
 
 IF object_id('tempdb..#temp_QuestionTypes4monitoring') IS NOT NULL 
 BEGIN 
@@ -487,7 +487,6 @@ FROM
         WHEN inTimeQty != 0
         AND outTimeQty = 0
         AND waitTimeQty = 0
-		AND notDoneClosedQty = 0
 		THEN cast(
           (1 - (0 / (cast(inTimeQty AS NUMERIC(18, 6))))) * 100 AS NUMERIC (36, 2)
         )
