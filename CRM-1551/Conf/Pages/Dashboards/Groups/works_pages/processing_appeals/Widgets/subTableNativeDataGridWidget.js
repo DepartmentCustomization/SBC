@@ -34,7 +34,7 @@
                     caption: 'Виконавець'
                 }, {
                     dataField: 'lookup',
-                    caption: 'Можливий виконавець',
+                    caption: 'Батьківська організація',
                     width: 300,
                     lookup: {
                         dataSource: undefined,
@@ -43,7 +43,7 @@
                     }
                 }, {
                     caption: '',
-                    dataField: '',
+                    dataField: 'phoneNumber',
                     alignment: 'center',
                     width: 40
                 }, {
@@ -108,6 +108,7 @@
         isEvent: false,
         event: 'Заходи',
         lookupData: [],
+        organizations: [],
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 405;
             this.executeQueryLookup();
@@ -125,6 +126,11 @@
                         const id = this.isEvent ? e.data.registration_number : e.data.Id;
                         const form = this.isEvent ? 'Events' : 'Assignments';
                         window.open(`${location.origin}${localStorage.getItem('VirtualPath')}/sections/${form}/edit/${id}`);
+                    }
+                    if(e.column.dataField === 'phoneNumber' && e.row !== undefined) {
+                        /* const id = this.isEvent ? e.data.registration_number : e.data.Id;
+                        const form = this.isEvent ? 'Events' : 'Assignments';
+                        window.open(`${location.origin}${localStorage.getItem('VirtualPath')}/sections/${form}/edit/${id}`); */
                     }
                 }
             });
@@ -147,6 +153,7 @@
             this.queryExecutor(executeQueryStatuses, this.setLookupData, this);
         },
         setLookupData: function(data) {
+            this.organizations = data;
             data.rows.forEach(row => {
                 let organization = {
                     'ID': row.values[0],
