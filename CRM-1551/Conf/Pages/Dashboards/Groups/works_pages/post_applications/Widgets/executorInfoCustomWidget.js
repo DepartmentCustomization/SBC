@@ -15,6 +15,7 @@
             Organizations_Name: null,
             WorkDays: null
         },
+        organizations: [],
         init: function() {
             this.showPagePreloader('Зачекайте, файл завантажується');
         },
@@ -49,6 +50,7 @@
             this.queryExecutor(executeQuery, this.setExecutorInfo, this);
         },
         setExecutorInfo: function(data) {
+            this.setOrganizationsData(data);
             for (let i = 0; i < data.rows.length; i++) {
                 const row = data.rows[i];
                 for (let j = 0; j < row.values.length; j++) {
@@ -67,7 +69,7 @@
                 {id: 'positionPIB', className: 'itemWrapper', innerText: this.executorInfo.Position_PIB}
             );
             const parentPositions = this.createItemWrapper('Підпорядковується: ', this.executorInfo.Parent_Positions_Name);
-            const organizationsName = this.createItemWrapper('Організація: ', this.executorInfo.Organizations_Name, 'pointer');
+            const organizationsName = this.createOrganizationsWrapper();
             const workDays = this.createItemWrapper('Робочий час: ', this.executorInfo.WorkDays);
             const wrapper = this.createElement('div', {id: 'wrapper'},
                 positionOrganization, positionPIB, parentPositions, organizationsName, workDays
@@ -75,22 +77,44 @@
             this.container.appendChild(wrapper);
             this.hidePagePreloader();
         },
-        createItemWrapper: function(captionText, valueText, pointer) {
+        createItemWrapper: function(captionText, valueText) {
             const caption = this.createElement('div', {className: 'caption', innerText: captionText});
             const value = this.createElement('div', {className: 'value', innerText: valueText});
             const parentPositions = this.createElement('div', {className: 'itemWrapper'}, caption, value);
-            if (pointer) {
-                parentPositions.classList.add(pointer);
-                parentPositions.addEventListener('click', () => {
+            return parentPositions;
+        },
+        createOrganizationsWrapper: function() {
+            const caption = this.createElement('div', {className: 'caption', innerText: 'Організація: '});
+            const value = this.getOrganizationsWrapper();
+            const parentPositions = this.createElement('div', {className: 'itemWrapper'}, caption, value);
+            return parentPositions;
+        },
+        setOrganizationsData:  function(data) {
+            data.rows.forEach(item => {
+                const index = this.organizations.findIndex(o => o.id === item.values[6]);
+                if(index === -1) {
+                    this.organizations.push({
+                        text: item.values[5],
+                        id: item.values[6]
+                    });
+                }
+            });
+        },
+        getOrganizationsWrapper: function() {
+            const organizationsWrapper = this.createElement('div', {className: 'organizationsWrapper'});
+            this.organizations.forEach(element => {
+                const organization = this.createElement('div', {className: 'organization', innerText: element.text});
+                organization.addEventListener('click', () => {
                     window.open(
                         location.origin +
                         localStorage.getItem('VirtualPath') +
                         '/sections/Organizations/view/' +
-                        this.executorInfo.Id
+                        element.id
                     );
                 });
-            }
-            return parentPositions;
+                organizationsWrapper.append(organization);
+            });
+            return organizationsWrapper;
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);

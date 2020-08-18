@@ -43,9 +43,15 @@
       "IsPrintable": false
     },
     {
+      "Code": "Organizations_Id",
+      "Name": "Organizations_Id",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
       "Code": "WorkDays",
       "Name": "WorkDays",
-      "Position": 6,
+      "Position": 7,
       "IsPrintable": false
     }
   ],
