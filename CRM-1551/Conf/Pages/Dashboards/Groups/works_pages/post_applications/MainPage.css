@@ -208,6 +208,13 @@
 }
 /* STATE CIRCLE COLOR END*/
 
-.pointer {
+
+.organizationsWrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.organization {
+    margin: 0 10px;
     cursor: pointer;
 }
