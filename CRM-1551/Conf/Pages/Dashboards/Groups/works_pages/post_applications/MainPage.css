@@ -132,14 +132,12 @@
     border: 0;
     margin: 7px 0;  
     outline: none;
+    margin-top: 20px;
+    border-bottom: 1px solid #acada8!important;
 }
 #assigmResult, #assigmResolution{
     font-size: 16px;
     margin: 7px 0;
-}
-#assigmResolution, #assigmComment{
-    margin-top: 20px;
-    border-bottom: 1px solid #acada8!important;
 }
 #templateResultWrapper, #assigmComment{
     margin-top: 20px;

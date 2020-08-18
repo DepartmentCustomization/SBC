@@ -32,7 +32,7 @@
                 data.rows.forEach(el => {
                     array.push({
                         id: el.values[0],
-                        resolutionId: el.values[1],
+                        value: el.values[1],
                         resultId: el.values[2],
                         innerText: el.values[3]
                     });
@@ -71,21 +71,17 @@
             const assigmResultWrapper = this.createElement('div', { className: 'assigmResultWrapper' },
                 assigmResultTitle, assigmResult
             );
-            const resolution__value = this.createElement('span', { id: 'resolution__value', innerText: '', resolutionId: 0 });
-            const assigmResolution = this.createElement('div', { id: 'assigmResolutionValue', className: 'modalItem' },
-                resolution__value
+            const resolutionSelectOption = this.createElement('option', { innerText: '', value: 0 });
+            const resolutionSelect = this.createElement('select',
+                { id: 'resolutionSelect', className: 'resultSelect selectItem js-example-basic-single' },
+                resolutionSelectOption
             );
             const assigmResolutionTitle = this.createElement('span',
                 { className: 'assigmResultTitle caption', innerText: 'Резолюцiя' }
             );
             const assigmResolutionWrapper = this.createElement('div',
                 { id: 'assigmResolution', className: 'assigmResultWrapper' },
-                assigmResolutionTitle, assigmResolution
-            );
-            const templateSelectOption = this.createElement('option', { innerText: '', value: 0 });
-            const templateSelect = this.createElement('select',
-                { id: 'templateSelect', className: 'resultSelect selectItem js-example-basic-single' },
-                templateSelectOption
+                assigmResolutionTitle, resolutionSelect
             );
             const assigmComment = this.createElement('input',
                 { type: 'text', id: 'assigmComment', className: 'modalItem', placeholder: 'Коментар' }
@@ -106,15 +102,16 @@
                 this.executeSendResultQuery(modalContainer);
             });
             this.setOptions(resultSelect, this.resultsValues, this);
-            this.setOptions(templateSelect, this.resolutionsValues, this);
+            this.setOptions(resolutionSelect, this.resolutionsValues, this);
             $('#resultSelect').on('select2:select', e => {
                 e.stopImmediatePropagation();
                 this.resultId = Number(e.params.data.id);
-                this.showHiddenElements(this.resultId, button_save);
+                button_save.disabled = false;
+                this.resolutionId = this.getResolutionId(this.resultId);
+                $('#resolutionSelect').select2().val(this.resolutionId).trigger('change.select2');
             });
-            $('#templateSelect').on('select2:select', e => {
-                e.stopImmediatePropagation();
-                assigmComment.value = e.params.data.text;
+            $('#resolutionSelect').on('select2:select', e => {
+                this.resolutionId = Number(e.params.data.id);
             });
         },
         executeSendResultQuery: function(modalContainer) {
@@ -142,22 +139,14 @@
             });
             this.createOptions();
         },
-        showHiddenElements: function(resultId, button_save) {
-            button_save.disabled = false;
-            document.getElementById('resolution__value').innerText = this.getResolutionId(resultId);
-            document.getElementById('resolution__value').resolutionId = this.resolutionId;
-        },
         getResolutionId: function(resultId) {
-            const index = this.resolutionsValues.findIndex(a => a.resultId === resultId);
-            this.resolutionId = index !== -1 ? this.resolutionsValues[index].resolutionId : undefined;
-            const resolutionText = index !== -1 ? this.resolutionsValues[index].innerText : ''
-            return resolutionText;
-        },
-        hideElement: function(id) {
-            document.getElementById(id).classList.add('displayNone');
-        },
-        showElement: function(id) {
-            document.getElementById(id).classList.remove('displayNone');
+            const index = this.resolutionsValues.findIndex(a => a.value === resultId);
+            switch (resultId) {
+                case 4:
+                    return this.resolutionsValues[index].value;
+                default:
+                    return index !== -1 ? this.resolutionsValues[index].value : undefined;
+            }
         },
         createOptions: function() {
             $(document).ready(function() {
