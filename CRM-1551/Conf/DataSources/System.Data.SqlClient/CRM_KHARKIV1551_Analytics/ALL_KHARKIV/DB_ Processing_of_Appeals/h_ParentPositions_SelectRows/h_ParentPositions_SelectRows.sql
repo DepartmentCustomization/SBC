@@ -1,5 +1,6 @@
 
 
+
 if object_id('tempdb..#org_and_parent') is not null 
 begin
 drop table #org_and_parent
@@ -40,10 +41,10 @@ where [Positions].is_main='true'
 
 
 --select * from #org_and_parent
-select row_number() over(order by vykonavets_Id) Id, vykonavets_Id, possible_Id, possible_name
+select row_number() over(order by vykonavets_Id) Id, vykonavets_Id, possible_Id, possible_name, N'+3-2 '+ltrim(possible_Id) phone_number
 from 
 (
-select distinct #org_and_parent.Id possible_Id, #org_and_parent.name possible_name, #org_and_parent.lev_Id vykonavets_Id 
+select distinct #org_and_parent.Id possible_Id, #org_and_parent.name possible_name, #org_and_parent.lev_Id vykonavets_Id
 from #position_org
 inner join #org_and_parent on #position_org.organizations_id=#org_and_parent.lev_Id
 --union

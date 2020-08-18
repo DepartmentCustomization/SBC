@@ -139,7 +139,8 @@ declare @filters_ev nvarchar(max)=N'( '+isnull(@filter_d_qt,N' 1=2')+isnull(N' o
 [Applicants].full_name zayavnyk,
 [Applicants].[ApplicantAdress] ZayavnykAdress,
 [Questions].question_content content,
-[Organizations].Id vykonavets_Id
+[Organizations].Id vykonavets_Id,
+N''+3-2_''+ltrim([Organizations].Id) phone_number
 FROM
 [CRM_1551_Analitics].[dbo].[Assignments] WITH (nolock)
 INNER JOIN [CRM_1551_Analitics].[dbo].[Questions] WITH (nolock) ON [Assignments].question_id = [Questions].Id
@@ -169,7 +170,8 @@ select [Events].[Id]*(-1) Id,
   null zayavnyk,
   null ZayavnykAdress,
   null content,
-  [Organizations].Id vykonavets_Id
+  [Organizations].Id vykonavets_Id,
+  N''+3-2_''+ltrim([Organizations].Id) phone_number
   from [CRM_1551_Analitics].[dbo].[Events] WITH (nolock)
   left join [CRM_1551_Analitics].[dbo].[Event_Class] WITH (nolock) on [Events].event_class_id=[Event_Class].Id
   left join [CRM_1551_Analitics].[dbo].[EventObjects] WITH (nolock) on [Events].Id=[EventObjects].event_id and [EventObjects].in_form=''true''

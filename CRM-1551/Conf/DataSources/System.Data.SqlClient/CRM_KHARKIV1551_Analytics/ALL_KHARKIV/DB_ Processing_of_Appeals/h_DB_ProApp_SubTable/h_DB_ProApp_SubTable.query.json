@@ -92,6 +92,12 @@
       "Name": "vykonavets_Id",
       "Position": 11,
       "IsPrintable": false
+    },
+    {
+      "Code": "phone_number",
+      "Name": "phone_number",
+      "Position": 12,
+      "IsPrintable": false
     }
   ]
 }

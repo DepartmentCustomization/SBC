@@ -35,6 +35,12 @@
       "IsPrintable": false,
       "SqlName": "possible_name",
       "FilterParameterCode": "@possible_name"
+    },
+    {
+      "Code": "phone_number",
+      "Name": "phone_number",
+      "Position": 5,
+      "IsPrintable": false
     }
   ]
 }
