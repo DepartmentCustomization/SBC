@@ -135,7 +135,7 @@ BEGIN
 	BEGIN TRY
 	BEGIN TRANSACTION;
 	BEGIN
-	DECLARE @assignment_org INT = (SELECT [executor_organization_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
+	DECLARE @class_resolution_org INT = (SELECT [executor_organization_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @new_result_id INT = (SELECT [assignment_result_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @new_resolution_id INT = (SELECT [assignment_resolution_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @event_class_id INT = (SELECT [event_class_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id); 
@@ -183,7 +183,9 @@ BEGIN
 			,@user_edit_id
 			);
 	--> Создать проблему (Event) под резолюцию класса, если надо
-	IF(@event_class_id IS NOT NULL)
+	IF(@event_class_id IS NOT NULL) 
+	AND (SELECT [event_id] FROM dbo.[Questions] WHERE Id = @question_id)
+	IS NULL
 	BEGIN
 	DECLARE @event_assignment_class_id INT = (SELECT [assignment_class_id] FROM dbo.[Event_Class] WHERE Id = @event_class_id);
 	DECLARE @prev_main BIT = (SELECT [main_executor] FROM dbo.[Assignments] WHERE Id = @Id);
@@ -191,6 +193,7 @@ BEGIN
 	DECLARE @area INT = (SELECT [object_id] FROM dbo.[Questions] WHERE Id = @question_id);
 	DECLARE @exec_term INT = (SELECT [execution_term] FROM dbo.[Event_Class] WHERE Id = @event_class_id)/24;
 	DECLARE @plan_end_time DATETIME = (SELECT DATEADD(DAY, @exec_term, @now));
+	DECLARE @event_organization_id INT = (SELECT TOP 1 [organizations_id] FROM dbo.[Positions] WHERE programuser_id = @user_edit_id);
 	DECLARE @event_comment NVARCHAR(250) = (SELECT [name] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id) + 
 											SPACE(1) + CONVERT(VARCHAR(10), @plan_end_time, 111);
 	
@@ -223,10 +226,23 @@ BEGIN
 			VALUES(@new_event_id,
 				   @area,
 				   1);
+
+	INSERT INTO dbo.[EventOrganizers] ([event_id],
+									   [organization_id],
+									   [executor_id],
+									   [main])
+			VALUES(@new_event_id,
+				   @event_organization_id,
+				   NULL,
+				   1);
+
+		UPDATE dbo.[Questions] 
+			SET [event_id] = @new_event_id
+		WHERE Id = @question_id;
 				   
 			IF(@event_assignment_class_id IS NOT NULL)
 			BEGIN
-				IF(@assignment_org IS NULL)
+				IF(@class_resolution_org IS NULL)
 					BEGIN
 						RAISERROR(N'Для обраного класу резорюції не вказано відповідальну організацію', 16, 1);
 						RETURN;
@@ -259,8 +275,8 @@ BEGIN
 	 					1,
 	 					@now,
 	 					1,
-	 					@assignment_org,
-	 					@assignment_org,
+	 					@class_resolution_org,
+	 					@class_resolution_org,
 	 					@prev_main,
 	 					@event_assignment_exec_date,
 	 					@user_edit_id,
@@ -292,7 +308,7 @@ BEGIN
 	 			   @user_edit_id,
 	 			   @now,
 	 			   @user_edit_id,
-	 			   @assignment_org,
+	 			   @class_resolution_org,
 	 			   @now,
 	 			   @now);
 	 	
@@ -318,7 +334,7 @@ BEGIN
 
 	IF(@create_assignment_class_id IS NOT NULL)
 	BEGIN
-		IF(@assignment_org IS NULL)
+		IF(@class_resolution_org IS NULL)
 		BEGIN
 			RAISERROR(N'Для обраного класу резорюції не вказано відповідальну організацію', 16, 1);
 			RETURN;
@@ -351,8 +367,8 @@ BEGIN
 	 					1,
 	 					@now,
 	 					1,
-	 					@assignment_org,
-	 					@assignment_org,
+	 					@class_resolution_org,
+	 					@class_resolution_org,
 	 					@prev_main,
 	 					@assignment_exec_date,
 	 					@user_edit_id,
@@ -385,7 +401,7 @@ BEGIN
 	 			   @user_edit_id,
 	 			   @now,
 	 			   @user_edit_id,
-	 			   @assignment_org,
+	 			   @class_resolution_org,
 	 			   @now,
 	 			   @now);
 	 	
