@@ -10,17 +10,17 @@ end
 ;with
 pit as -- родители @id
 (
-select Id, parent_organization_id ParentId, short_name name, Id lev_Id, short_name lev_name
+select Id, parent_organization_id ParentId, short_name name, Id lev_Id, short_name lev_name, t.phone_number
 from [CRM_1551_Analitics].[dbo].[Organizations] t
 --where Id=@id
 union all
-select t.Id, t.parent_organization_id ParentId, t.short_name name, pit.lev_Id, pit.lev_name
+select t.Id, t.parent_organization_id ParentId, t.short_name name, pit.lev_Id, pit.lev_name, pit.phone_number
 from [CRM_1551_Analitics].[dbo].[Organizations] t inner join pit on t.Id=pit.ParentId
 )
 select distinct * into #org_and_parent from pit-- pit it
 --select distinct * into #org_and_parent from pit-- pit it
 
-
+--select * from #org_and_parent
 -- вывести:
 /*
 1.организацию исполнителя
@@ -41,10 +41,10 @@ where [Positions].is_main='true'
 
 
 --select * from #org_and_parent
-select row_number() over(order by vykonavets_Id) Id, vykonavets_Id, possible_Id, possible_name, N'+3-2 '+ltrim(possible_Id) phone_number
+select row_number() over(order by vykonavets_Id) Id, vykonavets_Id, possible_Id, possible_name, phone_number
 from 
 (
-select distinct #org_and_parent.Id possible_Id, #org_and_parent.name possible_name, #org_and_parent.lev_Id vykonavets_Id
+select distinct #org_and_parent.Id possible_Id, #org_and_parent.name possible_name, #org_and_parent.lev_Id vykonavets_Id, #org_and_parent.phone_number
 from #position_org
 inner join #org_and_parent on #position_org.organizations_id=#org_and_parent.lev_Id
 --union
