@@ -236,6 +236,16 @@ BEGIN
 				   NULL,
 				   1);
 
+	INSERT INTO dbo.[EventQuestionsTypes] ([event_id],
+										   [question_type_id],
+										   [is_hard_connection])		
+			SELECT 
+				@new_event_id,
+				e_class_q_type.[question_type_id],
+				e_class_q_type.[is_hard_connection]
+			FROM dbo.[EventClass_QuestionType] AS e_class_q_type
+			WHERE event_class_id = @event_class_id;
+
 		UPDATE dbo.[Questions] 
 			SET [event_id] = @new_event_id
 		WHERE Id = @question_id;
