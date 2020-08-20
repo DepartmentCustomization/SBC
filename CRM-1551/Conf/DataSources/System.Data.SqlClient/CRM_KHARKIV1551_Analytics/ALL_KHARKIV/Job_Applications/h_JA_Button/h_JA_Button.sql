@@ -1,15 +1,23 @@
--- declare @result_Id int=4;
---   declare @resolution_Id int=9;
---   declare @Ids nvarchar(max)=N'1,2,3,4'
---   declare @comment nvarchar(max)=N'test'
---   declare @user_id nvarchar(128)=N'';
+ /*declare @result_Id int=4;
+   declare @resolution_Id int=2;
+   declare @Ids nvarchar(max)=N'2971352'
+   declare @comment nvarchar(max)=N'test'
+   declare @user_id nvarchar(128)=N'test';
 
+
+parameterValues: [{key: "@Ids", value: "2971352"}, {key: "@comment", value: ""}, {key: "@result_Id", value: 4},…]
+0: {key: "@Ids", value: "2971352"}
+1: {key: "@comment", value: ""}
+2: {key: "@result_Id", value: 4}
+3: {key: "@resolution_Id", value: 2}
+queryCode: "h_JA_Button"
+*/
   declare @state_id int=
   (select distinct [TransitionAssignmentStates].new_assignment_state_id
   from [CRM_1551_Analitics].[dbo].[TransitionAssignmentStates]
   where isnull(new_assignment_result_id,0)=isnull(@result_id,0) and isnull(new_assignment_resolution_id,0)=isnull(@resolution_id,0))
 
-  if OBJECT_ID('tempbd..#temp_Ids') is not null drop table #temp_Ids
+  if OBJECT_ID('tempdb..#temp_Ids') is not null drop table #temp_Ids
 
   select value Id
   into #temp_Ids
@@ -23,14 +31,14 @@ select temp_Ids.Id--[Assignments].AssignmentResultsId, [Assignments].AssignmentR
 into #temp_good_Ids
 from #temp_Ids temp_Ids
 inner join [CRM_1551_Analitics].[dbo].[Assignments] on temp_Ids.Id=[Assignments].Id
-inner join [dbo].[TransitionAssignmentStates] 
+inner join [CRM_1551_Analitics].[dbo].[TransitionAssignmentStates] 
 on [Assignments].assignment_state_id=[TransitionAssignmentStates].old_assignment_state_id
 and [Assignments].AssignmentResultsId=[TransitionAssignmentStates].old_assignment_result_id
-and [Assignments].AssignmentResolutionsId=[TransitionAssignmentStates].old_assignment_resolution_id
+and isnull([Assignments].AssignmentResolutionsId, 0)=isnull([TransitionAssignmentStates].old_assignment_resolution_id, 0)
 and [TransitionAssignmentStates].new_assignment_result_id=@result_Id
-and [TransitionAssignmentStates].new_assignment_resolution_id=@resolution_Id
+and isnull([TransitionAssignmentStates].new_assignment_resolution_id, 0)=isnull(@resolution_Id, 0)
 
-
+--select * from #temp_good_Ids
 
   if @result_Id=9 /*Прийнято в роботу*/
   begin
@@ -103,3 +111,7 @@ and [TransitionAssignmentStates].new_assignment_resolution_id=@resolution_Id
 	inner join [CRM_1551_Analitics].[dbo].[Assignments] on [Assignments].Id=temp_Ids.Id
 	inner join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [AssignmentConsiderations].Id=[Assignments].current_assignment_consideration_id
   end
+
+
+  --select @state_id
+  --select * from #temp_good_Ids

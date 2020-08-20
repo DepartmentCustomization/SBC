@@ -10,6 +10,12 @@
     "IsPrimaryKey": true
   },
   {
+    "Code": "@direction_id",
+    "Name": "direction_id",
+    "ParameterType": "Integer",
+    "IsPrimaryKey": true
+  },
+  {
     "Code": "@CreatedUserById",
     "Name": "CreatedUserById",
     "ParameterType": "CurrentUserId"
