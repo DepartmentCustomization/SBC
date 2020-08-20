@@ -1,6 +1,6 @@
--- DECLARE @executor_organization_id INT, 
--- 		@Id INT, 
--- 		@user_edit_id NVARCHAR(128);
+ --DECLARE @executor_organization_id INT, 
+ --		@Id INT, 
+ --		@user_edit_id NVARCHAR(128);
 
 DECLARE @output TABLE (Id INT);
 DECLARE @output_con TABLE (Id INT);
@@ -52,7 +52,8 @@ SET
 	[assignment_state_id] = 1,
 	edit_date = GETUTCDATE(),
 	user_edit_id = @user_edit_id,
-	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row22'
+	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row22',
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @Id;
 END --
@@ -108,7 +109,8 @@ SET
 	AssignmentResolutionsId = @new_resol,
 	edit_date = GETUTCDATE(),
 	user_edit_id = @user_edit_id,
-	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row62'
+	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row62',
+	[executor_person_id]=null --20 08
 WHERE
 	id = @Id;
 UPDATE
@@ -161,7 +163,9 @@ UPDATE
 	[Assignments]
 SET
 	current_assignment_consideration_id = @new_con,
-	[edit_date] = GETUTCDATE()
+	[edit_date] = GETUTCDATE(),
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @Id;
 END
@@ -182,7 +186,8 @@ SET
 	edit_date = GETUTCDATE(),
 	user_edit_id = @user_edit_id,
 	executor_organization_id = @executor_organization_id,
-	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row121'
+	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row121',
+	[executor_person_id]=null --20 08
 WHERE
 	id = @Id;
 UPDATE
@@ -238,7 +243,9 @@ UPDATE
 	[Assignments]
 SET
 	current_assignment_consideration_id = @new_con,
-	[edit_date] = getutcdate()
+	[edit_date] = getutcdate(),
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @Id; -- @ass_id
 END
@@ -290,7 +297,8 @@ SET
 	AssignmentResolutionsId = @new_resol,
 	edit_date = GETUTCDATE(),
 	user_edit_id = @user_edit_id,
-	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row189'
+	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row189',
+	[executor_person_id]=null --20 08
 WHERE
 	id = @Id;
 DELETE FROM
@@ -332,7 +340,9 @@ UPDATE
 	[Assignments]
 SET
 	current_assignment_consideration_id = @new_con,
-	[edit_date] = getutcdate()
+	[edit_date] = getutcdate(),
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @Id;
 END
@@ -354,7 +364,8 @@ SET
 	edit_date = GETUTCDATE(),
 	user_edit_id = @user_edit_id,
 	assignment_state_id = 5,
-	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row237'
+	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row237',
+	[executor_person_id]=null --20 08
 WHERE
 	id = @Id;
 UPDATE
@@ -567,7 +578,9 @@ UPDATE
 SET
 	main_executor = 0,
 	[LogUpdated_Query] = N'Button_NeVKompetentcii__Row379',
-	edit_date = GETUTCDATE()
+	edit_date = GETUTCDATE(),
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @Id;
 UPDATE
@@ -575,7 +588,9 @@ UPDATE
 SET
 	current_assignment_consideration_id = @new_con,
 	[LogUpdated_Query] = N'Button_NeVKompetentcii__Row382',
-	edit_date = GETUTCDATE()
+	edit_date = GETUTCDATE(),
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @ass_id;
 END
@@ -587,7 +602,8 @@ SET
 	main_executor = 1,
 	[LogUpdated_Query] = N'Button_NeVKompetentcii__Row389',
 	edit_date = getutcdate(),
-	user_edit_id = @user_edit_id
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @ass_id_for_main;
 UPDATE
@@ -604,7 +620,8 @@ SET
 	main_executor = 0,
 	edit_date = GETUTCDATE(),
 	user_edit_id = @user_edit_id,
-	[LogUpdated_Query] = N'Button_NeVKompetentcii__Row404'
+	[LogUpdated_Query] = N'Button_NeVKompetentcii__Row404',
+	[executor_person_id]=null --20 08
 WHERE
 	id = @Id;
 END
@@ -663,7 +680,8 @@ SET
 	[LogUpdated_Query] = N'Button_NeVKompetentcii__Row365',
 	close_date = NULL,
 	edit_date = getutcdate(),
-	user_edit_id = @user_edit_id
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @New_Ass;
 INSERT INTO
@@ -703,7 +721,9 @@ UPDATE
 SET
 	main_executor = 0,
 	[LogUpdated_Query] = N'Button_NeVKompetentcii_Row441',
-	edit_date = GETUTCDATE()
+	edit_date = GETUTCDATE(),
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @Id; 
 SET
@@ -717,7 +737,9 @@ UPDATE
 	[Assignments]
 SET
 	current_assignment_consideration_id = @new_con,
-	edit_date = GETUTCDATE()
+	edit_date = GETUTCDATE(),
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @New_Ass; 
 ---> up last_assignment_for_execution_id под новый Assignment (ранее не обновилось)
@@ -740,7 +762,8 @@ SET
 	main_executor = 1,
 	[LogUpdated_Query] = N'Button_NeVKompetentcii__Row453',
 	edit_date = getutcdate(),
-	user_edit_id = @user_edit_id
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	Id = @New_Ass;
 UPDATE
@@ -749,7 +772,8 @@ SET
 	main_executor = 0,
 	[LogUpdated_Query] = N'Button_NeVKompetentcii__Row459',
 	edit_date = getutcdate(),
-	user_edit_id = @user_edit_id
+	user_edit_id = @user_edit_id,
+	[executor_person_id]=null --20 08
 WHERE
 	question_id = @question_id
 	AND Id <> @New_Ass;
