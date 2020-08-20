@@ -4,9 +4,11 @@
     ,@date_to datetime='2019-11-09 00:00:00.000'
 	,@rda_id  int=2008
 	,@rating_id int=1;
-*/	
-  declare @date_from_d date=@date_from
-  declare @date_to_d date=@date_to
+	*/
+  declare @date_from_d date=CONVERT(datetime, SWITCHOFFSET(@date_from, DATEPART(TZOFFSET,@date_from AT TIME ZONE 'E. Europe Standard Time')))
+  --@date_from
+  declare @date_to_d date=CONVERT(datetime, SWITCHOFFSET(@date_to, DATEPART(TZOFFSET,@date_to AT TIME ZONE 'E. Europe Standard Time')))
+  --@date_to
   declare @date_first date=
   case when day(@date_from_d)=1
 	then datefromparts(year(dateadd(dd, -1, @date_from_d)),month(dateadd(dd, -1, @date_from_d)),1)
@@ -14,6 +16,7 @@
 	end
   --declare @date_first date=datefromparts(year(getutcdate()),month(getutcdate()),1)
 
+  --select @date_from_d, @date_first, @date_to_d
   --таблица для РДА начало
     IF object_id('tempdb..#temp_rda_table') is not null BEGIN DROP TABLE #temp_rda_table END
 
