@@ -33,7 +33,7 @@
                 {
                     dataField: 'poll_name',
                     caption: 'Опитування',
-                    width:250
+                    width:500
                 },
                 {
                     dataField: 'idIcon',
@@ -53,7 +53,7 @@
                 {
                     dataField: 'name',
                     caption: 'Напрямок',
-                    width:200
+                    width:300
                 },
                 {
                     dataField: 'col_Applicants',
@@ -150,14 +150,15 @@
             }
         },
         openFormCon(options) {
-            const {PollDirId,end_date,is_active,poll_name,start_date,Polls_Id} = options.data;
+            const {PollDirId,end_date,is_active,poll_name,start_date,Polls_Id,col_Applicants} = options.data;
             const obj = {
                 dateFrom:start_date,
                 dateTo:end_date,
                 name:poll_name,
                 direction:PollDirId,
                 rowId:Polls_Id,
-                activity:is_active
+                activity:is_active,
+                applicants:col_Applicants
             }
             const fixRow = true;
             this.setVisibility(fixRow,obj)
