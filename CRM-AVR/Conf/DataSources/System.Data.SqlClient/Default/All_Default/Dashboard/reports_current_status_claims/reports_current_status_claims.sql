@@ -1,42 +1,76 @@
-SELECT 
-	 Claims.Id
-	,org.Short_name as org_name
-	,concat(convert(VARCHAR(10), cast(Claims.Created_at as date), 104),  ' ', 
-	convert(VARCHAR(5),cast(Claims.Created_at as time), 108)) as Created_at
-	,Claims.Claim_Number
-	,Places.Name as place_name
-	,SUBSTRING(Districts.Name, 1, 5 ) as district
-	,Claim_types.Full_Name
-	,Diameters.Size
-	,( select concat(ROW_NUMBER() over(order by [Orders].[Id]), ') ') 
-	            + concat(convert(VARCHAR(10), cast(Orders.Created_at as date), 104),  ' ', 
-	convert(VARCHAR(5),cast(Orders.Created_at as time), 108)) + CHAR(10)
-	        from Orders where  Orders.Claim_ID =  Claims.Id FOR XML PATH (''),type
-	  ) as orders
-	,Claims.Description
-	/*,( select Action_types.Name + ' ('+  cast(count(Action_types.Id) as nvarchar(8)) +'); '    from Actions
-			left join Action_type_Place_type atpt on atpt.Id = Actions.Action_type_ID
-			left join Action_types on Action_types.Id = atpt.Action_type_Id
-		where Actions.Claim_ID = Claims.Id and Actions.Do_not = 0 group by Action_types.Name FOR XML PATH ('')
-	  ) as actions*/
-	  ,( select Action_types.Name + ' ('+  cast(count(Action_types.Id) as nvarchar(8)) +'); ' + CHAR(13)   from Actions
-			left join Action_type_Place_type atpt on atpt.Id = Actions.Action_type_ID
-			left join Action_types on Action_types.Id = atpt.Action_type_Id
-		where Actions.Claim_ID = Claims.Id and Actions.Do_not = 0 group by Action_types.Name FOR XML PATH (''),type
-	  ) as actions
-	,Claims.Claim_class_ID
-	,Claims.Status_ID
-	FROM Claims
-		left join Organizations org on org.Id = Claims.Response_organization_ID
-		left join Claim_Order_Places cop on cop.Claim_ID = Claims.Id and cop.Is_first_place = 1
-		left join Places on Places.Id = cop.Place_ID
-		left join Districts on Districts.Id = Places.District_ID
-		left join Diameters on Diameters.Id = Claims.Diameters_ID
-		left join Claim_types on Claim_types.Id = Claims.Claim_type_ID
-	WHERE 
-		convert(date, Claims.Created_at) >= @date_from 
-        and convert(date,Claims.Created_at) <= isnull(@date_to, getdate())
-        and [Claims].[Response_organization_ID] @OrgID
-		and #filter_columns#
-		#sort_columns#
---  		order by Claims.Id
+-- DECLARE @date_from datetime = '2020-01-01 00:00:00';
+-- DECLARE @date_to datetime = getdate()
+SELECT
+	Claims.Id,
+	org.Short_name AS org_name,
+	concat(
+		CONVERT(
+			VARCHAR(10),
+			CAST(Claims.Created_at AS DATE),
+			104
+		),
+		' ',
+		CONVERT(VARCHAR(5), CAST(Claims.Created_at AS TIME), 108)
+	) AS Created_at,
+	Claims.Claim_Number,
+	Places.Name AS place_name,
+	SUBSTRING(Districts.Name, 1, 5) AS district,
+	Claim_types.Full_Name,
+	Diameters.Size,
+(
+		SELECT
+			concat(
+				ROW_NUMBER() OVER(
+					ORDER BY
+						[Orders].[Id]
+				),
+				') '
+			) + concat(
+				CONVERT(
+					VARCHAR(10),
+					CAST(Orders.Created_at AS DATE),
+					104
+				),
+				' ',
+				CONVERT(VARCHAR(5), CAST(Orders.Created_at AS TIME), 108)
+			) + CHAR(10)
+		FROM
+			Orders
+		WHERE
+			Orders.Claim_ID = Claims.Id FOR XML PATH (''),
+			TYPE
+	) AS orders,
+	Claims.Description,
+(
+		SELECT
+			Action_types.Name + ' (' + CAST(count(Action_types.Id) AS NVARCHAR(8)) + '); ' + CHAR(13)
+		FROM
+			Actions
+			LEFT JOIN Action_type_Place_type atpt ON atpt.Id = Actions.Action_type_ID
+			LEFT JOIN Action_types ON Action_types.Id = atpt.Action_type_Id
+		WHERE
+			Actions.Claim_ID = Claims.Id
+			AND Actions.Do_not = 0
+		GROUP BY
+			Action_types.Name FOR XML PATH (''),
+			TYPE
+	) AS actions,
+	Claims.Claim_class_ID,
+	Claims.Status_ID
+FROM
+	Claims
+	LEFT JOIN Organizations org ON org.Id = Claims.Response_organization_ID
+	LEFT JOIN Claim_Order_Places cop ON cop.Claim_ID = Claims.Id
+	AND cop.Is_first_place = 1
+	LEFT JOIN Places ON Places.Id = cop.Place_ID
+	LEFT JOIN Districts ON Districts.Id = Places.District_ID
+	LEFT JOIN Diameters ON Diameters.Id = Claims.Diameters_ID
+	LEFT JOIN Claim_types ON Claim_types.Id = Claims.Claim_type_ID
+WHERE
+	CONVERT(DATE, Claims.Created_at) >= @date_from
+	AND CONVERT(DATE, Claims.Created_at) <= isnull(@date_to, getdate())
+	AND [Claims].[Response_organization_ID] @OrgID
+	AND #filter_columns#
+	#sort_columns#
+ORDER BY
+	Claims.Id
