@@ -74,6 +74,12 @@
                     alignment: 'center'
                 },
                 {
+                    dataField: 'count_act',
+                    caption: 'Активність інспектора',
+                    width: 100,
+                    alignment: 'center'
+                },
+                {
                     caption: 'Показники',
                     alignment: 'center',
                     columns: [
