@@ -14,13 +14,13 @@ select Id, parent_organization_id ParentId, short_name name, Id lev_Id, short_na
 from [CRM_1551_Analitics].[dbo].[Organizations] t
 --where Id=@id
 union all
-select t.Id, t.parent_organization_id ParentId, t.short_name name, pit.lev_Id, pit.lev_name, pit.phone_number
+select t.Id, t.parent_organization_id ParentId, t.short_name name, pit.lev_Id, pit.lev_name, t.phone_number
 from [CRM_1551_Analitics].[dbo].[Organizations] t inner join pit on t.Id=pit.ParentId
 )
 select distinct * into #org_and_parent from pit-- pit it
 --select distinct * into #org_and_parent from pit-- pit it
 
---select * from #org_and_parent
+--select * from #org_and_parent where phone_number=N'044-247-40-40'
 -- вывести:
 /*
 1.организацию исполнителя
@@ -51,5 +51,5 @@ inner join #org_and_parent on #position_org.organizations_id=#org_and_parent.lev
 --select Id, Id, short_name, 1 n 
 --from [dbo].[Organizations]
 ) t
-
+--where vykonavets_Id=4005--phone_number=N'044-247-40-40'
 
