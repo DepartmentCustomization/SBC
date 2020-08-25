@@ -109,6 +109,7 @@
         event: 'Заходи',
         lookupData: [],
         organizations: [],
+        phoneNumberIndex: 4,
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 405;
             this.executeQueryLookup();
@@ -128,16 +129,39 @@
                         window.open(`${location.origin}${localStorage.getItem('VirtualPath')}/sections/${form}/edit/${id}`);
                     }
                     if(e.column.dataField === 'phoneNumber' && e.row !== undefined) {
-                        /* const id = this.isEvent ? e.data.registration_number : e.data.Id;
-                        const form = this.isEvent ? 'Events' : 'Assignments';
-                        window.open(`${location.origin}${localStorage.getItem('VirtualPath')}/sections/${form}/edit/${id}`); */
+                        if(e.data.lookup) {
+                            const index = this.organizations.rows.findIndex(o => o.values[0] === e.data.lookup);
+                            if(index !== -1) {
+                                const phone = this.organizations.rows[index].values[this.phoneNumberIndex];
+                                if(phone) {
+                                    this.callTo(phone);
+                                }
+                            }
+                        } else {
+                            this.callTo(e.data.phone_number);
+                        }
                     }
                 }
             });
         },
+        callTo: function() {
+            /*
+                ЗДЕСЬ ДОЛЖНА БЫТЬ ОПИСАНА ЛОГИКА
+
+                ВОЗМОЖНО ТАКАЯ:
+                let CurrentUserPhone = e.row.data.phone_number;
+                let PhoneForCall = this.userPhoneNumber;
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', 'https://cc.1551.gov.ua:5566/CallService/Call/number=' +
+                CurrentUserPhone + '&operator=' + PhoneForCall);
+                xhr.send();
+
+                Взято  с ДБ "prozvon"
+            */
+        },
         onCellPrepared: function(options) {
             if(options.rowType === 'data') {
-                if(options.column.dataField === '') {
+                if(options.column.dataField === 'phoneNumber') {
                     options.cellElement.innerText = '';
                     const phoneIcon = this.createElement('span', {className: 'material-icons', innerText: 'phone'});
                     options.cellElement.appendChild(phoneIcon);
