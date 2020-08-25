@@ -274,7 +274,7 @@
             const name = 'exportExcel';
             const columns = [];
             this.config.columns.forEach(column => {
-                if (column.caption !== '') {
+                if (column.dataField !== 'lookup' && column.dataField !== 'phoneNumber') {
                     columns.push(column);
                 }
             });

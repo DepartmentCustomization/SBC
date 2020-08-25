@@ -65,7 +65,7 @@
             const rows = [];
             this.setColumnsProperties(columns, columnsProperties, worksheet);
             this.setTableHeader(columns, worksheet);
-            this.setWorksheetTitle(worksheet);
+            this.setWorksheetTitle(worksheet, columns.length);
             this.setTableValues(data, worksheet, rows);
             this.setTableRowsStyles(worksheet, rows);
             self.helperFunctions.excel.save(workbook, 'Заявки', this.hidePagePreloader);
@@ -104,11 +104,11 @@
             }
             this.lastPosition = position;
         },
-        setWorksheetTitle: function(worksheet) {
-            worksheet.mergeCells(1, 1, 1, 7);
+        setWorksheetTitle: function(worksheet, length) {
+            worksheet.mergeCells(1, 1, 1, length);
             const title = worksheet.getCell(1, 1);
             title.value = 'Інформація';
-            worksheet.mergeCells(2, 1, 2, 7);
+            worksheet.mergeCells(2, 1, 2, length);
             const description = worksheet.getCell(2, 1);
             description.value = 'про звернення громадян, що надійшли до Служби мера'
         },
@@ -118,14 +118,16 @@
                 const rowStart = this.excelHeadRowStart + 1 + i;
                 rowNumbers.push(rowStart);
                 for (let j = 1; j < rowData.values.length - 3; j++) {
-                    const value = rowData.values[j];
-                    const cell = worksheet.getCell(rowStart, j);
-                    if (j === 2 || j === 5) {
-                        cell.value = this.changeDateTimeValues(value);
-                    } else {
-                        cell.value = value;
+                    if(j !== 8 && j !== 9) {
+                        const value = rowData.values[j];
+                        const cell = worksheet.getCell(rowStart, j);
+                        if (j === 2 || j === 5) {
+                            cell.value = this.changeDateTimeValues(value);
+                        } else {
+                            cell.value = value;
+                        }
+                        this.setCellStyle(cell);
                     }
-                    this.setCellStyle(cell);
                 }
             }
         },
