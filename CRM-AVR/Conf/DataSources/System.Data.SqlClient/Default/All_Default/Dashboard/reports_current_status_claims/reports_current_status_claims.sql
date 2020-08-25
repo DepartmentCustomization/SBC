@@ -14,7 +14,7 @@ SELECT
 		CONVERT(VARCHAR(5), CAST(Claims.Created_at AS TIME), 108)
 	) AS Created_at,
 	Claims.Claim_Number,
-	Places.Name AS place_name,
+	IIF(Claims.DisplayID = 2, 'За маршрутом обхідника', places.Name) AS place_name,
 	SUBSTRING(Districts.Name, 1, 5) AS district,
 	Claim_types.Full_Name,
 	Diameters.Size,
@@ -135,5 +135,5 @@ WHERE
 	AND CONVERT(DATE, Claims.Created_at) <= isnull(@date_to, getdate()) 
 	AND [Claims].[Response_organization_ID] @OrgID
 	AND #filter_columns#
-	ORDER BY
-		Claims.Id;
+ORDER BY
+	Claims.Id;
