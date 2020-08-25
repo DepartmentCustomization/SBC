@@ -93,6 +93,18 @@
             },{
                 title: 'Status_ID',
                 columnCode: 'Status_ID'
+            },{
+                title: 'Відключення',
+                columnCode: 'switch_places_name'
+            },{
+                title: 'Ускладнення',
+                columnCode: 'description_sequela'
+            },{
+                title: 'Зареєстрував',
+                columnCode: 'user_register'
+            },{
+                title: 'Закрив',
+                columnCode: 'user_close'
             }
             ],
             columns:[
@@ -112,6 +124,26 @@
                     format(cell, column, row, value) {
                         if (value === null) {
                             return '<p>' + 'Виїзди відсутні' + '</p>';
+                        }
+                        let newVal = value.replace(/;/g, ';<br>');
+                        return '<p>' + newVal + '</p>';
+                    }
+                },{
+                    columnCode: 'switch_places_name',
+                    visibile: true,
+                    format(cell, column, row, value) {
+                        if (value === null) {
+                            return '<p>' + 'Відключення відсутні' + '</p>';
+                        }
+                        let newVal = value.replace(/;/g, ';<br>');
+                        return '<p>' + newVal + '</p>';
+                    }
+                },{
+                    columnCode: 'description_sequela',
+                    visibile: true,
+                    format(cell, column, row, value) {
+                        if (value === null) {
+                            return '<p>' + 'Ускладнення відсутні' + '</p>';
                         }
                         let newVal = value.replace(/;/g, ';<br>');
                         return '<p>' + newVal + '</p>';
