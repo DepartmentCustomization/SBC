@@ -203,12 +203,6 @@
         sub1: {},
         init:function() {
             this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this);
-            let executeQuery = {
-                queryCode: 'Table_ClaimsType',
-                parameterValues: [{key: '@dateStart', value: new Date(2018, 1, 1)},{key: '@dateFinish', value: new Date()},
-                    {key: '@OrganizationsId', value:1}]
-            };
-            this.queryExecutor(executeQuery, this.load, this);
         },
         executeSql:function(message) {
             let dateFrom = message.package.value.values[0].value.dateFrom;
