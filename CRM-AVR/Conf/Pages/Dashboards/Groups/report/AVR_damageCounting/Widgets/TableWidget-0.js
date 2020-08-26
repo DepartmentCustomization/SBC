@@ -30,7 +30,8 @@
             
             </style>
             
-             <div style="display:flex; justify-content:center; align-items:center; color: #555; text-shadow: 1px 1px 2px #9E9E9E; height: 35px; font-weight: 700; font-size:1.2em; padding:2px;">
+             <div style="display:flex; justify-content:center; align-items:center; color: #555; text-shadow: 1px 1px 2px #9E9E9E; 
+             height: 35px; font-weight: 700; font-size:1.2em; padding:2px;">
                 <span id="test" style="">Відомість обліку пошкоджень</span>
             </div>
         `;
@@ -143,7 +144,7 @@
             columns: [{
                 columnCode: 'Org_Name',
                 visible: true,
-                format(cell, column, row, value, rowIndex) {
+                format(cell, column, row, value) {
                     cell.setStyle('background:rgb(226,107,10)');
                     row.setStyle('text-align:center');
                     return '<b>' + value + '</b>';
@@ -152,7 +153,7 @@
             {
                 columnCode: 'TypeName',
                 visible: true,
-                format(cell, column, row, value, rowIndex) {
+                format(cell, column, row, value) {
                     cell.setStyle('background:rgb(192,80,77)');
                     return '<b>' + value + '</b>';
                 }
@@ -160,7 +161,7 @@
             {
                 columnCode: 'TypeKolvo',
                 visible: true,
-                format(cell, column, row, value, rowIndex) {
+                format(cell, column, row, value) {
                     cell.setStyle('background:rgb(192,80,77)');
                     return '<b>' + value + '</b>';
                 }
@@ -168,7 +169,7 @@
             {
                 columnCode: 'Type1_Zagal',
                 visible: true,
-                format(cell, column, row, value, rowIndex) {
+                format(cell, column, row, value) {
                     cell.setStyle('background:rgb(155,187,89)');
                     return '<b>' + value + '</b>';
                 }
@@ -176,7 +177,7 @@
             {
                 columnCode: 'Type2_Zagal',
                 visible: true,
-                format(cell, column, row, value, rowIndex) {
+                format(cell, column, row, value) {
                     cell.setStyle('background:rgb(155,187,89)');
                     return '<b>' + value + '</b>';
                 }
@@ -184,7 +185,7 @@
             {
                 columnCode: 'Type3_Zagal',
                 visible: true,
-                format(cell, column, row, value, rowIndex) {
+                format(cell, column, row, value) {
                     cell.setStyle('background:rgb(155,187,89)');
                     return '<b>' + value + '</b>';
                 }
@@ -202,42 +203,17 @@
         sub1: {},
         init:function() {
             this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this);
-            let executeQuery = {
-                queryCode: 'Table_ClaimsType',
-                parameterValues: [{key: '@dateStart', value: new Date(2018, 1, 1)},{key: '@dateFinish', value: new Date()},{key: '@OrganizationsId', value:1}]
-            };
-            this.queryExecutor(executeQuery, this.load, this);
         },
         executeSql:function(message) {
-            debugger
-            function checkValue(val) {
-                return val ? val.value : null;
-            }
-            function checkDateFrom(val) {
-                return val ? val.dateFrom : null;
-            }
-            function checkDateTo(val) {
-                return val ? val.dateTo : null;
-            }
-            // checkDateFrom(message.package.value.values[0].value)
-            // checkDateTo(message.package.value.values[0].value)
+            let dateFrom = message.package.value.values[0].value.dateFrom;
+            let dateFinish = message.package.value.values[0].value.dateTo;
+            let orgVal = message.package.value.values[1].value.value;
             let executeQuery = {
                 queryCode: 'Table_ClaimsType',
-                parameterValues: [{key: '@dateStart', value: checkDateFrom(message.package.value.values[1].value) },{key: '@dateFinish', value: checkDateTo(message.package.value.values[1].value) },{key: '@OrganizationsId', value: checkValue(message.package.value.values[0].value)}]
+                parameterValues: [{key: '@dateStart', value: dateFrom },{key: '@dateFinish', value: dateFinish },
+                    {key: '@OrganizationsId', value: orgVal}]
             };
-            // // менять длину сообщения для изменения ширины placeholder
-            // let parent = document.querySelector('div.filter-widgets').childNodes[2];
-            // let placeholder= document.querySelector("div.select-widget").childNodes[1];
-            // if (message.package.value.values[0].value.viewValue.length > 24) {
-            //     parent.style.width="25em";
-            //     placeholder.style.width="25em";
-            // } else {
-            //     parent.style.width="180px";
-            //     placeholder.style.width="180px";
-            // }
             this.queryExecutor(executeQuery, this.load, this);
-        },
-        load:function(data) {
         },
         destroy: function() {
             this.sub1.unsubscribe();
