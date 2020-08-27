@@ -1600,6 +1600,34 @@
             this.Question_TypeId_Input = value;
             this.onChanged_Question_Btn_Add_Input();
             this.getOrgExecut();
+            
+            if (value) {
+                this.GetContentTextByQTypeId(value);
+            } else {
+                this.form.setControlVisibility('Question_Type_Content', false);
+                this.form.setControlValue('Question_Type_Content', '');
+            };
+        },
+        GetContentTextByQTypeId: function(value) {
+            const ContentTextByQTypeId = {
+                queryCode: 'GetContentTextByQTypeId',
+                parameterValues: [
+                    {
+                        key: '@Id',
+                        value: value
+                    }
+                ]
+            };
+            this.queryExecutor.getValue(ContentTextByQTypeId).subscribe(data => {
+                this.form.disableControl('Question_Type_Content');
+                if(data){
+                    this.form.setControlVisibility('Question_Type_Content', true);
+                    this.form.setControlValue('Question_Type_Content', data);
+                } else {
+                    this.form.setControlVisibility('Question_Type_Content', false);
+                    this.form.setControlValue('Question_Type_Content', '');
+                };
+            });
         },
         onChanged_VisibleOrgAndBuild: function() {
             const objAndOrg = {
