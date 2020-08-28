@@ -35,5 +35,12 @@ declare @date_from date='2020-07-01',
 
   (select count(Id) from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] where convert(date,ReceiptDate) between convert(date, @date_from) and convert(date, @date_to) and [AppealFromSiteResultId]=2) cell5
  /* */
+
+
+ ,(select count(Id) from [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite]) cell1_count_applicants
+ ,count(distinct ApplicantFromSiteId) cell1_count_applicants_more1appeals
+ ,(select count(Id) from [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite] where [is_verified]='true') cell1_count_applicants_verified
+ ,sum(case when charindex(N'Windows', [SystemIP], 1)>1 then 1 else 0 end) cell4_windows
+ ,sum(case when [AppealFromSiteResultId]=2 /*повернуто заявникові*/ then 1 else 0 end) cell5_ReturnToApplicant
   from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
   where convert(date, ReceiptDate) between convert(date, @date_from) and convert(date, @date_to)
