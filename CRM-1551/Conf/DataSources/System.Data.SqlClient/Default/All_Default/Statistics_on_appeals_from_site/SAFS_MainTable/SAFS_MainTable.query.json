@@ -73,9 +73,21 @@
       "IsPrintable": false
     },
     {
+      "Code": "cell4_android",
+      "Name": "cell4_android",
+      "Position": 11,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell4_Apple",
+      "Name": "cell4_Apple",
+      "Position": 12,
+      "IsPrintable": false
+    },
+    {
       "Code": "cell5_ReturnToApplicant",
       "Name": "cell5_ReturnToApplicant",
-      "Position": 11,
+      "Position": 13,
       "IsPrintable": false
     }
   ],
