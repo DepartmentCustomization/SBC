@@ -2,7 +2,7 @@
 DECLARE @user_id NVARCHAR(128) = N'cd01fea0-760c-4b66-9006-152e5b2a87e9';
 DECLARE @organization_id INT = 2008;
 DECLARE @navigation NVARCHAR(40) = N'Усі';
-*/ 
+*/
 
 IF EXISTS (SELECT orr.*
   FROM [dbo].[OrganizationInResponsibilityRights] orr
@@ -209,7 +209,8 @@ AS
 			WHERE [ExecutorInRoleForObject].object_id = [Buildings].Id--ex.building_id
 			AND [executor_role_id] = 1 /*Балансоутримувач*/
 			FOR XML PATH (''))
-		, 1, 2, N'') balans_name
+		, 1, 2, N'') balans_name,
+		[Assignments].edit_date
 
 	--,[Organizations3].short_name balans_name
 	FROM [dbo].[Assignments]
@@ -303,6 +304,7 @@ SELECT
    ,[transfer_to_organization_id]
    ,[transfer_to_organization_name]
    ,[balans_name]
+   ,[edit_date] 
 FROM main;
 	END
 
@@ -326,5 +328,6 @@ ELSE
    ,NULL [transfer_to_organization_id]
    ,NULL [transfer_to_organization_name]
    ,NULL [balans_name]
+   ,NULL [edit_date]
    WHERE 1=3;
 	END

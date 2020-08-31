@@ -1,7 +1,16 @@
 --  DECLARE @user_edit_id NVARCHAR(128)=N'bc1b17e2-ffee-41b1-860a-41e1bae57ffd';
 								   																	
 SET @executor_person_id = IIF(IIF(@executor_person_id = '',NULL,@executor_person_id) = 0,NULL,IIF(@executor_person_id = '',NULL,@executor_person_id));
-
+-- проверка если открыто более одного окна с дорученням
+IF (SELECT
+		[edit_date]
+	FROM dbo.[Assignments]
+	WHERE Id = @Id)
+	<> @date_in_form
+BEGIN
+	RAISERROR (N'З моменту відкриття картки дані вже було змінено. Оновіть сторінку, щоб побачити зміни.', 16,1);
+	RETURN;
+END
 IF(@result_id = 3) AND (@transfer_to_organization_id IS NULL)
 BEGIN
 RAISERROR(N'Поле "Можливий виконавець" пусте, заповніть його', 16, 1);
@@ -470,22 +479,6 @@ BEGIN
 RETURN;
 END
 ELSE
-BEGIN
--- проверка если открыто более одного окна с дорученням
-IF (SELECT
-			edit_date
-		FROM Assignments
-		WHERE Id = @Id)
-	<> @date_in_form
-BEGIN
-	RAISERROR (N'З моменту відкриття картки дані вже було змінено. Оновіть сторінку, щоб побачити зміни.', -- Message text.
-	16, -- Severity.
-	1 -- State.
-	);
-	RETURN;
-END
-ELSE
-	
 BEGIN
 	--если результат, резолюция не изменились и...
 	IF @result_id = (SELECT
@@ -1673,7 +1666,6 @@ BEGIN
 		WHERE Id = @Id;
 
 	END --(F11)
-END
 END
 END
 END;
