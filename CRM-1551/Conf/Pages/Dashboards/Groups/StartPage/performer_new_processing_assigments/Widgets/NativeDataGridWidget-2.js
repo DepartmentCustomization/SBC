@@ -141,7 +141,8 @@
                     let executeQuery = {
                         queryCode: 'Button_NeVKompetentcii',
                         parameterValues: [ {key: '@executor_organization_id', value: el.transfer_to_organization_id},
-                            {key: '@Id', value: el.Id} ],
+                            {key: '@Id', value: el.Id},
+                            {key: '@current_edit_date', value: el.edit_date} ],
                         limit: -1
                     };
                     this.queryExecutor(executeQuery);
