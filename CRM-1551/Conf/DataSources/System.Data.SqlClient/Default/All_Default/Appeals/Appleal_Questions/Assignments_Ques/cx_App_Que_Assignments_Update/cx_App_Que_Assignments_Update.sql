@@ -140,6 +140,7 @@ BEGIN
 	DECLARE @new_resolution_id INT = (SELECT [assignment_resolution_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @event_class_id INT = (SELECT [event_class_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id); 
 	DECLARE @create_assignment_class_id INT = (SELECT [create_assignment_class_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
+	DECLARE @prev_main BIT = (SELECT [main_executor] FROM dbo.[Assignments] WHERE Id = @Id);
 	DECLARE @event_info TABLE (Id INT);
 	DECLARE @now DATETIME = GETUTCDATE();
 	DECLARE @new_state_id INT = (SELECT 
@@ -186,7 +187,6 @@ BEGIN
 	IF(@event_class_id IS NOT NULL)
 	BEGIN
 	DECLARE @event_assignment_class_id INT = (SELECT [assignment_class_id] FROM dbo.[Event_Class] WHERE Id = @event_class_id);
-	DECLARE @prev_main BIT = (SELECT [main_executor] FROM dbo.[Assignments] WHERE Id = @Id);
 	DECLARE @event_type_id INT = (SELECT [event_type_id] FROM dbo.[Event_Class] WHERE Id = @event_class_id);
 	DECLARE @area INT = (SELECT [object_id] FROM dbo.[Questions] WHERE Id = @question_id);
 	DECLARE @exec_term INT = (SELECT [execution_term] FROM dbo.[Event_Class] WHERE Id = @event_class_id)/24;
