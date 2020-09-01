@@ -29,6 +29,12 @@
       "Name": "user_name",
       "Position": 3,
       "IsPrintable": false
+    },
+    {
+      "Code": "name",
+      "Name": "name",
+      "Position": 4,
+      "IsPrintable": false
     }
   ],
   "Parameters": [
