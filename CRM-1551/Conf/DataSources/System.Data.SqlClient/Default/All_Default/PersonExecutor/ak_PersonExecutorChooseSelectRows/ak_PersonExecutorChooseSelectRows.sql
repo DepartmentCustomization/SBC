@@ -1,8 +1,8 @@
 
 
-/*
---declare @user_Id nvarchar(128)=N'dc61a839-2cbc-4822-bfb5-5ca157487ced';
 
+--declare @user_Id nvarchar(128)=N'dc61a839-2cbc-4822-bfb5-5ca157487ced';
+/*
 with
   cte1 -- все подчиненные 3 и 3
    AS ( SELECT   t.Id, [short_name] Name
@@ -93,14 +93,18 @@ FROM (SELECT
 			FOR XML PATH (''))
 		, 1, 2, N'') questions_types
 
-	   ,N'Об`єктів ' + LTRIM(COUNT(DISTINCT [PersonExecutorChooseObjects].Id)) + N':' + STUFF((SELECT
-				N', ' + ISNULL([objects].name, N'')
-			FROM [dbo].[PersonExecutorChooseObjects] [PersonExecutorChooseObjects]
-			INNER JOIN [dbo].[objects] [objects]
-				ON [PersonExecutorChooseObjects].object_id = [objects].Id
-			WHERE [PersonExecutorChooseObjects].person_executor_choose_id = p.Id
-			FOR XML PATH (''))
-		, 1, 2, N'') [objects]
+	   --,N'Об`єктів ' + 
+	   ,LTRIM(COUNT(DISTINCT [PersonExecutorChooseObjects].Id)) 
+	   
+	 --  + N':' + STUFF((SELECT
+		--		N', ' + ISNULL([objects].name, N'')
+		--	FROM [dbo].[PersonExecutorChooseObjects] [PersonExecutorChooseObjects]
+		--	INNER JOIN [dbo].[objects] [objects]
+		--		ON [PersonExecutorChooseObjects].object_id = [objects].Id
+		--	WHERE [PersonExecutorChooseObjects].person_executor_choose_id = p.Id
+		--	FOR XML PATH (''))
+		--, 1, 2, N'') 
+		[objects]
 
 	FROM [dbo].[PersonExecutorChoose] p
 	INNER JOIN #temp_org [Organizations]
@@ -114,12 +118,10 @@ FROM (SELECT
 	GROUP BY p.Id
 			,[Organizations].short_name
 			,p.name
-			,[Positions].position + N' (' + ISNULL([Positions].name, 0) + N')') t;
+			,[Positions].position + N' (' + ISNULL([Positions].name, 0) + N')') t
 
-
-/*
 WHERE #filter_columns#
   #sort_columns#
  offset @pageOffsetRows rows
-FETCH NEXT @pageLimitRows rows only*/
+FETCH NEXT @pageLimitRows rows only
 
