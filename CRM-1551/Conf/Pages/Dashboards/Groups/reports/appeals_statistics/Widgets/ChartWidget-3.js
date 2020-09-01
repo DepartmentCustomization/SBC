@@ -97,7 +97,7 @@
             this.chartConfig.series = [];
             let rows = params.rows;
             let columns = params.columns;
-            const dateIndex = columns.findIndex(c=>c.code === 'date');
+            const dateIndex = columns.findIndex(c=>c.code === 'name');
             const indicatorValueIndex = columns.findIndex(c=>c.code === 'indicator_value');
             this.chartConfig.xAxis.categories = rows.map(row => this.changeDateTimeValues(row.values[dateIndex]));
             const name = 'Кількість звернень';

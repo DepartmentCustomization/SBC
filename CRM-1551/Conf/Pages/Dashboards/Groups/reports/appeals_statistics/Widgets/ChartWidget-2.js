@@ -91,7 +91,7 @@
             const userNameArr = rows.map(e=>e.values[userNameIndex]);
             const indicatorValueIndex = columns.findIndex(c=>c.code === 'indicator_value');
             const sortedUsers = [...new Set(userNameArr)];
-            const dateIndex = columns.findIndex(c=>c.code === 'date');
+            const dateIndex = columns.findIndex(c=>c.code === 'name');
             this.chartConfig.xAxis.categories = rows.map(row => this.changeDateTimeValues(row.values[dateIndex]));
             sortedUsers.forEach(name=>{
                 const data = rows.map(elem=>{
