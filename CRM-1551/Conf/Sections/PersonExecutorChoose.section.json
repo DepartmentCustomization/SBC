@@ -4,7 +4,7 @@
   },
   "ModelType": "Section",
   "Code": "PersonExecutorChoose",
-  "Name": "PersonExecutorChoose",
+  "Name": "Вибір-посади виконавця",
   "FormCode": "PersonExecutorChoose",
   "SelectRowsQueryCode": "ak_PersonExecutorChooseSelectRows",
   "SelectRowQueryCode": "ak_PersonExecutorChooseSelectRow",
