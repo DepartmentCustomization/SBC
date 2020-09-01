@@ -1,7 +1,16 @@
 --  DECLARE @user_edit_id NVARCHAR(128)=N'bc1b17e2-ffee-41b1-860a-41e1bae57ffd';
 								   																	
 SET @executor_person_id = IIF(IIF(@executor_person_id = '',NULL,@executor_person_id) = 0,NULL,IIF(@executor_person_id = '',NULL,@executor_person_id));
-
+-- проверка если открыто более одного окна с дорученням
+IF (SELECT
+		[edit_date]
+	FROM dbo.[Assignments]
+	WHERE Id = @Id)
+	<> @date_in_form
+BEGIN
+	RAISERROR (N'З моменту відкриття картки дані вже було змінено. Оновіть сторінку, щоб побачити зміни.', 16,1);
+	RETURN;
+END
 IF(@result_id = 3) AND (@transfer_to_organization_id IS NULL)
 BEGIN
 RAISERROR(N'Поле "Можливий виконавець" пусте, заповніть його', 16, 1);
@@ -140,6 +149,7 @@ BEGIN
 	DECLARE @new_resolution_id INT = (SELECT [assignment_resolution_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @event_class_id INT = (SELECT [event_class_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id); 
 	DECLARE @create_assignment_class_id INT = (SELECT [create_assignment_class_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
+	DECLARE @prev_main BIT = (SELECT [main_executor] FROM dbo.[Assignments] WHERE Id = @Id);
 	DECLARE @event_info TABLE (Id INT);
 	DECLARE @now DATETIME = GETUTCDATE();
 	DECLARE @new_state_id INT = (SELECT 
@@ -188,7 +198,6 @@ BEGIN
 	IS NULL
 	BEGIN
 	DECLARE @event_assignment_class_id INT = (SELECT [assignment_class_id] FROM dbo.[Event_Class] WHERE Id = @event_class_id);
-	DECLARE @prev_main BIT = (SELECT [main_executor] FROM dbo.[Assignments] WHERE Id = @Id);
 	DECLARE @event_type_id INT = (SELECT [event_type_id] FROM dbo.[Event_Class] WHERE Id = @event_class_id);
 	DECLARE @area INT = (SELECT [object_id] FROM dbo.[Questions] WHERE Id = @question_id);
 	DECLARE @exec_term INT = (SELECT [execution_term] FROM dbo.[Event_Class] WHERE Id = @event_class_id)/24;
@@ -470,22 +479,6 @@ BEGIN
 RETURN;
 END
 ELSE
-BEGIN
--- проверка если открыто более одного окна с дорученням
-IF (SELECT
-			edit_date
-		FROM Assignments
-		WHERE Id = @Id)
-	<> @date_in_form
-BEGIN
-	RAISERROR (N'З моменту відкриття картки дані вже було змінено. Оновіть сторінку, щоб побачити зміни.', -- Message text.
-	16, -- Severity.
-	1 -- State.
-	);
-	RETURN;
-END
-ELSE
-	
 BEGIN
 	--если результат, резолюция не изменились и...
 	IF @result_id = (SELECT
@@ -1673,7 +1666,6 @@ BEGIN
 		WHERE Id = @Id;
 
 	END --(F11)
-END
 END
 END
 END;
