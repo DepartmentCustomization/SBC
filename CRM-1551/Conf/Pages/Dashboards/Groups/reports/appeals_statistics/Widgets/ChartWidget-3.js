@@ -67,12 +67,22 @@
         recalcData: function() {
             let executeQuery = {
                 queryCode: 'SAFS_graph_Returned',
-                parameterValues: [{key: '@date_from', value: this.dateFrom},
+                parameterValues: [{key: '@date_from', value: this.toUTC(this.dateFrom)},
                     {key: '@date_to', value: this.dateTo}
                 ],
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.load, this);
+        },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
+            return dateTo
         },
         changeDateTimeValues: function(value) {
             let date = new Date(value);

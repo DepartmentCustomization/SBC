@@ -16,6 +16,11 @@
             this.firstLoad = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.resetParams, this));
         },
+        setTitle() {
+            const title = document.querySelector('#CustomWidget-2 #title')
+            let text = '<span class="material-icons icon">create</span> <span class="widget-title">На модерації</span>'
+            title.innerHTML = text
+        },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
@@ -38,14 +43,6 @@
             if(container.hasChildNodes()) {
                 container.innerHTML = '';
             }
-            const paragraphFrom = this.createElement('span',{ className:'date',id:'pFromCon1',name:'date'});
-            const paragraphTo = this.createElement('span',{ className:'date',id:'pToCon1',name:'date'});
-            paragraphFrom.textContent = this.changeDateTimeValues(dateFrom);
-            paragraphTo.textContent = this.changeDateTimeValues(dateTo);
-            container.insertAdjacentHTML('beforeend','<span> з </span>');
-            container.append(paragraphFrom);
-            container.insertAdjacentHTML('beforeend','<span> по </span>');
-            container.append(paragraphTo);
             if(this.firstLoad) {
                 this.firstLoad = false;
                 this.resetParams()
@@ -65,21 +62,37 @@
             let executeQuery = {
                 queryCode: 'SAFS_MainTable',
                 parameterValues: [
-                    {key: '@date_from', value: this.dateFrom},
+                    {key: '@date_from', value: this.toUTC(this.dateFrom)},
                     {key: '@date_to', value: this.dateTo}
                 ],
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.load, this);
         },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
+            return dateTo
+        },
         load: function(data) {
+            this.setTitle()
             const cellInfo = document.getElementById('cell3-info');
             cellInfo.innerHTML = '';
             const cellValue = data.rows[0].values[4];
-            const shortValue = Number(cellValue.slice(0,1));
-            const classForP = shortValue > 0 ? 'cell-info active' : 'cell-info';
-            const p = `<p class='${classForP}'>${cellValue}</p>`;
-            cellInfo.insertAdjacentHTML('beforeend',p)
+            const index = cellValue.indexOf('(')
+            const firstVal = cellValue.slice(0,index)
+            const secondVal = cellValue.slice(index)
+            const p = `<p class='cell-info active'><span class="material-icons icon">keyboard_tab</span> ${firstVal}</p>`;
+            const secondP = `<p class='cell-info active'><span class="material-icons icon">date_range</span> ${secondVal}</p>`;
+            cellInfo.insertAdjacentHTML('beforeend',`${p} ${secondP}`)
+            const infoBtn = this.createElement('span',{classList:'info-button',id:'info-button'})
+            infoBtn.insertAdjacentHTML('beforeend','<span class="material-icons info-button">info</span>')
+            cellInfo.append(infoBtn)
         }
     };
 }());

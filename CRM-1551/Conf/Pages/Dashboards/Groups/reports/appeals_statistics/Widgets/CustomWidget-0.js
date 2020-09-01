@@ -1,6 +1,6 @@
 (function() {
     return {
-        title: 'Надійшло звернень за період',
+        title: '',
         hint: '',
         formatTitle: function() {},
         customConfig:
@@ -15,6 +15,11 @@
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.setFiltersParams, this));
             this.firstLoad = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.resetParams, this));
+        },
+        setTitle() {
+            const title = document.querySelector('#CustomWidget-0 #title')
+            let text = '<span class="material-icons first">person</span> <span class="widget-title">Користувачі</span>'
+            title.innerHTML = text
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
@@ -38,14 +43,6 @@
             if(container.hasChildNodes()) {
                 container.innerHTML = '';
             }
-            const paragraphFrom = this.createElement('span',{ className:'date',id:'pFromCon1',name:'date'});
-            const paragraphTo = this.createElement('span',{ className:'date',id:'pToCon1',name:'date'});
-            paragraphFrom.textContent = this.changeDateTimeValues(dateFrom);
-            paragraphTo.textContent = this.changeDateTimeValues(dateTo);
-            container.insertAdjacentHTML('beforeend','<span> з </span>');
-            container.append(paragraphFrom);
-            container.insertAdjacentHTML('beforeend','<span> по </span>');
-            container.append(paragraphTo);
             if(this.firstLoad) {
                 this.firstLoad = false;
                 this.resetParams()
@@ -64,23 +61,75 @@
             let executeQuery = {
                 queryCode: 'SAFS_MainTable',
                 parameterValues: [
-                    {key: '@date_from', value: this.dateFrom},
+                    {key: '@date_from', value: this.toUTC(this.dateFrom)},
                     {key: '@date_to', value: this.dateTo}
                 ],
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.load, this);
         },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
+            return dateTo
+        },
+        closeModal(e) {
+            const con = e.target.closest('.modal')
+            con.classList.remove('active')
+        },
+        openModal(e) {
+            if(e.target.classList.contains('info-button')) {
+                const main = document.querySelector('.root-main')
+                const modal = this.createElement('div',{classList:'modal active',id:'modal'})
+                const widget = e.target.closest('.cell-item')
+                const infoList = Array.from(widget.querySelectorAll('.cell-info'))
+                const titleText = widget.querySelector('.widget-title').textContent
+                const title = this.createElement('h2',{textContent:titleText,classList:'modal-title'})
+                const infoValue = infoList.map(elem=>{
+                    return elem.textContent
+                })
+                const arr = [
+                    'загальна кількість унікальних заявників з сайту'
+                    ,'користувачі, що залишали хоча б 1 звернення'
+                    , 'верифіковані користувачі']
+                const iconsArr = ['<span class="material-icons first">person</span>',
+                    '<span class="material-icons first">local_post_office</span>',
+                    '<span class="material-icons first">done</span>']
+                const infoArr = arr.map(item=>{
+                    const index = arr.indexOf(item)
+                    return `<p>${iconsArr[index]} ${item}: ${infoValue[index]}</p>`
+                }).join('')
+                const closeBtn = this.createElement('span',{textContent: 'x',id:'close-modal',classList:'close-modal'})
+                closeBtn.addEventListener('click',this.closeModal.bind(this))
+                modal.append(title,closeBtn)
+                modal.insertAdjacentHTML('beforeend',infoArr)
+                main.insertAdjacentElement('beforeend',modal)
+            }
+        },
         load: function(data) {
+            this.setTitle()
             const list = document.querySelectorAll('#CustomWidget-0,#CustomWidget-1,#CustomWidget-2,#CustomWidget-3,#CustomWidget-4')
-            list.forEach(e=>e.classList.add('cell-item'))
+            list.forEach(e=>{
+                e.addEventListener('click',this.openModal.bind(this))
+                e.classList.add('cell-item')
+            })
             const cellInfo = document.getElementById('cell1-info');
             cellInfo.innerHTML = '';
-            const cellValue = data.rows[0].values[1];
-            const shortValue = Number(cellValue.slice(0,1));
-            const classForP = shortValue > 0 ? 'cell-info active' : 'cell-info';
-            const p = `<p class='${classForP}'>${cellValue}</p>`;
-            cellInfo.insertAdjacentHTML('beforeend',p);
+            const applicants = data.rows[0].values[7];
+            const p = `<p class='cell-info active'>${applicants}</p>`;
+            const more1Appeals = `<span class="material-icons first">
+            local_post_office</span> <span class='cell-info'>${data.rows[0].values[8]}</span>`;
+            const verified = `<span class="material-icons first">
+            done</span> <span class='cell-info'>${data.rows[0].values[9]}</span>`;
+            const infoBtn = this.createElement('span',{classList:'info-button',id:'info-button'})
+            infoBtn.insertAdjacentHTML('beforeend','<span class="material-icons info-button">info</span>')
+            cellInfo.insertAdjacentHTML('beforeend',`${p} ${more1Appeals} ${verified}`);
+            cellInfo.append(infoBtn)
         }
     };
 }());
