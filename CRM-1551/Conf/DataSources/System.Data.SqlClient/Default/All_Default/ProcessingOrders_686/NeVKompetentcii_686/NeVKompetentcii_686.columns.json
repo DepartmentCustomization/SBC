@@ -91,5 +91,10 @@
     "Code": "balans_name",
     "Name": "balans_name",
     "Position": 15
+  },
+  {
+    "Code": "edit_date",
+    "Name": "edit_date",
+    "Position": 15
   }
 ]
