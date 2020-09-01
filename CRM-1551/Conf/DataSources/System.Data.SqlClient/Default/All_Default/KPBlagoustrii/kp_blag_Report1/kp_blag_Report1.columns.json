@@ -100,5 +100,11 @@
     "Name": "in_color",
     "Position": 16,
     "IsPrintable": false
+  },
+  {
+    "Code": "count_act",
+    "Name": "count_act",
+    "Position": 17,
+    "IsPrintable": false
   }
 ]

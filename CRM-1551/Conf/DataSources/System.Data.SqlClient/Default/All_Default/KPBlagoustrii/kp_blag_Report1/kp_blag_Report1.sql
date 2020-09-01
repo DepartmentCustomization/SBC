@@ -1,10 +1,42 @@
 
 
+
   /*0 2020-05-01 2020-06-01 46 сек
   declare @districts nvarchar(max)=N'0';
   declare @date_from datetime='2020-06-01 00:01'; 
   declare @date_to datetime='2020-08-01 23:59';
-  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';*/
+  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
+  */
+  --для количества действий начало
+
+  if OBJECT_ID('tempdb..#temp_position_sector') is not null drop table #temp_position_sector
+
+  select t.Id sector_id, p.name position_name, p.programuser_id
+  into #temp_position_sector
+  from [dbo].[Positions] p
+  inner join [dbo].[PersonExecutorChoose] pec on p.Id=pec.position_id
+  inner join [dbo].[PersonExecutorChooseObjects] peco on pec.Id=peco.person_executor_choose_id
+  inner join [dbo].[Territories] t on peco.object_id=t.object_id
+  where p.role_id=8
+
+  --количество действий каждого юзера
+
+
+  /*
+  сектор_ид / инспектор_ид / количество действий по каждому сектору
+  */
+
+  if OBJECT_ID('tempdb..#temp_sector_act') is not null drop table #temp_sector_act
+
+  select qin.territory_id, ps.position_name, ps.programuser_id, count(ah.Id) count_act
+  into #temp_sector_act
+  from [dbo].[QuestionsInTerritory] qin
+  inner join [dbo].[Assignment_History] ah on qin.question_id=ah.question_id
+  inner join #temp_position_sector ps on qin.territory_id=ps.sector_id and ah.Log_User=ps.programuser_id
+  where ah.Log_Date between @date_from and @date_to
+  group by qin.territory_id, ps.position_name, ps.programuser_id
+
+  --для количества действий конец
   
   DECLARE @district_table TABLE (Id int);
   
@@ -306,8 +338,11 @@ into #temp_ass_nevkom
   implementation, --13
   reliability, --14
   isnull(count_not_competence,0) count_not_competence,
-  in_color
-  from #temp_count_all_all
+  in_color,
+  --Id count_act
+  sa.count_act
+  from #temp_count_all_all tc
+  left join #temp_sector_act sa on tc.id=sa.territory_id
   order by district_id, Id
 
   --select * from #temp_count_all_all
