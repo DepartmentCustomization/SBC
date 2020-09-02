@@ -309,6 +309,10 @@ text-align: center!important;
   margin-right: 10px;
 }
 
+.form-list-item.active{
+  background-color: rgb(112, 171, 226);
+}
+
 .interview-form-con{
   display: none;
   border: 1px solid rgb(63, 63, 63); 

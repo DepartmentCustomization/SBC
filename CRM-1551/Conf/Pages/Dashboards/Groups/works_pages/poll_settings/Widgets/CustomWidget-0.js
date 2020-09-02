@@ -85,11 +85,13 @@
             formList.append(formListItem)
             addNewForm.addEventListener('click',()=>{
                 const item = this.createFormListItem();
+                item.classList.remove('active')
                 const props = {
                     dataId: item.textContent,
                     display:'none'
                 }
                 const newForm = this.createInterviewForm(props)
+                newForm.classList.remove('active')
                 formList.append(item)
                 questionsCon.append(newForm)
             })
@@ -98,16 +100,42 @@
             questionsCon.append(interviewForm);
             conDynamic.append(dynamicHeader,questionsCon);
         },
-        slideEffect(e) {
-            if(e.target.classList.contains('form-list-item')) {
-                const formItem = document.querySelectorAll('.interview-form-con')
+        slideEffect({target}) {
+            const formItem = document.querySelectorAll('.interview-form-con')
+            const formListItem = document.querySelectorAll('.form-list-item')
+            if(target.classList.contains('form-list-item')) {
+                formListItem.forEach(item=>{
+                    item.classList.remove('active')
+                })
                 formItem.forEach(elem=>{
                     elem.classList.remove('active')
-                    if (elem.dataId === e.target.textContent) {
+                    if (elem.dataId === target.textContent) {
                         elem.classList.add('active')
+                        target.classList.add('active')
                     }
                 })
 
+            } else if (target.classList.contains('arrow')) {
+                const activeFormListItem = document.querySelector('.form-list-item.active')
+                if (target.textContent.includes('forward')) {
+                    activeFormListItem.nextSibling.classList.add('active')
+                    formItem.forEach(elem=>{
+                        elem.classList.remove('active')
+                        if (elem.dataId === activeFormListItem.nextSibling.textContent) {
+                            elem.classList.add('active')
+                        }
+                    })
+                    activeFormListItem.classList.remove('active')
+                } else if(target.textContent.includes('back')) {
+                    activeFormListItem.previousSibling.classList.add('active')
+                    formItem.forEach(elem=>{
+                        elem.classList.remove('active')
+                        if (elem.dataId === activeFormListItem.previousSibling.textContent) {
+                            elem.classList.add('active')
+                        }
+                    })
+                    activeFormListItem.classList.remove('active')
+                }
             }
         },
         createHeaderBlock(obj = null,fixRow = null) {
@@ -144,7 +172,7 @@
         },
         createInterviewForm(props = null) {
             const con = this.createElement('div',{
-                className:`interview-form-con ${props ? '' : 'active'}`,
+                className:'interview-form-con active',
                 dataId:props ? props.dataId : '1'
             });
             const inputs = this.createDynamicInputs();
@@ -176,6 +204,19 @@
             });
             return span
         },
+        deleteForm() {
+            const formItems = document.querySelectorAll('.interview-form-con')
+            const activeFormItem = document.querySelector('.interview-form-con.active')
+            const activeFormListItem = document.querySelector('.form-list-item.active')
+            activeFormListItem.previousSibling.classList.add('active');
+            formItems.forEach(elem=>{
+                if (elem.dataId === activeFormListItem.previousSibling.textContent) {
+                    elem.classList.add('active')
+                }
+            })
+            activeFormItem.remove()
+            activeFormListItem.remove()
+        },
         createInterviewFormFooter() {
             const con = this.createElement('div',{className:'interview-form-footer'});
             const arrowLeft = this.createElement('span',{className:'arrow material-icons', textContent:'arrow_back'})
@@ -183,8 +224,10 @@
             const btnsCon = this.createElement('div',{className:'interview-form-btn-con'});
             const saveBtn = this.createElement('button',{className:'save-form interview-form-btn', textContent:'Зберегти'})
             const cancelBtn = this.createElement('button',{className:'delete-form interview-form-btn', textContent:'Видалити'})
+            cancelBtn.addEventListener('click',this.deleteForm.bind(this))
             btnsCon.append(cancelBtn,saveBtn)
             con.append(arrowLeft,btnsCon,arrowRight)
+            con.addEventListener('click',this.slideEffect.bind(this))
             return con
         },
         createAddVariantBtn(testBlock) {
@@ -254,7 +297,7 @@
         createFormListItem() {
             const index = this.itemIndex++
             const li = this.createElement('li',{
-                classList: 'form-list-item',textContent:index,dataFormNum:index});
+                classList: 'form-list-item active',textContent:index,dataFormNum:index,draggable:true});
             return li
         },
         createAddNewForm() {
