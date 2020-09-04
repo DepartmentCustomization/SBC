@@ -100,6 +100,33 @@
             questionsCon.append(interviewForm);
             conDynamic.append(dynamicHeader,questionsCon);
         },
+        updateFormListItems() {
+            const list = Array.from(document.querySelectorAll('.form-list-item'))
+            const formItems = Array.from(document.querySelectorAll('.interview-form-con'))
+            const newVals = list.map(val=>{
+                const index = list.indexOf(val)
+                let arg = null
+                if(index + 1 === val.textContent) {
+                    arg = val
+                } else {
+                    val.textContent = index + 1;
+                    arg = val
+                }
+                return arg
+            })
+            formItems.forEach(elem=>{
+                const index = formItems.indexOf(elem)
+                let iq = null
+                if(elem.dataId === newVals[index].textContent) {
+                    iq = elem
+                } else {
+                    elem.dataId = newVals[index].textContent
+                    iq = elem
+                }
+                return iq
+            })
+            return newVals
+        },
         slideEffect({target}) {
             const formItem = document.querySelectorAll('.interview-form-con')
             const formListItem = document.querySelectorAll('.form-list-item')
@@ -118,22 +145,44 @@
             } else if (target.classList.contains('arrow')) {
                 const activeFormListItem = document.querySelector('.form-list-item.active')
                 if (target.textContent.includes('forward')) {
-                    activeFormListItem.nextSibling.classList.add('active')
-                    formItem.forEach(elem=>{
-                        elem.classList.remove('active')
-                        if (elem.dataId === activeFormListItem.nextSibling.textContent) {
-                            elem.classList.add('active')
-                        }
-                    })
+                    if (activeFormListItem.nextSibling) {
+                        activeFormListItem.nextSibling.classList.add('active')
+                        formItem.forEach(elem=>{
+                            elem.classList.remove('active')
+                            if (elem.dataId === activeFormListItem.nextSibling.textContent) {
+                                elem.classList.add('active')
+                            }
+                        })
+                    }else {
+                        const firstItem = formListItem[0]
+                        firstItem.classList.add('active')
+                        formItem.forEach(elem=>{
+                            elem.classList.remove('active')
+                            if (elem.dataId === firstItem.textContent) {
+                                elem.classList.add('active')
+                            }
+                        })
+                    }
                     activeFormListItem.classList.remove('active')
                 } else if(target.textContent.includes('back')) {
-                    activeFormListItem.previousSibling.classList.add('active')
-                    formItem.forEach(elem=>{
-                        elem.classList.remove('active')
-                        if (elem.dataId === activeFormListItem.previousSibling.textContent) {
-                            elem.classList.add('active')
-                        }
-                    })
+                    if(activeFormListItem.previousSibling) {
+                        activeFormListItem.previousSibling.classList.add('active')
+                        formItem.forEach(elem=>{
+                            elem.classList.remove('active')
+                            if (elem.dataId === activeFormListItem.previousSibling.textContent) {
+                                elem.classList.add('active')
+                            }
+                        })
+                    } else {
+                        const lastItem = formListItem[formListItem.length - 1]
+                        lastItem.classList.add('active')
+                        formItem.forEach(elem=>{
+                            elem.classList.remove('active')
+                            if (elem.dataId === lastItem.textContent) {
+                                elem.classList.add('active')
+                            }
+                        })
+                    }
                     activeFormListItem.classList.remove('active')
                 }
             }
@@ -208,14 +257,24 @@
             const formItems = document.querySelectorAll('.interview-form-con')
             const activeFormItem = document.querySelector('.interview-form-con.active')
             const activeFormListItem = document.querySelector('.form-list-item.active')
-            activeFormListItem.previousSibling.classList.add('active');
-            formItems.forEach(elem=>{
-                if (elem.dataId === activeFormListItem.previousSibling.textContent) {
-                    elem.classList.add('active')
-                }
-            })
+            if(activeFormListItem.previousSibling) {
+                activeFormListItem.previousSibling.classList.add('active');
+                formItems.forEach(elem=>{
+                    if (elem.dataId === activeFormListItem.previousSibling.textContent) {
+                        elem.classList.add('active')
+                    }
+                })
+            } else {
+                activeFormListItem.nextSibling.classList.add('active');
+                formItems.forEach(elem=>{
+                    if (elem.dataId === activeFormListItem.nextSibling.textContent) {
+                        elem.classList.add('active')
+                    }
+                })
+            }
             activeFormItem.remove()
             activeFormListItem.remove()
+            this.updateFormListItems()
         },
         createInterviewFormFooter() {
             const con = this.createElement('div',{className:'interview-form-footer'});
