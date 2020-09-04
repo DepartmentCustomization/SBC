@@ -1,9 +1,10 @@
 
 
-/*
-declare @date_from date='2019-06-02',
+
+/* 
+declare @date_from date='2019-01-02',
   @date_to date='2020-08-29';
- */ 
+ */
 
 
 declare @date_table table (Id int identity(1,1), date date)
@@ -48,8 +49,22 @@ declare @date_table table (Id int identity(1,1), date date)
 		(ltrim(datepart(yy, date_table.date))+ltrim(datepart(mm, date_table.date)))*1 Id,
 		min(date_table.date) date, 
 		sum(isnull([indicator_value],0)) [indicator_value],
-		datename(mm,min(date_table.date))+N' '+datename(yy,min(date_table.date)) name
+		--datename(mm,min(date_table.date))+N' '+datename(yy,min(date_table.date)) name
 		--year(min(date_table.date))
+		case 
+		when month(min(date_table.date))=1 then N'Січень '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=2 then N'Лютий '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=3 then N'Березень '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=4 then N'Квітень '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=5 then N'Травень '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=6 then N'Червень '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=7 then N'Липень '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=8 then N'Серпень '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=9 then N'Вересень '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=10 then N'Жовтень '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=11 then N'Листопад '+ltrim(year(min(date_table.date)))
+		when month(min(date_table.date))=12 then N'Грудень '+ltrim(year(min(date_table.date)))
+		end name
 	    from @date_table date_table left join
 	    [CRM_1551_Site_Integration].[dbo].[Statistic] on date_table.date=[Statistic].date and [Statistic].diagram=6
 		group by datepart(yy, date_table.date), datepart(mm, date_table.date)

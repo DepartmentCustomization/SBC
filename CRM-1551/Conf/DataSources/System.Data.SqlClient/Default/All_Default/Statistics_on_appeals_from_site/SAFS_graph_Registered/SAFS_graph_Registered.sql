@@ -1,6 +1,6 @@
 
 /*
-declare @date_from date='2020-03-02',
+declare @date_from date='2020-01-02',
   @date_to date='2020-08-29';
   */
 
@@ -44,7 +44,21 @@ declare @date_from date='2020-03-02',
 			ISNULL([User].[LastName], N'')+ISNULL(N' '+[User].[FirstName], N'') user_name
 		   --, ltrim(min([Statistic].[date])) name
 
-		   ,datename(mm,min([Statistic].[date]))+N' '+datename(yy,min([Statistic].[date])) name
+		   --,datename(mm,min([Statistic].[date]))+N' '+datename(yy,min([Statistic].[date])) name
+		   ,case 
+		when month(min([Statistic].date))=1 then N'Січень '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=2 then N'Лютий '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=3 then N'Березень '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=4 then N'Квітень '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=5 then N'Травень '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=6 then N'Червень '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=7 then N'Липень '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=8 then N'Серпень '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=9 then N'Вересень '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=10 then N'Жовтень '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=11 then N'Листопад '+ltrim(year(min([Statistic].date)))
+		when month(min([Statistic].date))=12 then N'Грудень '+ltrim(year(min([Statistic].date)))
+		end name
 		   from [CRM_1551_Site_Integration].[dbo].[Statistic]
 		   left join [CRM_1551_System].[dbo].[User] on [Statistic].user_id=[User].UserId
 		   where diagram=7 and date between convert(date, @date_from) and convert(date, @date_to)
