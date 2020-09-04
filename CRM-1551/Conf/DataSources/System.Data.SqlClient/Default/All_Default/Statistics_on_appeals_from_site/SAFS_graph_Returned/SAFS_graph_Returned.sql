@@ -1,4 +1,10 @@
 
+/* 
+declare @date_from date='2020-03-02',
+  @date_to date='2020-12-29';
+ */
+
+
 declare @date_table table (Id int identity(1,1), date date)
   declare @date_f date=convert(date, @date_from)
 
@@ -11,14 +17,26 @@ declare @date_table table (Id int identity(1,1), date date)
 
   end
 
-  --select * from @date_table
+
+  if OBJECT_ID('tempdb..#temp_IsSendError') is not null drop table #temp_IsSendError
+
+  select convert(date, DateSendLog) DateSendLog, count(Id) count_Id
+  into #temp_IsSendError
+  from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite_History]
+  where [IsSendError]='true' and 
+  convert(date, [AppealsFromSite_History].DateSendLog) between convert(date, @date_from) and convert(date, @date_to)
+  group by convert(date, DateSendLog)
+
+  --select * from #temp_IsSendError
 
   if datediff(dd, @date_from, @date_to)<=30
 
     begin
 	    select date_table.Id, date_table.date, isnull([indicator_value],0) [indicator_value], ltrim(date_table.date) name
+		,isnull(IsSendError.count_Id,0) [IsSendError_value]
 	    from @date_table date_table left join
 	    [CRM_1551_Site_Integration].[dbo].[Statistic] on date_table.date=[Statistic].date and [Statistic].diagram=9
+		left join #temp_IsSendError IsSendError on date_table.date=IsSendError.DateSendLog
     end
 
   if datediff(dd, @date_from, @date_to) between 31 and 90
@@ -28,9 +46,11 @@ declare @date_table table (Id int identity(1,1), date date)
 		datepart(ww, date_table.date) Id,
 		min(date_table.date) date, 
 		sum(isnull([indicator_value],0)) [indicator_value],
-		ltrim(min(date_table.date)) name
+		ltrim(min(date_table.date)) name,
+		sum(isnull(IsSendError.count_Id,0)) [IsSendError_value]
 	    from @date_table date_table left join
 	    [CRM_1551_Site_Integration].[dbo].[Statistic] on date_table.date=[Statistic].date and [Statistic].diagram=9
+		left join #temp_IsSendError IsSendError on date_table.date=IsSendError.DateSendLog
 		group by datepart(ww, date_table.date)
 	end
 
@@ -41,10 +61,12 @@ declare @date_table table (Id int identity(1,1), date date)
 		(ltrim(datepart(yy, date_table.date))+ltrim(datepart(mm, date_table.date)))*1 Id,
 		min(date_table.date) date, 
 		sum(isnull([indicator_value],0)) [indicator_value],
-		datename(mm,min(date_table.date))+N' '+datename(yy,min(date_table.date)) name
+		datename(mm,min(date_table.date))+N' '+datename(yy,min(date_table.date)) name,
+		sum(isnull(IsSendError.count_Id,0)) [IsSendError_value]
 		--year(min(date_table.date))
 	    from @date_table date_table left join
 	    [CRM_1551_Site_Integration].[dbo].[Statistic] on date_table.date=[Statistic].date and [Statistic].diagram=9
+		left join #temp_IsSendError IsSendError on date_table.date=IsSendError.DateSendLog
 		group by datepart(yy, date_table.date), datepart(mm, date_table.date)
 		order by min(date_table.date)
 	end

@@ -29,6 +29,12 @@
       "Name": "name",
       "Position": 3,
       "IsPrintable": false
+    },
+    {
+      "Code": "IsSendError_value",
+      "Name": "IsSendError_value",
+      "Position": 4,
+      "IsPrintable": false
     }
   ],
   "Parameters": [
