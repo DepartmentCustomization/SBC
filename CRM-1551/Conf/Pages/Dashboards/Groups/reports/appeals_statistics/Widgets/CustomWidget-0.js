@@ -121,7 +121,7 @@
             const cellInfo = document.getElementById('cell1-info');
             cellInfo.innerHTML = '';
             const applicants = data.rows[0].values[7];
-            const p = `<p class='cell-info active'>${applicants}</p>`;
+            const p = `<p class='cell-info active'><i class="fa fa-users first"></i> ${applicants}</p>`;
             const more1Appeals = `<span class="material-icons first">
             local_post_office</span> <span class='cell-info'>${data.rows[0].values[8]}</span>`;
             const verified = `<span class="material-icons first">

@@ -72,16 +72,19 @@
 .first{
     color: #8e82bd;
     vertical-align: middle;
+    font-size: 22px;
 }
 
 .fourth{
     color: #f6b1af;
     vertical-align: middle;
+    font-size: 22px;
 }
 
 .icon{
     color: #83e2d7;
     vertical-align: middle;
+    font-size: 22px;
 }
 
 .info-button{
@@ -89,6 +92,7 @@
     bottom: 5px;
     right: 15px;
     cursor: pointer;
+    color: rgb(247, 25, 25);
 }
 
 .modal{
