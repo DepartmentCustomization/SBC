@@ -354,7 +354,11 @@
             return ul
         },
         createFormListItem() {
-            const index = this.itemIndex++
+            let index = this.itemIndex++
+            const list = document.querySelectorAll('.form-list-item')
+            if (list.length > 1 && list[list.length - 1].textContent < index) {
+                index = Number(list[list.length - 1].textContent) + 1
+            }
             const li = this.createElement('li',{
                 classList: 'form-list-item active',textContent:index,dataFormNum:index,draggable:true});
             return li
