@@ -1,0 +1,31 @@
+{
+    "ModelType": "Detail",
+    "Code": "det_PersonExecutorChooseDistrict",
+    "Name": "Район",
+    "SelectRowsQueryCode": "det_PersonExecutorChooseDistrictSRows",
+    "SectionCode": "",
+    "FormCode": "Form_PersonExecutorChooseObjects",
+    "Position": 4,
+    "IsExpand": true,
+    "Add": {
+        "InsertQueryParameterCode": "@district_id",
+        "QueryCode": "det_PersonExecutorChooseDistrictSRows", 
+        "ColumnCode": "Id",
+        "AddType": "Lookup",
+        "InsertQueryCode": "det_PersonExecutorChooseDistrictIObject",
+        "QueryParameters": [{
+            "FormFieldName": "Id",
+            "ParameterCode": "@district_id"
+        }],
+        "InsertQueryParameters": [{
+            "FormFieldName": "Id",
+            "ParameterCode": "@person_executor_choose_id"
+        }]
+    },
+    "QueryParameters": [
+        {
+          "FormFieldName": "Id",
+          "ParameterCode": "@person_executor_choose_id"
+        }
+      ] 
+}
