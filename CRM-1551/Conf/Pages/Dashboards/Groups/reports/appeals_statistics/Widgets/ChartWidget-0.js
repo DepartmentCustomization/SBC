@@ -100,7 +100,7 @@
             let columns = params.columns;
             this.chartConfig.xAxis.categories = [];
             this.chartConfig.series = [];
-            const dateIndex = columns.findIndex(c=>c.code === 'name');
+            const dateIndex = columns.findIndex(c=>c.code === 'date');
             const valueIndex = columns.findIndex(c=>c.code === 'indicator_value');
             this.chartConfig.xAxis.categories = rows.map(row => this.changeDateTimeValues(row.values[dateIndex]));
             const data = rows.map(row => row.values[valueIndex]);

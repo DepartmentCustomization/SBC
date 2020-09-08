@@ -78,44 +78,48 @@
             let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
             return dateTo
         },
-        closeModal(e) {
-            const con = e.target.closest('.modal')
-            con.classList.remove('active')
+        closeModal() {
+            const con = document.querySelector('.modal')
+            const wrapper = document.getElementById('wrapper')
+            wrapper.remove()
+            con.remove()
         },
-        openModal(e) {
-            if(e.target.classList.contains('info-button')) {
-                const main = document.querySelector('.root-main')
-                const modal = this.createElement('div',{classList:'modal active',id:'modal'})
-                const widget = e.target.closest('.cell-item')
-                const infoList = Array.from(widget.querySelectorAll('.cell-info'))
-                const titleText = widget.querySelector('.widget-title').textContent
-                const title = this.createElement('h2',{textContent:titleText,classList:'modal-title'})
-                const infoValue = infoList.map(elem=>{
-                    return elem.textContent
-                })
-                const arr = [
-                    'загальна кількість унікальних заявників з сайту'
-                    ,'користувачі, що залишали хоча б 1 звернення'
-                    , 'верифіковані користувачі']
-                const iconsArr = ['<span class="material-icons first">person</span>',
-                    '<span class="material-icons first">local_post_office</span>',
-                    '<span class="material-icons first">done</span>']
-                const infoArr = arr.map(item=>{
-                    const index = arr.indexOf(item)
-                    return `<p>${iconsArr[index]} ${item}: ${infoValue[index]}</p>`
-                }).join('')
-                const closeBtn = this.createElement('span',{textContent: 'x',id:'close-modal',classList:'close-modal'})
-                closeBtn.addEventListener('click',this.closeModal.bind(this))
-                modal.append(title,closeBtn)
-                modal.insertAdjacentHTML('beforeend',infoArr)
-                main.insertAdjacentElement('beforeend',modal)
-            }
+        afterLoad(e) {
+            const list = Array.from(document.querySelectorAll('.info-button-label'))
+            const index = list.indexOf(e.target)
+            let executeQuery = {
+                queryCode: 'SAFS_ReportsInfo_SRow',
+                parameterValues: [
+                    {key: '@reportcode', value: `${index + 1}`}
+                ],
+                limit: -1
+            };
+            this.queryExecutor(executeQuery, this.openModal, this);
+        },
+        openModal(msg) {
+            const {rows} = msg
+            rows[0].values.shift()
+            const newArr = rows[0].values.map(elem=>{
+                return `<p class="first">${elem}</p>`
+            }).join('')
+            const wrapper = this.createElement('div',{classList:'wrapper',id:'wrapper'})
+            wrapper.addEventListener('click',this.closeModal.bind(this))
+            const main = document.querySelector('.root-main')
+            const modal = this.createElement('div',{classList:'modal active',id:'modal'})
+            const widget = document.getElementById('CustomWidget-0')
+            const titleText = widget.querySelector('.widget-title').textContent
+            const title = this.createElement('h2',{textContent:titleText,classList:'modal-title'})
+            const closeBtn = this.createElement('span',{textContent: 'x',id:'close-modal',classList:'close-modal'})
+            closeBtn.addEventListener('click',this.closeModal.bind(this))
+            modal.append(title,closeBtn)
+            main.insertAdjacentElement('beforeend',wrapper)
+            modal.insertAdjacentHTML('beforeend',newArr)
+            main.insertAdjacentElement('beforeend',modal)
         },
         load: function(data) {
             this.setTitle()
             const list = document.querySelectorAll('#CustomWidget-0,#CustomWidget-1,#CustomWidget-2,#CustomWidget-3,#CustomWidget-4')
             list.forEach(e=>{
-                e.addEventListener('click',this.openModal.bind(this))
                 e.classList.add('cell-item')
             })
             const cellInfo = document.getElementById('cell1-info');
@@ -127,7 +131,9 @@
             const verified = `<span class="material-icons first">
             done</span> <span class='cell-info'>${data.rows[0].values[9]}</span>`;
             const infoBtn = this.createElement('span',{classList:'info-button',id:'info-button'})
-            infoBtn.insertAdjacentHTML('beforeend','<span class="material-icons info-button">info</span>')
+            const infoBtnSpan = this.createElement('span',{classList:'material-icons info-button-label',textContent:'info'})
+            infoBtnSpan.addEventListener('click',this.afterLoad.bind(this))
+            infoBtn.append(infoBtnSpan)
             cellInfo.insertAdjacentHTML('beforeend',`${p} ${more1Appeals} ${verified}`);
             cellInfo.append(infoBtn)
         }

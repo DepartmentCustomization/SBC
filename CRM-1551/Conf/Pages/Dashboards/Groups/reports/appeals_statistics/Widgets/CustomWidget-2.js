@@ -79,6 +79,44 @@
             let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
             return dateTo
         },
+        closeModal() {
+            const con = document.querySelector('.modal')
+            const wrapper = document.getElementById('wrapper')
+            wrapper.remove()
+            con.remove()
+        },
+        afterLoad(e) {
+            const list = Array.from(document.querySelectorAll('.info-button-label'))
+            const index = list.indexOf(e.target)
+            let executeQuery = {
+                queryCode: 'SAFS_ReportsInfo_SRow',
+                parameterValues: [
+                    {key: '@reportcode', value: `${index + 1}`}
+                ],
+                limit: -1
+            };
+            this.queryExecutor(executeQuery, this.openModal, this);
+        },
+        openModal(msg) {
+            const {rows} = msg
+            rows[0].values.shift()
+            const newArr = rows[0].values.map(elem=>{
+                return `<p class="first">${elem}</p>`
+            }).join('')
+            const main = document.querySelector('.root-main')
+            const wrapper = this.createElement('div',{classList:'wrapper',id:'wrapper'})
+            wrapper.addEventListener('click',this.closeModal.bind(this))
+            const modal = this.createElement('div',{classList:'modal active',id:'modal'})
+            const widget = document.getElementById('CustomWidget-2')
+            const titleText = widget.querySelector('.widget-title').textContent
+            const title = this.createElement('h2',{textContent:titleText,classList:'modal-title'})
+            const closeBtn = this.createElement('span',{textContent: 'x',id:'close-modal',classList:'close-modal'})
+            closeBtn.addEventListener('click',this.closeModal.bind(this))
+            modal.append(title,closeBtn)
+            main.insertAdjacentElement('beforeend',wrapper)
+            modal.insertAdjacentHTML('beforeend',newArr)
+            main.insertAdjacentElement('beforeend',modal)
+        },
         load: function(data) {
             this.setTitle()
             const cellInfo = document.getElementById('cell3-info');
@@ -91,7 +129,9 @@
             const secondP = `<p class='cell-info active'><span class="material-icons icon">date_range</span> ${secondVal}</p>`;
             cellInfo.insertAdjacentHTML('beforeend',`${p} ${secondP}`)
             const infoBtn = this.createElement('span',{classList:'info-button',id:'info-button'})
-            infoBtn.insertAdjacentHTML('beforeend','<span class="material-icons info-button">info</span>')
+            const infoBtnSpan = this.createElement('span',{classList:'material-icons info-button-label',textContent:'info'})
+            infoBtnSpan.addEventListener('click',this.afterLoad.bind(this))
+            infoBtn.append(infoBtnSpan)
             cellInfo.append(infoBtn)
         }
     };

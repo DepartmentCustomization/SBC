@@ -9,7 +9,7 @@
                     type: 'pie'
                 },
                 title: {
-                    text: 'Якість даних заявника, отриманих з сайту за період'
+                    text: 'Кількість іногородніх заявників'
                 },
                 subtitle:{
                     text: ''
@@ -89,7 +89,7 @@
             },
             recalcData: function() {
                 let executeQuery = {
-                    queryCode: 'SAFS_graph_Quality',
+                    queryCode: 'SAFS_CItySRows',
                     parameterValues: [{key: '@date_from', value: this.toUTC(this.dateFrom)},
                         {key: '@date_to', value: this.dateTo}
                     ],
@@ -118,16 +118,23 @@
             },
             load: function(data) {
                 let rows = data.rows;
+                let columns = data.columns;
                 this.chartConfig.series[0].data = [];
                 this.chartConfig.series[0].name = '';
+                const inKyiv = columns.find(elem=>elem.code === 'in_Kyiv')
+                const notInKyiv = columns.find(elem=>elem.code === 'in_not_Kyiv')
+                const indexInKyiv = columns.indexOf(inKyiv)
+                const indexNotInKyiv = columns.indexOf(notInKyiv)
                 if(rows.length > 0) {
-                    const newArr = rows.map(elem=> {
-                        const arr = {
-                            name: `${elem.values[1]}`,
-                            y: elem.values[2]
-                        }
-                        return arr
-                    })
+                    const inKyivObj = {
+                        name: 'in Kyiv',
+                        y: rows[0].values[indexInKyiv]
+                    }
+                    const notInKyivObj = {
+                        name: 'not in Kyiv',
+                        y: rows[0].values[indexNotInKyiv]
+                    }
+                    const newArr = [inKyivObj,notInKyivObj]
                     this.chartConfig.series[0].data = newArr;
                 }
                 this.render()
