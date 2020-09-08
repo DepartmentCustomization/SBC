@@ -1,10 +1,12 @@
+
+
   
-  --declare @filter nvarchar(3000)=N'district in (1, 2, 3)'; --question_type in (50) district in (1, 2, 3) question_list_state in (1)
-  --declare @sort nvarchar(3000)=N'1=1';
+  --declare @filter nvarchar(3000)=N'1=1'; --question_type in (50) district in (1, 2, 3) question_list_state in (1)
+  --declare @sort nvarchar(3000)=N'registration_date asc, full_name asc, house asc';
 
   ---перелік параметры начало
-  declare @comment_qls nvarchar(5);
-  declare @de_comment nvarchar(5);
+  declare @comment_qls nvarchar(max);
+  declare @de_comment nvarchar(max);
 
   set @comment_qls =(
   select case when CHARINDEX(N'question_list_state in (', @filter, 0)>0
@@ -172,6 +174,7 @@ end
   ,[ApplicantPhones].phone_number phone_number_sort
   ,[Questions].registration_number registration_number_sort
   ,[LiveAddress].entrance entrance_sort
+  ,[Questions].registration_date registration_date_sort
 
   from [Assignments]  with (nolock)
   left join [AssignmentStates] with (nolock) on [Assignments].assignment_state_id=[AssignmentStates].Id
@@ -221,4 +224,4 @@ end
 
   exec(@qcode)
 
-  --select @filter1
+  --select @filter1, @sort1
