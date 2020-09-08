@@ -5,11 +5,12 @@
     "SelectRowsQueryCode": "det_PersonExecutorChooseCitySRows",
     "SectionCode": "",
     "FormCode": "Form_PersonExecutorChooseObjects",
+    "DeleteQueryCode": "ak_PersonExecutorChooseObjectsDeleteRow",
     "Position": 3,
     "IsExpand": true,
     "Add": {
         "InsertQueryParameterCode": "@city_id",
-        "QueryCode": "det_PersonExecutorChooseCitySRows", 
+        "QueryCode": "list_PersonExecutorChooseCitySRows", 
         "ColumnCode": "Id",
         "AddType": "Lookup",
         "InsertQueryCode": "det_PersonExecutorChooseCityIObject",

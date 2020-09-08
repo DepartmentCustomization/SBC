@@ -36,11 +36,11 @@
         "SqlName": "questions_types",
         "FilterParameterCode": "@questions_types"
       },{
-        "Code": "objects",
+        "Code": "Objects",
         "Name": "Кількість об'єктів",
         "Position": 6,
-        "SqlName": "objects",
-        "FilterParameterCode": "@objects"
+        "SqlName": "Objects",
+        "FilterParameterCode": "@Objects"
       }
     ],
     "Parameters": [
