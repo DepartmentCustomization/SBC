@@ -102,7 +102,7 @@
     right:50%;
     transform: translate(50%,-50%);
     z-index: 15;
-    background-color: rgb(199, 198, 198);
+    background-color: rgb(238, 237, 237);
     padding: 20px;
     border-radius: 10px;
     border:1px solid black;
@@ -143,4 +143,8 @@
     left:0;
     background-color: rgba(0,0,0,.7);
     z-index: 10;
+}
+
+.primary{
+    margin-right: 80px;
 }

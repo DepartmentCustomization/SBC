@@ -121,9 +121,9 @@
             const cellInfo = document.getElementById('cell5-info');
             cellInfo.innerHTML = '';
             const cellValue = data.rows[0].values[6];
-            const p = `<p class='cell-info active'><span class="material-icons icon">keyboard_tab</span>${cellValue}</p>`;
+            const p = `<p class='cell-info active'><span class="material-icons icon">keyboard_tab</span> ${cellValue}</p>`;
             const cellValueToday = data.rows[0].values[13];
-            const pToday = `<p class='cell-info active'><span class="material-icons icon">insert_invitation</span>${cellValueToday}</p>`;
+            const pToday = `<p class='cell-info active'><span class="material-icons icon">insert_invitation</span> ${cellValueToday}</p>`;
             cellInfo.insertAdjacentHTML('beforeend',`${p} ${pToday}`)
             const infoBtn = this.createElement('span',{classList:'info-button',id:'info-button'})
             const infoBtnSpan = this.createElement('span',{classList:'material-icons info-button-label',textContent:'info'})

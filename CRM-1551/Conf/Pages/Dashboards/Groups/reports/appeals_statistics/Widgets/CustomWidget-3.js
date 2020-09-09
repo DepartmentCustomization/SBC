@@ -123,7 +123,8 @@
             const windowsVal = data.rows[0].values[10];
             const windowsP = `<p class='cell-info active'><span class="material-icons fourth"> laptop</span> ${windowsVal}</p>`;
             const androidVal = data.rows[0].values[11];
-            const androidText = `<span class='cell-info active'><span class="material-icons fourth">android</span> ${androidVal}</span>`
+            const androidText = `<span class='cell-info active primary'>
+            <span class="material-icons fourth">android</span> ${androidVal}</span>`
             const appleVal = data.rows[0].values[12];
             const appleText = `<span class='cell-info active'><i class="fa fa-apple fourth"></i> ${appleVal}</span>`
             cellInfo.insertAdjacentHTML('beforeend',`${windowsP} ${androidText} ${appleText}`)

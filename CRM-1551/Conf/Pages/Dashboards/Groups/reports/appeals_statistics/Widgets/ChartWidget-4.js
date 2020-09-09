@@ -127,11 +127,11 @@
                 const indexNotInKyiv = columns.indexOf(notInKyiv)
                 if(rows.length > 0) {
                     const inKyivObj = {
-                        name: 'in Kyiv',
+                        name: 'Кияни',
                         y: rows[0].values[indexInKyiv]
                     }
                     const notInKyivObj = {
-                        name: 'not in Kyiv',
+                        name: 'Іногородні',
                         y: rows[0].values[indexNotInKyiv]
                     }
                     const newArr = [inKyivObj,notInKyivObj]
