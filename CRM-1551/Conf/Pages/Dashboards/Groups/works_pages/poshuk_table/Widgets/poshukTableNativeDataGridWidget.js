@@ -675,6 +675,8 @@
                         case 'assigm_user_checked':
                         case 'appeals_enter_number':
                         case 'control_comment':
+                        case 'rework_counter':
+                        case 'plan_program':
                         case 'ConsDocumentContent':
                             rowItem[prop] = row.values[field.index];
                             break
