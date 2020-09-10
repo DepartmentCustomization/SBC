@@ -4,15 +4,18 @@
     "Name": "Район",
     "SelectRowsQueryCode": "det_PersonExecutorChooseDistrictSRows",
     "SectionCode": "",
-    "FormCode": "Form_PersonExecutorChooseObjects",
+    "FormCode": "Form_PersonExecutorChooseDistrict",
+    "SelectRowQueryCode": "det_PersonExecutorChooseDistrictsSRow",
+    "DeleteQueryCode": "det_PersonExecutorChooseDistrictsDRow",
+    "UpdateQueryCode": "det_PersonExecutorChooseDistrictsURow",
     "Position": 4,
     "IsExpand": true,
     "Add": {
         "InsertQueryParameterCode": "@district_id",
-        "QueryCode": "det_PersonExecutorChooseDistrictSRows", 
+        "QueryCode": "list_PersonExecutorChooseDistrictSRows", 
         "ColumnCode": "Id",
         "AddType": "Lookup",
-        "InsertQueryCode": "det_PersonExecutorChooseDistrictIObject",
+        "InsertQueryCode": "det_PersonExecutorChooseDistrictsIRow",
         "QueryParameters": [{
             "FormFieldName": "Id",
             "ParameterCode": "@district_id"

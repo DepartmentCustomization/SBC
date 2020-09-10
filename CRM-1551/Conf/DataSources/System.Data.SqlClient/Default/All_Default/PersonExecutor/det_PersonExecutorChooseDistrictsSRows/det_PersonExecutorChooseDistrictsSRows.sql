@@ -9,7 +9,7 @@ if OBJECT_ID('tempdb..#temp_district_person') is not null drop table #temp_distr
   select temp_d_person.Id, 
   --[PersonExecutorChoose].Id person_executor_choose_id, [PersonExecutorChoose].name person_executor_choose_name,
   --[PersonExecutorChooseObjects].city_id, 
-  [PersonExecutorChooseObjects].district_name name
+  [PersonExecutorChooseObjects].district_name
   from [dbo].[PersonExecutorChoose]
   inner join (select distinct person_executor_choose_id, 
   [Districts].Id district_id, [Districts].name district_name
@@ -19,7 +19,6 @@ if OBJECT_ID('tempdb..#temp_district_person') is not null drop table #temp_distr
   inner join #temp_district_person temp_d_person on [PersonExecutorChooseObjects].person_executor_choose_id=temp_d_person.person_executor_choose_id and [PersonExecutorChooseObjects].district_id=temp_d_person.district_id
 
 where [PersonExecutorChoose].Id=@person_executor_choose_id
-and #filter_columns#
-  --#sort_columns#
-  order by 1
- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+-- and #filter_columns#
+--   #sort_columns#
+--  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
