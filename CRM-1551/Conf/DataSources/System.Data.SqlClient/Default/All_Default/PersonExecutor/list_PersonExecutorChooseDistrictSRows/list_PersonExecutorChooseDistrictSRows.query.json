@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "det_PersonExecutorChooseCitySRows",
-  "Name": "det_PersonExecutorChooseCitySRows",
+  "Code": "list_PersonExecutorChooseDistrictSRows",
+  "Name": "list_PersonExecutorChooseDistrictSRows",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "IsAnonymousAccess": false,
@@ -15,12 +15,12 @@
       "IsPrintable": false
     },
     {
-      "Code": "city_name",
+      "Code": "name",
       "Name": "Назва",
       "Position": 1,
       "IsPrintable": false,
-      "SqlName": "[PersonExecutorChooseObjects].city_name",
-      "FilterParameterCode": "@city_name"
+      "SqlName": "name",
+      "FilterParameterCode": "@name"
     }
   ],
   "Parameters": [
@@ -37,8 +37,8 @@
       "IsPageLimitRows": true
     },
     {
-      "Code": "@person_executor_choose_id",
-      "Name": "person_executor_choose_id",
+      "Code": "@district_id",
+      "Name": "district_id",
       "ParameterType": "Integer"
     }
   ]

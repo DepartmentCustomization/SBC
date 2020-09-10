@@ -18,7 +18,9 @@
       "Code": "name",
       "Name": "Назва",
       "Position": 1,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "[PersonExecutorChooseObjects].district_name",
+      "FilterParameterCode": "@name"
     }
   ],
   "Parameters": [
@@ -37,11 +39,6 @@
     {
       "Code": "@person_executor_choose_id",
       "Name": "person_executor_choose_id",
-      "ParameterType": "Integer"
-    },
-    {
-      "Code": "@district_id",
-      "Name": "district_id",
       "ParameterType": "Integer"
     }
   ]

@@ -4,8 +4,10 @@
     "Name": "Місто",
     "SelectRowsQueryCode": "det_PersonExecutorChooseCitySRows",
     "SectionCode": "",
-    "FormCode": "Form_PersonExecutorChooseObjects",
-    "DeleteQueryCode": "ak_PersonExecutorChooseObjectsDeleteRow",
+    "FormCode": "Form_PersonExecutorChooseCity",
+    "SelectRowQueryCode": "det_PersonExecutorChooseCitySRow",
+    "DeleteQueryCode": "det_PersonExecutorChooseCityDRow",
+    "UpdateQueryCode": "det_PersonExecutorChooseCityURow",
     "Position": 3,
     "IsExpand": true,
     "Add": {

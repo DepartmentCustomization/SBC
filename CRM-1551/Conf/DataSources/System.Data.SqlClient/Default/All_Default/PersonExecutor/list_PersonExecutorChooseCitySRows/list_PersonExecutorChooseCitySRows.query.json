@@ -18,7 +18,9 @@
       "Code": "name",
       "Name": "Назва",
       "Position": 1,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "name",
+      "FilterParameterCode": "@name"
     }
   ],
   "Parameters": [
