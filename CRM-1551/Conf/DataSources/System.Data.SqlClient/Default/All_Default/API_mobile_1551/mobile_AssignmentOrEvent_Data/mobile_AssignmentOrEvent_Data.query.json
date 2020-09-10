@@ -1,0 +1,165 @@
+{
+  "ModelType": "Query",
+  "Code": "mobile_AssignmentOrEvent_Data",
+  "Name": "mobile_AssignmentOrEvent_Data",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "registration_number",
+      "Name": "registration_number",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "[registration_number]",
+      "FilterParameterCode": "@registration_number"
+    },
+    {
+      "Code": "assignment_state",
+      "Name": "assignment_state",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "[assignment_state]",
+      "FilterParameterCode": "@assignment_state"
+    },
+    {
+      "Code": "code",
+      "Name": "code",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "[code]",
+      "FilterParameterCode": "@code"
+    },
+    {
+      "Code": "executor_organization_name",
+      "Name": "executor_organization_name",
+      "Position": 4,
+      "IsPrintable": false,
+      "SqlName": "[executor_organization_name]",
+      "FilterParameterCode": "@executor_organization_name"
+    },
+    {
+      "Code": "executor_person_name",
+      "Name": "executor_person_name",
+      "Position": 5,
+      "IsPrintable": false,
+      "SqlName": "[executor_person_name]",
+      "FilterParameterCode": "@executor_person_name"
+    },
+    {
+      "Code": "question_type_name",
+      "Name": "question_type_name",
+      "Position": 6,
+      "IsPrintable": false,
+      "SqlName": "[question_type_name]",
+      "FilterParameterCode": "@question_type_name"
+    },
+    {
+      "Code": "object_name",
+      "Name": "object_name",
+      "Position": 7,
+      "IsPrintable": false,
+      "SqlName": "[object_name]",
+      "FilterParameterCode": "@object_name"
+    },
+    {
+      "Code": "execution_date",
+      "Name": "execution_date",
+      "Position": 8,
+      "IsPrintable": false,
+      "SqlName": "[execution_date]",
+      "FilterParameterCode": "@execution_date"
+    },
+    {
+      "Code": "event_class_name",
+      "Name": "event_class_name",
+      "Position": 9,
+      "IsPrintable": false,
+      "SqlName": "[event_class_name]",
+      "FilterParameterCode": "@event_class_name"
+    },
+    {
+      "Code": "active",
+      "Name": "active",
+      "Position": 10,
+      "IsPrintable": false,
+      "SqlName": "[active]",
+      "FilterParameterCode": "@active"
+    },
+    {
+      "Code": "event_object",
+      "Name": "event_object",
+      "Position": 11,
+      "IsPrintable": false,
+      "SqlName": "[event_object]",
+      "FilterParameterCode": "@event_object"
+    },
+    {
+      "Code": "event_organization_name",
+      "Name": "event_organization_name",
+      "Position": 12,
+      "IsPrintable": false,
+      "SqlName": "[event_organization_name]",
+      "FilterParameterCode": "@event_organization_name"
+    },
+    {
+      "Code": "question_object",
+      "Name": "question_object",
+      "Position": 13,
+      "IsPrintable": false,
+      "SqlName": "[question_object]",
+      "FilterParameterCode": "@question_object"
+    },
+    {
+      "Code": "start_date",
+      "Name": "start_date",
+      "Position": 14,
+      "IsPrintable": false,
+      "SqlName": "[start_date]",
+      "FilterParameterCode": "@start_date"
+    },
+    {
+      "Code": "plan_end_date",
+      "Name": "plan_end_date",
+      "Position": 15,
+      "IsPrintable": false,
+      "SqlName": "[plan_end_date]",
+      "FilterParameterCode": "@plan_end_date"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@userId",
+      "Name": "userId"
+    },
+    {
+      "Code": "@orgId",
+      "Name": "orgId"
+    },
+    {
+      "Code": "@startDate",
+      "Name": "startDate"
+    },
+    {
+      "Code": "@code",
+      "Name": "code"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}
