@@ -282,12 +282,30 @@
             const arrowRight = this.createElement('span',{className:'arrow material-icons', textContent:'arrow_forward'})
             const btnsCon = this.createElement('div',{className:'interview-form-btn-con'});
             const saveBtn = this.createElement('button',{className:'save-form interview-form-btn', textContent:'Зберегти'})
+            saveBtn.addEventListener('click',this.saveForm.bind(this))
             const cancelBtn = this.createElement('button',{className:'delete-form interview-form-btn', textContent:'Видалити'})
             cancelBtn.addEventListener('click',this.deleteForm.bind(this))
             btnsCon.append(cancelBtn,saveBtn)
             con.append(arrowLeft,btnsCon,arrowRight)
             con.addEventListener('click',this.slideEffect.bind(this))
             return con
+        },
+        saveForm() {
+            /*const container = e.target.closest('.interview-form-con')
+            const list = container.querySelectorAll('input , select')
+            const listArray = [...list]
+            const listVals = listArray.map(elem=>`${elem.className}:${elem.value}`)
+            const listObj = {}
+            let index = 0
+            listArray.forEach(elem=>{
+                if(listObj.hasOwnProperty(elem.className)) {
+                    listObj[elem.className + index] = elem.value
+                    index++
+                } else {
+                    listObj[elem.className] = elem.value
+                }
+            })
+            console.log(listObj)*/
         },
         createAddVariantBtn(testBlock) {
             const con = this.createElement('div',{className:'add-variant-con'});
