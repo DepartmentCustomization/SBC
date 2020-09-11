@@ -19,24 +19,14 @@
         onItemSelect: function(item) {
             this.publishValue(item);
         },
-        onClearFilter: function() {
-        },
-        init: function() {
-        },
-        initValue: function() {
-            this.setDefaultValue('first');
-        },
         publishValue(item) {
             let message = {
                 name: 'showDivision',
                 package: {
-                    type: item.value
+                    type: item
                 }
             }
             this.messageService.publish(message);
-        },
-        destroy() {
-            console.log('Division Filter says bye!');
         }
     };
 }());
