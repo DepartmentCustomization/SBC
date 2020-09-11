@@ -80,7 +80,7 @@ DECLARE @CurrentAppeal INT;
 
 WHILE (@step <= @Qty)
 BEGIN
-SET @CurrentAppeal = (SELECT appealId FROM @AppealExecutData WHERE Num = @step);
+SET @CurrentAppeal = (SELECT TOP 1 appealId FROM @AppealExecutData WHERE Num = @step);
 IF EXISTS (SELECT Id FROM @LastContent WHERE Id = @CurrentAppeal)
 BEGIN
 	SET @step +=1;
