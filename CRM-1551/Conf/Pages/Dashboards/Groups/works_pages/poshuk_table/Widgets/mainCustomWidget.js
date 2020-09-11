@@ -628,20 +628,6 @@
             const group4__element2 = this.createElement('div', {
                 className: 'group__element'
             }, group4__element2_checkBox, group4__element2_title);
-            const group4__element12_checkBox = this.createElement('input', {
-                type: 'checkbox',
-                className: 'group__element_checkBox',
-                columnWidth: 100,
-                value: 'plan_program',
-                id: 'plan_program'
-            });
-            const group4__element12_title = this.createElement('div', {
-                className: 'group__element_title',
-                innerText: 'План/Програма'
-            });
-            const group4__element12 = this.createElement('div', {
-                className: 'group__element'
-            }, group4__element12_checkBox, group4__element12_title);
             const group4__element3_checkBox = this.createElement('input', {
                 type: 'checkbox',
                 className: 'group__element_checkBox',
@@ -773,7 +759,7 @@
             },
             group4__title, group4__element2, group4__element3, group4__element4, group4__element5,
             group4__element6, group4__element7, group4__element8 , group4__element9,
-            group4__element11, group4__element10,group4__element12);
+            group4__element11, group4__element10);
             const group5__element2_checkBox = this.createElement('input', {
                 type: 'checkbox',
                 className: 'group__element_checkBox',
