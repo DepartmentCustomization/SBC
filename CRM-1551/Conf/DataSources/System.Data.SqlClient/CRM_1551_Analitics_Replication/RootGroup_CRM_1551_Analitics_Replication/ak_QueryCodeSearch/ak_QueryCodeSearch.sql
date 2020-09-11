@@ -1,5 +1,6 @@
 
 
+
 ----------после 2019 11 28 , согласно задачи 545 с файла
 
 
@@ -36,8 +37,8 @@ declare @control_date_to datetime;--='2019-07-21 21:00:00.000';
 
 declare @registration_date_question_from datetime;--='2019-07-21 21:00:00.000';
 declare @registration_date_question_to datetime;--='2019-07-21 21:00:00.000';
- */
  
+ */
 ---------
 --set @DateStart1=getdate();
 
@@ -623,7 +624,8 @@ select distinct --top 5000
 
   ,[ConsDocumentContent]
   ,[control_date]
-
+  ,[rework_counter_true] [rework_counter] 
+  ,plan_program
  from
  (
   select distinct [Assignments].Id,
@@ -734,7 +736,9 @@ when [Applicants].[birth_date] is null then year(getdate())-[Applicants].birth_y
  ,case when [AssignmentStates].Id in (1,2) and [Assignments].[execution_date]<getutcdate()
  then ''true'' end overdue
 
- ,case when [rework_counter]>=5 then 5 else [rework_counter] end [rework_counter]
+ ,case when [rework_counter]>=5 then 5 else [rework_counter] end [rework_counter] 
+
+ ,[rework_counter] [rework_counter_true]
 
  ,case when [Questions].[event_id] is not null then ''true'' end plan_program
  
