@@ -464,7 +464,21 @@
         afterModalFormClose: function() {
         },
         TypeFormId: 0,
+        
         init: function() {
+
+
+            document.getElementById('Question_ContentIcon').style.width = '40px';
+            document.getElementById('Question_ContentIcon').style.height = '40px';
+            document.getElementById('Question_ContentIcon').style.fontSize = '40px';
+            
+            document.getElementById('Question_ContentIcon').addEventListener('click', function() {
+                let tText = (this.form.getControlValue('Question_Content')  == null ? '' : this.form.getControlValue('Question_Content'))+(this.form.getControlValue('NoteText')  == null ? '' : this.form.getControlValue('NoteText'));
+                this.form.setControlValue('Question_Content', tText);
+            }.bind(this));
+            
+            document.getElementById('WIKI_Btn_Search').disabled = true;
+            document.getElementById('WIKI_Btn_Consultation').disabled = true;
             this.form.disableControl('Question_OrganizationId');
             this.form.setControlVisibility('Question_Building', false);
             this.form.setControlVisibility('Question_Organization', false);
@@ -576,6 +590,7 @@
                 this.form.onControlValueChanged('Question_AnswerType', this.onChangedQuestion_AnswerType.bind(this));
                 document.getElementById('Question_Btn_Add').disabled = true;
                 document.getElementById('Work_with_a_question_Btn_save').disabled = true;
+                this.form.onControlValueChanged('WIKI_KnowledgeBaseState', this.onChangedWIKI_KnowledgeBaseState.bind(this));
                 this.form.onControlValueChanged('Applicant_Id', this.onChangedApplicant_Id.bind(this));
                 let getDataFromLink = window
                     .location
@@ -679,11 +694,15 @@
                             {
                                 key: '@Applicant_Building',
                                 value: this.form.getControlValue('Applicant_Building')
+                            },
+                            {
+                                key: '@knowledge_base_id',
+                                value: this.form.getControlValue('WIKI_KnowledgeBaseState')
                             }
                         ]
                     };
                     this.queryExecutor.getValues(queryForGetValue3).subscribe(() => {
-                        window.open('http://wiki.1551.gov.ua/', '_blank');
+                        window.open('https://wiki.1551.gov.ua/pages/viewpage.action?pageId='+this.form.getControlValue('WIKI_KnowledgeBaseState'), '_blank');
                         const parameters1 = [
                             { key: '@applicant_id', value: this.form.getControlValue('Applicant_Id')},
                             { key: '@appeal_id', value: this.form.getControlValue('AppealId')},
@@ -711,6 +730,10 @@
                             {
                                 key: '@applicant_id',
                                 value: this.form.getControlValue('Applicant_Id')
+                            },
+                            {
+                                key: '@knowledge_base_id',
+                                value: this.form.getControlValue('WIKI_KnowledgeBaseState')
                             }
                         ]
                     };
@@ -1529,6 +1552,19 @@
             this.form.setControlValue('Event_Prew_StartDate', new Date(row.values[5]));
             this.form.setControlValue('Event_Prew_PlanEndDate', new Date(row.values[6]));
             this.scrollTopMainForm();
+        },
+        onChangedWIKI_KnowledgeBaseState: function(value) {
+            if (typeof value === 'string') {
+                return
+            }
+
+            if (!value || value === '') {
+                document.getElementById('WIKI_Btn_Search').disabled = true;
+                document.getElementById('WIKI_Btn_Consultation').disabled = true;
+            } else {
+                document.getElementById('WIKI_Btn_Search').disabled = false;
+                document.getElementById('WIKI_Btn_Consultation').disabled = false;
+            }
         },
         onChangedApplicant_Id: function(value) {
             if (!value || value === '') {
