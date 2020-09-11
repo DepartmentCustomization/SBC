@@ -18,7 +18,7 @@
       "Code": "row_num",
       "Name": "Номер виїзда",
       "Position": 1,
-      "IsPrintable": false,
+      "IsPrintable": true,
       "ReferenceKeyCode": "Id",
       "ReferenceSectionCode": "Orders"
     },
@@ -26,13 +26,13 @@
       "Code": "Name",
       "Name": "Бригадир",
       "Position": 2,
-      "IsPrintable": false
+      "IsPrintable": true
     },
     {
       "Code": "Start_at",
       "Name": "Дата та час початку",
       "Position": 3,
-      "IsPrintable": false,
+      "IsPrintable": true,
       "SqlName": "[Orders].[Start_at]",
       "FilterParameterCode": "@Start_at"
     },
@@ -40,7 +40,7 @@
       "Code": "Pushed_at",
       "Name": "Дата та час виїзду",
       "Position": 4,
-      "IsPrintable": false
+      "IsPrintable": true
     },
     {
       "Code": "Claim_Number",
