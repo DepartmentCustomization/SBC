@@ -8,7 +8,8 @@
   {
     "Code": "Claim_Number",
     "Name": "Claim_Number",
-    "Position": 2
+    "Position": 2,
+    "IsPrintable": false
   },
   {
     "Code": "Classes_id",
@@ -104,7 +105,8 @@
   {
     "Code": "claims_id",
     "Name": "claims_id",
-    "Position": 20
+    "Position": 20,
+    "IsPrintable": false
   },
   {
     "Code": "places_id",
@@ -183,7 +185,8 @@
   {
     "Code": "is_Zasuv",
     "Name": "is_Zasuv",
-    "Position": 38
+    "Position": 38,
+    "IsPrintable": false
   },
   {
     "Code": "organization_name",
@@ -206,7 +209,8 @@
   {
     "Code": "Street_id",
     "Name": "Street_id",
-    "Position": 43
+    "Position": 43,
+    "IsPrintable": false
   },
   {
     "Code": "EM_org_id",
@@ -280,7 +284,8 @@
   {
     "Code": "FIZ_concact_id",
     "Name": "FIZ_concact_id",
-    "Position": 58
+    "Position": 58,
+    "IsPrintable": false
   },
   {
     "Code": "UR_organization_name",
