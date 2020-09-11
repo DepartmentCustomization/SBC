@@ -201,17 +201,25 @@
             ]
         },
         sub1: {},
-        init:function() {
+        init: function() {
             this.sub1 = this.messageService.subscribe('GlobalFilterChanged', this.executeSql, this);
         },
-        executeSql:function(message) {
+        executeSql: function(message) {
             let dateFrom = message.package.value.values[0].value.dateFrom;
             let dateFinish = message.package.value.values[0].value.dateTo;
-            let orgVal = message.package.value.values[1].value.value;
+            let orgVal = '';
+            let orgLength = message.package.value.values[1].value.length;
+            for (let i = 0; i < orgLength; i++) {
+                if (i > 0) {
+                    orgVal = orgVal + ',' + message.package.value.values[1].value[i].value;
+                } else {
+                    orgVal = orgVal + message.package.value.values[1].value[i].value;
+                }
+            }
             let executeQuery = {
                 queryCode: 'Table_ClaimsType',
-                parameterValues: [{key: '@dateStart', value: dateFrom },{key: '@dateFinish', value: dateFinish },
-                    {key: '@OrganizationsId', value: orgVal}]
+                parameterValues: [{ key: '@dateStart', value: dateFrom }, { key: '@dateFinish', value: dateFinish },
+                    { key: '@OrganizationsId', value: orgVal }]
             };
             this.queryExecutor(executeQuery, this.load, this);
         },
