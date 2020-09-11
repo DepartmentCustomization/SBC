@@ -420,9 +420,24 @@
             const group1__element4 = this.createElement('div', {
                 className: 'group__element'
             }, group1__element4_checkBox, group1__element4_title);
+            const group1__element6_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 90,
+                value: 'rework_counter',
+                id: 'rework_counter'
+            });
+            const group1__element6_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'Лічильник'
+            });
+            const group1__element6 = this.createElement('div', {
+                className: 'group__element'
+            }, group1__element6_checkBox, group1__element6_title);
+
             const group1__container = this.createElement('div', {
                 className: 'groupContainer'
-            }, group1__title, group1__element1, group1__element5, group1__element2, group1__element3, group1__element4);
+            }, group1__title, group1__element1, group1__element5, group1__element2, group1__element3, group1__element4, group1__element6);
             const group2__element2_checkBox = this.createElement('input', {
                 type: 'checkbox',
                 className: 'group__element_checkBox',
