@@ -274,7 +274,7 @@
             let elementHistory__caption = this.createElement(
                 'div',
                 {
-                    className: 'elementHistory__caption caption', innerText: 'Історія'
+                    className: 'elementHistory__caption caption', innerText: 'Історія_останній НДЗ'
                 }
             );
             let elementHistory = this.createElement(

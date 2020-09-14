@@ -275,7 +275,7 @@
                     innerText: ndz + ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment
                 }
             );
-            let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія'});
+            let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія_останній НДЗ'});
             let elementHistory = this.createElement(
                 'div',
                 {

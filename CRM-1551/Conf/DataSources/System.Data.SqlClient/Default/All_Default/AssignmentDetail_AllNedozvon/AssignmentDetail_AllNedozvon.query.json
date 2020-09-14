@@ -1,0 +1,41 @@
+{
+  "ModelType": "Query",
+  "Code": "AssignmentDetail_AllNedozvon",
+  "Name": "AssignmentDetail_AllNedozvon",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Missed_call_counter",
+      "Name": "Missed_call_counter",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Edit_date",
+      "Name": "Edit_date",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "MissedCallComment",
+      "Name": "MissedCallComment",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "Assignment_id",
+      "Name": "Assignment_id",
+      "Position": 3,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@Assignment_id",
+      "Name": "Assignment_id",
+      "ParameterType": "Integer"
+    }
+  ]
+}
