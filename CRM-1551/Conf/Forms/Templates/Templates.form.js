@@ -17,13 +17,13 @@
               txtarea.selectionEnd = ( start == end )? (end + text.length) : end ;
         },
         init: function() {
-            this.form.onControlValueChanged('organization_id', this.onStreetsChanged);
+            // this.form.onControlValueChanged('organization_id', this.onStreetsChanged);
 
 ////////////////////////////
 
                 var css = `.menu-item {
-                    border: 2px solid #a6a6a6;
-                    background: #a6a6a6;
+                    border: 2px solid #ff6e40;
+                    background: #ff6e40;
                     color: white;
                     display: inline-block;
                     text-align: center;
@@ -31,25 +31,24 @@
                     cursor: pointer;
                     border-radius: 5px;
                 }
-                .menu-item .submenu {
-                    /*height: 50px;*/
-                    width: 150px;
-                    /*margin-top: 5px;*/
+                .submenu {
+                    width: 210px;
                     background: #efefef;
-                    right: -13px;
+                    right: -4px;
                     padding: 5px;
                     display: none;
                     position: absolute;
                     cursor: pointer;
                 }
-                .menu-item .submenu .submenu-btn {
-                    width: 90%;
+                .submenu-btn {
+                    width: 100%;
                     margin-top: 5px;
-                    border: 1px solid #a6a6a6;
+                    border: 1px solid #ff6e40;
                     border-radius: 5px;
-                    background: #a6a6a6;
+                    background: #ff6e40;
                     color: white;
                     cursor: pointer;
+                    display: table;
                 }`;
 
                 var htmlDiv = document.createElement('div');
@@ -66,12 +65,12 @@
 
 
                 var t  = document.getElementById('content');
-                var menu = document.createElement("div");
+                var menu = document.createElement("span");
                 menu.style.float = 'right';
                 menu.style.width = '60px';
-                menu.className = 'menu-item';
+                menu.className = 'menu-item material-icons';
                 menu.id = 'menu_item';
-                menu.innerText = 'меню';
+                menu.innerText = 'code';
                 // node.appendChild(menu);
                 t.parentElement.insertBefore(menu, t); 
 
@@ -85,29 +84,135 @@
                 //ADD BUTTONS
                 var btn1 = document.createElement("button");
                 btn1.className = 'submenu-btn';
-                btn1.innerText = 'tag 1';
+                btn1.innerText = 'ПІБ заявника';
                 btn1.id = 'AddTag1';
                 submenu.appendChild(btn1);
-
                 document.getElementById('AddTag1').addEventListener('click', function() {
-                    this.insertText('content', '{TAG1}');
+                    this.insertText('content', '<ПІБ заявника>');
                 }.bind(this));
 
                 var btn2 = document.createElement("button");
                 btn2.className = 'submenu-btn';
-                btn2.innerText = 'tag 2';
+                btn2.innerText = 'Адреса заявника';
                 btn2.id = 'AddTag2';
                 submenu.appendChild(btn2);
-
                 document.getElementById('AddTag2').addEventListener('click', function() {
-                    this.insertText('content', '{TAG2}');
+                    this.insertText('content', '<Адреса заявника>');
+                }.bind(this));
+
+                var btn3 = document.createElement("button");
+                btn3.className = 'submenu-btn';
+                btn3.innerText = 'Директор КБУ';
+                btn3.id = 'AddTag3';
+                submenu.appendChild(btn3);
+                document.getElementById('AddTag3').addEventListener('click', function() {
+                    this.insertText('content', '<Директор КБУ>');
+                }.bind(this));
+
+                var btn4 = document.createElement("button");
+                btn4.className = 'submenu-btn';
+                btn4.innerText = 'Номер питання';
+                btn4.id = 'AddTag4';
+                submenu.appendChild(btn4);
+                document.getElementById('AddTag4').addEventListener('click', function() {
+                    this.insertText('content', '<Номер питання>');
+                }.bind(this));
+
+                var btn5 = document.createElement("button");
+                btn5.className = 'submenu-btn';
+                btn5.innerText = 'Дата реєстрації';
+                btn5.id = 'AddTag5';
+                submenu.appendChild(btn5);
+                document.getElementById('AddTag5').addEventListener('click', function() {
+                    this.insertText('content', '<Дата реєстрації>');
+                }.bind(this));
+
+                var btn6 = document.createElement("button");
+                btn6.className = 'submenu-btn';
+                btn6.innerText = 'Тип питання';
+                btn6.id = 'AddTag6';
+                submenu.appendChild(btn6);
+                document.getElementById('AddTag6').addEventListener('click', function() {
+                    this.insertText('content', '<Тип питання>');
+                }.bind(this));
+
+                var btn7 = document.createElement("button");
+                btn7.className = 'submenu-btn';
+                btn7.innerText = 'Місце проблема';
+                btn7.id = 'AddTag7';
+                submenu.appendChild(btn7);
+                document.getElementById('AddTag7').addEventListener('click', function() {
+                    this.insertText('content', '<Місце проблема>');
+                }.bind(this));
+
+                var btn8 = document.createElement("button");
+                btn8.className = 'submenu-btn';
+                btn8.innerHTML = '<s>Організація</s> виконавець';
+                btn8.id = 'AddTag8';
+                submenu.appendChild(btn8);
+                document.getElementById('AddTag8').addEventListener('click', function() {
+                    this.insertText('content', '<Організація виконавець>');
+                }.bind(this));
+
+                var btn9 = document.createElement("button");
+                btn9.className = 'submenu-btn';
+                btn9.innerText = 'Директор організації';
+                btn9.id = 'AddTag9';
+                submenu.appendChild(btn9);
+                document.getElementById('AddTag9').addEventListener('click', function() {
+                    this.insertText('content', '<Директор організації>');
+                }.bind(this));
+
+                var btn10 = document.createElement("button");
+                btn10.className = 'submenu-btn';
+                btn10.innerText = 'Номер Заходу';
+                btn10.id = 'AddTag10';
+                submenu.appendChild(btn10);
+                document.getElementById('AddTag10').addEventListener('click', function() {
+                    this.insertText('content', '<Номер Заходу>');
+                }.bind(this));
+
+                var btn11 = document.createElement("button");
+                btn11.className = 'submenu-btn';
+                btn11.innerText = 'Клас Заходу';
+                btn11.id = 'AddTag11';
+                submenu.appendChild(btn11);
+                document.getElementById('AddTag11').addEventListener('click', function() {
+                    this.insertText('content', '<Клас Заходу>');
+                }.bind(this));
+
+                var btn12 = document.createElement("button");
+                btn12.className = 'submenu-btn';
+                btn12.innerText = 'Відповідальний за Захід';
+                btn12.id = 'AddTag12';
+                submenu.appendChild(btn12);
+                document.getElementById('AddTag12').addEventListener('click', function() {
+                    this.insertText('content', '<Відповідальний за Захід>');
+                }.bind(this));
+
+                var btn13 = document.createElement("button");
+                btn13.className = 'submenu-btn';
+                btn13.innerText = 'Дата початку Заходу';
+                btn13.id = 'AddTag13';
+                submenu.appendChild(btn13);
+                document.getElementById('AddTag13').addEventListener('click', function() {
+                    this.insertText('content', '<Дата початку Заходу>');
+                }.bind(this));
+
+                var btn14 = document.createElement("button");
+                btn14.className = 'submenu-btn';
+                btn14.innerText = 'Планова дата завершення';
+                btn14.id = 'AddTag14';
+                submenu.appendChild(btn14);
+                document.getElementById('AddTag14').addEventListener('click', function() {
+                    this.insertText('content', '<Планова дата завершення>');
                 }.bind(this));
 
                 ///////////////////
 
         document.getElementById('menu_item').onmouseover= function(event) {
             var target = event.target; // где был клик?
-            if (target.className == 'menu-item') {
+            if (target.className == 'menu-item material-icons') {
                 var s=target.getElementsByClassName('submenu');
                 closeMenu();
                 s[0].style.display='block';
@@ -117,7 +222,7 @@
         document.onmousemove=function(event) {
             var target = event.target; // где был клик?
             // console.log(event.target);
-            if (target.className!='menu-item' && target.className!='submenu' && target.className!='submenu-btn') {
+            if (target.className!='menu-item material-icons' && target.className!='submenu' && target.className!='submenu-btn') {
                 closeMenu();
             }
         }
