@@ -1,6 +1,8 @@
 
 
 
+
+
 ----------после 2019 11 28 , согласно задачи 545 с файла
 
 
@@ -625,7 +627,7 @@ select distinct --top 5000
   ,[ConsDocumentContent]
   ,[control_date]
   ,[rework_counter_true] [rework_counter] 
-  ,plan_program
+  ,case when plan_program=''true'' then N''так'' else N''ні'' end plan_program
  from
  (
   select distinct [Assignments].Id,
