@@ -20,6 +20,11 @@
       "Code": "@executor_organization_id",
       "Name": "executor_organization_id",
       "ParameterType": "Integer"
+    },
+    {
+      "Code": "@current_edit_date",
+      "Name": "current_edit_date",
+      "ParameterType": "DateTime"
     }
   ]
 }
