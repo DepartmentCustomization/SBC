@@ -1,5 +1,9 @@
 (function() {
     return {
+        
+        recalc_content: function () {
+            this.form.setControlValue('content', document.getElementById('content').value);
+        },
         insertText: function ( id, text ) {
             //ищем элемент по id
               var txtarea = document.getElementById(id);
@@ -89,6 +93,7 @@
                 submenu.appendChild(btn1);
                 document.getElementById('AddTag1').addEventListener('click', function() {
                     this.insertText('content', '<ПІБ заявника>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn2 = document.createElement("button");
@@ -98,6 +103,7 @@
                 submenu.appendChild(btn2);
                 document.getElementById('AddTag2').addEventListener('click', function() {
                     this.insertText('content', '<Адреса заявника>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn3 = document.createElement("button");
@@ -107,6 +113,7 @@
                 submenu.appendChild(btn3);
                 document.getElementById('AddTag3').addEventListener('click', function() {
                     this.insertText('content', '<Директор КБУ>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn4 = document.createElement("button");
@@ -116,6 +123,7 @@
                 submenu.appendChild(btn4);
                 document.getElementById('AddTag4').addEventListener('click', function() {
                     this.insertText('content', '<Номер питання>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn5 = document.createElement("button");
@@ -125,6 +133,7 @@
                 submenu.appendChild(btn5);
                 document.getElementById('AddTag5').addEventListener('click', function() {
                     this.insertText('content', '<Дата реєстрації>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn6 = document.createElement("button");
@@ -134,6 +143,7 @@
                 submenu.appendChild(btn6);
                 document.getElementById('AddTag6').addEventListener('click', function() {
                     this.insertText('content', '<Тип питання>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn7 = document.createElement("button");
@@ -143,15 +153,17 @@
                 submenu.appendChild(btn7);
                 document.getElementById('AddTag7').addEventListener('click', function() {
                     this.insertText('content', '<Місце проблема>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn8 = document.createElement("button");
                 btn8.className = 'submenu-btn';
-                btn8.innerHTML = '<s>Організація</s> виконавець';
+                btn8.innerText = 'Організація-виконавець';
                 btn8.id = 'AddTag8';
                 submenu.appendChild(btn8);
                 document.getElementById('AddTag8').addEventListener('click', function() {
-                    this.insertText('content', '<Організація виконавець>');
+                    this.insertText('content', '<Організація-виконавець>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn9 = document.createElement("button");
@@ -161,6 +173,7 @@
                 submenu.appendChild(btn9);
                 document.getElementById('AddTag9').addEventListener('click', function() {
                     this.insertText('content', '<Директор організації>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn10 = document.createElement("button");
@@ -170,6 +183,7 @@
                 submenu.appendChild(btn10);
                 document.getElementById('AddTag10').addEventListener('click', function() {
                     this.insertText('content', '<Номер Заходу>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn11 = document.createElement("button");
@@ -179,6 +193,7 @@
                 submenu.appendChild(btn11);
                 document.getElementById('AddTag11').addEventListener('click', function() {
                     this.insertText('content', '<Клас Заходу>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn12 = document.createElement("button");
@@ -188,6 +203,7 @@
                 submenu.appendChild(btn12);
                 document.getElementById('AddTag12').addEventListener('click', function() {
                     this.insertText('content', '<Відповідальний за Захід>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn13 = document.createElement("button");
@@ -197,6 +213,7 @@
                 submenu.appendChild(btn13);
                 document.getElementById('AddTag13').addEventListener('click', function() {
                     this.insertText('content', '<Дата початку Заходу>');
+                    this.recalc_content();
                 }.bind(this));
 
                 var btn14 = document.createElement("button");
@@ -206,6 +223,7 @@
                 submenu.appendChild(btn14);
                 document.getElementById('AddTag14').addEventListener('click', function() {
                     this.insertText('content', '<Планова дата завершення>');
+                    this.recalc_content();
                 }.bind(this));
 
                 ///////////////////
