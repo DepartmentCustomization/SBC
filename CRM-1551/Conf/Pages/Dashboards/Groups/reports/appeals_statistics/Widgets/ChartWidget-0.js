@@ -96,7 +96,7 @@
             return `${dd}.${mm}.${yyyy}`;
         },
         load: function(params) {
-            let rows = params.rows;
+            let rows = params.rows
             let columns = params.columns;
             this.chartConfig.xAxis.categories = [];
             this.chartConfig.series = [];
