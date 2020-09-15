@@ -16,6 +16,11 @@
             this.firstLoad = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.resetParams, this));
         },
+        setTitle() {
+            const title = document.querySelector('#CustomWidget-3 #title')
+            let text = '<span class="material-icons fourth">devices</span> <span class="widget-title">Платформа</span>'
+            title.innerHTML = text
+        },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
@@ -38,14 +43,6 @@
             if(container.hasChildNodes()) {
                 container.innerHTML = '';
             }
-            const paragraphFrom = this.createElement('span',{ className:'date',id:'pFromCon1',name:'date'});
-            const paragraphTo = this.createElement('span',{ className:'date',id:'pToCon1',name:'date'});
-            paragraphFrom.textContent = this.changeDateTimeValues(dateFrom);
-            paragraphTo.textContent = this.changeDateTimeValues(dateTo);
-            container.insertAdjacentHTML('beforeend','<span> з </span>');
-            container.append(paragraphFrom);
-            container.insertAdjacentHTML('beforeend','<span> по </span>');
-            container.append(paragraphTo);
             if(this.firstLoad) {
                 this.firstLoad = false;
                 this.resetParams()
@@ -64,21 +61,78 @@
             let executeQuery = {
                 queryCode: 'SAFS_MainTable',
                 parameterValues: [
-                    {key: '@date_from', value: this.dateFrom},
+                    {key: '@date_from', value: this.toUTC(this.dateFrom)},
                     {key: '@date_to', value: this.dateTo}
                 ],
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.load, this);
         },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
+            return dateTo
+        },
+        closeModal() {
+            const con = document.querySelector('.modal')
+            const wrapper = document.getElementById('wrapper')
+            wrapper.remove()
+            con.remove()
+        },
+        afterLoad(e) {
+            const list = Array.from(document.querySelectorAll('.info-button-label'))
+            const index = list.indexOf(e.target)
+            let executeQuery = {
+                queryCode: 'SAFS_ReportsInfo_SRow',
+                parameterValues: [
+                    {key: '@reportcode', value: `${index + 1}`}
+                ],
+                limit: -1
+            };
+            this.queryExecutor(executeQuery, this.openModal, this);
+        },
+        openModal(msg) {
+            const {rows} = msg
+            rows[0].values.shift()
+            const newArr = rows[0].values.map(elem=>{
+                return `<p class="first">${elem}</p>`
+            }).join('')
+            const main = document.querySelector('.root-main')
+            const wrapper = this.createElement('div',{classList:'wrapper',id:'wrapper'})
+            wrapper.addEventListener('click',this.closeModal.bind(this))
+            const modal = this.createElement('div',{classList:'modal active',id:'modal'})
+            const widget = document.getElementById('CustomWidget-3')
+            const titleText = widget.querySelector('.widget-title').textContent
+            const title = this.createElement('h2',{textContent:titleText,classList:'modal-title'})
+            const closeBtn = this.createElement('span',{textContent: 'x',id:'close-modal',classList:'close-modal'})
+            closeBtn.addEventListener('click',this.closeModal.bind(this))
+            modal.append(title,closeBtn)
+            modal.insertAdjacentHTML('beforeend',newArr)
+            main.insertAdjacentElement('beforeend',wrapper)
+            main.insertAdjacentElement('beforeend',modal)
+        },
         load: function(data) {
+            this.setTitle()
             const cellInfo = document.getElementById('cell4-info');
             cellInfo.innerHTML = '';
-            const val = data.rows[0].values[5] === null ? 0 : data.rows[0].values[5];
-            const shortValue = Number(val);
-            const classForP = shortValue > 0 ? 'cell-info active' : 'cell-info';
-            const p = `<p class='${classForP}'>${val}</p>`;
-            cellInfo.insertAdjacentHTML('beforeend',p)
+            const windowsVal = data.rows[0].values[10];
+            const windowsP = `<p class='cell-info active'><span class="material-icons fourth"> laptop</span> ${windowsVal}</p>`;
+            const androidVal = data.rows[0].values[11];
+            const androidText = `<span class='cell-info active primary'>
+            <span class="material-icons fourth">android</span> ${androidVal}</span>`
+            const appleVal = data.rows[0].values[12];
+            const appleText = `<span class='cell-info active'><i class="fa fa-apple fourth"></i> ${appleVal}</span>`
+            cellInfo.insertAdjacentHTML('beforeend',`${windowsP} ${androidText} ${appleText}`)
+            const infoBtn = this.createElement('span',{classList:'info-button',id:'info-button'})
+            const infoBtnSpan = this.createElement('span',{classList:'material-icons info-button-label',textContent:'info'})
+            infoBtnSpan.addEventListener('click',this.afterLoad.bind(this))
+            infoBtn.append(infoBtnSpan)
+            cellInfo.append(infoBtn)
         }
     };
 }());

@@ -47,6 +47,48 @@
       "Name": "cell5",
       "Position": 6,
       "IsPrintable": false
+    },
+    {
+      "Code": "cell1_count_applicants",
+      "Name": "cell1_count_applicants",
+      "Position": 7,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell1_count_applicants_more1appeals",
+      "Name": "cell1_count_applicants_more1appeals",
+      "Position": 8,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell1_count_applicants_verified",
+      "Name": "cell1_count_applicants_verified",
+      "Position": 9,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell4_windows",
+      "Name": "cell4_windows",
+      "Position": 10,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell4_android",
+      "Name": "cell4_android",
+      "Position": 11,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell4_Apple",
+      "Name": "cell4_Apple",
+      "Position": 12,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell5_ReturnToApplicant",
+      "Name": "cell5_ReturnToApplicant",
+      "Position": 13,
+      "IsPrintable": false
     }
   ],
   "Parameters": [

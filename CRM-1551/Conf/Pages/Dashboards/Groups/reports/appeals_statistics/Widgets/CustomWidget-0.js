@@ -1,6 +1,6 @@
 (function() {
     return {
-        title: 'Надійшло звернень за період',
+        title: '',
         hint: '',
         formatTitle: function() {},
         customConfig:
@@ -15,6 +15,11 @@
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.setFiltersParams, this));
             this.firstLoad = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.resetParams, this));
+        },
+        setTitle() {
+            const title = document.querySelector('#CustomWidget-0 #title')
+            let text = '<span class="material-icons first">person</span> <span class="widget-title">Користувачі</span>'
+            title.innerHTML = text
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
@@ -38,14 +43,6 @@
             if(container.hasChildNodes()) {
                 container.innerHTML = '';
             }
-            const paragraphFrom = this.createElement('span',{ className:'date',id:'pFromCon1',name:'date'});
-            const paragraphTo = this.createElement('span',{ className:'date',id:'pToCon1',name:'date'});
-            paragraphFrom.textContent = this.changeDateTimeValues(dateFrom);
-            paragraphTo.textContent = this.changeDateTimeValues(dateTo);
-            container.insertAdjacentHTML('beforeend','<span> з </span>');
-            container.append(paragraphFrom);
-            container.insertAdjacentHTML('beforeend','<span> по </span>');
-            container.append(paragraphTo);
             if(this.firstLoad) {
                 this.firstLoad = false;
                 this.resetParams()
@@ -64,23 +61,81 @@
             let executeQuery = {
                 queryCode: 'SAFS_MainTable',
                 parameterValues: [
-                    {key: '@date_from', value: this.dateFrom},
+                    {key: '@date_from', value: this.toUTC(this.dateFrom)},
                     {key: '@date_to', value: this.dateTo}
                 ],
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.load, this);
         },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
+            return dateTo
+        },
+        closeModal() {
+            const con = document.querySelector('.modal')
+            const wrapper = document.getElementById('wrapper')
+            wrapper.remove()
+            con.remove()
+        },
+        afterLoad(e) {
+            const list = Array.from(document.querySelectorAll('.info-button-label'))
+            const index = list.indexOf(e.target)
+            let executeQuery = {
+                queryCode: 'SAFS_ReportsInfo_SRow',
+                parameterValues: [
+                    {key: '@reportcode', value: `${index + 1}`}
+                ],
+                limit: -1
+            };
+            this.queryExecutor(executeQuery, this.openModal, this);
+        },
+        openModal(msg) {
+            const {rows} = msg
+            rows[0].values.shift()
+            const newArr = rows[0].values.map(elem=>{
+                return `<p class="first">${elem}</p>`
+            }).join('')
+            const wrapper = this.createElement('div',{classList:'wrapper',id:'wrapper'})
+            wrapper.addEventListener('click',this.closeModal.bind(this))
+            const main = document.querySelector('.root-main')
+            const modal = this.createElement('div',{classList:'modal active',id:'modal'})
+            const widget = document.getElementById('CustomWidget-0')
+            const titleText = widget.querySelector('.widget-title').textContent
+            const title = this.createElement('h2',{textContent:titleText,classList:'modal-title'})
+            const closeBtn = this.createElement('span',{textContent: 'x',id:'close-modal',classList:'close-modal'})
+            closeBtn.addEventListener('click',this.closeModal.bind(this))
+            modal.append(title,closeBtn)
+            main.insertAdjacentElement('beforeend',wrapper)
+            modal.insertAdjacentHTML('beforeend',newArr)
+            main.insertAdjacentElement('beforeend',modal)
+        },
         load: function(data) {
+            this.setTitle()
             const list = document.querySelectorAll('#CustomWidget-0,#CustomWidget-1,#CustomWidget-2,#CustomWidget-3,#CustomWidget-4')
-            list.forEach(e=>e.classList.add('cell-item'))
+            list.forEach(e=>{
+                e.classList.add('cell-item')
+            })
             const cellInfo = document.getElementById('cell1-info');
             cellInfo.innerHTML = '';
-            const cellValue = data.rows[0].values[1];
-            const shortValue = Number(cellValue.slice(0,1));
-            const classForP = shortValue > 0 ? 'cell-info active' : 'cell-info';
-            const p = `<p class='${classForP}'>${cellValue}</p>`;
-            cellInfo.insertAdjacentHTML('beforeend',p);
+            const applicants = data.rows[0].values[7];
+            const p = `<p class='cell-info active'><i class="fa fa-users first"></i> ${applicants}</p>`;
+            const more1Appeals = `<span class="material-icons first">
+            local_post_office</span> <span class='cell-info primary'>${data.rows[0].values[8]}</span>`;
+            const verified = `<span class="material-icons first">
+            done</span> <span class='cell-info'>${data.rows[0].values[9]}</span>`;
+            const infoBtn = this.createElement('span',{classList:'info-button',id:'info-button'})
+            const infoBtnSpan = this.createElement('span',{classList:'material-icons info-button-label',textContent:'info'})
+            infoBtnSpan.addEventListener('click',this.afterLoad.bind(this))
+            infoBtn.append(infoBtnSpan)
+            cellInfo.insertAdjacentHTML('beforeend',`${p} ${more1Appeals} ${verified}`);
+            cellInfo.append(infoBtn)
         }
     };
 }());

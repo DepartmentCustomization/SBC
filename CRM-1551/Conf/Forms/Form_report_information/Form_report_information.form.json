@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_report_information",
+  "Name": "Form_report_information",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\main.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}

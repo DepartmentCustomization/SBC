@@ -1,0 +1,27 @@
+{
+  "Code": "main",
+  "Name": " ",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "reportcode",
+      "Name": "Назва звіту",
+      "FieldType": "text",
+      "Position": 1
+    },
+    {
+      "Code": "diagramcode",
+      "Name": "Назва діаграми",
+      "FieldType": "text",
+      "Position": 2
+    },
+    {
+      "Code": "content",
+      "Name": "Опис",
+      "FieldType": "textarea",
+      "Position": 3,
+      "Width": "100%",
+      "Rows": 10
+    }
+  ]
+}
