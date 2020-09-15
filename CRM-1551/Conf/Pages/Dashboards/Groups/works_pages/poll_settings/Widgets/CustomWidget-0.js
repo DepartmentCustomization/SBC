@@ -290,22 +290,39 @@
             con.addEventListener('click',this.slideEffect.bind(this))
             return con
         },
-        saveForm() {
-            /*const container = e.target.closest('.interview-form-con')
-            const list = container.querySelectorAll('input , select')
-            const listArray = [...list]
-            const listVals = listArray.map(elem=>`${elem.className}:${elem.value}`)
-            const listObj = {}
-            let index = 0
-            listArray.forEach(elem=>{
-                if(listObj.hasOwnProperty(elem.className)) {
-                    listObj[elem.className + index] = elem.value
-                    index++
-                } else {
-                    listObj[elem.className] = elem.value
+        saveForm(e) {
+            const container = e.target.closest('.interview-form-con')
+            const saveBtn = container.querySelector('.save-form')
+            const inputValues = [...container.querySelectorAll('input , select')]
+            const empty = inputValues.find(e=>e.value === '')
+            if(!empty) {
+                const warning = document.querySelector('.dangerous')
+                if(warning) {
+                    warning.remove()
                 }
-            })
-            console.log(listObj)*/
+                const list = container.querySelectorAll('.dynamic-input , select')
+                const variantsCon = [...container.querySelectorAll('.quiz-con')]
+                const listArray = [...list]
+                const variants = variantsCon.map(item=>{
+                    const obj = {
+                        ukr: item.firstChild.value,
+                        rus: item.lastChild.value
+                    }
+                    return obj
+                })
+                const listObj = {}
+                listArray.forEach(elem=>{
+                    listObj[elem.className] = elem.value
+                })
+                listObj.variants = variants
+            }else {
+                const warning = document.querySelector('.dangerous')
+                if(warning) {
+                    warning.remove()
+                }
+                const warn = this.createElement('p',{classList:'dangerous',textContent:'Всі поля повинні бути заповнені'})
+                saveBtn.insertAdjacentElement('afterend',warn)
+            }
         },
         createAddVariantBtn(testBlock) {
             const con = this.createElement('div',{className:'add-variant-con'});
