@@ -61,7 +61,7 @@ DECLARE @Query NVARCHAR(MAX) = N'
 		WHERE question_id = @question_id;
 ';
 	EXEC sp_executesql @Query, N'@question_id INT, @event_id INT, @user_id NVARCHAR(128)', 
-								@Id = @Id,
+								@question_id = @question_id,
 								@event_id = @event_id,
 								@user_id = @user_id;
 END
