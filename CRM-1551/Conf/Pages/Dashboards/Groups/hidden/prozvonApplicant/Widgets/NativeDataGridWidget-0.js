@@ -239,7 +239,7 @@
                 'div',
                 {
                     className: 'elementHistory__caption caption',
-                    innerText: 'Історія'
+                    innerText: 'Історія_останній НДЗ'
                 }
             );
             let elementHistory = this.createElement(
