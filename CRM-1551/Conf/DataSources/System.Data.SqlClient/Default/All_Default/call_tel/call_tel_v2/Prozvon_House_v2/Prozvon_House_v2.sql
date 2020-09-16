@@ -15,10 +15,17 @@
  select Id, registration_number, QuestionType, full_name, phone_number, DistrictName District,
  house, place_problem, vykon, zmist, comment, [history], ApplicantsId, BuildingId, [Organizations_Id],
  cc_nedozvon, AssignmentStates_code, states, result, result_id, entrance, [edit_date], [control_comment], [registration_date]
- 
+ ,All_NDZV
  from
  (
  select [Assignments].Id, [Questions].registration_number, ltrim([QuestionTypes].name) QuestionType,
+ (select (select  convert(xml, ''  <p> '' + cast(Missed_call_counter as varchar(10)) + N'' (дата та час недозвону: '' + convert(varchar, CONVERT(datetime, SWITCHOFFSET(Edit_date, DATEPART(TZOFFSET,Edit_date AT TIME ZONE ''E. Europe Standard Time''))), 120) + N''), коментар: '' + isnull(MissedCallComment, '''') + '' </p> '')
+from AssignmentDetailHistory 
+where  Missed_call_counter = 1
+and AssignmentDetailHistory.Assignment_id = Assignments.Id
+For XML PATH('''')
+) )as All_NDZV,
+
   [Applicants].full_name, [ApplicantPhones].phone_number, [Districts].Id District,
   [Districts].Name DistrictName,
   isnull([StreetTypes].shortname+N'' '',N'''')+

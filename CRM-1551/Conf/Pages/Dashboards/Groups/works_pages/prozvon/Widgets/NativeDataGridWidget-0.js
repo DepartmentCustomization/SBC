@@ -266,14 +266,15 @@
             if(currentEmployeeData.control_comment === null) {
                 currentEmployeeData.control_comment = '';
             }
-            if(currentEmployeeData.All_NDZV == null) {
-                currentEmployeeData.All_NDZV = '<p> </p>';
+            if(currentEmployeeData.All_NDZV === null) {
+                currentEmployeeData.All_NDZV = '';
             }
             
             let ndz = currentEmployeeData.cc_nedozvon;
             let ndzComment = currentEmployeeData.control_comment;
-
+/////////////////////////////////////////////////////////
             let AllNDZV = currentEmployeeData.All_NDZV;
+           
             let elementHistoryAllNDZV__content = this.createElement(
                 'div',
                 {
