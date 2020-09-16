@@ -38,7 +38,7 @@
                 const dataBlock = this.createElement('div', {className: 'data-block'});
                 const activityButton = this.createActivityButton(obj.activity);
                 dataBlock.append(dateFrom,dateTo,activityButton);
-                const staticInfo = this.createStaticInfo();
+                const staticInfo = this.createStaticInfo(obj);
                 conStatic.append(headerBlock,dataBlock,staticInfo);
             }else{
                 const headerBlock = this.createHeaderBlock();
@@ -74,13 +74,118 @@
         },
         createDynamic() {
             const conDynamic = document.getElementById('dynamic');
+            const questionsCon = this.createElement('div',{className: 'questions-container'});
             conDynamic.innerHTML = '';
             const dynamicHeader = this.createElement('div',{className: 'dynamic-header'});
             const addNewForm = this.createAddNewForm();
+            this.itemIndex = 1;
             const formList = this.createFormList();
+            formList.addEventListener('click',this.slideEffect.bind(this))
+            const formListItem = this.createFormListItem()
+            formList.append(formListItem)
+            addNewForm.addEventListener('click',()=>{
+                const item = this.createFormListItem();
+                item.classList.remove('active')
+                const props = {
+                    dataId: item.textContent,
+                    display:'none'
+                }
+                const newForm = this.createInterviewForm(props)
+                newForm.classList.remove('active')
+                formList.append(item)
+                questionsCon.append(newForm)
+            })
             const interviewForm = this.createInterviewForm();
             dynamicHeader.append(formList,addNewForm);
-            conDynamic.append(dynamicHeader,interviewForm);
+            questionsCon.append(interviewForm);
+            conDynamic.append(dynamicHeader,questionsCon);
+        },
+        updateFormListItems() {
+            const list = Array.from(document.querySelectorAll('.form-list-item'))
+            const formItems = Array.from(document.querySelectorAll('.interview-form-con'))
+            const newVals = list.map(val=>{
+                const index = list.indexOf(val)
+                let arg = null
+                if(index + 1 === val.textContent) {
+                    arg = val
+                } else {
+                    val.textContent = index + 1;
+                    arg = val
+                }
+                return arg
+            })
+            formItems.forEach(elem=>{
+                const index = formItems.indexOf(elem)
+                let iq = null
+                if(elem.dataId === newVals[index].textContent) {
+                    iq = elem
+                } else {
+                    elem.dataId = newVals[index].textContent
+                    iq = elem
+                }
+                return iq
+            })
+            return newVals
+        },
+        slideEffect({target}) {
+            const formItem = document.querySelectorAll('.interview-form-con')
+            const formListItem = document.querySelectorAll('.form-list-item')
+            if(target.classList.contains('form-list-item')) {
+                formListItem.forEach(item=>{
+                    item.classList.remove('active')
+                })
+                formItem.forEach(elem=>{
+                    elem.classList.remove('active')
+                    if (elem.dataId === target.textContent) {
+                        elem.classList.add('active')
+                        target.classList.add('active')
+                    }
+                })
+
+            } else if (target.classList.contains('arrow')) {
+                const activeFormListItem = document.querySelector('.form-list-item.active')
+                if (target.textContent.includes('forward')) {
+                    if (activeFormListItem.nextSibling) {
+                        activeFormListItem.nextSibling.classList.add('active')
+                        formItem.forEach(elem=>{
+                            elem.classList.remove('active')
+                            if (elem.dataId === activeFormListItem.nextSibling.textContent) {
+                                elem.classList.add('active')
+                            }
+                        })
+                    }else {
+                        const firstItem = formListItem[0]
+                        firstItem.classList.add('active')
+                        formItem.forEach(elem=>{
+                            elem.classList.remove('active')
+                            if (elem.dataId === firstItem.textContent) {
+                                elem.classList.add('active')
+                            }
+                        })
+                    }
+                    activeFormListItem.classList.remove('active')
+                } else if(target.textContent.includes('back')) {
+                    if(activeFormListItem.previousSibling) {
+                        activeFormListItem.previousSibling.classList.add('active')
+                        formItem.forEach(elem=>{
+                            elem.classList.remove('active')
+                            if (elem.dataId === activeFormListItem.previousSibling.textContent) {
+                                elem.classList.add('active')
+                            }
+                        })
+                    } else {
+                        const lastItem = formListItem[formListItem.length - 1]
+                        lastItem.classList.add('active')
+                        formItem.forEach(elem=>{
+                            elem.classList.remove('active')
+                            if (elem.dataId === lastItem.textContent) {
+                                elem.classList.add('active')
+                            }
+                        })
+                    }
+                    activeFormListItem.classList.remove('active')
+                }
+            }
         },
         createHeaderBlock(obj = null,fixRow = null) {
             const headerBlockProps = {
@@ -114,13 +219,16 @@
             buttonsBlock.append(buttonBack,buttonSave);
             return headerBlock
         },
-        createInterviewForm() {
-            const con = this.createElement('div',{className:'interview-form-con'});
+        createInterviewForm(props = null) {
+            const con = this.createElement('div',{
+                className:'interview-form-con active',
+                dataId:props ? props.dataId : '1'
+            });
             const inputs = this.createDynamicInputs();
             const select = this.createAnswerType();
             const createTestForm = this.createElement('div',{className:'test-form-con'})
             const quiz = this.createQuiz();
-            const addVariant = this.createAddVariantBtn();
+            const addVariant = this.createAddVariantBtn(con);
             createTestForm.append(quiz);
             const footer = this.createInterviewFormFooter();
             con.append(inputs,select,createTestForm,addVariant,footer)
@@ -145,26 +253,93 @@
             });
             return span
         },
+        deleteForm() {
+            const formItems = document.querySelectorAll('.interview-form-con')
+            const activeFormItem = document.querySelector('.interview-form-con.active')
+            const activeFormListItem = document.querySelector('.form-list-item.active')
+            if(activeFormListItem.previousSibling) {
+                activeFormListItem.previousSibling.classList.add('active');
+                formItems.forEach(elem=>{
+                    if (elem.dataId === activeFormListItem.previousSibling.textContent) {
+                        elem.classList.add('active')
+                    }
+                })
+            } else {
+                activeFormListItem.nextSibling.classList.add('active');
+                formItems.forEach(elem=>{
+                    if (elem.dataId === activeFormListItem.nextSibling.textContent) {
+                        elem.classList.add('active')
+                    }
+                })
+            }
+            activeFormItem.remove()
+            activeFormListItem.remove()
+            this.updateFormListItems()
+        },
         createInterviewFormFooter() {
             const con = this.createElement('div',{className:'interview-form-footer'});
             const arrowLeft = this.createElement('span',{className:'arrow material-icons', textContent:'arrow_back'})
             const arrowRight = this.createElement('span',{className:'arrow material-icons', textContent:'arrow_forward'})
             const btnsCon = this.createElement('div',{className:'interview-form-btn-con'});
             const saveBtn = this.createElement('button',{className:'save-form interview-form-btn', textContent:'Зберегти'})
+            saveBtn.addEventListener('click',this.saveForm.bind(this))
             const cancelBtn = this.createElement('button',{className:'delete-form interview-form-btn', textContent:'Видалити'})
+            cancelBtn.addEventListener('click',this.deleteForm.bind(this))
             btnsCon.append(cancelBtn,saveBtn)
             con.append(arrowLeft,btnsCon,arrowRight)
+            con.addEventListener('click',this.slideEffect.bind(this))
             return con
         },
-        createAddVariantBtn() {
+        saveForm(e) {
+            const container = e.target.closest('.interview-form-con')
+            const saveBtn = container.querySelector('.save-form')
+            const inputValues = [...container.querySelectorAll('input , select')]
+            const dataId = document.getElementById('header-block').dataRowIndex
+            const empty = inputValues.find(e=>e.value === '')
+            let sendVal = null
+            if(!empty) {
+                const warning = document.querySelector('.dangerous')
+                if(warning) {
+                    warning.remove()
+                }
+                const list = container.querySelectorAll('.dynamic-input , select')
+                const variantsCon = [...container.querySelectorAll('.quiz-con')]
+                const listArray = [...list]
+                const variants = variantsCon.map(item=>{
+                    const obj = {
+                        ukr: item.firstChild.value,
+                        rus: item.lastChild.value
+                    }
+                    return obj
+                })
+                const listObj = {}
+                listArray.forEach(elem=>{
+                    listObj[elem.className] = elem.value
+                })
+                listObj.variants = variants
+                listObj.mainId = dataId
+                const stringObj = JSON.stringify(listObj)
+                sendVal = stringObj
+
+            }else {
+                const warning = document.querySelector('.dangerous')
+                if(warning) {
+                    warning.remove()
+                }
+                const warn = this.createElement('p',{classList:'dangerous',textContent:'Всі поля повинні бути заповнені'})
+                saveBtn.insertAdjacentElement('afterend',warn)
+            }
+            return sendVal
+        },
+        createAddVariantBtn(testBlock) {
             const con = this.createElement('div',{className:'add-variant-con'});
             const addVariant = this.createElement('button',{classList:'add-variant',textContent:'Додати варіант'})
             const span = this.createElement('span',{className:'add-variant-span', textContent:'або'})
             const addYourVariant = this.createElement('button',{classList:'add-your-variant',textContent:'Додати варіант "інше"'})
-            addYourVariant.addEventListener('click',this.addYourVariantFunc.bind(this))
+            addYourVariant.addEventListener('click',()=>this.addYourVariantFunc(testBlock))
             addVariant.addEventListener('click',()=>{
-                const mainCon = document.querySelector('.test-form-con')
-                const inputList = document.querySelectorAll('.quiz-variant')
+                const mainCon = testBlock.querySelector('.test-form-con')
+                const inputList = testBlock.querySelectorAll('.quiz-variant')
                 let flag = true;
                 inputList.forEach(e=>{
                     if(e.value === '') {
@@ -172,13 +347,13 @@
                     }
                 })
                 if(flag) {
-                    const warn = document.querySelector('.warning');
+                    const warn = testBlock.querySelector('.warning');
                     if(warn) {
                         warn.remove()
                     }
                     mainCon.append(this.createQuiz())
                 }else {
-                    const warn = document.querySelector('.warning');
+                    const warn = testBlock.querySelector('.warning');
                     if(warn) {
                         warn.remove()
                     }
@@ -189,9 +364,9 @@
             con.append(addVariant,span,addYourVariant);
             return con
         },
-        addYourVariantFunc() {
-            const mainCon = document.querySelector('.test-form-con')
-            const otherVariant = document.querySelector('.other-variant-con')
+        addYourVariantFunc(testBlock) {
+            const mainCon = testBlock.querySelector('.test-form-con')
+            const otherVariant = testBlock.querySelector('.other-variant-con')
             if(otherVariant) {
                 otherVariant.remove()
             }
@@ -217,11 +392,18 @@
             return con;
         },
         createFormList() {
-            const arr = [1,2,3];
-            const newArr = arr.map(e=>`<li class='form-list-item'>${e}</li>`).join('');
             const ul = this.createElement('ul',{classList: 'form-list'});
-            ul.insertAdjacentHTML('beforeend',`${newArr}`);
             return ul
+        },
+        createFormListItem() {
+            let index = this.itemIndex++
+            const list = document.querySelectorAll('.form-list-item')
+            if (list.length > 1 && list[list.length - 1].textContent < index) {
+                index = Number(list[list.length - 1].textContent) + 1
+            }
+            const li = this.createElement('li',{
+                classList: 'form-list-item active',textContent:index,dataFormNum:index,draggable:true});
+            return li
         },
         createAddNewForm() {
             const className = 'add-new-form material-icons'
@@ -273,7 +455,8 @@
                     {key: '@start_date', value: dateFrom},
                     {key: '@end_date', value: dateTo},
                     {key: '@is_active', value: obj.status},
-                    {key: '@id', value: rowId}
+                    {key: '@id', value: rowId},
+                    {key: '@col_Applicants', value: obj.applicants }
                 ]
             };
             this.queryExecutor(insertRowQuery,this.updateGrid,this);
@@ -293,7 +476,8 @@
                     {key: '@direction_id', value: obj.intDirection},
                     {key: '@start_date', value: dateFrom},
                     {key: '@end_date', value: dateTo},
-                    {key: '@is_active', value: obj.status}
+                    {key: '@is_active', value: obj.status},
+                    {key: '@col_Applicants', value: obj.applicants }
                 ]
             };
             this.queryExecutor(insertRowQuery,this.updateGrid,this);
@@ -310,9 +494,19 @@
                 name:'status',
                 value:document.querySelector('.activity').status
             };
-            const newArray = inputs.map(({name,value})=>{
-                const obj = {
+            const newArray = inputs.map((elem)=>{
+                const {name,value} = elem
+                let obj = {
                     name, value
+                }
+                if(elem.classList.contains('interview-direction')) {
+                    const childArr = Array.from(elem.childNodes)
+                    const selected = childArr.filter((child) => child.selected)
+                    const selectedVal = selected.map(item=>Number(item.value))
+                    const value = selectedVal.join(',')
+                    obj = {
+                        name,value
+                    }
                 }
                 return obj
             })
@@ -321,8 +515,10 @@
         },
         openWarningModal() {
             const modal = this.createElement('div',{className:'warning-modal',id:'warning-modal'});
-            const props = {className:'modal-title',textContent:'Ви дійсно хочете вийти з процесу створення опитування?'}
+            const props = {className:'modal-title',textContent:'Внесені зміни не будуть збережені'}
             const h2 = this.createElement('h2',props);
+            const subProps = {className:'modal-subtitle',textContent:'Вийти і втратити внесені дані?'};
+            const p = this.createElement('p',subProps);
             const tab = document.getElementById('second_widget')
             const mainCon = document.getElementById('first_widget')
             const buttonAccept = this.createElement('button',{className:'modal-accept modal-btn',textContent:'Так'});
@@ -341,7 +537,7 @@
 
                 }
             })
-            modal.append(h2,buttonAccept,buttonCancel)
+            modal.append(h2,p,buttonAccept,buttonCancel)
             return modal
         },
         createActivityButton(activity = null) {
@@ -358,7 +554,7 @@
             }
             const span = this.createElement('span',spanProps)
             const span2 = this.createElement('span',span2Props)
-            con.append(activity ? span : span2);
+            con.append(activity ? span2 : span);
             con.addEventListener('click',(e)=>{
                 if(e.target.classList.contains('red')) {
                     con.innerHTML = '';
@@ -370,17 +566,18 @@
             })
             return con
         },
-        createStaticInfo() {
+        createStaticInfo(obj = null) {
             const con = this.createElement('div',{className:'static-info-block'});
-            const chosenPeople = this.createChosenPeople();
+            const chosenPeople = this.createChosenPeople(obj ? obj.applicants : '');
             const addPeople = this.createAddPeople();
             const limit = this.createLimitPeople();
             con.append(chosenPeople,addPeople,limit);
             return con
         },
-        createChosenPeople() {
+        createChosenPeople(val = null) {
             const chosenPeople = this.createElement('div',{className:'chosen-people-block'});
-            const peopleValue = this.createElement('p',{className: 'people-value',textContent:'2500'});
+            const peopleValue = this.createElement('input',{
+                className: 'people-value req-input',disabled:true,value:val ? val : 0,name:'applicants'});
             const chosenPeopleLabel = this.createElement('p',{className:'people-label',textContent:'Вибрано людей для опитування'});
             chosenPeople.append(peopleValue,chosenPeopleLabel);
             return chosenPeople
@@ -393,21 +590,36 @@
             con.append(button,addPeopleLabel);
             return con
         },
-        createLimitPeople() {
+        createLimitPeople(val = null) {
             const con = this.createElement('div',{className:'limit-people-block'});
-            const limitValue = this.createElement('input',{className:'limit-value',placeholder:'100',type: 'number'});
+            const limitValue = this.createElement('input',{
+                className:'limit-value',
+                placeholder:val ? '' : '100',
+                value: val ? val : '',
+                type: 'number'
+            });
             const limitLabel = this.createElement('p',{className:'limit-label',textContent:'Ліміт людей для опитування'});
             con.append(limitValue,limitLabel);
             return con
         },
         createSelect(prop) {
-            const select = this.createElement('select', {className: 'interview-direction req-input',name:'intDirection'});
-            const options = this.selectData.map(elem=>`<option class='interview-option' value=${elem.id}>${elem.name}</option>`);
+            const select = this.createElement('select', {
+                className: 'interview-direction req-input js-example-basic-multiple',name:'intDirection',multiple:true});
+            const options = this.selectData.map(elem=>{
+                return `<option ${elem.id === 3 ? 'selected' : ''} class='interview-option' value=${elem.id}>${elem.name}</option>`
+            });
             const index = options.findIndex(elem=>elem.includes(prop))
             const item = options.splice(index,1)
             options.unshift(item)
             select.insertAdjacentHTML('beforeend',options.join(''))
+            this.useSelectPlug()
             return select
+        },
+        useSelectPlug() {
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2();
+            });
+            this.messageService.publish({ name: 'hidePagePreloader' });
         },
         createData(id,textContent,minDate,valueDate = null,req = false) {
             const dateBlock = this.createElement('div', {className: 'date-block'});

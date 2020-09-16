@@ -117,12 +117,17 @@ text-align: center!important;
 }
 
 .add-task{
-  padding: 5px 10px;
-  background-color: rgb(80, 102, 221);
+  padding: 5px 20px;
+  background-color: #337ab7;
   color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
   height: 30px;
   cursor: pointer;
+  outline:none;
+  border:none;
+  border-radius: 5px;
+  
 }
 
 #NativeDataGridWidget-0{
@@ -175,32 +180,33 @@ text-align: center!important;
 }
 
 .main-button-back{
-  padding: 5px 10px;
+  padding: 5px 20px;
   background-color: rgb(86, 109, 184);
   color: #fff;
   font-size: 18px;
-  font-family: Roboto;
+  font-family: Arial, Helvetica, sans-serif;
   outline: none;
   border: none;
   margin-right: 20px;
   margin-top: 10px;
   cursor: pointer;
+  border-radius:5px;
 }
 
 .main-button-save{
-  padding: 5px 10px;
+  padding: 5px 20px;
   background-color: rgb(110, 110, 110);
   color: #fff;
   font-size: 18px;
-  font-family: Roboto;
+  font-family: Arial, Helvetica, sans-serif;
   outline: none;
   margin-top: 10px;
   border: none;
-  
+  border-radius:5px;
 }
 
 .main-button-save.active{
-  background-color: rgb(153, 86, 184);
+  background-color: rgb(86, 109, 184);
   cursor: pointer;
 }
 
@@ -268,7 +274,11 @@ text-align: center!important;
   font-weight: bold;
   font-size: 18px;
   color: rgb(66, 65, 65);
-  font-family: Roboto;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: none;
+  text-align: center;
+  border:none;
+  outline:none;
 }
 
 .add-people-block{
@@ -299,10 +309,19 @@ text-align: center!important;
   margin-right: 10px;
 }
 
+.form-list-item.active{
+  background-color: rgb(112, 171, 226);
+}
+
 .interview-form-con{
+  display: none;
   border: 1px solid rgb(63, 63, 63); 
   padding-top: 30px;
   padding-bottom: 40px;
+}
+
+.interview-form-con.active{
+  display: block;
 }
 
 .dynamic-inputs-con{
@@ -430,7 +449,7 @@ text-align: center!important;
 }
 
 .save-form{
-  background-color: rgb(82, 153, 72);
+  background-color:rgb(82, 153, 72);
   margin-left: 50px;
 }
 
@@ -450,7 +469,7 @@ text-align: center!important;
   top: 30%;
   left:50%;
   transform: translate(-50%,-50%);
-  background-color: rgb(96, 202, 179);
+  background-color: #fff;
   padding-top: 40px;
   padding-bottom: 40px;
   border: 1px solid rgb(99, 93, 93);
@@ -463,27 +482,40 @@ text-align: center!important;
 }
 
 .modal-title{
-  width: 70%;
-  font-family: Roboto;
+  width: 90%;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 36px;
-  color: rgb(61, 60, 60);
-  margin: 0 auto 40px;
+  color: rgb(189, 65, 65);
+  margin: 0 auto 20px;
+}
+
+.modal-subtitle{
+  width: 90%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  color: rgb(48, 48, 48);
+  margin: 0 auto 20px;
 }
 
 .modal-btn{
-  padding: 5px 10px;
+  width: 200px;
+  text-align: center;
+  padding: 10px 0;
   outline: none;
   border: none;
   font-size: 18px;
-  font-family: Roboto;
-  color: #fff;
-  background-color: rgb(10, 131, 187);
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(0, 0, 0);
+  background-color: #fff;
   border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+  cursor: pointer;
 }
 
 .modal-accept{
-  background-color: rgb(26, 168, 90);
+  background-color: rgb(223, 92, 31);
   margin-right: 40px;
+  color: rgb(255, 255, 255);
 }
 
 .modal-wrapper{
@@ -499,4 +531,11 @@ text-align: center!important;
 
 .modal-wrapper.active{
   display: block;
+}
+
+.dangerous{
+  color: red;
+  font-size: 16px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  padding: 5px;
 }
