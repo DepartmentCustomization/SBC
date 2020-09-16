@@ -116,5 +116,10 @@
     "Code": "registration_date",
     "Name": " registration_date",
     "Position": 20
+  },
+  {
+    "Code": "All_NDZV",
+    "Name": " All_NDZV",
+    "Position": 21
   }
 ]

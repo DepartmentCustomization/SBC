@@ -101,11 +101,12 @@ end
  from
  (
  select [Assignments].Id, [Questions].registration_number, ltrim([QuestionTypes].name) QuestionType,
-(select STUFF((select  convert(xml, '', <p>'' + cast(Missed_call_counter as varchar(10)) + N'' (дата та час недозвону: '' + convert(varchar, Edit_date, 120) + N''), коментар: '' + isnull(MissedCallComment, '''') + ''</p>'')
+(select (select  convert(xml, ''  <p> '' + cast(Missed_call_counter as varchar(10)) + N'' (дата та час недозвону: '' + convert(varchar, CONVERT(datetime, SWITCHOFFSET(Edit_date, DATEPART(TZOFFSET,Edit_date AT TIME ZONE ''E. Europe Standard Time''))), 120) + N''), коментар: '' + isnull(MissedCallComment, '''') + '' </p> '')
 from AssignmentDetailHistory 
-where AssignmentDetailHistory.Assignment_id = Assignments.Id
+where  Missed_call_counter = 1
+and AssignmentDetailHistory.Assignment_id = Assignments.Id
 For XML PATH('''')
-), 1,2,N'''') )as All_NDZV,
+) )as All_NDZV,
 
   [Applicants].full_name, [ApplicantPhones].phone_number, [Districts].Id District,
   [Districts].Name DistrictName,
