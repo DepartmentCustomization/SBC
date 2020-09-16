@@ -294,7 +294,9 @@
             const container = e.target.closest('.interview-form-con')
             const saveBtn = container.querySelector('.save-form')
             const inputValues = [...container.querySelectorAll('input , select')]
+            const dataId = document.getElementById('header-block').dataRowIndex
             const empty = inputValues.find(e=>e.value === '')
+            let sendVal = null
             if(!empty) {
                 const warning = document.querySelector('.dangerous')
                 if(warning) {
@@ -315,6 +317,10 @@
                     listObj[elem.className] = elem.value
                 })
                 listObj.variants = variants
+                listObj.mainId = dataId
+                const stringObj = JSON.stringify(listObj)
+                sendVal = stringObj
+
             }else {
                 const warning = document.querySelector('.dangerous')
                 if(warning) {
@@ -323,6 +329,7 @@
                 const warn = this.createElement('p',{classList:'dangerous',textContent:'Всі поля повинні бути заповнені'})
                 saveBtn.insertAdjacentElement('afterend',warn)
             }
+            return sendVal
         },
         createAddVariantBtn(testBlock) {
             const con = this.createElement('div',{className:'add-variant-con'});
