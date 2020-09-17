@@ -10,5 +10,6 @@ FROM dbo.[Places] t_place
 INNER JOIN dbo.[Place_types] p_type ON p_type.Id = t_place.Place_type_ID
 LEFT JOIN dbo.[Districts] district ON district.Id = t_place.District_ID
 WHERE Is_Active = 2
-ORDER BY 1
+AND #filter_columns#
+	#sort_columns#
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ; 
