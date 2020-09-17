@@ -1,22 +1,42 @@
-SELECT  Contacts.[Id]
-      ,Contacts.Name as contacts_name
-        ,Contacts.Id as contacts_id
-	  ,Jobs.Job_name as jobs_name
-	  ,tabl_phone.phone_number as number_name
-	  ,tabl_phone.phone_name as phone_comment
-     -- ,[Contact_phones].[Number] as number_name
-     -- ,[Contact_phones].[Name] as phone_comment
-  FROM [dbo].Contacts
-	left join (SELECT Contact_ID
-					,(select rtrim(a.Number) +N';' as 'data()' from dbo.Contact_phones as a where b.Contact_ID = a.Contact_ID for xml path('')) as phone_number
-					,(select rtrim(a.Name) +N';' as 'data()' from dbo.Contact_phones as a where b.Contact_ID = a.Contact_ID for xml path('')) as phone_name
-			FROM dbo.Contact_phones b GROUP BY Contact_ID) as tabl_phone on tabl_phone.Contact_ID = Contacts.Id
-	--left join Jobs on Jobs.Id = Contacts.Job_ID
-	left join Jobs on Jobs.Contacts_ID = Contacts.external_id
-	where --Contacts.Organisation_ID = @Id
+SELECT
+	Contacts.[Id],
+	Contacts.Name AS contacts_name,
+	Contacts.Id AS contacts_id,
+	Jobs.Job_name AS jobs_name,
+	tabl_phone.phone_number AS number_name,
+	tabl_phone.phone_name AS phone_comment 
+	-- ,[Contact_phones].[Number] as number_name
+	-- ,[Contact_phones].[Name] as phone_comment
+FROM
+	[dbo].Contacts
+	LEFT JOIN (
+		SELECT
+			Contact_ID,
+(
+				SELECT
+					rtrim(a.Number) + N';' AS 'data()'
+				FROM
+					dbo.Contact_phones AS a
+				WHERE
+					b.Contact_ID = a.Contact_ID FOR XML PATH('')
+			) AS phone_number,
+(
+				SELECT
+					rtrim(a.Name) + N';' AS 'data()'
+				FROM
+					dbo.Contact_phones AS a
+				WHERE
+					b.Contact_ID = a.Contact_ID FOR XML PATH('')
+			) AS phone_name
+		FROM
+			dbo.Contact_phones b
+		GROUP BY
+			Contact_ID
+	) AS tabl_phone ON tabl_phone.Contact_ID = Contacts.Id 
+	LEFT JOIN Jobs ON Jobs.Contacts_ID = Contacts.Id
+WHERE
 	Jobs.Is_work = 1
-	and Jobs.[Organization_ID] = @Id
-and
-	#filter_columns#
-     #sort_columns#
-offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+	AND Jobs.[Organization_ID] = @Id
+	AND #filter_columns#
+		#sort_columns#
+	OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;
