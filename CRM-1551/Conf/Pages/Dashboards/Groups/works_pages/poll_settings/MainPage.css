@@ -330,7 +330,16 @@ text-align: center!important;
   margin-bottom: 40px;
 }
 
-.dynamic-input{
+.dynamic-input-ukr{
+  padding: 10px ;
+  font-family: Roboto;
+  font-size: 26px;
+  text-align: center;
+  width: 450px;
+  height: 70px;
+}
+
+.dynamic-input-rus{
   padding: 10px ;
   font-family: Roboto;
   font-size: 26px;
