@@ -68,6 +68,7 @@
       {
         "Code": "SystemUser",
         "Name": "SystemUser",
+        "IsSystemUser": true,
         "Position": 10,
         "IsPrintable": false
       }
