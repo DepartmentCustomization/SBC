@@ -1,7 +1,13 @@
-select o.Id, o.[Name]  
-from Organizations o 
-join Contacts c on c.Organisation_ID = o.Id 
-where c.Contact_type_ID = 2 and o.is_External_service = 1
-and #filter_columns#
-    #sort_columns#
-    offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+DISTINCT
+    o.[Id],
+    o.[Name]
+FROM
+    dbo.[Organizations] o
+    JOIN dbo.[Contacts] c ON c.Organisation_ID = o.Id
+WHERE
+    c.Contact_type_ID = 2
+    AND o.is_External_service = 1
+    AND #filter_columns#
+        #sort_columns#
+    OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;
