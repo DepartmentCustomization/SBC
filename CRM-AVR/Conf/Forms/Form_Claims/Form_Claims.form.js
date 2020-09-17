@@ -1620,16 +1620,16 @@
             let err_delve = this.form.getControlValue('is_Delve');
             let disregard_type = this.form.getControlValue('disregard_type');
             let contact_type = this.form.getControlValue('contact_type');
-            if(st == 5) {
+            if(st === 5) {
                 return 'У ЗАКРИТУ ЗАЯВКУ вносити правки заборонено';
-            } else if(finishValue != null) {
-                if (err_zasuv == 0 && disregard_type == 1) {
+            } else if(finishValue !== null) {
+                if (err_zasuv === 0 && disregard_type === 1) {
                     this.form.setControlValue('Fact_finish_at', null);
                     return 'Не збігається кількість робіт с запорною арматурою!'
-                } else if(err_delve == 1) {
+                } else if(err_delve === 1) {
                     this.form.setControlValue('Fact_finish_at', null);
-                    return 'Відсутня робота по запису!'
-                } else if(err_type == 0) {
+                    return 'В заявці присутня робота РОЗРИТТЯ, але немає роботи ЗАСИПКА!'
+                } else if(err_type === 0) {
                     this.form.setControlValue('Fact_finish_at', null);
                     return 'Тип заявки не є останнім!'
                 }
