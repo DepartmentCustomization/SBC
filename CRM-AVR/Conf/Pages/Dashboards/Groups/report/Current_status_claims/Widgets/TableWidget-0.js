@@ -212,8 +212,8 @@
                     {key: '@date_from' , value: this.dateFrom},
                     {key: '@date_to', value: this.dateTo }],
                 filterColumns: [
-                    {key: 'Claim_class_ID', value: {operation: 6, not: false, values: claimsTypeStatus(this.globalFilterValues[1].value)}},
-                    {key: 'Status_ID', value: {operation: 6, not: false, values: claimsTypeStatus(this.globalFilterValues[2].value)}}
+                    {key: 'Claim_class_ID', value: {operation: 6, not: false, values: claimsTypeStatus(this.globalFilterValues[0].value)}},
+                    {key: 'Status_ID', value: {operation: 6, not: false, values: claimsTypeStatus(this.globalFilterValues[1].value)}}
                 ],
                 skipNotVisibleColumns: true,
                 chunkSize: 100
@@ -234,8 +234,8 @@
             let cell = worksheet.getCell('A1');
             let currentD = new Date();
             cell.value = 'Поточний стан заявок, станом на ' + currentD.toLocaleString();
-            worksheet.mergeCells('A1:J1');
-            worksheet.mergeCells('A2:J2');
+            worksheet.mergeCells('A1:N1');
+            worksheet.mergeCells('A2:N2');
             worksheet.getRow(1).font = { name: 'Times New Roman', family: 4, size: 14, underline: false, bold: true , italic: false};
             worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
             let Col1 = worksheet.getColumn(1);
@@ -248,6 +248,10 @@
             let Col8 = worksheet.getColumn(8);
             let Col9 = worksheet.getColumn(9);
             let Col10 = worksheet.getColumn(10);
+            let Col11 = worksheet.getColumn(11);
+            let Col12 = worksheet.getColumn(12);
+            let Col13 = worksheet.getColumn(13);
+            let Col14 = worksheet.getColumn(14);
             Col1.width = 11;
             Col2.width = 10;
             Col3.width = 7;
@@ -258,7 +262,12 @@
             Col8.width = 17;
             Col9.width = 17;
             Col10.width = 30;
-            let rows = [['Організація','Створено','Заявка', 'Місце', 'Район','Тип заявки', 'D', 'Виїзди', 'Опис', 'Роботи']];
+            Col11.width = 30;
+            Col12.width = 30;
+            Col13.width = 15;
+            Col14.width = 15;
+            let rows = [['Організація','Створено','Заявка', 'Місце', 'Район','Тип заявки', 'D', 'Виїзди', 'Опис', 'Роботи',
+                'Відключення','Ускладнення','Зареєстрував','Закрив']];
             if(excelVal.length > 1) {
                 for(let i = 1; i < excelVal.length; i++) {
                     rows.push(excelVal[i])
@@ -287,6 +296,10 @@
             worksheet.getCell('H3').fill = {type: 'pattern', pattern: 'solid', fgColor:{argb:'ebebe0'}};
             worksheet.getCell('I3').fill = {type: 'pattern', pattern: 'solid', fgColor:{argb:'ebebe0'}};
             worksheet.getCell('J3').fill = {type: 'pattern', pattern: 'solid', fgColor:{argb:'ebebe0'}};
+            worksheet.getCell('K3').fill = {type: 'pattern', pattern: 'solid', fgColor:{argb:'ebebe0'}};
+            worksheet.getCell('L3').fill = {type: 'pattern', pattern: 'solid', fgColor:{argb:'ebebe0'}};
+            worksheet.getCell('M3').fill = {type: 'pattern', pattern: 'solid', fgColor:{argb:'ebebe0'}};
+            worksheet.getCell('N3').fill = {type: 'pattern', pattern: 'solid', fgColor:{argb:'ebebe0'}};
             let row_val = 3;
             for(let i = 1; i < excelVal.length; i++) {
                 worksheet.getRow((i + row_val)).alignment = { vertical: 'middle', horizontal: 'center' , wrapText: true};
@@ -311,6 +324,14 @@
                 worksheet.getCell('I' + (i + 3)).border = {top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'},
                     right: {style:'thin'}};
                 worksheet.getCell('J' + (i + 3)).border = {top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'},
+                    right: {style:'thin'}};
+                worksheet.getCell('K' + (i + 3)).border = {top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'},
+                    right: {style:'thin'}};
+                worksheet.getCell('L' + (i + 3)).border = {top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'},
+                    right: {style:'thin'}};
+                worksheet.getCell('M' + (i + 3)).border = {top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'},
+                    right: {style:'thin'}};
+                worksheet.getCell('N' + (i + 3)).border = {top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'},
                     right: {style:'thin'}};
             }
             this.helperFunctions.excel.save(workbook, 'Звіт по поточним заявкам', this.hidePagePreloader);

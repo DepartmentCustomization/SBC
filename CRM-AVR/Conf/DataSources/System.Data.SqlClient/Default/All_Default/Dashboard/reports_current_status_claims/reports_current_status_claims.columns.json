@@ -108,7 +108,7 @@
   },
   {
     "Code": "user_close",
-    "Name": "Закртив",
+    "Name": "Закрив",
     "Position": 17,
     "IsPrintable": false,
     "SqlName": "IIF(Claims.Status_ID = 5, close_user.[Name], NULL)"
