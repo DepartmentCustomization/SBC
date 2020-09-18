@@ -1,11 +1,6 @@
---  DECLARE @Id INT = 12349; 
---  DECLARE @pageOffsetRows BIGINT = 0;
---  DECLARE @pageLimitRows BIGINT = 15;
+  --DECLARE @Id INT = 277; 
 
-DECLARE @Archive NVARCHAR(400) = '['+(SELECT TOP 1 [IP]+'].['+[DatabaseName]+'].' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
-
-DECLARE @Query NVARCHAR(MAX) = N'
-IF OBJECT_ID(''tempdb..#PurposeQuestions'') IS NOT NULL
+IF OBJECT_ID('tempdb..#PurposeQuestions') IS NOT NULL
 BEGIN
 	DROP TABLE #PurposeQuestions;
 END
@@ -26,23 +21,23 @@ SELECT Questions.[Id]
 	  , Organizations.short_name AS performer_name
 FROM [dbo].[Events] AS e
 	LEFT JOIN [dbo].[EventQuestionsTypes] eqt ON e.Id=eqt.[event_id]
-	LEFT JOIN [dbo].[EventObjects] ON EventObjects.event_id = e.Id
-	INNER JOIN [dbo].[Questions] ON Questions.question_type_id = eqt.question_type_id
+	LEFT JOIN [dbo].[EventObjects] EventObjects ON EventObjects.event_id = e.Id
+	INNER JOIN [dbo].[Questions] Questions ON Questions.question_type_id = eqt.question_type_id
 		AND Questions.[object_id] = EventObjects.[object_id]
 		AND Questions.event_id IS NULL
-	LEFT JOIN [dbo].[Assignments] ON Assignments.Id = Questions.last_assignment_for_execution_id
-	LEFT JOIN [dbo].[Organizations] ON Organizations.Id = Assignments.executor_organization_id
-	LEFT JOIN [dbo].[QuestionTypes] ON QuestionTypes.Id = Questions.question_type_id
-	LEFT JOIN [dbo].[Objects] ON [Objects].Id = Questions.[object_id]
-	WHERE e.Id = @Id; 
+	LEFT JOIN [dbo].[Assignments] Assignments ON Assignments.Id = Questions.last_assignment_for_execution_id
+	LEFT JOIN [dbo].[Organizations] Organizations ON Organizations.Id = Assignments.executor_organization_id
+	LEFT JOIN [dbo].[QuestionTypes] QuestionTypes ON QuestionTypes.Id = Questions.question_type_id
+	LEFT JOIN [dbo].[Objects] Objects ON [Objects].Id = Questions.[object_id]
+	WHERE e.Id = @Id;
 
 DECLARE @temp_CopyData BIT;
 
 SELECT 
 	@temp_CopyData = IIF(COUNT(1) = 0, 0, 1)
 FROM INFORMATION_SCHEMA.TABLES
-WHERE TABLE_SCHEMA = ''dbo''
-AND TABLE_NAME = ''QuestionsFromCopeWithoutEvent_temp''
+WHERE TABLE_SCHEMA = N'dbo'
+AND TABLE_NAME = N'QuestionsFromCopeWithoutEvent_temp';
 
 IF (@temp_CopyData = 1)
 BEGIN
@@ -55,13 +50,13 @@ SELECT copy_data.[question_id]
 	  , Organizations.short_name AS performer_name
 FROM [dbo].[Events] AS e WITH (NOLOCK)
 	LEFT JOIN [dbo].[EventQuestionsTypes] eqt ON e.Id=eqt.[event_id]
-	LEFT JOIN [dbo].[EventObjects] WITH (NOLOCK) ON EventObjects.event_id = e.Id
+	LEFT JOIN [dbo].[EventObjects] EventObjects WITH (NOLOCK) ON EventObjects.event_id = e.Id
 	INNER JOIN [dbo].[QuestionsFromCopeWithoutEvent_temp] copy_data ON copy_data.question_type_id = eqt.question_type_id
 		AND copy_data.[object_id] = EventObjects.[object_id]
 		AND copy_data.event_id IS NULL
-	LEFT JOIN [dbo].[Organizations] ON Organizations.Id = copy_data.executor_organization_id
-	LEFT JOIN [dbo].[QuestionTypes] ON QuestionTypes.Id = copy_data.question_type_id
-	LEFT JOIN [dbo].[Objects] WITH (NOLOCK) ON [Objects].Id = copy_data.[object_id]
+	LEFT JOIN [dbo].[Organizations] Organizations ON Organizations.Id = copy_data.executor_organization_id
+	LEFT JOIN [dbo].[QuestionTypes] QuestionTypes ON QuestionTypes.Id = copy_data.question_type_id
+	LEFT JOIN [dbo].[Objects] Objects WITH (NOLOCK) ON [Objects].Id = copy_data.[object_id]
 	WHERE e.Id = @Id; 
 END
 
@@ -75,10 +70,4 @@ DISTINCT
 	performer_name
 FROM #PurposeQuestions
 ORDER BY 1
-OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY
-; ' ;
-
- EXEC sp_executesql @Query, N'@Id INT, @pageOffsetRows BIGINT, @pageLimitRows BIGINT', 
-							 @Id = @Id,
-							 @pageOffsetRows = @pageOffsetRows,
-							 @pageLimitRows = @pageLimitRows;
+OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;
