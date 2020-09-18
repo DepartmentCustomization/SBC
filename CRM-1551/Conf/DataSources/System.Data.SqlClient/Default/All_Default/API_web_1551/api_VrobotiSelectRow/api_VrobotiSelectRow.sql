@@ -1,5 +1,5 @@
-   --DECLARE @ApplicantFromSiteId INT = 22;
-   --DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380632701143';
+--    DECLARE @ApplicantFromSiteId INT = 22;
+--    DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380987012275';
 
 SET @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0)); 
 
@@ -54,7 +54,8 @@ SELECT
 		THEN 1 ELSE 0 
 	END AS has_files,
 	[Questions].Id AS Question_id,
-	[Questions].[registration_number] AS Question_number
+	[Questions].[registration_number] AS Question_number,
+	[Appeals].[receipt_source_id] AS appeal_receipt_source
 FROM
 	[dbo].[Appeals] [Appeals]
 	LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
@@ -120,7 +121,8 @@ GROUP BY
 	[Questions].[geolocation_lon],
 	[MainAss].state_change_date,
 	[Questions].Id,
-	[Questions].[registration_number]
+	[Questions].[registration_number],
+	[Appeals].[receipt_source_id]
 
 UNION
 
@@ -150,7 +152,8 @@ SELECT
 		THEN 1 ELSE 0 
 	END AS has_files,
 	[Questions].Id AS Question_id,
-	[Questions].[registration_number] AS Question_number
+	[Questions].[registration_number] AS Question_number,
+	[Appeals].[receipt_source_id] AS appeal_receipt_source
 FROM
 	[dbo].[Appeals] [Appeals]
 	LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
@@ -221,7 +224,8 @@ GROUP BY
 	[Questions].[geolocation_lon],
 	[MainAss].state_change_date,
 	[Questions].Id,
-	[Questions].[registration_number]
+	[Questions].[registration_number],
+	[Appeals].[receipt_source_id]
 ORDER BY 1
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
 ;
