@@ -1,5 +1,5 @@
-    --  DECLARE @ApplicantFromSiteId INT = NULL;
-    --  DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '0672170307';
+  --  DECLARE @ApplicantFromSiteId INT = 22;
+  --  DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380987012275';
 
 SET @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0));
 
@@ -121,7 +121,8 @@ DISTINCT
   [MainAssConsRevision].grade,
   [AppealLastContent].content AS main_content,
 	[Questions].Id AS Question_id,
-	[Questions].[registration_number] AS Question_number
+	[Questions].[registration_number] AS Question_number,
+	[Appeals].[receipt_source_id] AS appeal_receipt_source
 FROM
   [dbo].[Appeals] [Appeals]
   INNER JOIN @LastContent [AppealLastContent] ON [AppealLastContent].Id = [Appeals].Id 
@@ -158,7 +159,8 @@ GROUP BY
   [MainAssConsRevision].grade,
   [AppealLastContent].content,
   [Questions].Id,
-  [Questions].[registration_number]
+  [Questions].[registration_number],
+  [Appeals].[receipt_source_id]
 ORDER BY 1 
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY 
 ;
