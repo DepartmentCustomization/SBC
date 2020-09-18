@@ -22,11 +22,10 @@ FROM
   LEFT JOIN Organizations ON Organizations.Id = Assignments.executor_organization_id
 WHERE
   [Events].Id = @event_id
-  AND [Questions].Id IN (SELECT 
-							Id 
-						 FROM '+@Archive+N'[dbo].[Questions] WITH (NOLOCK)
-						 WHERE Id NOT IN (SELECT Id FROM dbo.[Questions] WITH (NOLOCK))
-						 )
+  AND [Questions].Id NOT IN (SELECT [Questions].Id 
+			FROM dbo.[Questions] WITH (NOLOCK)
+			INNER JOIN [dbo].[Events] WITH (NOLOCK) ON [Events].Id = [Questions].event_id
+			WHERE [Events].Id = @event_id)
 AND #filter_columns#
 ORDER BY
   [Questions].[registration_date] 
