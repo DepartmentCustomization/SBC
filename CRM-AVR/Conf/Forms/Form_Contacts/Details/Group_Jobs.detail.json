@@ -14,7 +14,7 @@
   },
   "QueryParameters": [
     {
-      "FormFieldName": "external_Id",
+      "FormFieldName": "Id",
       "ParameterCode": "@Id"
     }
   ]
