@@ -4,9 +4,7 @@
         hint: ' ',
         formatTitle: function() {},
         customConfig:
-                `
-                    <div id='modalContainer'></div>
-                `
+                `<div id='modalContainer'></div>`
         ,
         init: async function() {
             this.activeFilterHelper = await import('/modules/Helpers/Filters/ActiveFilterHelper.js');
