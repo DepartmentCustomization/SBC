@@ -23,15 +23,21 @@
       "ReferenceSectionCode": "Orders"
     },
     {
+      "Code": "Comment_result",
+      "Name": "Результат виїзду",
+      "Position": 2,
+      "IsPrintable": true
+    },
+    {
       "Code": "Name",
       "Name": "Бригадир",
-      "Position": 2,
+      "Position": 3,
       "IsPrintable": true
     },
     {
       "Code": "Start_at",
       "Name": "Дата та час початку",
-      "Position": 3,
+      "Position": 4,
       "IsPrintable": true,
       "SqlName": "[Orders].[Start_at]",
       "FilterParameterCode": "@Start_at"
@@ -39,13 +45,13 @@
     {
       "Code": "Pushed_at",
       "Name": "Дата та час виїзду",
-      "Position": 4,
+      "Position": 5,
       "IsPrintable": true
     },
     {
       "Code": "Claim_Number",
       "Name": "Claim_Number",
-      "Position": 5,
+      "Position": 6,
       "ViewState": "Hidden",
       "IsPrintable": false
     }
