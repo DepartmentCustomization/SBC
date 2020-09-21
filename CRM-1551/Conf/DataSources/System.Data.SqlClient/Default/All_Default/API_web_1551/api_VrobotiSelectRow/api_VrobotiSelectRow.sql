@@ -1,5 +1,5 @@
---    DECLARE @ApplicantFromSiteId INT = 22;
---    DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380987012275';
+-- DECLARE @ApplicantFromSiteId INT = 22;
+-- DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380987012275';
 
 SET @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0)); 
 
@@ -72,6 +72,7 @@ FROM
  	LEFT JOIN [dbo].[AssignmentResults] [AssignmentResults] ON [MainAss].AssignmentResultsId = [AssignmentResults].Id
 WHERE
 	[Appeals].applicant_id = @ApplicantIn1551
+	AND [Appeals].receipt_source_id IN (1,2,8)
 	AND (
 		/*START CRM1551-397*/
 		(
@@ -175,6 +176,7 @@ WHERE
 		FROM
 			@ApplicantForPhone
 	)
+	AND [Appeals].receipt_source_id IN (1,2,8)
 	AND (
 		/*START CRM1551-397*/
 		(

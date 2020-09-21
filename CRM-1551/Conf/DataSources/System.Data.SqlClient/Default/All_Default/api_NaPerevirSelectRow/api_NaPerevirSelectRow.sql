@@ -1,5 +1,5 @@
-        -- DECLARE @ApplicantFromSiteId INT = NULL;
-        -- DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380987012275';
+--  DECLARE @ApplicantFromSiteId INT = NULL;
+--  DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380987012275';
 
 IF(@ApplicantFromSitePhone IS NOT NULL)
 BEGIN
@@ -42,6 +42,7 @@ FROM
 							   FROM @ApplicantForPhone)
 	AND [Questions].[question_state_id] = 3
 	AND [Assignments].AssignmentResultsId = 4
+	AND [Appeals].receipt_source_id IN (1,2,8)
 
 	UNION 
 
@@ -61,7 +62,8 @@ FROM
 	[Appeals].applicant_id = @ApplicantFromSiteId
 	AND [Questions].[question_state_id] = 3
 	AND [Assignments].AssignmentResultsId = 4 
-   ;
+    AND [Appeals].receipt_source_id IN (1,2,8)
+	;
 
 DECLARE @LastContent TABLE (Id INT, content NVARCHAR(MAX));
 DECLARE @Qty SMALLINT = (SELECT COUNT(1) FROM @AppealExecutData);
