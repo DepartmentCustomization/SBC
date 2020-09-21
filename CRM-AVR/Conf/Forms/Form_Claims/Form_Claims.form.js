@@ -1205,7 +1205,7 @@
         },
         //Выбор телефона исполнмтеля
         executor_phone_number:function(executor_id) {
-            if(executor_id) {
+            if(typeof (executor_id) === 'number') {
                 let exec = [{parameterCode: '@executor_id' , parameterValue: executor_id }];
                 this.form.setControlParameterValues('exec_phone', exec);
                 const phone = {
