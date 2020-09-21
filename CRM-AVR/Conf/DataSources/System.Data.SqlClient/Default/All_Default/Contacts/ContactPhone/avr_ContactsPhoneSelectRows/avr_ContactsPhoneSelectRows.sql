@@ -36,6 +36,7 @@ FROM
 	LEFT JOIN Jobs ON Jobs.Contacts_ID = Contacts.Id
 WHERE
 	Jobs.Is_work = 1
+	AND Contact_type_ID = 3
 	AND Jobs.[Organization_ID] = @Id
 	AND #filter_columns#
 		#sort_columns#
