@@ -1,5 +1,5 @@
-  --  DECLARE @ApplicantFromSiteId INT = 22;
-  --  DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380987012275';
+-- DECLARE @ApplicantFromSiteId INT = 22;
+-- DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380987012275';
 
 SET @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0));
 
@@ -47,6 +47,7 @@ FROM
 WHERE
   [Appeals].applicant_id = @ApplicantIn1551
   AND [AssignmentStates].code = N'Closed'
+  AND [Appeals].receipt_source_id IN (1,2,8)
 
 	UNION 
 
@@ -71,7 +72,9 @@ WHERE
     FROM
       @ApplicantForPhone
   )
-  AND [AssignmentStates].code = N'Closed' ;
+  AND [AssignmentStates].code = N'Closed'
+  AND [Appeals].receipt_source_id IN (1,2,8)
+  ;
 
 DECLARE @LastContent TABLE (Id INT, content NVARCHAR(MAX));
 DECLARE @Qty SMALLINT = (SELECT COUNT(1) FROM @AppealExecutData);
