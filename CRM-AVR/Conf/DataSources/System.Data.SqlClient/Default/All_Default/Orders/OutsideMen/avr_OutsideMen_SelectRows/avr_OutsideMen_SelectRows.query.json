@@ -18,37 +18,37 @@
       "Code": "company_name",
       "Name": "Компанія",
       "Position": 2,
-      "IsPrintable": false
+      "IsPrintable": true
     },
     {
       "Code": "fiz_name",
       "Name": "Співробітник компанії",
       "Position": 3,
-      "IsPrintable": false
+      "IsPrintable": true
     },
     {
       "Code": "Call_from",
       "Name": "Час повідомлення",
       "Position": 4,
-      "IsPrintable": false
+      "IsPrintable": true
     },
     {
       "Code": "Plan_date",
       "Name": "Планова дата прибуття",
       "Position": 5,
-      "IsPrintable": false
+      "IsPrintable": true
     },
     {
       "Code": "Finish_at",
       "Name": "Дата відповіді",
       "Position": 6,
-      "IsPrintable": false
+      "IsPrintable": true
     },
     {
       "Code": "Comment",
       "Name": "Коментар",
       "Position": 7,
-      "IsPrintable": false
+      "IsPrintable": true
     },
     {
       "Code": "Claims_ID",
