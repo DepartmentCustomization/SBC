@@ -35,6 +35,7 @@ FROM
 	) AS tabl_phone ON tabl_phone.Contact_ID = Contacts.Id
 WHERE
 	Contacts.Job_ID IS NOT NULL
+	AND Contact_type_ID = 3
 	AND #filter_columns#
 		#sort_columns#
 	OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;
