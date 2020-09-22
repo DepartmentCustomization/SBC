@@ -20,18 +20,18 @@ declare @result_EventPlanEndDate nvarchar(10)
 
 select @result_ApplicantPIB = [Applicants].full_name ,
        @result_ApplicantAddress = case when isnull(CHARINDEX(N', телефони', [Appeals].ApplicantAddress),0) > 0 then left([Appeals].ApplicantAddress, CHARINDEX(N', телефони', [Appeals].ApplicantAddress)-1) else N'' end,
-	   @result_DirectorKBU = (select top 1 [name] from [dbo].[Positions] where [organizations_id] = 1761 and [is_main] = 1),
+	   @result_DirectorKBU = (select top 1 isnull([position],N'') + N', ' + isnull([name],N'') from [dbo].[Positions] where [organizations_id] = 1761 and [is_main] = 1),
 	   @result_QuestionRegistrationNumber = [Questions].registration_number,
-	   @result_QuestionRegistrationDate = format([Questions].[registration_date], 'yyyy-MM-dd'),
+	   @result_QuestionRegistrationDate = format([Questions].[registration_date], 'dd-MM-yyyy'),
 	   @result_QuestionTypeName = [QuestionTypes].[name],
 	   @result_QuestionObjectName = [Objects].[name],
 	   @result_OrganizationName = [Organizations].[name],
-	   @result_OrganizationDirector = [Positions].[name],
+	   @result_OrganizationDirector = isnull([Positions].[position],N'') + N', ' + isnull([Positions].[name],N''),
 	   @result_EventId = rtrim([Events].Id),
 	   @result_EventClassName = [Event_Class].[name],
 	   @result_EventOrganizationName = [EventOrganizations].[name],
-	   @result_EventStartDate = format([Events].[start_date], 'yyyy-MM-dd'),
-	   @result_EventPlanEndDate = format([Events].[plan_end_date], 'yyyy-MM-dd')
+	   @result_EventStartDate = format([Events].[start_date], 'dd-MM-yyyy'),
+	   @result_EventPlanEndDate = format([Events].[plan_end_date], 'dd-MM-yyyy')
 from [dbo].[Assignments]
 inner join [dbo].[Questions] on [Questions].Id = [Assignments].[question_id]
 inner join [dbo].[Appeals] on [Appeals].Id = [Questions].[appeal_id]
