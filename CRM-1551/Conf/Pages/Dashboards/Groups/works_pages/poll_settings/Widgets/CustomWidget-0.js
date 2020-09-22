@@ -572,7 +572,26 @@
                     con.append(span);
                 }
             })
+            con.addEventListener('mouseover',this.showActivity.bind(this))
+            con.addEventListener('mouseout',this.hideActivity.bind(this))
             return con
+        },
+        showActivity(e) {
+            const info = document.getElementById('activity-info-con')
+            if(info) {
+                info.remove()
+            }
+            const int = e.target.classList.contains('red') ? 'не активне' : 'активне';
+            const infoCon = `<div class='activity-info-con' id='activity-info-con'>
+                                <p class='activity-info'>Опитування ${int}</p>
+                                </div>`
+            e.target.insertAdjacentHTML('afterend',`${infoCon}`)
+        },
+        hideActivity() {
+            const info = document.getElementById('activity-info-con')
+            if(info) {
+                info.remove()
+            }
         },
         createStaticInfo(obj = null) {
             const con = this.createElement('div',{className:'static-info-block'});

@@ -240,6 +240,7 @@ text-align: center!important;
 
 .activity-block{
   cursor: pointer;
+  position: relative;
 }
 
 .activity{
@@ -547,4 +548,20 @@ text-align: center!important;
   font-size: 16px;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   padding: 5px;
+}
+
+.activity-info-con{
+position: absolute;
+background-color: #fff;
+padding: 5px;
+border: 1px solid black;
+border-radius: 5px;
+left:-75px;
+width: 215px;
+text-align: center;
+}
+
+.activity-info{
+font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+font-size: 18px;
 }
