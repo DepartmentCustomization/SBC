@@ -84,16 +84,21 @@
             const formListItem = this.createFormListItem()
             formList.append(formListItem)
             addNewForm.addEventListener('click',()=>{
-                const item = this.createFormListItem();
-                item.classList.remove('active')
-                const props = {
-                    dataId: item.textContent,
-                    display:'none'
+                const listArray = document.querySelectorAll('.form-list-item')
+                const formArray = document.querySelectorAll('.interview-form-con')
+                const lastFormId = formArray[listArray.length - 1].dataFormId
+                if(lastFormId) {
+                    const item = this.createFormListItem();
+                    item.classList.remove('active')
+                    const props = {
+                        dataId: item.textContent,
+                        display:'none'
+                    }
+                    const newForm = this.createInterviewForm(props)
+                    newForm.classList.remove('active')
+                    formList.append(item)
+                    questionsCon.append(newForm)
                 }
-                const newForm = this.createInterviewForm(props)
-                newForm.classList.remove('active')
-                formList.append(item)
-                questionsCon.append(newForm)
             })
             const interviewForm = this.createInterviewForm();
             dynamicHeader.append(formList,addNewForm);
@@ -296,40 +301,43 @@
             const inputValues = [...container.querySelectorAll('input , select')]
             const dataId = document.getElementById('header-block').dataRowIndex
             const empty = inputValues.find(e=>e.value === '')
-            let sendVal = null
-            if(!empty) {
-                const warning = document.querySelector('.dangerous')
-                if(warning) {
-                    warning.remove()
-                }
-                const list = container.querySelectorAll('.dynamic-input , select')
-                const variantsCon = [...container.querySelectorAll('.quiz-con')]
-                const listArray = [...list]
-                const variants = variantsCon.map(item=>{
-                    const obj = {
-                        ukr: item.firstChild.value,
-                        rus: item.lastChild.value
+            if(dataId) {
+                if(!empty) {
+                    const warning = document.querySelector('.dangerous')
+                    if(warning) {
+                        warning.remove()
                     }
-                    return obj
-                })
-                const listObj = {}
-                listArray.forEach(elem=>{
-                    listObj[elem.className] = elem.value
-                })
-                listObj.variants = variants
-                listObj.mainId = dataId
-                const stringObj = JSON.stringify(listObj)
-                sendVal = stringObj
+                    const list = container.querySelectorAll('.dynamic-input-ukr, .dynamic-input-rus, select')
+                    const variantsCon = [...container.querySelectorAll('.quiz-con')]
+                    const listArray = [...list]
+                    const variants = variantsCon.map(item=>{
+                        const obj = {
+                            ukr: item.firstChild.value,
+                            rus: item.lastChild.value
+                        }
+                        return obj
+                    })
+                    const listObj = {}
+                    listArray.forEach(elem=>{
+                        listObj[elem.className] = elem.value
+                    })
+                    listObj.variants = variants
+                    listObj.mainId = dataId
+                    const stringObj = JSON.stringify(listObj)
+                    container.dataFormId = '1'
+                    container.insertAdjacentHTML('afterbegin',`<span>ID: ${container.dataFormId}</span>`)
 
-            }else {
-                const warning = document.querySelector('.dangerous')
-                if(warning) {
-                    warning.remove()
+                    stringObj.forEach(elem=>elem)
+
+                }else {
+                    const warning = document.querySelector('.dangerous')
+                    if(warning) {
+                        warning.remove()
+                    }
+                    const warn = this.createElement('p',{classList:'dangerous',textContent:'Всі поля повинні бути заповнені'})
+                    saveBtn.insertAdjacentElement('afterend',warn)
                 }
-                const warn = this.createElement('p',{classList:'dangerous',textContent:'Всі поля повинні бути заповнені'})
-                saveBtn.insertAdjacentElement('afterend',warn)
             }
-            return sendVal
         },
         createAddVariantBtn(testBlock) {
             const con = this.createElement('div',{className:'add-variant-con'});
@@ -386,8 +394,8 @@
         },
         createDynamicInputs() {
             const con = this.createElement('div',{className:'dynamic-inputs-con'})
-            const inputUkr = this.createElement('input',{className:'dynamic-input ukr', placeholder:'Внесіть назву питання'})
-            const inputRus = this.createElement('input',{className:'dynamic-input rus',placeholder:'Внесите название вопроса (русский)'})
+            const inputUkr = this.createElement('input',{className:'dynamic-input-ukr', placeholder:'Внесіть назву питання'})
+            const inputRus = this.createElement('input',{className:'dynamic-input-rus',placeholder:'Внесите название вопроса (русский)'})
             con.append(inputUkr,inputRus);
             return con;
         },
@@ -564,7 +572,26 @@
                     con.append(span);
                 }
             })
+            con.addEventListener('mouseover',this.showActivity.bind(this))
+            con.addEventListener('mouseout',this.hideActivity.bind(this))
             return con
+        },
+        showActivity(e) {
+            const info = document.getElementById('activity-info-con')
+            if(info) {
+                info.remove()
+            }
+            const int = e.target.classList.contains('red') ? 'не активне' : 'активне';
+            const infoCon = `<div class='activity-info-con' id='activity-info-con'>
+                                <p class='activity-info'>Опитування ${int}</p>
+                                </div>`
+            e.target.insertAdjacentHTML('afterend',`${infoCon}`)
+        },
+        hideActivity() {
+            const info = document.getElementById('activity-info-con')
+            if(info) {
+                info.remove()
+            }
         },
         createStaticInfo(obj = null) {
             const con = this.createElement('div',{className:'static-info-block'});
