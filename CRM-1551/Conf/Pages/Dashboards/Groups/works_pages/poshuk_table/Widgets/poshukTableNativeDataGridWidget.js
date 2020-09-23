@@ -185,13 +185,15 @@
                 control_date_from: null,
                 control_date_to: null
             }
+
             this.applicantPhoneNumber = null;
             this.filtersValuesMacros = [];
             let filters = message.package.value.values;
             this.filtersLength = filters.length;
             this.filtersWithOutValues = 0;
             filters.forEach(filter => {
-                if (filter.active === true) {
+                
+                if (filter.active === true || (filter.type === 'MultiSelect' && filter.value.length > 0)) {
                     const type = filter.type;
                     const value = filter.value;
                     const name = filter.name;
@@ -237,7 +239,7 @@
                                 let sumViewValue = '';
                                 if(value.length > 0) {
                                     value.forEach(filter => {
-                                        sumValue = sumValue + ', ' + filter.value;
+                                        sumValue = sumValue + ', ' +  (typeof filter.value === 'string' ? "'" + filter.value + "'" : filter.value);
                                         sumViewValue = sumViewValue + ', ' + filter.viewValue;
                                     });
                                 }
@@ -312,7 +314,6 @@
             }
         },
         createFilterMacros: function(code, operation, value) {
-            debugger;
             if(code !== 'zayavnyk_phone_number') {
                 if(operation !== '>=' && operation !== '<=') {
                     let textMacros = '';
