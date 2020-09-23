@@ -312,6 +312,7 @@
             }
         },
         createFilterMacros: function(code, operation, value) {
+            debugger;
             if(code !== 'zayavnyk_phone_number') {
                 if(operation !== '>=' && operation !== '<=') {
                     let textMacros = '';
