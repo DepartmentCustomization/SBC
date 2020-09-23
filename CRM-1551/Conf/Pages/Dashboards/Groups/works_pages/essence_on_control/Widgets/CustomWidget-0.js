@@ -32,7 +32,7 @@
             con.append(questionBtn,assignmentBtn,eventBtn)
             mainCon.append(con)
             const title = document.getElementById('title')
-            title.remove()
+            title.remove();
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
