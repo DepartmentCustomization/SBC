@@ -9,6 +9,19 @@
                     `
         ,
         init() {
+            this.sendButtonValues()
+            this.subscribers.push(this.messageService.subscribe('UpdateButtonValues', this.updateButtonValues, this));
+        },
+        sendButtonValues() {
+            const getButtonsValues = {
+                queryCode: 'essence_group_SelectRows',
+                limit: -1,
+                parameterValues: [
+                ]
+            };
+            this.queryExecutor(getButtonsValues,this.createButtons,this);
+        },
+        updateButtonValues() {
             const getButtonsValues = {
                 queryCode: 'essence_group_SelectRows',
                 limit: -1,
@@ -18,6 +31,10 @@
             this.queryExecutor(getButtonsValues,this.createButtons,this);
         },
         createButtons({rows}) {
+            const btnPrimary = document.getElementById('btns-con')
+            if(btnPrimary) {
+                btnPrimary.remove()
+            }
             const questionVal = rows.find(elem=>elem.values.includes('question'))
             const assignmentVal = rows.find(elem=>elem.values.includes('assignment'))
             const eventVal = rows.find(elem=>elem.values.includes('event'))

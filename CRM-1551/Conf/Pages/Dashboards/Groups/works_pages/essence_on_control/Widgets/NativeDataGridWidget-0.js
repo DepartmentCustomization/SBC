@@ -143,11 +143,22 @@
             this.queryExecutor(getButtonsValues,this.getNewTable,this);
         },
         getNewTable() {
+            this.updateButtonsValues()
+            this.loadData(this.afterLoadDataHandler)
         },
         getData(data) {
             this.buttonData = data.package.value
             this.config.query.parameterValues = [{key: '@Group', value: data.package.value}, {key: '@UserId', value: '1'}]
             this.loadData(this.afterLoadDataHandler)
+        },
+        updateButtonsValues() {
+            let msg = {
+                name: 'UpdateButtonValues',
+                package: {
+                    value: true
+                }
+            };
+            this.messageService.publish(msg);
         },
         afterLoadDataHandler: function() {
             this.render();
