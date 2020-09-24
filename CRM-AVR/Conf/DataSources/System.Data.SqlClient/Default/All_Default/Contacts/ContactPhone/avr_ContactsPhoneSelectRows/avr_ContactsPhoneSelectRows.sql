@@ -1,4 +1,5 @@
 SELECT
+DISTINCT
 	Contacts.[Id],
 	Contacts.Name AS contacts_name,
 	Contacts.Id AS contacts_id,
