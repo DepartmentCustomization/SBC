@@ -18,9 +18,10 @@ FROM
 	[dbo].[Orders] Orders
 	LEFT JOIN [dbo].[Claims] Claims ON Claims.Id = Orders.Claim_ID
 	LEFT JOIN [dbo].[Order_Jobs] AS oj ON oj.Order_id = Orders.Id
-	AND oj.Is_main = 1
+		AND oj.Is_main = 1
 	LEFT JOIN dbo.Jobs AS j ON j.Id = oj.Job_id
-	LEFT JOIN dbo.Contacts AS c ON c.external_Id = j.Contacts_ID
+	LEFT JOIN dbo.Contacts AS c ON c.Id = j.Contacts_ID
+		AND Contact_type_ID = 3
 WHERE
 	Claims.Id = @Id
 	AND #filter_columns#

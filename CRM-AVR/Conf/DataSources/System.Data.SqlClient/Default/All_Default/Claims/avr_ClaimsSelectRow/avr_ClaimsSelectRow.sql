@@ -229,7 +229,7 @@ FROM
 	LEFT JOIN dbo.Contacts AS ct2 ON ct2.Id = Claims.Contact_ID_Fiz
 	LEFT JOIN dbo.Contact_types Contact_types ON Contact_types.Id = ct.Contact_type_ID
 	LEFT JOIN dbo.Contact_types AS Contact_types2 ON Contact_types2.Id = ct2.Contact_type_ID
-	LEFT JOIN dbo.Jobs Jobs ON Jobs.Contacts_ID = ct.external_Id
+	LEFT JOIN dbo.Jobs Jobs ON Jobs.Contacts_ID = ct.Id
 	LEFT JOIN dbo.Organizations org_jobs ON org_jobs.Id = jobs.Organization_ID
 	LEFT JOIN dbo.Organizations UR_org ON UR_org.Id = [Claims].UR_organization_ID
 	LEFT JOIN dbo.Contact_phones UR_phone ON UR_phone.Contact_ID = ct2.Id
