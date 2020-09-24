@@ -127,7 +127,10 @@
         },
         findAllSelectRowsToArrived() {
             let rows = this.dataGridInstance.selectedRowKeys;
-            const rowsValues = rows.map(elem=>`{Id: ${elem}}`)
+            const rowsValues = rows.map(elem=>{
+                const obj = {Id: elem}
+                return obj
+            })
             const jsonRows = JSON.stringify(rowsValues)
             const getButtonsValues = {
                 queryCode: 'essence_table_DeleteRows',
