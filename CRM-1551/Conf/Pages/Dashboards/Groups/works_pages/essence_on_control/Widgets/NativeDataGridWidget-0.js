@@ -72,7 +72,6 @@
                 mode: 'multiple'
             },
             export: {
-                enabled: true,
                 fileName: 'Сутності на контролі'
             },
             keyExpr: 'Id',
@@ -100,6 +99,18 @@
         },
         createTableButton(e) {
             let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
+                    onClick: function() {
+                        this.dataGridInstance.instance.exportToExcel();
+                    }.bind(this)
+                }
+            });
             toolbarItems.push({
                 widget: 'dxButton',
                 options: {
