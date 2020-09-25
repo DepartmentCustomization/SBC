@@ -59,7 +59,7 @@
               }
             ],
             "id": "Container-1",
-            "height": "auto",
+            "height": "80%",
             "minHeight": "100px",
             "minWidth": "calc(100% - 10px)",
             "backgroundColor": "white"

@@ -6,6 +6,7 @@
 if @Group = N'question'
 begin
 	  SELECT [AttentionQuestionAndEvent].Id
+	  		,[Questions].Id as [ReferenceId]
 			,[Questions].registration_number as [RegistrationNumber] /*Номер*/
 			,[Questions].registration_date as [RegistrationDate] /*Дата реєстрації*/
 			,[QuestionTypes].[name] as [TypeName] /*Тип*/
@@ -38,6 +39,7 @@ end
 if @Group = N'assignment'
 begin
 	  SELECT [AttentionQuestionAndEvent].Id
+	  		,[Assignments].Id as [ReferenceId]
 			,[Questions].registration_number as [RegistrationNumber] /*Номер*/
 			,[Assignments].registration_date as [RegistrationDate] /*Дата реєстрації*/
 			,[QuestionTypes].[name] as [TypeName] /*Тип*/
@@ -71,6 +73,7 @@ end
 if @Group = N'event'
 begin
 	  SELECT [AttentionQuestionAndEvent].Id
+	  		,[Events].Id as [ReferenceId]
 			,[Events].Id as [RegistrationNumber] /*Номер*/
 			,[Events].[start_date] as [RegistrationDate] /*Дата реєстрації*/
 			,[Event_Class].[name] as [TypeName] /*Тип*/
