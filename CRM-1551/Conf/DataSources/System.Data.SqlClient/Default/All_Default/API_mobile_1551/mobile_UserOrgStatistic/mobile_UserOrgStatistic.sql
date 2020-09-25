@@ -1,5 +1,5 @@
---   DECLARE @userId NVARCHAR(128) = N'eb6d56d2-e217-45e4-800b-c851666ce795';
---   DECLARE @orgId INT = 2007;
+-- DECLARE @userId NVARCHAR(128) = N'eb6d56d2-e217-45e4-800b-c851666ce795';
+-- DECLARE @orgId INT = null;
 
 DECLARE @user_position TABLE (Id INT);
 INSERT INTO @user_position
@@ -8,6 +8,14 @@ SELECT
 FROM dbo.Positions 
 WHERE [programuser_id] = @userId;
 
+DECLARE @InUserResponseRights TABLE (Id INT);
+INSERT INTO @InUserResponseRights
+SELECT 
+DISTINCT 
+	[organization_id]
+FROM [dbo].[OrganizationInResponsibilityRights]
+WHERE [position_id] IN (SELECT [Id] FROM @user_position);
+
 DECLARE @user_orgs TABLE (Id INT, code INT);
 DECLARE @now DATETIME = GETUTCDATE();
 
@@ -15,20 +23,26 @@ IF (@orgId IS NULL)
 BEGIN
 	INSERT INTO @user_orgs
 	SELECT 
-		org.[Id],
-		org.[organization_code]
-	FROM dbo.[OrganizationInResponsibility] org_resp 
-	INNER JOIN dbo.[Organizations] org ON org.Id = org_resp.organization_id
-	WHERE org_resp.position_id IN (SELECT [Id] FROM @user_position);
+	DISTINCT 
+		o.[Id],
+		o.[organization_code]
+	FROM [dbo].[OrganizationInResponsibilityRights] org_r
+	INNER JOIN [dbo].[Organizations] o ON o.Id = org_r.organization_id
+	WHERE [position_id] IN (SELECT Id FROM @user_position);
 END
 ELSE 
 BEGIN
+	IF(@orgId NOT IN (SELECT [Id] FROM @InUserResponseRights))
+	BEGIN
+		RAISERROR(N'Користувач не має доступу до даної організації', 16, 1);
+		RETURN;
+	END
 	INSERT INTO @user_orgs
 	SELECT 
 		@orgId,
 		[organization_code] 
 	FROM dbo.[Organizations] 
-	WHERE Id = @orgId;
+	WHERE [Id] = @orgId;
 END
 
 -- Надійшло
@@ -166,6 +180,7 @@ INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
 
 
 SELECT 
+DISTINCT
 	uo.[code],
 	ISNULL(na.[val],0) AS new_assignemnt,
 	ISNULL(iwa.[val],0) AS in_work_assignment,

@@ -23,7 +23,8 @@
   "Parameters": [
     {
       "Code": "@userId",
-      "Name": "userId"
+      "Name": "userId",
+      "ParameterType": "CurrentUserId"
     },
     {
       "Code": "@pageOffsetRows",
