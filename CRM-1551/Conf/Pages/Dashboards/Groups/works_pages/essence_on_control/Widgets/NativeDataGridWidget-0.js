@@ -96,6 +96,24 @@
         init: function() {
             this.subscribers.push(this.messageService.subscribe('SetButtonData', this.getData, this));
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
+            const self = this;
+            this.dataGridInstance.onCellClick.subscribe(e => {
+                e.event.stopImmediatePropagation();
+                let val = null
+                if(self.buttonData === 'question') {
+                    val = 'Questions'
+                } else if(self.buttonData === 'assignment') {
+                    val = 'Assignments'
+                } else if(self.buttonData === 'event') {
+                    val = 'Events'
+                }
+                if(e.column) {
+                    if(e.column.dataField === 'RegistrationNumber' && e.row !== undefined) {
+                        window.open(location.origin + localStorage.getItem('VirtualPath') +
+                         `/sections/${val}/edit/` + e.row.data.ReferenceId, '_blank');
+                    }
+                }
+            });
         },
         createTableButton(e) {
             let toolbarItems = e.toolbarOptions.items;
