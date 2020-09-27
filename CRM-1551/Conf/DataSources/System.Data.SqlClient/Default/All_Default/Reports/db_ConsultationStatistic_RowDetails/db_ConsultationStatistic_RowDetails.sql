@@ -1,12 +1,13 @@
--- DECLARE @dateFrom DATE = DATEADD(DAY, -10, GETDATE());
--- DECLARE @dateTo DATE = GETDATE(); 
--- DECLARE @UserId NVARCHAR(MAX) = N'29796543-b903-48a6-9399-4840f6eac396,6234fd61-5832-4ecc-bd4f-bc4292e1808e,cd51bfe1-2406-46d0-a7dc-e26a43ada847';
+--  DECLARE @dateFrom DATE = DATEADD(DAY, -30, GETDATE());
+--  DECLARE @dateTo DATE = GETDATE(); 
+--  DECLARE @knowledge_id INT = 3507952;
+--  DECLARE @UserId NVARCHAR(MAX) = N'29796543-b903-48a6-9399-4840f6eac396, 6234fd61-5832-4ecc-bd4f-bc4292e1808e, cd51bfe1-2406-46d0-a7dc-e26a43ada847';
 
 DECLARE @UserList TABLE (Id NVARCHAR(128));
 
 INSERT INTO @UserList
 SELECT 
-	trim(value)  
+	trim(value) 
 FROM STRING_SPLIT(@UserId, ',');
 
 IF OBJECT_ID ('tempdb..#Knowledge') IS NOT NULL
@@ -21,31 +22,24 @@ CREATE TABLE #Knowledge ([Id] INT,
 						 [article_percent] NUMERIC(5,2),
 						 [talk_all] TIME,
 						 [talk_consultations_only] TIME,
-						 [talk_consultation_average] TIME
+						 [talk_consultation_average] TIME,
+						 [sort_index] TINYINT
 						 ) WITH (DATA_COMPRESSION = PAGE);
 --> Общее значение консультаций
 DECLARE @Knowledge_AllVal INT; 
 SELECT 
 	@Knowledge_AllVal = SUM(number_by_day)
-FROM dbo.ConsultationStatistic;
+FROM dbo.ConsultationStatistic
+WHERE article_id = @knowledge_id
+  OR article_id IN (SELECT 
+						Id 
+				   FROM dbo.KnowledgeBaseStates
+				   WHERE parent_id = @knowledge_id);
 --> Сбор данных по статистике типов 
-INSERT INTO #Knowledge 
-SELECT 
-	0,
-	NULL,
-	N'Корень',
-	0,
-	0,
-	'00:00:00',
-	'00:00:00',
-	'00:00:00'
-UNION
+INSERT INTO #Knowledge
 SELECT 
 	[Id],
-	IIF([parent_id] = 3510017, 
-		0, 
-		ISNULL([parent_id],0) 
-	  ) AS [parent_id],
+	[parent_id],
 	[name],
 	SUM(ISNULL(cs.number_by_day,0)) AS [article_qty], 
     CASE WHEN ISNULL(cs.number_by_day,0) > 0 
@@ -62,12 +56,16 @@ SELECT
 		 THEN 
 		 CONVERT(VARCHAR(15), DATEADD(SECOND,(SUM(ISNULL(cs.duration_only_cons,0)) / SUM(ISNULL(cs.number_only_cons,0))),0),108)
 		 ELSE '00:00:00' END
-  		AS [talk_consultation_average]
+  		AS [talk_consultation_average],
+	IIF(kn_base.Id = @knowledge_id, 1, 2) 
+		AS [sort_index]
 FROM dbo.KnowledgeBaseStates kn_base
 LEFT JOIN dbo.ConsultationStatistic cs ON cs.article_id = kn_base.id
 WHERE CAST(cs.main_datetime AS DATE)
 	  BETWEEN @dateFrom AND @dateTo
   AND cs.[user_id] IN (SELECT Id FROM @UserList)
+  AND (kn_base.id = @knowledge_id 
+	OR kn_base.parent_id = @knowledge_id) 
 GROUP BY [parent_id], 
 		 [Id], 
 		 [name],
@@ -83,11 +81,12 @@ SELECT
 	0,
 	'00:00:00',
 	'00:00:00',
-	'00:00:00'
+	'00:00:00',
+	IIF(Id = @knowledge_id, 1, 2) 
+	AS [sort_index]
 FROM dbo.KnowledgeBaseStates
-WHERE (parent_id IS NULL
-	OR parent_id = 3510017)
-	AND [Id] NOT IN (SELECT Id FROM #Knowledge);
+WHERE parent_id = @knowledge_id
+AND [Id] NOT IN (SELECT Id FROM #Knowledge);
 
  --select * from #Knowledge;
 
@@ -103,10 +102,10 @@ SELECT
 	[article_percent],
 	[talk_all],
 	[talk_consultations_only],
-	[talk_consultation_average] 
+	[talk_consultation_average],
+	[sort_index]
 INTO #RootVals
-FROM #Knowledge 
-WHERE parent_id = 0;
+FROM #Knowledge;
 
 DECLARE @RootCircle TABLE (Id INT);
 INSERT INTO @RootCircle
@@ -125,7 +124,25 @@ WHILE (@Step <= @Count)
 BEGIN
 	DELETE FROM @StepValues;
 	SET @Current = (SELECT TOP 1 [Id] FROM @RootCircle);
-	 
+
+	IF (@Current = @knowledge_id)
+	BEGIN
+	UPDATE #RootVals
+		SET [article_qty] = (SELECT SUM([article_qty]) FROM #Knowledge WHERE [Id] = @knowledge_id),
+			[article_percent] = (SELECT SUM([article_percent]) FROM #Knowledge WHERE [Id] = @knowledge_id),
+			[talk_all] = (SELECT DATEADD(ms, SUM(DATEDIFF(ms, 0, [talk_all])), 0) FROM #Knowledge WHERE [Id] = @knowledge_id),
+			[talk_consultations_only] = (SELECT DATEADD(ms, SUM(DATEDIFF(ms, 0, [talk_consultations_only])), 0) FROM #Knowledge WHERE [Id] = @knowledge_id),
+			[talk_consultation_average] = (SELECT DATEADD(ms, AVG(DATEDIFF(ms, 0, [talk_consultation_average])), 0) FROM #Knowledge WHERE [Id] = @knowledge_id)
+	WHERE [Id] = @Current;
+
+	DELETE FROM @RootCircle
+	WHERE Id = @Current;
+	
+	SET @Step +=1;
+	END
+	
+	ELSE 
+	BEGIN 
 	WITH Knowledge_Rec ([Id], [parent_id], [Name])
 	AS
 	(
@@ -159,8 +176,8 @@ BEGIN
 	WHERE Id = @Current;
 	
 	SET @Step +=1;
+	END
 END
-
 SELECT 
 	[Id],
 	[Name],
@@ -170,4 +187,4 @@ SELECT
 	[talk_consultations_only],
 	[talk_consultation_average]
 FROM #RootVals
-ORDER BY [Name];
+ORDER BY [sort_index], [Name];
