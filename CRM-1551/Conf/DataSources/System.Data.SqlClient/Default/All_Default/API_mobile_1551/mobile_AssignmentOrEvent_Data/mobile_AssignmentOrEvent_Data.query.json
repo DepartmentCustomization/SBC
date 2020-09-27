@@ -76,9 +76,17 @@
       "FilterParameterCode": "@execution_date"
     },
     {
+      "Code": "registration_date",
+      "Name": "registration_date",
+      "Position": 9,
+      "IsPrintable": false,
+      "SqlName": "[registration_date]",
+      "FilterParameterCode": "@registration_date"
+    },
+    {
       "Code": "event_class_name",
       "Name": "event_class_name",
-      "Position": 9,
+      "Position": 10,
       "IsPrintable": false,
       "SqlName": "[event_class_name]",
       "FilterParameterCode": "@event_class_name"
@@ -86,7 +94,7 @@
     {
       "Code": "active",
       "Name": "active",
-      "Position": 10,
+      "Position": 11,
       "IsPrintable": false,
       "SqlName": "[active]",
       "FilterParameterCode": "@active"
@@ -94,7 +102,7 @@
     {
       "Code": "event_object",
       "Name": "event_object",
-      "Position": 11,
+      "Position": 12,
       "IsPrintable": false,
       "SqlName": "[event_object]",
       "FilterParameterCode": "@event_object"
@@ -102,7 +110,7 @@
     {
       "Code": "event_organization_name",
       "Name": "event_organization_name",
-      "Position": 12,
+      "Position": 13,
       "IsPrintable": false,
       "SqlName": "[event_organization_name]",
       "FilterParameterCode": "@event_organization_name"
@@ -110,7 +118,7 @@
     {
       "Code": "question_object",
       "Name": "question_object",
-      "Position": 13,
+      "Position": 14,
       "IsPrintable": false,
       "SqlName": "[question_object]",
       "FilterParameterCode": "@question_object"
@@ -118,7 +126,7 @@
     {
       "Code": "start_date",
       "Name": "start_date",
-      "Position": 14,
+      "Position": 15,
       "IsPrintable": false,
       "SqlName": "[start_date]",
       "FilterParameterCode": "@start_date"
@@ -126,7 +134,7 @@
     {
       "Code": "plan_end_date",
       "Name": "plan_end_date",
-      "Position": 15,
+      "Position": 16,
       "IsPrintable": false,
       "SqlName": "[plan_end_date]",
       "FilterParameterCode": "@plan_end_date"
@@ -144,7 +152,23 @@
     },
     {
       "Code": "@startDate",
-      "Name": "startDate"
+      "Name": "startDate",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@endDate",
+      "Name": "endDate",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@Control_startDate",
+      "Name": "Control_startDate",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@Control_endDate",
+      "Name": "Control_endDate",
+      "ParameterType": "DateTime"
     },
     {
       "Code": "@code",
