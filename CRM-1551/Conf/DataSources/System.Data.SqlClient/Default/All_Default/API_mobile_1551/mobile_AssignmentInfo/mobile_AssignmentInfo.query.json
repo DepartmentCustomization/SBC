@@ -108,7 +108,7 @@
       "IsPrintable": false
     },
     {
-      "Code": "is_question_files_exists",
+      "Code": "question_files_exists",
       "Name": "Ознака наявності файлів питання",
       "Position": 17,
       "IsPrintable": false
@@ -132,7 +132,7 @@
       "IsPrintable": false
     },
     {
-      "Code": "is_documents_files_exists",
+      "Code": "documents_files_exists",
       "Name": "Ознака наявності файлів виконання",
       "Position": 21,
       "IsPrintable": false

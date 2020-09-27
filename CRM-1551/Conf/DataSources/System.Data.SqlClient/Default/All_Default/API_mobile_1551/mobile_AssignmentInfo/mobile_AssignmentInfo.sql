@@ -1,5 +1,5 @@
--- DECLARE @userId NVARCHAR(128) = N'646d6b5e-9f27-4764-9612-f18d04fea509',
--- 		@assignmentId INT = 3989092;
+--   DECLARE @userId NVARCHAR(128) = N'646d6b5e-9f27-4764-9612-f18d04fea509',
+--   		@assignmentId INT = 3989092;
 
 DECLARE @orgId INT;
 SELECT 
@@ -46,16 +46,47 @@ WHERE [assignment_id] = @assignmentId
 AND [short_answer] IS NOT NULL
 ORDER BY [create_date] DESC;
 
-DECLARE @AssignmentConsDocuments_Row NVARCHAR(MAX) = 
-		   STUFF((SELECT '. '+ [name] 
-		   + ': ' + [content] 
-		   + N' Дата додання: ' + CONVERT(VARCHAR(10), [add_date], 23)
-           FROM [dbo].[AssignmentConsDocuments]
-		   WHERE [assignment_сons_id] IN (SELECT 
-											[Id] 
-										  FROM dbo.AssignmentConsiderations 
-										  WHERE [assignment_id] = @assignmentId)
-           FOR XML PATH('')), 1, 1, '');
+DECLARE @assignment_docs_array NVARCHAR(MAX);
+DECLARE @assignment_docs_tab TABLE ([name] NVARCHAR(300),
+				                    [content] NVARCHAR(MAX),
+									[date_add] DATETIME);
+
+INSERT INTO @assignment_docs_tab
+SELECT 
+	cons_doc.[name],
+	cons_doc.[content],
+	cons_doc.[add_date]
+FROM [dbo].[AssignmentConsiderations] cons
+INNER JOIN [dbo].[AssignmentConsDocuments] cons_doc 
+	ON cons_doc.[assignment_сons_id] = cons.[Id]
+WHERE [assignment_id] = @assignmentId;
+
+SET @assignment_docs_array = (
+SELECT 
+	[name],
+	[content],
+	[date_add]
+FROM @assignment_docs_tab
+FOR JSON AUTO,
+INCLUDE_NULL_VALUES);
+
+DECLARE @is_question_files_exists BIT;
+SELECT 
+	@is_question_files_exists = 
+	IIF(COUNT(q_file.[Id]) > 0, 1, 0)
+FROM [dbo].[Assignments] ass 
+INNER JOIN [dbo].[QuestionDocFiles] q_file ON q_file.[question_id] = ass.[question_id]
+WHERE ass.[Id] = @assignmentId;
+
+DECLARE @is_documents_files_exists BIT;
+SELECT 
+	@is_documents_files_exists = 
+	IIF(COUNT(cons_doc_file.[Id]) > 0, 1, 0)
+FROM [dbo].[Assignments] ass 
+LEFT JOIN [dbo].[AssignmentConsiderations] ass_cons ON ass_cons.[assignment_id] = ass.[Id]
+LEFT JOIN [dbo].[AssignmentConsDocuments] cons_doc ON cons_doc.[assignment_сons_id] = ass_cons.[Id]
+LEFT JOIN [dbo].[AssignmentConsDocFiles] cons_doc_file ON cons_doc_file.[assignment_cons_doc_id] = cons_doc.[Id]
+WHERE ass.[Id] = @assignmentId;
 
 SELECT
 DISTINCT 
@@ -79,15 +110,12 @@ DISTINCT
 		AS [executor_phone_number],
 	ass_received_org.[short_name] AS [received_organization_name],
 	@executor_answer AS [short_answer],
-	IIF(COUNT(q_doc_files.[Id]) > 0, 1, 0) AS [is_question_files_exists],
+	@is_question_files_exists AS [question_files_exists],
 	ass.[execution_date],
 	q.[event_id],
-	trim(@AssignmentConsDocuments_Row) AS [assignment_documents],
-	IIF(COUNT(cons_doc_file.[Id]) > 0, 1, 0) AS [is_documents_files_exists]
+	@assignment_docs_array AS [assignment_documents],
+	@is_documents_files_exists AS [documents_files_exists]
 FROM [dbo].[Assignments] ass
-LEFT JOIN [dbo].[AssignmentConsiderations] ass_cons ON ass_cons.[assignment_id] = ass.[Id]
-LEFT JOIN [dbo].[AssignmentConsDocuments] cons_doc ON cons_doc.[assignment_сons_id] = ass_cons.[Id]
-LEFT JOIN [dbo].[AssignmentConsDocFiles] cons_doc_file ON cons_doc_file.[assignment_cons_doc_id] = cons_doc.[Id]
 LEFT JOIN [dbo].[Organizations] ass_exec_org ON ass_exec_org.[Id] = ass.[executor_organization_id]
 LEFT JOIN [dbo].[Organizations] ass_received_org ON ass_received_org.[Id] = ass.[organization_id]
 LEFT JOIN [dbo].[Positions] ass_exec_pos ON ass_exec_pos.[Id] = ass.[executor_person_id]
@@ -97,7 +125,6 @@ LEFT JOIN [dbo].[AssignmentStates] ass_state ON ass_state.[Id] = ass.[assignment
 LEFT JOIN [dbo].[AssignmentResults] ass_result ON ass_result.[Id] = ass.[AssignmentResultsId]
 LEFT JOIN [dbo].[AssignmentResolutions] ass_resolution ON ass_resolution.[Id] = ass.[AssignmentResolutionsId]
 INNER JOIN [dbo].[Questions] q ON ass.[question_id] = q.[Id]
-LEFT JOIN [dbo].[QuestionDocFiles] q_doc_files ON q_doc_files.[question_id] = q.[Id]
 LEFT JOIN [dbo].[QuestionTypes] qt ON qt.[Id] = q.[question_type_id]
 LEFT JOIN [dbo].[Organizations] q_org ON q_org.[Id] = q.[organization_id]
 LEFT JOIN [dbo].[Objects] obj ON obj.Id = q.[object_id]
