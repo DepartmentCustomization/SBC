@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "mobile_UserOrgList",
-  "Name": "mobile_UserOrgList",
+  "Code": "mobile_SelectFiles",
+  "Name": "mobile_SelectFiles",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [
@@ -12,19 +12,29 @@
       "IsPrintable": false
     },
     {
-      "Code": "shortName",
-      "Name": "shortName",
+      "Code": "name",
+      "Name": "name",
       "Position": 1,
       "IsPrintable": false,
-      "SqlName": "trim([shortName])",
-      "FilterParameterCode": "@shortName"
+      "isFileName": true
+    },
+    {
+      "Code": "File",
+      "Name": "File",
+      "Position": 2,
+      "IsPrintable": false,
+      "isFileContent": true
     }
   ],
   "Parameters": [
     {
-      "Code": "@userId",
-      "Name": "userId",
-      "ParameterType": "CurrentUserId"
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@table",
+      "Name": "table"
     },
     {
       "Code": "@pageOffsetRows",
