@@ -12,11 +12,13 @@
             columns: [
                 {
                     dataField: 'registration_number',
-                    caption: 'Номер питання'
+                    caption: 'Номер питання',
+                    width: 100
                 }, {
                     dataField: 'registration_date',
                     caption: 'Дата реєстрації',
-                    sortOrder: 'asc'
+                    sortOrder: 'asc',
+                    width: 120
                 }, {
                     dataField: 'QuestionType',
                     caption: 'Тип питання'
@@ -25,21 +27,23 @@
                     caption: 'Місце проблеми'
                 }, {
                     dataField: 'control_date',
-                    caption: 'Дата контролю'
+                    caption: 'Дата контролю',
+                    width: 120
+                }, {
+                    dataField: 'vykonavets',
+                    caption: 'Виконавець'
                 }, {
                     dataField: 'lookup',
-                    caption: 'Виконавець',
+                    caption: 'Батьківська організація',
+                    width: 300,
                     lookup: {
-                        dataSource: {
-                            paginate: true,
-                            store: undefined
-                        },
+                        dataSource: undefined,
                         valueExpr: 'ID',
                         displayExpr: 'Name'
                     }
                 }, {
                     caption: '',
-                    dataField: '',
+                    dataField: 'phoneNumber',
                     alignment: 'center',
                     width: 40
                 }, {
@@ -104,8 +108,11 @@
         isEvent: false,
         event: 'Заходи',
         lookupData: [],
+        organizations: [],
+        phoneNumberIndex: 4,
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 405;
+            this.executeQueryLookup();
             this.tableContainer = document.getElementById('subTable');
             this.setVisibilityTableContainer('none');
             this.subscribers.push(this.messageService.subscribe('clickOnHeaderTable', this.changeOnTable, this));
@@ -113,7 +120,7 @@
             this.config.masterDetail.template = this.createMasterDetail.bind(this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
-            this.executeQueryLookup();
+            this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.dataGridInstance.onCellClick.subscribe(e => {
                 if(e.column) {
                     if(e.column.dataField === 'registration_number' && e.row !== undefined) {
@@ -121,8 +128,45 @@
                         const form = this.isEvent ? 'Events' : 'Assignments';
                         window.open(`${location.origin}${localStorage.getItem('VirtualPath')}/sections/${form}/edit/${id}`);
                     }
+                    if(e.column.dataField === 'phoneNumber' && e.row !== undefined) {
+                        if(e.data.lookup) {
+                            const index = this.organizations.rows.findIndex(o => o.values[0] === e.data.lookup);
+                            if(index !== -1) {
+                                const phone = this.organizations.rows[index].values[this.phoneNumberIndex];
+                                if(phone) {
+                                    this.callTo(phone);
+                                }
+                            }
+                        } else {
+                            this.callTo(e.data.phone_number);
+                        }
+                    }
                 }
             });
+        },
+        callTo: function() {
+            /*
+                ЗДЕСЬ ДОЛЖНА БЫТЬ ОПИСАНА ЛОГИКА
+
+                ВОЗМОЖНО ТАКАЯ:
+                let CurrentUserPhone = e.row.data.phone_number;
+                let PhoneForCall = this.userPhoneNumber;
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', 'https://cc.1551.gov.ua:5566/CallService/Call/number=' +
+                CurrentUserPhone + '&operator=' + PhoneForCall);
+                xhr.send();
+
+                Взято  с ДБ "prozvon"
+            */
+        },
+        onCellPrepared: function(options) {
+            if(options.rowType === 'data') {
+                if(options.column.dataField === 'phoneNumber') {
+                    options.cellElement.innerText = '';
+                    const phoneIcon = this.createElement('span', {className: 'material-icons', innerText: 'phone'});
+                    options.cellElement.appendChild(phoneIcon);
+                }
+            }
         },
         executeQueryLookup: function() {
             let executeQueryStatuses = {
@@ -133,32 +177,24 @@
             this.queryExecutor(executeQueryStatuses, this.setLookupData, this);
         },
         setLookupData: function(data) {
-            this.lookupData = [ { 'ID': null, 'Name': ' ' } ];
+            this.organizations = data;
             data.rows.forEach(row => {
-                let status = {
+                let organization = {
                     'ID': row.values[0],
-                    'Name':  row.values[2],
+                    'Name':  row.values[3],
                     'vykonavets_Id': row.values[1]
                 }
-                this.lookupData.push(status);
+                this.lookupData.push(organization);
             });
             const index = this.config.columns.findIndex(c => c.dataField === 'lookup');
             this.config.columns[index].lookup.dataSource = this.setLookupDataSource.bind(this);
         },
         setLookupDataSource: function(options) {
-            return {
+            const obj = {
                 store: this.lookupData,
                 filter: options.data ? ['vykonavets_Id', '=', options.data.vykonavets_Id] : null
             };
-        },
-        onCellPrepared: function(options) {
-            if(options.rowType === 'data') {
-                if(options.column.dataField === '') {
-                    options.cellElement.innerText = '';
-                    const phoneIcon = this.createElement('span', {className: 'material-icons', innerText: 'phone'});
-                    options.cellElement.appendChild(phoneIcon);
-                }
-            }
+            return obj
         },
         createMasterDetail: function(container, options) {
             const currentEmployeeData = options.data;
@@ -192,7 +228,6 @@
             } else {
                 this.hideTable();
             }
-
         },
         createTableButton: function(code, e) {
             let toolbarItems = e.toolbarOptions.items;
@@ -239,7 +274,7 @@
             const name = 'exportExcel';
             const columns = [];
             this.config.columns.forEach(column => {
-                if (column.caption !== '') {
+                if (column.dataField !== 'lookup' && column.dataField !== 'phoneNumber') {
                     columns.push(column);
                 }
             });

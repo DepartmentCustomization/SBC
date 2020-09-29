@@ -1,11 +1,12 @@
+
 --на нижние таблички
   --параметры
-  /*
-  declare @navigator nvarchar(50)=N'Заходи';--Усі
-  declare @column nvarchar(50)=N'overdue';
-  declare @user_id nvarchar(128)=N'29796543-b903-48a6-9399-4840f6eac396';*/
+  /* 
+  declare @navigator nvarchar(50)=N'Усі';--Усі
+  declare @column nvarchar(50)=N'in_work';
+  declare @user_id nvarchar(128)=N'29796543-b903-48a6-9399-4840f6eac396';
   --фильтрация начало
-    
+   */
 
   IF object_id('tempdb..#temp_filter_d_qt') IS NOT NULL DROP TABLE #temp_filter_d_qt
 
@@ -71,12 +72,12 @@ stuff((select distinct N', '+ltrim(emergensy_id) from #temp_filter_emergensy_id 
 
 --declare @filters_an nvarchar(max)=isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or (1=2)')+isnull(N' and ( [QuestionTypes].emergency in ('+@filter_emergensy_id+N'))',N' or 1=2')
 
-declare @filters_an nvarchar(max)=N'(( '+isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or (1=2)')+N')'+isnull(N' and ( [QuestionTypes].emergency in ('+@filter_emergensy_id+N'))',N' or (1=2)')+N')'
+declare @filters_an nvarchar(max)=N'(( '+isnull(@filter_d_qt,N' 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or (1=2)')+N')'+isnull(N' and ( [QuestionTypes].emergency in ('+@filter_emergensy_id+N'))',N' or (1=2)')+N')'
 
 
 --declare @filters_ev nvarchar(max)=isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or 1=2')
 
-declare @filters_ev nvarchar(max)=N'( '+isnull(@filter_d_qt,N' or 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or 1=2')+N')'
+declare @filters_ev nvarchar(max)=N'( '+isnull(@filter_d_qt,N' 1=2')+isnull(N' or [Objects].district_id in ('+@filter_d_qt_all+N')', N' or 1=2')+N')'
 
 --select @filters_an, @filters_ev
   --фильтрация конец
@@ -131,27 +132,39 @@ declare @filters_ev nvarchar(max)=N'( '+isnull(@filter_d_qt,N' or 1=2')+isnull(N
 [Questions].registration_number,
 [Assignments].[registration_date],
 [QuestionTypes].name QuestionType,
-[StreetTypes].shortname + Streets.name + N'', '' + [Buildings].name place_problem,
+isnull([StreetTypes].shortname+N'' '', N'''') + Streets.name + N'', '' + [Buildings].name place_problem,
 [Assignments].[execution_date] control_date,
-[Organizations].short_name vykonavets,
+--[Organizations].short_name vykonavets,
+
+case when [Assignments].[executor_person_id] is null then [Organizations].short_name
+else [Positions].[position] end vykonavets,
+
 [AssignmentConsiderations].short_answer comment,
 [Applicants].full_name zayavnyk,
 [Applicants].[ApplicantAdress] ZayavnykAdress,
 [Questions].question_content content,
-[Organizations].Id vykonavets_Id
+--[Organizations].Id vykonavets_Id
+case when [Assignments].[executor_person_id] is null then [Organizations].Id
+else [Positions].[organizations_id] end vykonavets_Id,
+
+case when [Assignments].[executor_person_id] is null then [Organizations].phone_number
+else [Positions].[phone_number] end [phone_number]
 FROM
   [dbo].[Assignments] WITH (nolock)
 INNER JOIN   [dbo].[Questions] WITH (nolock) ON [Assignments].question_id = [Questions].Id
 INNER JOIN   [dbo].[Appeals] WITH (nolock) ON [Questions].appeal_id = [Appeals].Id
 INNER JOIN   [dbo].[ReceiptSources] WITH (nolock) ON [Appeals].receipt_source_id = [ReceiptSources].Id
 INNER JOIN [QuestionTypes] WITH (nolock) ON [Questions].question_type_id = [QuestionTypes].Id
-LEFT JOIN   [dbo].[Applicants] WITH (nolock) ON [Appeals].applicant_id = [Applicants].Id
-LEFT JOIN   [dbo].[Objects] WITH (nolock) ON [Questions].[object_id] = [Objects].Id
-LEFT JOIN   [dbo].[Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id
-LEFT JOIN   [dbo].[Streets] WITH (nolock) ON [Buildings].street_id = [Streets].Id
-LEFT JOIN   [dbo].[StreetTypes] WITH (nolock) ON [Streets].street_type_id = [StreetTypes].Id
-LEFT JOIN   [dbo].[Organizations] WITH (nolock) ON [Assignments].executor_organization_id = [Organizations].Id
-LEFT JOIN   [dbo].[AssignmentConsiderations] WITH (nolock) ON [AssignmentConsiderations].Id = Assignments.current_assignment_consideration_id
+
+LEFT JOIN [CRM_1551_Analitics].[dbo].[Applicants] WITH (nolock) ON [Appeals].applicant_id = [Applicants].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[Objects] WITH (nolock) ON [Questions].[object_id] = [Objects].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] WITH (nolock) ON [Buildings].street_id = [Streets].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] WITH (nolock) ON [Streets].street_type_id = [StreetTypes].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock) ON [Assignments].executor_organization_id = [Organizations].Id
+LEFT JOIN [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] WITH (nolock) ON [AssignmentConsiderations].Id = Assignments.current_assignment_consideration_id
+left join [CRM_1551_Analitics].[dbo].[Positions] WITH (nolock) on [Assignments].[executor_person_id]=[Positions].Id
+
 where [QuestionTypes].emergency in ('+@navigator_q+N') and '+@where+N' and '+@filters_an
 --union all
 
@@ -161,25 +174,29 @@ select [Events].[Id]*(-1) Id,
   LTRIM([Events].Id) registration_number, 
   [Events].[registration_date], 
   [Event_Class].name QuestionType,
-  [StreetTypes].shortname + Streets.name + N'', '' + [Buildings].name place_problem,
+  isnull([StreetTypes].shortname+N'' '', N'''') + Streets.name + N'', '' + [Buildings].name place_problem,
   [Events].plan_end_date control_date,
   [Organizations].short_name vykonavets,
   [Events].comment,
   null zayavnyk,
   null ZayavnykAdress,
   null content,
-  [Organizations].Id vykonavets_Id
-  from   [dbo].[Events] WITH (nolock)
-  left join   [dbo].[Event_Class] WITH (nolock) on [Events].event_class_id=[Event_Class].Id
-  left join   [dbo].[EventObjects] WITH (nolock) on [Events].Id=[EventObjects].event_id and [EventObjects].in_form=''true''
-  left join   [dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+
+  [Organizations].Id vykonavets_Id,
+  [Organizations].phone_number
+  from [CRM_1551_Analitics].[dbo].[Events] WITH (nolock)
+  left join [CRM_1551_Analitics].[dbo].[Event_Class] WITH (nolock) on [Events].event_class_id=[Event_Class].Id
+  left join [CRM_1551_Analitics].[dbo].[EventObjects] WITH (nolock) on [Events].Id=[EventObjects].event_id and [EventObjects].in_form=''true''
+  left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
-  left join   [dbo].[Objects] WITH (nolock) on [EventObjects].object_id=[Objects].Id
-  LEFT JOIN   [dbo].[Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id
-  LEFT JOIN   [dbo].[Streets] WITH (nolock) ON [Buildings].street_id = [Streets].Id
-  LEFT JOIN   [dbo].[StreetTypes] WITH (nolock) ON [Streets].street_type_id = [StreetTypes].Id
-  left join   [dbo].[EventOrganizers] WITH (nolock) on [Events].Id=[EventOrganizers].event_id and [EventOrganizers].main=''true''
-  left join   [dbo].[Organizations] WITH (nolock) on [EventOrganizers].organization_id=[Organizations].Id
+  left join [CRM_1551_Analitics].[dbo].[Objects] WITH (nolock) on [EventObjects].object_id=[Objects].Id
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] WITH (nolock) ON [Buildings].street_id = [Streets].Id
+  LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] WITH (nolock) ON [Streets].street_type_id = [StreetTypes].Id
+  left join [CRM_1551_Analitics].[dbo].[EventOrganizers] WITH (nolock) on [Events].Id=[EventOrganizers].event_id and [EventOrganizers].main=''true''
+  left join [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock) on [EventOrganizers].organization_id=[Organizations].Id
+  --left join [CRM_1551_Analitics].[dbo].[Positions] WITH (nolock) on [Assignments].[executor_person_id]=[Positions].Id
+
   where '+@where_event+N' and '+ @filters_ev
 
   declare @query nvarchar(max)=

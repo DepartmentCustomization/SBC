@@ -66,6 +66,10 @@
   z-index: 100;
 }
 
+.dx-list-item-content {
+  white-space: pre-wrap!important;
+}
+
 /*  start*/
 /*   TRIANGLE  */
 .triangle,

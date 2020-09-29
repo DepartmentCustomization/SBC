@@ -10,32 +10,37 @@
       "Name": "Id",
       "Position": 1,
       "IsPrimaryKey": true,
-      "ViewState": "Hidden",
       "IsPrintable": false
     },
     {
       "Code": "vykonavets_Id",
       "Name": "vykonavets_Id",
       "Position": 2,
-      "ViewState": "Hidden",
       "IsPrintable": false,
-      "SqlName": "[Positions].organizations_id",
+      "SqlName": "vykonavets_Id",
       "FilterParameterCode": "@vykonavets_Id"
     },
     {
-      "Code": "name",
-      "Name": "name",
+      "Code": "possible_Id",
+      "Name": "possible_Id",
       "Position": 3,
       "IsPrintable": false,
-      "SqlName": "ISNULL([Positions_parent].position, N'')+ ISNULL(N' ('+[Organizations].short_name+N')',N'')",
-      "FilterParameterCode": "@name"
-    }
-  ],
-  "Parameters": [
+      "SqlName": "possible_Id",
+      "FilterParameterCode": "@possible_Id"
+    },
     {
-      "Code": "@vykonavets_Id",
-      "Name": "vykonavets_Id",
-      "ParameterType": "Integer"
+      "Code": "possible_name",
+      "Name": "possible_name",
+      "Position": 4,
+      "IsPrintable": false,
+      "SqlName": "possible_name",
+      "FilterParameterCode": "@possible_name"
+    },
+    {
+      "Code": "phone_number",
+      "Name": "phone_number",
+      "Position": 5,
+      "IsPrintable": false
     }
   ]
 }
