@@ -1,9 +1,17 @@
 --   DECLARE @dateFrom DATE = DATEADD(DAY, -30, GETDATE());
 --   DECLARE @dateTo DATE = GETDATE(); 
 --   DECLARE @knowledge_id INT = 3507952;
---   DECLARE @UserId NVARCHAR(MAX) = N'29796543-b903-48a6-9399-4840f6eac396, 6234fd61-5832-4ecc-bd4f-bc4292e1808e, cd51bfe1-2406-46d0-a7dc-e26a43ada847';
+--   DECLARE @UserId NVARCHAR(MAX) = N'0';
 
 DECLARE @UserList TABLE (Id NVARCHAR(128));
+
+IF (@UserId = N'0')
+BEGIN 
+SET @UserId = stuff((SELECT 
+						','+ [UserId]
+					FROM CRM_1551_System.dbo.[User]
+					FOR XML PATH('')), 1, 1, '');
+END
 
 INSERT INTO @UserList
 SELECT 
@@ -75,13 +83,13 @@ ORDER BY 2,1;
 INSERT INTO #Knowledge
 SELECT 
 	[Id], 
-	0,
+	0 AS parent_id,
 	[Name],
-	0,
-	0,
-	'00:00:00',
-	'00:00:00',
-	'00:00:00',
+	0 AS [article_qty],
+	0 AS [article_percent],
+	'00:00:00' AS [talk_all],
+	'00:00:00' AS [talk_consultations_only],
+	'00:00:00' AS [talk_consultation_average],
 	IIF(Id = @knowledge_id, 1, 2) 
 	AS [sort_index]
 FROM dbo.KnowledgeBaseStates
