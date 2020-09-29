@@ -333,7 +333,7 @@ SELECT
 FROM
   [Assignments] [Assignments] WITH (NOLOCK)
   INNER JOIN [Questions] [Questions] WITH (NOLOCK) ON [Assignments].question_id = [Questions].Id
-  INNER JOIN dbo.[Appeals] [Appeals] ON [Appeals].Id = [Questions].appeal_id
+  INNER JOIN dbo.[Appeals] [Appeals] WITH (NOLOCK) ON [Appeals].Id = [Questions].appeal_id
   INNER JOIN dbo.[ReceiptSources] rs ON rs.Id = [Appeals].receipt_source_id
   INNER JOIN #temp_Organizations2 [Organizations] ON [Assignments].executor_organization_id=[Organizations].sub_id
   INNER JOIN #temp_QuestionTypes4monitoring qt ON [Questions].question_type_id = qt.id
@@ -353,8 +353,8 @@ FROM
       a.id AS [assignment_id],
       ah.edit_date AS plan_prog
     FROM
-      [dbo].[Assignments] a
-      INNER JOIN [dbo].[Questions] q ON q.Id = a.question_id
+      [dbo].[Assignments] a WITH (NOLOCK)
+      INNER JOIN [dbo].[Questions] q WITH (NOLOCK) ON q.Id = a.question_id
       LEFT JOIN (
         SELECT
           [assignment_id],
