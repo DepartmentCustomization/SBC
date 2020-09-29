@@ -1,6 +1,6 @@
--- DECLARE @dateFrom DATE = DATEADD(DAY, -10, GETDATE());
--- DECLARE @dateTo DATE = GETDATE(); 
--- DECLARE @UserId NVARCHAR(MAX) = N'29796543-b903-48a6-9399-4840f6eac396,6234fd61-5832-4ecc-bd4f-bc4292e1808e,cd51bfe1-2406-46d0-a7dc-e26a43ada847';
+--  DECLARE @dateFrom DATE = DATEADD(DAY, -10, GETDATE());
+--  DECLARE @dateTo DATE = GETDATE(); 
+--  DECLARE @UserId NVARCHAR(MAX) = N'29796543-b903-48a6-9399-4840f6eac396,6234fd61-5832-4ecc-bd4f-bc4292e1808e,cd51bfe1-2406-46d0-a7dc-e26a43ada847';
 
 DECLARE @UserList TABLE (Id NVARCHAR(128));
 
@@ -166,8 +166,8 @@ SELECT
 	[Name],
 	[article_qty],
 	[article_percent],
-	[talk_all],
-	[talk_consultations_only],
-	[talk_consultation_average]
+	CONVERT(VARCHAR(8), [talk_all], 108) AS [talk_all],
+	CONVERT(VARCHAR(8), [talk_consultations_only], 108) AS [talk_consultations_only],
+	CONVERT(VARCHAR(8), [talk_consultation_average], 108) AS [talk_consultation_average]
 FROM #RootVals
 ORDER BY [Name];
