@@ -1,8 +1,8 @@
 /*
 DECLARE @organization_id INT = 1;
-DECLARE @user_id NVARCHAR(300) = N'02ece542-2d75-479d-adad-fd333d09604d';
+DECLARE @user_id NVARCHAR(300) = N'42613f8b-e5fc-4365-83d6-a11126dfc820'; --29796543-b903-48a6-9399-4840f6eac396 42613f8b-e5fc-4365-83d6-a11126dfc820
 DECLARE @OtKuda NVARCHAR(20) = N'Городок';
-DECLARE @TypeEvent NVARCHAR(20) = N'Не активні';
+DECLARE @TypeEvent NVARCHAR(20) = N'В роботі';
 -- N'Усі'
 */
 
@@ -19,19 +19,41 @@ BEGIN
 	DROP TABLE #temp_ob_in_org;
 END
 
-DECLARE @OrganizationId INT = CASE
-  WHEN @organization_id IS NOT NULL THEN @organization_id
-  ELSE (
-    SELECT
-      organization_id
-    FROM
-      [CRM_1551_Analitics].[dbo].[Workers]
-    WHERE
-      worker_user_id = @user_id
-  )
-END;
+if OBJECT_ID('tempdb..#temp_orgs_and_help') is not null drop table #temp_orgs_and_help
+create table #temp_orgs_and_help (organization_id int)
 
-WITH it AS --дети @id
+	--begin
+			declare @organization_id_temp int=
+		  (select organizations_id from [dbo].[Positions] where programuser_id=@user_id)
+
+		  insert into #temp_orgs_and_help (organization_id)
+		  select organizations_id
+		  from [dbo].[Positions]
+		  where organizations_id=@organization_id_temp
+		  and programuser_id=@user_id
+		  union
+		  select [Positions2].organizations_id
+		  from [dbo].[Positions]
+		  inner join [dbo].[PositionsHelpers] on [Positions].Id=[PositionsHelpers].helper_position_id
+		  inner join [dbo].[Positions] [Positions2] on [PositionsHelpers].main_position_id=[Positions2].Id
+		  where [Positions].organizations_id=@organization_id_temp and [Positions].programuser_id=@user_id
+	--end
+
+--убрать начало
+-- DECLARE @OrganizationId INT = CASE
+--   WHEN @organization_id IS NOT NULL THEN @organization_id
+--   ELSE (
+--     SELECT
+--       organization_id
+--     FROM
+--         [dbo].[Workers]
+--     WHERE
+--       worker_user_id = @user_id
+--   )
+-- END;
+--убрать конец
+
+;WITH it AS --дети @id
 (
   SELECT
     Id,
@@ -39,8 +61,9 @@ WITH it AS --дети @id
     name
   FROM
     [dbo].[Organizations] t WITH (nolock)
-  WHERE
-    id = @OrganizationId
+	inner join #temp_orgs_and_help on t.Id=#temp_orgs_and_help.organization_id
+  --WHERE
+  --  id = @OrganizationId
   UNION
   ALL
   SELECT
@@ -94,8 +117,8 @@ FROM
       [Events].start_date,
       [Event_Class].name EventName
     FROM
-      [CRM_1551_Analitics].[dbo].[Events] [Events] WITH (nolock)
-      INNER JOIN [CRM_1551_Analitics].[dbo].[EventOrganizers] [EventOrganizers] WITH (nolock) ON [Events].Id = [EventOrganizers].event_id
+        [dbo].[Events] [Events] WITH (nolock)
+      INNER JOIN   [dbo].[EventOrganizers] [EventOrganizers] WITH (nolock) ON [Events].Id = [EventOrganizers].event_id
       INNER JOIN #temp_orgs orgs ON [EventOrganizers].organization_id=orgs.Id
       LEFT JOIN [Event_Class] [Event_Class] WITH (nolock) ON [Events].event_class_id = [Event_Class].id
     WHERE
@@ -129,11 +152,11 @@ FROM
       [Events].start_date,
       [Event_Class].name EventName
     FROM
-      [CRM_1551_Analitics].[dbo].[Events] [Events] WITH (nolock)
-      INNER JOIN [CRM_1551_Analitics].[dbo].[EventObjects] [EventObjects] WITH (nolock) ON [Events].Id = [EventObjects].event_id --AND [EventObjects].in_form = 1
-      INNER JOIN [CRM_1551_Analitics].[dbo].[Objects] [Objects] WITH (nolock) ON [EventObjects].object_id = [Objects].Id
-      INNER JOIN [CRM_1551_Analitics].[dbo].[Buildings] [Buildings] WITH (nolock) ON [Buildings].Id = [Objects].builbing_id
-      INNER JOIN [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject] [ExecutorInRoleForObject] WITH (nolock) ON [ExecutorInRoleForObject].object_id = [Buildings].Id
+        [dbo].[Events] [Events] WITH (nolock)
+      INNER JOIN   [dbo].[EventObjects] [EventObjects] WITH (nolock) ON [Events].Id = [EventObjects].event_id --AND [EventObjects].in_form = 1
+      INNER JOIN   [dbo].[Objects] [Objects] WITH (nolock) ON [EventObjects].object_id = [Objects].Id
+      INNER JOIN   [dbo].[Buildings] [Buildings] WITH (nolock) ON [Buildings].Id = [Objects].builbing_id
+      INNER JOIN   [dbo].[ExecutorInRoleForObject] [ExecutorInRoleForObject] WITH (nolock) ON [ExecutorInRoleForObject].object_id = [Buildings].Id
       INNER JOIN #temp_orgs orgs ON [ExecutorInRoleForObject].executor_id=orgs.Id
       LEFT JOIN [Event_Class] [Event_Class] WITH (nolock) ON [Events].event_class_id = [Event_Class].id
     WHERE
@@ -228,10 +251,10 @@ SELECT
   [Objects].name object_name
 FROM
   #temp_Events_1 e1
-  INNER JOIN [CRM_1551_Analitics].[dbo].[EventObjects] [EventObjects] WITH (nolock) ON e1.Id = [EventObjects].event_id --AND [EventObjects].in_form = 1
-  INNER JOIN [CRM_1551_Analitics].[dbo].[Objects] [Objects] WITH (nolock) ON [EventObjects].object_id = [Objects].Id
-  INNER JOIN [CRM_1551_Analitics].[dbo].[Buildings] [Buildings] WITH (nolock) ON [Buildings].Id = [Objects].builbing_id
-  INNER JOIN [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject] [ExecutorInRoleForObject] WITH (nolock) ON [ExecutorInRoleForObject].object_id = [Buildings].Id
+  INNER JOIN   [dbo].[EventObjects] [EventObjects] WITH (nolock) ON e1.Id = [EventObjects].event_id --AND [EventObjects].in_form = 1
+  INNER JOIN   [dbo].[Objects] [Objects] WITH (nolock) ON [EventObjects].object_id = [Objects].Id
+  INNER JOIN   [dbo].[Buildings] [Buildings] WITH (nolock) ON [Buildings].Id = [Objects].builbing_id
+  INNER JOIN   [dbo].[ExecutorInRoleForObject] [ExecutorInRoleForObject] WITH (nolock) ON [ExecutorInRoleForObject].object_id = [Buildings].Id
 WHERE
   [ExecutorInRoleForObject].[executor_role_id] IN (1, 68)
   /*балансоутримувач, генпідрядник*/
@@ -244,7 +267,7 @@ FROM
   #temp_Events_gorodok teg
   INNER JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[AllObjectInClaim] AS oc WITH (nolock) ON oc.claims_number_id = teg.id
   INNER JOIN [CRM_1551_GORODOK_Integrartion].[dbo].[Gorodok_1551_houses] gh WITH (nolock) ON gh.gorodok_houses_id = oc.object_id
-  INNER JOIN [dbo].[Objects] o ON o.Id = gh.[1551_houses_id];
+  INNER JOIN [dbo].[Objects] o ON o.builbing_id = gh.[1551_houses_id];
   --добавление объетков #temp_Events_gorodok конец
   --select * from #temp_Events_gorodok
 
@@ -336,7 +359,7 @@ SELECT
         count(question_Id) CountQuestions
       FROM
         #temp_main tm
-      WHERE #filter_columns#
+      --WHERE #filter_columns#
       GROUP BY
         event_Id,
         OtKuda,
@@ -346,4 +369,4 @@ SELECT
         start_date,
         plan_end_date
       ORDER BY 1 
-      OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
+      --OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;

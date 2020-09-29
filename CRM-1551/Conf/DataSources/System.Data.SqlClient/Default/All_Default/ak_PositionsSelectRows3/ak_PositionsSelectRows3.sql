@@ -39,7 +39,7 @@ SELECT [Id]
       ,[user_id]
       ,[edit_date]
       ,[user_edit_id]
-  FROM [CRM_1551_Analitics].[dbo].[Positions]
+  FROM   [dbo].[Positions]
    where Id not in (select Id from @Position o)
    and #filter_columns#
    order by id 

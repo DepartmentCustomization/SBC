@@ -2,9 +2,9 @@
 	distinct
 	[Workers].[Id],
 	[Workers].[name] as user_checked
-  FROM [CRM_1551_Analitics].[dbo].[Workers]
+  FROM   [dbo].[Workers]
   
-  inner Join [CRM_1551_Analitics].[dbo].[Roles]
+  inner Join   [dbo].[Roles]
   ON [Workers].roles_id = [Roles].Id
   where [Roles].id in (1,2 )
   and

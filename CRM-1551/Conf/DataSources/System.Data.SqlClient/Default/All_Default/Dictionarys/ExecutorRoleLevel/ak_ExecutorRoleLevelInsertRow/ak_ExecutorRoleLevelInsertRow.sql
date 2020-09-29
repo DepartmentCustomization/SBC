@@ -1,3 +1,3 @@
-insert into [CRM_1551_Analitics].[dbo].[ExecutorRoleLevel]
+insert into   [dbo].[ExecutorRoleLevel]
   (name)
   select @name

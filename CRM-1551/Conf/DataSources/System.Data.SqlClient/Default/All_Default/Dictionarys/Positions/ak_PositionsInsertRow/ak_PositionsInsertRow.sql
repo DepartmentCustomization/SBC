@@ -1,6 +1,6 @@
 declare @output table (Id int);
 
-insert into [CRM_1551_Analitics].[dbo].[Positions]
+insert into   [dbo].[Positions]
   (
   [parent_id]
       ,[position_code]
@@ -61,7 +61,7 @@ exec [dbo].[Calc_OrganizationInResponsibilityRights_byPosition] @org_id, @user_i
 
 
 
-	  insert into [CRM_1551_Analitics].[dbo].[Workers]
+	  insert into   [dbo].[Workers]
   (
   [organization_id]
       ,[roles_id]

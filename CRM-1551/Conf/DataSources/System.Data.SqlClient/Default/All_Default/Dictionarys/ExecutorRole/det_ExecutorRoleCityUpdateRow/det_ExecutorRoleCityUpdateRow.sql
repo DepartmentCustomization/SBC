@@ -1,6 +1,6 @@
 -- det_ExecutorRoleCityUpdateRow
 
-  update [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject]
+  update   [dbo].[ExecutorInRoleForObject]
 	set
 	--[building_id]=@building_id
      -- [district_id]=@district_id

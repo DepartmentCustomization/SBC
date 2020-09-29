@@ -1,3 +1,3 @@
-update [CRM_1551_Analitics].[dbo].[ComplainTypes]
+update   [dbo].[ComplainTypes]
   set name=@name
   where Id=@Id

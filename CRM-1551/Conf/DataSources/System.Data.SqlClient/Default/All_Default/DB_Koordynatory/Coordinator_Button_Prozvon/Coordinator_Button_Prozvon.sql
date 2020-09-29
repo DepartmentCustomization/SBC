@@ -55,7 +55,7 @@ and [Assignments].Id in (select Id from @table t)
 
   --declare @t nvarchar(max)=N'
 
-  update [CRM_1551_Analitics].[dbo].[Assignments]
+  update   [dbo].[Assignments]
   set
    assignment_state_id=3
   ,[AssignmentResultsId]=4 
@@ -66,7 +66,7 @@ and [Assignments].Id in (select Id from @table t)
   where Id in (select Id from @tabIds)
   
   
-  update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+  update   [dbo].[AssignmentConsiderations]
   set 
    [assignment_result_id]=4 
   ,[assignment_resolution_id]=4 
@@ -90,7 +90,7 @@ and [Assignments].Id in (select Id from @table t)
   --declare @user nvarchar(200)=N'Вася'
   -- declare @t nvarchar(max)=N'
 
-  -- update [CRM_1551_Analitics].[dbo].[Assignments]
+  -- update   [dbo].[Assignments]
   -- set
   --  assignment_state_id=3
   -- ,[AssignmentResultsId]=4 
@@ -101,7 +101,7 @@ and [Assignments].Id in (select Id from @table t)
   -- where Id in ( '+ @ids+N')'+
   -- N'
   
-  -- update [CRM_1551_Analitics].[dbo].[AssignmentConsiderations]
+  -- update   [dbo].[AssignmentConsiderations]
   -- set 
   --  [assignment_result_id]=4 
   -- ,[assignment_resolution_id]=4 

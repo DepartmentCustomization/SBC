@@ -1,3 +1,3 @@
-insert into [CRM_1551_Analitics].[dbo].[SiteAppealsStates]
+insert into   [dbo].[SiteAppealsStates]
   (name)
   select @name

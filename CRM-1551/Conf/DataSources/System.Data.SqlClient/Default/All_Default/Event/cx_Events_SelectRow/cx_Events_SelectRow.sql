@@ -9,8 +9,8 @@ IF EXISTS (
       [event_id],
       [EventObjects].[object_id]
    FROM
-      [CRM_1551_Analitics].[dbo].[EventObjects]
-      LEFT JOIN [CRM_1551_Analitics].[dbo].[ObjectsInObject] ON [EventObjects].object_id = [ObjectsInObject].main_object_id
+        [dbo].[EventObjects]
+      LEFT JOIN   [dbo].[ObjectsInObject] ON [EventObjects].object_id = [ObjectsInObject].main_object_id
    WHERE
       event_id = @Id
       AND [ObjectsInObject].main_object_id IS NOT NULL
@@ -21,8 +21,8 @@ SET
       SELECT
          DISTINCT [EventObjects].[object_id]
       FROM
-         [CRM_1551_Analitics].[dbo].[EventObjects]
-         LEFT JOIN [CRM_1551_Analitics].[dbo].[ObjectsInObject] ON [EventObjects].object_id = [ObjectsInObject].main_object_id
+           [dbo].[EventObjects]
+         LEFT JOIN   [dbo].[ObjectsInObject] ON [EventObjects].object_id = [ObjectsInObject].main_object_id
       WHERE
          event_id = @Id
          AND [ObjectsInObject].main_object_id IS NOT NULL
@@ -35,21 +35,22 @@ SET
       SELECT
          [object_id]
       FROM
-         [CRM_1551_Analitics].[dbo].[EventObjects]
+           [dbo].[EventObjects]
       WHERE
          event_id = @Id
          AND [EventObjects].[in_form] = 'true'
-   )
+   );
 END
 SET
    @object_name =(
       SELECT
          [name]
       FROM
-         [Objects]
+         dbo.[Objects] Objects
       WHERE
          Id = @object_id
-   ) --	select @object_id, @object_name
+   );
+--	select @object_id, @object_name
 SELECT
    DISTINCT [Events].[Id],
    [Events].[registration_date],
@@ -101,4 +102,5 @@ FROM
    AND AttentionQuestionAndEvent.user_id = @user_id 
 WHERE
    [Events].Id = @Id
-   AND [EventObjects].[in_form] = N'true';
+   -- AND [EventObjects].[in_form] = N'true'
+   ;

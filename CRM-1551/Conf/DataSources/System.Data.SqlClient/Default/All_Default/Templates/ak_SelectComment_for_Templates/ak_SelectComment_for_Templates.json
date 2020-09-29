@@ -18,6 +18,11 @@
         "Name": "Id",
         "ParameterType": "Integer",
         "IsPrimaryKey": true
+      },
+      {
+        "Code": "@assignment_id",
+        "Name": "assignment_id",
+        "ParameterType": "Integer"
       }
     ]
   }

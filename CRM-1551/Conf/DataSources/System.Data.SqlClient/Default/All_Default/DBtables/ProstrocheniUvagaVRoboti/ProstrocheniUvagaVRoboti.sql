@@ -89,7 +89,7 @@ isnull([Districts].name+N'' р-н, '', N'''')
 [QuestionTypes].name QuestionType,
 case when [ReceiptSources].name=N''УГЛ'' then N''УГЛ'' 
 when [ReceiptSources].name=N''Сайт/моб. додаток'' then N''Електронні джерела''
-when [QuestionTypes].emergency=N''true'' then N''Пріоритетне''
+when [QuestionTypes].emergency=1 then N''Пріоритетне''
 when [QuestionTypes].parent_organization_is=N''true'' then N''Зауваження''
 else N''Інші доручення''
 end navigation,
@@ -103,28 +103,28 @@ end navigation,
   ,[Organizations3].short_name balans_name, [Questions].[receipt_date]
 
 from 
-[CRM_1551_Analitics].[dbo].[Assignments] left join 
-[CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
-left join [CRM_1551_Analitics].[dbo].[Appeals] on [Questions].appeal_id=[Appeals].Id
-left join [CRM_1551_Analitics].[dbo].[ReceiptSources] on [Appeals].receipt_source_id=[ReceiptSources].Id
-left join [CRM_1551_Analitics].[dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-left join [CRM_1551_Analitics].[dbo].[AssignmentTypes] on [Assignments].assignment_type_id=[AssignmentTypes].Id
-left join [CRM_1551_Analitics].[dbo].[AssignmentStates] on [Assignments].assignment_state_id=[AssignmentStates].Id
-left join [CRM_1551_Analitics].[dbo].[AssignmentResults] on [Assignments].[AssignmentResultsId]=[AssignmentResults].Id 
-left join [CRM_1551_Analitics].[dbo].[AssignmentResolutions] on [Assignments].[AssignmentResolutionsId]=[AssignmentResolutions].Id
-left join [CRM_1551_Analitics].[dbo].[Organizations] on [Assignments].executor_organization_id=[Organizations].Id
-left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].[object_id]=[Objects].Id
-left join [CRM_1551_Analitics].[dbo].[Buildings] on [Objects].builbing_id=[Buildings].Id
-left join [CRM_1551_Analitics].[dbo].[Streets] on [Buildings].street_id=[Streets].Id
-left join [CRM_1551_Analitics].[dbo].[Applicants] on [Appeals].applicant_id=[Applicants].Id
-left join [CRM_1551_Analitics].[dbo].[StreetTypes] on [Streets].street_type_id=[StreetTypes].Id
-left join [CRM_1551_Analitics].[dbo].[Districts] on [Buildings].district_id=[Districts].Id
+  [dbo].[Assignments] left join 
+  [dbo].[Questions] on [Assignments].question_id=[Questions].Id
+left join   [dbo].[Appeals] on [Questions].appeal_id=[Appeals].Id
+left join   [dbo].[ReceiptSources] on [Appeals].receipt_source_id=[ReceiptSources].Id
+left join   [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
+left join   [dbo].[AssignmentTypes] on [Assignments].assignment_type_id=[AssignmentTypes].Id
+left join   [dbo].[AssignmentStates] on [Assignments].assignment_state_id=[AssignmentStates].Id
+left join   [dbo].[AssignmentResults] on [Assignments].[AssignmentResultsId]=[AssignmentResults].Id 
+left join   [dbo].[AssignmentResolutions] on [Assignments].[AssignmentResolutionsId]=[AssignmentResolutions].Id
+left join   [dbo].[Organizations] on [Assignments].executor_organization_id=[Organizations].Id
+left join   [dbo].[Objects] on [Questions].[object_id]=[Objects].Id
+left join   [dbo].[Buildings] on [Objects].builbing_id=[Buildings].Id
+left join   [dbo].[Streets] on [Buildings].street_id=[Streets].Id
+left join   [dbo].[Applicants] on [Appeals].applicant_id=[Applicants].Id
+left join   [dbo].[StreetTypes] on [Streets].street_type_id=[StreetTypes].Id
+left join   [dbo].[Districts] on [Buildings].district_id=[Districts].Id
 
 left join (select [building_id], [executor_id]
-  from [CRM_1551_Analitics].[dbo].[ExecutorInRoleForObject]
+  from   [dbo].[ExecutorInRoleForObject]
   where [executor_role_id]=1 /*Балансоутримувач*/) balans on [Buildings].Id=balans.building_id
 
-left join [CRM_1551_Analitics].[dbo].[Organizations] [Organizations3] on balans.executor_id=[Organizations3].Id
+left join   [dbo].[Organizations] [Organizations3] on balans.executor_id=[Organizations3].Id
 
 where [Assignments].executor_organization_id=' + LTRIM(@organization_id) + N'
  and 

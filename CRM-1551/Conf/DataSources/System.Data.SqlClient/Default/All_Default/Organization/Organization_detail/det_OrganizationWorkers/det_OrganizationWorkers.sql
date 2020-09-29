@@ -8,7 +8,7 @@ SELECT
   [Positions].role_id,
   [Positions].programuser_id
 FROM
-  [CRM_1551_Analitics].[dbo].[Positions]
+    [dbo].[Positions]
   LEFT JOIN [#system_database_name#].[dbo].[User] ON [Positions].programuser_id = [User].UserId
 WHERE
   [Positions].organizations_id = @organization_id

@@ -16,10 +16,11 @@ select cr.Id
  ,[AssignmentResults].name [assignment_result_name]
  ,[AssignmentResolutions].name [assignment_resolution_name]
  ,[Event_Class].name [event_class_name]
+ ,cr.Id class_resolutions_Id
  from [dbo].[Class_Resolutions] cr
  left join [dbo].[Assignment_Classes] ac on cr.assignment_class_id=ac.Id
- left join [CRM_1551_System].[dbo].[User] [User_Edit] on cr.user_edit_id=[User_Edit].[UserId]
- left join [CRM_1551_System].[dbo].[User] on cr.user_id=[User].[UserId]
+ left join #system_database_name#.[dbo].[User] [User_Edit] on cr.user_edit_id=[User_Edit].[UserId]
+ left join #system_database_name#.[dbo].[User] on cr.user_id=[User].[UserId]
  left join [dbo].[Assignment_Classes] acc on cr.[create_assignment_class_id]=acc.Id
  left join [dbo].[AssignmentResults] on cr.assignment_result_id=[AssignmentResults].Id
  left join [dbo].[AssignmentResolutions] on cr.assignment_resolution_id=[AssignmentResolutions].Id

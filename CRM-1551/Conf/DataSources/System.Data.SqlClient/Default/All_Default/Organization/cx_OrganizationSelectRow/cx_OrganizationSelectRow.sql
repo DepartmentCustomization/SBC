@@ -11,10 +11,10 @@ select [Organizations].Id, [OrganizationTypes].Id organization_type_id, [Organiz
 	  ,[Organizations].[notes]
       ,[Organizations].[othercontacts]
       ,[Organizations].Id organization_id_id
-  from [CRM_1551_Analitics].[dbo].[Organizations]
-  left join [CRM_1551_Analitics].[dbo].[OrganizationTypes] on [Organizations].organization_type_id=[OrganizationTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Organizations] [Organizations2] on [Organizations].parent_organization_id=[Organizations2].Id
-  left join [CRM_1551_Analitics].[dbo].[OrganizationInResponsibility] on [Organizations].Id=[OrganizationInResponsibility].organization_id
-  left join [CRM_1551_Analitics].[dbo].[Positions] on [OrganizationInResponsibility].position_id=[Positions].Id
+  from   [dbo].[Organizations]
+  left join   [dbo].[OrganizationTypes] on [Organizations].organization_type_id=[OrganizationTypes].Id
+  left join   [dbo].[Organizations] [Organizations2] on [Organizations].parent_organization_id=[Organizations2].Id
+  left join   [dbo].[OrganizationInResponsibility] on [Organizations].Id=[OrganizationInResponsibility].organization_id
+  left join   [dbo].[Positions] on [OrganizationInResponsibility].position_id=[Positions].Id
   left join [dbo].[Organizations] [Organizations3] on [Positions].organizations_id=[Organizations3].Id
   where [Organizations].Id=@Id

@@ -150,11 +150,12 @@ else [Positions].[organizations_id] end vykonavets_Id,
 case when [Assignments].[executor_person_id] is null then [Organizations].phone_number
 else [Positions].[phone_number] end [phone_number]
 FROM
-[CRM_1551_Analitics].[dbo].[Assignments] WITH (nolock)
-INNER JOIN [CRM_1551_Analitics].[dbo].[Questions] WITH (nolock) ON [Assignments].question_id = [Questions].Id
-INNER JOIN [CRM_1551_Analitics].[dbo].[Appeals] WITH (nolock) ON [Questions].appeal_id = [Appeals].Id
-INNER JOIN [CRM_1551_Analitics].[dbo].[ReceiptSources] WITH (nolock) ON [Appeals].receipt_source_id = [ReceiptSources].Id
+  [dbo].[Assignments] WITH (nolock)
+INNER JOIN   [dbo].[Questions] WITH (nolock) ON [Assignments].question_id = [Questions].Id
+INNER JOIN   [dbo].[Appeals] WITH (nolock) ON [Questions].appeal_id = [Appeals].Id
+INNER JOIN   [dbo].[ReceiptSources] WITH (nolock) ON [Appeals].receipt_source_id = [ReceiptSources].Id
 INNER JOIN [QuestionTypes] WITH (nolock) ON [Questions].question_type_id = [QuestionTypes].Id
+
 LEFT JOIN [CRM_1551_Analitics].[dbo].[Applicants] WITH (nolock) ON [Appeals].applicant_id = [Applicants].Id
 LEFT JOIN [CRM_1551_Analitics].[dbo].[Objects] WITH (nolock) ON [Questions].[object_id] = [Objects].Id
 LEFT JOIN [CRM_1551_Analitics].[dbo].[Buildings] WITH (nolock) ON [Objects].builbing_id = [Buildings].Id
@@ -163,6 +164,7 @@ LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] WITH (nolock) ON [Streets].st
 LEFT JOIN [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock) ON [Assignments].executor_organization_id = [Organizations].Id
 LEFT JOIN [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] WITH (nolock) ON [AssignmentConsiderations].Id = Assignments.current_assignment_consideration_id
 left join [CRM_1551_Analitics].[dbo].[Positions] WITH (nolock) on [Assignments].[executor_person_id]=[Positions].Id
+
 where [QuestionTypes].emergency in ('+@navigator_q+N') and '+@where+N' and '+@filters_an
 --union all
 
@@ -179,6 +181,7 @@ select [Events].[Id]*(-1) Id,
   null zayavnyk,
   null ZayavnykAdress,
   null content,
+
   [Organizations].Id vykonavets_Id,
   [Organizations].phone_number
   from [CRM_1551_Analitics].[dbo].[Events] WITH (nolock)
@@ -193,6 +196,7 @@ select [Events].[Id]*(-1) Id,
   left join [CRM_1551_Analitics].[dbo].[EventOrganizers] WITH (nolock) on [Events].Id=[EventOrganizers].event_id and [EventOrganizers].main=''true''
   left join [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock) on [EventOrganizers].organization_id=[Organizations].Id
   --left join [CRM_1551_Analitics].[dbo].[Positions] WITH (nolock) on [Assignments].[executor_person_id]=[Positions].Id
+
   where '+@where_event+N' and '+ @filters_ev
 
   declare @query nvarchar(max)=

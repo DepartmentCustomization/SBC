@@ -192,7 +192,7 @@ AS
 	   ,CASE
 			WHEN [ReceiptSources].code = N'UGL' THEN N'УГЛ'
 			WHEN [ReceiptSources].code = N'Website_mob.addition' THEN N'Електронні джерела'
-			WHEN [QuestionTypes].emergency = N'true' THEN N'Пріоритетне'
+			WHEN [QuestionTypes].emergency = 1 THEN N'Пріоритетне'
 			WHEN [QuestionTypes].parent_organization_is = N'true' THEN N'Зауваження'
 			ELSE N'Інші доручення'
 		END navigation
@@ -256,7 +256,7 @@ AS
 		ON CASE
 			WHEN [ReceiptSources].code = N'UGL' THEN N'УГЛ'
 			WHEN [ReceiptSources].code = N'Website_mob.addition' THEN N'Електронні джерела'
-			WHEN [QuestionTypes].emergency = N'true' THEN N'Пріоритетне'
+			WHEN [QuestionTypes].emergency = 1 THEN N'Пріоритетне'
 			WHEN [QuestionTypes].parent_organization_is = N'true' THEN N'Зауваження'
 			ELSE N'Інші доручення'
 		END=nt.Id

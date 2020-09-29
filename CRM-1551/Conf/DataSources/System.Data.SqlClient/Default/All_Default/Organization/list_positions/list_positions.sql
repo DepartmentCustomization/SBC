@@ -1,5 +1,5 @@
   select [Id], [position], [name]
-  from [CRM_1551_Analitics].[dbo].[Positions]
+  from   [dbo].[Positions]
  where #filter_columns#
   --#sort_columns#
   order by case when [name] is null then 100500 else id end

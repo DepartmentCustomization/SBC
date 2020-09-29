@@ -84,5 +84,33 @@
     "IsPrintable": false,
     "SqlName": "Claims.Status_ID",
     "FilterParameterCode": "@status"
+  },
+  {
+    "Code": "switch_places_name",
+    "Name": "Відключення",
+    "Position": 14,
+    "IsPrintable": false,
+    "SqlName": "switch_places_name.[name]"
+  },
+  {
+    "Code": "description_sequela",
+    "Name": "Ускладнення",
+    "Position": 15,
+    "IsPrintable": false,
+    "SqlName": "sequela_comm.comment"
+  },
+  {
+    "Code": "user_register",
+    "Name": "Зареєстрував",
+    "Position": 16,
+    "IsPrintable": false,
+    "SqlName": "reg_user.[Name]"
+  },
+  {
+    "Code": "user_close",
+    "Name": "Закрив",
+    "Position": 17,
+    "IsPrintable": false,
+    "SqlName": "IIF(Claims.Status_ID = 5, close_user.[Name], NULL)"
   }
 ]

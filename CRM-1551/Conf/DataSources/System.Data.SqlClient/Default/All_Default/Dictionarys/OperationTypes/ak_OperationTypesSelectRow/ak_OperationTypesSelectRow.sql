@@ -1,4 +1,4 @@
 SELECT [Id]
       ,[name]
-  FROM [CRM_1551_Analitics].[dbo].[OperationTypes]
+  FROM   [dbo].[OperationTypes]
   where id=@Id

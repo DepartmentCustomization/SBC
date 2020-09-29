@@ -1,9 +1,9 @@
-
 /*
 DECLARE @user_id NVARCHAR(128) = N'cd01fea0-760c-4b66-9006-152e5b2a87e9';
 DECLARE @organization_id INT = 2008;
 DECLARE @navigation NVARCHAR(40) = N'Усі';
 */
+
 IF EXISTS (SELECT orr.*
   FROM [dbo].[OrganizationInResponsibilityRights] orr
   INNER JOIN dbo.Positions p ON orr.position_id=P.Id
@@ -35,7 +35,7 @@ IF OBJECT_ID('tempdb..#temp_positions_user') IS NOT NULL
   FROM [dbo].[Positions] p
   INNER JOIN [dbo].[PositionsHelpers] ph ON p.Id=ph.helper_position_id
   INNER JOIN [dbo].[Positions] p2 ON ph.main_position_id=p2.Id
-  WHERE p.[programuser_id]=@user_id) t
+  WHERE p.[programuser_id]=@user_id) t;
 
   --select * from #temp_positions_user
 
@@ -49,7 +49,7 @@ IF OBJECT_ID('tempdb..#temp_positions_user') IS NOT NULL
   SELECT DISTINCT organizations_id
   INTO #tpu_organization
   FROM #temp_positions_user
-  WHERE is_main='true' AND organizations_id=@organization_Id
+  WHERE is_main = N'true' AND organizations_id = @organization_Id;
   
   --SELECT * FROM #tpu_organization
 
@@ -95,7 +95,7 @@ ELSE
 BEGIN
 	INSERT INTO @NavigationTable (Id)
 		SELECT
-			@navigation
+			@navigation;
 END;
 
 
@@ -117,7 +117,7 @@ AS
 	   ,CASE
 			WHEN [ReceiptSources].code = N'UGL' THEN N'УГЛ'
 			WHEN [ReceiptSources].code = N'Website_mob.addition' THEN N'Електронні джерела'
-			WHEN [QuestionTypes].emergency = N'true' THEN N'Пріоритетне'
+			WHEN [QuestionTypes].emergency = 1 THEN N'Пріоритетне'
 			WHEN [QuestionTypes].parent_organization_is = N'true' THEN N'Зауваження'
 			ELSE N'Інші доручення'
 		END navigation
@@ -134,12 +134,13 @@ AS
 	   ,[Assignments].[registration_date] ass_registration_date
 	   ,[Organizations3].short_name balans_name
 	   ,[Questions].control_date
-	FROM [dbo].[Assignments]
-	INNER JOIN [dbo].[AssignmentStates]
+	   ,[Assignments].[edit_date]
+	FROM [dbo].[Assignments] [Assignments]
+	INNER JOIN [dbo].[AssignmentStates] [AssignmentStates]
 		ON [Assignments].assignment_state_id = [AssignmentStates].Id
-	LEFT JOIN [dbo].[AssignmentTypes]
+	LEFT JOIN [dbo].[AssignmentTypes] [AssignmentTypes]
 		ON [Assignments].assignment_type_id = [AssignmentTypes].Id
-	INNER JOIN [dbo].[AssignmentResults]
+	INNER JOIN [dbo].[AssignmentResults] [AssignmentResults]
 		ON [Assignments].[AssignmentResultsId] = [AssignmentResults].Id -- +
 	--
 LEFT JOIN #tpu_organization tpuo 
@@ -147,48 +148,48 @@ LEFT JOIN #tpu_organization tpuo
 LEFT JOIN #tpu_position tpuop 
 	ON [Assignments].executor_person_id=tpuop.position_id
 	--
-	INNER JOIN [dbo].[Questions]
+	INNER JOIN [dbo].[Questions] [Questions]
 		ON [Assignments].question_id = [Questions].Id
-	INNER JOIN [dbo].[Appeals]
+	INNER JOIN [dbo].[Appeals] [Appeals]
 		ON [Questions].appeal_id = [Appeals].Id
-	INNER JOIN [dbo].[ReceiptSources]
+	INNER JOIN [dbo].[ReceiptSources] [ReceiptSources]
 		ON [Appeals].receipt_source_id = [ReceiptSources].Id
-	LEFT JOIN [dbo].[QuestionTypes]
+	LEFT JOIN [dbo].[QuestionTypes] [QuestionTypes]
 		ON [Questions].question_type_id = [QuestionTypes].Id
 
 	INNER JOIN @NavigationTable nt
 		ON CASE
 			WHEN [ReceiptSources].code = N'UGL' THEN N'УГЛ'
 			WHEN [ReceiptSources].code = N'Website_mob.addition' THEN N'Електронні джерела'
-			WHEN [QuestionTypes].emergency = N'true' THEN N'Пріоритетне'
+			WHEN [QuestionTypes].emergency = 1 THEN N'Пріоритетне'
 			WHEN [QuestionTypes].parent_organization_is = N'true' THEN N'Зауваження'
 			ELSE N'Інші доручення'
 		END =nt.Id
 
-	LEFT JOIN [dbo].[AssignmentConsiderations]
+	LEFT JOIN [dbo].[AssignmentConsiderations] [AssignmentConsiderations]
 		ON [Assignments].[current_assignment_consideration_id] = [AssignmentConsiderations].Id
-	LEFT JOIN [dbo].[AssignmentResolutions]
+	LEFT JOIN [dbo].[AssignmentResolutions] [AssignmentResolutions]
 		ON [Assignments].[AssignmentResolutionsId] = [AssignmentResolutions].Id
-	LEFT JOIN [dbo].[Organizations]
+	LEFT JOIN [dbo].[Organizations] [Organizations]
 		ON [Assignments].executor_organization_id = [Organizations].Id
-	LEFT JOIN [dbo].[Objects]
+	LEFT JOIN [dbo].[Objects] [Objects]
 		ON [Questions].[object_id] = [Objects].Id
-	LEFT JOIN [dbo].[Buildings]
+	LEFT JOIN [dbo].[Buildings] [Buildings]
 		ON [Objects].builbing_id = [Buildings].Id
-	LEFT JOIN [dbo].[Streets]
+	LEFT JOIN [dbo].[Streets] [Streets]
 		ON [Buildings].street_id = [Streets].Id
-	LEFT JOIN [dbo].[Applicants]
+	LEFT JOIN [dbo].[Applicants] [Applicants]
 		ON [Appeals].applicant_id = [Applicants].Id
-	LEFT JOIN [dbo].[StreetTypes]
+	LEFT JOIN [dbo].[StreetTypes] [StreetTypes]
 		ON [Streets].street_type_id = [StreetTypes].Id
-	LEFT JOIN [dbo].[Districts]
+	LEFT JOIN [dbo].[Districts] [Districts]
 		ON [Buildings].district_id = [Districts].Id
 	LEFT JOIN [dbo].[Organizations] [Organizations2]
 		ON [AssignmentConsiderations].[transfer_to_organization_id] = [Organizations2].Id
 	LEFT JOIN (SELECT
 			[building_id]
 		   ,[executor_id]
-		FROM [dbo].[ExecutorInRoleForObject]
+		FROM [dbo].[ExecutorInRoleForObject] [ExecutorInRoleForObject] 
 		WHERE [executor_role_id] = 1 /*Балансоутримувач*/) balans
 		ON [Buildings].Id = balans.building_id
 
@@ -228,8 +229,9 @@ SELECT /*ROW_NUMBER() over(order by registration_number)*/
    ,ass_registration_date
    ,balans_name
    ,control_date
+   ,edit_date
 FROM main
-ORDER BY [registration_date]
+ORDER BY [registration_date];
 
 END
 
@@ -252,5 +254,6 @@ SELECT 1 Id
    ,NULL ass_registration_date
    ,NULL balans_name
    ,NULL control_date
-WHERE 1=2
+   ,NULL edit_date
+WHERE 1=2;
 END

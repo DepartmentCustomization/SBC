@@ -1,14 +1,16 @@
---  DECLARE @org INT = 3;
---  DECLARE @dateFrom DATE = '2020-01-01';
---  DECLARE @dateTo DATE = getdate();
---  DECLARE @question_type_id INT = 1;
---  DECLARE @sourceId NVARCHAR(50) = N'1,3';
+/*
+DECLARE @org INT = 3;
+DECLARE @dateFrom DATETIME = '2020-07-28 21:00:00';
+DECLARE @dateTo DATETIME = GETDATE();
+DECLARE @question_type_id INT = 1;
+DECLARE @sourceId NVARCHAR(50) = N'0';
+*/
 
-IF object_id('tempdb..##temp_QuestionTypes4monitoring') IS NOT NULL 
+IF object_id('tempdb..#temp_QuestionTypes4monitoring') IS NOT NULL 
 BEGIN 
-  DROP TABLE ##temp_QuestionTypes4monitoring ;
+  DROP TABLE #temp_QuestionTypes4monitoring ;
 END 
-CREATE TABLE ##temp_QuestionTypes4monitoring (id INT) 
+CREATE TABLE #temp_QuestionTypes4monitoring (id INT) 
 WITH (DATA_COMPRESSION = PAGE);
 
 DECLARE @source_t TABLE (Id INT);
@@ -28,7 +30,7 @@ SELECT
 FROM STRING_SPLIT(@sourceId, ',');
 END
 
-DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO ##temp_QuestionTypes4monitoring (id) select [QuestionTypes].Id from [CRM_1551_Analitics].[dbo].[QuestionTypes] where Id in (' + rtrim(
+DECLARE @sql NVARCHAR(MAX) = N'INSERT INTO #temp_QuestionTypes4monitoring (id) select [QuestionTypes].Id from [dbo].[QuestionTypes] where Id in (' + rtrim(
   stuff(
     (
       SELECT
@@ -103,7 +105,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
     WHERE
       [parent_organization_id] = @org
   ) main_org
@@ -113,7 +115,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L1 ON L1.[parent_organization_id] = main_org.id
   LEFT JOIN (
     SELECT
@@ -121,7 +123,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L2 ON L2.[parent_organization_id] = L1.id
   LEFT JOIN (
     SELECT
@@ -129,7 +131,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L3 ON L3.[parent_organization_id] = L2.id
   LEFT JOIN (
     SELECT
@@ -137,7 +139,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L4 ON L4.[parent_organization_id] = L3.id
   LEFT JOIN (
     SELECT
@@ -145,7 +147,7 @@ FROM
       short_name,
       [parent_organization_id]
     FROM
-      [CRM_1551_Analitics].[dbo].[Organizations] Organizations WITH (NOLOCK)
+      [dbo].[Organizations] Organizations WITH (NOLOCK)
   ) L5 ON L5.[parent_organization_id] = L4.id;
 
 INSERT INTO
@@ -177,7 +179,7 @@ SELECT
   NULL,
   NULL
 FROM
-  [CRM_1551_Analitics].[dbo].[Organizations] WITH (nolock)
+  [dbo].[Organizations] WITH (nolock)
 WHERE
   id = @org;
 
@@ -334,11 +336,11 @@ FROM
   INNER JOIN dbo.[Appeals] [Appeals] ON [Appeals].Id = [Questions].appeal_id
   INNER JOIN dbo.[ReceiptSources] rs ON rs.Id = [Appeals].receipt_source_id
   INNER JOIN #temp_Organizations2 [Organizations] ON [Assignments].executor_organization_id=[Organizations].sub_id
-  INNER JOIN ##temp_QuestionTypes4monitoring qt ON [Questions].question_type_id = qt.id
+  INNER JOIN #temp_QuestionTypes4monitoring qt ON [Questions].question_type_id = qt.id
   LEFT JOIN (
     SELECT
       [assignment_id],
-      Min([edit_date]) AS first_execution_date
+      Min([Log_Date]) AS first_execution_date
     FROM
       dbo.Assignment_History Assignment_History WITH (NOLOCK)
     WHERE
@@ -352,7 +354,8 @@ FROM
       ah.edit_date AS plan_prog
     FROM
       [dbo].[Assignments] a
-      INNER JOIN [dbo].Questions q ON q.Id = a.question_id
+      INNER JOIN [dbo].[Questions] q ON q.Id = a.question_id
+	  INNER JOIN [dbo].[Events] e ON e.Id = q.event_id
       LEFT JOIN (
         SELECT
           [assignment_id],
@@ -365,28 +368,20 @@ FROM
           [assignment_id]
       ) s1 ON a.id = s1.assignment_id
       LEFT JOIN Assignment_History ah WITH (NOLOCK) ON s1.max_history_id = ah.Id
+	  LEFT JOIN [dbo].[AssignmentResults] a_result ON a.AssignmentResultsId = a_result.Id
+	  LEFT JOIN [dbo].[AssignmentStates] a_state ON a_state.Id = a.assignment_state_id
     WHERE
-      a.[assignment_state_id] = 5
-      AND a.AssignmentResultsId = 7
-      AND ah.assignment_state_id = 3
-      AND ah.AssignmentResultsId = 8
-      AND q.event_id IS NULL
-    UNION
-    ALL
-    SELECT
-      a.id,
-      a.edit_date
-    FROM
-      [dbo].[Assignments] a
-      INNER JOIN [dbo].Questions q ON q.Id = a.question_id
-    WHERE
-      [assignment_state_id] = 3
-      AND [AssignmentResultsId] = 8
-      AND q.event_id IS NULL
+	-- хоча б раз переходили в результат - Не можливо виконати в даний період
+      ah.AssignmentResultsId = 8
+	-- НЕ знаходяться в стані- Закрито/Виконано чи Закрито/Закрито автоматично, На перевірці/Виконано
+	AND a_state.[name] + '/' + a_result.[name] 
+	NOT IN (N'Закрито/Виконано', 
+			    N'Закрито/Закрито автоматично', 
+			    N'На перевірці/Виконано')
   ) plan_prog ON [Assignments].id = plan_prog.[assignment_id]
 WHERE
   rs.Id IN (SELECT Id FROM @source_t)
-  AND CONVERT(DATE, Assignments.registration_date)
+  AND Assignments.registration_date
   BETWEEN @dateFrom AND @dateTo ;
   
 IF object_id('tempdb..#temp_MainMain') IS NOT NULL
@@ -416,13 +411,16 @@ SELECT
   *,
   CASE
     WHEN PlanProg = 0 THEN donePercent
-    ELSE cast(
+    WHEN PlanProg > 0
+	AND doneClosedQty != 0 
+	THEN
+	 cast(
       (
         cast(doneClosedQty AS NUMERIC(18, 6)) - cast(PlanProg AS NUMERIC(18, 6))
       ) / (
         cast(doneClosedQty AS NUMERIC(18, 6)) + cast(notDoneClosedQty AS NUMERIC(18, 6))
       ) * 100 AS NUMERIC(36, 2)
-    )
+    ) ELSE 0 
   END AS withPlanPercent
 FROM
   (
@@ -482,7 +480,8 @@ FROM
         )
         WHEN inTimeQty != 0
         AND outTimeQty = 0
-        AND waitTimeQty = 0 THEN cast(
+        AND waitTimeQty = 0
+		THEN cast(
           (1 - (0 / (cast(inTimeQty AS NUMERIC(18, 6))))) * 100 AS NUMERIC (36, 2)
         )
         ELSE 0

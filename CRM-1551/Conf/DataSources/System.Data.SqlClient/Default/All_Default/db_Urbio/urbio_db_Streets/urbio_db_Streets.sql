@@ -13,8 +13,8 @@ FROM
   ,su.is_done is_done_filter
   ,su.id [StreetName_filter]
   FROM [CRM_1551_URBIO_Integrartion].[dbo].[streets] su
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[Streets] sa ON su.id=sa.urbio_id
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id
+  LEFT JOIN   [dbo].[Streets] sa ON su.id=sa.urbio_id
+  LEFT JOIN   [dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id
   WHERE 
   su.is_add= 'true' and
   su.is_change='false' and
@@ -32,9 +32,9 @@ FROM
   ,su.is_done is_done_filter
   ,su.id [UrbioName_filter]
   FROM [CRM_1551_URBIO_Integrartion].[dbo].[streets] su
-  INNER JOIN [CRM_1551_Analitics].[dbo].[Streets] sa ON CONVERT(nvarchar(128),su.id)=sa.urbio_id
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d on sa.district_id=d.id
+  INNER JOIN   [dbo].[Streets] sa ON CONVERT(nvarchar(128),su.id)=sa.urbio_id
+  LEFT JOIN   [dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id
+  LEFT JOIN   [dbo].[Districts] d on sa.district_id=d.id
   WHERE 
   -- ISNULL(su.name_fullName+N' ', N'')+ISNULL(su.uniqueMarker_fullText+N' ',N'')+
   -- ISNULL(su.history_fullName+N' ', N'')+ISNULL(su.history_shortToponym+N' ',N'')<>ISNULL(sa.name,N'')
@@ -61,10 +61,10 @@ su.[is_done]='false' --[is_done]
   su.is_done, su.comment
   ,su.is_done is_done_filter
   ,su.id [UrbioName_filter]
-  FROM [CRM_1551_Analitics].[dbo].[Streets] sa 
+  FROM   [dbo].[Streets] sa 
   INNER JOIN [CRM_1551_URBIO_Integrartion].[dbo].[streets] su ON CONVERT(nvarchar(128),su.id)=sa.urbio_id
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id
-  LEFT JOIN [CRM_1551_Analitics].[dbo].[Districts] d on sa.district_id=d.Id 
+  LEFT JOIN   [dbo].[StreetTypes] sta ON sa.street_type_id=sta.Id
+  LEFT JOIN   [dbo].[Districts] d on sa.district_id=d.Id 
   WHERE --sa.urbio_id IS NULL
   su.is_add='false' and
 su.is_change='false' and

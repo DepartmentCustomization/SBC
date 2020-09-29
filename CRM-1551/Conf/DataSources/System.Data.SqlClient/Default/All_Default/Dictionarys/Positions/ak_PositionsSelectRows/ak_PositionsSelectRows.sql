@@ -9,7 +9,7 @@ SELECT [Id]
       ,[user_id]
       ,[edit_date]
       ,[user_edit_id]
-  FROM [CRM_1551_Analitics].[dbo].[Positions]
+  FROM   [dbo].[Positions]
    where #filter_columns#
    order by id 
   --#sort_columns#

@@ -7,12 +7,12 @@
   
   /*
   delete 
-  from [CRM_1551_Analitics].[dbo].[Organizations]
+  from   [dbo].[Organizations]
  where id =@Id
    */
   
 --   delete
---   from [CRM_1551_Analitics].[dbo].[OrganizationInResponsibility]
+--   from   [dbo].[OrganizationInResponsibility]
 --   where organization_id=@Id
   
   

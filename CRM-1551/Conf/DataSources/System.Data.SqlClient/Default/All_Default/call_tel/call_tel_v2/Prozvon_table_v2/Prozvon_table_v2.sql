@@ -1,10 +1,12 @@
+
+
   
-  --declare @filter nvarchar(3000)=N'district in (1, 2, 3)'; --question_type in (50) district in (1, 2, 3) question_list_state in (1)
-  --declare @sort nvarchar(3000)=N'1=1';
+  --declare @filter nvarchar(3000)=N'1=1'; --question_type in (50) district in (1, 2, 3) question_list_state in (1)
+  --declare @sort nvarchar(3000)=N'registration_date asc, full_name asc, house asc';
 
   ---перелік параметры начало
-  declare @comment_qls nvarchar(5);
-  declare @de_comment nvarchar(5);
+  declare @comment_qls nvarchar(max);
+  declare @de_comment nvarchar(max);
 
   set @comment_qls =(
   select case when CHARINDEX(N'question_list_state in (', @filter, 0)>0
@@ -92,14 +94,41 @@ end
  declare @qcode nvarchar(max)=N'
 
  select ROW_NUMBER() OVER (Order by (select 1)) as rn,
- Id, registration_number, QuestionType, full_name, phone_number, DistrictName District,
- house, place_problem, vykon, zmist, comment, [history], ApplicantsId, BuildingId, [Organizations_Id],
- cc_nedozvon, entrance, [edit_date], [control_comment], [registration_date]
- 
+		Id, 
+		registration_number, 
+		QuestionType, 
+		full_name, 
+		phone_number, 
+		DistrictName District,
+		house, 
+		place_problem, 
+		vykon, 
+		zmist, 
+		comment, 
+		[history], 
+		ApplicantsId, 
+		BuildingId, 
+		[Organizations_Id],
+		cc_nedozvon, 
+		entrance, 
+		[edit_date], 
+		[control_comment], 
+		[registration_date],
+		All_NDZV
  from
  (
  select [Assignments].Id, [Questions].registration_number, ltrim([QuestionTypes].name) QuestionType,
-  [Applicants].full_name, [ApplicantPhones].phone_number, [Districts].Id District,
+(select (select  convert(xml, ''  <p> '' + cast(Missed_call_counter as varchar(10)) + N'' (дата та час недозвону: '' + format(CONVERT(datetime, SWITCHOFFSET(Edit_date, DATEPART(TZOFFSET,Edit_date AT TIME ZONE ''E. Europe Standard Time''))), ''dd.MM.yyyy HH:mm'') + N''), коментар: '' + isnull(MissedCallComment, '''') + '' </p> '')
+from AssignmentDetailHistory 
+where  Missed_call_counter = 1
+and AssignmentDetailHistory.Assignment_id = Assignments.Id
+For XML PATH('''')
+) )as All_NDZV,
+
+  [Applicants].full_name, 
+  /*[ApplicantPhones].phone_number,*/
+  isnull(PhoneIsMain.phone_number, PhoneIsNotMain.phone_number) as phone_number,
+  [Districts].Id District,
   [Districts].Name DistrictName,
   isnull([StreetTypes].shortname+N'' '',N'''')+
   isnull([Streets].name+N'', '',N'''')+
@@ -169,9 +198,10 @@ end
 
 
   ,isnull([AssignmentRevisions].[missed_call_counter], 0) cc_nedozvon_sort
-  ,[ApplicantPhones].phone_number phone_number_sort
+  ,isnull(PhoneIsMain.phone_number, PhoneIsNotMain.phone_number) as  phone_number_sort
   ,[Questions].registration_number registration_number_sort
   ,[LiveAddress].entrance entrance_sort
+  ,[Questions].registration_date registration_date_sort
 
   from [Assignments]  with (nolock)
   left join [AssignmentStates] with (nolock) on [Assignments].assignment_state_id=[AssignmentStates].Id
@@ -181,11 +211,77 @@ end
   left join [QuestionTypes] with (nolock) on [Questions].question_type_id=[QuestionTypes].Id
   inner join [Appeals] with (nolock) on [Questions].appeal_id=[Appeals].Id
   left join [Applicants] with (nolock) on [Appeals].applicant_id=[Applicants].Id
-  left join (select [applicant_id], [phone_number]
-  from [ApplicantPhones] with (nolock)
-  where IsMain=1) ApplicantPhones on [ApplicantPhones].applicant_id=[Applicants].Id
+  /*left join (select [applicant_id], [phone_number]
+			  from [ApplicantPhones] with (nolock)
+			  where IsMain=1) ApplicantPhones on [ApplicantPhones].applicant_id=[Applicants].Id
+  */
+	left join (
+			  SELECT Apl.Id, APhone_IsMain.phone_number
+			  FROM [dbo].[Applicants] as Apl with (nolock)
+			  cross apply 
+			  (
+				select top 1 APhone.phone_number
+				from [dbo].[ApplicantPhones] APhone with (nolock)
+				where APhone.IsMain = 1 and APhone.applicant_id = Apl.Id
+			  ) APhone_IsMain 
+			where Apl.Id in (
+								SELECT [Applicants].Id
+								  FROM [dbo].[Applicants]  with (nolock)
+								  inner join [dbo].[ApplicantPhones]  with (nolock) on [ApplicantPhones].applicant_id = [Applicants].Id
+								  group by [Applicants].Id
+							)
+	) as PhoneIsMain on PhoneIsMain.Id = [Applicants].Id
+	left join (
+					SELECT Apl.Id, APhone_IsNOTMain.phone_number
+					FROM [dbo].[Applicants] as Apl with (nolock)
+					cross apply 
+					(
+					select top 1 APhone.phone_number
+					from [dbo].[ApplicantPhones] APhone with (nolock)
+					where APhone.IsMain = 0 and APhone.applicant_id = Apl.Id
+					) APhone_IsNOTMain 
+				where Apl.Id in (
+									SELECT [Applicants].Id
+										FROM [dbo].[Applicants]  with (nolock)
+										inner join [dbo].[ApplicantPhones] with (nolock) on [ApplicantPhones].applicant_id = [Applicants].Id
+										group by [Applicants].Id
+								)
+	) as PhoneIsNotMain on PhoneIsNotMain.Id = [Applicants].Id
 
-  left join [LiveAddress] with (nolock) on [LiveAddress].applicant_id=[Applicants].Id
+  /*left join [LiveAddress] with (nolock) on [LiveAddress].applicant_id=[Applicants].Id*/
+	left join (
+				  SELECT Apl.Id, LiveAdr_IsMain.building_id, LiveAdr_IsMain.Id as LiveAdrId
+				  FROM [dbo].[Applicants] as Apl
+				  cross apply 
+				  (
+					select top 1 LiveAdr.building_id, LiveAdr.Id
+					from [dbo].[LiveAddress] LiveAdr
+					where LiveAdr.main = 1 and LiveAdr.applicant_id = Apl.Id
+				  ) LiveAdr_IsMain 
+				where Apl.Id in (
+									SELECT [Applicants].Id
+									  FROM [dbo].[Applicants] 
+									  inner join [dbo].[LiveAddress] on [LiveAddress].applicant_id = [Applicants].Id
+									  group by [Applicants].Id
+								)
+	) as LiveAdrIsMain on LiveAdrIsMain.Id = [Applicants].Id
+	left join (
+				 SELECT Apl.Id, LiveAdr_IsNOTMain.building_id, LiveAdr_IsNOTMain.Id as LiveAdrId
+				  FROM [dbo].[Applicants] as Apl
+				  cross apply 
+				  (
+					select top 1 LiveAdr.building_id, LiveAdr.Id
+					from [dbo].[LiveAddress] LiveAdr
+					where LiveAdr.main = 0 and LiveAdr.applicant_id = Apl.Id
+				  ) LiveAdr_IsNOTMain 
+				where Apl.Id in (
+									SELECT [Applicants].Id
+									  FROM [dbo].[Applicants] 
+									  inner join [dbo].[LiveAddress] on [LiveAddress].applicant_id = [Applicants].Id
+									  group by [Applicants].Id
+								)
+	) as LiveAdrIsNotMain on LiveAdrIsNotMain.Id = [Applicants].Id
+  left join [LiveAddress] with (nolock) on [LiveAddress].applicant_id=[Applicants].Id and [LiveAddress].Id = isnull(LiveAdrIsMain.LiveAdrId, LiveAdrIsNotMain.LiveAdrId)
   left join [Buildings] with (nolock) on [LiveAddress].building_id=[Buildings].Id
   left join [Districts] with (nolock) on [Buildings].district_id=[Districts].Id
   left join [Streets] with (nolock) on [Buildings].street_id=[Streets].Id
@@ -221,4 +317,4 @@ end
 
   exec(@qcode)
 
-  --select @filter1
+  --select @filter1, @sort1

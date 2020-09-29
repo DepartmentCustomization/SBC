@@ -85,7 +85,7 @@ select [Assignments].Id, [Organizations].Id OrganizationsId, [Organizations].nam
 [QuestionTypes].name QuestionType,
 case when [ReceiptSources].code=N''UGL'' then N''УГЛ'' 
 when [ReceiptSources].code=N''Website_mob.addition'' or [ReceiptSources].code=N''Mail'' then N''Електронні джерела''
-when [QuestionTypes].emergency=N''true'' then N''Пріоритетне''
+when [QuestionTypes].emergency=1 then N''Пріоритетне''
 when [QuestionTypes].parent_organization_is=N''true'' then N''Зауваження''
 else N''Інші доручення''
 end navigation,

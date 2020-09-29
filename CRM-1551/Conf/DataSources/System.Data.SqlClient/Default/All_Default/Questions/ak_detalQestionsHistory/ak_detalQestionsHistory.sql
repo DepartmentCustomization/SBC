@@ -1,7 +1,7 @@
 
   --declare @Id int = 5; 
   declare @question_id int=
-  (select question_id from [CRM_1551_Analitics].[dbo].[Question_History] where Id=@Id);
+  (select question_id from   [dbo].[Question_History] where Id=@Id);
 
   --declare @question_id int = 1234;
 
@@ -29,13 +29,13 @@
   convert(nvarchar(500), [Question_History].operator_notes) operator_notes,
   convert(nvarchar(500), [Question_History].entrance) entrance, 
   convert(nvarchar(500), [Question_History].flat) flat
-  from [CRM_1551_Analitics].[dbo].[Question_History]
-  left join [CRM_1551_Analitics].[dbo].[QuestionStates] on [Question_History].question_state_id=[QuestionStates].Id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [Question_History].[object_id]=[Objects].Id
-  left join [CRM_1551_Analitics].[dbo].[Organizations] on [Question_History].organization_id=[Organizations].Id
-  left join [CRM_1551_Analitics].[dbo].[Events] on [Question_History].event_id=[Events].Id
-  left join [CRM_1551_Analitics].[dbo].[QuestionTypes] on [Question_History].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[AnswerTypes] on [Question_History].answer_form_id=[AnswerTypes].Id
+  from   [dbo].[Question_History]
+  left join   [dbo].[QuestionStates] on [Question_History].question_state_id=[QuestionStates].Id
+  left join   [dbo].[Objects] on [Question_History].[object_id]=[Objects].Id
+  left join   [dbo].[Organizations] on [Question_History].organization_id=[Organizations].Id
+  left join   [dbo].[Events] on [Question_History].event_id=[Events].Id
+  left join   [dbo].[QuestionTypes] on [Question_History].question_type_id=[QuestionTypes].Id
+  left join   [dbo].[AnswerTypes] on [Question_History].answer_form_id=[AnswerTypes].Id
   where question_id=@question_id and [Question_History].Id<=@Id),
 
   table_history as

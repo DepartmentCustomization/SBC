@@ -51,5 +51,10 @@
     "Code": "@user_id",
     "Name": "user_id",
     "ParameterType": "CurrentUserId"
+  },
+  {
+    "Code": "@external_id",
+    "Name": "external_id",
+    "ParameterType": "Integer"
   }
 ]

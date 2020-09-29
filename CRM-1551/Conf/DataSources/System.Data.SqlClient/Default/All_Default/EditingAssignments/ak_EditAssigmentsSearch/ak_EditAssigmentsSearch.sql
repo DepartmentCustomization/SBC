@@ -48,9 +48,9 @@ case
 when @organization_id is not null
 then @organization_id
 else (select Id
-  from [CRM_1551_Analitics].[dbo].[Organizations]
+  from   [dbo].[Organizations]
   where Id in (select organization_id
-  from [CRM_1551_Analitics].[dbo].[Workers]
+  from   [dbo].[Workers]
   where worker_user_id=@user_id))
  end
 
@@ -59,17 +59,17 @@ declare @IdT table (Id int);
 
 -- НАХОДИМ ИД ОРГАНИЗАЦИЙ ГДЕ ИД И ПАРЕНТЫ ВЫБРАНОЙ И СРАЗУ ЗАЛИВАЕМ
 insert into @IdT(Id)
-select Id from [CRM_1551_Analitics].[dbo].[Organizations] 
+select Id from   [dbo].[Organizations] 
 where (Id=@OrganizationId or [parent_organization_id]=@OrganizationId) and Id not in (select Id from @IdT)
 
 --  НАХОДИМ ПАРЕНТЫ ОРГ, КОТОРЫХ ЗАЛИЛИ, <-- нужен цыкл
-while (select count(id) from (select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+while (select count(id) from (select Id from   [dbo].[Organizations]
 where [parent_organization_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 and Id not in (select Id from @IdT)) q)!=0
 begin
 
 insert into @IdT
-select Id from [CRM_1551_Analitics].[dbo].[Organizations]
+select Id from   [dbo].[Organizations]
 where [parent_organization_id] in (select Id from @IdT) --or Id in (select Id from @IdT)
 and Id not in (select Id from @IdT)
 end 
@@ -90,7 +90,7 @@ select [Assignments].Id, [Organizations].Id OrganizationsId, [Organizations].nam
 --стало
 case when [ReceiptSources].name=N'УГЛ' then N'УГЛ' 
 when [ReceiptSources].name=N'Сайт/моб. додаток' then N'Електронні джерела'
-when [QuestionTypes].emergency=N'true' then N'Пріоритетне'
+when [QuestionTypes].emergency=1 then N'Пріоритетне'
 when [QuestionTypes].parent_organization_is=N'true' then N'Зауваження'
 else N'Інші доручення'
 end navigation,
@@ -131,21 +131,21 @@ datediff(HH, [Assignments].registration_date, getdate())<=[Attention_term_hours]
  ,[AssignmentStates].name AssignmentStates
 ,[Questions].control_date
 from 
-[CRM_1551_Analitics].[dbo].[Assignments] left join 
-[CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
-left join [CRM_1551_Analitics].[dbo].[Appeals] on [Questions].appeal_id=[Appeals].Id
-left join [CRM_1551_Analitics].[dbo].[ReceiptSources] on [Appeals].receipt_source_id=[ReceiptSources].Id
-left join [CRM_1551_Analitics].[dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-left join [CRM_1551_Analitics].[dbo].[AssignmentTypes] on [Assignments].assignment_type_id=[AssignmentTypes].Id
-left join [CRM_1551_Analitics].[dbo].[AssignmentStates] on [Assignments].assignment_state_id=[AssignmentStates].Id
-left join [CRM_1551_Analitics].[dbo].[AssignmentConsiderations] on [Assignments].current_assignment_consideration_id=[AssignmentConsiderations].id
-left join [CRM_1551_Analitics].[dbo].[AssignmentResults] on [Assignments].[AssignmentResultsId]=[AssignmentResults].Id -- +
-left join [CRM_1551_Analitics].[dbo].[AssignmentResolutions] on [Assignments].[AssignmentResolutionsId]=[AssignmentResolutions].Id
-left join [CRM_1551_Analitics].[dbo].[Organizations] on [Assignments].executor_organization_id=[Organizations].Id
-left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].[object_id]=[Objects].Id
-left join [CRM_1551_Analitics].[dbo].[Buildings] on [Objects].builbing_id=[Buildings].Id
-left join [CRM_1551_Analitics].[dbo].[Streets] on [Buildings].street_id=[Streets].Id
-left join [CRM_1551_Analitics].[dbo].[Applicants] on [Appeals].applicant_id=[Applicants].Id
+  [dbo].[Assignments] left join 
+  [dbo].[Questions] on [Assignments].question_id=[Questions].Id
+left join   [dbo].[Appeals] on [Questions].appeal_id=[Appeals].Id
+left join   [dbo].[ReceiptSources] on [Appeals].receipt_source_id=[ReceiptSources].Id
+left join   [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
+left join   [dbo].[AssignmentTypes] on [Assignments].assignment_type_id=[AssignmentTypes].Id
+left join   [dbo].[AssignmentStates] on [Assignments].assignment_state_id=[AssignmentStates].Id
+left join   [dbo].[AssignmentConsiderations] on [Assignments].current_assignment_consideration_id=[AssignmentConsiderations].id
+left join   [dbo].[AssignmentResults] on [Assignments].[AssignmentResultsId]=[AssignmentResults].Id -- +
+left join   [dbo].[AssignmentResolutions] on [Assignments].[AssignmentResolutionsId]=[AssignmentResolutions].Id
+left join   [dbo].[Organizations] on [Assignments].executor_organization_id=[Organizations].Id
+left join   [dbo].[Objects] on [Questions].[object_id]=[Objects].Id
+left join   [dbo].[Buildings] on [Objects].builbing_id=[Buildings].Id
+left join   [dbo].[Streets] on [Buildings].street_id=[Streets].Id
+left join   [dbo].[Applicants] on [Appeals].applicant_id=[Applicants].Id
 --where [Assignments].[executor_organization_id] in (select id from @Organization)
 ),
 

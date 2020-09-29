@@ -1,6 +1,7 @@
 SELECT 
 	Id,
-	SystemUserId
+	SystemUserId,
+  SystemUser
 FROM dbo.Test_Bag 
 WHERE
   #filter_columns#

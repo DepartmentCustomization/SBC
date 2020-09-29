@@ -1,3 +1,3 @@
-update [CRM_1551_Analitics].[dbo].[Rules]
+update   [dbo].[Rules]
   set name=@name
   where id=@Id

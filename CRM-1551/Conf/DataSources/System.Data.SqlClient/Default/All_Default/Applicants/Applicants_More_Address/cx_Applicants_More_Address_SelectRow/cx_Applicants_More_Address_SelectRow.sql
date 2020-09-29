@@ -15,6 +15,6 @@
 	left join Applicants on Applicants.Id = LiveAddress.applicant_id
 	left join Buildings on Buildings.Id	= LiveAddress.building_id
 	left join Districts on Districts.Id = Buildings.district_id
-	left join [CRM_1551_Analitics].[dbo].[Streets] on [Buildings].street_id=Streets.Id
-    left join [CRM_1551_Analitics].[dbo].[StreetTypes] on [Streets].street_type_id=[StreetTypes].Id
+	left join   [dbo].[Streets] on [Buildings].street_id=Streets.Id
+    left join   [dbo].[StreetTypes] on [Streets].street_type_id=[StreetTypes].Id
   WHERE LiveAddress.Id = @Id

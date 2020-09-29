@@ -1,4 +1,4 @@
-insert into [CRM_1551_Analitics].[dbo].[FiltersForControler]
+insert into   [dbo].[FiltersForControler]
   (
   [user_id]
       ,[district_id]

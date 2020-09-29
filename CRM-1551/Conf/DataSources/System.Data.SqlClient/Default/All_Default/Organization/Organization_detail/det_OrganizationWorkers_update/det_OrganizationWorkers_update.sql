@@ -1,4 +1,4 @@
-update [CRM_1551_Analitics].[dbo].[Workers]
+update   [dbo].[Workers]
 set
 [organization_id]=@organization_id
       ,[roles_id]=@roles_id

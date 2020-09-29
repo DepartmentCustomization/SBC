@@ -22,7 +22,7 @@ DISTINCT
     [ApplicantPrivilege].Name Privilege,
     [SocialStates].name [SocialStates]
 FROM
-    [CRM_1551_Analitics].[dbo].[Applicants]
+      [dbo].[Applicants]
     LEFT JOIN [dbo].[ApplicantPhones] ON [Applicants].Id = [ApplicantPhones].applicant_id
     LEFT JOIN [dbo].[PhoneTypes] ON [ApplicantPhones].phone_type_id = [PhoneTypes].Id
     LEFT JOIN [dbo].[LiveAddress] ON [Applicants].Id = [LiveAddress].[applicant_id]

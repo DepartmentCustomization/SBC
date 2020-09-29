@@ -13,9 +13,9 @@ SELECT
      [EditByUserId] AS [user_edit_id]
 FROM
      [CRM_1551_Site_Integration].[dbo].[AppealsFromSite] app
-     LEFT JOIN [CRM_1551_Analitics].[dbo].[SiteAppealsResults] res ON res.id = app.AppealFromSiteResultId
+     LEFT JOIN   [dbo].[SiteAppealsResults] res ON res.id = app.AppealFromSiteResultId
      LEFT JOIN [CRM_1551_Site_Integration].[dbo].[WorkDirectionTypes] wdt ON wdt.id = app.WorkDirectionTypeId
-     LEFT JOIN [CRM_1551_Analitics].[dbo].[Objects] obj ON obj.Id = app.[ObjectId]
+     LEFT JOIN   [dbo].[Objects] obj ON obj.Id = app.[ObjectId]
 WHERE
      #filter_columns#
      #sort_columns#

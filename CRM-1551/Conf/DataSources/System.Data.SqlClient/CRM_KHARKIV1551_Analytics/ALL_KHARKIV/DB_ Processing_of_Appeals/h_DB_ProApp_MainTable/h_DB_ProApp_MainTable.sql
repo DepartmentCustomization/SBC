@@ -50,7 +50,7 @@ begin
 	insert into #temp_filter_emergensy_id (Id, emergensy_id)
 	select distinct 1 Id, Id emergensy_id
 	--into #temp_filter_emergensy_id
-	from [CRM_1551_Analitics].[dbo].Emergensy
+	from   [dbo].Emergensy
 end
 
 else
@@ -78,7 +78,7 @@ end
   when [emergensy_name]=N'Термінова' then 2
   when [emergensy_name]=N'Звичайна' then 3 end sort
   into #temp_emergensy
-  from [CRM_1551_Analitics].[dbo].[Emergensy] 
+  from   [dbo].[Emergensy] 
   union
   select 0, N'Заходи', 0 sort
 
@@ -89,10 +89,10 @@ end
 
   select N'arrived' name, [QuestionTypes].emergency, count([Assignments].Id) count_id
   into #temp_arrived
-  from [CRM_1551_Analitics].[dbo].[Assignments]
-  inner join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
+  from   [dbo].[Assignments]
+  inner join   [dbo].[Questions] on [Assignments].question_id=[Questions].Id
   inner join [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].object_id=[Objects].Id
+  left join   [dbo].[Objects] on [Questions].object_id=[Objects].Id
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
   left join #temp_filter_d_qt_all temp_filter_d_qt_all on temp_filter_d_qt_all.district_id=[Objects].district_id
   left join #temp_filter_emergensy_id temp_filter_emergensy_id on temp_filter_emergensy_id.emergensy_id=[QuestionTypes].emergency
@@ -108,10 +108,10 @@ end
 
   select N'in_work' name, [QuestionTypes].emergency, count([Assignments].Id) count_id
   into #temp_in_work 
-  from [CRM_1551_Analitics].[dbo].[Assignments]
-  inner join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
+  from   [dbo].[Assignments]
+  inner join   [dbo].[Questions] on [Assignments].question_id=[Questions].Id
   inner join [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].object_id=[Objects].Id
+  left join   [dbo].[Objects] on [Questions].object_id=[Objects].Id
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
   left join #temp_filter_d_qt_all temp_filter_d_qt_all on temp_filter_d_qt_all.district_id=[Objects].district_id
   left join #temp_filter_emergensy_id temp_filter_emergensy_id on temp_filter_emergensy_id.emergensy_id=[QuestionTypes].emergency
@@ -124,10 +124,12 @@ end
   group by [QuestionTypes].emergency
   union all
   select N'in_work' name, 0 emergency, count([Events].Id) count_id
+
   from [CRM_1551_Analitics].[dbo].[Events]
   left join [CRM_1551_Analitics].[dbo].[EventObjects] on [Events].Id=[EventObjects].event_id and [EventObjects].in_form='true'
   left join [CRM_1551_Analitics].[dbo].[Objects] on [EventObjects].object_id=[Objects].Id
   left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
 
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
@@ -144,10 +146,10 @@ end
 
   select N'attention' name, [QuestionTypes].emergency, count([Assignments].Id) count_id
   into #temp_attention 
-  from [CRM_1551_Analitics].[dbo].[Assignments]
-  inner join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
+  from   [dbo].[Assignments]
+  inner join   [dbo].[Questions] on [Assignments].question_id=[Questions].Id
   inner join [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].object_id=[Objects].Id
+  left join   [dbo].[Objects] on [Questions].object_id=[Objects].Id
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
   left join #temp_filter_d_qt_all temp_filter_d_qt_all on temp_filter_d_qt_all.district_id=[Objects].district_id
   left join #temp_filter_emergensy_id temp_filter_emergensy_id on temp_filter_emergensy_id.emergensy_id=[QuestionTypes].emergency
@@ -165,10 +167,10 @@ end
 
   select N'overdue' name, [QuestionTypes].emergency, count([Assignments].Id) count_id
   into #temp_overdue
-  from [CRM_1551_Analitics].[dbo].[Assignments]
-  inner join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
+  from   [dbo].[Assignments]
+  inner join   [dbo].[Questions] on [Assignments].question_id=[Questions].Id
   inner join [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].object_id=[Objects].Id
+  left join   [dbo].[Objects] on [Questions].object_id=[Objects].Id
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
   left join #temp_filter_d_qt_all temp_filter_d_qt_all on temp_filter_d_qt_all.district_id=[Objects].district_id
   left join #temp_filter_emergensy_id temp_filter_emergensy_id on temp_filter_emergensy_id.emergensy_id=[QuestionTypes].emergency
@@ -181,10 +183,12 @@ end
   group by [QuestionTypes].emergency
   union all
   select N'overdue' name, 0 emergency, count([Events].Id) count_id
+
   from [CRM_1551_Analitics].[dbo].[Events]
   left join [CRM_1551_Analitics].[dbo].[EventObjects] on [Events].Id=[EventObjects].event_id and [EventObjects].in_form='true'
   left join [CRM_1551_Analitics].[dbo].[Objects] on [EventObjects].object_id=[Objects].Id
   left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
 
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
@@ -201,10 +205,10 @@ end
 
   select N'for_revision' name, [QuestionTypes].emergency, count([Assignments].Id) count_id
   into #temp_for_revision
-  from [CRM_1551_Analitics].[dbo].[Assignments]
-  inner join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
+  from   [dbo].[Assignments]
+  inner join   [dbo].[Questions] on [Assignments].question_id=[Questions].Id
   inner join [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].object_id=[Objects].Id
+  left join   [dbo].[Objects] on [Questions].object_id=[Objects].Id
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
   left join #temp_filter_d_qt_all temp_filter_d_qt_all on temp_filter_d_qt_all.district_id=[Objects].district_id
   left join #temp_filter_emergensy_id temp_filter_emergensy_id on temp_filter_emergensy_id.emergensy_id=[QuestionTypes].emergency
@@ -221,10 +225,10 @@ end
 
   select N'future' name, [QuestionTypes].emergency, count([Assignments].Id) count_id
   into #temp_future
-  from [CRM_1551_Analitics].[dbo].[Assignments]
-  inner join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
+  from   [dbo].[Assignments]
+  inner join   [dbo].[Questions] on [Assignments].question_id=[Questions].Id
   inner join [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].object_id=[Objects].Id
+  left join   [dbo].[Objects] on [Questions].object_id=[Objects].Id
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
   left join #temp_filter_d_qt_all temp_filter_d_qt_all on temp_filter_d_qt_all.district_id=[Objects].district_id
   left join #temp_filter_emergensy_id temp_filter_emergensy_id on temp_filter_emergensy_id.emergensy_id=[QuestionTypes].emergency
@@ -237,10 +241,12 @@ end
   group by [QuestionTypes].emergency
   union all
   select N'future' name, 0 emergency, count([Events].Id) count_id
+
   from [CRM_1551_Analitics].[dbo].[Events]
   left join [CRM_1551_Analitics].[dbo].[EventObjects] on [Events].Id=[EventObjects].event_id and [EventObjects].in_form='true'
   left join [CRM_1551_Analitics].[dbo].[Objects] on [EventObjects].object_id=[Objects].Id
   left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
 
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
@@ -257,10 +263,10 @@ end
 
   select N'without_executor' name, [QuestionTypes].emergency, count([Assignments].Id) count_id
   into #temp_without_executor
-  from [CRM_1551_Analitics].[dbo].[Assignments]
-  inner join [CRM_1551_Analitics].[dbo].[Questions] on [Assignments].question_id=[Questions].Id
+  from   [dbo].[Assignments]
+  inner join   [dbo].[Questions] on [Assignments].question_id=[Questions].Id
   inner join [dbo].[QuestionTypes] on [Questions].question_type_id=[QuestionTypes].Id
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [Questions].object_id=[Objects].Id
+  left join   [dbo].[Objects] on [Questions].object_id=[Objects].Id
   left join #temp_filter_d_qt temp_filter_d_qt on temp_filter_d_qt.district_id=[Objects].district_id and temp_filter_d_qt.question_type_id=[QuestionTypes].Id
   left join #temp_filter_d_qt_all temp_filter_d_qt_all on temp_filter_d_qt_all.district_id=[Objects].district_id
   left join #temp_filter_emergensy_id temp_filter_emergensy_id on temp_filter_emergensy_id.emergensy_id=[QuestionTypes].emergency
