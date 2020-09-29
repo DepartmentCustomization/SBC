@@ -46,119 +46,141 @@
                 columns: [
                     {
                         dataField: 'Name',
-                        caption: ''
+                        caption: '',
+                        alignment: 'left',
+                        customizeText: function(data) {
+                            return 'Разом: ' + data.value;
+                        }
                     },
                     {
                         dataField: 'article_qty',
-                        caption: 'Кількість по статтях'
+                        caption: 'Кількість по статтях',
+                        alignment: 'center'
                     },
                     {
                         dataField: 'article_percent',
-                        caption: '% по статтях'
+                        caption: '% по статтях',
+                        alignment: 'center'
                     },
                     {
                         dataField: 'article_percent',
-                        caption: '% по статтях'
+                        caption: '% по статтях',
+                        alignment: 'center'
                     },
                     {
                         dataField: '',
+                        alignment: 'center',
                         caption: 'Загальна тривалість',
                         columns: [
                             {
                                 dataField: 'talk_all',
-                                caption: 'Питання + Консультація'
+                                caption: 'Питання + Консультація',
+                                alignment: 'center'
                             },
                             {
                                 dataField: 'talk_consultations_only',
-                                caption: 'Тільки консультація'
+                                caption: 'Тільки консультація',
+                                alignment: 'center'
                             }
                         ]
                     },
                     {
                         dataField: 'talk_consultation_average',
-                        caption: 'Середній час на консультацію'
+                        caption: 'Середній час на консультацію',
+                        alignment: 'center'
                     }
                 ]
             },
             columns: [
                 {
                     dataField: 'Name',
-                    caption: ''
+                    caption: '',
+                    alignment: 'left'
                 },
                 {
                     dataField: 'article_qty',
-                    caption: 'Кількість по статтях'
+                    caption: 'Кількість по статтях',
+                    alignment: 'center'
                 },
                 {
                     dataField: 'article_percent',
-                    caption: '% по статтях'
+                    caption: '% по статтях',
+                    alignment: 'center'
                 },
                 {
                     dataField: 'article_percent',
                     caption: '% по статтях',
                     dataType: 'number',
                     format: 'percent',
-                    alignment: 'right',
                     allowGrouping: false,
-                    cellTemplate: function(container, options) {
-                        this.dxBullet({
-                            onIncidentOccurred: null,
-                            size: {
-                                width: 150,
-                                height: 35
-                            },
-                            margin: {
-                                top: 5,
-                                bottom: 0,
-                                left: 5
-                            },
-                            showTarget: false,
-                            showZeroLevel: true,
-                            value: options.value * 100,
-                            startScaleValue: 0,
-                            endScaleValue: 100,
-                            tooltip: {
-                                enabled: true,
-                                font: {
-                                    size: 18
-                                },
-                                paddingTopBottom: 2,
-                                customizeTooltip: function() {
-                                    return { text: options.text };
-                                },
-                                zIndex: 5
-                            }
-                        }).appendTo(container);
-                    },
-                    customizeText: function(cellInfo) {
-                        let bulletOptions = {
-                            value: cellInfo.value
-                        };
-                        return cellInfo.value + bulletOptions;
-                    },
+                    alignment: 'center',
                     cssClass: 'bullet'
                 },
                 {
                     dataField: '',
                     caption: 'Загальна тривалість',
+                    alignment: 'center',
                     columns: [
                         {
                             dataField: 'talk_all',
-                            caption: 'Питання + Консультація'
+                            caption: 'Питання + Консультація',
+                            alignment: 'center'
                         },
                         {
                             dataField: 'talk_consultations_only',
-                            caption: 'Тільки консультація'
+                            caption: 'Тільки консультація',
+                            alignment: 'center'
                         }
                     ]
                 },
                 {
                     dataField: 'talk_consultation_average',
-                    caption: 'Середній час на консультацію'
+                    caption: 'Середній час на консультацію',
+                    alignment: 'center'
                 }
             ],
+            summary: {
+                totalItems: [
+                    {
+                        column: 'article_qty',
+                        summaryType: 'sum',
+                        alignment: 'center',
+                        customizeText: function(data) {
+                            return 'Разом: ' + data.value;
+                        }
+                    }, {
+                        column: 'article_percent',
+                        summaryType: 'avg',
+                        format: 'percent',
+                        customizeText: function(data) {
+                            return 'Середнє: ' + data.value.toFixed(2);
+                        }
+                    }, {
+                        column: 'talk_all',
+                        summaryType: 'sum',
+                        alignment: 'center',
+                        customizeText: function(data) {
+                            return 'Разом: ' + data.value;
+                        }
+                    }, {
+                        column: 'talk_consultations_only',
+                        summaryType: 'sum',
+                        alignment: 'center',
+                        customizeText: function(data) {
+                            return 'Разом: ' + data.value;
+                        }
+                    }, {
+                        column: 'talk_consultation_average',
+                        summaryType: 'avg',
+                        format: 'percent',
+                        customizeText: function(data) {
+                            return 'Середнє: ' + data.value.toFixed(2);
+                        }
+                    }
+                ]},
             keyExpr: 'Id'
         },
+        summary: [],
         firstLoad: true,
         init: function() {
             this.applyChanges(true);
@@ -166,6 +188,50 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
+            this.config.columns[3].cellTemplate = this.myMethod.bind(this);
+        }, myMethod: function(container, options) {
+            $('<div/>').dxBullet({
+                onIncidentOccurred: null,
+                size: {
+                    width: 150,
+                    height: 35
+                },
+                margin: {
+                    top: 5,
+                    bottom: 0,
+                    left: 5
+                },
+                showTarget: false,
+                showZeroLevel: true,
+                value: options.value * 100,
+                startScaleValue: 0,
+                endScaleValue: 100,
+                tooltip: {
+                    enabled: true,
+                    font: {
+                        size: 18
+                    },
+                    paddingTopBottom: 2,
+                    customizeTooltip: function() {
+                        return { text: options.text };
+                    },
+                    zIndex: 5
+                }
+            }).appendTo(container);
+
+        },
+        afterRenderTable: function() {
+            this.summary = [];
+            const collections = document.querySelectorAll('.dx-row');
+            collections.forEach(collection => {
+                const summary = Array.prototype.slice.call(collection.cells, 0);
+                summary.forEach(cell => {
+                    const sum = cell.innerText.slice(0, 5);
+                    if(sum === 'Разом' || sum === 'Серед') {
+                        this.summary.push(cell.innerText);
+                    }
+                });
+            });
         },
         applyChanges: function(state) {
             const msg = {
@@ -177,9 +243,9 @@
             this.messageService.publish(msg);
         },
         onCellPrepared: function() {
-            /*if(options.column.dataField === 'article_percent') {
-                 console.log(options.cellElement)
-                if(options.cellElement.classlist.contains('bullet')) {
+            /*if(options.rowType === 'data') {
+                if(options.cellElement.classList.contains('bullet')) {
+
                 }
             }*/
         },
