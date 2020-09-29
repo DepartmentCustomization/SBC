@@ -177,9 +177,9 @@
             this.messageService.publish(msg);
         },
         onCellPrepared: function() {
-            /*options*/
-            /*if(options.rowType === 'data') {
-                if(options.data.article_percent) {
+            /*if(options.column.dataField === 'article_percent') {
+                 console.log(options.cellElement)
+                if(options.cellElement.classlist.contains('bullet')) {
                 }
             }*/
         },
