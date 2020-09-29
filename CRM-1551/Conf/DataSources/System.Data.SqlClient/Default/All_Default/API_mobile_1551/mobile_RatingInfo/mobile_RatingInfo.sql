@@ -1,0 +1,820 @@
+
+--declare @UserId nvarchar(128) = N'29796543-b903-48a6-9399-4840f6eac396' /*Київський міський голова*/
+--declare @UserId nvarchar(128) = N'8b98a5ed-70ec-4bbf-b733-911b9b959428' /*Провідний інженер (ЖЕД-201, 206)*/
+-- declare @UserId nvarchar(128) = N'4e4953a8-ae98-400a-982d-c122b0632bc0' /*співробітник Org 1800*/
+-- declare @OrganizationId int --= 1800
+
+
+
+
+declare @Rating_OrganizationId int
+declare @Rating_IsRDA bit
+
+
+if (
+	SELECT count(1)
+	FROM [CRM_1551_Analitics].[dbo].[OrganizationInResponsibilityRights]
+	where [position_id] in (
+			SELECT Id
+			FROM [CRM_1551_Analitics].[dbo].[Positions]
+			where [programuser_id] = @UserId
+	)
+	and [organization_id] in (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009)
+	) > 0
+begin
+	--человек с РДА. 
+	set @Rating_IsRDA = 1;
+
+	if @OrganizationId is null
+	begin
+		--Если пользователь находится в орг РДА ([OrganizationInResponsibilityRights]) и НЕ дает организацию во входящий параметр то информацию только с Rating_ResultTable (по организации топ 1 из [OrganizationInResponsibilityRights])
+		set @Rating_OrganizationId = (SELECT top 1 [organization_id]
+								FROM [CRM_1551_Analitics].[dbo].[OrganizationInResponsibilityRights] with (nolock)
+								where [position_id] in (
+										SELECT Id
+										FROM [CRM_1551_Analitics].[dbo].[Positions] with (nolock)
+										where [programuser_id] = @UserId
+								)
+								and [organization_id] in (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009))
+	end
+	else
+	begin
+		--Если пользователь находится в орг РДА ([OrganizationInResponsibilityRights]) и дает организацию во входящий параметр то информацию только с Rating_ResultTable (по организации из параметра но проверяем правами таблицы OrganizationInResponsibilityRights)
+		set @Rating_OrganizationId = (SELECT top 1 [organization_id]
+								FROM [CRM_1551_Analitics].[dbo].[OrganizationInResponsibilityRights] with (nolock)
+								where [position_id] in (
+										SELECT Id
+										FROM [CRM_1551_Analitics].[dbo].[Positions] with (nolock)
+										where [programuser_id] = @UserId
+								)
+								and [organization_id] = @OrganizationId)
+	end
+end
+else
+begin
+	--человек Не с РДА. 
+	set @Rating_IsRDA = 0;
+
+	if @OrganizationId is null
+	begin
+		--Если человек НЕ с РДА и НЕ дает орг ид (к пример 10) то показываем информацию с Rating_ResultTable_ByOrganization + Department_ResultTable по организации из его позиции Positions и перепроверить через OrganizationInResponsibilityRights
+		set @Rating_OrganizationId = (SELECT top 1 [organization_id]
+										FROM [CRM_1551_Analitics].[dbo].[OrganizationInResponsibilityRights] with (nolock)
+										inner join [CRM_1551_Analitics].[dbo].[Positions]  with (nolock) on [Positions].Id = [OrganizationInResponsibilityRights].position_id and [Positions].organizations_id = [OrganizationInResponsibilityRights].organization_id and [Positions].[programuser_id] = @UserId
+										)
+	end
+	else
+	begin
+		--Если человек НЕ с РДА и дает орг ид (к пример 12) то показываем информацию с Rating_ResultTable_ByOrganization + Department_ResultTable по организации из входящего параметра и перепроверить через OrganizationInResponsibilityRights
+		set @Rating_OrganizationId = (SELECT top 1 [organization_id]
+										FROM [CRM_1551_Analitics].[dbo].[OrganizationInResponsibilityRights] with (nolock)
+										inner join [CRM_1551_Analitics].[dbo].[Positions] with (nolock) on [Positions].Id = [OrganizationInResponsibilityRights].position_id and [Positions].organizations_id = [OrganizationInResponsibilityRights].organization_id and [Positions].[programuser_id] = @UserId
+										where [OrganizationInResponsibilityRights].[organization_id] = @OrganizationId)
+	end
+end
+
+
+--select @Rating_OrganizationId, @Rating_IsRDA
+
+if object_id('tempdb..#temp_HistryRating') is not null drop table #temp_HistryRating
+create table #temp_HistryRating(
+	[DateCalc] date,
+	RatingId int,
+	OrganizationId int,
+	OrganizationName  nvarchar(500),
+	[IntegratedMetric_PerformanceLevel] numeric(18,6),
+	[PercentClosedOnTime] numeric(18,6),
+	[PercentOfExecution] numeric(18,6),
+	[PercentOnVeracity] numeric(18,6),
+	[IndexOfSpeedToExecution] numeric(18,6),
+	[IndexOfSpeedToExplain] numeric(18,6),
+	[IndexOfFactToExecution] numeric(18,6),
+	[PercentPleasureOfExecution] numeric(18,6),
+)
+
+if object_id('tempdb..#temp_HistryRatingDep') is not null drop table #temp_HistryRatingDep
+create table #temp_HistryRatingDep(
+	[DateCalc] date,
+	RatingId int,
+	OrganizationId int,
+	OrganizationName  nvarchar(500),
+	[vids_vz] numeric(18,2),
+	[count_rzvv] int,
+	[count_rzvnv] int,
+	[count_rzvp] int
+)
+
+
+
+if @Rating_IsRDA = 1
+begin
+
+insert into #temp_HistryRating ([DateCalc],
+								[RatingId],
+								[OrganizationId],
+								[OrganizationName],
+								[IntegratedMetric_PerformanceLevel],
+								[PercentClosedOnTime],
+								[PercentOfExecution],
+								[PercentOnVeracity],
+								[IndexOfSpeedToExecution],
+								[IndexOfSpeedToExplain],
+								[IndexOfFactToExecution],
+								[PercentPleasureOfExecution])
+SELECT	 t1.[DateCalc]
+		,t1.[RatingId]
+		,t1.[RDAId] as [OrganizationId]
+		,[Organizations].[short_name] as [OrganizationName]
+		,t1.[IntegratedMetric_PerformanceLevel]
+		,t1.[PercentClosedOnTime]
+		,t1.[PercentOfExecution]
+		,t1.[PercentOnVeracity]
+		,t1.[IndexOfSpeedToExecution]
+		,t1.[IndexOfSpeedToExplain]
+		,t1.[IndexOfFactToExecution]
+		,t1.[PercentPleasureOfExecution]
+FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.[RDAId]
+where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc <= cast(getdate() as date)
+and t1.RDAId = @Rating_OrganizationId 
+
+select  JSON_QUERY((
+		select   t.Rating as RatingName
+				,t.RatingId
+				,t.DateCalc
+				,t.[IntegratedMetric_PerformanceLevel] as 'ResultMetric.CurrentValue'
+				,(SELECT t1.[DateCalc]
+							,t1.[IntegratedMetric_PerformanceLevel] as [Value]
+							FROM #temp_HistryRating as t1 with (nolock)
+							where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+							and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
+							FOR JSON PATH, INCLUDE_NULL_VALUES) as 'ResultMetric.History'
+				,(SELECT top 10 
+							[Organizations].Id as [OrganizationId]
+							,[Organizations].short_name as [OrganizationName]
+							,t1.[IntegratedMetric_PerformanceLevel] as [Value]
+							FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+							left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.RDAId
+							where t1.DateCalc = cast(getdate() as date)
+							and t1.RatingId = t.RatingId
+							order by t1.[IntegratedMetric_PerformanceLevel]
+							FOR JSON PATH, INCLUDE_NULL_VALUES) as 'ResultMetric.TOP10'
+		,'OtherIndicators' = (
+					SELECT  t2.[CurrentValue]
+						   ,t2.[Name]
+						   ,t2.[Code]
+						   ,JSON_QUERY(t2.[History]) as 'History'
+						   ,JSON_QUERY(t2.[TOP10]) as 'TOP10'
+					FROM (
+							SELECT t.[PercentClosedOnTime] as 'CurrentValue'
+								   ,N'PercentClosedOnTime' as 'Name'
+								   ,N'PercentClosedOnTime' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[PercentClosedOnTime] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[PercentClosedOnTime] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.RDAId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[PercentClosedOnTime] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[PercentOfExecution] as 'CurrentValue'
+								   ,N'PercentOfExecution' as 'Name'
+								   ,N'PercentOfExecution' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[PercentOfExecution] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[PercentOfExecution] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.RDAId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[PercentOfExecution] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[PercentOnVeracity] as 'CurrentValue'
+								   ,N'PercentOnVeracity' as 'Name'
+								   ,N'PercentOnVeracity' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[PercentOnVeracity] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[PercentOnVeracity] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.RDAId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[PercentOnVeracity] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[IndexOfSpeedToExecution] as 'CurrentValue'
+								   ,N'IndexOfSpeedToExecution' as 'Name'
+								   ,N'IndexOfSpeedToExecution' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[IndexOfSpeedToExecution] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[IndexOfSpeedToExecution] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.RDAId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[IndexOfSpeedToExecution] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[IndexOfSpeedToExplain] as 'CurrentValue'
+								   ,N'IndexOfSpeedToExplain' as 'Name'
+								   ,N'IndexOfSpeedToExplain' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[IndexOfSpeedToExplain] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[IndexOfSpeedToExplain] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.RDAId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[IndexOfSpeedToExplain] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[IndexOfFactToExecution] as 'CurrentValue'
+								   ,N'IndexOfFactToExecution' as 'Name'
+								   ,N'IndexOfFactToExecution' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[IndexOfFactToExecution] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[IndexOfFactToExecution] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.RDAId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[IndexOfFactToExecution] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[PercentPleasureOfExecution] as 'CurrentValue'
+								   ,N'PercentPleasureOfExecution' as 'Name'
+								   ,N'PercentPleasureOfExecution' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[PercentPleasureOfExecution] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[PercentPleasureOfExecution] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.RDAId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[PercentPleasureOfExecution] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'count_rzvv' as 'Name'
+								   ,N'count_rzvv' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+									,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'count_rzvnv' as 'Name'
+								   ,N'count_rzvnv' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+									,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'count_rzvp' as 'Name'
+								   ,N'count_rzvp' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+									,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'vids_vz' as 'Name'
+								   ,N'vids_vz' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+									,JSON_QUERY((N'[]')) as 'TOP10'				
+					) t2
+					FOR JSON PATH, INCLUDE_NULL_VALUES		
+					)
+		from (
+			SELECT N'ЖКХ' as [Rating]
+				  ,t1.RatingId
+				  ,t1.DateCalc
+				  ,t1.[PercentClosedOnTime]
+				  ,t1.[PercentOfExecution]
+				  ,t1.[PercentOnVeracity]
+				  ,t1.[IndexOfSpeedToExecution]
+				  ,t1.[IndexOfSpeedToExplain]
+				  ,t1.[IndexOfFactToExecution]
+				  ,t1.[PercentPleasureOfExecution]
+				  ,t1.[IntegratedMetric_PerformanceLevel]
+			  FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+			  where t1.DateCalc = cast(getdate() as date)
+			  and t1.RDAId = @Rating_OrganizationId and t1.RatingId = 1
+			UNION ALL
+			SELECT N'Благоустрій' as [Rating]
+				  ,t1.RatingId
+				  ,t1.DateCalc
+				  ,t1.[PercentClosedOnTime]
+				  ,t1.[PercentOfExecution]
+				  ,t1.[PercentOnVeracity]
+				  ,t1.[IndexOfSpeedToExecution]
+				  ,t1.[IndexOfSpeedToExplain]
+				  ,t1.[IndexOfFactToExecution]
+				  ,t1.[PercentPleasureOfExecution]
+				  ,t1.[IntegratedMetric_PerformanceLevel]
+			  FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+			  where t1.DateCalc = cast(getdate() as date)
+			  and t1.RDAId = @Rating_OrganizationId and t1.RatingId = 2
+			UNION ALL
+			SELECT N'Життєдіяльність району' as [Rating]
+				  ,t1.RatingId
+				  ,t1.DateCalc
+				  ,t1.[PercentClosedOnTime]
+				  ,t1.[PercentOfExecution]
+				  ,t1.[PercentOnVeracity]
+				  ,t1.[IndexOfSpeedToExecution]
+				  ,t1.[IndexOfSpeedToExplain]
+				  ,t1.[IndexOfFactToExecution]
+				  ,t1.[PercentPleasureOfExecution]
+				  ,t1.[IntegratedMetric_PerformanceLevel]
+			  FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
+			  where t1.DateCalc = cast(getdate() as date)
+			  and t1.RDAId = @Rating_OrganizationId and t1.RatingId = 3
+		) as t
+		FOR JSON PATH, INCLUDE_NULL_VALUES
+		)) as Result
+end
+
+
+
+if @Rating_IsRDA = 0 and (SELECT count(1)
+						FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+						where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc <= cast(getdate() as date)
+						and t1.OrganizationId = @Rating_OrganizationId ) > 0
+begin
+insert into #temp_HistryRating ([DateCalc],
+								[RatingId],
+								[OrganizationId],
+								[OrganizationName],
+								[IntegratedMetric_PerformanceLevel],
+								[PercentClosedOnTime],
+								[PercentOfExecution],
+								[PercentOnVeracity],
+								[IndexOfSpeedToExecution],
+								[IndexOfSpeedToExplain],
+								[IndexOfFactToExecution],
+								[PercentPleasureOfExecution])
+SELECT	 t1.[DateCalc]
+		,t1.[RatingId]
+		,t1.[OrganizationId]
+		,[Organizations].[short_name] as [OrganizationName]
+		,t1.[IntegratedMetric_PerformanceLevel]
+		,t1.[PercentClosedOnTime]
+		,t1.[PercentOfExecution]
+		,t1.[PercentOnVeracity]
+		,t1.[IndexOfSpeedToExecution]
+		,t1.[IndexOfSpeedToExplain]
+		,t1.[IndexOfFactToExecution]
+		,t1.[PercentPleasureOfExecution]
+FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.[OrganizationId]
+where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc <= cast(getdate() as date)
+and t1.OrganizationId = @Rating_OrganizationId 
+
+select  JSON_QUERY((
+		select   t.Rating as RatingName
+				,t.RatingId
+				,t.DateCalc
+				,t.[IntegratedMetric_PerformanceLevel] as 'ResultMetric.CurrentValue'
+				,(SELECT t1.[DateCalc]
+							,t1.[IntegratedMetric_PerformanceLevel] as [Value]
+							FROM #temp_HistryRating as t1
+							where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+							and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
+							FOR JSON PATH, INCLUDE_NULL_VALUES) as 'ResultMetric.History'
+				,(SELECT top 10 
+							[Organizations].Id as [OrganizationId]
+							,[Organizations].short_name as [OrganizationName]
+							,t1.[IntegratedMetric_PerformanceLevel] as [Value]
+							FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+							left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.OrganizationId
+							where t1.DateCalc = cast(getdate() as date)
+							and t1.RatingId = t.RatingId
+							order by t1.[IntegratedMetric_PerformanceLevel]
+							FOR JSON PATH, INCLUDE_NULL_VALUES) as 'ResultMetric.TOP10'
+		,'OtherIndicators' = (
+					SELECT  t2.[CurrentValue]
+						   ,t2.[Name]
+						   ,t2.[Code]
+						   ,JSON_QUERY(t2.[History]) as 'History'
+						   ,JSON_QUERY(t2.[TOP10]) as 'TOP10'
+					FROM (
+							SELECT t.[PercentClosedOnTime] as 'CurrentValue'
+								   ,N'PercentClosedOnTime' as 'Name'
+								   ,N'PercentClosedOnTime' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[PercentClosedOnTime] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[PercentClosedOnTime] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.OrganizationId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[PercentClosedOnTime] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[PercentOfExecution] as 'CurrentValue'
+								   ,N'PercentOfExecution' as 'Name'
+								   ,N'PercentOfExecution' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[PercentOfExecution] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[PercentOfExecution] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.OrganizationId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[PercentOfExecution] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[PercentOnVeracity] as 'CurrentValue'
+								   ,N'PercentOnVeracity' as 'Name'
+								   ,N'PercentOnVeracity' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[PercentOnVeracity] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[PercentOnVeracity] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.OrganizationId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[PercentOnVeracity] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[IndexOfSpeedToExecution] as 'CurrentValue'
+								   ,N'IndexOfSpeedToExecution' as 'Name'
+								   ,N'IndexOfSpeedToExecution' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[IndexOfSpeedToExecution] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[IndexOfSpeedToExecution] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.OrganizationId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[IndexOfSpeedToExecution] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[IndexOfSpeedToExplain] as 'CurrentValue'
+								   ,N'IndexOfSpeedToExplain' as 'Name'
+								   ,N'IndexOfSpeedToExplain' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[IndexOfSpeedToExplain] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[IndexOfSpeedToExplain] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.OrganizationId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[IndexOfSpeedToExplain] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[IndexOfFactToExecution] as 'CurrentValue'
+								   ,N'IndexOfFactToExecution' as 'Name'
+								   ,N'IndexOfFactToExecution' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[IndexOfFactToExecution] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[IndexOfFactToExecution] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.OrganizationId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[IndexOfFactToExecution] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[PercentPleasureOfExecution] as 'CurrentValue'
+								   ,N'PercentPleasureOfExecution' as 'Name'
+								   ,N'PercentPleasureOfExecution' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[PercentPleasureOfExecution] as [Value]
+												FROM  #temp_HistryRating as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[PercentPleasureOfExecution] as [Value]
+										FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.OrganizationId
+										where t1.DateCalc = cast(getdate() as date)
+										and t1.RatingId = t.RatingId
+										order by t1.[PercentPleasureOfExecution] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'count_rzvv' as 'Name'
+								   ,N'count_rzvv' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+									,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'count_rzvnv' as 'Name'
+								   ,N'count_rzvnv' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+									,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'count_rzvp' as 'Name'
+								   ,N'count_rzvp' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+									,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'vids_vz' as 'Name'
+								   ,N'vids_vz' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+									,JSON_QUERY((N'[]')) as 'TOP10'				
+					) t2
+					FOR JSON PATH, INCLUDE_NULL_VALUES		
+					)
+		from (
+			SELECT N'ЖКХ' as [Rating]
+				  ,t1.RatingId
+				  ,t1.DateCalc
+				  ,t1.[PercentClosedOnTime]
+				  ,t1.[PercentOfExecution]
+				  ,t1.[PercentOnVeracity]
+				  ,t1.[IndexOfSpeedToExecution]
+				  ,t1.[IndexOfSpeedToExplain]
+				  ,t1.[IndexOfFactToExecution]
+				  ,t1.[PercentPleasureOfExecution]
+				  ,t1.[IntegratedMetric_PerformanceLevel]
+			  FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+			  where t1.DateCalc = cast(getdate() as date)
+			  and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = 1
+			UNION ALL
+			SELECT N'Благоустрій' as [Rating]
+				  ,t1.RatingId
+				  ,t1.DateCalc
+				  ,t1.[PercentClosedOnTime]
+				  ,t1.[PercentOfExecution]
+				  ,t1.[PercentOnVeracity]
+				  ,t1.[IndexOfSpeedToExecution]
+				  ,t1.[IndexOfSpeedToExplain]
+				  ,t1.[IndexOfFactToExecution]
+				  ,t1.[PercentPleasureOfExecution]
+				  ,t1.[IntegratedMetric_PerformanceLevel]
+			  FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+			  where t1.DateCalc = cast(getdate() as date)
+			  and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = 2
+			UNION ALL
+			SELECT N'Життєдіяльність району' as [Rating]
+				  ,t1.RatingId
+				  ,t1.DateCalc
+				  ,t1.[PercentClosedOnTime]
+				  ,t1.[PercentOfExecution]
+				  ,t1.[PercentOnVeracity]
+				  ,t1.[IndexOfSpeedToExecution]
+				  ,t1.[IndexOfSpeedToExplain]
+				  ,t1.[IndexOfFactToExecution]
+				  ,t1.[PercentPleasureOfExecution]
+				  ,t1.[IntegratedMetric_PerformanceLevel]
+			  FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+			  where t1.DateCalc = cast(getdate() as date)
+			  and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = 3
+		) as t
+		FOR JSON PATH, INCLUDE_NULL_VALUES
+		)) as Result
+end
+
+
+
+if @Rating_IsRDA = 0 and (SELECT count(1)
+						FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
+						where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc <= cast(getdate() as date)
+						and t1.OrganizationId = @Rating_OrganizationId ) = 0
+					and (SELECT count(1)
+						FROM [CRM_1551_Rating_Department].[dbo].[Department_ResultTable] as t1 with (nolock)
+						where t1.StateToDate >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.StateToDate <= cast(getdate() as date)
+						and t1.Organization_Id = @Rating_OrganizationId ) > 0
+begin
+insert into #temp_HistryRatingDep ([DateCalc],
+								[OrganizationId],
+								[OrganizationName],
+								[vids_vz],
+								[count_rzvv],
+								[count_rzvnv],
+								[count_rzvp])
+SELECT	 dateadd(day,1,t1.StateToDate) as [DateCalc]
+		,t1.[Organization_Id]
+		,[Organizations].[short_name] as [OrganizationName]
+		,t1.[vids_vz]
+		,t1.[count_rzvv]
+		,t1.[count_rzvnv]
+		,t1.[count_rzvp]
+FROM [CRM_1551_Rating_Department].[dbo].[Department_ResultTable] as t1 with (nolock)
+left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.[Organization_Id]
+where dateadd(day,1,t1.StateToDate) >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and dateadd(day,1,t1.StateToDate) <= cast(getdate() as date)
+and t1.Organization_Id = @Rating_OrganizationId 
+
+select  JSON_QUERY((
+		select   t.Rating as RatingName
+				,t.RatingId
+				,t.DateCalc
+				,t.[vids_vz] as 'ResultMetric.CurrentValue'
+				,(SELECT t1.[DateCalc]
+							,t1.[vids_vz] as [Value]
+							FROM #temp_HistryRatingDep as t1
+							where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+							and t1.OrganizationId = @Rating_OrganizationId
+							FOR JSON PATH, INCLUDE_NULL_VALUES) as 'ResultMetric.History'
+				,(SELECT top 10 
+							[Organizations].Id as [OrganizationId]
+							,[Organizations].short_name as [OrganizationName]
+							,t1.[vids_vz] as [Value]
+							FROM [CRM_1551_Rating_Department].[dbo].[Department_ResultTable] as t1 with (nolock)
+							left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.Organization_Id
+							where dateadd(day,1,t1.StateToDate) = cast(getdate() as date)
+							order by t1.[vids_vz]
+							FOR JSON PATH, INCLUDE_NULL_VALUES) as 'ResultMetric.TOP10'
+		,'OtherIndicators' = (
+					SELECT  t2.[CurrentValue]
+						   ,t2.[Name]
+						   ,t2.[Code]
+						   ,JSON_QUERY(t2.[History]) as 'History'
+						   ,JSON_QUERY(t2.[TOP10]) as 'TOP10'
+					FROM (
+							SELECT null as 'CurrentValue'
+								   ,N'PercentClosedOnTime' as 'Name'
+								   ,N'PercentClosedOnTime' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+								   ,JSON_QUERY((N'[]')) as 'TOP10'		
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'PercentOfExecution' as 'Name'
+								   ,N'PercentOfExecution' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+								   ,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'PercentOnVeracity' as 'Name'
+								   ,N'PercentOnVeracity' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+								   ,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'IndexOfSpeedToExecution' as 'Name'
+								   ,N'IndexOfSpeedToExecution' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+								   ,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'IndexOfSpeedToExplain' as 'Name'
+								   ,N'IndexOfSpeedToExplain' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+								   ,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'IndexOfFactToExecution' as 'Name'
+								   ,N'IndexOfFactToExecution' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+								   ,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT null as 'CurrentValue'
+								   ,N'PercentPleasureOfExecution' as 'Name'
+								   ,N'PercentPleasureOfExecution' as 'Code'
+								   ,JSON_QUERY((N'[]')) as 'History'
+								   ,JSON_QUERY((N'[]')) as 'TOP10'	
+							UNION ALL
+							SELECT t.count_rzvv as 'CurrentValue'
+								   ,N'count_rzvv' as 'Name'
+								   ,N'count_rzvv' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[count_rzvv] as [Value]
+												FROM  #temp_HistryRatingDep as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[count_rzvv] as [Value]
+										FROM [CRM_1551_Rating_Department].[dbo].[Department_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.Organization_Id
+										where dateadd(day,1,t1.StateToDate) = cast(getdate() as date)
+										order by t1.[count_rzvv] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.count_rzvnv as 'CurrentValue'
+								   ,N'count_rzvnv' as 'Name'
+								   ,N'count_rzvnv' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[count_rzvnv] as [Value]
+												FROM  #temp_HistryRatingDep as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[count_rzvnv] as [Value]
+										FROM [CRM_1551_Rating_Department].[dbo].[Department_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.Organization_Id
+										where dateadd(day,1,t1.StateToDate) = cast(getdate() as date)
+										order by t1.[count_rzvnv] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[count_rzvp] as 'CurrentValue'
+								   ,N'count_rzvp' as 'Name'
+								   ,N'count_rzvp' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[count_rzvp] as [Value]
+												FROM  #temp_HistryRatingDep as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[count_rzvp] as [Value]
+										FROM [CRM_1551_Rating_Department].[dbo].[Department_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.Organization_Id
+										where dateadd(day,1,t1.StateToDate) = cast(getdate() as date)
+										order by t1.[count_rzvp] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'	
+							UNION ALL
+							SELECT t.[vids_vz] as 'CurrentValue'
+								   ,N'vids_vz' as 'Name'
+								   ,N'vids_vz' as 'Code'
+								   ,JSON_QUERY((SELECT t1.[DateCalc]
+												,t1.[vids_vz] as [Value]
+												FROM  #temp_HistryRatingDep as t1
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												and t1.OrganizationId = @Rating_OrganizationId FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
+									,JSON_QUERY((SELECT top 10 
+										[Organizations].Id as [OrganizationId]
+										,[Organizations].short_name as [OrganizationName]
+										,t1.[vids_vz] as [Value]
+										FROM [CRM_1551_Rating_Department].[dbo].[Department_ResultTable] as t1 with (nolock)
+										left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.Organization_Id
+										where dateadd(day,1,t1.StateToDate) = cast(getdate() as date)
+										order by t1.[vids_vz] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'TOP10'			
+					) t2
+					FOR JSON PATH, INCLUDE_NULL_VALUES		
+					)
+		from (
+			SELECT N'Департамент' as [Rating]
+				  ,4 as RatingId
+				  ,dateadd(day,1,t1.StateToDate) as DateCalc
+				  ,t1.[vids_vz]
+		,t1.[count_rzvv]
+		,t1.[count_rzvnv]
+		,t1.[count_rzvp]
+			  FROM [CRM_1551_Rating_Department].[dbo].[Department_ResultTable] as t1 with (nolock)
+			  where dateadd(day,1,t1.StateToDate) = cast(getdate() as date)
+			  and t1.Organization_Id = @Rating_OrganizationId
+		) as t
+		FOR JSON PATH, INCLUDE_NULL_VALUES
+		)) as Result
+end
