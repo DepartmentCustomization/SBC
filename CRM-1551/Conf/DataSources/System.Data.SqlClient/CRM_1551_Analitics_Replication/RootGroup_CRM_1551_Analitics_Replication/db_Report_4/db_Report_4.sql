@@ -355,30 +355,28 @@ FROM
     FROM
       [dbo].[Assignments] a
       INNER JOIN [dbo].[Questions] q ON q.Id = a.question_id
-	  INNER JOIN [dbo].[Events] e ON e.Id = q.event_id
       LEFT JOIN (
         SELECT
           [assignment_id],
-          Max(id) AS max_history_id
+          Min(id) AS min_history_id
         FROM
           dbo.Assignment_History Assignment_History WITH (NOLOCK)
         WHERE
-          [assignment_state_id] <> 5
+		-- хоча б раз переходили в результат - Не можливо виконати в даний період
+		[assignment_state_id] = 3 AND [AssignmentResultsId] = 8
         GROUP BY
           [assignment_id]
       ) s1 ON a.id = s1.assignment_id
-      LEFT JOIN Assignment_History ah WITH (NOLOCK) ON s1.max_history_id = ah.Id
-	  LEFT JOIN [dbo].[AssignmentResults] a_result ON a.AssignmentResultsId = a_result.Id
-	  LEFT JOIN [dbo].[AssignmentStates] a_state ON a_state.Id = a.assignment_state_id
+    LEFT JOIN Assignment_History ah WITH (NOLOCK) ON s1.min_history_id = ah.Id
+    LEFT JOIN [dbo].[AssignmentResults] a_result ON a.AssignmentResultsId = a_result.Id
+    LEFT JOIN [dbo].[AssignmentStates] a_state ON a_state.Id = a.assignment_state_id
     WHERE
-	-- хоча б раз переходили в результат - Не можливо виконати в даний період
-      ah.AssignmentResultsId = 8
-	-- НЕ знаходяться в стані- Закрито/Виконано чи Закрито/Закрито автоматично, На перевірці/Виконано
-	AND a_state.[name] + '/' + a_result.[name] 
+  -- НЕ знаходяться в стані- Закрито/Виконано чи Закрито/Закрито автоматично, На перевірці/Виконано
+	a_state.[name] + '/' + a_result.[name] 
 	NOT IN (N'Закрито/Виконано', 
-			    N'Закрито/Закрито автоматично', 
-			    N'На перевірці/Виконано')
-  ) plan_prog ON [Assignments].id = plan_prog.[assignment_id]
+			N'Закрито/Закрито автоматично', 
+			N'На перевірці/Виконано')
+	) plan_prog ON [Assignments].id = plan_prog.[assignment_id]
 WHERE
   rs.Id IN (SELECT Id FROM @source_t)
   AND Assignments.registration_date
