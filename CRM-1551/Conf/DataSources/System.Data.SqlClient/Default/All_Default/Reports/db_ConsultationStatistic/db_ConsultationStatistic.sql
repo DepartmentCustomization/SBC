@@ -1,8 +1,16 @@
---  DECLARE @dateFrom DATE = DATEADD(DAY, -10, GETDATE());
---  DECLARE @dateTo DATE = GETDATE(); 
---  DECLARE @UserId NVARCHAR(MAX) = N'29796543-b903-48a6-9399-4840f6eac396,6234fd61-5832-4ecc-bd4f-bc4292e1808e,cd51bfe1-2406-46d0-a7dc-e26a43ada847';
+--   DECLARE @dateFrom DATE = DATEADD(DAY, -10, GETDATE());
+--   DECLARE @dateTo DATE = GETDATE(); 
+--   DECLARE @UserId NVARCHAR(MAX) = N'0';
 
 DECLARE @UserList TABLE (Id NVARCHAR(128));
+
+IF (@UserId = N'0')
+BEGIN 
+SET @UserId = stuff((SELECT 
+						','+ [UserId]
+					FROM CRM_1551_System.dbo.[User]
+					FOR XML PATH('')), 1, 1, '');
+END
 
 INSERT INTO @UserList
 SELECT 
