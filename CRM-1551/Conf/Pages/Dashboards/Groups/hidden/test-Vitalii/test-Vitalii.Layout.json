@@ -63,6 +63,50 @@
             "minHeight": "100px",
             "minWidth": "calc(100% - 10px)",
             "backgroundColor": "white"
+          },
+          {
+            "width": "auto",
+            "margin": "0 5px 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "HightMapWidget-0",
+                "type": "HightMapWidgetComponent",
+                "name": "тестовая карта"
+              }
+            ],
+            "id": "Container-0",
+            "height": "auto",
+            "minHeight": "100px",
+            "minWidth": "100px",
+            "backgroundColor": "white"
+          },
+          {
+            "width": "auto",
+            "margin": "0 5px 10px",
+            "flexWrap": "wrap",
+            "flexDirection": "row",
+            "order": 1,
+            "flexGrow": 1,
+            "alignSelf": "auto",
+            "border": "none",
+            "children": [
+              {
+                "code": "LeafletMapWidget-0",
+                "type": "LeafletMapWidgetComponent",
+                "name": "leaflet"
+              }
+            ],
+            "id": "Container-0",
+            "height": "auto",
+            "minHeight": "100px",
+            "minWidth": "100px",
+            "backgroundColor": "white"
           }
         ]
       }

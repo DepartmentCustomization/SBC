@@ -2,7 +2,7 @@
     return {
         config: {
             query: {
-                code: '',
+                code: 'testQuery1',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
