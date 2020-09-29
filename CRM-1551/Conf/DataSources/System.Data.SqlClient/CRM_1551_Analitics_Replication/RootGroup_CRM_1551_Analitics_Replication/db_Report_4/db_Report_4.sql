@@ -1,8 +1,10 @@
-   --   DECLARE @org INT = 1;
-   --	DECLARE @dateFrom DATETIME = '2020-08-16 21:00:00';
-   --   DECLARE @dateTo DATETIME = '2020-08-17 20:59:59';
-   --   DECLARE @question_type_id INT = 1;
-   --   DECLARE @sourceId NVARCHAR(50) = N'0';
+/*
+DECLARE @org INT = 3;
+DECLARE @dateFrom DATETIME = '2020-07-28 21:00:00';
+DECLARE @dateTo DATETIME = GETDATE();
+DECLARE @question_type_id INT = 1;
+DECLARE @sourceId NVARCHAR(50) = N'0';
+*/
 
 IF object_id('tempdb..#temp_QuestionTypes4monitoring') IS NOT NULL 
 BEGIN 
@@ -366,24 +368,16 @@ FROM
           [assignment_id]
       ) s1 ON a.id = s1.assignment_id
       LEFT JOIN Assignment_History ah WITH (NOLOCK) ON s1.max_history_id = ah.Id
+	  LEFT JOIN [dbo].[AssignmentResults] a_result ON a.AssignmentResultsId = a_result.Id
+	  LEFT JOIN [dbo].[AssignmentStates] a_state ON a_state.Id = a.assignment_state_id
     WHERE
-      a.[assignment_state_id] = 5
-      AND a.AssignmentResultsId = 7
-      AND ah.assignment_state_id = 3
-      AND ah.AssignmentResultsId = 8
-      AND e.Id IS NOT NULL
-	  AND e.real_end_date IS NULL
-    UNION
-    ALL
-    SELECT
-      a.id,
-      a.edit_date
-    FROM
-      [dbo].[Assignments] a
-      INNER JOIN [dbo].Questions q ON q.Id = a.question_id
-    WHERE
-      [assignment_state_id] = 3
-      AND [AssignmentResultsId] = 8
+	-- хоча б раз переходили в результат - Не можливо виконати в даний період
+      ah.AssignmentResultsId = 8
+	-- НЕ знаходяться в стані- Закрито/Виконано чи Закрито/Закрито автоматично, На перевірці/Виконано
+	AND a_state.[name] + '/' + a_result.[name] 
+	NOT IN (N'Закрито/Виконано', 
+			    N'Закрито/Закрито автоматично', 
+			    N'На перевірці/Виконано')
   ) plan_prog ON [Assignments].id = plan_prog.[assignment_id]
 WHERE
   rs.Id IN (SELECT Id FROM @source_t)
