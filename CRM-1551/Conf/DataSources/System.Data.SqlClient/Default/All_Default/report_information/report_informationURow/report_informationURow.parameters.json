@@ -18,6 +18,10 @@
     "Name": "reportcode"
   },
   {
+    "Code": "@valuecode",
+    "Name": "valuecode"
+  },
+  {
     "Code": "@user_id",
     "Name": "user_id",
     "ParameterType": "CurrentUserId"

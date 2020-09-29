@@ -89,6 +89,36 @@
       "Name": "cell5_ReturnToApplicant",
       "Position": 13,
       "IsPrintable": false
+    },
+    {
+      "Code": "cell1_info",
+      "Name": "cell1_info",
+      "Position": 14,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell2_info",
+      "Name": "cell2_info",
+      "Position": 15,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell3_info",
+      "Name": "cell3_info",
+      "Position": 16,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell4_info",
+      "Name": "cell4_info",
+      "Position": 17,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell5_info",
+      "Name": "cell5_info",
+      "Position": 18,
+      "IsPrintable": false
     }
   ],
   "Parameters": [
