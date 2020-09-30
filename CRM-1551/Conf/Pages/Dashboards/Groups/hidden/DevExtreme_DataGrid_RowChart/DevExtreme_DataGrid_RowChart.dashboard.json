@@ -1,0 +1,9 @@
+{
+  "IsVisible": true,
+  "DashboardGroupCode": "hidden",
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "DevExtreme_DataGrid_RowChart",
+  "Name": "DevExtreme_DataGrid_RowChart"
+}
