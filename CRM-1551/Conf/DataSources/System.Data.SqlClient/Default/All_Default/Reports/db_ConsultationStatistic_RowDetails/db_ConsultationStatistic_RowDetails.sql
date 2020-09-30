@@ -5,18 +5,22 @@
 
 DECLARE @UserList TABLE (Id NVARCHAR(128));
 
-IF (@UserId = N'0')
+IF (LEN(@UserId) = 1)
 BEGIN 
-SET @UserId = stuff((SELECT 
-						','+ [UserId]
-					FROM CRM_1551_System.dbo.[User]
-					FOR XML PATH('')), 1, 1, '');
+INSERT INTO @UserList
+SELECT  
+	[UserId]
+FROM 
+[#system_database_name#].[dbo].[User]
+-- CRM_1551_System.dbo.[User];
 END
-
+ELSE
+BEGIN
 INSERT INTO @UserList
 SELECT 
-	trim(value) 
+	trim(value)  
 FROM STRING_SPLIT(@UserId, ',');
+END
 
 IF OBJECT_ID ('tempdb..#Knowledge') IS NOT NULL
 BEGIN
