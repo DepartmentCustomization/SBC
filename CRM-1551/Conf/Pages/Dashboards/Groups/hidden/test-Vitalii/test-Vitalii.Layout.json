@@ -14,14 +14,14 @@
         "width": "auto",
         "margin": "0 5px 10px",
         "flexWrap": "wrap",
-        "flexDirection": "column",
+        "flexDirection": "row",
         "order": 1,
         "flexGrow": 1,
         "alignSelf": "auto",
         "border": "none",
         "children": [
           {
-            "width": "auto",
+            "width": "45%",
             "margin": "0 5px 10px",
             "flexWrap": "wrap",
             "flexDirection": "row",
@@ -39,11 +39,11 @@
             "id": "Container-1",
             "height": "auto",
             "minHeight": "100px",
-            "minWidth": "calc(100% - 10px)",
+            "minWidth": "100px",
             "backgroundColor": "white"
           },
           {
-            "width": "auto",
+            "width": "45%",
             "margin": "0 5px 10px",
             "flexWrap": "wrap",
             "flexDirection": "row",
@@ -61,11 +61,11 @@
             "id": "Container-1",
             "height": "auto",
             "minHeight": "100px",
-            "minWidth": "calc(100% - 10px)",
+            "minWidth": "100px",
             "backgroundColor": "white"
           },
           {
-            "width": "auto",
+            "width": "45%",
             "margin": "0 5px 10px",
             "flexWrap": "wrap",
             "flexDirection": "row",
@@ -87,7 +87,7 @@
             "backgroundColor": "white"
           },
           {
-            "width": "auto",
+            "width": "45%",
             "margin": "0 5px 10px",
             "flexWrap": "wrap",
             "flexDirection": "row",

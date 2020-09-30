@@ -48,7 +48,7 @@
                         'features': [] },
                     tooltip: {
                         headerFormat:'',
-                        pointFormat: '<b>{point.value}</b><br> р-н: <b>{point.properties.name}</b>'
+                        pointFormat: '<br> р-н: <b>{point.properties.name}</b>'
                     }
                 }
             },
@@ -77,7 +77,7 @@
         load: function(data, options) {
             options.plotOptions.map.mapData.features.push({
                 'type': 'Feature',
-                'properties': {'name': 'Оболонський', 'label': 'test' , 'value': '1'},
+                'properties': {'name': 'Деснянский', 'label': 'test' , 'value': '1'},
                 'geometry':{'type': 'Polygon', 'coordinates':  [ ] }
             });
             let obolonDist = [[100,-69],
@@ -96,8 +96,28 @@
                 [223,-127],[216,-137],
                 [209,-132],[202,-113],
                 [191,-102],[195,-100],[172,-97],[163,-97],[141,-104],[95,-64]];
+            let desnjanDist = [[264,-100],
+                [269,-104],
+                [275,-102],[277,-109],
+                [284,-109],[284,-102],
+                [277,-92],[279,-84],
+                [324,-91],[357,-92],
+                [366,-76],[389,-63],
+                [389,-70],[400,-70],
+                [399,-48],[407,-39],
+                [403,-30],[428,-41],
+                [439,-41],[439,-44],
+                [441,-48],[450,-48],
+                [452,-44],[461,-59],
+                [461,-80],[450,-100],
+                [415,-120],[407,-128],
+                [402,-130],[403,-137],
+                [374,-151],[310,-151],
+                [312,-146],[313,-143],
+                [311,-133],[271,-132],
+                [264,-117],[264,-108]];
             let trigger = options.plotOptions.map.mapData.features.length;
-            let totalArr = [obolonDist];
+            let totalArr = [desnjanDist,obolonDist];
             let title = ['Пробний запуск DashBoardMaps'];
             for (let i = 0; i < trigger; i++) {
                 options.plotOptions.map.mapData.features[i].geometry.coordinates.push(totalArr[i]);

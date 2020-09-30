@@ -34,10 +34,10 @@
             });
             let myLines = [{
                 'type': 'LineString',
-                'coordinates': [[-100, 40], [-105, 45], [-110, 55]]
+                'coordinates': [[-50, 20], [-55, 25], [-50, 23]]
             }, {
                 'type': 'LineString',
-                'coordinates': [[-105, 40], [-110, 45], [-115, 55]]
+                'coordinates': [[-50, 20], [-55, 25], [-50, 23]]
             }];
             let myStyle = {
                 'color': '#ff7800',
