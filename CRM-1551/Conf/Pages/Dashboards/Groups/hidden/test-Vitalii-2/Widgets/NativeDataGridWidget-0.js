@@ -17,7 +17,8 @@
                 allowedPageSizes: [10, 25, 50, 100]
             },
             export: {
-                fileName: 'operator statistics'
+                fileName: 'operator statistics',
+                enabled: true
             },
             focusedRowEnabled: true,
             remoteOperations: false,

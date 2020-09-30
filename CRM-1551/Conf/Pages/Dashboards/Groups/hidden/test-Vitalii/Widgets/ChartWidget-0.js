@@ -17,6 +17,30 @@
                     }
                 }]
             },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true,
+                    point: {
+                        events: {
+                            select: function(event) {
+                                let chart = event.target.series.chart;
+                                let text = event.target.options.y
+                                chart.lbl = chart.renderer.label(text, 100, 70)
+                                    .attr({
+                                        padding: 10,
+                                        r: 5,
+                                        fill: 'grey',
+                                        zIndex: 5
+                                    })
+                                    .css({
+                                        color: '#FFFFFF'
+                                    })
+                                    .add();
+                            }
+                        }
+                    }
+                }
+            },
             series: [{
                 type: 'column',
                 name: 'Jane',
@@ -83,7 +107,12 @@
             }
         },
         init() {
+            this.messageService.subscribe('showValue', this.changeValue, this);
             this.load()
+        },
+        changeValue(message) {
+            this.chartConfig.series[0].data[0] = message.package.value;
+            this.render();
         },
         load: function() {
             this.render()

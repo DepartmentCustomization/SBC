@@ -14,7 +14,7 @@
         "width": "auto",
         "margin": "0 5px 10px",
         "flexWrap": "wrap",
-        "flexDirection": "row",
+        "flexDirection": "column",
         "order": 1,
         "flexGrow": 1,
         "alignSelf": "auto",
@@ -37,9 +37,9 @@
               }
             ],
             "id": "Container-1",
-            "height": "calc(100% - 10px)",
+            "height": "100%",
             "minHeight": "100px",
-            "minWidth": "100px",
+            "minWidth": "calc(100% - 10px)",
             "backgroundColor": "white"
           },
           {
@@ -51,11 +51,17 @@
             "flexGrow": 1,
             "alignSelf": "auto",
             "border": "none",
-            "children": [],
+            "children": [
+              {
+                "code": "CustomWidget-0",
+                "type": "CustomWidgetComponent",
+                "name": "кастомный виджет"
+              }
+            ],
             "id": "Container-1",
-            "height": "calc(100% - 10px)",
+            "height": "100%",
             "minHeight": "100px",
-            "minWidth": "100px",
+            "minWidth": "calc(100% - 10px)",
             "backgroundColor": "white"
           }
         ],
