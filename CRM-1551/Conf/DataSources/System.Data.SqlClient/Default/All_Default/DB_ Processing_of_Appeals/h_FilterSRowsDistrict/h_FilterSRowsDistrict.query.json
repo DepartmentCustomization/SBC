@@ -2,7 +2,7 @@
   "ModelType": "Query",
   "Code": "h_FilterSRowsDistrict",
   "Name": "h_FilterSRowsDistrict",
-  "ConnectionCode": "CRM_KHARKIV1551_Analytics",
+  "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "IsAnonymousAccess": false,
   "Columns": [

@@ -2,7 +2,7 @@
   "ModelType": "Query",
   "Code": "h_ParentPositions_SelectRows",
   "Name": "h_ParentPositions_SelectRows",
-  "ConnectionCode": "CRM_KHARKIV1551_Analytics",
+  "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [
     {

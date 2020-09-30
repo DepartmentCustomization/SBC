@@ -2,7 +2,7 @@
   "ModelType": "Query",
   "Code": "h_FilterSRowsEmergensy",
   "Name": "h_FilterSRowsEmergensy",
-  "ConnectionCode": "CRM_KHARKIV1551_Analytics",
+  "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "IsAnonymousAccess": false,
   "Columns": [

@@ -2,7 +2,7 @@
   "ModelType": "Query",
   "Code": "h_FilterUpdate",
   "Name": "h_FilterUpdate",
-  "ConnectionCode": "CRM_KHARKIV1551_Analytics",
+  "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "IsAnonymousAccess": false
 }
