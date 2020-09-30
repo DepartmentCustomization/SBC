@@ -194,7 +194,7 @@ select  JSON_QUERY((
 						   ,JSON_QUERY(t2.[TOP10]) as 'TOP10'
 					FROM (
 							SELECT t.[PercentClosedOnTime] as 'CurrentValue'
-								   ,N'PercentClosedOnTime' as 'Name'
+								   ,N'% вчасно закритих' as 'Name'
 								   ,N'PercentClosedOnTime' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentClosedOnTime] as [Value]
@@ -216,7 +216,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[PercentClosedOnTime],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[PercentOfExecution] as 'CurrentValue'
-								   ,N'PercentOfExecution' as 'Name'
+								   ,N'% Виконання звернень' as 'Name'
 								   ,N'PercentOfExecution' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentOfExecution] as [Value]
@@ -238,7 +238,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[PercentOfExecution],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[PercentOnVeracity] as 'CurrentValue'
-								   ,N'PercentOnVeracity' as 'Name'
+								   ,N'% Достовірності виконання' as 'Name'
 								   ,N'PercentOnVeracity' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentOnVeracity] as [Value]
@@ -260,7 +260,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[PercentOnVeracity],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[IndexOfSpeedToExecution] as 'CurrentValue'
-								   ,N'IndexOfSpeedToExecution' as 'Name'
+								   ,N'Індекс швидкості виконання' as 'Name'
 								   ,N'IndexOfSpeedToExecution' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfSpeedToExecution] as [Value]
@@ -282,7 +282,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[IndexOfSpeedToExecution],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[IndexOfSpeedToExplain] as 'CurrentValue'
-								   ,N'IndexOfSpeedToExplain' as 'Name'
+								   ,N'Індекс швидкості роз`яснення' as 'Name'
 								   ,N'IndexOfSpeedToExplain' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfSpeedToExplain] as [Value]
@@ -304,7 +304,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[IndexOfSpeedToExplain],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[IndexOfFactToExecution] as 'CurrentValue'
-								   ,N'IndexOfFactToExecution' as 'Name'
+								   ,N'Індекс фактичного виконання' as 'Name'
 								   ,N'IndexOfFactToExecution' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfFactToExecution] as [Value]
@@ -326,7 +326,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[IndexOfFactToExecution],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[PercentPleasureOfExecution] as 'CurrentValue'
-								   ,N'PercentPleasureOfExecution' as 'Name'
+								   ,N'% Задоволеності виконанням' as 'Name'
 								   ,N'PercentPleasureOfExecution' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentPleasureOfExecution] as [Value]
@@ -468,7 +468,7 @@ select  JSON_QUERY((
 						   ,JSON_QUERY(t2.[TOP10]) as 'TOP10'
 					FROM (
 							SELECT t.[PercentClosedOnTime] as 'CurrentValue'
-								   ,N'PercentClosedOnTime' as 'Name'
+								   ,N'% вчасно закритих' as 'Name'
 								   ,N'PercentClosedOnTime' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentClosedOnTime] as [Value]
@@ -490,7 +490,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[PercentClosedOnTime],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[PercentOfExecution] as 'CurrentValue'
-								   ,N'PercentOfExecution' as 'Name'
+								   ,N'% Виконання звернень' as 'Name'
 								   ,N'PercentOfExecution' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentOfExecution] as [Value]
@@ -512,7 +512,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[PercentOfExecution],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[PercentOnVeracity] as 'CurrentValue'
-								   ,N'PercentOnVeracity' as 'Name'
+								   ,N'% Достовірності виконання' as 'Name'
 								   ,N'PercentOnVeracity' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentOnVeracity] as [Value]
@@ -534,7 +534,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[PercentOnVeracity],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[IndexOfSpeedToExecution] as 'CurrentValue'
-								   ,N'IndexOfSpeedToExecution' as 'Name'
+								   ,N'Індекс швидкості виконання' as 'Name'
 								   ,N'IndexOfSpeedToExecution' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfSpeedToExecution] as [Value]
@@ -556,7 +556,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[IndexOfSpeedToExecution],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[IndexOfSpeedToExplain] as 'CurrentValue'
-								   ,N'IndexOfSpeedToExplain' as 'Name'
+								   ,N'Індекс швидкості роз`яснення' as 'Name'
 								   ,N'IndexOfSpeedToExplain' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfSpeedToExplain] as [Value]
@@ -578,7 +578,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[IndexOfSpeedToExplain],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[IndexOfFactToExecution] as 'CurrentValue'
-								   ,N'IndexOfFactToExecution' as 'Name'
+								   ,N'Індекс фактичного виконання' as 'Name'
 								   ,N'IndexOfFactToExecution' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfFactToExecution] as [Value]
@@ -600,7 +600,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[IndexOfFactToExecution],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[PercentPleasureOfExecution] as 'CurrentValue'
-								   ,N'PercentPleasureOfExecution' as 'Name'
+								   ,N'% Задоволеності виконанням' as 'Name'
 								   ,N'PercentPleasureOfExecution' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentPleasureOfExecution] as [Value]
@@ -703,7 +703,7 @@ left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizat
 where dateadd(day,1,t1.StateToDate) >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and dateadd(day,1,t1.StateToDate) <= cast(getdate() as date)
 and t1.Organization_Id = @Rating_OrganizationId 
 
-select  JSON_QUERY((
+--select  JSON_QUERY((
 		select   t.Rating as RatingName
 				,t.RatingId
 				,t.DateCalc
@@ -736,7 +736,7 @@ select  JSON_QUERY((
 					FROM (
 							
 							SELECT t.count_rzvv as 'CurrentValue'
-								   ,N'count_rzvv' as 'Name'
+								   ,N'Вчасно' as 'Name'
 								   ,N'count_rzvv' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[count_rzvv] as [Value]
@@ -757,7 +757,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[count_rzvv],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.count_rzvnv as 'CurrentValue'
-								   ,N'count_rzvnv' as 'Name'
+								   ,N'Невчасно' as 'Name'
 								   ,N'count_rzvnv' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[count_rzvnv] as [Value]
@@ -778,7 +778,7 @@ select  JSON_QUERY((
 										order by isnull(t1.[count_rzvnv],0) FOR JSON PATH, INCLUDE_NULL_VALUES),N'[]')) as 'TOP10'	
 							UNION ALL
 							SELECT t.[count_rzvp] as 'CurrentValue'
-								   ,N'count_rzvp' as 'Name'
+								   ,N'Протерміновано' as 'Name'
 								   ,N'count_rzvp' as 'Code'
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[count_rzvp] as [Value]
@@ -813,5 +813,5 @@ select  JSON_QUERY((
 			  and t1.Organization_Id = @Rating_OrganizationId
 		) as t
 		FOR JSON PATH, INCLUDE_NULL_VALUES
-		)) as Result
+--		)) as Result
 end
