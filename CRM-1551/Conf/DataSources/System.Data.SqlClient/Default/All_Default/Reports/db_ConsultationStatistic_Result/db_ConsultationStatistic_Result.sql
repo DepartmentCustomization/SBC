@@ -190,6 +190,4 @@ SELECT
 	CONVERT(VARCHAR(8), DATEADD(ms, SUM(DATEDIFF(ms, 0,[talk_all])), 0), 108) AS [result_talk_all],
 	CONVERT(VARCHAR(8), DATEADD(ms, SUM(DATEDIFF(ms, 0,[talk_consultations_only])), 0), 108) AS [result_talk_consultations_only],
 	@average_talk_consultation AS [result_talk_consultation_average]
-FROM #RootVals
-ORDER BY 1
-OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;
+FROM #RootVals;
