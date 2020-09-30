@@ -14,8 +14,7 @@
                     dataField: 'Column code',
                     caption: 'Caption'
                 }
-            ],
-            keyExpr: 'Id'
+            ]
         },
         init: function() {
             this.loadData(this.afterLoadDataHandler)
