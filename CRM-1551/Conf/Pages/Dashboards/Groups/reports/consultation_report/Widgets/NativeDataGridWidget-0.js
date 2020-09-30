@@ -125,46 +125,6 @@
                     alignment: 'center'
                 }
             ],
-            summary: {
-                totalItems: [
-                    {
-                        column: 'article_qty',
-                        summaryType: 'sum',
-                        alignment: 'center',
-                        customizeText: function(data) {
-                            return 'Разом: ' + data.value;
-                        }
-                    }, {
-                        column: 'article_percent',
-                        summaryType: 'avg',
-                        format: 'percent',
-                        customizeText: function(data) {
-                            return 'Середнє: ' + data.value.toFixed(2);
-                        }
-                    }, {
-                        column: 'talk_all',
-                        summaryType: 'count',
-                        alignment: 'center',
-                        customizeText: function(data) {
-                            return 'Разом: ' + data.value + 'хв';
-                        }
-                    }, {
-                        column: 'talk_consultations_only',
-                        summaryType: 'count',
-                        alignment: 'center',
-                        customizeText: function(data) {
-                            return 'Разом: ' + data.value + 'хв';
-                        }
-                    }, {
-                        column: 'talk_consultation_average',
-                        summaryType: 'avg',
-                        format: 'percent',
-                        customizeText: function(data) {
-                            return 'Середнє: ' + data.value;
-                        }
-                    }
-                ]},
-
             keyExpr: 'Id'
         },
         summary: [],
@@ -243,7 +203,7 @@
         },
         getSum() {
             const masterDetailQuery = {
-                queryCode: 'db_ConsultationStatistic_RowDetails',
+                queryCode: 'db_ConsultationStatistic_Result',
                 limit: -1,
                 parameterValues: [
                     {key: '@dateFrom' , value: this.dateFrom },
@@ -253,8 +213,24 @@
             };
             this.queryExecutor(masterDetailQuery, this.setSum.bind(this), this);
         },
-        setSum(data) {
-            console.log(data)
+        setSum({rows}) {
+            const div = document.querySelector('#NativeDataGridWidget-0')
+            const grid = `<div class='sum-block'>
+                        <table class='dx-datagrid-table dx-datagrid-table-fixed'>
+                            <tbody>
+                                <tr class='dx-row'>
+                                    <td class='dx-command-expand dx-datagrid-group-space'></td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'></td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>${rows[0].values[1]}</td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>${rows[0].values[2]}</td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>${rows[0].values[3]}</td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>${rows[0].values[4]}</td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>${rows[0].values[5]}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>`
+            div.insertAdjacentHTML('beforeend',grid)
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
@@ -271,7 +247,6 @@
                     ];
                 }
             }
-            this.getSum()
         },
         extractOrgValues: function(items) {
             if(items.length && items !== '') {
@@ -286,6 +261,7 @@
         },
         renderTable() {
             this.loadData(this.afterLoadDataHandler)
+            this.getSum()
             this.applyChanges(false)
         },
         afterLoadDataHandler: function() {
