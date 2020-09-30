@@ -1,6 +1,6 @@
 
--- declare @UserId nvarchar(128) = N'29796543-b903-48a6-9399-4840f6eac396' /*Київський міський голова*/
--- declare @UserId nvarchar(128) = N'8b98a5ed-70ec-4bbf-b733-911b9b959428' /*Провідний інженер (ЖЕД-201, 206)*/
+--declare @UserId nvarchar(128) = N'29796543-b903-48a6-9399-4840f6eac396' /*Київський міський голова*/
+--declare @UserId nvarchar(128) = N'8b98a5ed-70ec-4bbf-b733-911b9b959428' /*Провідний інженер (ЖЕД-201, 206)*/
 -- declare @UserId nvarchar(128) = N'4e4953a8-ae98-400a-982d-c122b0632bc0' /*співробітник Org 1800*/
 -- declare @OrganizationId int --= 1800
 
@@ -158,7 +158,7 @@ SELECT	 t1.[DateCalc]
 		,t1.[PercentPleasureOfExecution]
 FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable] as t1 with (nolock)
 left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.[RDAId]
-where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc <= cast(getdate() as date)
+where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc <= cast(getdate() as date)
 and t1.RDAId = @Rating_OrganizationId 
 
 select  JSON_QUERY((
@@ -169,7 +169,7 @@ select  JSON_QUERY((
 				,(SELECT t1.[DateCalc]
 							,t1.[IntegratedMetric_PerformanceLevel] as [Value]
 							FROM #temp_HistryRating as t1 with (nolock)
-							where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+							where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 							and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 							order by t1.[DateCalc]
 							FOR JSON PATH, INCLUDE_NULL_VALUES) as 'ResultMetric.History'
@@ -199,7 +199,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentClosedOnTime] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -221,7 +221,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentOfExecution] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -243,7 +243,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentOnVeracity] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -265,7 +265,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfSpeedToExecution] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -287,7 +287,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfSpeedToExplain] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -309,7 +309,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfFactToExecution] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -331,7 +331,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentPleasureOfExecution] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -403,7 +403,7 @@ end
 
 if @Rating_IsRDA = 0 and (SELECT count(1)
 						FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
-						where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc <= cast(getdate() as date)
+						where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc <= cast(getdate() as date)
 						and t1.OrganizationId = @Rating_OrganizationId ) > 0
 begin
 insert into #temp_HistryRating ([DateCalc],
@@ -432,7 +432,7 @@ SELECT	 t1.[DateCalc]
 		,t1.[PercentPleasureOfExecution]
 FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
 left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.[OrganizationId]
-where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc <= cast(getdate() as date)
+where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc <= cast(getdate() as date)
 and t1.OrganizationId = @Rating_OrganizationId 
 
 select  JSON_QUERY((
@@ -443,7 +443,7 @@ select  JSON_QUERY((
 				,(SELECT t1.[DateCalc]
 							,t1.[IntegratedMetric_PerformanceLevel] as [Value]
 							FROM #temp_HistryRating as t1
-							where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+							where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 							and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 							order by t1.[DateCalc]
 							FOR JSON PATH, INCLUDE_NULL_VALUES) as 'ResultMetric.History'
@@ -473,7 +473,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentClosedOnTime] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -495,7 +495,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentOfExecution] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -517,7 +517,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentOnVeracity] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -539,7 +539,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfSpeedToExecution] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -561,7 +561,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfSpeedToExplain] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -583,7 +583,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[IndexOfFactToExecution] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -605,7 +605,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[PercentPleasureOfExecution] as [Value]
 												FROM  #temp_HistryRating as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId and t1.RatingId = t.RatingId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -677,11 +677,11 @@ end
 
 if @Rating_IsRDA = 0 and (SELECT count(1)
 						FROM [CRM_1551_Rating].[dbo].[Rating_ResultTable_ByOrganization] as t1 with (nolock)
-						where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc <= cast(getdate() as date)
+						where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc <= cast(getdate() as date)
 						and t1.OrganizationId = @Rating_OrganizationId ) = 0
 					and (SELECT count(1)
 						FROM [CRM_1551_Rating_Department].[dbo].[Department_ResultTable] as t1 with (nolock)
-						where t1.StateToDate >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.StateToDate <= cast(getdate() as date)
+						where dateadd(day,1,t1.StateToDate) >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.StateToDate <= cast(getdate() as date)
 						and t1.Organization_Id = @Rating_OrganizationId ) > 0
 begin
 insert into #temp_HistryRatingDep ([DateCalc],
@@ -700,7 +700,7 @@ SELECT	 dateadd(day,1,t1.StateToDate) as [DateCalc]
 		,t1.[count_rzvp]
 FROM [CRM_1551_Rating_Department].[dbo].[Department_ResultTable] as t1 with (nolock)
 left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizations].Id = t1.[Organization_Id]
-where dateadd(day,1,t1.StateToDate) >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and dateadd(day,1,t1.StateToDate) <= cast(getdate() as date)
+where dateadd(day,1,t1.StateToDate) >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and dateadd(day,1,t1.StateToDate) <= cast(getdate() as date)
 and t1.Organization_Id = @Rating_OrganizationId 
 
 select  JSON_QUERY((
@@ -711,7 +711,7 @@ select  JSON_QUERY((
 				,(SELECT t1.[DateCalc]
 							,t1.[vids_vz] as [Value]
 							FROM #temp_HistryRatingDep as t1
-							where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+							where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 							and t1.OrganizationId = @Rating_OrganizationId
 							order by t1.[DateCalc]
 							FOR JSON PATH, INCLUDE_NULL_VALUES) as 'ResultMetric.History'
@@ -741,7 +741,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[count_rzvv] as [Value]
 												FROM  #temp_HistryRatingDep as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -762,7 +762,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[count_rzvnv] as [Value]
 												FROM  #temp_HistryRatingDep as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
@@ -783,7 +783,7 @@ select  JSON_QUERY((
 								   ,JSON_QUERY((SELECT t1.[DateCalc]
 												,t1.[count_rzvp] as [Value]
 												FROM  #temp_HistryRatingDep as t1
-												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'01' as date)) and t1.DateCalc < cast(getdate() as date)
+												where t1.DateCalc >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and t1.DateCalc < cast(getdate() as date)
 												and t1.OrganizationId = @Rating_OrganizationId
 												order by t1.[DateCalc] FOR JSON PATH, INCLUDE_NULL_VALUES)) as 'History'
 									,JSON_QUERY(isnull((SELECT top 10 
