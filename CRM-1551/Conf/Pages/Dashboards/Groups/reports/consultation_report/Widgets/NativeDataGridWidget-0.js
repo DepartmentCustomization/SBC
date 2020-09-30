@@ -126,14 +126,6 @@
                 }
             ],
             summary: {
-                calculateCustomSummary: function(options) {
-                    if(options.name !== 'talk_consultation_average') {
-                        console.log(options)
-                    }
-                    if(options.name === 'customSummary2') {
-
-                    }
-                },
                 totalItems: [
                     {
                         column: 'article_qty',
