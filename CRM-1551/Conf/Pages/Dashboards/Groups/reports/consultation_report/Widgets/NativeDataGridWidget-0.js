@@ -241,6 +241,21 @@
                 }
             })
         },
+        getSum() {
+            const masterDetailQuery = {
+                queryCode: 'db_ConsultationStatistic_RowDetails',
+                limit: -1,
+                parameterValues: [
+                    {key: '@dateFrom' , value: this.dateFrom },
+                    {key: '@dateTo' , value: this.dateTo },
+                    {key: '@UserId' , value: this.operators }
+                ]
+            };
+            this.queryExecutor(masterDetailQuery, this.setSum.bind(this), this);
+        },
+        setSum(data) {
+            console.log(data)
+        },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
             const operator = message.package.value.values.find(f => f.name === 'operator').value;
@@ -256,6 +271,7 @@
                     ];
                 }
             }
+            this.getSum()
         },
         extractOrgValues: function(items) {
             if(items.length && items !== '') {
