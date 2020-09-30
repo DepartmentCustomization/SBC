@@ -130,11 +130,11 @@
             const p = `<span class='cell-info active'>${cellValue}</span>`;
             const pDelta = `<span class='cell-info active num'>(${exam} ${data.rows[0].values[3]})</span>`;
             const avgAppl = '<span class="material-icons icon">keyboard_tab</span>';
-            const cell3Value = data.rows[0].values[4];
+            const cell3Value = data.rows[0].values[1];
             const cell3ValueIcon = `<span class='cell-info active'>${cell3Value}</span>`;
-            cellInfo.insertAdjacentHTML('beforeend',`${avgAppl} ${p} ${pDelta}`)
             const invitation = `<p><span class="material-icons icon">insert_invitation</span> ${cell3ValueIcon}</p>`;
             cellInfo.insertAdjacentHTML('beforeend',`${invitation}`)
+            cellInfo.insertAdjacentHTML('beforeend',`${avgAppl} ${p} ${pDelta}`)
             const infoBtn = this.createElement('span',{classList:'info-button',id:'info-button'})
             const infoBtnSpan = this.createElement('span',{classList:'material-icons info-button-label',textContent:'info'})
             infoBtnSpan.addEventListener('click',this.afterLoad.bind(this))
