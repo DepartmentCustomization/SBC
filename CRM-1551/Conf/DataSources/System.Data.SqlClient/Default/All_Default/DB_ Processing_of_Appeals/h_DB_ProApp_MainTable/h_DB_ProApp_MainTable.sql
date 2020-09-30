@@ -125,10 +125,10 @@ end
   union all
   select N'in_work' name, 0 emergency, count([Events].Id) count_id
 
-  from [CRM_1551_Analitics].[dbo].[Events]
-  left join [CRM_1551_Analitics].[dbo].[EventObjects] on [Events].Id=[EventObjects].event_id and [EventObjects].in_form='true'
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [EventObjects].object_id=[Objects].Id
-  left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+  from [dbo].[Events]
+  left join [dbo].[EventObjects] on [Events].Id=[EventObjects].event_id and [EventObjects].in_form='true'
+  left join [dbo].[Objects] on [EventObjects].object_id=[Objects].Id
+  left join [dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
 
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
 
@@ -184,10 +184,10 @@ end
   union all
   select N'overdue' name, 0 emergency, count([Events].Id) count_id
 
-  from [CRM_1551_Analitics].[dbo].[Events]
-  left join [CRM_1551_Analitics].[dbo].[EventObjects] on [Events].Id=[EventObjects].event_id and [EventObjects].in_form='true'
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [EventObjects].object_id=[Objects].Id
-  left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+  from [dbo].[Events]
+  left join [dbo].[EventObjects] on [Events].Id=[EventObjects].event_id and [EventObjects].in_form='true'
+  left join [dbo].[Objects] on [EventObjects].object_id=[Objects].Id
+  left join [dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
 
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
 
@@ -242,10 +242,10 @@ end
   union all
   select N'future' name, 0 emergency, count([Events].Id) count_id
 
-  from [CRM_1551_Analitics].[dbo].[Events]
-  left join [CRM_1551_Analitics].[dbo].[EventObjects] on [Events].Id=[EventObjects].event_id and [EventObjects].in_form='true'
-  left join [CRM_1551_Analitics].[dbo].[Objects] on [EventObjects].object_id=[Objects].Id
-  left join [CRM_1551_Analitics].[dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
+  from [dbo].[Events]
+  left join [dbo].[EventObjects] on [Events].Id=[EventObjects].event_id and [EventObjects].in_form='true'
+  left join [dbo].[Objects] on [EventObjects].object_id=[Objects].Id
+  left join [dbo].[EventQuestionsTypes] on [EventQuestionsTypes].event_id=[Events].Id
 
   left join [dbo].[QuestionTypes] on [EventQuestionsTypes].question_type_id=[QuestionTypes].Id
 

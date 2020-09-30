@@ -1,8 +1,8 @@
 {
   "ModelType": "Query",
-  "Code": "h_DistrictSRows_filter",
-  "Name": "h_DistrictSRows_filter",
-  "ConnectionCode": "CRM_KHARKIV1551_Analytics",
+  "Code": "h_EmergensySRows_filter",
+  "Name": "h_EmergensySRows_filter",
+  "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [
     {

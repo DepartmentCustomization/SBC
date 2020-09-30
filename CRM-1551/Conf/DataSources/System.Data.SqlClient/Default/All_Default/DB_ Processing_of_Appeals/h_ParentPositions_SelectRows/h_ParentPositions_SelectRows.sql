@@ -11,11 +11,11 @@ end
 pit as -- родители @id
 (
 select Id, parent_organization_id ParentId, short_name name, Id lev_Id, short_name lev_name, t.phone_number
-from [CRM_1551_Analitics].[dbo].[Organizations] t
+from [dbo].[Organizations] t
 --where Id=@id
 union all
 select t.Id, t.parent_organization_id ParentId, t.short_name name, pit.lev_Id, pit.lev_name, t.phone_number
-from [CRM_1551_Analitics].[dbo].[Organizations] t inner join pit on t.Id=pit.ParentId
+from [dbo].[Organizations] t inner join pit on t.Id=pit.ParentId
 )
 select distinct * into #org_and_parent from pit-- pit it
 --select distinct * into #org_and_parent from pit-- pit it
@@ -35,8 +35,8 @@ end
 
 select [Positions].Id, [Positions].organizations_id, [Positions].Id position_id, ISNULL([Positions].position+N' ',N'')+ISNULL(N'('+[Organizations].short_name+N')',N'') name
 into #position_org
-from [CRM_1551_Analitics].[dbo].[Positions]
-left join [CRM_1551_Analitics].[dbo].[Organizations] on [Positions].organizations_id=[Organizations].Id
+from [dbo].[Positions]
+left join [dbo].[Organizations] on [Positions].organizations_id=[Organizations].Id
 where [Positions].is_main='true'
 
 

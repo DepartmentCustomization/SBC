@@ -2,7 +2,7 @@
   "ModelType": "Query",
   "Code": "h_Coordinator_Poshuk",
   "Name": "h_Coordinator_Poshuk",
-  "ConnectionCode": "CRM_KHARKIV1551_Analytics",
+  "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Parameters": [
     {

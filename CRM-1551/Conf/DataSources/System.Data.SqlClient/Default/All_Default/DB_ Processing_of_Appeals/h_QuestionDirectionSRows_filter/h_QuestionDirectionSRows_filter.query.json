@@ -2,7 +2,7 @@
   "ModelType": "Query",
   "Code": "h_QuestionDirectionSRows_filter",
   "Name": "h_QuestionDirectionSRows_filter",
-  "ConnectionCode": "CRM_KHARKIV1551_Analytics",
+  "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [
     {

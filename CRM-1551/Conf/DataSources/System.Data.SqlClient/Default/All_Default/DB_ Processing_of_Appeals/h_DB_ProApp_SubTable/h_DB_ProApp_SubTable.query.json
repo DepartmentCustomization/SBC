@@ -2,7 +2,7 @@
   "ModelType": "Query",
   "Code": "h_DB_ProApp_SubTable",
   "Name": "h_DB_ProApp_SubTable",
-  "ConnectionCode": "CRM_KHARKIV1551_Analytics",
+  "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "IsAnonymousAccess": false,
   "Parameters": [
