@@ -3,6 +3,7 @@
 
 
 
+
 /* 
 declare @date_from date='2020-06-01',
   @date_to date='2020-09-30';
@@ -148,3 +149,36 @@ declare @date_table table (Id int identity(1,1), date date, nw int, nm int, ny i
 
 select * 
 from #temp_main
+
+
+/* если что
+
+declare @coloms nvarchar(max);
+declare @coloms_isnull nvarchar(max);
+
+declare @query nvarchar(max);
+
+set @coloms=stuff((select distinct N', ['+ltrim(name)+N']' from #temp_main for xml path('')), 1,2, N'')
+set @coloms_isnull=stuff((select distinct N', isnull(['+ltrim(name)+N'],0)'+N' ['+ltrim(name)+N']' from #temp_main for xml path('')), 1,2, N'')
+
+
+select @coloms_isnull
+
+set @query = N'
+
+select user_name, '+@coloms_isnull+N'
+from (select name, user_name, indicator_value
+from #temp_main) t
+
+pivot
+(
+sum(indicator_value)
+
+for [name] in ('+@coloms+N')
+
+) pvt
+'
+
+exec (@query)
+
+*/
