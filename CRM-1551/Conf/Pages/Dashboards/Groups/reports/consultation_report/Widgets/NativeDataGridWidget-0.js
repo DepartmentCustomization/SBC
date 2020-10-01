@@ -213,19 +213,33 @@
             };
             this.queryExecutor(masterDetailQuery, this.setSum.bind(this), this);
         },
-        setSum({rows}) {
+        setSum({columns,rows}) {
             const div = document.querySelector('#NativeDataGridWidget-0')
+            const columnsArr = columns.map(elem=>{
+                let index = columns.indexOf(elem)
+                let obj = {
+                    column: elem.code,
+                    name: rows[0].values[index],
+                    summaryType: 'custom'
+                }
+                return obj
+            })
+            const con = document.querySelector('.sum-block')
+            if(con) {
+                con.remove()
+                columnsArr.remove()
+            }
             const grid = `<div class='sum-block'>
                         <table class='dx-datagrid-table dx-datagrid-table-fixed'>
                             <tbody>
                                 <tr class='dx-row'>
                                     <td class='dx-command-expand dx-datagrid-group-space'></td>
                                     <td class='dx-datagrid-summary-item dx-datagrid-text-content'></td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>${rows[0].values[1]}</td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>${rows[0].values[2]}</td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>${rows[0].values[3]}</td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>${rows[0].values[4]}</td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>${rows[0].values[5]}</td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>Разом: ${rows[0].values[1]}</td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>Середнє: ${rows[0].values[2]}</td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>Разом: ${rows[0].values[3]}</td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>Разом: ${rows[0].values[4]}</td>
+                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>Середнє: ${rows[0].values[5]}</td>
                                 </tr>
                             </tbody>
                         </table>
