@@ -27,7 +27,12 @@
             wordWrapEnabled: true,
             rowAlternationEnabled: true,
             hoverStateEnabled: true,
+            filterRow: { visible: true },
             keyExpr: 'Col1',
+            editing: {
+                allowUpdating: true,
+                mode: 'popup'
+            },
             columns: [
                 {
                     dataField: 'Col1',

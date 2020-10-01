@@ -38,10 +38,10 @@
         },
         init: function() {
             let executeQuery = {
-                        queryCode: 'test_Vitalii_News',
-                        limit: 4,
-                        parameterValues: []
-                    };
+                queryCode: 'test_Vitalii_News',
+                limit: 4,
+                parameterValues: []
+            };
             this.queryExecutor(executeQuery, this.load, this);
         }
     };

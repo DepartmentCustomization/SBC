@@ -48,7 +48,7 @@
                         'features': [] },
                     tooltip: {
                         headerFormat:'',
-                        pointFormat: '<br> р-н: <b>{point.properties.name}</b>'
+                        pointFormat: '<br><b>{point.properties.name}</b>'
                     }
                 }
             },
@@ -77,7 +77,7 @@
         load: function(data, options) {
             options.plotOptions.map.mapData.features.push({
                 'type': 'Feature',
-                'properties': {'name': 'Деснянский', 'label': 'test' , 'value': '1'},
+                'properties': {'name': 'Новозеландский Остров', 'label': 'test' , 'value': '1'},
                 'geometry':{'type': 'Polygon', 'coordinates':  [ ] }
             });
             let obolonDist = [[100,-69],
