@@ -231,7 +231,7 @@ body {
 }
 
 .joke-type-text-icon {
-    background: url("Widgets/img/text-joke-icon.png") no-repeat;
+    background: url("assets/img/img-Vitalii/text-joke-icon.png") no-repeat;
     display: inline-block;
     width: 20px;
     height: 19px;
@@ -254,7 +254,7 @@ body {
     display: inline-block;
     width: 20px;
     height: 17px;
-    background: url('img/joke-favorite-icons.png') -50px -10px;
+    background: url('assets/img/img-Vitalii/joke-favorite-icons.png') -50px -10px;
     position: absolute;
     top: 40px;
     right: 40px;
@@ -284,7 +284,7 @@ body {
     display: inline-block;
     width: 10px;
     height: 10px;
-    background: url("img/joke-id-link-icon.png") no-repeat;
+    background: url("assets/img/img-Vitalii/joke-id-link-icon.png") no-repeat;
     text-decoration: none;
     margin-left: 5px;
 }
