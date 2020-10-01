@@ -14,7 +14,7 @@
                 'border-top-right-radius': '10px'
             }
         },
-        dateFormat: 'd.MM.y HH:mm',
+        dateFormat: 'dd.MM.yyyy',
         sliceCount: '250',
         newsStyles: function() {
             return {
@@ -25,6 +25,7 @@
                 },
                 title: {
                     'color':'#3f7ab7',
+                    'padding': '10px',
                     'font-size':'24px',
                     'padding-left':'15px'
                 },
@@ -36,6 +37,12 @@
             }
         },
         init: function() {
+            let executeQuery = {
+                        queryCode: 'test_Vitalii_News',
+                        limit: 4,
+                        parameterValues: []
+                    };
+            this.queryExecutor(executeQuery, this.load, this);
         }
     };
 }());
