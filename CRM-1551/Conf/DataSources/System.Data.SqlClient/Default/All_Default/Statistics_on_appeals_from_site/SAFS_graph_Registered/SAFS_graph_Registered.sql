@@ -147,11 +147,11 @@ declare @date_table table (Id int identity(1,1), date date, nw int, nm int, ny i
 --   [CRM_1551_Site_Integration].[dbo].[Statistic] on date_table.date=[Statistic].date and [Statistic].diagram=6
 
 
-select * 
-from #temp_main
+-- select * 
+-- from #temp_main
 
 
-/* если что
+/* если что*/
 
 declare @coloms nvarchar(max);
 declare @coloms_isnull nvarchar(max);
@@ -162,7 +162,7 @@ set @coloms=stuff((select distinct N', ['+ltrim(name)+N']' from #temp_main for x
 set @coloms_isnull=stuff((select distinct N', isnull(['+ltrim(name)+N'],0)'+N' ['+ltrim(name)+N']' from #temp_main for xml path('')), 1,2, N'')
 
 
-select @coloms_isnull
+--select @coloms_isnull
 
 set @query = N'
 
@@ -181,4 +181,3 @@ for [name] in ('+@coloms+N')
 
 exec (@query)
 
-*/
