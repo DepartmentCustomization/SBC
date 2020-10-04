@@ -46,10 +46,11 @@ from
 (
 select distinct #org_and_parent.Id possible_Id, #org_and_parent.name possible_name, #org_and_parent.lev_Id vykonavets_Id, #org_and_parent.phone_number
 from #position_org
-inner join #org_and_parent on #position_org.organizations_id=#org_and_parent.lev_Id
+inner join #org_and_parent on #position_org.organizations_id=#org_and_parent.Id
 --union
 --select Id, Id, short_name, 1 n 
 --from [dbo].[Organizations]
 ) t
+
 --where vykonavets_Id=4005--phone_number=N'044-247-40-40'
 
