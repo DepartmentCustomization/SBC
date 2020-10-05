@@ -96,12 +96,14 @@
             };
             this.queryExecutor(executeQuery, this.openModal, this);
         },
-        openModal(msg) {
-            const {rows} = msg
-            rows[0].values.shift()
-            const newArr = rows[0].values.map(elem=>{
-                return `<p class="first">${elem}</p>`
-            }).join('')
+        openModal({columns,rows}) {
+            const filtered = columns.filter(elem=>elem.code.includes('cell4_info_value'))
+            const indexes = filtered.map(elem=>{
+                const index = columns.indexOf(elem)
+                return index
+            })
+            const filteredVals = indexes.map(elem=>rows[0].values[elem])
+            const grid = filteredVals.map(elem=>`<p class="first">${elem}</p>`).join('')
             const main = document.querySelector('.root-main')
             const wrapper = this.createElement('div',{classList:'wrapper',id:'wrapper'})
             wrapper.addEventListener('click',this.closeModal.bind(this))
@@ -109,10 +111,11 @@
             const widget = document.getElementById('CustomWidget-3')
             const titleText = widget.querySelector('.widget-title').textContent
             const title = this.createElement('h2',{textContent:titleText,classList:'modal-title'})
-            const closeBtn = this.createElement('span',{textContent: 'x',id:'close-modal',classList:'close-modal'})
+            const closeBtn = this.createElement('span',{textContent: 'highlight_off',
+                id:'close-modal',classList:'material-icons close-modal'})
             closeBtn.addEventListener('click',this.closeModal.bind(this))
             modal.append(title,closeBtn)
-            modal.insertAdjacentHTML('beforeend',newArr)
+            modal.insertAdjacentHTML('beforeend',grid)
             main.insertAdjacentElement('beforeend',wrapper)
             main.insertAdjacentElement('beforeend',modal)
         },
@@ -130,7 +133,7 @@
             cellInfo.insertAdjacentHTML('beforeend',`${windowsP} ${androidText} ${appleText}`)
             const infoBtn = this.createElement('span',{classList:'info-button',id:'info-button'})
             const infoBtnSpan = this.createElement('span',{classList:'material-icons info-button-label',textContent:'info'})
-            infoBtnSpan.addEventListener('click',this.afterLoad.bind(this))
+            infoBtnSpan.addEventListener('click',()=>this.openModal(data))
             infoBtn.append(infoBtnSpan)
             cellInfo.append(infoBtn)
         }
