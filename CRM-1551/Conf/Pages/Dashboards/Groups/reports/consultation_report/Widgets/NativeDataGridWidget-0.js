@@ -46,118 +46,97 @@
                 columns: [
                     {
                         dataField: 'Name',
-                        caption: ''
+                        caption: '',
+                        alignment: 'left',
+                        customizeText: function(data) {
+                            return 'Разом: ' + data.value;
+                        }
                     },
                     {
                         dataField: 'article_qty',
-                        caption: 'Кількість по статтях'
+                        caption: 'Кількість по статтях',
+                        alignment: 'center'
                     },
                     {
                         dataField: 'article_percent',
-                        caption: '% по статтях'
-                    },
-                    {
-                        dataField: 'article_percent',
-                        caption: '% по статтях'
+                        caption: '% по статтях',
+                        alignment: 'center'
                     },
                     {
                         dataField: '',
+                        alignment: 'center',
                         caption: 'Загальна тривалість',
                         columns: [
                             {
                                 dataField: 'talk_all',
-                                caption: 'Питання + Консультація'
+                                caption: 'Питання + Консультація',
+                                alignment: 'center'
                             },
                             {
                                 dataField: 'talk_consultations_only',
-                                caption: 'Тільки консультація'
+                                caption: 'Тільки консультація',
+                                alignment: 'center'
                             }
                         ]
                     },
                     {
                         dataField: 'talk_consultation_average',
-                        caption: 'Середній час на консультацію'
+                        caption: 'Середній час на консультацію',
+                        alignment: 'center'
                     }
                 ]
             },
             columns: [
                 {
                     dataField: 'Name',
-                    caption: ''
+                    caption: '',
+                    alignment: 'left'
                 },
                 {
                     dataField: 'article_qty',
-                    caption: 'Кількість по статтях'
-                },
-                {
-                    dataField: 'article_percent',
-                    caption: '% по статтях'
+                    caption: 'Кількість по статтях',
+                    alignment: 'center'
                 },
                 {
                     dataField: 'article_percent',
                     caption: '% по статтях',
-                    dataType: 'number',
-                    format: 'percent',
-                    alignment: 'right',
-                    allowGrouping: false,
-                    cellTemplate: function(container, options) {
-                        this.dxBullet({
-                            onIncidentOccurred: null,
-                            size: {
-                                width: 150,
-                                height: 35
-                            },
-                            margin: {
-                                top: 5,
-                                bottom: 0,
-                                left: 5
-                            },
-                            showTarget: false,
-                            showZeroLevel: true,
-                            value: options.value * 100,
-                            startScaleValue: 0,
-                            endScaleValue: 100,
-                            tooltip: {
-                                enabled: true,
-                                font: {
-                                    size: 18
-                                },
-                                paddingTopBottom: 2,
-                                customizeTooltip: function() {
-                                    return { text: options.text };
-                                },
-                                zIndex: 5
-                            }
-                        }).appendTo(container);
-                    },
-                    customizeText: function(cellInfo) {
-                        let bulletOptions = {
-                            value: cellInfo.value
-                        };
-                        return cellInfo.value + bulletOptions;
-                    },
-                    cssClass: 'bullet'
+                    alignment: 'center'
                 },
                 {
                     dataField: '',
                     caption: 'Загальна тривалість',
+                    alignment: 'center',
                     columns: [
                         {
                             dataField: 'talk_all',
-                            caption: 'Питання + Консультація'
+                            caption: 'Питання + Консультація',
+                            alignment: 'center'
                         },
                         {
                             dataField: 'talk_consultations_only',
-                            caption: 'Тільки консультація'
+                            caption: 'Тільки консультація',
+                            alignment: 'center'
                         }
                     ]
                 },
                 {
                     dataField: 'talk_consultation_average',
-                    caption: 'Середній час на консультацію'
+                    caption: 'Середній час на консультацію',
+                    alignment: 'center'
                 }
             ],
-            keyExpr: 'Id'
+            keyExpr: 'Id',
+            summary: {
+                totalItems: [
+                    {
+                        column: 'Name',
+                        summaryType: 'count',
+                        customizeText: function() {
+                            return 'Разом';
+                        }
+                    }
+                ]
+            }
         },
         firstLoad: true,
         init: function() {
@@ -165,9 +144,9 @@
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
-            this.config.onCellPrepared = this.onCellPrepared.bind(this);
         },
         applyChanges: function(state) {
+            this.getSum();
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -175,13 +154,6 @@
                 }
             };
             this.messageService.publish(msg);
-        },
-        onCellPrepared: function() {
-            /*if(options.column.dataField === 'article_percent') {
-                 console.log(options.cellElement)
-                if(options.cellElement.classlist.contains('bullet')) {
-                }
-            }*/
         },
         masterDetailInitialized: function(event, row) {
             row.dataSource = [];
@@ -227,35 +199,68 @@
                 }
             })
         },
-        discountCellTemplate(container, options) {
-            $('<div/>').dxBullet({
-                onIncidentOccurred: null,
-                size: {
-                    width: 150,
-                    height: 35
-                },
-                margin: {
-                    top: 5,
-                    bottom: 0,
-                    left: 5
-                },
-                showTarget: false,
-                showZeroLevel: true,
-                value: options.value * 100,
-                startScaleValue: 0,
-                endScaleValue: 100,
-                tooltip: {
-                    enabled: true,
-                    font: {
-                        size: 18
-                    },
-                    paddingTopBottom: 2,
-                    customizeTooltip: function() {
-                        return { text: options.text };
-                    },
-                    zIndex: 5
+        getSum: function() {
+            const masterDetailQuery = {
+                queryCode: 'db_ConsultationStatistic_Result',
+                limit: -1,
+                parameterValues: [
+                    {key: '@dateFrom' , value: this.dateFrom },
+                    {key: '@dateTo' , value: this.dateTo },
+                    {key: '@UserId' , value: this.operators }
+                ]
+            };
+            this.queryExecutor(masterDetailQuery, this.setColumnsSummary, this);
+        },
+        results: [],
+        setColumnsSummary: function(data) {
+            this.results = [];
+            this.config.summary.totalItems = [];
+            let obj_Sum = {
+                column: 'Name',
+                summaryType: 'count',
+                customizeText: function() {
+                    return 'Разом';
                 }
-            }).appendTo(container);
+            }
+            this.config.summary.totalItems.push(obj_Sum);
+
+            if (data.rows.length) {
+                for (let i = 0; i < data.columns.length; i++) {
+                    const dataField = data.columns[i].code;
+                    const value = data.rows[0].values[i];
+                    let obj = {
+                        column: dataField,
+                        name: dataField,
+                        summaryType: 'custom'
+                    }
+                    this.results.push(value);
+                    this.config.summary.totalItems.push(obj);
+                }
+                this.config.summary.calculateCustomSummary = this.calculateCustomSummary.bind(this);
+            }
+            this.hidePagePreloader();
+            this.loadData(this.afterLoadDataHandler);
+        },
+        calculateCustomSummary: function(options) {
+            switch (options.name) {
+                case 'article_qty':
+                    options.totalValue = this.results[1];
+                    break;
+                case 'article_percent':
+                    options.totalValue = this.results[2];
+                    break;
+                case 'talk_all':
+                    options.totalValue = this.results[3];
+                    break;
+                case 'talk_consultations_only':
+                    options.totalValue = this.results[4];
+                    break;
+                case 'talk_consultation_average':
+                    options.totalValue = this.results[5];
+                    break;
+                default:
+                    break;
+            }
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;

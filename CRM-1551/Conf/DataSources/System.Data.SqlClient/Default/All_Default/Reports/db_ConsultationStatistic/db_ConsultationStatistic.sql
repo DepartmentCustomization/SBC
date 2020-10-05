@@ -1,13 +1,25 @@
---  DECLARE @dateFrom DATE = DATEADD(DAY, -10, GETDATE());
---  DECLARE @dateTo DATE = GETDATE(); 
---  DECLARE @UserId NVARCHAR(MAX) = N'29796543-b903-48a6-9399-4840f6eac396,6234fd61-5832-4ecc-bd4f-bc4292e1808e,cd51bfe1-2406-46d0-a7dc-e26a43ada847';
+--  DECLARE @dateFrom DATETIME = '2020-08-31T21:00:00.000Z';
+--  DECLARE @dateTo DATE = '2020-09-29T13:40:00.000Z'; 
+--  DECLARE @UserId NVARCHAR(MAX) = N'0';
 
 DECLARE @UserList TABLE (Id NVARCHAR(128));
 
+IF (LEN(@UserId) = 1)
+BEGIN 
+INSERT INTO @UserList
+SELECT  
+	[UserId]
+FROM 
+[#system_database_name#].[dbo].[User]
+-- CRM_1551_System.dbo.[User];
+END
+ELSE
+BEGIN
 INSERT INTO @UserList
 SELECT 
 	trim(value)  
 FROM STRING_SPLIT(@UserId, ',');
+END
 
 IF OBJECT_ID ('tempdb..#Knowledge') IS NOT NULL
 BEGIN
@@ -31,14 +43,14 @@ FROM dbo.ConsultationStatistic;
 --> Сбор данных по статистике типов 
 INSERT INTO #Knowledge 
 SELECT 
-	0,
-	NULL,
-	N'Корень',
-	0,
-	0,
-	'00:00:00',
-	'00:00:00',
-	'00:00:00'
+	0 AS [Id],
+	NULL AS [parent_id],
+	N'Корень' AS [Name],
+	0 AS [article_qty],
+	0 AS [article_percent],
+	'00:00:00' AS [talk_all],
+	'00:00:00' AS [talk_consultations_only],
+	'00:00:00' AS [talk_consultation_average]
 UNION
 SELECT 
 	[Id],
