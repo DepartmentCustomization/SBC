@@ -129,10 +129,10 @@
             summary: {
                 totalItems: [
                     {
-                        column: "Name",
-                        summaryType: "count",
-                        customizeText: function(data) {
-                            return `Разом`;
+                        column: 'Name',
+                        summaryType: 'count',
+                        customizeText: function() {
+                            return 'Разом';
                         }
                     }
                 ]
@@ -216,10 +216,10 @@
             this.results = [];
             this.config.summary.totalItems = [];
             let obj_Sum = {
-                column: "Name",
-                summaryType: "count",
+                column: 'Name',
+                summaryType: 'count',
                 customizeText: function() {
-                    return `Разом`;
+                    return 'Разом';
                 }
             }
             this.config.summary.totalItems.push(obj_Sum);
