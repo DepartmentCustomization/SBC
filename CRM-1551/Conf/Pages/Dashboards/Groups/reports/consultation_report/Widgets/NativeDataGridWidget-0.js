@@ -128,6 +128,13 @@
             keyExpr: 'Id',
             summary: {
                 totalItems: [
+                    {
+                        column: "Name",
+                        summaryType: "count",
+                        customizeText: function(data) {
+                            return `Разом`;
+                        }
+                    }
                 ]
             }
         },
@@ -139,7 +146,7 @@
             this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
         },
         applyChanges: function(state) {
-            this.getSum.bind(this)
+            this.getSum();
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -192,7 +199,7 @@
                 }
             })
         },
-        getSum() {
+        getSum: function() {
             const masterDetailQuery = {
                 queryCode: 'db_ConsultationStatistic_Result',
                 limit: -1,
@@ -202,45 +209,31 @@
                     {key: '@UserId' , value: this.operators }
                 ]
             };
-            this.queryExecutor(masterDetailQuery, this.setSum, this);
+            this.queryExecutor(masterDetailQuery, this.setColumnsSummary, this);
         },
-        setSum({columns,rows}) {
-            const columnsArr = columns.map(elem=>{
-                let index = columns.indexOf(elem)
-                let obj = {
-                    column: elem.code,
-                    totalValue:rows[0].values[index],
-                    summaryType: 'custom',
-                    customizeText: function(data) {
-                        return 'Разом: ' + data.value
-                    }
-                }
-                return obj
-            })
-            this.results = rows[0].values.map(elem=>elem)
-            this.config.summary.totalItems = columnsArr;
-            this.config.summary.calculateCustomSummary = this.calculateCustomSummary.bind(this);
-            this.loadData(this.afterLoadDataHandler);
-        },
+        results: [],
         setColumnsSummary: function(data) {
+            this.results = [];
+            this.config.summary.totalItems = [];
+            let obj_Sum = {
+                column: "Name",
+                summaryType: "count",
+                customizeText: function() {
+                    return `Разом`;
+                }
+            }
+            this.config.summary.totalItems.push(obj_Sum);
+
             if (data.rows.length) {
                 for (let i = 0; i < data.columns.length; i++) {
-                    const dataField = data.columns[i].code.slice(0,-4);
+                    const dataField = data.columns[i].code;
                     const value = data.rows[0].values[i];
-                    let objSum = {
-                        column: dataField,
-                        summaryType: 'sum',
-                        customizeText: function(data) {
-                            return `${data.value}`;
-                        }
-                    }
                     let obj = {
                         column: dataField,
                         name: dataField,
                         summaryType: 'custom'
                     }
                     this.results.push(value);
-                    this.config.summary.totalItems.push(objSum);
                     this.config.summary.totalItems.push(obj);
                 }
                 this.config.summary.calculateCustomSummary = this.calculateCustomSummary.bind(this);

@@ -12,32 +12,32 @@
       "IsPrintable": false
     },
     {
-      "Code": "result_article_qty",
-      "Name": "result_article_qty",
+      "Code": "article_qty",
+      "Name": "article_qty",
       "Position": 1,
       "IsPrintable": false
     },
     {
-      "Code": "result_article_percent",
-      "Name": "result_article_percent",
+      "Code": "article_percent",
+      "Name": "article_percent",
       "Position": 2,
       "IsPrintable": false
     },
     {
-      "Code": "result_talk_all",
-      "Name": "result_talk_all",
+      "Code": "talk_all",
+      "Name": "talk_all",
       "Position": 3,
       "IsPrintable": false
     },
     {
-      "Code": "result_talk_consultations_only",
-      "Name": "result_talk_consultations_only",
+      "Code": "talk_consultations_only",
+      "Name": "talk_consultations_only",
       "Position": 4,
       "IsPrintable": false
     },
     {
-      "Code": "result_talk_consultation_average",
-      "Name": "result_talk_consultation_average",
+      "Code": "talk_consultation_average",
+      "Name": "talk_consultation_average",
       "Position": 5,
       "IsPrintable": false
     }
