@@ -16,7 +16,9 @@
                 },
                 {
                     dataField: 'RegistrationDate',
-                    caption: 'Дата реєстрації'
+                    caption: 'Дата реєстрації',
+                    dateType: 'datetime',
+                    format: 'dd.MM.yyyy'
                 },
                 {
                     dataField: 'TypeName',
@@ -32,7 +34,9 @@
                 },
                 {
                     dataField: 'ControlDate',
-                    caption: 'Дата контролю'
+                    caption: 'Дата контролю',
+                    dateType: 'datetime',
+                    format: 'dd.MM.yyyy'
                 },
                 {
                     dataField: 'NotificationText',
@@ -40,7 +44,9 @@
                 },
                 {
                     dataField: 'NotificationCreatedAt',
-                    caption: 'Дата відправки'
+                    caption: 'Дата відправки',
+                    dateType: 'datetime',
+                    format: 'dd.MM.yyyy'
                 }
             ],
             filterRow: {

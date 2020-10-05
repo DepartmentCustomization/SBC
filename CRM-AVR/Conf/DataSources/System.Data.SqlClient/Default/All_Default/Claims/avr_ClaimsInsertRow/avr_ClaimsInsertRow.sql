@@ -118,15 +118,43 @@ VALUES
 		@UR_organization_id
 	);
 
-DECLARE @Claim_Number INT;
 
-SET
-	@Claim_Number = (
-		SELECT
-			TOP 1 [Id]
-		FROM
-			@output
-	);
+
+/* Расчет номера исходя из 1го Сентября 
+1го сентября нужно чтобі начинался номер заявки с "1"
+*/
+declare @ClaimId int = (SELECT TOP 1 [Id] FROM @output)
+declare @DateCurrent date =  getdate() /*N'2021-09-01'*/
+
+--select cast(rtrim(year(@DateCurrent))+N'-09-01' as date),cast(rtrim(year(@DateCurrent)+1)+N'-09-01' as date)
+
+DECLARE @Claim_Number INT;
+if @DateCurrent >=  cast(rtrim(year(@DateCurrent))+N'-01-01' as date) and @DateCurrent < cast(rtrim(year(@DateCurrent)+1)+N'-01-01' as date)
+begin
+	if (SELECT count(1)
+	FROM [CRM_AVR_Analitics].[dbo].[Claims]
+	where CHARINDEX(N'/', [Claim_Number]) = 0
+	and [Claim_Number] is not null
+	and cast(Created_at as date) >=  cast(rtrim(year(@DateCurrent))+N'-01-01' as date) and cast(Created_at as date) < cast(rtrim(year(@DateCurrent)+1)+N'-01-01' as date)
+	) = 0
+	begin
+		set @Claim_Number = 1;
+	end
+	else
+	begin
+		set @Claim_Number = (
+								SELECT top 1 cast([Claim_Number] as int)+1
+								FROM [CRM_AVR_Analitics].[dbo].[Claims]
+								where CHARINDEX(N'/', [Claim_Number]) = 0
+								and [Claim_Number] is not null
+								and cast(Created_at as date) >=  cast(rtrim(year(@DateCurrent))+N'-01-01' as date) and cast(Created_at as date) < cast(rtrim(year(@DateCurrent)+1)+N'-01-01' as date)
+								order by cast([Claim_Number] as int) desc
+							)
+	end
+end
+
+--select @Claim_Number
+
 
 UPDATE
 	[dbo].[Claims]
@@ -155,7 +183,7 @@ SET
 		)
 	)
 WHERE
-	Id = @Claim_Number;
+	Id = @ClaimId;
 
 INSERT INTO
 	[dbo].[Claim_Order_Places] (
@@ -167,7 +195,7 @@ INSERT INTO
 	)
 VALUES
 	(
-		@Claim_Number,
+		@ClaimId,
 		@places_id,
 		@flat_id,
 		1,
@@ -195,7 +223,7 @@ INSERT INTO
 	)
 VALUES
 	(
-		@Claim_Number,
+		@ClaimId,
 		@UR_contact_fio,
 		@UR_organization,
 		@UR_number
@@ -224,7 +252,7 @@ INSERT INTO
 	)
 VALUES
 	(
-		@Claim_Number,
+		@ClaimId,
 		@Sked,
 		@TU,
 		@TU_Id,
@@ -240,7 +268,7 @@ VALUES
 END 
 COMMIT TRANSACTION;
 SELECT
-	@Claim_Number AS [Id];
+	@ClaimId AS [Id];
 
 RETURN;
 

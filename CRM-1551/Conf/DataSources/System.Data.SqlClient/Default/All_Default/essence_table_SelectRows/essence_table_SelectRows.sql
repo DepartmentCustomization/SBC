@@ -30,7 +30,7 @@ begin
 						where t1.[Url] is not null
 						group by t1.[Url]
 					)
-	  ) as Notif on Notif.[Url] = (N'/sections/Question/edit/'+rtrim([AttentionQuestionAndEvent].[question_id]))
+	  ) as Notif on Notif.[Url] = (N'/sections/Questions/edit/'+rtrim([AttentionQuestionAndEvent].[question_id]))
 	  where [AttentionQuestionAndEvent].[user_id] = @UserId
 	  and [AttentionQuestionAndEvent].[question_id] is not null
 end

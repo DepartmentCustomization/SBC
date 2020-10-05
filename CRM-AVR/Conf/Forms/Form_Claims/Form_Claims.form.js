@@ -1664,7 +1664,7 @@
                                 required: false,
                                 position: 1,
                                 fullScreen: true,
-                                value: '№ ' + this.getRowValueByCode(data, 'Id'),
+                                value: '№ ' + this.getRowValueByCode(data, 'Claim_Number'),
                                 type: 'text'
                             },
                             {
@@ -1682,7 +1682,7 @@
                 ]
             };
             let urlText = 'sections/Claims/edit/' + data.rows[0].values[0]
-            let textMess = 'Зареєстрована заявка № ' + data.rows[0].values[0] + ' з типом ' + data.rows[0].values[15];
+            let textMess = 'Зареєстрована заявка № ' + data.rows[0].values[1] + ' з типом ' + data.rows[0].values[15];
             let priorityCode;
             let notifType;
             if (data.rows[0].values[67] == 1) {

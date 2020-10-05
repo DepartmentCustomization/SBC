@@ -36,10 +36,14 @@
       "Position": 5
     },
     {
-      "Code": "Is_WC",
+      "Code": "is_External_service",
       "Name": "Зовнішня служба",
       "Position": 6,
-      "SqlName": "case when Organizations.Is_WC = -1 then 'Ні' \t\t\twhen Organizations.Is_WC = 0 then 'Так' \t\t\tend",
+      "SqlName": "CASE
+      WHEN Organizations.is_External_service = 1 
+      THEN N'Так'
+      ELSE N'Ні'
+    END",
       "FilterParameterCode": "@isWC"
     }
   ],

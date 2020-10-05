@@ -1,13 +1,14 @@
 SELECT
 DISTINCT
     o.[Id],
-    o.[Name]
+    o.[Name],
+	c.Contact_type_ID
 FROM
     dbo.[Organizations] o
-    JOIN dbo.[Contacts] c ON c.Organisation_ID = o.Id
+    INNER JOIN dbo.[Contacts] c ON c.Organisation_ID = o.Id
 WHERE
-    c.Contact_type_ID = 2
-    AND o.is_External_service = 1
-    AND #filter_columns#
+    o.is_External_service = 1
+	AND c.Contact_type_ID = 5
+	AND #filter_columns#
         #sort_columns#
-    OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;
+OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;
