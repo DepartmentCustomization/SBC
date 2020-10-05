@@ -16,6 +16,12 @@
       "Position": 2
     },
     {
+      "Code": "valuecode",
+      "Name": "Назва значення",
+      "FieldType": "text",
+      "Position": 3
+    },
+    {
       "Code": "content",
       "Name": "Опис",
       "FieldType": "textarea",

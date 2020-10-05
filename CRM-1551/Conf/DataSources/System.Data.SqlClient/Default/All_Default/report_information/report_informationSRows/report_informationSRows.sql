@@ -1,6 +1,7 @@
 select [Id]
       ,[reportcode]
       ,[diagramcode]
+      ,[valuecode]
       ,[content]
   from [CRM_1551_Site_Integration].[dbo].[ReportsInfo]
   where #filter_columns#

@@ -29,6 +29,12 @@
       "Name": "content",
       "Position": 3,
       "IsPrintable": false
+    },
+    {
+      "Code": "valuecode",
+      "Name": "valuecode",
+      "Position": 4,
+      "IsPrintable": false
     }
   ],
   "Parameters": [

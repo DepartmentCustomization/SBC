@@ -1,8 +1,17 @@
-  select 1 Id,
-  (select count(distinct ApplicantFromSiteId) count_id
+
+
+select 1 Id,
+  sum(case when [CityName]=N'Київ' then 1 else 0 end) in_Kyiv,
+  sum(case when [CityName]<>N'Київ' then 1 else 0 end) in_not_Kyiv
+  /*
+  Id
+  in_Kyiv
+  in_not_Kyiv
+  */
+  from
+  (
+  select Id, [ApplicantFromSiteId], [CityName],
+  row_number() over (partition by [ApplicantFromSiteId] order by case when [AddressTypeId]=1 /*місце проживання*/ then 1 else 2 end, Id desc) n
   from [CRM_1551_Site_Integration].[dbo].[ApplicantFromSiteAddresses]
-  where AddressTypeId=1 and CityName=N'Київ') in_Kyiv
-  ,
-  (select count(distinct ApplicantFromSiteId) count_id
-  from [CRM_1551_Site_Integration].[dbo].[ApplicantFromSiteAddresses]
-  where CityName<>N'Київ') in_not_Kyiv
+  ) t
+  where n=1

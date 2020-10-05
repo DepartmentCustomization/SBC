@@ -89,6 +89,90 @@
       "Name": "cell5_ReturnToApplicant",
       "Position": 13,
       "IsPrintable": false
+    },
+    {
+      "Code": "cell1_info_value1",
+      "Name": "cell1_info_value1",
+      "Position": 14,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell1_info_value2",
+      "Name": "cell1_info_value2",
+      "Position": 15,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell1_info_value3",
+      "Name": "cell1_info_value3",
+      "Position": 16,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell2_info_value2",
+      "Name": "cell2_info_value2",
+      "Position": 17,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell2_info_value3",
+      "Name": "cell2_info_value3",
+      "Position": 18,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell2_info_value4",
+      "Name": "cell2_info_value4",
+      "Position": 19,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell3_info_value1",
+      "Name": "cell3_info_value1",
+      "Position": 20,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell3_info_value2",
+      "Name": "cell3_info_value2",
+      "Position": 21,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell3_info_value3",
+      "Name": "cell3_info_value3",
+      "Position": 22,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell4_info_value1",
+      "Name": "cell4_info_value1",
+      "Position": 23,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell4_info_value2",
+      "Name": "cell4_info_value2",
+      "Position": 24,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell4_info_value3",
+      "Name": "cell4_info_value3",
+      "Position": 25,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell5_info_value1",
+      "Name": "cell5_info_value1",
+      "Position": 26,
+      "IsPrintable": false
+    },
+    {
+      "Code": "cell5_info_value2",
+      "Name": "cell5_info_value2",
+      "Position": 27,
+      "IsPrintable": false
     }
   ],
   "Parameters": [

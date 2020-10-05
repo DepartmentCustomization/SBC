@@ -5,6 +5,7 @@ insert into [CRM_1551_Site_Integration].[dbo].[ReportsInfo]
   (
   [reportcode]
       ,[diagramcode]
+      ,[valuecode]
       ,[content]
       ,[user_id]
       ,[add_date]
@@ -16,6 +17,7 @@ output inserted.Id into @output(Id)
 
  select @reportcode
       ,@diagramcode
+      ,@valuecode
       ,@content
       ,@user_id
       ,getutcdate()

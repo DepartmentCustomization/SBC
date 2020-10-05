@@ -3,6 +3,7 @@ update [CRM_1551_Site_Integration].[dbo].[ReportsInfo]
 		[reportcode]=@reportcode
       ,[diagramcode]=@diagramcode
       ,[content]=@content
+      ,[valuecode]=@valuecode
       --,[user_id]
       --,[add_date]
       ,[user_edit_id]=@user_id

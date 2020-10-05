@@ -25,9 +25,15 @@
       "IsPrintable": false
     },
     {
+      "Code": "valuecode",
+      "Name": "Назва показника",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
       "Code": "content",
       "Name": "Опис",
-      "Position": 3,
+      "Position": 4,
       "IsPrintable": false
     }
   ],
