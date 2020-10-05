@@ -139,7 +139,7 @@
             this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
         },
         applyChanges: function(state) {
-            this.getSum()
+            this.getSum.bind(this)
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -202,7 +202,7 @@
                     {key: '@UserId' , value: this.operators }
                 ]
             };
-            this.queryExecutor(masterDetailQuery, this.setSum.bind(this), this);
+            this.queryExecutor(masterDetailQuery, this.setSum, this);
         },
         setSum({columns,rows}) {
             const columnsArr = columns.map(elem=>{
