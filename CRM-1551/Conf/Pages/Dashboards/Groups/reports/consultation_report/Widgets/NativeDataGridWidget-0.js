@@ -125,9 +125,12 @@
                     alignment: 'center'
                 }
             ],
-            keyExpr: 'Id'
+            keyExpr: 'Id',
+            summary: {
+                totalItems: [
+                ]
+            }
         },
-        summary: [],
         firstLoad: true,
         init: function() {
             this.applyChanges(true);
@@ -135,20 +138,8 @@
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
         },
-        afterRenderTable: function() {
-            this.summary = [];
-            const collections = document.querySelectorAll('.dx-row');
-            collections.forEach(collection => {
-                const summary = Array.prototype.slice.call(collection.cells, 0);
-                summary.forEach(cell => {
-                    const sum = cell.innerText.slice(0, 5);
-                    if(sum === 'Разом' || sum === 'Серед') {
-                        this.summary.push(cell.innerText);
-                    }
-                });
-            });
-        },
         applyChanges: function(state) {
+            this.getSum()
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -214,37 +205,69 @@
             this.queryExecutor(masterDetailQuery, this.setSum.bind(this), this);
         },
         setSum({columns,rows}) {
-            const div = document.querySelector('#NativeDataGridWidget-0')
             const columnsArr = columns.map(elem=>{
                 let index = columns.indexOf(elem)
                 let obj = {
                     column: elem.code,
-                    name: rows[0].values[index],
-                    summaryType: 'custom'
+                    totalValue:rows[0].values[index],
+                    summaryType: 'custom',
+                    customizeText: function(data) {
+                        return 'Разом: ' + data.value
+                    }
                 }
                 return obj
             })
-            const con = document.querySelector('.sum-block')
-            if(con) {
-                con.remove()
-                columnsArr.remove()
+            this.results = rows[0].values.map(elem=>elem)
+            this.config.summary.totalItems = columnsArr;
+            this.config.summary.calculateCustomSummary = this.calculateCustomSummary.bind(this);
+            this.loadData(this.afterLoadDataHandler);
+        },
+        setColumnsSummary: function(data) {
+            if (data.rows.length) {
+                for (let i = 0; i < data.columns.length; i++) {
+                    const dataField = data.columns[i].code.slice(0,-4);
+                    const value = data.rows[0].values[i];
+                    let objSum = {
+                        column: dataField,
+                        summaryType: 'sum',
+                        customizeText: function(data) {
+                            return `${data.value}`;
+                        }
+                    }
+                    let obj = {
+                        column: dataField,
+                        name: dataField,
+                        summaryType: 'custom'
+                    }
+                    this.results.push(value);
+                    this.config.summary.totalItems.push(objSum);
+                    this.config.summary.totalItems.push(obj);
+                }
+                this.config.summary.calculateCustomSummary = this.calculateCustomSummary.bind(this);
             }
-            const grid = `<div class='sum-block'>
-                        <table class='dx-datagrid-table dx-datagrid-table-fixed'>
-                            <tbody>
-                                <tr class='dx-row'>
-                                    <td class='dx-command-expand dx-datagrid-group-space'></td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'></td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>Разом: ${rows[0].values[1]}</td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>Середнє: ${rows[0].values[2]}</td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>Разом: ${rows[0].values[3]}</td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>Разом: ${rows[0].values[4]}</td>
-                                    <td class='dx-datagrid-summary-item dx-datagrid-text-content'>Середнє: ${rows[0].values[5]}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>`
-            div.insertAdjacentHTML('beforeend',grid)
+            this.hidePagePreloader();
+            this.loadData(this.afterLoadDataHandler);
+        },
+        calculateCustomSummary: function(options) {
+            switch (options.name) {
+                case 'article_qty':
+                    options.totalValue = this.results[1];
+                    break;
+                case 'article_percent':
+                    options.totalValue = this.results[2];
+                    break;
+                case 'talk_all':
+                    options.totalValue = this.results[3];
+                    break;
+                case 'talk_consultations_only':
+                    options.totalValue = this.results[4];
+                    break;
+                case 'talk_consultation_average':
+                    options.totalValue = this.results[5];
+                    break;
+                default:
+                    break;
+            }
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
@@ -275,7 +298,6 @@
         },
         renderTable() {
             this.loadData(this.afterLoadDataHandler)
-            this.getSum()
             this.applyChanges(false)
         },
         afterLoadDataHandler: function() {
