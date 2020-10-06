@@ -52,11 +52,6 @@
       "Code": "@dateFrom",
       "Name": "dateFrom",
       "ParameterType": "DateTime"
-    },
-    {
-      "Code": "@UserId",
-      "Name": "UserId",
-      "ParameterType": "text"
     }
   ]
 }

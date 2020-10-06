@@ -60,11 +60,6 @@
       "ParameterType": "DateTime"
     },
     {
-      "Code": "@UserId",
-      "Name": "UserId",
-      "ParameterType": "text"
-    },
-    {
       "Code": "@knowledge_id",
       "Name": "knowledge_id",
       "ParameterType": "Integer"
