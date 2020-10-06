@@ -164,5 +164,6 @@ SELECT
 	@average_article_percent AS [article_percent],
 	CONVERT(VARCHAR(8), DATEADD(ms, SUM(DATEDIFF(ms, 0,[talk_all])), 0), 108) AS [talk_all],
 	CONVERT(VARCHAR(8), DATEADD(ms, SUM(DATEDIFF(ms, 0,[talk_consultations_only])), 0), 108) AS [talk_consultations_only],
-	@average_talk_consultation AS [talk_consultation_average]
+	@average_talk_consultation AS [talk_consultation_average],
+	NULL AS [UserId]
 FROM #RootVals;

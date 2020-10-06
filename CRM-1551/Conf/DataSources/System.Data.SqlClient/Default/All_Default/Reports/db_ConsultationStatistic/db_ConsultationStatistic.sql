@@ -156,6 +156,7 @@ DISTINCT
 	[article_percent],
 	CONVERT(VARCHAR(8), [talk_all], 108) AS [talk_all],
 	CONVERT(VARCHAR(8), [talk_consultations_only], 108) AS [talk_consultations_only],
-	CONVERT(VARCHAR(8), [talk_consultation_average], 108) AS [talk_consultation_average]
+	CONVERT(VARCHAR(8), [talk_consultation_average], 108) AS [talk_consultation_average],
+	NULL AS [UserId]
 FROM #RootVals
 ORDER BY [Name];

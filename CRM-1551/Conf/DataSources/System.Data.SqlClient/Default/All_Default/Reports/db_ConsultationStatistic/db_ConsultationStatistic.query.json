@@ -53,7 +53,7 @@
       "Position": 7,
       "ViewState": "Hidden",
       "IsPrintable": false,
-      "SqlName": "UserId",
+      "SqlName": "u.[UserId]",
       "FilterParameterCode": "@UserId"
     }
   ],

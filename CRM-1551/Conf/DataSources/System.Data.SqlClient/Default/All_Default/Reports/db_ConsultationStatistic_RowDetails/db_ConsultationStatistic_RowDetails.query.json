@@ -46,6 +46,15 @@
       "Name": "talk_consultation_average",
       "Position": 6,
       "IsPrintable": false
+    },
+    {
+      "Code": "UserId",
+      "Name": "UserId",
+      "Position": 7,
+      "ViewState": "Hidden",
+      "IsPrintable": false,
+      "SqlName": "u.[UserId]",
+      "FilterParameterCode": "@UserId"
     }
   ],
   "Parameters": [

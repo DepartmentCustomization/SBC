@@ -171,7 +171,7 @@
                         value: {
                             operation: 0,
                             not: false,
-                            values: this.operators
+                            values: this.operator
                         }
                     }]
             };
@@ -221,7 +221,7 @@
                         value: {
                             operation: 0,
                             not: false,
-                            values: this.operators
+                            values: this.operator
                         }
                     }]
             };
@@ -279,25 +279,25 @@
             }
         },
         getFiltersParams: function(message) {
-            const period = message.package.value.values.find(f => f.name === 'period').value;
-            const operator = message.package.value.values.find(f => f.name === 'operator').value;
+            let period = message.package.value.values.find(f => f.name === 'period').value;
+            let operator = message.package.value.values.find(f => f.name === 'operator').value;
             if (period !== null) {
                 if (period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.operators = this.extractOrgValues(operator);
                     this.config.query.parameterValues = [
                         { key: '@dateFrom', value: this.dateFrom },
                         { key: '@dateTo', value: this.dateTo }
                     ];
+                    this.operator = this.extractOrgValues(operator);
                     this.config.query.filterColumns = [];
-                    if (this.operators.length > 0) {
+                    if (this.operator.length > 0) {
                         const filter = {
                             key: 'UserId',
                             value: {
                                 operation: 0,
                                 not: false,
-                                values: this.operators
+                                values: this.operator
                             }
                         };
                         this.config.query.filterColumns.push(filter);
@@ -306,10 +306,10 @@
             }
         },
         extractOrgValues: function(items) {
-            if (items.length && items !== '') {
+            if(items.length && items !== '') {
                 const valuesList = [];
                 items.forEach(item => valuesList.push(item.value));
-                return valuesList.join(', ');
+                return valuesList;
             }
             return [];
         },

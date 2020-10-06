@@ -59,6 +59,7 @@ SELECT
 		AS [sort_index]
 FROM dbo.KnowledgeBaseStates kn_base
 LEFT JOIN dbo.ConsultationStatistic cs ON cs.article_id = kn_base.id
+LEFT JOIN CRM_1551_System.dbo.[User] u ON u.[UserId] = cs.[user_id]
 WHERE 
 	#filter_columns# AND
 	CAST(cs.main_datetime AS DATE)
@@ -184,7 +185,8 @@ SELECT
 	[article_percent],
 	CONVERT(VARCHAR(8), [talk_all], 108) AS [talk_all],
 	CONVERT(VARCHAR(8), [talk_consultations_only], 108) AS [talk_consultations_only],
-	CONVERT(VARCHAR(8), [talk_consultation_average], 108) AS [talk_consultation_average]
+	CONVERT(VARCHAR(8), [talk_consultation_average], 108) AS [talk_consultation_average],
+	NULL AS UserId
 FROM #RootVals
 GROUP BY [Id], 
 		 [Name],
