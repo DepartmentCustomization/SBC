@@ -37,7 +37,7 @@
                 wordWrapEnabled: true,
                 pager: {
                     showPageSizeSelector: true,
-                    allowedPageSizes: [5, 10 , 50],
+                    allowedPageSizes: [5, 10, 50],
                     showInfo: true
                 },
                 paging: {
@@ -143,7 +143,7 @@
             this.applyChanges(true);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
+            this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.renderTable, this);
         },
         applyChanges: function(state) {
             this.getSum();
@@ -161,11 +161,19 @@
                 queryCode: 'db_ConsultationStatistic_RowDetails',
                 limit: -1,
                 parameterValues: [
-                    {key: '@dateFrom' , value: this.dateFrom },
-                    {key: '@dateTo' , value: this.dateTo },
-                    {key: '@UserId' , value: this.operators },
-                    {key: '@knowledge_id', value:row.data.Id}
-                ]
+                    { key: '@dateFrom', value: this.dateFrom },
+                    { key: '@dateTo', value: this.dateTo },
+                    { key: '@knowledge_id', value: row.data.Id }
+                ],
+                filterColumns:[
+                    {
+                        key: 'UserId',
+                        value: {
+                            operation: 0,
+                            not: false,
+                            values: this.operator
+                        }
+                    }]
             };
             this.queryExecutor(masterDetailQuery, this.setMasterDetailDataSource.bind(this, row), this);
         },
@@ -204,10 +212,18 @@
                 queryCode: 'db_ConsultationStatistic_Result',
                 limit: -1,
                 parameterValues: [
-                    {key: '@dateFrom' , value: this.dateFrom },
-                    {key: '@dateTo' , value: this.dateTo },
-                    {key: '@UserId' , value: this.operators }
-                ]
+                    { key: '@dateFrom', value: this.dateFrom },
+                    { key: '@dateTo', value: this.dateTo }
+                ],
+                filterColumns:[
+                    {
+                        key: 'UserId',
+                        value: {
+                            operation: 0,
+                            not: false,
+                            values: this.operator
+                        }
+                    }]
             };
             this.queryExecutor(masterDetailQuery, this.setColumnsSummary, this);
         },
@@ -263,18 +279,29 @@
             }
         },
         getFiltersParams: function(message) {
-            const period = message.package.value.values.find(f => f.name === 'period').value;
-            const operator = message.package.value.values.find(f => f.name === 'operator').value;
-            if(period !== null) {
-                if(period.dateFrom !== '' && period.dateTo !== '') {
+            let period = message.package.value.values.find(f => f.name === 'period').value;
+            let operator = message.package.value.values.find(f => f.name === 'operator').value;
+            if (period !== null) {
+                if (period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.operators = this.extractOrgValues(operator);
                     this.config.query.parameterValues = [
-                        {key: '@dateFrom' , value: this.dateFrom },
-                        {key: '@dateTo' , value: this.dateTo },
-                        {key: '@UserId' , value: this.operators }
+                        { key: '@dateFrom', value: this.dateFrom },
+                        { key: '@dateTo', value: this.dateTo }
                     ];
+                    this.operator = this.extractOrgValues(operator);
+                    this.config.query.filterColumns = [];
+                    if (this.operator.length > 0) {
+                        const filter = {
+                            key: 'UserId',
+                            value: {
+                                operation: 0,
+                                not: false,
+                                values: this.operator
+                            }
+                        };
+                        this.config.query.filterColumns.push(filter);
+                    }
                 }
             }
         },
@@ -282,7 +309,7 @@
             if(items.length && items !== '') {
                 const valuesList = [];
                 items.forEach(item => valuesList.push(item.value));
-                return valuesList.join(', ');
+                return valuesList;
             }
             return [];
         },
