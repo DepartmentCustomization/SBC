@@ -48,7 +48,7 @@
     },
     {
       "Code": "organization_name",
-      "Name": "organization_name",
+      "Name": "Організація",
       "FieldType": "text",
       "Position": 1222,
       "IsHidden": true

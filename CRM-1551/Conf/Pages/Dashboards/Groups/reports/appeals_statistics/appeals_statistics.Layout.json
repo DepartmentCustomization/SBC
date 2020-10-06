@@ -190,9 +190,48 @@
                 "border": "none",
                 "children": [
                   {
-                    "code": "ChartWidget-1",
-                    "type": "ChartWidgetComponent",
-                    "name": "block7"
+                    "width": "auto",
+                    "margin": "",
+                    "flexWrap": "wrap",
+                    "flexDirection": "row",
+                    "order": 1,
+                    "flexGrow": 1,
+                    "alignSelf": "auto",
+                    "border": "none",
+                    "children": [
+                      {
+                        "code": "ChartWidget-1",
+                        "type": "ChartWidgetComponent",
+                        "name": "pie1"
+                      }
+                    ],
+                    "id": "Container-1",
+                    "height": "calc(100% - 10px)",
+                    "minHeight": "100px",
+                    "minWidth": "100px",
+                    "backgroundColor": "white"
+                  },
+                  {
+                    "width": "auto",
+                    "margin": "",
+                    "flexWrap": "wrap",
+                    "flexDirection": "row",
+                    "order": 1,
+                    "flexGrow": 1,
+                    "alignSelf": "auto",
+                    "border": "none",
+                    "children": [
+                      {
+                        "code": "ChartWidget-4",
+                        "type": "ChartWidgetComponent",
+                        "name": "pie2"
+                      }
+                    ],
+                    "id": "Container-1",
+                    "height": "calc(100% - 10px)",
+                    "minHeight": "100px",
+                    "minWidth": "100px",
+                    "backgroundColor": "white"
                   }
                 ],
                 "id": "Container-1",

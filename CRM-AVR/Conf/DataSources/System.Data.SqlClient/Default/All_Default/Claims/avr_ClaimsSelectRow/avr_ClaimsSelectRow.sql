@@ -1,4 +1,4 @@
---   DECLARE @Id INT = 9162;
+--    DECLARE @Id INT = 9192;
 
 DECLARE @FirstId INT = (SELECT	
 								TOP 1 Id
@@ -138,7 +138,7 @@ CASE
 	Districts.Id AS district_id,
 	Jobs.Job_name,
 	NULL AS is_Zasuv,
-(
+	IIF(Claims.Status_ID <> 5, NULL,  (
 		SELECT
 			Surname + ' ' + First_name
 		FROM
@@ -162,8 +162,8 @@ CASE
 							Claims_History.Id DESC
 					)
 			)
-	) AS user_close,
-(
+	) )AS user_close,
+	IIF(Claims.Status_ID <> 5, NULL,(
 		SELECT
 			[Job_name]
 		FROM
@@ -180,8 +180,8 @@ CASE
 				ORDER BY
 					Claims_History.Id DESC
 			)
-	) AS position_close,
-(
+	) ) AS position_close,
+	IIF(Claims.Status_ID <> 5, NULL,(
 		SELECT
 			TOP 1 Claims_History.[Date]
 		FROM
@@ -191,7 +191,7 @@ CASE
 			Claims.id = @Id
 		ORDER BY
 			Claims_History.Id DESC
-	) AS date_close,
+	) ) AS date_close,
 	Houses.Street_id,
 	Claims.date_check,
 	Claims.not_balans,
@@ -229,7 +229,7 @@ FROM
 	LEFT JOIN dbo.Contacts AS ct2 ON ct2.Id = Claims.Contact_ID_Fiz
 	LEFT JOIN dbo.Contact_types Contact_types ON Contact_types.Id = ct.Contact_type_ID
 	LEFT JOIN dbo.Contact_types AS Contact_types2 ON Contact_types2.Id = ct2.Contact_type_ID
-	LEFT JOIN dbo.Jobs Jobs ON Jobs.Contacts_ID = ct.external_Id
+	LEFT JOIN dbo.Jobs Jobs ON Jobs.Contacts_ID = ct.Id
 	LEFT JOIN dbo.Organizations org_jobs ON org_jobs.Id = jobs.Organization_ID
 	LEFT JOIN dbo.Organizations UR_org ON UR_org.Id = [Claims].UR_organization_ID
 	LEFT JOIN dbo.Contact_phones UR_phone ON UR_phone.Contact_ID = ct2.Id

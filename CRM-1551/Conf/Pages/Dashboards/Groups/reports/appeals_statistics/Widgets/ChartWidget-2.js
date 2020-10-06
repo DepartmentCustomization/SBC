@@ -57,12 +57,22 @@
         recalcData: function() {
             let executeQuery = {
                 queryCode: 'SAFS_graph_Registered',
-                parameterValues: [{key: '@date_from', value: this.dateFrom},
+                parameterValues: [{key: '@date_from', value: this.toUTC(this.dateFrom)},
                     {key: '@date_to', value: this.dateTo}
                 ],
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.load, this);
+        },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
+            return dateTo
         },
         changeDateTimeValues: function(value) {
             let date = new Date(value);
@@ -79,18 +89,14 @@
             let columns = params.columns;
             const userNameIndex = columns.findIndex(c=>c.code === 'user_name');
             const userNameArr = rows.map(e=>e.values[userNameIndex]);
-            const indicatorValueIndex = columns.findIndex(c=>c.code === 'indicator_value');
             const sortedUsers = [...new Set(userNameArr)];
-            const dateIndex = columns.findIndex(c=>c.code === 'date');
-            this.chartConfig.xAxis.categories = rows.map(row => this.changeDateTimeValues(row.values[dateIndex]));
+            const filtered = columns.filter(c=>c.code !== 'user_name')
+            const dateIndex = filtered.map(elem=>elem.code)
+            this.chartConfig.xAxis.categories = dateIndex.map(row => this.changeDateTimeValues(row))
             sortedUsers.forEach(name=>{
-                const data = rows.map(elem=>{
-                    let value = 0;
-                    if(elem.values.includes(name)) {
-                        value = elem.values[indicatorValueIndex]
-                    }
-                    return value
-                })
+                const filteredData = rows.filter(elem=>elem.values.includes(name))
+                const mapedData = filteredData.map(elem=>elem.values)
+                const data = mapedData[0].slice(1)
                 this.chartConfig.series.push({name,data});
             })
             this.render()

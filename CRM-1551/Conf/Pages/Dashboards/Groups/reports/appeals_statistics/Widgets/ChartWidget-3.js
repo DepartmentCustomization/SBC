@@ -2,15 +2,13 @@
     return {
         chartConfig: {
             chart: {
-                type: 'area'
-            },
-            accessibility: {
-                description: ''
+                type: 'line'
             },
             title: {
-                text: 'Повернуто заявникові за період'
+                text: 'Надійшло звернень з сайту з'
             },
             subtitle: {
+                text: ''
             },
             xAxis: {
             },
@@ -19,26 +17,22 @@
                     text: ''
                 }
             },
+            colors: ['#c9e6e3', '#f9cdcc', '#f9f4b6','#8e83bd','#f6f3b6','#5fb3aa','#bbb9b6','#484846','#f6b1af','#fff78a'],
             tooltip: {
-                pointFormat: '{series.name} <b>{point.y}</b><br/>'
+                headerFormat: '<span style="font-size:10px"></span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
             },
-            colors: ['#c9e6e3', '#2CD395', '#A0AFCF','#8F949A'],
             plotOptions: {
-                area: {
-                    marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true
-                            }
-                        }
-                    }
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
                 }
             },
-            series: [
-            ]
+            series: []
         },
         executeSql: function(message) {
             function checkDateFrom(val) {
@@ -67,12 +61,22 @@
         recalcData: function() {
             let executeQuery = {
                 queryCode: 'SAFS_graph_Returned',
-                parameterValues: [{key: '@date_from', value: this.dateFrom},
+                parameterValues: [{key: '@date_from', value: this.toUTC(this.dateFrom)},
                     {key: '@date_to', value: this.dateTo}
                 ],
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.load, this);
+        },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
+            return dateTo
         },
         changeDateTimeValues: function(value) {
             let date = new Date(value);
@@ -87,18 +91,25 @@
             this.chartConfig.series = [];
             let rows = params.rows;
             let columns = params.columns;
-            const dateIndex = columns.findIndex(c=>c.code === 'date');
             const indicatorValueIndex = columns.findIndex(c=>c.code === 'indicator_value');
+            const IsSendErrorIndex = columns.findIndex(c=>c.code === 'IsSendError_value');
+            const dateIndex = columns.findIndex(c=>c.code === 'date');
             this.chartConfig.xAxis.categories = rows.map(row => this.changeDateTimeValues(row.values[dateIndex]));
-            const name = 'Кількість звернень';
-            const data = [];
-            for(let i = 0; i < rows.length; i++) {
-                const counter = rows[i].values[indicatorValueIndex];
-                const value = counter === null ? 0 : counter;
-                data.push(value);
-            }
-            this.chartConfig.series.push({name, data});
-            this.render();
+            const indicatorValueName = 'Звернень з сайту'
+            const data = rows.map(elem=>{
+                let value = 0;
+                value = elem.values[indicatorValueIndex]
+                return value
+            })
+            this.chartConfig.series.push({name:indicatorValueName,data});
+            const IsSendErrorName = 'Помилок при відправці хуків'
+            const dataError = rows.map(elem=>{
+                let value = 0;
+                value = elem.values[IsSendErrorIndex]
+                return value
+            })
+            this.chartConfig.series.push({name:IsSendErrorName,data:dataError});
+            this.render()
         }
     };
 }());

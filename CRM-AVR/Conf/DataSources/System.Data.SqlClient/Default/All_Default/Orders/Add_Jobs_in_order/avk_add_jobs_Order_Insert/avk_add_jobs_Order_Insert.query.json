@@ -25,6 +25,11 @@
       "Code": "@is_main",
       "Name": "is_main",
       "ParameterType": "Boolean"
+    },
+    {
+      "Code": "@user_edit_id",
+      "Name": "user_edit_id",
+      "ParameterType": "CurrentUserId"
     }
   ]
 }
