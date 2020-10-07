@@ -46,6 +46,15 @@
       "Name": "talk_consultation_average",
       "Position": 6,
       "IsPrintable": false
+    },
+    {
+      "Code": "UserId",
+      "Name": "UserId",
+      "Position": 7,
+      "ViewState": "Hidden",
+      "IsPrintable": false,
+      "SqlName": "u.[UserId]",
+      "FilterParameterCode": "@UserId"
     }
   ],
   "Parameters": [
@@ -58,11 +67,6 @@
       "Code": "@dateFrom",
       "Name": "dateFrom",
       "ParameterType": "DateTime"
-    },
-    {
-      "Code": "@UserId",
-      "Name": "UserId",
-      "ParameterType": "text"
     },
     {
       "Code": "@knowledge_id",

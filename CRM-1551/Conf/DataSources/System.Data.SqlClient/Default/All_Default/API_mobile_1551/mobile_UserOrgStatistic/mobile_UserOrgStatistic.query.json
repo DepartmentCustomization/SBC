@@ -6,12 +6,12 @@
   "IsUsedForRightsFilter": false,
   "Columns": [
     {
-      "Code": "code",
-      "Name": "code",
+      "Code": "organization_id",
+      "Name": "organization_id",
       "Position": 0,
       "IsPrintable": false,
-      "SqlName": "uo.[code]",
-      "FilterParameterCode": "@code"
+      "SqlName": "uo.Id",
+      "FilterParameterCode": "@organization_id"
     },
     {
       "Code": "new_assignemnt",
