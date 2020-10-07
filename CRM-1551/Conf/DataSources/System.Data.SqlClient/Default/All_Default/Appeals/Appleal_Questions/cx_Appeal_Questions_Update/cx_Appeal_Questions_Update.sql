@@ -3,7 +3,7 @@
 
 
 --сообщение начало
-IF(1<> (SELECT case when [Object_is]='true' then 1 else 0 end [Object_is] 
+IF(isnull(@object_id, 0)< (SELECT case when [Object_is]='true' then 1 else 0 end [Object_is] 
 from [dbo].[QuestionTypes] where Id=@question_type_id))
   BEGIN
     RAISERROR(N'Збереження змін неможливе. Внесіть необхідну інформацію', 16, 1);
