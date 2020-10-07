@@ -1,7 +1,16 @@
 --  DECLARE @user_edit_id NVARCHAR(128)=N'bc1b17e2-ffee-41b1-860a-41e1bae57ffd';
 								   																	
 SET @executor_person_id = IIF(IIF(@executor_person_id = '',NULL,@executor_person_id) = 0,NULL,IIF(@executor_person_id = '',NULL,@executor_person_id));
-
+-- проверка если открыто более одного окна с дорученням
+IF (SELECT
+		[edit_date]
+	FROM dbo.[Assignments]
+	WHERE Id = @Id)
+	<> @date_in_form
+BEGIN
+	RAISERROR (N'З моменту відкриття картки дані вже було змінено. Оновіть сторінку, щоб побачити зміни.', 16,1);
+	RETURN;
+END
 IF(@result_id = 3) AND (@transfer_to_organization_id IS NULL)
 BEGIN
 RAISERROR(N'Поле "Можливий виконавець" пусте, заповніть його', 16, 1);
@@ -86,13 +95,11 @@ DECLARE @IsResolutionChange BIT = (SELECT IIF(@currentResolution = ISNULL(@resol
 DECLARE @IsOrgExecutorChange BIT = (SELECT IIF(@currentOrgExecutor = @performer_id, 0, 1));
 ---> Если стан, результат, резолюция и орг.исполнителя остались прежними, то
 -- процедуру проверки переходов пропускаем, а только апдейтим поля executor_person_id и short_answer (если они изменились)
--- + проводим обработку по резолюции класа, если проставили
 IF (@IsStateChange = 0 AND @IsResultChange = 0 AND @IsResolutionChange = 0 AND @IsOrgExecutorChange = 0)
 BEGIN
 DECLARE @currentPersonExecutor INT = (SELECT executor_person_id FROM dbo.Assignments  WHERE Id = @Id);
 DECLARE @currentShortAnswer NVARCHAR(500) = (SELECT short_answer FROM dbo.AssignmentConsiderations WHERE Id = @ass_cons_id);
 DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Questions] WHERE Id = @question_id);
-	
 ---> сделать текущий Assignment главным
 	IF(@mainAssId <> @Id) 
 	AND (@main_executor = 1)
@@ -128,33 +135,35 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 				,[user_edit_id] = @user_edit_id
 			WHERE Id = @current_consid;
 	END	
-	---> обработка изменений по "Класс доручення", "Резолюція класу"
+END
+---> обработка изменений по "Резолюція класу"
+ELSE IF(@class_resolution_id IS NOT NULL) 
+AND (SELECT [class_resolution_id] FROM dbo.Assignments WHERE [Id] = @Id) IS NULL
+BEGIN
 	SET XACT_ABORT ON;
 	BEGIN TRY
 	BEGIN TRANSACTION;
-
-	IF(@assignment_class_id IS NOT NULL) 
-	AND (@assignment_class_id <> (SELECT ISNULL([assignment_class_id],0) FROM dbo.[Assignments] WHERE Id = @Id) )
 	BEGIN
-	UPDATE [dbo].[Assignments]
-	SET [assignment_class_id] = @assignment_class_id
-	WHERE Id = @Id;
-	END
-	 
-	IF(@class_resolution_id IS NOT NULL) 
-	AND (@class_resolution_id <> (SELECT ISNULL([class_resolution_id],0) FROM dbo.[Assignments] WHERE Id = @Id) )
-	BEGIN
+	DECLARE @class_resolution_org INT = (SELECT [executor_organization_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @new_result_id INT = (SELECT [assignment_result_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @new_resolution_id INT = (SELECT [assignment_resolution_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
 	DECLARE @event_class_id INT = (SELECT [event_class_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id); 
 	DECLARE @create_assignment_class_id INT = (SELECT [create_assignment_class_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
+	DECLARE @prev_main BIT = (SELECT [main_executor] FROM dbo.[Assignments] WHERE Id = @Id);
 	DECLARE @event_info TABLE (Id INT);
 	DECLARE @now DATETIME = GETUTCDATE();
+	DECLARE @new_state_id INT = (SELECT 
+								 DISTINCT 
+								 	[new_assignment_state_id]
+								 FROM [dbo].[TransitionAssignmentStates] 
+								 WHERE new_assignment_resolution_id = @new_resolution_id 
+								 AND new_assignment_result_id = @new_result_id);
 	
 	UPDATE [dbo].[Assignments]
 	SET [class_resolution_id] = @class_resolution_id,
 	 	[AssignmentResultsId] = @new_result_id,
 	 	[AssignmentResolutionsId] = @new_resolution_id,
+		[assignment_state_id] = @new_state_id,
 	 	[edit_date] = @now,
 	 	[user_edit_id] = @user_edit_id,
 	 	[LogUpdated_Query] = N'cx_App_Que_Assignments_Update_Row11'
@@ -168,16 +177,35 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	 	[user_edit_id] = @user_edit_id,
 	 	[short_answer] = @short_answer
 	WHERE Id = @current_consid;
+
+	INSERT INTO [dbo].[AssignmentRevisions]
+				([assignment_consideration_іd]
+				,[control_type_id]
+				,[assignment_resolution_id]
+				,[user_id]
+				,[edit_date]
+				,[user_edit_id])
+	VALUES (@current_consid
+			,1
+			,@new_resolution_id
+			,@user_edit_id
+			,@now
+			,@user_edit_id
+			);
 	--> Создать проблему (Event) под резолюцию класса, если надо
-	IF(@event_class_id IS NOT NULL)
+	IF(@event_class_id IS NOT NULL) 
+	AND (SELECT [event_id] FROM dbo.[Questions] WHERE Id = @question_id)
+	IS NULL
 	BEGIN
+	DECLARE @event_assignment_class_id INT = (SELECT [assignment_class_id] FROM dbo.[Event_Class] WHERE Id = @event_class_id);
 	DECLARE @event_type_id INT = (SELECT [event_type_id] FROM dbo.[Event_Class] WHERE Id = @event_class_id);
 	DECLARE @area INT = (SELECT [object_id] FROM dbo.[Questions] WHERE Id = @question_id);
 	DECLARE @exec_term INT = (SELECT [execution_term] FROM dbo.[Event_Class] WHERE Id = @event_class_id)/24;
 	DECLARE @plan_end_time DATETIME = (SELECT DATEADD(DAY, @exec_term, @now));
+	DECLARE @event_organization_id INT = (SELECT TOP 1 [organizations_id] FROM dbo.[Positions] WHERE programuser_id = @user_edit_id);
 	DECLARE @event_comment NVARCHAR(250) = (SELECT [name] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id) + 
 											SPACE(1) + CONVERT(VARCHAR(10), @plan_end_time, 111);
-
+	
 	INSERT INTO dbo.[Events] ([registration_date],
 	 						  [event_type_id],
 	 						  [start_date],
@@ -206,15 +234,131 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 						  			[in_form])
 			VALUES(@new_event_id,
 				   @area,
-				   1);	   
+				   1);
+
+	INSERT INTO dbo.[EventOrganizers] ([event_id],
+									   [organization_id],
+									   [executor_id],
+									   [main])
+			VALUES(@new_event_id,
+				   @event_organization_id,
+				   NULL,
+				   1);
+
+	INSERT INTO dbo.[EventQuestionsTypes] ([event_id],
+										   [question_type_id],
+										   [is_hard_connection])		
+			SELECT 
+				@new_event_id,
+				e_class_q_type.[question_type_id],
+				e_class_q_type.[is_hard_connection]
+			FROM dbo.[EventClass_QuestionType] AS e_class_q_type
+			WHERE event_class_id = @event_class_id;
+
+		UPDATE dbo.[Questions] 
+			SET [event_id] = @new_event_id
+		WHERE Id = @question_id;
+				   
+			IF(@event_assignment_class_id IS NOT NULL)
+			BEGIN
+				IF(@class_resolution_org IS NULL)
+					BEGIN
+						RAISERROR(N'Для обраного класу резорюції не вказано відповідальну організацію', 16, 1);
+						RETURN;
+				END
+			DECLARE @event_question_type_id INT = (SELECT [question_type_id] FROM dbo.[Questions] WHERE Id = @question_id);
+			DECLARE @event_assignment_exec_date DATETIME;
+			DECLARE @event_assignment_info TABLE (Id INT);
+			DECLARE @event_assignment_consideration_info TABLE (Id INT);
+			EXEC @event_assignment_exec_date = dbo.fn_GetExecutionTerm 
+	 						@question_type_id = @event_question_type_id, 
+	 						@assignment_class_id = @event_assignment_class_id;
+
+			INSERT INTO dbo.[Assignments] ([question_id],
+	 							   [assignment_type_id],
+	 							   [registration_date],
+	 							   [assignment_state_id],
+	 							   [organization_id],
+	 							   [executor_organization_id],
+	 							   [main_executor],
+	 							   [execution_date],
+	 							   [user_id],
+	 							   [edit_date],
+	 							   [user_edit_id],
+	 							   [AssignmentResultsId],
+	 							   [LogUpdated_Query],
+	 							   [assignment_class_id],
+	 							   [my_event_id])
+				OUTPUT inserted.Id INTO @event_assignment_info (Id)
+	 			VALUES (@question_id,
+	 					1,
+	 					@now,
+	 					1,
+	 					@class_resolution_org,
+	 					@class_resolution_org,
+	 					@prev_main,
+	 					@event_assignment_exec_date,
+	 					@user_edit_id,
+	 					@now,
+	 					@user_edit_id,
+	 					1,
+	 					N'cx_App_Que_Assignments_Update_Row12',
+	 					@event_assignment_class_id,
+	 					@new_event_id);
+
+			DECLARE @event_assignment_new_id INT = (SELECT TOP 1 Id FROM @event_assignment_info);					
+	 
+			INSERT INTO dbo.AssignmentConsiderations (
+	 							[assignment_id], 
+	 							[consideration_date], 
+	 							[assignment_result_id], 
+	 							[assignment_resolution_id], 
+	 							[user_id], 
+	 							[edit_date], 
+	 							[user_edit_id], 
+	 							[first_executor_organization_id], 
+	 							[create_date], 
+	 							[transfer_date])
+	 		OUTPUT inserted.Id INTO @event_assignment_consideration_info (Id)
+	 		VALUES(@event_assignment_new_id,
+	 			   @now,
+	 			   1,
+	 			   NULL,
+	 			   @user_edit_id,
+	 			   @now,
+	 			   @user_edit_id,
+	 			   @class_resolution_org,
+	 			   @now,
+	 			   @now);
+	 	
+				DECLARE @event_assignment_new_cons_id INT = (SELECT TOP 1 [Id] FROM @event_assignment_consideration_info);
+
+				UPDATE dbo.[Assignments] 
+				 	SET [current_assignment_consideration_id] = @event_assignment_new_cons_id
+				WHERE Id = @event_assignment_new_id;
+
+				IF(@prev_main = 1)
+				BEGIN
+				UPDATE dbo.[Assignments] 
+				 	SET [main_executor] = 0
+				WHERE Id = @Id;
+
+				UPDATE dbo.[Questions] 
+					SET [last_assignment_for_execution_id] = @event_assignment_new_id
+				WHERE Id = @question_id;
+				END
+			END	    
 	
 	END
 
 	IF(@create_assignment_class_id IS NOT NULL)
 	BEGIN
-	DECLARE @assignment_org INT = (SELECT [executor_organization_id] FROM dbo.[Class_Resolutions] WHERE Id = @class_resolution_id);
+		IF(@class_resolution_org IS NULL)
+		BEGIN
+			RAISERROR(N'Для обраного класу резорюції не вказано відповідальну організацію', 16, 1);
+			RETURN;
+		END
 	DECLARE @question_type_id INT = (SELECT [question_type_id] FROM dbo.[Questions] WHERE Id = @question_id);
-	DECLARE @prev_main BIT = (SELECT [main_executor] FROM dbo.[Assignments] WHERE Id = @Id);
 	DECLARE @my_event_id INT = (SELECT TOP 1 [Id] FROM @event_info);
 	DECLARE @assignment_info TABLE (Id INT);
 	DECLARE @assignment_exec_date DATETIME;
@@ -242,8 +386,8 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	 					1,
 	 					@now,
 	 					1,
-	 					@assignment_org,
-	 					@assignment_org,
+	 					@class_resolution_org,
+	 					@class_resolution_org,
 	 					@prev_main,
 	 					@assignment_exec_date,
 	 					@user_edit_id,
@@ -276,7 +420,7 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	 			   @user_edit_id,
 	 			   @now,
 	 			   @user_edit_id,
-	 			   @assignment_org,
+	 			   @class_resolution_org,
 	 			   @now,
 	 			   @now);
 	 	
@@ -310,10 +454,7 @@ DECLARE @mainAssId INT = (SELECT last_assignment_for_execution_id FROM dbo.[Ques
 	    END;  
 	END CATCH;
 END
-
----> иначе - го дальше
 ELSE 
-
 BEGIN
 EXEC [dbo].pr_check_right_choice_result_resolution @Id
 												,@result_id
@@ -338,22 +479,6 @@ BEGIN
 RETURN;
 END
 ELSE
-BEGIN
--- проверка если открыто более одного окна с дорученням
-IF (SELECT
-			edit_date
-		FROM Assignments
-		WHERE Id = @Id)
-	<> @date_in_form
-BEGIN
-	RAISERROR (N'З моменту відкриття картки дані вже було змінено. Оновіть сторінку, щоб побачити зміни.', -- Message text.
-	16, -- Severity.
-	1 -- State.
-	);
-	RETURN;
-END
-ELSE
-	
 BEGIN
 	--если результат, резолюция не изменились и...
 	IF @result_id = (SELECT
@@ -443,29 +568,24 @@ BEGIN
 	END
 	ELSE
 	BEGIN -- (F11)
-
-	if @result_id = 13 
-			begin 
-				declare @outputHistory table (Id int);
-				declare @Operation varchar(128);
+		IF @result_id = 13 
+			BEGIN 
+				DECLARE @outputHistory TABLE (Id INT);
+				DECLARE @Operation VARCHAR(128);
 				SET @Operation = 'UPDATE';
-				Insert into [dbo].[AssignmentDetailHistory] ([Assignment_id]
+				INSERT INTO [dbo].[AssignmentDetailHistory] ([Assignment_id]
 													,[Operation]
 													,[Missed_call_counter]	
 													,[MissedCallComment]
 													,[User_id]
 													,[Edit_date]
 													)
-				output [inserted].[Id] into @outputHistory (Id)
-				values ( @Id, @Operation, 1, @control_comment, @user_edit_id, getutcdate() )
+				output [inserted].[Id] INTO @outputHistory (Id)
+				VALUES ( @Id, @Operation, 1, @control_comment, @user_edit_id, GETUTCDATE() );
 
-				declare @app_id int
-				set @app_id = (select top 1 Id from @outputHistory)
-
-				--select @app_id as [Id]
-				--return;
-			end;
-
+				DECLARE @app_id INT;
+				SET @app_id = (SELECT TOP 1 Id FROM @outputHistory);
+			END;
 
 		-- 	Перерозподіл на підрядну організацію (если поменялся исполнитель)
 		IF @result_id = 1
@@ -709,15 +829,15 @@ BEGIN
 				, [rework_counter]
 				, [edit_date]
 				, [user_edit_id])
-					VALUES (@current_consid --@ass_cons_id
-					, 1  -- @control_type_id = Контроль, Продзвон, Контроль заявником
-					, @resolution_id -- @assignment_resolution_id
-					, @control_comment
+				VALUES (@current_consid --@ass_cons_id
+						,1  -- @control_type_id = Контроль, Продзвон, Контроль заявником
+						,@resolution_id -- @assignment_resolution_id
+						,@control_comment
 					--    ,getutcdate() 
-					, @user_edit_id --@user_id
+						,@user_edit_id --@user_id
 					-- ,@rework_counter_count
-					, @rework_counter, GETUTCDATE() --@edit_date
-					, @user_edit_id);
+						,@rework_counter, GETUTCDATE() --@edit_date
+						,@user_edit_id);
 			END
 			-- exec pr_chech_in_status_assignment @Id, @result_id, @resolution_id
 			RETURN;
@@ -1546,7 +1666,6 @@ BEGIN
 		WHERE Id = @Id;
 
 	END --(F11)
-END
 END
 END
 END;
