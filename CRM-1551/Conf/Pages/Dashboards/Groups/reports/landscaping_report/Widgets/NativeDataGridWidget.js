@@ -279,6 +279,20 @@
             this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.config.onRowPrepared = this.onRowPrepared.bind(this);
+            this.config.onToolbarPreparing = this.createTableButton.bind(this);
+            this.dataGridInstance.onCellClick.subscribe(e => {
+                e.event.stopImmediatePropagation();
+                if(e.column && e.data.Id > 0) {
+                    window.open(
+                        String(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/dashboard/page/' +
+                            'consultation_report' + '?OrgId=' + e.data.Id
+                        )
+                    );
+                }
+            });
         },
         masterDetailInitialized: function(event, row) {
             row.dataSource = [];
@@ -345,6 +359,43 @@
                 }
             };
             this.messageService.publish(msg);
+        },
+        createTableButton: function(e) {
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
+                    onClick: function() {
+                        this.dataGridInstance.instance.exportToExcel();
+                    }.bind(this)
+                }
+            });
+            toolbarItems.push({
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                    icon: 'search',
+                    type: 'default',
+                    text: 'Детальніше за БЗ',
+                    onClick: function() {
+                        this.openGrid();
+                    }.bind(this)
+                }
+            });
+        },
+        openGrid() {
+            window.open(
+                String(
+                    location.origin +
+                    localStorage.getItem('VirtualPath') +
+                    '/dashboard/page/' +
+                    'consultation_report'
+                )
+            );
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;

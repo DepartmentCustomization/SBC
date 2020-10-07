@@ -140,6 +140,7 @@
         },
         firstLoad: true,
         init: function() {
+            this.getDataFromLink('OrgId')
             this.applyChanges(true);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
@@ -198,6 +199,21 @@
                     }.bind(this)
                 }
             })
+        },
+        getDataFromLink: function(par) {
+            let getDataFromLink = window
+                .location
+                .search
+                .replace('?', '')
+                .split('&')
+                .reduce(
+                    function(p, e) {
+                        let a = e.split('=');
+                        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                        return p;
+                    }, {}
+                );
+            return getDataFromLink[par];
         },
         getSum: function() {
             const masterDetailQuery = {
