@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "UsersList",
-  "Name": "UsersList",
+  "Code": "Polls_appeals_district",
+  "Name": "Polls_appeals_district",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [
@@ -12,15 +12,20 @@
       "IsPrintable": false
     },
     {
-      "Code": "Operator",
-      "Name": "Operator",
+      "Code": "name",
+      "Name": "name",
       "Position": 1,
       "IsPrintable": false,
-      "SqlName": "u.LastName + isnull(' ' + u.FirstName, N'') + isnull(' ' + u.Patronymic, N'')",
-      "FilterParameterCode": "@Operator"
+      "SqlName": "[Districts].name",
+      "FilterParameterCode": "@name"
     }
   ],
   "Parameters": [
+    {
+      "Code": "@user_Id",
+      "Name": "user_Id",
+      "ParameterType": "CurrentUserId"
+    },
     {
       "Code": "@pageLimitRows",
       "Name": "pageLimitRows",

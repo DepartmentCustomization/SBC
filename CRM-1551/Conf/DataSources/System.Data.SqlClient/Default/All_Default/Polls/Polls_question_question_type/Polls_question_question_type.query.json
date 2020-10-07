@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "UsersList",
-  "Name": "UsersList",
+  "Code": "Polls_question_question_type",
+  "Name": "Polls_question_question_type",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [
@@ -12,12 +12,12 @@
       "IsPrintable": false
     },
     {
-      "Code": "Operator",
-      "Name": "Operator",
+      "Code": "name",
+      "Name": "name",
       "Position": 1,
       "IsPrintable": false,
-      "SqlName": "u.LastName + isnull(' ' + u.FirstName, N'') + isnull(' ' + u.Patronymic, N'')",
-      "FilterParameterCode": "@Operator"
+      "SqlName": "name",
+      "FilterParameterCode": "@question_type"
     }
   ],
   "Parameters": [

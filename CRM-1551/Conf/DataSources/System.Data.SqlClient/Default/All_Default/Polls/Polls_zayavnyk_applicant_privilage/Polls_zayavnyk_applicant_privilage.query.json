@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "UsersList",
-  "Name": "UsersList",
+  "Code": "Polls_zayavnyk_applicant_privilage",
+  "Name": "Polls_zayavnyk_applicant_privilage",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [
@@ -12,26 +12,26 @@
       "IsPrintable": false
     },
     {
-      "Code": "Operator",
-      "Name": "Operator",
+      "Code": "name",
+      "Name": "name",
       "Position": 1,
       "IsPrintable": false,
-      "SqlName": "u.LastName + isnull(' ' + u.FirstName, N'') + isnull(' ' + u.Patronymic, N'')",
-      "FilterParameterCode": "@Operator"
+      "SqlName": "name",
+      "FilterParameterCode": "@ApplicantPrivilege"
     }
   ],
   "Parameters": [
-    {
-      "Code": "@pageLimitRows",
-      "Name": "pageLimitRows",
-      "ParameterType": "Integer",
-      "IsPageLimitRows": true
-    },
     {
       "Code": "@pageOffsetRows",
       "Name": "pageOffsetRows",
       "ParameterType": "Integer",
       "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
     }
   ]
 }

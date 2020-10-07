@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "UsersList",
-  "Name": "UsersList",
+  "Code": "Polls_assigm_assignment_result",
+  "Name": "Polls_assigm_assignment_result",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "Columns": [
@@ -12,12 +12,12 @@
       "IsPrintable": false
     },
     {
-      "Code": "Operator",
-      "Name": "Operator",
+      "Code": "name",
+      "Name": "name",
       "Position": 1,
       "IsPrintable": false,
-      "SqlName": "u.LastName + isnull(' ' + u.FirstName, N'') + isnull(' ' + u.Patronymic, N'')",
-      "FilterParameterCode": "@Operator"
+      "SqlName": "name",
+      "FilterParameterCode": "@assignment_result"
     }
   ],
   "Parameters": [

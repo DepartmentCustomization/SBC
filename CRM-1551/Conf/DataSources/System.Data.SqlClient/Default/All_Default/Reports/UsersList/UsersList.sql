@@ -1,29 +1,10 @@
-DECLARE @UserTab TABLE ([Id] NVARCHAR(128), 
-				[Operator] NVARCHAR(MAX), 
-				[sort_index] TINYINT);
-
-INSERT INTO @UserTab
 SELECT
-      u.UserId AS Id,
-      u.LastName + isnull(' ' + u.FirstName, N'') + isnull(' ' + u.Patronymic, N'') AS Operator,
-	  1 AS sort_index
+	u.UserId AS Id,
+	u.LastName + isnull(' ' + u.FirstName, N'') + isnull(' ' + u.Patronymic, N'') AS Operator
 FROM
-      [#system_database_name#].[dbo].[User] u
-	--   CRM_1551_System.dbo.[User] u
-       ;
-
-INSERT INTO @UserTab
-SELECT 
-	'0' AS Id,
-	N'Усі' AS Operator,
-	0 AS sort_index;
-
-SELECT 
-	[Id],
-	[Operator]
-FROM @UserTab
+	[#system_database_name#].[dbo].[User] u 
+	--    CRM_1551_System.dbo.[User] u
 WHERE
-     #filter_columns#
-     ORDER BY [sort_index],
-              [Operator]
-OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;
+	#filter_columns#
+	#sort_columns#
+	OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;

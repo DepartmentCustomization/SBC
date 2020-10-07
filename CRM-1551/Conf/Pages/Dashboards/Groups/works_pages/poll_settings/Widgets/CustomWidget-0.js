@@ -323,11 +323,9 @@
                     })
                     listObj.variants = variants
                     listObj.mainId = dataId
-                    const stringObj = JSON.stringify(listObj)
+                    /*const stringObj = JSON.stringify(listObj)*/
                     container.dataFormId = '1'
                     container.insertAdjacentHTML('afterbegin',`<span>ID: ${container.dataFormId}</span>`)
-
-                    stringObj.forEach(elem=>elem)
 
                 }else {
                     const warning = document.querySelector('.dangerous')
@@ -419,8 +417,8 @@
             return button
         },
         sendBlockQuery(e) {
-            const mainCon = document.getElementById('first_widget')
-            const tab = document.getElementById('second_widget')
+            /*const mainCon = document.getElementById('first_widget')
+            const tab = document.getElementById('second_widget')*/
             const modal = document.getElementById('warning-modal');
             const wrapper = document.getElementById('modal-wrapper');
             if(e.target.classList.contains('main-button-back')) {
@@ -441,8 +439,8 @@
                     const saveWarn = document.querySelector('.save-warn')
                     saveWarn ? saveWarn.remove() : null;
                     e.target.dataFix ? this.sendUpdateRowQuery(values) : this.sendStaticFormQuery(values)
-                    mainCon.style.display = 'block';
-                    tab.style.display = 'none';
+                    /* mainCon.style.display = 'block';
+                     tab.style.display = 'none';*/
                 }
             }
         },
@@ -490,7 +488,9 @@
             };
             this.queryExecutor(insertRowQuery,this.updateGrid,this);
         },
-        updateGrid() {
+        updateGrid({rows}) {
+            const headerBlock = document.getElementById('header-block')
+            headerBlock.dataRowIndex = rows[0].values[0]
             const msg = {
                 name: 'updateDataGrid'
             }

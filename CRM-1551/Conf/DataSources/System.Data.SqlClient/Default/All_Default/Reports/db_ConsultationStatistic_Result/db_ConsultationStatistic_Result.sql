@@ -1,25 +1,5 @@
---  DECLARE @dateFrom DATETIME = '2020-08-31T21:00:00.000Z';
---  DECLARE @dateTo DATE = GETDATE(); 
---  DECLARE @UserId NVARCHAR(MAX) = N'0';
-
-DECLARE @UserList TABLE (Id NVARCHAR(128));
-
-IF (LEN(@UserId) = 1)
-BEGIN 
-INSERT INTO @UserList
-SELECT  
-	[UserId]
-FROM 
-[#system_database_name#].[dbo].[User]
---  CRM_1551_System.dbo.[User];
-END
-ELSE
-BEGIN
-INSERT INTO @UserList
-SELECT 
-	trim(value)  
-FROM STRING_SPLIT(@UserId, ',');
-END
+--   DECLARE @dateFrom DATETIME = '2020-08-31T21:00:00.000Z';
+--   DECLARE @dateTo DATE = GETDATE(); 
 
 IF OBJECT_ID ('tempdb..#Knowledge') IS NOT NULL
 BEGIN
@@ -39,57 +19,51 @@ CREATE TABLE #Knowledge ([Id] INT,
 DECLARE @Knowledge_AllVal INT; 
 SELECT 
 	@Knowledge_AllVal = SUM(number_by_day)
-FROM dbo.ConsultationStatistic;
+FROM dbo.ConsultationStatistic cs
+INNER JOIN CRM_1551_System.dbo.[User] u ON u.[UserId] = cs.[user_id]
+WHERE 
+	#filter_columns# AND
+CAST(main_datetime AS DATE)
+BETWEEN @dateFrom AND @dateTo;
 --> Сбор данных по статистике типов 
 INSERT INTO #Knowledge 
 SELECT 
-	0 AS [Id],
-	NULL AS [parent_id],
-	N'Корень' AS [Name],
-	0 AS [article_qty],
-	0 AS [article_percent],
-	'00:00:00' AS [talk_all],
-	'00:00:00' AS [talk_consultations_only],
-	'00:00:00' AS [talk_consultation_average]
-UNION
-SELECT 
 	[Id],
-	IIF([parent_id] = 3510017, 
-		0, 
-		ISNULL([parent_id],0) 
-	  ) AS [parent_id],
+	[parent_id],
 	[name],
 	SUM(ISNULL(cs.number_by_day,0)) AS [article_qty], 
-    CASE WHEN ISNULL(cs.number_by_day,0) > 0 
+    CASE WHEN SUM(cs.number_by_day) > 0 
 		 THEN 
-		 CAST(SUM(CAST(ISNULL(cs.number_by_day,0) AS NUMERIC(5,2))) 
+		 CAST(CAST(SUM(cs.number_by_day) AS NUMERIC(5,2))
 		 / CAST(@Knowledge_AllVal AS NUMERIC(5,2)) AS NUMERIC(5,2)) * 100
 		 ELSE 0 END 
   		AS [article_percent], 
     CONVERT(VARCHAR(15), DATEADD(SECOND,SUM(ISNULL(cs.duration,0)),0),108) 
   		AS [talk_all], 
-    CONVERT(VARCHAR(15), DATEADD(SECOND,SUM(ISNULL(cs.duration_only_cons,0)),0),108) 
+    CONVERT(VARCHAR(15), DATEADD(SECOND,SUM(cs.duration_only_cons),0),108) 
   		AS [talk_consultations_only], 
-    CASE WHEN ISNULL(cs.number_only_cons,0) > 0 
+    CASE WHEN SUM(cs.number_only_cons) > 0 
 		 THEN 
 		 CONVERT(VARCHAR(15), DATEADD(SECOND,(SUM(ISNULL(cs.duration_only_cons,0)) / SUM(ISNULL(cs.number_only_cons,0))),0),108)
 		 ELSE '00:00:00' END
   		AS [talk_consultation_average]
 FROM dbo.KnowledgeBaseStates kn_base
 LEFT JOIN dbo.ConsultationStatistic cs ON cs.article_id = kn_base.id
-WHERE CAST(cs.main_datetime AS DATE)
-	  BETWEEN @dateFrom AND @dateTo
-  AND cs.[user_id] IN (SELECT Id FROM @UserList)
-GROUP BY [parent_id], 
+LEFT JOIN CRM_1551_System.dbo.[User] u ON u.[UserId] = cs.[user_id]
+WHERE 
+	#filter_columns# AND
+	CAST(cs.main_datetime AS DATE)
+	BETWEEN @dateFrom AND @dateTo
+GROUP BY  
 		 [Id], 
-		 [name],
-		 number_by_day,
-		 number_only_cons
+		 [parent_id],
+		 [name]
 ORDER BY 2,1;
+
 INSERT INTO #Knowledge
 SELECT 
 	[Id], 
-	0,
+	[parent_id],
 	[Name],
 	0,
 	0,
@@ -97,9 +71,10 @@ SELECT
 	'00:00:00',
 	'00:00:00'
 FROM dbo.KnowledgeBaseStates
-WHERE (parent_id IS NULL
-	OR parent_id = 3510017)
-	AND [Id] NOT IN (SELECT Id FROM #Knowledge);
+WHERE parent_id = 1
+	  AND [Id] NOT IN (SELECT Id FROM #Knowledge);
+
+--SELECT * FROM #Knowledge
 
 IF OBJECT_ID('tempdb..#RootVals') IS NOT NULL
 BEGIN
@@ -116,7 +91,7 @@ SELECT
 	[talk_consultation_average] 
 INTO #RootVals
 FROM #Knowledge 
-WHERE parent_id = 0;
+WHERE parent_id = 1;
 
 DECLARE @RootCircle TABLE (Id INT);
 INSERT INTO @RootCircle
@@ -189,5 +164,6 @@ SELECT
 	@average_article_percent AS [article_percent],
 	CONVERT(VARCHAR(8), DATEADD(ms, SUM(DATEDIFF(ms, 0,[talk_all])), 0), 108) AS [talk_all],
 	CONVERT(VARCHAR(8), DATEADD(ms, SUM(DATEDIFF(ms, 0,[talk_consultations_only])), 0), 108) AS [talk_consultations_only],
-	@average_talk_consultation AS [talk_consultation_average]
+	@average_talk_consultation AS [talk_consultation_average],
+	NULL AS [UserId]
 FROM #RootVals;
