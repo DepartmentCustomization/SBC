@@ -1,4 +1,6 @@
---   DECLARE @Id INT = 3313;
+
+
+--   DECLARE @Id INT = 30;
 
 SELECT
 	TOP 1
@@ -177,7 +179,10 @@ CASE
 							FROM
 								[CRM_1551_Site_Integration].[dbo].[ApplicantFromSiteAddresses] aa
 							WHERE
-								aa.ApplicantFromSiteId = abi.Id FOR XML PATH('')
+								aa.ApplicantFromSiteId = abi.Id 
+							order by case when [AddressTypeId]=4 then [AddressTypeId]
+							else aa.Id*(-1) end
+								FOR XML PATH('')
 						),
 						1,
 						1,
