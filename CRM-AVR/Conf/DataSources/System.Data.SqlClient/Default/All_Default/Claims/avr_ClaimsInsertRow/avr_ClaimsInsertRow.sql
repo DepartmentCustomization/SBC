@@ -208,7 +208,7 @@ BEGIN
 UPDATE
 	dbo.Places_LOG
 SET
-	[Object] += N' ' + CAST(@Claim_Number AS NVARCHAR(20))
+	[Object] += N' ' + CAST(@ClaimId AS NVARCHAR(20))
 WHERE
 	Place_ID = @places_id;
 END 
