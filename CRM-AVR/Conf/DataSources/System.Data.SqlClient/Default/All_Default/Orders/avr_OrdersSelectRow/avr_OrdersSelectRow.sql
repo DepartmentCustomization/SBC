@@ -1,6 +1,8 @@
+-- DECLARE @Id INT = 222;
+
 SELECT
 	[Orders].[Id],
-	Orders.Claim_ID AS claims_number,
+	[Claims].[Claim_Number] AS claims_number,
 CASE
 		WHEN len(claims.Id) = 0 
 		THEN NULL
