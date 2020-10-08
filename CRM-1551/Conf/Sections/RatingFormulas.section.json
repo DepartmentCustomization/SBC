@@ -7,7 +7,7 @@
   "Name": "Використання ітогової формули",
   "FormCode": "RatingFormula",
   "SelectRowsQueryCode": "RatingFormulas_SelectRows",
-  "SelectRowQueryCode": "ak_RatingSelectRow",
+  "SelectRowQueryCode": "RatingFormulas_SelectRow",
   "DeleteQueryCode": "ak_RatingSelectRow",
   "UpdateQueryCode": "ak_RatingUpdateRow"
 }
