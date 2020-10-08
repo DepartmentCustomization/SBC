@@ -156,35 +156,36 @@
             showBorders: true
         },
         init: function() {
-            this.setEventOnGrid.bind(this)
             this.summary = [];
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this));
             this.sendQuery = true;
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.applyCallBack, this));
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
-        },
-        setEventOnGrid() {
             this.dataGridInstance.onCellClick.subscribe(e => {
                 e.event.stopImmediatePropagation();
-                if(e.column) {
-                    if(e.column.dataField === 'Name' && e.row !== undefined) {
-                        let date1 = new Date(self.start_date);
-                        let values1 = [ date1.getDate(), date1.getMonth() + 1 ];
-                        for(let id in values1) {
-                            values1[ id ] = values1[ id ].toString().replace(/^([0-9])$/, '0$1');
-                        }
-                        let formated_start_date = date1.getFullYear() + '-' + values1[ 1 ] + '-' + values1[ 0 ];
-                        let date2 = new Date(self.finish_date);
-                        let values2 = [ date2.getDate(), date2.getMonth() + 1 ];
-                        for(let id in values2) {
-                            values2[ id ] = values2[ id ].toString().replace(/^([0-9])$/, '0$1');
-                        }
-                        let formated_finish_date = date2.getFullYear() + '-' + values2[ 1 ] + '-' + values2[ 0 ];
-                        window.open(location.origin + localStorage.getItem('VirtualPath') +
-                         '/dashboard/page/Report_WorkOperators_Detail?DateStart='
-                          + formated_start_date + '&DateEnd=' + formated_finish_date + '&OrgId=' + e.data.Id, '_blank');
+                if(e.column && e.data.Id) {
+                    let date1 = new Date(this.dateFrom);
+                    let values1 = [ date1.getDate(), date1.getMonth() + 1 ];
+                    for(let id in values1) {
+                        values1[ id ] = values1[ id ].toString().replace(/^([0-9])$/, '0$1');
                     }
+                    let formated_start_date = date1.getFullYear() + '-' + values1[ 1 ] + '-' + values1[ 0 ];
+                    let date2 = new Date(this.dateTo);
+                    let values2 = [ date2.getDate(), date2.getMonth() + 1 ];
+                    for(let id in values2) {
+                        values2[ id ] = values2[ id ].toString().replace(/^([0-9])$/, '0$1');
+                    }
+                    let formated_finish_date = date2.getFullYear() + '-' + values2[ 1 ] + '-' + values2[ 0 ];
+                    window.open(
+                        String(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/dashboard/page/' +
+                            'consultation_report' + '?Operator=' + e.data.Id + '&DateStart=' + formated_start_date +
+                            '&DateEnd=' + formated_finish_date
+                        )
+                    );
                 }
             });
         },
@@ -244,14 +245,27 @@
             });
         },
         openGrid() {
-            /* window.open(
+            let date1 = new Date(this.dateFrom);
+            let values1 = [ date1.getDate(), date1.getMonth() + 1 ];
+            for(let id in values1) {
+                values1[ id ] = values1[ id ].toString().replace(/^([0-9])$/, '0$1');
+            }
+            let formated_start_date = date1.getFullYear() + '-' + values1[ 1 ] + '-' + values1[ 0 ];
+            let date2 = new Date(this.dateTo);
+            let values2 = [ date2.getDate(), date2.getMonth() + 1 ];
+            for(let id in values2) {
+                values2[ id ] = values2[ id ].toString().replace(/^([0-9])$/, '0$1');
+            }
+            let formated_finish_date = date2.getFullYear() + '-' + values2[ 1 ] + '-' + values2[ 0 ];
+            window.open(
                 String(
                     location.origin +
                     localStorage.getItem('VirtualPath') +
-                    '/sections/Assignments/edit/' +
-                    e.data.Id
+                    '/dashboard/page/' +
+                    'consultation_report' + '?DateStart=' + formated_start_date +
+                    '&DateEnd=' + formated_finish_date
                 )
-            );*/
+            );
         },
         createExcelWorkbook: function(data) {
             let workbook = this.createExcel();
