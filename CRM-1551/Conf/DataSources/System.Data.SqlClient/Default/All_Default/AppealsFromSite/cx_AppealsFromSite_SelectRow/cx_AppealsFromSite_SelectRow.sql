@@ -1,6 +1,9 @@
 
 
---   DECLARE @Id INT = 30;
+
+
+
+  --DECLARE @Id INT = 67551;
 
 SELECT
 	TOP 1
@@ -169,7 +172,7 @@ CASE
 		ELSE N''
 	END AS [ApplicantFromSite_Mail],
 
-   IIF(aa.BuildingId IS NULL, 	
+   --IIF(aa.BuildingId IS NULL, 	
    stuff(
 			(
 							SELECT TOP 1
@@ -187,9 +190,11 @@ CASE
 						1,
 						1,
 						N''
-					),
-			 d.name + N' р-н, ' + st.name + N' ' + s.name + N', буд. ' + b.name  + isnull(N', кв. ' +aa.flat, N'')
-			) AS ApplicantFromSite_Address,
+					)
+			--		,
+			-- d.name + N' р-н, ' + st.name + N' ' + s.name + N', буд. ' + b.name  + isnull(N', кв. ' +aa.flat, N'')
+			--) AS 
+			ApplicantFromSite_Address,
 	aa.ApplicantFromSiteId,
 	abi.sex AS [ApplicantFromSite_Sex],
 	abi.birthdate AS [ApplicantFromSite_Birthdate],
