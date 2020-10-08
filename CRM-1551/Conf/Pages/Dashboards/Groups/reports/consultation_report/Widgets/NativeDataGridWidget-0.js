@@ -41,16 +41,13 @@
                     showInfo: true
                 },
                 paging: {
-                    pageSize: 10
+                    pageSize: 25
                 },
                 columns: [
                     {
                         dataField: 'Name',
                         caption: '',
-                        alignment: 'left',
-                        customizeText: function(data) {
-                            return 'Разом: ' + data.value;
-                        }
+                        alignment: 'left'
                     },
                     {
                         dataField: 'article_qty',
@@ -132,7 +129,7 @@
                         column: 'Name',
                         summaryType: 'count',
                         customizeText: function() {
-                            return 'Разом';
+                            return 'Sum/Avg'
                         }
                     }
                 ]
@@ -142,11 +139,31 @@
         init: function() {
             this.applyChanges(true);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
+            const value = this.getDataFromLink('Operator')
+            if (value) {
+                this.getFiltersFromLink(value)
+            }
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.renderTable, this);
         },
+        getFiltersFromLink(operId) {
+            const operValue = [{
+                value: operId
+            }]
+            const operatorFinal = this.extractOrgValues(operValue);
+            this.config.query.filterColumns = [];
+            const filter = {
+                key: 'UserId',
+                value: {
+                    operation: 0,
+                    not: false,
+                    values: operatorFinal
+                }
+            };
+            this.config.query.filterColumns.push(filter);
+            this.renderTable();
+        },
         applyChanges: function(state) {
-            this.getSum();
             const msg = {
                 name: 'SetFilterPanelState',
                 package: {
@@ -207,6 +224,21 @@
                 }
             })
         },
+        getDataFromLink: function(par) {
+            let getDataFromLink = window
+                .location
+                .search
+                .replace('?', '')
+                .split('&')
+                .reduce(
+                    function(p, e) {
+                        let a = e.split('=');
+                        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                        return p;
+                    }, {}
+                );
+            return getDataFromLink[par];
+        },
         getSum: function() {
             const masterDetailQuery = {
                 queryCode: 'db_ConsultationStatistic_Result',
@@ -233,10 +265,7 @@
             this.config.summary.totalItems = [];
             let obj_Sum = {
                 column: 'Name',
-                summaryType: 'count',
-                customizeText: function() {
-                    return 'Разом';
-                }
+                summaryType: 'count'
             }
             this.config.summary.totalItems.push(obj_Sum);
 
@@ -279,28 +308,47 @@
             }
         },
         getFiltersParams: function(message) {
-            let period = message.package.value.values.find(f => f.name === 'period').value;
-            let operator = message.package.value.values.find(f => f.name === 'operator').value;
-            if (period !== null) {
-                if (period.dateFrom !== '' && period.dateTo !== '') {
-                    this.dateFrom = period.dateFrom;
-                    this.dateTo = period.dateTo;
-                    this.config.query.parameterValues = [
-                        { key: '@dateFrom', value: this.dateFrom },
-                        { key: '@dateTo', value: this.dateTo }
-                    ];
-                    this.operator = this.extractOrgValues(operator);
-                    this.config.query.filterColumns = [];
-                    if (this.operator.length > 0) {
-                        const filter = {
-                            key: 'UserId',
-                            value: {
-                                operation: 0,
-                                not: false,
-                                values: this.operator
-                            }
-                        };
-                        this.config.query.filterColumns.push(filter);
+            if(this.firstLoad) {
+                this.firstLoad = false;
+                let period = message.package.value.values.find(f => f.name === 'period').value;
+                if (period !== null) {
+                    if (period.dateFrom !== '' && period.dateTo !== '') {
+                        this.dateFrom = period.dateFrom;
+                        this.dateTo = period.dateTo;
+                        this.config.query.parameterValues = [
+                            { key: '@dateFrom', value: this.dateFrom },
+                            { key: '@dateTo', value: this.dateTo }
+                        ];
+                    }
+                }
+                /*Если что ,добавить загрузку таблицы, если есть в урл дата*/
+                if(this.getDataFromLink('DateStart') || this.getDataFromLink('DateEnd')) {
+                    this.renderTable()
+                }
+            }else {
+                let period = message.package.value.values.find(f => f.name === 'period').value;
+                let operator = message.package.value.values.find(f => f.name === 'operator').value;
+                if (period !== null) {
+                    if (period.dateFrom !== '' && period.dateTo !== '') {
+                        this.dateFrom = period.dateFrom;
+                        this.dateTo = period.dateTo;
+                        this.config.query.parameterValues = [
+                            { key: '@dateFrom', value: this.dateFrom },
+                            { key: '@dateTo', value: this.dateTo }
+                        ];
+                        this.operator = this.extractOrgValues(operator);
+                        this.config.query.filterColumns = [];
+                        if (this.operator.length > 0) {
+                            const filter = {
+                                key: 'UserId',
+                                value: {
+                                    operation: 0,
+                                    not: false,
+                                    values: this.operator
+                                }
+                            };
+                            this.config.query.filterColumns.push(filter);
+                        }
                     }
                 }
             }
@@ -317,8 +365,9 @@
             this.sub.unsubscribe();
         },
         renderTable() {
-            this.loadData(this.afterLoadDataHandler)
-            this.applyChanges(false)
+            this.getSum();
+            this.loadData(this.afterLoadDataHandler);
+            this.applyChanges(false);
         },
         afterLoadDataHandler: function() {
             this.render();

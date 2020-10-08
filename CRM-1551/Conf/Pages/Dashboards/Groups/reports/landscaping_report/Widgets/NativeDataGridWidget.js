@@ -279,6 +279,7 @@
             this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.config.onRowPrepared = this.onRowPrepared.bind(this);
+            this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
         masterDetailInitialized: function(event, row) {
             row.dataSource = [];
@@ -345,6 +346,21 @@
                 }
             };
             this.messageService.publish(msg);
+        },
+        createTableButton: function(e) {
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
+                    onClick: function() {
+                        this.dataGridInstance.instance.exportToExcel();
+                    }.bind(this)
+                }
+            });
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
