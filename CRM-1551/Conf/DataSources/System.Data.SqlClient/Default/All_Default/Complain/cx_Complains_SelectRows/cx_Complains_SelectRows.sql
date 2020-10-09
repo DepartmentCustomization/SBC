@@ -1,11 +1,14 @@
--- DECLARE @user_id NVARCHAR(128) = '016cca2b-dcd8-437e-8754-d4ff679ef6b9';
+--  DECLARE @user_id NVARCHAR(128) = '934f30f5-7314-4574-8b4e-f0db2aa0cf78';
 
 DECLARE @user_org_str TABLE (Id INT); 
 INSERT INTO @user_org_str
 SELECT 
-	OrganisationStructureId 
-FROM [#system_database_name#].dbo.[UserInOrganisation] 
-WHERE UserId = @user_id;
+	[OrganisationStructureId]
+FROM 
+[#system_database_name#].dbo.[UserInOrganisation]
+-- CRM_1551_System.dbo.[UserInOrganisation]  
+WHERE [UserId] = @user_id;
+
 IF OBJECT_ID('tempdb..#Complains') IS NOT NULL
 BEGIN
 	DROP TABLE #Complains;
@@ -27,11 +30,11 @@ INSERT INTO #Complains
 SELECT
   [Complain].[Id],
   [Complain].[registration_date],
-  ComplainTypes.name AS complain_type_name,
+  [ComplainTypes].[name] AS [complain_type_name],
   [Complain].[culpritname],
   [Complain].[guilty],
   [Complain].[text],
-  Workers.name AS [user_name]
+  [Workers].[name] AS [user_name]
 FROM
   [dbo].[Complain] [Complain] 
   LEFT JOIN [dbo].[ComplainTypes] [ComplainTypes] ON ComplainTypes.Id = Complain.complain_type_id
@@ -42,12 +45,17 @@ END
 ---> Выборка по подчиненным организациям пользователя, который смотрит (если он не админ или главарь КБУ)
 ELSE 
 BEGIN
-DECLARE @RootUserOrg INT;
-SELECT @RootUserOrg = organizations_id
-FROM dbo.Positions 
-WHERE programuser_id = @user_id ;
+DECLARE @UserMainOrg INT;
+DECLARE @AvailableOrgList TABLE (org_id INT);
+SELECT
+TOP 1  
+	@UserMainOrg = [organizations_id]
+FROM dbo.[Positions]
+WHERE [programuser_id] = @user_id 
+AND [is_main] = 1
+AND [active] = 1;
 
-DECLARE @DotersOfUserOrgs TABLE (Id INT);
+
 WITH RecursiveOrg (Id, parentID) AS (
     SELECT
         o.Id,
@@ -55,7 +63,7 @@ WITH RecursiveOrg (Id, parentID) AS (
     FROM
         [dbo].[Organizations] o
     WHERE
-        o.Id = @RootUserOrg
+        o.Id = @UserMainOrg
     UNION
     ALL
     SELECT
@@ -66,28 +74,28 @@ WITH RecursiveOrg (Id, parentID) AS (
         INNER JOIN RecursiveOrg r ON o.parent_organization_id = r.Id
 )
 
-INSERT INTO @DotersOfUserOrgs
+INSERT INTO @AvailableOrgList
 SELECT 
 DISTINCT 
 	Id
 FROM RecursiveOrg
-WHERE Id <> @RootUserOrg;
+;
 
 INSERT INTO #Complains
 SELECT
   [Complain].[Id],
   [Complain].[registration_date],
-  ComplainTypes.name AS complain_type_name,
+  [ComplainTypes].[name] AS [complain_type_name],
   [Complain].[culpritname],
   [Complain].[guilty],
   [Complain].[text],
   Workers.name AS [user_name]
 FROM
   [dbo].[Complain] [Complain] 
-  LEFT JOIN [dbo].[Positions] [Positions] ON [Complain].guilty = [Positions].programuser_id
+  INNER JOIN [dbo].[Positions] [Positions] ON [Complain].guilty = [Positions].programuser_id
+	AND [Positions].organizations_id IN (SELECT [org_id] FROM @AvailableOrgList)
   LEFT JOIN [dbo].[ComplainTypes] [ComplainTypes] ON [ComplainTypes].Id = [Complain].complain_type_id
-  LEFT JOIN [dbo].[Workers] [Workers] ON [Workers].worker_user_id = [Complain].[user_id]
-  WHERE [Positions].organizations_id IN (SELECT Id FROM @DotersOfUserOrgs);
+  LEFT JOIN [dbo].[Workers] [Workers] ON [Workers].worker_user_id = [Complain].[user_id];
 END
 
 SELECT 
@@ -100,7 +108,7 @@ SELECT
 	[user_name] 
 FROM #Complains
 WHERE
-  #filter_columns#
-  #sort_columns#
-  OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY 
+ #filter_columns#
+ #sort_columns#
+ OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY 
  ;
