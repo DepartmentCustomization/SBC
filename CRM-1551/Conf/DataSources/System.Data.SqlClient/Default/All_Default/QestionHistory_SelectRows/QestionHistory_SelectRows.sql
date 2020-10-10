@@ -1,6 +1,6 @@
   -- DECLARE @question_id INT = 6695909;
 
-DECLARE @Archive NVARCHAR(400) = '['+(SELECT TOP 1 [IP]+'].['+[DatabaseName]+'].' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
+DECLARE @Archive NVARCHAR(max) = '['+(SELECT TOP 1 [IP]+'].['+[DatabaseName]+'].' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
 
 DECLARE @IsHere BIT = IIF(
    (
@@ -65,7 +65,7 @@ WHERE
     SELECT
       [Question_History].[Id],
       [Question_History].[Log_Date],
-      isnull(LastName, N'''') + N'' '' + isnull([FirstName], N'''') + N'' '' + isnull([Patronymic], N'''') AS [Log_User_FIO],
+      isnull([User].[Patronymic], N'''') + isnull(N'' ''+[User].LastName, N'''') + isnull(N'' ''+[User].FirstName, N'''') + isnull(N'' (''+ AplOrg.short_name + N'')'', N'''') AS [Log_User_FIO],
       CASE
         WHEN [Question_History].[Log_Activity] = N''INSERT'' THEN N''Створення''
         WHEN [Question_History].[Log_Activity] = N''UPDATE'' THEN N''Редагування''
@@ -74,6 +74,19 @@ WHERE
     FROM
        '+@Archive+ N'[dbo].[Question_History] [Question_History]
        LEFT JOIN [#system_database_name#].[dbo].[User] [User] ON [User].UserId = [Question_History].[Log_User]
+       LEFT JOIN (
+        SELECT Apl.[worker_user_id], APLn.short_name
+              FROM [dbo].[Workers] as Apl
+              cross apply 
+              (
+              SELECT top 1 AplTop.[worker_user_id], [Organizations].short_name
+                FROM [dbo].[Workers] as AplTop
+                left join [dbo].[Organizations] on [Organizations].[Id] = AplTop.[organization_id]
+              where AplTop.[worker_user_id] = Apl.[worker_user_id]
+              ) APLn 
+              where len(isnull(Apl.[worker_user_id],N'''')) > 0
+        group by Apl.[worker_user_id], APLn.short_name
+      ) AS AplOrg on AplOrg.[worker_user_id] = [Question_History].[Log_User]
     WHERE
       [Question_History].question_id = @question_id
       AND [Question_History].Id IN (

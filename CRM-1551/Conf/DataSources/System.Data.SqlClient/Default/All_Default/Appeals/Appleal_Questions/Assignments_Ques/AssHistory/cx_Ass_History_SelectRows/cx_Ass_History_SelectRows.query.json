@@ -30,6 +30,13 @@
       "Name": "Опис",
       "Position": 4,
       "IsPrintable": false
+    },
+    {
+      "Code": "SourceHistory",
+      "Name": "SourceHistory",
+      "Position": 5,
+      "ViewState": "Hidden",
+      "IsPrintable": false
     }
   ],
   "Parameters": [
@@ -50,6 +57,11 @@
       "Name": "pageLimitRows",
       "ParameterType": "Integer",
       "IsPageLimitRows": true
+    },
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
     }
   ]
 }
