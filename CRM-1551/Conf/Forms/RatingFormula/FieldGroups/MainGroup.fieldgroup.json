@@ -30,7 +30,7 @@
     },
     {
       "PatternType": "NumbersWithPoint",
-      "Pattern": "\\d.*?(\\d+.?\\d*)",
+      "Pattern": "^([,.\\d]+)([.]\\d{2})$",
       "Code": "k1_value",
       "Name": "Значення",
       "FieldType": "text",
@@ -54,7 +54,7 @@
     },
     {
       "PatternType": "NumbersWithPoint",
-      "Pattern": "\\d.*?(\\d+.?\\d*)",
+      "Pattern": "^([,.\\d]+)([.]\\d{2})$",
       "Code": "k2_value",
       "Name": "Значення",
       "FieldType": "text",
@@ -78,7 +78,7 @@
     },
     {
       "PatternType": "NumbersWithPoint",
-      "Pattern": "\\d.*?(\\d+.?\\d*)",
+      "Pattern": "^([,.\\d]+)([.]\\d{2})$",
       "Code": "k3_value",
       "Name": "Значення",
       "FieldType": "text",
@@ -102,7 +102,7 @@
     },
     {
       "PatternType": "NumbersWithPoint",
-      "Pattern": "\\d.*?(\\d+.?\\d*)",
+      "Pattern": "^([,.\\d]+)([.]\\d{2})$",
       "Code": "k4_value",
       "Name": "Значення",
       "FieldType": "text",
@@ -126,7 +126,7 @@
     },
     {
       "PatternType": "NumbersWithPoint",
-      "Pattern": "\\d.*?(\\d+.?\\d*)",
+      "Pattern": "^([,.\\d]+)([.]\\d{2})$",
       "Code": "k5_value",
       "Name": "Значення",
       "FieldType": "text",
@@ -150,7 +150,7 @@
     },
     {
       "PatternType": "NumbersWithPoint",
-      "Pattern": "\\d.*?(\\d+.?\\d*)",
+      "Pattern": "^([,.\\d]+)([.]\\d{2})$",
       "Code": "k6_value",
       "Name": "Значення",
       "FieldType": "text",
@@ -174,7 +174,7 @@
     },
     {
       "PatternType": "NumbersWithPoint",
-      "Pattern": "\\d.*?(\\d+.?\\d*)",
+      "Pattern": "^([,.\\d]+)([.]\\d{2})$",
       "Code": "k7_value",
       "Name": "Значення",
       "FieldType": "text",

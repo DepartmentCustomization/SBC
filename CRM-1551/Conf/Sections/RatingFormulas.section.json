@@ -1,6 +1,6 @@
 {
   "Add": {
-    "InsertQueryCode": "ak_RatingSelectRow"
+    "InsertQueryCode": "RatingFormulas_InsertRow"
   },
   "ModelType": "Section",
   "Code": "RatingFormulas",
@@ -8,6 +8,5 @@
   "FormCode": "RatingFormula",
   "SelectRowsQueryCode": "RatingFormulas_SelectRows",
   "SelectRowQueryCode": "RatingFormulas_SelectRow",
-  "DeleteQueryCode": "ak_RatingSelectRow",
-  "UpdateQueryCode": "ak_RatingUpdateRow"
+  "UpdateQueryCode": "RatingFormulas_UpdateRow"
 }
