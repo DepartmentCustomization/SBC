@@ -5,8 +5,8 @@ INSERT INTO @user_org_str
 SELECT 
 	[OrganisationStructureId]
 FROM 
---[#system_database_name#].dbo.[UserInOrganisation]
- CRM_1551_System.dbo.[UserInOrganisation]  
+[#system_database_name#].dbo.[UserInOrganisation]
+--  CRM_1551_System.dbo.[UserInOrganisation]  
 WHERE [UserId] = @user_id;
 
 IF OBJECT_ID('tempdb..#Complains') IS NOT NULL
