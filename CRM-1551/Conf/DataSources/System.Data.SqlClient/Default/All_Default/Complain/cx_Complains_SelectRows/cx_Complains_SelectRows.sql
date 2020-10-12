@@ -1,4 +1,4 @@
-  --  DECLARE @user_id NVARCHAR(128) = 'b57836e8-ff1e-4893-bbcf-38aa9d406a18';
+-- DECLARE @user_id NVARCHAR(128) = 'da9b6464-b7eb-4c1c-94b6-639aa874bd2e';
 
 DECLARE @user_org_str TABLE (Id INT); 
 INSERT INTO @user_org_str
@@ -6,7 +6,7 @@ SELECT
 	[OrganisationStructureId]
 FROM 
 [#system_database_name#].dbo.[UserInOrganisation]
---  CRM_1551_System.dbo.[UserInOrganisation]  
+  -- CRM_1551_System.dbo.[UserInOrganisation]  
 WHERE [UserId] = @user_id;
 
 IF OBJECT_ID('tempdb..#Complains') IS NOT NULL
@@ -24,7 +24,10 @@ CREATE TABLE #Complains ([Id] INT,
              WITH (DATA_COMPRESSION = PAGE); 
 
 ---> Выборка всех для админов и главарей КБУ
-IF EXISTS (SELECT Id FROM @user_org_str WHERE Id IN (2,4))
+IF EXISTS (SELECT Id FROM @user_org_str WHERE Id IN (2))
+OR EXISTS (SELECT Id FROM dbo.[Positions] WHERE [programuser_id] = @user_id
+	AND [organizations_id] = 1762
+	AND [active] = 1)
 BEGIN
 INSERT INTO #Complains
 SELECT
