@@ -56,12 +56,12 @@
                             if(response.errors.length === 0) {
                                 responseNotification = {
                                     title: 'Завантаження пройшло успiшно!',
-                                    success: 'Завантажено строк: ' + response.success
+                                    success: 'Завантажено рядків: ' + response.success
                                 }
                             }else{
                                 responseNotification = {
                                     title: 'Помилка завантаження!',
-                                    errorRow: 'Строка: ' + response.errors[0].row,
+                                    errorRow: 'Рядок: ' + response.errors[0].row,
                                     errorColumn: 'Колонка: ' + response.errors[0].column,
                                     errorInfo: 'Помилка: ' + response.errors[0].text
                                 }
