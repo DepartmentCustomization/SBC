@@ -21,10 +21,9 @@
         "border": "none",
         "children": [
           {
-            "code": "search_LeafletMapWidget",
+            "code": "StartPageModerator__Widget",
             "type": "CustomWidgetComponent",
-            /*"type": "LeafletMapWidgetComponent",*/
-            "name": "allAppealLeafLetMap"
+            "name": "Навігація"
           }
         ],
         "id": "Container-0",
@@ -38,6 +37,6 @@
     "height": "100%",
     "minHeight": "100%",
     "minWidth": "100%",
-    "backgroundColor": "#fff"
+    "backgroundColor": "#eee"
   }
 }
