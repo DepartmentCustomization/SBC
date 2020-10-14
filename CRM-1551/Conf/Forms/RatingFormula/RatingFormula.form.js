@@ -35,15 +35,15 @@
                 this.form.setControlValue('k7_value', '1.00');
             }
 
-            if (this.form.getControlValue('formula_id') == 1 || this.form.getControlValue('formula_id') == 2) {
-                this.form.setControlValue('k7_value', '0.00');
-                this.form.setControlValue('k7_isUse', false);
-                this.form.disableControl('k7_value');
-                this.form.disableControl('k7_isUse');
-            } else {
-                this.form.enableControl('k7_value');
-                this.form.enableControl('k7_isUse');
-            }
+            // if (this.form.getControlValue('formula_id') == 1 || this.form.getControlValue('formula_id') == 2) {
+            //     this.form.setControlValue('k7_value', '0.00');
+            //     this.form.setControlValue('k7_isUse', false);
+            //     this.form.disableControl('k7_value');
+            //     this.form.disableControl('k7_isUse');
+            // } else {
+            //     this.form.enableControl('k7_value');
+            //     this.form.enableControl('k7_isUse');
+            // }
 
         },
         onChanged_RatingId: function(value) {
@@ -119,15 +119,15 @@
                 return
             }
 
-            if (value == 1 || value == 2) {
-                this.form.setControlValue('k7_value', '0.00');
-                this.form.setControlValue('k7_isUse', false);
-                this.form.disableControl('k7_value');
-                this.form.disableControl('k7_isUse');
-            } else {
-                this.form.enableControl('k7_value');
-                this.form.enableControl('k7_isUse');
-            }
+            // if (value == 1 || value == 2) {
+            //     this.form.setControlValue('k7_value', '0.00');
+            //     this.form.setControlValue('k7_isUse', false);
+            //     this.form.disableControl('k7_value');
+            //     this.form.disableControl('k7_isUse');
+            // } else {
+            //     this.form.enableControl('k7_value');
+            //     this.form.enableControl('k7_isUse');
+            // }
             
             
             
