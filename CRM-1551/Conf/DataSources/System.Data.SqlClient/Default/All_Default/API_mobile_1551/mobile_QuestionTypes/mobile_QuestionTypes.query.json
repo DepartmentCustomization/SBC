@@ -1,0 +1,69 @@
+{
+  "ModelType": "Query",
+  "Code": "mobile_QuestionTypes",
+  "Name": "mobile_QuestionTypes",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Ідентифікатор",
+      "Position": 0,
+      "IsPrintable": false,
+      "SqlName": "Id",
+      "FilterParameterCode": "@Id"
+    },
+    {
+      "Code": "Name",
+      "Name": "Name",
+      "Position": 1,
+      "IsPrintable": false,
+      "SqlName": "Name",
+      "FilterParameterCode": "@Name"
+    },
+    {
+      "Code": "parentId",
+      "Name": "parentId",
+      "Position": 2,
+      "IsPrintable": false,
+      "SqlName": "question_type_id",
+      "FilterParameterCode": "@parentId"
+    },
+    {
+      "Code": "Index",
+      "Name": "Index",
+      "Position": 3,
+      "IsPrintable": false,
+      "SqlName": "Index",
+      "FilterParameterCode": "@Index"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@userId",
+      "Name": "userId",
+      "ParameterType": "CurrentUserId"
+    },
+    {
+      "Code": "@Id",
+      "Name": "Id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@name",
+      "Name": "name"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

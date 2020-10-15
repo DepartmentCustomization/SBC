@@ -1,35 +1,48 @@
---  DECLARE @userId NVARCHAR(128) = N'eb6d56d2-e217-45e4-800b-c851666ce795';
---  DECLARE @entityId INT = (SELECT TOP 1 Id FROM dbo.[Assignments] WHERE assignment_state_id = 1 ORDER BY Id DESC);
---  DECLARE @entityName NVARCHAR(50) = N'assignment';
---  DECLARE @action BIT = 1;
+/*
+DECLARE @userId NVARCHAR(128) = N'29796543-b903-48a6-9399-4840f6eac396';
+DECLARE @entityId INT = NULL;
+DECLARE @entityName NVARCHAR(50) = NULL;
+DECLARE @action BIT = 1;
+DECLARE @question_type_id INT = NULL;
+DECLARE @object_id INT = NULL;
+DECLARE @statecode NVARCHAR(50) = 'in_work_assignment';
+*/
 
-IF (@userId IS NOT NULL)
-OR (@entityId IS NOT NULL)
-OR (@entityName IS NOT NULL) 
-BEGIN
 DECLARE @resultOK TABLE (val NVARCHAR(5));
 INSERT INTO @resultOK
 SELECT N'OK';
 
-	IF (@action = 1)
+DECLARE @ass_id INT = IIF(@entityName = 'assignment', @entityId, NULL);
+DECLARE @que_id INT = IIF(@entityName = 'question', @entityId, NULL);
+DECLARE @eve_id INT = IIF(@entityName = 'event', @entityId, NULL);
+
+DECLARE @update_info TABLE (Id INT);
+DECLARE @insert_info TABLE (Id INT);
+DECLARE @upId INT;
+
+DECLARE @att_id INT;
+SELECT 
+	@att_id = [Id] 
+FROM dbo.[AttentionQuestionAndEvent] 
+WHERE [user_id] = @userId
+	  AND ISNULL([assignment_id],0) = ISNULL(@ass_id,0)
+	  AND ISNULL([question_id],0) = ISNULL(@que_id,0)
+	  AND ISNULL([event_id],0) = ISNULL(@eve_id,0)
+	  AND ISNULL([question_type_id],0) = ISNULL(@question_type_id,0)
+	  AND ISNULL([object_id],0) = ISNULL(@object_id,0)
+	  AND ISNULL([statecode],'0') = ISNULL(@statecode,'0');
+
+IF (@action = 1)
+BEGIN
+	IF (@att_id IS NOT NULL)
 	BEGIN
-	DECLARE @insert_info TABLE (Id INT);
-	INSERT INTO dbo.[AttentionQuestionAndEvent] ([user_id],
-												 [question_id],
-												 [assignment_id],
-												 [event_id],
-												 [create_date])
-							OUTPUT inserted.Id INTO @insert_info (Id) 
-							VALUES (@userId,
-									IIF(@entityName = N'question', @entityId, NULL),
-									IIF(@entityName = N'assignment', @entityId, NULL),
-									IIF(@entityName = N'event', @entityId, NULL),
-									GETDATE()
-									);
-	
-		DECLARE @newVal INT = (SELECT TOP 1 [Id] FROM @insert_info);
-	
-		IF(@newVal IS NOT NULL)
+		UPDATE dbo.[AttentionQuestionAndEvent]
+			SET [is_active] = 1
+		OUTPUT inserted.Id INTO @update_info (Id) 
+		WHERE Id = @att_id;
+		
+		SET @upId = (SELECT TOP 1 [Id] FROM @update_info);
+		IF (@upId IS NOT NULL)
 		BEGIN 
 			SELECT 
 				val AS result
@@ -38,40 +51,64 @@ SELECT N'OK';
 				ORDER BY 1
 			OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
 		END
-	END
-	ELSE IF (@action = 0)
+	END 
+	ELSE
 	BEGIN
-	DECLARE @ass_id INT = IIF(@entityName = 'assignment', @entityId, NULL);
-	DECLARE @que_id INT = IIF(@entityName = 'question', @entityId, NULL);
-	DECLARE @eve_id INT = IIF(@entityName = 'event', @entityId, NULL);
-	DECLARE @delete_info TABLE (Id INT);
+	INSERT INTO dbo.[AttentionQuestionAndEvent] ([user_id],
+											 [question_id],
+											 [assignment_id],
+											 [event_id],
+											 [question_type_id],
+											 [object_id],
+											 [statecode],
+											 [create_date],
+											 [is_active],
+											 [ExternalDataSources_id])
+						OUTPUT inserted.Id INTO @insert_info (Id) 
+						VALUES (@userId,
+								IIF(@entityName = N'question', @entityId, NULL),
+								IIF(@entityName = N'assignment', @entityId, NULL),
+								IIF(@entityName = N'event', @entityId, NULL),
+								IIF(@question_type_id IS NOT NULL, @question_type_id, NULL),
+								IIF(@object_id IS NOT NULL, @object_id, NULL),
+								IIF(@statecode IS NOT NULL, @statecode, NULL),
+								GETDATE(),
+								1, -- активний
+								2  -- Мобільний додаток
+								);
 
-	DECLARE @att_id INT = (
+	DECLARE @newVal INT = (SELECT TOP 1 [Id] FROM @insert_info);
+
+	IF(@newVal IS NOT NULL)
+	BEGIN 
 		SELECT 
-			[Id] 
-		FROM dbo.[AttentionQuestionAndEvent] 
-		WHERE [user_id] = @userId
-			  AND ISNULL([assignment_id],0) = ISNULL(@ass_id,0)
-			  AND ISNULL([question_id],0) = ISNULL(@que_id,0)
-			  AND ISNULL([event_id],0) = ISNULL(@eve_id,0)
-			  );
+			val AS result
+		FROM @resultOK
+		WHERE #filter_columns#
+			ORDER BY 1
+		OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
+	END
+	END
+END
+ELSE IF (@action = 0)
+BEGIN
 
-		IF(@att_id IS NOT NULL)
+	IF(@att_id IS NOT NULL)
+	BEGIN 
+		UPDATE dbo.[AttentionQuestionAndEvent] 
+			SET [is_active] = 0
+		OUTPUT inserted.Id INTO @update_info
+		WHERE [Id] = @att_id;
+
+		SET @upId = (SELECT TOP 1 [Id] FROM @update_info);
+		IF (@upId IS NOT NULL)
 		BEGIN 
-			DELETE FROM dbo.[AttentionQuestionAndEvent] 
-			OUTPUT deleted.Id INTO @delete_info
-			WHERE [Id] = @att_id;
-
-			DECLARE @delId INT = (SELECT TOP 1 [Id] FROM @delete_info);
-			IF (@delId IS NOT NULL)
-			BEGIN 
-				SELECT 
-					val AS result
-				FROM @resultOK
-				WHERE #filter_columns#
-					ORDER BY 1
-				OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
-			END
+			SELECT 
+				val AS result
+			FROM @resultOK
+			WHERE #filter_columns#
+				ORDER BY 1
+			OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
 		END
 	END
 END
