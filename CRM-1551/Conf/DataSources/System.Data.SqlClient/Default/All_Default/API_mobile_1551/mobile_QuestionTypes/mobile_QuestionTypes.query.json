@@ -7,7 +7,7 @@
   "Columns": [
     {
       "Code": "Id",
-      "Name": "Ідентифікатор",
+      "Name": "Id",
       "Position": 0,
       "IsPrintable": false,
       "SqlName": "Id",
