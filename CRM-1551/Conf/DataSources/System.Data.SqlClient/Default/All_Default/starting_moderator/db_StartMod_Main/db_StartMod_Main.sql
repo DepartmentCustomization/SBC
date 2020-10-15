@@ -13,7 +13,7 @@
   ) mutch_2hours,
 
 
-  (select max([ReceiptDate])
+  (select min([ReceiptDate])
   from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
   where AppealFromSiteResultId=1) oldest,
 
