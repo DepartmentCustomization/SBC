@@ -361,6 +361,7 @@
             const fields = {
                 zayavnyk_adress: 'Адреса заявника',
                 zayavnyk_zmist: 'Зміст',
+                short_answer: 'Коментар перевіряючого',
                 balans_name: 'Балансоутримувач'
             };
             this.messageService.publish({
