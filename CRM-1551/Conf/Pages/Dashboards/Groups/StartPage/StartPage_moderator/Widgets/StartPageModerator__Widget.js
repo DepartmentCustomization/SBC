@@ -95,9 +95,13 @@
             let yyyy = date.getFullYear().toString();
             let hh = date.getHours().toString();
             let mm = date.getMinutes().toString();
+            let ss = date.getSeconds().toString();
             dd = dd.length === 1 ? '0' + dd : dd;
+            hh = hh.length === 1 ? '0' + hh : hh;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            ss = ss.length === 1 ? '0' + ss : ss;
             monthFrom = monthFrom.length === 1 ? '0' + monthFrom : monthFrom;
-            return `${dd}-${monthFrom}-${yyyy} ${hh}:${mm}`;
+            return `${dd}-${monthFrom}-${yyyy} ${hh}:${mm}:${ss}`;
         },
         load: function(data) {
             this.container = document.getElementById('container');
