@@ -65,7 +65,7 @@ WHERE
     SELECT
       [Question_History].[Id],
       [Question_History].[Log_Date],
-      isnull([User].[Patronymic], N'''') + isnull(N'' ''+[User].LastName, N'''') + isnull(N'' ''+[User].FirstName, N'''') + isnull(N'' (''+ AplOrg.short_name + N'')'', N'''') AS [Log_User_FIO],
+      isnull([User].LastName, N'''') + isnull(N'' ''+[User].FirstName, N'''') + isnull(N'' ''+[User].[Patronymic], N'''') +  isnull(N'' (''+ AplOrg.short_name + N'')'', N'''') AS [Log_User_FIO],
       CASE
         WHEN [Question_History].[Log_Activity] = N''INSERT'' THEN N''Створення''
         WHEN [Question_History].[Log_Activity] = N''UPDATE'' THEN N''Редагування''

@@ -89,7 +89,7 @@ WHERE
     SELECT
       [Assignment_History].[Id],
       [Assignment_History].[Log_Date] AS [operation_date],
-      isnull([User].[Patronymic], N'''') + isnull(N'' ''+[User].LastName, N'''') + isnull(N'' ''+[User].FirstName, N'''') + isnull(N'' (''+ AplOrg.short_name + N'')'', N'''') AS [user_id],
+      isnull([User].LastName, N'''') + isnull(N'' ''+[User].FirstName, N'''') + isnull(N'' ''+[User].[Patronymic], N'''') + isnull(N'' (''+ AplOrg.short_name + N'')'', N'''') AS [user_id],
 	CASE
         WHEN [Assignment_History].[Log_Activity] = N''UPDATE'' THEN N''Зміни в дорученні''
         WHEN [Assignment_History].[Log_Activity] = N''INSERT'' THEN N''Створення доручення''
@@ -218,7 +218,7 @@ WHERE
 	SELECT
       [AssignmentDetailHistory].[Id],
       [AssignmentDetailHistory].[Edit_date] AS [operation_date],
-      isnull([User].[Patronymic], N'''') + isnull(N'' ''+[User].LastName, N'''') + isnull(N'' ''+[User].FirstName, N'''') + isnull(N'' (''+ AplOrg.short_name + N'')'', N'''') AS [user_id],
+      isnull([User].LastName, N'''') + isnull(N'' ''+[User].FirstName, N'''') + isnull(N'' ''+[User].[Patronymic], N'''') + isnull(N'' (''+ AplOrg.short_name + N'')'', N'''') AS [user_id],
 	CASE
         WHEN [AssignmentDetailHistory].[Operation] = N''UPDATE'' AND [AssignmentDetailHistory].[SourceHistory] = N''Document'' THEN N''Зміни в документі доручення''
         WHEN [AssignmentDetailHistory].[Operation] = N''INSERT'' AND [AssignmentDetailHistory].[SourceHistory] = N''Document'' THEN N''Створення документу доручення''
