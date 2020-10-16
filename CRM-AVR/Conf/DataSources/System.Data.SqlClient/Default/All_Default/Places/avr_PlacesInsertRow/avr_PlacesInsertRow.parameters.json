@@ -52,5 +52,10 @@
     "Code": "@to_house",
     "Name": "to_house",
     "ParameterType": "Integer"
+  },
+  {
+    "Code": "@Comment",
+    "Name": "Comment",
+    "ParameterType": "Text"
   }
 ]

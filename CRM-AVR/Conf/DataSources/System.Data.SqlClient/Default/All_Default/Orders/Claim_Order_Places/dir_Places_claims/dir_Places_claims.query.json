@@ -47,14 +47,19 @@
       "FilterParameterCode": "@old_name"
     },
     {
+      "Code": "Comment",
+      "Name": "Опис",
+      "Position": 7
+    },
+    {
       "Code": "Territory",
       "Name": "Примітка",
-      "Position": 7
+      "Position": 8
     },
     {
       "Code": "flats",
       "Name": "Чи є квартири",
-      "Position": 8
+      "Position": 9
     }
   ],
   "Parameters": [

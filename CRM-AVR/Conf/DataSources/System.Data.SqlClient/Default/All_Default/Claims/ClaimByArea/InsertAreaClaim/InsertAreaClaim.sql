@@ -1,14 +1,28 @@
-/* test params
- 
+/*
  DECLARE @Claim_type_ID INT = 7100;
  DECLARE @Claim_class_ID INT = 21;
  DECLARE @Description NVARCHAR(MAX) = 'ГО НА ОБХОД';
  DECLARE @Status_id INT = 1; 
- DECLARE @Organization_id INT = NULL;
+ DECLARE @Response_organization_ID INT = NULL;
  DECLARE @User NVARCHAR(128) = '7ddf9e9f-2a7b-4b81-9b5d-528722558bd6';
  DECLARE @Sked NVARCHAR(100) = 'Зима 2020';
  DECLARE @RouteID INT = 46;
  */
+
+IF EXISTS (SELECT 
+				c.Id 
+		   FROM dbo.[Claims] c 
+		   INNER JOIN dbo.[Claim_content] cc ON cc.Claim_Id = c.Id
+			AND c.[User] = @User 
+			AND cc.RouteID = @RouteID
+			AND c.Response_organization_ID = ISNULL(@Response_organization_ID,28)
+			AND c.Claim_class_ID = @Claim_class_ID
+			AND c.Claim_type_ID = @Claim_type_ID
+			AND DATEDIFF(MINUTE, DATEADD(MINUTE, -5, GETDATE()), c.Created_at) <= 5)
+BEGIN
+	-- RAISERROR(N'Така заявка вже створена менше ніж 5 хвилин назад',16,1);
+	RETURN;
+END
 
 DECLARE @info TABLE (Id INT);
 

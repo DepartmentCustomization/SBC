@@ -20,6 +20,7 @@ CASE
 		ELSE concat(N'Кількість квартир: ', count(Flats.Number))
 	END AS flats,
 	Streets.Old_name,
+	[Places].Comment,
 	Streets.Territory,
 (
 		SELECT
@@ -51,6 +52,7 @@ GROUP BY
 	Place_types.Name,
 	Places.Place_type_ID,
 	Old_name,
-	Territory 
+	Territory,
+	[Places].Comment
 	#sort_columns#
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY ;
