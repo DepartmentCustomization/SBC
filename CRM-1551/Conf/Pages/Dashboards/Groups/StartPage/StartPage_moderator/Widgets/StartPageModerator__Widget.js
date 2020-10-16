@@ -63,6 +63,8 @@
             const mutchHoursIndex = columns.findIndex(elem=>elem.code === 'mutch_2hours')
             const oldestIndex = columns.findIndex(elem=>elem.code === 'oldest')
             const appealIdIndex = columns.findIndex(elem=>elem.code === 'appeal_id')
+            const dataToConvert = new Date(rows[0].values[oldestIndex])
+            const data = this.changeDateValue(dataToConvert)
             this.appealId = rows[0].values[appealIdIndex]
             const grid = `<div class='header-info'>
                             <p class='header-text'>На модерації: <span class='header-value'>${rows[0].values[onModerationIndex]}</span></p>
@@ -71,11 +73,35 @@
                         <p class='header-text'>&#10095 2 годин: <span class='header-value'>${rows[0].values[mutchHoursIndex]}</span></p>
                             </div>
                             <div class='header-info'>
-                        <p class='header-text'>Найстаріше: <span class='header-value'>${rows[0].values[oldestIndex]}</span></p>
+                        <p class='header-text'>Найстаріше: <span class='header-value'>${data}</span></p>
                             </div>`;
             con.insertAdjacentHTML('beforeend',grid)
             const label = document.getElementById('header-label')
             label.after(con)
+        },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = `${year}, ${monthFrom} , ${dayTo}, ${hh + 3}, ${mm}`
+            return dateTo
+        },
+        changeDateValue: function(date) {
+            let dd = date.getDate().toString();
+            let monthFrom = (date.getMonth() + 1).toString();
+            let yyyy = date.getFullYear().toString();
+            let hh = date.getHours().toString();
+            let mm = date.getMinutes().toString();
+            let ss = date.getSeconds().toString();
+            dd = dd.length === 1 ? '0' + dd : dd;
+            hh = hh.length === 1 ? '0' + hh : hh;
+            mm = mm.length === 1 ? '0' + mm : mm;
+            ss = ss.length === 1 ? '0' + ss : ss;
+            monthFrom = monthFrom.length === 1 ? '0' + monthFrom : monthFrom;
+            return `${dd}-${monthFrom}-${yyyy} ${hh}:${mm}:${ss}`;
         },
         load: function(data) {
             this.container = document.getElementById('container');
@@ -141,9 +167,9 @@
                 },
                 moderatorStatistic__icon, moderatorStatistic__description, moderatorStatistic__borderBottom,moderatorStatistic__borderRight
             );
-            moderatorStatistic.addEventListener('click', () => {
+            /*moderatorStatistic.addEventListener('click', () => {
                 this.showModalWindow();
-            });
+            });*/
 
             let groupRegByPhone__icon = this.createElement('div',
                 {
@@ -231,7 +257,7 @@
                 appealSearch__icon, appealSearch__description, appealSearch__borderBottom, appealSearch__borderRight
             );
             appealSearch.addEventListener('click', () => {
-                window.open(location.origin + localStorage.getItem('VirtualPath') + '/dashboard/page/start_page_supervisor');
+                window.open(location.origin + localStorage.getItem('VirtualPath') + '/sections/Appeals');
             });
 
             let groupsWrapper = this.createElement('div',
