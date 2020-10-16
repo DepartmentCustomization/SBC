@@ -36,11 +36,11 @@
   ) mutch_2hours,
 
 
---   (select min([ReceiptDate])
---   from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
---   where AppealFromSiteResultId=1) oldest,
+  (select min([ReceiptDate])
+  from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
+  where AppealFromSiteResultId=1) oldest,
 
-'2019-05-01 02:01:01.603' oldest,
+--'2019-05-01 02:01:01.603' oldest,
 
   --4.1 если есть несколько, открываю самое старое
   --если нет, то открываю любое или там где EditByUserId пустое ?
