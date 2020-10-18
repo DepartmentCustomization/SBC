@@ -572,7 +572,7 @@ BEGIN
 			BEGIN 
 				DECLARE @outputHistory TABLE (Id INT);
 				DECLARE @Operation VARCHAR(128);
-				declare @Missed_call_counter int = isnull((select sum(isnull([Missed_call_counter],0)) from [dbo].[AssignmentDetailHistory] with (nolock) where [Assignment_id] = @Id),0)+1
+				declare @Missed_call_counter int = isnull((select isnull(max([Missed_call_counter]),0) from [dbo].[AssignmentDetailHistory] with (nolock) where [Assignment_id] = @Id),0)+1
 				SET @Operation = 'UPDATE';
 				INSERT INTO [dbo].[AssignmentDetailHistory] ([Assignment_id]
 													,[SourceHistory]
