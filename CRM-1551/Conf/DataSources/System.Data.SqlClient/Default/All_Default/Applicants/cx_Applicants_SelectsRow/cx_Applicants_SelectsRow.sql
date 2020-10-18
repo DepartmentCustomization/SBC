@@ -1,4 +1,4 @@
- --DECLARE @applicant_id INT = 1515914;
+ --DECLARE @applicant_id INT = 1515914; ee
 ----------------> GET APPLICANT PHONES IN ROW <-----------------
 IF OBJECT_ID('tempdb.dbo.#ApplicantPhones') IS NOT NULL 
 BEGIN 
