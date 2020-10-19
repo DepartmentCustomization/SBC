@@ -16,7 +16,9 @@
       "Code": "name",
       "Name": "name",
       "Position": 1,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "isnull([LastName], N'')+N' '+isnull([FirstName], N'')",
+      "FilterParameterCode": "@name"
     }
   ],
   "Parameters": [

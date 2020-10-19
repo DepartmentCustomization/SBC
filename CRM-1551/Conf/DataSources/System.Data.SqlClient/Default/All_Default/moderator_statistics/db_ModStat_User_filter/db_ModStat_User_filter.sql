@@ -1,13 +1,6 @@
 
-select Id, name
-from (
-
-select N'fbbb' Id, N'Вася' name
-union all
-select N'sfdgs' Id, N'Вася' name
-union all
-select N'erwtw' Id, N'Вася' name
-) t
+select [UserId] Id, isnull([LastName], N'')+N' '+isnull([FirstName], N'') name
+from [CRM_1551_System].[dbo].[User]
  where 
   #filter_columns#
   --#sort_columns#
