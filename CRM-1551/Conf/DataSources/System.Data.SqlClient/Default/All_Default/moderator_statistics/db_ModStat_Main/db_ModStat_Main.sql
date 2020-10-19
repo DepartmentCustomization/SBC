@@ -44,7 +44,7 @@ declare @date_to_l datetime= @date_to
  (
  DATEADD(HOUR,
       DATEDIFF(HOUR,
-         CONVERT(datetime, SWITCHOFFSET(datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 18, 0, 0, 0), DATEPART(TZOFFSET,datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 11, 0, 0, 0) AT TIME ZONE 'E. Europe Standard Time'))),
+         CONVERT(datetime, SWITCHOFFSET(datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 18, 0, 0, 0), DATEPART(TZOFFSET,datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 18, 0, 0, 0) AT TIME ZONE 'E. Europe Standard Time'))),
          datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 18, 0, 0, 0)
          ), datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 18, 0, 0, 0))
  )
