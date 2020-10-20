@@ -1,9 +1,9 @@
 SELECT 
-TOP 50 
 	[Id],
 	[object_name]
 FROM (
 SELECT
+TOP 50 
 	 [Objects].[Id],
 			IIF(
 				[Objects].[name] IS NULL,
@@ -39,7 +39,7 @@ LEFT JOIN [dbo].[Districts] [Districts] ON [Districts].Id = [Buildings].district
 LEFT JOIN [dbo].[StreetTypes] [StreetTypes] ON [StreetTypes].Id = [Streets].street_type_id
 WHERE [Objects].object_type_id = 1
 AND #filter_columns#
-	#sort_columns#
-OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
 ) sub
+ORDER BY 2
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
 ;
