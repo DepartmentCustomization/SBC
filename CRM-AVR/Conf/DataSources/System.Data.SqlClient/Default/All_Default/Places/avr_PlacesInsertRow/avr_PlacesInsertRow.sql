@@ -39,7 +39,8 @@ INSERT INTO
 		[Lattitude],
 		[Longitude],
 		[Street_id],
-		[Comment]
+		[Comment],
+		[Is_Active]
 	) output [inserted].[Id] INTO @output([Id])
 SELECT
 	@place_types_id,
@@ -48,7 +49,8 @@ SELECT
 	isnull(Latitude, @Latitude),
 	isnull(Longitude, @Longitude),
 	Id,
-	@Comment
+	@Comment,
+	1
 FROM
 	[dbo].[Houses]
 WHERE
@@ -75,7 +77,8 @@ WHERE
 			Id = @place_id
 	);
 END
-END IF @place_types_id = 19 BEGIN
+END IF @place_types_id = 19 
+BEGIN
 SET
 	@cross_name = (
 		(
@@ -120,8 +123,10 @@ INSERT INTO
 		[Name],
 		[Lattitude],
 		[Longitude],
-		Cross_id,
-		District_ID
+		[Cross_id],
+		[District_ID],
+		[Comment],
+		[Is_Active]
 	) output [inserted].[Id] INTO @output([Id])
 VALUES
 	(
@@ -130,7 +135,9 @@ VALUES
 		@Latitude,
 		@Longitude,
 		@cr_id,
-		@distincts_id
+		@distincts_id,
+		@Comment,
+		1
 	);
 SET
 	@place_id = (
@@ -177,8 +184,10 @@ INSERT INTO
 		[Name],
 		[Lattitude],
 		[Longitude],
-		Cross_id,
-		District_ID
+		[Cross_id],
+		[District_ID],
+		[Comment],
+		[Is_Active]
 	) output [inserted].[Id] INTO @output([Id])
 VALUES
 	(
@@ -187,7 +196,9 @@ VALUES
 		@Latitude,
 		@Longitude,
 		@cr_id,
-		@distincts_id
+		@distincts_id,
+		@Comment,
+		1
 	);
 SET
 	@place_id = (
@@ -198,7 +209,8 @@ SET
 	);
 END;
 
-IF @place_types_id = 10 BEGIN
+IF @place_types_id = 10 
+BEGIN
 SET
 	@area_name = concat (
 		(
@@ -243,15 +255,19 @@ INSERT INTO
 	[dbo].[Places] (
 		[Place_type_ID],
 		[Name],
-		Area_Id,
-		District_ID
+		[Area_Id],
+		[District_ID],
+		[Comment],
+		[Is_Active]
 	) output [inserted].[Id] INTO @output([Id])
 VALUES
 	(
 		@place_types_id,
 		@area_name,
 		@ar_id,
-		@distincts_id
+		@distincts_id,
+		@Comment,
+		1
 	);
 SET
 	@place_id = (
@@ -264,5 +280,3 @@ END;
 
 SELECT
 	@place_id AS Id;
-
-RETURN;
