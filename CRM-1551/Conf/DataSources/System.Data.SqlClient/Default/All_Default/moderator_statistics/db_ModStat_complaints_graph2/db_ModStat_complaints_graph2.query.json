@@ -1,7 +1,7 @@
 {
   "ModelType": "Query",
-  "Code": "db_ModStat_ complaints_graph2",
-  "Name": "db_ModStat_ complaints_graph2",
+  "Code": "db_ModStat_complaints_graph2",
+  "Name": "db_ModStat_complaints_graph2",
   "ConnectionCode": "Default",
   "IsUsedForRightsFilter": false,
   "IsAnonymousAccess": false,
