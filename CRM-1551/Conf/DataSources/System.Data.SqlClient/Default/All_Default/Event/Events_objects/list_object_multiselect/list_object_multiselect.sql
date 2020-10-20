@@ -1,3 +1,8 @@
+SELECT 
+TOP 50 
+	[Id],
+	[object_name]
+FROM (
 SELECT
 	 [Objects].[Id],
 			IIF(
@@ -36,5 +41,5 @@ WHERE [Objects].object_type_id = 1
 AND #filter_columns#
 	#sort_columns#
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
-OPTION (FAST 50)
+) sub
 ;
