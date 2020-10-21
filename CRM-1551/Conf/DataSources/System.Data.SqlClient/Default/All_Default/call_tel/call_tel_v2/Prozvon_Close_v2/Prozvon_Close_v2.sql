@@ -264,7 +264,7 @@ if @control_result_id = 13
 begin 
 declare @output table (Id int);
 declare @Operation varchar(128);
-declare @Missed_call_counter int = isnull((select sum(isnull([Missed_call_counter],0)) from [dbo].[AssignmentDetailHistory] with (nolock) where [Assignment_id] = @Id),0)+1	
+declare @Missed_call_counter int = isnull((select isnull(max([Missed_call_counter]),0) from [dbo].[AssignmentDetailHistory] with (nolock) where [Assignment_id] = @Id),0)+1	
 SET @Operation = 'UPDATE';
 Insert into [dbo].[AssignmentDetailHistory] ([Assignment_id]
 									  ,[SourceHistory]
