@@ -21,7 +21,7 @@
         "border": "none",
         "children": [
           {
-            "code": "SimpleFormWidget",
+            "code": "SimpleFormWidgetJSON",
             "type": "SimpleFormWidgetComponent",
             "name": "Simple-Form-Widget"
           }

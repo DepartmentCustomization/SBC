@@ -29,13 +29,14 @@
                 backgroundColor: 'black',
                 boxShadow: '10px 10px black'
             }
+            const config = {
+                style: styleProperties,
+                label: 'Angular custom select on DB'
+            }
             const modalContainer = document.getElementById('modalContainer');
             const title  = this.createElement('div', {innerText: 'Custom element on Dashboard'});
-            const button  = this.createElement('app-custom-select', {
-                style: styleProperties,
-                label: 'angular custom button on DB'
-            });
-            modalContainer.append(title, button);
+            const select  = this.createElement('app-custom-select', config);
+            // modalContainer.append(title, select);
         },
     };
 }());
