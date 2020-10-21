@@ -188,10 +188,10 @@ INSERT INTO
     [flat],
     [main],
     [active],
-	[create_date],
-	[user_id],
-	[edit_date],
-	[user_edit_id] 
+	  [create_date],
+	  [user_id],
+	  [edit_date],
+	  [user_edit_id] 
   )
 VALUES
   (
@@ -202,10 +202,10 @@ VALUES
     @1551_ApplicantFromSite_Address_Flat,
     1,
     1,
-	GETUTCDATE(),
-	@CreatedByUserId,
-	GETUTCDATE(),
-	@CreatedByUserId
+	  GETUTCDATE(),
+	  @CreatedByUserId,
+	  GETUTCDATE(),
+	  @CreatedByUserId
   );
 
 END 
@@ -257,9 +257,9 @@ IF (
           [phone_number],
           [IsMain],
           [CreatedAt],
-		  [user_id],
-		  [edit_date],
-		  [user_edit_id]
+		      [user_id],
+		      [edit_date],
+		      [user_edit_id]
         )
       SELECT
         @Applicant_Id AS [applicant_id],

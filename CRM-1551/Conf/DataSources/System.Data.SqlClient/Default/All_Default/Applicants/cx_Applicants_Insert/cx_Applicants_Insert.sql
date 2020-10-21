@@ -19,12 +19,14 @@ SET
         ELSE NULL
       END
   );
+
 SET
   @valid_date_birth = IIF(
     @birth_date2 IS NOT NULL,
     @birth_date2 + @interval,
     NULL
   );
+
 INSERT INTO
   [dbo].[Applicants] (
     [registration_date],
@@ -34,8 +36,7 @@ INSERT INTO
     [social_state_id],
     [mail],
     [sex],
-    [birth_date] --,[age]
-,
+    [birth_date],
     [comment],
     [user_id],
     [edit_date],
@@ -52,8 +53,7 @@ VALUES
     @social_state_id,
     @mail,
     @sex,
-    @valid_date_birth --,@age
-,
+    @valid_date_birth,
     @comment,
     @user_id,
     getutcdate(),
@@ -79,9 +79,9 @@ INSERT INTO
     [phone_number],
     [IsMain],
     [CreatedAt],
-	[user_id],
-	[edit_date],
-	[user_edit_id]
+    [user_id],
+    [edit_date],
+    [user_edit_id]
   )
 VALUES
   (
@@ -94,11 +94,11 @@ VALUES
     ),
     N'true',
     getutcdate(),
-	@user_id,
-	getutcdate(),
-	@user_id
-  ); 
-  
+    @user_id,
+    getutcdate(),
+    @user_id
+  );
+
 IF @phone_type_id2 IS NOT NULL
 OR @phone_number2 IS NOT NULL 
 BEGIN
@@ -109,9 +109,9 @@ INSERT INTO
     [phone_number],
     [IsMain],
     [CreatedAt],
-	[user_id],
-	[edit_date],
-	[user_edit_id]
+    [user_id],
+    [edit_date],
+    [user_edit_id]
   )
 VALUES
   (
@@ -124,10 +124,11 @@ VALUES
     ),
     N'false',
     getutcdate(),
-	@user_id,
-	getutcdate(),
-	@user_id
+    @user_id,
+    getutcdate(),
+    @user_id
   );
+
 END
 INSERT INTO
   [dbo].[LiveAddress] (
@@ -138,10 +139,10 @@ INSERT INTO
     [flat],
     [main],
     [active],
-	[create_date],
-	[user_id],
-	[edit_date],
-	[user_edit_id]
+    [create_date],
+    [user_id],
+    [edit_date],
+    [user_edit_id]
   )
 VALUES
   (
@@ -152,11 +153,12 @@ VALUES
     @flat,
     N'true',
     N'true',
-	getutcdate(),
-	@user_id,
-	getutcdate(),
-	@user_id
+    getutcdate(),
+    @user_id,
+    getutcdate(),
+    @user_id
   );
+
 UPDATE
   [dbo].[Applicants]
 SET
@@ -196,4 +198,5 @@ WHERE
 
 SELECT
   @applicant_id AS [Id];
-  RETURN;
+
+RETURN;

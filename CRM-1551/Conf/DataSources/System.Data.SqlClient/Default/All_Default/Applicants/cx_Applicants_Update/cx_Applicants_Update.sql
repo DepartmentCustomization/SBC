@@ -36,10 +36,10 @@ INSERT INTO
     [flat],
     [main],
     [active],
-	[create_date],
-	[user_id],
-	[edit_date],
-	[user_edit_id]
+    [create_date],
+    [user_id],
+    [edit_date],
+    [user_edit_id]
   )
 VALUES
   (
@@ -50,10 +50,10 @@ VALUES
     @flat,
     N'true',
     N'true',
-	GETUTCDATE(),
-	@user_id,
-	GETUTCDATE(),
-	@user_id
+    GETUTCDATE(),
+    @user_id,
+    GETUTCDATE(),
+    @user_id
   );
 
 END
