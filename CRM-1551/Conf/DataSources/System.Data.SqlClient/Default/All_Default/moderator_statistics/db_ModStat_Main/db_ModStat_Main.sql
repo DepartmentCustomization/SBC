@@ -1,5 +1,6 @@
 
 
+
 --select 1 Id, 
 --100 on_moderation_2h, 
 --200 registered_2h, 
@@ -100,14 +101,14 @@ and is_long_moderated is null and datediff(ss, [ReceiptDate], getutcdate())>2*60
 
 @registered_2h registered_2h,
 
-case when @registered_2h_l=0 then null
-else (@registered_2h-@registered_2h_l)/@registered_2h_l
+case when @registered_2h_l=0 then N''
+else ltrim(convert(numeric(8,2),(@registered_2h-@registered_2h_l)/@registered_2h_l))
 end registered_percent,
 
 @come_avg come_avg,
 
-convert(numeric(8,2),
-case when @come_avg_l=0 then null
-else (@come_avg-@come_avg_l)/@come_avg_l
-end) come_avg_percent
+
+case when @come_avg_l=0 then N''
+else ltrim(convert(numeric(8,2),(@come_avg-@come_avg_l)/@come_avg_l))
+end come_avg_percent
 
