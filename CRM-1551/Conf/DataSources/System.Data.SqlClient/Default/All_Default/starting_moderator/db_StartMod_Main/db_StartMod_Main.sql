@@ -2,6 +2,8 @@
 
 
 
+
+
  --declare @user_Id nvarchar(128)=N'test'
 
  declare @datetime_from datetime = 
@@ -35,12 +37,8 @@
 
   (select count([AppealsFromSite].Id)
   from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
-  inner join [dbo].[Appeals] on [AppealsFromSite].Appeal_Id=[Appeals].Id
-  inner join [dbo].[Questions] on [Appeals].Id=[Questions].appeal_id
-  where [ReceiptDate] between @datetime_from 
-  and @datetime_to
-
-  and datediff(ss, [AppealsFromSite].[ReceiptDate], [Questions].registration_date)>2*60*60
+  where AppealFromSiteResultId=1 and [ReceiptDate] between @datetime_from and @datetime_to
+  and datediff(ss, [AppealsFromSite].[ReceiptDate], getutcdate())>=2
   ) mutch_2hours,
 
 
