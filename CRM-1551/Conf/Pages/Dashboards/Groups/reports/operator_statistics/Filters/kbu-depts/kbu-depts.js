@@ -19,8 +19,6 @@
         onItemSelect: function(item) {
             this.yourFunctionName(item);
         },
-        onClearFilter: function() {
-        },
         yourFunctionName: function(item) {
             let message = {
                 name: '',

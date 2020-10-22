@@ -28,12 +28,17 @@
             }
         },
         init:function() {
-
+            let state = this.form.getControlValue('question_state_id');
             this.form.disableControl('geolocation_lat');
             this.form.disableControl('geolocation_lon');
 
-            if (this.form.getControlValue('question_state_id') === 5) {
+            if (state === 5) {
                 this.navigateTo('/sections/Questions/view/' + this.id);
+            } else if (state === 2 || state === 3) {
+                this.form.disableControl('question_type_id');
+                this.form.disableControl('object_id');
+                this.form.disableControl('perfom_id');
+                this.form.disableControl('question_content');
             }
 
             if (this.form.getControlValue('geolocation_lat')) {

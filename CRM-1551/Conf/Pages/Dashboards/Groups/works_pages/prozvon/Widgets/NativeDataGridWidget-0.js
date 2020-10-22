@@ -266,8 +266,33 @@
             if(currentEmployeeData.control_comment === null) {
                 currentEmployeeData.control_comment = '';
             }
+            if(currentEmployeeData.All_NDZV === null) {
+                currentEmployeeData.All_NDZV = '';
+            }
+            
             let ndz = currentEmployeeData.cc_nedozvon;
             let ndzComment = currentEmployeeData.control_comment;
+/////////////////////////////////////////////////////////
+            let AllNDZV = currentEmployeeData.All_NDZV;
+           
+            let elementHistoryAllNDZV__content = this.createElement(
+                'div',
+                {
+                    className: 'elementHistoryAllNDZV__content content',
+                    innerHTML: AllNDZV 
+                }
+            );
+
+            let elementHistoryAllNDZV__caption = this.createElement('div', { className: 'elementHistoryAllNDZV__caption caption', innerText: 'Історія'});
+            let elementHistoryAllNDZV = this.createElement(
+                'div',
+                {
+                    className: 'elementHistoryAllNDZV element'
+                },
+                elementHistoryAllNDZV__caption, elementHistoryAllNDZV__content
+            );
+
+////////////////////////////////////////////////////////////////
             let elementHistory__content = this.createElement(
                 'div',
                 {
@@ -275,7 +300,7 @@
                     innerText: ndz + ' ( дата та час останнього недозвону: ' + lastNdzTime + '), коментар: ' + ndzComment
                 }
             );
-            let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія'});
+            let elementHistory__caption = this.createElement('div', { className: 'elementHistory__caption caption', innerText: 'Історія_останній НДЗ'});
             let elementHistory = this.createElement(
                 'div',
                 {
@@ -324,7 +349,7 @@
                 {
                     className: 'elementsWrapper'
                 },
-                elementHistory, elementСontent, elementComment
+                elementHistoryAllNDZV, elementHistory, elementСontent, elementComment
             );
             container.appendChild(elementsWrapper);
             let elementsAll = document.querySelectorAll('.element');

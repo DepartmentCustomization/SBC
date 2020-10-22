@@ -23,6 +23,12 @@
       "Name": "indicator_value",
       "Position": 2,
       "IsPrintable": false
+    },
+    {
+      "Code": "name",
+      "Name": "name",
+      "Position": 3,
+      "IsPrintable": false
     }
   ],
   "Parameters": [

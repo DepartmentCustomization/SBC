@@ -1,5 +1,5 @@
-    --    DECLARE @ApplicantFromSiteId INT = NULL;
-    --    DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380672170307';
+--  DECLARE @ApplicantFromSiteId INT = NULL;
+--  DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380987012275';
 
 IF(@ApplicantFromSitePhone IS NOT NULL)
 BEGIN
@@ -42,6 +42,7 @@ FROM
 							   FROM @ApplicantForPhone)
 	AND [Questions].[question_state_id] = 3
 	AND [Assignments].AssignmentResultsId = 4
+	AND [Appeals].receipt_source_id IN (1,2,8)
 
 	UNION 
 
@@ -61,7 +62,8 @@ FROM
 	[Appeals].applicant_id = @ApplicantFromSiteId
 	AND [Questions].[question_state_id] = 3
 	AND [Assignments].AssignmentResultsId = 4 
-   ;
+    AND [Appeals].receipt_source_id IN (1,2,8)
+	;
 
 DECLARE @LastContent TABLE (Id INT, content NVARCHAR(MAX));
 DECLARE @Qty SMALLINT = (SELECT COUNT(1) FROM @AppealExecutData);
@@ -114,7 +116,8 @@ SELECT
 	END AS has_files,
 	[AppealLastContent].content AS main_content,
 	[Questions].Id AS Question_id,
-	[Questions].[registration_number] AS Question_number
+	[Questions].[registration_number] AS Question_number,
+	[Appeals].[receipt_source_id] AS appeal_receipt_source
 FROM
 	[dbo].[Appeals] [Appeals]
 	INNER JOIN @LastContent [AppealLastContent] ON [AppealLastContent].Id = [Appeals].Id 
@@ -154,7 +157,8 @@ GROUP BY
 	[MainAss].state_change_date,
 	[AppealLastContent].content,
 	[Questions].Id,
-	[Questions].[registration_number]
+	[Questions].[registration_number],
+	[Appeals].[receipt_source_id]
 ORDER BY 1
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY 
 ;

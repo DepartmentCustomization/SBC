@@ -1,4 +1,11 @@
 DECLARE @output TABLE (Id INT);
+DECLARE @AppealsFromSite_Id INT;
+if not exists(
+  select Id
+  from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
+  where external_id=@external_id)
+
+  begin
 
 INSERT INTO [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
   (
@@ -14,6 +21,7 @@ INSERT INTO [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
       ,[geolocation_lon]
       ,[SystemIP]
       ,[external_data_sources_id]
+      ,[external_id]
   )
 OUTPUT [inserted].[Id] INTO @output (Id)
 
@@ -29,9 +37,10 @@ OUTPUT [inserted].[Id] INTO @output (Id)
       ,@geolocation_lat
       ,@geolocation_lon
       ,@SystemIP
-      ,@external_data_sources_id;
+      ,@external_data_sources_id
+      ,@external_id;
 
-DECLARE @AppealsFromSite_Id INT = (SELECT TOP 1 Id FROM @output);
+set @AppealsFromSite_Id = (SELECT TOP 1 Id FROM @output);
 
 EXEC [dbo].[AutomaticQuestionFromSite] @applicant_from_site_id,
 @work_direction_type_id,
@@ -43,5 +52,15 @@ EXEC [dbo].[AutomaticQuestionFromSite] @applicant_from_site_id,
 @external_data_sources_id,
 @AppealsFromSite_Id,
 @user_id;
+
+end
+
+else 
+
+  BEGIN
+    set @AppealsFromSite_Id = (select Id
+  from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
+  where external_id=@external_id);
+  END
 
 SELECT @AppealsFromSite_Id Id;

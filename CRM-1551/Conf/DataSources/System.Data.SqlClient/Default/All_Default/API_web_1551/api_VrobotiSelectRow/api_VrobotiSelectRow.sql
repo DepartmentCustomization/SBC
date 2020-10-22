@@ -1,5 +1,5 @@
-   --DECLARE @ApplicantFromSiteId INT = 22;
-   --DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380632701143';
+-- DECLARE @ApplicantFromSiteId INT = 22;
+-- DECLARE @ApplicantFromSitePhone NVARCHAR(13) = '+380987012275';
 
 SET @ApplicantFromSitePhone = REPLACE(@ApplicantFromSitePhone, '+38', SPACE(0)); 
 
@@ -54,7 +54,8 @@ SELECT
 		THEN 1 ELSE 0 
 	END AS has_files,
 	[Questions].Id AS Question_id,
-	[Questions].[registration_number] AS Question_number
+	[Questions].[registration_number] AS Question_number,
+	[Appeals].[receipt_source_id] AS appeal_receipt_source
 FROM
 	[dbo].[Appeals] [Appeals]
 	LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
@@ -71,6 +72,7 @@ FROM
  	LEFT JOIN [dbo].[AssignmentResults] [AssignmentResults] ON [MainAss].AssignmentResultsId = [AssignmentResults].Id
 WHERE
 	[Appeals].applicant_id = @ApplicantIn1551
+	AND [Appeals].receipt_source_id IN (1,2,8)
 	AND (
 		/*START CRM1551-397*/
 		(
@@ -94,12 +96,13 @@ WHERE
 		OR (
 			[Questions].[question_state_id] = 3
 			/*На перевірці*/
-			AND [Assignments].AssignmentResolutionsId = 7
+			AND [MainAss].AssignmentResolutionsId = 7
 			/*Роз'яснено*/
-			AND [Assignments].AssignmentResultsId = 8
+			AND [MainAss].AssignmentResultsId = 8
 			/*Неможливо виконати*/
 		)
 		/*END CRM1551-395*/
+		OR ( [Appeals].receipt_source_id IN (1,8) and [Questions].[question_state_id] = 1)
 	)
 GROUP BY 
 	[Appeals].Id,
@@ -120,7 +123,8 @@ GROUP BY
 	[Questions].[geolocation_lon],
 	[MainAss].state_change_date,
 	[Questions].Id,
-	[Questions].[registration_number]
+	[Questions].[registration_number],
+	[Appeals].[receipt_source_id]
 
 UNION
 
@@ -150,7 +154,8 @@ SELECT
 		THEN 1 ELSE 0 
 	END AS has_files,
 	[Questions].Id AS Question_id,
-	[Questions].[registration_number] AS Question_number
+	[Questions].[registration_number] AS Question_number,
+	[Appeals].[receipt_source_id] AS appeal_receipt_source
 FROM
 	[dbo].[Appeals] [Appeals]
 	LEFT JOIN [dbo].[Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
@@ -172,6 +177,7 @@ WHERE
 		FROM
 			@ApplicantForPhone
 	)
+	AND [Appeals].receipt_source_id IN (1,2,8)
 	AND (
 		/*START CRM1551-397*/
 		(
@@ -195,12 +201,13 @@ WHERE
 		OR (
 			[Questions].[question_state_id] = 3
 			/*На перевірці*/
-			AND [Assignments].AssignmentResolutionsId = 7
+			AND [MainAss].AssignmentResolutionsId = 7
 			/*Роз'яснено*/
-			AND [Assignments].AssignmentResultsId = 8
+			AND [MainAss].AssignmentResultsId = 8
 			/*Неможливо виконати*/
 		)
 		/*END CRM1551-395*/
+		OR ( [Appeals].receipt_source_id IN (1,8) and [Questions].[question_state_id] = 1)
 	)
 GROUP BY 
 	[Appeals].Id,
@@ -221,7 +228,8 @@ GROUP BY
 	[Questions].[geolocation_lon],
 	[MainAss].state_change_date,
 	[Questions].Id,
-	[Questions].[registration_number]
+	[Questions].[registration_number],
+	[Appeals].[receipt_source_id]
 ORDER BY 1
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
 ;

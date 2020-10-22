@@ -7,25 +7,6 @@
     "SectionCode": "Assignments",
     "Position": 0,
     "IsExpand": true,
-    // "Add": {
-    //   "InsertQueryParameterCode": "@organization_id",
-    //   "QueryCode": "cx_OrganizationForLookup_newAssigments",
-    //   "ColumnCode": "Id",
-    //   "AddType": "Lookup",
-    //   "InsertQueryCode": "cx_InsetManyNewAssigments",
-    //   "QueryParameters": [
-    //     {
-    //       "FormFieldName": "Id",
-    //       "ParameterCode": "@question_id"
-    //     }
-    //   ],
-    //   "InsertQueryParameters": [
-    //     {
-    //       "FormFieldName": "Id",
-    //       "ParameterCode": "@question_id"
-    //     }
-    //   ]
-    // },
     "QueryParameters": [
       {
         "FormFieldName": "Id",

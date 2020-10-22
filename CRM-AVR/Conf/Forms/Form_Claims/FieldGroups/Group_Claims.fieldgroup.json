@@ -98,7 +98,7 @@
     },
     {
       "Code": "count_orders",
-      "Name": "count_orders",
+      "Name": "Кількість виїздів",
       "FieldType": "number",
       "Position": 252,
       "IsHidden": true
