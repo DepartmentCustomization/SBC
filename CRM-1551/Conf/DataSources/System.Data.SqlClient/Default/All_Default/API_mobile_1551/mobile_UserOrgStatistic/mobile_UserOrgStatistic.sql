@@ -1,5 +1,5 @@
---  DECLARE @userId NVARCHAR(128) = N'eb6d56d2-e217-45e4-800b-c851666ce795';
---  DECLARE @orgId INT = null;
+-- DECLARE @userId NVARCHAR(128) = N'eb6d56d2-e217-45e4-800b-c851666ce795';
+-- DECLARE @orgId INT = NULL;
 
 DECLARE @user_position TABLE (Id INT);
 INSERT INTO @user_position
@@ -177,6 +177,87 @@ INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
 	GROUP BY org.[Id];
 
 
+DECLARE @RootVal TABLE (organization_id INT,
+						new_assignemnt INT,
+						in_work_assignment INT,
+						in_work_event INT,
+						overdue_assignment INT,
+						overdue_event INT,
+						attention_assignment INT,
+						attention_event INT,
+						curatorreturn_assignment INT,
+						applicantreturn_assignment INT);
+IF (@orgId IS NULL)
+BEGIN
+INSERT INTO @RootVal
+SELECT 
+DISTINCT
+	NULL AS organization_id,
+	SUM(ISNULL(na.[val],0)) AS new_assignemnt,
+	SUM(ISNULL(iwa.[val],0)) AS in_work_assignment,
+	SUM(ISNULL(iwe.[val],0)) AS in_work_event,
+	SUM(ISNULL(oa.[val],0)) AS overdue_assignment,
+	SUM(ISNULL(oe.[val],0)) AS overdue_event,
+	SUM(ISNULL(aa.[val],0)) AS attention_assignment,
+	SUM(ISNULL(ae.[val],0)) AS attention_event,
+	SUM(ISNULL(cra.[val],0)) AS curatorreturn_assignment,
+	SUM(ISNULL(ara.[val],0)) AS applicantreturn_assignment
+FROM @user_orgs uo 
+LEFT JOIN @new_assignemnt na ON na.[org_id] = uo.[Id]
+LEFT JOIN @in_work_assignment iwa ON iwa.[org_id] = uo.[Id]
+LEFT JOIN @in_work_event iwe ON iwe.[org_id] = uo.[Id]
+LEFT JOIN @overdue_assignment oa ON oa.[org_id] = uo.[Id]
+LEFT JOIN @overdue_event oe ON oe.[org_id] = uo.[Id]
+LEFT JOIN @attention_assignment aa ON aa.[org_id] = uo.[Id]
+LEFT JOIN @attention_event ae ON ae.[org_id] = uo.[Id]
+LEFT JOIN @curatorreturn_assignment cra ON cra.[org_id] = uo.[Id]
+LEFT JOIN @applicantreturn_assignment ara ON ara.[org_id] = uo.[Id];
+
+
+SELECT 
+DISTINCT
+	uo.Id AS organization_id,
+	ISNULL(na.[val],0) AS new_assignemnt,
+	ISNULL(iwa.[val],0) AS in_work_assignment,
+	ISNULL(iwe.[val],0) AS in_work_event,
+	ISNULL(oa.[val],0) AS overdue_assignment,
+	ISNULL(oe.[val],0) AS overdue_event,
+	ISNULL(aa.[val],0) AS attention_assignment,
+	ISNULL(ae.[val],0) AS attention_event,
+	ISNULL(cra.[val],0) AS curatorreturn_assignment,
+	ISNULL(ara.[val],0) AS applicantreturn_assignment
+FROM @user_orgs uo 
+LEFT JOIN @new_assignemnt na ON na.[org_id] = uo.[Id]
+LEFT JOIN @in_work_assignment iwa ON iwa.[org_id] = uo.[Id]
+LEFT JOIN @in_work_event iwe ON iwe.[org_id] = uo.[Id]
+LEFT JOIN @overdue_assignment oa ON oa.[org_id] = uo.[Id]
+LEFT JOIN @overdue_event oe ON oe.[org_id] = uo.[Id]
+LEFT JOIN @attention_assignment aa ON aa.[org_id] = uo.[Id]
+LEFT JOIN @attention_event ae ON ae.[org_id] = uo.[Id]
+LEFT JOIN @curatorreturn_assignment cra ON cra.[org_id] = uo.[Id]
+LEFT JOIN @applicantreturn_assignment ara ON ara.[org_id] = uo.[Id]
+
+UNION 
+
+SELECT 
+	organization_id,
+	new_assignemnt,
+	in_work_assignment,
+	in_work_event,
+	overdue_assignment,
+	overdue_event,
+	attention_assignment,
+	attention_event,
+	curatorreturn_assignment,
+	applicantreturn_assignment
+FROM @RootVal
+WHERE #filter_columns#
+	  #sort_columns#
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
+
+END 
+ELSE 
+BEGIN
 SELECT 
 DISTINCT
 	uo.Id AS organization_id,
@@ -202,3 +283,4 @@ LEFT JOIN @applicantreturn_assignment ara ON ara.[org_id] = uo.[Id]
 WHERE #filter_columns#
 	  #sort_columns#
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
+END
