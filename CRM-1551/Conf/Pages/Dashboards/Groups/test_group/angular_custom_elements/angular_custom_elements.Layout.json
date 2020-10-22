@@ -21,14 +21,14 @@
         "border": "none",
         "children": [
           {
-            "code": "SimpleFormWidgetJSON",
+            "code": "SimpleFormWidget",
             "type": "SimpleFormWidgetComponent",
             "name": "Simple-Form-Widget"
           }
         ],
         "id": "Container-1",
-        "height": "300px",
-        "minHeight": "300px",
+        "height": "calc(100% - 10px)",
+        "minHeight": "calc(100% - 10px)",
         "minWidth": "100px",
         "backgroundColor": "white"
       },

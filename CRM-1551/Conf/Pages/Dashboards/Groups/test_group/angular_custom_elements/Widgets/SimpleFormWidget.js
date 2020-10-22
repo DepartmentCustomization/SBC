@@ -11,20 +11,70 @@
                     "position": 2,
                     "fields": [
                         {
+                            "code": "TextInput1Btn",
+                            "name": "Очистити",
+                            "type": "button",
+                            "position": 1,
+                            "width": "25%",
+                            "icon": "address-book",
+                            "placeholder": "TextInput1"
+                        },
+                        {
+                            "code": "TextInput2Btn",
+                            "name": "Очистити",
+                            "type": "button",
+                            "position": 5,
+                            "width": "50%",
+                            "icon": "adjust",
+                            "placeholder": "SelectInput1"
+                        },
+                        {
+                            "code": "TextInput3Btn",
+                            "name": "Очистити",
+                            "type": "button",
+                            "position": 2,
+                            "width": "25%",
+                            "icon": "amilia",
+                            "placeholder": "SelectInput2"
+                        },
+                        {
+                            "code": "GetControlValues",
+                            "name": "GetControlValues",
+                            "type": "button",
+                            "position": 1,
+                            "width": "25%",
+                            "icon": "amilia",
+                            "placeholder": "GetControlValues"
+                        },
+                        {
+                            "code": "Applicant_name",
                             "name": "Название 1",
                             "type": "text",
+                            "position": 100,
                         },
                         {
                             "code": "ReceiptSources",
                             "name": "Джерело збереження",
                             "type": "select",
                             "position": 21,
+                            placeholder: 'Джерело збереження placeholder '
                         },
                         {
-                            "code": "ReceiptSources",
+                            "code": "ReceiptCreated",
                             "name": "Джерело створення",
                             "type": "select",
-                            "position": 2,
+                            "position": 12,
+                        },
+                        {
+                            code: "checkbox",
+                            fullScreen: true,
+                            hidden: false,
+                            placeholder: 'Основний?',
+                            position: 3,
+                            required: false,
+                            value: false,
+                            type: 'checkbox',
+                            width: '50%'
                         }
                     ]
                 },
@@ -33,11 +83,13 @@
                     "position": 1,
                     "fields": [
                         {
+                            "code": "Question_name",
                             "name": "new label 2",
                             "type": "text",
                             "width": "50%"
                         },
                         {
+                            "code": "Question_text",
                             "name": "like dashboard",
                             "type": "text",
                             "width": "30%"
@@ -49,13 +101,6 @@
                     "name": "Самая большая группа",
                     "position": 10,
                     "fields": [
-                        {
-                          "code": "Applicant_PIB",
-                          "name": "Прізвище, Ім'я та По батькові*",
-                          "type": "text",
-                          "position": 1,
-                          "width": "100%"
-                        },
                         {
                           "code": "CardPhone",
                           "name": "Номер телефону",
@@ -82,133 +127,37 @@
                           "position": 6,
                           "IsHidden": true,
                           "width": "33%"
-                        },
-                        {
-                          "code": "Applicant_Entrance",
-                          "name": "П*",
-                          "type": "number",
-                          "position": 7,
-                          "width": "10%"
-                        },
-                        {
-                          "Maxlength": 15,
-                          "code": "Applicant_Flat",
-                          "name": "Кв",
-                          "type": "text",
-                          "position": 8,
-                          "width": "15%"
-                        },
-                        {
-                          "code": "Applicant_District",
-                          "name": "Район",
-                          "type": "text",
-                          "position": 9
-                        },
-                        {
-                          "code": "ExecutorInRoleForObject",
-                          "name": "Балансоутримувач",
-                          "type": "text",
-                          "position": 10
-                        },
-                        {
-                          "code": "Applicant_Privilege",
-                          "name": "Пільги",
-                          "type": "select",
-                          "position": 10,
-                          "width": "100%",
-                          "Querycode": "List_ApplicantPrivilege_SelectRows",
-                          "KeyColumncode": "Id",
-                          "DisplayColumncode": "name",
-                          "QueryParameters": []
-                        },
-                        {
-                          "code": "Applicant_SocialStates",
-                          "name": "Соціальний стан",
-                          "type": "select",
-                          "position": 10,
-                          "Querycode": "List_SocialStates_SelectRows",
-                          "KeyColumncode": "Id",
-                          "DisplayColumncode": "name",
-                          "QueryParameters": []
-                        },
-                        {
-                          "code": "Applicant_CategoryType",
-                          "name": "Категорія заявника",
-                          "type": "select",
-                          "position": 11,
-                          "IsHidden": true,
-                          "Querycode": "List_CategoryType_SelectRows",
-                          "KeyColumncode": "Id",
-                          "DisplayColumncode": "name",
-                          "QueryParameters": []
-                        },
-                        {
-                          "code": "Applicant_Type",
-                          "name": "Тип заявника",
-                          "type": "select",
-                          "position": 11,
-                          "Querycode": "dir_ApplicantTypes_SelectRows",
-                          "KeyColumncode": "Id",
-                          "DisplayColumncode": "name",
-                          "QueryParameters": []
-                        },
-                        {
-                          "code": "Applicant_Email",
-                          "name": "E-mail",
-                          "type": "text",
-                          "position": 15
-                        },
-                        {
-                          "Maxlength": 50,
-                          "code": "Applicant_Comment",
-                          "name": "Нотатки",
-                          "type": "text",
-                          "position": 16
-                        },
-                        {
-                          "code": "Applicant_Btn_Clear",
-                          "name": "Очистити",
-                          "type": "button",
-                          "position": 997,
-                          "width": "25%",
-                          "Icon": "cached",
-                          "IconHint": "Очистити інформацію по Заявнику"
-                        },
-                        {
-                          "code": "Applicant_Btn_Add",
-                          "name": "Зберегти",
-                          "type": "button",
-                          "position": 998,
-                          "width": "25%",
-                          "Icon": ""
-                        },
-                        {
-                          "code": "Question_Aplicant_Btn_Add",
-                          "name": "Додати питання",
-                          "type": "button",
-                          "position": 999,
-                          "Icon": "note_add"
-                        },
-                        {
-                          "code": "Adress_for_answer",
-                          "name": "Adress  (скрите поле)",
-                          "type": "text",
-                          "position": 1445,
-                          "IsHidden": true
-                        },
-                        {
-                          "code": "Applicant_Phone_Hide",
-                          "name": "Applicant_Phone_Hide",
-                          "type": "text",
-                          "position": 2000,
-                          "IsHidden": true
                         }
                     ]
                 }
             ]
         },
         init: function() {
-            debugger;
+            setTimeout(this.myFunc.bind(this), 10000);
+        },
+        myFunc() {
+            const btn1 = document.getElementById('TextInput1Btn');
+            const btn3 = document.getElementById('TextInput3Btn');
+            const btn2 = document.getElementById('TextInput2Btn');
+            btn1.addEventListener('click', function() {
+                const value = this.getControlValue('Applicant_name');
+                console.log(value);
+            }.bind(this));
+            btn3.addEventListener('click', function() {
+                const value = this.getControlValue('ReceiptSources');
+                console.log(value);
+            }.bind(this));
+            btn2.addEventListener('click', function() {
+                const value = this.getControlValue('ReceiptCreated');
+                console.log(value);
+            }.bind(this));
+            const btnGetControlValues = document.getElementById('GetControlValues');
+            btnGetControlValues.addEventListener('click', function() {
+                const value = this.getControlValues();
+                console.log(value);
+            }.bind(this));
+        },
+        script: function() {
         }
     };
 }());
