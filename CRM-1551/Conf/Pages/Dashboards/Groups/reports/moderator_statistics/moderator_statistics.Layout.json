@@ -98,7 +98,7 @@
               }
             ],
             "id": "Container-1",
-            "height": "auto",
+            "height": "15%",
             "minHeight": "100px",
             "minWidth": "calc(100% - 10px)",
             "backgroundColor": "white"
@@ -130,7 +130,7 @@
                   }
                 ],
                 "id": "Container-1",
-                "height": "auto",
+                "height": "50%",
                 "minHeight": "200px",
                 "minWidth": "40%",
                 "backgroundColor": "white"
@@ -152,7 +152,7 @@
                   }
                 ],
                 "id": "Container-1",
-                "height": "auto",
+                "height": "50%",
                 "minHeight": "200px",
                 "minWidth": "40%",
                 "backgroundColor": "white"
@@ -174,7 +174,7 @@
                   }
                 ],
                 "id": "Container-1",
-                "height": "auto",
+                "height": "50%",
                 "minHeight": "200px",
                 "minWidth": "40%",
                 "backgroundColor": "white"
@@ -196,7 +196,7 @@
                   }
                 ],
                 "id": "Container-1",
-                "height": "auto",
+                "height": "50%",
                 "minHeight": "200px",
                 "minWidth": "40%",
                 "backgroundColor": "white"
