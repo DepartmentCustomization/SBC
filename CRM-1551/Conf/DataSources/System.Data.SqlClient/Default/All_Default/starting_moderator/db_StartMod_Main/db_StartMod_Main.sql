@@ -38,7 +38,7 @@
   (select count([AppealsFromSite].Id)
   from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
   where AppealFromSiteResultId=1 and [ReceiptDate] between @datetime_from and @datetime_to
-  and datediff(ss, [AppealsFromSite].[ReceiptDate], getutcdate())>=2
+  and datediff(ss, [AppealsFromSite].[ReceiptDate], getutcdate())>2*60*60
   ) mutch_2hours,
 
 
