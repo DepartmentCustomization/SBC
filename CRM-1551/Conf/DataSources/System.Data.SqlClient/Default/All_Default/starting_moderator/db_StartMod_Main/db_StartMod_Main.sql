@@ -1,10 +1,12 @@
 
 
 
-
-
-
  --declare @user_Id nvarchar(128)=N'test'
+
+
+ declare @oldest datetime=(select min([ReceiptDate])
+  from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
+  where AppealFromSiteResultId=1)
 
  declare @datetime_from datetime = 
  (
@@ -42,9 +44,7 @@
   ) mutch_2hours,
 
 
-  (select min([ReceiptDate])
-  from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
-  where AppealFromSiteResultId=1) oldest,
+  CONVERT(datetime, SWITCHOFFSET(@oldest, DATEPART(TZOFFSET,@oldest AT TIME ZONE 'E. Europe Standard Time'))) oldest,
 
 --'2019-05-01 02:01:01.603' oldest,
 
