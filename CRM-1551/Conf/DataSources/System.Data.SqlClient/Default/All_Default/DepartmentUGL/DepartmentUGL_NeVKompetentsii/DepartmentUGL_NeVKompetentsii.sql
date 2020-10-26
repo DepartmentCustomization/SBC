@@ -1,4 +1,4 @@
--- DECLARE @user_id NVARCHAR(300)=N'871e2902-8915-4a07-95af-101c05092dab';
+--  DECLARE @user_id NVARCHAR(300)=N'871e2902-8915-4a07-95af-101c05092dab';
 
 DECLARE @role NVARCHAR(500) = (
 	SELECT
@@ -49,12 +49,9 @@ left join [StreetTypes] on [Streets].street_type_id=[StreetTypes].Id
 left join [Organizations] [Organizations2] on [AssignmentConsiderations].[transfer_to_organization_id]=[Organizations2].Id
 left join [Buildings] [Buildings5] on [Objects].builbing_id=[Buildings5].Id
 left join [Districts] [Districts5] on [Buildings5].district_id=[Districts5].Id
-where [AssignmentStates].code in (''Registered'', N''InWork'')  
+where [AssignmentStates].code in (''Registered'', N''OnCheck'')  
 and AssignmentResults.code = (N''NotInTheCompetence'')
-and [ReceiptSources].code=N''UGL''
-and (case when '''+@role+N'''=N''Конролер'' and [AssignmentResolutions].name=N''Повернуто в 1551'' then 1
-  when '''+@role+N'''<>N''Конролер'' and [AssignmentResolutions].name=N''Повернуто в батьківську організацію''
-  then 1 end)=1)
+and [ReceiptSources].code=N''UGL'')
 
 select 
 	Id, 
@@ -72,6 +69,6 @@ select
 	[transfer_to_organization_name]
 from main 
 order by Id desc;
-'
+';
 
 EXEC(@quere_code);
