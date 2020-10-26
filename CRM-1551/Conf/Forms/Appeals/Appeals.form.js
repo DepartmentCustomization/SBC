@@ -1549,9 +1549,14 @@
             this.form.setControlValue('Event_Prew_Name', row.values[0]);
             this.form.setControlValue('Event_Prew_EventOrganizers', row.values[3]);
             this.form.setControlValue('Event_Prew_Comment', row.values[4]);
-            this.form.setControlValue('Event_Prew_StartDate', new Date(row.values[5]));
-            this.form.setControlValue('Event_Prew_PlanEndDate', new Date(row.values[6]));
+            this.form.setControlValue('Event_Prew_StartDate', this.avoidUTConDate(new Date(row.values[5])));
+            this.form.setControlValue('Event_Prew_PlanEndDate', this.avoidUTConDate(new Date(row.values[6])));
             this.scrollTopMainForm();
+        },
+        avoidUTConDate: function(date) {
+            let ms = 60000;
+            let offset = Math.abs(date.getTimezoneOffset());
+            return new Date(date.getTime() + offset * ms);
         },
         onChangedWIKI_KnowledgeBaseState: function(value) {
             if (typeof value === 'string') {
@@ -1572,7 +1577,6 @@
                 document.getElementById('WIKI_Btn_Search').disabled = true;
                 document.getElementById('WIKI_Btn_Consultation').disabled = true;
             }
-            
         },
         onChangedApplicant_Id: function(value) {
             if (!value || value === '') {
@@ -1644,13 +1648,12 @@
             this.Question_TypeId_Input = value;
             this.onChanged_Question_Btn_Add_Input();
             this.getOrgExecut();
-            
             if (value) {
                 this.GetContentTextByQTypeId(value);
             } else {
                 this.form.setControlVisibility('Question_Type_Content', false);
                 this.form.setControlValue('Question_Type_Content', '');
-            };
+            }
         },
         GetContentTextByQTypeId: function(value) {
             const ContentTextByQTypeId = {
@@ -1664,13 +1667,13 @@
             };
             this.queryExecutor.getValue(ContentTextByQTypeId).subscribe(data => {
                 this.form.disableControl('Question_Type_Content');
-                if(data){
+                if(data) {
                     this.form.setControlVisibility('Question_Type_Content', true);
                     this.form.setControlValue('Question_Type_Content', data);
                 } else {
                     this.form.setControlVisibility('Question_Type_Content', false);
                     this.form.setControlValue('Question_Type_Content', '');
-                };
+                }
             });
         },
         onChanged_VisibleOrgAndBuild: function() {
