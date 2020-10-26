@@ -1,4 +1,4 @@
---  DECLARE @user_id NVARCHAR(128) = N'871e2902-8915-4a07-95af-101c05092dab';
+--   DECLARE @user_id NVARCHAR(128) = N'871e2902-8915-4a07-95af-101c05092dab';
 
 IF OBJECT_ID('tempdb..#temp_all') IS NOT NULL 
 BEGIN
@@ -29,17 +29,8 @@ FROM
 			[Assignments].Id,
 			N'УГЛ' navigation,
 			CASE
-				WHEN [AssignmentStates].code IN ('Registered', N'InWork')
+				WHEN [AssignmentStates].code IN ('Registered', N'OnCheck')
 				AND AssignmentResults.code = (N'NotInTheCompetence')
-				AND [ReceiptSources].code = N'UGL'
-				AND (
-					CASE
-						WHEN @role = N'Конролер'
-						AND [AssignmentResolutions].name = N'Повернуто в 1551' THEN 1
-						WHEN @role <> N'Конролер'
-						AND [AssignmentResolutions].name = N'Повернуто в батьківську організацію' THEN 1
-					END
-				) = 1
 				AND [ReceiptSources].code = N'UGL' THEN 1
 				ELSE 0
 			END count_nevkomp,
