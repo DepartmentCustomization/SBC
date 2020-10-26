@@ -15,8 +15,8 @@
  select [Assignments].Id, [Questions].registration_number, ltrim([QuestionTypes].name) QuestionType,
  (select (select  convert(xml, ''  <p> '' + cast(Missed_call_counter as varchar(10)) + N'' (дата та час недозвону: '' + format(CONVERT(datetime, SWITCHOFFSET(Edit_date, DATEPART(TZOFFSET,Edit_date AT TIME ZONE ''E. Europe Standard Time''))), ''dd.MM.yyyy HH:mm'') + N''), коментар: '' + isnull(MissedCallComment, '''') + '' </p> '')
 from AssignmentDetailHistory 
-where  Missed_call_counter = 1
-and AssignmentDetailHistory.Assignment_id = Assignments.Id
+where  --Missed_call_counter = 1 and 
+AssignmentDetailHistory.Assignment_id = Assignments.Id
 For XML PATH('''')
 ) )as All_NDZV,
   [Applicants].full_name, [ApplicantPhones].phone_number, [Districts].Id District,
