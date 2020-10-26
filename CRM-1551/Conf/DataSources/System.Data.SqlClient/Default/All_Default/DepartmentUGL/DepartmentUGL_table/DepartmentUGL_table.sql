@@ -31,7 +31,6 @@ FROM
 			CASE
 				WHEN [AssignmentStates].code IN ('Registered', N'OnCheck')
 				AND AssignmentResults.code = (N'NotInTheCompetence')
-				AND [ReceiptSources].code = N'UGL'
 				AND [ReceiptSources].code = N'UGL' THEN 1
 				ELSE 0
 			END count_nevkomp,
