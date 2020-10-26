@@ -16,7 +16,7 @@ DISTINCT
 FROM [dbo].[OrganizationInResponsibilityRights]
 WHERE [position_id] IN (SELECT [Id] FROM @user_position);
 
-DECLARE @user_orgs TABLE (Id INT);
+DECLARE @user_orgs TABLE (Id INT, short_name NVARCHAR(500));
 DECLARE @now DATETIME = GETUTCDATE();
 
 IF (@orgId IS NULL)
@@ -24,7 +24,8 @@ BEGIN
 	INSERT INTO @user_orgs
 	SELECT 
 	DISTINCT 
-		o.[Id]
+		o.[Id],
+		o.[short_name]
 	FROM [dbo].[OrganizationInResponsibilityRights] org_r
 	INNER JOIN [dbo].[Organizations] o ON o.Id = org_r.organization_id
 	WHERE [position_id] IN (SELECT Id FROM @user_position);
@@ -38,7 +39,8 @@ BEGIN
 	END
 	INSERT INTO @user_orgs
 	SELECT 
-		@orgId
+		@orgId,
+		short_name
 	FROM dbo.[Organizations] 
 	WHERE [Id] = @orgId;
 END
@@ -177,7 +179,8 @@ INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
 	GROUP BY org.[Id];
 
 
-DECLARE @RootVal TABLE (organization_id INT,
+DECLARE @RootVal TABLE (Id INT,
+						short_name NVARCHAR(500),
 						new_assignemnt INT,
 						in_work_assignment INT,
 						in_work_event INT,
@@ -187,12 +190,30 @@ DECLARE @RootVal TABLE (organization_id INT,
 						attention_event INT,
 						curatorreturn_assignment INT,
 						applicantreturn_assignment INT);
+
+IF OBJECT_ID('tempdb..#ResultVal') IS NOT NULL
+BEGIN
+	DROP TABLE #ResultVal;
+END
+CREATE TABLE #ResultVal (Id INT,
+						short_name NVARCHAR(500),
+						new_assignemnt INT,
+						in_work_assignment INT,
+						in_work_event INT,
+						overdue_assignment INT,
+						overdue_event INT,
+						attention_assignment INT,
+						attention_event INT,
+						curatorreturn_assignment INT,
+						applicantreturn_assignment INT);
+
 IF (@orgId IS NULL)
 BEGIN
 INSERT INTO @RootVal
 SELECT 
 DISTINCT
 	NULL AS organization_id,
+	NULL AS short_name,
 	SUM(ISNULL(na.[val],0)) AS new_assignemnt,
 	SUM(ISNULL(iwa.[val],0)) AS in_work_assignment,
 	SUM(ISNULL(iwe.[val],0)) AS in_work_event,
@@ -213,10 +234,11 @@ LEFT JOIN @attention_event ae ON ae.[org_id] = uo.[Id]
 LEFT JOIN @curatorreturn_assignment cra ON cra.[org_id] = uo.[Id]
 LEFT JOIN @applicantreturn_assignment ara ON ara.[org_id] = uo.[Id];
 
-
+INSERT INTO #ResultVal
 SELECT 
 DISTINCT
 	uo.Id AS organization_id,
+	uo.short_name,
 	ISNULL(na.[val],0) AS new_assignemnt,
 	ISNULL(iwa.[val],0) AS in_work_assignment,
 	ISNULL(iwe.[val],0) AS in_work_event,
@@ -240,7 +262,8 @@ LEFT JOIN @applicantreturn_assignment ara ON ara.[org_id] = uo.[Id]
 UNION 
 
 SELECT 
-	organization_id,
+	Id,
+	short_name,
 	new_assignemnt,
 	in_work_assignment,
 	in_work_event,
@@ -250,7 +273,21 @@ SELECT
 	attention_event,
 	curatorreturn_assignment,
 	applicantreturn_assignment
-FROM @RootVal
+FROM @RootVal;
+
+SELECT 
+	Id AS organization_id,
+	short_name,
+	new_assignemnt,
+	in_work_assignment,
+	in_work_event,
+	overdue_assignment,
+	overdue_event,
+	attention_assignment,
+	attention_event,
+	curatorreturn_assignment,
+	applicantreturn_assignment
+FROM #ResultVal
 WHERE #filter_columns#
 	  #sort_columns#
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
@@ -258,9 +295,12 @@ OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
 END 
 ELSE 
 BEGIN
+
+INSERT INTO #ResultVal
 SELECT 
 DISTINCT
-	uo.Id AS organization_id,
+	uo.Id,
+	uo.short_name,
 	ISNULL(na.[val],0) AS new_assignemnt,
 	ISNULL(iwa.[val],0) AS in_work_assignment,
 	ISNULL(iwe.[val],0) AS in_work_event,
@@ -279,7 +319,21 @@ LEFT JOIN @overdue_event oe ON oe.[org_id] = uo.[Id]
 LEFT JOIN @attention_assignment aa ON aa.[org_id] = uo.[Id]
 LEFT JOIN @attention_event ae ON ae.[org_id] = uo.[Id]
 LEFT JOIN @curatorreturn_assignment cra ON cra.[org_id] = uo.[Id]
-LEFT JOIN @applicantreturn_assignment ara ON ara.[org_id] = uo.[Id]
+LEFT JOIN @applicantreturn_assignment ara ON ara.[org_id] = uo.[Id];
+
+SELECT 
+	Id AS organization_id,
+	short_name,
+	new_assignemnt,
+	in_work_assignment,
+	in_work_event,
+	overdue_assignment,
+	overdue_event,
+	attention_assignment,
+	attention_event,
+	curatorreturn_assignment,
+	applicantreturn_assignment
+FROM #ResultVal
 WHERE #filter_columns#
 	  #sort_columns#
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
