@@ -16,8 +16,17 @@
                             "type": "button",
                             "position": 1,
                             "width": "25%",
-                            "icon": "address-book",
+                            "icon": "address",
                             "placeholder": "TextInput1"
+                        },
+                        {
+                            "code": "ChangeDisableControl",
+                            "name": "Очистити",
+                            "type": "button",
+                            "position": 123,
+                            "width": "25%",
+                            "icon": "book",
+                            "placeholder": "ChangeDisableControl"
                         },
                         {
                             "code": "TextInput2Btn",
@@ -132,10 +141,7 @@
                 }
             ]
         },
-        init: function() {
-            setTimeout(this.myFunc.bind(this), 10000);
-        },
-        myFunc() {
+        afterViewInit: function() {
             const btn1 = document.getElementById('TextInput1Btn');
             const btn3 = document.getElementById('TextInput3Btn');
             const btn2 = document.getElementById('TextInput2Btn');
@@ -154,10 +160,16 @@
             const btnGetControlValues = document.getElementById('GetControlValues');
             btnGetControlValues.addEventListener('click', function() {
                 const value = this.getControlValues();
+                this.disableControl('ReceiptSources');
                 console.log(value);
+                console.log('Test disableControl');
             }.bind(this));
-        },
-        script: function() {
+
+            const btnChangeDisableControl = document.getElementById('ChangeDisableControl');
+            btnChangeDisableControl.addEventListener('click', function() {
+                // const value = this.getControlValue('ReceiptCreated');
+                this.changeDisableControl('ReceiptCreated');
+            }.bind(this));
         }
     };
 }());
