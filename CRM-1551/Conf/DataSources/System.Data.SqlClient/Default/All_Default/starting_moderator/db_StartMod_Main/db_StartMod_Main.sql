@@ -1,16 +1,20 @@
 
 
 
-
  --declare @user_Id nvarchar(128)=N'test'
+
+
+ declare @oldest datetime=(select min([ReceiptDate])
+  from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
+  where AppealFromSiteResultId=1)
 
  declare @datetime_from datetime = 
  (
  DATEADD(HOUR,
       DATEDIFF(HOUR,
-         CONVERT(datetime, SWITCHOFFSET(datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 11, 0, 0, 0), DATEPART(TZOFFSET,datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 11, 0, 0, 0) AT TIME ZONE 'E. Europe Standard Time'))),
-         datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 11, 0, 0, 0)
-         ), datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 11, 0, 0, 0))
+         CONVERT(datetime, SWITCHOFFSET(datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 9, 0, 0, 0), DATEPART(TZOFFSET,datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 9, 0, 0, 0) AT TIME ZONE 'E. Europe Standard Time'))),
+         datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 9, 0, 0, 0)
+         ), datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 9, 0, 0, 0))
  )
  --datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 11, 0, 0, 0);
  declare @datetime_to datetime = 
@@ -18,7 +22,7 @@
  (
  DATEADD(HOUR,
       DATEDIFF(HOUR,
-         CONVERT(datetime, SWITCHOFFSET(datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 18, 0, 0, 0), DATEPART(TZOFFSET,datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 11, 0, 0, 0) AT TIME ZONE 'E. Europe Standard Time'))),
+         CONVERT(datetime, SWITCHOFFSET(datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 18, 0, 0, 0), DATEPART(TZOFFSET,datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 18, 0, 0, 0) AT TIME ZONE 'E. Europe Standard Time'))),
          datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 18, 0, 0, 0)
          ), datetimefromparts(year(getutcdate()), month(getutcdate()), day(getutcdate()), 18, 0, 0, 0))
  )
@@ -35,18 +39,12 @@
 
   (select count([AppealsFromSite].Id)
   from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
-  inner join [dbo].[Appeals] on [AppealsFromSite].Appeal_Id=[Appeals].Id
-  inner join [dbo].[Questions] on [Appeals].Id=[Questions].appeal_id
-  where [ReceiptDate] between @datetime_from 
-  and @datetime_to
-
-  and datediff(ss, [AppealsFromSite].[ReceiptDate], [Questions].registration_date)>2*60*60
+  where AppealFromSiteResultId=1 and [ReceiptDate] between @datetime_from and @datetime_to
+  and datediff(ss, [AppealsFromSite].[ReceiptDate], getutcdate())>2*60*60
   ) mutch_2hours,
 
 
-  (select min([ReceiptDate])
-  from [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
-  where AppealFromSiteResultId=1) oldest,
+  CONVERT(datetime, SWITCHOFFSET(@oldest, DATEPART(TZOFFSET,@oldest AT TIME ZONE 'E. Europe Standard Time'))) oldest,
 
 --'2019-05-01 02:01:01.603' oldest,
 
