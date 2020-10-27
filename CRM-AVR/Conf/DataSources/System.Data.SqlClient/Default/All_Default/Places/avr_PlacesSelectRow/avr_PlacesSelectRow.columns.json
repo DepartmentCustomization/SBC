@@ -99,5 +99,10 @@
     "Name": "area_name",
     "Position": 17,
     "ReferenceKeyCode": "area_id"
+  },
+  {
+    "Code": "Comment",
+    "Name": "Comment",
+    "Position": 18
   }
 ]

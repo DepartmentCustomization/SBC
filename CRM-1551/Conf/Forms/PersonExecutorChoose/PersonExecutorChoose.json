@@ -4,7 +4,9 @@
   "Name": "Назва групи питань",
   "Details": [
     "string:Details\\det_PersonExecutorChooseQT.detail.json",
-    "string:Details\\det_PersonExecutorChooseObjects_new.detail.json"
+    "string:Details\\det_PersonExecutorChooseObjects_new.detail.json",
+    "string:Details\\det_PersonExecutorChooseCity.detail.json",
+    "string:Details\\det_PersonExecutorChooseDistrict.detail.json"
   ],
   "Config": {
     "FieldGroups": [

@@ -14,23 +14,33 @@
       },{
         "Code": "Organization_name",
         "Name": "Організація",
-        "Position": 2
+        "Position": 2,
+        "SqlName": "Organization_name",
+        "FilterParameterCode": "@Organization_name"
       },{
         "Code": "Positions_name",
         "Name": "Посада",
-        "Position": 3
+        "Position": 3,
+        "SqlName": "Positions_name",
+        "FilterParameterCode": "@Positions_name"
       },{
         "Code": "PersonExecutorChoose_name",
         "Name": "Група питань",
-        "Position": 4
+        "Position": 4,
+        "SqlName": "PersonExecutorChoose_name",
+        "FilterParameterCode": "@PersonExecutorChoose_name"
       },{
         "Code": "questions_types",
         "Name": "Типи питаннь",
-        "Position": 5
+        "Position": 5,
+        "SqlName": "questions_types",
+        "FilterParameterCode": "@questions_types"
       },{
-        "Code": "objects",
-        "Name": "Об'єкти",
-        "Position": 6
+        "Code": "Objects",
+        "Name": "Кількість об'єктів",
+        "Position": 6,
+        "SqlName": "Objects",
+        "FilterParameterCode": "@Objects"
       }
     ],
     "Parameters": [

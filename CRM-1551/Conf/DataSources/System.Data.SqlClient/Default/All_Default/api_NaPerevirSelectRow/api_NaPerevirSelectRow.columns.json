@@ -121,5 +121,11 @@
     "Name": "Question_number",
     "Position": 19,
     "IsPrintable": false
+  },
+  {
+    "Code": "appeal_receipt_source",
+    "Name": "appeal_receipt_source",
+    "Position": 20,
+    "IsPrintable": false
   }
 ]

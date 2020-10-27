@@ -23,24 +23,43 @@
     {
       "Code": "Is_move",
       "Name": "Дана робота є переміщенням",
-      "Position": 3
+      "Position": 3,
+      "SqlName": "[Action_types].[Is_move]",
+      "FilterParameterCode": "@Is_move"
     },
     {
       "Code": "type_name",
       "Name": "Господарство",
       "Position": 4,
-      "SqlName": "TypeAccess.Name ",
+      "SqlName": "[TypeAccess].[Name]",
       "FilterParameterCode": "@type_name"
     },
     {
       "Code": "Plan_duration",
       "Name": "Номінальний час",
-      "Position": 5
+      "Position": 5,
+      "SqlName": "[Action_types].[Plan_duration]",
+      "FilterParameterCode": "@Plan_duration"
     },
     {
       "Code": "ShortName",
       "Name": "Одиниці вимірювання",
-      "Position": 6
+      "Position": 6,
+      "SqlName": "[Units].[ShortName]",
+      "FilterParameterCode": "@Units"
+    },
+    {
+      "Code": "place_type",
+      "Name": "Тип місця",
+      "Position": 7,
+      "SqlName": "STUFF(
+      (SELECT N', ' + pt.[Name]
+       FROM dbo.Action_types [at]
+       INNER JOIN dbo.Action_type_Place_type at_pt ON [at].Id = at_pt.Action_type_Id
+   INNER JOIN dbo.Place_types pt ON pt.Id = at_pt.Place_type_Id
+       WHERE [at].Id = [Action_types].Id 
+       FOR XML PATH('')), 1, 1, '')",
+      "FilterParameterCode": "@place_type"
     }
   ],
   "Parameters": [

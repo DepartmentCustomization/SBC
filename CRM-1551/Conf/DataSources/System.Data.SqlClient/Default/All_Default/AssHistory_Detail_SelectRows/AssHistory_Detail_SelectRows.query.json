@@ -51,6 +51,15 @@
       "Code": "@history_id",
       "Name": "history_id",
       "ParameterType": "Integer"
+    },
+    {
+      "Code": "@SourceHistory",
+      "Name": "SourceHistory"
+    },
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
     }
   ]
 }

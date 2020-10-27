@@ -41,8 +41,8 @@ where Id>4
   inner join [Questions] q on q.question_type_id=qt.Id
   inner join [Assignments] a on a.question_id=q.Id
   inner join [Templates] t on qtt.template_id=t.Id
-  where a.Id=@assignment_id and
-   t.organization_id in (select Id from @organization_table)
+  where a.Id=@assignment_id 
+  and t.organization_id in (select Id from @organization_table)
   ) t
   
 where  

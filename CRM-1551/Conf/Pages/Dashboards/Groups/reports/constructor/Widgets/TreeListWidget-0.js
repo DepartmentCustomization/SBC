@@ -27,6 +27,7 @@
                     caption: 'Назва питання'
                 }
             ],
+            filterRow: { visible: true },
             scrolling: {
                 mode: 'virtual'
             },
@@ -38,9 +39,6 @@
                 width: null
             },
             headerFilter: {
-                visible: false
-            },
-            filterRow: {
                 visible: false
             },
             filterPanel: {

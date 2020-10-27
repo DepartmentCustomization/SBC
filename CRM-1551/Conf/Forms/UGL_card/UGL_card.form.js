@@ -946,6 +946,34 @@
                 this.onQuestionControlDate(questionType);
                 this.questionObjectOrg();
             }
+
+            if (questionType) {
+                this.GetContentTextByQTypeId(questionType);
+            } else {
+                this.form.setControlVisibility('Question_Type_Content', false);
+                this.form.setControlValue('Question_Type_Content', '');
+            };
+        },
+        GetContentTextByQTypeId: function(value) {
+            const ContentTextByQTypeId = {
+                queryCode: 'GetContentTextByQTypeId',
+                parameterValues: [
+                    {
+                        key: '@Id',
+                        value: value
+                    }
+                ]
+            };
+            this.queryExecutor.getValue(ContentTextByQTypeId).subscribe(data => {
+                this.form.disableControl('Question_Type_Content');
+                if(data){
+                    this.form.setControlVisibility('Question_Type_Content', true);
+                    this.form.setControlValue('Question_Type_Content', data);
+                } else {
+                    this.form.setControlVisibility('Question_Type_Content', false);
+                    this.form.setControlValue('Question_Type_Content', '');
+                };
+            });
         },
         getOrgExecut: function() {
             if(this.form.getControlValue('Question_Building') === null

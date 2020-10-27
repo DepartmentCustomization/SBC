@@ -26,18 +26,32 @@
             }
         },
         onComment: function(onComment) {
-            const queryForGetValue = {
-                queryCode: 'ak_SelectComment_for_Templates',
-                parameterValues: [
-                    {
-                        key: '@Id',
-                        value: onComment
-                    }
-                ]
-            };
-            this.queryExecutor.getValues(queryForGetValue).subscribe(data => {
-                this.form.setControlValue('content', data.rows[0].values);
-            })
+            if (onComment) {
+                if (typeof onComment === 'string') {
+                    return
+                }
+                if (onComment) {
+                    debugger;
+                    const queryForGetValue = {
+                        queryCode: 'ak_SelectComment_for_Templates',
+                        parameterValues: [
+                            {
+                                key: '@Id',
+                                value: onComment
+                            },
+                            {
+                                key: '@assignment_id',
+                                value: this.form.getControlValue('assignment_id')
+                            }
+                        ]
+                    };
+                    this.queryExecutor.getValues(queryForGetValue).subscribe(data => {
+                        this.form.setControlValue('content', data.rows[0].values);
+                    })
+                }
+            }
+                
+
         }
     };
 }());

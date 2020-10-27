@@ -162,6 +162,32 @@
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.applyCallBack, this));
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
+            this.dataGridInstance.onCellClick.subscribe(e => {
+                e.event.stopImmediatePropagation();
+                if(e.column && e.data.Id) {
+                    let date1 = new Date(this.dateFrom);
+                    let values1 = [ date1.getDate(), date1.getMonth() + 1 ];
+                    for(let id in values1) {
+                        values1[ id ] = values1[ id ].toString().replace(/^([0-9])$/, '0$1');
+                    }
+                    let formated_start_date = date1.getFullYear() + '-' + values1[ 1 ] + '-' + values1[ 0 ];
+                    let date2 = new Date(this.dateTo);
+                    let values2 = [ date2.getDate(), date2.getMonth() + 1 ];
+                    for(let id in values2) {
+                        values2[ id ] = values2[ id ].toString().replace(/^([0-9])$/, '0$1');
+                    }
+                    let formated_finish_date = date2.getFullYear() + '-' + values2[ 1 ] + '-' + values2[ 0 ];
+                    window.open(
+                        String(
+                            location.origin +
+                            localStorage.getItem('VirtualPath') +
+                            '/dashboard/page/' +
+                            'consultation_report' + '?Operator=' + e.data.Id + '&DateStart=' + formated_start_date +
+                            '&DateEnd=' + formated_finish_date
+                        )
+                    );
+                }
+            });
         },
         applyCallBack() {
             const msg = {
@@ -205,6 +231,41 @@
                     }.bind(this)
                 }
             });
+            toolbarItems.push({
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                    icon: 'search',
+                    type: 'default',
+                    text: 'Детальніше за БЗ',
+                    onClick: function() {
+                        this.openGrid();
+                    }.bind(this)
+                }
+            });
+        },
+        openGrid() {
+            let date1 = new Date(this.dateFrom);
+            let values1 = [ date1.getDate(), date1.getMonth() + 1 ];
+            for(let id in values1) {
+                values1[ id ] = values1[ id ].toString().replace(/^([0-9])$/, '0$1');
+            }
+            let formated_start_date = date1.getFullYear() + '-' + values1[ 1 ] + '-' + values1[ 0 ];
+            let date2 = new Date(this.dateTo);
+            let values2 = [ date2.getDate(), date2.getMonth() + 1 ];
+            for(let id in values2) {
+                values2[ id ] = values2[ id ].toString().replace(/^([0-9])$/, '0$1');
+            }
+            let formated_finish_date = date2.getFullYear() + '-' + values2[ 1 ] + '-' + values2[ 0 ];
+            window.open(
+                String(
+                    location.origin +
+                    localStorage.getItem('VirtualPath') +
+                    '/dashboard/page/' +
+                    'consultation_report' + '?DateStart=' + formated_start_date +
+                    '&DateEnd=' + formated_finish_date
+                )
+            );
         },
         createExcelWorkbook: function(data) {
             let workbook = this.createExcel();

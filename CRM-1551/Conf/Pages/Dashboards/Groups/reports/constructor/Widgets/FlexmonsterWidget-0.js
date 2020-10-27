@@ -2,7 +2,8 @@
     return {
         config: {
             toolbar: true,
-            height: 700
+            height: 700,
+            filterRow: { visible: true }
         },
         init: function() {
             document.getElementById('summary__table').style.display = 'none';

@@ -1,5 +1,5 @@
---  DECLARE @date_from DATETIME = '2020-01-01 00:00:00';
---  DECLARE @date_to DATETIME = getdate();
+-- DECLARE @date_from DATETIME = '2020-10-18 05:00:00';
+-- DECLARE @date_to DATETIME = '2020-10-18 20:00:00';
 
 SELECT
 	Claims.Id,
@@ -131,8 +131,8 @@ FROM
 			s1.Claim_ID
 	) AS sequela_comm ON sequela_comm.Claim_ID = Claims.Id
 WHERE
-	CONVERT(DATE, Claims.Created_at) >= @date_from
-	AND CONVERT(DATE, Claims.Created_at) <= isnull(@date_to, getdate()) 
+	Claims.[Created_at] BETWEEN
+	@date_from AND isnull(@date_to, getdate()) 
 	AND [Claims].[Response_organization_ID] @OrgID
 	AND #filter_columns#
 ORDER BY

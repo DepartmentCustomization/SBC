@@ -1,7 +1,7 @@
 {
   "ModelType": "Detail",
   "Code": "Detail_Disabling_debtors",
-  "Name": "ВІДКЛЮЧЕННЯ ЗА ПОРУШЕННЯ ВИМОГ ЗАКАНОДАВСТВА В СФЕРІ ВОДОПОСТАЧАННЯ ТА ВОДОВІДВЕДЕННЯ",
+  "Name": "ВІДКЛЮЧЕННЯ ЗА ПОРУШЕННЯ ВИМОГ ЗАКОНОДАВСТВА В СФЕРІ ВОДОПОСТАЧАННЯ ТА ВОДОВІДВЕДЕННЯ",
   "FormCode": "Form_Disabling_debtors",
   "SelectRowsQueryCode": "avr_Disabling_debtors_Select_ROWS",
   "SelectRowQueryCode": "avr_Disabling_debtors_Select_ROW",

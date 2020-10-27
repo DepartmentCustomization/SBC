@@ -2,7 +2,8 @@
     return {
         Detail_History: function(column, row) {
             const parameters = [
-                { key: '@history_id', value: row.values[0] }
+                { key: '@history_id', value: row.values[0] },
+                { key: '@SourceHistory', value: row.values[4] }
             ];
             this.details.loadData('detal_history', parameters);
             this.details.setVisibility('detal_history', true);

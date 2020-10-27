@@ -1,5 +1,5 @@
 {
   "IsMain": true,
-  "Type": "SelectFilterComponent",
+  "Type": "MultiSelectFilterComponent",
   "Owner": "selectDivision"
 }

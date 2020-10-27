@@ -16,7 +16,7 @@
       "Name": "Operator",
       "Position": 1,
       "IsPrintable": false,
-      "SqlName": "u.LastName + isnull(' ' + u.FirstName, N'') +               isnull(' ' + u.Patronymic,N'')",
+      "SqlName": "u.LastName + isnull(' ' + u.FirstName, N'') + isnull(' ' + u.Patronymic, N'')",
       "FilterParameterCode": "@Operator"
     }
   ],
