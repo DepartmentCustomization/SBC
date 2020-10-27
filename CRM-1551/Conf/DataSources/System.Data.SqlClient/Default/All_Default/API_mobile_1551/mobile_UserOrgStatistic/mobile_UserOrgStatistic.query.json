@@ -22,12 +22,12 @@
       "FilterParameterCode": "@short_name"
     },
     {
-      "Code": "new_assignemnt",
-      "Name": "new_assignemnt",
+      "Code": "new_assignment",
+      "Name": "new_assignment",
       "Position": 2,
       "IsPrintable": false,
       "SqlName": "ISNULL(na.[val],0)",
-      "FilterParameterCode": "@new_assignemnt"
+      "FilterParameterCode": "@new_assignment"
     },
     {
       "Code": "in_work_assignment",
