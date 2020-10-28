@@ -11,9 +11,9 @@ CREATE TABLE #Knowledge ([Id] INT,
 						 [Name] NVARCHAR(300),
 						 [article_qty] INT,
 						 [article_percent] NUMERIC(5,2),
-						 [talk_all] TIME,
-						 [talk_consultations_only] TIME,
-						 [talk_consultation_average] TIME
+						 [talk_all] INT,
+						 [talk_consultations_only] INT,
+						 [talk_consultation_average] INT
 						 ) WITH (DATA_COMPRESSION = PAGE);
 --> Общее значение консультаций
 DECLARE @Knowledge_AllVal INT; 
@@ -38,14 +38,12 @@ SELECT
 		 / CAST(@Knowledge_AllVal AS NUMERIC(10,2)) AS NUMERIC(10,2)) * 100
 		 ELSE 0 END 
   		AS [article_percent], 
-    CONVERT(VARCHAR(15), DATEADD(SECOND,SUM(ISNULL(cs.duration,0)),0),108) 
-  		AS [talk_all], 
-    CONVERT(VARCHAR(15), DATEADD(SECOND,SUM(cs.duration_only_cons),0),108) 
-  		AS [talk_consultations_only], 
+    SUM(ISNULL(cs.duration,0)) AS [talk_all], 
+    SUM(ISNULL(cs.duration_only_cons,0)) AS [talk_consultations_only], 
     CASE WHEN SUM(cs.number_only_cons) > 0 
 		 THEN 
-		 CONVERT(VARCHAR(15), DATEADD(SECOND,(SUM(ISNULL(cs.duration_only_cons,0)) / SUM(ISNULL(cs.number_only_cons,0))),0),108)
-		 ELSE '00:00:00' END
+		 SUM(ISNULL(cs.duration_only_cons,0)) / SUM(ISNULL(cs.number_only_cons,0))
+		 ELSE 0 END
   		AS [talk_consultation_average]
 FROM dbo.KnowledgeBaseStates kn_base
 LEFT JOIN dbo.ConsultationStatistic cs ON cs.article_id = kn_base.id
@@ -60,8 +58,6 @@ GROUP BY
 		 [name]
 ORDER BY 2,1;
 
- --select * from #Knowledge;
-
 INSERT INTO #Knowledge
 SELECT 
 	[Id], 
@@ -69,12 +65,14 @@ SELECT
 	[Name],
 	0 AS [article_qty],
 	0 AS [article_percent],
-	'00:00:00' AS [talk_all],
-	'00:00:00' AS [talk_consultations_only],
-	'00:00:00' AS [talk_consultation_average]
+	0 AS [talk_all],
+	0 AS [talk_consultations_only],
+	0 AS [talk_consultation_average]
 FROM dbo.KnowledgeBaseStates
 WHERE parent_id = 1 
 AND Id NOT IN (SELECT Id FROM #Knowledge);
+
+ --select * from #Knowledge;
 
 IF OBJECT_ID('tempdb..#RootVals') IS NOT NULL
 BEGIN
@@ -104,7 +102,7 @@ FROM #RootVals;
 --SELECT * FROM @RootCircle; 
 
 DECLARE @Count SMALLINT = (SELECT COUNT(1) FROM @RootCircle);
-DECLARE @Step TINYINT = 1;
+DECLARE @Step SMALLINT = 1;
 DECLARE @Current INT;
 DECLARE @StepValues TABLE (Id INT);
 
@@ -137,9 +135,9 @@ BEGIN
 	UPDATE #RootVals
 		SET [article_qty] = (SELECT SUM([article_qty]) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
 			[article_percent] = (SELECT SUM([article_percent]) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
-			[talk_all] = (SELECT DATEADD(ms, SUM(DATEDIFF(ms, 0, [talk_all])), 0) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
-			[talk_consultations_only] = (SELECT DATEADD(ms, SUM(DATEDIFF(ms, 0, [talk_consultations_only])), 0) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
-			[talk_consultation_average] = (SELECT DATEADD(ms, AVG(DATEDIFF(ms, 0, [talk_consultation_average])), 0) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues))
+			[talk_all] = (SELECT SUM(ISNULL([talk_all], 0)) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
+			[talk_consultations_only] = (SELECT SUM(ISNULL([talk_consultations_only], 0)) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
+			[talk_consultation_average] = (SELECT AVG(ISNULL([talk_consultation_average], 0)) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues))
 	WHERE [Id] = @Current;
 
 	DELETE FROM @RootCircle
@@ -154,9 +152,43 @@ DISTINCT
 	[Name],
 	[article_qty],
 	[article_percent],
-	CONVERT(VARCHAR(8), [talk_all], 108) AS [talk_all],
-	CONVERT(VARCHAR(8), [talk_consultations_only], 108) AS [talk_consultations_only],
-	CONVERT(VARCHAR(8), [talk_consultation_average], 108) AS [talk_consultation_average],
+	-- получить значение часов:минут:секунд, обработка до 4 символов hh
+	CASE WHEN 
+	SUBSTRING(RIGHT('0' + CAST([talk_all] / 3600 AS VARCHAR(10)),4),1,1) = '0'
+		THEN CASE WHEN 
+			SUBSTRING(RIGHT('0' + CAST([talk_all] / 3600 AS VARCHAR(10)),3),1,1) = '0'
+			THEN RIGHT('0' + CAST([talk_all] / 3600 AS VARCHAR(10)),2)
+			ELSE RIGHT('0' + CAST([talk_all] / 3600 AS VARCHAR(10)),3)
+			END
+		ELSE RIGHT(CAST([talk_all] / 3600 AS VARCHAR(10)),4)
+		END + ':' +
+	RIGHT('0' + CAST(([talk_all] / 60) % 60 AS VARCHAR(10)),2) + ':' +
+	RIGHT('0' + CAST([talk_all] % 60 AS VARCHAR(10)),2)
+		AS [talk_all],
+	CASE WHEN 
+	SUBSTRING(RIGHT('0' + CAST([talk_consultations_only] / 3600 AS VARCHAR(10)),4),1,1) = '0'
+		THEN CASE WHEN 
+			SUBSTRING(RIGHT('0' + CAST([talk_consultations_only] / 3600 AS VARCHAR(10)),3),1,1) = '0'
+			THEN RIGHT('0' + CAST([talk_consultations_only] / 3600 AS VARCHAR(10)),2)
+			ELSE RIGHT('0' + CAST([talk_consultations_only] / 3600 AS VARCHAR(10)),3)
+			END
+		ELSE RIGHT(CAST([talk_consultations_only] / 3600 AS VARCHAR(10)),4)
+		END + ':' +
+	RIGHT('0' + CAST(([talk_consultations_only] / 60) % 60 AS VARCHAR(10)),2) + ':' +
+	RIGHT('0' + CAST([talk_consultations_only] % 60 AS VARCHAR(10)),2) 
+		AS [talk_consultations_only],
+	CASE WHEN 
+	SUBSTRING(RIGHT('0' + CAST([talk_consultation_average] / 3600 AS VARCHAR(10)),4),1,1) = '0'
+		THEN CASE WHEN 
+			SUBSTRING(RIGHT('0' + CAST([talk_consultation_average] / 3600 AS VARCHAR(10)),3),1,1) = '0'
+			THEN RIGHT('0' + CAST([talk_consultation_average] / 3600 AS VARCHAR(10)),2)
+			ELSE RIGHT('0' + CAST([talk_consultation_average] / 3600 AS VARCHAR(10)),3)
+			END
+		ELSE RIGHT(CAST([talk_consultation_average] / 3600 AS VARCHAR(10)),4)
+		END + ':' +
+	RIGHT('0' + CAST(([talk_consultation_average] / 60) % 60 AS VARCHAR(10)),2) + ':' +
+	RIGHT('0' + CAST([talk_consultation_average] % 60 AS VARCHAR(10)),2)
+		 AS [talk_consultation_average],
 	NULL AS [UserId]
 FROM #RootVals
 ORDER BY [Name];

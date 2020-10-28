@@ -46,8 +46,8 @@ BEGIN
 END
 
 -- Надійшло
-DECLARE @new_assignemnt TABLE (org_id INT, val INT);
-INSERT INTO @new_assignemnt
+DECLARE @new_assignment TABLE (org_id INT, val INT);
+INSERT INTO @new_assignment
 SELECT 
 	org.[Id],
 	COUNT(ass.[Id])
@@ -197,7 +197,7 @@ BEGIN
 END
 CREATE TABLE #ResultVal (Id INT,
 						short_name NVARCHAR(500),
-						new_assignemnt INT,
+						new_assignment INT,
 						in_work_assignment INT,
 						in_work_event INT,
 						overdue_assignment INT,
@@ -214,7 +214,7 @@ SELECT
 DISTINCT
 	NULL AS organization_id,
 	NULL AS short_name,
-	SUM(ISNULL(na.[val],0)) AS new_assignemnt,
+	SUM(ISNULL(na.[val],0)) AS new_assignment,
 	SUM(ISNULL(iwa.[val],0)) AS in_work_assignment,
 	SUM(ISNULL(iwe.[val],0)) AS in_work_event,
 	SUM(ISNULL(oa.[val],0)) AS overdue_assignment,
@@ -224,7 +224,7 @@ DISTINCT
 	SUM(ISNULL(cra.[val],0)) AS curatorreturn_assignment,
 	SUM(ISNULL(ara.[val],0)) AS applicantreturn_assignment
 FROM @user_orgs uo 
-LEFT JOIN @new_assignemnt na ON na.[org_id] = uo.[Id]
+LEFT JOIN @new_assignment na ON na.[org_id] = uo.[Id]
 LEFT JOIN @in_work_assignment iwa ON iwa.[org_id] = uo.[Id]
 LEFT JOIN @in_work_event iwe ON iwe.[org_id] = uo.[Id]
 LEFT JOIN @overdue_assignment oa ON oa.[org_id] = uo.[Id]
@@ -239,7 +239,7 @@ SELECT
 DISTINCT
 	uo.Id AS organization_id,
 	uo.short_name,
-	ISNULL(na.[val],0) AS new_assignemnt,
+	ISNULL(na.[val],0) AS new_assignment,
 	ISNULL(iwa.[val],0) AS in_work_assignment,
 	ISNULL(iwe.[val],0) AS in_work_event,
 	ISNULL(oa.[val],0) AS overdue_assignment,
@@ -249,7 +249,7 @@ DISTINCT
 	ISNULL(cra.[val],0) AS curatorreturn_assignment,
 	ISNULL(ara.[val],0) AS applicantreturn_assignment
 FROM @user_orgs uo 
-LEFT JOIN @new_assignemnt na ON na.[org_id] = uo.[Id]
+LEFT JOIN @new_assignment na ON na.[org_id] = uo.[Id]
 LEFT JOIN @in_work_assignment iwa ON iwa.[org_id] = uo.[Id]
 LEFT JOIN @in_work_event iwe ON iwe.[org_id] = uo.[Id]
 LEFT JOIN @overdue_assignment oa ON oa.[org_id] = uo.[Id]
@@ -278,7 +278,7 @@ FROM @RootVal;
 SELECT 
 	Id AS organization_id,
 	short_name,
-	new_assignemnt,
+	new_assignment,
 	in_work_assignment,
 	in_work_event,
 	overdue_assignment,
@@ -291,7 +291,6 @@ FROM #ResultVal
 WHERE #filter_columns#
 	  #sort_columns#
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
-
 END 
 ELSE 
 BEGIN
@@ -311,7 +310,7 @@ DISTINCT
 	ISNULL(cra.[val],0) AS curatorreturn_assignment,
 	ISNULL(ara.[val],0) AS applicantreturn_assignment
 FROM @user_orgs uo 
-LEFT JOIN @new_assignemnt na ON na.[org_id] = uo.[Id]
+LEFT JOIN @new_assignment na ON na.[org_id] = uo.[Id]
 LEFT JOIN @in_work_assignment iwa ON iwa.[org_id] = uo.[Id]
 LEFT JOIN @in_work_event iwe ON iwe.[org_id] = uo.[Id]
 LEFT JOIN @overdue_assignment oa ON oa.[org_id] = uo.[Id]
@@ -324,7 +323,7 @@ LEFT JOIN @applicantreturn_assignment ara ON ara.[org_id] = uo.[Id];
 SELECT 
 	Id AS organization_id,
 	short_name,
-	new_assignemnt,
+	new_assignment,
 	in_work_assignment,
 	in_work_event,
 	overdue_assignment,
