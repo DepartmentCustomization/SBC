@@ -17,7 +17,36 @@
                     format: "percent",
                     alignment: "right",
                     allowGrouping: false,
-                    cellTemplate: "discountCellTemplate",
+                    cellTemplate: function(container, options) {
+                        $("<div/>").dxBullet({
+                            onIncidentOccurred: null,
+                            size: {
+                                width: 150,
+                                height: 35
+                            },
+                            margin: {
+                                top: 5,
+                                bottom: 0,
+                                left: 5
+                            },
+                            showTarget: false,
+                            showZeroLevel: true,
+                            value: options.value * 100,
+                            startScaleValue: 0,
+                            endScaleValue: 100,
+                            tooltip: {
+                                enabled: true,
+                                font: {
+                                    size: 18
+                                },
+                                paddingTopBottom: 2,
+                                customizeTooltip: function() {
+                                    return { text: options.text };
+                                },
+                                zIndex: 99999999999
+                            }
+                        }).appendTo(container);
+                    },
                     cssClass: "bullet"
                 },
                 {
@@ -47,11 +76,8 @@
             keyExpr: 'Id'
         },
         init: function() {
-            debugger;
-            this.config.columns[0].cellTemplate = this.discountCellTemplate.bind(this);
             this.loadData(this.afterLoadDataHandler);
         },
-
         afterLoadDataHandler: function() {
             this.render();
         },
@@ -63,38 +89,6 @@
                     element.appendChild(child);
                 });
             } return element;
-        },
-        discountCellTemplate: function(container, options) {
-            let ChartRow_ValueAttribute  = `{
-                onIncidentOccurred: null,
-                size: {
-                    width: 150,
-                    height: 35
-                },
-                margin: {
-                    top: 5,
-                    bottom: 0,
-                    left: 5
-                },
-                showTarget: false,
-                showZeroLevel: true,
-                value: discount.value * 100,
-                startScaleValue: 0,
-                endScaleValue: 100,
-                tooltip: {
-                    enabled: true,
-                    font: {
-                        size: 18
-                    },
-                    paddingTopBottom: 2,
-                    customizeTooltip: customizeTooltip,
-                    zIndex: 5
-                }
-            }`;
-            let ChartRow = this.createElement('div', { className: ''});
-            ChartRow.setAttribute('dx-bullet', ChartRow_ValueAttribute);
-            container.appendChild(ChartRow);
-
         }
     };
 }());
