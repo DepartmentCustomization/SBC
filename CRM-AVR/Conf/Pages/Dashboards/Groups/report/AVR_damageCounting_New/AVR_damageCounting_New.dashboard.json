@@ -1,0 +1,9 @@
+{
+  "DashboardGroupCode": "report",
+  "Position": 1,
+  "Description": "",
+  "DescriptionUrl": "",
+  "ModelType": "Dashboard",
+  "Code": "AVR_damageCounting_new",
+  "Name": "KPI_Відомість обліку пошкоджень (NEW)"
+}
