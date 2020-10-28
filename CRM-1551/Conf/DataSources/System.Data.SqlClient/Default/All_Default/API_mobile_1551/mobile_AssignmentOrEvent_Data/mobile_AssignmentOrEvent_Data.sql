@@ -1,14 +1,14 @@
   /*
-  DECLARE @userId NVARCHAR(128) = N'646d6b5e-9f27-4764-9612-f18d04fea509';
+  DECLARE @userId NVARCHAR(128) = N'29796543-b903-48a6-9399-4840f6eac396';
   DECLARE @orgId INT = NULL;
-  DECLARE @startDate DATE = N'2020-06-01';
+  DECLARE @startDate DATE = NULL;
   DECLARE @endDate DATE = NULL;
-  DECLARE @Control_startDate DATE = N'2020-06-01';
-  DECLARE @Control_endDate DATE = N'2020-10-10';
-  DECLARE @code NVARCHAR(50) = NULL;
-  DECLARE @entity NVARCHAR(50) = 'assignment';
+  DECLARE @Control_startDate DATE = NULL;
+  DECLARE @Control_endDate DATE = NULL;
+  DECLARE @code NVARCHAR(500) = NULL;
+  DECLARE @entity NVARCHAR(50) = 'new_assignment';
   DECLARE @entityNumber NVARCHAR(50) = NULL;
-  DECLARE @objecId INT = 20844;
+  DECLARE @objecId INT = NULL;
  */
  
 SET @startDate = IIF(@startDate IS NULL, '1900-01-01', @startDate);   
@@ -16,7 +16,7 @@ SET @endDate = IIF(@endDate IS NULL, '2100-01-01', @endDate);
 SET @Control_startDate = IIF(@Control_startDate IS NULL, '1900-01-01', @Control_startDate);
 SET @Control_endDate = IIF(@Control_endDate IS NULL, '2100-01-01', @Control_endDate);
 SET @code = IIF(@code IS NULL, 
-				N'new_assignemnt, 
+				N'new_assignment, 
 				in_work_assignment, 
 				in_work_event, 
 				overdue_assignment, 
@@ -91,7 +91,7 @@ DECLARE @resultTab TABLE
 
 
 -- Надійшло
-IF (CHARINDEX(N'new_assignemnt', @code) > 0)
+IF (CHARINDEX(N'new_assignment', @code) > 0)
 AND (@entity = N'assignment' OR @entity IS NULL)
 BEGIN
 	INSERT INTO @resultTab
@@ -101,7 +101,7 @@ BEGIN
 		NULL AS [event_class_name],
 		ass_st.[name] AS [assignment_state],
 		NULL AS [event_active],
-		N'new_assignemnt' AS [code],
+		N'new_assignment' AS [code],
 		org.[name] AS [assignment_executor_organization_name],
 		p_exec.[name] AS [assignment_executor_person_name],
 		NULL AS [event_organization_name],
