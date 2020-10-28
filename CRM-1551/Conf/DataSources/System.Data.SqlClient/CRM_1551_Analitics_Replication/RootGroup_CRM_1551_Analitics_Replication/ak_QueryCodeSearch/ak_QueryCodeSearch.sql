@@ -730,7 +730,17 @@ when [Applicants].[birth_date] is null then year(getdate())-[Applicants].birth_y
 
  --,files_check.[content] ConsDocumentContent
  -- , null ConsDocumentContent-- изменить
- ,[AssignmentConsDocuments].[content] ConsDocumentContent
+ --,[AssignmentConsDocuments].[content] ConsDocumentContent
+
+,case when [AssignmentConsDocuments].[content] is not null
+		then [AssignmentConsDocuments].[content]
+		else (select top 1 acd.content
+  from [dbo].[AssignmentConsDocuments] acd
+  inner join [dbo].[AssignmentConsiderations] ac on acd.assignment_сons_id=ac.Id
+  where acd.content is not null and ac.assignment_id=[Assignments].Id
+  order by acd.[add_date] desc) 
+       end ConsDocumentContent
+
  ,[AssignmentRevisions].control_date
  ,App_phone.phone_number zayavnyk_phone_number
  ,[Appeals].[registration_number] appeals_registration_number
