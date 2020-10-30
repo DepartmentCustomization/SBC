@@ -21,6 +21,28 @@
         "border": "none",
         "children": [
           {
+            "code": "simple_ChartsDevextremeWidget",
+            "type": "ChartDevextremeWidgetComponent",
+            "name": "district_rating_indicators"
+          }
+        ],
+        "id": "Container-0",
+        "height": "auto",
+        "minHeight": "100px",
+        "minWidth": "100px",
+        "backgroundColor": "white"
+      },
+      {
+        "width": "auto",
+        "margin": "0 5px 10px",
+        "flexWrap": "wrap",
+        "flexDirection": "row",
+        "order": 1,
+        "flexGrow": 1,
+        "alignSelf": "auto",
+        "border": "none",
+        "children": [
+          {
             "code": "disRatInd_NativeDataGridWidget",
             "type": "NativeDataGridWidgetComponent",
             "name": "district_rating_indicators"
