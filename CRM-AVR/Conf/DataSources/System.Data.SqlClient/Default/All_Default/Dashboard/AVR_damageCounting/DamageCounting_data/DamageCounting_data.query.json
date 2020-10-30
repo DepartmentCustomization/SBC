@@ -6,19 +6,6 @@
     "IsUsedForRightsFilter": false,
     "IsAnonymousAccess": false,
     "Columns": [
-        {
-            "Code": "orgId",
-            "Name": "orgId",
-            "Position": 1,
-            "IsPrimaryKey": true,
-            "IsPrintable": false
-        },
-        {
-            "Code": "short_name",
-            "Name": "short_name",
-            "Position": 2,
-            "IsPrintable": false
-        }
     ],
     "Parameters": [
         {

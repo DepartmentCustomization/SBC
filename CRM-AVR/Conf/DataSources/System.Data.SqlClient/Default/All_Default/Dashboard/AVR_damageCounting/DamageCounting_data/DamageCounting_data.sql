@@ -1,5 +1,10 @@
--- DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
---  	   @variant NVARCHAR(10) = 'short';
+/*
+DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
+  		@variant NVARCHAR(10) = 'short',
+		@vision NVARCHAR(10) = 'full',
+		@dateFrom DATETIME = DATEADD(DAY, -60, GETDATE()),
+		@dateTo DATETIME = GETDATE();
+*/
 
 DECLARE @UserAccessKey TABLE (val INT);
 INSERT INTO @UserAccessKey
@@ -55,11 +60,12 @@ WHERE [level] <> 0;
 IF (@variant = 'short')
 BEGIN
 DELETE FROM #Types_Tree
-WHERE [level] > 3;
+WHERE [level] > 2;
 
 UPDATE #Types_Tree 
-SET [HasCHild] = IIF([level] = 3, 0, 1);
+SET [HasCHild] = IIF([level] = 2, 0, 1);
 END
+
 
 DECLARE @DataField TABLE (DataField NVARCHAR(MAX), val INT);
 INSERT INTO @DataField
@@ -80,6 +86,9 @@ SET @cols = STUFF((SELECT DISTINCT ',' + QUOTENAME(c.DataField)
         ,1,1,'');
 
 SET @query = N'
+DECLARE @dateFinishPrev DATETIME = (SELECT DATEADD(DAY, DATEDIFF(DAY, 1, @dateTo), ''23:59:59''));
+DECLARE @dateFinishOnly DATE = CAST(@dateTo AS DATE);
+
 DECLARE @UserAccessKey TABLE (val INT);
 INSERT INTO @UserAccessKey
 SELECT 
@@ -129,30 +138,13 @@ WHERE [level] <> 0;
 IF (@variant = ''short'')
 BEGIN
 DELETE FROM #Types_Tree
-WHERE [level] > 3;
+WHERE [level] > 2;
 
 UPDATE #Types_Tree 
-SET [HasCHild] = IIF([level] = 3, 0, 1);
+SET [HasCHild] = IIF([level] = 2, 0, 1);
 END
 
-DECLARE @DataField TABLE (Id INT, DataField NVARCHAR(MAX), val INT);
-INSERT INTO @DataField
-SELECT 
-	Id,
-	DataFiled,
-	0
-FROM #Types_Tree
-WHERE HasChild = 0;
-
-DECLARE @Organizations TABLE (Id INT, short_name NVARCHAR(500));
-INSERT INTO @Organizations
-SELECT 
-	Id,
-	Short_name
-FROM dbo.[Organizations] 
-WHERE 
-Id IN (5502, 28)
-;
+--select * from #Types_Tree
 
 DECLARE @Status TABLE (status_name NVARCHAR(100), sort TINYINT);
 INSERT INTO @Status
@@ -164,23 +156,231 @@ SELECT ''виконано'', 3
 UNION
 SELECT ''залишилось'', 4;
 
-IF OBJECT_ID(''tempdb..#ResultSet'') IS NOT NULL
-BEGIN
-	DROP TABLE #ResultSet;
-END
-SELECT * 
-INTO #ResultSet
+
+DECLARE @Organizations TABLE (Id INT, short_name NVARCHAR(500));
+INSERT INTO @Organizations
+SELECT 
+	Id,
+	Short_name
+FROM dbo.[Organizations] 
+WHERE 
+Id IN (28,5502);
+
+DECLARE @DataFields_table TABLE (orgId INT, short_name NVARCHAR(500), typeId INT, DataField NVARCHAR(MAX), status_name NVARCHAR(10), val INT, processed BIT, sort TINYINT);
+INSERT INTO @DataFields_table
+SELECT 
+	org.Id,
+	org.short_name,
+	tree.Id,
+	tree.DataFiled,
+	stat.status_name,
+	0,
+	0,
+	stat.sort
+FROM #Types_Tree tree
+CROSS JOIN @Status stat
+LEFT JOIN @Organizations org ON 1=1
+WHERE HasChild = 0;
+
+
+DECLARE @types_list TABLE (Id INT);
+INSERT INTO @types_list 
+SELECT DISTINCT 
+	typeId 
+FROM @DataFields_table;
+
+DECLARE @currentId INT;
+DECLARE @stepTypes TABLE (Id INT);
+DECLARE @TypeOrgStatus_value TABLE (typeId INT, orgId INT, status_name NVARCHAR(10), val INT);
+DECLARE @Zalyshok_vyk TABLE (typeId INT, orgId INT, val INT);
+DECLARE @Zalyshok_nad TABLE (typeId INT, orgId INT, val INT);
+DECLARE @Zalyshok_per TABLE (typeId INT, orgId INT, val INT);
+DECLARE @Zalyshok_res TABLE (typeId INT, orgId INT, val INT);
+
+	WHILE (SELECT COUNT(1) FROM @types_list) > 0
+	BEGIN
+	SET @currentId = (SELECT TOP 1 Id FROM @types_list);
+
+	WITH ClaimType_Vals (Id, parentId)
+	AS
+	(
+	    SELECT [Id], 
+			   [Parent_сlaim_types_ID]
+	    FROM Claim_types e
+	    WHERE e.Id = @currentId
+	    UNION ALL
+		SELECT
+			   e.[Id], 
+			   e.[Parent_сlaim_types_ID]
+	    FROM Claim_types e
+	    INNER JOIN ClaimType_Vals r ON e.Parent_сlaim_types_ID = r.Id
+	)
+
+	INSERT INTO @stepTypes
+	SELECT 
+		Id
+	FROM ClaimType_Vals
+
+
+	-- виконано
+	DELETE FROM @TypeOrgStatus_value;
+	INSERT INTO @TypeOrgStatus_value
+	SELECT 
+	 @currentId,
+	 claim.Response_organization_ID,
+	 data.status_name,
+	 COUNT(claim.Id)
+	FROM dbo.[Claims] claim
+	INNER JOIN @DataFields_table data ON data.[orgId] = claim.[Response_organization_ID]		
+	WHERE 
+	claim.[Claim_type_ID] IN (SELECT Id FROM @stepTypes)
+	AND data.status_name = ''виконано'' 
+	AND data.typeId = @currentId
+	AND claim.Fact_finish_at is not null 
+	AND CAST(claim.Fact_finish_at AS DATE) = @dateFinishOnly 
+	AND claim.Status_ID in (4,5,6) 
+	GROUP BY claim.Claim_type_ID,
+			 claim.Response_organization_ID,
+			 data.status_name;
+
+	UPDATE data
+		SET val = value.val
+	FROM @DataFields_table data
+	INNER JOIN @TypeOrgStatus_value value ON data.orgId = value.orgId
+	AND data.typeId = @currentId
+	AND data.orgId = value.orgId
+	AND data.status_name = value.status_name;
+
+	-- перехідні
+	DELETE FROM @TypeOrgStatus_value;
+	INSERT INTO @TypeOrgStatus_value
+	SELECT 
+	 @currentId,
+	 claim.Response_organization_ID,
+	 data.status_name,
+	 COUNT(claim.Id) AS val
+	FROM dbo.[Claims] claim
+	INNER JOIN @DataFields_table data ON data.[orgId] = claim.[Response_organization_ID]
+	WHERE 
+	claim.[Claim_type_ID] IN (SELECT Id FROM @stepTypes)
+	AND data.status_name = ''перехідні'' 
+	AND data.typeId = @currentId
+	AND claim.Created_at BETWEEN @dateFrom and @dateFinishPrev 
+	AND (claim.Fact_finish_at IS NULL OR CAST(claim.Fact_finish_at AS DATE) = CAST(@dateTo as date))
+	GROUP BY claim.Claim_type_ID,
+			 claim.Response_organization_ID,
+			 data.status_name;
+
+	UPDATE data
+		SET val = value.val
+	FROM @DataFields_table data
+	INNER JOIN @TypeOrgStatus_value value ON data.orgId = value.orgId
+	AND data.typeId = @currentId
+	AND data.orgId = value.orgId
+	AND data.status_name = value.status_name;
+
+	-- надійшло
+	DELETE FROM @TypeOrgStatus_value;
+	INSERT INTO @TypeOrgStatus_value
+	SELECT 
+	 @currentId,
+	 claim.Response_organization_ID,
+	 data.status_name,
+	 COUNT(claim.Id) AS val
+	FROM @DataFields_table data 
+	INNER JOIN dbo.[Claims] claim ON data.[orgId] = claim.[Response_organization_ID]
+	WHERE 
+	claim.[Claim_type_ID] IN (SELECT Id FROM @stepTypes)
+	AND data.status_name = ''надійшло'' 
+	AND data.typeId = @currentId
+	AND CAST(claim.Created_at as date) = @dateFinishOnly 	
+	GROUP BY claim.Claim_type_ID,
+			 claim.Response_organization_ID,
+			 data.status_name;
+
+	UPDATE data
+		SET val = value.val
+	FROM @DataFields_table data
+	INNER JOIN @TypeOrgStatus_value value ON data.orgId = value.orgId
+	AND data.typeId = @currentId
+	AND data.orgId = value.orgId
+	AND data.status_name = value.status_name;
+
+	-- залишилось
+	DELETE FROM @Zalyshok_vyk;
+	DELETE FROM @Zalyshok_nad;
+	DELETE FROM @Zalyshok_per;
+	DELETE FROM @Zalyshok_res;
+
+	INSERT INTO @Zalyshok_vyk
+	SELECT 
+		typeId,
+		orgId,
+		val
+	FROM @DataFields_table data
+	WHERE data.status_name = ''виконано'' 
+	AND data.typeId = @currentId;
+
+	INSERT INTO @Zalyshok_nad
+	SELECT 
+		typeId,
+		orgId,
+		val
+	FROM @DataFields_table data
+	WHERE data.status_name = ''надійшло'' 
+	AND data.typeId = @currentId;
+
+	INSERT INTO @Zalyshok_per
+	SELECT 
+		typeId,
+		orgId,
+		val
+	FROM @DataFields_table data
+	WHERE data.status_name = ''перехідні'' 
+	AND data.typeId = @currentId;
+
+	INSERT INTO @Zalyshok_res
+	SELECT 
+		data.typeId,
+		data.orgId,
+		(z_p.val + z_n.val) - z_v.val AS val
+	FROM @DataFields_table data
+	LEFT JOIN @Zalyshok_vyk z_v ON data.orgId = z_v.orgId
+		AND data.typeId = z_v.typeId 
+	LEFT JOIN @Zalyshok_nad z_n ON data.orgId = z_n.orgId
+		AND data.typeId = z_n.typeId 
+	LEFT JOIN @Zalyshok_per z_p ON data.orgId = z_p.orgId
+		AND data.typeId = z_p.typeId 
+	WHERE data.typeId = @currentId;
+
+
+	UPDATE data
+		SET val = zal.val
+	FROM @DataFields_table data
+	INNER JOIN  @Zalyshok_res zal ON data.orgId = zal.orgId
+		AND data.typeId = zal.typeId
+	WHERE data.typeId = @currentId
+		AND data.status_name = ''залишилось'';
+
+
+	DELETE FROM @stepTypes;
+	
+	DELETE FROM @types_list 
+	WHERE Id = @currentId;
+
+	END
+					
+
+	SELECT * 
 FROM (
 SELECT 
-	org.Id orgId,
-	org.short_name,
-	stat.status_name,
-	stat.sort,
-	field.DataField,
-	field.val
-FROM @Organizations org 
-CROSS JOIN @Status stat
-LEFT JOIN @DataField field ON 1=1
+	orgId,
+	short_name,
+	status_name,
+	sort,
+	DataField,
+	val
+FROM @DataFields_table
 ) data_
 PIVOT (
   SUM(val)
@@ -191,15 +391,15 @@ PIVOT (
 			sort;
 
 
-	--SELECT * FROM @DataField
 
-	SELECT * 
-	FROM #ResultSet;
+;
 
 
 ';
 
-EXEC sp_executesql @query, N'@variant NVARCHAR(10), @user_id NVARCHAR(128)',
+EXEC sp_executesql @query, N'@variant NVARCHAR(10), @user_id NVARCHAR(128), @dateFrom DATETIME, @dateTo DATETIME',
 					  @variant = @variant,
-					  @user_id = @user_id 
-					  ;
+					  @user_id = @user_id, 
+					  @dateFrom = @dateFrom,
+					  @dateTo = @dateTo
+					   ;
