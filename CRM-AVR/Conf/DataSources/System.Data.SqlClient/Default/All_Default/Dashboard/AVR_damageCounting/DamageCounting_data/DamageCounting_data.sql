@@ -1,9 +1,10 @@
 /*
 DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
   		@variant NVARCHAR(10) = 'short',
-		@vision NVARCHAR(10) = 'full',
+		@vision NVARCHAR(10) = NULL,
 		@dateFrom DATETIME = DATEADD(DAY, -60, GETDATE()),
-		@dateTo DATETIME = GETDATE();
+		@dateTo DATETIME = GETDATE(),
+		@orgId NVARCHAR(MAX) = '28,5502';
 */
 
 DECLARE @UserAccessKey TABLE (val INT);
@@ -88,7 +89,11 @@ SET @cols = STUFF((SELECT DISTINCT ',' + QUOTENAME(c.DataField)
 SET @query = N'
 DECLARE @dateFinishPrev DATETIME = (SELECT DATEADD(DAY, DATEDIFF(DAY, 1, @dateTo), ''23:59:59''));
 DECLARE @dateFinishOnly DATE = CAST(@dateTo AS DATE);
-
+DECLARE @orgList TABLE (Id INT);
+INSERT INTO @orgList
+SELECT 
+	value
+FROM STRING_SPLIT(REPLACE(@orgId,'' '', SPACE(0)),'','');
 DECLARE @UserAccessKey TABLE (val INT);
 INSERT INTO @UserAccessKey
 SELECT 
@@ -164,7 +169,7 @@ SELECT
 	Short_name
 FROM dbo.[Organizations] 
 WHERE 
-Id IN (28,5502);
+Id IN (SELECT Id FROM @orgList);
 
 DECLARE @DataFields_table TABLE (orgId INT, short_name NVARCHAR(500), typeId INT, DataField NVARCHAR(MAX), status_name NVARCHAR(10), val INT, processed BIT, sort TINYINT);
 INSERT INTO @DataFields_table
@@ -369,7 +374,24 @@ DECLARE @Zalyshok_res TABLE (typeId INT, orgId INT, val INT);
 	WHERE Id = @currentId;
 
 	END
-					
+	
+	IF (@vision <> ''full'') 
+		OR @vision IS NULL
+	BEGIN
+		DECLARE @ForDelete TABLE (typeId INT, val INT);
+		INSERT INTO @ForDelete 
+		SELECT 
+			typeId,
+			SUM(val)
+		FROM @DataFields_table
+		GROUP BY typeId;
+		
+		DELETE FROM @DataFields_table
+		WHERE typeId IN (SELECT 
+							typeId
+						 FROM @ForDelete
+						 WHERE val = 0);
+	END
 
 	SELECT * 
 FROM (
@@ -391,15 +413,13 @@ PIVOT (
 			sort;
 
 
-
-;
-
-
 ';
 
-EXEC sp_executesql @query, N'@variant NVARCHAR(10), @user_id NVARCHAR(128), @dateFrom DATETIME, @dateTo DATETIME',
+EXEC sp_executesql @query, N'@variant NVARCHAR(10), @vision NVARCHAR(10), @user_id NVARCHAR(128), @dateFrom DATETIME, @dateTo DATETIME, @orgId NVARCHAR(MAX)',
 					  @variant = @variant,
+					  @vision = @vision,
 					  @user_id = @user_id, 
 					  @dateFrom = @dateFrom,
-					  @dateTo = @dateTo
+					  @dateTo = @dateTo,
+					  @orgId = @orgId
 					   ;

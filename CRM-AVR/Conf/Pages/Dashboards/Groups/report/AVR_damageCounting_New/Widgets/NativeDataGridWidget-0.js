@@ -72,28 +72,32 @@
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let orgVal = message.package.value.values.find(f => f.name === 'division').value;
             let variant = 'short';
+            let vision = null;
             this.config.query.filterColumns = [];
             if (period !== null) {
                 if (period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.variant = variant;
+                    this.vision = vision;
+                    this.orgVal = this.extractValues(orgVal);
                     this.config.query.parameterValues = [
                         { key: '@dateFrom', value: this.dateFrom },
                         { key: '@dateTo', value: this.dateTo },
-                        { key: '@variant', value:  this.variant }
+                        { key: '@variant', value:  this.variant },
+                        { key: '@vision', value:  this.vision },
+                        { key: '@orgId', value:  this.orgVal }
                     ];
-                    this.orgVal = this.extractValues(orgVal);
-                    this.config.query.filterColumns = [];
-                    const filter = {
-                        key: 'OrgId',
-                        value: {
-                            operation: 0,
-                            not: false,
-                            values: this.orgVal
-                        }
-                    };
-                    this.config.query.filterColumns.push(filter);
+                    // this.config.query.filterColumns = [];
+                    // const filter = {
+                    //     key: 'OrgId',
+                    //     value: {
+                    //         operation: 0,
+                    //         not: false,
+                    //         values: this.orgVal
+                    //     }
+                    // };
+                    // this.config.query.filterColumns.push(filter);
                     this.loadData(this.afterLoadDataHandler);
                 }
             }
@@ -102,7 +106,7 @@
             if(items.length && items !== '') {
                 const valuesList = [];
                 items.forEach(item => valuesList.push(item.value));
-                return valuesList;
+                return valuesList.join(', ');
             }
             return [];
         },
