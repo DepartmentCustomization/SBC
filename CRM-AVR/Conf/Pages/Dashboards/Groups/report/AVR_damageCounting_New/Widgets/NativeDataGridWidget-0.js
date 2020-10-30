@@ -88,16 +88,6 @@
                         { key: '@vision', value:  this.vision },
                         { key: '@orgId', value:  this.orgVal }
                     ];
-                    // this.config.query.filterColumns = [];
-                    // const filter = {
-                    //     key: 'OrgId',
-                    //     value: {
-                    //         operation: 0,
-                    //         not: false,
-                    //         values: this.orgVal
-                    //     }
-                    // };
-                    // this.config.query.filterColumns.push(filter);
                     this.loadData(this.afterLoadDataHandler);
                 }
             }
