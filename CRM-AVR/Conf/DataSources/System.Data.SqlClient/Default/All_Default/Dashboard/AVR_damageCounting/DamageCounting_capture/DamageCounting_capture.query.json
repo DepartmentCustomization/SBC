@@ -12,18 +12,48 @@
             "Position": 1,
             "IsPrimaryKey": true,
             "IsPrintable": false
+        },
+        {
+            "Code": "parentId",
+            "Name": "parentId",
+            "Position": 2,
+            "IsPrintable": false
+        },
+        {
+            "Code": "Caption",
+            "Name": "Caption",
+            "Position": 3,
+            "IsPrintable": false
+        },
+        {
+            "Code": "DataFiled",
+            "Name": "DataFiled",
+            "Position": 4,
+            "IsPrintable": false
+        },
+        {
+            "Code": "HasChild",
+            "Name": "HasChild",
+            "Position": 5,
+            "IsPrintable": false
+        },
+        {
+            "Code": "level",
+            "Name": "level",
+            "Position": 6,
+            "IsPrintable": false
         }
     ],
     "Parameters": [
         {
-            "Code": "@dateFrom",
-            "Name": "dateFrom",
-            "ParameterType": "DateTime"
+            "Code": "@user_id",
+            "Name": "user_id",
+            "ParameterType": "CurrentUserId"
         },
         {
-            "Code": "@dateTo",
-            "Name": "dateTo",
-            "ParameterType": "DateTime"
+            "Code": "@variant",
+            "Name": "variant",
+            "ParameterType": "Text"
         }
     ]
 }

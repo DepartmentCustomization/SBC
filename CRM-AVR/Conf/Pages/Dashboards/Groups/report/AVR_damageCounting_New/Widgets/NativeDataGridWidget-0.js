@@ -71,14 +71,17 @@
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let orgVal = message.package.value.values.find(f => f.name === 'division').value;
+            let variant = 'short';
             this.config.query.filterColumns = [];
-            if (period !== null && orgVal.length > 0) {
+            if (period !== null) {
                 if (period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
+                    this.variant = variant;
                     this.config.query.parameterValues = [
                         { key: '@dateFrom', value: this.dateFrom },
-                        { key: '@dateTo', value: this.dateTo }
+                        { key: '@dateTo', value: this.dateTo },
+                        { key: '@variant', value:  this.variant }
                     ];
                     this.orgVal = this.extractValues(orgVal);
                     this.config.query.filterColumns = [];
