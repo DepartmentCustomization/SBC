@@ -208,7 +208,7 @@ WHERE
             FROM
                   [dbo].[ApplicantPhones]
             WHERE
-                  applicant_id = @true_applicant_id
+                  applicant_id = @true_applicant_id and [IsMain]='true'
             GROUP BY
                   REPLACE([ApplicantPhones].[phone_number], N'+38', N'')
       ); 
@@ -244,7 +244,7 @@ WHERE
             FROM
                   [dbo].[LiveAddress]
             WHERE
-                  applicant_id = @true_applicant_id
+                  applicant_id = @true_applicant_id and [main]='true'
             GROUP BY
                   [building_id],
                   [flat]
