@@ -1,6 +1,6 @@
 /*
 DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
-  		@variant NVARCHAR(10) = 'full',
+  		@variant NVARCHAR(10) = 'short',
 		@vision NVARCHAR(10) = 'short',
 		@dateFrom DATETIME = DATEADD(DAY, -60, GETDATE()),
 		@dateTo DATETIME = GETDATE(),
@@ -319,7 +319,9 @@ DECLARE @stepTypes TABLE (Id INT);
 		AND z_n.status_name = ''надійшло''
 	LEFT JOIN @DataFields_table z_p ON data.orgId = z_p.orgId
 		AND data.typeId = z_p.typeId 
-		AND z_p.status_name = ''перехідні'';
+		AND z_p.status_name = ''перехідні''
+	WHERE data.typeId = @currentId
+		AND data.status_name = ''залишилось'';
 
 	DELETE FROM @stepTypes;
 	
