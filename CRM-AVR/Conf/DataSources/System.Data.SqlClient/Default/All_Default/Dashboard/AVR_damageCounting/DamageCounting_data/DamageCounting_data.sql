@@ -1,6 +1,6 @@
 /*
 DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
-  		@variant NVARCHAR(10) = 'short',
+  		@variant NVARCHAR(10) = 'full',
 		@vision NVARCHAR(10) = 'short',
 		@dateFrom DATETIME = DATEADD(DAY, -60, GETDATE()),
 		@dateTo DATETIME = GETDATE(),
@@ -149,8 +149,6 @@ UPDATE #Types_Tree
 SET [HasCHild] = IIF([level] = 2, 0, 1);
 END
 
---select * from #Types_Tree
-
 DECLARE @Status TABLE (status_name NVARCHAR(100), sort TINYINT);
 INSERT INTO @Status
 SELECT ''перехідні'', 1
@@ -194,20 +192,16 @@ SELECT DISTINCT
 	typeId 
 FROM @DataFields_table;
 
+DECLARE @TypeOrgStatus_value TABLE (typeId INT, orgId INT, status_name NVARCHAR(10), val INT);
+
+IF (@variant = ''short'')
+BEGIN
 DECLARE @currentId INT;
 DECLARE @stepTypes TABLE (Id INT);
-DECLARE @TypeOrgStatus_value TABLE (typeId INT, orgId INT, status_name NVARCHAR(10), val INT);
-DECLARE @Zalyshok_vyk TABLE (typeId INT, orgId INT, val INT);
-DECLARE @Zalyshok_nad TABLE (typeId INT, orgId INT, val INT);
-DECLARE @Zalyshok_per TABLE (typeId INT, orgId INT, val INT);
-DECLARE @Zalyshok_res TABLE (typeId INT, orgId INT, val INT);
 
 	WHILE (SELECT COUNT(1) FROM @types_list) > 0
 	BEGIN
 	SET @currentId = (SELECT TOP 1 Id FROM @types_list);
-
-	IF (@variant = ''short'')
-	BEGIN
 
 	WITH ClaimType_Vals (Id, parentId)
 	AS
@@ -227,14 +221,7 @@ DECLARE @Zalyshok_res TABLE (typeId INT, orgId INT, val INT);
 	INSERT INTO @stepTypes
 	SELECT 
 		Id
-	FROM ClaimType_Vals
-	END
-	ELSE
-	BEGIN
-		INSERT INTO @stepTypes
-		SELECT @currentId;
-	END
-
+	FROM ClaimType_Vals;
 
 	-- виконано
 	DELETE FROM @TypeOrgStatus_value;
@@ -320,7 +307,7 @@ DECLARE @Zalyshok_res TABLE (typeId INT, orgId INT, val INT);
 	AND data.orgId = value.orgId
 	AND data.status_name = value.status_name;
 
-	-- залишилось
+		-- залишилось
 	UPDATE data
 		SET val = (z_p.val + z_n.val) - z_v.val
 	FROM @DataFields_table data
@@ -332,10 +319,7 @@ DECLARE @Zalyshok_res TABLE (typeId INT, orgId INT, val INT);
 		AND z_n.status_name = ''надійшло''
 	LEFT JOIN @DataFields_table z_p ON data.orgId = z_p.orgId
 		AND data.typeId = z_p.typeId 
-		AND z_p.status_name = ''перехідні''
-	WHERE data.typeId = @currentId
-	  AND data.status_name = ''залишилось'';
-
+		AND z_p.status_name = ''перехідні'';
 
 	DELETE FROM @stepTypes;
 	
@@ -343,6 +327,87 @@ DECLARE @Zalyshok_res TABLE (typeId INT, orgId INT, val INT);
 	WHERE Id = @currentId;
 
 	END
+END
+ELSE 
+BEGIN
+
+	-- виконано
+	INSERT INTO @TypeOrgStatus_value
+	SELECT 
+		claim_v.Claim_type_ID,
+		claim_v.Response_organization_ID,
+		''виконано'' AS status_name,
+		COUNT(claim_v.Id) AS val
+	FROM dbo.[Claims] claim_v
+	INNER JOIN @organizations org ON org.Id = claim_v.Response_organization_ID
+		AND claim_v.Fact_finish_at is not null 
+		AND CAST(claim_v.Fact_finish_at AS DATE) = @dateFinishOnly 
+		AND claim_v.Status_ID in (4,5,6)
+	INNER JOIN @types_list types ON types.Id = claim_v.Claim_type_ID
+	GROUP BY claim_v.Claim_type_ID,
+			 claim_v.Response_organization_ID
+			;
+
+
+	-- перехідні
+	INSERT INTO @TypeOrgStatus_value
+	SELECT 
+		claim_p.Claim_type_ID,
+		claim_p.Response_organization_ID,
+		''перехідні'' AS status_name,
+		COUNT(claim_p.Id) AS val
+	FROM dbo.[Claims] claim_p
+	INNER JOIN @organizations org ON org.Id = claim_p.Response_organization_ID
+		AND claim_p.Created_at BETWEEN @dateFrom and @dateFinishPrev 
+		AND (claim_p.Fact_finish_at IS NULL OR CAST(claim_p.Fact_finish_at AS DATE) = CAST(@dateTo as date))
+	INNER JOIN @types_list types ON types.Id = claim_p.Claim_type_ID
+	GROUP BY claim_p.Claim_type_ID,
+			 claim_p.Response_organization_ID
+			;
+
+	-- надійшло
+	INSERT INTO @TypeOrgStatus_value
+	SELECT 
+		claim_n.Claim_type_ID,
+		claim_n.Response_organization_ID,
+		''надійшло'' AS status_name,
+		COUNT(claim_n.Id) AS val
+	FROM dbo.[Claims] claim_n
+	INNER JOIN @organizations org ON org.Id = claim_n.Response_organization_ID
+		AND CAST(claim_n.Created_at as date) = @dateFinishOnly 
+	INNER JOIN @types_list types ON types.Id = claim_n.Claim_type_ID
+	GROUP BY claim_n.Claim_type_ID,
+			 claim_n.Response_organization_ID
+			 ;
+
+		-- залишилось
+	INSERT INTO @TypeOrgStatus_value
+	SELECT 
+		all_.typeId,
+		all_.orgId,
+		''залишилось'',
+		(ISNULL(per.val,0) + ISNULL(nad.val,0)) - ISNULL(vyk.val,0) AS val
+	FROM @TypeOrgStatus_value all_
+	LEFT JOIN @TypeOrgStatus_value per ON per.typeId = all_.typeId
+		AND per.orgId = all_.orgId
+		AND all_.status_name = ''перехідні''
+	LEFT JOIN @TypeOrgStatus_value nad ON nad.typeId = all_.typeId
+		AND nad.orgId = all_.orgId
+		AND all_.status_name = ''надійшло''
+	LEFT JOIN @TypeOrgStatus_value vyk ON vyk.typeId = all_.typeId
+		AND vyk.orgId = all_.orgId
+		AND all_.status_name = ''виконано''	 
+		;
+
+	UPDATE data
+		SET val = value.val
+	FROM @DataFields_table data
+	INNER JOIN @TypeOrgStatus_value value ON data.orgId = value.orgId
+	AND data.typeId = value.typeId
+	AND data.orgId = value.orgId
+	AND data.status_name = value.status_name;
+
+END
 	
 	IF (@vision <> ''full'') 
 		OR @vision IS NULL
