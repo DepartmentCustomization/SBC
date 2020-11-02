@@ -1,10 +1,10 @@
 /*
 DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
   		@variant NVARCHAR(10) = 'short',
-		@vision NVARCHAR(10) = NULL,
+		@vision NVARCHAR(10) = 'short',
 		@dateFrom DATETIME = DATEADD(DAY, -60, GETDATE()),
 		@dateTo DATETIME = GETDATE(),
-		@orgId NVARCHAR(MAX) = '28,5502';
+		@orgId NVARCHAR(MAX) = '28,5502,5503,5504';
 */
 
 DECLARE @UserAccessKey TABLE (val INT);
@@ -206,6 +206,9 @@ DECLARE @Zalyshok_res TABLE (typeId INT, orgId INT, val INT);
 	BEGIN
 	SET @currentId = (SELECT TOP 1 Id FROM @types_list);
 
+	IF (@variant = ''short'')
+	BEGIN
+
 	WITH ClaimType_Vals (Id, parentId)
 	AS
 	(
@@ -225,6 +228,12 @@ DECLARE @Zalyshok_res TABLE (typeId INT, orgId INT, val INT);
 	SELECT 
 		Id
 	FROM ClaimType_Vals
+	END
+	ELSE
+	BEGIN
+		INSERT INTO @stepTypes
+		SELECT @currentId;
+	END
 
 
 	-- виконано
@@ -312,60 +321,20 @@ DECLARE @Zalyshok_res TABLE (typeId INT, orgId INT, val INT);
 	AND data.status_name = value.status_name;
 
 	-- залишилось
-	DELETE FROM @Zalyshok_vyk;
-	DELETE FROM @Zalyshok_nad;
-	DELETE FROM @Zalyshok_per;
-	DELETE FROM @Zalyshok_res;
-
-	INSERT INTO @Zalyshok_vyk
-	SELECT 
-		typeId,
-		orgId,
-		val
-	FROM @DataFields_table data
-	WHERE data.status_name = ''виконано'' 
-	AND data.typeId = @currentId;
-
-	INSERT INTO @Zalyshok_nad
-	SELECT 
-		typeId,
-		orgId,
-		val
-	FROM @DataFields_table data
-	WHERE data.status_name = ''надійшло'' 
-	AND data.typeId = @currentId;
-
-	INSERT INTO @Zalyshok_per
-	SELECT 
-		typeId,
-		orgId,
-		val
-	FROM @DataFields_table data
-	WHERE data.status_name = ''перехідні'' 
-	AND data.typeId = @currentId;
-
-	INSERT INTO @Zalyshok_res
-	SELECT 
-		data.typeId,
-		data.orgId,
-		(z_p.val + z_n.val) - z_v.val AS val
-	FROM @DataFields_table data
-	LEFT JOIN @Zalyshok_vyk z_v ON data.orgId = z_v.orgId
-		AND data.typeId = z_v.typeId 
-	LEFT JOIN @Zalyshok_nad z_n ON data.orgId = z_n.orgId
-		AND data.typeId = z_n.typeId 
-	LEFT JOIN @Zalyshok_per z_p ON data.orgId = z_p.orgId
-		AND data.typeId = z_p.typeId 
-	WHERE data.typeId = @currentId;
-
-
 	UPDATE data
-		SET val = zal.val
+		SET val = (z_p.val + z_n.val) - z_v.val
 	FROM @DataFields_table data
-	INNER JOIN  @Zalyshok_res zal ON data.orgId = zal.orgId
-		AND data.typeId = zal.typeId
+	LEFT JOIN @DataFields_table z_v ON data.orgId = z_v.orgId
+		AND data.typeId = z_v.typeId 
+		AND z_v.status_name = ''виконано''
+	LEFT JOIN @DataFields_table z_n ON data.orgId = z_n.orgId
+		AND data.typeId = z_n.typeId 
+		AND z_n.status_name = ''надійшло''
+	LEFT JOIN @DataFields_table z_p ON data.orgId = z_p.orgId
+		AND data.typeId = z_p.typeId 
+		AND z_p.status_name = ''перехідні''
 	WHERE data.typeId = @currentId
-		AND data.status_name = ''залишилось'';
+	  AND data.status_name = ''залишилось'';
 
 
 	DELETE FROM @stepTypes;
