@@ -179,6 +179,14 @@
       "Name": "objecId"
     },
     {
+      "Code": "@applicant_fio",
+      "Name": "applicant_fio"
+    },
+    {
+      "Code": "@executor_fio",
+      "Name": "executor_fio"
+    },
+    {
       "Code": "@pageOffsetRows",
       "Name": "pageOffsetRows",
       "ParameterType": "Integer",
