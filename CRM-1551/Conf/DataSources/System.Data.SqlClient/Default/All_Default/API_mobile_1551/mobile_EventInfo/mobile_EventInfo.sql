@@ -43,6 +43,7 @@ INCLUDE_NULL_VALUES);
 
 
 SELECT 
+DISTINCT
 	e_class.[name] AS [class_name],
 	e_type.[name] AS [type_name],
 	@EventObjects_Row AS [event_object],
