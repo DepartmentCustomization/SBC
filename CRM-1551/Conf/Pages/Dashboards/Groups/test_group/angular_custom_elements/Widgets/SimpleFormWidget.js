@@ -1,30 +1,31 @@
 (function () {
 	return {
 		config: {
-			"code": "SystemUser",
-			"name": "Пользователь",
-			"position": 1,
-			"fieldGroups": [
+			code: "SystemUser",
+			name: "Пользователь",
+			position: 1,
+			fieldGroups: [
                 {
-                    "code": "Group_Aplicant",
-                    "name": "Маленькая группа",
-                    "position": 2,
-                    "fields": [
+                    code: "Group_Aplicant",
+                    name: "Маленькая группа",
+                    position: 1,
+                    expand: true,
+                    fields: [
                         {
                             "code": "TextInput1Btn",
                             "name": "Очистити",
                             "type": "button",
                             "position": 1,
-                            "width": "25%",
-                            "icon": "address",
-                            "placeholder": "TextInput1"
+                            "width": "50%",
+                            "icon": "book",
+                            "placeholder": "Кнопка 2"
                         },
                         {
                             "code": "ChangeDisableControl",
                             "name": "Очистити",
                             "type": "button",
-                            "position": 123,
-                            "width": "25%",
+                            "position": 2,
+                            "width": "50%",
                             "icon": "book",
                             "placeholder": "ChangeDisableControl"
                         },
@@ -32,54 +33,57 @@
                             "code": "TextInput2Btn",
                             "name": "Очистити",
                             "type": "button",
-                            "position": 5,
+                            "position": 3,
                             "width": "50%",
-                            "icon": "adjust",
-                            "placeholder": "SelectInput1"
+                            "icon": "build",
+                            "placeholder": "Btn TextInput2Btn"
                         },
                         {
                             "code": "TextInput3Btn",
                             "name": "Очистити",
                             "type": "button",
-                            "position": 2,
-                            "width": "25%",
-                            "icon": "amilia",
-                            "placeholder": "SelectInput2"
+                            "position": 4,
+                            "width": "50%",
+                            "icon": "donut_large",
+                            "placeholder": "Btn TextInput3Btn"
                         },
                         {
                             "code": "GetControlValues",
-                            "name": "GetControlValues",
+                            "name": "My Name is GetControlValues",
                             "type": "button",
-                            "position": 1,
-                            "width": "25%",
-                            "icon": "amilia",
+                            "position": 5,
+                            "width": "50%",
+                            "icon": "search",
                             "placeholder": "GetControlValues"
                         },
                         {
                             "code": "Applicant_name",
                             "name": "Название 1",
                             "type": "text",
-                            "position": 100,
+                            "position": 6,
                         },
                         {
                             "code": "ReceiptSources",
                             "name": "Джерело збереження",
                             "type": "select",
-                            "position": 21,
-                            placeholder: 'Джерело збереження placeholder '
+                            "width": "50%",
+                            "position": 7,
+                            "placeholder": 'Джерело збереження placeholder'
                         },
                         {
                             "code": "ReceiptCreated",
                             "name": "Джерело створення",
                             "type": "select",
-                            "position": 12,
+                            "width": "50%",
+                            "position": 8,
+                            "placeholder": 'Джерело створення placeholder'
                         },
                         {
                             code: "checkbox",
                             fullScreen: true,
                             hidden: false,
                             placeholder: 'Основний?',
-                            position: 3,
+                            position: 9,
                             required: false,
                             value: false,
                             type: 'checkbox',
@@ -88,9 +92,11 @@
                     ]
                 },
                 {
-                    "name": "Вторая группа",
-                    "position": 1,
-                    "fields": [
+                    name: "Вторая группа",
+                    position: 2,
+                    expand: false,
+                    code: "Group_Second",
+                    fields: [
                         {
                             "code": "Question_name",
                             "name": "new label 2",
@@ -106,10 +112,11 @@
                     ]
                 },
                 {
-                    "code": "ThirdGroup",
-                    "name": "Самая большая группа",
-                    "position": 10,
-                    "fields": [
+                    code: "ThirdGroup",
+                    name: "Самая большая группа",
+                    position: 3,
+                    expand: false,
+                    fields: [
                         {
                           "code": "CardPhone",
                           "name": "Номер телефону",
