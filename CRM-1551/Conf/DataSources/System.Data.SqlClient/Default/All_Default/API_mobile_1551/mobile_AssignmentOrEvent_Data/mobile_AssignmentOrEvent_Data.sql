@@ -1,14 +1,16 @@
-  /*
-  DECLARE @userId NVARCHAR(128) = N'646d6b5e-9f27-4764-9612-f18d04fea509';
-  DECLARE @orgId INT = NULL;
-  DECLARE @startDate DATE = NULL;
-  DECLARE @endDate DATE = NULL;
-  DECLARE @Control_startDate DATE = NULL;
-  DECLARE @Control_endDate DATE = NULL;
-  DECLARE @code NVARCHAR(500) = 'in_work,attention,overdue';
-  DECLARE @entity NVARCHAR(50) = NULL;
-  DECLARE @entityNumber NVARCHAR(50) = NULL;
-  DECLARE @objecId INT = NULL;
+/*
+DECLARE @userId NVARCHAR(128) = N'646d6b5e-9f27-4764-9612-f18d04fea509',
+		@orgId INT = NULL,
+		@startDate DATE = NULL,
+		@endDate DATE = NULL,
+		@Control_startDate DATE = NULL,
+		@Control_endDate DATE = NULL,
+		@code NVARCHAR(500) = NULL,
+		@entity NVARCHAR(50) = NULL,
+		@entityNumber NVARCHAR(50) = NULL,
+		@objecId INT = NULL,
+		@applicant_fio NVARCHAR(500) = N'Куцев Саша',
+		@executor_fio NVARCHAR(500) = NULL;
  */
  
 SET @startDate = IIF(@startDate IS NULL, '1900-01-01', @startDate);   
@@ -116,11 +118,20 @@ BEGIN
 		AND ass.[executor_organization_id] IN (SELECT [Id] FROM @user_orgs)
 		AND ass.[registration_date] BETWEEN @startDate AND @endDate
 		AND ass.[execution_date] BETWEEN @Control_startDate AND @Control_endDate
+		AND ass.[execution_date] >= @now
 	LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 	LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
 	LEFT JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
+	LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+	LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
 	LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
-	LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];
+	LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+	WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 -- В роботі Доручень 
 IF (CHARINDEX(N'in_work', @code) > 0)
@@ -151,15 +162,26 @@ BEGIN
 		AND ass.[executor_organization_id] IN (SELECT [Id] FROM @user_orgs)
 		AND ass.[registration_date] BETWEEN @startDate AND @endDate
 		AND ass.[execution_date] BETWEEN @Control_startDate AND @Control_endDate
+		AND ass.[execution_date] >= @now
 	LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 	LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
 	LEFT JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
+	LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+	LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
 	LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
-	LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];
+	LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+	WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 -- В роботі Заходів  
 IF (CHARINDEX(N'in_work', @code) > 0)
 AND (@entity = N'event' OR @entity IS NULL)
+AND @applicant_fio IS NULL
+AND @executor_fio IS NULL
 BEGIN
 INSERT INTO @resultTab
 SELECT
@@ -233,11 +255,21 @@ INNER JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
 LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
 LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
-LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];
+LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
+LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 -- Прострочено Заходів
 IF (CHARINDEX(N'overdue', @code) > 0)
 AND (@entity = N'event' OR @entity IS NULL)
+AND @applicant_fio IS NULL
+AND @executor_fio IS NULL
 BEGIN   
 INSERT INTO @resultTab
 SELECT 
@@ -315,12 +347,22 @@ INNER JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
 LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
 LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
-LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];
+LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
+LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 
 -- Увага Заходів  
 IF (CHARINDEX(N'attention', @code) > 0)
 AND (@entity = N'event' OR @entity IS NULL)
+AND @applicant_fio IS NULL
+AND @executor_fio IS NULL
 BEGIN   
 INSERT INTO @resultTab
 SELECT 
@@ -399,7 +441,15 @@ INNER JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
 LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
 LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
-LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];
+LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
+LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 -- Повернені заявником 
 IF (CHARINDEX(N'applicantreturn', @code) > 0)
@@ -433,10 +483,18 @@ INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
 	AND ass.[execution_date] BETWEEN @Control_startDate AND @Control_endDate
 	AND ass.[executor_organization_id] IN (SELECT [Id] FROM @user_orgs)
 INNER JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
+LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
 LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
 LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
-LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];;
+LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 
 IF (@entityNumber IS NOT NULL)
