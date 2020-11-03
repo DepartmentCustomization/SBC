@@ -1,5 +1,5 @@
 -- DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
---  	   @variant NVARCHAR(10) = NULL;
+--   		@variant NVARCHAR(10) = 'short';
 
 DECLARE @UserAccessKey TABLE (val INT);
 INSERT INTO @UserAccessKey
@@ -21,10 +21,10 @@ END
 WITH ClaimTypes_Tree (Id, parentId, [Caption], DataFiled, HasChild, [level])
 AS
 (
-    SELECT [Id], 
-		   [Parent_сlaim_types_ID], 
-		   [Name],
-		   'type_' + CAST(Id AS NVARCHAR(10)),
+    SELECT e.[Id], 
+		   e.[Parent_сlaim_types_ID], 
+		   e.[Name],
+		   'type_' + CAST(e.Id AS NVARCHAR(10)),
 		   IIF(EXISTS(SELECT Id FROM dbo.[Claim_Types] WHERE [Parent_сlaim_types_ID] = e.Id), 1, 0),
 		   0 
     FROM dbo.[Claim_Types] e
@@ -60,7 +60,16 @@ WHERE [level] > 2;
 
 UPDATE #Types_Tree 
 SET [HasCHild] = IIF([level] = 2, 0, 1);
+
+UPDATE #Types_Tree
+	SET HasChild = 
+	CASE WHEN c.Id IS NULL 
+		 THEN 0 ELSE 1 END			  		
+FROM #Types_Tree t
+LEFT JOIN dbo.Claim_types c ON c.Parent_сlaim_types_ID = t.Id
+WHERE [level] = 1;
 END
+
 
 SELECT 
 	Id,
@@ -69,4 +78,6 @@ SELECT
 	DataFiled,
 	HasChild,
 	[level]
-FROM #Types_Tree;
+FROM #Types_Tree
+ORDER BY [level], 
+		 parentId;
