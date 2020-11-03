@@ -66,6 +66,32 @@ SET
 END 
 --select * from @table_applicant
 --норм
+--по комментарию начало
+declare @ApplicantFromSiteId int=
+(
+select top 1 [Applicants].ApplicantFromSiteId
+from [dbo].[Applicants]
+inner join @table_applicant ta on [Applicants].Id=ta.Id
+where [Applicants].ApplicantFromSiteId is not null
+order by 
+case when ta.id=@true_applicant_id then 0 else 1 end,
+ta.id desc
+)
+
+update [dbo].[Applicants]
+set ApplicantFromSiteId=@ApplicantFromSiteId
+where Id=@true_applicant_id
+
+
+update [CRM_1551_Site_Integration].[dbo].[ApplicantsFromSite]
+  set [ApplicantId]=@true_applicant_id
+  where [ApplicantId] in
+  (select Id
+  from @table_applicant ta)
+
+
+-- по комментарию конец
+
 -- обновить таблицу дубликатов 
 /*
 UPDATE
