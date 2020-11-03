@@ -56,10 +56,10 @@ WHERE [level] <> 0;
 IF (@variant = 'short')
 BEGIN
 DELETE FROM #Types_Tree
-WHERE [level] > 3;
+WHERE [level] > 2;
 
 UPDATE #Types_Tree 
-SET [HasCHild] = IIF([level] = 3, 0, 1);
+SET [HasCHild] = IIF([level] = 2, 0, 1);
 END
 
 SELECT 
