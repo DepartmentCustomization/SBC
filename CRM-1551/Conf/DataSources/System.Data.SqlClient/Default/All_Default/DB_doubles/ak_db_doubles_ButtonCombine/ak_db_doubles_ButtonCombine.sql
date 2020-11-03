@@ -7,7 +7,7 @@
  */
 
 DECLARE @phone NVARCHAR(50) =(
-      SELECT
+      SELECT top 1
             PhoneNumber
       FROM
             [dbo].[ApplicantDublicate]
@@ -18,7 +18,7 @@ DECLARE @phone NVARCHAR(50) =(
 
 declare @phone_id_true int =
   (
-  select [ApplicantPhones].Id
+  select top 1 [ApplicantPhones].Id 
   from [ApplicantPhones] 
   inner join [ApplicantDublicate] on replace([ApplicantPhones].[phone_number], N'+38', N'')=[ApplicantDublicate].PhoneNumber
   inner join [Applicants] on [ApplicantPhones].applicant_id=[Applicants].Id
@@ -27,7 +27,7 @@ declare @phone_id_true int =
 
   declare @live_address_id_true int =
   (
-  select [LiveAddress].Id
+  select top 1 [LiveAddress].Id
   from [ApplicantPhones] 
   inner join [ApplicantDublicate] on replace([ApplicantPhones].[phone_number], N'+38', N'')=[ApplicantDublicate].PhoneNumber
   inner join [Applicants] on [ApplicantPhones].applicant_id=[Applicants].Id
