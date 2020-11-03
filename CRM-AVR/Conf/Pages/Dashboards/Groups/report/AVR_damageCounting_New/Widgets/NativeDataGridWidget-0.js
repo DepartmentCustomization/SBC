@@ -39,6 +39,26 @@
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
+
+
+
+        },
+        columnData: [],
+        recalColumns: function() {
+            let executeQuery = {
+                    queryCode: 'DamageCounting_capture',
+                    parameterValues: [
+                                        { key: '@dateFrom', value: this.dateFrom },
+                                        { key: '@dateTo', value: this.dateTo },
+                                        { key: '@variant', value:  this.variant },
+                                        { key: '@vision', value:  this.vision },
+                                        { key: '@orgId', value:  this.orgVal }
+                                    ]
+                };
+            this.queryExecutor(executeQuery, this.loadColumns, this);
+        },
+        loadColumns: function(data){
+            debugger;
         },
         changeDateTimeValues: function(value) {
             let trueDate;
@@ -88,9 +108,10 @@
                         { key: '@vision', value:  this.vision },
                         { key: '@orgId', value:  this.orgVal }
                     ];
-                    this.loadData(this.afterLoadDataHandler);
+                    // this.loadData(this.afterLoadDataHandler);
                 }
             }
+            this.recalColumns();
         },
         extractValues: function(items) {
             if(items.length && items !== '') {
