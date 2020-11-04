@@ -12,10 +12,18 @@ SELECT
     @name;
 END 
 
-IF (@appeal_id IS NOT NULL
+IF ((@appeal_id IS NOT NULL
     OR @question_id IS NOT NULL
     OR @appeal_from_site_id IS NOT NULL)
-    AND @is_revision = 'true'
+    AND @is_revision = 'true')
+    OR (
+    SELECT
+        WorkDirectionTypeId
+    FROM
+        [CRM_1551_Site_Integration].[dbo].[AppealsFromSite]
+    WHERE
+        id = @appeal_from_site_id
+) = 20 
 BEGIN
 INSERT INTO
     [dbo].[QuestionDocFiles] (
