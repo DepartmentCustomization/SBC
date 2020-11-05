@@ -8,27 +8,21 @@ DECLARE @place_id INT;
 
 IF @place_types_id NOT IN (10, 19, 6) 
 BEGIN 
-IF (
+IF EXISTS (
 	SELECT
-		Street_id
+		Id
 	FROM
 		[dbo].[Places]
 	WHERE
 		Street_id = @streets_id
-) = @streets_id
-AND (
-	SELECT
-		Place_type_ID
-	FROM
-		[dbo].[Places]
-	WHERE
-		Street_id = @streets_id
-) = @place_types_id 
-
+		AND Place_type_ID = @place_types_id
+		AND Comment = @Comment
+)
 BEGIN 
 	RAISERROR (N'Місце все існує', 16, 1); 
 RETURN;
 END
+
 ELSE 
 BEGIN
 INSERT INTO
@@ -77,7 +71,8 @@ WHERE
 			Id = @place_id
 	);
 END
-END IF @place_types_id = 19 
+END 
+IF @place_types_id = 19 
 BEGIN
 SET
 	@cross_name = (
@@ -280,3 +275,4 @@ END;
 
 SELECT
 	@place_id AS Id;
+	
