@@ -18,6 +18,12 @@
                 `
         ,
         init: function() {
+            let s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '/lib/defiant.js-master/src/defiant.js';
+            document.getElementsByTagName('head')[0].appendChild(s);
+            s.onload = function() {
+            }.bind(this)    
         },
         afterViewInit: function() {
         }

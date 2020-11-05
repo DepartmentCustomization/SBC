@@ -70,7 +70,14 @@ LEFT JOIN dbo.Claim_types c ON c.Parent_сlaim_types_ID = t.Id
 WHERE [level] = 1;
 END
 
-
+SELECT 
+	1 as Id,
+	0 as parentId,
+	N'' as Caption,
+	N'' as DataFiled,
+	1 as HasChild,
+	0 as [level]
+union all
 SELECT 
 	Id,
 	parentId,

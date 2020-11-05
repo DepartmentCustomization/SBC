@@ -59,6 +59,96 @@
         },
         loadColumns: function(data){
             debugger;
+            // var data; // parse the JSON into here
+            var nodeTargets = [];
+            var nodeParents = [];
+            data.rows.forEach(function(x) {
+                var source = x.values[1];
+                var target = x.values[0];
+                
+                if (!nodeTargets[source]) {
+                    nodeTargets[source] = []
+                }
+                nodeTargets[source].push(target);
+
+                nodeParents[target] = source;
+            });
+
+
+            tree = function (object) {
+                var o = {}, children = {};
+
+                o[0] = { name: "All" };
+                object.rows.forEach(function (a, i) {
+                    o[a.values[0]] = { name: a.values[3] };
+                });
+        
+                object.rows.forEach(function (a) {
+                    // debugger;
+                    o[a.values[0]].parent = (o[a.values[1]] ? o[a.values[1]].name : '');
+                    o[a.values[1]].children = (o[a.values[1]] ? o[a.values[1]].children || [] : null);
+                    o[a.values[1]].children.push(o[a.values[0]]);
+                    children[a.values[0]] = true;
+                });
+        
+                return Object.keys(o).filter(function (k) {
+                    return !children[k];
+                }).map(function (k) {
+                    return o[k];
+                });
+
+            }(data);
+            debugger;
+
+            // var buildNode = function(index) {
+
+            //     var children = nodeTargets[index].map(function(x) {
+            //         return buildNode(x);
+            //     });
+
+            //     var parentIndex = nodeParents[index];
+            //     var parentName;
+            //     if (parentIndex !== undefined) {
+            //         parentName = data.rows[parentIndex].values[2];
+            //     }
+            //     return {
+            //         name: data.rows[index].values[2],
+            //         code: data.rows[index].values[3],
+            //         parent: parentName,
+            //         children: children
+            //     };
+            // };
+
+            // var tree = buildNode(0);
+
+            // var data; // parse the JSON into here
+            var index = 0;
+            var buildNode = function(index) {
+            
+                var children = data.rows.filter(function(x) {
+                    return x.values[1] === index;
+                }).map(function(x) {
+                    return buildNode(x.values[0]);
+                });
+
+               
+
+                //with ES6 you can use .find to get the first matching item, instead of .filter and [0]
+                var parent = data.rows.filter(function(x) {
+                    return x.values[1] === index;
+                })[0];
+                var parentName = parent ? parent.values[3] : undefined;
+            
+                return {
+                    name: (data.rows[index] ? data.rows[index].values[3] : undefined),
+                    parent: parentName,
+                    children: children
+                };
+             };
+            
+            // var tree = buildNode(0);
+
+            debugger;
         },
         changeDateTimeValues: function(value) {
             let trueDate;
