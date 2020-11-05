@@ -10,22 +10,14 @@ IF @place_types_id NOT IN (10, 19, 6)
 BEGIN 
 IF EXISTS (
 	SELECT
-		Street_id
-	FROM
-		[dbo].[Places]
-	WHERE
-		Street_id = @streets_id
-)
-AND EXISTS(
-	SELECT
-		Place_type_ID
+		Id
 	FROM
 		[dbo].[Places]
 	WHERE
 		Street_id = @streets_id
 		AND Place_type_ID = @place_types_id
+		AND Comment = @Comment
 )
-
 BEGIN 
 	RAISERROR (N'Місце все існує', 16, 1); 
 RETURN;
