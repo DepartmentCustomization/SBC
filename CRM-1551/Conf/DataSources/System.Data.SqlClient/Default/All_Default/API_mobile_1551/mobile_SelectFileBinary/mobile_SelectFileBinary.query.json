@@ -6,6 +6,13 @@
   "IsUsedForRightsFilter": false,
   "Columns": [
     {
+      "Code": "name",
+      "Name": "name",
+      "Position": 1,
+      "IsPrintable": false,
+      "isFileName": true
+    },
+    {
       "Code": "File",
       "Name": "File",
       "Position": 2,
