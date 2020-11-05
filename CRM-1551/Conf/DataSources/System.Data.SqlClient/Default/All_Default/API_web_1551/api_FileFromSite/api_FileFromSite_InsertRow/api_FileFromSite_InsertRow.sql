@@ -1,4 +1,5 @@
 IF(@appeal_from_site_id) IS NOT NULL 
+AND LEN(@appeal_from_site_id) > 0
 BEGIN
 INSERT INTO
     [CRM_1551_Site_Integration].[dbo].[AppealFromSiteFiles] (
