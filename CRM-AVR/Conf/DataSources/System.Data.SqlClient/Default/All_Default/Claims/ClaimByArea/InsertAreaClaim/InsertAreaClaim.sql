@@ -20,10 +20,9 @@ IF EXISTS (SELECT
 			AND c.Claim_type_ID = @Claim_type_ID
 			AND DATEDIFF(MINUTE, DATEADD(MINUTE, -5, GETDATE()), c.Created_at) <= 5)
 BEGIN
-	-- RAISERROR(N'Така заявка вже створена менше ніж 5 хвилин назад',16,1);
+	RAISERROR(N'Така заявка вже створена менше ніж 5 хвилин назад',16,1);
 	RETURN;
 END
-
 DECLARE @info TABLE (Id INT);
 
 BEGIN TRY 
