@@ -2,15 +2,14 @@
     return {
         config: {
             query: {
-                code: 'DamageCounting_capture',
+                code: 'DamageCounting_data',
                 parameterValues: [],
                 filterColumns: [],
                 sortColumns: [],
                 skipNotVisibleColumns: true,
                 chunkSize: 1000
             },
-            columns: [
-            ],
+            columns: [],
             keyExpr: 'Id',
             scrolling: {
                 mode: 'virtual'
@@ -25,7 +24,7 @@
             remoteOperations: null,
             allowColumnReordering: null,
             rowAlternationEnabled: null,
-            columnAutoWidth: null,
+            columnAutoWidth: true,
             hoverStateEnabled: true,
             columnWidth: null,
             wordWrapEnabled: true,
@@ -36,14 +35,36 @@
             showColumnFixing: true,
             groupingAutoExpandAll: null
         },
+        getIsSmall: function(message) {
+            if (message.package.value === 0) {
+                this.variant = 'full';
+            } else {
+                this.variant = 'short';
+            };
+
+            this.recalColumns();  
+        },
+        getIsNullValues: function(message) {
+            if (message.package.value === 0) {
+                this.vision = 'short';
+            } else {
+                this.vision = 'full';
+            };
+
+            this.recalColumns();
+        },
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
+            this.sub2 = this.messageService.subscribe('CheckIsSmall', this.getIsSmall, this);
+            this.sub2 = this.messageService.subscribe('CheckIsNullValues', this.getIsNullValues, this);
 
 
 
         },
         columnData: [],
+        variant: 'short',
+        vision: 'short',
         recalColumns: function() {
             let executeQuery = {
                     queryCode: 'DamageCounting_capture',
@@ -58,97 +79,60 @@
             this.queryExecutor(executeQuery, this.loadColumns, this);
         },
         loadColumns: function(data){
-            debugger;
-            // var data; // parse the JSON into here
-            var nodeTargets = [];
-            var nodeParents = [];
-            data.rows.forEach(function(x) {
-                var source = x.values[1];
-                var target = x.values[0];
-                
-                if (!nodeTargets[source]) {
-                    nodeTargets[source] = []
-                }
-                nodeTargets[source].push(target);
-
-                nodeParents[target] = source;
-            });
-
+            this.columnData = [];
 
             tree = function (object) {
-                var o = {}, children = {};
+                var o = {}, columns = {};
 
                 o[0] = { name: "All" };
                 object.rows.forEach(function (a, i) {
-                    o[a.values[0]] = { name: a.values[3] };
+                    if (a.values[4] === 1) /*HasChild*/
+                    {
+                        o[a.values[0]] = {  
+                            caption: a.values[2]
+                         };
+                    } else {
+                        o[a.values[0]] = {  
+                            caption: a.values[2],
+                            dataField: a.values[3],
+                            width: 150
+                         };
+                    };
+                    
                 });
         
                 object.rows.forEach(function (a) {
-                    // debugger;
-                    o[a.values[0]].parent = (o[a.values[1]] ? o[a.values[1]].name : '');
-                    o[a.values[1]].children = (o[a.values[1]] ? o[a.values[1]].children || [] : null);
-                    o[a.values[1]].children.push(o[a.values[0]]);
-                    children[a.values[0]] = true;
+                    o[a.values[0]].parent = (o[a.values[1]] ? o[a.values[1]].caption : '');
+                    o[a.values[1]].columns = (o[a.values[1]] ? o[a.values[1]].columns || [] : null);
+                    o[a.values[1]].columns.push(o[a.values[0]]);
+                    columns[a.values[0]] = true;
                 });
         
                 return Object.keys(o).filter(function (k) {
-                    return !children[k];
+                    return !columns[k];
                 }).map(function (k) {
                     return o[k];
                 });
-
             }(data);
-            debugger;
 
-            // var buildNode = function(index) {
+            const OrgCol = {caption: "Підрозділ ", dataField: "short_name", width: 250}
+            const StatCol = {caption: "Статус", dataField: "status_name", width: 150}
 
-            //     var children = nodeTargets[index].map(function(x) {
-            //         return buildNode(x);
-            //     });
-
-            //     var parentIndex = nodeParents[index];
-            //     var parentName;
-            //     if (parentIndex !== undefined) {
-            //         parentName = data.rows[parentIndex].values[2];
-            //     }
-            //     return {
-            //         name: data.rows[index].values[2],
-            //         code: data.rows[index].values[3],
-            //         parent: parentName,
-            //         children: children
-            //     };
-            // };
-
-            // var tree = buildNode(0);
-
-            // var data; // parse the JSON into here
-            var index = 0;
-            var buildNode = function(index) {
-            
-                var children = data.rows.filter(function(x) {
-                    return x.values[1] === index;
-                }).map(function(x) {
-                    return buildNode(x.values[0]);
-                });
-
-               
-
-                //with ES6 you can use .find to get the first matching item, instead of .filter and [0]
-                var parent = data.rows.filter(function(x) {
-                    return x.values[1] === index;
-                })[0];
-                var parentName = parent ? parent.values[3] : undefined;
-            
-                return {
-                    name: (data.rows[index] ? data.rows[index].values[3] : undefined),
-                    parent: parentName,
-                    children: children
-                };
-             };
-            
-            // var tree = buildNode(0);
-
-            debugger;
+            tree[0].columns[0].columns.unshift(StatCol);
+            tree[0].columns[0].columns.unshift(OrgCol);
+            this.columnData = tree[0].columns[0].columns;
+  
+           
+            this.config.columns = this.columnData;
+            this.config.query.parameterValues = [ 
+                                                    { key: '@dateFrom', value: this.dateFrom },
+                                                    { key: '@dateTo', value: this.dateTo },
+                                                    { key: '@variant', value:  this.variant },
+                                                    { key: '@vision', value:  this.vision },
+                                                    { key: '@orgId', value:  this.orgVal }
+                                                ];
+                                                
+            this.loadData(this.afterLoadDataHandler);
         },
         changeDateTimeValues: function(value) {
             let trueDate;
@@ -181,27 +165,17 @@
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let orgVal = message.package.value.values.find(f => f.name === 'division').value;
-            let variant = 'short';
-            let vision = null;
+
             this.config.query.filterColumns = [];
             if (period !== null) {
                 if (period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
-                    this.variant = variant;
-                    this.vision = vision;
                     this.orgVal = this.extractValues(orgVal);
-                    this.config.query.parameterValues = [
-                        { key: '@dateFrom', value: this.dateFrom },
-                        { key: '@dateTo', value: this.dateTo },
-                        { key: '@variant', value:  this.variant },
-                        { key: '@vision', value:  this.vision },
-                        { key: '@orgId', value:  this.orgVal }
-                    ];
-                    // this.loadData(this.afterLoadDataHandler);
+                 
+                    this.recalColumns();
                 }
             }
-            this.recalColumns();
         },
         extractValues: function(items) {
             if(items.length && items !== '') {
@@ -216,6 +190,8 @@
         },
         destroy: function() {
             this.sub.unsubscribe();
+            this.sub1.unsubscribe();
+            this.sub2.unsubscribe();
         }
     };
 }());

@@ -378,16 +378,18 @@ SET @cols = STUFF((SELECT DISTINCT ',' + QUOTENAME(c.DataField)
         ,1,1,'');
 
 SET @query = N'
-	SELECT * 
+SELECT
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as Id,
+	* 
 FROM (
-SELECT 
-	orgId,
-	short_name,
-	status_name,
-	sort,
-	DataField,
-	val
-FROM #DataFields_table
+	SELECT 
+		orgId,
+		short_name,
+		status_name,
+		sort,
+		DataField,
+		val
+	FROM #DataFields_table
 ) data_
 PIVOT (
   SUM(val)

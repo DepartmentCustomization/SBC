@@ -13,19 +13,66 @@
                 }
                 </style>
                 
-                 <div id='reportTitle'>Відомість обліку пошкоджень
-                 </div>
+                <div class="titleTable">
+                        <div class="can-toggle demo-rebrand-1" id="toggle_check_chart1" style="">
+                            Test1
+                            <input id="check_chart1" type="checkbox">
+                            <label for="check_chart1">
+                            <div class="can-toggle__switch" data-checked="full" data-unchecked="small"></div>
+                            </label>
+                        </div>
+
+                        <div class="can-toggle demo-rebrand-1" id="toggle_check_chart2" style="">
+                            Test2
+                            <input id="check_chart2" type="checkbox">
+                            <label for="check_chart2">
+                            <div class="can-toggle__switch" data-checked="NotNullValues" data-unchecked="NullValues"></div>
+                            </label>
+                        </div>
+
+                        <div id='reportTitle'>Відомість обліку пошкоджень
+                        </div>
+                </div>
                 `
         ,
         init: function() {
-            let s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.src = '/lib/defiant.js-master/src/defiant.js';
-            document.getElementsByTagName('head')[0].appendChild(s);
-            s.onload = function() {
-            }.bind(this)    
+            
         },
+        isSmall: 1,
+        isNullValues: 0,
         afterViewInit: function() {
+
+            document.getElementById("check_chart1").addEventListener("click", function(e){
+                if (e.currentTarget.checked) {
+                    this.isSmall = 0;
+                } else {
+                    this.isSmall = 1;
+                };
+
+                let messageSelect = {
+                    name: 'CheckIsSmall',
+                    package: {
+                        value: this.isSmall
+                    }
+                }
+                this.messageService.publish(messageSelect);
+            }.bind(this));
+
+            document.getElementById("check_chart2").addEventListener("click", function(e){
+                if (e.currentTarget.checked) {
+                    this.isNullValues = 1;
+                } else {
+                    this.isNullValues = 0;
+                };
+
+                let messageSelect = {
+                    name: 'CheckIsNullValues',
+                    package: {
+                        value: this.isNullValues
+                    }
+                }
+                this.messageService.publish(messageSelect);
+            }.bind(this));
         }
     };
 }());

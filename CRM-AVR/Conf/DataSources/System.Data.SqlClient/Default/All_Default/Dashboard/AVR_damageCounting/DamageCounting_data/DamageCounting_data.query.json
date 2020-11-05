@@ -31,6 +31,10 @@
             "Code": "@dateTo",
             "Name": "dateTo",
             "ParameterType": "DateTime"
+        },
+        {
+            "Code": "@orgId",
+            "Name": "orgId"
         }
     ]
 }
