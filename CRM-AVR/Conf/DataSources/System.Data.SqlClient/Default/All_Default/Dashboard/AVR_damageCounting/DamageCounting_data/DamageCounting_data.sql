@@ -4,18 +4,31 @@ DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
 		@vision NVARCHAR(10) = 'short',
 		@dateFrom DATETIME = DATEADD(DAY, -30, GETDATE()),
 		@dateTo DATETIME = GETDATE(),
-		@orgId NVARCHAR(MAX) = '28,5502,5503,5504';
+		@orgId NVARCHAR(MAX) = '28,5502',
+		@accessId NVARCHAR(100) = '1,2';
 */
 
 DECLARE @UserAccessKey TABLE (val INT);
-INSERT INTO @UserAccessKey
-SELECT 
-	[Key]
-FROM [CRM_AVR_System].[dbo].[OrganisationStructureRightsFilterKey] fk
-INNER JOIN [CRM_AVR_System].[dbo].[OrganisationStructureRightsFilter] rf ON fk.RightsFilterId = rf.Id
-	AND DataSourceQueryCode = 'GlobalFilter_ClaimTypes'
-INNER JOIN [CRM_AVR_System].[dbo].[UserInOrganisation] os ON os.OrganisationStructureId = rf.OrganisationStructureId
-	AND os.UserId = @user_id;
+IF (@accessId IS NOT NULL)
+BEGIN
+	INSERT INTO @UserAccessKey
+	SELECT 
+		value
+	FROM STRING_SPLIT(REPLACE(@accessId,' ', SPACE(0)),',')
+	UNION 
+	SELECT 103;
+END
+ELSE 
+BEGIN
+	INSERT INTO @UserAccessKey
+	SELECT 
+		[Key]
+	FROM [CRM_AVR_System].[dbo].[OrganisationStructureRightsFilterKey] fk
+	INNER JOIN [CRM_AVR_System].[dbo].[OrganisationStructureRightsFilter] rf ON fk.RightsFilterId = rf.Id
+		AND DataSourceQueryCode = 'GlobalFilter_ClaimTypes'
+	INNER JOIN [CRM_AVR_System].[dbo].[UserInOrganisation] os ON os.OrganisationStructureId = rf.OrganisationStructureId
+		AND os.UserId = @user_id;
+END
 
 IF OBJECT_ID ('tempdb..#Types_Tree') IS NOT NULL
 BEGIN
@@ -25,7 +38,7 @@ END
 ;
 WITH ClaimTypes_Tree (Id, parentId, [Caption], DataFiled, HasChild, [level])
 AS
-(
+( 
     SELECT [Id], 
 		   [Parent_сlaim_types_ID], 
 		   [Name],
@@ -88,13 +101,13 @@ FROM STRING_SPLIT(REPLACE(@orgId,' ', SPACE(0)),',');
 
 DECLARE @Status TABLE (status_name NVARCHAR(100), sort TINYINT);
 INSERT INTO @Status
-SELECT 'перехідні', 1
+SELECT N'перехідні', 1
 UNION
-SELECT 'надійшло', 2
+SELECT N'надійшло', 2
 UNION
-SELECT 'виконано', 3 
+SELECT N'виконано', 3 
 UNION
-SELECT 'залишилось', 4;
+SELECT N'залишилось', 4;
 
 
 DECLARE @Organizations TABLE (Id INT, short_name NVARCHAR(500));
@@ -111,7 +124,15 @@ BEGIN
 	DROP TABLE #DataFields_table;
 END
 
-CREATE TABLE #DataFields_table (orgId INT, short_name NVARCHAR(500), typeId INT, DataField NVARCHAR(MAX), status_name NVARCHAR(10), val INT, processed BIT, sort TINYINT);
+CREATE TABLE #DataFields_table (orgId INT,
+								short_name NVARCHAR(500), 
+								typeId INT, 
+								DataField NVARCHAR(MAX), 
+								status_name NVARCHAR(10), 
+								val INT, 
+								processed BIT, 
+								sort TINYINT)
+								WITH (DATA_COMPRESSION = PAGE); 
 INSERT INTO #DataFields_table
 SELECT 
 	org.Id,
@@ -150,13 +171,13 @@ DECLARE @stepTypes TABLE (Id INT);
 	(
 	    SELECT [Id], 
 			   [Parent_сlaim_types_ID]
-	    FROM Claim_types e
+	    FROM dbo.Claim_types e
 	    WHERE e.Id = @currentId
 	    UNION ALL
 		SELECT
 			   e.[Id], 
 			   e.[Parent_сlaim_types_ID]
-	    FROM Claim_types e
+	    FROM dbo.Claim_types e 
 	    INNER JOIN ClaimType_Vals r ON e.Parent_сlaim_types_ID = r.Id
 	)
 
@@ -177,11 +198,11 @@ DECLARE @stepTypes TABLE (Id INT);
 	INNER JOIN #DataFields_table [data] ON data.[orgId] = claim.[Response_organization_ID]		
 	WHERE 
 	claim.[Claim_type_ID] IN (SELECT Id FROM @stepTypes)
-	AND [data].status_name = 'виконано' 
+	AND [data].status_name = N'виконано' 
 	AND [data].typeId = @currentId
-	AND claim.Fact_finish_at is not null 
+	AND claim.Fact_finish_at IS NOT NULL 
 	AND CAST(claim.Fact_finish_at AS DATE) = @dateFinishOnly 
-	AND claim.Status_ID in (4,5,6) 
+	AND claim.Status_ID IN (4,5,6) 
 	GROUP BY claim.Claim_type_ID,
 			 claim.Response_organization_ID,
 			 data.status_name;
@@ -206,13 +227,14 @@ DECLARE @stepTypes TABLE (Id INT);
 	INNER JOIN #DataFields_table [data] ON [data].[orgId] = claim.[Response_organization_ID]
 	WHERE 
 	claim.[Claim_type_ID] IN (SELECT Id FROM @stepTypes)
-	AND [data].status_name = 'перехідні' 
+	AND [data].status_name = N'перехідні' 
 	AND [data].typeId = @currentId
-	AND claim.Created_at BETWEEN @dateFrom and @dateFinishPrev 
-	AND (claim.Fact_finish_at IS NULL OR CAST(claim.Fact_finish_at AS DATE) = CAST(@dateTo as date))
+	AND claim.Created_at BETWEEN @dateFrom AND @dateFinishPrev 
+	AND (claim.Fact_finish_at IS NULL 
+	OR CAST(claim.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE))
 	GROUP BY claim.Claim_type_ID,
 			 claim.Response_organization_ID,
-			 data.status_name;
+			 [data].status_name;
 
 	UPDATE [data]
 		SET val = [value].val
@@ -234,12 +256,12 @@ DECLARE @stepTypes TABLE (Id INT);
 	INNER JOIN dbo.[Claims] claim ON [data].[orgId] = claim.[Response_organization_ID]
 	WHERE 
 	claim.[Claim_type_ID] IN (SELECT Id FROM @stepTypes)
-	AND [data].status_name = 'надійшло'
+	AND [data].status_name = N'надійшло'
 	AND [data].typeId = @currentId
-	AND CAST(claim.Created_at as date) = @dateFinishOnly 	
-	GROUP BY claim.Claim_type_ID,
+	AND CAST(claim.Created_at AS DATE) = @dateFinishOnly
+	GROUP BY claim.Claim_type_ID, 
 			 claim.Response_organization_ID,
-			 data.status_name;
+			 [data].status_name;
 
 	UPDATE [data]
 		SET val = [value].val
@@ -255,15 +277,15 @@ DECLARE @stepTypes TABLE (Id INT);
 	FROM #DataFields_table [data]
 	LEFT JOIN #DataFields_table z_v ON [data].orgId = z_v.orgId
 		AND [data].typeId = z_v.typeId 
-		AND z_v.status_name = 'виконано'
+		AND z_v.status_name = N'виконано'
 	LEFT JOIN #DataFields_table z_n ON [data].orgId = z_n.orgId
 		AND [data].typeId = z_n.typeId 
-		AND z_n.status_name = 'надійшло'
+		AND z_n.status_name = N'надійшло'
 	LEFT JOIN #DataFields_table z_p ON [data].orgId = z_p.orgId
 		AND [data].typeId = z_p.typeId 
-		AND z_p.status_name = 'перехідні'
+		AND z_p.status_name = N'перехідні'
 	WHERE [data].typeId = @currentId
-		AND [data].status_name = 'залишилось';
+		AND [data].status_name = N'залишилось';
 
 	DELETE FROM @stepTypes;
 	
@@ -280,13 +302,13 @@ BEGIN
 	SELECT 
 		claim_v.Claim_type_ID,
 		claim_v.Response_organization_ID,
-		'виконано' AS status_name,
+		N'виконано' AS status_name,
 		COUNT(claim_v.Id) AS val
 	FROM dbo.[Claims] claim_v
 	INNER JOIN @organizations org ON org.Id = claim_v.Response_organization_ID
-		AND claim_v.Fact_finish_at is not null 
+		AND claim_v.Fact_finish_at IS NOT NULL
 		AND CAST(claim_v.Fact_finish_at AS DATE) = @dateFinishOnly 
-		AND claim_v.Status_ID in (4,5,6)
+		AND claim_v.Status_ID IN (4,5,6)
 	INNER JOIN @types_list [types] ON [types].Id = claim_v.Claim_type_ID
 	GROUP BY claim_v.Claim_type_ID,
 			 claim_v.Response_organization_ID
@@ -298,12 +320,13 @@ BEGIN
 	SELECT 
 		claim_p.Claim_type_ID,
 		claim_p.Response_organization_ID,
-		'перехідні' AS status_name,
+		N'перехідні' AS status_name,
 		COUNT(claim_p.Id) AS val
 	FROM dbo.[Claims] claim_p
 	INNER JOIN @organizations org ON org.Id = claim_p.Response_organization_ID
-		AND claim_p.Created_at BETWEEN @dateFrom and @dateFinishPrev 
-		AND (claim_p.Fact_finish_at IS NULL OR CAST(claim_p.Fact_finish_at AS DATE) = CAST(@dateTo as date))
+		AND claim_p.Created_at BETWEEN @dateFrom AND @dateFinishPrev 
+		AND (claim_p.Fact_finish_at IS NULL 
+		OR CAST(claim_p.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE))
 	INNER JOIN @types_list [types] ON [types].Id = claim_p.Claim_type_ID
 	GROUP BY claim_p.Claim_type_ID,
 			 claim_p.Response_organization_ID
@@ -314,11 +337,11 @@ BEGIN
 	SELECT 
 		claim_n.Claim_type_ID,
 		claim_n.Response_organization_ID,
-		'надійшло' AS status_name,
+		N'надійшло' AS status_name,
 		COUNT(claim_n.Id) AS val
 	FROM dbo.[Claims] claim_n
 	INNER JOIN @organizations org ON org.Id = claim_n.Response_organization_ID
-		AND CAST(claim_n.Created_at as date) = @dateFinishOnly 
+		AND CAST(claim_n.Created_at AS DATE) = @dateFinishOnly 
 	INNER JOIN @types_list [types] ON [types].Id = claim_n.Claim_type_ID
 	GROUP BY claim_n.Claim_type_ID,
 			 claim_n.Response_organization_ID
@@ -329,18 +352,18 @@ BEGIN
 	SELECT 
 		all_.typeId,
 		all_.orgId,
-		'залишилось',
+		N'залишилось',
 		(ISNULL(per.val,0) + ISNULL(nad.val,0)) - ISNULL(vyk.val,0) AS val
 	FROM @TypeOrgStatus_value all_
 	LEFT JOIN @TypeOrgStatus_value per ON per.typeId = all_.typeId
 		AND per.orgId = all_.orgId
-		AND all_.status_name = 'перехідні'
+		AND all_.status_name = N'перехідні'
 	LEFT JOIN @TypeOrgStatus_value nad ON nad.typeId = all_.typeId
 		AND nad.orgId = all_.orgId
-		AND all_.status_name = 'надійшло'
+		AND all_.status_name = N'надійшло'
 	LEFT JOIN @TypeOrgStatus_value vyk ON vyk.typeId = all_.typeId
 		AND vyk.orgId = all_.orgId
-		AND all_.status_name = 'виконано' 
+		AND all_.status_name = N'виконано' 
 		;
 
 	UPDATE [data]

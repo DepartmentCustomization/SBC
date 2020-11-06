@@ -2,9 +2,9 @@
     return {
         title: ' ',
         hint: '',
-        formatTitle: function() {},
+        formatTitle: function() { },
         customConfig:
-                `
+            `
                 <style>
                 #reportTitle{
                     text-align: center;
@@ -15,18 +15,18 @@
                 
                 <div class="titleTable">
                         <div class="can-toggle demo-rebrand-1" id="toggle_check_chart1" style="">
-                            Test1
+                            Режим
                             <input id="check_chart1" type="checkbox">
                             <label for="check_chart1">
-                            <div class="can-toggle__switch" data-checked="full" data-unchecked="small"></div>
+                            <div class="can-toggle__switch" data-checked="Повний" data-unchecked="Короткий"></div>
                             </label>
                         </div>
 
                         <div class="can-toggle demo-rebrand-1" id="toggle_check_chart2" style="">
-                            Test2
+                            Пусті значення
                             <input id="check_chart2" type="checkbox">
                             <label for="check_chart2">
-                            <div class="can-toggle__switch" data-checked="NotNullValues" data-unchecked="NullValues"></div>
+                            <div class="can-toggle__switch" data-checked="Так" data-unchecked="Ні"></div>
                             </label>
                         </div>
 
@@ -36,19 +36,17 @@
                 `
         ,
         init: function() {
-            
         },
         isSmall: 1,
         isNullValues: 0,
         afterViewInit: function() {
 
-            document.getElementById("check_chart1").addEventListener("click", function(e){
+            document.getElementById('check_chart1').addEventListener('click', function(e) {
                 if (e.currentTarget.checked) {
                     this.isSmall = 0;
                 } else {
                     this.isSmall = 1;
-                };
-
+                }
                 let messageSelect = {
                     name: 'CheckIsSmall',
                     package: {
@@ -58,13 +56,12 @@
                 this.messageService.publish(messageSelect);
             }.bind(this));
 
-            document.getElementById("check_chart2").addEventListener("click", function(e){
+            document.getElementById('check_chart2').addEventListener('click', function(e) {
                 if (e.currentTarget.checked) {
                     this.isNullValues = 1;
                 } else {
                     this.isNullValues = 0;
-                };
-
+                }
                 let messageSelect = {
                     name: 'CheckIsNullValues',
                     package: {
