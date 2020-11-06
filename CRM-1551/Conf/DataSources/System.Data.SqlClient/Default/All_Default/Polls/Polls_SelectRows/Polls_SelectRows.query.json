@@ -86,7 +86,13 @@
     {
       "Code": "people_limit",
       "Name": "people_limit",
-      "Position": 7,
+      "Position": 8,
+      "IsPrintable": false
+    },
+    {
+      "Code": "poll_directions",
+      "Name": "poll_directions",
+      "Position": 9,
       "IsPrintable": false
     }
   ],
