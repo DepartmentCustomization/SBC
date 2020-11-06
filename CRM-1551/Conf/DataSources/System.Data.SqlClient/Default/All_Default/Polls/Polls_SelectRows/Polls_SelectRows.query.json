@@ -82,6 +82,12 @@
       "Name": "col_IsNotApplicants",
       "Position": 7,
       "IsPrintable": false
+    },
+    {
+      "Code": "people_limit",
+      "Name": "people_limit",
+      "Position": 7,
+      "IsPrintable": false
     }
   ],
   "Parameters": [

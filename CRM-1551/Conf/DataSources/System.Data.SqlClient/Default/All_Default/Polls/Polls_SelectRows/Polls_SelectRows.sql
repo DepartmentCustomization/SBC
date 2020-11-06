@@ -7,7 +7,15 @@ select Polls.[id] as Polls_Id, poll_name, case when cast([start_date] as date) >
 					  when cast([end_date] as date) <= cast(GETDATE() as date)  then 3
 					  when cast([start_date] as date) <= cast(GETDATE() as date) and cast([end_date] as date) > cast(GETDATE() as date) and is_active = 1 then 4
 					  when cast([start_date] as date) <= cast(GETDATE() as date) and cast([end_date] as date) > cast(GETDATE() as date) and is_active = 0 then 5  end as idIcon, 
-is_active, start_date, end_date, PollDirection.id as PollDirId, PollDirection.name,  AllApplicants.col_Applicants, IsPollsApplicants.col_IsPollsApplicants, IsNotPollsApplicants.col_IsNotApplicants
+is_active, 
+start_date, 
+end_date, 
+PollDirection.id as PollDirId, 
+PollDirection.name,  
+AllApplicants.col_Applicants, 
+IsPollsApplicants.col_IsPollsApplicants, 
+IsNotPollsApplicants.col_IsNotApplicants,
+Polls.people_limit
 from Polls
 inner join Polls_PollDirections on Polls_PollDirections.poll_id = Polls.id
 inner join PollDirection on PollDirection.id = Polls_PollDirections.direction_id
