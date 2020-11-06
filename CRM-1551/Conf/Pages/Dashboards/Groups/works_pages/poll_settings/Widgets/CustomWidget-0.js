@@ -72,7 +72,7 @@
                 btn.classList.add('active')
             }
         },
-        createDynamic() {
+        createDynamic(obj = null) {
             const conDynamic = document.getElementById('dynamic');
             const questionsCon = this.createElement('div',{className: 'questions-container'});
             conDynamic.innerHTML = '';
@@ -80,14 +80,24 @@
             const addNewForm = this.createAddNewForm();
             this.itemIndex = 1;
             const formList = this.createFormList();
+            if (obj) {
+                const formListItem = this.createFormListItem(obj)
+                formListItem.forEach(elem=>formList.append(elem))
+                const interviewForm = this.createInterviewForm(obj,obj);
+                interviewForm.forEach(elem=>questionsCon.append(elem))
+            }else {
+                const formListItem = this.createFormListItem()
+                formList.append(formListItem)
+                const interviewForm = this.createInterviewForm();
+                questionsCon.append(interviewForm);
+            }
+
             formList.addEventListener('click',this.slideEffect.bind(this))
-            const formListItem = this.createFormListItem()
-            formList.append(formListItem)
             addNewForm.addEventListener('click',()=>{
                 const listArray = document.querySelectorAll('.form-list-item')
                 const formArray = document.querySelectorAll('.interview-form-con')
-                const lastFormId = formArray[listArray.length - 1].dataFormId
-                if(lastFormId) {
+                const lastFormId2 = formArray[listArray.length - 1].dataFormId
+                if(lastFormId2) {
                     const item = this.createFormListItem();
                     item.classList.remove('active')
                     const props = {
@@ -100,9 +110,7 @@
                     questionsCon.append(newForm)
                 }
             })
-            const interviewForm = this.createInterviewForm();
             dynamicHeader.append(formList,addNewForm);
-            questionsCon.append(interviewForm);
             conDynamic.append(dynamicHeader,questionsCon);
         },
         updateFormListItems() {
@@ -141,7 +149,7 @@
                 })
                 formItem.forEach(elem=>{
                     elem.classList.remove('active')
-                    if (elem.dataId === target.textContent) {
+                    if (+elem.dataSequenceNum === target.dataFormNum) {
                         elem.classList.add('active')
                         target.classList.add('active')
                     }
@@ -154,7 +162,7 @@
                         activeFormListItem.nextSibling.classList.add('active')
                         formItem.forEach(elem=>{
                             elem.classList.remove('active')
-                            if (elem.dataId === activeFormListItem.nextSibling.textContent) {
+                            if (+elem.dataSequenceNum === activeFormListItem.nextSibling.dataFormNum) {
                                 elem.classList.add('active')
                             }
                         })
@@ -163,7 +171,7 @@
                         firstItem.classList.add('active')
                         formItem.forEach(elem=>{
                             elem.classList.remove('active')
-                            if (elem.dataId === firstItem.textContent) {
+                            if (+elem.dataSequenceNum === firstItem.dataFormNum) {
                                 elem.classList.add('active')
                             }
                         })
@@ -174,7 +182,7 @@
                         activeFormListItem.previousSibling.classList.add('active')
                         formItem.forEach(elem=>{
                             elem.classList.remove('active')
-                            if (elem.dataId === activeFormListItem.previousSibling.textContent) {
+                            if (+elem.dataSequenceNum === activeFormListItem.previousSibling.dataFormNum) {
                                 elem.classList.add('active')
                             }
                         })
@@ -183,7 +191,7 @@
                         lastItem.classList.add('active')
                         formItem.forEach(elem=>{
                             elem.classList.remove('active')
-                            if (elem.dataId === lastItem.textContent) {
+                            if (+elem.dataSequenceNum === lastItem.dataFormNum) {
                                 elem.classList.add('active')
                             }
                         })
@@ -224,27 +232,89 @@
             buttonsBlock.append(buttonBack,buttonSave);
             return headerBlock
         },
-        createInterviewForm(props = null) {
-            const con = this.createElement('div',{
-                className:'interview-form-con active',
-                dataId:props ? props.dataId : '1'
-            });
-            const inputs = this.createDynamicInputs();
-            const select = this.createAnswerType();
-            const createTestForm = this.createElement('div',{className:'test-form-con'})
-            const quiz = this.createQuiz();
-            const addVariant = this.createAddVariantBtn(con);
-            createTestForm.append(quiz);
-            const footer = this.createInterviewFormFooter();
-            con.append(inputs,select,createTestForm,addVariant,footer)
+        createInterviewForm(props = null,obj = null) {
+            let con = null
+            if(!obj) {
+                con = this.createElement('div',{
+                    className:'interview-form-con active',
+                    dataId:props ? props.dataId : '1',
+                    dataSequenceNum:props ? props.dataId : '1'
+                });
+                const inputs = this.createDynamicInputs();
+                this.getAnswerTypeVals(con);
+                const createTestForm = this.createElement('div',{className:'test-form-con'})
+                const quiz = this.createQuiz();
+                const addVariant = this.createAddVariantBtn(con);
+                createTestForm.append(quiz);
+                const footer = this.createInterviewFormFooter();
+                con.append(inputs,createTestForm,addVariant,footer)
+            }else {
+                con = obj.variants.map(elem=>{
+                    const int = this.createElement('div',{
+                        className:`${elem.sequence_number === 1 ? 'interview-form-con active' : 'interview-form-con'}`,
+                        dataFormId:elem.poll_question_id,
+                        dataSequenceNum: elem.sequence_number
+                    })
+                    return int
+                });
+                const inputs = obj.variants.map(elem=>{
+                    const int = this.createDynamicInputs(elem);
+                    return int
+                })
+                const quiz = obj.variants.map(elem=>{
+                    const arr = elem.poll_question_answers.map(item=>{
+                        const int = this.createQuiz(item);
+                        return int
+                    })
+                    return arr
+                })
+                const addVariant = con.map(elem=>{
+                    const int = this.createAddVariantBtn(elem)
+                    return int
+                })
+                con.forEach(elem=>{
+                    const index = con.indexOf(elem)
+                    const createTestForm = this.createElement('div',{className:'test-form-con'})
+                    const footer = this.createInterviewFormFooter();
+                    const objForSelect = {container:elem,value:obj.variants[index].poll_answer_type}
+                    this.getAnswerTypeVals(objForSelect);
+                    quiz[index].forEach(qz=>createTestForm.append(qz))
+                    elem.append(inputs[index],createTestForm,addVariant[index],footer)
+                })
+            }
             return con
         },
-        createQuiz() {
+        getAnswerTypeVals(con) {
+            const sendVariant = {
+                queryCode: 'PollAnswerTypes_SelectRows',
+                limit: -1,
+                parameterValues: [
+                ]
+            };
+            this.queryExecutor(sendVariant,this.createAnswerType.bind(this,con),this);
+        },
+        createQuiz(obj = null) {
+
             const con = this.createElement('div',{className:'quiz-con'});
-            const inputUkr = this.createElement('input',{className:'quiz-variant-ukr quiz-variant',placeholder:'Варіант',required: true})
-            const inputRus = this.createElement('input',{className:'quiz-variant-rus quiz-variant',placeholder:'Вариант', required: true})
-            const span = this.deleteVariant()
-            con.append(inputUkr,span,inputRus)
+            if(!obj) {
+                const inputUkr = this.createElement('input',{className:'quiz-variant-ukr quiz-variant',
+                    placeholder: 'Варіант',
+                    required: true})
+                const inputRus = this.createElement('input',{className:'quiz-variant-rus quiz-variant',
+                    placeholder: 'Вариант',
+                    required: true})
+                const span = this.deleteVariant()
+                con.append(inputUkr,span,inputRus)
+            } else {
+                const inputUkr = this.createElement('input',{className:'quiz-variant-ukr quiz-variant',
+                    value:obj.answer_name_ukr,
+                    required: true})
+                const inputRus = this.createElement('input',{className:'quiz-variant-rus quiz-variant',
+                    value:obj.answer_name_rus,
+                    required: true})
+                const span = this.deleteVariant()
+                con.append(inputUkr,span,inputRus)
+            }
             return con
         },
         deleteVariant() {
@@ -265,18 +335,26 @@
             if(activeFormListItem.previousSibling) {
                 activeFormListItem.previousSibling.classList.add('active');
                 formItems.forEach(elem=>{
-                    if (elem.dataId === activeFormListItem.previousSibling.textContent) {
+                    if (+elem.dataSequenceNum === activeFormListItem.previousSibling.dataFormNum) {
                         elem.classList.add('active')
                     }
                 })
             } else {
                 activeFormListItem.nextSibling.classList.add('active');
                 formItems.forEach(elem=>{
-                    if (elem.dataId === activeFormListItem.nextSibling.textContent) {
+                    if (+elem.dataSequenceNum === activeFormListItem.nextSibling.dataFormNum) {
                         elem.classList.add('active')
                     }
                 })
             }
+            const deleteFormQuery = {
+                queryCode: 'PollQuestionAnswers_DeleteRow',
+                limit: -1,
+                parameterValues: [
+                    {key: '@poll_question_id', value: activeFormItem.dataFormId}
+                ]
+            };
+            this.queryExecutor(deleteFormQuery,this,this);
             activeFormItem.remove()
             activeFormListItem.remove()
             this.updateFormListItems()
@@ -307,13 +385,15 @@
                     if(warning) {
                         warning.remove()
                     }
-                    const list = container.querySelectorAll('.dynamic-input-ukr, .dynamic-input-rus, select')
+                    const list = container.querySelectorAll('.poll_question_name_ukr, .poll_question_name_rus')
+                    const select = container.querySelector('.poll_answer_type').value
+                    const other = container.querySelector('.other-variant')
                     const variantsCon = [...container.querySelectorAll('.quiz-con')]
                     const listArray = [...list]
                     const variants = variantsCon.map(item=>{
                         const obj = {
-                            ukr: item.firstChild.value,
-                            rus: item.lastChild.value
+                            answer_name_ukr: item.firstChild.value,
+                            answer_name_rus: item.lastChild.value
                         }
                         return obj
                     })
@@ -321,12 +401,13 @@
                     listArray.forEach(elem=>{
                         listObj[elem.className] = elem.value
                     })
-                    listObj.variants = variants
-                    listObj.mainId = dataId
-                    /*const stringObj = JSON.stringify(listObj)*/
-                    container.dataFormId = '1'
-                    container.insertAdjacentHTML('afterbegin',`<span>ID: ${container.dataFormId}</span>`)
-
+                    listObj.poll_answer_type = select
+                    listObj.poll_question_answers = variants
+                    listObj.poll_id = dataId
+                    listObj.is_other_answer = other ? true : false;
+                    listObj.poll_question_id = container.dataFormId ? container.dataFormId : null;
+                    const stringObj = JSON.stringify(listObj)
+                    this.saveVariant(container,stringObj)
                 }else {
                     const warning = document.querySelector('.dangerous')
                     if(warning) {
@@ -337,6 +418,24 @@
                 }
             }
         },
+        saveVariant(con,json) {
+            const sendVariant = {
+                queryCode: 'PollQuestionAnswers_UpdateRow',
+                limit: -1,
+                parameterValues: [
+                    {key: '@json', value: json}
+                ]
+            };
+            this.queryExecutor(sendVariant,this.setVariantId.bind(this,con),this);
+        },
+        setVariantId(con,data) {
+            con.dataFormId = data.rows[0].values[0]
+            const span = document.getElementById('form-data-id')
+            if(span) {
+                span.remove()
+            }
+            con.insertAdjacentHTML('afterbegin',`<span id='form-data-id'>ID: ${con.dataFormId}</span>`)
+        } ,
         createAddVariantBtn(testBlock) {
             const con = this.createElement('div',{className:'add-variant-con'});
             const addVariant = this.createElement('button',{classList:'add-variant',textContent:'Додати варіант'})
@@ -382,18 +481,31 @@
             con.append(div,deleteDiv)
             mainCon.after(con)
         },
-        createAnswerType() {
+        createAnswerType(container,data) {
             const con = this.createElement('div',{className:'answer-type-con'});
-            const select = this.createElement('select',{className:'answer-type'});
-            const options = this.createElement('option',{className: 'answer-type-value',textContent:'Тип відповіді'});
-            select.append(options)
+            const select = this.createElement('select',{className:'poll_answer_type'});
+            const options = data.rows.map(elem=>{
+                return this.createElement('option',{className:'answer-type-value',
+                    value:`${elem.values[0]}`,
+                    textContent:`${elem.values[1]}`})
+            });
+            if(container.value) {
+                options[container.value - 1].selected = true
+            }
+            options.forEach(elem=>select.append(elem))
             con.append(select)
-            return con
+            const input = container.value ? container.container.querySelector('.poll_question_name_rus') :
+                container.querySelector('.poll_question_name_rus');
+            input.after(con)
         },
-        createDynamicInputs() {
+        createDynamicInputs(obj = null) {
             const con = this.createElement('div',{className:'dynamic-inputs-con'})
-            const inputUkr = this.createElement('input',{className:'dynamic-input-ukr', placeholder:'Внесіть назву питання'})
-            const inputRus = this.createElement('input',{className:'dynamic-input-rus',placeholder:'Внесите название вопроса (русский)'})
+            const inputUkr = this.createElement('input',{className:'poll_question_name_ukr',
+                placeholder: obj ? '' : 'Внесіть назву питання',
+                value: obj ? obj.poll_question_name_ukr : ''})
+            const inputRus = this.createElement('input',{className:'poll_question_name_rus',
+                placeholder: obj ? '' : 'Внесите название вопроса (русский)',
+                value: obj ? obj.poll_question_name_rus : ''})
             con.append(inputUkr,inputRus);
             return con;
         },
@@ -401,14 +513,27 @@
             const ul = this.createElement('ul',{classList: 'form-list'});
             return ul
         },
-        createFormListItem() {
-            let index = this.itemIndex++
-            const list = document.querySelectorAll('.form-list-item')
-            if (list.length > 1 && list[list.length - 1].textContent < index) {
-                index = Number(list[list.length - 1].textContent) + 1
+        createFormListItem(obj = null) {
+            let li = null
+            if (obj) {
+                li = obj.variants.map(elem=>{
+                    const int = this.createElement('li',{
+                        classList: `${elem.sequence_number === 1 ? 'form-list-item active' : 'form-list-item'}`,
+                        textContent: elem.sequence_number,dataFormNum:elem.sequence_number,draggable:true,
+                        dataQuestionId:elem.poll_question_id
+                    })
+                    return int
+                })
+            }else{
+                let index = this.itemIndex++
+                const list = document.querySelectorAll('.form-list-item')
+                if (list.length > 1 && list[list.length - 1].dataFormNum >= index) {
+                    index = Number(list[list.length - 1].dataFormNum) + 1
+                }
+                li = this.createElement('li',{
+                    classList: 'form-list-item active',textContent:index,dataFormNum:index,draggable:true});
+                return li
             }
-            const li = this.createElement('li',{
-                classList: 'form-list-item active',textContent:index,dataFormNum:index,draggable:true});
             return li
         },
         createAddNewForm() {
@@ -490,7 +615,7 @@
         },
         updateGrid({rows}) {
             const headerBlock = document.getElementById('header-block')
-            headerBlock.dataRowIndex = rows[0].values[0]
+            headerBlock.dataRowIndex = rows[0] ? rows[0].values[0] : headerBlock.dataRowIndex
             const msg = {
                 name: 'updateDataGrid'
             }
@@ -696,10 +821,11 @@
             const fixRow = message.package.fixRow;
             if(props) {
                 this.createStatic(props,fixRow)
+                this.createDynamic(props)
             }else{
                 this.createStatic()
+                this.createDynamic()
             }
-            this.createDynamic()
         }
     };
 }());
