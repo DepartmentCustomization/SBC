@@ -15,7 +15,14 @@ PollDirection.name,
 AllApplicants.col_Applicants, 
 IsPollsApplicants.col_IsPollsApplicants, 
 IsNotPollsApplicants.col_IsNotApplicants,
-Polls.people_limit
+Polls.people_limit,
+(SELECT t1.[id] as 'polls_poll_direction_id',
+		t2.[id] as 'poll_direction_id',
+		t2.[name] as 'poll_direction_name'
+	FROM [dbo].[Polls_PollDirections] as t1 with (nolock)
+	left join [dbo].[PollDirection] as t2 on t2.id = t1.direction_id
+	where  t1.[poll_id] = Polls.[id]
+	FOR JSON PATH, INCLUDE_NULL_VALUES) as 'poll_directions'
 from Polls
 inner join Polls_PollDirections on Polls_PollDirections.poll_id = Polls.id
 inner join PollDirection on PollDirection.id = Polls_PollDirections.direction_id
