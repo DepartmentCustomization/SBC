@@ -1,5 +1,5 @@
-(function() {
-    return {
+(function () {
+  return {
         config: {
             query: {
                 code: 'DevExtreme_DataGrid_RowChart_SelectRows',
@@ -9,6 +9,9 @@
                 skipNotVisibleColumns: true,
                 chunkSize: 1000
             },
+            size: {
+                height: 300
+            },
             series: {
                 argumentField: "val",
                 valueField: "Name",
@@ -16,7 +19,7 @@
                 type: "bar",
                 color: '#ffaa66'
             },
-            "export": {
+            export: {
                 enabled: true
             },
             tooltip: {
