@@ -587,7 +587,7 @@
                     {key: '@end_date', value: dateTo},
                     {key: '@is_active', value: obj.status},
                     {key: '@id', value: rowId},
-                    {key: '@col_Applicants', value: obj.applicants }
+                    {key: '@people_limit', value: obj.applicants }
                 ]
             };
             this.queryExecutor(insertRowQuery,this.updateGrid,this);
@@ -608,7 +608,7 @@
                     {key: '@start_date', value: dateFrom},
                     {key: '@end_date', value: dateTo},
                     {key: '@is_active', value: obj.status},
-                    {key: '@col_Applicants', value: obj.applicants }
+                    {key: '@people_limit', value: obj.applicants }
                 ]
             };
             this.queryExecutor(insertRowQuery,this.updateGrid,this);
@@ -722,14 +722,14 @@
             const con = this.createElement('div',{className:'static-info-block'});
             const chosenPeople = this.createChosenPeople(obj ? obj.applicants : '');
             const addPeople = this.createAddPeople();
-            const limit = this.createLimitPeople();
+            const limit = obj ? this.createLimitPeople(obj) : this.createLimitPeople();
             con.append(chosenPeople,addPeople,limit);
             return con
         },
         createChosenPeople(val = null) {
             const chosenPeople = this.createElement('div',{className:'chosen-people-block'});
             const peopleValue = this.createElement('input',{
-                className: 'people-value req-input',disabled:true,value:val ? val : 0,name:'applicants'});
+                className: 'people-value',disabled:true,value:val ? val : 0});
             const chosenPeopleLabel = this.createElement('p',{className:'people-label',textContent:'Вибрано людей для опитування'});
             chosenPeople.append(peopleValue,chosenPeopleLabel);
             return chosenPeople
@@ -742,12 +742,13 @@
             con.append(button,addPeopleLabel);
             return con
         },
-        createLimitPeople(val = null) {
+        createLimitPeople(obj = null) {
             const con = this.createElement('div',{className:'limit-people-block'});
             const limitValue = this.createElement('input',{
-                className:'limit-value',
-                placeholder:val ? '' : '100',
-                value: val ? val : '',
+                className:'limit-value req-input',
+                placeholder:obj ? '' : '100',
+                value: obj.applicants ? obj.applicants : '',
+                name:'applicants',
                 type: 'number'
             });
             const limitLabel = this.createElement('p',{className:'limit-label',textContent:'Ліміт людей для опитування'});

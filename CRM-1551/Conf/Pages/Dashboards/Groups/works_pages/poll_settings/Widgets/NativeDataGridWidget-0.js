@@ -159,7 +159,7 @@
             }
         },
         openFormCon(options,response) {
-            const {PollDirId,end_date,is_active,poll_name,start_date,Polls_Id,col_Applicants} = options.data;
+            const {PollDirId,end_date,is_active,poll_name,start_date,Polls_Id,people_limit} = options.data;
             const obj = {
                 dateFrom:start_date,
                 dateTo:end_date,
@@ -167,10 +167,12 @@
                 direction:PollDirId,
                 rowId:Polls_Id,
                 activity:is_active,
-                applicants:col_Applicants
+                applicants:people_limit
             }
             const fixRow = true;
-            obj.variants = response.rows[0].values ? JSON.parse(response.rows[0].values) : null
+            if(response.rows[0].values) {
+                obj.variants = JSON.parse(response.rows[0].values);
+            }
             this.setVisibility(fixRow,obj)
         },
         applyCallBack() {
