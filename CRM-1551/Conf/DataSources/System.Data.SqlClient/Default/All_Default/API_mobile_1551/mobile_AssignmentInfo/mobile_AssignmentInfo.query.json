@@ -142,6 +142,12 @@
       "Name": "Ознака наявності файлів виконання",
       "Position": 22,
       "IsPrintable": false
+    },
+    {
+      "Code": "active_subscribe",
+      "Name": "Стан підписки",
+      "Position": 23,
+      "IsPrintable": false
     }
   ],
   "Parameters": [

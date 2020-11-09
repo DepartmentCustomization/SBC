@@ -44,6 +44,15 @@ DISTINCT
 FROM [dbo].[OrganizationInResponsibilityRights]
 WHERE [position_id] IN (SELECT [Id] FROM @user_position);
 
+--1022
+declare @active_subscribe table ([assignment_id] int, [event_id] int)
+insert into @active_subscribe ([assignment_id], [event_id])
+
+select [assignment_id], [event_id]
+  from [dbo].[AttentionQuestionAndEvent]
+  where [user_id]=@userId
+--1022
+
 IF (@orgId IS NULL)
 BEGIN
 	INSERT INTO @user_orgs
@@ -528,9 +537,25 @@ SELECT
 	[assignment_execution_date],
 	[assignment_registration_date],
 	[event_start_date],
-	[event_plan_end_date]
-FROM @resultTab
+	[event_plan_end_date],
+	case when asu.assignment_id is not null or asu.event_id is not null
+		then 1 else 0 end active_subscribe
+FROM @resultTab rt
+left join @active_subscribe asu on (rt.Id=asu.assignment_id and event_id is null) or (rt.Id=asu.event_id)
+/**/
 WHERE #filter_columns#
-	  #sort_columns#
+	  --#sort_columns#
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
 ;
+
+order by 
+	case when code=N'overdue' then 1
+		when code=N'attention' then 2
+		when code=N'new' then 3 --надійшло
+		when code=N'in_work' then 4
+		when code in (N'applicantreturn', N'curatorreturn') then 5 --повернуті заявником, повернуті куратором
+	else 6
+	end, 
+	case when assignment_execution_date is null then event_plan_end_date
+		else assignment_execution_date
+		end

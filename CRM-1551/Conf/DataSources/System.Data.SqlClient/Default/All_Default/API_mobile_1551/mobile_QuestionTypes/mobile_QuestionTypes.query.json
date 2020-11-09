@@ -30,9 +30,15 @@
       "FilterParameterCode": "@parentId"
     },
     {
+      "Code": "parentName",
+      "Name": "parentName",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
       "Code": "Index",
       "Name": "Index",
-      "Position": 3,
+      "Position": 4,
       "IsPrintable": false,
       "SqlName": "Index",
       "FilterParameterCode": "@Index"
