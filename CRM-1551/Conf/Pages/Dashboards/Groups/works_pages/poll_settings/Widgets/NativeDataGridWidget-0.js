@@ -144,13 +144,22 @@
                 }else if(options.column.dataField === 'fix_row_icon') {
                     options.cellElement.classList.add('cell-icon');
                     const icon = this.createElement('span',{className:'material-icons create fix-row',textContent:'create'})
-                    icon.addEventListener('click',()=>this.openFormCon(options))
+                    icon.addEventListener('click',()=>{
+                        const insertRowQuery = {
+                            queryCode: 'PollQuestionAnswers_SelectRows',
+                            limit: -1,
+                            parameterValues: [
+                                {key: '@poll_id', value: options.data.Polls_Id}
+                            ]
+                        };
+                        this.queryExecutor(insertRowQuery,this.openFormCon.bind(this,options),this);
+                    })
                     options.cellElement.append(icon);
                 }
             }
         },
-        openFormCon(options) {
-            const {PollDirId,end_date,is_active,poll_name,start_date,Polls_Id,col_Applicants} = options.data;
+        openFormCon(options,response) {
+            const {PollDirId,end_date,is_active,poll_name,start_date,Polls_Id,people_limit} = options.data;
             const obj = {
                 dateFrom:start_date,
                 dateTo:end_date,
@@ -158,9 +167,12 @@
                 direction:PollDirId,
                 rowId:Polls_Id,
                 activity:is_active,
-                applicants:col_Applicants
+                applicants:people_limit
             }
             const fixRow = true;
+            if(response.rows[0].values[0]) {
+                obj.variants = JSON.parse(response.rows[0].values);
+            }
             this.setVisibility(fixRow,obj)
         },
         applyCallBack() {

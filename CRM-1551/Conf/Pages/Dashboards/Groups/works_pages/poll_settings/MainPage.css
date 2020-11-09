@@ -329,9 +329,10 @@ text-align: center!important;
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
-.dynamic-input-ukr{
+.poll_question_name_ukr{
   padding: 10px ;
   font-family: Roboto;
   font-size: 26px;
@@ -340,7 +341,7 @@ text-align: center!important;
   height: 70px;
 }
 
-.dynamic-input-rus{
+.poll_question_name_rus{
   padding: 10px ;
   font-family: Roboto;
   font-size: 26px;
@@ -352,11 +353,14 @@ text-align: center!important;
 .answer-type-con{
   display: flex;
   justify-content: center;
+  width: 100%;
+  margin-top: 50px;
+  padding: 5px;
 }
 
-.answer-type{
+.poll_answer_type{
   padding: 5px;
-  font-family: Roboto;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 28px;
   outline: none;
   border: none;
