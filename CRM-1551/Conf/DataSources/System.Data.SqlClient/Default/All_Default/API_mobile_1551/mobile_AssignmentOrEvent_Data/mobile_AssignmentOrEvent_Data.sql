@@ -545,8 +545,6 @@ left join @active_subscribe asu on (rt.Id=asu.assignment_id and event_id is null
 /**/
 WHERE #filter_columns#
 	  --#sort_columns#
-OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
-;
 
 order by 
 	case when code=N'overdue' then 1
@@ -559,3 +557,5 @@ order by
 	case when assignment_execution_date is null then event_plan_end_date
 		else assignment_execution_date
 		end
+
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
