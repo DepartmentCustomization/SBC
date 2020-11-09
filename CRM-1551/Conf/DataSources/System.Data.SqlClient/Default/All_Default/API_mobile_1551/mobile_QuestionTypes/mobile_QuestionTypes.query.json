@@ -10,7 +10,7 @@
       "Name": "Id",
       "Position": 0,
       "IsPrintable": false,
-      "SqlName": "Id",
+      "SqlName": "qt.[Id]",
       "FilterParameterCode": "@Id"
     },
     {
@@ -18,7 +18,7 @@
       "Name": "Name",
       "Position": 1,
       "IsPrintable": false,
-      "SqlName": "Name",
+      "SqlName": "qt.[Name]",
       "FilterParameterCode": "@Name"
     },
     {
@@ -26,21 +26,23 @@
       "Name": "parentId",
       "Position": 2,
       "IsPrintable": false,
-      "SqlName": "question_type_id",
+      "SqlName": "qt.[question_type_id]",
       "FilterParameterCode": "@parentId"
     },
     {
       "Code": "parentName",
       "Name": "parentName",
       "Position": 3,
-      "IsPrintable": false
+      "IsPrintable": false,
+      "SqlName": "pqt.[name]",
+      "FilterParameterCode": "parentName"
     },
     {
       "Code": "Index",
       "Name": "Index",
       "Position": 4,
       "IsPrintable": false,
-      "SqlName": "Index",
+      "SqlName": "qt.[Index]",
       "FilterParameterCode": "@Index"
     }
   ],
