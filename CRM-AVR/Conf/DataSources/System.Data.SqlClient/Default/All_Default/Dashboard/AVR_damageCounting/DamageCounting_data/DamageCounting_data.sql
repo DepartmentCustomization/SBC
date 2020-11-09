@@ -5,16 +5,14 @@ DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
 		@dateFrom DATETIME = DATEADD(DAY, -30, GETDATE()),
 		@dateTo DATETIME = GETDATE(),
 		@orgId NVARCHAR(MAX) = '28,5502',
-		@accessId NVARCHAR(100) = '1,2';
+		@accessId INT = 1;
 */
 
 DECLARE @UserAccessKey TABLE (val INT);
 IF (@accessId IS NOT NULL)
 BEGIN
 	INSERT INTO @UserAccessKey
-	SELECT 
-		value
-	FROM STRING_SPLIT(REPLACE(@accessId,' ', SPACE(0)),',')
+	SELECT @accessId
 	UNION 
 	SELECT 103;
 END

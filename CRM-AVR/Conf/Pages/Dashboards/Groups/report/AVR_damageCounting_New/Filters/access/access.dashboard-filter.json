@@ -1,4 +1,4 @@
 {
-  "Type": "MultiSelectFilterComponent",
+  "Type": "SelectFilterComponent",
   "Owner": "access"
 }

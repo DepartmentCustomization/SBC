@@ -9,5 +9,6 @@ INNER JOIN CRM_AVR_System.[dbo].[OrganisationStructureRightsFilter] rf ON fk.Rig
 INNER JOIN CRM_AVR_System.[dbo].[UserInOrganisation] os ON os.OrganisationStructureId = rf.OrganisationStructureId
 	AND os.UserId = @user_id
 INNER JOIN dbo.[TypeAccess] access ON access.Id = [Key]
+WHERE [Key] <> '103'
 ORDER BY 1
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;

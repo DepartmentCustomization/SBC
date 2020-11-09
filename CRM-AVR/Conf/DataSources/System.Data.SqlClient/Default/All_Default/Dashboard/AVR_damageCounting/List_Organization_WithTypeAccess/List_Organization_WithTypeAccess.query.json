@@ -1,0 +1,52 @@
+{
+  "ModelType": "Query",
+  "Code": "List_Organization_WithTypeAccess",
+  "Name": "List_Organization_WithTypeAccess",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1
+    },
+    {
+      "Code": "Short_name",
+      "Name": "Short_name",
+      "Position": 2,
+      "SqlName": "org.Short_name",
+      "FilterParameterCode": "@Short_name"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
+    },
+    {
+      "Code": "@typeAccessId",
+      "Name": "typeAccessId",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    },
+    {
+      "Code": "@GlodalFilter_UserOrganizations",
+      "Name": "GlodalFilter_UserOrganizations",
+      "ParameterType": "Integer",
+      "RightsFilterQueryCode": "GlodalFilter_UserOrganizations"
+    }
+  ]
+}

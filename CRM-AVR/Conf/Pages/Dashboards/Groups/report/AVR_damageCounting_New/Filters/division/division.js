@@ -4,7 +4,7 @@
         keyValue: 'Id',
         displayValue: 'Short_name',
         baseQueryOptions: {
-            queryCode: 'List_Organization',
+            queryCode: 'List_Organization_WithTypeAccess',
             filterColumns: null,
             limit: -1,
             parameterValues: [],

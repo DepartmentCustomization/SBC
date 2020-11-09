@@ -162,13 +162,13 @@
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let orgVal = message.package.value.values.find(f => f.name === 'division').value;
-            let access = message.package.value.values.find(f => f.name === 'access').value;
+            let access = message.package.value.values.find(f => f.name === 'access').value[0];
             if (period !== null) {
                 if (period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.orgVal = this.extractValues(orgVal);
-                    this.access = this.extractValues(access);
+                    this.access = access;
                 }
             }
         },
