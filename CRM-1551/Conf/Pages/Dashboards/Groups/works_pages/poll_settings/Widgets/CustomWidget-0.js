@@ -82,9 +82,9 @@
             const formList = this.createFormList();
             if (obj) {
                 const formListItem = this.createFormListItem(obj)
-                formListItem.forEach(elem=>formList.append(elem))
+                Array.isArray(formListItem) ? formListItem.forEach(elem=>formList.append(elem)) : formList.append(formListItem)
                 const interviewForm = this.createInterviewForm(obj,obj);
-                interviewForm.forEach(elem=>questionsCon.append(elem))
+                Array.isArray(interviewForm) ? interviewForm.forEach(elem=>questionsCon.append(elem)) : questionsCon.append(interviewForm);
             }else {
                 const formListItem = this.createFormListItem()
                 formList.append(formListItem)
@@ -234,21 +234,7 @@
         },
         createInterviewForm(props = null,obj = null) {
             let con = null
-            if(!obj) {
-                con = this.createElement('div',{
-                    className:'interview-form-con active',
-                    dataId:props ? props.dataId : '1',
-                    dataSequenceNum:props ? props.dataId : '1'
-                });
-                const inputs = this.createDynamicInputs();
-                this.getAnswerTypeVals(con);
-                const createTestForm = this.createElement('div',{className:'test-form-con'})
-                const quiz = this.createQuiz();
-                const addVariant = this.createAddVariantBtn(con);
-                createTestForm.append(quiz);
-                const footer = this.createInterviewFormFooter();
-                con.append(inputs,createTestForm,addVariant,footer)
-            }else {
+            if(obj && obj.variants) {
                 con = obj.variants.map(elem=>{
                     const int = this.createElement('div',{
                         className:`${elem.sequence_number === 1 ? 'interview-form-con active' : 'interview-form-con'}`,
@@ -281,6 +267,20 @@
                     quiz[index].forEach(qz=>createTestForm.append(qz))
                     elem.append(inputs[index],createTestForm,addVariant[index],footer)
                 })
+            }else {
+                con = this.createElement('div',{
+                    className:'interview-form-con active',
+                    dataId:props ? props.dataId : '1',
+                    dataSequenceNum:props ? props.dataId : '1'
+                });
+                const inputs = this.createDynamicInputs();
+                this.getAnswerTypeVals(con);
+                const createTestForm = this.createElement('div',{className:'test-form-con'})
+                const quiz = this.createQuiz();
+                const addVariant = this.createAddVariantBtn(con);
+                createTestForm.append(quiz);
+                const footer = this.createInterviewFormFooter();
+                con.append(inputs,createTestForm,addVariant,footer)
             }
             return con
         },
@@ -489,7 +489,7 @@
                     value:`${elem.values[0]}`,
                     textContent:`${elem.values[1]}`})
             });
-            if(container.value) {
+            if(container.value && container.value <= 4) {
                 options[container.value - 1].selected = true
             }
             options.forEach(elem=>select.append(elem))
@@ -515,7 +515,7 @@
         },
         createFormListItem(obj = null) {
             let li = null
-            if (obj) {
+            if (obj && obj.variants) {
                 li = obj.variants.map(elem=>{
                     const int = this.createElement('li',{
                         classList: `${elem.sequence_number === 1 ? 'form-list-item active' : 'form-list-item'}`,
@@ -527,7 +527,7 @@
             }else{
                 let index = this.itemIndex++
                 const list = document.querySelectorAll('.form-list-item')
-                if (list.length > 1 && list[list.length - 1].dataFormNum >= index) {
+                if (list.length >= 1 && list[list.length - 1].dataFormNum >= index) {
                     index = Number(list[list.length - 1].dataFormNum) + 1
                 }
                 li = this.createElement('li',{
@@ -720,7 +720,7 @@
         },
         createStaticInfo(obj = null) {
             const con = this.createElement('div',{className:'static-info-block'});
-            const chosenPeople = this.createChosenPeople(obj ? obj.applicants : '');
+            const chosenPeople = this.createChosenPeople();
             const addPeople = this.createAddPeople();
             const limit = obj ? this.createLimitPeople(obj) : this.createLimitPeople();
             con.append(chosenPeople,addPeople,limit);
@@ -747,7 +747,7 @@
             const limitValue = this.createElement('input',{
                 className:'limit-value req-input',
                 placeholder:obj ? '' : '100',
-                value: obj.applicants ? obj.applicants : '',
+                value: obj ? obj.applicants : '',
                 name:'applicants',
                 type: 'number'
             });

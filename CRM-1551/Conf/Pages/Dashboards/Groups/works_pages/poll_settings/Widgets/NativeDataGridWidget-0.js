@@ -170,7 +170,7 @@
                 applicants:people_limit
             }
             const fixRow = true;
-            if(response.rows[0].values) {
+            if(response.rows[0].values[0]) {
                 obj.variants = JSON.parse(response.rows[0].values);
             }
             this.setVisibility(fixRow,obj)
