@@ -130,6 +130,12 @@
       "IsPrintable": false,
       "SqlName": "[event_plan_end_date]",
       "FilterParameterCode": "@event_plan_end_date"
+    },
+    {
+      "Code": "active_subscribe",
+      "Name": "Стан підписки",
+      "Position": 16,
+      "IsPrintable": false
     }
   ],
   "Parameters": [

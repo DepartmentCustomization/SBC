@@ -76,6 +76,12 @@
       "Name": "Доручення заходу",
       "Position": 11,
       "IsPrintable": false
+    },
+    {
+      "Code": "active_subscribe",
+      "Name": "Стан підписки",
+      "Position": 12,
+      "IsPrintable": false
     }
   ],
   "Parameters": [
