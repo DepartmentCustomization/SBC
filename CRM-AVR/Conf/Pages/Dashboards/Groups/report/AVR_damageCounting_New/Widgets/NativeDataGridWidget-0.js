@@ -30,10 +30,10 @@
             wordWrapEnabled: true,
             allowColumnResizing: true,
             showFilterRow: true,
-            showHeaderFilter: true,
+            showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null,
+            groupingAutoExpandAll: null
         },
         getIsSmall: function(message) {
             if (message.package.value === 0) {
@@ -55,6 +55,7 @@
         init: function() {
             this.dataGridInstance.height = window.innerHeight - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
+            this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.recalColumns, this);
             this.sub2 = this.messageService.subscribe('CheckIsSmall', this.getIsSmall, this);
             this.sub2 = this.messageService.subscribe('CheckIsNullValues', this.getIsNullValues, this);
         },
@@ -62,6 +63,7 @@
         variant: 'short',
         vision: 'short',
         recalColumns: function() {
+            this.applyChanges(false);
             if (this.orgVal.length > 0) {
                 let executeQuery = {
                     queryCode: 'DamageCounting_capture',
@@ -161,14 +163,12 @@
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let orgVal = message.package.value.values.find(f => f.name === 'division').value;
             let access = message.package.value.values.find(f => f.name === 'access').value;
-            this.config.query.filterColumns = [];
             if (period !== null) {
                 if (period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
                     this.dateTo = period.dateTo;
                     this.orgVal = this.extractValues(orgVal);
                     this.access = this.extractValues(access);
-                    this.recalColumns();
                 }
             }
         },
@@ -182,6 +182,15 @@
         },
         afterLoadDataHandler: function() {
             this.render();
+        },
+        applyChanges: function(state) {
+            const msg = {
+                name: 'SetFilterPanelState',
+                package: {
+                    value: state
+                }
+            };
+            this.messageService.publish(msg);
         },
         destroy: function() {
             this.sub.unsubscribe();

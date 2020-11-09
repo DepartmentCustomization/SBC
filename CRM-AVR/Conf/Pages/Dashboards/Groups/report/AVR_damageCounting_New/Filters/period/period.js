@@ -1,6 +1,6 @@
 (function() {
     return {
-        placeholder: 'Период',
+        placeholder: 'Період',
         showTime: true,
         type: 'DateTime',
         stepMinute: 1,

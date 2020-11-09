@@ -29,9 +29,6 @@
                             <div class="can-toggle__switch" data-checked="Так" data-unchecked="Ні"></div>
                             </label>
                         </div>
-
-                        <div id='reportTitle'>Відомість обліку пошкоджень
-                        </div>
                 </div>
                 `
         ,
