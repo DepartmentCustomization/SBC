@@ -24,21 +24,33 @@
       "IsPrintable": false
     },
     {
+      "Code": "parent_question_type_id",
+      "Name": "Ід батьківського типу питання",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "parent_question_type_name",
+      "Name": "Назви батьківського типу питання",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
       "Code": "object_id",
       "Name": "Ід об'єктів",
-      "Position": 3,
+      "Position": 5,
       "IsPrintable": false
     },
     {
       "Code": "object_name",
       "Name": "Назви об'єктів",
-      "Position": 4,
+      "Position": 6,
       "IsPrintable": false
     },
     {
       "Code": "statecode",
       "Name": "Назви статусів",
-      "Position": 5,
+      "Position": 7,
       "IsPrintable": false
     }
   ],
