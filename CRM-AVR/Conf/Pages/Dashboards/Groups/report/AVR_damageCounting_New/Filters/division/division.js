@@ -7,7 +7,12 @@
             queryCode: 'List_Organization_WithTypeAccess',
             filterColumns: null,
             limit: -1,
-            parameterValues: [],
+            parameterValues: [
+                {
+                    'key': '@typeAccessId',
+                    'value': null
+                }
+            ],
             pageNumber: 1,
             sortColumns: [
                 {
@@ -16,17 +21,20 @@
                 }
             ]
         },
-        onItemSelect: function(item) {
-            this.publishValue(item);
+        init: function() {
+            this.sub = this.messageService.subscribe('showAccess', this.setAccess, this);
         },
-        publishValue(item) {
-            let message = {
-                name: 'showDivision',
-                package: {
-                    type: item
-                }
-            }
-            this.messageService.publish(message);
+        onItemSelect: function() {},
+        setAccess: function(message) {
+            this.globalFilterValues[1].value = []
+            let param = message.package.type.value;
+            this.baseQueryOptions.parameterValues = [{
+                'key': '@typeAccessId',
+                'value': param
+            }]
+        },
+        destroy: function() {
+            this.sub.unsubscribe();
         }
     };
 }());

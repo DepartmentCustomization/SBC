@@ -56,7 +56,7 @@
             this.dataGridInstance.height = window.innerHeight - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.recalColumns, this);
-            this.sub2 = this.messageService.subscribe('CheckIsSmall', this.getIsSmall, this);
+            this.sub1 = this.messageService.subscribe('CheckIsSmall', this.getIsSmall, this);
             this.sub2 = this.messageService.subscribe('CheckIsNullValues', this.getIsNullValues, this);
         },
         columnData: [],
