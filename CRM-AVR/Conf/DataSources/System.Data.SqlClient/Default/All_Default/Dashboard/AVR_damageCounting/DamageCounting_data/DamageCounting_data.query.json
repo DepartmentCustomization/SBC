@@ -1,0 +1,44 @@
+{
+    "ModelType": "Query",
+    "Code": "DamageCounting_data",
+    "Name": "DamageCounting_data",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "IsAnonymousAccess": false,
+    "Columns": [],
+    "Parameters": [
+        {
+            "Code": "@user_id",
+            "Name": "user_id",
+            "ParameterType": "CurrentUserId"
+        },
+        {
+            "Code": "@variant",
+            "Name": "variant",
+            "ParameterType": "Text"
+        },
+        {
+            "Code": "@vision",
+            "Name": "vision",
+            "ParameterType": "Text"
+        },
+        {
+            "Code": "@dateFrom",
+            "Name": "dateFrom",
+            "ParameterType": "DateTime"
+        },
+        {
+            "Code": "@dateTo",
+            "Name": "dateTo",
+            "ParameterType": "DateTime"
+        },
+        {
+            "Code": "@orgId",
+            "Name": "orgId"
+        },
+        {
+            "Code": "@accessId",
+            "Name": "accessId"
+        }
+    ]
+}

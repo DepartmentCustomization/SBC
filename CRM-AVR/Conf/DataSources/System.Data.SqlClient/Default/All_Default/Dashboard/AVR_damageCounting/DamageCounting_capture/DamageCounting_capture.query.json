@@ -1,0 +1,82 @@
+{
+    "ModelType": "Query",
+    "Code": "DamageCounting_capture",
+    "Name": "DamageCounting_capture",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "IsAnonymousAccess": false,
+    "Columns": [
+        {
+            "Code": "Id",
+            "Name": "Id",
+            "Position": 1,
+            "IsPrimaryKey": true,
+            "IsPrintable": false
+        },
+        {
+            "Code": "parentId",
+            "Name": "parentId",
+            "Position": 2,
+            "IsPrintable": false
+        },
+        {
+            "Code": "Caption",
+            "Name": "Caption",
+            "Position": 3,
+            "IsPrintable": false
+        },
+        {
+            "Code": "DataFiled",
+            "Name": "DataFiled",
+            "Position": 4,
+            "IsPrintable": false
+        },
+        {
+            "Code": "HasChild",
+            "Name": "HasChild",
+            "Position": 5,
+            "IsPrintable": false
+        },
+        {
+            "Code": "level",
+            "Name": "level",
+            "Position": 6,
+            "IsPrintable": false
+        }
+    ],
+    "Parameters": [
+        {
+            "Code": "@user_id",
+            "Name": "user_id",
+            "ParameterType": "CurrentUserId"
+        },
+        {
+            "Code": "@variant",
+            "Name": "variant",
+            "ParameterType": "Text"
+        },
+        {
+            "Code": "@vision",
+            "Name": "vision",
+            "ParameterType": "Text"
+        },
+        {
+            "Code": "@dateFrom",
+            "Name": "dateFrom",
+            "ParameterType": "DateTime"
+        },
+        {
+            "Code": "@dateTo",
+            "Name": "dateTo",
+            "ParameterType": "DateTime"
+        },
+        {
+            "Code": "@orgId",
+            "Name": "orgId"
+        },
+        {
+            "Code": "@accessId",
+            "Name": "accessId"
+        }
+    ]
+}
