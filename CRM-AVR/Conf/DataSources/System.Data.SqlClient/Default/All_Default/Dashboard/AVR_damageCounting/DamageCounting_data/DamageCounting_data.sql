@@ -2,10 +2,10 @@
 DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
   		@variant NVARCHAR(10) = 'short',
 		@vision NVARCHAR(10) = 'short',
-		@dateFrom DATETIME = DATEADD(DAY, -30, GETDATE()),
+		@dateFrom DATETIME = '2020-09-30T21:00:00',
 		@dateTo DATETIME = GETDATE(),
-		@orgId NVARCHAR(MAX) = '28,5502',
-		@accessId INT = 1;
+		@orgId NVARCHAR(MAX) = '6203',
+		@accessId INT = 2;
 */
 
 DECLARE @UserAccessKey TABLE (val INT);
@@ -217,22 +217,32 @@ DECLARE @stepTypes TABLE (Id INT);
 	DELETE FROM @TypeOrgStatus_value;
 	INSERT INTO @TypeOrgStatus_value
 	SELECT 
+	DISTINCT
 	 @currentId,
 	 claim.Response_organization_ID,
 	 [data].status_name,
-	 COUNT(claim.Id) AS val
+	 cl_count.val AS val
 	FROM dbo.[Claims] claim
 	INNER JOIN #DataFields_table [data] ON [data].[orgId] = claim.[Response_organization_ID]
+	INNER JOIN (SELECT 
+					c.Response_organization_ID,
+					COUNT(c.Id) val
+				FROM dbo.[Claims] c 
+				WHERE 
+				c.[Claim_type_ID] IN (SELECT Id FROM @stepTypes)
+				AND c.Created_at BETWEEN @dateFrom AND @dateFinishPrev 
+				AND (c.Status_ID <> 5 
+				OR (CAST(c.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE) 
+					AND c.Status_ID = 5 ))
+				GROUP BY c.Response_organization_ID) cl_count on cl_count.Response_organization_ID = claim.Response_organization_ID
 	WHERE 
 	claim.[Claim_type_ID] IN (SELECT Id FROM @stepTypes)
 	AND [data].status_name = N'перехідні' 
 	AND [data].typeId = @currentId
 	AND claim.Created_at BETWEEN @dateFrom AND @dateFinishPrev 
-	AND (claim.Fact_finish_at IS NULL 
-	OR CAST(claim.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE))
-	GROUP BY claim.Claim_type_ID,
-			 claim.Response_organization_ID,
-			 [data].status_name;
+	AND (claim.Status_ID <> 5 
+	OR (CAST(claim.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE) 
+		AND claim.Status_ID = 5 ));
 
 	UPDATE [data]
 		SET val = [value].val
@@ -323,8 +333,9 @@ BEGIN
 	FROM dbo.[Claims] claim_p
 	INNER JOIN @organizations org ON org.Id = claim_p.Response_organization_ID
 		AND claim_p.Created_at BETWEEN @dateFrom AND @dateFinishPrev 
-		AND (claim_p.Fact_finish_at IS NULL 
-		OR CAST(claim_p.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE))
+	AND (claim_p.Status_ID <> 5 
+	OR (CAST(claim_p.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE) 
+		AND claim_p.Status_ID = 5 ))
 	INNER JOIN @types_list [types] ON [types].Id = claim_p.Claim_type_ID
 	GROUP BY claim_p.Claim_type_ID,
 			 claim_p.Response_organization_ID

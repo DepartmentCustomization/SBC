@@ -11,9 +11,6 @@
                     font-size: 20px;
                     font-weight: 600;
                 }
-                #check_chart1 {
-                    width: 500px;
-                }
                 </style>
                 
                 <div class="titleTable">
