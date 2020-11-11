@@ -6,10 +6,13 @@
         customConfig:
             `
                 <style>
-                #reportTitle{
+                #reportTitle {
                     text-align: center;
                     font-size: 20px;
                     font-weight: 600;
+                }
+                #check_chart1 {
+                    width: 500px;
                 }
                 </style>
                 
@@ -18,7 +21,7 @@
                             Режим
                             <input id="check_chart1" type="checkbox">
                             <label for="check_chart1">
-                            <div class="can-toggle__switch" data-checked="Повний" data-unchecked="Короткий"></div>
+                            <div class="can-toggle__switch" data-checked="Повно" data-unchecked="Скорочено"></div>
                             </label>
                         </div>
 

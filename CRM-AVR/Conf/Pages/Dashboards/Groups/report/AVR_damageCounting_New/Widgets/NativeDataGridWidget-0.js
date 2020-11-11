@@ -15,11 +15,11 @@
                 mode: 'virtual'
             },
             filterRow: {
-                visible: true,
+                visible: false,
                 applyFilter: 'auto'
             },
-            showBorders: false,
-            showColumnLines: false,
+            showBorders: true,
+            showColumnLines: true,
             showRowLines: true,
             remoteOperations: null,
             allowColumnReordering: null,
@@ -29,7 +29,7 @@
             columnWidth: null,
             wordWrapEnabled: true,
             allowColumnResizing: true,
-            showFilterRow: true,
+            showFilterRow: false,
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
@@ -162,7 +162,7 @@
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             let orgVal = message.package.value.values.find(f => f.name === 'division').value;
-            let access = message.package.value.values.find(f => f.name === 'access').value[0];
+            let access = message.package.value.values.find(f => f.name === 'access').value.value;
             if (period !== null) {
                 if (period.dateFrom !== '' && period.dateTo !== '') {
                     this.dateFrom = period.dateFrom;
