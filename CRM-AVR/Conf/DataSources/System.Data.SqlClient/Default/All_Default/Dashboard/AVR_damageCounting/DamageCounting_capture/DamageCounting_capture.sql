@@ -218,6 +218,7 @@ DECLARE @stepTypes TABLE (Id INT);
 	DELETE FROM @TypeOrgStatus_value;
 	INSERT INTO @TypeOrgStatus_value
 	SELECT 
+	DISTINCT
 	 @currentId,
 	 claim.Response_organization_ID,
 	 [data].status_name,
@@ -229,10 +230,10 @@ DECLARE @stepTypes TABLE (Id INT);
 	AND [data].status_name = N'перехідні' 
 	AND [data].typeId = @currentId
 	AND claim.Created_at BETWEEN @dateFrom AND @dateFinishPrev 
-	AND (claim.Fact_finish_at IS NULL 
-	OR CAST(claim.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE))
-	GROUP BY claim.Claim_type_ID,
-			 claim.Response_organization_ID,
+	AND (claim.Status_ID <> 5 
+	OR (CAST(claim.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE) 
+		AND claim.Status_ID = 5 ))
+	GROUP BY claim.Response_organization_ID,
 			 [data].status_name;
 
 	UPDATE [data]
