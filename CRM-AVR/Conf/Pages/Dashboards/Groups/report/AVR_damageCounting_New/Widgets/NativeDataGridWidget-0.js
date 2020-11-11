@@ -128,8 +128,10 @@
                     { key: '@orgId', value: this.orgVal },
                     { key: '@accessId', value: this.access }
                 ];
-                this.loadData(this.afterLoadDataHandler);
+            } else {
+                this.config.columns = [];
             }
+            this.loadData(this.afterLoadDataHandler);
         },
         changeDateTimeValues: function(value) {
             let trueDate;

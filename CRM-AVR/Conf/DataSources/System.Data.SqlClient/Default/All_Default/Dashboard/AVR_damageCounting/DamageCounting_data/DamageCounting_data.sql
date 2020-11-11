@@ -394,6 +394,10 @@ END
 						 WHERE val = 0);
 	END
 
+	UPDATE #DataFields_table
+		SET short_name = ''
+	WHERE status_name <> N'перехідні';
+
 SET @cols = STUFF((SELECT DISTINCT ',' + QUOTENAME(c.DataField) 
             FROM #DataFields_table c
             FOR XML PATH(''), TYPE
