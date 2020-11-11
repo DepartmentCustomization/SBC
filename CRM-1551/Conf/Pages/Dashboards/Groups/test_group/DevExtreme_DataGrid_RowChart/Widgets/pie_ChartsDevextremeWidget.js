@@ -40,23 +40,3 @@
         }
     };
 }());
-
-
-/* 
-        onPointClick: function (e) {
-            var point = e.target;
-            this.toggleVisibility(point);
-        },
-        onLegendClick(e) {
-            var arg = e.target;
-            debugger;
-            const parameter = this.config.getAllSeries()[0].getPointsByArg(arg)[0];
-            this.toggleVisibility();
-        },
-        toggleVisibility(item) {
-            if(item.isVisible()) {
-                item.hide();
-            } else { 
-                item.show();
-            }
-        }, */

@@ -51,6 +51,10 @@
                 },
                 {
                     dataField: "Name",
+                    dataType: "Name",
+                },
+                {
+                    dataField: "Name",
                     dataType: "Name"
                 }],
             
