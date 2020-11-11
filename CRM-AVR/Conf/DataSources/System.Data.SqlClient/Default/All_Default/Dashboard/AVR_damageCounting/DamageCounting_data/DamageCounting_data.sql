@@ -221,20 +221,9 @@ DECLARE @stepTypes TABLE (Id INT);
 	 @currentId,
 	 claim.Response_organization_ID,
 	 [data].status_name,
-	 cl_count.val AS val
+	 COUNT(claim.Id) AS val
 	FROM dbo.[Claims] claim
 	INNER JOIN #DataFields_table [data] ON [data].[orgId] = claim.[Response_organization_ID]
-	INNER JOIN (SELECT 
-					c.Response_organization_ID,
-					COUNT(c.Id) val
-				FROM dbo.[Claims] c 
-				WHERE 
-				c.[Claim_type_ID] IN (SELECT Id FROM @stepTypes)
-				AND c.Created_at BETWEEN @dateFrom AND @dateFinishPrev 
-				AND (c.Status_ID <> 5 
-				OR (CAST(c.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE) 
-					AND c.Status_ID = 5 ))
-				GROUP BY c.Response_organization_ID) cl_count on cl_count.Response_organization_ID = claim.Response_organization_ID
 	WHERE 
 	claim.[Claim_type_ID] IN (SELECT Id FROM @stepTypes)
 	AND [data].status_name = N'перехідні' 
@@ -242,7 +231,9 @@ DECLARE @stepTypes TABLE (Id INT);
 	AND claim.Created_at BETWEEN @dateFrom AND @dateFinishPrev 
 	AND (claim.Status_ID <> 5 
 	OR (CAST(claim.Fact_finish_at AS DATE) = CAST(@dateTo AS DATE) 
-		AND claim.Status_ID = 5 ));
+		AND claim.Status_ID = 5 ))
+	GROUP BY claim.Response_organization_ID,
+			 [data].status_name;
 
 	UPDATE [data]
 		SET val = [value].val
