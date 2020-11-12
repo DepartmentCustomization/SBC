@@ -1,5 +1,5 @@
 (function () {
-  return {
+    return {
         config: {
             query: {
                 code: 'DevExtreme_DataGrid_RowChart_SelectRows',
@@ -37,8 +37,8 @@
         init: function() {
             this.loadData(this.afterLoadDataHandler);
         },
-        afterLoadDataHandler: function() {
-            this.render();
+        afterLoadDataHandler: function(data) {
+            this.render(data);
         }
     };
 }());
