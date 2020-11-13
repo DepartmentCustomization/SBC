@@ -112,6 +112,21 @@
             })
             dynamicHeader.append(formList,addNewForm);
             conDynamic.append(dynamicHeader,questionsCon);
+            this.checkFormInputs(questionsCon)
+        },
+        checkFormInputs(con) {
+            const list = document.querySelectorAll('.form-input,.poll_question_name_ukr,.poll_question_name_rus')
+            list.forEach(e=>e.addEventListener('change',this.handleChangeFormInputs.bind(this,con)))
+        },
+        handleChangeFormInputs(con) {
+            const btn = con.querySelector('.save-form')
+            const listInputs = Array.from(con.querySelectorAll('.form-input,.poll_question_name_ukr,.poll_question_name_rus'))
+            const emptyString = listInputs.find(elem=>elem.value === '')
+            if(emptyString) {
+                btn.classList.remove('active')
+            }else{
+                btn.classList.add('active')
+            }
         },
         updateFormListItems() {
             const list = Array.from(document.querySelectorAll('.form-list-item'))
@@ -297,19 +312,19 @@
 
             const con = this.createElement('div',{className:'quiz-con'});
             if(!obj) {
-                const inputUkr = this.createElement('input',{className:'quiz-variant-ukr quiz-variant',
+                const inputUkr = this.createElement('input',{className:'quiz-variant-ukr quiz-variant form-input',
                     placeholder: 'Варіант',
                     required: true})
-                const inputRus = this.createElement('input',{className:'quiz-variant-rus quiz-variant',
+                const inputRus = this.createElement('input',{className:'quiz-variant-rus quiz-variant form-input',
                     placeholder: 'Вариант',
                     required: true})
                 const span = this.deleteVariant()
                 con.append(inputUkr,span,inputRus)
             } else {
-                const inputUkr = this.createElement('input',{className:'quiz-variant-ukr quiz-variant',
+                const inputUkr = this.createElement('input',{className:'quiz-variant-ukr quiz-variant form-input',
                     value:obj.answer_name_ukr,
                     required: true})
-                const inputRus = this.createElement('input',{className:'quiz-variant-rus quiz-variant',
+                const inputRus = this.createElement('input',{className:'quiz-variant-rus quiz-variant form-input',
                     value:obj.answer_name_rus,
                     required: true})
                 const span = this.deleteVariant()
@@ -385,6 +400,7 @@
                     if(warning) {
                         warning.remove()
                     }
+                    e.target.classList.add('active')
                     const list = container.querySelectorAll('.poll_question_name_ukr, .poll_question_name_rus')
                     const select = container.querySelector('.poll_answer_type').value
                     const other = container.querySelector('.other-variant')
@@ -409,6 +425,7 @@
                     const stringObj = JSON.stringify(listObj)
                     this.saveVariant(container,stringObj)
                 }else {
+                    e.target.classList.remove('active')
                     const warning = document.querySelector('.dangerous')
                     if(warning) {
                         warning.remove()
@@ -483,7 +500,7 @@
         },
         createAnswerType(container,data) {
             const con = this.createElement('div',{className:'answer-type-con'});
-            const select = this.createElement('select',{className:'poll_answer_type'});
+            const select = this.createElement('select',{className:'poll_answer_type form-input'});
             const options = data.rows.map(elem=>{
                 return this.createElement('option',{className:'answer-type-value',
                     value:`${elem.values[0]}`,
