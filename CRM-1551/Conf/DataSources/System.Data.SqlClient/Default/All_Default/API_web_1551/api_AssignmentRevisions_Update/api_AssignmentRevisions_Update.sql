@@ -9,53 +9,66 @@
 
 DECLARE @assignments_table TABLE (Id INT);
 
-INSERT INTO
-  @assignments_table (Id)
 
-SELECT
-  [Assignments].Id
-FROM
-  dbo.[Appeals] [Appeals] 
-  INNER JOIN [Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
-  INNER JOIN [Assignments] [Assignments] ON [Questions].Id = [Assignments].question_id
-WHERE
-  [Appeals].Id = @appeal_id 
+if @question_id  is NULL
+begin
+  INSERT INTO
+    @assignments_table (Id)
+  SELECT
+    [Assignments].Id
+  FROM
+    dbo.[Appeals] [Appeals] 
+    INNER JOIN [Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
+    INNER JOIN [Assignments] [Assignments] ON [Questions].Id = [Assignments].question_id
+  WHERE
+    [Appeals].Id = @appeal_id 
+end
+else 
+begin
+  INSERT INTO
+    @assignments_table (Id)
+  SELECT
+    [Assignments].Id
+  FROM
+    dbo.[Appeals] [Appeals] 
+    INNER JOIN [Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
+    INNER JOIN [Assignments] [Assignments] ON [Questions].Id = [Assignments].question_id
+  WHERE
+    [Questions].Id = @question_id ;
+end;
 
-UNION 
-
-SELECT
-  [Assignments].Id
-FROM
-  dbo.[Appeals] [Appeals] 
-  INNER JOIN [Questions] [Questions] ON [Appeals].Id = [Questions].appeal_id
-  INNER JOIN [Assignments] [Assignments] ON [Questions].Id = [Assignments].question_id
-WHERE
-  [Questions].Id = @question_id ;
 
   -- select * from @assignments_table
   -- таблица с нужными вопросами
 DECLARE @questions_table TABLE (Id INT);
 
-INSERT INTO
+if @question_id  is NULL
+begin
+  INSERT INTO
   @questions_table (Id)
+  SELECT
+    [Questions].Id
+  FROM
+    [Appeals]
+    INNER JOIN [Questions] ON [Appeals].Id = [Questions].appeal_id
+  WHERE
+    [Appeals].Id = @appeal_id
+end
+else 
+begin
+  INSERT INTO
+  @questions_table (Id)
+  SELECT
+    [Questions].Id
+  FROM
+    [Appeals]
+    INNER JOIN [Questions] ON [Appeals].Id = [Questions].appeal_id
+  WHERE
+    [Questions].Id = @question_id ;
+end;
 
-SELECT
-  [Questions].Id
-FROM
-  [Appeals]
-  INNER JOIN [Questions] ON [Appeals].Id = [Questions].appeal_id
-WHERE
-  [Appeals].Id = @appeal_id
 
-  UNION 
 
-SELECT
-  [Questions].Id
-FROM
-  [Appeals]
-  INNER JOIN [Questions] ON [Appeals].Id = [Questions].appeal_id
-WHERE
-	[Questions].Id = @question_id ;
 
   DECLARE @output TABLE ([Id] INT);
 
