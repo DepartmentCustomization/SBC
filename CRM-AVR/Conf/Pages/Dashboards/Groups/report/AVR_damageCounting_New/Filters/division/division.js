@@ -26,8 +26,13 @@
         },
         onItemSelect: function() {},
         setAccess: function(message) {
-            this.globalFilterValues[1].value = []
-            let param = message.package.type.value;
+            this.globalFilterValues[1].value = [];
+            let param;
+            if (message.package.type) {
+                param = message.package.type.value;
+            } else {
+                param = null;
+            }
             this.baseQueryOptions.parameterValues = [{
                 'key': '@typeAccessId',
                 'value': param
