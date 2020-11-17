@@ -11,8 +11,7 @@ FROM
 WHERE 
 org.Id @GlodalFilter_UserOrganizations 
 AND
-org_access.TypeAccess_Id = 
-IIF(@typeAccessId IS NOT NULL, @typeAccessId, org_access.TypeAccess_Id)
+org_access.TypeAccess_Id = @typeAccessId
 AND #filter_columns#
 	  ORDER BY 1
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;

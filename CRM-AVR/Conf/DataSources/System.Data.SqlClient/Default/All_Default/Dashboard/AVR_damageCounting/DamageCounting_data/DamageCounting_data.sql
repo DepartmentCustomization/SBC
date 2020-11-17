@@ -2,11 +2,374 @@
 DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
   		@variant NVARCHAR(10) = 'short',
 		@vision NVARCHAR(10) = 'short',
+		@dateFrom DATETIME = '2020-10-01T00:00:00',
+		@dateTo DATETIME = GETDATE(),
+		@orgId NVARCHAR(MAX) = '28, 5502',
+		@accessId INT = 1;
+*/
+
+DECLARE @orgList TABLE (Id INT);
+INSERT INTO @orgList
+SELECT 
+	value
+FROM STRING_SPLIT(REPLACE(@orgId,' ', SPACE(0)),',');
+
+IF OBJECT_ID('tempdb..##temp_status') IS NOT NULL 
+BEGIN
+	DROP TABLE ##temp_status;
+END
+
+CREATE TABLE ##temp_status(
+  sort INT,
+  status_name NVARCHAR(100),
+) WITH (DATA_COMPRESSION = PAGE);
+
+INSERT INTO ##temp_status (status_name, sort)
+SELECT N'перехідні', 1
+UNION
+SELECT N'надійшло', 2
+UNION
+SELECT N'виконано', 3 
+UNION
+SELECT N'залишилось', 4;
+
+IF OBJECT_ID ('tempdb..#Types_Tree') IS NOT NULL
+BEGIN
+	DROP TABLE #Types_Tree;
+END
+
+;
+WITH ClaimTypes_Tree (Id, parentId, [Caption], DataFiled, HasChild, [level], TypeAccessID)
+AS
+( 
+    SELECT [Id], 
+		   [Parent_сlaim_types_ID], 
+		   [Name],
+		   'type_' + CAST(e.Id AS NVARCHAR(10)),
+		   IIF(EXISTS(SELECT Id FROM dbo.[Claim_types] WHERE [Parent_сlaim_types_ID] = e.Id), 1, 0),
+		   0,
+		   TypeAccess_ID
+    FROM dbo.[Claim_types] e
+    WHERE e.Id = 1 
+    UNION ALL
+	SELECT
+		   e.[Id], 
+		   e.[Parent_сlaim_types_ID], 
+		   e.[Name], 
+		   'type_' + CAST(e.Id AS NVARCHAR(10)),
+		   IIF(EXISTS(SELECT Id FROM dbo.[Claim_types] WHERE [Parent_сlaim_types_ID] = e.Id), 1, 0),
+		   r.level + 1,
+		   e.TypeAccess_ID
+    FROM dbo.[Claim_types] e
+    INNER JOIN ClaimTypes_Tree r ON e.Parent_сlaim_types_ID = r.Id
+	WHERE e.TypeAccess_ID = @accessId
+)
+SELECT 
+	Id, 
+	parentId, 
+	[Caption], 
+	DataFiled, 
+	HasChild, 
+	[level],
+	TypeAccessID
+INTO #Types_Tree
+FROM ClaimTypes_Tree
+WHERE [level] <> 0;
+
+--select * from #Types_Tree order by level,parentId
+
+IF (@variant = 'short')
+BEGIN
+DELETE FROM #Types_Tree
+WHERE [level] > 2;
+
+UPDATE #Types_Tree 
+SET [HasCHild] = IIF([level] = 2, 0, 1);
+END
+
+
+IF object_id('tempdb..##temp_OUT_Claims') IS NOT NULL 
+BEGIN
+	DROP TABLE ##temp_OUT_Claims;
+END
+
+CREATE TABLE ##temp_OUT_Claims(
+  Id INT IDENTITY(1,1),
+  TypeId INT,
+  parentTypeCode NVARCHAR(MAX),
+  TypeCode NVARCHAR(MAX),
+  OrgId INT,
+  short_name NVARCHAR(100),
+  StatusId INT,
+  val INT
+) WITH (DATA_COMPRESSION = PAGE);
+
+-- перехідні
+INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
+SELECT
+	Claim_type_ID,
+	N'type_' + RTRIM(Claim_type_ID) claim_type_code, 
+	Response_organization_ID,
+	org.short_name, 
+	1 AS statusId,
+	COUNT(1) AS val
+FROM dbo.Claims c 
+INNER JOIN dbo.Organizations org ON org.Id = c.Response_organization_ID 
+AND org.Id IN (SELECT Id FROM @orgList)
+WHERE Claim_type_ID IN (SELECT Id FROM #Types_Tree WHERE HasChild = 0)
+AND Created_at < @dateFrom 
+AND (Status_ID NOT IN (4,5,6) 
+	OR (CAST(Fact_finish_at AS DATE) = CAST(@dateFrom AS DATE) 
+	AND Status_ID IN (4,5,6) ))
+GROUP BY Claim_type_ID,
+		 Response_organization_ID,
+		 Short_name;
+
+-- надійшло
+INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
+SELECT
+	Claim_type_ID,
+	N'type_' + RTRIM(Claim_type_ID) claim_type_code, 
+	Response_organization_ID,
+	org.short_name, 
+	2 AS StatusId,
+	COUNT(1) AS val
+FROM dbo.Claims c 
+INNER JOIN dbo.Organizations org ON org.Id = c.Response_organization_ID 
+AND org.Id IN (SELECT Id FROM @orgList)
+WHERE Created_at <= @dateTo
+AND Claim_type_ID IN (SELECT Id FROM #Types_Tree WHERE HasChild = 0)
+AND Created_at BETWEEN @dateFrom AND @dateTo
+GROUP BY Claim_type_ID,
+		 Response_organization_ID,
+		 Short_name;
+
+-- виконано
+INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
+SELECT
+	Claim_type_ID,
+	N'type_' + RTRIM(Claim_type_ID) claim_type_code, 
+	Response_organization_ID,
+	org.short_name, 
+	3 AS StatusId,
+	COUNT(1) AS val 
+FROM dbo.Claims c 
+INNER JOIN dbo.Organizations org ON org.Id = c.Response_organization_ID 
+AND org.Id IN (SELECT Id FROM @orgList)
+WHERE Created_at <= @dateTo
+AND Claim_type_ID IN (SELECT Id FROM #Types_Tree WHERE HasChild = 0)
+AND Fact_finish_at IS NOT NULL 
+AND Fact_finish_at BETWEEN @dateFrom AND @dateTo
+AND Status_ID IN (4,5,6) 
+GROUP BY Claim_type_ID,
+		 Response_organization_ID,
+		 Short_name;
+
+IF OBJECT_ID('tempdb..##ClaimStats') IS NOT NULL
+BEGIN
+	DROP TABLE ##ClaimStats;
+END
+-- залишилось
+INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
+SELECT
+DISTINCT
+	t0.TypeId,
+	t0.TypeCode,
+	t0.OrgId,
+	t0.short_name,
+	4,
+	ISNULL(t1.val,0) + ISNULL(t2.val,0) - ISNULL(t3.val,0)
+FROM ##temp_OUT_Claims t0
+LEFT JOIN ##temp_OUT_Claims t1 ON t1.OrgId = t0.OrgId 
+	AND t1.TypeId = t0.TypeId AND t1.StatusId = 1
+LEFT JOIN ##temp_OUT_Claims t2 ON t2.OrgId = t0.OrgId 
+	AND t2.TypeId = t0.TypeId AND t2.StatusId = 2
+LEFT JOIN ##temp_OUT_Claims t3 ON t3.OrgId = t0.OrgId 
+	AND t3.TypeId = t0.TypeId AND t3.StatusId = 3;
+
+
+--SELECT * FROM ##temp_OUT_Claims;
+
+
+IF (@vision = 'full') 
+BEGIN
+	INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
+	SELECT 
+		t.Id,
+		N'type_' + RTRIM(t.Id),
+		org.Id,
+		org.Short_name,
+		1,
+		0
+	FROM #Types_Tree t
+	LEFT JOIN dbo.Organizations org ON org.Id IN (SELECT Id FROM @orgList) 
+	WHERE HasChild = 0
+	AND t.Id NOT IN (SELECT 
+						TypeId 
+				   FROM ##temp_OUT_Claims);
+END
+
+DECLARE @End_types TABLE (Id INT, parentId INT, processed BIT);
+INSERT INTO @End_types (Id, parentId, processed)
+SELECT 
+DISTINCT 
+	typeId,
+	parentId,
+	0
+FROM ##temp_OUT_Claims c
+INNER JOIN #Types_Tree t ON c.TypeId = t.Id ;
+
+DECLARE @current_id INT;
+DECLARE @RootTypes TABLE (Id INT, rootId INT);
+DECLARE @StepTypes TABLE (Id INT, parentId INT);
+
+WHILE (SELECT COUNT(1) FROM @End_types WHERE processed <> 1) > 0
+BEGIN
+SET @current_id = (SELECT TOP 1 Id FROM @End_types WHERE processed = 0);
+
+WITH EndTypes_tree (Id, parentId)
+		AS
+		(
+		SELECT 
+			Id, 
+			Parent_сlaim_types_ID
+		FROM dbo.Claim_types e
+		WHERE e.Id = @current_id 
+		UNION ALL
+		SELECT 
+			e.Id, 
+			e.Parent_сlaim_types_ID
+		FROM dbo.Claim_types e
+		    INNER JOIN EndTypes_tree r ON e.Id = r.parentId
+		)
+
+		INSERT INTO @StepTypes
+		SELECT 
+			Id,
+			parentId
+		FROM EndTypes_tree;
+
+		INSERT INTO @RootTypes
+		SELECT 
+			@current_id, 
+			Id rootId 
+		FROM @StepTypes
+		WHERE parentId = 1;
+
+		UPDATE @End_types 
+		SET processed = 1 
+		WHERE Id = @current_id;
+
+		DELETE FROM @StepTypes;
+END
+
+-- select * from @RootTypes
+
+UPDATE c
+	SET c.parentTypeCode = N'type_' + RTRIM(rt.rootId) + N'_itog'
+FROM ##temp_OUT_Claims c
+INNER JOIN @RootTypes rt ON rt.Id = c.TypeId
+;
+
+-- select * from ##temp_OUT_Claims;
+
+DECLARE @activeVal AS NVARCHAR(MAX),
+		@activeVal2 AS NVARCHAR(MAX),
+		@activeVal_itog AS NVARCHAR(MAX),
+		@activeVal2_itog AS NVARCHAR(MAX);
+
+SET @activeVal = LEFT((SELECT '['+RTRIM(TypeCode)+']' + ',' FROM ##temp_OUT_Claims GROUP BY TypeCode FOR XML PATH('')),len((SELECT '['+rtrim(TypeCode)+']' + ',' FROM ##temp_OUT_Claims GROUP BY TypeCode FOR XML PATH('')))-1);
+SET @activeVal2 = LEFT((SELECT 'isnull(['+RTRIM(TypeCode)+'],0) as ['+rtrim(TypeCode)+']' + ',' FROM ##temp_OUT_Claims GROUP BY TypeCode FOR XML PATH('')),len((SELECT 'isnull(['+rtrim(TypeCode)+'],0) as ['+rtrim(TypeCode)+']' + ',' FROM ##temp_OUT_Claims GROUP BY TypeCode FOR XML PATH('')))-1);
+
+SET @activeVal_itog = LEFT((SELECT '['+RTRIM(parentTypeCode)+']' + ',' FROM ##temp_OUT_Claims GROUP BY parentTypeCode FOR XML PATH('')),len((SELECT '['+rtrim(parentTypeCode)+']' + ',' FROM ##temp_OUT_Claims GROUP BY parentTypeCode FOR XML PATH('')))-1);
+SET @activeVal2_itog = LEFT((SELECT 'isnull(['+RTRIM(parentTypeCode)+'],0) as ['+rtrim(parentTypeCode)+']' + ',' FROM ##temp_OUT_Claims GROUP BY parentTypeCode FOR XML PATH('')),len((SELECT 'isnull(['+rtrim(parentTypeCode)+'],0) as ['+rtrim(parentTypeCode)+']' + ',' FROM ##temp_OUT_Claims GROUP BY parentTypeCode FOR XML PATH('')))-1);
+
+
+DECLARE @sql NVARCHAR(MAX) = N'
+SELECT 
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as Id,
+	pvt.OrgId AS orgId,
+	IIF(status_name <> ''перехідні'', SPACE(1), short_name) as short_name,
+	status_name,
+	'+@activeVal2+N',
+	'+@activeVal2_itog+N'
+FROM   
+(SELECT 
+	SUM(ISNULL(sub.val,0)) AS val, 
+	sub.TypeCode, 
+	main.OrgId, 
+	main.short_name, 
+	main.sort AS StatusId, 
+	main.status_name
+FROM (SELECT * 
+FROM (SELECT OrgId, short_name 
+FROM ##temp_OUT_Claims
+GROUP BY OrgId, short_name) t1 
+CROSS JOIN ##temp_status) main
+LEFT JOIN ##temp_OUT_Claims sub ON sub.OrgId = main.OrgId
+	AND sub.StatusId = main.sort
+GROUP BY sub.TypeCode, 
+	main.OrgId, 
+	main.short_name, 
+	main.sort, 
+	main.status_name
+) p  
+PIVOT  
+(  
+SUM (val)  
+FOR TypeCode IN  
+('+@activeVal+N')  
+) AS pvt 
+
+LEFT JOIN (
+---P2
+SELECT 
+	OrgId,
+	StatusId,
+	'+@activeVal2_itog+N'
+FROM   
+(SELECT 
+	SUM(ISNULL(sub.val,0)) AS val,
+	main.OrgId, 
+	main.short_name, 
+	main.sort AS StatusId, 
+	main.status_name,
+	sub.parentTypeCode
+FROM (SELECT * 
+FROM (SELECT OrgId, short_name 
+FROM ##temp_OUT_Claims
+GROUP BY OrgId, short_name) t1 
+CROSS JOIN ##temp_status) main
+LEFT JOIN ##temp_OUT_Claims sub ON sub.OrgId = main.OrgId
+	AND sub.StatusId = main.sort
+GROUP BY sub.TypeCode, 
+	main.OrgId, 
+	main.short_name, 
+	main.sort, 
+	main.status_name,
+	sub.parentTypeCode
+) p  
+PIVOT  
+(  
+SUM (val)  
+FOR parentTypeCode IN  
+('+@activeVal_itog+N')  
+) AS pvt 
+ ) AS p_itog ON p_itog.OrgId = pvt.OrgId 
+ AND p_itog.StatusId = pvt.StatusId
+ ';
+
+EXECUTE (@sql);
+
+------> Prev. version <--------
+/*
+DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
+  		@variant NVARCHAR(10) = 'short',
+		@vision NVARCHAR(10) = 'short',
 		@dateFrom DATETIME = '2020-09-30T21:00:00',
 		@dateTo DATETIME = GETDATE(),
 		@orgId NVARCHAR(MAX) = '6203',
 		@accessId INT = 2;
-*/
 
 DECLARE @UserAccessKey TABLE (val INT);
 IF (@accessId IS NOT NULL)
@@ -430,3 +793,4 @@ PIVOT (
 ';
 
 EXEC (@query);
+*/

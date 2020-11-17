@@ -53,15 +53,26 @@
             this.recalColumns();
         },
         init: function() {
+            const self = this;
             this.dataGridInstance.height = window.innerHeight - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.recalColumns, this);
             this.sub1 = this.messageService.subscribe('CheckIsSmall', this.getIsSmall, this);
             this.sub2 = this.messageService.subscribe('CheckIsNullValues', this.getIsNullValues, this);
+            this.dataGridInstance.onCellPrepared.subscribe(e => {
+                if(e.data === undefined &&
+                    !(e.column.caption === 'Підрозділ' ||
+                    e.column.caption === 'Статус')) {
+                    const levelDown = e.column.levelCol - 1;
+                    e.cellElement.style.background = self.colors[levelDown];
+                    e.cellElement.style.color = 'red';
+                }
+            });
         },
         columnData: [],
         variant: 'short',
         vision: 'short',
+        colors: ['#666666', '#737373', '#7f7f7f', '#8c8c8c', '#999999', '#a6a6a6', '#b2b2b2', '#bfbfbf'],
         recalColumns: function() {
             this.applyChanges(false);
             if (this.orgVal.length > 0) {
@@ -88,12 +99,14 @@
                 object.rows.forEach(function(a) {
                     if (a.values[4] === 1) {
                         o[a.values[0]] = {
-                            caption: a.values[2]
+                            caption: a.values[2],
+                            levelCol: a.values[5]
                         };
                     } else {
                         o[a.values[0]] = {
                             caption: a.values[2],
                             dataField: a.values[3],
+                            levelCol: a.values[5],
                             width: 150
                         };
                     }
@@ -101,6 +114,7 @@
 
                 object.rows.forEach(function(a) {
                     o[a.values[0]].parent = (o[a.values[1]] ? o[a.values[1]].caption : '');
+                    o[a.values[0]].levelCol = (o[a.values[0]] ? o[a.values[0]].levelCol : 0);
                     o[a.values[1]].columns = (o[a.values[1]] ? o[a.values[1]].columns || [] : null);
                     o[a.values[1]].columns.push(o[a.values[0]]);
                     columns[a.values[0]] = true;

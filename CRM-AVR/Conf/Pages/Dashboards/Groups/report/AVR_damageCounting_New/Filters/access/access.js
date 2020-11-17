@@ -27,6 +27,9 @@
                 }
             }
             this.messageService.publish(message);
+        },
+        onClearFilter: function() {
+            this.publishValue(null);
         }
     };
 }());
