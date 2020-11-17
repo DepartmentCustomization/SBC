@@ -4,28 +4,33 @@
   "Position": 1,
   "Fields": [
     {
+      "Code": "type_id",
+      "Name": "Тип",
+      "FieldType": "select",
+      "QueryCode": "List_StreetTypes",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "Name",
+      "QueryParameters": [],
+      "Position": 1
+    },
+    {
       "Code": "Name",
       "Name": "Назва",
       "FieldType": "text",
       "IsRequired": true,
-      "Position": 1
-    },
-    {
-      "Code": "type_name",
-      "Name": "Тип",
-      "FieldType": "text"
+      "Position": 2
     },
     {
       "Code": "Old_name",
       "Name": "Стара назва вулиці",
       "FieldType": "text",
-      "Position": 2
+      "Position": 3
     },
     {
       "Code": "Territory",
       "Name": "Примітка",
       "FieldType": "textarea",
-      "Position": 3,
+      "Position": 4,
       "Rows": 2
     }
   ]
