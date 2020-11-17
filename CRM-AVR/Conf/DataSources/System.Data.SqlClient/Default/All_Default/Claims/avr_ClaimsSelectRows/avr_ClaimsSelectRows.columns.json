@@ -47,8 +47,8 @@
     "Code": "Organization_name",
     "Name": "Призначено",
     "Position": 7,
-    "SqlName": "[Organizations].[Name]",
-    "FilterParameterCode": "@Organization_name"
+    "SqlName": "[Organizations].[Short_Name]",
+    "FilterParameterCode": "@Organization_ShortName"
   },
   {
     "Code": "Plan_start_date",
