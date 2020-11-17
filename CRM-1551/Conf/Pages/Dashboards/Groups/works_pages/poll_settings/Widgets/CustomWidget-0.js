@@ -108,19 +108,24 @@
                     newForm.classList.remove('active')
                     formList.append(item)
                     questionsCon.append(newForm)
+                    const formsForSearch = Array.from(questionsCon.querySelectorAll('.interview-form-con'))
+                    this.checkFormInputs(formsForSearch)
                 }
             })
             dynamicHeader.append(formList,addNewForm);
             conDynamic.append(dynamicHeader,questionsCon);
-            this.checkFormInputs(questionsCon)
+            const formsForSearch = Array.from(questionsCon.querySelectorAll('.interview-form-con'))
+            this.checkFormInputs(formsForSearch)
         },
-        checkFormInputs(con) {
-            const list = document.querySelectorAll('.form-input,.poll_question_name_ukr,.poll_question_name_rus')
-            list.forEach(e=>e.addEventListener('change',this.handleChangeFormInputs.bind(this,con)))
+        checkFormInputs(containers) {
+            containers.forEach(elem=>{
+                const list = elem.querySelectorAll('.form-input,.poll_question_name_ukr,.poll_question_name_rus')
+                list.forEach(e=>e.addEventListener('input',this.handleChangeFormInputs.bind(this,elem)))
+            })
         },
         handleChangeFormInputs(con) {
             const btn = con.querySelector('.save-form')
-            const listInputs = Array.from(con.querySelectorAll('.form-input,.poll_question_name_ukr,.poll_question_name_rus'))
+            const listInputs = Array.from(con.querySelectorAll('.form-input, .poll_question_name_ukr, .poll_question_name_rus'))
             const emptyString = listInputs.find(elem=>elem.value === '')
             if(emptyString) {
                 btn.classList.remove('active')
