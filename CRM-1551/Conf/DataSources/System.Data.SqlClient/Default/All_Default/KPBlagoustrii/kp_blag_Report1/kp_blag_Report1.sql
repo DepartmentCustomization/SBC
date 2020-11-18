@@ -1,12 +1,14 @@
 
 
 
+
+
   /*0 2020-05-01 2020-06-01 46 сек
   declare @districts nvarchar(max)=N'0';
-  declare @date_from datetime='2020-06-01 00:01'; 
+  declare @date_from datetime='2020-06-01 00:01';
   declare @date_to datetime='2020-08-01 23:59';
-  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
-  */
+  declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';*/
+  
   --для количества действий начало
 
   if OBJECT_ID('tempdb..#temp_position_sector') is not null drop table #temp_position_sector
@@ -125,6 +127,12 @@ into #temp_ass_nevkom
 
   CREATE INDEX i1 ON #temp_ass_nevkom ([assignment_id]);
 
+  --посади інспекторів
+  if OBJECT_ID('tempdb..#temp_position_insp') is not null drop table #temp_position_insp
+  select Id, [programuser_id] 
+  into #temp_position_insp
+  from [dbo].[Positions] where [role_id]=8 /*інспектор*/ 
+
   --для районов начало
 
   if OBJECT_ID('tempdb..#temp_count_que_down') is not null drop table #temp_count_que_down
@@ -135,7 +143,7 @@ into #temp_ass_nevkom
   then 1 else 0 end count_registered,
   case when [Questions].question_state_id=2 --в роботі
   then 1 else 0 end count_in_work,
-  case when [Questions].question_state_id=3 --на перевірці
+  case when [Questions].question_state_id=3 and [Questions].control_date>=getutcdate() --на перевірці
   then 1 else 0 end count_on_inspection,
   case when [Assignments].assignment_state_id=5 and [Assignments].AssignmentResultsId=4 --Закрито Виконано
   then 1 else 0 end count_closed_performed,
@@ -143,10 +151,16 @@ into #temp_ass_nevkom
   then 1 else 0 end count_closed_clear,
   case when [Questions].question_state_id=4 --на доопрацювання
   then 1 else 0 end count_for_completion,
-  case when [Questions].question_state_id in (1,2) and [Questions].control_date<getutcdate() --Простроено 
+  case when [Questions].question_state_id in (1,2,4) and [Questions].control_date<getutcdate() --Простроено виконавцем
   then 1 else 0 end count_built,
   case when [Questions].question_state_id =3 and temp_que_state3.Log_Date>[Questions].control_date--Не вчасно опрацьовано 
   then 1 else 0 end count_not_processed_in_time,
+
+  case when ([Questions].question_state_id=3 and [Questions].control_date<getutcdate())
+  or ([Questions].question_state_id in (1/*Зареєстровано*/,2/*В роботі*/) and [Questions].control_date<getutcdate()
+  and temp_position_insp.Id is not null)
+  --Прострочено інспектором 
+  then 1 else 0 end count_expired_inspector,
 
   --[Questions].registration_date,
   --temp_que_state2.[Log_Date] que_state2_log_date,
@@ -180,6 +194,7 @@ into #temp_ass_nevkom
   left join #temp_que_state2 temp_que_state2 on [Questions].Id=temp_que_state2.question_id
   left join #temp_ass_nevkom temp_ass_nevkom on [Assignments].Id=temp_ass_nevkom.assignment_id
   left join #temp_ass_nevkom_886 temp_ass_nevkom_886 on [Questions].Id=temp_ass_nevkom_886.question_id
+  left join #temp_position_insp temp_position_insp on [Assignments].executor_person_id=temp_position_insp.Id
   where [Questions].[registration_date] between @date_from and @date_to
   --для районов конец
 
@@ -197,6 +212,7 @@ into #temp_ass_nevkom
   SUM(count_for_completion) count_for_completion,
   SUM(count_built) count_built,
   SUM(count_not_processed_in_time) count_not_processed_in_time,
+  SUM(count_expired_inspector) count_expired_inspector,
   --SUM(count_close) count_close,
   --SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
   --SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
@@ -223,6 +239,7 @@ into #temp_ass_nevkom
   count_for_completion,
   count_built,
   count_not_processed_in_time,
+  count_expired_inspector,
   convert(numeric(8,2),count_days_speed/60.00) speed_of_employment,
   --count_days_speed1, count_days_speed2,
 
@@ -270,6 +287,7 @@ into #temp_ass_nevkom
   count_for_completion,
   count_built,
   count_not_processed_in_time,
+  count_expired_inspector,
   speed_of_employment,
   timely_processed, --12
   implementation, --13
@@ -291,6 +309,7 @@ into #temp_ass_nevkom
   SUM(count_for_completion) count_for_completion,
   SUM(count_built) count_built,
   SUM(count_not_processed_in_time) count_not_processed_in_time,
+  SUM(count_expired_inspector) count_expired_inspector,
   --SUM(count_close) count_close,
   --SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
   --SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
@@ -340,7 +359,8 @@ into #temp_ass_nevkom
   isnull(count_not_competence,0) count_not_competence,
   in_color,
   --Id count_act
-  sa.count_act
+  sa.count_act,
+  isnull(count_expired_inspector, 0) count_expired_inspector
   from #temp_count_all_all tc
   left join #temp_sector_act sa on tc.id=sa.territory_id
   order by district_id, Id

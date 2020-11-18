@@ -4,6 +4,11 @@ declare @sector_id int =1;
   declare @date_to datetime='2020-08-01 23:59';
   declare @user_id nvarchar(128)=N'8cbd0469-56f1-474b-8ea6-904d783a0941';
   */
+  --посади інспекторів
+  if OBJECT_ID('tempdb..#temp_position_insp') is not null drop table #temp_position_insp
+  select Id, [programuser_id] 
+  into #temp_position_insp
+  from [dbo].[Positions] where [role_id]=8 /*інспектор*/ 
 
   if OBJECT_ID('tempdb..#temp_ass_state3') is not null drop table #temp_ass_state3
 
@@ -66,6 +71,7 @@ into #temp_ass_nevkom
   SUM(count_for_completion) count_for_completion,
   SUM(count_built) count_built,
   SUM(count_not_processed_in_time) count_not_processed_in_time,
+  SUM(count_expired_inspector) count_expired_inspector,
   --SUM(count_close) count_close,
   --SUM(DATEDIFF(day, registration_date, que_state2_log_date)) count_days_speed1, --11
   --SUM(DATEDIFF(DAY, registration_date, ass_nevkom_log_date)) count_days_speed2 --11
@@ -80,7 +86,7 @@ into #temp_ass_nevkom
   then 1 else 0 end count_registered,
   case when [Assignments_ok].assignment_state_id=2 --в роботі
   then 1 else 0 end count_in_work,
-  case when [Assignments_ok].assignment_state_id=3 --на перевірці
+  case when [Assignments_ok].assignment_state_id=3 and [Assignments_ok].execution_date>=getutcdate() --на перевірці
   then 1 else 0 end count_on_inspection,
   case when [Assignments_ok].assignment_state_id=5 and [Assignments_ok].AssignmentResultsId=4 --Закрито Виконано
   then 1 else 0 end count_closed_performed,
@@ -88,10 +94,14 @@ into #temp_ass_nevkom
   then 1 else 0 end count_closed_clear,
   case when [Assignments_ok].assignment_state_id=4 --на доопрацювання
   then 1 else 0 end count_for_completion,
-  case when [Assignments_ok].assignment_state_id in (1,2) and [Assignments_ok].execution_date<getutcdate() --Простроено 
+  case when [Assignments_ok].assignment_state_id in (1,2,4) and [Assignments_ok].execution_date<getutcdate() --Простроено виконавцем
   then 1 else 0 end count_built,
   case when [Assignments_ok].assignment_state_id =3 and temp_ass_state3.Log_Date>[Assignments_ok].execution_date--Не вчасно опрацьовано 
   then 1 else 0 end count_not_processed_in_time,
+
+  case when ([Assignments_ok].assignment_state_id=3 and [Assignments_ok].execution_date<getutcdate())
+  or ([Assignments_ok].assignment_state_id in (1/*Зареєстровано*/,2/*В роботі*/) and temp_position_insp.Id is not null)--просрочено інспектором 
+  then 1 else 0 end count_expired_inspector,
 
   case 
 		when temp_ass_state2.[Log_Date] is not null and temp_ass_nevkom.[Log_Date] is null then DATEDIFF(mi, [Assignments_ok].registration_date, temp_ass_state2.[Log_Date])
@@ -121,6 +131,7 @@ into #temp_ass_nevkom
   left join #temp_ass_state2 temp_ass_state2 on [Assignments_ok].Id=temp_ass_state2.assignment_id
   left join #temp_ass_nevkom temp_ass_nevkom on [Assignments_ok].Id=temp_ass_nevkom.assignment_id
   left join #temp_ass_nevkom_886 temp_ass_nevkom_886 on [Assignments_ok].Id=temp_ass_nevkom_886.assignment_id
+  left join #temp_position_insp temp_position_insp on [Assignments_ok].executor_person_id=temp_position_insp.Id
   where [Territories].Id=@sector_id and [Assignments_ok].[registration_date] between @date_from and @date_to
   ) t
   group by [executor_organization_id]
@@ -137,6 +148,7 @@ into #temp_ass_nevkom
   isnull(count_for_completion, 0) count_for_completion,
   isnull(count_built, 0) count_built,
   isnull(count_not_processed_in_time, 0) count_not_processed_in_time,
+  
 
   --count_days_speed1, count_days_speed2,
 
@@ -159,6 +171,7 @@ into #temp_ass_nevkom
   case when count_closed_performed+count_closed_clear+count_for_completion=0 then null
   else convert(numeric(8,2),(1.00-(convert(float,count_for_completion)/convert(float,(count_closed_performed+count_closed_clear+count_for_completion))))*100.00) end reliability --14
   ,isnull(count_not_competence, 0) count_not_competence
+  ,isnull(count_expired_inspector, 0) count_expired_inspector
   from 
   #temp_count_ass temp_count_que
   left join [dbo].[Organizations] with (nolock) on temp_count_que.executor_organization_id=[Organizations].Id
