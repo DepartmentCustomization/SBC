@@ -204,6 +204,9 @@
             return [];
         },
         afterLoadDataHandler: function() {
+            const excel = document.getElementById('export-excel');
+            excel.addEventListener('click', function() {
+            });
             this.render();
         },
         applyChanges: function(state) {

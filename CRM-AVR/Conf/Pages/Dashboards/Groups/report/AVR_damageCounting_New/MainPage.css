@@ -581,3 +581,16 @@
 .dx-gridbase-container {
     height: auto !important;
 }
+
+
+.btn-export {
+    width: calc(100% - 360px);
+}
+
+#export-excel {
+    width: 58px;
+    color: #004479;
+    border-radius: 6px;
+    border: 2px solid #8c9192;
+    float: right;
+}

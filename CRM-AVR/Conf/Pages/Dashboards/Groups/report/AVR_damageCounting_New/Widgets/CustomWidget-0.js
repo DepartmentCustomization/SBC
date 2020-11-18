@@ -29,6 +29,9 @@
                             <div class="can-toggle__switch" data-checked="Так" data-unchecked="Ні"></div>
                             </label>
                         </div>
+                        <div class="btn-export">
+                            <button id="export-excel"><span class="material-icons">archive</span>Excel</button>                            
+                        </div>
                 </div>
                 `
         ,
