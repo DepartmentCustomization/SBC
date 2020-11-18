@@ -27,13 +27,17 @@
             columnAutoWidth: true,
             hoverStateEnabled: true,
             columnWidth: null,
+            columnMinWidth: 40,
             wordWrapEnabled: true,
             allowColumnResizing: true,
             showFilterRow: false,
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null
+            groupingAutoExpandAll: null,
+            sorting: {
+                mode: null
+            }
         },
         getIsSmall: function(message) {
             if (message.package.value === 0) {
@@ -48,8 +52,7 @@
                 this.vision = 'short';
             } else {
                 this.vision = 'full';
-            };
-
+            }
             this.recalColumns();
         },
         init: function() {
@@ -60,12 +63,17 @@
             this.sub1 = this.messageService.subscribe('CheckIsSmall', this.getIsSmall, this);
             this.sub2 = this.messageService.subscribe('CheckIsNullValues', this.getIsNullValues, this);
             this.dataGridInstance.onCellPrepared.subscribe(e => {
-                if(e.data === undefined &&
+                if (e.data === undefined &&
                     !(e.column.caption === 'Підрозділ' ||
                     e.column.caption === 'Статус')) {
                     const levelDown = e.column.levelCol - 1;
                     e.cellElement.style.background = self.colors[levelDown];
-                    e.cellElement.style.color = 'red';
+                    if (e.column.dataField) {
+                        e.cellElement.children[0].classList.add('text-rotate');
+                        if (e.column.caption === 'Всього') {
+                            e.cellElement.children[0].classList.add('text-rotate-itog');
+                        }
+                    }
                 }
             });
         },
@@ -106,8 +114,7 @@
                         o[a.values[0]] = {
                             caption: a.values[2],
                             dataField: a.values[3],
-                            levelCol: a.values[5],
-                            width: 150
+                            levelCol: a.values[5]
                         };
                     }
                 });

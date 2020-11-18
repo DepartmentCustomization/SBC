@@ -15,7 +15,7 @@
                 
                 <div class="titleTable">
                         <div class="can-toggle demo-rebrand-1" id="toggle_check_chart1" style="">
-                            Режим
+                            Режим звіту
                             <input id="check_chart1" type="checkbox">
                             <label for="check_chart1">
                             <div class="can-toggle__switch" data-checked="Повно" data-unchecked="Скорочено"></div>
