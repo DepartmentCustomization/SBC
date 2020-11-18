@@ -587,6 +587,15 @@
     width: calc(100% - 360px);
 }
 
+
+.dx-datagrid-header-panel {
+    position: fixed !important;
+    top: 72px !important;
+    right: 16px !important;
+    z-index: 999 !important;
+    width: 5vw;
+}
+
 #export-excel {
     width: 58px;
     color: #004479;

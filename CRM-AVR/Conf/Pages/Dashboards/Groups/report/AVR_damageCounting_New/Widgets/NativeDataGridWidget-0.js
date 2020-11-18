@@ -35,6 +35,10 @@
             showColumnChooser: false,
             showColumnFixing: true,
             groupingAutoExpandAll: null,
+            export: {
+                enabled: true,
+                fileName: 'Відомість обліку пошкоджень'
+            },
             sorting: {
                 mode: null
             }
@@ -55,13 +59,21 @@
             }
             this.recalColumns();
         },
+        subscriptions: [],
         init: function() {
             const self = this;
             this.dataGridInstance.height = window.innerHeight - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.recalColumns, this);
-            this.sub1 = this.messageService.subscribe('CheckIsSmall', this.getIsSmall, this);
-            this.sub2 = this.messageService.subscribe('CheckIsNullValues', this.getIsNullValues, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.recalColumns, this);
+            this.sub2 = this.messageService.subscribe('CheckIsSmall', this.getIsSmall, this);
+            this.sub3 = this.messageService.subscribe('CheckIsNullValues', this.getIsNullValues, this);
+            this.sub4 = this.messageService.subscribe('isClickBtn', this.isClickBtn, this);
+            this.subscriptions.push(this.sub);
+            this.subscriptions.push(this.sub1);
+            this.subscriptions.push(this.sub2);
+            this.subscriptions.push(this.sub3);
+            this.subscriptions.push(this.sub4);
+
             this.dataGridInstance.onCellPrepared.subscribe(e => {
                 if (e.data === undefined &&
                     !(e.column.caption === 'Підрозділ' ||
@@ -81,6 +93,9 @@
         variant: 'short',
         vision: 'short',
         colors: ['#666666', '#737373', '#7f7f7f', '#8c8c8c', '#999999', '#a6a6a6', '#b2b2b2', '#bfbfbf'],
+        isClickBtn: function() {
+            debugger;
+        },
         recalColumns: function() {
             this.applyChanges(false);
             if (this.orgVal.length > 0) {
@@ -204,9 +219,6 @@
             return [];
         },
         afterLoadDataHandler: function() {
-            const excel = document.getElementById('export-excel');
-            excel.addEventListener('click', function() {
-            });
             this.render();
         },
         applyChanges: function(state) {
@@ -218,10 +230,13 @@
             };
             this.messageService.publish(msg);
         },
+        unsubscribeFromMessages: function() {
+            for(let i = 0; i < this.subscriptions.length; i++) {
+                this.subscriptions[i].unsubscribe();
+            }
+        },
         destroy: function() {
-            this.sub.unsubscribe();
-            this.sub1.unsubscribe();
-            this.sub2.unsubscribe();
+            this.unsubscribeFromMessages();
         }
     };
 }());
