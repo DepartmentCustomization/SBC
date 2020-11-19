@@ -40,6 +40,11 @@
                             alignment: 'center'
                         },
                         {
+                            dataField: 'count_expired_inspector',
+                            caption: 'Прострочено інспектором',
+                            alignment: 'center'
+                        },
+                        {
                             dataField: 'count_closed_performed',
                             caption: 'Закрито/Виконано ',
                             alignment: 'center'
@@ -64,7 +69,7 @@
                 },
                 {
                     dataField: 'count_built',
-                    caption: 'Прострочено',
+                    caption: 'Прострочено виконавцем',
                     width: 130,
                     alignment: 'center'
                 },
@@ -191,6 +196,11 @@
                                 alignment: 'center'
                             },
                             {
+                                dataField: 'count_expired_inspector',
+                                caption: 'Прострочено інспектором',
+                                alignment: 'center'
+                            },
+                            {
                                 dataField: 'count_closed_performed',
                                 caption: 'Закрито/Виконано ',
                                 alignment: 'center'
@@ -215,7 +225,7 @@
                     },
                     {
                         dataField: 'count_built',
-                        caption: 'Прострочено',
+                        caption: 'Прострочено виконавцем',
                         width: 130,
                         alignment: 'center'
                     },
