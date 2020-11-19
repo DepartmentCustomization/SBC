@@ -27,13 +27,21 @@
             columnAutoWidth: true,
             hoverStateEnabled: true,
             columnWidth: null,
+            columnMinWidth: 40,
             wordWrapEnabled: true,
             allowColumnResizing: true,
             showFilterRow: false,
             showHeaderFilter: false,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null
+            groupingAutoExpandAll: null,
+            export: {
+                enabled: true,
+                fileName: 'Відомість обліку пошкоджень'
+            },
+            sorting: {
+                mode: null
+            }
         },
         getIsSmall: function(message) {
             if (message.package.value === 0) {
@@ -48,24 +56,36 @@
                 this.vision = 'short';
             } else {
                 this.vision = 'full';
-            };
-
+            }
             this.recalColumns();
         },
+        subscriptions: [],
         init: function() {
             const self = this;
             this.dataGridInstance.height = window.innerHeight - 150;
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
-            this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.recalColumns, this);
-            this.sub1 = this.messageService.subscribe('CheckIsSmall', this.getIsSmall, this);
-            this.sub2 = this.messageService.subscribe('CheckIsNullValues', this.getIsNullValues, this);
+            this.sub1 = this.messageService.subscribe('ApplyGlobalFilters', this.recalColumns, this);
+            this.sub2 = this.messageService.subscribe('CheckIsSmall', this.getIsSmall, this);
+            this.sub3 = this.messageService.subscribe('CheckIsNullValues', this.getIsNullValues, this);
+            this.sub4 = this.messageService.subscribe('isClickBtn', this.isClickBtn, this);
+            this.subscriptions.push(this.sub);
+            this.subscriptions.push(this.sub1);
+            this.subscriptions.push(this.sub2);
+            this.subscriptions.push(this.sub3);
+            this.subscriptions.push(this.sub4);
+
             this.dataGridInstance.onCellPrepared.subscribe(e => {
-                if(e.data === undefined &&
+                if (e.data === undefined &&
                     !(e.column.caption === 'Підрозділ' ||
                     e.column.caption === 'Статус')) {
                     const levelDown = e.column.levelCol - 1;
                     e.cellElement.style.background = self.colors[levelDown];
-                    e.cellElement.style.color = 'red';
+                    if (e.column.dataField) {
+                        e.cellElement.children[0].classList.add('text-rotate');
+                        if (e.column.caption === 'Всього') {
+                            e.cellElement.children[0].classList.add('text-rotate-itog');
+                        }
+                    }
                 }
             });
         },
@@ -73,6 +93,9 @@
         variant: 'short',
         vision: 'short',
         colors: ['#666666', '#737373', '#7f7f7f', '#8c8c8c', '#999999', '#a6a6a6', '#b2b2b2', '#bfbfbf'],
+        isClickBtn: function() {
+            debugger;
+        },
         recalColumns: function() {
             this.applyChanges(false);
             if (this.orgVal.length > 0) {
@@ -106,8 +129,7 @@
                         o[a.values[0]] = {
                             caption: a.values[2],
                             dataField: a.values[3],
-                            levelCol: a.values[5],
-                            width: 150
+                            levelCol: a.values[5]
                         };
                     }
                 });
@@ -208,10 +230,13 @@
             };
             this.messageService.publish(msg);
         },
+        unsubscribeFromMessages: function() {
+            for(let i = 0; i < this.subscriptions.length; i++) {
+                this.subscriptions[i].unsubscribe();
+            }
+        },
         destroy: function() {
-            this.sub.unsubscribe();
-            this.sub1.unsubscribe();
-            this.sub2.unsubscribe();
+            this.unsubscribeFromMessages();
         }
     };
 }());

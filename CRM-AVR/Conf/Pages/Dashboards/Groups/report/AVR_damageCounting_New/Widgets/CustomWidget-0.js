@@ -15,7 +15,7 @@
                 
                 <div class="titleTable">
                         <div class="can-toggle demo-rebrand-1" id="toggle_check_chart1" style="">
-                            Режим
+                            Режим звіту
                             <input id="check_chart1" type="checkbox">
                             <label for="check_chart1">
                             <div class="can-toggle__switch" data-checked="Повно" data-unchecked="Скорочено"></div>
@@ -29,6 +29,9 @@
                             <div class="can-toggle__switch" data-checked="Так" data-unchecked="Ні"></div>
                             </label>
                         </div>
+                        <div class="btn-export" style="display: none;">
+                            <button id="export-excel"><span class="material-icons">archive</span>Excel</button>                            
+                        </div>
                 </div>
                 `
         ,
@@ -37,7 +40,13 @@
         isSmall: 1,
         isNullValues: 0,
         afterViewInit: function() {
-
+            const excel = document.getElementById('export-excel');
+            excel.addEventListener('click', function() {
+                let messageSelect = {
+                    name: 'isClickBtn'
+                }
+                this.messageService.publish(messageSelect);
+            }.bind(this));
             document.getElementById('check_chart1').addEventListener('click', function(e) {
                 if (e.currentTarget.checked) {
                     this.isSmall = 0;
