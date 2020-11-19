@@ -118,9 +118,11 @@ INNER JOIN dbo.Organizations org ON org.Id = c.Response_organization_ID
 AND org.Id IN (SELECT Id FROM @orgList)
 WHERE Claim_type_ID IN (SELECT Id FROM #Types_Tree WHERE HasChild = 0)
 AND Created_at < @dateFrom 
-AND (Status_ID NOT IN (4,5,6) 
+AND ((CAST(Fact_finish_at AS DATE) < CAST(@dateFrom AS DATE)) OR (CAST(Fact_finish_at AS DATE) >= CAST(@dateFrom AS DATE) OR Fact_finish_at is null))
+
+/*AND (Status_ID NOT IN (4,5,6) 
 	OR (CAST(Fact_finish_at AS DATE) = CAST(@dateFrom AS DATE) 
-	AND Status_ID IN (4,5,6) ))
+	AND Status_ID IN (4,5,6) ))*/
 GROUP BY Claim_type_ID,
 		 Response_organization_ID,
 		 Short_name;
@@ -160,7 +162,7 @@ WHERE Created_at <= @dateTo
 AND Claim_type_ID IN (SELECT Id FROM #Types_Tree WHERE HasChild = 0)
 AND Fact_finish_at IS NOT NULL 
 AND Fact_finish_at BETWEEN @dateFrom AND @dateTo
-AND Status_ID IN (4,5,6) 
+--AND Status_ID IN (4,5,6) 
 GROUP BY Claim_type_ID,
 		 Response_organization_ID,
 		 Short_name;
@@ -170,7 +172,7 @@ BEGIN
 	DROP TABLE ##ClaimStats;
 END
 -- залишилось
-INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
+/*INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
 SELECT
 DISTINCT
 	t0.TypeId,
@@ -185,7 +187,24 @@ LEFT JOIN ##temp_OUT_Claims t1 ON t1.OrgId = t0.OrgId
 LEFT JOIN ##temp_OUT_Claims t2 ON t2.OrgId = t0.OrgId 
 	AND t2.TypeId = t0.TypeId AND t2.StatusId = 2
 LEFT JOIN ##temp_OUT_Claims t3 ON t3.OrgId = t0.OrgId 
-	AND t3.TypeId = t0.TypeId AND t3.StatusId = 3;
+	AND t3.TypeId = t0.TypeId AND t3.StatusId = 3;*/
+INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
+SELECT
+	Claim_type_ID,
+	N'type_' + RTRIM(Claim_type_ID) claim_type_code, 
+	Response_organization_ID,
+	org.short_name, 
+	4 AS StatusId,
+	COUNT(1) AS val 
+FROM dbo.Claims c 
+INNER JOIN dbo.Organizations org ON org.Id = c.Response_organization_ID 
+AND org.Id IN (SELECT Id FROM @orgList)
+WHERE Created_at <= @dateTo
+AND Claim_type_ID IN (SELECT Id FROM #Types_Tree WHERE HasChild = 0)
+AND (Fact_finish_at IS NULL OR CAST(Fact_finish_at AS DATE) > CAST(@dateTo AS DATE))
+GROUP BY Claim_type_ID,
+		 Response_organization_ID,
+		 Short_name;
 
 
 --SELECT * FROM ##temp_OUT_Claims;
