@@ -106,5 +106,11 @@
     "Name": "count_act",
     "Position": 17,
     "IsPrintable": false
+  },
+  {
+    "Code": "count_expired_inspector",
+    "Name": "count_expired_inspector",
+    "Position": 18,
+    "IsPrintable": false
   }
 ]
