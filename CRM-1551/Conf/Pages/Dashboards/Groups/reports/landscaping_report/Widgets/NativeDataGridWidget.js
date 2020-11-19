@@ -339,7 +339,8 @@
                     'speed_of_employment': row.values[12],
                     'timely_processed': row.values[13],
                     'implementation': row.values[14],
-                    'reliability': row.values[15]
+                    'reliability': row.values[15],
+                    'count_expired_inspector': row.values[16]
                 }
                 dataSource.push(masterDetailColumns);
             })
