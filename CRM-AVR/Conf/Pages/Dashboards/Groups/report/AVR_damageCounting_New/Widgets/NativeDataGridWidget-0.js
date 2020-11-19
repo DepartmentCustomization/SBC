@@ -151,6 +151,7 @@
 
             const OrgCol = { caption: 'Підрозділ', dataField: 'short_name', width: 250 }
             const StatCol = { caption: 'Статус', dataField: 'status_name', width: 150 }
+            debugger;
             if (this.tree[0].columns) {
                 this.tree[0].columns[0].columns.unshift(StatCol);
                 this.tree[0].columns[0].columns.unshift(OrgCol);
