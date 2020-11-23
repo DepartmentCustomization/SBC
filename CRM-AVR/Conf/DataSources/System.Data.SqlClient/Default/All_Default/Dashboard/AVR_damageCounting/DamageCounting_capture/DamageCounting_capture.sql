@@ -2,9 +2,9 @@
 DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
   		@variant NVARCHAR(10) = 'short',
 		@vision NVARCHAR(10) = 'short',
-		@dateFrom DATETIME = '2020-10-01T00:00:00',
+		@dateFrom DATETIME = '2020-11-01T00:00:00',
 		@dateTo DATETIME = GETDATE(),
-		@orgId NVARCHAR(MAX) = '28,5502',
+		@orgId NVARCHAR(MAX) = '28,5502,5503',
 		@accessId INT = 1;
 */
 
@@ -65,6 +65,7 @@ AS
     FROM dbo.[Claim_types] e
     INNER JOIN ClaimTypes_Tree r ON e.Parent_сlaim_types_ID = r.Id
 	WHERE e.TypeAccess_ID = @accessId
+	AND ISNULL(e.Is_delete,0) = 0
 )
 SELECT 
 	Id, 
@@ -79,7 +80,24 @@ INTO #Types_Tree
 FROM ClaimTypes_Tree
 WHERE [level] <> 0;
 
---select * from #Types_Tree order by level,parentId
+UPDATE t
+	SET HasChild = IIF(sub2.sumHasChild > 0, 1, 0)
+FROM #Types_Tree t
+INNER JOIN (
+	select	
+		sub.Id,
+		SUM(hasChild) sumHasChild
+	from (	
+		select 
+			t1.Id,
+			IIF(t2.Id IS NULL, 0, 1) AS hasChild 
+		from #Types_Tree t1
+		LEFT JOIN #Types_Tree t2 ON t1.Id = t2.parentId
+	) sub
+	GROUP BY sub.Id
+) as sub2 ON sub2.Id = t.Id
+
+--select * from #Types_Tree
 
 DECLARE @RootTypes TABLE (Id INT, rootId INT);
 DECLARE @StepTypes TABLE (Id INT, parentId INT);
@@ -165,14 +183,49 @@ CREATE TABLE ##Claims_treeParent(
   RootId INT
 ) WITH (DATA_COMPRESSION = PAGE);
 
-INSERT INTO ##Claims_treeParent (TypeId, parentId, RootId)
-SELECT 
-	Id,
-	parentId,
-	RootId
-FROM #Types_Tree
-WHERE HasChild = 1;
-	    
+IF object_id('tempdb..##Claims_treeOtherData') IS NOT NULL 
+BEGIN
+	DROP TABLE ##Claims_treeOtherData;
+END
+
+CREATE TABLE ##Claims_treeOtherData(
+  Id INT IDENTITY(1,1),
+  TypeId INT,
+  parentId INT,
+  RootId INT,
+  HasChild BIT
+) WITH (DATA_COMPRESSION = PAGE);
+
+IF(@variant = 'short')
+BEGIN
+	INSERT INTO ##Claims_treeOtherData (TypeId, parentId, RootId, HasChild)
+	SELECT 
+		Id,
+		parentId,
+		RootId,
+		HasChild
+	FROM #Types_Tree
+	WHERE [level] = 1;
+END
+ELSE
+BEGIN
+	INSERT INTO ##Claims_treeOtherData (TypeId, parentId, RootId)
+	SELECT 
+		Id,
+		parentId,
+		RootId
+	FROM #Types_Tree
+	WHERE HasChild = 1
+END
+
+	INSERT INTO ##Claims_treeParent (TypeId, parentId, RootId)
+	SELECT 
+		Id,
+		parentId,
+		RootId
+	FROM #Types_Tree
+	WHERE HasChild = IIF(@variant = 'full', HasChild, 1);
+
 -- перехідні
 INSERT INTO ##Claims_fullData (TypeId, OrgId, StatusId, val)
 SELECT
@@ -183,11 +236,10 @@ SELECT
 FROM dbo.Claims c 
 INNER JOIN dbo.Organizations org ON org.Id = c.Response_organization_ID 
 AND org.Id IN (SELECT Id FROM @orgList)
-WHERE Claim_type_ID IN (SELECT TypeId FROM ##Claims_treeParent)
+WHERE Claim_type_ID IN (SELECT TypeId FROM ##Claims_treeOtherData)
 AND Created_at < @dateFrom 
-AND (Fact_finish_at < @dateFrom
-	OR (Fact_finish_at >= @dateFrom 
-	OR Fact_finish_at is null))
+AND (Fact_finish_at >= @dateFrom 
+	OR Fact_finish_at is null)
 GROUP BY Claim_type_ID,
 		 Response_organization_ID,
 		 Short_name;
@@ -203,7 +255,7 @@ FROM dbo.Claims c
 INNER JOIN dbo.Organizations org ON org.Id = c.Response_organization_ID 
 AND org.Id IN (SELECT Id FROM @orgList)
 WHERE Created_at <= @dateTo
-AND Claim_type_ID IN (SELECT TypeId FROM ##Claims_treeParent)
+AND Claim_type_ID IN (SELECT TypeId FROM ##Claims_treeOtherData)
 AND Created_at BETWEEN @dateFrom AND @dateTo
 GROUP BY Claim_type_ID,
 		 Response_organization_ID,
@@ -220,7 +272,7 @@ FROM dbo.Claims c
 INNER JOIN dbo.Organizations org ON org.Id = c.Response_organization_ID 
 AND org.Id IN (SELECT Id FROM @orgList)
 WHERE Created_at <= @dateTo
-AND Claim_type_ID IN (SELECT TypeId FROM ##Claims_treeParent)
+AND Claim_type_ID IN (SELECT TypeId FROM ##Claims_treeOtherData)
 AND Fact_finish_at IS NOT NULL 
 AND Fact_finish_at BETWEEN @dateFrom AND @dateTo
 GROUP BY Claim_type_ID,
@@ -236,10 +288,10 @@ SELECT
 	COUNT(1) AS val
 FROM dbo.Claims c 
 INNER JOIN dbo.Organizations org ON org.Id = c.Response_organization_ID 
-AND org.Id IN (SELECT TypeId FROM ##Claims_treeParent)
+AND org.Id IN (SELECT Id FROM @orgList)
 WHERE Created_at <= @dateTo
-AND Claim_type_ID IN (SELECT Id FROM ##Claims_treeParent)
-AND (Fact_finish_at IS NULL OR CAST(Fact_finish_at AS DATE) > CAST(@dateTo AS DATE))
+AND Claim_type_ID IN (SELECT TypeId FROM ##Claims_treeOtherData)
+AND (Fact_finish_at IS NULL OR Fact_finish_at > @dateTo)
 GROUP BY Claim_type_ID,
  Response_organization_ID,
  Short_name;
@@ -277,8 +329,6 @@ CREATE TABLE ##temp_OUT_Claims(
   StatusId INT,
   val INT
 ) WITH (DATA_COMPRESSION = PAGE);
-
-
 
 
 DECLARE @End_types TABLE (Id INT, parentId INT, processed BIT);
@@ -322,8 +372,9 @@ BEGIN
 		-- перехідні
 		INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
 		SELECT
+		DISTINCT
 			@current_id,
-			N'type_' + RTRIM(Claim_type_ID) claim_type_code, 
+			N'type_' + RTRIM(@current_id) claim_type_code, 
 			Response_organization_ID,
 			org.short_name, 
 			1 AS statusId,
@@ -333,18 +384,16 @@ BEGIN
 		AND org.Id IN (SELECT Id FROM @orgList)
 		WHERE Claim_type_ID IN (SELECT Id FROM @StepTypes)
 		AND Created_at < @dateFrom 
-		AND (Fact_finish_at < @dateFrom
-			OR (Fact_finish_at >= @dateFrom 
-			OR Fact_finish_at is null))
-		GROUP BY Claim_type_ID,
-				 Response_organization_ID,
+		AND (Fact_finish_at >= @dateFrom 
+			OR Fact_finish_at is null)
+		GROUP BY Response_organization_ID,
 				 Short_name;
 		
 		-- надійшло
 		INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
 		SELECT
 			@current_id,
-			N'type_' + RTRIM(Claim_type_ID) claim_type_code, 
+			N'type_' + RTRIM(@current_id) claim_type_code, 
 			Response_organization_ID,
 			org.short_name, 
 			2 AS StatusId,
@@ -355,15 +404,14 @@ BEGIN
 		WHERE Created_at <= @dateTo
 		AND Claim_type_ID IN (SELECT Id FROM @StepTypes)
 		AND Created_at BETWEEN @dateFrom AND @dateTo
-		GROUP BY Claim_type_ID,
-				 Response_organization_ID,
+		GROUP BY Response_organization_ID,
 				 Short_name;
 		
 		-- виконано
 		INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
 		SELECT
 			@current_id,
-			N'type_' + RTRIM(Claim_type_ID) claim_type_code, 
+			N'type_' + RTRIM(@current_id) claim_type_code, 
 			Response_organization_ID,
 			org.short_name, 
 			3 AS StatusId,
@@ -375,15 +423,14 @@ BEGIN
 		AND Claim_type_ID IN (SELECT Id FROM @StepTypes)
 		AND Fact_finish_at IS NOT NULL 
 		AND Fact_finish_at BETWEEN @dateFrom AND @dateTo
-		GROUP BY Claim_type_ID,
-				 Response_organization_ID,
+		GROUP BY Response_organization_ID,
 				 Short_name;
 		
 		-- залишилось
 		INSERT INTO ##temp_OUT_Claims (TypeId, TypeCode, OrgId, short_name, StatusId, val)
 		SELECT
 			@current_id,
-			N'type_' + RTRIM(Claim_type_ID) claim_type_code, 
+			N'type_' + RTRIM(@current_id) claim_type_code, 
 			Response_organization_ID,
 			org.short_name, 
 			4 AS StatusId,
@@ -393,10 +440,9 @@ BEGIN
 		AND org.Id IN (SELECT Id FROM @orgList)
 		WHERE Created_at <= @dateTo
 		AND Claim_type_ID IN (SELECT Id FROM @StepTypes)
-		AND (Fact_finish_at IS NULL OR CAST(Fact_finish_at AS DATE) > CAST(@dateTo AS DATE))
-		GROUP BY Claim_type_ID,
-		 Response_organization_ID,
-		 Short_name;
+		AND (Fact_finish_at IS NULL OR Fact_finish_at > @dateTo)
+		GROUP BY Response_organization_ID,
+				 Short_name;
 
 		UPDATE @End_types 
 			SET processed = 1
@@ -412,7 +458,7 @@ BEGIN
 	INSERT INTO @ForDelete 
 	SELECT 
 		typeId,
-		SUM(val)
+		SUM(ISNULL(val,0))
 	FROM ##temp_OUT_Claims
 	GROUP BY typeId;
 	
@@ -420,7 +466,8 @@ BEGIN
 	WHERE typeId IN (SELECT 
 						typeId
 					 FROM @ForDelete
-					 WHERE val = 0);
+					 WHERE ISNULL(val,0) = 0);
+	--select * from @ForDelete
 END
 ELSE 
 BEGIN
@@ -440,8 +487,84 @@ BEGIN
 				   FROM ##temp_OUT_Claims);
 END
 
---select * from @RootTypes;
 
+UPDATE c
+	SET c.parentTypeCode = N'type_' + RTRIM(rt.rootId) + N'_itog'
+FROM ##temp_OUT_Claims c
+INNER JOIN ##Claims_treeParent rt ON rt.TypeId = c.TypeId
+;
+
+ --select * from ##temp_OUT_Claims;
+ --select * from ##Claims_treeParent
+
+INSERT INTO ##Claims_fullData (TypeId, parentId, TypeCode, parentTypeCode, RootId, StatusId, val)
+SELECT 
+	c.typeId,
+	NULL AS parentId,
+	c.TypeCode,
+	N'type_' + rtrim(rt.RootId) + N'_parent',
+	RootId,
+	1 AS StatusId,
+	0 AS val 
+FROM ##temp_OUT_Claims c
+INNER JOIN ##Claims_treeParent rt ON rt.TypeId = c.TypeId
+WHERE rt.RootId NOT IN (SELECT RootId FROM ##Claims_fullData WHERE RootId IS NOT NULL)
+GROUP BY c.typeId,
+		 c.TypeCode,
+		 RootId;
+
+DELETE FROM @End_types;
+INSERT INTO @End_types (Id, parentId, processed)
+SELECT
+DISTINCT 
+	t.Id,
+	t.parentId,
+	0
+FROM #Types_Tree t
+INNER JOIN ##temp_OUT_Claims c ON c.TypeId = t.Id;
+
+--SELECT * FROM @End_types;
+
+DECLARE @FinalTypes TABLE (Id INT);
+WHILE (SELECT COUNT(1) FROM @End_types WHERE processed <> 1) > 0
+BEGIN
+	SELECT TOP 1 
+		@current_id = Id 
+	FROM @End_types 
+	WHERE processed <> 1;
+
+	WITH ClaimType_Vals (Id, parentId)
+		AS
+		(
+		    SELECT [Id], 
+				   [Parent_сlaim_types_ID]
+		    FROM dbo.Claim_types e
+		    WHERE e.Id = @current_id
+		    UNION ALL
+			SELECT e.[Id], 
+				   e.[Parent_сlaim_types_ID]
+		    FROM dbo.Claim_types e
+			INNER JOIN ClaimType_Vals r ON e.Id = r.parentId
+			)
+
+			INSERT INTO @FinalTypes
+			SELECT 
+				Id 
+			FROM ClaimType_Vals
+			WHERE Id NOT IN (SELECT Id FROM @FinalTypes);
+
+			UPDATE @End_types 
+				SET processed = 1 
+			WHERE Id = @current_id;
+
+END
+
+UPDATE #Types_Tree 
+	SET [HasChild] = 1 
+WHERE [level] = 1;
+
+SELECT 1 as  Id, 0 AS parentId, N'' as Caption, N'' as DataFiled, 1 as	HasChild, 0 as [level]
+UNION
 SELECT 
 	Id, 
 	ISNULL(parentId,0) parentId, 
@@ -450,31 +573,30 @@ SELECT
 	HasChild, 
 	IIF(parentId = 1, 1, [level]) [level] 
 FROM #Types_Tree
-WHERE Id = 1 
-OR Id IN (SELECT Id FROM @End_types
-		  UNION
-		  SELECT parentId FROM @End_types) 
+WHERE Id IN (SELECT Id FROM @FinalTypes) 
 UNION 
 SELECT
 DISTINCT 
-	rt.Id+100000, 
-	rt.rootId, 
-	N'Всього' [Caption],
-	DataFiled + N'_itog' DataFiled, 
-	0, 
-	[level]+1
-FROM #Types_Tree t
-INNER JOIN @RootTypes rt ON rt.rootId = t.Id
-UNION 
-SELECT
-DISTINCT 
-	rt.Id+100000, 
-	rt.rootId, 
+	t.Id+100000, 
+	t.rootId, 
 	N'Заявки з некінцевим типом' [Caption],
 	DataFiled + N'_parent' DataFiled, 
 	0, 
 	[level]+1
 FROM #Types_Tree t
-INNER JOIN @RootTypes rt ON rt.rootId = t.Id
+WHERE Id IN (SELECT Id FROM @FinalTypes) 
+AND [level]+1 = 2
+UNION 
+SELECT
+DISTINCT 
+	t.Id+110000, 
+	t.rootId, 
+	N'Всього' [Caption],
+	DataFiled + N'_itog' DataFiled, 
+	0, 
+	[level]+1
+FROM #Types_Tree t
+WHERE Id IN (SELECT Id FROM @FinalTypes) 
+AND [level]+1 = 2
 ORDER BY [level],
 		 parentId;
