@@ -83,9 +83,13 @@
                     if (e.column.dataField) {
                         e.cellElement.children[0].classList.add('text-rotate');
                         if (e.column.caption === 'Всього') {
-                            e.cellElement.children[0].classList.add('text-rotate-itog');
+                            e.cellElement.classList.add('text-rotate-itog');
                         }
                     }
+                }
+
+                if (e.data && e.column.caption === 'Всього') {
+                    e.cellElement.classList.add('text-rotate-itog');
                 }
             });
         },
@@ -133,7 +137,6 @@
                         };
                     }
                 });
-
                 object.rows.forEach(function(a) {
                     o[a.values[0]].parent = (o[a.values[1]] ? o[a.values[1]].caption : '');
                     o[a.values[0]].levelCol = (o[a.values[0]] ? o[a.values[0]].levelCol : 0);
@@ -148,10 +151,12 @@
                     return o[k];
                 });
             }(data);
-
+            // debugger;
             const OrgCol = { caption: 'Підрозділ', dataField: 'short_name', width: 250 }
             const StatCol = { caption: 'Статус', dataField: 'status_name', width: 150 }
+            const PlusCol = { caption: '', dataField: 'plusCol', width: 50 }
             if (this.tree[0].columns) {
+                this.tree[0].columns[0].columns.unshift(PlusCol);
                 this.tree[0].columns[0].columns.unshift(StatCol);
                 this.tree[0].columns[0].columns.unshift(OrgCol);
                 this.columnData = this.tree[0].columns[0].columns;

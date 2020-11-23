@@ -570,7 +570,8 @@
 }
 
 .text-rotate-itog {
-     color: darkred !important;
+     color: black !important;
+     background: #b5b28b !important;
 }
 
 .dx-datagrid-content .dx-datagrid-table .dx-row>td, .dx-datagrid-content .dx-datagrid-table .dx-row>tr>td {
@@ -593,7 +594,7 @@
     top: 72px !important;
     right: 16px !important;
     z-index: 999 !important;
-    width: 5vw;
+    width: 15vw;
 }
 
 #export-excel {
