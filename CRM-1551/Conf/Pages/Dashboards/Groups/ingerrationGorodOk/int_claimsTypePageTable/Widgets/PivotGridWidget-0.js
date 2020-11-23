@@ -13,6 +13,7 @@
                 {
                     dataField: 'operation',
                     caption: 'Операція',
+                    alignment: 'center',
                     width: 100
                 },{
                     caption: 'ГородОк',
@@ -21,20 +22,22 @@
                         {
                             dataField: 'become',
                             caption: 'Було',
-                            alignment: 'left'
+                            alignment: 'center'
                         },{
                             dataField: 'it_was',
                             caption: 'Стало',
-                            alignment: 'left'
+                            alignment: 'center'
                         }
                     ]
                 },
                 {
                     dataField: 'is_done',
+                    alignment: 'center',
                     caption: 'Стан',
                     width: 80
                 },{
                     dataField: 'comment',
+                    alignment: 'center',
                     caption: 'Коментар'
                 }
             ],
@@ -132,6 +135,9 @@
         },
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
+            toolbarItems[0].showText = ''
+            toolbarItems[0].options.text = 'Зберегти'
+            toolbarItems[0].options.type = 'default'
             toolbarItems.push({
                 widget: 'dxButton',
                 options: {
