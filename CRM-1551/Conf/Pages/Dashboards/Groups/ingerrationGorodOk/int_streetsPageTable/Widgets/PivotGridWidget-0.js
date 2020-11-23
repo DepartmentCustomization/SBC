@@ -53,8 +53,8 @@
                     caption: 'Коментар'
                 }
             ], searchPanel: {
-                visible: true,
-                highlightCaseSensitive: false
+                visible: false,
+                highlightCaseSensitive: true
             },
             pager: {
                 showPageSizeSelector:  false,
@@ -71,8 +71,8 @@
                 useIcons: true
             },
             filterRow: {
-                visible: false,
-                applyFilter: 'auto'
+                visible: true,
+                allowSearch: true
             },
             keyExpr: 'Id',
             showBorders: true,
@@ -86,8 +86,8 @@
             columnWidth: null,
             wordWrapEnabled: true,
             allowColumnResizing: true,
-            showFilterRow: false,
-            showHeaderFilter: false,
+            showFilterRow: true,
+            showHeaderFilter: true,
             showColumnChooser: true,
             showColumnFixing: true,
             groupingAutoExpandAll: null
