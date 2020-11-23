@@ -71,7 +71,7 @@
                 useIcons: true
             },
             filterRow: {
-                visible: false,
+                visible: true,
                 applyFilter: 'auto'
             },
             keyExpr: 'Id',
