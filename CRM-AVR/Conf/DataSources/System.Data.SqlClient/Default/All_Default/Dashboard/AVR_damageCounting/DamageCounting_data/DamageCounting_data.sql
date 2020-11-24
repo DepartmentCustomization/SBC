@@ -79,6 +79,23 @@ INTO #Types_Tree
 FROM ClaimTypes_Tree
 WHERE [level] <> 0;
 
+UPDATE t
+	SET HasChild = IIF(sub2.sumHasChild > 0, 1, 0)
+FROM #Types_Tree t
+INNER JOIN (
+	SELECT	
+		sub.Id,
+		SUM(hasChild) sumHasChild
+	FROM (	
+		SELECT 
+			t1.Id,
+			IIF(t2.Id IS NULL, 0, 1) AS hasChild 
+		FROM #Types_Tree t1
+		LEFT JOIN #Types_Tree t2 ON t1.Id = t2.parentId
+	) sub
+	GROUP BY sub.Id
+) AS sub2 ON sub2.Id = t.Id;
+
 --select * from #Types_Tree where HasChild != 0 and RootId = 7000 order by level,parentId
 
 DECLARE @RootTypes TABLE (Id INT, rootId INT);
@@ -197,7 +214,7 @@ BEGIN
 		parentId,
 		RootId
 	FROM #Types_Tree
-	WHERE HasChild = 1
+	WHERE HasChild = 1;
 END
 
 	INSERT INTO ##Claims_treeParent (TypeId, parentId, RootId)
@@ -205,8 +222,7 @@ END
 		Id,
 		parentId,
 		RootId
-	FROM #Types_Tree
-	WHERE HasChild = IIF(@variant = 'full', HasChild, 1);
+	FROM #Types_Tree;
 
 -- перехідні
 INSERT INTO ##Claims_fullData (TypeId, OrgId, StatusId, val)
@@ -221,7 +237,7 @@ AND org.Id IN (SELECT Id FROM @orgList)
 WHERE Claim_type_ID IN (SELECT TypeId FROM ##Claims_treeOtherData)
 AND Created_at < @dateFrom 
 AND (Fact_finish_at >= @dateFrom 
-	OR Fact_finish_at is null)
+	OR Fact_finish_at IS NULL)
 GROUP BY Claim_type_ID,
 		 Response_organization_ID,
 		 Short_name;
@@ -283,7 +299,7 @@ GROUP BY Claim_type_ID,
 		parentTypeCode = N'type_' + RTRIM(t.RootId) + N'_parent',
 		TypeCode = N'type_' + RTRIM(d.typeId)
  FROM ##Claims_fullData d
- INNER JOIN ##Claims_treeParent t ON t.TypeId = d.TypeId
+ INNER JOIN ##Claims_treeParent t ON t.TypeId = d.TypeId;
 
  --SELECT * FROM ##Claims_fullData;
 
@@ -367,7 +383,7 @@ BEGIN
 		WHERE Claim_type_ID IN (SELECT Id FROM @StepTypes)
 		AND Created_at < @dateFrom 
 		AND (Fact_finish_at >= @dateFrom 
-			OR Fact_finish_at is null)
+			OR Fact_finish_at IS NULL)
 		GROUP BY Response_organization_ID,
 				 Short_name;
 		
@@ -449,7 +465,6 @@ BEGIN
 						typeId
 					 FROM @ForDelete
 					 WHERE ISNULL(val,0) = 0);
-	--select * from @ForDelete
 END
 ELSE 
 BEGIN
