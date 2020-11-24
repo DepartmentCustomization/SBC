@@ -37,10 +37,11 @@ Insert into [dbo].Polls_PollDirections (poll_id
 output [inserted].[Id] into @output2 (Id)
 values (@app_id,  @direction_id, @CreatedUserById, GETUTCDATE(), @CreatedUserById)
 
-declare @app_id2 int
-set @app_id2 = (select top 1 Id from @output2)
+-- declare @app_id2 int
+-- set @app_id2 = (select top 1 Id from @output2)
 
-select @app_id2 as [Id]
+-- select @app_id2 as [Id]
 
+select @app_id as [Id]
 
 return;

@@ -1,6 +1,14 @@
-INSERT INTO [dbo].[Streets]
-           ([Name])
-           output [inserted].[Id]
-
-     VALUES
-           (@Name)
+INSERT INTO
+      [dbo].[Streets] (
+            [Name],
+            [Street_type_id],
+            [Old_name],
+            [Territory]
+      ) output [inserted].[Id]
+VALUES
+      (
+            @Name,
+            @type_id,
+            @Old_name,
+            @Territory
+      );

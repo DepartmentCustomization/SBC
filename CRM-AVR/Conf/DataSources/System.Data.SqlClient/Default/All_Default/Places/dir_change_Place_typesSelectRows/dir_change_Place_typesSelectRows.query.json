@@ -15,7 +15,9 @@
     {
       "Code": "Name",
       "Name": "Name",
-      "Position": 2
+      "Position": 2,
+      "SqlName": "Name",
+      "FilterParameterCode": "@Name"
     }
   ],
   "Parameters": [

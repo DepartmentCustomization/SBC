@@ -54,7 +54,7 @@
                     columns:[
                         {
                             dataField: 'district_id',
-                            alignment: 'left',
+                            alignment: 'center',
                             caption: 'Район',
                             setCellValue: function(rowData, value) {
                                 rowData.district_id = value;
@@ -65,12 +65,13 @@
                                     paginate: true,
                                     store: this.elements_dis
                                 },
+                                alignment: 'center',
                                 displayExpr: 'name',
                                 valueExpr: 'Id'
                             }
                         },{
                             dataField: 'id_1551',
-                            alignment: 'left',
+                            alignment: 'center',
                             caption: 'Вулиці у системі 1551',
                             lookup: {
                                 dataSource: function(options) {
@@ -88,9 +89,11 @@
                 },{
                     dataField: 'is_done',
                     caption: 'Стан',
+                    alignment: 'center',
                     width: 100
                 },{
                     dataField: 'comment',
+                    alignment: 'center',
                     caption: 'Коментар'
                 }
             ],
@@ -125,7 +128,7 @@
                 }
             },
             filterRow: {
-                visible: false,
+                visible: true,
                 applyFilter: 'auto'
             },
             keyExpr: 'Id',
@@ -263,6 +266,9 @@
         },
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
+            toolbarItems[0].showText = ''
+            toolbarItems[0].options.text = 'Зберегти'
+            toolbarItems[0].options.type = 'default'
             toolbarItems.push({
                 widget: 'dxButton',
                 options: {

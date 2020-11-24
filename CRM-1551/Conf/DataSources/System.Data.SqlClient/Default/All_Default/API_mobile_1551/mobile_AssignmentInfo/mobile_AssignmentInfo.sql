@@ -1,5 +1,5 @@
---   DECLARE @userId NVARCHAR(128) = N'646d6b5e-9f27-4764-9612-f18d04fea509',
---   		@assignmentId INT = 3989092;
+ --DECLARE @userId NVARCHAR(128) = N'646d6b5e-9f27-4764-9612-f18d04fea509',
+ --   	   @assignmentId INT = 3989092;
 
 DECLARE @orgId INT;
 SELECT 
@@ -90,6 +90,7 @@ WHERE ass.[Id] = @assignmentId;
 
 SELECT
 DISTINCT 
+	q.[registration_number],
 	q.[registration_date],
 	applicant.[full_name],
 	appeal.[ApplicantAddress],
@@ -114,7 +115,10 @@ DISTINCT
 	ass.[execution_date],
 	q.[event_id],
 	@assignment_docs_array AS [assignment_documents],
-	@is_documents_files_exists AS [documents_files_exists]
+	@is_documents_files_exists AS [documents_files_exists],
+	case
+		when [AttentionQuestionAndEvent].Id is not null
+		then 1 else 0 end active_subscribe
 FROM [dbo].[Assignments] ass
 LEFT JOIN [dbo].[Organizations] ass_exec_org ON ass_exec_org.[Id] = ass.[executor_organization_id]
 LEFT JOIN [dbo].[Organizations] ass_received_org ON ass_received_org.[Id] = ass.[organization_id]
@@ -133,24 +137,7 @@ LEFT JOIN [dbo].[ExecutorInRoleForObject] exec_obj ON exec_obj.[object_id] = obj
 LEFT JOIN [dbo].[Organizations] balans_org ON balans_org.[Id] = exec_obj.[executor_id]
 INNER JOIN [dbo].[Appeals] appeal ON appeal.[Id] = q.[appeal_id]
 LEFT JOIN [dbo].[Applicants] applicant ON applicant.[Id] = appeal.[applicant_id]
+left join [dbo].[AttentionQuestionAndEvent] on ass.Id=[AttentionQuestionAndEvent].assignment_id and [AttentionQuestionAndEvent].user_id=@userId
 WHERE ass.[Id] = @assignmentId
-GROUP BY q.[registration_date], 
-		 applicant.[full_name], 
-		 appeal.[ApplicantAddress],
-		 obj.[name],
-		 balans_org.[short_name],
-		 q_org.[short_name],
-		 qt.[name],
-		 q.[question_content],
-		 ass_state.[name],
-		 ass_result.[name],
-		 ass_resolution.[name],
-		 appeal.[enter_number],
-		 ass_exec_org.[short_name],
-		 ass_exec_pos.[phone_number],
-		 ass_exec_org_main_pos.[phone_number],
-		 ass_received_org.[short_name],
-		 ass.[execution_date],
-		 q.[event_id]
 ORDER BY 1
 OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;

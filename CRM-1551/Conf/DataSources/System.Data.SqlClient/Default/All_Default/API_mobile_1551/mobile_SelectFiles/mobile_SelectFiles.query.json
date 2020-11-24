@@ -17,13 +17,6 @@
       "Position": 1,
       "IsPrintable": false,
       "isFileName": true
-    },
-    {
-      "Code": "File",
-      "Name": "File",
-      "Position": 2,
-      "IsPrintable": false,
-      "isFileContent": true
     }
   ],
   "Parameters": [

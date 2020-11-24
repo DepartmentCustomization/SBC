@@ -82,6 +82,18 @@
       "Name": "col_IsNotApplicants",
       "Position": 7,
       "IsPrintable": false
+    },
+    {
+      "Code": "people_limit",
+      "Name": "people_limit",
+      "Position": 8,
+      "IsPrintable": false
+    },
+    {
+      "Code": "poll_directions",
+      "Name": "poll_directions",
+      "Position": 9,
+      "IsPrintable": false
     }
   ],
   "Parameters": [

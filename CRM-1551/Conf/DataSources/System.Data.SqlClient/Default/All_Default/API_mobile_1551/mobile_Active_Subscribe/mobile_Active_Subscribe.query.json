@@ -1,0 +1,76 @@
+{
+  "ModelType": "Query",
+  "Code": "mobile_Active_Subscribe",
+  "Name": "mobile_Active_Subscribe",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "question_type_id",
+      "Name": "Ід типів питання",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "question_type_name",
+      "Name": "Назви типів питання",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "parent_question_type_id",
+      "Name": "Ід батьківського типу питання",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "parent_question_type_name",
+      "Name": "Назви батьківського типу питання",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "object_id",
+      "Name": "Ід об'єктів",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "object_name",
+      "Name": "Назви об'єктів",
+      "Position": 6,
+      "IsPrintable": false
+    },
+    {
+      "Code": "statecode",
+      "Name": "Назви статусів",
+      "Position": 7,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@user_id",
+      "Name": "user_id",
+      "ParameterType": "CurrentUserId"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}

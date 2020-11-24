@@ -94,5 +94,11 @@
     "Name": "reliability",
     "Position": 15,
     "IsPrintable": false
+  },
+  {
+    "Code": "count_expired_inspector",
+    "Name": "count_expired_inspector",
+    "Position": 16,
+    "IsPrintable": false
   }
 ]

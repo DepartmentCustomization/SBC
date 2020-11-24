@@ -20,12 +20,17 @@ IF EXISTS (SELECT
 			AND c.Claim_type_ID = @Claim_type_ID
 			AND DATEDIFF(MINUTE, DATEADD(MINUTE, -5, GETDATE()), c.Created_at) <= 5)
 BEGIN
-	-- RAISERROR(N'Така заявка вже створена менше ніж 5 хвилин назад',16,1);
+	RAISERROR(N'Така заявка вже створена менше ніж 5 хвилин назад',16,1);
+	RETURN;
+END
+
+IF (@RouteID IS NULL) 
+BEGIN	
+	RAISERROR(N'Маршрут вказано некоректно. Будь-ласка оберіть значення із списку',16,1);
 	RETURN;
 END
 
 DECLARE @info TABLE (Id INT);
-
 BEGIN TRY 
 BEGIN TRANSACTION;
 INSERT INTO
@@ -140,9 +145,6 @@ IF @@TRANCOUNT > 0
 BEGIN
 	ROLLBACK TRANSACTION;
 END
-
 DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
-
-SELECT
-	N'Помилка заповнення: ' + @ErrorMessage;
+RAISERROR(@ErrorMessage,16,1);
 END CATCH;
