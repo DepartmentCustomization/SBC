@@ -3,7 +3,7 @@
   "Description": "",
   "DescriptionUrl": "",
   "ModelType": "Dashboard",
-  "Code": "DevExtreme_DataGrid_RowChart",
-  "Name": "DevExtreme_DataGrid_RowChart",
+  "Code": "DevExtreme_All_Charts",
+  "Name": "Примеры DevExtreme DataGrid Charts",
   "IsAnonymousAccess": true
 }
