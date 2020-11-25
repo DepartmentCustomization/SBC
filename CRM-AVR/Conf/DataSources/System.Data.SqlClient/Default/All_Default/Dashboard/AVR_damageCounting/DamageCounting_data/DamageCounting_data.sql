@@ -2,9 +2,9 @@
 DECLARE @user_id NVARCHAR(128) = 'b1410b5c-ad83-4047-beb8-7aba16eb400c',
   		@variant NVARCHAR(10) = 'short',
 		@vision NVARCHAR(10) = 'short',
-		@dateFrom DATETIME = '2020-11-01T00:00:00',
+		@dateFrom DATETIME = '2020-11-25T00:00:00',
 		@dateTo DATETIME = GETDATE(),
-		@orgId NVARCHAR(MAX) = '28,5502,5503',
+		@orgId NVARCHAR(MAX) = '5502, 5503, 5504, 5505, 5506, 5507, 5508, 5509, 5510, 5511',
 		@accessId INT = 1;
 */
 
@@ -564,7 +564,6 @@ SET @activeVal2_itog_plus_new_sum = LEFT((SELECT RTRIM(string_itog_sum) + ',' FR
 SET @activeVal2_itog_plus = LEFT((SELECT RTRIM(s_itog) + '+' FROM @New_itogTab FOR XML PATH('')),len((SELECT rtrim(s_itog) + '+' FROM @New_itogTab FOR XML PATH('')))-1);
 SET @activeVal2_itog_plus_sum = LEFT((SELECT RTRIM(s_itog_sum) + '+' FROM @New_itogTab FOR XML PATH('')),len((SELECT rtrim(s_itog_sum) + '+' FROM @New_itogTab FOR XML PATH('')))-1);
 
-
 DECLARE @sql NVARCHAR(MAX) = N'
 SELECT 
 	CASE WHEN pvt.StatusId = 1 THEN -1 
@@ -587,7 +586,8 @@ SELECT
 	'+@activeVal2_sum+N',
 	/*'+@activeVal2_itog_sum+N',*/
 	'+@activeVal2_parent_sum+N',
-	'+@activeVal2_itog_plus_new_sum+N'
+	'+@activeVal2_itog_plus_new_sum+N',
+	pvt.StatusId
 FROM   
 (SELECT 
 	SUM(ISNULL(sub.val,0)) AS val, 
@@ -702,7 +702,8 @@ SELECT
 	'+@activeVal2+N',
 	/*'+@activeVal2_itog+N',*/
 	'+@activeVal2_parent+N',
-	'+@activeVal2_itog_plus_new+N'
+	'+@activeVal2_itog_plus_new+N',
+	pvt.StatusId
 FROM   
 (SELECT 
 	SUM(ISNULL(sub.val,0)) AS val, 
@@ -804,7 +805,7 @@ FOR parentTypeCode IN
 ) AS pvt 
  ) AS p_parent ON p_parent.OrgId = pvt.OrgId 
  AND p_parent.StatusId = pvt.StatusId
-
+ ORDER BY orgId, StatusId
 ';
 
 EXECUTE (@sql);
