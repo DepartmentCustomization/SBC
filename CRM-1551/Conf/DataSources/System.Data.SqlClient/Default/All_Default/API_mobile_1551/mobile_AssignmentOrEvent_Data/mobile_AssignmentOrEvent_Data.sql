@@ -1,15 +1,15 @@
 /*
-DECLARE @userId NVARCHAR(128) = N'646d6b5e-9f27-4764-9612-f18d04fea509',
+DECLARE @userId NVARCHAR(128) = N'29796543-b903-48a6-9399-4840f6eac396',
 		@orgId INT = NULL,
-		@startDate DATE = NULL,
-		@endDate DATE = NULL,
+		@startDate DATE = '2020-06-01',
+		@endDate DATE = GETDATE(),
 		@Control_startDate DATE = NULL,
 		@Control_endDate DATE = NULL,
 		@code NVARCHAR(500) = NULL,
 		@entity NVARCHAR(50) = NULL,
 		@entityNumber NVARCHAR(50) = NULL,
 		@objecId INT = NULL,
-		@applicant_fio NVARCHAR(500) = N'Куцев Саша',
+		@applicant_fio NVARCHAR(500) = NULL,
 		@executor_fio NVARCHAR(500) = NULL;
  */
  
@@ -45,12 +45,17 @@ FROM [dbo].[OrganizationInResponsibilityRights]
 WHERE [position_id] IN (SELECT [Id] FROM @user_position);
 
 --1022
-declare @active_subscribe table ([assignment_id] int, [event_id] int)
-insert into @active_subscribe ([assignment_id], [event_id])
+DECLARE @active_subscribe TABLE ([assignment_id] INT, [event_id] INT, [is_active] BIT)
+INSERT INTO @active_subscribe ([assignment_id], [event_id], [is_active])
 
-select [assignment_id], [event_id]
-  from [dbo].[AttentionQuestionAndEvent]
-  where [user_id]=@userId
+SELECT 
+	[assignment_id], 
+	[event_id],
+	ISNULL([is_active],1) AS is_active
+FROM [dbo].[AttentionQuestionAndEvent]
+WHERE [user_id]=@userId
+AND assignment_id IS NOT NULL
+OR event_id IS NOT NULL;
 --1022
 
 IF (@orgId IS NULL)
@@ -93,7 +98,8 @@ DECLARE @resultTab TABLE
 	[assignment_execution_date] DATETIME, --assignment
 	[assignment_registration_date] DATETIME, --assignment
 	[event_start_date] DATETIME, --event
-	[event_plan_end_date] DATETIME, --event 
+	[event_plan_end_date] DATETIME, --event
+	[event_real_end_date] DATETIME, --event  
 	[object_id] INT) 
 	;
 
@@ -120,6 +126,7 @@ BEGIN
 		ass.[registration_date] AS [assignment_registration_date],
 		NULL AS [event_start_date],
 		NULL AS [event_plan_end_date],
+		NULL AS [event_real_end_date],
 		obj.[Id] AS [object_id]
 	FROM dbo.[Organizations] org
 	INNER JOIN dbo.[Assignments] ass WITH (NOLOCK) ON ass.[executor_organization_id] = org.[Id]
@@ -164,6 +171,7 @@ BEGIN
 		ass.[registration_date] AS [assignment_registration_date],
 		NULL AS [event_start_date],
 		NULL AS [event_plan_end_date],
+		NULL AS [event_real_end_date],
 		obj.[Id] AS [object_id]
 	FROM dbo.[Organizations] org
 	INNER JOIN dbo.[Assignments] ass WITH (NOLOCK) ON ass.[executor_organization_id] = org.[Id]
@@ -217,6 +225,7 @@ DISTINCT
 	NULL AS [assignment_registration_date],
 	e.[start_date] AS [event_start_date],
 	e.[plan_end_date] AS [event_plan_end_date],
+	e.[real_end_date] AS [event_real_end_date],
 	qobj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
 INNER JOIN dbo.[EventOrganizers] eo WITH (NOLOCK) ON eo.[organization_id] = org.[Id]
@@ -252,6 +261,7 @@ SELECT
 	ass.[registration_date] AS [assignment_registration_date],
 	NULL AS [event_start_date],
 	NULL AS [event_plan_end_date],
+	NULL AS [event_real_end_date],
 	obj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
 INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
@@ -305,6 +315,7 @@ DISTINCT
 	NULL AS [assignment_registration_date],
 	e.[start_date] AS [event_start_date],
 	e.[plan_end_date] AS [event_plan_end_date],
+	e.[real_end_date] AS [event_real_end_date],
 	qobj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
 INNER JOIN dbo.[EventOrganizers] eo WITH (NOLOCK) ON eo.[organization_id] = org.[Id]
@@ -340,6 +351,7 @@ SELECT
 	ass.[registration_date] AS [assignment_registration_date],
 	NULL AS [event_start_date],
 	NULL AS [event_plan_end_date],
+	NULL AS [event_real_end_date],
 	obj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
 INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
@@ -398,6 +410,7 @@ DISTINCT
 	NULL AS [assignment_registration_date],
 	e.[start_date] AS [event_start_date],
 	e.[plan_end_date] AS [event_plan_end_date],
+	e.[real_end_date] AS [event_real_end_date],
 	qobj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
 INNER JOIN dbo.[EventOrganizers] eo WITH (NOLOCK) ON eo.[organization_id] = org.[Id]
@@ -437,6 +450,7 @@ SELECT
 	ass.[registration_date] AS [assignment_registration_date],
 	NULL AS [event_start_date],
 	NULL AS [event_plan_end_date],
+	NULL AS [event_real_end_date],
 	obj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
 INNER JOIN dbo.[Assignments] ass WITH (NOLOCK) ON ass.[executor_organization_id] = org.[Id]
@@ -482,6 +496,7 @@ SELECT
 	ass.[registration_date] AS [assignment_registration_date],
 	NULL AS [event_start_date],
 	NULL AS [event_plan_end_date],
+	NULL AS [event_real_end_date],
 	obj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
 INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
@@ -538,24 +553,22 @@ SELECT
 	[assignment_registration_date],
 	[event_start_date],
 	[event_plan_end_date],
-	case when asu.assignment_id is not null or asu.event_id is not null
-		then 1 else 0 end active_subscribe
+	[event_real_end_date],
+	ISNULL(asu.is_active,0) AS active_subscribe
 FROM @resultTab rt
-left join @active_subscribe asu on (rt.Id=asu.assignment_id and event_id is null) or (rt.Id=asu.event_id)
+LEFT JOIN @active_subscribe asu ON (rt.Id=asu.assignment_id AND event_id IS NULL) OR (rt.Id=asu.event_id)
 /**/
 WHERE #filter_columns#
-	  --#sort_columns#
-
-order by 
-	case when code=N'overdue' then 1
-		when code=N'attention' then 2
-		when code=N'new' then 3 --надійшло
-		when code=N'in_work' then 4
-		when code in (N'applicantreturn', N'curatorreturn') then 5 --повернуті заявником, повернуті куратором
-	else 6
-	end, 
-	case when assignment_execution_date is null then event_plan_end_date
-		else assignment_execution_date
-		end
-
-OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
+	--   #sort_columns#
+ORDER BY 
+	CASE WHEN code=N'overdue' THEN 1
+		WHEN code=N'attention' THEN 2
+		WHEN code=N'new' THEN 3 --надійшло
+		WHEN code=N'in_work' THEN 4
+		WHEN code IN (N'applicantreturn', N'curatorreturn') THEN 5 --повернуті заявником, повернуті куратором
+	ELSE 6
+	END, 
+	CASE WHEN assignment_execution_date IS NULL THEN event_plan_end_date
+		ELSE assignment_execution_date
+		END
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;

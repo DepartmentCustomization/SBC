@@ -58,8 +58,8 @@
       "ParameterType": "Integer"
     },
     {
-      "Code": "@name",
-      "Name": "name"
+      "Code": "@Name",
+      "Name": "Name"
     },
     {
       "Code": "@pageOffsetRows",
