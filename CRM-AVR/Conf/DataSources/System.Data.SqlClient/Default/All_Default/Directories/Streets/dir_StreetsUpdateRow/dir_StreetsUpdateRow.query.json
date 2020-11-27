@@ -7,6 +7,15 @@
   "IsAnonymousAccess": false,
   "Parameters": [
     {
+      "Code": "@type_id",
+      "Name": "type_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@Territory",
+      "Name": "Territory"
+    },
+    {
       "Code": "@Old_Name",
       "Name": "Old_Name"
     },
