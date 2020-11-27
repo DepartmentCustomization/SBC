@@ -9,8 +9,7 @@
     {
       "Code": "@type_id",
       "Name": "type_id",
-      "ParameterType": "Integer",
-      "IsPrimaryKey": true
+      "ParameterType": "Integer"
     },
     {
       "Code": "@Name",
