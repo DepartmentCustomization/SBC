@@ -1,21 +1,23 @@
-select  Street_Id as Id
-  ,concat(st.UkrName, ' ',Streets.Name
-						  ,case when Old_name is null then Old_name
-							   else concat (' (',Old_name,')')	end
-						  ,case when Territory is null then Territory
-							  else concat (' (',Territory,')')	end	   
-							   ) as Name
-    from Streets 
-        left join Street_Type st on st.TypeId = Streets.Street_type_id
-  WHERE Street_type_id <>0
-  and
-     #filter_columns#
-     #sort_columns#
- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
-
-
--- select Id, Name from Houses
---   WHERE 
---   #filter_columns#
---      #sort_columns#
---  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+  Street_Id AS Id,
+  concat(
+    st.UkrName,
+    ' ',
+    Streets.Name,
+CASE
+      WHEN Old_name IS NULL THEN Old_name
+      ELSE concat (' (', Old_name, ')')
+    END,
+CASE
+      WHEN Territory IS NULL THEN Territory
+      ELSE concat (' (', Territory, ')')
+    END
+  ) AS Name
+FROM
+  dbo.Streets
+  LEFT JOIN dbo.Street_Type st ON st.TypeId = Streets.Street_type_id
+WHERE
+  Street_type_id <> 0
+  AND #filter_columns#
+      #sort_columns#
+OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY ;
