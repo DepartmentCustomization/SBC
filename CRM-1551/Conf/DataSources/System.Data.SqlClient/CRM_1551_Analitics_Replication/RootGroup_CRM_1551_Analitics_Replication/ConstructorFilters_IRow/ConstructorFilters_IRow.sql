@@ -6,4 +6,4 @@ INSERT INTO [dbo].[SearchTableFilters]
       ,[report_code]
   )
 
-  SELECT @user_id, @filter_name, @filters, N'poshuk'
+  SELECT @user_id, @filter_name, @filters, N'constructor'
