@@ -1,6 +1,7 @@
 
 
 
+
 --declare @user_Id nvarchar(128)=N'dc61a839-2cbc-4822-bfb5-5ca157487ced';
 /*
 with
@@ -76,7 +77,10 @@ SELECT
    ,Organization_name
    ,Positions_name
    ,PersonExecutorChoose_name
-   ,questions_types
+   ,case when len(questions_types)>40
+		then left(questions_types,37)+N'...' 
+		else questions_types
+		end questions_types
    ,[Objects]
 
 FROM (SELECT
@@ -124,4 +128,5 @@ WHERE #filter_columns#
   #sort_columns#
  offset @pageOffsetRows rows
 FETCH NEXT @pageLimitRows rows only
+
 
