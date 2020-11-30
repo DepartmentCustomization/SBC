@@ -22,7 +22,8 @@ N'
                         error: ''error number''
                     }
                 }
-' +N', '+
+' 
+/*+N', '+
 
 N'
 {
@@ -44,7 +45,8 @@ N'
                         error: ''error number''
                     }
                 }
-' +N', '+
+' 
++N', '+
 N'
 {
                     about:{
@@ -109,7 +111,8 @@ N'
                         error: ''error number''
                     }
                 }
-' +N', '+
+' 
++N', '+
 
 N'
 {
@@ -131,7 +134,8 @@ N'
                         error: ''error number''
                     }
                 }
-' api
+'*/ 
+api
 from (select 1 Id) t
-for json auto
+for json path
 ) api_cod
