@@ -1,11 +1,13 @@
 
 
-
 select 1 Id,
+(
+select 
 
 N'
 {
                     about:{
+
                         category:''Авторизація'',
                         description:''Вулиці''
                     },
@@ -23,11 +25,17 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
+' cod
+
+from (select 1 Id) t
+for json auto
+) api_cod
 
 union all
 
 select 2 Id,
+(
+select 
 
 N'
 {
@@ -49,11 +57,17 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
+' cod
+
+from (select 1 Id) t
+for json auto
+) api_cod
 
 union all
 
 select 3 Id,
+(
+select 
 
 N'
 {
@@ -75,11 +89,17 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
+' cod
+
+from (select 1 Id) t
+for json auto
+) api_cod
 
 union all
 
 select 4 Id,
+(
+select 
 
 N'
 {
@@ -101,10 +121,17 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
+' cod
+
+from (select 1 Id) t
+for json auto
+) api_cod
 
 union all
+
 select 5 Id,
+(
+select 
 
 N'
 {
@@ -126,11 +153,17 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
+' cod
+
+from (select 1 Id) t
+for json auto
+) api_cod
 
 union all
 
 select 6 Id,
+(
+select 
 
 N'
 {
@@ -152,5 +185,8 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
+' cod
 
+from (select 1 Id) t
+for json auto
+) api_cod
