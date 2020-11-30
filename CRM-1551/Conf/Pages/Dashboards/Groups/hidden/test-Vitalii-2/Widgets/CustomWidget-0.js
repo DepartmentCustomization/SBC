@@ -13,108 +13,21 @@
                     `
         ,
         afterViewInit: function() {
-            this.load()
+            let executeQuery = {
+                queryCode: 'test_Vitalii_api',
+                parameterValues: [],
+                limit: -1
+            };
+            this.queryExecutor(executeQuery, this.openApi, this);
         },
-        load: function() {
+        openApi({rows}) {
+            const arr = rows.map(elem=>JSON.parse(elem.values[1]))
+            this.load(arr)
+        },
+        load: function(data) {
             const title = document.getElementById('title');
             title.remove();
-            const apiArr = [
-                {
-                    about:{
-                        category:'Довідники',
-                        description:'Вулиці'
-                    },
-                    request: {
-                        url:'http://apps.ukrods.cf:8075/CRM1551/api/section/API_web_1551_Applicant  ',
-                        method: 'POST',
-                        headers: {
-                            Authorization: 'Bearer 9S8oX3rhjibX_-rhji…',
-                            ContentType: 'application/json'
-                        },
-                        body:'JSON'
-                    },
-                    response: {
-                        result:'JSON',
-                        error: 'error number'
-                    }
-                },
-                {
-                    about:{
-                        category:'Довідники',
-                        description:'Вулиці'
-                    },
-                    request: {
-                        url:'http://apps.ukrods.cf:8075/CRM1551/api/section/API_web_1551_Applicant  ',
-                        method: 'POST',
-                        headers: {
-                            Authorization: 'Bearer 9S8oX3rhjibX_-rhji…',
-                            ContentType: 'application/json'
-                        },
-                        body:'JSON'
-                    },
-                    response: {
-                        result:'JSON',
-                        error: 'error number'
-                    }
-                },
-                {
-                    about:{
-                        category:'Довідники',
-                        description:'Довідники'
-                    },
-                    request: {
-                        url:'http://apps.ukrods.cf:8075/CRM1551/api/section/API_web_1551_Applicant  ',
-                        method: 'DELETE',
-                        headers: {
-                            Authorization: 'Bearer 9S8oX3rhjibX_-rhji…',
-                            ContentType: 'application/json'
-                        },
-                        body:'JSON'
-                    },
-                    response: {
-                        result:'JSON',
-                        error: 'error number'
-                    }
-                },
-                {
-                    about:{
-                        category:'Авторизація',
-                        description:'Вулиці'
-                    },
-                    request: {
-                        url:'http://apps.ukrods.cf:8075/CRM1551/api/section/API_web_1551_Applicant  ',
-                        method: 'GET',
-                        headers: {
-                            Authorization: 'Bearer 9S8oX3rhjibX_-rhji…',
-                            ContentType: 'application/json'
-                        },
-                        body:'JSON'
-                    },
-                    response: {
-                        result:'JSON',
-                        error: 'error number'
-                    }
-                },
-                {
-                    about:{
-                        category:'Авторизація',
-                        description:'Вулиці'
-                    },
-                    request: {
-                        url:'http://apps.ukrods.cf:8075/CRM1551/api/section/API_web_1551_Applicant  ',
-                        method: 'PUT',
-                        headers: {
-                            Authorization: 'Bearer 9S8oX3rhjibX_-rhji…',
-                            ContentType: 'application/json'
-                        },
-                        body:'JSON'
-                    },
-                    response: {
-                        result:'JSON',
-                        error: 'error number'
-                    }
-                }
-            ]
+            const apiArr = data[0]
             const mainCon = document.getElementById('main');
             const unique = apiArr.map(elem=>elem.about.category);
             const uniqueArr = unique.filter((elem,index)=>unique.indexOf(elem) === index)
