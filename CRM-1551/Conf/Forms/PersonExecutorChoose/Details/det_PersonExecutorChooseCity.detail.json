@@ -9,7 +9,7 @@
     "DeleteQueryCode": "det_PersonExecutorChooseCityDRow",
     "UpdateQueryCode": "det_PersonExecutorChooseCityURow",
     "Position": 3,
-    "IsExpand": true,
+    "IsExpand": false,
     "Add": {
         "InsertQueryParameterCode": "@city_id",
         "QueryCode": "list_PersonExecutorChooseCitySRows", 
