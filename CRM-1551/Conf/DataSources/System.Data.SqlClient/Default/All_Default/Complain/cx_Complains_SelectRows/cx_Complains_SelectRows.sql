@@ -1,4 +1,4 @@
--- DECLARE @user_id NVARCHAR(128) = 'da9b6464-b7eb-4c1c-94b6-639aa874bd2e';
+--  DECLARE @user_id NVARCHAR(128) = 'da9b6464-b7eb-4c1c-94b6-639aa874bd2e';
 
 DECLARE @user_org_str TABLE (Id INT); 
 INSERT INTO @user_org_str
@@ -7,6 +7,7 @@ SELECT
 FROM 
 [#system_database_name#].dbo.[UserInOrganisation]
   -- CRM_1551_System.dbo.[UserInOrganisation]  
+  -- [#system_database_name#]
 WHERE [UserId] = @user_id;
 
 IF OBJECT_ID('tempdb..#Complains') IS NOT NULL
@@ -133,10 +134,14 @@ SELECT
 	[registration_date],
 	[complain_type_name],
 	[culpritname],
-	[guilty],
+	CASE WHEN u.UserId IS NOT NULL 
+		 THEN ltrim(u.LastName) + SPACE(1) + u.FirstName
+	ELSE [guilty]
+	END AS [guilty],
 	[text],
 	[user_name] 
-FROM #Complains
+FROM #Complains c
+LEFT JOIN [#system_database_name#].dbo.[User] u ON u.UserId = c.guilty
 WHERE
 #filter_columns#
 #sort_columns#
