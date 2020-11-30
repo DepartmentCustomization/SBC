@@ -53,6 +53,8 @@
                 document.getElementById('question_groups').style.display = 'block';
             }else if(message.value === 'default') {
                 document.getElementById('question_groups').style.display = 'none';
+            }else if(message.value === 'filter') {
+                document.getElementById('question_groups').style.display = 'none';
             }
         },
         afterLoadDataHandler: function() {

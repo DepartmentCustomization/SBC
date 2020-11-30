@@ -95,6 +95,8 @@
                 document.getElementById('question_classificatory').style.display = 'none';
             }else if(message.value === 'default') {
                 document.getElementById('question_classificatory').style.display = 'block';
+            }else if(message.value === 'filter') {
+                document.getElementById('question_classificatory').style.display = 'none';
             }
         },
         destroy: function() {

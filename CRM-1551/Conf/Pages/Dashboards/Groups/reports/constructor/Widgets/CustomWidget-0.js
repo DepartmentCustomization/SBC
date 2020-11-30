@@ -10,6 +10,10 @@
         ,
         afterViewInit: function() {
             const TABS_CONTAINER = document.getElementById('tabsContainer');
+            let groupFilters__title = this.createElement('div', {
+                className: 'tabSavedFilters tab_title',
+                innerText: 'Збережені фильтри'
+            });
             let groupItems__title = this.createElement('div', {
                 className: 'tabInformation tab_title',
                 innerText: 'Група питань'
@@ -18,6 +22,11 @@
                 className: 'tabAction tab_title',
                 innerText: 'Типи питань'
             });
+            let tabGroupFilters = this.createElement('div', {
+                id: 'tabGroupFilters',
+                className: ' tab',
+                messageValue: 'filter'
+            }, groupFilters__title);
             let tabDefaultItems = this.createElement('div', {
                 id: 'tabDefaultItems',
                 className: ' tab',
@@ -28,8 +37,9 @@
                 className: 'tabHover tab',
                 messageValue: 'group'
             }, groupItems__title);
-            TABS_CONTAINER.appendChild(tabGroupItems);
+            TABS_CONTAINER.appendChild(tabGroupFilters);
             TABS_CONTAINER.appendChild(tabDefaultItems);
+            TABS_CONTAINER.appendChild(tabGroupItems);
             let tabs = document.querySelectorAll('.tab');
             tabs = Array.from(tabs);
             tabs.forEach(tab => {
