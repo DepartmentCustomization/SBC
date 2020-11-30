@@ -1,0 +1,20 @@
+{
+  "ModelType": "Query",
+  "Code": "test_Vitalii_api",
+  "Name": "test_Vitalii_api",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "Columns": [
+    {
+      "Code": "id",
+      "Name": "id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "api_cod",
+      "Name": "api_cod",
+      "Position": 1
+    }
+  ]
+}
