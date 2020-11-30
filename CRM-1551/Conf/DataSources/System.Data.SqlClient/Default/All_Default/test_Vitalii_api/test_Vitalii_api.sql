@@ -1,12 +1,7 @@
 
 select 1 Id,
 (
-
-select Id, api_cod
-from 
-(
-select 1 Id,
-
+select
 N'
 {
                     about:{
@@ -27,11 +22,7 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
-
-union all
-
-select 2 Id,
+' +N', '+
 
 N'
 {
@@ -53,12 +44,7 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
-
-union all
-
-select 3 Id,
-
+' +N', '+
 N'
 {
                     about:{
@@ -79,11 +65,7 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
-
-union all
-
-select 4 Id,
+' +N', '+
 
 N'
 {
@@ -105,10 +87,7 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
-
-union all
-select 5 Id,
+' +N', '+
 
 N'
 {
@@ -130,11 +109,7 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
-
-union all
-
-select 6 Id,
+' +N', '+
 
 N'
 {
@@ -156,8 +131,7 @@ N'
                         error: ''error number''
                     }
                 }
-' api_cod
-) t
- for json auto
-
- ) api_cod
+' api
+from (select 1 Id) t
+for json auto
+) api_cod
