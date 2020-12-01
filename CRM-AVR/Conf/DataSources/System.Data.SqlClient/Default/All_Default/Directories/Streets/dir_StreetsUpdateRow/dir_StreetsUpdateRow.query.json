@@ -16,8 +16,8 @@
       "Name": "Territory"
     },
     {
-      "Code": "@Old_Name",
-      "Name": "Old_Name"
+      "Code": "@Old_name",
+      "Name": "Old_name"
     },
     {
       "Code": "@Name",
