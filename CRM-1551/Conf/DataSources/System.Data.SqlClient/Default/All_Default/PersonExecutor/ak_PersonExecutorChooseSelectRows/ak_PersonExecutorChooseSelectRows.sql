@@ -2,6 +2,7 @@
 
 
 
+
 --declare @user_Id nvarchar(128)=N'dc61a839-2cbc-4822-bfb5-5ca157487ced';
 /*
 with
@@ -77,11 +78,12 @@ SELECT
    ,Organization_name
    ,Positions_name
    ,PersonExecutorChoose_name
-   ,case when len(questions_types)>40
-		then left(questions_types,37)+N'...' 
-		else questions_types
-		end questions_types
-   ,[Objects]
+   ,questions_types
+   --,[Objects]
+   ,case when len([objects])>40
+		then left([objects],37)+N'...' 
+		else [objects]
+		end [Objects]
 
 FROM (SELECT
 		p.Id
@@ -97,17 +99,17 @@ FROM (SELECT
 			FOR XML PATH (''))
 		, 1, 2, N'') questions_types
 
-	   --,N'Об`єктів ' + 
-	   ,LTRIM(COUNT(DISTINCT [PersonExecutorChooseObjects].Id)) 
+	   ,--N'Об`єктів ' + 
+	   LTRIM(COUNT(DISTINCT [PersonExecutorChooseObjects].Id)) 
 	   
-	 --  + N':' + STUFF((SELECT
-		--		N', ' + ISNULL([objects].name, N'')
-		--	FROM [dbo].[PersonExecutorChooseObjects] [PersonExecutorChooseObjects]
-		--	INNER JOIN [dbo].[objects] [objects]
-		--		ON [PersonExecutorChooseObjects].object_id = [objects].Id
-		--	WHERE [PersonExecutorChooseObjects].person_executor_choose_id = p.Id
-		--	FOR XML PATH (''))
-		--, 1, 2, N'') 
+	   + N':' + STUFF((SELECT
+				N', ' + ISNULL([objects].name, N'')
+			FROM [dbo].[PersonExecutorChooseObjects] [PersonExecutorChooseObjects]
+		INNER JOIN [dbo].[objects] [objects]
+				ON [PersonExecutorChooseObjects].object_id = [objects].Id
+			WHERE [PersonExecutorChooseObjects].person_executor_choose_id = p.Id
+			FOR XML PATH (''))
+	, 1, 2, N'') 
 		[objects]
 
 	FROM [dbo].[PersonExecutorChoose] p
@@ -124,6 +126,7 @@ FROM (SELECT
 			,p.name
 			,[Positions].position + N' (' + ISNULL([Positions].name, 0) + N')') t
 
+			/**/
 WHERE #filter_columns#
   #sort_columns#
  offset @pageOffsetRows rows
