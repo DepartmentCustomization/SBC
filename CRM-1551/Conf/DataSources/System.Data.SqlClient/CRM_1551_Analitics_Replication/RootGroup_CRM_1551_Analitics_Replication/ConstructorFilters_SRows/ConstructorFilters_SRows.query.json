@@ -2,7 +2,7 @@
   "ModelType": "Query",
   "Code": "ConstructorFilters_SRows",
   "Name": "ConstructorFilters_SRows",
-  "ConnectionCode": "Default",
+  "ConnectionCode": "CRM_1551_Analitics_Replication",
   "IsUsedForRightsFilter": false,
   "Columns": [
     {
