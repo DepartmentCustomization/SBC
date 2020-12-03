@@ -3,7 +3,7 @@
   --параметры
   /* 
   declare @navigator nvarchar(50)=N'Усі';--Усі
-  declare @column nvarchar(50)=N'in_work';
+  declare @column nvarchar(50)=N'overdue';
   declare @user_id nvarchar(128)=N'29796543-b903-48a6-9399-4840f6eac396';
   --фильтрация начало
    */
@@ -104,7 +104,7 @@ declare @filters_ev nvarchar(max)=N'( '+isnull(@filter_d_qt,N' 1=2')+isnull(N' o
 		when @column=N'attention'
 			then N'getutcdate() between dateadd(HH, [QuestionTypes].Attention_term_hours, [Assignments].registration_date) and [Assignments].execution_date'
 		when @column=N'overdue'
-			then N'[Assignments].execution_date<getutcdate()'
+			then N'[Assignments].execution_date<getutcdate() and [Assignments].assignment_state_id in (1,2)'
 		when @column=N'for_revision'
 			then N'[Assignments].[assignment_state_id]=4 /*Не виконано*/ and [Assignments].AssignmentResultsId=5 /*На доопрацювання*/ ' /*Зареєстровано переделать на доопрацюванні*/
 	    when @column=N'future'
