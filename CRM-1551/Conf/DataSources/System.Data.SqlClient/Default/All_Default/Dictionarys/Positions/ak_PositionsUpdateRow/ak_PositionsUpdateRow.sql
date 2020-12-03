@@ -9,7 +9,7 @@ UPDATE   [dbo].[Positions]
       ,[user_id]=@user_id
       ,[edit_date]=GETUTCDATE()
       ,[user_edit_id]=@user_id
-	  ,[organizations_id]=@organization_id
+	  ,[organizations_id]=case when Id=@Id then @organization_id else [organizations_id] end
       ,[role_id]=@role_id
       ,[programuser_id]=@programuser_id
       ,[is_main] = @is_main
