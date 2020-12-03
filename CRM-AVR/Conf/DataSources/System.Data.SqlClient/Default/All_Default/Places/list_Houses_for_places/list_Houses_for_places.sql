@@ -1,14 +1,23 @@
-select 
-	Houses.Id
-	,concat( Houses.Name, case when Old_name is null then Old_name
-	else concat ('   (',Old_name,')')	end
-	,case when Territory is null then Territory
-		else concat (' (',Territory,')')	end
-	 ) as Name 
-from Houses
-	left join Streets on Streets.Street_Id = Houses.Street_id
-/*select Id, Name from Houses*/
-	where 
-	#filter_columns#
-     #sort_columns#
- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+	Houses.Id,
+	concat(
+		Houses.Name,
+		CASE
+			WHEN Old_name IS NULL THEN Old_name
+			ELSE concat ('   (', Old_name, ')')
+		END,
+CASE
+			WHEN Territory IS NULL THEN Territory
+			ELSE concat (' (', Territory, ')')
+		END
+	) AS [Name]
+FROM
+	dbo.Houses
+	LEFT JOIN dbo.Streets ON Streets.Street_Id = Houses.Street_id
+WHERE
+Houses.[Number] <> N'sys'
+AND (Houses.[Is_Active] = 1
+	OR Houses.[Is_Active] IS NULL)
+AND #filter_columns#
+	#sort_columns#
+OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;

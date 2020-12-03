@@ -9,7 +9,7 @@
     "DeleteQueryCode": "det_PersonExecutorChooseDistrictsDRow",
     "UpdateQueryCode": "det_PersonExecutorChooseDistrictsURow",
     "Position": 4,
-    "IsExpand": true,
+    "IsExpand": false,
     "Add": {
         "InsertQueryParameterCode": "@district_id",
         "QueryCode": "list_PersonExecutorChooseDistrictSRows", 

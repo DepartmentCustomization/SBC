@@ -34,7 +34,7 @@
                     `
         ,
         init: function() {
-            this.results = [];
+            this.results = [];       
             this.districts = [
                 { id: 0, name: 'Голосіївська РДА'},
                 { id: 1, name: 'Дарницька РДА'},
@@ -49,6 +49,7 @@
             ];
             this.sub = this.messageService.subscribe('getConfig', this.executeQuery, this);
         },
+        currentTab: 'tabSpeedDone',
         afterViewInit: function() {
             const CONTAINER = document.getElementById('container');
             const tabSpeedDone = this.createElement('div',
@@ -65,7 +66,14 @@
                     innerText: 'Швидкість роз\'яснення'
                 }
             );
-            const tabFactDone = this.createElement('div', { id: 'tabFactDone', className: 'tab', innerText: 'Фактичне виконання'});
+            const tabFactDone = this.createElement('div', 
+                { 
+                    id: 'tabFactDone', 
+                    className: 'tab', 
+                    innerText: 'Фактичне виконання'
+                }
+            );
+
             const tabsWrapper = this.createElement('div', { id: 'tabsWrapper'}, tabSpeedDone, tabSpeedExplained, tabFactDone);
             CONTAINER.appendChild(tabsWrapper);
             const tabs = document.querySelectorAll('.tab');
@@ -74,6 +82,7 @@
                     tabs.forEach(tab => tab.classList.remove('tabHover'));
                     let target = e.currentTarget;
                     target.classList.add('tabHover');
+                    this.currentTab = target.id;
                     this.messageService.publish({name: 'showTable', tabName: target.id});
                 });
             });
@@ -88,7 +97,10 @@
             } return element;
         },
         executeQuery: function(message) {
-            this.results = [];
+            this.results = [];            
+            this.results_tab1 = [];
+            this.results_tab2 = [];
+            this.results_tab3 = [];
             const tab = message.tab;
             const codeResult = message.codeResult;
             const config = message.config;
@@ -146,6 +158,7 @@
             return this.districts[index].name;
         },
         setColumnsSummary: function(config, tab, data) {
+            this.results = [];
             if(data.rows.length) {
                 for (let i = 0; i < data.columns.length; i++) {
                     const element = data.columns[i];
@@ -158,58 +171,35 @@
                             return data.value.toFixed(2);
                         }
                     }
+                    // let objAvg = {
+                    //     column: dataField,
+                    //     name: dataField+'_1',
+                    //     summaryType: 'custom'
+                    // }
+                   
                     let obj = {
                         column: dataField,
                         name: dataField,
                         summaryType: 'custom'
                     }
+                    
                     this.results.push(value);
                     config.summary.totalItems.push(objAvg);
                     config.summary.totalItems.push(obj);
                 }
-                config.summary.calculateCustomSummary = this.calculateCustomSummary.bind(this);
+                
                 const name = 'setConfig' + tab;
-                this.messageService.publish({ name, config});
+                this.messageService.publish({ 
+                    name, 
+                    config, 
+                    results: this.results});
                 this.hidePagePreloader('Зачекайте, завантажуються фiльтри');
             } else {
                 this.hidePagePreloader('Зачекайте, завантажуються фiльтри');
             }
         },
-        calculateCustomSummary: function(options) {
-            switch (options.name) {
-                case 'Place_2000':
-                    options.totalValue = this.results[0].toFixed(2);
-                    break;
-                case 'Place_2001':
-                    options.totalValue = this.results[1].toFixed(2);
-                    break;
-                case 'Place_2002':
-                    options.totalValue = this.results[2].toFixed(2);
-                    break;
-                case 'Place_2003':
-                    options.totalValue = this.results[3].toFixed(2);
-                    break;
-                case 'Place_2004':
-                    options.totalValue = this.results[4].toFixed(2);
-                    break;
-                case 'Place_2005':
-                    options.totalValue = this.results[5].toFixed(2);
-                    break;
-                case 'Place_2006':
-                    options.totalValue = this.results[6].toFixed(2);
-                    break;
-                case 'Place_2007':
-                    options.totalValue = this.results[7].toFixed(2);
-                    break;
-                case 'Place_2008':
-                    options.totalValue = this.results[8].toFixed(2);
-                    break;
-                case 'Place_2009':
-                    options.totalValue = this.results[9].toFixed(2);
-                    break;
-                default:
-                    break;
-            }
+        destroy: function() {
+            this.sub.unsubscribe();
         }
     };
 }());

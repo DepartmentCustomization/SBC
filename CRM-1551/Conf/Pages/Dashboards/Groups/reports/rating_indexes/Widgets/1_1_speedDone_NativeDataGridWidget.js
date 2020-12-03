@@ -70,8 +70,46 @@
             this.sub1 = this.messageService.subscribe('FilterParameters', this.executeQuery, this);
             this.sub2 = this.messageService.subscribe('ApplyGlobalFilters', this.renderTable, this);
             this.sub3 = this.messageService.subscribe('setConfig1', this.setConfig, this);
+
+            this.config.summary.calculateCustomSummary = this.calculateCustomSummary.bind(this);
         },
-        showTable: function(message) {
+        calculateCustomSummary: function(options) {
+                switch (options.name) {                
+                    case 'Place_2000':
+                        options.totalValue = this.results[0].toFixed(2);
+                        break;
+                    case 'Place_2001':
+                        options.totalValue = this.results[1].toFixed(2);
+                        break;
+                    case 'Place_2002':
+                        options.totalValue = this.results[2].toFixed(2);
+                        break;
+                    case 'Place_2003':
+                        options.totalValue = this.results[3].toFixed(2);
+                        break;
+                    case 'Place_2004':
+                        options.totalValue = this.results[4].toFixed(2);
+                        break;
+                    case 'Place_2005':
+                        options.totalValue = this.results[5].toFixed(2);
+                        break;
+                    case 'Place_2006':
+                        options.totalValue = this.results[6].toFixed(2);
+                        break;
+                    case 'Place_2007':
+                        options.totalValue = this.results[7].toFixed(2);
+                        break;
+                    case 'Place_2008':
+                        options.totalValue = this.results[8].toFixed(2);
+                        break;
+                    case 'Place_2009':
+                        options.totalValue = this.results[9].toFixed(2);
+                        break;
+                    default:
+                        break;
+                }                               
+        },
+        showTable: function(message) {            
             let tabName = message.tabName;
             if(tabName !== 'tabSpeedDone') {
                 this.active = false;
@@ -84,6 +122,7 @@
         },
         setConfig: function(message) {
             this.config = message.config;
+            this.results = message.results;
         },
         executeQuery: function(message) {
             this.config.query.parameterValues = [];
@@ -91,7 +130,7 @@
             this.rating = message.rating;
             this.executor = message.executor;
             const parameters = message.parameters;
-            const codeResult = 'IndexOfSpeedToExplain_ResultPercent';
+            const codeResult = 'IndexOfSpeedToExecution_ResultPercent';
             const config = this.config;
             const name = 'getConfig';
             const tab = 1;

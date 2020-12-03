@@ -9,7 +9,7 @@
       "FieldType": "text",
       "IsRequired": true,
       "Position": 1,
-      "Width": "30%"
+      "Width": "50%"
     },
     {
       "Code": "OrgId",

@@ -8,6 +8,7 @@ INSERT INTO
       [dbo].[Complain] (
             [registration_date],
             [complain_type_id],
+            [complain_state_id],
             [culpritname],
             [guilty],
             [text],
@@ -20,6 +21,7 @@ VALUES
       (
             GETUTCDATE(),
             @complain_type_id,
+            1, -- нова
             @culpritname,
             @guilty,
             @text,
