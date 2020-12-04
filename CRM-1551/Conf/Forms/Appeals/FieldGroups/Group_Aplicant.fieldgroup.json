@@ -144,7 +144,7 @@
       "Position": 15
     },
     {
-      "Maxlength": 50,
+      "Maxlength": 500,
       "Code": "Applicant_Comment",
       "Name": "Нотатки",
       "FieldType": "text",
