@@ -33,12 +33,12 @@
                     caption: 'Об`єкти без води'
                 }, {
                     dataField: 'faucet_closedStart',
-                    caption: 'Дата закриття засувки',
-                    dataType: 'datetime'
+                    caption: 'Дата закриття засувки'
+                    // dataType: 'datetime'
                 }, {
                     dataField: 'faucet_closedFinish',
-                    caption: 'Дата відкриття засувки',
-                    dataType: 'datetime'
+                    caption: 'Дата відкриття засувки'
+                    // dataType: 'datetime'
                 }, {
                     dataField: 'claim_status',
                     caption: 'Статус'
@@ -67,7 +67,11 @@
             showHeaderFilter: true,
             showColumnChooser: false,
             showColumnFixing: true,
-            groupingAutoExpandAll: null
+            groupingAutoExpandAll: null,
+            export: {
+                enabled: true,
+                fileName: 'Відомість перекритих засувок'
+            }
         },
         init: function() {
             this.sub = this.messageService.subscribe('GlobalFilterChanged', this.getFiltersParams, this);
