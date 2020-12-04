@@ -34,11 +34,9 @@
                 }, {
                     dataField: 'faucet_closedStart',
                     caption: 'Дата закриття засувки'
-                    // dataType: 'datetime'
                 }, {
                     dataField: 'faucet_closedFinish',
                     caption: 'Дата відкриття засувки'
-                    // dataType: 'datetime'
                 }, {
                     dataField: 'claim_status',
                     caption: 'Статус'
