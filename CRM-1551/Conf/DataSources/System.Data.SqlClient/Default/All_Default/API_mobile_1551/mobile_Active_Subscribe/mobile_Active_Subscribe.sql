@@ -1,13 +1,22 @@
---declare @user_id nvarchar(128)=N'29796543-b903-48a6-9399-4840f6eac396';
+-- DECLARE @user_id NVARCHAR(128) = N'5b37daab-e5bd-46c4-bb26-e04d160ec966';
 
-  select aqt.Id, aqt.[question_type_id], [QuestionTypes].name question_type_name,
-  qt_par.Id parent_question_type_id, qt_par.name parent_question_type_name,
-  aqt.object_id, [Objects].name object_name, aqt.statecode
-  from [dbo].[AttentionQuestionAndEvent] aqt
-  left join [dbo].[QuestionTypes] on aqt.question_type_id=[QuestionTypes].Id
-  left join [dbo].[Objects] on aqt.object_id=[Objects].Id
-  left join [dbo].[QuestionTypes] qt_par on [QuestionTypes].question_type_id=qt_par.Id
-  where aqt.user_id=@user_id
-  and  #filter_columns#
-  #sort_columns#
- offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+SELECT
+  aqt.Id,
+  aqt.[question_type_id],
+  [QuestionTypes].[name] AS [question_type_name],
+  qt_par.Id AS [parent_question_type_id],
+  qt_par.[name] AS [parent_question_type_name],
+  aqt.[object_id],
+  [Objects].[name] AS [object_name],
+  aqt.[statecode]
+FROM
+  [dbo].[AttentionQuestionAndEvent] aqt
+  LEFT JOIN [dbo].[QuestionTypes] [QuestionTypes] ON aqt.question_type_id = [QuestionTypes].Id
+  LEFT JOIN [dbo].[Objects] [Objects] ON aqt.[object_id] = [Objects].Id
+  LEFT JOIN [dbo].[QuestionTypes] qt_par ON [QuestionTypes].question_type_id = qt_par.Id
+WHERE
+  aqt.[user_id] = @user_id
+  AND aqt.is_active = 1
+  AND #filter_columns#
+      #sort_columns#
+OFFSET @pageOffsetRows ROWS FETCH next @pageLimitRows ROWS ONLY;
