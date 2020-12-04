@@ -58,5 +58,11 @@
     "Name": "DateStart",
     "Position": 9,
     "IsPrintable": false
+  },
+  {
+    "Code": "Rating_id",
+    "Name": "Rating_id",
+    "Position": 10,
+    "IsPrintable": false
   }
 ]

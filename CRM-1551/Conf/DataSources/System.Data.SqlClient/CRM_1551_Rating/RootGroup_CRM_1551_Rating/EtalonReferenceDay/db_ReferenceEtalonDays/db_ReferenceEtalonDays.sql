@@ -1,3 +1,5 @@
+
+
    --DECLARE @dateFrom DATE='2018-01-01';
    --DECLARE @dateTo DATE='2020-12-12';
 
@@ -119,10 +121,11 @@ select Id into #temp_RDAorg from it-- pit it
   --CONVERT(NUMERIC(8,2),avg_EtalonDaysToExplain.avg_EtalonDaysToExplain) avg_EtalonDaysToExplain_change, --7 МОЖЛИВІСТЬ ЗМІНИ
   temp_column6.count_day avg_EtalonDaysToExplain_change, --7 МОЖЛИВІСТЬ ЗМІНИ
   [Rating_EtalonDaysToExecution].DateStart --8
+  ,[QuestionTypeInRating].Rating_id
   FROM --[dbo].[Rating_EtalonDaysToExecution] with (nolock)
   #temp_Rating_EtalonDaysToExecution [Rating_EtalonDaysToExecution]
   INNER JOIN [CRM_1551_Analitics].[dbo].[QuestionTypes] with (nolock) ON [Rating_EtalonDaysToExecution].QuestionTypeId=[QuestionTypes].Id
-
+  INNER JOIN [CRM_1551_Analitics].[dbo].[QuestionTypeInRating] with (nolock) ON [QuestionTypes].Id=[QuestionTypeInRating].QuestionType_id
 
   --LEFT JOIN 
   --(SELECT QuestionTypeId, AVG(CONVERT(FLOAT,EtalonDaysToExecution)) avg_EtalonDaysToExecution
