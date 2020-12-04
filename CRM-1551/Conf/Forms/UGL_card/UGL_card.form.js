@@ -320,6 +320,40 @@
                 }
             }
         },
+        Dublicate_Aplicant: function() {
+            const queryForGetValueDublicate = {
+                queryCode: 'ApplicantDublicateInsertRow',
+                parameterValues: [
+                    {
+                        key: '@PhoneNumber',
+                        value: this.form.getControlValue('Phone')
+                    }
+                ]
+            };
+            this.queryExecutor.getValue(queryForGetValueDublicate).subscribe(data => {
+                if (data) {
+                    if (typeof data === 'string') {
+                        const fieldsForm_Error = {
+                            title: ' ',
+                            text: data,
+                            singleButton: true,
+                            acceptBtnText: 'ok'
+                        };
+                        this.openModalForm(fieldsForm_Error, this.afterModalFormClose.bind(this),
+                            this.afterModalFormClose.bind(this));
+                    } else {
+                        const fieldsForm_Ok = {
+                            title: ' ',
+                            text: 'Поточний номер додано до списку дублікатів',
+                            singleButton: true,
+                            acceptBtnText: 'ok'
+                        };
+                        this.openModalForm(fieldsForm_Ok, this.afterModalFormClose.bind(this),
+                            this.afterModalFormClose.bind(this));
+                    }
+                }
+            });
+        },
         init: function() {
             if (this.state === 'create') {
                 let getDataFromLink = window
@@ -696,6 +730,12 @@
                 this.details.loadData('Detail_UGL_QuestionNumberAppeal', parameters);
                 this.details.setVisibility('Detail_UGL_QuestionNumberAppeal', true);
             }.bind(this));
+            const menuDetail_Aplicant = [{
+                'title': 'Додати до списку дублікатів',
+                'icon': 'fa fa-random',
+                'functionName': 'Dublicate_Aplicant'
+            }];
+            this.details.setActionMenu('Detail_UGL_Aplicant', menuDetail_Aplicant);
         },
         input_pib: null,
         input_pib_check: 0,
