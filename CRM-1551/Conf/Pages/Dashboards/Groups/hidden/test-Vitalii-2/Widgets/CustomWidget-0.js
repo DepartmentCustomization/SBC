@@ -14,14 +14,14 @@
         ,
         afterViewInit: function() {
             let executeQuery = {
-                queryCode: 'test_Vitalii_api',
+                queryCode: 'ReferenceAPI_Request_SelectRows',
                 parameterValues: [],
                 limit: -1
             };
             this.queryExecutor(executeQuery, this.openApi, this);
         },
         openApi({rows}) {
-            const arr = rows.map(elem=>JSON.parse(elem.values[1]))
+            const arr = rows.map(elem=>JSON.parse(elem.values[0]))
             this.load(arr)
         },
         load: function(data) {
@@ -39,13 +39,17 @@
             mainCon.insertAdjacentHTML('beforeend',`<ul class='category-list'>${categories}</ul>`)
             const categoryNodes = Array.from(document.querySelectorAll('.category-item'))
             apiArr.map(elem=>{
+                debugger;
                 const int = `<div class='api-con' data-category='${elem.about.category}'>
                 <div class='api ${(elem.request.method).toLowerCase()}'>
                     <span class='api-method ${(elem.request.method).toLowerCase()}'>${elem.request.method}</span>
-                    <span class='api-description '>${elem.about.description}</span>
+                    <span class='api-description '>${elem.about.name}</span>
                 </div>
                     <div class='api-info'>
                         <div class='request-con'>
+                            <div class='request-con-title block-api-title'>
+                                <h4 class='request-description'>${elem.about.description}</h4>
+                            </div>
                             <div class='request-con-title block-api-title'>
                                 <h4 class='request-title block-title'>Request</h4>
                             </div>
@@ -64,7 +68,7 @@
                                     </div>
                                     <div class='body-con'>
                                         <h4 class='info-title'>Body</h4>
-                                        <p class='headers info-text'>${elem.request.body}</p>
+                                        <p class='headers info-text'>${JSON.stringify(elem.request.body[0])}</p>
                                     </div>
                                 </div>
                             <div class='response-con-title block-api-title'>

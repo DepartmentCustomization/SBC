@@ -154,6 +154,15 @@ background-color: rgb(127, 196, 131);
     background: #fbfefd;    
 }
 
+.request-description{
+    font-size: 14px;
+    flex: 1;
+    margin: 0;
+    font-family: sans-serif;
+    color: #3b4151;
+    background: #e5f3e6;    
+}
+
 .con-info{
     padding: 20px 40px;
     background: #ECFAF4;
