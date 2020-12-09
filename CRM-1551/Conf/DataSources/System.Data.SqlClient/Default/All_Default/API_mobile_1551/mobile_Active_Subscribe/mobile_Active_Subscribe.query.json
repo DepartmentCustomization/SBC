@@ -12,45 +12,57 @@
       "IsPrintable": false
     },
     {
+      "Code": "assignment_id",
+      "Name": "assignment_id",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "event_id",
+      "Name": "event_id",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
       "Code": "question_type_id",
       "Name": "Ід типів питання",
-      "Position": 1,
+      "Position": 3,
       "IsPrintable": false
     },
     {
       "Code": "question_type_name",
       "Name": "Назви типів питання",
-      "Position": 2,
+      "Position": 4,
       "IsPrintable": false
     },
     {
       "Code": "parent_question_type_id",
       "Name": "Ід батьківського типу питання",
-      "Position": 3,
+      "Position": 5,
       "IsPrintable": false
     },
     {
       "Code": "parent_question_type_name",
       "Name": "Назви батьківського типу питання",
-      "Position": 4,
+      "Position": 6,
       "IsPrintable": false
     },
     {
       "Code": "object_id",
       "Name": "Ід об'єктів",
-      "Position": 5,
+      "Position": 7,
       "IsPrintable": false
     },
     {
       "Code": "object_name",
       "Name": "Назви об'єктів",
-      "Position": 6,
+      "Position": 8,
       "IsPrintable": false
     },
     {
       "Code": "statecode",
       "Name": "Назви статусів",
-      "Position": 7,
+      "Position": 9,
       "IsPrintable": false
     }
   ],
