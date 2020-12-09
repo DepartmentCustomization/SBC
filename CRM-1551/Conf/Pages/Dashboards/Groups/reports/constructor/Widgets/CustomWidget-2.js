@@ -24,9 +24,12 @@
         },
         showModalSavedFilters() {
             const con = document.getElementById('savedFiltersCon');
-            console.log(this.userFilterGroups)
-            debugger
-            const grid = this.userFilterGroups.map(elem=>{
+            const newGrid = document.getElementById('widgetFiltersInfo');
+            if(newGrid) {
+                newGrid.remove()
+            }
+            const gridded = this.userFilterGroups.filter(elem=>Array.isArray(elem.filters))
+            const grid = gridded.map(elem=>{
                 const insideGrid = elem.filters.map(item=>`<div class="userFilter">${item.displayValue}</div>`).join('')
                 return `<div class='userFilterGroup' id=groupId${elem.id} data-id=${elem.id}>
                     <div class='groupHeader' id='groupHeader2'>
@@ -75,7 +78,7 @@
                                 { key: '@filter_name', value: val }
                             ]
                         };
-                        this.queryExecutor(executeQuery, this, this);
+                        this.queryExecutor(executeQuery, this.executeQueryShowUserFilterGroups, this);
                         input.disabled = 'true'
                     }
                 })
@@ -87,7 +90,7 @@
                         { key: '@Id', value: con.getAttribute('data-id') }
                     ]
                 };
-                this.queryExecutor(executeQuery, this, this);
+                this.queryExecutor(executeQuery, this.executeQueryShowUserFilterGroups, this);
                 con.remove()
             }
         },
@@ -110,7 +113,7 @@
         },
         executeQueryShowUserFilterGroups: function() {
             let executeQuery = {
-                queryCode: 'ConstructorFilters_SRow',
+                queryCode: 'ConstructorFilters_SRows',
                 limit: -1,
                 parameterValues: [
                     { key: '@pageOffsetRows', value: 0 },
@@ -121,7 +124,6 @@
             this.showPreloader = false;
         },
         setUserFilterGroups: function(groups) {
-            debugger
             this.userFilterGroups = [];
             groups.rows.forEach(group => {
                 const indexOfId = 0;

@@ -62,7 +62,8 @@
         },
         showModalSavedFilters() {
             const con = document.getElementById('container');
-            const grid = this.userFilterGroups.map(elem=>{
+            const gridded = this.userFilterGroups.filter(elem=>Array.isArray(elem.filters))
+            const grid = gridded.map(elem=>{
                 const insideGrid = elem.filters.map(item=>`<div class="userFilter">${item.displayValue}</div>`).join('')
                 return `<div class='userFilterGroup' id=groupId${elem.id} data-id=${elem.id}>
                     <div class='groupHeader' id='groupHeader'>
@@ -203,11 +204,12 @@
                     timePosition: filter.timePosition
                 });
             });
+            debugger
             return filterPackage;
         },
         setFilterViewValues: function(filter) {
             const viewValue = this.getSelectFilterViewValuesObject(filter);
-            return `${viewValue.title} : ${viewValue.value.dateFrom} : ${viewValue.value.dateTo}`;
+            return `${viewValue.title} : ${viewValue.value}`;
         },
         getSelectFilterViewValuesObject(filter) {
             const obj = {}
@@ -230,9 +232,7 @@
                     break
                 default:
                     obj.title = this.operation(filter.operation, filter.placeholder);
-                    obj.value = {};
-                    obj.value.dateFrom = filter.value.dateFrom ? this.changeDateValue(filter.value.dateFrom) : filter.value.dateFrom
-                    obj.value.dateTo = filter.value.dateTo ? this.changeDateValue(filter.value.dateTo) : filter.value.dateTo;
+                    obj.value = this.changeDateValue(filter.value);
                     break;
             }
             return obj;
@@ -261,7 +261,7 @@
         },
         executeQueryShowUserFilterGroups: function() {
             let executeQuery = {
-                queryCode: 'ConstructorFilters_SRow',
+                queryCode: 'ConstructorFilters_SRows',
                 limit: -1,
                 parameterValues: [
                     { key: '@pageOffsetRows', value: 0 },
