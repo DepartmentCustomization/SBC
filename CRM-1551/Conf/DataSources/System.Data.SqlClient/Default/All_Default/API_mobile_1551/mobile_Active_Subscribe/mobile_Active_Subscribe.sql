@@ -1,7 +1,10 @@
--- DECLARE @user_id NVARCHAR(128) = N'5b37daab-e5bd-46c4-bb26-e04d160ec966';
+
+ --DECLARE @user_id NVARCHAR(128) = N'5b37daab-e5bd-46c4-bb26-e04d160ec966';
 
 SELECT
   aqt.Id,
+  aqt.[assignment_id],
+  aqt.[event_id],
   aqt.[question_type_id],
   [QuestionTypes].[name] AS [question_type_name],
   qt_par.Id AS [parent_question_type_id],

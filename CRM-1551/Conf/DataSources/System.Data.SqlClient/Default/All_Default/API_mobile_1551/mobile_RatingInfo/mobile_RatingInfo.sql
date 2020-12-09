@@ -1,8 +1,10 @@
 
+
 --declare @UserId nvarchar(128) = N'29796543-b903-48a6-9399-4840f6eac396' /*Київський міський голова*/
 --declare @UserId nvarchar(128) = N'8b98a5ed-70ec-4bbf-b733-911b9b959428' /*Провідний інженер (ЖЕД-201, 206)*/
--- declare @UserId nvarchar(128) = N'4e4953a8-ae98-400a-982d-c122b0632bc0' /*співробітник Org 1800*/
--- declare @OrganizationId int --= 1800
+ --declare @UserId nvarchar(128) = N'4e4953a8-ae98-400a-982d-c122b0632bc0' /*співробітник Org 1800*/
+  --declare @UserId nvarchar(128) = N'2d8f8913-76e9-4e0e-a5a8-a3602cc8a559' /*TestMedicina*/
+ --declare @OrganizationId int --= 1800
 
 
 
@@ -703,7 +705,7 @@ left join [CRM_1551_Analitics].[dbo].[Organizations] with (nolock) on [Organizat
 where dateadd(day,1,t1.StateToDate) >= dateadd(month, -1, cast(left(rtrim(cast(getdate() as date)),8)+N'02' as date)) and dateadd(day,1,t1.StateToDate) <= cast(getdate() as date)
 and t1.Organization_Id = @Rating_OrganizationId 
 
---select  JSON_QUERY((
+select  JSON_QUERY((
 		select   t.Rating as RatingName
 				,t.RatingId
 				,t.DateCalc
@@ -813,5 +815,5 @@ and t1.Organization_Id = @Rating_OrganizationId
 			  and t1.Organization_Id = @Rating_OrganizationId
 		) as t
 		FOR JSON PATH, INCLUDE_NULL_VALUES
---		)) as Result
+		)) as Result
 end
