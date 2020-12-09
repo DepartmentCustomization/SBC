@@ -34,6 +34,7 @@
             this.sub = this.messageService.subscribe('sendSelectedRow', this.setReceivedData, this);
             this.sub1 = this.messageService.subscribe('sendDataCleanup', this.clearData, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
+            this.sub3 = this.messageService.subscribe('showTable', this.showTable, this);
             this.config.query.parameterValues = [ { key: '@GroupQuestionId', value: 0}];
             this.config.onContentReady = this.afterRenderTable.bind(this);
             this.loadData(this.afterLoadDataHandler);
@@ -121,6 +122,11 @@
                     questionGroupId: this.GroupQuestionId,
                     questionTypesArr: sendData
                 });
+            }
+        },
+        showTable: function(message) {
+            if(message.value === 'filter') {
+                document.getElementById('NativeDataGridWidget-0').style.display = 'none';
             }
         },
         destroy: function() {

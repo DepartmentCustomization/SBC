@@ -24,7 +24,7 @@
             });
             let tabGroupFilters = this.createElement('div', {
                 id: 'tabGroupFilters',
-                className: ' tab',
+                className: 'tabHover tab',
                 messageValue: 'filter'
             }, groupFilters__title);
             let tabDefaultItems = this.createElement('div', {
@@ -34,7 +34,7 @@
             }, defaultItems__title);
             let tabGroupItems = this.createElement('div', {
                 id: 'tabGroupItems',
-                className: 'tabHover tab',
+                className: 'tab',
                 messageValue: 'group'
             }, groupItems__title);
             TABS_CONTAINER.appendChild(tabGroupFilters);

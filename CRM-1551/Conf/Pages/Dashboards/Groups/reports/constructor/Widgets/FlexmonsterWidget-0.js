@@ -179,8 +179,21 @@
                 }
                 document.getElementById('summary__table').style.display = 'block';
                 document.getElementById('content').style.display = 'none';
+                document.getElementById('savedFiltersCon').style.display = 'none';
                 this.loadData();
             }
+            this.sendQuery()
+        },
+        sendQuery() {
+            let executeQuery = {
+                queryCode: 'ConstructorFilters_IRow',
+                limit: -1,
+                parameterValues: [
+                    { key: '@filters', value: 0 },
+                    { key: '@pageLimitRows', value: 10 }
+                ]
+            };
+            this.queryExecutor(executeQuery, this.setUserFilterGroups, this);
         },
         getQueryOptions: function() {
             return {

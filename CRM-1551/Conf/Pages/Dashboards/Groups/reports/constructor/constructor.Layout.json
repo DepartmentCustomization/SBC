@@ -43,6 +43,28 @@
             "backgroundColor": "white"
           },
           {
+                "width": "auto",
+                "margin": "0 5px",
+                "flexWrap": "wrap",
+                "flexDirection": "row",
+                "order": 1,
+                "flexGrow": 1,
+                "alignSelf": "auto",
+                "border": "none",
+                "children": [
+                  {
+                    "code": "CustomWidget-2",
+                    "type": "CustomWidgetComponent",
+                    "name": "btn"
+                  }
+                ],
+                "id": "Container-1",
+                "height": "40px",
+                "minHeight": "40px",
+                "minWidth": "calc(100% - 10px)",
+                "backgroundColor": "white"
+              },
+          {
             "width": "auto",
             "margin": "0 5px",
             "flexWrap": "nowrap",
