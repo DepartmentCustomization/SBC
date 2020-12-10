@@ -60,6 +60,45 @@
                         alignment: 'center'
                     },
                     {
+                        dataField: 'article_percent',
+                        caption: '',
+                        dataType: 'number',
+                        format: 'percent',
+                        alignment: 'right',
+                        allowGrouping: false,
+                        cellTemplate: function(container, options) {
+                            $('<div/>').dxBullet({
+                                onIncidentOccurred: null,
+                                size: {
+                                    width: 150,
+                                    height: 35
+                                },
+                                margin: {
+                                    top: 5,
+                                    bottom: 0,
+                                    left: 5
+                                },
+                                showTarget: false,
+                                showZeroLevel: true,
+                                value: options.value,
+                                startScaleValue: 0,
+                                endScaleValue: 10,
+                                tooltip: {
+                                    enabled: true,
+                                    font: {
+                                        size: 18
+                                    },
+                                    paddingTopBottom: 2,
+                                    customizeTooltip: function() {
+                                        return { text: options.value + '%' };
+                                    },
+                                    zIndex: 99999999999
+                                }
+                            }).appendTo(container);
+                        },
+                        cssClass: 'bullet'
+                    },
+                    {
                         dataField: '',
                         alignment: 'center',
                         caption: 'Загальна тривалість',
@@ -98,6 +137,45 @@
                     dataField: 'article_percent',
                     caption: '% по статтях',
                     alignment: 'center'
+                },
+                {
+                    dataField: 'article_percent',
+                    caption: '',
+                    dataType: 'number',
+                    format: 'percent',
+                    alignment: 'right',
+                    allowGrouping: false,
+                    cellTemplate: function(container, options) {
+                        $('<div/>').dxBullet({
+                            onIncidentOccurred: null,
+                            size: {
+                                width: 150,
+                                height: 35
+                            },
+                            margin: {
+                                top: 5,
+                                bottom: 0,
+                                left: 5
+                            },
+                            showTarget: false,
+                            showZeroLevel: true,
+                            value: options.value,
+                            startScaleValue: 0,
+                            endScaleValue: 10,
+                            tooltip: {
+                                enabled: true,
+                                font: {
+                                    size: 18
+                                },
+                                paddingTopBottom: 2,
+                                customizeTooltip: function() {
+                                    return { text: options.value + '%'};
+                                },
+                                zIndex: 99999999999
+                            }
+                        }).appendTo(container);
+                    },
+                    cssClass: 'bullet'
                 },
                 {
                     dataField: '',

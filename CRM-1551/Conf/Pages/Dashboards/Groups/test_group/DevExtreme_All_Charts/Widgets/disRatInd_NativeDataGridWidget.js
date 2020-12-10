@@ -1,5 +1,5 @@
-(function() {
-    return {
+(function () {
+  return {
         config: {
             query: {
                 code: 'DevExtreme_DataGrid_RowChart_SelectRows',
@@ -51,6 +51,10 @@
                 },
                 {
                     dataField: "Name",
+                    dataType: "Name",
+                },
+                {
+                    dataField: "Name",
                     dataType: "Name"
                 }],
             
@@ -84,11 +88,8 @@
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
             Object.keys(props).forEach(key => element[key] = props[key]);
-            if(children.length > 0) {
-                children.forEach(child =>{
-                    element.appendChild(child);
-                });
-            } return element;
+            children.forEach(child => element.appendChild(child));
+            return element;
         }
     };
 }());
