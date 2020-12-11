@@ -124,6 +124,11 @@
                 { id: 'tabTemplates', url: 'Templates', className: 'tabTemplates tab tabTo'},
                 tabTemplates__title
             );
+            let tabEssenceOnControl__title = this.createElement('div', { className: ' tab_title', innerText: 'Сутності на контролі'});
+            const tabEssenceOnControl = this.createElement('div',
+                { id: 'tabEssenceOnControl', url: 'essence_on_control', className: 'tabEssenceOnControl tab tabTo'},
+                tabEssenceOnControl__title
+            );
             let tabExecutivePosition__title = this.createElement('div', { className: ' tab_title', innerText: 'Вибір посади-виконавця'});
             const tabExecutivePosition = this.createElement('div',
                 { id: 'tabExecutivePosition', url: 'PersonExecutorChoose', className: 'tabExecutivePosition tab tabTo'},
@@ -161,7 +166,7 @@
             const tabsContainer = this.createElement('div',
                 { id: 'tabsContainer', className: 'tabsContainer'},
                 tabInformation, tabAction, tabProcessingOrders, tabOrganizations,
-                tabPerformers, tabFinder, tabExecutivePosition, tabTemplates
+                tabPerformers, tabFinder, tabExecutivePosition, tabTemplates,tabEssenceOnControl
             );
             const orgLinkСhangerBox__icon = this.createElement('div',
                 { id: 'orgLinkСhangerBox__icon', className:'material-icons', innerText:'more_vert' }
