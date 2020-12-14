@@ -1,5 +1,5 @@
 /*
-DECLARE @dateFrom DATETIME = '2020-01-01 00:00:00',
+DECLARE @dateFrom DATETIME = '2020-08-01 00:00:00',
 		@dateTo DATETIME = GETDATE();
 */
 
@@ -27,7 +27,6 @@ FROM dbo.Claims c
 INNER JOIN dbo.Faucet f ON f.Claim_Id = c.Id
 INNER JOIN dbo.Places f_closed_place ON f_closed_place.Id = f.Place_Id
 LEFT JOIN dbo.[Diameters] d ON d.Id = f.Diametr_Id 
-	AND f.Action_types_Id IN (232,48)
 WHERE f.Start_from 
 BETWEEN @dateFrom AND @dateTo
 GROUP BY
@@ -64,7 +63,8 @@ WHERE Id = @current_id;
 			   AND placeId = (SELECT placeId FROM #claims_faucetClosedPlace WHERE Id = @current_id)
 			   AND Id < @current_id)
 	BEGIN
-		DELETE FROM #claims_faucetClosedPlace 
+		UPDATE #claims_faucetClosedPlace
+			SET [placeName] = NULL 
 		WHERE Id = @current_id;
 	END
 	ELSE 
@@ -114,7 +114,6 @@ DISTINCT
 	0
 FROM dbo.Claims c 
 INNER JOIN dbo.Faucet f ON f.Claim_Id = c.Id
-		AND f.Action_types_Id IN (232,48)
 INNER JOIN dbo.Claim_SwitchOff_Address swa ON swa.Faucet_ID = f.Id
 INNER JOIN dbo.Places swa_place ON swa_place.Id = swa.Place_Id
 WHERE f.Start_from  
