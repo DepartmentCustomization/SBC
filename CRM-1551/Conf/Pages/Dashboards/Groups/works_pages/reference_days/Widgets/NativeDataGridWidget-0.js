@@ -101,7 +101,6 @@
             }
         },
         onCellPrepared: function(options) {
-            const arr = ['event','event','keyboard_arrow_down','keyboard_arrow_right','code']
             if(options.rowType === 'data') {
                 if(options.column.dataField === 'fix_row_icon') {
                     const icon = this.createElement('span',{className:'material-icons create fix-row ',textContent:'create'})
