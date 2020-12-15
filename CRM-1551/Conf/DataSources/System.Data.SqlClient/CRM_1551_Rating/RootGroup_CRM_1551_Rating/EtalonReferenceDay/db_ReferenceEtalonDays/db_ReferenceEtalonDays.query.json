@@ -26,6 +26,10 @@
       "Code": "@dateTo",
       "Name": "dateTo",
       "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@rating",
+      "Name": "rating"
     }
   ]
 }
