@@ -89,8 +89,8 @@
             const rating = message.package.value.values.find(f => f.name === 'rating').value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
-                    this.dateFrom = period.dateFrom;
-                    this.dateTo = period.dateTo;
+                    this.dateFrom = this.toUTC(period.dateFrom);
+                    this.dateTo = this.toUTC(period.dateTo);
                     this.rating = this.extractOrgValues(rating);
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },
@@ -99,6 +99,16 @@
                     ];
                 }
             }
+        },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
+            return dateTo
         },
         onCellPrepared: function(options) {
             if(options.rowType === 'data') {
