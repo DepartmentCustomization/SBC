@@ -95,7 +95,7 @@
                     this.config.query.parameterValues = [
                         {key: '@dateFrom' , value: this.dateFrom },
                         {key: '@dateTo', value: this.dateTo },
-                        {key: '@rating' , value: this.rating }
+                        {key: '@rating' , value: this.rating.join(',') }
                     ];
                 }
             }
