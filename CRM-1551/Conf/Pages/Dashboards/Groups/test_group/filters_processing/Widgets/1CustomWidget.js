@@ -57,6 +57,7 @@
                 ];
                 const FiltersPackageHelper = new this.FiltersPackageHelper.FiltersPackageHelper();
                 const filtersPackage = FiltersPackageHelper.getFiltersPackage(filters);
+                debugger
                 this.applyFilters(filtersPackage);
             });
         },
@@ -65,6 +66,7 @@
             const activeFilterHelper = new this.activeFilterHelper.ActiveFilterHelper();
             const activeFilters = activeFilterHelper.getActiveFilters(filters);
             const queryHelper = new this.queryHelper.QueryHelper();
+            debugger
             this.queryParameters = queryHelper.getQueryParameters(filters, activeFilters);
         }
     };

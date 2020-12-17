@@ -11,11 +11,15 @@
        init:async function() {
             const con = document.getElementById('savedFiltersCon')
             document.getElementById('content').append(con)
-            this.executeQueryShowUserFilterGroups();
             this.sub3 = this.messageService.subscribe('showTable', this.showTable, this);
-            this.FiltersPackageHelper = await import('/modules/Helpers/Filters/FiltersPackageHelper.js');
+            this.sub4 = this.messageService.subscribe('sendFilter', this.executeQueryShowUserFilterGroups, this);
+            this.executeQueryShowUserFilterGroups()
+            this.FiltersPackageHelperWithoutTimePosition = await import('/modules/Helpers/Filters/FiltersPackageHelperWithoutTimePosition.js');
         },
         afterViewInit: function() {
+        },
+        getFilters(arr) {
+         return this.userFilterGroups = arr;
         },
         showTable: function(message) {
             if(message.value === 'filter') {
@@ -97,9 +101,10 @@
         restoreFilters: function(id) {
             this.setGlobalFilterPanelVisibility(true);
             const filters = this.userFilterGroups.find(f => f.id === +id).filters;
-            const FiltersPackageHelper = new this.FiltersPackageHelper.FiltersPackageHelper();
+            const FiltersPackageHelper = new this.FiltersPackageHelperWithoutTimePosition.FiltersPackageHelperWithoutTimePosition();
             const filtersPackage = FiltersPackageHelper.getFiltersPackage(filters);
             this.clearAllFilter();
+            debugger
             this.applyFilters(filtersPackage);
         },
         setGlobalFilterPanelVisibility: function(state) {
@@ -117,7 +122,7 @@
                 limit: -1,
                 parameterValues: [
                     { key: '@pageOffsetRows', value: 0 },
-                    { key: '@pageLimitRows', value: 10 }
+                    { key: '@pageLimitRows', value: 50 }
                 ]
             };
             this.queryExecutor(executeQuery, this.setUserFilterGroups, this);

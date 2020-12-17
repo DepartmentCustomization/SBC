@@ -11,7 +11,7 @@
         async init() {
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this));
             this.executeQueryShowUserFilterGroups();
-            this.FiltersPackageHelper = await import('/modules/Helpers/Filters/FiltersPackageHelper.js');
+            this.FiltersPackageHelperWithoutTimePosition = await import('/modules/Helpers/Filters/FiltersPackageHelperWithoutTimePosition.js');
         },
         afterViewInit: function() {
             this.sub = this.messageService.subscribe('setData', this.setData, this);
@@ -150,7 +150,7 @@
         restoreFilters: function(id) {
             this.setGlobalFilterPanelVisibility(true);
             const filters = this.userFilterGroups.find(f => f.id === +id).filters;
-            const FiltersPackageHelper = new this.FiltersPackageHelper.FiltersPackageHelper();
+            const FiltersPackageHelper = new this.FiltersPackageHelperWithoutTimePosition.FiltersPackageHelperWithoutTimePosition();
             const filtersPackage = FiltersPackageHelper.getFiltersPackage(filters);
             this.clearAllFilter();
             this.applyFilters(filtersPackage);
@@ -198,18 +198,15 @@
                     value: filter.value,
                     type: filter.type,
                     placeholder: filter.placeholder,
-                    viewValue: this.getSelectFilterViewValuesObject(filter).value,
-                    displayValue: this.setFilterViewValues(filter),
+                    viewValue: filter.type.includes('Date') ? null : filter.value.viewValue,
                     name: filter.name,
                     timePosition: filter.timePosition
                 });
             });
-            debugger
             return filterPackage;
         },
         setFilterViewValues: function(filter) {
-            const viewValue = this.getSelectFilterViewValuesObject(filter);
-            return `${viewValue.title} : ${viewValue.value}`;
+            return `${filter.value.viewValue}`;
         },
         getSelectFilterViewValuesObject(filter) {
             const obj = {}
@@ -265,7 +262,7 @@
                 limit: -1,
                 parameterValues: [
                     { key: '@pageOffsetRows', value: 0 },
-                    { key: '@pageLimitRows', value: 10 }
+                    { key: '@pageLimitRows', value: 50 }
                 ]
             };
             this.queryExecutor(executeQuery, this.setUserFilterGroups, this);
@@ -283,6 +280,10 @@
                     filters: JSON.parse(group.values[indexOfFilters])
                 });
             });
+            this.sendFilterGroup(this.userFilterGroups)
+        },
+        sendFilterGroup(arr) {
+            this.messageService.publish({ name: 'sendFilter', value: arr });
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
