@@ -1,0 +1,52 @@
+{
+  "ModelType": "Query",
+  "Code": "Polls_MainTable",
+  "Name": "Polls_MainTable",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 0,
+      "IsPrintable": false
+    },
+    {
+      "Code": "full_name",
+      "Name": "full_name",
+      "Position": 1,
+      "IsPrintable": false
+    },
+    {
+      "Code": "phone_number_main",
+      "Name": "phone_number_main",
+      "Position": 2,
+      "IsPrintable": false
+    },
+    {
+      "Code": "phone_number_add",
+      "Name": "phone_number_add",
+      "Position": 3,
+      "IsPrintable": false
+    },
+    {
+      "Code": "adress",
+      "Name": "adress",
+      "Position": 4,
+      "IsPrintable": false
+    },
+    {
+      "Code": "age",
+      "Name": "age",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
+      "Code": "count_appeals",
+      "Name": "count_appeals",
+      "Position": 6,
+      "IsPrintable": false
+    }
+  ]
+}
