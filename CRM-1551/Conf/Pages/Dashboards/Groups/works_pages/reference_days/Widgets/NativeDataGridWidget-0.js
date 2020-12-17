@@ -12,30 +12,38 @@
             columns: [
                 {
                     dataField: 'QuestionTypes_Name',
-                    caption: 'Тип питання'
+                    caption: 'Тип питання',
+                    alignment: 'left'
                 }, {
                     dataField: 'EtalonDaysToExecution',
-                    caption: 'Еталон виконання'
+                    caption: 'Еталон виконання',
+                    alignment: 'center'
                 }, {
                     dataField: 'avg_EtalonDaysToExecution',
-                    caption: 'Седернє еталону виконання'
+                    caption: 'Седернє еталону виконання',
+                    alignment: 'center'
                 }, {
                     dataField: 'avg_EtalonDaysToExecution_change',
-                    caption: 'Новий еталон виконання'
+                    caption: 'Новий еталон виконання',
+                    alignment: 'center'
                 }, {
                     dataField: 'EtalonDaysToExplain',
-                    caption: 'Еталон Роз\'яснення'
+                    caption: 'Еталон Роз\'яснення',
+                    alignment: 'center'
                 }, {
                     dataField: 'avg_EtalonDaysToExplain',
-                    caption: 'Седернє еталону виконання'
+                    caption: 'Седернє еталону виконання',
+                    alignment: 'center'
                 }, {
                     dataField: 'avg_EtalonDaysToExplain_change',
-                    caption: 'Новий еталон роз\'яснення'
+                    caption: 'Новий еталон роз\'яснення',
+                    alignment: 'center'
                 }, {
                     dataField: 'DateStart',
                     caption: 'Використовується з',
                     dataType: 'date',
-                    format: 'dd.MM.yyyy'
+                    format: 'dd.MM.yyyy',
+                    alignment: 'center'
                 }
             ],
             allowColumnResizing: true,
@@ -64,8 +72,8 @@
             columnFixing: {
                 enabled: true
             },
-            showBorders: false,
-            showColumnLines: false,
+            showBorders: true,
+            showColumnLines: true,
             showRowLines: true,
             wordWrapEnabled: true,
             keyExpr: 'Id'
