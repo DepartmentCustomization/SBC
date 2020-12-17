@@ -12,12 +12,12 @@
       "IsPrintable": false
     },
     {
-      "Code": "short_name",
-      "Name": "short_name",
+      "Code": "name",
+      "Name": "name",
       "Position": 1,
       "IsPrintable": false,
       "SqlName": "short_name",
-      "FilterParameterCode": "@short_name"
+      "FilterParameterCode": "@name"
     }
   ],
   "Parameters": [

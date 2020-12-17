@@ -16,7 +16,7 @@
       "Name": "name",
       "Position": 2,
       "IsPrintable": false,
-      "SqlName": "[StreetTypes].[shortname] +' '+ [Streets].[name]",
+      "SqlName": "[StreetTypes].[shortname] +N' '+ [Streets].[name]",
       "FilterParameterCode": "@name"
     }
   ],

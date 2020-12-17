@@ -1,8 +1,21 @@
 
 
+SELECT [Streets].[Id]
+      -- ,[district_id]
+       ,[StreetTypes].[shortname] +N' '+ [Streets].[name]  as name
+    
+     FROM   [dbo].[Streets]
+    
+     left Join [dbo].[StreetTypes]
+     ON  [Streets].[street_type_id] =  [StreetTypes].[id]
+    
+    where #filter_columns#
+  
+  #sort_columns#
+  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
 
 --declare @user_Id nvarchar(128)=N'45d2f527-bd52-47ef-bc6c-4e0943d8e333';
-
+/*
 declare @organization_main table (Id int);
 
 declare @organization_table table (Id int, n int identity(1,1));
@@ -119,7 +132,7 @@ end
 else
 
 begin
-
+*/
   /*
 SELECT TOP (1000) [Id]
       ,[name]
@@ -131,17 +144,5 @@ SELECT TOP (1000) [Id]
   where parent_organization_id=3
 */  
 
-     SELECT [Streets].[Id]
-      -- ,[district_id]
-       ,[StreetTypes].[shortname] +' '+ [Streets].[name]  as name
-    
-     FROM   [dbo].[Streets]
-    
-     left Join [dbo].[StreetTypes]
-     ON  [Streets].[street_type_id] =  [StreetTypes].[id]
-    
-    where #filter_columns#
-  
-  #sort_columns#
-  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
-end
+     
+--end

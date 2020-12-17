@@ -1,4 +1,14 @@
 
+SELECT [Id]
+      ,[name]
+  FROM   [dbo].[Districts]
+  
+  where #filter_columns#
+  
+  #sort_columns#
+  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+
+/*
 
 --declare @user_Id nvarchar(128)=N'45d2f527-bd52-47ef-bc6c-4e0943d8e333';
 
@@ -103,6 +113,7 @@ begin
  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
 end
 
+*/
  --and #filter_columns#
  -- #sort_columns#
  --offset @pageOffsetRows rows fetch next @pageLimitRows rows only
@@ -120,11 +131,3 @@ SELECT TOP (1000) [Id]
   */
 
 
--- SELECT [Id]
---       ,[name]
---   FROM   [dbo].[Districts]
-  
---   where #filter_columns#
-  
---   #sort_columns#
---   offset @pageOffsetRows rows fetch next @pageLimitRows rows only

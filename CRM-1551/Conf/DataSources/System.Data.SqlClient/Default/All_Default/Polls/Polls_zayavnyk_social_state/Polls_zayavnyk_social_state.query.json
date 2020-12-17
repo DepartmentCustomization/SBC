@@ -17,7 +17,7 @@
       "Position": 1,
       "IsPrintable": false,
       "SqlName": "name",
-      "FilterParameterCode": "@social_state"
+      "FilterParameterCode": "@name"
     }
   ],
   "Parameters": [

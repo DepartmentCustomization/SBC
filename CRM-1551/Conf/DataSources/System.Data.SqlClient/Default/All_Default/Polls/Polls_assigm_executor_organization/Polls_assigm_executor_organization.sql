@@ -1,3 +1,11 @@
+
+select [Id], [short_name] [name]
+  from [dbo].[Organizations]
+  WHERE #filter_columns#
+  #sort_columns#
+ offset @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only
+
+/*
 --DECLARE @user_Id NVARCHAR(128) = N'29796543-b903-48a6-9399-4840f6eac396';
 
 DECLARE @Organization TABLE (
@@ -80,7 +88,7 @@ IF @ad=7 OR EXISTS(SELECT Id FROM @Organization1761 WHERE id IN (SELECT DISTINCT
 	BEGIN
 		SELECT Id, short_name
 		FROM [dbo].[Organizations]
-		/**/WHERE #filter_columns#
+		WHERE #filter_columns#
   #sort_columns#
  offset @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only 
 	END
@@ -91,7 +99,8 @@ ELSE
 		FROM @Organization o INNER JOIN [Organizations] ON o.Id=[Organizations].Id
 	
 
-/**/WHERE #filter_columns#
+WHERE #filter_columns#
   #sort_columns#
  offset @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS only 
 END
+*/

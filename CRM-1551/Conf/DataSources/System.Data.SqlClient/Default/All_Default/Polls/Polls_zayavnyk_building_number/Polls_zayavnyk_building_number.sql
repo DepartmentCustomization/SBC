@@ -1,3 +1,11 @@
+  
+  select [Id], [name]
+  from [dbo].[Buildings]
+  where #filter_columns#
+	  #sort_columns#
+	 --order by name
+	 offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+  /*
    /* 
   declare @Street_Id nvarchar(max) =N'436,228';
   declare @user_Id nvarchar(128)=N'45d2f527-bd52-47ef-bc6c-4e0943d8e3334';
@@ -232,3 +240,5 @@ end
 --      where #filter_columns#
 --   #sort_columns#
 --  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+
+*/

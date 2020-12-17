@@ -22,11 +22,6 @@
   ],
   "Parameters": [
     {
-      "Code": "@user_Id",
-      "Name": "user_Id",
-      "ParameterType": "CurrentUserId"
-    },
-    {
       "Code": "@pageLimitRows",
       "Name": "pageLimitRows",
       "ParameterType": "Integer",
