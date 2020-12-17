@@ -10,6 +10,8 @@
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe('renderTable', this.renderTable, this);
             this.sub2 = this.messageService.subscribe('GlobalFilterChanged', this.setBtnState, this);
+            this.questionTypesData = [];
+            this.QuestionGroupId = null;
         },
         loadData: function() {
             document.querySelector('.filter-block').style.zIndex = '16';

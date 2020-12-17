@@ -195,7 +195,7 @@
             const filterPackage = [];
             this.selectedFilters.forEach(filter => {
                 filterPackage.push({
-                    value: filter.value,
+                    value: filter.value.viewValue ? filter.value.value : filter.value,
                     type: filter.type,
                     placeholder: filter.placeholder,
                     viewValue: filter.type.includes('Date') ? null : filter.value.viewValue,
@@ -203,6 +203,7 @@
                     timePosition: filter.timePosition
                 });
             });
+            debugger
             return filterPackage;
         },
         setFilterViewValues: function(filter) {

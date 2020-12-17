@@ -104,7 +104,6 @@
             const FiltersPackageHelper = new this.FiltersPackageHelperWithoutTimePosition.FiltersPackageHelperWithoutTimePosition();
             const filtersPackage = FiltersPackageHelper.getFiltersPackage(filters);
             this.clearAllFilter();
-            debugger
             this.applyFilters(filtersPackage);
         },
         setGlobalFilterPanelVisibility: function(state) {
