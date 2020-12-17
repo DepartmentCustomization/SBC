@@ -119,6 +119,11 @@
                 url: 'StartPage_operator',
                 className: 'tabPhone tab tabTo'
             }, tabPhone__title);
+            let tabEssenceOnControl__title = this.createElement('div', { className: ' tabTitle', innerText: 'Сутності на контролі'});
+            const tabEssenceOnControl = this.createElement('div',
+                { id: 'tabEssenceOnControl',location: 'dashboard', url: 'essence_on_control', className: 'tabEssenceOnControl tab tabTo'},
+                tabEssenceOnControl__title
+            );
             const tabProzvon = this.createElement('div', {
                 id: 'tabProzvon__title',
                 location: 'dashboard',
@@ -146,7 +151,7 @@
             const tabsContainer = this.createElement('div', {
                 id: 'tabsContainer',
                 className: 'tabsContainer'
-            },tabPhone, tabProzvon, tabAppeal, tabAssigment, tabFinder);
+            },tabPhone, tabProzvon, tabAppeal, tabAssigment, tabFinder,tabEssenceOnControl);
             const techBox__icon = this.createElement('div', {
                 id: 'techBox__icon',
                 className:'material-icons',

@@ -31,7 +31,6 @@
                     return
                 }
                 if (onComment) {
-                    debugger;
                     const queryForGetValue = {
                         queryCode: 'ak_SelectComment_for_Templates',
                         parameterValues: [

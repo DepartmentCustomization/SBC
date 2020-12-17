@@ -51,7 +51,7 @@ select ISNULL(LTRIM(b.Id),N'')+ISNULL(LTRIM(ao.Id),N'') Id, b.Id buid_Id, ao.Id 
 and ao.is_change='true' 
 and ao.is_delete='false' 
 and ao.[is_done]='false' 
-and ao.[done_date]=null 
+and ao.[done_date] is null 
 
   --удаление
   UNION
@@ -73,7 +73,7 @@ and ao.[done_date]=null
 and ao.is_change='false'
 and ao.is_delete='true'
 and ao.[is_done]='false' 
-and ao.[done_date]=null 
+and ao.[done_date] is null 
   ) t
   where #filter_columns#
 --  #sort_columns#

@@ -1,7 +1,8 @@
---   DECLARE @ClaimID INT = 9055;
---   DECLARE @ResponseID INT = 1;
---   DECLARE @UserID NVARCHAR(128) = '29796543-b903-48a6-9399-4840f6eac396';
-
+/*
+DECLARE @ClaimID INT = 9055,
+		    @ResponseID INT = 1,
+		    @UserID NVARCHAR(128) = '29796543-b903-48a6-9399-4840f6eac396';
+*/
 IF
 (@ClaimID IS NOT NULL)
 AND
@@ -9,15 +10,16 @@ AND
 BEGIN
 
   UPDATE dbo.Claims
-  SET Status_ID = 5
+    SET Status_ID = 5,
+        Fact_finish_at = GETUTCDATE()
   WHERE Id = @ClaimID ;
 
   UPDATE dbo.Claim_content
-  SET ResponseID = @ResponseID
+	SET ResponseID = @ResponseID
   WHERE Claim_Id = @ClaimID ;
 
-  UPDATE Claims_History
-  SET [User] = @UserID
+  UPDATE dbo.Claims_History
+	SET [User] = @UserID 
   WHERE Id = (SELECT MAX(Id) FROM Claims_History WHERE Claims_ID = @ClaimID) ;
 
   SELECT 'OK' AS result;
@@ -41,16 +43,17 @@ DECLARE @IsHavingChild BIT = (SELECT
  IF(@IsHavingChild = 1)
   BEGIN
    UPDATE dbo.Claims
-   SET Status_ID = 5
+	SET Status_ID = 5,
+		Fact_finish_at = GETUTCDATE()
    WHERE Id = @ClaimID ;
    
    UPDATE dbo.Claim_content
-   SET ResponseID = @ResponseID
+		SET ResponseID = @ResponseID
    WHERE Claim_Id = @ClaimID ;
    
-   UPDATE Claims_History
-   SET [User] = @UserID
-   WHERE Id = (SELECT MAX(Id) FROM Claims_History WHERE Claims_ID = @ClaimID) ;
+   UPDATE dbo.Claims_History
+	    SET [User] = @UserID
+   WHERE Id = (SELECT MAX(Id) FROM Claims_History WHERE Claims_ID = @ClaimID);
    
    SELECT 'OK' AS result;
   END
@@ -59,7 +62,7 @@ DECLARE @IsHavingChild BIT = (SELECT
   BEGIN
    
    UPDATE dbo.Claim_content
-   SET ResponseID = @ResponseID
+	SET ResponseID = @ResponseID
    WHERE Claim_Id = @ClaimID ;
    
    SELECT 'NOT_OK' AS result;

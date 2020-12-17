@@ -13,6 +13,7 @@
                 {
                     dataField: 'operation',
                     caption: 'Операція',
+                    alignment: 'center',
                     width: 100
                 },{
                     caption: 'ГородОк',
@@ -21,35 +22,39 @@
                         {
                             dataField: 'become',
                             caption: 'Було',
-                            alignment: 'left'
+                            alignment: 'center'
                         },{
                             dataField: 'it_was',
                             caption: 'Стало',
-                            alignment: 'left'
+                            alignment: 'center'
                         }
                     ]
                 },{
                     dataField: 'id_1551',
                     caption: 'Назва вулиці у системі 1551',
+                    alignment: 'center',
                     lookup: {
                         dataSource: {
                             paginate: true,
                             store: this.elements
                         },
                         displayExpr: 'streets',
+                        alignment: 'center',
                         valueExpr: 'Id'
                     }
                 },{
                     dataField: 'is_done',
                     caption: 'Стан',
+                    alignment: 'center',
                     width: 80
                 },{
                     dataField: 'comment',
+                    alignment: 'center',
                     caption: 'Коментар'
                 }
             ], searchPanel: {
-                visible: true,
-                highlightCaseSensitive: false
+                visible: false,
+                highlightCaseSensitive: true
             },
             pager: {
                 showPageSizeSelector:  false,
@@ -66,8 +71,8 @@
                 useIcons: true
             },
             filterRow: {
-                visible: false,
-                applyFilter: 'auto'
+                visible: true,
+                allowSearch: true
             },
             keyExpr: 'Id',
             showBorders: true,
@@ -81,8 +86,8 @@
             columnWidth: null,
             wordWrapEnabled: true,
             allowColumnResizing: true,
-            showFilterRow: false,
-            showHeaderFilter: false,
+            showFilterRow: true,
+            showHeaderFilter: true,
             showColumnChooser: true,
             showColumnFixing: true,
             groupingAutoExpandAll: null
@@ -148,6 +153,9 @@
         },
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
+            toolbarItems[0].showText = ''
+            toolbarItems[0].options.text = 'Зберегти'
+            toolbarItems[0].options.type = 'default'
             toolbarItems.push({
                 widget: 'dxButton',
                 options: {

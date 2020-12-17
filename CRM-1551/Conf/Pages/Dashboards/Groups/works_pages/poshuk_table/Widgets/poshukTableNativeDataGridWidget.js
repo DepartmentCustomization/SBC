@@ -192,7 +192,6 @@
             this.filtersLength = filters.length;
             this.filtersWithOutValues = 0;
             filters.forEach(filter => {
-                
                 if (filter.active === true || (filter.type === 'MultiSelect' && filter.value.length > 0)) {
                     const type = filter.type;
                     const value = filter.value;
@@ -239,7 +238,8 @@
                                 let sumViewValue = '';
                                 if(value.length > 0) {
                                     value.forEach(filter => {
-                                        sumValue = sumValue + ', ' +  (typeof filter.value === 'string' ? "'" + filter.value + "'" : filter.value);
+                                        sumValue = sumValue + ', ' +
+                                        (typeof filter.value === 'string' ? `'${filter.value}'` : filter.value);
                                         sumViewValue = sumViewValue + ', ' + filter.viewValue;
                                     });
                                 }

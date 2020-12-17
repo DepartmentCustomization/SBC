@@ -40,6 +40,11 @@
                             alignment: 'center'
                         },
                         {
+                            dataField: 'count_expired_inspector',
+                            caption: 'Прострочено інспектором',
+                            alignment: 'center'
+                        },
+                        {
                             dataField: 'count_closed_performed',
                             caption: 'Закрито/Виконано ',
                             alignment: 'center'
@@ -64,7 +69,7 @@
                 },
                 {
                     dataField: 'count_built',
-                    caption: 'Прострочено',
+                    caption: 'Прострочено виконавцем',
                     width: 130,
                     alignment: 'center'
                 },
@@ -191,6 +196,11 @@
                                 alignment: 'center'
                             },
                             {
+                                dataField: 'count_expired_inspector',
+                                caption: 'Прострочено інспектором',
+                                alignment: 'center'
+                            },
+                            {
                                 dataField: 'count_closed_performed',
                                 caption: 'Закрито/Виконано ',
                                 alignment: 'center'
@@ -215,7 +225,7 @@
                     },
                     {
                         dataField: 'count_built',
-                        caption: 'Прострочено',
+                        caption: 'Прострочено виконавцем',
                         width: 130,
                         alignment: 'center'
                     },
@@ -279,6 +289,7 @@
             this.sub = this.messageService.subscribe('ApplyGlobalFilters',this.renderTable , this);
             this.config.onCellPrepared = this.onCellPrepared.bind(this);
             this.config.onRowPrepared = this.onRowPrepared.bind(this);
+            this.config.onToolbarPreparing = this.createTableButton.bind(this);
         },
         masterDetailInitialized: function(event, row) {
             row.dataSource = [];
@@ -328,7 +339,8 @@
                     'speed_of_employment': row.values[12],
                     'timely_processed': row.values[13],
                     'implementation': row.values[14],
-                    'reliability': row.values[15]
+                    'reliability': row.values[15],
+                    'count_expired_inspector': row.values[16]
                 }
                 dataSource.push(masterDetailColumns);
             })
@@ -345,6 +357,21 @@
                 }
             };
             this.messageService.publish(msg);
+        },
+        createTableButton: function(e) {
+            let toolbarItems = e.toolbarOptions.items;
+            toolbarItems.push({
+                widget: 'dxButton',
+                location: 'after',
+                options: {
+                    icon: 'exportxlsx',
+                    type: 'default',
+                    text: 'Excel',
+                    onClick: function() {
+                        this.dataGridInstance.instance.exportToExcel();
+                    }.bind(this)
+                }
+            });
         },
         getFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;

@@ -467,8 +467,10 @@ if @control_result_id = 13
 begin 
 declare @output table (Id int);
 declare @Operation varchar(128);
+declare @Missed_call_counter int = isnull((select isnull(max([Missed_call_counter]),0) from [dbo].[AssignmentDetailHistory] with (nolock) where [Assignment_id] = @Id),0)+1	
 SET @Operation = 'UPDATE';
 Insert into [dbo].[AssignmentDetailHistory] ([Assignment_id]
+									  ,[SourceHistory]
 									  ,[Operation]
 									  ,[Missed_call_counter]	
 									  ,[MissedCallComment]
@@ -476,7 +478,7 @@ Insert into [dbo].[AssignmentDetailHistory] ([Assignment_id]
 									  ,[Edit_date]
 									  )
 output [inserted].[Id] into @output (Id)
-values ( @Id, @Operation, 1, @control_comment, @user_id, getutcdate() )
+values ( @Id, N'Call', @Operation, @Missed_call_counter, @control_comment, @user_id, getutcdate() )
 
 declare @app_id int
 set @app_id = (select top 1 Id from @output)

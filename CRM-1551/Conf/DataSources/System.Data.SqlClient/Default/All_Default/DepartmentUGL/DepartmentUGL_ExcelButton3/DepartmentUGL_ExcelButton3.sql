@@ -1,3 +1,21 @@
+  
+  
+declare @t table (Id int, num nvarchar(100), n int)
+insert into @t (Id, num, n)
+ 
+select Id, [№ звернення], row_number() over (partition by [№ звернення] order by Id) n
+FROM [УГЛ]
+
+delete
+from [УГЛ]
+where Id in
+(
+select min(Id)
+FROM [УГЛ]
+where [№ звернення] in (select num from @t where n=2)
+group by [№ звернення]
+)
+  
   insert into [Звернення УГЛ]
   (
   [Джерело]

@@ -7,14 +7,21 @@
   "IsAnonymousAccess": false,
   "Parameters": [
     {
+      "Code": "@type_id",
+      "Name": "type_id",
+      "ParameterType": "Integer"
+    },
+    {
       "Code": "@Name",
       "Name": "Name"
     },
     {
-      "Code": "@Id",
-      "Name": "Id",
-      "ParameterType": "Integer",
-      "IsPrimaryKey": true
+      "Code": "@Old_name",
+      "Name": "Old_name"
+    },
+    {
+      "Code": "@Territory",
+      "Name": "Territory"
     }
   ]
 }

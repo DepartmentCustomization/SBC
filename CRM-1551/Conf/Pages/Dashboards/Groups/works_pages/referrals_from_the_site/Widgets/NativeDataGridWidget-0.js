@@ -13,6 +13,7 @@
                 {
                     dataField: 'receiptDate',
                     caption: 'Дата надходження',
+                    dataType: 'datetime',
                     width: 200
                 }, {
                     dataField: 'SystemIP',
@@ -41,7 +42,7 @@
                 }, {
                     dataField: 'content',
                     caption: 'Зміст',
-                    width: 200
+                    width: 800
                 }, {
                     dataField: 'moderComment',
                     caption: 'Коментар',

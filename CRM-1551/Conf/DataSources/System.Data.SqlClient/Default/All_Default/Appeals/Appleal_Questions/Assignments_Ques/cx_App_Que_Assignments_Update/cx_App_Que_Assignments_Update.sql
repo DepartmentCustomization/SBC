@@ -572,8 +572,10 @@ BEGIN
 			BEGIN 
 				DECLARE @outputHistory TABLE (Id INT);
 				DECLARE @Operation VARCHAR(128);
+				declare @Missed_call_counter int = isnull((select isnull(max([Missed_call_counter]),0) from [dbo].[AssignmentDetailHistory] with (nolock) where [Assignment_id] = @Id),0)+1
 				SET @Operation = 'UPDATE';
 				INSERT INTO [dbo].[AssignmentDetailHistory] ([Assignment_id]
+													,[SourceHistory]
 													,[Operation]
 													,[Missed_call_counter]	
 													,[MissedCallComment]
@@ -581,7 +583,7 @@ BEGIN
 													,[Edit_date]
 													)
 				output [inserted].[Id] INTO @outputHistory (Id)
-				VALUES ( @Id, @Operation, 1, @control_comment, @user_edit_id, GETUTCDATE() );
+				VALUES ( @Id, N'Call', @Operation, @Missed_call_counter, @control_comment, @user_edit_id, GETUTCDATE() );
 
 				DECLARE @app_id INT;
 				SET @app_id = (SELECT TOP 1 Id FROM @outputHistory);

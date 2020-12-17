@@ -463,8 +463,12 @@ text-align: center!important;
 }
 
 .save-form{
-  background-color:rgb(82, 153, 72);
+  background-color:rgb(110, 110, 110);
   margin-left: 50px;
+}
+
+.save-form.active{
+  background-color:rgb(82, 153, 72);
 }
 
 .arrow{

@@ -1,5 +1,5 @@
---   DECLARE @dateFrom DATETIME = '2020-08-31T21:00:00.000Z';
---   DECLARE @dateTo DATE = GETDATE(); 
+-- DECLARE @dateFrom DATETIME = '2020-08-31T21:00:00.000Z';
+-- DECLARE @dateTo DATE = GETDATE(); 
 
 IF OBJECT_ID ('tempdb..#Knowledge') IS NOT NULL
 BEGIN
@@ -11,9 +11,9 @@ CREATE TABLE #Knowledge ([Id] INT,
 						 [Name] NVARCHAR(300),
 						 [article_qty] INT,
 						 [article_percent] NUMERIC(5,2),
-						 [talk_all] TIME,
-						 [talk_consultations_only] TIME,
-						 [talk_consultation_average] TIME
+						 [talk_all] INT,
+						 [talk_consultations_only] INT,
+						 [talk_consultation_average] INT
 						 ) WITH (DATA_COMPRESSION = PAGE);
 --> Общее значение консультаций
 DECLARE @Knowledge_AllVal INT; 
@@ -34,18 +34,16 @@ SELECT
 	SUM(ISNULL(cs.number_by_day,0)) AS [article_qty], 
     CASE WHEN SUM(cs.number_by_day) > 0 
 		 THEN 
-		 CAST(CAST(SUM(cs.number_by_day) AS NUMERIC(5,2))
-		 / CAST(@Knowledge_AllVal AS NUMERIC(5,2)) AS NUMERIC(5,2)) * 100
+		 CAST(CAST(SUM(cs.number_by_day) AS NUMERIC(10,2))
+		 / CAST(@Knowledge_AllVal AS NUMERIC(10,2)) AS NUMERIC(10,2)) * 100
 		 ELSE 0 END 
   		AS [article_percent], 
-    CONVERT(VARCHAR(15), DATEADD(SECOND,SUM(ISNULL(cs.duration,0)),0),108) 
-  		AS [talk_all], 
-    CONVERT(VARCHAR(15), DATEADD(SECOND,SUM(cs.duration_only_cons),0),108) 
-  		AS [talk_consultations_only], 
+    SUM(ISNULL(cs.duration,0)) AS [talk_all], 
+    SUM(ISNULL(cs.duration_only_cons,0)) AS [talk_consultations_only], 
     CASE WHEN SUM(cs.number_only_cons) > 0 
 		 THEN 
-		 CONVERT(VARCHAR(15), DATEADD(SECOND,(SUM(ISNULL(cs.duration_only_cons,0)) / SUM(ISNULL(cs.number_only_cons,0))),0),108)
-		 ELSE '00:00:00' END
+		 SUM(ISNULL(cs.duration_only_cons,0)) / SUM(ISNULL(cs.number_only_cons,0))
+		 ELSE 0 END
   		AS [talk_consultation_average]
 FROM dbo.KnowledgeBaseStates kn_base
 LEFT JOIN dbo.ConsultationStatistic cs ON cs.article_id = kn_base.id
@@ -65,11 +63,11 @@ SELECT
 	[Id], 
 	[parent_id],
 	[Name],
-	0,
-	0,
-	'00:00:00',
-	'00:00:00',
-	'00:00:00'
+	0 AS [article_qty],
+	0 AS [article_percent],
+	0 AS [talk_all],
+	0 AS [talk_consultations_only],
+	0 AS [talk_consultation_average]
 FROM dbo.KnowledgeBaseStates
 WHERE parent_id = 1
 	  AND [Id] NOT IN (SELECT Id FROM #Knowledge);
@@ -133,9 +131,9 @@ BEGIN
 	UPDATE #RootVals
 		SET [article_qty] = (SELECT SUM([article_qty]) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
 			[article_percent] = (SELECT SUM([article_percent]) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
-			[talk_all] = (SELECT DATEADD(ms, SUM(DATEDIFF(ms, 0, [talk_all])), 0) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
-			[talk_consultations_only] = (SELECT DATEADD(ms, SUM(DATEDIFF(ms, 0, [talk_consultations_only])), 0) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
-			[talk_consultation_average] = (SELECT DATEADD(ms, AVG(DATEDIFF(ms, 0, [talk_consultation_average])), 0) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues))
+			[talk_all] = (SELECT SUM(ISNULL([talk_all], 0)) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
+			[talk_consultations_only] = (SELECT SUM(ISNULL([talk_consultations_only], 0)) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues)),
+			[talk_consultation_average] = (SELECT AVG(ISNULL([talk_consultation_average], 0)) FROM #Knowledge WHERE [Id] IN (SELECT [Id] FROM @StepValues))
 	WHERE [Id] = @Current;
 
 	DELETE FROM @RootCircle
@@ -147,23 +145,59 @@ END
 DECLARE @average_talk_consultation NVARCHAR(8);
 DECLARE @average_article_percent NUMERIC(5,2);
 
+DECLARE @average_talk_consultation_sec INT; 
 SELECT 
-	@average_talk_consultation = CONVERT(VARCHAR(8), DATEADD(ms, AVG(DATEDIFF(ms, 0,[talk_consultation_average])), 0), 108)
+	@average_talk_consultation_sec = AVG([talk_consultation_average])
 FROM #RootVals
 WHERE article_percent <> 0.00;
 
 SELECT 
+	@average_talk_consultation = 
+	CASE WHEN 
+	SUBSTRING(RIGHT('0' + CAST(@average_talk_consultation_sec / 3600 AS VARCHAR(10)),4),1,1) = '0'
+		THEN CASE WHEN 
+			SUBSTRING(RIGHT('0' + CAST(@average_talk_consultation_sec / 3600 AS VARCHAR(10)),3),1,1) = '0'
+			THEN RIGHT('0' + CAST(@average_talk_consultation_sec / 3600 AS VARCHAR(10)),2)
+			ELSE RIGHT('0' + CAST(@average_talk_consultation_sec / 3600 AS VARCHAR(10)),3)
+			END
+		ELSE RIGHT(CAST(@average_talk_consultation_sec / 3600 AS VARCHAR(10)),4)
+		END + ':' +
+	RIGHT('0' + CAST((@average_talk_consultation_sec / 60) % 60 AS VARCHAR(10)),2) + ':' +
+	RIGHT('0' + CAST(@average_talk_consultation_sec % 60 AS VARCHAR(10)),2);
+
+SELECT 
 	@average_article_percent = AVG([article_percent])
 FROM #RootVals
-WHERE talk_consultation_average
-	<> '00:00:00.0000000';
+WHERE talk_consultation_average <> 0;
 
 SELECT 
 	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) AS Id,
 	SUM([article_qty]) AS [article_qty],
 	@average_article_percent AS [article_percent],
-	CONVERT(VARCHAR(8), DATEADD(ms, SUM(DATEDIFF(ms, 0,[talk_all])), 0), 108) AS [talk_all],
-	CONVERT(VARCHAR(8), DATEADD(ms, SUM(DATEDIFF(ms, 0,[talk_consultations_only])), 0), 108) AS [talk_consultations_only],
+	CASE WHEN 
+	SUBSTRING(RIGHT('0' + CAST(SUM([talk_all]) / 3600 AS VARCHAR(10)),4),1,1) = '0'
+		THEN CASE WHEN 
+			SUBSTRING(RIGHT('0' + CAST(SUM([talk_all]) / 3600 AS VARCHAR(10)),3),1,1) = '0'
+			THEN RIGHT('0' + CAST(SUM([talk_all]) / 3600 AS VARCHAR(10)),2)
+			ELSE RIGHT('0' + CAST(SUM([talk_all]) / 3600 AS VARCHAR(10)),3)
+			END
+		ELSE RIGHT(CAST(SUM([talk_all]) / 3600 AS VARCHAR(10)),4)
+		END + ':' +
+	RIGHT('0' + CAST((SUM([talk_all]) / 60) % 60 AS VARCHAR(10)),2) + ':' +
+	RIGHT('0' + CAST(SUM([talk_all]) % 60 AS VARCHAR(10)),2)
+		 AS [talk_all],
+	CASE WHEN 
+	SUBSTRING(RIGHT('0' + CAST(SUM([talk_consultations_only]) / 3600 AS VARCHAR(10)),4),1,1) = '0'
+		THEN CASE WHEN 
+			SUBSTRING(RIGHT('0' + CAST(SUM([talk_consultations_only]) / 3600 AS VARCHAR(10)),3),1,1) = '0'
+			THEN RIGHT('0' + CAST(SUM([talk_consultations_only]) / 3600 AS VARCHAR(10)),2)
+			ELSE RIGHT('0' + CAST(SUM([talk_consultations_only]) / 3600 AS VARCHAR(10)),3)
+			END
+		ELSE RIGHT(CAST(SUM([talk_consultations_only]) / 3600 AS VARCHAR(10)),4)
+		END + ':' +
+	RIGHT('0' + CAST((SUM([talk_consultations_only]) / 60) % 60 AS VARCHAR(10)),2) + ':' +
+	RIGHT('0' + CAST(SUM([talk_consultations_only]) % 60 AS VARCHAR(10)),2) 
+		 AS [talk_consultations_only],
 	@average_talk_consultation AS [talk_consultation_average],
 	NULL AS [UserId]
 FROM #RootVals;

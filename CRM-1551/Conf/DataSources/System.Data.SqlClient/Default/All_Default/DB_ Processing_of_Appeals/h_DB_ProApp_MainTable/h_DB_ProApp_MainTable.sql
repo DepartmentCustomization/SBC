@@ -175,7 +175,7 @@ end
   left join #temp_filter_d_qt_all temp_filter_d_qt_all on temp_filter_d_qt_all.district_id=[Objects].district_id
   left join #temp_filter_emergensy_id temp_filter_emergensy_id on temp_filter_emergensy_id.emergensy_id=[QuestionTypes].emergency
 
-  where [Assignments].execution_date<getutcdate()
+  where [Assignments].execution_date<getutcdate() and [Assignments].assignment_state_id in (1,2)
   and --фильтрация
   (temp_filter_d_qt.Id is not null
   or temp_filter_d_qt_all.Id is not null

@@ -25,6 +25,8 @@
         },
         init: function() {
             this.dataGridInstance.height = String(window.innerHeight - 200);
+            document.getElementById('NativeDataGridWidget-1').style.display = 'none';
+            document.getElementById('NativeDataGridWidget-0').style.display = 'none';
             this.sub = this.messageService.subscribe('showTable', this.showTable, this);
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.loadData(this.afterLoadDataHandler);
@@ -51,8 +53,19 @@
         showTable: function(message) {
             if(message.value === 'group') {
                 document.getElementById('question_groups').style.display = 'block';
+                document.getElementById('NativeDataGridWidget-0').style.display = 'block';
+                document.getElementById('NativeDataGridWidget-1').style.display = 'block';
+                document.getElementById('widgetFiltersInfo').style.display = 'none';
             }else if(message.value === 'default') {
                 document.getElementById('question_groups').style.display = 'none';
+                document.getElementById('NativeDataGridWidget-0').style.display = 'block';
+                document.getElementById('NativeDataGridWidget-1').style.display = 'block';
+                document.getElementById('widgetFiltersInfo').style.display = 'none';
+            }else if(message.value === 'filter') {
+                document.getElementById('question_groups').style.display = 'none';
+                document.getElementById('NativeDataGridWidget-0').style.display = 'none';
+                document.getElementById('NativeDataGridWidget-1').style.display = 'none';
+                document.getElementById('widgetFiltersInfo').style.display = 'block';
             }
         },
         afterLoadDataHandler: function() {

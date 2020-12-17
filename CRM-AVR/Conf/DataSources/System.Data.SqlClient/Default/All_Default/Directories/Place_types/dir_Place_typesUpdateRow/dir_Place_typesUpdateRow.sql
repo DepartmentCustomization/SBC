@@ -1,3 +1,6 @@
-Update [dbo].[Place_types]
-      set     ([Name]= @Name)
-	  where Id = @Id
+UPDATE
+      [dbo].[Place_types]
+SET
+      [Name] = @Name
+WHERE
+      Id = @Id;

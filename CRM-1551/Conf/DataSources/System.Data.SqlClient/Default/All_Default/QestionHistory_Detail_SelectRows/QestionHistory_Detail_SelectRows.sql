@@ -1,6 +1,6 @@
 --    DECLARE @history_id INT = 53921;
 
-DECLARE @Archive NVARCHAR(400) = '['+(SELECT TOP 1 [IP]+'].['+[DatabaseName]+'].' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
+DECLARE @Archive NVARCHAR(max) = '['+(SELECT TOP 1 [IP]+'].['+[DatabaseName]+'].' FROM [dbo].[SetingConnetDatabase] WHERE Code = N'Archive');
 
 DECLARE @IsHere BIT = IIF(
    (
@@ -78,8 +78,8 @@ ALL
 SELECT
 	t1.Id,
 	N''Об`єкт'' AS [history_type_name],
-	isnull([ObjectTypes2].[name] + N'': '', N'''') + isnull([StreetTypes2].[shortname] + '' '', N'''') + isnull([Streets2].[name] + N'' '', N'''') + isnull([Buildings2].[name], N'''') AS [history_value_old],
-	isnull([ObjectTypes1].[name] + N'': '', N'''') + isnull([StreetTypes1].[shortname] + '' '', N'''') + isnull([Streets1].[name] + N'' '', N'''') + isnull([Buildings1].[name], N'''') AS [history_value_new]
+	isnull([ObjectTypes2].[name] + N'': '', N'''') + isnull([StreetTypes2].[shortname] + '' '', N'''') + isnull([Streets2].[name] + N'' '', N'''') + isnull([Objects2].[name], N'''') AS [history_value_old],
+	isnull([ObjectTypes1].[name] + N'': '', N'''') + isnull([StreetTypes1].[shortname] + '' '', N'''') + isnull([Streets1].[name] + N'' '', N'''') + isnull([Objects1].[name], N'''') AS [history_value_new]
 FROM
 	'+@Archive+ N'[dbo].[Question_History] AS t1
 	LEFT JOIN '+@Archive+ N'[dbo].[Question_History] AS t2 ON t2.Id = @history_id_old

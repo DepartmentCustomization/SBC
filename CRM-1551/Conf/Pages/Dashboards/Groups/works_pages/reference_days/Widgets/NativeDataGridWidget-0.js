@@ -44,6 +44,12 @@
                     dataType: 'date',
                     format: 'dd.MM.yyyy',
                     alignment: 'center'
+                },
+                {
+                    dataField: 'fix_row_icon',
+                    caption: '',
+                    width:80,
+                    allowUpdating:false
                 }
             ],
             allowColumnResizing: true,
@@ -83,19 +89,115 @@
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.setFiltersParams, this));
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.applyGlobalFilters, this));
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
+
+            this.config.onCellPrepared = this.onCellPrepared.bind(this);
         },
         setFiltersParams: function(message) {
             const period = message.package.value.values.find(f => f.name === 'period').value;
+            const rating = message.package.value.values.find(f => f.name === 'rating').value;
             if(period !== null) {
                 if(period.dateFrom !== '' && period.dateTo !== '') {
-                    const dateFrom = period.dateFrom;
-                    const dateTo = period.dateTo;
+                    this.dateFrom = this.toUTC(period.dateFrom);
+                    this.dateTo = this.toUTC(period.dateTo);
+                    this.rating = this.extractOrgValues(rating);
                     this.config.query.parameterValues = [
-                        {key: '@dateFrom' , value: dateFrom },
-                        {key: '@dateTo', value: dateTo }
+                        {key: '@dateFrom' , value: this.dateFrom },
+                        {key: '@dateTo', value: this.dateTo },
+                        {key: '@rating' , value: this.rating.join(',') }
                     ];
                 }
             }
+        },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
+            return dateTo
+        },
+        onCellPrepared: function(options) {
+            if(options.rowType === 'data') {
+                if(options.column.dataField === 'fix_row_icon') {
+                    const icon = this.createElement('span',{className:'material-icons create fix-row ',textContent:'create'})
+                    icon.addEventListener('click',()=>{
+                        this.openModal()
+                    })
+                    const arrClasses = ['cell-icon','dx-command-select','dx-editor-cell','dx-editor-inline-block','dx-cell-focus-disabled']
+                    arrClasses.forEach(elem=>options.cellElement.classList.add(elem))
+                    options.cellElement.append(icon);
+                }
+            }
+        },
+        openModal() {
+            const rowId = this.dataGridInstance.selectedRowKeys;
+
+            if(rowId.length >= 1) {
+                const mainWidget = document.querySelector('.root-main')
+                const int = mainWidget.querySelector('.lookup-con')
+                const int2 = mainWidget.querySelector('.blocker')
+                if(int) {
+                    int.remove()
+                }
+                if(int2) {
+                    int2.remove()
+                }
+                const blocker = this.createElement('div',{className:'blocker',id:'blocker'})
+                blocker.addEventListener('click',this.removeLookup.bind(this))
+                const con = this.createElement('div',{className:'lookup-con',id:'lookup-con'})
+                const buttonsCon = this.createElement('div',{className:'lookup-buttons-con'})
+                const buttonAdd = this.createElement('button',{className:'btn add-btn',textContent:'Застосувати'})
+                buttonAdd.addEventListener('click',this.sendDate.bind(this,rowId))
+                const buttonExit = this.createElement('button',{className:'btn exit-btn',textContent:'Вийти'})
+                buttonExit.addEventListener('click',this.removeLookup.bind(this))
+                const convertDate = new Date(this.dateTo).toISOString().slice(0,10)
+                const dataInput = this.createElement('input',{className:'date-input',type:'date',value:convertDate,min:convertDate})
+                buttonsCon.append(buttonAdd,buttonExit)
+                con.append(buttonsCon,dataInput)
+                mainWidget.append(blocker,con)
+            }
+        },
+        sendDate(rows) {
+            const ids = rows.join(',')
+            const value = document.querySelector('.date-input').value
+            const insertRowQuery = {
+                queryCode: 'db_red_ButtonStartDate',
+                limit: -1,
+                parameterValues: [
+                    {key: '@DateStart', value: new Date(value)},
+                    {key: '@Ids', value: ids}
+                ]
+            };
+            this.queryExecutor(insertRowQuery,this.updateGrid,this);
+        },
+        updateGrid() {
+            this.removeLookup();
+        },
+        removeLookup() {
+            const blocker = document.getElementById('blocker')
+            const con = document.getElementById('lookup-con')
+            blocker.remove()
+            con.remove()
+            this.loadData(this.afterLoadDataHandler);
+        },
+        createElement: function(tag, props, ...children) {
+            const element = document.createElement(tag);
+            Object.keys(props).forEach(key => element[key] = props[key]);
+            if(children.length > 0) {
+                children.forEach(child =>{
+                    element.appendChild(child);
+                });
+            } return element;
+        },
+        extractOrgValues: function(items) {
+            if(items.length && items !== '') {
+                const valuesList = [];
+                items.forEach(item => valuesList.push(item.value));
+                return valuesList;
+            }
+            return [];
         },
         createTableButton: function(e) {
             let toolbarItems = e.toolbarOptions.items;
@@ -147,7 +249,7 @@
             Promise.all(this.promiseAll).then(() => {
                 this.promiseAll = [];
                 this.dataGridInstance.instance.deselectAll();
-                this.loadData(this.afterLoadDataHandler);
+                this.afterLoadDataHandler();
                 this.hidePagePreloader();
             });
         },

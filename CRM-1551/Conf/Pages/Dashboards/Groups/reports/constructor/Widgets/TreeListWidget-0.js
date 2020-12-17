@@ -27,6 +27,7 @@
                     caption: 'Назва питання'
                 }
             ],
+            filterRow: { visible: true },
             scrolling: {
                 mode: 'virtual'
             },
@@ -38,9 +39,6 @@
                 width: null
             },
             headerFilter: {
-                visible: false
-            },
-            filterRow: {
                 visible: false
             },
             filterPanel: {
@@ -95,8 +93,16 @@
         showTable: function(message) {
             if(message.value === 'group') {
                 document.getElementById('question_classificatory').style.display = 'none';
+                document.getElementById('NativeDataGridWidget-0').style.display = 'block';
+                document.getElementById('widgetFiltersInfo').style.display = 'none';
             }else if(message.value === 'default') {
                 document.getElementById('question_classificatory').style.display = 'block';
+                document.getElementById('NativeDataGridWidget-0').style.display = 'block';
+                document.getElementById('widgetFiltersInfo').style.display = 'none';
+            }else if(message.value === 'filter') {
+                document.getElementById('question_classificatory').style.display = 'none';
+                document.getElementById('NativeDataGridWidget-0').style.display = 'none';
+                document.getElementById('widgetFiltersInfo').style.display = 'block';
             }
         },
         destroy: function() {

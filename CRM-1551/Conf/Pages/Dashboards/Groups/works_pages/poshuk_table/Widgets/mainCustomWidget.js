@@ -235,7 +235,6 @@
                 );
                 groupDeleteBtn.addEventListener('click', event => {
                     const target = event.currentTarget;
-                    // eslint-disable-next-line no-alert
                     const result = confirm(`Бажаєте видалити фільтр ${groupName.value}?`);
                     if (result) {
                         const groupId = target.groupId;

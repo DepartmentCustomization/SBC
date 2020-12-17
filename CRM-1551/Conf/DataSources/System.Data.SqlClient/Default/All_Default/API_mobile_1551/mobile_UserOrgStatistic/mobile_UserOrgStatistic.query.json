@@ -10,21 +10,29 @@
       "Name": "organization_id",
       "Position": 0,
       "IsPrintable": false,
-      "SqlName": "uo.Id",
+      "SqlName": "Id",
       "FilterParameterCode": "@organization_id"
     },
     {
-      "Code": "new_assignemnt",
-      "Name": "new_assignemnt",
+      "Code": "short_name",
+      "Name": "short_name",
       "Position": 1,
       "IsPrintable": false,
+      "SqlName": "short_name",
+      "FilterParameterCode": "@short_name"
+    },
+    {
+      "Code": "new_assignment",
+      "Name": "new_assignment",
+      "Position": 2,
+      "IsPrintable": false,
       "SqlName": "ISNULL(na.[val],0)",
-      "FilterParameterCode": "@new_assignemnt"
+      "FilterParameterCode": "@new_assignment"
     },
     {
       "Code": "in_work_assignment",
       "Name": "in_work_assignment",
-      "Position": 2,
+      "Position": 3,
       "IsPrintable": false,
       "SqlName": "ISNULL(iwa.[val],0)",
       "FilterParameterCode": "@in_work_assignment"
@@ -32,7 +40,7 @@
     {
       "Code": "in_work_event",
       "Name": "in_work_event",
-      "Position": 3,
+      "Position": 4,
       "IsPrintable": false,
       "SqlName": "ISNULL(iwe.[val],0)",
       "FilterParameterCode": "@in_work_event"
@@ -40,7 +48,7 @@
     {
       "Code": "overdue_assignment",
       "Name": "overdue_assignment",
-      "Position": 4,
+      "Position": 5,
       "IsPrintable": false,
       "SqlName": "ISNULL(oa.[val],0)",
       "FilterParameterCode": "@overdue_assignment"
@@ -48,7 +56,7 @@
     {
       "Code": "overdue_event",
       "Name": "overdue_event",
-      "Position": 5,
+      "Position": 6,
       "IsPrintable": false,
       "SqlName": "ISNULL(oe.[val],0)",
       "FilterParameterCode": "@overdue_event"
@@ -56,7 +64,7 @@
     {
       "Code": "attention_assignment",
       "Name": "attention_assignment",
-      "Position": 6,
+      "Position": 7,
       "IsPrintable": false,
       "SqlName": "ISNULL(aa.[val],0)",
       "FilterParameterCode": "@attention_assignment"
@@ -64,7 +72,7 @@
     {
       "Code": "attention_event",
       "Name": "attention_event",
-      "Position": 7,
+      "Position": 8,
       "IsPrintable": false,
       "SqlName": "ISNULL(ae.[val],0)",
       "FilterParameterCode": "@attention_event"
@@ -72,7 +80,7 @@
     {
       "Code": "curatorreturn_assignment",
       "Name": "curatorreturn_assignment",
-      "Position": 8,
+      "Position": 9,
       "IsPrintable": false,
       "SqlName": "ISNULL(cra.[val],0)",
       "FilterParameterCode": "@curatorreturn_assignment"
@@ -80,7 +88,7 @@
     {
       "Code": "applicantreturn_assignment",
       "Name": "applicantreturn_assignment",
-      "Position": 9,
+      "Position": 10,
       "IsPrintable": false,
       "SqlName": "ISNULL(ara.[val],0)",
       "FilterParameterCode": "@applicantreturn_assignment"

@@ -1,14 +1,16 @@
-  /*
-  DECLARE @userId NVARCHAR(128) = N'646d6b5e-9f27-4764-9612-f18d04fea509';
-  DECLARE @orgId INT = NULL;
-  DECLARE @startDate DATE = N'2020-06-01';
-  DECLARE @endDate DATE = NULL;
-  DECLARE @Control_startDate DATE = N'2020-06-01';
-  DECLARE @Control_endDate DATE = N'2020-10-10';
-  DECLARE @code NVARCHAR(50) = NULL;
-  DECLARE @entity NVARCHAR(50) = 'assignment';
-  DECLARE @entityNumber NVARCHAR(50) = NULL;
-  DECLARE @objecId INT = 20844;
+/*
+DECLARE @userId NVARCHAR(128) = N'29796543-b903-48a6-9399-4840f6eac396',
+		@orgId INT = NULL,
+		@startDate DATE = '2020-06-01',
+		@endDate DATE = GETDATE(),
+		@Control_startDate DATE = NULL,
+		@Control_endDate DATE = NULL,
+		@code NVARCHAR(500) = NULL,
+		@entity NVARCHAR(50) = NULL,
+		@entityNumber NVARCHAR(50) = NULL,
+		@objecId INT = NULL,
+		@applicant_fio NVARCHAR(500) = NULL,
+		@executor_fio NVARCHAR(500) = NULL;
  */
  
 SET @startDate = IIF(@startDate IS NULL, '1900-01-01', @startDate);   
@@ -16,15 +18,12 @@ SET @endDate = IIF(@endDate IS NULL, '2100-01-01', @endDate);
 SET @Control_startDate = IIF(@Control_startDate IS NULL, '1900-01-01', @Control_startDate);
 SET @Control_endDate = IIF(@Control_endDate IS NULL, '2100-01-01', @Control_endDate);
 SET @code = IIF(@code IS NULL, 
-				N'new_assignemnt, 
-				in_work_assignment, 
-				in_work_event, 
-				overdue_assignment, 
-				overdue_event, 
-				attention_assignment,
-				attention_event,
-				curatorreturn_assignment,
-				applicantreturn_assignment',
+				N'new, 
+				in_work, 
+				overdue, 
+				attention,
+				curatorreturn,
+				applicantreturn',
 				@code);
 
 DECLARE @user_position TABLE (Id INT);
@@ -44,6 +43,20 @@ DISTINCT
 	[organization_id]
 FROM [dbo].[OrganizationInResponsibilityRights]
 WHERE [position_id] IN (SELECT [Id] FROM @user_position);
+
+--1022
+DECLARE @active_subscribe TABLE ([assignment_id] INT, [event_id] INT, [is_active] BIT)
+INSERT INTO @active_subscribe ([assignment_id], [event_id], [is_active])
+
+SELECT 
+	[assignment_id], 
+	[event_id],
+	ISNULL([is_active],1) AS is_active
+FROM [dbo].[AttentionQuestionAndEvent]
+WHERE [user_id]=@userId
+AND assignment_id IS NOT NULL
+OR event_id IS NOT NULL;
+--1022
 
 IF (@orgId IS NULL)
 BEGIN
@@ -85,13 +98,14 @@ DECLARE @resultTab TABLE
 	[assignment_execution_date] DATETIME, --assignment
 	[assignment_registration_date] DATETIME, --assignment
 	[event_start_date] DATETIME, --event
-	[event_plan_end_date] DATETIME, --event 
+	[event_plan_end_date] DATETIME, --event
+	[event_real_end_date] DATETIME, --event  
 	[object_id] INT) 
 	;
 
 
 -- Надійшло
-IF (CHARINDEX(N'new_assignemnt', @code) > 0)
+IF (CHARINDEX(N'new', @code) > 0)
 AND (@entity = N'assignment' OR @entity IS NULL)
 BEGIN
 	INSERT INTO @resultTab
@@ -101,7 +115,7 @@ BEGIN
 		NULL AS [event_class_name],
 		ass_st.[name] AS [assignment_state],
 		NULL AS [event_active],
-		N'new_assignemnt' AS [code],
+		N'new' AS [code],
 		org.[name] AS [assignment_executor_organization_name],
 		p_exec.[name] AS [assignment_executor_person_name],
 		NULL AS [event_organization_name],
@@ -112,21 +126,31 @@ BEGIN
 		ass.[registration_date] AS [assignment_registration_date],
 		NULL AS [event_start_date],
 		NULL AS [event_plan_end_date],
+		NULL AS [event_real_end_date],
 		obj.[Id] AS [object_id]
 	FROM dbo.[Organizations] org
-	INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
+	INNER JOIN dbo.[Assignments] ass WITH (NOLOCK) ON ass.[executor_organization_id] = org.[Id]
 		AND ass.[assignment_state_id] = 1 
 		AND ass.[executor_organization_id] IN (SELECT [Id] FROM @user_orgs)
 		AND ass.[registration_date] BETWEEN @startDate AND @endDate
 		AND ass.[execution_date] BETWEEN @Control_startDate AND @Control_endDate
+		AND ass.[execution_date] >= @now
 	LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 	LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
-	LEFT JOIN dbo.[Questions] q ON q.[Id] = ass.[question_id]
-	LEFT JOIN dbo.[Objects] obj ON obj.[id] = q.[object_id]
-	LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];
+	LEFT JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
+	LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+	LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
+	LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
+	LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+	WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 -- В роботі Доручень 
-IF (CHARINDEX(N'in_work_assignment', @code) > 0)
+IF (CHARINDEX(N'in_work', @code) > 0)
 AND (@entity = N'assignment' OR @entity IS NULL)
 BEGIN
 	INSERT INTO @resultTab
@@ -136,7 +160,7 @@ BEGIN
 		NULL AS [event_class_name],
 		ass_st.[name] AS [assignment_state],
 		NULL AS [event_active],
-		N'in_work_assignment' AS [code],
+		N'in_work' AS [code],
 		org.[name] AS [assignment_executor_organization_name],
 		p_exec.[name] AS [assignment_executor_person_name],
 		NULL AS [event_organization_name],
@@ -147,22 +171,34 @@ BEGIN
 		ass.[registration_date] AS [assignment_registration_date],
 		NULL AS [event_start_date],
 		NULL AS [event_plan_end_date],
+		NULL AS [event_real_end_date],
 		obj.[Id] AS [object_id]
 	FROM dbo.[Organizations] org
-	INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
+	INNER JOIN dbo.[Assignments] ass WITH (NOLOCK) ON ass.[executor_organization_id] = org.[Id]
 		AND ass.[assignment_state_id] = 2 
 		AND ass.[executor_organization_id] IN (SELECT [Id] FROM @user_orgs)
 		AND ass.[registration_date] BETWEEN @startDate AND @endDate
 		AND ass.[execution_date] BETWEEN @Control_startDate AND @Control_endDate
+		AND ass.[execution_date] >= @now
 	LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 	LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
-	LEFT JOIN dbo.[Questions] q ON q.[Id] = ass.[question_id]
-	LEFT JOIN dbo.[Objects] obj ON obj.[id] = q.[object_id]
-	LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];
+	LEFT JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
+	LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+	LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
+	LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
+	LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+	WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 -- В роботі Заходів  
-IF (CHARINDEX(N'in_work_event', @code) > 0)
+IF (CHARINDEX(N'in_work', @code) > 0)
 AND (@entity = N'event' OR @entity IS NULL)
+AND @applicant_fio IS NULL
+AND @executor_fio IS NULL
 BEGIN
 INSERT INTO @resultTab
 SELECT
@@ -172,7 +208,7 @@ DISTINCT
 	ec.[name] AS [event_class_name],
 	NULL AS [assignment_state],
 	e.[active] AS [event_active],
-	N'in_work_event' AS [code],
+	N'in_work' AS [code],
 	NULL AS [assignment_executor_organization_name],
 	NULL AS [assignment_executor_person_name],
 	org.[name] AS [event_organization_name],
@@ -189,21 +225,22 @@ DISTINCT
 	NULL AS [assignment_registration_date],
 	e.[start_date] AS [event_start_date],
 	e.[plan_end_date] AS [event_plan_end_date],
+	e.[real_end_date] AS [event_real_end_date],
 	qobj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
-INNER JOIN dbo.[EventOrganizers] eo ON eo.[organization_id] = org.[Id]
+INNER JOIN dbo.[EventOrganizers] eo WITH (NOLOCK) ON eo.[organization_id] = org.[Id]
 	AND eo.[organization_id] IN (SELECT [Id] FROM @user_orgs)
-INNER JOIN dbo.[Events] e ON e.[Id] = eo.[event_id]
+INNER JOIN dbo.[Events] e WITH (NOLOCK) ON e.[Id] = eo.[event_id]
 	AND e.[active] = 1 
 	AND e.[start_date] BETWEEN @startDate AND @endDate 
 	AND e.[plan_end_date] BETWEEN @Control_startDate AND @Control_endDate
 	AND e.[plan_end_date] > @now
 LEFT JOIN dbo.[Event_Class] ec ON ec.[Id] = e.[event_class_id]
-LEFT JOIN dbo.[Questions] q ON q.[event_id] = e.[Id] 
-LEFT JOIN dbo.[Objects] qobj ON qobj.[Id] = q.[object_id];
+LEFT JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[event_id] = e.[Id] 
+LEFT JOIN dbo.[Objects] qobj WITH (NOLOCK) ON qobj.[Id] = q.[object_id];
 END
 -- Прострочено Доручень 
-IF (CHARINDEX(N'overdue_assignment', @code) > 0)
+IF (CHARINDEX(N'overdue', @code) > 0)
 AND (@entity = N'assignment' OR @entity IS NULL)
 BEGIN
 INSERT INTO @resultTab
@@ -213,7 +250,7 @@ SELECT
 	NULL AS [event_class_name],
 	ass_st.[name] AS [assignment_state],
 	NULL AS [event_active],
-	N'overdue_assignment' AS [code],
+	N'overdue' AS [code],
 	org.[name] AS [assignment_executor_organization_name],
 	p_exec.[name] AS [assignment_executor_person_name],
 	NULL AS [event_organization_name],
@@ -224,6 +261,7 @@ SELECT
 	ass.[registration_date] AS [assignment_registration_date],
 	NULL AS [event_start_date],
 	NULL AS [event_plan_end_date],
+	NULL AS [event_real_end_date],
 	obj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
 INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
@@ -232,15 +270,25 @@ INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
 	AND ass.[registration_date] BETWEEN @startDate AND @endDate
 	AND ass.[execution_date] BETWEEN @Control_startDate AND @Control_endDate
 	AND ass.[execution_date] < @now 
-INNER JOIN dbo.[Questions] q ON q.[Id] = ass.[question_id]
+INNER JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
 LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
-LEFT JOIN dbo.[Objects] obj ON obj.[id] = q.[object_id]
-LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];
+LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
+LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
+LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 -- Прострочено Заходів
-IF (CHARINDEX(N'overdue_event', @code) > 0)
+IF (CHARINDEX(N'overdue', @code) > 0)
 AND (@entity = N'event' OR @entity IS NULL)
+AND @applicant_fio IS NULL
+AND @executor_fio IS NULL
 BEGIN   
 INSERT INTO @resultTab
 SELECT 
@@ -250,7 +298,7 @@ DISTINCT
 	ec.[name] AS [event_class_name],
 	NULL AS [assignment_state],
 	e.[active] AS [event_active],
-	N'overdue_event' AS [code],
+	N'overdue' AS [code],
 	NULL AS [assignment_executor_organization_name],
 	NULL AS [assignment_executor_person_name],
 	org.[name] AS [event_organization_name],
@@ -267,21 +315,22 @@ DISTINCT
 	NULL AS [assignment_registration_date],
 	e.[start_date] AS [event_start_date],
 	e.[plan_end_date] AS [event_plan_end_date],
+	e.[real_end_date] AS [event_real_end_date],
 	qobj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
-INNER JOIN dbo.[EventOrganizers] eo ON eo.[organization_id] = org.[Id]
+INNER JOIN dbo.[EventOrganizers] eo WITH (NOLOCK) ON eo.[organization_id] = org.[Id]
 	AND eo.[organization_id] IN (SELECT [Id] FROM @user_orgs)
-INNER JOIN dbo.[Events] e ON e.[Id] = eo.[event_id]
+INNER JOIN dbo.[Events] e WITH (NOLOCK) ON e.[Id] = eo.[event_id]
 	AND e.[active] = 1 
 	AND e.[start_date] BETWEEN @startDate AND @endDate
 	AND e.[plan_end_date] BETWEEN @Control_startDate AND @Control_endDate
 	AND e.[plan_end_date] < @now 
-LEFT JOIN dbo.[Event_Class] ec ON ec.[Id] = e.[event_class_id]
-LEFT JOIN dbo.[Questions] q ON q.[event_id] = e.[Id] 
-LEFT JOIN dbo.[Objects] qobj ON qobj.[Id] = q.[object_id];
+LEFT JOIN dbo.[Event_Class] ec WITH (NOLOCK) ON ec.[Id] = e.[event_class_id]
+LEFT JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[event_id] = e.[Id] 
+LEFT JOIN dbo.[Objects] qobj WITH (NOLOCK) ON qobj.[Id] = q.[object_id];
 END
 -- Увага Доручень 
-IF (CHARINDEX(N'attention_assignment', @code) > 0)
+IF (CHARINDEX(N'attention', @code) > 0)
 AND (@entity = N'assignment' OR @entity IS NULL)
 BEGIN   
 INSERT INTO @resultTab
@@ -291,7 +340,7 @@ SELECT
 	NULL AS [event_class_name],
 	ass_st.[name] AS [assignment_state],
 	NULL AS [event_active],
-	N'attention_assignment' AS [code],
+	N'attention' AS [code],
 	org.[name] AS [assignment_executor_organization_name],
 	p_exec.[name] AS [assignment_executor_person_name],
 	NULL AS [event_organization_name],
@@ -302,6 +351,7 @@ SELECT
 	ass.[registration_date] AS [assignment_registration_date],
 	NULL AS [event_start_date],
 	NULL AS [event_plan_end_date],
+	NULL AS [event_real_end_date],
 	obj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
 INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
@@ -314,16 +364,26 @@ INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
 	OR DATEDIFF(HOUR, ass.[execution_date], ass.[execution_date]) / 5 
 	<=  DATEDIFF(HOUR, @now, ass.[execution_date]) )
 	AND ass.[executor_organization_id] IN (SELECT [Id] FROM @user_orgs)
-INNER JOIN dbo.[Questions] q ON q.[Id] = ass.[question_id]
+INNER JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
 LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
-LEFT JOIN dbo.[Objects] obj ON obj.[id] = q.[object_id]
-LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];
+LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
+LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
+LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 
 -- Увага Заходів  
-IF (CHARINDEX(N'attention_event', @code) > 0)
+IF (CHARINDEX(N'attention', @code) > 0)
 AND (@entity = N'event' OR @entity IS NULL)
+AND @applicant_fio IS NULL
+AND @executor_fio IS NULL
 BEGIN   
 INSERT INTO @resultTab
 SELECT 
@@ -333,7 +393,7 @@ DISTINCT
 	ec.[name] AS [event_class_name],
 	NULL AS [assignment_state],
 	e.[active] AS [event_active],
-	N'attention_event' AS [code],
+	N'attention' AS [code],
 	NULL AS [assignment_executor_organization_name],
 	NULL AS [assignment_executor_person_name],
 	org.[name] AS [event_organization_name],
@@ -350,9 +410,10 @@ DISTINCT
 	NULL AS [assignment_registration_date],
 	e.[start_date] AS [event_start_date],
 	e.[plan_end_date] AS [event_plan_end_date],
+	e.[real_end_date] AS [event_real_end_date],
 	qobj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
-INNER JOIN dbo.[EventOrganizers] eo ON eo.[organization_id] = org.[Id]
+INNER JOIN dbo.[EventOrganizers] eo WITH (NOLOCK) ON eo.[organization_id] = org.[Id]
 	AND eo.[organization_id] IN (SELECT [Id] FROM @user_orgs)
 INNER JOIN dbo.[Events] e ON e.[Id] = eo.[event_id]
 	AND e.[active] = 1 
@@ -364,11 +425,11 @@ INNER JOIN dbo.[Events] e ON e.[Id] = eo.[event_id]
 	OR DATEDIFF(HOUR, e.[plan_end_date], e.[plan_end_date]) / 5 
 	<=  DATEDIFF(HOUR, @now, e.[plan_end_date]) )
 LEFT JOIN dbo.[Event_Class] ec ON ec.[Id] = e.[event_class_id]
-LEFT JOIN dbo.[Questions] q ON q.[event_id] = e.[Id] 
-LEFT JOIN dbo.[Objects] qobj ON qobj.[Id] = q.[object_id];
+LEFT JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[event_id] = e.[Id] 
+LEFT JOIN dbo.[Objects] qobj WITH (NOLOCK) ON qobj.[Id] = q.[object_id];
 END
 -- Повернені куратором 
-IF (CHARINDEX(N'curatorreturn_assignment', @code) > 0)
+IF (CHARINDEX(N'curatorreturn', @code) > 0)
 AND (@entity = N'assignment' OR @entity IS NULL)
 BEGIN   
 INSERT INTO @resultTab
@@ -378,7 +439,7 @@ SELECT
 	NULL AS [event_class_name],
 	ass_st.[name] AS [assignment_state],
 	NULL AS [event_active],
-	N'curatorreturn_assignment' AS [code],
+	N'curatorreturn' AS [code],
 	org.[name] AS [assignment_executor_organization_name],
 	p_exec.[name] AS [assignment_executor_person_name],
 	NULL AS [event_organization_name],
@@ -389,23 +450,32 @@ SELECT
 	ass.[registration_date] AS [assignment_registration_date],
 	NULL AS [event_start_date],
 	NULL AS [event_plan_end_date],
+	NULL AS [event_real_end_date],
 	obj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
-INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
+INNER JOIN dbo.[Assignments] ass WITH (NOLOCK) ON ass.[executor_organization_id] = org.[Id]
 	AND ass.[assignment_state_id] = 4
 	AND ass.[AssignmentResultsId] = 5
 	AND ass.[AssignmentResolutionsId] = 7
 	AND ass.[registration_date] BETWEEN @startDate AND @endDate
 	AND ass.[execution_date] BETWEEN @Control_startDate AND @Control_endDate
 	AND ass.[executor_organization_id] IN (SELECT [Id] FROM @user_orgs)
-INNER JOIN dbo.[Questions] q ON q.[Id] = ass.[question_id]
+INNER JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
 LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
-LEFT JOIN dbo.[Objects] obj ON obj.[id] = q.[object_id]
-LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];
+LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
+LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
+LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 -- Повернені заявником 
-IF (CHARINDEX(N'applicantreturn_assignment', @code) > 0)
+IF (CHARINDEX(N'applicantreturn', @code) > 0)
 AND (@entity = N'assignment' OR @entity IS NULL)
 BEGIN  
 INSERT INTO @resultTab
@@ -415,7 +485,7 @@ SELECT
 	NULL AS [event_class_name],
 	ass_st.[name] AS [assignment_state],
 	NULL AS [event_active],
-	N'applicantreturn_assignment' AS [code],
+	N'applicantreturn' AS [code],
 	org.[name] AS [assignment_executor_organization_name],
 	p_exec.[name] AS [assignment_executor_person_name],
 	NULL AS [event_organization_name],
@@ -426,6 +496,7 @@ SELECT
 	ass.[registration_date] AS [assignment_registration_date],
 	NULL AS [event_start_date],
 	NULL AS [event_plan_end_date],
+	NULL AS [event_real_end_date],
 	obj.[Id] AS [object_id]
 FROM dbo.[Organizations] org
 INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
@@ -435,11 +506,19 @@ INNER JOIN dbo.[Assignments] ass ON ass.[executor_organization_id] = org.[Id]
 	AND ass.[registration_date] BETWEEN @startDate AND @endDate
 	AND ass.[execution_date] BETWEEN @Control_startDate AND @Control_endDate
 	AND ass.[executor_organization_id] IN (SELECT [Id] FROM @user_orgs)
-INNER JOIN dbo.[Questions] q ON q.[Id] = ass.[question_id]
+INNER JOIN dbo.[Questions] q WITH (NOLOCK) ON q.[Id] = ass.[question_id]
+LEFT JOIN dbo.[Appeals] a ON a.Id = q.appeal_id
+LEFT JOIN dbo.[Applicants] applicant ON applicant.Id = a.applicant_id
 LEFT JOIN dbo.[Positions] p_exec ON p_exec.[Id] = ass.[executor_person_id] 
 LEFT JOIN dbo.[AssignmentStates] ass_st ON ass_st.[Id] = ass.[assignment_state_id]
-LEFT JOIN dbo.[Objects] obj ON obj.[id] = q.[object_id]
-LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id];;
+LEFT JOIN dbo.[Objects] obj WITH (NOLOCK) ON obj.[id] = q.[object_id]
+LEFT JOIN dbo.[QuestionTypes] qt ON q.[question_type_id] = qt.[Id]
+WHERE ISNULL(applicant.full_name,'0') =
+		CASE WHEN @applicant_fio IS NOT NULL THEN @applicant_fio
+		ELSE ISNULL(applicant.full_name,'0') END
+	AND ISNULL(p_exec.[name],'0') = 
+		CASE WHEN @executor_fio IS NOT NULL THEN @executor_fio
+		ELSE ISNULL(p_exec.[name],'0') END;
 END
 
 IF (@entityNumber IS NOT NULL)
@@ -473,9 +552,23 @@ SELECT
 	[assignment_execution_date],
 	[assignment_registration_date],
 	[event_start_date],
-	[event_plan_end_date]
-FROM @resultTab
+	[event_plan_end_date],
+	[event_real_end_date],
+	ISNULL(asu.is_active,0) AS active_subscribe
+FROM @resultTab rt
+LEFT JOIN @active_subscribe asu ON (rt.Id=asu.assignment_id AND event_id IS NULL) OR (rt.Id=asu.event_id)
+/**/
 WHERE #filter_columns#
-	  #sort_columns#
-OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY
-;
+	--   #sort_columns#
+ORDER BY 
+	CASE WHEN code=N'overdue' THEN 1
+		WHEN code=N'attention' THEN 2
+		WHEN code=N'new' THEN 3 --надійшло
+		WHEN code=N'in_work' THEN 4
+		WHEN code IN (N'applicantreturn', N'curatorreturn') THEN 5 --повернуті заявником, повернуті куратором
+	ELSE 6
+	END, 
+	CASE WHEN assignment_execution_date IS NULL THEN event_plan_end_date
+		ELSE assignment_execution_date
+		END
+OFFSET @pageOffsetRows ROWS FETCH NEXT @pageLimitRows ROWS ONLY;
