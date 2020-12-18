@@ -133,7 +133,6 @@
         },
         openModal() {
             const rowId = this.dataGridInstance.selectedRowKeys;
-
             if(rowId.length >= 1) {
                 const mainWidget = document.querySelector('.root-main')
                 const int = mainWidget.querySelector('.lookup-con')
@@ -153,24 +152,20 @@
                 const buttonExit = this.createElement('button',{className:'btn exit-btn',textContent:'Вийти'})
                 buttonExit.addEventListener('click',this.removeLookup.bind(this))
                 const convertDate = new Date(this.dateTo).toISOString().slice(0,10)
-                const dataInput = this.createElement('input',{className:'date-input',type:'date',value:convertDate,min:convertDate})
+                const dataInput = this.createElement('input',{className:'date-input',
+                    id:'date-input',type:'date',value:convertDate,min:convertDate})
                 buttonsCon.append(buttonAdd,buttonExit)
                 con.append(buttonsCon,dataInput)
                 mainWidget.append(blocker,con)
             }
         },
-        sendDate(rows) {
-            const ids = rows.join(',')
-            const value = document.querySelector('.date-input').value
-            const insertRowQuery = {
-                queryCode: 'db_red_ButtonStartDate',
-                limit: -1,
-                parameterValues: [
-                    {key: '@DateStart', value: new Date(value)},
-                    {key: '@Ids', value: ids}
-                ]
-            };
-            this.queryExecutor(insertRowQuery,this.updateGrid,this);
+        sendDate() {
+            const int = this.dataGridInstance.instance.getSelectedRowsData()
+            const dateVal = document.getElementById('date-input').value;
+            int.forEach(elem=>{
+                elem.DateStart = dateVal;
+            })
+            this.removeLookup();
         },
         updateGrid() {
             this.removeLookup();
@@ -180,7 +175,6 @@
             const con = document.getElementById('lookup-con')
             blocker.remove()
             con.remove()
-            this.loadData(this.afterLoadDataHandler);
         },
         createElement: function(tag, props, ...children) {
             const element = document.createElement(tag);
