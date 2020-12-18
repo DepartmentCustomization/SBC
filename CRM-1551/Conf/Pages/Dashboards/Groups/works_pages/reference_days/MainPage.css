@@ -135,3 +135,7 @@
         border-radius: 10px;
         margin-top: 50px;
     }
+
+    .material-icons.create.fix-row {
+        cursor: pointer;
+    }
