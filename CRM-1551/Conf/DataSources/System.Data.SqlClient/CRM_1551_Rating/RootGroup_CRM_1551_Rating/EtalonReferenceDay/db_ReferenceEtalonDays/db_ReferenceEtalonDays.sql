@@ -6,7 +6,7 @@
    */
    declare @table table (Id int)
 
-  if @rating=NULL
+  if @rating IS NULL OR @rating=N''
     BEGIN
       insert into @table (Id)
       (SELECT [Id]
