@@ -20,7 +20,8 @@ INSERT INTO [dbo].[Claims]
            ,[Is_Template]
            ,[User]
            ,[date_check]
-           ,[not_balans])
+           ,[not_balans]
+           ,[DisplayID])
 output [inserted].[Id] into @output([Id])
      SELECT 
        [Claim_class_ID]
@@ -43,11 +44,12 @@ output [inserted].[Id] into @output([Id])
       ,@user
       ,[date_check]
       ,[not_balans]
+      ,[DisplayID]
   FROM [dbo].[Claims]
   where Id = @Id
 
 declare @Claim_Number int;
-set @Claim_Number = (select top 1 [Id] from @output);
+set @Claim_Number = (select top 1 ltrim([Id]) from @output);
 
 update  [dbo].[Claims] set Claim_Number = @Claim_Number
                             where Id = @Claim_Number;
