@@ -28,7 +28,7 @@
     },
     {
       "Code": "Size",
-      "Name": "Діаметр (см)",
+      "Name": "Діаметр (мм)",
       "Position": 3,
       "IsPrintable": false,
       "SqlName": "d.Size",

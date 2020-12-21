@@ -222,7 +222,7 @@
                                     },
                                     {
                                         code:'diameter_1',
-                                        placeholder: 'Діаметр (см)',
+                                        placeholder: 'Діаметр (мм)',
                                         hidden: false,
                                         required: true,
                                         position: 2,
@@ -305,7 +305,7 @@
                                     },
                                     {
                                         code:'diameter_1',
-                                        placeholder: 'Діаметр (см)',
+                                        placeholder: 'Діаметр (мм)',
                                         hidden: false,
                                         required: true,
                                         position: 2,
