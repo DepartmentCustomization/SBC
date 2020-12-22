@@ -1,0 +1,7 @@
+{
+  "DashboardGroupCode": "report",
+  "Position": 4,
+  "ModelType": "Dashboard",
+  "Code": "AVR_eficiencyOperator",
+  "Name": "Кількість заявок і виїздів опрацьованих операторами"
+}
