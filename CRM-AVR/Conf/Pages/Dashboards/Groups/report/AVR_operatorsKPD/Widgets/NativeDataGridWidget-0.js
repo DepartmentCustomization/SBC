@@ -14,7 +14,9 @@
                     dataField: 'date',
                     caption: 'Дата',
                     alignment:'center',
-                    width:'200'
+                    width:'200',
+                    dateType: 'datetime',
+                    format: 'dd.MM.yyyy'
                 }, {
                     dataField: 'PIB_operator',
                     caption: 'ПІБ оператора',
@@ -117,12 +119,22 @@
             }
             return trueDate;
         },
+        toUTC(val) {
+            let date = new Date(val);
+            let year = date.getFullYear();
+            let monthFrom = date.getMonth();
+            let dayTo = date.getDate();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let dateTo = new Date(year, monthFrom , dayTo, hh + 3, mm)
+            return dateTo
+        },
         getFiltersParams: function(message) {
             let period = message.package.value.values.find(f => f.name === 'period').value;
             if (period !== null) {
                 if (period.dateFrom !== '' && period.dateTo !== '') {
-                    this.dateFrom = period.dateFrom;
-                    this.dateTo = period.dateTo;
+                    this.dateFrom = this.toUTC(period.dateFrom);
+                    this.dateTo = this.toUTC(period.dateTo);
                     this.config.query.parameterValues = [
                         { key: '@dateFrom', value: this.dateFrom },
                         { key: '@dateTo', value: this.dateTo }
