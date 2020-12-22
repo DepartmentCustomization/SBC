@@ -15,8 +15,7 @@
                     caption: 'Дата',
                     alignment:'center',
                     width:'200',
-                    dateType: 'datetime',
-                    format: 'dd.MM.yyyy'
+                    dataType: 'date'
                 }, {
                     dataField: 'PIB_operator',
                     caption: 'ПІБ оператора',
