@@ -1,5 +1,25 @@
-   --DECLARE @dateFrom DATE='2018-01-01';
-   --DECLARE @dateTo DATE='2020-12-12';
+
+/*
+   DECLARE @dateFrom DATE='2020-12-01';
+   DECLARE @dateTo DATE='2020-12-15';
+   DECLARE @rating nvarchar(max)=N'1,2,3';
+   */
+   declare @table table (Id int)
+
+  if @rating IS NULL OR @rating=N''
+    BEGIN
+      insert into @table (Id)
+      (SELECT [Id]
+  FROM [CRM_1551_Analitics].[dbo].[Rating])
+    end
+  ELSE
+    begin
+
+  insert into @table (Id)
+  select value n
+  from string_split((select @rating n), N',')
+
+    end
 
 --  DECLARE @date DATE = --GETUTCDATE();--CONVERT(DATE,'2019-09-25 17:37:06.090');
 ----DECLARE @date DATE = CONVERT(DATE,'2019-09-25 17:37:06.090');
@@ -25,7 +45,6 @@
   from [dbo].[Rating_EtalonDaysToExecution] with (nolock)) t on r.Id=t.Id and t.n=1
 
   --типы вопросов и даты, которые отображать конец
-
 
   --знаходимо всі РДА та їх підлеглих начало
   IF OBJECT_ID('tempdb..#temp_RDAorg') IS NOT NULL	DROP TABLE #temp_RDAorg;
@@ -119,10 +138,12 @@ select Id into #temp_RDAorg from it-- pit it
   --CONVERT(NUMERIC(8,2),avg_EtalonDaysToExplain.avg_EtalonDaysToExplain) avg_EtalonDaysToExplain_change, --7 МОЖЛИВІСТЬ ЗМІНИ
   temp_column6.count_day avg_EtalonDaysToExplain_change, --7 МОЖЛИВІСТЬ ЗМІНИ
   [Rating_EtalonDaysToExecution].DateStart --8
+  ,[QuestionTypeInRating].Rating_id
   FROM --[dbo].[Rating_EtalonDaysToExecution] with (nolock)
   #temp_Rating_EtalonDaysToExecution [Rating_EtalonDaysToExecution]
   INNER JOIN [CRM_1551_Analitics].[dbo].[QuestionTypes] with (nolock) ON [Rating_EtalonDaysToExecution].QuestionTypeId=[QuestionTypes].Id
-
+  INNER JOIN [CRM_1551_Analitics].[dbo].[QuestionTypeInRating] with (nolock) ON [QuestionTypes].Id=[QuestionTypeInRating].QuestionType_id
+  INNER JOIN @table t on [QuestionTypeInRating].Rating_id=t.Id
 
   --LEFT JOIN 
   --(SELECT QuestionTypeId, AVG(CONVERT(FLOAT,EtalonDaysToExecution)) avg_EtalonDaysToExecution
@@ -143,6 +164,6 @@ select Id into #temp_RDAorg from it-- pit it
 
   --WHERE CONVERT(DATE, [Rating_EtalonDaysToExecution].[DateStart])=@date
 
-   WHERE #filter_columns#
+   WHERE  #filter_columns#
    order by 1 --#sort_columns#
    offset @pageOffsetRows rows fetch next @pageLimitRows rows only

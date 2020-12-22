@@ -42,9 +42,17 @@
             let previousYear = currentYear - 1;
             let currentYearLabel = currentYear.toString();
             let previuosYearLabel = previousYear.toString();
+            let futureYear = currentYear + 1;
+            let futureYearLabel = futureYear.toString();
             const yearOption1 = this.createElement('option', { label: currentYearLabel, value: currentYear, className: 'yearOption'});
-            const yearOption2 = this.createElement('option', { label: previousYear, value: previousYear, className: 'yearOption'});
-            const yearSelect = this.createElement('select', { id: 'yearSelect', className: 'dateSelect  box'}, yearOption1, yearOption2);
+            const yearOption2 = this.createElement('option', { label: previuosYearLabel, value: previousYear, className: 'yearOption'});
+            const yearOption3 = this.createElement('option', { label: futureYearLabel, value: futureYear, className: 'yearOption'});
+            const yearSelect = this.createElement('select', { id: 'yearSelect', className: 'dateSelect  box'},
+                yearOption1, yearOption2);
+            if(month === 11) {
+                yearSelect.removeChild(yearOption2)
+                yearSelect.appendChild(yearOption3)
+            }
             this.year = Number(yearSelect.value);
             const valuesWrapper = this.createElement('div', { className: 'valuesWrapper' }, monthSelect, yearSelect);
             const dateCaption = this.createElement('div', { className: 'infoCaption  box', innerText: 'Місяць i рiк' });

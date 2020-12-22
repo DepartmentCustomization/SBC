@@ -10,6 +10,8 @@
             this.sub = this.messageService.subscribe('ApplyGlobalFilters', this.getFiltersParams, this);
             this.sub1 = this.messageService.subscribe('renderTable', this.renderTable, this);
             this.sub2 = this.messageService.subscribe('GlobalFilterChanged', this.setBtnState, this);
+            this.questionTypesData = [];
+            this.QuestionGroupId = null;
         },
         loadData: function() {
             document.querySelector('.filter-block').style.zIndex = '16';
@@ -179,8 +181,21 @@
                 }
                 document.getElementById('summary__table').style.display = 'block';
                 document.getElementById('content').style.display = 'none';
+                document.getElementById('savedFiltersCon').style.display = 'none';
                 this.loadData();
             }
+            this.sendQuery()
+        },
+        sendQuery() {
+            let executeQuery = {
+                queryCode: 'ConstructorFilters_IRow',
+                limit: -1,
+                parameterValues: [
+                    { key: '@filters', value: 0 },
+                    { key: '@pageLimitRows', value: 10 }
+                ]
+            };
+            this.queryExecutor(executeQuery, this.setUserFilterGroups, this);
         },
         getQueryOptions: function() {
             return {
