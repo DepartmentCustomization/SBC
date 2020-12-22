@@ -12,4 +12,10 @@
   50 count_open_orders, 100 count_close_orders, 150 count_all_orders union all
   select 4 Id, convert(date, @date_to) date, N'Петя' PIB_operator, N'неважное' subdivision, 
   1000 count_open_claims, 100 count_close_claims, 1100 count_all_claims,
+  500 count_open_orders, 100 count_close_orders, 600 count_all_orders union all
+  select 5 Id, convert(date, '2020-12-12 12:10:02') date, N'Тест' PIB_operator, N'неважное' subdivision, 
+  1000 count_open_claims, 100 count_close_claims, 1100 count_all_claims,
+  500 count_open_orders, 100 count_close_orders, 600 count_all_orders
+  select 6 Id, convert(date, '2020-11-12 11:10:02') date, N'Тест' PIB_operator, N'неважное' subdivision, 
+  1000 count_open_claims, 100 count_close_claims, 1100 count_all_claims,
   500 count_open_orders, 100 count_close_orders, 600 count_all_orders
