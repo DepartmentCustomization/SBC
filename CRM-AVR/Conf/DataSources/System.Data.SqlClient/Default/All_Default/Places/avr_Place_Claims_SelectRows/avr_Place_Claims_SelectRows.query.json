@@ -17,29 +17,29 @@
       "Code": "status_name",
       "Name": "Статус",
       "Position": 2,
-      "SqlName": "Status.Name",
+      "SqlName": "status_name",
       "FilterParameterCode": "@Status_Name"
     },
     {
       "Code": "claim_types_name",
       "Name": "Тип заявки",
       "Position": 3,
-      "SqlName": "Claim_types.Name",
+      "SqlName": "claim_types_name",
       "FilterParameterCode": "@Claim_types_Name"
     },
     {
       "Code": "Created_at",
       "Name": "Дата та час реєстрації",
       "Position": 4,
-      "SqlName": "convert(nvarchar(20), Claims.Created_at, 109) ",
-      "FilterParameterCode": "@date_start"
+      "SqlName": "Created_at",
+      "FilterParameterCode": "@Created_at"
     },
     {
       "Code": "Plan_finish_at",
       "Name": "Планова Дата та час закінчення",
       "Position": 5,
-      "SqlName": "convert(nvarchar(20), Claims.Plan_finish_at, 109) ",
-      "FilterParameterCode": "@date_finish"
+      "SqlName": "Plan_finish_at",
+      "FilterParameterCode": "@Plan_finish_at"
     },
     {
       "Code": "Claim_Number",
