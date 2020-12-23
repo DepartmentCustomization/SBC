@@ -39,8 +39,13 @@
             mainCon.insertAdjacentHTML('beforeend',`<ul class='category-list'>${categories}</ul>`)
             const categoryNodes = Array.from(document.querySelectorAll('.category-item'))
             apiArr.map(elem=>{
-                debugger;
-                const int = `<div class='api-con' data-category='${elem.about.category}'>
+                const responsesForInsert = elem.response.map(res=> {
+                    return `<div class='response request-names'>
+                    <h4 class='info-title request-names-val first'>${res.status}</h4>
+                    <p class='headers request-names-val'><span class='info-text response-obj'>${res.value}</span></p>
+                    </div>`
+                })
+                const int2 = `<div class='api-con' data-category='${elem.about.category}'>
                 <div class='api ${(elem.request.method).toLowerCase()}'>
                     <span class='api-method ${(elem.request.method).toLowerCase()}'>${elem.request.method}</span>
                     <span class='api-description '>${elem.about.name}</span>
@@ -48,42 +53,40 @@
                     <div class='api-info'>
                         <div class='request-con'>
                             <div class='request-con-title block-api-title'>
-                                <h4 class='request-description'>${elem.about.description}</h4>
-                            </div>
-                            <div class='request-con-title block-api-title'>
-                                <h4 class='request-title block-title'>Request</h4>
+                                <h4 class='request-title block-title'>Parameters</h4>
                             </div>
                                 <div class='request-con-info con-info'>
                                     <div class='request-auth'>
-                                        <h4 class='info-title'>Authorization</h4>
-                                        <p class='url info-text'>${elem.request.headers.Authorization}</p>
-                                    </div>
-                                    <div class='request-url'>
-                                        <h4 class='info-title'>Request URL</h4>
-                                        <p class='url info-text'>${elem.request.url}</p>
-                                    </div>
-                                    <div class='headers-con'>
-                                        <h4 class='info-title'>Headers</h4>
-                                        <p class='headers info-text'>${elem.request.headers.ContentType}</p>
-                                    </div>
-                                    <div class='body-con'>
-                                        <h4 class='info-title'>Body</h4>
-                                        <p class='headers info-text'>${JSON.stringify(elem.request.body[0])}</p>
+                                        <div class='request-names'>
+                                            <h4 class='info-title request-names-val first'>Name</h4>
+                                            <h4 class='info-title request-names-val'>Description</h4>
+                                        </div>
+                                        <div class='request-descriptions'>
+                                            <div class='request-about-titles'>
+                                                <h4 class='info-title'>body</h4>
+                                            </div>
+                                            <div class='request-about-descriptions info-title'>
+                                                <h4 class='request-description'>${elem.about.description}</h4>
+                                                <h4 class='info-title'>type: ${elem.request.body[0].type}</h4>
+                                                <h4 class='info-title'>value:
+                                                 <span class='info-text'>${elem.request.body[0].value}</span></h4>
+                                                <h4 class='info-title'>url: <span class='info-text'>${elem.request.url}</span></h4>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             <div class='response-con-title block-api-title'>
-                                <h4 class='response-title block-title'>Response</h4>
+                                <h4 class='response-title block-title'>Responses</h4>
                             </div>    
-                                <div class='response-con-info con-info'>
-                                    <div class='response'>
-                                        <h4 class='info-title'>Server response</h4>
-                                        <p class='headers info-text'>${elem.response.result}</p>
-                                    </div>
-                                    <div class='response-error'>
-                                        <h4 class='info-title'>Server error</h4>
-                                        <p class='headers info-text'>${elem.response.error}</p>
-                                    </div>
+                            <div class='response-con-info con-info'>
+                                <div class='request-names'>
+                                    <h4 class='info-title request-names-val first'>Code</h4>
+                                    <h4 class='info-title request-names-val'>Description</h4>
                                 </div>
+                                <div class='responses'> 
+                                    ${responsesForInsert}
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -91,11 +94,11 @@
                 categoryNodes.forEach(item=>{
                     if(item.dataset.name === elem.about.category) {
                         const apiCon = item.querySelector('.api-main-con')
-                        apiCon.insertAdjacentHTML('beforeend',`${int}`)
+                        apiCon.insertAdjacentHTML('beforeend',`${int2}`)
                     }
                 })
                 this.toggleListener()
-                return int
+                return int2
             })
         },
         toggleListener() {
