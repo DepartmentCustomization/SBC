@@ -1,0 +1,124 @@
+{
+  "ModelType": "Query",
+  "Code": "AVR_eficiencyOperator",
+  "Name": "AVR_eficiencyOperator",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false,
+  "IsAnonymousAccess": false,
+  "Columns": [
+    {
+      "Code": "Id",
+      "Name": "Id",
+      "Position": 1,
+      "IsPrimaryKey": true
+    },
+    {
+      "Code": "Claim_Number",
+      "Name": "Номер заявки",
+      "Position": 2,
+      "SqlName": "c.Claim_Number",
+      "FilterParameterCode": "@Claim_Number"
+    },
+    {
+      "Code": "orgName",
+      "Name": "Відповідалний підрозділ",
+      "Position": 3,
+      "SqlName": "o.Short_name",
+      "FilterParameterCode": "@orgName"
+    },
+    {
+      "Code": "claim_place",
+      "Name": "Місце заявки",
+      "Position": 4,
+      "SqlName": "p_main_place.[Name]",
+      "FilterParameterCode": "@claim_place"
+    },
+    {
+      "Code": "claim_type",
+      "Name": "Тип заявки",
+      "Position": 5,
+      "SqlName": "ct.[Full_Name]",
+      "FilterParameterCode": "@claim_type"
+    },
+    {
+      "Code": "faucet_diameter",
+      "Name": "Діаметр засувки",
+      "Position": 6,
+      "SqlName": "ISNULL(ltrim(stuff((SELECT ', '+ fcp.faucet_size
+      FROM @claims_faucetClosedPlace fcp
+      INNER JOIN dbo.Claims c1 ON c1.Id = fcp.claimId
+      WHERE c1.Id = c.Id
+      GROUP BY fcp.faucet_size
+      ORDER BY fcp.faucet_size	
+      FOR XML PATH('')), 1, 1, '')), N'Не вказано')",
+      "FilterParameterCode": "@faucet_diameter"
+    },
+    {
+      "Code": "faucet_closed_place",
+      "Name": "Місце засувки",
+      "Position": 7,
+      "SqlName": "ltrim(stuff((SELECT DISTINCT ', '+ fcp.[placeName]
+      FROM @claims_faucetClosedPlace fcp
+      INNER JOIN dbo.Claims c1 ON c1.Id = fcp.claimId
+      WHERE c1.Id = c.Id
+      FOR XML PATH('')), 1, 1, ''))",
+      "FilterParameterCode": "@faucet_closed_place"
+    },
+    {
+      "Code": "faucet_switchOff_place",
+      "Name": "Відключені місця",
+      "Position": 8,
+      "SqlName": "ISNULL(ltrim(stuff((SELECT DISTINCT ', '+ f_swOff_p.[placeName]
+      FROM @claims_faucetSwitchOffPlace f_swOff_p
+      INNER JOIN dbo.Claims c1 ON c1.Id = f_swOff_p.claimId
+      WHERE c1.Id = c.Id
+      FOR XML PATH('')), 1, 1, '')), N'Всі з водою')",
+      "FilterParameterCode": "@faucet_switchOff_place"
+    },
+    {
+      "Code": "faucet_closedStart",
+      "Name": "Дата відкриття засувки",
+      "Position": 9,
+      "SqlName": "MAX(f.Start_from)",
+      "FilterParameterCode": "@faucet_closedStart"
+    },
+    {
+      "Code": "faucet_closedFinish",
+      "Name": "Дата закриття засувки",
+      "Position": 10,
+      "SqlName": "MAX(f.Finish_at)",
+      "FilterParameterCode": "@faucet_closedFinish"
+    },
+    {
+      "Code": "claim_status",
+      "Name": "Статус заявки",
+      "Position": 11,
+      "SqlName": "s.[Name]",
+      "FilterParameterCode": "@claim_status"
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@dateFrom",
+      "Name": "dateFrom",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@dateTo",
+      "Name": "dateTo",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@pageOffsetRows",
+      "Name": "pageOffsetRows",
+      "ParameterType": "Integer",
+      "IsPageOffsetRows": true
+    },
+    {
+      "Code": "@pageLimitRows",
+      "Name": "pageLimitRows",
+      "ParameterType": "Integer",
+      "IsPageLimitRows": true
+    }
+  ]
+}
