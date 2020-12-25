@@ -1,13 +1,15 @@
+
+
 /*
-declare @date_from datetime='2020-11-26 08:34:32.563',
-	@date_to datetime='2020-12-30 08:34:32.563';
+declare @dateFrom datetime='2020-11-26 08:34:32.563',
+	@dateTo datetime='2020-12-30 08:34:32.563';
 */
   if object_id('tempdb..#temp_claims_open') is not NULL drop table #temp_claims_open
 
   select [User], convert(date, [Created_at]) [date], count(Id) count_claims_open
   into #temp_claims_open
   from [dbo].[Claims]
-  where [Created_at] between @date_from and @date_to
+  where [Created_at] between @dateFrom and @dateTo
   group by [User], convert(date, [Created_at])
 
   if object_id('tempdb..#temp_claims_close') is not NULL drop table #temp_claims_close
@@ -15,7 +17,7 @@ declare @date_from datetime='2020-11-26 08:34:32.563',
   select [User], convert(date, [Fact_finish_at]) [date], count(Id) count_claims_close
   into #temp_claims_close
   from [dbo].[Claims]
-  where [Fact_finish_at] between @date_from and @date_to
+  where [Fact_finish_at] between @dateFrom and @dateTo
   group by [User], convert(date, [Fact_finish_at])
 
   if object_id('tempdb..#temp_orders_open') is not NULL drop table #temp_orders_open
@@ -23,7 +25,7 @@ declare @date_from datetime='2020-11-26 08:34:32.563',
   select [User_id] [User], convert(date,[Created_at]) [date], count(Id) count_orders_open
   into #temp_orders_open
   from [dbo].[Orders]
-  where [Created_at] between @date_from and @date_to
+  where [Created_at] between @dateFrom and @dateTo
   group by [User_id], convert(date,[Created_at])
 
   if object_id('tempdb..#temp_orders_close') is not NULL drop table #temp_orders_close
@@ -31,7 +33,7 @@ declare @date_from datetime='2020-11-26 08:34:32.563',
   select [User_id] [User], convert(date,[Closed_at]) [date], count(Id) count_orders_close
   into #temp_orders_close
   from [dbo].[Orders]
-  where [Closed_at] between @date_from and @date_to
+  where [Closed_at] between @dateFrom and @dateTo
   group by [User_id], convert(date,[Closed_at])
 
 
@@ -78,7 +80,7 @@ declare @date_from datetime='2020-11-26 08:34:32.563',
   left join #temp_claims_close tcc on tm.[User]=tcc.[User] and tm.date=tcc.date
   left join #temp_orders_open too on tm.[User]=too.[User] and tm.date=too.date
   left join #temp_orders_close toc on tm.[User]=toc.[User] and tm.date=toc.date
---   where 
---   #filter_columns#
---   #sort_columns#
---  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+   where 
+   #filter_columns#
+   #sort_columns#
+  offset @pageOffsetRows rows fetch next @pageLimitRows rows only

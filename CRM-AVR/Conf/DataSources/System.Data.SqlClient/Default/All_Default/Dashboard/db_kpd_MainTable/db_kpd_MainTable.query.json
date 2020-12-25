@@ -69,13 +69,13 @@
   ],
   "Parameters": [
     {
-      "Code": "@date_from",
-      "Name": "date_from",
+      "Code": "@dateFrom",
+      "Name": "dateFrom",
       "ParameterType": "Datetime"
     },
     {
-      "Code": "@date_to",
-      "Name": "date_to",
+      "Code": "@dateTo",
+      "Name": "dateTo",
       "ParameterType": "Datetime"
     },
     {
