@@ -1,5 +1,8 @@
 
 
+
+
+
 /*
 declare @dateFrom datetime='2020-11-26 08:34:32.563',
 	@dateTo datetime='2020-12-30 08:34:32.563';
@@ -75,7 +78,7 @@ declare @dateFrom datetime='2020-11-26 08:34:32.563',
   from #temp_main tm
   left join [dbo].[SysUser_OrgWC] so on tm.[User]=so.SystemUser_Id
   left join [dbo].[Organizations] o on so.OrganizationWC_Id=o.Id
-  left join [CRM_AVR_System].[dbo].[User] u on so.SystemUser_Id=u.UserId
+  left join [CRM_AVR_System].[dbo].[User] u on tm.[User]=u.UserId
   left join #temp_claims_open tco on tm.[User]=tco.[User] and tm.date=tco.date
   left join #temp_claims_close tcc on tm.[User]=tcc.[User] and tm.date=tcc.date
   left join #temp_orders_open too on tm.[User]=too.[User] and tm.date=too.date
@@ -84,3 +87,6 @@ declare @dateFrom datetime='2020-11-26 08:34:32.563',
    #filter_columns#
    #sort_columns#
   offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+
+
+  --select * from #temp_main
