@@ -47,6 +47,19 @@
       "Name": "count_appeals",
       "Position": 6,
       "IsPrintable": false
+    },
+    {
+      "Code": "par",
+      "Name": "par",
+      "Position": 7,
+      "IsPrintable": false
+    }
+  ],
+  "Parameters": [
+    {
+      "Code": "@parameter",
+      "Name": "parameter",
+      "IsPrimaryKey": true
     }
   ]
 }
