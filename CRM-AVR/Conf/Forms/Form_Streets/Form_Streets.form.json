@@ -7,6 +7,7 @@
     "FieldGroups": [
       "string:FieldGroups\\Group_Streets.fieldgroup.json"
     ],
-    "DefaultFields": []
+    "DefaultFields": [],
+    "Script": "string:Form_Streets.form.js"
   }
 }
