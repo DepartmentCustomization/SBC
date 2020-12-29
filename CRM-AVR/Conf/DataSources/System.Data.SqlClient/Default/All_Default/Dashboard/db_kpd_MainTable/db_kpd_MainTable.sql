@@ -1,11 +1,9 @@
 
 
 
-
-
 /*
-declare @dateFrom datetime='2020-11-26 08:34:32.563',
-	@dateTo datetime='2020-12-30 08:34:32.563';
+declare @dateFrom datetime='2020-10-09 08:34:32.563',
+	@dateTo datetime='2020-10-10 08:34:32.563';
 */
   if object_id('tempdb..#temp_claims_open') is not NULL drop table #temp_claims_open
 
@@ -64,8 +62,13 @@ declare @dateFrom datetime='2020-11-26 08:34:32.563',
 
   --select * from #temp_orders_open
 
-
-  select ROW_NUMBER() over(order by tm.date, o.Short_name) Id,
+  select ROW_NUMBER() over(order by [date], subdivision) Id,
+  [date], PIB_operator, subdivision, count_open_claims, count_close_claims, count_all_claims,
+  count_open_orders, count_close_orders, count_all_orders
+  from
+  (
+  select distinct
+  --ROW_NUMBER() over(order by tm.date, o.Short_name) Id ,
   tm.date, isnull(u.LastName+N' ', N'')+isnull(u.FirstName,N'') PIB_operator, o.Short_name subdivision, 
   isnull(tco.count_claims_open,0) count_open_claims, 
   isnull(tcc.count_claims_close,0) count_close_claims, 
@@ -83,10 +86,8 @@ declare @dateFrom datetime='2020-11-26 08:34:32.563',
   left join #temp_claims_close tcc on tm.[User]=tcc.[User] and tm.date=tcc.date
   left join #temp_orders_open too on tm.[User]=too.[User] and tm.date=too.date
   left join #temp_orders_close toc on tm.[User]=toc.[User] and tm.date=toc.date
-   where 
-   #filter_columns#
-   #sort_columns#
-  offset @pageOffsetRows rows fetch next @pageLimitRows rows only
-
-
-  --select * from #temp_main
+  ) t
+  -- where 
+  -- #filter_columns#
+  -- #sort_columns#
+  --offset @pageOffsetRows rows fetch next @pageLimitRows rows only
