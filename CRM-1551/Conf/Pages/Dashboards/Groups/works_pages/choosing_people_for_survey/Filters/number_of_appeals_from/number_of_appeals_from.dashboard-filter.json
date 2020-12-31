@@ -1,4 +1,4 @@
 {
   "Type": "InputFilterComponent",
-  "Owner": "entrance"
+  "Owner": "number_of_appeals_from"
 }

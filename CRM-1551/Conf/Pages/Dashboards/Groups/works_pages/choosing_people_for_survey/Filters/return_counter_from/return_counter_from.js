@@ -1,6 +1,6 @@
 (function() {
     return {
-        placeholder: '',
+        placeholder: 'Лічильник повернень від',
         onChangeValue: function(value) {
             this.yourFunctionName(value);
         },

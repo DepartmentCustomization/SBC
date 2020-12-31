@@ -1,6 +1,6 @@
 (function() {
     return {
-        placeholder: 'Під`їзд',
+        placeholder: 'Кількість звернень до',
         onChangeValue: function(value) {
             this.yourFunctionName(value);
         },

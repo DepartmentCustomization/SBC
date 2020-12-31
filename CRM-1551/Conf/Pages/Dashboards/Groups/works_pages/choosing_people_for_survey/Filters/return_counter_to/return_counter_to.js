@@ -1,6 +1,6 @@
 (function() {
     return {
-        placeholder: 'Під`їзд',
+        placeholder: 'Лічильник повернень до',
         onChangeValue: function(value) {
             this.yourFunctionName(value);
         },
