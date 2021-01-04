@@ -21,7 +21,8 @@ INSERT INTO [dbo].[Claims]
            ,[User]
            ,[date_check]
            ,[not_balans]
-           ,[DisplayID])
+           ,[DisplayID]
+           ,[Claim_Number])
 output [inserted].[Id] into @output([Id])
      SELECT 
        [Claim_class_ID]
@@ -45,14 +46,19 @@ output [inserted].[Id] into @output([Id])
       ,[date_check]
       ,[not_balans]
       ,[DisplayID]
+	  ,(select top 1 [Claim_Number]*1+1
+  from [dbo].[Claims]
+  where [Claim_Number] not like N'%/%'
+  and year([Created_at])=year(getdate())
+  order by id desc)
   FROM [dbo].[Claims]
   where Id = @Id
 
 declare @Claim_Number int;
 set @Claim_Number = (select top 1 ltrim([Id]) from @output);
 
-update  [dbo].[Claims] set Claim_Number = @Claim_Number
-                            where Id = @Claim_Number;
+--update  [dbo].[Claims] set Claim_Number = @Claim_Number
+--                            where Id = @Claim_Number;
                             
 INSERT INTO [dbo].[Claim_Order_Places]
            ([Claim_ID]
