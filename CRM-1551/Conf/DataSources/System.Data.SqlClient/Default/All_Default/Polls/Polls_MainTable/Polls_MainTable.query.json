@@ -37,29 +37,127 @@
       "IsPrintable": false
     },
     {
+      "Code": "privilage",
+      "Name": "privilage",
+      "Position": 5,
+      "IsPrintable": false
+    },
+    {
       "Code": "age",
       "Name": "age",
-      "Position": 5,
+      "Position": 6,
       "IsPrintable": false
     },
     {
       "Code": "count_appeals",
       "Name": "count_appeals",
-      "Position": 6,
-      "IsPrintable": false
-    },
-    {
-      "Code": "par",
-      "Name": "par",
       "Position": 7,
       "IsPrintable": false
     }
   ],
   "Parameters": [
     {
-      "Code": "@parameter",
-      "Name": "parameter",
-      "IsPrimaryKey": true
+      "Code": "@district_id",
+      "Name": "district_id"
+    },
+    {
+      "Code": "@street_id",
+      "Name": "street_id"
+    },
+    {
+      "Code": "@building_id",
+      "Name": "building_id"
+    },
+    {
+      "Code": "@entrance",
+      "Name": "entrance",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@flat",
+      "Name": "flat",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@privilage_id",
+      "Name": "privilage_id"
+    },
+    {
+      "Code": "@social_state_id",
+      "Name": "social_state_id"
+    },
+    {
+      "Code": "@age_id",
+      "Name": "age_id"
+    },
+    {
+      "Code": "@applicant_type_id",
+      "Name": "applicant_type_id",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@question_type_id",
+      "Name": "question_type_id"
+    },
+    {
+      "Code": "@executor_organization_id",
+      "Name": "executor_organization_id"
+    },
+    {
+      "Code": "@question_state_id",
+      "Name": "question_state_id"
+    },
+    {
+      "Code": "@assignment_result_id",
+      "Name": "assignment_result_id"
+    },
+    {
+      "Code": "@assignment_resolution_id",
+      "Name": "assignment_resolution_id"
+    },
+    {
+      "Code": "@receipt_source_id",
+      "Name": "receipt_source_id"
+    },
+    {
+      "Code": "@count_appeals_from",
+      "Name": "count_appeals_from",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@count_appeals_to",
+      "Name": "count_appeals_to",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@count_return_from",
+      "Name": "count_return_from",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@count_return_to",
+      "Name": "count_return_to",
+      "ParameterType": "Integer"
+    },
+    {
+      "Code": "@registration_date_from",
+      "Name": "registration_date_from",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@registration_date_to",
+      "Name": "registration_date_to",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@look_date_from",
+      "Name": "look_date_from",
+      "ParameterType": "DateTime"
+    },
+    {
+      "Code": "@look_date_to",
+      "Name": "look_date_to",
+      "ParameterType": "DateTime"
     }
   ]
 }

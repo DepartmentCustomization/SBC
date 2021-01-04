@@ -1,11 +1,48 @@
 
 
+
+--declare @district_id nvarchar(max)=N'1,2,3';
+
+declare @table table (id int)
+
+
+if @district_id is null
+	begin
+		insert into @table (Id)
+		select Id from [dbo].[Districts] union select 0
+	end
+
+else
+	begin
+declare @input_str nvarchar(max) = @district_id+N','
+ 
+ 
+declare @delimeter nvarchar(1) = ','
+ 
+declare @pos int = charindex(@delimeter,@input_str)
+ 
+declare @id nvarchar(10)
+    
+while (@pos != 0)
+begin
+
+    set @id = SUBSTRING(@input_str, 1, @pos-1)
+
+    insert into @table (id) values(cast(@id as int))
+
+    set @input_str = SUBSTRING(@input_str, @pos+1, LEN(@input_str))
+
+    set @pos = CHARINDEX(@delimeter,@input_str)
+end
+	end
+
+--select * from @table
+
 SELECT [Streets].[Id]
       -- ,[district_id]
-       ,[StreetTypes].[shortname] +N' '+ [Streets].[name]  as name
-    
-     FROM   [dbo].[Streets]
-    
+       ,isnull([StreetTypes].[shortname]+N' ',N'') +N' '+ [Streets].[name] name
+     FROM [dbo].[Streets]
+	 inner join @table t on [Streets].district_id=t.Id
      left Join [dbo].[StreetTypes]
      ON  [Streets].[street_type_id] =  [StreetTypes].[id]
     
@@ -13,6 +50,7 @@ SELECT [Streets].[Id]
   
   #sort_columns#
   offset @pageOffsetRows rows fetch next @pageLimitRows rows only
+
 
 --declare @user_Id nvarchar(128)=N'45d2f527-bd52-47ef-bc6c-4e0943d8e333';
 /*

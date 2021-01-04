@@ -16,7 +16,7 @@
       "Name": "name",
       "Position": 2,
       "IsPrintable": false,
-      "SqlName": "[StreetTypes].[shortname] +N' '+ [Streets].[name]",
+      "SqlName": "isnull([StreetTypes].[shortname]+N' ' ,N'')+[Streets].[name]",
       "FilterParameterCode": "@name"
     }
   ],
@@ -37,6 +37,10 @@
       "Name": "pageLimitRows",
       "ParameterType": "Integer",
       "IsPageLimitRows": true
+    },
+    {
+      "Code": "@district_id",
+      "Name": "district_id"
     }
   ]
 }
