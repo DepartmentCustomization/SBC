@@ -1,4 +1,4 @@
-select top 40 ap.Id, ap.[full_name], 
+select top 11 ap.Id, ap.[full_name], 
   stuff((select N', '+[phone_number] from [dbo].[ApplicantPhones] 
   where [phone_number] is not null and IsMain='true' and [applicant_id]=ap.Id for xml path('')),1,2,N'') phone_number_main, 
   stuff((select N', '+[phone_number] from [dbo].[ApplicantPhones] 
@@ -18,9 +18,9 @@ select top 40 ap.Id, ap.[full_name],
 		--end age,
 
 		27 age,
-  count(distinct appe.Id) count_appeals,
+  count(distinct appe.Id) count_appeals
 
-  @parameter par
+  --@parameter par
 
   from [dbo].[Applicants] ap
   left join [dbo].[ApplicantPrivilege] app on ap.applicant_privilage_id=app.id
