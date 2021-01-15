@@ -8,7 +8,7 @@
  DECLARE @Sked NVARCHAR(100) = 'Зима 2020';
  DECLARE @RouteID INT = 46;
  */
-
+/*
 IF EXISTS (SELECT 
 				c.Id 
 		   FROM dbo.[Claims] c 
@@ -22,8 +22,62 @@ IF EXISTS (SELECT
 BEGIN
 	RAISERROR(N'Така заявка вже створена менше ніж 5 хвилин назад',16,1);
 	RETURN;
+END*/
+
+--
+DECLARE @DateCurrent DATE =  getdate(); 
+
+DECLARE @Claim_Number INT;
+IF @DateCurrent >=  CAST(rtrim(year(@DateCurrent))+N'-01-01' AS DATE) AND @DateCurrent < CAST(rtrim(year(@DateCurrent)+1)+N'-01-01' AS DATE)
+BEGIN
+	IF (SELECT count(1)
+	FROM [CRM_AVR_Analitics].[dbo].[Claims]
+	WHERE CHARINDEX(N'/', [Claim_Number]) = 0
+	AND [Claim_Number] IS NOT NULL
+	AND CAST(Created_at AS DATE) >=  CAST(rtrim(year(@DateCurrent))+N'-01-01' AS DATE) AND CAST(Created_at AS DATE) < CAST(rtrim(year(@DateCurrent)+1)+N'-01-01' AS DATE)
+	) = 0
+	BEGIN
+		SET @Claim_Number = 1;
+	END
+	ELSE
+	BEGIN
+		SET @Claim_Number = (
+								SELECT TOP 1 CAST([Claim_Number] AS INT)+1
+								FROM [CRM_AVR_Analitics].[dbo].[Claims]
+								WHERE CHARINDEX(N'/', [Claim_Number]) = 0
+								AND [Claim_Number] IS NOT NULL
+								AND CAST(Created_at AS DATE) >= CAST(rtrim(year(@DateCurrent))+N'-01-01' AS DATE) AND CAST(Created_at AS DATE) < CAST(rtrim(year(@DateCurrent)+1)+N'-01-01' AS DATE)
+								ORDER BY CAST([Claim_Number] AS INT) DESC
+							);
+	END
+END
+--
+
+
+--Номер заявки    
+IF (@Claim_Number IS NULL) 
+BEGIN	
+	RAISERROR(N'Не заповнене поле "Номер заявки"',16,1);
+	RETURN;
+END
+--Статус нормально
+--Дата реєстрації нормально
+--Зареєсрував нормально
+
+--Обхідник
+IF (@WalkerJobID IS NULL) 
+BEGIN	
+	RAISERROR(N'Не заповнене поле "Обхідник"',16,1);
+	RETURN;
+END
+--Відповідальний підрозділ - пусте або текст "невизначено"
+IF (@Response_organization_ID IS NULL or @Response_organization_ID=28 /*невизначено*/) 
+BEGIN	
+	RAISERROR(N'Не заповнене поле "Відповідальний підрозділ"',16,1);
+	RETURN;
 END
 
+--Маршрут №
 IF (@RouteID IS NULL) 
 BEGIN	
 	RAISERROR(N'Маршрут вказано некоректно. Будь-ласка оберіть значення із списку',16,1);
@@ -72,34 +126,11 @@ DECLARE @Claim_Id INT = (
 /* Расчет номера исходя из 1го Сентября 
 1го сентября нужно чтобы начинался номер заявки с "1"
 */
-DECLARE @DateCurrent DATE =  getdate(); 
+
 /*N'2021-09-01'*/
 --select cast(rtrim(year(@DateCurrent))+N'-09-01' as date),cast(rtrim(year(@DateCurrent)+1)+N'-09-01' as date)
 
-DECLARE @Claim_Number INT;
-IF @DateCurrent >=  CAST(rtrim(year(@DateCurrent))+N'-01-01' AS DATE) AND @DateCurrent < CAST(rtrim(year(@DateCurrent)+1)+N'-01-01' AS DATE)
-BEGIN
-	IF (SELECT count(1)
-	FROM [CRM_AVR_Analitics].[dbo].[Claims]
-	WHERE CHARINDEX(N'/', [Claim_Number]) = 0
-	AND [Claim_Number] IS NOT NULL
-	AND CAST(Created_at AS DATE) >=  CAST(rtrim(year(@DateCurrent))+N'-01-01' AS DATE) AND CAST(Created_at AS DATE) < CAST(rtrim(year(@DateCurrent)+1)+N'-01-01' AS DATE)
-	) = 0
-	BEGIN
-		SET @Claim_Number = 1;
-	END
-	ELSE
-	BEGIN
-		SET @Claim_Number = (
-								SELECT TOP 1 CAST([Claim_Number] AS INT)+1
-								FROM [CRM_AVR_Analitics].[dbo].[Claims]
-								WHERE CHARINDEX(N'/', [Claim_Number]) = 0
-								AND [Claim_Number] IS NOT NULL
-								AND CAST(Created_at AS DATE) >= CAST(rtrim(year(@DateCurrent))+N'-01-01' AS DATE) AND CAST(Created_at AS DATE) < CAST(rtrim(year(@DateCurrent)+1)+N'-01-01' AS DATE)
-								ORDER BY CAST([Claim_Number] AS INT) DESC
-							);
-	END
-END
+
 
 UPDATE
 	[dbo].[Claims]
@@ -131,6 +162,22 @@ VALUES
 		@Sked,
 		@RouteID
 	);
+	-- начало
+
+DECLARE @WalkerName NVARCHAR(255) = (SELECT [Name] FROM dbo.Contacts WHERE Job_ID = @WalkerJobID) ;
+
+   UPDATE 
+   dbo.Claims
+   SET [Status_ID] = 3 
+   --OUTPUT inserted.Status_ID INTO @info(newStatus)
+   WHERE Id = @Claim_Id ;
+
+   UPDATE 
+   dbo.Claim_content
+   SET WalkerJobID = @WalkerJobID,
+       WalkerName = @WalkerName
+   WHERE Claim_Id = @Claim_Id ;
+	--конец
 
 COMMIT TRANSACTION;
 SELECT
@@ -148,3 +195,4 @@ END
 DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
 RAISERROR(@ErrorMessage,16,1);
 END CATCH;
+
