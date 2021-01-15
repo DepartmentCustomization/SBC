@@ -15,10 +15,14 @@
       "QueryParameters": []
     },
     {
-      "Code": "WalkerName",
+      "Code": "WalkerJobID",
       "Name": "Обхідник",
-      "FieldType": "text",
-      "Position": 2
+      "Position": 2,
+      "FieldType": "lookup",
+      "QueryCode": "SelectWalker_ByCreatorOrg",
+      "KeyColumnCode": "Id",
+      "DisplayColumnCode": "pib",
+      "IsRequired": true
     },
     {
       "Code": "ResponseID",
@@ -36,7 +40,8 @@
       "FieldType": "button",
       "Position": 4,
       "Width": "45%",
-      "Icon": "account_box"
+      "Icon": "account_box",
+      "IsHidden": true
     }
   ]
 }

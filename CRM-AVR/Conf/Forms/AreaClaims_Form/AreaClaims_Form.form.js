@@ -11,7 +11,7 @@
             this.form.disableControl('Claim_class_ID');
             this.form.disableControl('Claim_type_ID');
             //  this.form.disableControl('ResponseID');
-            this.form.disableControl('WalkerName');
+            //this.form.disableControl('WalkerName');
             if(this.form.getControlValue('ResponseID') === null) {
                 this.form.setControlVisibility('ResponseID', false);
             }

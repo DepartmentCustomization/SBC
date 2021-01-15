@@ -36,5 +36,10 @@
     "Code": "@Claim_class_ID",
     "Name": "Claim_class_ID",
     "ParameterType": "Integer"
+  },
+  {
+    "Code": "@WalkerJobID",
+    "Name": "WalkerJobID",
+    "ParameterType": "Integer"
   }
 ]

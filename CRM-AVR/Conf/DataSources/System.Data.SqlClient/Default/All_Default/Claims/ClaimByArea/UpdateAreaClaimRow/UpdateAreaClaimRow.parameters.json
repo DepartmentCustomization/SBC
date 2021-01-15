@@ -21,5 +21,10 @@
     "Code": "@Id",
     "Name": "Id",
     "ParameterType": "Integer"
+  },
+  {
+    "Code": "@WalkerJobID",
+    "Name": "WalkerJobID",
+    "ParameterType": "Integer"
   }
 ]

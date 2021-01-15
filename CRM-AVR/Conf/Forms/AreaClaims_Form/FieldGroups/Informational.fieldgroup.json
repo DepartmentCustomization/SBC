@@ -39,6 +39,7 @@
       "QueryCode": "avr_ListOrg_Is_select",
       "KeyColumnCode": "Id",
       "DisplayColumnCode": "Name",
+      "IsRequired": true,
       "QueryParameters": []
     },
     {
