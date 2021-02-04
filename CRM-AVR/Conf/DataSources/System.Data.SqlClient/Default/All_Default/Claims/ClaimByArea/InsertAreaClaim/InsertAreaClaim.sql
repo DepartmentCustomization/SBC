@@ -1,12 +1,14 @@
+
 /*
  DECLARE @Claim_type_ID INT = 7100;
  DECLARE @Claim_class_ID INT = 21;
- DECLARE @Description NVARCHAR(MAX) = 'ГО НА ОБХОД';
- DECLARE @Status_id INT = 1; 
- DECLARE @Response_organization_ID INT = NULL;
+ DECLARE @Description NVARCHAR(MAX)-- = 'ГО НА ОБХОД';
+ DECLARE @Status_id INT;-- = 1; 
+ DECLARE @Response_organization_ID INT = 5502;
  DECLARE @User NVARCHAR(128) = '7ddf9e9f-2a7b-4b81-9b5d-528722558bd6';
- DECLARE @Sked NVARCHAR(100) = 'Зима 2020';
- DECLARE @RouteID INT = 46;
+ DECLARE @Sked NVARCHAR(100) --= 'Зима 2020';
+ DECLARE @RouteID INT = 565-- 46;
+ declare @WalkerJobID int =28036;
  */
 /*
 IF EXISTS (SELECT 
@@ -51,6 +53,8 @@ BEGIN
 							);
 	END
 END
+
+--select @Claim_Number
 --
 
 
@@ -89,6 +93,7 @@ BEGIN TRY
 BEGIN TRANSACTION;
 INSERT INTO
 	[dbo].[Claims] (
+		[Claim_Number],
 		[First_claim_type_ID],
 		[Claim_type_ID],
 		Claim_class_ID,
@@ -103,6 +108,7 @@ INSERT INTO
 	) OUTPUT [inserted].[Id] INTO @info(Id)
 VALUES
 	(
+		@Claim_Number,
 		@Claim_type_ID,
 		@Claim_type_ID,
 		@Claim_class_ID,
@@ -135,7 +141,7 @@ DECLARE @Claim_Id INT = (
 UPDATE
 	[dbo].[Claims]
 SET
-	[Claim_Number] = @Claim_Number,
+	--[Claim_Number] = @Claim_Number,
 	[Priority] = isnull(
 		(
 			SELECT
@@ -195,4 +201,5 @@ END
 DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
 RAISERROR(@ErrorMessage,16,1);
 END CATCH;
+
 
