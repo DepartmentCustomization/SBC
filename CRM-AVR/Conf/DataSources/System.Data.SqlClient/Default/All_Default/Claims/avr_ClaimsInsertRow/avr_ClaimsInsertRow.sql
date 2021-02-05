@@ -1,8 +1,36 @@
+
 DECLARE @output TABLE ([Id] INT);
 
 DECLARE @contact_id INT;
 
 DECLARE @contact_id_fiz INT;
+
+declare @DateCurrent date =  getdate() /*N'2021-09-01'*/
+
+DECLARE @Claim_Number INT;
+if @DateCurrent >=  cast(rtrim(year(@DateCurrent))+N'-01-01' as date) and @DateCurrent < cast(rtrim(year(@DateCurrent)+1)+N'-01-01' as date)
+begin
+	if (SELECT count(1)
+	FROM [CRM_AVR_Analitics].[dbo].[Claims]
+	where CHARINDEX(N'/', [Claim_Number]) = 0
+	and [Claim_Number] is not null
+	and cast(Created_at as date) >=  cast(rtrim(year(@DateCurrent))+N'-01-01' as date) and cast(Created_at as date) < cast(rtrim(year(@DateCurrent)+1)+N'-01-01' as date)
+	) = 0
+	begin
+		set @Claim_Number = 1;
+	end
+	else
+	begin
+		set @Claim_Number = (
+								SELECT top 1 cast([Claim_Number] as int)+1
+								FROM [CRM_AVR_Analitics].[dbo].[Claims]
+								where CHARINDEX(N'/', [Claim_Number]) = 0
+								and [Claim_Number] is not null
+								and cast(Created_at as date) >=  cast(rtrim(year(@DateCurrent))+N'-01-01' as date) and cast(Created_at as date) < cast(rtrim(year(@DateCurrent)+1)+N'-01-01' as date)
+								order by cast([Claim_Number] as int) desc
+							)
+	end
+end
 
 DECLARE @IsClaimPlaceTemporary BIT = IIF(
 	(
@@ -68,6 +96,7 @@ BEGIN TRANSACTION;
 
 INSERT INTO
 	[dbo].[Claims] (
+		[Claim_Number],
 		[First_claim_type_ID],
 		[Claim_type_ID],
 		[First_description],
@@ -92,6 +121,7 @@ INSERT INTO
 	) OUTPUT [inserted].[Id] INTO @output([Id])
 VALUES
 	(
+		@Claim_Number,
 		@Types_id,
 		@Types_id,
 		@Description,
@@ -124,34 +154,11 @@ VALUES
 1го сентября нужно чтобі начинался номер заявки с "1"
 */
 declare @ClaimId int = (SELECT TOP 1 [Id] FROM @output)
-declare @DateCurrent date =  getdate() /*N'2021-09-01'*/
+
 
 --select cast(rtrim(year(@DateCurrent))+N'-09-01' as date),cast(rtrim(year(@DateCurrent)+1)+N'-09-01' as date)
 
-DECLARE @Claim_Number INT;
-if @DateCurrent >=  cast(rtrim(year(@DateCurrent))+N'-01-01' as date) and @DateCurrent < cast(rtrim(year(@DateCurrent)+1)+N'-01-01' as date)
-begin
-	if (SELECT count(1)
-	FROM [CRM_AVR_Analitics].[dbo].[Claims]
-	where CHARINDEX(N'/', [Claim_Number]) = 0
-	and [Claim_Number] is not null
-	and cast(Created_at as date) >=  cast(rtrim(year(@DateCurrent))+N'-01-01' as date) and cast(Created_at as date) < cast(rtrim(year(@DateCurrent)+1)+N'-01-01' as date)
-	) = 0
-	begin
-		set @Claim_Number = 1;
-	end
-	else
-	begin
-		set @Claim_Number = (
-								SELECT top 1 cast([Claim_Number] as int)+1
-								FROM [CRM_AVR_Analitics].[dbo].[Claims]
-								where CHARINDEX(N'/', [Claim_Number]) = 0
-								and [Claim_Number] is not null
-								and cast(Created_at as date) >=  cast(rtrim(year(@DateCurrent))+N'-01-01' as date) and cast(Created_at as date) < cast(rtrim(year(@DateCurrent)+1)+N'-01-01' as date)
-								order by cast([Claim_Number] as int) desc
-							)
-	end
-end
+
 
 --select @Claim_Number
 
@@ -159,7 +166,7 @@ end
 UPDATE
 	[dbo].[Claims]
 SET
-	Claim_Number = @Claim_Number,
+	--Claim_Number = @Claim_Number,
 	[Claim_class_ID] = (
 		SELECT
 			[Claim_class_ID]
