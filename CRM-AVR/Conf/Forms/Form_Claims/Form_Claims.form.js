@@ -1694,6 +1694,9 @@
             }else if (data.rows[0].values[67] == 5) {
                 priorityCode = 'High';
                 notifType = 'TaskHigh';
+            }else if (!data.rows[0].values[67]) {
+                priorityCode = 'Middle';
+                notifType = 'TaskMiddle';
             }
             const userId = this.user.userId;
             const notification = {
