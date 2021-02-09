@@ -1,0 +1,12 @@
+{
+  "Add": {
+    "InsertQueryCode": "avr_ClaimsInsertRow"
+  },
+  "ModelType": "Section",
+  "Code": "Claims_displayId2",
+  "Name": " Заявки обхідників",
+  "FormCode": "Form_Claims",
+  "SelectRowsQueryCode": "avr_ClaimsSelectRows_d2",
+  "SelectRowQueryCode": "avr_ClaimsSelectRow",
+  "UpdateQueryCode": "avr_ClaimsUpdateRow"
+}
