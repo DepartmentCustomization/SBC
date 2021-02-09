@@ -1,0 +1,122 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_number",
+    "Name": "claim_number",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_created_at",
+    "Name": "claim_created_at",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_finish_at",
+    "Name": "claim_finish_at",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Plan_start_date",
+    "Name": "Plan_start_date",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Plan_finish_at",
+    "Name": "Plan_finish_at",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "User_Created_By",
+    "Name": "User_Created_By",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_class_name",
+    "Name": "Claim_class_name",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_type_name",
+    "Name": "claim_type_name",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Response_Org_Name",
+    "Name": "Response_Org_Name",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_Priority",
+    "Name": "claim_Priority",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_is_not_balans",
+    "Name": "claim_is_not_balans",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Main_Place_Name",
+    "Name": "Main_Place_Name",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Main_District_Name",
+    "Name": "Main_District_Name",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Flats_Name",
+    "Name": "Flats_Name",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Diameter_size",
+    "Name": "Diameter_size",
+    "Position": 12,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Main_Place_Type_Name",
+    "Name": "Main_Place_Type_Name",
+    "Position": 14,
+    "IsPrintable": false
+  },
+  {
+    "Code": "claim_Description",
+    "Name": "claim_Description",
+    "Position": 15,
+    "IsPrintable": false
+  },
+  {
+    "Code": "main_action_type",
+    "Name": "main_action_type",
+    "Position": 16,
+    "IsPrintable": false
+  },
+  {
+    "Code": "User_Closed_By",
+    "Name": "User_Closed_By",
+    "Position": 17,
+    "IsPrintable": false
+  }
+]
