@@ -1,7 +1,7 @@
 select Id, Name
 from
 (
-select -1 Id, '(none)'  Name
+select -1 Id, N'(пусто)'  Name
 
 UNION 
 
