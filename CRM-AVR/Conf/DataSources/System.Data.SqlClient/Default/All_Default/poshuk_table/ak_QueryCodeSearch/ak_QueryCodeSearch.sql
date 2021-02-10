@@ -68,7 +68,7 @@ N'SELECT [Claims].[Id]
   left join [Actions] on [Actions].Claim_id = Claims.Id and [Actions].[Is_Goal] = 1
   left join [Action_types] on [Action_types].Id = [Actions].[Action_type_ID]
 
-  left join (select Claims_Id, MAX(id) ch_id from [Claims_History] where [Field] = N''Статус'' and [New_Value] = ''Закрита'' group by Claims_Id) ch_closed_by on ch_closed_by.Claims_Id = [Claims].Id
+  left join (select Claims_Id, MAX(id) ch_id from [Claims_History] where [Field] = N''РЎС‚Р°С‚СѓСЃ'' and [New_Value] = ''Р—Р°РєСЂРёС‚Р°'' group by Claims_Id) ch_closed_by on ch_closed_by.Claims_Id = [Claims].Id
   left join [Claims_History] Claims_History_Closed_By on Claims_History_Closed_By.Id = ch_closed_by.ch_id
   left join [CRM_AVR_System].[dbo].[User] u_closed on u_closed.UserId = Claims_History_Closed_By.[User]
   left join (select UserId, max(id) uio_id from [CRM_AVR_System].[dbo].[UserInOrganisation] group by UserId) uio_closed_min on uio_closed_min.UserId = Claims_History_Closed_By.[User]
