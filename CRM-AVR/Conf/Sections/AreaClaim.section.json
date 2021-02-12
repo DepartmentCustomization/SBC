@@ -3,7 +3,7 @@
     "InsertQueryCode": "avr_ClaimsInsertRow"
   },
   "ModelType": "Section",
-  "Code": "Claims_displayId2",
+  "Code": "AreaClaim",
   "Name": " Заявки обхідників",
   "FormCode": "AreaClaims_Form",
   "SelectRowsQueryCode": "avr_ClaimsSelectRows_d2",

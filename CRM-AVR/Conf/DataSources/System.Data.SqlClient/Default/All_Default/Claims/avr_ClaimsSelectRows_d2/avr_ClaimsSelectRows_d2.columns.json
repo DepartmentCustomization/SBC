@@ -13,7 +13,7 @@
     "SqlName": "[Claims].[Claim_Number]",
     "FilterParameterCode": "@Claim_Number",
     "ReferenceKeyCode": "Id",
-    "ReferenceSectionCode": "Claims"
+    "ReferenceSectionCode": "AreaClaims"
   },
   {
     "Code": "Organization_name",
