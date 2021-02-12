@@ -5,8 +5,8 @@
   "ModelType": "Section",
   "Code": "Claims_displayId2",
   "Name": " Заявки обхідників",
-  "FormCode": "Form_Claims",
+  "FormCode": "AreaClaims_Form",
   "SelectRowsQueryCode": "avr_ClaimsSelectRows_d2",
-  "SelectRowQueryCode": "avr_ClaimsSelectRow",
-  "UpdateQueryCode": "avr_ClaimsUpdateRow"
+  "SelectRowQueryCode": "SelectAreaClaim",
+  "UpdateQueryCode": "UpdateAreaClaimRow"
 }
