@@ -20,7 +20,7 @@
       "Name": "Parent_сlaim_types_ID",
       "Position": 2,
       "IsPrintable": false,
-      "SqlName": "Parent_сlaim_types_ID",
+      "SqlName": "Parent_Id",
       "FilterParameterCode": "@Parent_сlaim_types_ID"
     },
     {
@@ -44,7 +44,7 @@
       "Name": "Full_Name",
       "Position": 5,
       "SqlName": "Full_Name",
-      "FilterParameterCode": "@full_name"
+      "FilterParameterCode": "@Full_Name"
     },
     {
       "Code": "TypeAccessId",
