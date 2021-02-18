@@ -101,7 +101,7 @@ with
    from main_2
    order by [Sort_index]
 
-  -- END
+  -- END 1
 
   /*было до 2021-02-18
   DECLARE @TypeId INT = (
