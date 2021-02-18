@@ -20,7 +20,7 @@
       "Name": "Parent_сlaim_types_ID",
       "Position": 2,
       "IsPrintable": false,
-      "SqlName": "Parent_Id",
+      "SqlName": "Parent_сlaim_types_ID",
       "FilterParameterCode": "@Parent_сlaim_types_ID"
     },
     {
