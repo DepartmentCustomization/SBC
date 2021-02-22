@@ -11,26 +11,27 @@
 -- 		BEGIN 
 
 with
-  parent_t as
-  (select [Id], [Parent_сlaim_types_ID] [Parent_Id], [Claim_types].[TypeAccess_ID], 
-        [Claim_types].[Claim_class_ID],
-		[Claim_types].[Name],
-		[Claim_types].[Full_Name],
-		[Claim_types].[Sort_index]
-  from [dbo].[Claim_types]
-  where [Claim_types].Is_delete != 1
-  union all
-  select [Claim_types].[Id], [Claim_types].[Parent_сlaim_types_ID], [Claim_types].[TypeAccess_ID], 
-		[Claim_types].[Claim_class_ID],
-		[Claim_types].[Name],
-		[Claim_types].[Full_Name],
-		[Claim_types].[Sort_index]
-  from [dbo].[Claim_types] 
-  inner join  parent_t
-  on [Claim_types].Id=parent_t.Parent_Id
-  where [Claim_types].Is_delete != 1
-  )
-  ,childlen_t as
+--   parent_t as
+--   (select [Id], [Parent_сlaim_types_ID] [Parent_Id], [Claim_types].[TypeAccess_ID], 
+--         [Claim_types].[Claim_class_ID],
+-- 		[Claim_types].[Name],
+-- 		[Claim_types].[Full_Name],
+-- 		[Claim_types].[Sort_index]
+--   from [dbo].[Claim_types]
+--   where [Claim_types].Is_delete != 1
+--   union all
+--   select [Claim_types].[Id], [Claim_types].[Parent_сlaim_types_ID], [Claim_types].[TypeAccess_ID], 
+-- 		[Claim_types].[Claim_class_ID],
+-- 		[Claim_types].[Name],
+-- 		[Claim_types].[Full_Name],
+-- 		[Claim_types].[Sort_index]
+--   from [dbo].[Claim_types] 
+--   inner join  parent_t
+--   on [Claim_types].Id=parent_t.Parent_Id
+--   where [Claim_types].Is_delete != 1
+--   )
+--   ,
+  childlen_t as
   (
   select [Id], [Parent_сlaim_types_ID], [Claim_types].[TypeAccess_ID],
 		[Claim_types].[Claim_class_ID],

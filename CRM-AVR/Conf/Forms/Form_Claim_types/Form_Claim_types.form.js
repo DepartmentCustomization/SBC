@@ -17,7 +17,15 @@
             }
             this.form.onControlValueChanged('access_id', this.onType);
             this.form.onControlValueChanged('claim_types_name', this.fullName)
-        },
+        }
+        //начало
+        ,afterSave: function(data) {
+            if (this.form.getControlValue('Is_delete')===true) {
+                this.openPopUpInfoDialog('Цей тип буде видалено, та більше не доступний для використання й редагування');
+            }
+                                }
+        //конец
+        ,
         fullName: function(name) {
             if(name) {
                 let parentVal = document.getElementById('claim_types_id_first').value;
