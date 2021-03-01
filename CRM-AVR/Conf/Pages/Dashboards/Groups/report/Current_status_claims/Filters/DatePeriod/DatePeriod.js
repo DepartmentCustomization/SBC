@@ -2,6 +2,7 @@
     return {
         placeholder: 'Період',
         showTime: true,
+        stepMinute: 1,
         onItemSelect: function(date) {
             this.datePeriod(date);
         },
@@ -29,6 +30,7 @@
             this.setDefaultValue(defaultValue);
         },
         destroy() {
+            debugger;
             // console.log('Destroy date filter');
         }
     };

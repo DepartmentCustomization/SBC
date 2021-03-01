@@ -4,15 +4,16 @@
 SELECT
 	Claims.Id,
 	org.Short_name AS org_name,
-	concat(
-		CONVERT(
-			VARCHAR(10),
-			CAST(Claims.Created_at AS DATE),
-			104
-		),
-		' ',
-		CONVERT(VARCHAR(5), CAST(Claims.Created_at AS TIME), 108)
-	) AS Created_at,
+	-- concat(
+	-- 	CONVERT(
+	-- 		VARCHAR(10),
+	-- 		CAST(Claims.Created_at AS DATE),
+	-- 		104
+	-- 	),
+	-- 	' ',
+	-- 	CONVERT(VARCHAR(5), CAST(Claims.Created_at AS TIME), 108)
+	-- ) AS Created_at,
+	format(CONVERT(datetime, SWITCHOFFSET([Claims].Created_at, DATEPART(TZOFFSET,[Claims].Created_at AT TIME ZONE 'E. Europe Standard Time'))),'dd.MM.yyy HH:mm') Created_at,
 	Claims.Claim_Number,
 	IIF(Claims.DisplayID = 2, 'За маршрутом обхідника', places.Name) AS place_name,
 	SUBSTRING(Districts.Name, 1, 5) AS district,
