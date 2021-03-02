@@ -147,7 +147,17 @@ VALUES
 		1,
 		@UR_organization_id
 	);
+	/*изменение района в таблицах начало*/
+	update [dbo].[Places]
+  set [District_ID]=@district_id
+  where Id=@places_id
 
+  update [dbo].[Houses]
+  set [District_id]=@district_id
+  from [dbo].[Houses]
+  inner join [dbo].[Places] on [Houses].Id=[Places].Street_id
+  where [Places].Id=@places_id
+	/*изменение района в таблицах конец*/
 
 
 /* Расчет номера исходя из 1го Сентября 

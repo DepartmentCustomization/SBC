@@ -18,6 +18,7 @@
       "Code": "district_id",
       "Name": "Район",
       "FieldType": "select",
+      "IsRequired": true,
       "QueryCode": "dir_DistrictsSelectRows",
       "KeyColumnCode": "Id",
       "DisplayColumnCode": "Name",

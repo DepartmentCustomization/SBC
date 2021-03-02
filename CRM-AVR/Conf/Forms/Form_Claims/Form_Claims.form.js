@@ -1600,6 +1600,8 @@
                 this.queryExecutor.getValues(type_place).subscribe(data => {
                     this.form.setControlValue('place_type_id', {key: data.rows[0].values[0], value: data.rows[0].values[1]});
                     this.form.setControlValue('district_id', {key: data.rows[0].values[2], value: data.rows[0].values[3]});
+                    if (data.rows[0].values[2] == null)
+                        {this.form.enableControl('district_id')}
                 });
             }
         },
