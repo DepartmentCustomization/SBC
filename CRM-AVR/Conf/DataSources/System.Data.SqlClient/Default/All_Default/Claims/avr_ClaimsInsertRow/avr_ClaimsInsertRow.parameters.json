@@ -167,5 +167,10 @@
   {
     "Code": "@G_PIB",
     "Name": "G_PIB"
+  },
+  {
+    "Code": "@district_id",
+    "Name": "district_id",
+    "ParameterType": "Integer"
   }
 ]
