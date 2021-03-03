@@ -118,5 +118,89 @@
     "Name": "User_Closed_By",
     "Position": 17,
     "IsPrintable": false
+  },
+  {
+    "Code": "Sked",
+    "Name": "Sked",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "TU",
+    "Name": "TU",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "TU_Id",
+    "Name": "TU_Id",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Letter",
+    "Name": "Letter",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "L_Contacts_Id",
+    "Name": "L_Contacts_Id",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Gravamen",
+    "Name": "Gravamen",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "G_Left",
+    "Name": "G_Left",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "G_PIB",
+    "Name": "G_PIB",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Contact_Type_Name",
+    "Name": "Contact_Type_Name",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Contact_Name",
+    "Name": "Contact_Name",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "contact_phone",
+    "Name": "contact_phone",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Contact_Department",
+    "Name": "Contact_Department",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Contact_Org",
+    "Name": "Contact_Org",
+    "Position": 18,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Contact_Sub_Department",
+    "Name": "Contact_Sub_Department",
+    "Position": 19,
+    "IsPrintable": false
   }
 ]
