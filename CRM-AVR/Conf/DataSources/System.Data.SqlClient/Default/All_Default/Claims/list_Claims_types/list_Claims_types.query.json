@@ -44,7 +44,7 @@
       "Name": "Full_Name",
       "Position": 5,
       "SqlName": "Full_Name",
-      "FilterParameterCode": "@full_name"
+      "FilterParameterCode": "@Full_Name"
     },
     {
       "Code": "TypeAccessId",
