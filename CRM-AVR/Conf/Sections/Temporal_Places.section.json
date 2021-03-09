@@ -6,5 +6,6 @@
   "FormCode": "Form_Temporal_Places",
   "SelectRowsQueryCode": "TemporalPlacesSelectRows",
   "SelectRowQueryCode": "TemporalPlacesSelectRow",
-  "UpdateQueryCode": "TemporalPlacesUpdateRow"
+  "UpdateQueryCode": "TemporalPlacesUpdateRow",
+  "Add": {}
 }

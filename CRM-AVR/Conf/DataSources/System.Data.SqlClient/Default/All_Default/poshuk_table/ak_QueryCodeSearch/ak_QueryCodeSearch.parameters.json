@@ -1,12 +1,12 @@
 [
   {
-    "Code": "@registration_date_question_from",
-    "Name": "registration_date_question_from",
+    "Code": "@closed_date_from",
+    "Name": "closed_date_from",
     "ParameterType": "DateTime"
   },
   {
-    "Code": "@registration_date_question_to",
-    "Name": "registration_date_question_to",
+    "Code": "@closed_date_to",
+    "Name": "closed_date_to",
     "ParameterType": "DateTime"
   },
   {

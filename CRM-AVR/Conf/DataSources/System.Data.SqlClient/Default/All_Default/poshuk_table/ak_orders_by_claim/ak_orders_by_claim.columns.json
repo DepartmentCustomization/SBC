@@ -1,0 +1,98 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Order_Number",
+    "Name": "Order_Number",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_ID",
+    "Name": "Claim_ID",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Created_at",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Start_at",
+    "Name": "Start_at",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Plan_duration",
+    "Name": "Plan_duration",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Finished_at",
+    "Name": "Finished_at",
+    "Position": 3,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Closed_at",
+    "Name": "Closed_at",
+    "Position": 4,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Status_ID",
+    "Name": "Status_ID",
+    "Position": 5,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Comment_result",
+    "Name": "Comment_result",
+    "Position": 6,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Action_Min_Start_from",
+    "Name": "Action_Min_Start_from",
+    "Position": 7,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Action_Max_Finish_at",
+    "Name": "Action_Max_Finish_at",
+    "Position": 8,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Status_Name",
+    "Name": "Status_Name",
+    "Position": 9,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Job_Contact_Name",
+    "Name": "Job_Contact_Name",
+    "Position": 10,
+    "IsPrintable": false
+  },
+  {
+    "Code": "User_Created_By",
+    "Name": "User_Created_By",
+    "Position": 11,
+    "IsPrintable": false
+  },
+  {
+    "Code": "User_Closed_By",
+    "Name": "User_Closed_By",
+    "Position": 12,
+    "IsPrintable": false
+  }
+]

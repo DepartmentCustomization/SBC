@@ -7,14 +7,14 @@
     padding: 0;
     text-align: center;
     color: #959595;
-    background-image: url('assets/img/1551/crm1551_arrow_open.png');
+    /*background-image: url('assets/img/1551/crm1551_arrow_open.png');*/
     background-repeat: no-repeat;
 }
 .dx-datagrid-group-opened::before{
-    display:none;
+    /*display:none;*/
 }
 .dx-datagrid-group-closed::before{
-    display:none;
+    /*display:none;*/
 }
 .dx-datagrid-group-closed{
     margin: 10px;
@@ -25,14 +25,15 @@
     padding: 0;
     text-align: center;
     color: #959595;
-    background-image: url('assets/img/1551/crm1551_arrow_close.png');
+    /*background-image: url('assets/img/1551/crm1551_arrow_close.png');*/
     background-repeat: no-repeat;
 }
 .dx-datagrid-text-content{
     font-weight: 400;
     font-style: normal;
     font-size: 14px;
-    color: #999999;
+    /*color: #999999;*/
+    color: #555454;
     text-align: left;
 }
 .dx-data-row{
@@ -75,7 +76,7 @@
 }
 #modalWindow{
     position: fixed;
-    top: 140px;
+    top: 100px;
     margin-left: 50%;
     left: -450px;
     z-index: 100;

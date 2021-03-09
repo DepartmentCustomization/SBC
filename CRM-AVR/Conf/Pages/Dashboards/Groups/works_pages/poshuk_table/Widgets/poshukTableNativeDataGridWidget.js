@@ -16,16 +16,16 @@
                 },{
                     dataField: 'claim_created_at',
                     caption: 'Дата створення',
-                    dateType: 'datetime',
+                    dataType: 'datetime',
                     format: 'dd.MM.yyy HH.mm'
                 }, {
                     dataField: 'claim_finish_at',
-                    caption: 'Дата закінчення',
+                    caption: 'Дата закриття',
                     dateType: 'datetime',
                     format: 'dd.MM.yyy HH.mm'
                 },{
                     dataField: 'User_Created_By',
-                    caption: 'Створено'
+                    caption: 'Створив'
                 },{
                     dataField: 'claim_type_name',
                     caption: 'Тип заявки'
@@ -34,9 +34,183 @@
                     caption: 'Головне місце'
                 }, {
                     dataField: 'Response_Org_Name',
-                    caption: 'Підрозділ'
+                    caption: 'Відповідальний підрозділ'
                 }
             ],
+            masterDetail: {
+                enabled: true,
+                template: 'masterDetailWithTabsInstance',
+                tabs: [
+                    {
+                        title: "Виїзди",
+                        template: "Orders",
+                        showBorders: true,
+                        columnAutoWidth: true,
+                        wordWrapEnabled: true,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_orders_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'Order_Number',
+                                caption: '№'
+                            },
+                            {
+                                dataField: 'Created_at',
+                                caption: 'Дата створення',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm'
+                            }, 
+                            {
+                                dataField: 'Start_at',
+                                caption: 'Дата початку',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            },
+                            {
+                                dataField: 'Action_Min_Start_from',
+                                caption: 'Дата початку робіт',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Action_Max_Finish_at',
+                                caption: 'Дата закінчення робіт',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            },
+                            {
+                                dataField: 'Finished_at',
+                                caption: 'Дата закінчення',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Closed_at',
+                                caption: 'Дата закриття',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Plan_duration',
+                                caption: 'Планова тривалість',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'User_Created_By',
+                                caption: 'Створив'
+                            }, 
+                            {
+                                dataField: 'User_Closed_By',
+                                caption: 'Закрив'
+                            },
+                            {
+                                dataField: 'Job_Contact_Name',
+                                caption: 'Бригадир'
+                            },
+                            {
+                                dataField: 'Comment_result',
+                                caption: 'Коментар'
+                            }, 
+                            {
+                                dataField: 'Status_Name',
+                                caption: 'Статус'
+                            }
+                        ]
+
+                    },
+
+                    {
+                        title: "Запірна арматура",
+                        template: "Action_arm",
+                        width: 600,
+                        showBorders: true,
+                        columnAutoWidth: true,
+                        wordWrapEnabled: true,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_actions_arm_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'Action_type_Name',
+                                caption: 'Робота'
+                            }, 
+                            {
+                                dataField: 'Start_from',
+                                caption: 'Дата відкриття'
+                            }, 
+                            {
+                                dataField: 'Finish_at',
+                                caption: 'Дата закриття'
+                            }, 
+                            {
+                                dataField: 'Diameter_size',
+                                caption: 'Діаметр'
+                            }, 
+                            {
+                                dataField: 'Place_Name',
+                                caption: 'Місце'
+                            }, 
+                            {
+                                dataField: 'has_SwitchOff',
+                                caption: 'Є відключення'
+                            }, 
+                        ]
+
+                    }
+                ]
+            },
             focusedRowEnabled: true,
             allowColumnResizing: true,
             columnResizingMode: 'widget',
@@ -44,6 +218,7 @@
             columnAutoWidth: true,
             showBorders: true,
             hoverStateEnabled: true,
+            groupingAutoExpandAll: null,
             searchPanel: {
                 visible: true,
                 highlightCaseSensitive: true
@@ -62,9 +237,17 @@
             paging: {
                 pageSize: 50
             },
+            
+             summary: {
+            //     totalItems: [{
+            //         column: "claim_number",
+            //         summaryType: "count"
+            //     }]
+            },           
+            
             export: {
                 enabled: true,
-                fileName: 'Report'
+                fileName: 'Звіт_по_заявкам'
             },
             sorting: {
                 mode: 'multiple'
@@ -85,8 +268,9 @@
             DateTime: 'DateTime',
             CheckBox: 'CheckBox'
         },
-        init: function() {
-            this.dataGridInstance.height = window.innerHeight - 200;
+        firstLoad: true,
+        init: function () {
+            this.dataGridInstance.height = window.innerHeight - 220;
             this.table = document.getElementById('poshuk_table_main');
             this.table.style.display = 'none';
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this));
@@ -95,7 +279,9 @@
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.dataGridInstance.onCellClick.subscribe(function(e) {
                 if(e.column) {
-                    if (e.column.dataField === 'claim_number' && e.row !== undefined) {
+                    if (e.column.dataField === 'claim_number dis' && e.row !== undefined) {
+                        e.row.dataSource = new Array(this.config.masterDetail.tabs.length);
+
                         window.open(String(
                             location.origin +
                             localStorage.getItem('VirtualPath') +
@@ -107,6 +293,44 @@
             }.bind(this));
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
+
+        masterDetailInitialized: function (event, row, tabItem) {
+            
+            if (!row.dataSource)
+                row.dataSource = new Array(this.config.masterDetail.tabs.length);
+
+            tabItem.query.parameterValues.value = row.data.Id;
+            let masterDetailQuery = tabItem.query;
+            masterDetailQuery.parameterValues[0].value = row.data.Id;
+            
+            this.queryExecutor(masterDetailQuery, this.setMasterDetailDataSource.bind(this, tabItem, row), this);
+        },
+        
+        setMasterDetailDataSource: function (tabItem, row, data) {
+            let dataSource = [];
+
+            data.rows.forEach(row => {
+                let item = [];
+
+                for (let i = 0; i < data.columns.length; i++)
+                    item[""+data.columns[i].name + ""] = row.values[i];
+
+                dataSource.push(item);
+                });
+                debugger;
+            
+            //if (tabItem.template != 'TestTab')
+                //row.dataSource[0]= dataSource;
+            //else 
+            row.dataSource[this.config.masterDetail.tabs.indexOf(tabItem)]= dataSource;
+            
+        },
+        
+        masterDetailOnRowClick: function(row, tabItem) {
+            console.log(tabItem);
+            console.log(row);
+         },
+
         createTableButton: function (e) {
             const modalWindowMessageName = 'showModalWindow';
             const self = this;
@@ -187,8 +411,8 @@
             this.dateValues = {
                 created_at_from: null,
                 created_at_to: null,
-                registration_date_question_from: null,
-                registration_date_question_to: null,
+                closed_date_from: null,
+                closed_date_to: null,
                 transfer_date_from: null,
                 transfer_date_to: null,
                 state_changed_date_from: null,
@@ -302,8 +526,8 @@
                     { key: '@param1', value: this.macrosValue },
                     { key: '@registration_date_from', value: this.dateValues.created_at_from },
                     { key: '@registration_date_to', value: this.dateValues.created_at_to },
-                    { key: '@registration_date_question_from', value: this.dateValues.registration_date_question_from },
-                    { key: '@registration_date_question_to', value: this.dateValues.registration_date_question_to },
+                    { key: '@closed_date_from', value: this.dateValues.closed_date_from },
+                    { key: '@closed_date_to', value: this.dateValues.closed_date_to },
                     { key: '@transfer_date_from', value: this.dateValues.transfer_date_from },
                     { key: '@transfer_date_to', value: this.dateValues.transfer_date_to },
                     { key: '@state_changed_date_from', value: this.dateValues.state_changed_date_from },
@@ -361,12 +585,14 @@
             this.config.query.filterColumns.push(filter);
         },
         reloadTable: function(message) {
+            debugger;
             this.setConfigColumns();
             message.value.forEach(function(el) {
                 let column;
                 switch (el.displayValue) {
                     case 'Plan_start_date':
                     case 'Plan_finish_at':
+                    case 'Created_at':
                     case 'state_changed_date_done':
                         column = {
                             dataField: el.displayValue,
@@ -386,6 +612,14 @@
                             }.bind(this)
                         }
                         break;
+                    case 'Result_Row':
+                        column = {
+                            totalItems: [{
+                            column: "claim_number",
+                            summaryType: "count"
+                            }]
+                        }
+                        break;
                     default:
                         column = {
                             dataField: el.displayValue,
@@ -394,11 +628,23 @@
                         }
                         break;
                 }
-                this.config.columns.push(column);
+
+                if (el.displayValue == 'Result_Row')
+                    this.config.summary = column;
+                else
+                    this.config.columns.push(column);
             }.bind(this));
             this.loadData(this.afterLoadDataHandler);
         },
         setConfigColumns: function() {
+            if (this.config.summary)
+                if (this.config.summary.totalItems)
+                    this.config.summary.totalItems = [];
+
+            if (this.dataGridInstance.summary)
+                if (this.dataGridInstance.summary.totalItems)
+                    this.dataGridInstance.summary.totalItems = [];
+
             this.config.columns = [];
             this.config.columns = [
 
@@ -472,7 +718,7 @@
                 element.firstElementChild.appendChild(spanElement);
             });
         },
-        afterRenderTable: function() {
+        afterRenderTable: function () {
             /*let elements = document.querySelectorAll('.dx-datagrid-export-button');
             elements = Array.from(elements);
             elements.forEach(element => {
@@ -497,8 +743,8 @@
                     { key: '@param1', value: this.macrosValue },
                     { key: '@registration_date_from', value: this.dateValues.registration_date_from },
                     { key: '@registration_date_to', value: this.dateValues.registration_date_to },
-                    { key: '@registration_date_question_from', value: this.dateValues.registration_date_question_from },
-                    { key: '@registration_date_question_to', value: this.dateValues.registration_date_question_to },
+                    { key: '@closed_date_from', value: this.dateValues.closed_date_from },
+                    { key: '@closed_date_to', value: this.dateValues.closed_date_to },
                     { key: '@transfer_date_from', value: this.dateValues.transfer_date_from },
                     { key: '@transfer_date_to', value: this.dateValues.transfer_date_to },
                     { key: '@state_changed_date_from', value: this.dateValues.state_changed_date_from },
