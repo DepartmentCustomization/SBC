@@ -15,5 +15,5 @@ SELECT [Claim_types].[Id]
   FROM [dbo].[Claim_types]
 left join [dbo].[TypeAccess] on [TypeAccess].[Id] = [Claim_types].[TypeAccess_ID]
 left join [dbo].[Claim_classes] on Claim_classes.Id = Claim_class_ID
-left join Claim_types Claim2_types on Claim2_types.Id = Claim_types.Parent_сlaim_types_ID
+left join Claim_types Claim2_types on Claim2_types.Id = Claim_types.Parent_сlaim_types_ID and isnull(Claim2_types.[Is_delete],'false')!='true'
 WHERE Claim_types.Id = @Id
