@@ -17,24 +17,29 @@
                     dataField: 'claim_created_at',
                     caption: 'Дата створення',
                     dataType: 'datetime',
-                    format: 'dd.MM.yyy HH.mm'
+                    format: 'dd.MM.yyy HH.mm',
+                    width: 250
                 }, {
                     dataField: 'claim_finish_at',
                     caption: 'Дата закриття',
                     dateType: 'datetime',
-                    format: 'dd.MM.yyy HH.mm'
+                    format: 'dd.MM.yyy HH.mm',
+                    width: 250
                 },{
                     dataField: 'User_Created_By',
                     caption: 'Створив'
                 },{
                     dataField: 'claim_type_name',
-                    caption: 'Тип заявки'
+                    caption: 'Тип заявки',
+                    width: 1200
                 }, {
                     dataField: 'Main_Place_Name',
-                    caption: 'Головне місце'
+                    caption: 'Головне місце',
+                    width: 700
                 }, {
                     dataField: 'Response_Org_Name',
-                    caption: 'Відповідальний підрозділ'
+                    caption: 'Відповідальний підрозділ',
+                    width: 350
                 }
             ],
             masterDetail: {
@@ -87,43 +92,37 @@
                                 dataField: 'Start_at',
                                 caption: 'Дата початку',
                                 dataType: 'datetime',
-                                format: 'dd.MM.yyyy HH.mm',
-                                width: 200
+                                format: 'dd.MM.yyyy HH.mm'
                             },
                             {
                                 dataField: 'Action_Min_Start_from',
                                 caption: 'Дата початку робіт',
                                 dataType: 'datetime',
-                                format: 'dd.MM.yyyy HH.mm',
-                                width: 200
+                                format: 'dd.MM.yyyy HH.mm'
                             }, 
                             {
                                 dataField: 'Action_Max_Finish_at',
                                 caption: 'Дата закінчення робіт',
                                 dataType: 'datetime',
-                                format: 'dd.MM.yyyy HH.mm',
-                                width: 200
+                                format: 'dd.MM.yyyy HH.mm'
                             },
                             {
                                 dataField: 'Finished_at',
                                 caption: 'Дата закінчення',
                                 dataType: 'datetime',
-                                format: 'dd.MM.yyyy HH.mm',
-                                width: 200
+                                format: 'dd.MM.yyyy HH.mm'
                             }, 
                             {
                                 dataField: 'Closed_at',
                                 caption: 'Дата закриття',
                                 dataType: 'datetime',
-                                format: 'dd.MM.yyyy HH.mm',
-                                width: 200
+                                format: 'dd.MM.yyyy HH.mm'
                             }, 
                             {
                                 dataField: 'Plan_duration',
                                 caption: 'Планова тривалість',
                                 dataType: 'datetime',
-                                format: 'dd.MM.yyyy HH.mm',
-                                width: 200
+                                format: 'dd.MM.yyyy HH.mm'
                             }, 
                             {
                                 dataField: 'User_Created_By',
@@ -148,14 +147,137 @@
                         ]
 
                     },
-
                     {
-                        title: "Запірна арматура",
-                        template: "Action_arm",
-                        width: 600,
+                        title: "Бригади у виїздах",
+                        template: "Orders_People",
                         showBorders: true,
                         columnAutoWidth: true,
                         wordWrapEnabled: true,
+                        width: 1500,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_people_in_order_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'Order_Number',
+                                caption: '№ виїзда'
+                            },
+                            {
+                                dataField: 'contacts_name',
+                                caption: 'ПІБ'
+                            }, 
+                            {
+                                dataField: 'Number',
+                                caption: 'Телефон'
+                            }, 
+                            {
+                                dataField: 'jobs_name',
+                                caption: 'Посада'
+                            }, 
+                            {
+                                dataField: 'org_name',
+                                caption: 'Підрозділ'
+                            },
+                            {
+                                dataField: 'Is_main',
+                                caption: 'Бригадир',
+                                widht: 100
+                            },
+                            {
+                                dataField: 'Is_driver',
+                                caption: 'Водій',
+                                widht: 100
+                            }
+                        ]
+
+                    },
+                    {
+                        title: "Техніка у виїздах",
+                        template: "Orders_Mechanisms",
+                        showBorders: true,
+                        columnAutoWidth: true,
+                        wordWrapEnabled: true,
+                        width: 1000,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_mechanisms_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'Order_Number',
+                                caption: '№ виїзда'
+                            },
+                            {
+                                dataField: 'mechanisms_type_name',
+                                caption: 'Тип техніки'
+                            }, 
+                            {
+                                dataField: 'mechanisms_name',
+                                caption: 'Техніка'
+                            }, 
+                            {
+                                dataField: 'state_number',
+                                caption: 'Держ. номер'
+                            },
+                            {
+                                dataField: 'Departure_at',
+                                caption: 'Дата виїзду',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm'
+                            }
+                        ]
+
+                    },
+                    {
+                        title: "Запірна арматура",
+                        template: "Action_arm",
+                        showBorders: true,
+                        columnAutoWidth: true,
+                        wordWrapEnabled: true,
+                        width: 1300,
                         pager: {
                             showPageSizeSelector: true,
                             allowedPageSizes: [5, 10, 50],
@@ -184,15 +306,21 @@
                         columns: [
                             {
                                 dataField: 'Action_type_Name',
-                                caption: 'Робота'
+                                caption: 'Тип роботи'
                             }, 
                             {
                                 dataField: 'Start_from',
-                                caption: 'Дата відкриття'
+                                caption: 'Дата відкриття',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
                             }, 
                             {
                                 dataField: 'Finish_at',
-                                caption: 'Дата закриття'
+                                caption: 'Дата закриття',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
                             }, 
                             {
                                 dataField: 'Diameter_size',
@@ -205,7 +333,444 @@
                             {
                                 dataField: 'has_SwitchOff',
                                 caption: 'Є відключення'
+                            }
+                        ]
+
+                    },
+                    {
+                        title: "Відключення",
+                        template: "Switch_Off",
+                        showBorders: true,
+                        columnAutoWidth: true,
+                        wordWrapEnabled: true,
+                        width: 1000,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_switch_off_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'SwitchOff_start',
+                                caption: 'Відкл. з',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
                             }, 
+                            {
+                                dataField: 'SwitchOff_finish',
+                                caption: 'Відкл. по',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'SwitchOff_type_Name',
+                                caption: 'Тип відключення'
+                            }, 
+                            {
+                                dataField: 'Place_Name',
+                                caption: 'Місце'
+                            }
+                        ]
+
+                    },
+                    {
+                        title: "Відключення боржників",
+                        template: "Disabling_Debtors",
+                        showBorders: true,
+                        columnAutoWidth: true,
+                        wordWrapEnabled: true,
+                        width: 2500,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_disabling_debtors_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'EmployeeWS_ID',
+                                caption: 'Інспектор',
+                                width: 300
+                            }, 
+                            {
+                                dataField: 'Contact_debt',
+                                caption: 'Боржник',
+                                width: 300
+                            }, 
+                            {
+                                dataField: 'Place_debt_Id',
+                                caption: 'Адреса відключення'
+                            }, 
+                            {
+                                dataField: 'Flats_debt_Id',
+                                caption: 'Квартира',
+                                width: 300
+                            }, 
+                            {
+                                dataField: 'Place_disadle_Id',
+                                caption: 'Адреса встановлення пломби'
+                            }, 
+                            {
+                                dataField: 'Is_fixed',
+                                caption: 'Недоліки усунено',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Description',
+                                caption: 'Опис'
+                            }, 
+                            {
+                                dataField: 'Number_seal',
+                                caption: 'Номер пломби',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Amount_due',
+                                caption: 'Сума сплати борга',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Payment_departure',
+                                caption: 'Сума сплати виїзду',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Is_fixed',
+                                caption: 'Недоліки усунено',
+                                width: 200
+                            }
+                        ]
+
+                    },
+                    {
+                        title: "Виклик спецслужб",
+                        template: "OutsideMen",
+                        showBorders: true,
+                        columnAutoWidth: false,
+                        wordWrapEnabled: true,
+                        width: 2500,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_outside_men_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'company_name',
+                                caption: 'Компанія',
+                                width: 300
+                            }, 
+                            {
+                                dataField: 'fiz_name',
+                                caption: 'Співробітник компанії'
+                            }, 
+                            {
+                                dataField: 'Phone',
+                                caption: 'Телефон'
+                            }, 
+                            {
+                                dataField: 'Call_from',
+                                caption: 'Дата повідомлення',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Plan_date',
+                                caption: 'Планова дата прибуття',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 300
+                            }, 
+                            {
+                                dataField: 'Finish_at',
+                                caption: 'Дата відповіді',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Comment',
+                                caption: 'Коментар'
+                            }, 
+                            {
+                                dataField: 'has_docs',
+                                caption: 'Вкладені документи',
+                                width: 200
+                            }
+                        ]
+
+                    },
+                    {
+                        title: "Роботи",
+                        template: "Action_Materials",
+                        showBorders: true,
+                        columnAutoWidth: false,
+                        wordWrapEnabled: true,
+                        width: 2700,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_actions_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'action_types_name',
+                                caption: 'Тип роботи'
+                            }, 
+                            {
+                                dataField: 'places_name',
+                                caption: 'Місце',
+                                width: 400
+                            }, 
+                            {
+                                dataField: 'place_type_name', 
+                                caption: 'Тип місця'
+                            }, 
+                            {
+                                dataField: 'Plan_start_date',
+                                caption: 'Планова дата початку',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 250
+                            }, 
+                            {
+                                dataField: 'Start_from',
+                                caption: 'Дата початку',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            },
+                            {
+                                dataField: 'Finish_at',
+                                caption: 'Дата закінчення',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            },
+                            {
+                                dataField: 'Fact_duration',
+                                caption: 'Фактична тривалість',
+                                dataType: 'datetime',
+                                format: 'HH:mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Is_Goal',
+                                caption: 'Головна робота',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'UnitsShortName',
+                                caption: 'Вимір',
+                                width: 100
+                            }, 
+                            {
+                                dataField: 'Value',
+                                caption: 'Кількість',
+                                width: 100
+                            }
+                        ]
+
+                    },
+                    {
+                        title: "Матеріали у роботах",
+                        template: "Action_Materials",
+                        showBorders: true,
+                        columnAutoWidth: false,
+                        wordWrapEnabled: true,
+                        width: 1700,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_action_materials_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'Action_type_Name',
+                                caption: 'Тип роботи',
+                                width: 300
+                            }, 
+                            {
+                                dataField: 'material_name',
+                                caption: 'Матеріал',
+                                width: 300
+                            }, 
+                            {
+                                dataField: 'Volume',
+                                caption: 'Кількість',
+                                width: 300
+                            }, 
+                            {
+                                dataField: 'ShortName',
+                                caption: 'Вимір',
+                                width: 300
+                            }, 
+                            {
+                                dataField: 'In_out',
+                                caption: 'Використано/видобуто',
+                                width: 400
+                            }
+                        ]
+
+                    },
+                    {
+                        title: "Ускладнення по роботі",
+                        template: "Action_Sequela",
+                        showBorders: true,
+                        columnAutoWidth: true,
+                        wordWrapEnabled: true,
+                        width: 1700,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_action_sequela_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'action_type_name',
+                                caption: 'Назва роботи',
+                                width: 300
+                            }, 
+                            {
+                                dataField: 'Description',
+                                caption: 'Опис ускладнення'
+                            }, 
+                            {
+                                dataField: 'Created_at',
+                                caption: 'Дата початку',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Fact_finish_at',
+                                caption: 'Дата закінчення',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }
                         ]
 
                     }
@@ -273,6 +838,12 @@
             this.dataGridInstance.height = window.innerHeight - 220;
             this.table = document.getElementById('poshuk_table_main');
             this.table.style.display = 'none';
+            for (let i = 0; i < document.getElementsByClassName("calendar-wrapper").length; i++)
+                document.getElementsByClassName("calendar-wrapper")[i].getElementsByTagName("input")[0].readOnly = "readonly";
+
+            document.getElementsByClassName("material-icons filter-star")[0].style.color = "black";
+            document.getElementsByClassName("material-icons filter-star")[1].style.color = "black";
+
             this.subscribers.push(this.messageService.subscribe('GlobalFilterChanged', this.setFiltersValue, this));
             this.subscribers.push(this.messageService.subscribe('ApplyGlobalFilters', this.findAllCheckedFilter, this));
             this.subscribers.push(this.messageService.subscribe('findFilterColumns', this.reloadTable, this));
@@ -490,7 +1061,13 @@
                         default:
                             break;
                     }
-                } else if (filter.active === false) {
+                }
+                debugger;
+                if (filter.active === false) {
+                    this.filtersWithOutValues += 1;
+                }
+
+                if ((filter.name === 'subject_include' || filter.name === 'subject_exclude') && filter.active !== false){
                     this.filtersWithOutValues += 1;
                 }
             });
@@ -516,9 +1093,19 @@
         },
         findAllCheckedFilter: function() {
             this.isSelected === true ? this.table.style.display = 'block' : this.table.style.display = 'none';
-            if(this.filtersValuesMacros.length > 0 || this.applicantPhoneNumber !== null) {
+            if((this.filtersValuesMacros.length > 0 || this.applicantPhoneNumber !== null) && this.isSelected === true) {
                 this.textFilterMacros = [];
+                this.textFilterSubjectsMacros = [];
                 this.filtersValuesMacros.forEach(el => this.createFilterMacros(el.code, el.operation, el.value));
+                //this.textFilterSubjectsMacros.push(this.textFilterMacros.find(x => x.code === 'subject_include' ));
+                //this.textFilterSubjectsMacros.push(this.textFilterMacros.find(x => x.code === 'subject_exclude' ));
+
+                //this.textFilterMacros.slice(this.textFilterMacros.indexOf(this.textFilterMacros.find(x => x.code === 'subject_include' )),1);
+                //this.textFilterMacros.slice(this.textFilterMacros.indexOf(this.textFilterMacros.find(x => x.code === 'subject_exclude' )),1);
+                
+                debugger;
+                let macrosSubjectsValue = this.textFilterSubjectsMacros.join(' ').slice(0, -4);
+                this.macrosSubjectsValue = macrosSubjectsValue === '' ? '1=1' : macrosSubjectsValue;
                 let macrosValue = this.textFilterMacros.join(' ').slice(0, -4);
                 this.macrosValue = macrosValue === '' ? '1=1' : macrosValue;
                 this.sendMsgForSetFilterPanelState(false);
@@ -538,7 +1125,8 @@
                     { key: '@execution_term_to', value: this.dateValues.execution_term_to },
                     { key: '@control_date_from', value: this.dateValues.control_date_from },
                     { key: '@control_date_to', value: this.dateValues.control_date_to },
-                    { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber }
+                    { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
+                    { key: '@param2', value: this.macrosSubjectsValue }
                 ];
                 this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish({
@@ -569,7 +1157,10 @@
                     }else if(operation === '=') {
                         textMacros = String(code) + ' ' + operation + ' N\'' + value + '\' and';
                     }
-                    this.textFilterMacros.push(textMacros);
+                    if (code !== 'subject_include' && code !== 'subject_exclude')
+                        this.textFilterMacros.push(textMacros);
+                    else 
+                        this.textFilterSubjectsMacros.push(textMacros);
                 }
             }
         },
@@ -651,23 +1242,33 @@
                 {
                     dataField: 'claim_number',
                     caption: 'Номер заявки'
-                }, {
+                },{
                     dataField: 'claim_created_at',
                     caption: 'Дата створення',
+                    dataType: 'datetime',
+                    format: 'dd.MM.yyy HH.mm',
+                    width: 250
+                }, {
+                    dataField: 'claim_finish_at',
+                    caption: 'Дата закриття',
                     dateType: 'datetime',
-                    format: 'dd.MM.yyy HH.mm'
-                }, {
+                    format: 'dd.MM.yyy HH.mm',
+                    width: 250
+                },{
                     dataField: 'User_Created_By',
-                    caption: 'Створено'
-                }, {
+                    caption: 'Створив'
+                },{
                     dataField: 'claim_type_name',
-                    caption: 'Тип заявки'
+                    caption: 'Тип заявки',
+                    width: 1200
                 }, {
                     dataField: 'Main_Place_Name',
-                    caption: 'Головне місце'
+                    caption: 'Головне місце',
+                    width: 700
                 }, {
                     dataField: 'Response_Org_Name',
-                    caption: 'Підрозділ'
+                    caption: 'Відповідальний підрозділ',
+                    width: 350
                 }
 
                 /*{

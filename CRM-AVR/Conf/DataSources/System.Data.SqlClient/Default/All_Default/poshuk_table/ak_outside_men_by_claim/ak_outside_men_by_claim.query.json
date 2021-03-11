@@ -1,0 +1,7 @@
+{
+  "ModelType": "Query",
+  "Code": "ak_outside_men_by_claim",
+  "Name": "ak_outside_men_by_claim",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false
+}

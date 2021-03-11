@@ -1,0 +1,50 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "contacts_name",
+    "Name": "contacts_name",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "jobs_name",
+    "Name": "jobs_name",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "org_name",
+    "Name": "org_name",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Is_main",
+    "Name": "Is_main",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Is_driver",
+    "Name": "Is_driver",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Number",
+    "Name": "Number",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Order_Number",
+    "Name": "Order_Number",
+    "Position": 1,
+    "IsPrintable": false
+  }
+]

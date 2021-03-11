@@ -19,7 +19,12 @@
             this.filtersLength = elem.length;
             this.filtersWithOutValues = 0;
             elem.forEach(elem => {
-                if(elem.active === false) {
+                if(elem.active === false) 
+                {
+                    this.filtersWithOutValues += 1;
+                }
+                if ((elem.name === 'subject_include' || elem.name === 'subject_exclude') && elem.active !== false)
+                {
                     this.filtersWithOutValues += 1;
                 }
             });

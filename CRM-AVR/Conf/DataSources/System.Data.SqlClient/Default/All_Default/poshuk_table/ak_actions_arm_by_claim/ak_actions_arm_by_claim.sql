@@ -3,7 +3,7 @@ SELECT [Faucet].Id, Action_types.Name Action_type_Name
   ,[Finish_at]
   ,Diameters.Size Diameter_size
   ,Places.Name as [Place_Name]
-  ,case when Claim_SwitchOff_Address.id is not null then 1 else 0 end has_SwitchOff
+  ,case when Claim_SwitchOff_Address.id is not null then N'Так' else N'Ні' end has_SwitchOff
   FROM [Faucet]
   left join [Action_types] on [Action_types].Id = [Action_types_Id]
   left join Diameters on Diameters.Id = [Faucet].[Diametr_Id] 
@@ -16,4 +16,4 @@ SELECT [Faucet].Id, Action_types.Name Action_type_Name
   ,[Finish_at]
   ,Diameters.Size 
   ,Places.Name
-  ,case when Claim_SwitchOff_Address.id is not null then 1 else 0 end
+  ,case when Claim_SwitchOff_Address.id is not null then N'Так' else N'Ні' end
