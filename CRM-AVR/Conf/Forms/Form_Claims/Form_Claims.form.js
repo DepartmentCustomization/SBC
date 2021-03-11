@@ -583,24 +583,49 @@
                 })
             }
             this.form.onControlValueChanged('places_id', this.onFlats);
+            //debugger;
             const queClaimLink = {
                 title: 'Пов\'язані заявки',
                 text: 'Створити нову чи додати (приєднати) існуючу? ',
                 acceptBtnText: 'create',
                 cancelBtnText: 'add'
             };
+            var dat_y = new Date();//getFullYear();
+             var yy = dat_y.getFullYear();
+             var form_Created_at = this.form.getControlValue('Created_at');
+             var form_y = form_Created_at.getFullYear();
+             const id = this.form.getControlValue('claims_id');
+             
             const formClaimLink = (link) => {
-                const id = this.form.getControlValue('claims_id');
+                
                 if (link === true) {
+                    
                     this.navigateTo('/sections/Claims/edit/' + id + '/simple/Detail_Claim_Likns_new_claim/Form_Link_New_Claims');
                 }else {
+                    
                     this.navigateTo('/sections/Claims/edit/' + id + '/simple/Detail_Claim_Likns/Form_Claim_links');
                 }
             };
-            let btn = document.querySelector('#Detail_Claim_Likns .add-btn');
+
+             let btn = document.querySelector('#Detail_Claim_Likns .add-btn');
+             
+            
             btn.addEventListener('click', (e)=> {
-                e.stopPropagation();
-                this.openModalForm(queClaimLink, formClaimLink)
+                
+                
+                
+                if (yy === form_y) { //(yy === form_y)
+                    
+                    this.navigateTo('/sections/Claims/edit/' + id /*+ '/simple/Detail_Claim_Likns_new_claim/Form_Link_New_Claims'*/);
+                    this.openPopUpInfoDialog('В поточному році не можливо створити породжену заявку із заявки попереднього року. Будь ласка створіть окрему заявку, а потім привяжите її до цієї, якщо це потрібно');
+                    
+                } else {
+                    
+                    e.stopPropagation();
+                    this.openModalForm(queClaimLink, formClaimLink)
+                };
+                
+
             });
             // modal for new contact
             const formNewContact = {
