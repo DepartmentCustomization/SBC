@@ -45,6 +45,10 @@
     "Name": "param1"
   },
   {
+    "Code": "@param2",
+    "Name": "param2"
+  },
+  {
     "Code": "@state_changed_date_done_from",
     "Name": "state_changed_date_done_from",
     "ParameterType": "DateTime"

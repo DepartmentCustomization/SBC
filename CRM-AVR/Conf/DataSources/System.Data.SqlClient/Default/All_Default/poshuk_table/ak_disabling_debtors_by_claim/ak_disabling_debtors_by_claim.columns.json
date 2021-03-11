@@ -1,0 +1,62 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "EmployeeWS_ID",
+    "Name": "EmployeeWS_ID",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Contact_debt",
+    "Name": "Contact_debt",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Place_debt_Id",
+    "Name": "Place_debt_Id",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Flats_debt_Id",
+    "Name": "Flats_debt_Id",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Place_disadle_Id",
+    "Name": "Place_disadle_Id",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Description",
+    "Name": "Description",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Number_seal",
+    "Name": "Number_seal",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Payment_departure",
+    "Name": "Payment_departure",
+    "Position": 2,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Is_fixed",
+    "Name": "Is_fixed",
+    "Position": 3,
+    "IsPrintable": false
+  }
+]

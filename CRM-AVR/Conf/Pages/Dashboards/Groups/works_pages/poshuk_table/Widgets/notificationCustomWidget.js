@@ -22,6 +22,9 @@
                 if(elem.active === false) {
                     this.filtersWithOutValues += 1;
                 }
+                if ((elem.name === 'subject_include' || elem.name === 'subject_exclude') && elem.active !== false){
+                    this.filtersWithOutValues += 1;
+                }
             });
             this.isSelected = this.filtersWithOutValues === this.filtersLength ? false : true;
         },
