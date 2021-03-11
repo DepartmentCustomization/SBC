@@ -12,6 +12,7 @@ childlen_t as
 		[Claim_types].[Is_diameter_required]
   from [dbo].[Claim_types]
   where [Claim_types].Is_delete != 1 and [Claim_types].TypeAccess_ID @typeClaim
+  --and [Claim_types].[TypeAccess_ID] = @access_id
   union all
   select [Claim_types].[Id], [Claim_types].[Parent_сlaim_types_ID], [Claim_types].[TypeAccess_ID],
 		[Claim_types].[Claim_class_ID],
@@ -24,6 +25,7 @@ childlen_t as
   inner join  childlen_t
   on [Claim_types].[Parent_сlaim_types_ID]=childlen_t.Id
   where [Claim_types].Is_delete != 1 and [Claim_types].TypeAccess_ID @typeClaim
+  --and [Claim_types].[TypeAccess_ID] = @access_id
   )
   , main as
   (select distinct
@@ -82,7 +84,9 @@ childlen_t as
   ,[TypeAccess_ID]
   ,[Full_Name]
    from main_2
+   where [TypeAccess_ID]=@access_id or [TypeAccess_ID]=103
    order by [Sort_index]
+   
    
 
 /*
