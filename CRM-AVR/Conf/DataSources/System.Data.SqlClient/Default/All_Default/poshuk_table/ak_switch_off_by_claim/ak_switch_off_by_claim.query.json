@@ -1,0 +1,7 @@
+{
+  "ModelType": "Query",
+  "Code": "ak_switch_off_by_claim",
+  "Name": "ak_switch_off_by_claim",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false
+}

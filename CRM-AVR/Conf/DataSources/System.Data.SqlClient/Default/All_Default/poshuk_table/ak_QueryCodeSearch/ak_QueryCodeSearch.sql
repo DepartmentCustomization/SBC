@@ -22,7 +22,7 @@ declare @registration_date_fromP nvarchar(200)=
 declare @param_new nvarchar(max) 
 set @param_new = @param1 
 
-set @param_new = Replace(@param_new,'diameter','[Diameters_ID]')
+set @param_new = Replace(@param_new,'diameter','[Claims].[Diameters_ID]')
 set @param_new = Replace(@param_new,'claim_type','[Claim_types].Id')
 set @param_new = Replace(@param_new,'claim_class','[Claim_classes].Id')
 set @param_new = Replace(@param_new,'response_org','[Organizations].Id')
@@ -34,12 +34,15 @@ set @param_new = Replace(@param_new,'priority','claims.[Priority]')
 set @param_new = Replace(@param_new,'claim_is_not_balans','claims.[not_balans]')
 set @param_new = Replace(@param_new,'main_action_type','[Action_types].Id')
 
+set @param_new = Replace(@param_new,'faucet_actions_type','[Faucet].[Action_types_Id]')
+set @param_new = Replace(@param_new,'faucet_diametr','[Faucet].[Diametr_Id]')
+--[Action_types_Id] Diametr_Id --faucet_diametr
 
 set @param_new = N''+Replace(@param_new,'in (-1)','is null')
-
+set @param2 = N''+Replace(@param2,' and ',' or ')
 
 declare @query nvarchar(max)=
-N'SELECT [Claims].[Id]
+N'SELECT DISTINCT [Claims].[Id]
       ,[Claim_Number]
 	  ,Claims.created_at as claim_created_at
 	  ,isnull(u.Firstname,'''')+isnull(N'' '' + u.Patronymic,'''') +isnull(N'' '' + u.LastName,'''') + isnull(N'' ('' + uio.JobTitle + N'')'','''') as User_Created_By 
@@ -109,6 +112,16 @@ N'SELECT [Claims].[Id]
   left join [CRM_AVR_System].[dbo].[UserInOrganisation] uio_closed on uio_closed.Id  = uio_closed_min.uio_id
 
   left join [Claim_content] on [Claim_content].[Claim_Id] = [Claims].Id
+  left join [Faucet] on [Faucet].[Claim_Id] = [Claims].Id 
+  left join [Orders] on [Orders].Claim_id = Claims.Id
+  left join [Order_Jobs] ON Orders.Id = Order_Jobs.[Order_id] 
+  left join [Moves] on Moves.Orders_Id = Orders.Id
+  left join [Claim_SwitchOff_Address] on [Claim_SwitchOff_Address].Claim_Id = [Claims].Id
+  left join [Disabling_debtors] on Disabling_debtors.[Claim_ID] = [Claims].Id
+  left join [OutsideMen] on [OutsideMen].[Claims_ID] = [Claims].Id
+  left join [Actions] [Actions_All] on [Actions_All].Claim_id = Claims.Id
+  left join [Action_Materials] on Action_Materials.Action_ID = Actions_All.Id
+  left join [Sequela] on [Sequela].Claim_ID = [Claims].Id
 
   where ' 
 + @param_new 
@@ -119,6 +132,142 @@ N'SELECT [Claims].[Id]
 
 
 
+
+declare @filter1 nvarchar(max) = 
+'declare @t table
+(
+  subjects int,
+  code nvarchar(100),
+  name nvarchar(100)
+)
+
+
+insert into @t (subjects, name)
+   select 1 as ID, N''Виїзди'' Name
+   union
+   select 2 as ID, N''Бригади у виїздах''
+   union
+   select 3 as ID, N''Техніка у виїздах''  
+   union
+   select 4 as ID, N''Запірна арматура''  
+   union
+   select 5 as ID, N''Відключення''
+   union
+   select 6 as ID, N''Відключення боржників''
+   union
+   select 7 as ID, N''Виклик спецслужб''
+   union
+   select 8 as ID, N''Роботи''
+   union
+   select 9 as ID, N''Матеріали у роботах''
+   union
+   select 10 as ID, N''Ускладнення по роботі'''
+
+declare @filter nvarchar(max) = 
+@filter1 + 
+'
+select subject_include, name, subject_exclude
+from
+(
+select subjects subject_include, name, 0 subject_exclude from @t
+union 
+select 0, name, subjects from @t
+) table_1
+
+where '+@param2+'
+'
+
+declare @t2 table
+(
+  subject_include int,
+  name nvarchar(100),
+  subject_exclude int
+)
+
+insert into @t2 (subject_include, name, subject_exclude)
+exec(@filter)
+
+
+-- delete from @t2 where subject_include <> 0
+-- and subject_exclude <> 0 and subject_include<>subject_exclude
+
+if (exists(select * from @t2 a inner join @t2 b on b.subject_exclude = a.subject_include))
+    set @param2 = '1=0'
+else 
+begin  
+    delete from @t2 where subject_include <> 0
+    and subject_include in (select subject_exclude from @t2 where subject_exclude <> 0)
+
+    if (@param2 = '1=1') delete from @t2 
+end 
+
+-- ---
+
+if (exists (select subject_include from @t2 where subject_include = 4))
+set @query = replace(@query,N'left join [Faucet]',N'inner join [Faucet]')
+
+if (exists (select subject_include from @t2 where subject_include = 1))
+set @query = replace(@query,N'left join [Orders]',N'inner join [Orders]')
+
+if (exists (select subject_include from @t2 where subject_include = 2))
+set @query = replace(@query,N'left join [Order_Jobs]',N'inner join [Order_Jobs]')
+
+if (exists (select subject_include from @t2 where subject_include = 3))
+set @query = replace(@query,N'left join [Moves]',N'inner join [Moves]')
+
+if (exists (select subject_include from @t2 where subject_include = 5))
+set @query = replace(@query,N'left join [Claim_SwitchOff_Address]',N'inner join [Claim_SwitchOff_Address]')
+
+if (exists (select subject_include from @t2 where subject_include = 6))
+set @query = replace(@query,N'left join [Disabling_debtors]',N'inner join [Disabling_debtors]')
+
+if (exists (select subject_include from @t2 where subject_include = 7))
+set @query = replace(@query,N'left join [OutsideMen]',N'inner join [OutsideMen]')
+
+if (exists (select subject_include from @t2 where subject_include = 8))
+set @query = replace(@query,N'left join [Actions_All]',N'inner join [Actions_All]')
+
+if (exists (select subject_include from @t2 where subject_include = 9))
+set @query = replace(@query,N'left join [Action_Materials]',N'inner join [Action_Materials]')
+
+if (exists (select subject_include from @t2 where subject_include = 10))
+set @query = replace(@query,N'left join [Sequela]',N'inner join [Sequela]')
+
+
+
+
+if (exists (select subject_exclude from @t2 where subject_exclude = 4))
+set @query = @query + ' and [Faucet].Id is null'
+
+if (exists (select subject_exclude from @t2 where subject_exclude = 1))
+set @query = @query + ' and [Orders].Id is null'
+
+if (exists (select subject_exclude from @t2 where subject_exclude = 2))
+set @query = @query + ' and [Order_Jobs].Id is null'
+
+if (exists (select subject_exclude from @t2 where subject_exclude = 3))
+set @query = @query + ' and [Moves].Id is null'
+
+if (exists (select subject_exclude from @t2 where subject_exclude = 5))
+set @query = @query + ' and [Claim_SwitchOff_Address].Id is null'
+
+if (exists (select subject_exclude from @t2 where subject_exclude = 6))
+set @query = @query + ' and [Disabling_debtors].Id is null'
+
+if (exists (select subject_exclude from @t2 where subject_exclude = 7))
+set @query = @query + ' and [OutsideMen].Id is null'
+
+if (exists (select subject_exclude from @t2 where subject_exclude = 8))
+set @query = @query + ' and [Actions_All].Id is null'
+
+if (exists (select subject_exclude from @t2 where subject_exclude = 9))
+set @query = @query + ' and [Action_Materials].Id is null'
+
+if (exists (select subject_exclude from @t2 where subject_exclude = 10))
+set @query = @query + ' and [Sequela].Id is null'
+
+-- Diameters
+-- set @query = replace(@query,N'left join [Faucet]',N'inner join [Faucet]')
 -- applicants
 -- avr_ClaimsSelectRow
 -- to do

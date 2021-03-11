@@ -1,0 +1,7 @@
+{
+  "ModelType": "Query",
+  "Code": "ak_mechanisms_by_claim",
+  "Name": "ak_mechanisms_by_claim",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false
+}

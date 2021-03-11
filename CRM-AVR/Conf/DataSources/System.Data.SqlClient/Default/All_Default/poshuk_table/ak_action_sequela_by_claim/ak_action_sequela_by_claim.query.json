@@ -1,0 +1,7 @@
+{
+  "ModelType": "Query",
+  "Code": "ak_action_sequela_by_claim",
+  "Name": "ak_action_sequela_by_claim",
+  "ConnectionCode": "Default",
+  "IsUsedForRightsFilter": false
+}

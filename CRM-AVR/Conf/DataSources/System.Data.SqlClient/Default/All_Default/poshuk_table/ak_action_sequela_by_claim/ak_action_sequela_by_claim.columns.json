@@ -1,0 +1,32 @@
+[
+  {
+    "Code": "Id",
+    "Name": "Id",
+    "Position": 0,
+    "IsPrintable": false
+  },
+  {
+    "Code": "action_type_name",
+    "Name": "action_type_name",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Description",
+    "Name": "Description",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Created_at",
+    "Name": "Created_at",
+    "Position": 1,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Fact_finish_at",
+    "Name": "Fact_finish_at",
+    "Position": 1,
+    "IsPrintable": false
+  }
+]
