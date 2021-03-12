@@ -18,9 +18,23 @@ declare @registration_date_fromP nvarchar(200)=
  then N' and claims.Fact_finish_at<= '''+format(convert(datetime2, @closed_date_to), 'yyyy-MM-dd HH:mm:59')+N'.999'''
  else N'' end;
 
+declare @faucet_closed_at_fromP nvarchar(200)=
+ case when @faucet_closed_at_from is not null 
+ then N' and [Faucet].[Start_from]>= '''+format(convert(datetime2, @faucet_closed_at_from), 'yyyy-MM-dd HH:mm:00')+N'.000'''
+ else N'' end;
+
+ declare @faucet_closed_at_toP nvarchar(200)=
+ case when @faucet_closed_at_to is not null 
+ then N' and [Faucet].[Start_from]<= '''+format(convert(datetime2, @faucet_closed_at_to), 'yyyy-MM-dd HH:mm:59')+N'.999'''
+ else N'' end;
+
 
 declare @param_new nvarchar(max) 
 set @param_new = @param1 
+
+set @param_new = Replace(@param_new,'faucet_actions_type','[Faucet].[Action_types_Id]')
+set @param_new = Replace(@param_new,'faucet_diametr','[Faucet].[Diametr_Id]')
+set @param_new = Replace(@param_new,'faucet_main_place','[Faucet].[Place_Id]')
 
 set @param_new = Replace(@param_new,'diameter','[Claims].[Diameters_ID]')
 set @param_new = Replace(@param_new,'claim_type','[Claim_types].Id')
@@ -34,8 +48,6 @@ set @param_new = Replace(@param_new,'priority','claims.[Priority]')
 set @param_new = Replace(@param_new,'claim_is_not_balans','claims.[not_balans]')
 set @param_new = Replace(@param_new,'main_action_type','[Action_types].Id')
 
-set @param_new = Replace(@param_new,'faucet_actions_type','[Faucet].[Action_types_Id]')
-set @param_new = Replace(@param_new,'faucet_diametr','[Faucet].[Diametr_Id]')
 --[Action_types_Id] Diametr_Id --faucet_diametr
 
 set @param_new = N''+Replace(@param_new,'in (-1)','is null')
@@ -127,6 +139,7 @@ N'SELECT DISTINCT [Claims].[Id]
 + @param_new 
 + @registration_date_fromP + @registration_date_toP
 + @closed_date_fromP + @closed_date_toP
++ @faucet_closed_at_fromP + @faucet_closed_at_toP
 +''
 
 
@@ -191,14 +204,14 @@ exec(@filter)
 -- delete from @t2 where subject_include <> 0
 -- and subject_exclude <> 0 and subject_include<>subject_exclude
 
-if (exists(select * from @t2 a inner join @t2 b on b.subject_exclude = a.subject_include))
+if (@param2 = '1=1') delete from @t2 
+
+if (exists(select * from @t2 a inner join @t2 b on b.subject_exclude = a.subject_include and a.subject_include <> 0))
     set @param2 = '1=0'
 else 
 begin  
     delete from @t2 where subject_include <> 0
     and subject_include in (select subject_exclude from @t2 where subject_exclude <> 0)
-
-    if (@param2 = '1=1') delete from @t2 
 end 
 
 -- ---
