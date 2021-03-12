@@ -36,8 +36,8 @@
     "ParameterType": "DateTime"
   },
   {
-    "Code": "@transfer_date_to",
-    "Name": "transfer_date_to",
+    "Code": "@faucet_closed_at_to",
+    "Name": "faucet_closed_at_to",
     "ParameterType": "DateTime"
   },
   {
@@ -80,8 +80,8 @@
     "ParameterType": "DateTime"
   },
   {
-    "Code": "@transfer_date_from",
-    "Name": "transfer_date_from",
+    "Code": "@faucet_closed_at_from",
+    "Name": "faucet_closed_at_from",
     "ParameterType": "DateTime"
   },
   {

@@ -888,7 +888,6 @@
 
                 dataSource.push(item);
                 });
-                debugger;
             
             //if (tabItem.template != 'TestTab')
                 //row.dataSource[0]= dataSource;
@@ -984,8 +983,8 @@
                 created_at_to: null,
                 closed_date_from: null,
                 closed_date_to: null,
-                transfer_date_from: null,
-                transfer_date_to: null,
+                faucet_closed_at_from: null,
+                faucet_closed_at_to: null,
                 state_changed_date_from: null,
                 state_changed_date_to: null,
                 state_changed_date_done_from: null,
@@ -1062,7 +1061,6 @@
                             break;
                     }
                 }
-                debugger;
                 if (filter.active === false) {
                     this.filtersWithOutValues += 1;
                 }
@@ -1103,7 +1101,6 @@
                 //this.textFilterMacros.slice(this.textFilterMacros.indexOf(this.textFilterMacros.find(x => x.code === 'subject_include' )),1);
                 //this.textFilterMacros.slice(this.textFilterMacros.indexOf(this.textFilterMacros.find(x => x.code === 'subject_exclude' )),1);
                 
-                debugger;
                 let macrosSubjectsValue = this.textFilterSubjectsMacros.join(' ').slice(0, -4);
                 this.macrosSubjectsValue = macrosSubjectsValue === '' ? '1=1' : macrosSubjectsValue;
                 let macrosValue = this.textFilterMacros.join(' ').slice(0, -4);
@@ -1115,8 +1112,8 @@
                     { key: '@registration_date_to', value: this.dateValues.created_at_to },
                     { key: '@closed_date_from', value: this.dateValues.closed_date_from },
                     { key: '@closed_date_to', value: this.dateValues.closed_date_to },
-                    { key: '@transfer_date_from', value: this.dateValues.transfer_date_from },
-                    { key: '@transfer_date_to', value: this.dateValues.transfer_date_to },
+                    { key: '@faucet_closed_at_from', value: this.dateValues.faucet_closed_at_from },
+                    { key: '@faucet_closed_at_to', value: this.dateValues.faucet_closed_at_to },
                     { key: '@state_changed_date_from', value: this.dateValues.state_changed_date_from },
                     { key: '@state_changed_date_to', value: this.dateValues.state_changed_date_to },
                     { key: '@state_changed_date_done_from', value: this.dateValues.state_changed_date_done_from },
@@ -1176,7 +1173,6 @@
             this.config.query.filterColumns.push(filter);
         },
         reloadTable: function(message) {
-            debugger;
             this.setConfigColumns();
             message.value.forEach(function(el) {
                 let column;
@@ -1346,8 +1342,8 @@
                     { key: '@registration_date_to', value: this.dateValues.registration_date_to },
                     { key: '@closed_date_from', value: this.dateValues.closed_date_from },
                     { key: '@closed_date_to', value: this.dateValues.closed_date_to },
-                    { key: '@transfer_date_from', value: this.dateValues.transfer_date_from },
-                    { key: '@transfer_date_to', value: this.dateValues.transfer_date_to },
+                    { key: '@faucet_closed_at_from', value: this.dateValues.faucet_closed_at_from },
+                    { key: '@faucet_closed_at_to', value: this.dateValues.faucet_closed_at_to },
                     { key: '@state_changed_date_from', value: this.dateValues.state_changed_date_from },
                     { key: '@state_changed_date_to', value: this.dateValues.state_changed_date_to },
                     { key: '@state_changed_date_done_from', value: this.dateValues.state_changed_date_done_from },
