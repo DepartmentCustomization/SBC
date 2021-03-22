@@ -18,6 +18,8 @@ declare @registration_date_fromP nvarchar(200)=
  then N' and claims.Fact_finish_at<= '''+format(convert(datetime2, @closed_date_to), 'yyyy-MM-dd HH:mm:59')+N'.999'''
  else N'' end;
 
+
+
 declare @faucet_closed_at_fromP nvarchar(200)=
  case when @faucet_closed_at_from is not null 
  then N' and [Faucet].[Start_from]>= '''+format(convert(datetime2, @faucet_closed_at_from), 'yyyy-MM-dd HH:mm:00')+N'.000'''
@@ -28,6 +30,60 @@ declare @faucet_closed_at_fromP nvarchar(200)=
  then N' and [Faucet].[Start_from]<= '''+format(convert(datetime2, @faucet_closed_at_to), 'yyyy-MM-dd HH:mm:59')+N'.999'''
  else N'' end;
 
+ declare @faucet_opened_at_fromP nvarchar(200)=
+ case when @faucet_opened_at_from is not null 
+ then N' and [Faucet].[Finish_at]>= '''+format(convert(datetime2, @faucet_opened_at_from), 'yyyy-MM-dd HH:mm:00')+N'.000'''
+ else N'' end;
+
+ declare @faucet_opened_at_toP nvarchar(200)=
+ case when @faucet_opened_at_to is not null 
+ then N' and [Faucet].[Finish_at]<= '''+format(convert(datetime2, @faucet_opened_at_to), 'yyyy-MM-dd HH:mm:59')+N'.999'''
+ else N'' end;
+
+
+
+declare @switch_off_start_at_fromP nvarchar(200)=
+ case when @switch_off_start_at_from is not null 
+ then N' and [Claim_SwitchOff_Address].[SwitchOff_start]>= '''+format(convert(datetime2, @switch_off_start_at_from), 'yyyy-MM-dd HH:mm:00')+N'.000'''
+ else N'' end;
+
+ declare @switch_off_start_at_toP nvarchar(200)=
+ case when @switch_off_start_at_to is not null 
+ then N' and [Claim_SwitchOff_Address].[SwitchOff_start]<= '''+format(convert(datetime2, @switch_off_start_at_to), 'yyyy-MM-dd HH:mm:59')+N'.999'''
+ else N'' end;
+
+ declare @switch_off_closed_at_fromP nvarchar(200)=
+ case when @switch_off_closed_at_from is not null 
+ then N' and [Claim_SwitchOff_Address].[SwitchOff_finish]>= '''+format(convert(datetime2, @switch_off_closed_at_from), 'yyyy-MM-dd HH:mm:00')+N'.000'''
+ else N'' end;
+
+ declare @switch_off_closed_at_toP nvarchar(200)=
+ case when @switch_off_closed_at_to is not null 
+ then N' and [Claim_SwitchOff_Address].[SwitchOff_finish]<= '''+format(convert(datetime2, @switch_off_closed_at_to), 'yyyy-MM-dd HH:mm:59')+N'.999'''
+ else N'' end;
+
+
+
+declare @order_start_at_fromP nvarchar(200)=
+ case when @order_start_at_from is not null 
+ then N' and [Orders].[Start_at]>= '''+format(convert(datetime2, @order_start_at_from), 'yyyy-MM-dd HH:mm:00')+N'.000'''
+ else N'' end;
+
+ declare @order_start_at_toP nvarchar(200)=
+ case when @order_start_at_to is not null 
+ then N' and [Orders].[Start_at]<= '''+format(convert(datetime2, @order_start_at_to), 'yyyy-MM-dd HH:mm:59')+N'.999'''
+ else N'' end;
+
+ declare @order_end_at_fromP nvarchar(200)=
+ case when @order_end_at_from is not null 
+ then N' and [Orders].[Finished_at]>= '''+format(convert(datetime2, @order_end_at_from), 'yyyy-MM-dd HH:mm:00')+N'.000'''
+ else N'' end;
+
+ declare @order_end_at_toP nvarchar(200)=
+ case when @order_end_at_to is not null 
+ then N' and [Orders].[Finished_at]<= '''+format(convert(datetime2, @order_end_at_to), 'yyyy-MM-dd HH:mm:59')+N'.999'''
+ else N'' end;
+
 
 declare @param_new nvarchar(max) 
 set @param_new = @param1 
@@ -35,6 +91,24 @@ set @param_new = @param1
 set @param_new = Replace(@param_new,'faucet_actions_type','[Faucet].[Action_types_Id]')
 set @param_new = Replace(@param_new,'faucet_diametr','[Faucet].[Diametr_Id]')
 set @param_new = Replace(@param_new,'faucet_main_place','[Faucet].[Place_Id]')
+
+set @param_new = Replace(@param_new,'switch_off_main_place','[Claim_SwitchOff_Address].Place_Id')
+set @param_new = Replace(@param_new,'switch_off_types','[Claim_SwitchOff_Address].SwitchOff_type_id')
+
+set @param_new = Replace(@param_new,'outside_org','[OutsideMen].Company_Contact_ID')
+set @param_new = Replace(@param_new,'outside_contact','[OutsideMen].Contact_ID')
+
+set @param_new = Replace(@param_new,'material','[Action_Materials].Material_ID')
+
+set @param_new = Replace(@param_new,'order_created_user_name','[Orders].[User_id]')
+set @param_new = Replace(@param_new,'order_closed_user_name','[Orders].Status_Id = 10 and [Orders].[user_edit]')
+set @param_new = Replace(@param_new,'order_main_job','[Is_main] = 1 and [Order_Jobs].[Job_Id]')
+set @param_new = Replace(@param_new,'order_all_jobs','[Order_Jobs].[Job_Id]')
+set @param_new = Replace(@param_new,'order_job_org','org.[Id] is not null and org.[Id]')
+
+set @param_new = Replace(@param_new,'mechanism_type','Mechanism_types.Id')
+set @param_new = Replace(@param_new,'mechanism_name','Mechanisms.Id')
+set @param_new = Replace(@param_new,'mechanism_number','Mechanisms.Id')
 
 set @param_new = Replace(@param_new,'diameter','[Claims].[Diameters_ID]')
 set @param_new = Replace(@param_new,'claim_type','[Claim_types].Id')
@@ -48,14 +122,22 @@ set @param_new = Replace(@param_new,'priority','claims.[Priority]')
 set @param_new = Replace(@param_new,'claim_is_not_balans','claims.[not_balans]')
 set @param_new = Replace(@param_new,'main_action_type','[Action_types].Id')
 
---[Action_types_Id] Diametr_Id --faucet_diametr
+set @param_new = Replace(@param_new,'action_place','[Actions_All].Place_id')
+set @param_new = Replace(@param_new,'action_type_filter','[Action_types2].Id')
+set @param_new = Replace(@param_new,'sequela_action_type','atpt.Action_type_ID')
+
+--[Action_types_Id] Diametr_Id --sequela_action_type
+set @param_new = Replace(@param_new,'has_switchoff = N''true''','Claim_SwitchOff_Address.Id is not null')
+set @param_new = Replace(@param_new,'outside_has_docs = N''true''','OutsideMen_Documents.Id is not null')
+--set @param_new = Replace(@param_new,'has_switchoff = N''false''','Claim_SwitchOff_Address.Id is null')
+
+set @param_new = N''+Replace(@param_new,'org.[Id] in (-1)','org.Short_name is null')
 
 set @param_new = N''+Replace(@param_new,'in (-1)','is null')
 set @param2 = N''+Replace(@param2,' and ',' or ')
 
-declare @query nvarchar(max)=
-N'SELECT DISTINCT [Claims].[Id]
-      ,[Claim_Number]
+declare @fields_for_select nvarchar(max)= 'SELECT DISTINCT [Claims].[Id]
+    ,[Claim_Number]
 	  ,Claims.created_at as claim_created_at
 	  ,isnull(u.Firstname,'''')+isnull(N'' '' + u.Patronymic,'''') +isnull(N'' '' + u.LastName,'''') + isnull(N'' ('' + uio.JobTitle + N'')'','''') as User_Created_By 
     ,isnull(u_closed.Firstname,'''')+isnull(N'' '' + u_closed.Patronymic,'''') +isnull(N'' '' + u_closed.LastName,'''') + isnull(N'' ('' + uio_closed.JobTitle + N'')'','''') as User_Closed_By 
@@ -93,7 +175,10 @@ N'SELECT DISTINCT [Claims].[Id]
     ,Claim_content.[G_PIB]
     -- ,cont_ex.Name Executor_Name
 
-    -- ,isnull([Contact_types].Name,N''Анонім'') Contact_Type_Name
+    -- ,isnull([Contact_types].Name,N''Анонім'') Contact_Type_Name'
+
+declare @query2 nvarchar(max)=
+'
 
   FROM [Claims]
   left join Claim_classes on Claim_classes.Id = [Claim_class_ID]
@@ -127,6 +212,8 @@ N'SELECT DISTINCT [Claims].[Id]
   left join [Faucet] on [Faucet].[Claim_Id] = [Claims].Id 
   left join [Orders] on [Orders].Claim_id = Claims.Id
   left join [Order_Jobs] ON Orders.Id = Order_Jobs.[Order_id] 
+  left join Jobs j  ON j.Id = Order_Jobs.Job_Id
+  LEFT JOIN Organizations org ON org.Id = j.Organization_ID
   left join [Moves] on Moves.Orders_Id = Orders.Id
   left join [Claim_SwitchOff_Address] on [Claim_SwitchOff_Address].Claim_Id = [Claims].Id
   left join [Disabling_debtors] on Disabling_debtors.[Claim_ID] = [Claims].Id
@@ -134,17 +221,164 @@ N'SELECT DISTINCT [Claims].[Id]
   left join [Actions] [Actions_All] on [Actions_All].Claim_id = Claims.Id
   left join [Action_Materials] on Action_Materials.Action_ID = Actions_All.Id
   left join [Sequela] on [Sequela].Claim_ID = [Claims].Id
+  LEFT JOIN [OutsideMen_Documents] on OutsideMen_Documents.OutsideMen_Id = OutsideMen.Id
 
-  where ' 
+  left join Action_type_Place_type on Action_type_Place_type.Id = Actions_All.Action_type_ID
+  left join Action_types Action_types2 on Action_types2.Id = Action_type_Place_type.Action_type_Id
+
+  left join Actions Actions_Seq on Actions_Seq.Id = [Sequela].[Actions_ID]
+  left join Action_type_Place_type atpt on atpt.Id = Actions_Seq.Action_type_ID
+
+  left join Mechanisms on Mechanisms.Id = Moves.Mechanism_ID
+	left join Mechanism_types on Mechanism_types.Id = Mechanisms.Mechanism_type_ID
+  '
+
+declare @query nvarchar(max)= 
+REPLACE(@query2,'FROM [Claims]','FROM #t inner join [Claims] on #t.Id = [Claims].Id')
+
+declare @params nvarchar(max)= 
+'
+where '+ 
 + @param_new 
 + @registration_date_fromP + @registration_date_toP
 + @closed_date_fromP + @closed_date_toP
 + @faucet_closed_at_fromP + @faucet_closed_at_toP
++ @faucet_opened_at_fromP + @faucet_opened_at_toP
++ @switch_off_start_at_fromP + @switch_off_start_at_toP
++ @switch_off_closed_at_fromP + @switch_off_closed_at_toP
++ @order_start_at_fromP + @order_start_at_toP
++ @order_end_at_fromP + @order_end_at_toP
 +''
 
+declare @query_for_aggregate nvarchar(max),@query_for_aggregate2 nvarchar(max),@query_for_aggregate3 nvarchar(max)
+
+
+if (@param3 = '1') 
+set @query_for_aggregate =
+N'
+select [Claims].[Id]
+    ,count(distinct Orders.Id) Orders_Count
+    ,count(distinct Order_Jobs.Id) Order_Jobs_Count
+    ,count(distinct j.Id) Order_Jobs_Distinct_Count
+    ,count(distinct Moves.Id) Moves_Count
+    ,count(distinct org.Id) Orgs_Count
+    ,count(distinct case when Order_Jobs.Is_main = 1 then Order_Jobs.Id else null end) job_brigadirs_count
+    ,count(distinct case when Order_Jobs.Is_Driver = 1 then Order_Jobs.Id else null end)  job_drivers_count
+    ,count(distinct Mechanisms.Id)  Mechanisms_count
+
+  FROM #t inner join [Claims] on #t.Id = [Claims].Id
+  
+  left join [Orders] on [Orders].Claim_id = Claims.Id
+  left join [Order_Jobs] ON Orders.Id = Order_Jobs.[Order_id] 
+  left join Jobs j  ON j.Id = Order_Jobs.Job_Id
+  LEFT JOIN Organizations org ON org.Id = j.Organization_ID
+  left join [Moves] on Moves.Orders_Id = Orders.Id
+  left join Mechanisms on Mechanisms.Id = Moves.Mechanism_ID
+	left join Mechanism_types on Mechanism_types.Id = Mechanisms.Mechanism_type_ID
+  
+  group by [Claims].[Id]'
+else
+
+set @query_for_aggregate =
+N'
+select [Claims].[Id]
+    ,0 Orders_Count
+    ,0 Order_Jobs_Count
+    ,0 Order_Jobs_Distinct_Count
+    ,0 Moves_Count
+    ,0 Orgs_Count
+    ,0 job_brigadirs_count
+    ,0 job_drivers_count
+    ,0 Mechanisms_count
+
+    FROM #t inner join [Claims] on #t.Id = [Claims].Id
+    group by [Claims].[Id]'
 
 
 
+if (@param3 = '1') 
+set @query_for_aggregate3 =
+N'
+select [Claims].[Id]
+    ,count(distinct Claim_SwitchOff_Address.Id)  Claim_SwitchOff_Address_count
+    ,count(distinct Claim_SwitchOff_Address.Place_Id)  Claim_SwitchOff_Address_Places_count
+    ,count(distinct Disabling_debtors.Id)  Disabling_debtors_Count 
+    ,count(distinct OutsideMen.Id)  OutsideMen_Count
+    ,count(distinct OutsideMen.Company_Contact_ID)  OutsideMen_Company_Contact_Count 
+    ,count(distinct Faucet.Id) Faucet_Count
+    ,count(distinct Faucet.Place_Id) Faucet_Places_Count
+    
+    FROM #t inner join [Claims] on #t.Id = [Claims].Id
+    left join [Claim_SwitchOff_Address] on [Claim_SwitchOff_Address].Claim_Id = [Claims].Id
+    left join [Disabling_debtors] on Disabling_debtors.[Claim_ID] = [Claims].Id
+    left join [Faucet] on [Faucet].[Claim_Id] = [Claims].Id
+    left join [OutsideMen] on [OutsideMen].[Claims_ID] = [Claims].Id
+    
+
+    group by [Claims].[Id]'
+else
+
+set @query_for_aggregate3 =
+N'
+select [Claims].[Id]
+    ,0  Claim_SwitchOff_Address_count
+    ,0  Claim_SwitchOff_Address_Places_count
+    ,0  Disabling_debtors_Count  
+    ,0  OutsideMen_Count
+    ,0  OutsideMen_Company_Contact_Count
+    ,0 Faucet_Count
+    ,0 Faucet_Places_Count
+    
+    FROM #t inner join [Claims] on #t.Id = [Claims].Id
+    
+    group by [Claims].[Id]'
+
+
+if (@param3 = '1') 
+set @query_for_aggregate2 =
+N'
+select [Claims].[Id]
+    ,count(distinct Actions_All.Id)  Actions_All_Count
+    ,count(distinct Action_types2.Id)  Action_types2_Count
+    ,count(distinct Actions_All.Place_ID)  Actions_All_Places_Count
+    ,count(distinct Action_Materials.Id)  Action_Materials_Count
+    ,count(distinct Action_Materials.Material_ID)  Action_Materials_Unique_Count
+    ,count(distinct Sequela.Id)  Sequela_Count
+
+    FROM #t inner join [Claims] on #t.Id = [Claims].Id
+
+    left join [Actions] [Actions_All] on [Actions_All].Claim_id = Claims.Id
+    left join [Action_Materials] on Action_Materials.Action_ID = Actions_All.Id
+    left join [Sequela] on [Sequela].Claim_ID = [Claims].Id
+
+    left join Action_type_Place_type on Action_type_Place_type.Id = Actions_All.Action_type_ID
+    left join Action_types Action_types2 on Action_types2.Id = Action_type_Place_type.Action_type_Id
+
+    left join Actions Actions_Seq on Actions_Seq.Id = [Sequela].[Actions_ID]
+    left join Action_type_Place_type atpt on atpt.Id = Actions_Seq.Action_type_ID 
+    
+    group by [Claims].[Id]'
+
+
+else 
+
+
+set @query_for_aggregate2 =
+N'
+select [Claims].[Id]
+    ,0  Actions_All_Count
+    ,0  Action_types2_Count
+    ,0  Actions_All_Places_Count
+    ,0  Action_Materials_Count
+    ,0  Action_Materials_Unique_Count
+    ,0  Sequela_Count
+
+    FROM #t inner join [Claims] on #t.Id = [Claims].Id
+    
+    group by [Claims].[Id]'
+
+
+--set @query = N''+@query
 
 declare @filter1 nvarchar(max) = 
 'declare @t table
@@ -250,34 +484,34 @@ set @query = replace(@query,N'left join [Sequela]',N'inner join [Sequela]')
 
 
 if (exists (select subject_exclude from @t2 where subject_exclude = 4))
-set @query = @query + ' and [Faucet].Id is null'
+set @params = @params + ' and [Faucet].Id is null'
 
 if (exists (select subject_exclude from @t2 where subject_exclude = 1))
-set @query = @query + ' and [Orders].Id is null'
+set @params = @params + ' and [Orders].Id is null'
 
 if (exists (select subject_exclude from @t2 where subject_exclude = 2))
-set @query = @query + ' and [Order_Jobs].Id is null'
+set @params = @params + ' and [Order_Jobs].Id is null'
 
 if (exists (select subject_exclude from @t2 where subject_exclude = 3))
-set @query = @query + ' and [Moves].Id is null'
+set @params = @params + ' and [Moves].Id is null'
 
 if (exists (select subject_exclude from @t2 where subject_exclude = 5))
-set @query = @query + ' and [Claim_SwitchOff_Address].Id is null'
+set @params = @params + ' and [Claim_SwitchOff_Address].Id is null'
 
 if (exists (select subject_exclude from @t2 where subject_exclude = 6))
-set @query = @query + ' and [Disabling_debtors].Id is null'
+set @params = @params + ' and [Disabling_debtors].Id is null'
 
 if (exists (select subject_exclude from @t2 where subject_exclude = 7))
-set @query = @query + ' and [OutsideMen].Id is null'
+set @params = @params + ' and [OutsideMen].Id is null'
 
 if (exists (select subject_exclude from @t2 where subject_exclude = 8))
-set @query = @query + ' and [Actions_All].Id is null'
+set @params = @params + ' and [Actions_All].Id is null'
 
 if (exists (select subject_exclude from @t2 where subject_exclude = 9))
-set @query = @query + ' and [Action_Materials].Id is null'
+set @params = @params + ' and [Action_Materials].Id is null'
 
 if (exists (select subject_exclude from @t2 where subject_exclude = 10))
-set @query = @query + ' and [Sequela].Id is null'
+set @params = @params + ' and [Sequela].Id is null'
 
 -- Diameters
 -- set @query = replace(@query,N'left join [Faucet]',N'inner join [Faucet]')
@@ -525,9 +759,21 @@ set @query_for_applicant =
 	+') t '
 
 
+set @query_for_applicant = REPLACE(@query_for_applicant,'[dbo].[Claims] [Claims]', '#t inner join [dbo].[Claims] [Claims] on #t.Id = [Claims].Id')
 --exec(@query_for_applicant)
 
-set @query = 'select * from (' + @query + ') aa left join (' + @query_for_applicant + ') bb on aa.Id = bb.Claim_Id order by aa.Id'
+set @query = '
+IF OBJECT_ID(''tempdb..#t'') IS NOT NULL DROP TABLE #t
+create table #t
+(id int)
+
+insert into #t
+select DISTINCT Claims.Id '+REPLACE(@query,'FROM #t inner join [Claims] on #t.Id = [Claims].Id','FROM [Claims]')+''
++'select * from (' + @fields_for_select + @query + @params + ') aa 
+left join (' + @query_for_aggregate + ') aggrr on aggrr.Id = aa.Id
+left join (' + @query_for_aggregate2 + ') aggrr2 on aggrr2.Id = aa.Id
+left join (' + @query_for_aggregate3 + ') aggrr3 on aggrr3.Id = aa.Id
+left join (' + @query_for_applicant + ') bb on aa.Id = bb.Claim_Id order by aa.Id'
 
 
 
