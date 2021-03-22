@@ -50,6 +50,7 @@
                         title: "Виїзди",
                         template: "Orders",
                         showBorders: true,
+                        width: 3300,
                         columnAutoWidth: true,
                         wordWrapEnabled: true,
                         pager: {
@@ -272,72 +273,6 @@
 
                     },
                     {
-                        title: "Запірна арматура",
-                        template: "Action_arm",
-                        showBorders: true,
-                        columnAutoWidth: true,
-                        wordWrapEnabled: true,
-                        width: 1300,
-                        pager: {
-                            showPageSizeSelector: true,
-                            allowedPageSizes: [5, 10, 50],
-                            showInfo: true
-                        },
-                        paging: {
-                            pageSize: 5
-                        },
-                        headerFilter: {
-                            visible: true
-                        },
-                        filterRow: {
-                            visible: true,
-                            applyFilter: "auto"
-                        },
-                        query: {
-                            queryCode: 'ak_actions_arm_by_claim',
-                            limit: -1,
-                            parameterValues: [
-                                {
-                                    key: '@claim_id',
-                                    value: null
-                                }
-                            ]
-                        },
-                        columns: [
-                            {
-                                dataField: 'Action_type_Name',
-                                caption: 'Тип роботи'
-                            }, 
-                            {
-                                dataField: 'Start_from',
-                                caption: 'Дата відкриття',
-                                dataType: 'datetime',
-                                format: 'dd.MM.yyyy HH.mm',
-                                width: 200
-                            }, 
-                            {
-                                dataField: 'Finish_at',
-                                caption: 'Дата закриття',
-                                dataType: 'datetime',
-                                format: 'dd.MM.yyyy HH.mm',
-                                width: 200
-                            }, 
-                            {
-                                dataField: 'Diameter_size',
-                                caption: 'Діаметр'
-                            }, 
-                            {
-                                dataField: 'Place_Name',
-                                caption: 'Місце'
-                            }, 
-                            {
-                                dataField: 'has_SwitchOff',
-                                caption: 'Є відключення'
-                            }
-                        ]
-
-                    },
-                    {
                         title: "Відключення",
                         template: "Switch_Off",
                         showBorders: true,
@@ -450,11 +385,6 @@
                             {
                                 dataField: 'Place_disadle_Id',
                                 caption: 'Адреса встановлення пломби'
-                            }, 
-                            {
-                                dataField: 'Is_fixed',
-                                caption: 'Недоліки усунено',
-                                width: 200
                             }, 
                             {
                                 dataField: 'Description',
@@ -773,6 +703,72 @@
                             }
                         ]
 
+                    },
+                    {
+                        title: "Запірна арматура",
+                        template: "Action_arm",
+                        showBorders: true,
+                        columnAutoWidth: true,
+                        wordWrapEnabled: true,
+                        width: 1300,
+                        pager: {
+                            showPageSizeSelector: true,
+                            allowedPageSizes: [5, 10, 50],
+                            showInfo: true
+                        },
+                        paging: {
+                            pageSize: 5
+                        },
+                        headerFilter: {
+                            visible: true
+                        },
+                        filterRow: {
+                            visible: true,
+                            applyFilter: "auto"
+                        },
+                        query: {
+                            queryCode: 'ak_actions_arm_by_claim',
+                            limit: -1,
+                            parameterValues: [
+                                {
+                                    key: '@claim_id',
+                                    value: null
+                                }
+                            ]
+                        },
+                        columns: [
+                            {
+                                dataField: 'Action_type_Name',
+                                caption: 'Тип роботи'
+                            }, 
+                            {
+                                dataField: 'Start_from',
+                                caption: 'Дата закриття',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Finish_at',
+                                caption: 'Дата відкриття',
+                                dataType: 'datetime',
+                                format: 'dd.MM.yyyy HH.mm',
+                                width: 200
+                            }, 
+                            {
+                                dataField: 'Diameter_size',
+                                caption: 'Діаметр'
+                            }, 
+                            {
+                                dataField: 'Place_Name',
+                                caption: 'Місце'
+                            }, 
+                            {
+                                dataField: 'has_SwitchOff',
+                                caption: 'Є відключення'
+                            }
+                        ]
+
                     }
                 ]
             },
@@ -835,9 +831,11 @@
         },
         firstLoad: true,
         init: function () {
-            this.dataGridInstance.height = window.innerHeight - 220;
+            this.dataGridInstance.height = window.innerHeight - 170;
             this.table = document.getElementById('poshuk_table_main');
             this.table.style.display = 'none';
+            this.countedFields = 0;
+
             for (let i = 0; i < document.getElementsByClassName("calendar-wrapper").length; i++)
                 document.getElementsByClassName("calendar-wrapper")[i].getElementsByTagName("input")[0].readOnly = "readonly";
 
@@ -985,14 +983,16 @@
                 closed_date_to: null,
                 faucet_closed_at_from: null,
                 faucet_closed_at_to: null,
-                state_changed_date_from: null,
-                state_changed_date_to: null,
-                state_changed_date_done_from: null,
-                state_changed_date_done_to: null,
-                execution_term_from: null,
-                execution_term_to: null,
-                control_date_from: null,
-                control_date_to: null
+                faucet_opened_at_from: null,
+                faucet_opened_at_to: null,
+                switch_off_start_at_from: null,
+                switch_off_start_at_to: null,
+                switch_off_closed_at_from: null,
+                switch_off_closed_at_to: null,
+                order_start_at_from: null,
+                order_start_at_to: null,
+                order_end_at_from: null,
+                order_end_at_to: null
             }
 
             this.applicantPhoneNumber = null;
@@ -1114,16 +1114,19 @@
                     { key: '@closed_date_to', value: this.dateValues.closed_date_to },
                     { key: '@faucet_closed_at_from', value: this.dateValues.faucet_closed_at_from },
                     { key: '@faucet_closed_at_to', value: this.dateValues.faucet_closed_at_to },
-                    { key: '@state_changed_date_from', value: this.dateValues.state_changed_date_from },
-                    { key: '@state_changed_date_to', value: this.dateValues.state_changed_date_to },
-                    { key: '@state_changed_date_done_from', value: this.dateValues.state_changed_date_done_from },
-                    { key: '@state_changed_date_done_to', value: this.dateValues.state_changed_date_done_to },
-                    { key: '@execution_term_from', value: this.dateValues.execution_term_from },
-                    { key: '@execution_term_to', value: this.dateValues.execution_term_to },
-                    { key: '@control_date_from', value: this.dateValues.control_date_from },
-                    { key: '@control_date_to', value: this.dateValues.control_date_to },
+                    { key: '@faucet_opened_at_from', value: this.dateValues.faucet_opened_at_from },
+                    { key: '@faucet_opened_at_to', value: this.dateValues.faucet_opened_at_to },
+                    { key: '@switch_off_start_at_from', value: this.dateValues.switch_off_start_at_from },
+                    { key: '@switch_off_start_at_to', value: this.dateValues.switch_off_start_at_to },
+                    { key: '@switch_off_closed_at_from', value: this.dateValues.switch_off_closed_at_from },
+                    { key: '@switch_off_closed_at_to', value: this.dateValues.switch_off_closed_at_to },
+                    { key: '@order_start_at_from', value: this.dateValues.order_start_at_from },
+                    { key: '@order_start_at_to', value: this.dateValues.order_start_at_to },
+                    { key: '@order_end_at_from', value: this.dateValues.order_end_at_from },
+                    { key: '@order_end_at_to', value: this.dateValues.order_end_at_to },
                     { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
-                    { key: '@param2', value: this.macrosSubjectsValue }
+                    { key: '@param2', value: this.macrosSubjectsValue },
+                    { key: '@param3', value: this.countedFields }
                 ];
                 this.loadData(this.afterLoadDataHandler);
                 this.messageService.publish({
@@ -1173,6 +1176,8 @@
             this.config.query.filterColumns.push(filter);
         },
         reloadTable: function(message) {
+            this.countedFields = 0;
+            this.config.query.parameterValues[19].value = 0;
             this.setConfigColumns();
             message.value.forEach(function(el) {
                 let column;
@@ -1204,7 +1209,88 @@
                             totalItems: [{
                             column: "claim_number",
                             summaryType: "count"
-                            }]
+                            },
+                            {
+                                column: "Orders_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Order_Jobs_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Order_Jobs_Distinct_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Orgs_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "job_brigadirs_count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "job_drivers_count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Moves_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Mechanisms_count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Claim_SwitchOff_Address_count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Claim_SwitchOff_Address_Places_count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Disabling_debtors_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "OutsideMen_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "OutsideMen_Company_Contact_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Actions_All_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Action_types2_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Actions_All_Places_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Action_Materials_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Action_Materials_Unique_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Sequela_Count",
+                                summaryType: "sum"
+                            },
+                            {
+                                column: "Faucet_Count",
+                                summaryType: "sum"
+                            }
+                            ]
                         }
                         break;
                     default:
@@ -1216,6 +1302,12 @@
                         break;
                 }
 
+                if (el.displayValue.match(/.*count.*/) || el.displayValue.match(/.*Count.*/))
+                {
+                    this.countedFields = 1;
+                    this.config.query.parameterValues[19].value = 1;
+                    debugger;
+                }
                 if (el.displayValue == 'Result_Row')
                     this.config.summary = column;
                 else
@@ -1344,14 +1436,16 @@
                     { key: '@closed_date_to', value: this.dateValues.closed_date_to },
                     { key: '@faucet_closed_at_from', value: this.dateValues.faucet_closed_at_from },
                     { key: '@faucet_closed_at_to', value: this.dateValues.faucet_closed_at_to },
-                    { key: '@state_changed_date_from', value: this.dateValues.state_changed_date_from },
-                    { key: '@state_changed_date_to', value: this.dateValues.state_changed_date_to },
-                    { key: '@state_changed_date_done_from', value: this.dateValues.state_changed_date_done_from },
-                    { key: '@state_changed_date_done_to', value: this.dateValues.state_changed_date_done_to },
-                    { key: '@execution_term_from', value: this.dateValues.execution_term_from },
-                    { key: '@execution_term_to', value: this.dateValues.execution_term_to },
-                    { key: '@control_date_from', value: this.dateValues.control_date_from },
-                    { key: '@control_date_to', value: this.dateValues.control_date_to },
+                    { key: '@faucet_opened_at_from', value: this.dateValues.faucet_opened_at_from },
+                    { key: '@faucet_opened_at_to', value: this.dateValues.faucet_opened_at_to },
+                    { key: '@switch_off_start_at_from', value: this.dateValues.switch_off_start_at_from },
+                    { key: '@switch_off_start_at_to', value: this.dateValues.switch_off_start_at_to },
+                    { key: '@switch_off_closed_at_from', value: this.dateValues.switch_off_closed_at_from },
+                    { key: '@switch_off_closed_at_to', value: this.dateValues.switch_off_closed_at_to },
+                    { key: '@order_start_at_from', value: this.dateValues.order_start_at_from },
+                    { key: '@order_start_at_to', value: this.dateValues.order_start_at_to },
+                    { key: '@order_end_at_from', value: this.dateValues.order_end_at_from },
+                    { key: '@order_end_at_to', value: this.dateValues.order_end_at_to },
                     { key: '@zayavnyk_phone_number', value: this.applicantPhoneNumber },
                     { key: '@pageOffsetRows', value: 0},
                     { key: '@pageLimitRows', value: 10}

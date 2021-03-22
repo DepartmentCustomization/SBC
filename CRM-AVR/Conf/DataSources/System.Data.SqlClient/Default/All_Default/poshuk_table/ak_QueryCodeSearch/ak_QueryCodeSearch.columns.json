@@ -198,8 +198,128 @@
     "IsPrintable": false
   },
   {
-    "Code": "Contact_Sub_Department",
-    "Name": "Contact_Sub_Department",
+    "Code": "Orders_Count",
+    "Name": "Orders_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Order_Jobs_Count",
+    "Name": "Order_Jobs_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Order_Jobs_Distinct_Count",
+    "Name": "Order_Jobs_Distinct_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Moves_Count",
+    "Name": "Moves_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Orgs_Count",
+    "Name": "Orgs_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "job_brigadirs_count",
+    "Name": "job_brigadirs_count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "job_drivers_count",
+    "Name": "job_drivers_count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Mechanisms_count",
+    "Name": "Mechanisms_count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_SwitchOff_Address_count",
+    "Name": "Claim_SwitchOff_Address_count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Claim_SwitchOff_Address_Places_count",
+    "Name": "Claim_SwitchOff_Address_Places_count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Disabling_debtors_Count",
+    "Name": "Disabling_debtors_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "OutsideMen_Count",
+    "Name": "OutsideMen_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "OutsideMen_Company_Contact_Count",
+    "Name": "OutsideMen_Company_Contact_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Actions_All_Count",
+    "Name": "Actions_All_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Action_types2_Count",
+    "Name": "Action_types2_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Actions_All_Places_Count",
+    "Name": "Actions_All_Places_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Action_Materials_Count",
+    "Name": "Action_Materials_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Action_Materials_Unique_Count",
+    "Name": "Action_Materials_Unique_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Sequela_Count",
+    "Name": "Sequela_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Faucet_Count",
+    "Name": "Faucet_Count",
+    "Position": 19,
+    "IsPrintable": false
+  },
+  {
+    "Code": "Faucet_Places_Count",
+    "Name": "Faucet_Places_Count",
     "Position": 19,
     "IsPrintable": false
   }
