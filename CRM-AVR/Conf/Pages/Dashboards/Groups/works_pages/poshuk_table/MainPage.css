@@ -75,21 +75,23 @@
     left: 0;
 }
 #modalWindow{
-    position: fixed;
-    top: 100px;
-    margin-left: 50%;
+    position: relative;
+    top: 50px;
+    margin-left: 40%;
     left: -450px;
     z-index: 100;
     background: #fafafa;
     width: 100%;
-    max-width: 900px;
+    max-width: 80%;
+    max-height: 87%;
     padding: 15px;
+    overflow: auto;
 }
 .groupsContainer{
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
+    /* justify-content: center;
+    flex-wrap: wrap; */
 }
 .group__element{
     display: flex;
@@ -140,14 +142,14 @@
 #selectedFiltersContainer{
     justify-content: space-around;
     display: flex;
-    margin-top: 15px;
+    margin-top: 2px;
     flex-wrap: wrap;
 }
 .filterBox{
     padding: 5px 10px;
     border-width: 0px;
     max-width: 300px;
-    height: 45px;
+    height: 40px;
     background: inherit;
     background-color: rgba(239, 247, 249, 1);
     border: none;
@@ -191,6 +193,7 @@
     font-size: 16px;
     font-weight: 600;
     text-align: center;
+    margin-top: 10px;
 }
 #notificationContainer{
     height: 100%;

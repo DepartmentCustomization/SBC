@@ -31,8 +31,8 @@
     "ParameterType": "CurrentUserId"
   },
   {
-    "Code": "@execution_term_from",
-    "Name": "execution_term_from",
+    "Code": "@switch_off_closed_at_from",
+    "Name": "switch_off_closed_at_from",
     "ParameterType": "DateTime"
   },
   {
@@ -49,8 +49,8 @@
     "Name": "param2"
   },
   {
-    "Code": "@state_changed_date_done_from",
-    "Name": "state_changed_date_done_from",
+    "Code": "@switch_off_start_at_from",
+    "Name": "switch_off_start_at_from",
     "ParameterType": "DateTime"
   },
   {
@@ -59,8 +59,8 @@
     "ParameterType": "DateTime"
   },
   {
-    "Code": "@execution_term_to",
-    "Name": "execution_term_to",
+    "Code": "@switch_off_closed_at_to",
+    "Name": "switch_off_closed_at_to",
     "ParameterType": "DateTime"
   },
   {
@@ -70,13 +70,13 @@
     "IsPageOffsetRows": true
   },
   {
-    "Code": "@state_changed_date_to",
-    "Name": "state_changed_date_to",
+    "Code": "@faucet_opened_at_to",
+    "Name": "faucet_opened_at_to",
     "ParameterType": "DateTime"
   },
   {
-    "Code": "@state_changed_date_done_to",
-    "Name": "state_changed_date_done_to",
+    "Code": "@switch_off_start_at_to",
+    "Name": "switch_off_start_at_to",
     "ParameterType": "DateTime"
   },
   {
@@ -85,8 +85,8 @@
     "ParameterType": "DateTime"
   },
   {
-    "Code": "@state_changed_date_from",
-    "Name": "state_changed_date_from",
+    "Code": "@faucet_opened_at_from",
+    "Name": "faucet_opened_at_from",
     "ParameterType": "DateTime"
   },
   {
@@ -94,13 +94,27 @@
     "Name": "zayavnyk_phone_number"
   },
   {
-    "Code": "@control_date_from",
-    "Name": "control_date_from",
+    "Code": "@order_start_at_from",
+    "Name": "order_start_at_from",
     "ParameterType": "DateTime"
   },
   {
-    "Code": "@control_date_to",
-    "Name": "control_date_to",
+    "Code": "@order_start_at_to",
+    "Name": "order_start_at_to",
     "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@order_end_at_from",
+    "Name": "order_end_at_from",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@order_end_at_to",
+    "Name": "order_end_at_to",
+    "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@param3",
+    "Name": "param3"
   }
 ]
