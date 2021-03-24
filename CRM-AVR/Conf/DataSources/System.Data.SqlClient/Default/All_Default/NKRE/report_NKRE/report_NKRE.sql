@@ -1,7 +1,10 @@
 
+--declare @dateStart datetime-- = '2021-03-21 00:00:00'
+--declare @dateFinish datetime-- = '2021-03-21 00:00:00'
 
---declare @dateStart datetime = '2021-01-01 00:00:00'
---declare @dateFinish datetime = '2021-03-21 00:00:00'
+set @dateStart= dateadd(second, 1, @dateStart)
+set @dateFinish= dateadd(second, 60*60*24-1, @dateFinish)
+
 
  set @dateStart=
  DATEADD(HOUR, DATEDIFF(HOUR,
@@ -26,7 +29,7 @@
  select
 		--sw.Id,
 		null as row_num
-		,sw.Claim_ID
+		,cl.[Claim_Number] Claim_ID
 		,Places.Name as Adress    
 		,dbo.fu_out_streetsName_switchOff(cl.Id, null) as switch_places_name
 		,act.Name as action_name
@@ -81,7 +84,7 @@
 	distinct
 	--sw.Id,
 	null as row_num
-    ,sw.Claim_ID
+    ,cl.[Claim_Number] Claim_ID
 	,Places.Name as Adress    
 	--,switch_places_name.[name] as [switch_places_name]
 	,dbo.fu_out_streetsName_switchOff(cl.Id, null) as switch_places_name
@@ -157,13 +160,12 @@
 		,SwitchOff_start
 		,SwitchOff_finish
 		,[13]
-		,ltrim(round((convert(float, [14])/60.00),1))+N' годин ('+ltrim([14])+N') хвилин' [14]
+		,ltrim(round((convert(float, [14])/60.00),1))+N' годин ('+ltrim([14])+N' хвилин)' [14]
 		,flat_count
 		,ur_count
 		,[17]
 		,[18]
 from total t
-
 
  /*new конец*/
 
