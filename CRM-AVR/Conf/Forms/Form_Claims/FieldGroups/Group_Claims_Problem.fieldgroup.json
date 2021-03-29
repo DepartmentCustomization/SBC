@@ -286,6 +286,13 @@
       "FieldType": "number",
       "Position": 12134567,
       "IsHidden": true
+    },
+    {
+      "Code": "exec_phone_hid",
+      "Name": "(скрито)exec_phone_hid",
+      "FieldType": "text",
+      "Position": 12134568,
+      "IsHidden": true
     }
   ]
 }

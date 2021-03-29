@@ -1,4 +1,21 @@
 
+declare @contact_org_id int;
+set @contact_org_id =
+	(select [Contacts_ID]
+  from [dbo].[Organizations]
+  where Id=@executor_id)
+
+if @executor_id is not null and @exec_phone is null and @exec_phone_hid is not null
+	and not EXISTS (select Id from [dbo].[Contact_phones] where [Contact_ID]=@contact_org_id and [Number]=@exec_phone_hid)
+begin
+
+  insert into [dbo].[Contact_phones]
+  ([Contact_ID]
+      ,[Number])
+   select @contact_org_id, @exec_phone_hid
+
+end
+
 DECLARE @output TABLE ([Id] INT);
 
 DECLARE @contact_id INT;
@@ -117,7 +134,8 @@ INSERT INTO
 		date_check,
 		not_balans,
 		DisplayID,
-		UR_organization_ID
+		UR_organization_ID,
+		[ExternalOwnerID]
 	) OUTPUT [inserted].[Id] INTO @output([Id])
 VALUES
 	(
@@ -145,7 +163,8 @@ VALUES
 		@date_check,
 		@not_balans,
 		1,
-		@UR_organization_id
+		@UR_organization_id,
+		@executor_id
 	);
 	/*изменение района в таблицах начало*/
 	update [dbo].[Places]

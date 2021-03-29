@@ -112,5 +112,19 @@
     "Code": "@Plan_finish_at",
     "Name": "Plan_finish_at",
     "ParameterType": "DateTime"
+  },
+  {
+    "Code": "@executor_id",
+    "Name": "executor_id",
+    "ParameterType": "Integer"
+  },
+  {
+    "Code": "@exec_phone_hid",
+    "Name": "exec_phone_hid"
+  },
+  {
+    "Code": "@exec_phone",
+    "Name": "exec_phone",
+    "ParameterType": "Integer"
   }
 ]

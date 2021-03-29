@@ -382,5 +382,27 @@
     "Name": "flat_number",
     "Position": 79,
     "ReferenceKeyCode": "flat_id"
+  },
+  {
+    "Code": "executor_id",
+    "Name": "executor_id",
+    "Position": 80
+  },
+  {
+    "Code": "executor_name",
+    "Name": "executor_name",
+    "Position": 81,
+    "ReferenceKeyCode": "executor_id"
+  },
+  {
+    "Code": "exec_phone",
+    "Name": "exec_phone",
+    "Position": 81
+  },
+  {
+    "Code": "exec_phone_name",
+    "Name": "exec_phone_name",
+    "Position": 82,
+    "ReferenceKeyCode": "exec_phone"
   }
 ]

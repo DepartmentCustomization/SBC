@@ -1,4 +1,4 @@
--- DECLARE @Id INT = 269;
+ --DECLARE @Id INT = 2635;
 
 SELECT
 	[Claims].[Id],
@@ -137,7 +137,12 @@ CASE
 		WHERE
 			Contact_ID = ct3.Id
 	) AS x_phone_inspector,
-	Claim_classes.PriorityType
+	Claim_classes.PriorityType,
+
+	[ExternalOwner].Id executor_id,
+	[ExternalOwner].[Name] executor_name,
+	(select top 1 Id from [dbo].[Contact_phones] where [Contact_ID]=[ExternalOwner].[Contacts_ID] order by id desc) exec_phone,
+	(select top 1 [Number] from [dbo].[Contact_phones] where [Contact_ID]=[ExternalOwner].[Contacts_ID] order by id desc) exec_phone_name
 FROM
 	[dbo].[Claims] [Claims] 
 	LEFT JOIN [dbo].[Status] [Status] ON [Status].[Id] = [Claims].[Status_ID]
@@ -162,6 +167,8 @@ FROM
 	LEFT JOIN dbo.Districts Districts ON Districts.Id = Places.District_ID
 	LEFT JOIN dbo.Claim_content Claim_content ON Claim_content.Claim_Id = Claims.Id
 	LEFT JOIN dbo.Contacts AS ct3 ON ct3.Id = Claim_content.Contact_insp_PIB
+
+	left join dbo.[Organizations] [ExternalOwner] on [Claims].[ExternalOwnerID]=[ExternalOwner].Id
 	-- Создавший заявку
 	LEFT JOIN (SELECT TOP 1 
 					ISNULL(c.[Surname],SPACE(0)) + SPACE(1) + ISNULL(c.First_name,SPACE(0)) AS fio,
@@ -172,8 +179,10 @@ FROM
 			   LEFT JOIN dbo.Jobs j ON ch.[User] = j.[Login]
 			   LEFT JOIN dbo.Contacts c ON j.Contacts_ID = c.Id
 			   LEFT JOIN dbo.Positions p ON j.Position_ID = p.Id
-			   LEFT JOIN [#system_database_name#].dbo.[User] sys_u ON sys_u.[UserId] = ch.[User]
-			   LEFT JOIN [#system_database_name#].dbo.[UserInOrganisation] sys_up ON sys_up.UserId = sys_u.[UserId]
+			   --LEFT JOIN [#system_database_name#].dbo.[User] sys_u ON sys_u.[UserId] = ch.[User]
+			   LEFT JOIN [CRM_1551_System].dbo.[User] sys_u ON sys_u.[UserId] = ch.[User]
+			   --LEFT JOIN [#system_database_name#].dbo.[UserInOrganisation] sys_up ON sys_up.UserId = sys_u.[UserId]
+			   LEFT JOIN [CRM_1551_System].dbo.[UserInOrganisation] sys_up ON sys_up.UserId = sys_u.[UserId]
 				AND sys_up.JobTitle IS NOT NULL
 			   WHERE ch.Claims_ID = @Id
 			   ORDER BY ch.Id ASC ) AS reg_h ON 1=1
@@ -187,8 +196,8 @@ FROM
 			   LEFT JOIN dbo.Jobs j ON ch.[User] = j.[Login]
 			   LEFT JOIN dbo.Contacts c ON j.Contacts_ID = c.Id
 			   LEFT JOIN dbo.Positions p ON j.Position_ID = p.Id
-			   LEFT JOIN [#system_database_name#].dbo.[User] sys_u ON sys_u.[UserId] = ch.[User]
-			   LEFT JOIN [#system_database_name#].dbo.[UserInOrganisation] sys_up ON sys_up.UserId = sys_u.[UserId]
+			   LEFT JOIN [CRM_1551_System].dbo.[User] sys_u ON sys_u.[UserId] = ch.[User]
+			   LEFT JOIN [CRM_1551_System].dbo.[UserInOrganisation] sys_up ON sys_up.UserId = sys_u.[UserId]
 			   -- CRM_AVR_System
 				AND sys_up.JobTitle IS NOT NULL
 			   WHERE ch.Claims_ID = @Id
