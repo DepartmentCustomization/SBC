@@ -347,7 +347,7 @@
             });
             const group5__title = this.createElement('div', {
                 className: 'group1__title groupTitle material-icons',
-                innerText: 'view_stream'
+                innerText: 'view_stream Кількісні показники'
             });
             const group1__element1_checkBox = this.createElement('input', {
                 type: 'checkbox',
@@ -834,6 +834,309 @@
             const group4__container = this.createElement('div', {
                 className: 'groupContainer'
             }, group1__title, group4__element1, group4__element2, group4__element3);
+
+            const group5__element1_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 250,
+                value: 'Orders_Count',
+                id: 'Orders_Count'
+            });
+            const group5__element1_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть виїздів'
+            });
+            const group5__element1 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element1_checkBox, group5__element1_title);
+            const group5__element2_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 250,
+                value: 'Order_Jobs_Count',
+                id: 'Order_Jobs_Count'
+            });
+            const group5__element2_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть осіб в бригадах'
+            });
+            const group5__element2 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element2_checkBox, group5__element2_title);
+            const group5__element3_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 400,
+                value: 'Order_Jobs_Distinct_Count',
+                id: 'Order_Jobs_Distinct_Count'
+            });
+            const group5__element3_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть унікальних осіб в бригадах'
+            });
+            const group5__element3 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element3_checkBox, group5__element3_title);
+            const group5__element4_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 350,
+                value: 'Orgs_Count',
+                id: 'Orgs_Count'
+            });
+            const group5__element4_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть підрозділів з бригад'
+            });
+            const group5__element4 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element4_checkBox, group5__element4_title);
+            const group5__element5_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 250,
+                value: 'job_brigadirs_count',
+                id: 'job_brigadirs_count'
+            });
+            const group5__element5_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть бригадирів'
+            });
+            const group5__element5 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element5_checkBox, group5__element5_title);
+            const group5__element6_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 250,
+                value: 'job_drivers_count',
+                id: 'job_drivers_count'
+            });
+            const group5__element6_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть водіїв'
+            });
+            const group5__element6 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element6_checkBox, group5__element6_title);
+            const group5__element7_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 330,
+                value: 'Moves_Count',
+                id: 'Moves_Count'
+            });
+            const group5__element7_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть переміщень техніки'
+            });
+            const group5__element7 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element7_checkBox, group5__element7_title);
+            const group5__element8_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 250,
+                value: 'Mechanisms_count',
+                id: 'Mechanisms_count'
+            });
+            const group5__element8_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть техніки'
+            });
+            const group5__element8 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element8_checkBox, group5__element8_title);
+            const group5__element9_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 250,
+                value: 'Claim_SwitchOff_Address_count',
+                id: 'Claim_SwitchOff_Address_count'
+            });
+            const group5__element9_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть відключень'
+            });
+            const group5__element9 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element9_checkBox, group5__element9_title);
+            const group5__element10_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 400,
+                value: 'Claim_SwitchOff_Address_Places_count',
+                id: 'Claim_SwitchOff_Address_Places_count'
+            });
+            const group5__element10_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть унікальних адрес у відключеннях'
+            });
+            const group5__element10 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element10_checkBox, group5__element10_title);
+            const group5__element11_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'Disabling_debtors_Count',
+                id: 'Disabling_debtors_Count'
+            });
+            const group5__element11_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть відключень боржників'
+            });
+            const group5__element11 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element11_checkBox, group5__element11_title);
+            const group5__element12_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'OutsideMen_Count',
+                id: 'OutsideMen_Count'
+            });
+            const group5__element12_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть викликів спецслужб'
+            });
+            const group5__element12 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element12_checkBox, group5__element12_title);
+            const group5__element13_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'OutsideMen_Company_Contact_Count',
+                id: 'OutsideMen_Company_Contact_Count'
+            });
+            const group5__element13_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть організацій-спецслужб'
+            });
+            const group5__element13 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element13_checkBox, group5__element13_title);
+            const group5__element14_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'Actions_All_Count',
+                id: 'Actions_All_Count'
+            });
+            const group5__element14_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть робіт'
+            });
+            const group5__element14 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element14_checkBox, group5__element14_title);
+            const group5__element15_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'Action_types2_Count',
+                id: 'Action_types2_Count'
+            });
+            const group5__element15_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть типів робіт'
+            });
+            const group5__element15 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element15_checkBox, group5__element15_title);
+            const group5__element16_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'Actions_All_Places_Count',
+                id: 'Actions_All_Places_Count'
+            });
+            const group5__element16_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть місць в роботах'
+            });
+            const group5__element16 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element16_checkBox, group5__element16_title);
+            const group5__element17_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'Action_Materials_Count',
+                id: 'Action_Materials_Count'
+            });
+            const group5__element17_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть матеріалів в роботах'
+            });
+            const group5__element17 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element17_checkBox, group5__element17_title);
+            const group5__element18_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'Action_Materials_Unique_Count',
+                id: 'Action_Materials_Unique_Count'
+            });
+            const group5__element18_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть унікальних матеріалів в роботах'
+            });
+            const group5__element18 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element18_checkBox, group5__element18_title);
+            const group5__element19_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'Sequela_Count',
+                id: 'Sequela_Count'
+            });
+            const group5__element19_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть ускладнень'
+            });
+            const group5__element19 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element19_checkBox, group5__element19_title);
+            const group5__element20_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'Faucet_Count',
+                id: 'Faucet_Count'
+            });
+            const group5__element20_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть запірної арматури'
+            });
+            const group5__element20 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element20_checkBox, group5__element20_title);
+            /*const group5__element21_checkBox = this.createElement('input', {
+                type: 'checkbox',
+                className: 'group__element_checkBox',
+                columnWidth: 300,
+                value: 'Faucet_Places_Count',
+                id: 'Faucet_Places_Count'
+            });
+            const group5__element21_title = this.createElement('div', {
+                className: 'group__element_title',
+                innerText: 'К-сть місць запірної арматури'
+            });
+            const group5__element21 = this.createElement('div', {
+                className: 'group__element'
+            }, group5__element21_checkBox, group5__element21_title);*/
+            
+
+            const group5__container = this.createElement('div', {
+                className: 'groupContainer'
+            }, group1__title, group5__element1, group5__element2, group5__element3, group5__element4, group5__element5, group5__element6, group5__element7, group5__element8, group5__element9, group5__element10, 
+            group5__element11, group5__element12, group5__element13, group5__element14, group5__element15, group5__element16, group5__element17, group5__element18, group5__element19, group5__element20
+            //, group5__element21
+            );
             
             const group1 = this.createElement('div', {
                 id:'group1',
@@ -848,14 +1151,18 @@
                 className: 'group3'
             }, group3__title, group3__container);
             const group4 = this.createElement('div', {
-                id:'group4',
+                id:'group5',
                 className: 'group4'
             }, group4__title, group4__container);
+            const group5 = this.createElement('div', {
+                id:'group5',
+                className: 'group5'
+            }, group5__title, group5__container);
 
             const groupsContainer = this.createElement('div', {
                 id:'groupsContainer',
                 className: 'groupsContainer'
-            }, group1, group2, group3, group4);
+            }, group1, group2, group3, group4, group5);
             this.modalWindow.appendChild(groupsContainer);
             this.defaultCheckedItem.forEach(e => document.getElementById(e.displayValue).checked = true);
             this.checkItems();

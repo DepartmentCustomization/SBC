@@ -23,10 +23,10 @@
             let mm = currentDate.getMinutes();
             let defaultValue = {
             // dateFrom  поменять месяц на 01
-                dateFrom: new Date(year, '10', '01'),
-                dateTo: new Date(year, monthFrom, dayTo)
+             //   dateFrom: new Date(year, '10', '01'),
+              //  dateTo: new Date(year, monthFrom, dayTo)
             }
-            this.setDefaultValue(defaultValue);
+            //this.setDefaultValue(defaultValue);
         }
     };
 }());

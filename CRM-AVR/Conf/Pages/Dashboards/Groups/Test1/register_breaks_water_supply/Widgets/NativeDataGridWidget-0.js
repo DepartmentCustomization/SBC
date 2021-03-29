@@ -140,9 +140,10 @@
             this.config.onToolbarPreparing = this.createTableButton.bind(this);
             this.config.onContentReady = this.afterRenderTable.bind(this);
         },
-        getFiltersParams: function(message) {
+        getFiltersParams: function(message) 
+        {
             let period = message.package.value.values.find(f => f.name === 'period').value;
-            if(period !== '') {
+            if(period.dateFrom !== '' && period.dateTo !== '') {
                 this.dateFrom = this.convertDateTimeToDate(period.dateFrom);
                 this.dateTo = this.convertDateTimeToDate(period.dateTo);
                 this.config.query.parameterValues = [

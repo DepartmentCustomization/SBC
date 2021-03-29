@@ -32,7 +32,7 @@ SELECT ROW_NUMBER() OVER(ORDER BY [Orders].Id ASC)  Order_Number
   left join [CRM_AVR_System].[dbo].[User] Order_Closed_By  on Order_Closed_By.UserId = [Orders].[user_edit] and [Orders].Status_Id = 10
   left join (select UserId, max(id) uio_id from [CRM_AVR_System].[dbo].[UserInOrganisation] group by UserId) uio_closed_min on uio_closed_min.UserId = Order_Closed_By.UserId
   left join [CRM_AVR_System].[dbo].[UserInOrganisation] uio_closed_by on uio_closed_by.Id  = uio_closed_min.uio_id
-
+ 
   where [Orders].Claim_Id = @claim_id
   group by [Orders].[Id]
       ,[Orders].[Claim_ID]
