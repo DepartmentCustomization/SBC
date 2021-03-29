@@ -141,6 +141,9 @@
             });
         },
         init: function() {
+            
+            // let executor_v = [{ parameterCode: '@executor_id', parameterValue: executor }];
+            //     this.form.setControlParameterValues('exec_phone', executor_v);
             this.checkPlaceActivity();
             this.chooseDetail_Claim_Faucet();
             this.checkForAreaClaims();
@@ -171,6 +174,7 @@
             this.form.onControlValueChanged('place_street1_id', this.onTempBuildingChange);
             this.form.onControlValueChanged('place_building', this.onTempBuildingChange);
             this.form.onControlValueChanged('places_id', this.checkPlaceActivity);
+            //this.form.onControlValueChanged('executor_id', this.p_number);; //здесь менял
             this.state_card = this.state;
             if(this.state_card == 'create') {
                 btn_copy_claim.style.display = 'none';
@@ -583,7 +587,6 @@
                 })
             }
             this.form.onControlValueChanged('places_id', this.onFlats);
-            //debugger;
             const queClaimLink = {
                 title: 'Пов\'язані заявки',
                 text: 'Створити нову чи додати (приєднати) існуючу? ',
@@ -593,7 +596,10 @@
             var dat_y = new Date();//getFullYear();
              var yy = dat_y.getFullYear();
              var form_Created_at = this.form.getControlValue('Created_at');
-             var form_y = form_Created_at.getFullYear();
+             var form_y = null;
+             if (form_Created_at) {
+                form_y = form_Created_at.getFullYear();
+             }             
              const id = this.form.getControlValue('claims_id');
              
             const formClaimLink = (link) => {
@@ -1194,6 +1200,9 @@
             this.form.onControlValueChanged('x_pib_inspector', this.onUR_EM_phone_number);
             this.form.onControlValueChanged('EM_contact_fio', this.onUR_EM_Org_phone);
             this.form.onControlValueChanged('executor_id', this.executor_phone_number);
+            this.form.onControlValueChanged('exec_phone', this.p_number);
+            this.form.onControlValueChanged('exec_phone', this.exec_p);//exec_p
+            //exec_phone
             this.details.setVisibility('Detail_search', false);
             //дія кнопки пошуку
             btn_Search.addEventListener('click', function(event) {
@@ -1228,10 +1237,12 @@
         gotoOutsideMenSection:function(column, row, value, event, indexOfColumnId) {
             this.navigateTo('/sections/OutsideMen/edit/' + row.values[0] + '/Claims/' + row.values[7]);
         },
-        //Выбор телефона исполнмтеля
+        //Выбор телефона исполнителя
         executor_phone_number:function(executor_id) {
+            //let ex_id = this.form.getControlValue('executor_id');
             if(typeof (executor_id) === 'number') {
-                let exec = [{parameterCode: '@executor_id' , parameterValue: executor_id }];
+                    //let exec = [{parameterCode: '@executor_id' , parameterValue: executor_id }];
+                    let exec = this.form.getControlValue('executor_id');
                 this.form.setControlParameterValues('exec_phone', exec);
                 const phone = {
                     queryCode: 'getExecutorPhone',
@@ -1245,7 +1256,22 @@
                     this.form.setControlValue('exec_phone', id_phone);
                 });
             }
+        },  
+        /*  */    
+        p_number:function(ex_p1) { 
+            //let access = this.form.getControlValue('access_id');
+            let executor = this.form.getControlValue('executor_id');
+            let ex_id1 = [{ parameterCode: '@executor_id', parameterValue: executor }];
+            this.form.setControlParameterValues('exec_phone', ex_id1);
+
+
+            //let acces = [{ parameterCode: '@access_id', parameterValue: acc_id }];
+            //this.form.setControlParameterValues('claim_types_id_first', acces)
         },
+        exec_p: function(name) {
+            this.form.setControlValue('exec_phone_hid', name);
+        },
+        
         answerClose: function(answer) {
             if(answer) {
                 let getdate = new Date();

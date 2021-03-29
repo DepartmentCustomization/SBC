@@ -1,3 +1,51 @@
+/*
+declare @Plan_start_date datetime
+declare @EM_org_id int
+declare @Is_Template bit='false'
+declare @Description nvarchar(max)
+declare @Status_id int=2
+declare @UR_contact_fio int
+declare @Id int=2635
+declare @Types_id int=8044
+declare @Diameters_ID int
+declare @not_balans bit='false'
+declare @Report_action_id int
+declare @Priority nvarchar(max)=N'5'
+declare @FIZ_concact_id int=8264;
+declare @date_check datetime
+declare @User nvarchar(max) =N'Admin Admin';
+declare @EM_contact_fio int
+declare @Fact_finish_at datetime
+declare @places_id int=42070
+declare @flat_id int
+declare @UR_organization_id int
+declare @contact_type int
+declare @Organization_id int =6203;
+declare @Plan_finish_at datetime;
+
+--которых не хватает начало
+declare @executor_id int
+declare @exec_phone int
+declare @exec_phone_hid nvarchar(max)
+--которых не хватает конец
+*/
+declare @contact_org_id int;
+set @contact_org_id =
+	(select [Contacts_ID]
+  from [dbo].[Organizations]
+  where Id=@executor_id)
+
+if @executor_id is not null and @exec_phone is null and @exec_phone_hid is not null
+	and not EXISTS (select Id from [dbo].[Contact_phones] where [Contact_ID]=@contact_org_id and [Number]=@exec_phone_hid)
+begin
+
+  insert into [dbo].[Contact_phones]
+  ([Contact_ID]
+      ,[Number])
+   select @contact_org_id, @exec_phone_hid
+
+end
+
 DECLARE @contact_id INT;
 DECLARE @contact_id_fiz INT;
 
