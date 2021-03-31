@@ -179,8 +179,8 @@
     "ParameterType": "Integer"
   },
   {
-    "Code": "@exec_phone_hid",
-    "Name": "exec_phone_hid"
+    "Code": "@add_phone",
+    "Name": "add_phone"
   },
   {
     "Code": "@exec_phone",

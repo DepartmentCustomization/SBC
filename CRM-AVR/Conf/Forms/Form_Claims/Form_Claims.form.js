@@ -162,6 +162,7 @@
             this.form.setControlVisibility('new_temp_placeReturn', false);
             let btn_AddJuridicalContact = document.getElementById('btn_AddJuridicalContact');
             let btn_newTempPlace = document.getElementById('new_temp_place');
+            let btn_add_phone = document.getElementById('btn_addPhone');
             let new_temp_placeAdd = document.getElementById('new_temp_placeAdd');
             let new_temp_placeReturn = document.getElementById('new_temp_placeReturn');
             new_temp_placeAdd.disabled = true;
@@ -281,6 +282,12 @@
             btn_newTempPlace.addEventListener('click', function() {
                 this.form.setControlVisibility('temp_place_type', true);
                 this.form.setControlVisibility('new_temp_place', false)
+            }.bind(this));
+            btn_add_phone.addEventListener('click', function() {
+                this.form.disableControl('exec_phone');
+                this.form.setControlValue('exec_phone', null);
+                this.form.setControlVisibility('add_phone', true);
+                this.form.setControlVisibility('btn_addPhone', false)
             }.bind(this));
             btn_copy_claim.addEventListener('click', function(event) {
                 const param = {
@@ -1217,6 +1224,11 @@
             this.details.onCellClick('Detail_search', this.on_Detail_Search_Informations.bind(this));
             let btn_addSwitchOff = document.getElementById('btn_addSwitchOff');
             btn_addSwitchOff.addEventListener('click',this.addSwitchOff.bind(this));
+            //тут
+            /*let p_btn_addSwitchOff = document.getElementById('btn_addPhone');
+            p_btn_addSwitchOff.addEventListener('click',this.p_addSwitchOff.bind(this));
+            */
+            //тут
             document.querySelector('#Group_Claim_SwitchOff .add-btn').style.display = 'none';
             this.details.onCellClick('Detail_OutsideMen_Claims', this.gotoOutsideMenSection.bind(this));
             const user_notif = {
@@ -1413,6 +1425,88 @@
             // вызов модалки
             this.openModalForm(queryPlaceOff, this.formPlaceOff.bind(this));
         },
+        /*
+        // тут начало
+        p_addSwitchOff: function(data) {
+            const p_queryPlaceOff = {
+                title: 'Додати телефон виконавця',
+                acceptBtnText: 'save',
+                cancelBtnText: 'cancel',
+                fieldGroups:[
+                    {
+                        code: 'p_Places_SwitchOff',
+                        expand: true,
+                        position: 1,
+                        fields: [
+                            {
+                                code:'p_executor_id',
+                                placeholder: 'p_executor_id',
+                                hidden: false,
+                                required: false,
+                                position: 1,
+                                fullScreen: true,
+                                type: 'number'
+                            },
+                            {
+                                code:'p_executor_name',
+                                placeholder: 'Виконавець',
+                                hidden: true,
+                                required: false,
+                                position: 2,
+                                fullScreen: true,
+                                type: 'text'
+                            },
+                            {
+                                code:'add_phone_num',
+                                placeholder: 'Номер телефону',
+                                hidden: false,
+                                required: true,
+                                position: 3,
+                                fullScreen: true,
+                                type: 'text'
+                            }
+                        ]
+                    }
+                ]
+            };
+            // вызов модалки
+            this.openModalForm(p_queryPlaceOff, this.p_AMFClose.bind(this), this.p_AMFInit.bind(this));
+        }, *///тут конец
+        /*p_AMFClose: function(dc) {
+            debugger;
+            let dc1=1;
+            debugger;
+            let p_executor_id2 = this.form.getControlValue('executor_id');
+            debugger;
+            let p_add_phone_num = getValue('add_phone_num');
+            debugger;
+            //this.formModalConfig.disableControl('p_executor_id');
+            this.form.setControlValue('p_executor_id', this.p_executor_id2);
+            debugger;
+            const workersParam = {
+                            
+                queryCode: 'avr_AddContact_phone',
+                parameterValues:[
+                    {key: '@p_executor_id',value: p_executor_id},
+                    {key: '@add_phone_num',value: p_add_phone_num}
+                    
+                ]
+            }
+            debugger;
+            this.queryExecutor.submitValues(workersParam).subscribe(data => {});
+            debugger;
+        },*/
+        /*p_AMFInit: function(di) {
+            debugger;
+            let dc2=formModalConfig.getControlValue('p_executor_id');
+            //form.disableControl('p_executor_id');
+            
+            debugger;
+            let p_executor_id = this.form.getControlValue('executor_id');
+            debugger;
+            this.form.setControlValue('p_executor_id', p_executor_id);
+            debugger;
+        },*/
         formPlaceOff:function(off_id) {
             if(off_id) {
                 let obdj = {
@@ -1423,6 +1517,16 @@
                 this.details.create('Group_Claim_SwitchOff', obdj);
             }
         },
+        /*p_formPlaceOff:function(off_id) {
+            if(off_id) {
+                let p_obdj = {
+                    switchOff_type: off_id[0].value,
+                    faucet_id: off_id[1].value
+                }
+                // имитируем на нажатие кнопки плюс скрытой формы
+                this.details.create('Group_Claim_SwitchOff', obdj);
+            }
+        },*/
         quesionClose:function(time) {
             console.log(time)
         },

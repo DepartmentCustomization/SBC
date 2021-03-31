@@ -1,18 +1,17 @@
 
-declare @contact_org_id int;
+  declare @contact_org_id int;
 set @contact_org_id =
 	(select [Contacts_ID]
   from [dbo].[Organizations]
   where Id=@executor_id)
 
-if @executor_id is not null and @exec_phone is null and @exec_phone_hid is not null
-	and not EXISTS (select Id from [dbo].[Contact_phones] where [Contact_ID]=@contact_org_id and [Number]=@exec_phone_hid)
+if not EXISTS (select Id from [dbo].[Contact_phones] where [Contact_ID]=@contact_org_id and [Number]=@add_phone)
 begin
 
   insert into [dbo].[Contact_phones]
   ([Contact_ID]
       ,[Number])
-   select @contact_org_id, @exec_phone_hid
+   select @contact_org_id, @add_phone
 
 end
 
