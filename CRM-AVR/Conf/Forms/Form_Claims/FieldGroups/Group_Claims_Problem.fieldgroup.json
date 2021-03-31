@@ -200,7 +200,7 @@
       "Name": "Виконавець",
       "FieldType": "select",
       "Position": 39,
-      "Width": "65%",
+      "Width": "55%",
       "QueryCode": "list_ExternalExecutors",
       "KeyColumnCode": "Id",
       "DisplayColumnCode": "Name",
@@ -211,11 +211,28 @@
       "Name": "Телефон виконавця",
       "FieldType": "select",
       "Position": 40,
-      "Width": "35%",
+      "Width": "25%",
       "QueryCode": "getExecutorPhone",
       "KeyColumnCode": "Id",
       "DisplayColumnCode": "phone",
       "QueryParameters": []
+    },
+    {
+      "Code": "btn_addPhone",
+      "Name": "Додати телефон",
+      "FieldType": "button",
+      "Position": 40,
+      "Width": "20%",
+      "Icon": "add",
+      "IconHint": "Додати телефон виконавця"
+    },
+    {
+      "Code": "add_phone",
+      "Name": "Новий телефон",
+      "FieldType": "text",
+      "Position": 40,
+      "Width": "20%",
+      "IsHidden": true
     },
     {
       "Code": "Description",
