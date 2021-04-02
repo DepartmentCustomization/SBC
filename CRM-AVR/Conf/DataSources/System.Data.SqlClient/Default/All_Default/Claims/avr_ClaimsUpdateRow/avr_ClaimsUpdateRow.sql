@@ -35,7 +35,15 @@ set @contact_org_id =
   from [dbo].[Organizations]
   where Id=@executor_id)
 
+IF @executor_id is null and @add_phone is not null
+BEGIN
+	RAISERROR(N'Додайте виконавня, для збереження номеру телефону', 16, 1);
+	RETURN;
+END
+
 if not EXISTS (select Id from [dbo].[Contact_phones] where [Contact_ID]=@contact_org_id and [Number]=@add_phone)
+and 
+@add_phone is not null and @contact_org_id is not null
 begin
 
   insert into [dbo].[Contact_phones]
@@ -122,7 +130,8 @@ SET
 	Contact_ID = @contact_id,
 	Contact_ID_Fiz = @contact_id_fiz,
 	date_check = @date_check,
-	not_balans = @not_balans
+	not_balans = @not_balans,
+	[ExternalOwnerID] = @executor_id
 WHERE
 	Id = @Id ;
 	--  смена основного адреса
