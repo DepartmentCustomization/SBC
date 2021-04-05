@@ -1,0 +1,16 @@
+{
+    "ModelType": "Query",
+    "Code": "ServNot_STypesDRow",
+    "Name": "ServNot_STypesDRow",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [],
+    "Parameters": [
+      {
+        "Code": "@Id",
+        "Name": "Id",
+        "ParameterType": "Integer",
+        "IsPrimaryKey": true
+      }
+    ]
+  }
