@@ -3,30 +3,32 @@ declare @Plan_start_date datetime
 declare @EM_org_id int
 declare @Is_Template bit='false'
 declare @Description nvarchar(max)
-declare @Status_id int=2
+declare @Status_id int=1
 declare @UR_contact_fio int
-declare @Id int=2635
-declare @Types_id int=8044
+declare @Id int=2655
+declare @Types_id int=9222
 declare @Diameters_ID int
 declare @not_balans bit='false'
 declare @Report_action_id int
 declare @Priority nvarchar(max)=N'5'
-declare @FIZ_concact_id int=8264;
+declare @FIZ_concact_id int=null;
 declare @date_check datetime
-declare @User nvarchar(max) =N'Admin Admin';
+declare @User nvarchar(max) =N'29796543-b903-48a6-9399-4840f6eac396';
 declare @EM_contact_fio int
-declare @Fact_finish_at datetime
-declare @places_id int=42070
+declare @Fact_finish_at datetime= '2021-04-02 13:59:31.273';
+declare @places_id int=42064
 declare @flat_id int
 declare @UR_organization_id int
 declare @contact_type int
-declare @Organization_id int =6203;
+declare @Organization_id int =28;
 declare @Plan_finish_at datetime;
 
 --которых не хватает начало
-declare @executor_id int
-declare @exec_phone int
+declare @executor_id int= 105031;
+declare @exec_phone int=6048
 declare @exec_phone_hid nvarchar(max)
+declare @add_phone nvarchar(max)
+declare @district_id int
 --которых не хватает конец
 */
   declare @contact_org_id int;
@@ -134,6 +136,19 @@ SET
 	[ExternalOwnerID] = @executor_id
 WHERE
 	Id = @Id ;
+
+		/*изменение района в таблицах начало*/
+						update [dbo].[Places]
+					  set [District_ID]=@district_id
+					  where Id=@places_id
+
+					  update [dbo].[Houses]
+					  set [District_id]=@district_id
+					  from [dbo].[Houses]
+					  inner join [dbo].[Places] on [Houses].Id=[Places].Street_id
+					  where [Places].Id=@places_id
+						/*изменение района в таблицах конец*/
+
 	--  смена основного адреса
 	IF(
 		SELECT
@@ -227,50 +242,71 @@ SET
 			Id = @Id
 	) ;
 IF @Status_id IN (1, 2, 3, 4) 
-BEGIN
-UPDATE
-	[dbo].[Claim_SwitchOff_Address]
-SET
-	[SwitchOff_finish] = isnull(SwitchOff_finish, @finish_at)
-WHERE
-	Claim_ID = @Id ;
-END
-ELSE 
-BEGIN
-UPDATE
-	[dbo].[Claim_SwitchOff_Address]
-SET
-	[SwitchOff_finish] = @Fact_finish_at
-WHERE
-	Claim_ID = @Id
-	AND SwitchOff_finish > @Fact_finish_at ;
-END
+			BEGIN
+			UPDATE
+				[dbo].[Claim_SwitchOff_Address]
+			SET
+				[SwitchOff_finish] = isnull(SwitchOff_finish, @finish_at)
+			WHERE
+				Claim_ID = @Id ;
+			END
+			ELSE 
+			BEGIN
+			UPDATE
+				[dbo].[Claim_SwitchOff_Address]
+			SET
+				[SwitchOff_finish] = @Fact_finish_at
+			WHERE
+				Claim_ID = @Id
+				AND SwitchOff_finish > @Fact_finish_at ;
+			END
 
 IF @Fact_finish_at IS NOT NULL
 AND @Status_id NOT IN (4, 5, 6) 
-BEGIN
-DECLARE @placeActivity TINYINT = (SELECT Is_Active FROM dbo.[Places] WHERE Id = @places_id);
-IF(@placeActivity <> 1)
-BEGIN
-	RAISERROR(N'Адреса в заявці НЕ ПІДТВЕРДЖЕНА, будь ласка зв`яжіться з адміністратором ДІЗ', 16, 1);
-	RETURN;
-END
-UPDATE
-	[dbo].[Claims]
-SET
-	Status_ID = 5
-WHERE
-	Id = @Id ;
-	 -- закрыть все виезды датой закрытия заявки
-UPDATE
-	dbo.Orders
-SET
-	Status_ID = 10,
-	Closed_at = @Fact_finish_at,
-	user_edit = @User,
-	Finish_at_actions = isnull(Finish_at_actions, @Fact_finish_at),
-	Finished_at = isnull(Finished_at, @Fact_finish_at)
-WHERE
-	Claim_ID = @Id
-	AND Closed_at IS NULL ;
-END
+	BEGIN
+			IF exists (select top 1 ct.Id from [Claim_types] ct 
+			inner join [Claim_types] pct on ct.Parent_сlaim_types_ID=pct.Id
+			where ct.[Parent_сlaim_types_ID]=@Types_id and pct.Is_delete='false')
+				begin
+					RAISERROR(N'Тип заявки не є останній', 16, 1);
+				RETURN;
+				end
+
+			IF not exists (select top 1 Id
+					  from [dbo].[Actions]
+					  where [Is_Goal]='true' and [Claim_ID]=@Id)
+				begin
+					RAISERROR(N'Не відмічено Головну роботу в заявці.', 16, 1);
+				RETURN;
+				end
+			IF @district_id is null
+				begin
+					RAISERROR(N'Не проставлен район в якому виконували заявку', 16, 1);
+					RETURN;
+				end
+
+			DECLARE @placeActivity TINYINT = (SELECT Is_Active FROM dbo.[Places] WHERE Id = @places_id);
+			IF(@placeActivity <> 1)
+			BEGIN
+				RAISERROR(N'Адреса в заявці НЕ ПІДТВЕРДЖЕНА, будь ласка зв`яжіться з адміністратором ДІЗ', 16, 1);
+				RETURN;
+			END
+			UPDATE
+				[dbo].[Claims]
+			SET
+				Status_ID = 5
+			WHERE
+				Id = @Id ;
+				 -- закрыть все виезды датой закрытия заявки
+			UPDATE
+				dbo.Orders
+			SET
+				Status_ID = 10,
+				Closed_at = @Fact_finish_at,
+				user_edit = @User,
+				Finish_at_actions = isnull(Finish_at_actions, @Fact_finish_at),
+				Finished_at = isnull(Finished_at, @Fact_finish_at)
+			WHERE
+				Claim_ID = @Id
+				AND Closed_at IS NULL ;
+	END

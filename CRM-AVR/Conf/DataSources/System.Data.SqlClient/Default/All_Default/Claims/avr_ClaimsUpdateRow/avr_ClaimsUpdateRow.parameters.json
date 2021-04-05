@@ -126,5 +126,10 @@
     "Code": "@exec_phone",
     "Name": "exec_phone",
     "ParameterType": "Integer"
+  },
+  {
+    "Code": "@district_id",
+    "Name": "district_id",
+    "ParameterType": "Integer"
   }
 ]
