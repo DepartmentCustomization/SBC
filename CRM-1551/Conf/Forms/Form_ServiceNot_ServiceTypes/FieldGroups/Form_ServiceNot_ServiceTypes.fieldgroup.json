@@ -1,0 +1,22 @@
+{
+  "Code": "typ_p",
+  "Name": "Тип послуги",
+  "Position": 1,
+  "Fields": [
+    {
+      "Code": "ServiceTypeId",
+      "Name": "ServiceTypeId",
+      "FieldType": "number",
+      "Width": "20%",
+      "Position": 1,
+      "IsRequired": true
+    },
+    {
+      "Code": "Name",
+      "Name": "Назва",
+      "FieldType": "text",
+      "Position": 2,
+      "Width": "50%",
+    }
+  ]
+}
