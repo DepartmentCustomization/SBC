@@ -31,6 +31,40 @@ declare @add_phone nvarchar(max)
 declare @district_id int
 --которых не хватает конец
 */
+
+IF @Fact_finish_at is not NULL
+BEGIN
+
+IF exists (select top 1 ct.Id from [Claim_types] ct 
+			inner join [Claim_types] pct on ct.Parent_сlaim_types_ID=pct.Id
+			where ct.[Parent_сlaim_types_ID]=@Types_id and pct.Is_delete='false')
+				begin
+					RAISERROR(N'Тип заявки не є останній', 16, 1);
+				RETURN;
+				end
+
+			IF not exists (select top 1 Id
+					  from [dbo].[Actions]
+					  where [Is_Goal]='true' and [Claim_ID]=@Id)
+				begin
+					RAISERROR(N'Не відмічено Головну роботу в заявці.', 16, 1);
+				RETURN;
+				end
+			IF @district_id is null
+				begin
+					RAISERROR(N'Не проставлен район в якому виконували заявку', 16, 1);
+					RETURN;
+				end
+
+			DECLARE @placeActivity TINYINT = (SELECT Is_Active FROM dbo.[Places] WHERE Id = @places_id);
+			IF(@placeActivity <> 1)
+			BEGIN
+				RAISERROR(N'Адреса в заявці НЕ ПІДТВЕРДЖЕНА, будь ласка зв`яжіться з адміністратором ДІЗ', 16, 1);
+				RETURN;
+			END
+	END
+-- конец, если нет ошибок
+
   declare @contact_org_id int;
 set @contact_org_id =
 	(select [Contacts_ID]
@@ -264,33 +298,7 @@ IF @Status_id IN (1, 2, 3, 4)
 IF @Fact_finish_at IS NOT NULL
 AND @Status_id NOT IN (4, 5, 6) 
 	BEGIN
-			IF exists (select top 1 ct.Id from [Claim_types] ct 
-			inner join [Claim_types] pct on ct.Parent_сlaim_types_ID=pct.Id
-			where ct.[Parent_сlaim_types_ID]=@Types_id and pct.Is_delete='false')
-				begin
-					RAISERROR(N'Тип заявки не є останній', 16, 1);
-				RETURN;
-				end
-
-			IF not exists (select top 1 Id
-					  from [dbo].[Actions]
-					  where [Is_Goal]='true' and [Claim_ID]=@Id)
-				begin
-					RAISERROR(N'Не відмічено Головну роботу в заявці.', 16, 1);
-				RETURN;
-				end
-			IF @district_id is null
-				begin
-					RAISERROR(N'Не проставлен район в якому виконували заявку', 16, 1);
-					RETURN;
-				end
-
-			DECLARE @placeActivity TINYINT = (SELECT Is_Active FROM dbo.[Places] WHERE Id = @places_id);
-			IF(@placeActivity <> 1)
-			BEGIN
-				RAISERROR(N'Адреса в заявці НЕ ПІДТВЕРДЖЕНА, будь ласка зв`яжіться з адміністратором ДІЗ', 16, 1);
-				RETURN;
-			END
+			
 			UPDATE
 				[dbo].[Claims]
 			SET
