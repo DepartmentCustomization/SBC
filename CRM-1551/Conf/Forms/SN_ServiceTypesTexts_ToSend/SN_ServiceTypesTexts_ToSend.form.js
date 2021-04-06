@@ -103,6 +103,8 @@
                 };
             });
 
+            document.getElementById('AddServiceType').addEventListener('click', this.navigateToSectionServiceTypes.bind(this));
+
             document.onmousemove=function(event) {
                 var target = event.target; // где был клик?
                 // console.log(event.target);
@@ -116,6 +118,9 @@
                     subm[i].style.display="none";
                 }
             }
+        },
+        navigateToSectionServiceTypes() {
+            this.navigateTo('sections/ServiceNot_ServiceTypes');
         },
         FormCheck: function() {
             if (this.form.getControlValue('UseClaimTypeTitle')) {
@@ -219,7 +224,14 @@
             this.RefreshDetails();            
         },
         Changed_ServiceTypeId: function(value) {
-            this.RefreshDetails();            
+            if (typeof(value) === "string") {
+                this.form.setControlVisibility("AddServiceType", true);
+            }
+            if (typeof(value) !== "number") {
+                return;
+            }
+            this.form.setControlVisibility("AddServiceType", false);
+            this.RefreshDetails();
         },
         Changed_UseClaimTypeTitle: function(value) {
             this.FormCheck();            
