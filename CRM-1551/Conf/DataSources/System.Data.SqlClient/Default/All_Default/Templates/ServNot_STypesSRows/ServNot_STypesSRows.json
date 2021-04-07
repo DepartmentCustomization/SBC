@@ -1,0 +1,42 @@
+{
+    "ModelType": "Query",
+    "Code": "ServNot_STypesSRows",
+    "Name": "ServNot_STypesSRows",
+    "ConnectionCode": "Default",
+    "IsUsedForRightsFilter": false,
+    "Columns": [
+      {
+        "Code": "Id",
+        "Name": "Id",
+        "Position": 1,
+        "ViewState": "Hidden",
+        "IsPrimaryKey": true
+      },{
+        "Code": "ServiceTypeId",
+        "Name": "ServiceTypeId",
+        "Position": 2,
+        "SqlName": "ServiceTypeId",
+        "FilterParameterCode": "@ServiceTypeId"
+      },{
+        "Code": "Name",
+        "Name": "Назва",
+        "Position": 3,
+        "SqlName": "Name",
+        "FilterParameterCode": "@Name"
+      }
+    ],
+    "Parameters": [
+      {
+        "Code": "@pageOffsetRows",
+        "Name": "pageOffsetRows",
+        "ParameterType": "Integer",
+        "IsPageOffsetRows": true
+      },
+      {
+        "Code": "@pageLimitRows",
+        "Name": "pageLimitRows",
+        "ParameterType": "Integer",
+        "IsPageLimitRows": true
+      }
+    ]
+  }

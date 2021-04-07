@@ -8,18 +8,27 @@
       "Name": "Тип послуги",
       "FieldType": "select",
       "IsRequired": true,
-      "Position": 1,
+      "Position": 10,
       "QueryCode": "List_SN_ServiceTypes",
       "KeyColumnCode": "Id",
       "DisplayColumnCode": "Name",
       "QueryParameters": []
     },
     {
+      "Code": "AddServiceType",
+      "Name": "Добавить тип",
+      "FieldType": "button",
+      "Position": 15,
+      "Width": "25%",
+      "IconHint": "Добавить тип",
+      "IsHidden": true
+    },
+    {
       "Code": "Action",
       "Name": "Нотифікація",
       "FieldType": "select",
       "IsRequired": true,
-      "Position": 2,
+      "Position": 20,
       "Width": "100%",
       "QueryCode": "List_SN_Actions",
       "KeyColumnCode": "Id",
@@ -31,14 +40,14 @@
       "Code": "Title",
       "Name": "Текст заголовку",
       "FieldType": "text",
-      "Position": 3,
+      "Position": 30,
       "Width": "100%"
     },
     {
       "Code": "UseClaimTypeTitle",
       "Name": "Використовувати заголовок з довідника по типам заявок",
       "FieldType": "checkbox",
-      "Position": 4,
+      "Position": 40,
       "Width": "100%"
     },
     {
@@ -46,7 +55,7 @@
       "Code": "Description",
       "Name": "Текст опису",
       "FieldType": "textarea",
-      "Position": 5,
+      "Position": 50,
       "Width": "100%"
     },
     {
@@ -54,14 +63,14 @@
       "Code": "Description_without_Executor",
       "Name": "Текст опису без виконавця",
       "FieldType": "textarea",
-      "Position": 6,
+      "Position": 60,
       "Width": "100%"
     },
     {
       "Code": "UseClaimTypeDescription",
       "Name": "Використовувати опис з довідника по типам заявок",
       "FieldType": "checkbox",
-      "Position": 7,
+      "Position": 70,
       "Width": "100%"
     },
     {
@@ -69,7 +78,7 @@
       "Code": "Text",
       "Name": "Текст тіла",
       "FieldType": "textarea",
-      "Position": 8,
+      "Position": 80,
       "Width": "100%"
     },
     {
@@ -77,7 +86,7 @@
       "Code": "Text_without_Executor",
       "Name": "Текст тіла без виконавця",
       "FieldType": "textarea",
-      "Position": 9,
+      "Position": 90,
       "Width": "100%"
     },
     {
@@ -85,7 +94,7 @@
       "Code": "Text_without_PlanDate",
       "Name": "Текст тіла без планової дати завершення",
       "FieldType": "textarea",
-      "Position": 10,
+      "Position": 100,
       "Width": "100%"
     },
     {
@@ -93,21 +102,21 @@
       "Code": "Text_without_Executor_PlanDate",
       "Name": "Текст тіла без виконавця та планової дати завершення",
       "FieldType": "textarea",
-      "Position": 11,
+      "Position": 110,
       "Width": "100%"
     },
     {
       "Code": "UseClaimTypeText",
       "Name": "Використовувати тіло з довідника по типам заявок",
       "FieldType": "checkbox",
-      "Position": 12,
+      "Position": 120,
       "Width": "100%"
     },
     {
       "Code": "IsActive",
       "Name": "Активне",
       "FieldType": "checkbox",
-      "Position": 13,
+      "Position": 130,
       "Width": "100%"
     }
   ]

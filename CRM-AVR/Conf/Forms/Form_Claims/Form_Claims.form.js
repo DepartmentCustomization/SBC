@@ -343,7 +343,12 @@
             this.form.disableControl('User');
             this.form.disableControl('classes_id');
             this.form.disableControl('place_type_id');
-            this.form.disableControl('district_id');
+            
+            if(this.form.getControlValue('district_id') != null)
+            {
+                this.form.disableControl('district_id');
+            };        
+
             this.form.disableControl('flat_number');
             this.form.disableControl('position_reg');
             this.form.disableControl('position_close');

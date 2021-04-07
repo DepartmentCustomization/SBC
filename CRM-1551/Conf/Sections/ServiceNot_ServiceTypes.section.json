@@ -1,0 +1,14 @@
+{
+  "Add": {
+    "InsertQueryCode": "ServNot_STypesIRow"
+  },
+  "ModelType": "Section",
+  "Code": "ServiceNot_ServiceTypes",
+  "Name": "Типи послуг",
+  "FormCode": "Form_ServiceNot_ServiceTypes",
+  "SelectRowsQueryCode": "ServNot_STypesSRows",
+  "SelectRowQueryCode": "ServNot_STypesSRow",
+  "UpdateQueryCode": "ServNot_STypesURow",
+  "DeleteQueryCode": "ServNot_STypesDRow"
+}
+

@@ -1,0 +1,12 @@
+{
+  "ModelType": "Form",
+  "Code": "Form_ServiceNot_ServiceTypes",
+  "Name": "Типи послуг",
+  "Details": [],
+  "Config": {
+    "FieldGroups": [
+      "string:FieldGroups\\Form_ServiceNot_ServiceTypes.fieldgroup.json"
+    ],
+    "DefaultFields": []
+  }
+}
